@@ -1,0 +1,55 @@
+package bamboohr
+
+import (
+	"encoding/xml"
+	"fmt"
+	"os"
+)
+
+// A Client represents the data required to connect to the BambooHR API
+type Client struct {
+	apiBase   string
+	apiKey    string
+	subdomain string
+}
+
+// NewClient creates and returns a new BambooHR client
+func NewClient() *Client {
+	client := Client{
+		apiBase:   "https://api.bamboohr.com/api/gateway.php",
+		apiKey:    os.Getenv("WTF_BAMBOO_HR_TOKEN"),
+		subdomain: os.Getenv("WTF_BAMBOO_HR_SUBDOMAIN"),
+	}
+
+	return &client
+}
+
+/* -------------------- Public Functions -------------------- */
+
+// Away returns a string representation of the people who are out of the office during the defined period
+func (client *Client) Away(itemType, startDate, endDate string) []Item {
+	calendar, _ := client.away(startDate, endDate)
+	items := calendar.ItemsByType(itemType)
+
+	return items
+}
+
+/* -------------------- Private Functions -------------------- */
+
+// away is the private interface for retrieving structural data about who will be out of the office
+// This method does the actual communication with BambooHR and returns the raw Go
+// data structures used by the public interface
+func (client *Client) away(startDate, endDate string) (cal Calendar, err error) {
+	apiURL := fmt.Sprintf(
+		"%s/%s/v1/time_off/whos_out?start=%s&end=%s",
+		client.apiBase,
+		client.subdomain,
+		startDate,
+		endDate,
+	)
+
+	data, err := Request(client.apiKey, apiURL)
+	err = xml.Unmarshal(data, &cal)
+
+	return
+}
