@@ -30,6 +30,7 @@ func Widget() tview.Primitive {
 }
 
 // icon returns an emoji for the current weather
+// src: https://github.com/chubin/wttr.in/blob/master/share/translations/en.txt
 func icon(data *owm.CurrentWeatherData) string {
 	var icon string
 
@@ -39,11 +40,19 @@ func icon(data *owm.CurrentWeatherData) string {
 	case "cloudy":
 		icon = "⛅️"
 	case "heavy rain":
-		icon = "🌧"
+		icon = "💦"
+	case "heavy snow":
+		icon = "⛄️"
+	case "light intensity shower rain":
+		icon = "☔️"
 	case "light rain":
-		icon = "🌧"
+		icon = "🌦"
+	case "light snow":
+		icon = "🌨"
 	case "moderate rain":
 		icon = "🌧"
+	case "moderate snow":
+		icon = "🌨"
 	case "overcast":
 		icon = "🌥"
 	case "overcast clouds":
@@ -55,7 +64,7 @@ func icon(data *owm.CurrentWeatherData) string {
 	case "sunny":
 		icon = "☀️"
 	default:
-		icon = "🌈"
+		icon = "💥"
 	}
 
 	return icon
