@@ -9,6 +9,9 @@ import (
 )
 
 func main() {
+	weather := weather.NewWidget()
+	weather.Refresh()
+
 	app := tview.NewApplication()
 
 	grid := tview.NewGrid()
@@ -19,7 +22,7 @@ func main() {
 	grid.AddItem(bamboohr.Widget(), 0, 0, 1, 1, 0, 0, false)
 	grid.AddItem(gcal.Widget(), 1, 0, 1, 1, 0, 0, false)
 	grid.AddItem(status.Widget(), 2, 0, 2, 3, 0, 0, false)
-	grid.AddItem(weather.Widget(), 0, 1, 1, 1, 0, 0, false)
+	grid.AddItem(weather.View, 0, 1, 1, 1, 0, 0, false)
 
 	if err := app.SetRoot(grid, true).Run(); err != nil {
 		panic(err)

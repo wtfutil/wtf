@@ -2,31 +2,62 @@ package weather
 
 import (
 	"fmt"
+	"time"
 
 	owm "github.com/briandowns/openweathermap"
 	"github.com/rivo/tview"
 )
 
-func Widget() tview.Primitive {
+type Widget struct {
+	RefreshedAt time.Time
+	View        *tview.TextView
+}
+
+func NewWidget() *Widget {
+	widget := Widget{
+		RefreshedAt: time.Now(),
+	}
+
+	widget.addView()
+
+	return &widget
+}
+
+/* -------------------- Exported Functions -------------------- */
+
+func (widget *Widget) Refresh() {
 	data := Fetch()
 
-	widget := tview.NewTextView()
-	widget.SetBorder(true)
-	widget.SetDynamicColors(true)
-	widget.SetTitle(fmt.Sprintf(" %s Weather - %s ", icon(data), data.Name))
+	widget.View.SetTitle(fmt.Sprintf(" %s Weather - %s ", icon(data), data.Name))
 
+	fmt.Fprintf(widget.View, " %s ", widget.content(data))
+}
+
+/* -------------------- Unexported Functions -------------------- */
+
+func (widget *Widget) addView() {
+	view := tview.NewTextView()
+
+	view.SetBorder(true)
+	view.SetDynamicColors(true)
+	view.SetTitle("Weather")
+
+	widget.View = view
+}
+
+func (widget *Widget) content(data *owm.CurrentWeatherData) string {
 	str := fmt.Sprintf("\n")
 	for _, weather := range data.Weather {
-		str = str + fmt.Sprintf("%16s\n\n", weather.Description)
+		str = str + fmt.Sprintf(" %16s\n\n", weather.Description)
 	}
 
 	str = str + fmt.Sprintf("%10s: %4.1f° C\n\n", "Current", data.Main.Temp)
 	str = str + fmt.Sprintf("%10s: %4.1f° C\n", "High", data.Main.TempMax)
 	str = str + fmt.Sprintf("%10s: %4.1f° C\n", "Low", data.Main.TempMin)
+	str = str + "\n\n\n\n"
+	str = str + fmt.Sprintf(" Refreshed at %s", widget.RefreshedAt)
 
-	fmt.Fprintf(widget, " %s ", str)
-
-	return widget
+	return str
 }
 
 // icon returns an emoji for the current weather
