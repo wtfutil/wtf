@@ -22,6 +22,10 @@ func (item *Item) String() string {
 
 /* -------------------- Public Functions -------------------- */
 
+func (item *Item) IsOneDay() bool {
+	return item.Start == item.End
+}
+
 func (item *Item) Name() string {
 	if (item.Employee != Employee{}) {
 		return item.Employee.Name
