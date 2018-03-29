@@ -1,10 +1,9 @@
 package weather
 
 import (
-	//"bytes"
 	"fmt"
-	//"text/template"
 
+	owm "github.com/briandowns/openweathermap"
 	"github.com/rivo/tview"
 )
 
@@ -14,7 +13,7 @@ func Widget() tview.Primitive {
 	widget := tview.NewTextView()
 	widget.SetBorder(true)
 	widget.SetDynamicColors(true)
-	widget.SetTitle(fmt.Sprintf(" 🌤 Weather - %s ", data.Name))
+	widget.SetTitle(fmt.Sprintf(" %s Weather - %s ", icon(data), data.Name))
 
 	str := fmt.Sprintf("\n")
 	for _, weather := range data.Weather {
@@ -31,6 +30,33 @@ func Widget() tview.Primitive {
 }
 
 // icon returns an emoji for the current weather
-func icon() string {
-	return ""
+func icon(data *owm.CurrentWeatherData) string {
+	var icon string
+
+	switch data.Weather[0].Description {
+	case "clear":
+		icon = "☀️"
+	case "cloudy":
+		icon = "⛅️"
+	case "heavy rain":
+		icon = "🌧"
+	case "light rain":
+		icon = "🌧"
+	case "moderate rain":
+		icon = "🌧"
+	case "overcast":
+		icon = "🌥"
+	case "overcast clouds":
+		icon = "🌥"
+	case "partly cloudy":
+		icon = "🌤"
+	case "snow":
+		icon = "❄️"
+	case "sunny":
+		icon = "☀️"
+	default:
+		icon = "🌈"
+	}
+
+	return icon
 }
