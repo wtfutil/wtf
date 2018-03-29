@@ -114,7 +114,7 @@ func Fetch() *calendar.Events {
 		log.Fatalf("Unable to retrieve calendar Client %v", err)
 	}
 
-	t := time.Now().Format(time.RFC3339)
+	t := today().Format(time.RFC3339)
 	events, err := srv.Events.List("primary").ShowDeleted(false).
 		SingleEvents(true).TimeMin(t).MaxResults(10).OrderBy("startTime").Do()
 	if err != nil {
@@ -122,4 +122,9 @@ func Fetch() *calendar.Events {
 	}
 
 	return events
+}
+
+func today() time.Time {
+	now := time.Now()
+	return time.Date(now.Year(), now.Month(), now.Day(), 0, 0, 0, 0, now.Location())
 }
