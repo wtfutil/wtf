@@ -12,7 +12,6 @@ func Fetch() *owm.CurrentWeatherData {
 		panic(err)
 	}
 
-	//w.CurrentByName("Toronto,ON")
 	w.CurrentByID(6173331)
 
 	return w

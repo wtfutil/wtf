@@ -12,8 +12,8 @@ func main() {
 	app := tview.NewApplication()
 
 	grid := tview.NewGrid()
-	grid.SetRows(10, 40, 30) // How _high_ the row is, in terminal rows
-	grid.SetColumns(40, 40)  // How _wide_ the column is, in terminal columns
+	grid.SetRows(10, 40, 4) // How _high_ the row is, in terminal rows
+	grid.SetColumns(40, 40) // How _wide_ the column is, in terminal columns
 	grid.SetBorder(false)
 
 	grid.AddItem(bamboohr.Widget(), 0, 0, 1, 1, 0, 0, false)
