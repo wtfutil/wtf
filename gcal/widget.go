@@ -2,6 +2,7 @@ package gcal
 
 import (
 	"fmt"
+	"strings"
 	"time"
 
 	"github.com/rivo/tview"
@@ -21,6 +22,10 @@ func Widget() tview.Primitive {
 		timestamp := ts.Format("Mon Jan _2 15:04:05 2006")
 
 		color := "red"
+		if strings.Contains(item.Summary, "1on1") {
+			color = "green"
+		}
+
 		if ts.Before(time.Now()) {
 			color = "grey"
 		}
