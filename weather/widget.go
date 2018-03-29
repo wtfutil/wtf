@@ -25,7 +25,6 @@ func Widget() tview.Primitive {
 	widget.SetDynamicColors(true)
 	widget.SetTitle(fmt.Sprintf(" 🌤 Weather - %s ", data.Name))
 
-	//fmt.Fprintf(widget, " %s", data.Name)
 	var tpl bytes.Buffer
 	tmpl, _ := template.New("weather").Parse(weatherTemplate)
 	if err := tmpl.Execute(&tpl, data); err != nil {
