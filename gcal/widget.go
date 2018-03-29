@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/rivo/tview"
+	"google.golang.org/api/calendar/v3"
 )
 
 func Widget() tview.Primitive {
@@ -21,14 +22,7 @@ func Widget() tview.Primitive {
 		ts, _ := time.Parse(time.RFC3339, item.Start.DateTime)
 		timestamp := ts.Format("Mon Jan _2 15:04:05 2006")
 
-		color := "red"
-		if strings.Contains(item.Summary, "1on1") {
-			color = "green"
-		}
-
-		if ts.Before(time.Now()) {
-			color = "grey"
-		}
+		color := colorize(item, ts)
 
 		str := fmt.Sprintf(" [%s]%s[white]\n %s\n\n", color, item.Summary, timestamp)
 		data = data + str
@@ -37,4 +31,17 @@ func Widget() tview.Primitive {
 	fmt.Fprintf(widget, "%s", data)
 
 	return widget
+}
+
+func colorize(item *calendar.Event, ts time.Time) string {
+	color := "red"
+	if strings.Contains(item.Summary, "1on1") {
+		color = "green"
+	}
+
+	if ts.Before(time.Now()) {
+		color = "grey"
+	}
+
+	return color
 }
