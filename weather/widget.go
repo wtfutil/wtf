@@ -1,21 +1,12 @@
 package weather
 
 import (
-	"bytes"
+	//"bytes"
 	"fmt"
-	"text/template"
+	//"text/template"
 
 	"github.com/rivo/tview"
 )
-
-const weatherTemplate = `
-    {{range .Weather}}{{.Description}}{{end}}
-
-    Current: {{.Main.Temp}}° C
-
-    High:    {{.Main.TempMax}}° C
-    Low:     {{.Main.TempMin}}° C
-		`
 
 func Widget() tview.Primitive {
 	data := Fetch()
@@ -25,13 +16,16 @@ func Widget() tview.Primitive {
 	widget.SetDynamicColors(true)
 	widget.SetTitle(fmt.Sprintf(" 🌤 Weather - %s ", data.Name))
 
-	var tpl bytes.Buffer
-	tmpl, _ := template.New("weather").Parse(weatherTemplate)
-	if err := tmpl.Execute(&tpl, data); err != nil {
-		panic(err)
+	str := fmt.Sprintf("\n")
+	for _, weather := range data.Weather {
+		str = str + fmt.Sprintf("%16s\n\n", weather.Description)
 	}
 
-	fmt.Fprintf(widget, " %s ", tpl.String())
+	str = str + fmt.Sprintf("%10s: %4.1f° C\n\n", "Current", data.Main.Temp)
+	str = str + fmt.Sprintf("%10s: %4.1f° C\n", "High", data.Main.TempMax)
+	str = str + fmt.Sprintf("%10s: %4.1f° C\n", "Low", data.Main.TempMin)
+
+	fmt.Fprintf(widget, " %s ", str)
 
 	return widget
 }
