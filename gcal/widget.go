@@ -22,9 +22,7 @@ func Widget() tview.Primitive {
 		ts, _ := time.Parse(time.RFC3339, item.Start.DateTime)
 		timestamp := ts.Format("Mon Jan _2 15:04:05 2006")
 
-		color := colorize(item, ts)
-
-		str := fmt.Sprintf(" [%s]%s[white]\n %s\n\n", color, item.Summary, timestamp)
+		str := fmt.Sprintf(" [%s]%s[white]\n [%s]%s[white]\n\n", titleColor(item), item.Summary, descriptionColor(item), timestamp)
 		data = data + str
 	}
 
@@ -33,7 +31,9 @@ func Widget() tview.Primitive {
 	return widget
 }
 
-func colorize(item *calendar.Event, ts time.Time) string {
+func titleColor(item *calendar.Event) string {
+	ts, _ := time.Parse(time.RFC3339, item.Start.DateTime)
+
 	color := "red"
 	if strings.Contains(item.Summary, "1on1") {
 		color = "green"
@@ -44,4 +44,16 @@ func colorize(item *calendar.Event, ts time.Time) string {
 	}
 
 	return color
+}
+
+func descriptionColor(item *calendar.Event) string {
+	ts, _ := time.Parse(time.RFC3339, item.Start.DateTime)
+
+	color := "white"
+	if ts.Before(time.Now()) {
+		color = "grey"
+	}
+
+	return color
+
 }
