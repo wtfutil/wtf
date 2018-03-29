@@ -29,3 +29,8 @@ func Widget() tview.Primitive {
 
 	return widget
 }
+
+// icon returns an emoji for the current weather
+func icon() string {
+	return ""
+}
