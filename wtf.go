@@ -39,7 +39,7 @@ func main() {
 	weather.Refresh()
 
 	grid := tview.NewGrid()
-	grid.SetRows(14, 36, 4) // How _high_ the row is, in terminal rows
+	grid.SetRows(18, 32, 4) // How _high_ the row is, in terminal rows
 	grid.SetColumns(40, 40) // How _wide_ the column is, in terminal columns
 	grid.SetBorder(false)
 

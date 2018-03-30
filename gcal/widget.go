@@ -20,7 +20,7 @@ func NewWidget() *Widget {
 	widget := Widget{
 		Name:            "Calendar",
 		RefreshedAt:     time.Now(),
-		RefreshInterval: 1800,
+		RefreshInterval: 60,
 	}
 
 	widget.addView()
@@ -48,6 +48,7 @@ func (widget *Widget) addView() {
 	view.SetBorder(true)
 	view.SetDynamicColors(true)
 	view.SetTitle(widget.Name)
+	view.SetWrap(false)
 
 	widget.View = view
 }
