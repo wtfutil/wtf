@@ -29,8 +29,9 @@ func (widget *Widget) Refresh() {
 	data := Fetch()
 
 	widget.View.SetTitle(fmt.Sprintf(" %s Weather - %s ", icon(data), data.Name))
+	widget.RefreshedAt = time.Now()
 
-	fmt.Fprintf(widget.View, " %s ", widget.content(data))
+	fmt.Fprintf(widget.View, "%s", widget.contentFrom(data))
 }
 
 /* -------------------- Unexported Functions -------------------- */
@@ -40,22 +41,27 @@ func (widget *Widget) addView() {
 
 	view.SetBorder(true)
 	view.SetDynamicColors(true)
-	view.SetTitle("Weather")
+	view.SetTitle(" Weather ")
 
 	widget.View = view
 }
 
-func (widget *Widget) content(data *owm.CurrentWeatherData) string {
+func centerText(str string, width int) string {
+	return fmt.Sprintf("%[1]*s", -width, fmt.Sprintf("%[1]*s", (width+len(str))/2, str))
+}
+
+func (widget *Widget) contentFrom(data *owm.CurrentWeatherData) string {
 	str := fmt.Sprintf("\n")
+
 	for _, weather := range data.Weather {
-		str = str + fmt.Sprintf(" %16s\n\n", weather.Description)
+		str = str + fmt.Sprintf(" %s\n\n", weather.Description)
 	}
 
 	str = str + fmt.Sprintf("%10s: %4.1f° C\n\n", "Current", data.Main.Temp)
 	str = str + fmt.Sprintf("%10s: %4.1f° C\n", "High", data.Main.TempMax)
 	str = str + fmt.Sprintf("%10s: %4.1f° C\n", "Low", data.Main.TempMin)
 	str = str + "\n\n\n\n"
-	str = str + fmt.Sprintf(" Refreshed at %s", widget.RefreshedAt)
+	str = str + centerText(fmt.Sprintf("Refreshed at %s", widget.refreshedAt()), 38)
 
 	return str
 }
@@ -99,4 +105,8 @@ func icon(data *owm.CurrentWeatherData) string {
 	}
 
 	return icon
+}
+
+func (widget *Widget) refreshedAt() string {
+	return widget.RefreshedAt.Format("15:04:05")
 }

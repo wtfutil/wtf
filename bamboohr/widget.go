@@ -2,29 +2,60 @@ package bamboohr
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/rivo/tview"
 )
 
-func Widget() tview.Primitive {
-	items := Fetch()
-
-	widget := tview.NewTextView()
-	widget.SetBorder(true)
-	widget.SetDynamicColors(true)
-	widget.SetTitle(fmt.Sprintf(" 🐨 Away (%d)", len(items)))
-
-	data := ""
-	for _, item := range items {
-		data = data + display(item)
-	}
-
-	fmt.Fprintf(widget, "%s", data)
-
-	return widget
+type Widget struct {
+	RefreshedAt time.Time
+	View        *tview.TextView
 }
 
-func display(item Item) string {
+func NewWidget() *Widget {
+	widget := Widget{
+		RefreshedAt: time.Now(),
+	}
+
+	widget.addView()
+
+	return &widget
+}
+
+/* -------------------- Exported Functions -------------------- */
+
+func (widget *Widget) Refresh() {
+	items := Fetch()
+
+	widget.View.SetTitle(fmt.Sprintf(" 🐨 Away (%d) ", len(items)))
+	widget.RefreshedAt = time.Now()
+
+	fmt.Fprintf(widget.View, "%s", widget.contentFrom(items))
+}
+
+/* -------------------- Unexported Functions -------------------- */
+
+func (widget *Widget) addView() {
+	view := tview.NewTextView()
+
+	view.SetBorder(true)
+	view.SetDynamicColors(true)
+	view.SetTitle(" BambooHR ")
+
+	widget.View = view
+}
+
+func (widget *Widget) contentFrom(items []Item) string {
+	str := ""
+
+	for _, item := range items {
+		str = str + widget.display(item)
+	}
+
+	return str
+}
+
+func (widget *Widget) display(item Item) string {
 	var str string
 
 	if item.IsOneDay() {
