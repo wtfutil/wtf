@@ -39,13 +39,13 @@ func main() {
 	weather.Refresh()
 
 	grid := tview.NewGrid()
-	grid.SetRows(18, 32, 4) // How _high_ the row is, in terminal rows
-	grid.SetColumns(40, 40) // How _wide_ the column is, in terminal columns
+	grid.SetRows(9, 9, 32, 4) // How _high_ the row is, in terminal rows
+	grid.SetColumns(40, 40)   // How _wide_ the column is, in terminal columns
 	grid.SetBorder(false)
 
-	grid.AddItem(bamboo.View, 0, 0, 1, 1, 0, 0, false)
-	grid.AddItem(cal.View, 1, 0, 1, 1, 0, 0, false)
-	grid.AddItem(stat.View, 2, 0, 2, 3, 0, 0, false)
+	grid.AddItem(bamboo.View, 0, 0, 2, 1, 0, 0, false)
+	grid.AddItem(cal.View, 2, 0, 1, 1, 0, 0, false)
+	grid.AddItem(stat.View, 3, 0, 2, 3, 0, 0, false)
 	grid.AddItem(weather.View, 0, 1, 1, 1, 0, 0, false)
 
 	app := tview.NewApplication()
