@@ -54,11 +54,11 @@ func (widget *Widget) addView() {
 }
 
 func (widget *Widget) contentFrom(events *calendar.Events) string {
-	str := ""
+	str := "\n"
 
 	for _, item := range events.Items {
 		ts, _ := time.Parse(time.RFC3339, item.Start.DateTime)
-		timestamp := ts.Format("Mon Jan _2 15:04:05 2006")
+		timestamp := ts.Format("Mon, Jan 2 - 15:04")
 
 		str = str + fmt.Sprintf(" [%s]%s[white]\n [%s]%s[white]\n\n", titleColor(item), item.Summary, descriptionColor(item), timestamp)
 	}
