@@ -2,6 +2,7 @@ package status
 
 import (
 	"fmt"
+	"math/rand"
 	"time"
 
 	"github.com/rivo/tview"
@@ -28,6 +29,7 @@ func (widget *Widget) Refresh() {
 	widget.View.SetTitle(" 🦊 Status ")
 	widget.RefreshedAt = time.Now()
 
+	widget.View.Clear()
 	fmt.Fprintf(widget.View, "%s", widget.contentFrom())
 }
 
@@ -44,5 +46,6 @@ func (widget *Widget) addView() {
 }
 
 func (widget *Widget) contentFrom() string {
-	return "cats and gods\ndogs and tacs"
+	//return "cats and gods\ndogs and tacs"
+	return fmt.Sprint(rand.Intn(100))
 }
