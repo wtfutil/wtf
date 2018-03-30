@@ -38,6 +38,8 @@ func main() {
 	go func() {
 		for {
 			time.Sleep(900 * time.Second) // 15 minutes
+			bamboo.Refresh()
+			cal.Refresh()
 			stat.Refresh()
 			weather.Refresh()
 			app.Draw()
