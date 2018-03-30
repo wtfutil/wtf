@@ -2,17 +2,47 @@ package status
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/rivo/tview"
 )
 
-func Widget() tview.Primitive {
-	widget := tview.NewTextView()
-	widget.SetBorder(true)
-	widget.SetDynamicColors(true)
-	widget.SetTitle(" 🦊 Status ")
+type Widget struct {
+	RefreshedAt time.Time
+	View        *tview.TextView
+}
 
-	fmt.Fprintf(widget, "%s", "cats and gods\ndogs and tacs")
+func NewWidget() *Widget {
+	widget := Widget{
+		RefreshedAt: time.Now(),
+	}
 
-	return widget
+	widget.addView()
+
+	return &widget
+}
+
+/* -------------------- Exported Functions -------------------- */
+
+func (widget *Widget) Refresh() {
+	widget.View.SetTitle(" 🦊 Status ")
+	widget.RefreshedAt = time.Now()
+
+	fmt.Fprintf(widget.View, "%s", widget.contentFrom())
+}
+
+/* -------------------- Unexported Functions -------------------- */
+
+func (widget *Widget) addView() {
+	view := tview.NewTextView()
+
+	view.SetBorder(true)
+	view.SetDynamicColors(true)
+	view.SetTitle(" BambooHR ")
+
+	widget.View = view
+}
+
+func (widget *Widget) contentFrom() string {
+	return "cats and gods\ndogs and tacs"
 }
