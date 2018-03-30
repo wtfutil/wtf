@@ -1,6 +1,8 @@
 package main
 
 import (
+	//"time"
+
 	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/bamboohr"
 	"github.com/senorprogrammer/wtf/gcal"
@@ -9,6 +11,9 @@ import (
 )
 
 func main() {
+	bamboo := bamboohr.NewWidget()
+	bamboo.Refresh()
+
 	weather := weather.NewWidget()
 	weather.Refresh()
 
@@ -19,7 +24,7 @@ func main() {
 	grid.SetColumns(40, 40) // How _wide_ the column is, in terminal columns
 	grid.SetBorder(false)
 
-	grid.AddItem(bamboohr.Widget(), 0, 0, 1, 1, 0, 0, false)
+	grid.AddItem(bamboo.View, 0, 0, 1, 1, 0, 0, false)
 	grid.AddItem(gcal.Widget(), 1, 0, 1, 1, 0, 0, false)
 	grid.AddItem(status.Widget(), 2, 0, 2, 3, 0, 0, false)
 	grid.AddItem(weather.View, 0, 1, 1, 1, 0, 0, false)
