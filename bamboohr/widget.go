@@ -8,6 +8,7 @@ import (
 )
 
 type Widget struct {
+	Name            string
 	RefreshedAt     time.Time
 	RefreshInterval int
 	View            *tview.TextView
@@ -15,6 +16,7 @@ type Widget struct {
 
 func NewWidget() *Widget {
 	widget := Widget{
+		Name:            "BambooHR",
 		RefreshedAt:     time.Now(),
 		RefreshInterval: 3600,
 	}
@@ -43,7 +45,7 @@ func (widget *Widget) addView() {
 
 	view.SetBorder(true)
 	view.SetDynamicColors(true)
-	view.SetTitle(" BambooHR ")
+	view.SetTitle(widget.Name)
 
 	widget.View = view
 }

@@ -10,6 +10,7 @@ import (
 )
 
 type Widget struct {
+	Name            string
 	RefreshedAt     time.Time
 	RefreshInterval int
 	View            *tview.TextView
@@ -17,6 +18,7 @@ type Widget struct {
 
 func NewWidget() *Widget {
 	widget := Widget{
+		Name:            "Calendar",
 		RefreshedAt:     time.Now(),
 		RefreshInterval: 1800,
 	}
@@ -45,7 +47,7 @@ func (widget *Widget) addView() {
 
 	view.SetBorder(true)
 	view.SetDynamicColors(true)
-	view.SetTitle(" Calendar ")
+	view.SetTitle(widget.Name)
 
 	widget.View = view
 }
