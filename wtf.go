@@ -14,6 +14,12 @@ func main() {
 	bamboo := bamboohr.NewWidget()
 	bamboo.Refresh()
 
+	cal := gcal.NewWidget()
+	cal.Refresh()
+
+	stat := status.NewWidget()
+	stat.Refresh()
+
 	weather := weather.NewWidget()
 	weather.Refresh()
 
@@ -25,8 +31,8 @@ func main() {
 	grid.SetBorder(false)
 
 	grid.AddItem(bamboo.View, 0, 0, 1, 1, 0, 0, false)
-	grid.AddItem(gcal.Widget(), 1, 0, 1, 1, 0, 0, false)
-	grid.AddItem(status.Widget(), 2, 0, 2, 3, 0, 0, false)
+	grid.AddItem(cal.View, 1, 0, 1, 1, 0, 0, false)
+	grid.AddItem(stat.View, 2, 0, 2, 3, 0, 0, false)
 	grid.AddItem(weather.View, 0, 1, 1, 1, 0, 0, false)
 
 	if err := app.SetRoot(grid, true).Run(); err != nil {
