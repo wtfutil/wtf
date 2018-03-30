@@ -1,7 +1,7 @@
 package main
 
 import (
-	//"time"
+	"time"
 
 	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/bamboohr"
@@ -34,6 +34,15 @@ func main() {
 	grid.AddItem(cal.View, 1, 0, 1, 1, 0, 0, false)
 	grid.AddItem(stat.View, 2, 0, 2, 3, 0, 0, false)
 	grid.AddItem(weather.View, 0, 1, 1, 1, 0, 0, false)
+
+	go func() {
+		for {
+			time.Sleep(900 * time.Second) // 15 minutes
+			stat.Refresh()
+			weather.Refresh()
+			app.Draw()
+		}
+	}()
 
 	if err := app.SetRoot(grid, true).Run(); err != nil {
 		panic(err)

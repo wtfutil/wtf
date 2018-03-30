@@ -2,6 +2,7 @@ package weather
 
 import (
 	"fmt"
+	"strings"
 	"time"
 
 	owm "github.com/briandowns/openweathermap"
@@ -31,6 +32,7 @@ func (widget *Widget) Refresh() {
 	widget.View.SetTitle(fmt.Sprintf(" %s Weather - %s ", icon(data), data.Name))
 	widget.RefreshedAt = time.Now()
 
+	widget.View.Clear()
 	fmt.Fprintf(widget.View, "%s", widget.contentFrom(data))
 }
 
@@ -53,9 +55,12 @@ func centerText(str string, width int) string {
 func (widget *Widget) contentFrom(data *owm.CurrentWeatherData) string {
 	str := fmt.Sprintf("\n")
 
+	descs := []string{}
 	for _, weather := range data.Weather {
-		str = str + fmt.Sprintf(" %s\n\n", weather.Description)
+		descs = append(descs, fmt.Sprintf(" %s", weather.Description))
 	}
+
+	str = str + strings.Join(descs, ",") + "\n\n"
 
 	str = str + fmt.Sprintf("%10s: %4.1f° C\n\n", "Current", data.Main.Temp)
 	str = str + fmt.Sprintf("%10s: %4.1f° C\n", "High", data.Main.TempMax)
@@ -76,6 +81,8 @@ func icon(data *owm.CurrentWeatherData) string {
 		icon = "☀️"
 	case "cloudy":
 		icon = "⛅️"
+	case "fog":
+		icon = "🌫"
 	case "heavy rain":
 		icon = "💦"
 	case "heavy snow":
@@ -86,6 +93,8 @@ func icon(data *owm.CurrentWeatherData) string {
 		icon = "🌦"
 	case "light snow":
 		icon = "🌨"
+	case "mist":
+		icon = "🌬"
 	case "moderate rain":
 		icon = "🌧"
 	case "moderate snow":
