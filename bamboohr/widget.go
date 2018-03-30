@@ -46,6 +46,7 @@ func (widget *Widget) addView() {
 	view.SetBorder(true)
 	view.SetDynamicColors(true)
 	view.SetTitle(widget.Name)
+	view.SetWrap(false)
 
 	widget.View = view
 }
