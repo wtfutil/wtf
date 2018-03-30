@@ -9,26 +9,55 @@ import (
 	"google.golang.org/api/calendar/v3"
 )
 
-func Widget() tview.Primitive {
+type Widget struct {
+	RefreshedAt time.Time
+	View        *tview.TextView
+}
+
+func NewWidget() *Widget {
+	widget := Widget{
+		RefreshedAt: time.Now(),
+	}
+
+	widget.addView()
+
+	return &widget
+}
+
+/* -------------------- Exported Functions -------------------- */
+
+func (widget *Widget) Refresh() {
 	events := Fetch()
 
-	widget := tview.NewTextView()
-	widget.SetBorder(true)
-	widget.SetDynamicColors(true)
-	widget.SetTitle(" 🐸 Calendar ")
+	widget.View.SetTitle(" 🐸 Calendar ")
+	widget.RefreshedAt = time.Now()
 
-	data := ""
+	fmt.Fprintf(widget.View, "%s", widget.contentFrom(events))
+}
+
+/* -------------------- Unexported Functions -------------------- */
+
+func (widget *Widget) addView() {
+	view := tview.NewTextView()
+
+	view.SetBorder(true)
+	view.SetDynamicColors(true)
+	view.SetTitle(" Calendar ")
+
+	widget.View = view
+}
+
+func (widget *Widget) contentFrom(events *calendar.Events) string {
+	str := ""
+
 	for _, item := range events.Items {
 		ts, _ := time.Parse(time.RFC3339, item.Start.DateTime)
 		timestamp := ts.Format("Mon Jan _2 15:04:05 2006")
 
-		str := fmt.Sprintf(" [%s]%s[white]\n [%s]%s[white]\n\n", titleColor(item), item.Summary, descriptionColor(item), timestamp)
-		data = data + str
+		str = str + fmt.Sprintf(" [%s]%s[white]\n [%s]%s[white]\n\n", titleColor(item), item.Summary, descriptionColor(item), timestamp)
 	}
 
-	fmt.Fprintf(widget, "%s", data)
-
-	return widget
+	return str
 }
 
 func titleColor(item *calendar.Event) string {
