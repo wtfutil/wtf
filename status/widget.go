@@ -9,16 +9,19 @@ import (
 )
 
 type Widget struct {
-	RefreshedAt time.Time
-	View        *tview.TextView
+	RefreshedAt     time.Time
+	RefreshInterval int
+	View            *tview.TextView
 }
 
 func NewWidget() *Widget {
 	widget := Widget{
-		RefreshedAt: time.Now(),
+		RefreshedAt:     time.Now(),
+		RefreshInterval: 1,
 	}
 
 	widget.addView()
+	go widget.refresher()
 
 	return &widget
 }
@@ -48,4 +51,19 @@ func (widget *Widget) addView() {
 func (widget *Widget) contentFrom() string {
 	//return "cats and gods\ndogs and tacs"
 	return fmt.Sprint(rand.Intn(100))
+}
+
+func (widget *Widget) refresher() {
+	tick := time.NewTicker(time.Duration(widget.RefreshInterval) * time.Second)
+	quit := make(chan struct{})
+
+	for {
+		select {
+		case <-tick.C:
+			widget.Refresh()
+		case <-quit:
+			tick.Stop()
+			return
+		}
+	}
 }

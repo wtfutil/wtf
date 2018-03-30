@@ -10,6 +10,21 @@ import (
 	"github.com/senorprogrammer/wtf/weather"
 )
 
+func refresher(stat *status.Widget, app *tview.Application) {
+	tick := time.NewTicker(1 * time.Second)
+	quit := make(chan struct{})
+
+	for {
+		select {
+		case <-tick.C:
+			app.Draw()
+		case <-quit:
+			tick.Stop()
+			return
+		}
+	}
+}
+
 func main() {
 	bamboo := bamboohr.NewWidget()
 	bamboo.Refresh()
@@ -23,8 +38,6 @@ func main() {
 	weather := weather.NewWidget()
 	weather.Refresh()
 
-	app := tview.NewApplication()
-
 	grid := tview.NewGrid()
 	grid.SetRows(14, 36, 4) // How _high_ the row is, in terminal rows
 	grid.SetColumns(40, 40) // How _wide_ the column is, in terminal columns
@@ -35,16 +48,10 @@ func main() {
 	grid.AddItem(stat.View, 2, 0, 2, 3, 0, 0, false)
 	grid.AddItem(weather.View, 0, 1, 1, 1, 0, 0, false)
 
-	go func() {
-		for {
-			time.Sleep(900 * time.Second) // 15 minutes
-			bamboo.Refresh()
-			cal.Refresh()
-			stat.Refresh()
-			weather.Refresh()
-			app.Draw()
-		}
-	}()
+	app := tview.NewApplication()
+
+	// Loop in a routine to redraw the screen
+	go refresher(stat, app)
 
 	if err := app.SetRoot(grid, true).Run(); err != nil {
 		panic(err)
