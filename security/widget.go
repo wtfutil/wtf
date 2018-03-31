@@ -19,7 +19,7 @@ func NewWidget() *Widget {
 		BaseWidget: wtf.BaseWidget{
 			Name:            "Security",
 			RefreshedAt:     time.Now(),
-			RefreshInterval: 300,
+			RefreshInterval: 60,
 		},
 	}
 
@@ -73,7 +73,7 @@ func (widget *Widget) contentFrom(data map[string]string) string {
 }
 
 func (widget *Widget) refresher() {
-	tick := time.NewTicker(time.Duration(widget.RefreshInterval) * time.Second)
+	tick := time.NewTicker(time.Duration(widget.RefreshInterval) * time.Minute)
 	quit := make(chan struct{})
 
 	for {

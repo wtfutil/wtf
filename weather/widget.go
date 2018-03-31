@@ -20,7 +20,7 @@ func NewWidget() *Widget {
 		BaseWidget: wtf.BaseWidget{
 			Name:            "Weather",
 			RefreshedAt:     time.Now(),
-			RefreshInterval: 600,
+			RefreshInterval: 15,
 		},
 	}
 
@@ -131,7 +131,7 @@ func icon(data *owm.CurrentWeatherData) string {
 }
 
 func (widget *Widget) refresher() {
-	tick := time.NewTicker(time.Duration(widget.RefreshInterval) * time.Second)
+	tick := time.NewTicker(time.Duration(widget.RefreshInterval) * time.Minute)
 	quit := make(chan struct{})
 
 	for {
