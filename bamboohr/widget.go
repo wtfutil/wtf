@@ -5,20 +5,21 @@ import (
 	"time"
 
 	"github.com/rivo/tview"
+	"github.com/senorprogrammer/wtf/wtf"
 )
 
 type Widget struct {
-	Name            string
-	RefreshedAt     time.Time
-	RefreshInterval int
-	View            *tview.TextView
+	wtf.BaseWidget
+	View *tview.TextView
 }
 
 func NewWidget() *Widget {
 	widget := Widget{
-		Name:            "BambooHR",
-		RefreshedAt:     time.Now(),
-		RefreshInterval: 3600,
+		BaseWidget: wtf.BaseWidget{
+			Name:            "BambooHR",
+			RefreshedAt:     time.Now(),
+			RefreshInterval: 3600,
+		},
 	}
 
 	widget.addView()

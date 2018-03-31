@@ -6,21 +6,22 @@ import (
 	"time"
 
 	"github.com/rivo/tview"
+	"github.com/senorprogrammer/wtf/wtf"
 	"google.golang.org/api/calendar/v3"
 )
 
 type Widget struct {
-	Name            string
-	RefreshedAt     time.Time
-	RefreshInterval int
-	View            *tview.TextView
+	wtf.BaseWidget
+	View *tview.TextView
 }
 
 func NewWidget() *Widget {
 	widget := Widget{
-		Name:            "Calendar",
-		RefreshedAt:     time.Now(),
-		RefreshInterval: 60,
+		BaseWidget: wtf.BaseWidget{
+			Name:            "Calendar",
+			RefreshedAt:     time.Now(),
+			RefreshInterval: 60,
+		},
 	}
 
 	widget.addView()

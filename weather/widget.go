@@ -7,18 +7,21 @@ import (
 
 	owm "github.com/briandowns/openweathermap"
 	"github.com/rivo/tview"
+	"github.com/senorprogrammer/wtf/wtf"
 )
 
 type Widget struct {
-	RefreshedAt     time.Time
-	RefreshInterval int
-	View            *tview.TextView
+	wtf.BaseWidget
+	View *tview.TextView
 }
 
 func NewWidget() *Widget {
 	widget := Widget{
-		RefreshedAt:     time.Now(),
-		RefreshInterval: 600,
+		BaseWidget: wtf.BaseWidget{
+			Name:            "Weather",
+			RefreshedAt:     time.Now(),
+			RefreshInterval: 600,
+		},
 	}
 
 	widget.addView()
@@ -110,6 +113,8 @@ func icon(data *owm.CurrentWeatherData) string {
 		icon = "🌥"
 	case "partly cloudy":
 		icon = "🌤"
+	case "scattered clouds":
+		icon = "☁️"
 	case "snow":
 		icon = "❄️"
 	case "sunny":
