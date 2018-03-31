@@ -33,7 +33,7 @@ func NewWidget() *Widget {
 func (widget *Widget) Refresh() {
 	items := Fetch()
 
-	widget.View.SetTitle(fmt.Sprintf(" 🐨 Away (%d) ", len(items)))
+	widget.View.SetTitle(fmt.Sprintf(" 👽 Away (%d) ", len(items)))
 	widget.RefreshedAt = time.Now()
 
 	fmt.Fprintf(widget.View, "%s", widget.contentFrom(items))
@@ -52,7 +52,15 @@ func (widget *Widget) addView() {
 	widget.View = view
 }
 
+func centerText(str string, width int) string {
+	return fmt.Sprintf("%[1]*s", -width, fmt.Sprintf("%[1]*s", (width+len(str))/2, str))
+}
+
 func (widget *Widget) contentFrom(items []Item) string {
+	if len(items) == 0 {
+		return fmt.Sprintf("\n\n\n\n\n\n\n%s", centerText("[grey]no one[white]", 52))
+	}
+
 	str := ""
 
 	for _, item := range items {
