@@ -87,6 +87,8 @@ func icon(data *owm.CurrentWeatherData) string {
 		icon = "☁️"
 	case "clear":
 		icon = "☀️"
+	case "clear sky":
+		icon = "☀️"
 	case "cloudy":
 		icon = "⛅️"
 	case "few clouds":
