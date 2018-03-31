@@ -16,13 +16,13 @@ func Request(apiKey string, apiURL string) ([]byte, error) {
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 	defer resp.Body.Close()
 
 	data, err := ParseBody(resp)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 
 	return data, err

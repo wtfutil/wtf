@@ -28,7 +28,11 @@ func NewClient() *Client {
 
 // Away returns a string representation of the people who are out of the office during the defined period
 func (client *Client) Away(itemType, startDate, endDate string) []Item {
-	calendar, _ := client.away(startDate, endDate)
+	calendar, err := client.away(startDate, endDate)
+	if err != nil {
+		return []Item{}
+	}
+
 	items := calendar.ItemsByType(itemType)
 
 	return items
@@ -49,6 +53,9 @@ func (client *Client) away(startDate, endDate string) (cal Calendar, err error) 
 	)
 
 	data, err := Request(client.apiKey, apiURL)
+	if err != nil {
+		return cal, err
+	}
 	err = xml.Unmarshal(data, &cal)
 
 	return
