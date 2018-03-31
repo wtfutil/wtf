@@ -68,7 +68,7 @@ func (widget *Widget) contentFrom(data *owm.CurrentWeatherData) string {
 
 	str = str + strings.Join(descs, ",") + "\n\n"
 
-	str = str + fmt.Sprintf("%10s: %4.1f° C\n\n", "Current", data.Main.Temp)
+	str = str + fmt.Sprintf("%10s: %4.1f° C\n", "Current", data.Main.Temp)
 	str = str + fmt.Sprintf("%10s: %4.1f° C\n", "High", data.Main.TempMax)
 	str = str + fmt.Sprintf("%10s: %4.1f° C\n", "Low", data.Main.TempMin)
 	str = str + "\n\n\n\n"
@@ -88,7 +88,7 @@ func icon(data *owm.CurrentWeatherData) string {
 	case "clear":
 		icon = "☀️"
 	case "clear sky":
-		icon = "☀️"
+		icon = "☀️ "
 	case "cloudy":
 		icon = "⛅️"
 	case "few clouds":
