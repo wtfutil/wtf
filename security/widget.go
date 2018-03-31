@@ -31,15 +31,14 @@ func NewWidget() *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	//data := Fetch()
+	data := Fetch()
 
 	widget.View.SetTitle(" 🐼 Security")
 	widget.RefreshedAt = time.Now()
 
 	widget.View.Clear()
 
-	fmt.Fprintf(widget.View, "%s", "cats and dogs")
-	//fmt.Fprintf(widget.View, "%s", widget.contentFrom(data))
+	fmt.Fprintf(widget.View, "%s", widget.contentFrom(data))
 }
 
 /* -------------------- Unexported Functions -------------------- */
@@ -52,6 +51,16 @@ func (widget *Widget) addView() {
 	view.SetTitle(widget.Name)
 
 	widget.View = view
+}
+
+func (widget *Widget) contentFrom(data map[string]string) string {
+	str := "\n"
+
+	for key, val := range data {
+		str = str + fmt.Sprintf("%8s: %8s\n", key, val)
+	}
+
+	return str
 }
 
 func (widget *Widget) refresher() {
