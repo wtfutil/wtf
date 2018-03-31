@@ -49,7 +49,7 @@ func (widget *Widget) addView() {
 
 	view.SetBorder(true)
 	view.SetDynamicColors(true)
-	view.SetTitle(" Weather ")
+	view.SetTitle(widget.Name)
 
 	widget.View = view
 }
