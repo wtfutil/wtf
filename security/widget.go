@@ -2,6 +2,7 @@ package security
 
 import (
 	"fmt"
+	"sort"
 	"time"
 
 	"github.com/rivo/tview"
@@ -16,9 +17,9 @@ type Widget struct {
 func NewWidget() *Widget {
 	widget := Widget{
 		BaseWidget: wtf.BaseWidget{
-			Name:            "Weather",
+			Name:            "Security",
 			RefreshedAt:     time.Now(),
-			RefreshInterval: 5,
+			RefreshInterval: 300,
 		},
 	}
 
@@ -33,7 +34,7 @@ func NewWidget() *Widget {
 func (widget *Widget) Refresh() {
 	data := Fetch()
 
-	widget.View.SetTitle(" 🐼 Security")
+	widget.View.SetTitle(" 🦂 Security ")
 	widget.RefreshedAt = time.Now()
 
 	widget.View.Clear()
@@ -56,8 +57,16 @@ func (widget *Widget) addView() {
 func (widget *Widget) contentFrom(data map[string]string) string {
 	str := "\n"
 
-	for key, val := range data {
-		str = str + fmt.Sprintf("%8s: %8s\n", key, val)
+	// Sort the map keys in alphabetical order
+	var keys []string
+	for key, _ := range data {
+		keys = append(keys, key)
+	}
+	sort.Strings(keys)
+
+	for _, key := range keys {
+		val := data[key]
+		str = str + fmt.Sprintf(" %16s: %s\n", key, val)
 	}
 
 	return str
