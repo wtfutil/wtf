@@ -35,7 +35,7 @@ func NewWidget() *Widget {
 func (widget *Widget) Refresh() {
 	events := Fetch()
 
-	widget.View.SetTitle(" 🐸 Calendar ")
+	widget.View.SetTitle(" 🍿 Calendar ")
 	widget.RefreshedAt = time.Now()
 
 	fmt.Fprintf(widget.View, "%s", widget.contentFrom(events))
