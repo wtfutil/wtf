@@ -20,7 +20,7 @@ func NewWidget() *Widget {
 		BaseWidget: wtf.BaseWidget{
 			Name:            "Calendar",
 			RefreshedAt:     time.Now(),
-			RefreshInterval: 60,
+			RefreshInterval: 3,
 		},
 	}
 
@@ -94,7 +94,7 @@ func descriptionColor(item *calendar.Event) string {
 }
 
 func (widget *Widget) refresher() {
-	tick := time.NewTicker(time.Duration(widget.RefreshInterval) * time.Second)
+	tick := time.NewTicker(time.Duration(widget.RefreshInterval) * time.Minute)
 	quit := make(chan struct{})
 
 	for {

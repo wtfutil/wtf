@@ -18,7 +18,7 @@ func NewWidget() *Widget {
 		BaseWidget: wtf.BaseWidget{
 			Name:            "BambooHR",
 			RefreshedAt:     time.Now(),
-			RefreshInterval: 3600,
+			RefreshInterval: 15,
 		},
 	}
 
@@ -75,7 +75,7 @@ func (widget *Widget) display(item Item) string {
 }
 
 func (widget *Widget) refresher() {
-	tick := time.NewTicker(time.Duration(widget.RefreshInterval) * time.Second)
+	tick := time.NewTicker(time.Duration(widget.RefreshInterval) * time.Minute)
 	quit := make(chan struct{})
 
 	for {
