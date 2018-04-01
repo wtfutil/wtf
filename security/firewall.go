@@ -8,36 +8,32 @@ import (
 
 const osxFirewallCmd = "/usr/libexec/ApplicationFirewall/socketfilterfw"
 
+/* -------------------- Exported Functions -------------------- */
+
 func FirewallState() string {
 	cmd := exec.Command(osxFirewallCmd, "--getglobalstate")
+	str := executeCommand(cmd)
 
-	stdout, err := cmd.StdoutPipe()
-	if err != nil {
-		return firewallIcon("err")
-	}
-
-	if err := cmd.Start(); err != nil {
-		return firewallIcon("err")
-	}
-
-	var str string
-	if b, err := ioutil.ReadAll(stdout); err == nil {
-		str += string(b)
-	}
-
-	return firewallIcon(str)
+	return str
 }
 
 func FirewallStealthState() string {
 	cmd := exec.Command(osxFirewallCmd, "--getstealthmode")
+	str := executeCommand(cmd)
 
+	return str
+}
+
+/* -------------------- Unexported Functions -------------------- */
+
+func executeCommand(cmd *exec.Cmd) string {
 	stdout, err := cmd.StdoutPipe()
 	if err != nil {
-		return firewallIcon("err")
+		return firewallStr("err")
 	}
 
 	if err := cmd.Start(); err != nil {
-		return firewallIcon("err")
+		return firewallStr("err")
 	}
 
 	var str string
@@ -45,10 +41,10 @@ func FirewallStealthState() string {
 		str += string(b)
 	}
 
-	return firewallIcon(str)
+	return firewallStr(str)
 }
 
-func firewallIcon(str string) string {
+func firewallStr(str string) string {
 	icon := "[red]off[white]"
 
 	if strings.Contains(str, "enabled") {

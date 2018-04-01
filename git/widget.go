@@ -1,7 +1,7 @@
 package git
 
 import (
-	//"fmt"
+	"fmt"
 	"time"
 
 	"github.com/rivo/tview"
@@ -31,13 +31,13 @@ func NewWidget() *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	//data := Fetch()
+	data := Fetch()
 
-	widget.View.SetTitle(" 🙈 Git ")
+	widget.View.SetTitle(" 🤞 Git ")
 	widget.RefreshedAt = time.Now()
 
 	widget.View.Clear()
-	//fmt.Fprintf(widget.View, "%s", widget.contentFrom(data))
+	fmt.Fprintf(widget.View, "%s", widget.contentFrom(data))
 }
 
 /* -------------------- Unexported Functions -------------------- */
@@ -52,9 +52,10 @@ func (widget *Widget) addView() {
 	widget.View = view
 }
 
-func (widget *Widget) contentFrom(data map[string]string) string {
+func (widget *Widget) contentFrom(data map[string][]string) string {
 	str := "\n"
-	str = str + "This is git"
+	str = str + fmt.Sprintf(" [green]%s[white] [grey]%s[white]\n", data["repo"][0], data["branch"][0])
+	str = str + "\n"
 
 	return str
 }
