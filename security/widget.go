@@ -38,7 +38,6 @@ func (widget *Widget) Refresh() {
 	widget.RefreshedAt = time.Now()
 
 	widget.View.Clear()
-
 	fmt.Fprintf(widget.View, "%s", widget.contentFrom(data))
 }
 

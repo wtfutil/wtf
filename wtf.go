@@ -6,6 +6,7 @@ import (
 	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/bamboohr"
 	"github.com/senorprogrammer/wtf/gcal"
+	"github.com/senorprogrammer/wtf/git"
 	"github.com/senorprogrammer/wtf/security"
 	"github.com/senorprogrammer/wtf/status"
 	"github.com/senorprogrammer/wtf/weather"
@@ -33,6 +34,9 @@ func main() {
 	cal := gcal.NewWidget()
 	cal.Refresh()
 
+	git := git.NewWidget()
+	git.Refresh()
+
 	sec := security.NewWidget()
 	sec.Refresh()
 
@@ -49,6 +53,7 @@ func main() {
 
 	grid.AddItem(bamboo.View, 0, 0, 2, 1, 0, 0, false)
 	grid.AddItem(cal.View, 2, 0, 1, 1, 0, 0, false)
+	grid.AddItem(git.View, 0, 2, 3, 1, 0, 0, false)
 	grid.AddItem(stat.View, 3, 0, 2, 3, 0, 0, false)
 	grid.AddItem(weather.View, 0, 1, 1, 1, 0, 0, false)
 	grid.AddItem(sec.View, 1, 1, 1, 1, 0, 0, false)
