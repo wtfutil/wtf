@@ -38,6 +38,7 @@ func (widget *Widget) Refresh() {
 	widget.View.SetTitle(" 🍿 Calendar ")
 	widget.RefreshedAt = time.Now()
 
+	widget.View.Clear()
 	fmt.Fprintf(widget.View, "%s", widget.contentFrom(events))
 }
 

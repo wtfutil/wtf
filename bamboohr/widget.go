@@ -36,6 +36,7 @@ func (widget *Widget) Refresh() {
 	widget.View.SetTitle(fmt.Sprintf(" 👽 Away (%d) ", len(items)))
 	widget.RefreshedAt = time.Now()
 
+	widget.View.Clear()
 	fmt.Fprintf(widget.View, "%s", widget.contentFrom(items))
 }
 
