@@ -18,14 +18,14 @@ type Widget struct {
 func NewWidget() *Widget {
 	widget := Widget{
 		BaseWidget: wtf.BaseWidget{
-			Name:            "Calendar",
-			RefreshedAt:     time.Now(),
-			RefreshInterval: 3,
+			Name:        "Calendar",
+			RefreshedAt: time.Now(),
+			RefreshInt:  180,
 		},
 	}
 
 	widget.addView()
-	go widget.refresher()
+	go wtf.Refresh(&widget)
 
 	return &widget
 }
@@ -93,21 +93,6 @@ func descriptionColor(item *calendar.Event) string {
 	}
 
 	return color
-}
-
-func (widget *Widget) refresher() {
-	tick := time.NewTicker(time.Duration(widget.RefreshInterval) * time.Minute)
-	quit := make(chan struct{})
-
-	for {
-		select {
-		case <-tick.C:
-			widget.Refresh()
-		case <-quit:
-			tick.Stop()
-			return
-		}
-	}
 }
 
 // until returns the number of hours or days until the event

@@ -18,14 +18,14 @@ type Widget struct {
 func NewWidget() *Widget {
 	widget := Widget{
 		BaseWidget: wtf.BaseWidget{
-			Name:            "Git",
-			RefreshedAt:     time.Now(),
-			RefreshInterval: 10,
+			Name:        "Git",
+			RefreshedAt: time.Now(),
+			RefreshInt:  10,
 		},
 	}
 
 	widget.addView()
-	go widget.refresher()
+	go wtf.Refresh(&widget)
 
 	return &widget
 }
@@ -115,19 +115,4 @@ func (widget *Widget) formatCommits(data []string) string {
 
 func (widget *Widget) formatCommit(line string) string {
 	return fmt.Sprintf(" %s\n", strings.Replace(line, "\"", "", -1))
-}
-
-func (widget *Widget) refresher() {
-	tick := time.NewTicker(time.Duration(widget.RefreshInterval) * time.Minute)
-	quit := make(chan struct{})
-
-	for {
-		select {
-		case <-tick.C:
-			widget.Refresh()
-		case <-quit:
-			tick.Stop()
-			return
-		}
-	}
 }
