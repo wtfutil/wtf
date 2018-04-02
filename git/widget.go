@@ -20,7 +20,7 @@ func NewWidget() *Widget {
 		BaseWidget: wtf.BaseWidget{
 			Name:        "Git",
 			RefreshedAt: time.Now(),
-			RefreshInt:  10,
+			RefreshInt:  15,
 		},
 	}
 
