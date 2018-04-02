@@ -60,13 +60,13 @@ func (widget *Widget) contentFrom(items []Item) string {
 
 	str := ""
 	for _, item := range items {
-		str = str + widget.display(item)
+		str = str + widget.format(item)
 	}
 
 	return str
 }
 
-func (widget *Widget) display(item Item) string {
+func (widget *Widget) format(item Item) string {
 	var str string
 
 	if item.IsOneDay() {
