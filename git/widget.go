@@ -35,7 +35,9 @@ func NewWidget() *Widget {
 func (widget *Widget) Refresh() {
 	data := Fetch()
 
-	widget.View.SetTitle(" 🤞 Git ")
+	str := fmt.Sprintf("[green]%s[white] [dodgerblue]%s[white]\n", data["repo"][0], data["branch"][0])
+
+	widget.View.SetTitle(fmt.Sprintf(" 🤞 %s ", str))
 	widget.RefreshedAt = time.Now()
 
 	widget.View.Clear()
@@ -57,8 +59,6 @@ func (widget *Widget) addView() {
 
 func (widget *Widget) contentFrom(data map[string][]string) string {
 	str := "\n"
-	str = str + fmt.Sprintf(" [green]%s[white] [dodgerblue]%s[white]\n", data["repo"][0], data["branch"][0])
-
 	str = str + widget.formatChanges(data["changes"])
 	str = str + "\n"
 	str = str + widget.formatCommits(data["commits"])
@@ -92,13 +92,9 @@ func (widget *Widget) formatChange(line string) string {
 	case 'D':
 		line = strings.Replace(line, "D", "[red]D[white]", 1)
 	case 'M':
-		line = strings.Replace(line, "M", "[blue]M[white]", 1)
+		line = strings.Replace(line, "M", "[yellow]M[white]", 1)
 	case 'R':
 		line = strings.Replace(line, "R", "[purple]R[white]", 1)
-	case '!':
-		line = strings.Replace(line, "!", "[yellow]![white]", 1)
-	case '?':
-		line = strings.Replace(line, "?", "[yellow]?[white]", 1)
 	default:
 		line = line
 	}
