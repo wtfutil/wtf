@@ -59,7 +59,6 @@ func (widget *Widget) contentFrom(items []Item) string {
 	}
 
 	str := ""
-
 	for _, item := range items {
 		str = str + widget.display(item)
 	}

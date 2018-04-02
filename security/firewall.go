@@ -1,9 +1,10 @@
 package security
 
 import (
-	"io/ioutil"
 	"os/exec"
 	"strings"
+
+	"github.com/senorprogrammer/wtf/wtf"
 )
 
 const osxFirewallCmd = "/usr/libexec/ApplicationFirewall/socketfilterfw"
@@ -12,39 +13,21 @@ const osxFirewallCmd = "/usr/libexec/ApplicationFirewall/socketfilterfw"
 
 func FirewallState() string {
 	cmd := exec.Command(osxFirewallCmd, "--getglobalstate")
-	str := executeCommand(cmd)
+	str := wtf.ExecuteCommand(cmd)
 
-	return str
+	return status(str)
 }
 
 func FirewallStealthState() string {
 	cmd := exec.Command(osxFirewallCmd, "--getstealthmode")
-	str := executeCommand(cmd)
+	str := wtf.ExecuteCommand(cmd)
 
-	return str
+	return status(str)
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
-func executeCommand(cmd *exec.Cmd) string {
-	stdout, err := cmd.StdoutPipe()
-	if err != nil {
-		return firewallStr("err")
-	}
-
-	if err := cmd.Start(); err != nil {
-		return firewallStr("err")
-	}
-
-	var str string
-	if b, err := ioutil.ReadAll(stdout); err == nil {
-		str += string(b)
-	}
-
-	return firewallStr(str)
-}
-
-func firewallStr(str string) string {
+func status(str string) string {
 	icon := "[red]off[white]"
 
 	if strings.Contains(str, "enabled") {
