@@ -7,12 +7,14 @@ import (
 )
 
 func Fetch() *owm.CurrentWeatherData {
-	w, err := owm.NewCurrent("C", "EN", os.Getenv("WTF_OWM_API_KEY"))
+	apiKey := os.Getenv("WTF_OWM_API_KEY")
+
+	weather, err := owm.NewCurrent("C", "EN", apiKey)
 	if err != nil {
 		panic(err)
 	}
 
-	w.CurrentByID(6173331)
+	weather.CurrentByID(6173331)
 
-	return w
+	return weather
 }

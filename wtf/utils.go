@@ -25,5 +25,7 @@ func ExecuteCommand(cmd *exec.Cmd) string {
 		str += string(b)
 	}
 
+	cmd.Wait()
+
 	return str
 }
