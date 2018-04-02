@@ -17,14 +17,14 @@ type Widget struct {
 func NewWidget() *Widget {
 	widget := Widget{
 		BaseWidget: wtf.BaseWidget{
-			Name:            "Security",
-			RefreshedAt:     time.Now(),
-			RefreshInterval: 60,
+			Name:        "Security",
+			RefreshedAt: time.Now(),
+			RefreshInt:  3600,
 		},
 	}
 
 	widget.addView()
-	go widget.refresher()
+	go wtf.Refresh(&widget)
 
 	return &widget
 }
@@ -69,19 +69,4 @@ func (widget *Widget) contentFrom(data map[string]string) string {
 	}
 
 	return str
-}
-
-func (widget *Widget) refresher() {
-	tick := time.NewTicker(time.Duration(widget.RefreshInterval) * time.Minute)
-	quit := make(chan struct{})
-
-	for {
-		select {
-		case <-tick.C:
-			widget.Refresh()
-		case <-quit:
-			tick.Stop()
-			return
-		}
-	}
 }
