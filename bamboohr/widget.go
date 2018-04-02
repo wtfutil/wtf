@@ -53,13 +53,9 @@ func (widget *Widget) addView() {
 	widget.View = view
 }
 
-func centerText(str string, width int) string {
-	return fmt.Sprintf("%[1]*s", -width, fmt.Sprintf("%[1]*s", (width+len(str))/2, str))
-}
-
 func (widget *Widget) contentFrom(items []Item) string {
 	if len(items) == 0 {
-		return fmt.Sprintf("\n\n\n\n\n\n\n%s", centerText("[grey]no one[white]", 52))
+		return fmt.Sprintf("\n\n\n\n\n\n\n%s", wtf.CenterText("[grey]no one[white]", 52))
 	}
 
 	str := ""

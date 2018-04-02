@@ -54,10 +54,6 @@ func (widget *Widget) addView() {
 	widget.View = view
 }
 
-func centerText(str string, width int) string {
-	return fmt.Sprintf("%[1]*s", -width, fmt.Sprintf("%[1]*s", (width+len(str))/2, str))
-}
-
 func (widget *Widget) contentFrom(data *owm.CurrentWeatherData) string {
 	str := fmt.Sprintf("\n")
 
@@ -71,8 +67,6 @@ func (widget *Widget) contentFrom(data *owm.CurrentWeatherData) string {
 	str = str + fmt.Sprintf("%10s: %4.1f° C\n", "Current", data.Main.Temp)
 	str = str + fmt.Sprintf("%10s: %4.1f° C\n", "High", data.Main.TempMax)
 	str = str + fmt.Sprintf("%10s: %4.1f° C\n", "Low", data.Main.TempMin)
-	str = str + "\n\n\n\n"
-	str = str + centerText(fmt.Sprintf("Refreshed at %s", widget.refreshedAt()), 38)
 
 	return str
 }
