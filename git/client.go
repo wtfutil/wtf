@@ -4,6 +4,7 @@ import (
 	//"fmt"
 	"io/ioutil"
 	"os/exec"
+	"strings"
 )
 
 type Client struct {
@@ -31,15 +32,23 @@ func (client *Client) CurrentBranch() string {
 }
 
 func (client *Client) ChangedFiles() []string {
-	files := []string{}
+	arg := []string{"status", "--porcelain"}
+	cmd := exec.Command("git", arg...)
+	str := executeCommand(cmd)
 
-	return files
+	data := strings.Split(str, "\n")
+
+	return data
 }
 
 func (client *Client) Commits() []string {
-	files := []string{}
+	arg := []string{"log", "--date=format:\"%b %d, %Y\"", "-n 10", "--pretty=format:\"[forestgreen]%h [white]%s [grey]%an on %cd[white]\""}
+	cmd := exec.Command("git", arg...)
+	str := executeCommand(cmd)
 
-	return files
+	data := strings.Split(str, "\n")
+
+	return data
 }
 
 /* -------------------- Unexported Functions -------------------- */

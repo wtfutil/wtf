@@ -9,7 +9,7 @@ func Fetch() map[string][]string {
 
 	result["repo"] = []string{client.Repository}
 	result["branch"] = []string{client.CurrentBranch()}
-	result["changed"] = client.ChangedFiles()
+	result["changes"] = client.ChangedFiles()
 	result["commits"] = client.Commits()
 
 	return result
