@@ -32,7 +32,7 @@ func NewWidget() *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	widget.View.SetTitle(" 🎁 Status ")
+	widget.View.SetTitle(" 🎉 Status ")
 	widget.RefreshedAt = time.Now()
 
 	widget.View.Clear()

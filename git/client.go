@@ -9,13 +9,11 @@ import (
 
 type Client struct {
 	CommitCount int
-	Repository  string
 }
 
 func NewClient() *Client {
 	client := Client{
 		CommitCount: 10,
-		Repository:  "/Users/Chris/Documents/Lendesk/core-api",
 	}
 
 	return &client
@@ -23,7 +21,7 @@ func NewClient() *Client {
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (client *Client) CurrentBranch() string {
+func (client *Client) Branch() string {
 	arg := []string{"rev-parse", "--abbrev-ref", "HEAD"}
 	cmd := exec.Command("git", arg...)
 	str := wtf.ExecuteCommand(cmd)
@@ -49,4 +47,12 @@ func (client *Client) Commits() []string {
 	data := strings.Split(str, "\n")
 
 	return data
+}
+
+func (client *Client) Repository() string {
+	arg := []string{"rev-parse", "--show-toplevel"}
+	cmd := exec.Command("git", arg...)
+	str := wtf.ExecuteCommand(cmd)
+
+	return str
 }

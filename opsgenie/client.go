@@ -1,33 +1,55 @@
 package opsgenie
 
 import (
+	"encoding/json"
+	"fmt"
+	"net/http"
 	"os"
-
-	ogcli "github.com/opsgenie/opsgenie-go-sdk/client"
-	sch "github.com/opsgenie/opsgenie-go-sdk/schedule"
 )
 
-func Fetch() string {
+type Data struct {
+	OnCallRecipients []string `json:"onCallRecipients"`
+	Parent           Parent   `json:"_parent"`
+}
+type OnCallData struct {
+	Data      Data    `json:"data"`
+	Message   string  `json:"message"`
+	RequestID string  `json:"requestId"`
+	Took      float32 `json:"took"`
+}
+
+type Parent struct {
+	ID      string `json:"id"`
+	Name    string `json:"name"`
+	Enabled bool   `json:"enabled"`
+}
+
+func Fetch() *OnCallData {
 	apiKey := os.Getenv("WTF_OPS_GENIE_API_KEY")
+	scheduleName := "Oversight"
 
-	cli := new(ogcli.OpsGenieClient)
-	cli.SetAPIKey(apiKey)
+	url := fmt.Sprintf("https://api.opsgenie.com/v2/schedules/%s/on-calls?scheduleIdentifierType=name&flat=true", scheduleName)
 
-	scheduler, err := cli.Schedule()
+	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		panic(err)
 	}
 
-	request := sch.ListSchedulesRequest{}
-	response, err := scheduler.List(request)
+	req.Header.Set("Authorization", fmt.Sprintf("GenieKey %s", apiKey))
+
+	client := &http.Client{}
+
+	resp, err := client.Do(req)
 	if err != nil {
 		panic(err)
 	}
+	defer resp.Body.Close()
 
-	var str string
-	for _, schedule := range response.Schedules {
-		str = str + schedule.Name + "\n"
+	var onCallData OnCallData
+
+	if err := json.NewDecoder(resp.Body).Decode(&onCallData); err != nil {
+		panic(err)
 	}
 
-	return ""
+	return &onCallData
 }

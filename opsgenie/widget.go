@@ -1,7 +1,8 @@
 package opsgenie
 
 import (
-	//"fmt"
+	"fmt"
+	"strings"
 	"time"
 
 	"github.com/rivo/tview"
@@ -31,13 +32,13 @@ func NewWidget() *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	//data := Fetch()
+	data := Fetch()
 
 	widget.View.SetTitle(" OpsGenie ")
 	widget.RefreshedAt = time.Now()
 
 	widget.View.Clear()
-	//fmt.Fprintf(widget.View, "%s", widget.contentFrom(data))
+	fmt.Fprintf(widget.View, "%s", widget.contentFrom(data))
 }
 
 /* -------------------- Unexported Functions -------------------- */
@@ -52,6 +53,10 @@ func (widget *Widget) addView() {
 	widget.View = view
 }
 
-func (widget *Widget) contentFrom(data string) string {
-	return data
+func (widget *Widget) contentFrom(onCallData *OnCallData) string {
+	str := "\n"
+	str = str + fmt.Sprintf(" [red]%s[white]\n", onCallData.Data.Parent.Name)
+	str = str + fmt.Sprintf(" %s\n", strings.Join(onCallData.Data.OnCallRecipients, ", "))
+
+	return str
 }
