@@ -117,6 +117,10 @@ func (widget *Widget) until(start time.Time) string {
 
 	duration = duration.Round(time.Minute)
 
+	if duration < 0 {
+		return ""
+	}
+
 	days := duration / (24 * time.Hour)
 	duration -= days * (24 * time.Hour)
 
