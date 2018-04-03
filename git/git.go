@@ -7,8 +7,8 @@ func Fetch() map[string][]string {
 
 	result := make(map[string][]string)
 
-	result["repo"] = []string{client.Repository}
-	result["branch"] = []string{client.CurrentBranch()}
+	result["repo"] = []string{client.Repository()}
+	result["branch"] = []string{client.Branch()}
 	result["changes"] = client.ChangedFiles()
 	result["commits"] = client.Commits()
 
