@@ -72,8 +72,12 @@ func (widget *Widget) formatChanges(data []string) string {
 	str := ""
 	str = str + " [red]Changed Files[white]\n"
 
-	for _, line := range data {
-		str = str + widget.formatChange(line)
+	if len(data) == 1 {
+		str = str + " [grey]none[white]\n"
+	} else {
+		for _, line := range data {
+			str = str + widget.formatChange(line)
+		}
 	}
 
 	return str
