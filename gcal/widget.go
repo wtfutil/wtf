@@ -60,15 +60,39 @@ func (widget *Widget) addView() {
 func (widget *Widget) contentFrom(events *calendar.Events) string {
 	str := "\n"
 
-	for _, item := range events.Items {
-		startTime, _ := time.Parse(time.RFC3339, item.Start.DateTime)
+	for _, event := range events.Items {
+		startTime, _ := time.Parse(time.RFC3339, event.Start.DateTime)
 		timestamp := startTime.Format("Mon, Jan 2, 15:04")
 		until := widget.until(startTime)
 
-		str = str + fmt.Sprintf(" [%s]%s[white]\n [%s]%s %s[white]\n\n", titleColor(item), item.Summary, descriptionColor(item), timestamp, until)
+		summary := event.Summary
+		if widget.eventIsNow(event) {
+			summary = "🔥 " + summary
+		}
+
+		str = str + fmt.Sprintf(" [%s]%s[white]\n [%s]%s %s[white]\n\n", titleColor(event), summary, descriptionColor(event), timestamp, until)
 	}
 
 	return str
+}
+
+// eventIsNow returns true if the event is happening now, false if it not
+func (widget *Widget) eventIsNow(event *calendar.Event) bool {
+	startTime, _ := time.Parse(time.RFC3339, event.Start.DateTime)
+	endTime, _ := time.Parse(time.RFC3339, event.End.DateTime)
+
+	return time.Now().After(startTime) && time.Now().Before(endTime)
+}
+
+func descriptionColor(item *calendar.Event) string {
+	ts, _ := time.Parse(time.RFC3339, item.Start.DateTime)
+
+	color := "white"
+	if ts.Before(time.Now()) {
+		color = "grey"
+	}
+
+	return color
 }
 
 func titleColor(item *calendar.Event) string {
@@ -79,17 +103,6 @@ func titleColor(item *calendar.Event) string {
 		color = "green"
 	}
 
-	if ts.Before(time.Now()) {
-		color = "grey"
-	}
-
-	return color
-}
-
-func descriptionColor(item *calendar.Event) string {
-	ts, _ := time.Parse(time.RFC3339, item.Start.DateTime)
-
-	color := "white"
 	if ts.Before(time.Now()) {
 		color = "grey"
 	}
