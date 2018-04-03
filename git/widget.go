@@ -6,6 +6,7 @@ import (
 	"time"
 	"unicode/utf8"
 
+	"github.com/gdamore/tcell"
 	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/wtf"
 )
@@ -50,6 +51,7 @@ func (widget *Widget) addView() {
 	view := tview.NewTextView()
 
 	view.SetBorder(true)
+	view.SetBorderColor(tcell.ColorGray)
 	view.SetDynamicColors(true)
 	view.SetTitle(widget.Name)
 	view.SetWrap(false)
