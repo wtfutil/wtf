@@ -7,15 +7,16 @@ import (
 	"os"
 )
 
-type Data struct {
-	OnCallRecipients []string `json:"onCallRecipients"`
-	Parent           Parent   `json:"_parent"`
+type OnCallResponse struct {
+	OnCallData []OnCallData `json:"data"`
+	Message    string       `json:"message"`
+	RequestID  string       `json:"requestId"`
+	Took       float32      `json:"took"`
 }
+
 type OnCallData struct {
-	Data      Data    `json:"data"`
-	Message   string  `json:"message"`
-	RequestID string  `json:"requestId"`
-	Took      float32 `json:"took"`
+	Recipients []string `json:"onCallRecipients"`
+	Parent     Parent   `json:"_parent"`
 }
 
 type Parent struct {
@@ -24,11 +25,10 @@ type Parent struct {
 	Enabled bool   `json:"enabled"`
 }
 
-func Fetch() *OnCallData {
+func Fetch() *OnCallResponse {
 	apiKey := os.Getenv("WTF_OPS_GENIE_API_KEY")
-	scheduleName := "Oversight"
 
-	url := fmt.Sprintf("https://api.opsgenie.com/v2/schedules/%s/on-calls?scheduleIdentifierType=name&flat=true", scheduleName)
+	url := "https://api.opsgenie.com/v2/schedules/on-calls?flat=true"
 
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
@@ -45,11 +45,10 @@ func Fetch() *OnCallData {
 	}
 	defer resp.Body.Close()
 
-	var onCallData OnCallData
-
-	if err := json.NewDecoder(resp.Body).Decode(&onCallData); err != nil {
+	var onCallResponse OnCallResponse
+	if err := json.NewDecoder(resp.Body).Decode(&onCallResponse); err != nil {
 		panic(err)
 	}
 
-	return &onCallData
+	return &onCallResponse
 }
