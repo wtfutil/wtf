@@ -17,6 +17,13 @@ type OnCallResponse struct {
 type OnCallData struct {
 	Recipients []string `json:"onCallRecipients"`
 	Parent     Parent   `json:"_parent"`
+	Users      []OnCallUserData
+}
+
+type OnCallUserData struct {
+	ID       string `json:"id"`
+	Username string `json:"username"`
+	FullName string `json:"fullName"`
 }
 
 type Parent struct {
@@ -25,11 +32,21 @@ type Parent struct {
 	Enabled bool   `json:"enabled"`
 }
 
+/* -------------------- Exported Functions -------------------- */
+
 func Fetch() *OnCallResponse {
 	apiKey := os.Getenv("WTF_OPS_GENIE_API_KEY")
+	scheduleUrl := "https://api.opsgenie.com/v2/schedules/on-calls?flat=true"
 
-	url := "https://api.opsgenie.com/v2/schedules/on-calls?flat=true"
+	var onCallResponse OnCallResponse
+	opsGenieRequest(scheduleUrl, apiKey, &onCallResponse)
 
+	return &onCallResponse
+}
+
+/* -------------------- Unexported Functions -------------------- */
+
+func opsGenieRequest(url string, apiKey string, payload interface{}) {
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		panic(err)
@@ -45,10 +62,7 @@ func Fetch() *OnCallResponse {
 	}
 	defer resp.Body.Close()
 
-	var onCallResponse OnCallResponse
-	if err := json.NewDecoder(resp.Body).Decode(&onCallResponse); err != nil {
+	if err := json.NewDecoder(resp.Body).Decode(payload); err != nil {
 		panic(err)
 	}
-
-	return &onCallResponse
 }
