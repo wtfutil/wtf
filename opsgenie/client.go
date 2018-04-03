@@ -17,13 +17,6 @@ type OnCallResponse struct {
 type OnCallData struct {
 	Recipients []string `json:"onCallRecipients"`
 	Parent     Parent   `json:"_parent"`
-	Users      []OnCallUserData
-}
-
-type OnCallUserData struct {
-	ID       string `json:"id"`
-	Username string `json:"username"`
-	FullName string `json:"fullName"`
 }
 
 type Parent struct {
