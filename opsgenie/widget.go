@@ -61,7 +61,13 @@ func (widget *Widget) contentFrom(onCallResponse *OnCallResponse) string {
 
 	for _, data := range onCallResponse.OnCallData {
 		str = str + fmt.Sprintf(" [green]%s[white]\n", widget.cleanScheduleName(data.Parent.Name))
-		str = str + fmt.Sprintf(" %s\n", strings.Join(widget.namesFromEmails(data.Recipients), ", "))
+
+		if len(data.Recipients) == 0 {
+			str = str + " [gray]no one[white]\n"
+		} else {
+			str = str + fmt.Sprintf(" %s\n", strings.Join(widget.namesFromEmails(data.Recipients), ", "))
+		}
+
 		str = str + "\n"
 	}
 
