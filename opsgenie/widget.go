@@ -61,9 +61,20 @@ func (widget *Widget) contentFrom(onCallResponse *OnCallResponse) string {
 
 	for _, data := range onCallResponse.OnCallData {
 		str = str + fmt.Sprintf(" [green]%s[white]\n", data.Parent.Name)
-		str = str + fmt.Sprintf(" %s\n", strings.Join(data.Recipients, ", "))
+		str = str + fmt.Sprintf(" %s\n", strings.Join(widget.namesFromEmails(data.Recipients), ", "))
 		str = str + "\n"
 	}
 
 	return str
+}
+
+func (widget *Widget) namesFromEmails(emails []string) []string {
+	names := []string{}
+
+	for _, email := range emails {
+		parts := strings.Split(email, "@")
+		names = append(names, strings.Title(strings.Replace(parts[0], ".", " ", -1)))
+	}
+
+	return names
 }
