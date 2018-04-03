@@ -35,7 +35,7 @@ func NewWidget() *Widget {
 func (widget *Widget) Refresh() {
 	data := Fetch()
 
-	widget.View.SetTitle(" 🦂 Security ")
+	widget.View.SetTitle(" 🤺 Security ")
 	widget.RefreshedAt = time.Now()
 
 	widget.View.Clear()

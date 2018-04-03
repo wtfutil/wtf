@@ -55,7 +55,7 @@ func (widget *Widget) addView() {
 }
 
 func (widget *Widget) contentFrom() string {
-	icons := []string{"👍", "🤜", "🤙", "🤜"}
+	icons := []string{"👍", "🤜", "🤙", "🤜", "🤘", "🤜", "✊", "🤜", "👌", "🤜"}
 	next := icons[widget.Current]
 
 	widget.Current = widget.Current + 1
