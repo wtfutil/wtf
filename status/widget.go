@@ -2,9 +2,9 @@ package status
 
 import (
 	"fmt"
-	//"math/rand"
 	"time"
 
+	"github.com/gdamore/tcell"
 	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/wtf"
 )
@@ -38,7 +38,7 @@ func (widget *Widget) Refresh() {
 	widget.RefreshedAt = time.Now()
 
 	widget.View.Clear()
-	fmt.Fprintf(widget.View, "%s", widget.contentFrom())
+	fmt.Fprintf(widget.View, " %s", widget.contentFrom())
 }
 
 /* -------------------- Unexported Functions -------------------- */
@@ -47,6 +47,7 @@ func (widget *Widget) addView() {
 	view := tview.NewTextView()
 
 	view.SetBorder(true)
+	view.SetBorderColor(tcell.ColorGray)
 	view.SetDynamicColors(true)
 	view.SetTitle(widget.Name)
 
