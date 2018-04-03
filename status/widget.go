@@ -2,7 +2,7 @@ package status
 
 import (
 	"fmt"
-	"math/rand"
+	//"math/rand"
 	"time"
 
 	"github.com/rivo/tview"
@@ -11,7 +11,8 @@ import (
 
 type Widget struct {
 	wtf.BaseWidget
-	View *tview.TextView
+	Current int
+	View    *tview.TextView
 }
 
 func NewWidget() *Widget {
@@ -21,6 +22,7 @@ func NewWidget() *Widget {
 			RefreshedAt: time.Now(),
 			RefreshInt:  1,
 		},
+		Current: 0,
 	}
 
 	widget.addView()
@@ -52,5 +54,13 @@ func (widget *Widget) addView() {
 }
 
 func (widget *Widget) contentFrom() string {
-	return fmt.Sprint(rand.Intn(100))
+	icons := []string{"💛", "💚", "💙", "🖤", "💜"}
+	next := icons[widget.Current]
+
+	widget.Current = widget.Current + 1
+	if widget.Current == len(icons) {
+		widget.Current = 0
+	}
+
+	return next
 }
