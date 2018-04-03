@@ -60,12 +60,16 @@ func (widget *Widget) contentFrom(onCallResponse *OnCallResponse) string {
 	str := "\n"
 
 	for _, data := range onCallResponse.OnCallData {
-		str = str + fmt.Sprintf(" [green]%s[white]\n", data.Parent.Name)
+		str = str + fmt.Sprintf(" [green]%s[white]\n", widget.cleanScheduleName(data.Parent.Name))
 		str = str + fmt.Sprintf(" %s\n", strings.Join(widget.namesFromEmails(data.Recipients), ", "))
 		str = str + "\n"
 	}
 
 	return str
+}
+
+func (widget *Widget) cleanScheduleName(schedule string) string {
+	return strings.Replace(schedule, "_", " ", -1)
 }
 
 func (widget *Widget) namesFromEmails(emails []string) []string {
