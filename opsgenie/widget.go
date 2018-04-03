@@ -20,7 +20,7 @@ func NewWidget() *Widget {
 		BaseWidget: wtf.BaseWidget{
 			Name:        "OpsGenie",
 			RefreshedAt: time.Now(),
-			RefreshInt:  28800,
+			RefreshInt:  21600,
 		},
 	}
 
@@ -35,7 +35,7 @@ func NewWidget() *Widget {
 func (widget *Widget) Refresh() {
 	data := Fetch()
 
-	widget.View.SetTitle(" OpsGenie ")
+	widget.View.SetTitle(" ⏰ On Call ")
 	widget.RefreshedAt = time.Now()
 
 	widget.View.Clear()
@@ -51,14 +51,19 @@ func (widget *Widget) addView() {
 	view.SetBorderColor(tcell.ColorGray)
 	view.SetDynamicColors(true)
 	view.SetTitle(widget.Name)
+	view.SetWrap(false)
 
 	widget.View = view
 }
 
-func (widget *Widget) contentFrom(onCallData *OnCallData) string {
+func (widget *Widget) contentFrom(onCallResponse *OnCallResponse) string {
 	str := "\n"
-	str = str + fmt.Sprintf(" [red]%s[white]\n", onCallData.Data.Parent.Name)
-	str = str + fmt.Sprintf(" %s\n", strings.Join(onCallData.Data.OnCallRecipients, ", "))
+
+	for _, data := range onCallResponse.OnCallData {
+		str = str + fmt.Sprintf(" [green]%s[white]\n", data.Parent.Name)
+		str = str + fmt.Sprintf(" %s\n", strings.Join(data.Recipients, ", "))
+		str = str + "\n"
+	}
 
 	return str
 }
