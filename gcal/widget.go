@@ -21,7 +21,7 @@ func NewWidget() *Widget {
 		BaseWidget: wtf.BaseWidget{
 			Name:        "Calendar",
 			RefreshedAt: time.Now(),
-			RefreshInt:  180,
+			RefreshInt:  300,
 		},
 	}
 
