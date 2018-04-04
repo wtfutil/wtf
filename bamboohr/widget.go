@@ -5,21 +5,29 @@ import (
 	"time"
 
 	"github.com/gdamore/tcell"
+	"github.com/olebedev/config"
 	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/wtf"
 )
 
 type Widget struct {
 	wtf.BaseWidget
-	View *tview.TextView
+
+	Config *config.Config
+	View   *tview.TextView
 }
 
-func NewWidget() *Widget {
+func NewWidget(config *config.Config) *Widget {
+	refreshInterval, err := config.Int("wtf.bamboohr.refreshInterval")
+	if err != nil {
+		refreshInterval = 1
+	}
+
 	widget := Widget{
 		BaseWidget: wtf.BaseWidget{
 			Name:        "BambooHR",
 			RefreshedAt: time.Now(),
-			RefreshInt:  15,
+			RefreshInt:  refreshInterval,
 		},
 	}
 
