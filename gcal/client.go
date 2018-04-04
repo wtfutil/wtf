@@ -101,27 +101,23 @@ func Fetch() (*calendar.Events, error) {
 
 	b, err := ioutil.ReadFile("./gcal/client_secret.json")
 	if err != nil {
-		//log.Fatalf("Unable to read client secret file: %v", err)
 		return nil, err
 	}
 
 	config, err := google.ConfigFromJSON(b, calendar.CalendarReadonlyScope)
 	if err != nil {
-		//log.Fatalf("Unable to parse client secret file to config: %v", err)
 		return nil, err
 	}
 	client := getClient(ctx, config)
 
 	srv, err := calendar.New(client)
 	if err != nil {
-		//log.Fatalf("Unable to retrieve calendar Client %v", err)
 		return nil, err
 	}
 
 	t := today().Format(time.RFC3339)
 	events, err := srv.Events.List("primary").ShowDeleted(false).SingleEvents(true).TimeMin(t).MaxResults(10).OrderBy("startTime").Do()
 	if err != nil {
-		//log.Fatalf("Unable to retrieve next ten of the user's events. %v", err)
 		return nil, err
 	}
 
