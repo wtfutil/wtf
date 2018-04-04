@@ -23,6 +23,38 @@ import (
 	"google.golang.org/api/calendar/v3"
 )
 
+/* -------------------- Exported Functions -------------------- */
+
+func Fetch() (*calendar.Events, error) {
+	ctx := context.Background()
+
+	b, err := ioutil.ReadFile("./gcal/client_secret.json")
+	if err != nil {
+		return nil, err
+	}
+
+	config, err := google.ConfigFromJSON(b, calendar.CalendarReadonlyScope)
+	if err != nil {
+		return nil, err
+	}
+	client := getClient(ctx, config)
+
+	srv, err := calendar.New(client)
+	if err != nil {
+		return nil, err
+	}
+
+	t := today().Format(time.RFC3339)
+	events, err := srv.Events.List("primary").ShowDeleted(false).SingleEvents(true).TimeMin(t).MaxResults(10).OrderBy("startTime").Do()
+	if err != nil {
+		return nil, err
+	}
+
+	return events, err
+}
+
+/* -------------------- Unexported Functions -------------------- */
+
 // getClient uses a Context and Config to retrieve a Token
 // then generate a Client. It returns the generated Client.
 func getClient(ctx context.Context, config *oauth2.Config) *http.Client {
@@ -94,34 +126,6 @@ func saveToken(file string, token *oauth2.Token) {
 	defer f.Close()
 
 	json.NewEncoder(f).Encode(token)
-}
-
-func Fetch() (*calendar.Events, error) {
-	ctx := context.Background()
-
-	b, err := ioutil.ReadFile("./gcal/client_secret.json")
-	if err != nil {
-		return nil, err
-	}
-
-	config, err := google.ConfigFromJSON(b, calendar.CalendarReadonlyScope)
-	if err != nil {
-		return nil, err
-	}
-	client := getClient(ctx, config)
-
-	srv, err := calendar.New(client)
-	if err != nil {
-		return nil, err
-	}
-
-	t := today().Format(time.RFC3339)
-	events, err := srv.Events.List("primary").ShowDeleted(false).SingleEvents(true).TimeMin(t).MaxResults(10).OrderBy("startTime").Do()
-	if err != nil {
-		return nil, err
-	}
-
-	return events, err
 }
 
 func today() time.Time {

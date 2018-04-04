@@ -6,13 +6,17 @@ import (
 	"time"
 
 	"github.com/gdamore/tcell"
+	"github.com/olebedev/config"
 	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/wtf"
 	"google.golang.org/api/calendar/v3"
 )
 
+var Config *config.Config
+
 type Widget struct {
 	wtf.BaseWidget
+
 	View *tview.TextView
 }
 
@@ -21,7 +25,7 @@ func NewWidget() *Widget {
 		BaseWidget: wtf.BaseWidget{
 			Name:        "Calendar",
 			RefreshedAt: time.Now(),
-			RefreshInt:  300,
+			RefreshInt:  Config.UInt("wtf.gcal.refreshInterval", 300),
 		},
 	}
 

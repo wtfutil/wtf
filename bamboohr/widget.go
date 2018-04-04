@@ -10,26 +10,21 @@ import (
 	"github.com/senorprogrammer/wtf/wtf"
 )
 
+var Config *config.Config
+
 type Widget struct {
 	wtf.BaseWidget
 
-	Config *config.Config
-	View   *tview.TextView
+	View *tview.TextView
 }
 
-func NewWidget(config *config.Config) *Widget {
-	refreshInterval, err := config.Int("wtf.bamboohr.refreshInterval")
-	if err != nil {
-		refreshInterval = 1
-	}
-
+func NewWidget() *Widget {
 	widget := Widget{
 		BaseWidget: wtf.BaseWidget{
 			Name:        "BambooHR",
 			RefreshedAt: time.Now(),
-			RefreshInt:  refreshInterval,
+			RefreshInt:  Config.UInt("wtf.bamboohr.refreshInterval", 900),
 		},
-		Config: config,
 	}
 
 	widget.addView()
@@ -41,7 +36,7 @@ func NewWidget(config *config.Config) *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	url, _ := widget.Config.String("wtf.bamboohr.url")
+	url, _ := Config.String("wtf.bamboohr.url")
 
 	client := NewClient(url)
 	items := client.Away("timeOff", wtf.Today(), wtf.Today())

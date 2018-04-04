@@ -7,9 +7,12 @@ import (
 	"unicode/utf8"
 
 	"github.com/gdamore/tcell"
+	"github.com/olebedev/config"
 	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/wtf"
 )
+
+var Config *config.Config
 
 type Widget struct {
 	wtf.BaseWidget
@@ -21,7 +24,7 @@ func NewWidget() *Widget {
 		BaseWidget: wtf.BaseWidget{
 			Name:        "Git",
 			RefreshedAt: time.Now(),
-			RefreshInt:  15,
+			RefreshInt:  Config.UInt("wtf.git.refreshInterval", 15),
 		},
 	}
 

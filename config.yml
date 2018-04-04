@@ -3,5 +3,20 @@ wtf:
   bamboohr:
     refreshInterval: 900
     url: "https://api.bamboohr.com/api/gateway.php"
+  gcal:
+    refreshInterval: 300
+  git:
+    refreshInterval: 8
+  jira:
+    refreshInterval: 900
+  opsgenie:
+    refreshInterval: 21600
+  security:
+    refreshInterval: 3600
   status:
     refreshInterval: 1
+  weather:
+    cityId: 6173331
+    language: "EN"
+    tempUnit: "C"
+    refreshInterval: 900

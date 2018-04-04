@@ -7,9 +7,12 @@ import (
 
 	owm "github.com/briandowns/openweathermap"
 	"github.com/gdamore/tcell"
+	"github.com/olebedev/config"
 	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/wtf"
 )
+
+var Config *config.Config
 
 type Widget struct {
 	wtf.BaseWidget
@@ -21,7 +24,7 @@ func NewWidget() *Widget {
 		BaseWidget: wtf.BaseWidget{
 			Name:        "Weather",
 			RefreshedAt: time.Now(),
-			RefreshInt:  900,
+			RefreshInt:  Config.UInt("wtf.weather.refreshInterval", 900),
 		},
 	}
 
@@ -34,7 +37,7 @@ func NewWidget() *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	data := Fetch()
+	data := Fetch(Config.UInt("wtf.weather.cityId", 6176823))
 
 	widget.View.SetTitle(fmt.Sprintf(" %s Weather - %s ", icon(data), data.Name))
 	widget.RefreshedAt = time.Now()
@@ -66,15 +69,18 @@ func (widget *Widget) contentFrom(data *owm.CurrentWeatherData) string {
 
 	str = str + strings.Join(descs, ",") + "\n\n"
 
-	str = str + fmt.Sprintf("%10s: %4.1f° C\n", "Current", data.Main.Temp)
-	str = str + fmt.Sprintf("%10s: %4.1f° C\n", "High", data.Main.TempMax)
-	str = str + fmt.Sprintf("%10s: %4.1f° C\n", "Low", data.Main.TempMin)
+	tempUnit := Config.UString("wtf.weather.tempUnit", "C")
+
+	str = str + fmt.Sprintf("%10s: %4.1f° %s\n", "Current", data.Main.Temp, tempUnit)
+	str = str + fmt.Sprintf("%10s: %4.1f° %s\n", "High", data.Main.TempMax, tempUnit)
+	str = str + fmt.Sprintf("%10s: %4.1f° %s\n", "Low", data.Main.TempMin, tempUnit)
 
 	return str
 }
 
 // icon returns an emoji for the current weather
 // src: https://github.com/chubin/wttr.in/blob/master/share/translations/en.txt
+// Note: these only work for English weather status. Sorry about that
 func icon(data *owm.CurrentWeatherData) string {
 	var icon string
 

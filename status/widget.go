@@ -10,27 +10,22 @@ import (
 	"github.com/senorprogrammer/wtf/wtf"
 )
 
+var Config *config.Config
+
 type Widget struct {
 	wtf.BaseWidget
 
-	Config  *config.Config
 	Current int
 	View    *tview.TextView
 }
 
-func NewWidget(config *config.Config) *Widget {
-	refreshInterval, err := config.Int("wtf.status.refreshInterval")
-	if err != nil {
-		refreshInterval = 1
-	}
-
+func NewWidget() *Widget {
 	widget := Widget{
 		BaseWidget: wtf.BaseWidget{
 			Name:        "Status",
 			RefreshedAt: time.Now(),
-			RefreshInt:  refreshInterval,
+			RefreshInt:  Config.UInt("wtf.status.refreshInterval", 1),
 		},
-		Config:  config,
 		Current: 0,
 	}
 
