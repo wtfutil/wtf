@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	//"fmt"
 	"time"
 
 	"github.com/olebedev/config"
@@ -16,6 +16,8 @@ import (
 	"github.com/senorprogrammer/wtf/weather"
 )
 
+var Config = loadConfig()
+
 func loadConfig() *config.Config {
 	cfg, err := config.ParseYamlFile("./config.yml")
 	if err != nil {
@@ -26,7 +28,12 @@ func loadConfig() *config.Config {
 }
 
 func refresher(stat *status.Widget, app *tview.Application) {
-	tick := time.NewTicker(1 * time.Second)
+	refreshInterval, err := Config.Int("wtf.refresh_interval")
+	if err != nil {
+		refreshInterval = 1
+	}
+
+	tick := time.NewTicker(time.Duration(refreshInterval) * time.Second)
 	quit := make(chan struct{})
 
 	for {
@@ -41,10 +48,6 @@ func refresher(stat *status.Widget, app *tview.Application) {
 }
 
 func main() {
-	cfg := loadConfig()
-
-	fmt.Printf("%v\n", cfg)
-
 	bamboo := bamboohr.NewWidget()
 	bamboo.Refresh()
 
