@@ -74,7 +74,7 @@ func (widget *Widget) contentFrom(events *calendar.Events) string {
 			summary = "🔥 " + summary
 		}
 
-		str = str + fmt.Sprintf(" [%s]%s[white]\n [%s]%s %s[white]\n\n", titleColor(event), summary, descriptionColor(event), timestamp, until)
+		str = str + fmt.Sprintf(" [%s]%s[white]\n [%s]%s %s[white]\n\n", widget.titleColor(event), summary, widget.descriptionColor(event), timestamp, until)
 	}
 
 	return str
@@ -88,26 +88,26 @@ func (widget *Widget) eventIsNow(event *calendar.Event) bool {
 	return time.Now().After(startTime) && time.Now().Before(endTime)
 }
 
-func descriptionColor(item *calendar.Event) string {
-	ts, _ := time.Parse(time.RFC3339, item.Start.DateTime)
+func (widget *Widget) descriptionColor(event *calendar.Event) string {
+	ts, _ := time.Parse(time.RFC3339, event.Start.DateTime)
 
 	color := "white"
-	if ts.Before(time.Now()) {
+	if (widget.eventIsNow(event) == false) && ts.Before(time.Now()) {
 		color = "grey"
 	}
 
 	return color
 }
 
-func titleColor(item *calendar.Event) string {
-	ts, _ := time.Parse(time.RFC3339, item.Start.DateTime)
+func (widget *Widget) titleColor(event *calendar.Event) string {
+	ts, _ := time.Parse(time.RFC3339, event.Start.DateTime)
 
 	color := "red"
-	if strings.Contains(item.Summary, "1on1") {
+	if strings.Contains(event.Summary, "1on1") {
 		color = "green"
 	}
 
-	if ts.Before(time.Now()) {
+	if (widget.eventIsNow(event) == false) && ts.Before(time.Now()) {
 		color = "grey"
 	}
 
