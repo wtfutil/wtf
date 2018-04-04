@@ -8,6 +8,7 @@ import (
 	"github.com/senorprogrammer/wtf/bamboohr"
 	"github.com/senorprogrammer/wtf/gcal"
 	"github.com/senorprogrammer/wtf/git"
+	"github.com/senorprogrammer/wtf/homedir"
 	"github.com/senorprogrammer/wtf/jira"
 	"github.com/senorprogrammer/wtf/opsgenie"
 	"github.com/senorprogrammer/wtf/security"
@@ -18,7 +19,9 @@ import (
 var Config = loadConfig()
 
 func loadConfig() *config.Config {
-	cfg, err := config.ParseYamlFile("./config.yml")
+	configPath, _ := homedir.Expand("~/.wtf/config.yml")
+
+	cfg, err := config.ParseYamlFile(configPath)
 	if err != nil {
 		panic(err)
 	}
