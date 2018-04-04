@@ -34,7 +34,7 @@ func NewWidget() *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	events := Fetch()
+	events, _ := Fetch()
 
 	widget.View.SetTitle(" 🍿 Calendar ")
 	widget.RefreshedAt = time.Now()
@@ -58,6 +58,10 @@ func (widget *Widget) addView() {
 }
 
 func (widget *Widget) contentFrom(events *calendar.Events) string {
+	if events == nil {
+		return ""
+	}
+
 	str := "\n"
 
 	for _, event := range events.Items {

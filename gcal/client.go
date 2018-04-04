@@ -92,35 +92,40 @@ func saveToken(file string, token *oauth2.Token) {
 		log.Fatalf("Unable to cache oauth token: %v", err)
 	}
 	defer f.Close()
+
 	json.NewEncoder(f).Encode(token)
 }
 
-func Fetch() *calendar.Events {
+func Fetch() (*calendar.Events, error) {
 	ctx := context.Background()
 
 	b, err := ioutil.ReadFile("./gcal/client_secret.json")
 	if err != nil {
-		log.Fatalf("Unable to read client secret file: %v", err)
+		//log.Fatalf("Unable to read client secret file: %v", err)
+		return nil, err
 	}
 
 	config, err := google.ConfigFromJSON(b, calendar.CalendarReadonlyScope)
 	if err != nil {
-		log.Fatalf("Unable to parse client secret file to config: %v", err)
+		//log.Fatalf("Unable to parse client secret file to config: %v", err)
+		return nil, err
 	}
 	client := getClient(ctx, config)
 
 	srv, err := calendar.New(client)
 	if err != nil {
-		log.Fatalf("Unable to retrieve calendar Client %v", err)
+		//log.Fatalf("Unable to retrieve calendar Client %v", err)
+		return nil, err
 	}
 
 	t := today().Format(time.RFC3339)
 	events, err := srv.Events.List("primary").ShowDeleted(false).SingleEvents(true).TimeMin(t).MaxResults(10).OrderBy("startTime").Do()
 	if err != nil {
-		log.Fatalf("Unable to retrieve next ten of the user's events. %v", err)
+		//log.Fatalf("Unable to retrieve next ten of the user's events. %v", err)
+		return nil, err
 	}
 
-	return events
+	return events, err
 }
 
 func today() time.Time {
