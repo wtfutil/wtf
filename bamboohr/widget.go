@@ -29,6 +29,7 @@ func NewWidget(config *config.Config) *Widget {
 			RefreshedAt: time.Now(),
 			RefreshInt:  refreshInterval,
 		},
+		Config: config,
 	}
 
 	widget.addView()
@@ -40,7 +41,10 @@ func NewWidget(config *config.Config) *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	items := Fetch()
+	url, _ := widget.Config.String("wtf.bamboohr.url")
+
+	client := NewClient(url)
+	items := client.Away("timeOff", wtf.Today(), wtf.Today())
 
 	widget.View.SetTitle(fmt.Sprintf(" 👽 Away (%d) ", len(items)))
 	widget.RefreshedAt = time.Now()

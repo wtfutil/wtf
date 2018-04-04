@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os/exec"
+	"time"
 )
 
 func CenterText(str string, width int) string {
@@ -28,4 +29,9 @@ func ExecuteCommand(cmd *exec.Cmd) string {
 	cmd.Wait()
 
 	return str
+}
+
+func Today() string {
+	localNow := time.Now().Local()
+	return localNow.Format("2006-01-02")
 }
