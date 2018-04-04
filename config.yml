@@ -1,2 +1,6 @@
 wtf:
   refreshInterval: 1
+  bamboohr:
+    refreshInterval: 900
+  status:
+    refreshInterval: 1

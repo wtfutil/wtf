@@ -5,23 +5,32 @@ import (
 	"time"
 
 	"github.com/gdamore/tcell"
+	"github.com/olebedev/config"
 	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/wtf"
 )
 
 type Widget struct {
 	wtf.BaseWidget
+
+	Config  *config.Config
 	Current int
 	View    *tview.TextView
 }
 
-func NewWidget() *Widget {
+func NewWidget(config *config.Config) *Widget {
+	refreshInterval, err := config.Int("wtf.status.refreshInterval")
+	if err != nil {
+		refreshInterval = 1
+	}
+
 	widget := Widget{
 		BaseWidget: wtf.BaseWidget{
 			Name:        "Status",
 			RefreshedAt: time.Now(),
-			RefreshInt:  1,
+			RefreshInt:  refreshInterval,
 		},
+		Config:  config,
 		Current: 0,
 	}
 

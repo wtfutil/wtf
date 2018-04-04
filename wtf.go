@@ -1,7 +1,6 @@
 package main
 
 import (
-	//"fmt"
 	"time"
 
 	"github.com/olebedev/config"
@@ -28,7 +27,7 @@ func loadConfig() *config.Config {
 }
 
 func refresher(stat *status.Widget, app *tview.Application) {
-	refreshInterval, err := Config.Int("wtf.refresh_interval")
+	refreshInterval, err := Config.Int("wtf.refreshInterval")
 	if err != nil {
 		refreshInterval = 1
 	}
@@ -48,7 +47,7 @@ func refresher(stat *status.Widget, app *tview.Application) {
 }
 
 func main() {
-	bamboo := bamboohr.NewWidget()
+	bamboo := bamboohr.NewWidget(Config)
 	bamboo.Refresh()
 
 	cal := gcal.NewWidget()
@@ -66,7 +65,7 @@ func main() {
 	sec := security.NewWidget()
 	sec.Refresh()
 
-	stat := status.NewWidget()
+	stat := status.NewWidget(Config)
 	stat.Refresh()
 
 	weather := weather.NewWidget()
