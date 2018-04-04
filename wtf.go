@@ -1,8 +1,10 @@
 package main
 
 import (
+	"fmt"
 	"time"
 
+	"github.com/olebedev/config"
 	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/bamboohr"
 	"github.com/senorprogrammer/wtf/gcal"
@@ -13,6 +15,15 @@ import (
 	"github.com/senorprogrammer/wtf/status"
 	"github.com/senorprogrammer/wtf/weather"
 )
+
+func loadConfig() *config.Config {
+	cfg, err := config.ParseYamlFile("./config.yml")
+	if err != nil {
+		panic(err)
+	}
+
+	return cfg
+}
 
 func refresher(stat *status.Widget, app *tview.Application) {
 	tick := time.NewTicker(1 * time.Second)
@@ -30,6 +41,10 @@ func refresher(stat *status.Widget, app *tview.Application) {
 }
 
 func main() {
+	cfg := loadConfig()
+
+	fmt.Printf("%v\n", cfg)
+
 	bamboo := bamboohr.NewWidget()
 	bamboo.Refresh()
 
