@@ -4,7 +4,9 @@ wtf:
     refreshInterval: 900
     url: "https://api.bamboohr.com/api/gateway.php"
   gcal:
+    eventCount: 10
     refreshInterval: 300
+    secretFile: "~/.wtf/gcal/client_secret.json"
   git:
     refreshInterval: 8
   jira:
