@@ -8,17 +8,15 @@ import (
 
 /* -------------------- Exported Functions -------------------- */
 
-func Fetch() *owm.CurrentWeatherData {
+func Fetch(cityID int) *owm.CurrentWeatherData {
 	apiKey := os.Getenv("WTF_OWM_API_KEY")
-	vancouver := 6173331
-
-	return currentWeather(apiKey, vancouver)
+	return currentWeather(apiKey, cityID)
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
 func currentWeather(apiKey string, cityCode int) *owm.CurrentWeatherData {
-	weather, err := owm.NewCurrent("C", "EN", apiKey)
+	weather, err := owm.NewCurrent(Config.UString("wtf.weather.tempUnit", "C"), Config.UString("wtf.weather.language", "EN"), apiKey)
 	if err != nil {
 		panic(err)
 	}

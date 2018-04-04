@@ -6,9 +6,12 @@ import (
 	"time"
 
 	"github.com/gdamore/tcell"
+	"github.com/olebedev/config"
 	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/wtf"
 )
+
+var Config *config.Config
 
 type Widget struct {
 	wtf.BaseWidget
@@ -20,7 +23,7 @@ func NewWidget() *Widget {
 		BaseWidget: wtf.BaseWidget{
 			Name:        "OpsGenie",
 			RefreshedAt: time.Now(),
-			RefreshInt:  21600,
+			RefreshInt:  Config.UInt("wtf.opsgenie.refreshInterval", 21600),
 		},
 	}
 

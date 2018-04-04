@@ -5,9 +5,12 @@ import (
 	"time"
 
 	"github.com/gdamore/tcell"
+	"github.com/olebedev/config"
 	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/wtf"
 )
+
+var Config *config.Config
 
 type Widget struct {
 	wtf.BaseWidget
@@ -19,7 +22,7 @@ func NewWidget() *Widget {
 		BaseWidget: wtf.BaseWidget{
 			Name:        "JIRA",
 			RefreshedAt: time.Now(),
-			RefreshInt:  900,
+			RefreshInt:  Config.UInt("wtf.jira.refreshInterval", 900),
 		},
 	}
 

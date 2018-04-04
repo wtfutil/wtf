@@ -47,27 +47,35 @@ func refresher(stat *status.Widget, app *tview.Application) {
 }
 
 func main() {
-	bamboo := bamboohr.NewWidget(Config)
+	bamboohr.Config = Config
+	bamboo := bamboohr.NewWidget()
 	bamboo.Refresh()
 
+	gcal.Config = Config
 	cal := gcal.NewWidget()
 	cal.Refresh()
 
+	git.Config = Config
 	git := git.NewWidget()
 	git.Refresh()
 
+	jira.Config = Config
 	jira := jira.NewWidget()
 	jira.Refresh()
 
+	opsgenie.Config = Config
 	opsgenie := opsgenie.NewWidget()
 	opsgenie.Refresh()
 
+	security.Config = Config
 	sec := security.NewWidget()
 	sec.Refresh()
 
-	stat := status.NewWidget(Config)
+	status.Config = Config
+	stat := status.NewWidget()
 	stat.Refresh()
 
+	weather.Config = Config
 	weather := weather.NewWidget()
 	weather.Refresh()
 
