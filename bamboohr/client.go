@@ -14,9 +14,9 @@ type Client struct {
 }
 
 // NewClient creates and returns a new BambooHR client
-func NewClient() *Client {
+func NewClient(url string) *Client {
 	client := Client{
-		apiBase:   "https://api.bamboohr.com/api/gateway.php",
+		apiBase:   url,
 		apiKey:    os.Getenv("WTF_BAMBOO_HR_TOKEN"),
 		subdomain: os.Getenv("WTF_BAMBOO_HR_SUBDOMAIN"),
 	}

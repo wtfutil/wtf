@@ -2,5 +2,6 @@ wtf:
   refreshInterval: 1
   bamboohr:
     refreshInterval: 900
+    url: "https://api.bamboohr.com/api/gateway.php"
   status:
     refreshInterval: 1
