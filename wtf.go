@@ -3,13 +3,11 @@ package main
 import (
 	"time"
 
-	"github.com/olebedev/config"
 	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/bamboohr"
 	"github.com/senorprogrammer/wtf/gcal"
 	"github.com/senorprogrammer/wtf/git"
 	"github.com/senorprogrammer/wtf/github"
-	"github.com/senorprogrammer/wtf/homedir"
 	"github.com/senorprogrammer/wtf/jira"
 	"github.com/senorprogrammer/wtf/opsgenie"
 	"github.com/senorprogrammer/wtf/security"
@@ -17,19 +15,6 @@ import (
 	"github.com/senorprogrammer/wtf/weather"
 	"github.com/senorprogrammer/wtf/wtf"
 )
-
-var Config = loadConfig()
-
-func loadConfig() *config.Config {
-	configPath, _ := homedir.Expand("~/.wtf/config.yml")
-
-	cfg, err := config.ParseYamlFile(configPath)
-	if err != nil {
-		panic(err)
-	}
-
-	return cfg
-}
 
 func refresher(stat *status.Widget, app *tview.Application) {
 	tick := time.NewTicker(time.Duration(Config.UInt("wtf.refreshInterval", 1)) * time.Second)
@@ -46,7 +31,13 @@ func refresher(stat *status.Widget, app *tview.Application) {
 	}
 }
 
+var result = wtf.CreateConfigDir()
+var Config = wtf.LoadConfigFile()
+
+/* -------------------- Main -------------------- */
+
 func main() {
+
 	bamboohr.Config = Config
 	bamboo := bamboohr.NewWidget()
 	bamboo.Refresh()
