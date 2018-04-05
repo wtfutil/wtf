@@ -35,3 +35,7 @@ func Today() string {
 	localNow := time.Now().Local()
 	return localNow.Format("2006-01-02")
 }
+
+func UnixTime(unix int64) time.Time {
+	return time.Unix(unix, 0)
+}

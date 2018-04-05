@@ -5,10 +5,10 @@ import ()
 func Fetch() map[string]string {
 	data := make(map[string]string)
 
-	data["Firewall Enabled"] = FirewallState()
-	data["Firewall Stealth"] = FirewallStealthState()
-	data["Wifi Encryption"] = WifiEncryption()
-	data["Wifi Network"] = WifiName()
+	data["Enabled"] = FirewallState()
+	data["Stealth"] = FirewallStealthState()
+	data["Encryption"] = WifiEncryption()
+	data["Network"] = WifiName()
 
 	return data
 }

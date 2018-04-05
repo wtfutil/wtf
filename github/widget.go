@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/gdamore/tcell"
+	ghb "github.com/google/go-github/github"
 	"github.com/olebedev/config"
 	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/wtf"
@@ -34,11 +35,25 @@ func NewWidget() *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	widget.View.SetTitle(fmt.Sprintf(" %s ", widget.Name))
+	client := NewClient()
+	repo := client.Repository(Config.UString("wtf.github.organization"), Config.UString("wtf.github.repo"))
+	org := *repo.Organization
+	prs := client.PullRequests(Config.UString("wtf.github.organization"), Config.UString("wtf.github.repo"))
+
+	title := fmt.Sprintf("[green]%s - %s[white]", *org.Login, *repo.Name)
+
+	widget.View.SetTitle(fmt.Sprintf(" 🤘 %s ", title))
 	widget.RefreshedAt = time.Now()
 
+	str := "\n"
+	str = str + " [red]Open Review Requests[white]\n"
+	str = str + widget.prsForReview(prs)
+	str = str + "\n"
+	str = str + " [red]Open Pull Requests[white]\n"
+	str = str + widget.openPRs(prs)
+
 	widget.View.Clear()
-	fmt.Fprintf(widget.View, "%s", "github")
+	fmt.Fprintf(widget.View, str)
 }
 
 /* -------------------- Unexported Functions -------------------- */
@@ -50,6 +65,51 @@ func (widget *Widget) addView() {
 	view.SetBorderColor(tcell.ColorGray)
 	view.SetDynamicColors(true)
 	view.SetTitle(widget.Name)
+	view.SetWrap(false)
 
 	widget.View = view
+}
+
+func (widget *Widget) prsForReview(prs []*ghb.PullRequest) string {
+	if len(prs) > 0 {
+		str := ""
+
+		for _, pr := range prs {
+			for _, reviewer := range pr.RequestedReviewers {
+				if *reviewer.Login == Config.UString("wtf.github.username") {
+					str = str + fmt.Sprintf(" [green]%d[white] %s\n", *pr.Number, *pr.Title)
+				}
+			}
+		}
+
+		if str == "" {
+			str = " [grey]none[white]\n"
+		}
+
+		return str
+	}
+
+	return " [grey]none[white]\n"
+}
+
+func (widget *Widget) openPRs(prs []*ghb.PullRequest) string {
+	if len(prs) > 0 {
+		str := ""
+
+		for _, pr := range prs {
+			user := *pr.User
+
+			if *user.Login == Config.UString("wtf.github.username") {
+				str = str + fmt.Sprintf(" [green]%d[white] %s\n", *pr.Number, *pr.Title)
+			}
+		}
+
+		if str == "" {
+			str = " [grey]none[white]\n"
+		}
+
+		return str
+	}
+
+	return " [grey]none[white]\n"
 }

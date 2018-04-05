@@ -38,9 +38,9 @@ func NewWidget() *Widget {
 func (widget *Widget) Refresh() {
 	data := Fetch()
 
-	str := fmt.Sprintf("[green]%s[white] [dodgerblue]%s[white]\n", data["repo"][0], data["branch"][0])
+	title := fmt.Sprintf("[green]%s[white]\n", data["repo"][0])
 
-	widget.View.SetTitle(fmt.Sprintf(" 🤞 %s ", str))
+	widget.View.SetTitle(fmt.Sprintf(" 🤞 %s ", title))
 	widget.RefreshedAt = time.Now()
 
 	widget.View.Clear()
@@ -63,6 +63,9 @@ func (widget *Widget) addView() {
 
 func (widget *Widget) contentFrom(data map[string][]string) string {
 	str := "\n"
+	str = str + " [red]Branch[white]\n"
+	str = str + fmt.Sprintf(" %s", data["branch"][0])
+	str = str + "\n"
 	str = str + widget.formatChanges(data["changes"])
 	str = str + "\n"
 	str = str + widget.formatCommits(data["commits"])
