@@ -10,7 +10,7 @@ wtf:
   git:
     commitCount: 10
     refreshInterval: 8
-    repository: "/Users/chris/Documents/Lendesk/core-api"
+    repository: "/Users/chris/go/src/github.com/senorprogrammer/wtf"
   github:
     refreshInterval: 900
     repo: "core-api"
