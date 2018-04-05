@@ -65,22 +65,51 @@ func (widget *Widget) contentFrom(events *calendar.Events) string {
 		return ""
 	}
 
-	str := "\n"
+	var prevEvent *calendar.Event
 
+	str := ""
 	for _, event := range events.Items {
-		startTime, _ := time.Parse(time.RFC3339, event.Start.DateTime)
-		timestamp := startTime.Format("Mon, Jan 2, 15:04")
-		until := widget.until(startTime)
+		str = str + fmt.Sprintf(
+			"%s\n [%s]%s[white]\n [%s]%s %s[white]\n",
+			widget.dayDivider(event, prevEvent),
+			widget.titleColor(event),
+			widget.eventSummary(event),
+			widget.descriptionColor(event),
+			widget.eventTimestamp(event),
+			widget.until(event),
+		)
 
-		summary := event.Summary
-		if widget.eventIsNow(event) {
-			summary = "🔥 " + summary
-		}
-
-		str = str + fmt.Sprintf(" [%s]%s[white]\n [%s]%s %s[white]\n\n", widget.titleColor(event), summary, widget.descriptionColor(event), timestamp, until)
+		prevEvent = event
 	}
 
 	return str
+}
+
+func (widget *Widget) dayDivider(event, prevEvent *calendar.Event) string {
+	if prevEvent != nil {
+		prevStartTime, _ := time.Parse(time.RFC3339, prevEvent.Start.DateTime)
+		currStartTime, _ := time.Parse(time.RFC3339, event.Start.DateTime)
+
+		if currStartTime.Day() != prevStartTime.Day() {
+			return "[green]⎯[white]"
+		}
+	}
+
+	return ""
+}
+
+func (widget *Widget) eventSummary(event *calendar.Event) string {
+	summary := event.Summary
+	if widget.eventIsNow(event) {
+		summary = "🔥 " + summary
+	}
+
+	return summary
+}
+
+func (widget *Widget) eventTimestamp(event *calendar.Event) string {
+	startTime, _ := time.Parse(time.RFC3339, event.Start.DateTime)
+	return startTime.Format("Mon, Jan 2, 15:04")
 }
 
 // eventIsNow returns true if the event is happening now, false if it not
@@ -119,8 +148,9 @@ func (widget *Widget) titleColor(event *calendar.Event) string {
 
 // until returns the number of hours or days until the event
 // If the event is in the past, returns nil
-func (widget *Widget) until(start time.Time) string {
-	duration := time.Until(start)
+func (widget *Widget) until(event *calendar.Event) string {
+	startTime, _ := time.Parse(time.RFC3339, event.Start.DateTime)
+	duration := time.Until(startTime)
 
 	duration = duration.Round(time.Minute)
 
