@@ -27,7 +27,6 @@ func NewWidget() *Widget {
 	}
 
 	widget.addView()
-	go wtf.Refresh(&widget)
 
 	return &widget
 }
@@ -35,7 +34,7 @@ func NewWidget() *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	widget.View.SetTitle(" JIRA ")
+	widget.View.SetTitle(fmt.Sprintf(" %s ", widget.Name))
 	widget.RefreshedAt = time.Now()
 
 	widget.View.Clear()

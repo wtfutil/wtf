@@ -30,7 +30,6 @@ func NewWidget() *Widget {
 	}
 
 	widget.addView()
-	go wtf.Refresh(&widget)
 
 	return &widget
 }
