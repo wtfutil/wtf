@@ -1,28 +1,23 @@
 package git
 
 import (
+	"fmt"
 	"os/exec"
 	"strings"
 
 	"github.com/senorprogrammer/wtf/wtf"
 )
 
-type Client struct {
-	CommitCount int
-}
+type Client struct{}
 
 func NewClient() *Client {
-	client := Client{
-		CommitCount: 10,
-	}
-
-	return &client
+	return &Client{}
 }
 
-/* -------------------- Unexported Functions -------------------- */
+/* -------------------- Exported Functions -------------------- */
 
 func (client *Client) Branch() string {
-	arg := []string{"rev-parse", "--abbrev-ref", "HEAD"}
+	arg := []string{client.gitDir(), client.workTree(), "rev-parse", "--abbrev-ref", "HEAD"}
 	cmd := exec.Command("git", arg...)
 	str := wtf.ExecuteCommand(cmd)
 
@@ -30,7 +25,7 @@ func (client *Client) Branch() string {
 }
 
 func (client *Client) ChangedFiles() []string {
-	arg := []string{"status", "--porcelain"}
+	arg := []string{client.gitDir(), client.workTree(), "status", "--porcelain"}
 	cmd := exec.Command("git", arg...)
 	str := wtf.ExecuteCommand(cmd)
 
@@ -40,7 +35,9 @@ func (client *Client) ChangedFiles() []string {
 }
 
 func (client *Client) Commits() []string {
-	arg := []string{"log", "--date=format:\"%b %d, %Y\"", "-n 10", "--pretty=format:\"[forestgreen]%h [white]%s [grey]%an on %cd[white]\""}
+	numStr := fmt.Sprintf("-n %d", Config.UInt("wtf.git.commitCount", 10))
+
+	arg := []string{client.gitDir(), client.workTree(), "log", "--date=format:\"%b %d, %Y\"", numStr, "--pretty=format:\"[forestgreen]%h [white]%s [grey]%an on %cd[white]\""}
 	cmd := exec.Command("git", arg...)
 	str := wtf.ExecuteCommand(cmd)
 
@@ -50,9 +47,19 @@ func (client *Client) Commits() []string {
 }
 
 func (client *Client) Repository() string {
-	arg := []string{"rev-parse", "--show-toplevel"}
+	arg := []string{client.gitDir(), client.workTree(), "rev-parse", "--show-toplevel"}
 	cmd := exec.Command("git", arg...)
 	str := wtf.ExecuteCommand(cmd)
 
 	return str
+}
+
+/* -------------------- Exported Functions -------------------- */
+
+func (client *Client) gitDir() string {
+	return fmt.Sprintf("--git-dir=%s/.git", Config.UString("wtf.git.repository"))
+}
+
+func (client *Client) workTree() string {
+	return fmt.Sprintf("--work-tree=%s", Config.UString("wtf.git.repository"))
 }

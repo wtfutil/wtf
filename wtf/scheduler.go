@@ -4,12 +4,12 @@ import (
 	"time"
 )
 
-type Refresher interface {
+type Scheduler interface {
 	Refresh()
 	RefreshInterval() int
 }
 
-func Refresh(widget Refresher) {
+func Schedule(widget Scheduler) {
 	tick := time.NewTicker(time.Duration(widget.RefreshInterval()) * time.Second)
 	quit := make(chan struct{})
 

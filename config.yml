@@ -8,7 +8,12 @@ wtf:
     refreshInterval: 300
     secretFile: "~/.wtf/gcal/client_secret.json"
   git:
+    commitCount: 10
     refreshInterval: 8
+    repository: "/Users/chris/Documents/Lendesk/core-api"
+  github:
+    refreshInterval: 900
+    repo: "core-api"
   jira:
     refreshInterval: 900
   opsgenie:

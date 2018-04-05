@@ -1,8 +1,7 @@
-package security
+package github
 
 import (
 	"fmt"
-	"sort"
 	"time"
 
 	"github.com/gdamore/tcell"
@@ -21,9 +20,9 @@ type Widget struct {
 func NewWidget() *Widget {
 	widget := Widget{
 		BaseWidget: wtf.BaseWidget{
-			Name:        "Security",
+			Name:        "Github",
 			RefreshedAt: time.Now(),
-			RefreshInt:  Config.UInt("wtf.security.refreshInterval", 3600),
+			RefreshInt:  Config.UInt("wtf.github.refreshInterval", 900),
 		},
 	}
 
@@ -35,13 +34,11 @@ func NewWidget() *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	data := Fetch()
-
-	widget.View.SetTitle(" 🤺 Security ")
+	widget.View.SetTitle(fmt.Sprintf(" %s ", widget.Name))
 	widget.RefreshedAt = time.Now()
 
 	widget.View.Clear()
-	fmt.Fprintf(widget.View, "%s", widget.contentFrom(data))
+	fmt.Fprintf(widget.View, "%s", "github")
 }
 
 /* -------------------- Unexported Functions -------------------- */
@@ -55,22 +52,4 @@ func (widget *Widget) addView() {
 	view.SetTitle(widget.Name)
 
 	widget.View = view
-}
-
-func (widget *Widget) contentFrom(data map[string]string) string {
-	str := "\n"
-
-	// Sort the map keys in alphabetical order
-	var keys []string
-	for key, _ := range data {
-		keys = append(keys, key)
-	}
-	sort.Strings(keys)
-
-	for _, key := range keys {
-		val := data[key]
-		str = str + fmt.Sprintf(" %16s: %s\n", key, val)
-	}
-
-	return str
 }
