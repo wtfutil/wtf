@@ -83,19 +83,19 @@ func main() {
 	weather.Refresh()
 
 	grid := tview.NewGrid()
-	grid.SetRows(9, 9, 9, 9, 9, 6, 3) // How _high_ the row is, in terminal rows
-	grid.SetColumns(40, 40)           // How _wide_ the column is, in terminal columns
+	grid.SetRows(10, 10, 10, 10, 10, 4) // How _high_ the row is, in terminal rows
+	grid.SetColumns(37, 37, 37, 37, 37) // How _wide_ the column is, in terminal columns
 	grid.SetBorder(false)
 
 	grid.AddItem(bamboo.View, 0, 0, 2, 1, 0, 0, false)
 	grid.AddItem(cal.View, 2, 1, 4, 1, 0, 0, false)
-	grid.AddItem(git.View, 0, 2, 3, 1, 0, 0, false)
-	grid.AddItem(github.View, 3, 2, 3, 1, 0, 0, false)
+	grid.AddItem(git.View, 0, 2, 3, 3, 0, 0, false)
+	grid.AddItem(github.View, 3, 2, 2, 3, 0, 0, false)
 	grid.AddItem(weather.View, 0, 1, 1, 1, 0, 0, false)
-	grid.AddItem(sec.View, 1, 1, 1, 1, 0, 0, false)
-	grid.AddItem(opsgenie.View, 2, 0, 3, 1, 0, 0, false)
-	grid.AddItem(jira.View, 5, 0, 1, 1, 0, 0, false)
-	grid.AddItem(stat.View, 6, 0, 3, 3, 0, 0, false)
+	grid.AddItem(sec.View, 5, 0, 1, 1, 0, 0, false)
+	grid.AddItem(opsgenie.View, 2, 0, 2, 1, 0, 0, false)
+	grid.AddItem(jira.View, 1, 1, 1, 1, 0, 0, false)
+	grid.AddItem(stat.View, 5, 2, 3, 3, 0, 0, false)
 
 	app := tview.NewApplication()
 

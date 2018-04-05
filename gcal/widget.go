@@ -99,12 +99,11 @@ func (widget *Widget) dayDivider(event, prevEvent *calendar.Event) string {
 }
 
 func (widget *Widget) eventSummary(event *calendar.Event) string {
-	summary := event.Summary
 	if widget.eventIsNow(event) {
-		summary = "🔥 " + summary
+		return fmt.Sprintf("%s %s", Config.UString("wtf.gcal.currentIcon", "🔸"), event.Summary)
 	}
 
-	return summary
+	return event.Summary
 }
 
 func (widget *Widget) eventTimestamp(event *calendar.Event) string {

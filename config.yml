@@ -4,6 +4,7 @@ wtf:
     refreshInterval: 900
     url: "https://api.bamboohr.com/api/gateway.php"
   gcal:
+    currentIcon: "💥"
     eventCount: 10
     refreshInterval: 300
     secretFile: "~/.wtf/gcal/client_secret.json"
@@ -12,8 +13,10 @@ wtf:
     refreshInterval: 8
     repository: "/Users/chris/go/src/github.com/senorprogrammer/wtf"
   github:
-    refreshInterval: 900
+    organization: "BetterOfficeApps"
+    refreshInterval: 300
     repo: "core-api"
+    username: "senorprogrammer"
   jira:
     refreshInterval: 900
   opsgenie:

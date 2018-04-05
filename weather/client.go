@@ -1,6 +1,7 @@
 package weather
 
 import (
+	//"fmt"
 	"os"
 
 	owm "github.com/briandowns/openweathermap"

@@ -2,7 +2,7 @@ package security
 
 import (
 	"fmt"
-	"sort"
+	//"sort"
 	"time"
 
 	"github.com/gdamore/tcell"
@@ -53,24 +53,14 @@ func (widget *Widget) addView() {
 	view.SetBorderColor(tcell.ColorGray)
 	view.SetDynamicColors(true)
 	view.SetTitle(widget.Name)
+	view.SetWrap(false)
 
 	widget.View = view
 }
 
 func (widget *Widget) contentFrom(data map[string]string) string {
-	str := "\n"
-
-	// Sort the map keys in alphabetical order
-	var keys []string
-	for key, _ := range data {
-		keys = append(keys, key)
-	}
-	sort.Strings(keys)
-
-	for _, key := range keys {
-		val := data[key]
-		str = str + fmt.Sprintf(" %16s: %s\n", key, val)
-	}
+	str := fmt.Sprintf(" Firewall: %s  Network: %s\n", data["Enabled"], data["Network"])
+	str = str + fmt.Sprintf("  Stealth: %s   Crypto: %s\n", data["Stealth"], data["Encryption"])
 
 	return str
 }

@@ -63,7 +63,7 @@ func (widget *Widget) addView() {
 
 func (widget *Widget) contentFrom(items []Item) string {
 	if len(items) == 0 {
-		return fmt.Sprintf("\n\n\n\n\n\n\n%s", wtf.CenterText("[grey]no one[white]", 52))
+		return fmt.Sprintf("\n\n\n\n\n\n\n\n%s", wtf.CenterText("[grey]no one[white]", 50))
 	}
 
 	str := "\n"

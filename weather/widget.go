@@ -70,9 +70,16 @@ func (widget *Widget) contentFrom(data *owm.CurrentWeatherData) string {
 
 	tempUnit := Config.UString("wtf.weather.tempUnit", "C")
 
-	str = str + fmt.Sprintf("%10s: %4.1f° %s\n", "Current", data.Main.Temp, tempUnit)
-	str = str + fmt.Sprintf("%10s: %4.1f° %s\n", "High", data.Main.TempMax, tempUnit)
-	str = str + fmt.Sprintf("%10s: %4.1f° %s\n", "Low", data.Main.TempMin, tempUnit)
+	str = str + fmt.Sprintf("%8s: %4.1f° %s\n", "High", data.Main.TempMax, tempUnit)
+	str = str + fmt.Sprintf("%8s: [yellow]%4.1f° %s[white]\n", "Current", data.Main.Temp, tempUnit)
+	str = str + fmt.Sprintf("%8s: %4.1f° %s\n", "Low", data.Main.TempMin, tempUnit)
+
+	str = str + "\n"
+	str = str + fmt.Sprintf(
+		" Sunrise: %s      Sunset: %s\n",
+		wtf.UnixTime(int64(data.Sys.Sunrise)).Format("15:04"),
+		wtf.UnixTime(int64(data.Sys.Sunset)).Format("15:04"),
+	)
 
 	return str
 }
