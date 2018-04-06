@@ -18,6 +18,7 @@ wtf:
     repo: "core-api"
     username: "senorprogrammer"
   jira:
+    boardId: 19
     refreshInterval: 900
   opsgenie:
     refreshInterval: 21600
