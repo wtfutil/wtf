@@ -2,11 +2,10 @@ package bamboohr
 
 import (
 	"fmt"
-	"time"
-)
+	//"time"
 
-// DateFormat defines the format we expect to receive dates from BambooHR in
-const DateFormat = "2006-01-02"
+	"github.com/senorprogrammer/wtf/wtf"
+)
 
 type Item struct {
 	Employee Employee `xml:"employee"`
@@ -20,7 +19,7 @@ func (item *Item) String() string {
 	return fmt.Sprintf("Item: %s, %s, %s, %s", item.Type, item.Employee.Name, item.Start, item.End)
 }
 
-/* -------------------- Public Functions -------------------- */
+/* -------------------- Exported Functions -------------------- */
 
 func (item *Item) IsOneDay() bool {
 	return item.Start == item.End
@@ -35,12 +34,9 @@ func (item *Item) Name() string {
 }
 
 func (item *Item) PrettyStart() string {
-	newTime, _ := time.Parse(DateFormat, item.Start)
-	return fmt.Sprint(newTime.Format("Jan 2, 2006"))
+	return wtf.PrettyDate(item.Start)
 }
 
 func (item *Item) PrettyEnd() string {
-	newTime, _ := time.Parse(DateFormat, item.End)
-	end := fmt.Sprint(newTime.Format("Jan 2, 2006"))
-	return end
+	return wtf.PrettyDate(item.End)
 }

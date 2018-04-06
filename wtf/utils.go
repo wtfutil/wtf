@@ -7,6 +7,9 @@ import (
 	"time"
 )
 
+// DateFormat defines the format we expect to receive dates from BambooHR in
+const DateFormat = "2006-01-02"
+
 func CenterText(str string, width int) string {
 	return fmt.Sprintf("%[1]*s", -width, fmt.Sprintf("%[1]*s", (width+len(str))/2, str))
 }
@@ -29,6 +32,11 @@ func ExecuteCommand(cmd *exec.Cmd) string {
 	cmd.Wait()
 
 	return str
+}
+
+func PrettyDate(dateStr string) string {
+	newTime, _ := time.Parse(DateFormat, dateStr)
+	return fmt.Sprint(newTime.Format("Jan 2, 2006"))
 }
 
 func Today() string {
