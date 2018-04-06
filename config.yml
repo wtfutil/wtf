@@ -9,7 +9,7 @@ wtf:
     refreshInterval: 300
     secretFile: "~/.wtf/gcal/client_secret.json"
   git:
-    commitCount: 10
+    commitCount: 5
     refreshInterval: 8
     repository: "/Users/chris/go/src/github.com/senorprogrammer/wtf"
   github:
