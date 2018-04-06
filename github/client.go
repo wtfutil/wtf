@@ -2,7 +2,7 @@ package github
 
 import (
 	"context"
-	"fmt"
+	//"fmt"
 	"net/http"
 	"os"
 
@@ -22,7 +22,7 @@ func NewClient() *Client {
 	return &client
 }
 
-func (client *Client) PullRequests(orgName string, repoName string) []*ghb.PullRequest {
+func (client *Client) PullRequests(orgName string, repoName string) ([]*ghb.PullRequest, error) {
 	oauthClient := client.oauthClient()
 	github := ghb.NewClient(oauthClient)
 
@@ -31,25 +31,27 @@ func (client *Client) PullRequests(orgName string, repoName string) []*ghb.PullR
 	prs, _, err := github.PullRequests.List(context.Background(), orgName, repoName, opts)
 
 	if err != nil {
-		fmt.Printf("Problem in getting pull request information %v\n", err)
-		os.Exit(1)
+		return nil, err
+		//fmt.Printf("Problem in getting pull request information %v\n", err)
+		//os.Exit(1)
 	}
 
-	return prs
+	return prs, nil
 }
 
-func (client *Client) Repository(orgName string, repoName string) *ghb.Repository {
+func (client *Client) Repository(orgName string, repoName string) (*ghb.Repository, error) {
 	oauthClient := client.oauthClient()
 	github := ghb.NewClient(oauthClient)
 
 	repo, _, err := github.Repositories.Get(context.Background(), orgName, repoName)
 
 	if err != nil {
-		fmt.Printf("Problem in getting repository information %v\n", err)
-		os.Exit(1)
+		return nil, err
+		//fmt.Printf("Problem in getting repository information %v\n", err)
+		//os.Exit(1)
 	}
 
-	return repo
+	return repo, nil
 }
 
 /* -------------------- Unexported Functions -------------------- */

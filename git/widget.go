@@ -40,7 +40,7 @@ func (widget *Widget) Refresh() {
 
 	title := fmt.Sprintf("[green]%s[white]\n", data["repo"][0])
 
-	widget.View.SetTitle(fmt.Sprintf(" 🤞 %s ", title))
+	widget.View.SetTitle(fmt.Sprintf(" Git: %s ", title))
 	widget.RefreshedAt = time.Now()
 
 	widget.View.Clear()

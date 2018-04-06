@@ -36,13 +36,15 @@ func NewWidget() *Widget {
 
 func (widget *Widget) Refresh() {
 	client := NewClient()
-	repo := client.Repository(Config.UString("wtf.github.organization"), Config.UString("wtf.github.repo"))
+
+	repo, _ := client.Repository(Config.UString("wtf.github.organization"), Config.UString("wtf.github.repo"))
 	org := *repo.Organization
-	prs := client.PullRequests(Config.UString("wtf.github.organization"), Config.UString("wtf.github.repo"))
+
+	prs, _ := client.PullRequests(Config.UString("wtf.github.organization"), Config.UString("wtf.github.repo"))
 
 	title := fmt.Sprintf("[green]%s - %s[white]", *org.Login, *repo.Name)
 
-	widget.View.SetTitle(fmt.Sprintf(" 🤘 %s ", title))
+	widget.View.SetTitle(fmt.Sprintf(" Github: %s ", title))
 	widget.RefreshedAt = time.Now()
 
 	str := "\n"
