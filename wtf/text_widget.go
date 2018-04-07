@@ -18,7 +18,8 @@ type Position struct {
 }
 
 type TextWidget struct {
-	Enabled     bool
+	enabled bool
+
 	Name        string
 	Position    Position
 	RefreshedAt time.Time
@@ -28,7 +29,7 @@ type TextWidget struct {
 
 func NewTextWidget(name string, configKey string) TextWidget {
 	widget := TextWidget{
-		Enabled:    Config.UBool(fmt.Sprintf("wtf.%s.enabled", configKey), false),
+		enabled:    Config.UBool(fmt.Sprintf("wtf.%s.enabled", configKey), false),
 		Name:       name,
 		RefreshInt: Config.UInt(fmt.Sprintf("wtf.%s.refreshInterval", configKey)),
 	}
@@ -37,6 +38,14 @@ func NewTextWidget(name string, configKey string) TextWidget {
 }
 
 /* -------------------- Exported Functions -------------------- */
+
+func (widget *TextWidget) Disabled() bool {
+	return !widget.Enabled()
+}
+
+func (widget *TextWidget) Enabled() bool {
+	return widget.enabled
+}
 
 func (widget *TextWidget) RefreshInterval() int {
 	return widget.RefreshInt

@@ -29,7 +29,7 @@ func NewWidget() *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	if widget.Enabled == false {
+	if widget.Disabled() {
 		return
 	}
 
