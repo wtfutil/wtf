@@ -38,6 +38,7 @@ var Config = wtf.LoadConfigFile()
 /* -------------------- Main -------------------- */
 
 func main() {
+	wtf.Config = Config
 
 	bamboohr.Config = Config
 	bamboo := bamboohr.NewWidget()

@@ -14,17 +14,12 @@ import (
 var Config *config.Config
 
 type Widget struct {
-	wtf.BaseWidget
-	View *tview.TextView
+	wtf.TextWidget
 }
 
 func NewWidget() *Widget {
 	widget := Widget{
-		BaseWidget: wtf.BaseWidget{
-			Name:        "Security",
-			RefreshedAt: time.Now(),
-			RefreshInt:  Config.UInt("wtf.security.refreshInterval", 3600),
-		},
+		TextWidget: wtf.NewTextWidget("Security", "security"),
 	}
 
 	widget.addView()

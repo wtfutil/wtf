@@ -1,36 +1,96 @@
 wtf:
   refreshInterval: 1
   bamboohr:
+    enabled: false
+    position:
+      top:
+      left:
+      width:
+      height:
     refreshInterval: 900
     url: "https://api.bamboohr.com/api/gateway.php"
   gcal:
     currentIcon: "💥"
+    enabled: true
     eventCount: 10
+    position:
+      top:
+      left:
+      width:
+      height:
     refreshInterval: 300
     secretFile: "~/.wtf/gcal/client_secret.json"
   git:
     commitCount: 5
+    enabled: true
+    position:
+      top:
+      left:
+      width:
+      height:
     refreshInterval: 8
     repository: "/Users/chris/go/src/github.com/senorprogrammer/wtf"
   github:
+    enabled: true
     organization: "BetterOfficeApps"
+    position:
+      top:
+      left:
+      width:
+      height:
     refreshInterval: 300
     repo: "core-api"
     username: "senorprogrammer"
   jira:
+    enabled: true
+    position:
+      top:
+      left:
+      width:
+      height:
     refreshInterval: 900
   newrelic:
     applicationId: 10549735
+    enabled: true
     deployCount: 5
+    position:
+      top:
+      left:
+      width:
+      height:
     refreshInterval: 900
   opsgenie:
+    enabled: true
+    position:
+      top:
+      left:
+      width:
+      height:
     refreshInterval: 21600
   security:
+    enabled: true
+    position:
+      top:
+      left:
+      width:
+      height:
     refreshInterval: 3600
   status:
+    enabled: true
+    position:
+      top:
+      left:
+      width:
+      height:
     refreshInterval: 1
   weather:
     cityId: 6173331
+    enabled: true
     language: "EN"
+    position:
+      top:
+      left:
+      width:
+      height:
     tempUnit: "C"
     refreshInterval: 900

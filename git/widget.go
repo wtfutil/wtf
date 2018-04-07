@@ -15,17 +15,12 @@ import (
 var Config *config.Config
 
 type Widget struct {
-	wtf.BaseWidget
-	View *tview.TextView
+	wtf.TextWidget
 }
 
 func NewWidget() *Widget {
 	widget := Widget{
-		BaseWidget: wtf.BaseWidget{
-			Name:        "Git",
-			RefreshedAt: time.Now(),
-			RefreshInt:  Config.UInt("wtf.git.refreshInterval", 15),
-		},
+		TextWidget: wtf.NewTextWidget("Git", "git"),
 	}
 
 	widget.addView()
