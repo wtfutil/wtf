@@ -28,7 +28,7 @@ type TextWidget struct {
 
 func NewTextWidget(name string, configKey string) TextWidget {
 	widget := TextWidget{
-		Enabled:    Config.UBool(fmt.Sprintf("wtf.%s.refreshInterval", configKey), false),
+		Enabled:    Config.UBool(fmt.Sprintf("wtf.%s.enabled", configKey), false),
 		Name:       name,
 		RefreshInt: Config.UInt(fmt.Sprintf("wtf.%s.refreshInterval", configKey)),
 	}

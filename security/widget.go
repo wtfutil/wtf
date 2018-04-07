@@ -30,6 +30,10 @@ func NewWidget() *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
+	if widget.Enabled == false {
+		return
+	}
+
 	data := Fetch()
 
 	widget.View.SetTitle(" 🤺 Security ")

@@ -31,6 +31,10 @@ func NewWidget() *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
+	if widget.Enabled == false {
+		return
+	}
+
 	events, _ := Fetch()
 
 	widget.View.SetTitle(" 🍿 Calendar ")

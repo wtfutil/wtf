@@ -68,7 +68,7 @@ wtf:
       height:
     refreshInterval: 21600
   security:
-    enabled: true
+    enabled: false
     position:
       top:
       left:

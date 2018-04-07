@@ -29,6 +29,10 @@ func NewWidget() *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
+	if widget.Enabled == false {
+		return
+	}
+
 	url, _ := Config.String("wtf.bamboohr.url")
 
 	client := NewClient(url)

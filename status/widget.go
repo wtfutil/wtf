@@ -32,6 +32,10 @@ func NewWidget() *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
+	if widget.Enabled == false {
+		return
+	}
+
 	widget.View.SetTitle(" 🎉 Status ")
 	widget.RefreshedAt = time.Now()
 

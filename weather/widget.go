@@ -31,6 +31,10 @@ func NewWidget() *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
+	if widget.Enabled == false {
+		return
+	}
+
 	data := Fetch(Config.UInt("wtf.weather.cityId", 6176823))
 
 	widget.View.SetTitle(fmt.Sprintf(" %s Weather - %s ", icon(data), data.Name))

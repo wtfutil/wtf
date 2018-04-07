@@ -29,6 +29,10 @@ func NewWidget() *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
+	if widget.Enabled == false {
+		return
+	}
+
 	widget.View.SetTitle(fmt.Sprintf(" %s ", widget.Name))
 	widget.RefreshedAt = time.Now()
 

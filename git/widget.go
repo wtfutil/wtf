@@ -31,6 +31,10 @@ func NewWidget() *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
+	if widget.Enabled == false {
+		return
+	}
+
 	data := Fetch()
 
 	title := fmt.Sprintf("[green]%s[white]\n", data["repo"][0])

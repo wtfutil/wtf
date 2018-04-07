@@ -30,6 +30,10 @@ func NewWidget() *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
+	if widget.Enabled == false {
+		return
+	}
+
 	client := NewClient()
 
 	repo, _ := client.Repository(Config.UString("wtf.github.organization"), Config.UString("wtf.github.repo"))
