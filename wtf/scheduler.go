@@ -13,6 +13,9 @@ func Schedule(widget Scheduler) {
 	tick := time.NewTicker(time.Duration(widget.RefreshInterval()) * time.Second)
 	quit := make(chan struct{})
 
+	// Kick off the first refresh and then leave the rest to the timer
+	widget.Refresh()
+
 	for {
 		select {
 		case <-tick.C:

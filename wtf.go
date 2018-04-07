@@ -41,52 +41,43 @@ func main() {
 
 	bamboohr.Config = Config
 	bamboo := bamboohr.NewWidget()
-	bamboo.Refresh()
 	go wtf.Schedule(bamboo)
 
 	gcal.Config = Config
 	cal := gcal.NewWidget()
-	cal.Refresh()
 	go wtf.Schedule(cal)
 
 	git.Config = Config
 	git := git.NewWidget()
-	git.Refresh()
 	go wtf.Schedule(git)
 
 	github.Config = Config
 	github := github.NewWidget()
-	github.Refresh()
 	go wtf.Schedule(github)
 
 	jira.Config = Config
 	jira := jira.NewWidget()
-	jira.Refresh()
 	go wtf.Schedule(jira)
 
 	newrelic.Config = Config
 	newrelic := newrelic.NewWidget()
-	newrelic.Refresh()
 	go wtf.Schedule(newrelic)
 
 	opsgenie.Config = Config
 	opsgenie := opsgenie.NewWidget()
-	opsgenie.Refresh()
 	go wtf.Schedule(opsgenie)
 
 	security.Config = Config
 	sec := security.NewWidget()
-	sec.Refresh()
 	go wtf.Schedule(sec)
 
 	status.Config = Config
 	stat := status.NewWidget()
-	stat.Refresh()
 	go wtf.Schedule(stat)
 
 	weather.Config = Config
 	weather := weather.NewWidget()
-	weather.Refresh()
+	go wtf.Schedule(weather)
 
 	grid := tview.NewGrid()
 	grid.SetRows(10, 10, 10, 10, 10, 4) // How _high_ the row is, in terminal rows
