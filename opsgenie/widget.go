@@ -67,7 +67,7 @@ func (widget *Widget) contentFrom(onCallResponse *OnCallResponse) string {
 		if len(data.Recipients) == 0 {
 			str = str + " [gray]no one[white]\n"
 		} else {
-			str = str + fmt.Sprintf(" %s\n", strings.Join(widget.namesFromEmails(data.Recipients), ", "))
+			str = str + fmt.Sprintf(" %s\n", strings.Join(wtf.NamesFromEmails(data.Recipients), ", "))
 		}
 
 		str = str + "\n"
@@ -78,15 +78,4 @@ func (widget *Widget) contentFrom(onCallResponse *OnCallResponse) string {
 
 func (widget *Widget) cleanScheduleName(schedule string) string {
 	return strings.Replace(schedule, "_", " ", -1)
-}
-
-func (widget *Widget) namesFromEmails(emails []string) []string {
-	names := []string{}
-
-	for _, email := range emails {
-		parts := strings.Split(email, "@")
-		names = append(names, strings.Title(strings.Replace(parts[0], ".", " ", -1)))
-	}
-
-	return names
 }

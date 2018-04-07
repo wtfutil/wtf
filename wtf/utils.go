@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os/exec"
+	"strings"
 	"time"
 )
 
@@ -32,6 +33,30 @@ func ExecuteCommand(cmd *exec.Cmd) string {
 	cmd.Wait()
 
 	return str
+}
+
+func Exclude(strs []string, val string) bool {
+	for _, str := range strs {
+		if val == str {
+			return false
+		}
+	}
+	return true
+}
+
+func NameFromEmail(email string) string {
+	parts := strings.Split(email, "@")
+	return strings.Title(strings.Replace(parts[0], ".", " ", -1))
+}
+
+func NamesFromEmails(emails []string) []string {
+	names := []string{}
+
+	for _, email := range emails {
+		names = append(names, NameFromEmail(email))
+	}
+
+	return names
 }
 
 func PrettyDate(dateStr string) string {

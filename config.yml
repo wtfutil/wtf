@@ -19,6 +19,10 @@ wtf:
     username: "senorprogrammer"
   jira:
     refreshInterval: 900
+  newrelic:
+    applicationId: 10549735
+    deployCount: 5
+    refreshInterval: 900
   opsgenie:
     refreshInterval: 21600
   security:

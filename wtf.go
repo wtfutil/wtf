@@ -9,6 +9,7 @@ import (
 	"github.com/senorprogrammer/wtf/git"
 	"github.com/senorprogrammer/wtf/github"
 	"github.com/senorprogrammer/wtf/jira"
+	"github.com/senorprogrammer/wtf/newrelic"
 	"github.com/senorprogrammer/wtf/opsgenie"
 	"github.com/senorprogrammer/wtf/security"
 	"github.com/senorprogrammer/wtf/status"
@@ -63,6 +64,11 @@ func main() {
 	jira.Refresh()
 	go wtf.Schedule(jira)
 
+	newrelic.Config = Config
+	newrelic := newrelic.NewWidget()
+	newrelic.Refresh()
+	go wtf.Schedule(newrelic)
+
 	opsgenie.Config = Config
 	opsgenie := opsgenie.NewWidget()
 	opsgenie.Refresh()
@@ -91,6 +97,7 @@ func main() {
 	grid.AddItem(cal.View, 2, 1, 4, 1, 0, 0, false)
 	grid.AddItem(git.View, 0, 2, 2, 3, 0, 0, false)
 	grid.AddItem(github.View, 2, 2, 2, 3, 0, 0, false)
+	grid.AddItem(newrelic.View, 4, 2, 1, 3, 0, 0, false)
 	grid.AddItem(weather.View, 0, 1, 1, 1, 0, 0, false)
 	grid.AddItem(sec.View, 5, 0, 1, 1, 0, 0, false)
 	grid.AddItem(opsgenie.View, 2, 0, 2, 1, 0, 0, false)
