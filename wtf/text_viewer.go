@@ -5,7 +5,6 @@ import (
 )
 
 type TextViewer interface {
-	Disabled() bool
-	Enabled() bool
+	Enabler
 	TextView() *tview.TextView
 }
