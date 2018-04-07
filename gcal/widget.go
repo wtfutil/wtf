@@ -70,7 +70,7 @@ func (widget *Widget) contentFrom(events *calendar.Events) string {
 	str := ""
 	for _, event := range events.Items {
 		str = str + fmt.Sprintf(
-			"%s\n [%s]%s[white]\n [%s]%s %s[white]\n",
+			"%s [%s]%s[white]\n [%s]%s %s[white]\n\n",
 			widget.dayDivider(event, prevEvent),
 			widget.titleColor(event),
 			widget.eventSummary(event),
@@ -91,7 +91,7 @@ func (widget *Widget) dayDivider(event, prevEvent *calendar.Event) string {
 		currStartTime, _ := time.Parse(time.RFC3339, event.Start.DateTime)
 
 		if currStartTime.Day() != prevStartTime.Day() {
-			return "[green]⎯[white]"
+			return "\n"
 		}
 	}
 

@@ -66,7 +66,7 @@ func (widget *Widget) contentFrom(items []Item) string {
 		return fmt.Sprintf("\n\n\n\n\n\n\n\n%s", wtf.CenterText("[grey]no one[white]", 50))
 	}
 
-	str := "\n"
+	str := ""
 	for _, item := range items {
 		str = str + widget.format(item)
 	}

@@ -60,7 +60,7 @@ func (widget *Widget) addView() {
 }
 
 func (widget *Widget) contentFrom(data *owm.CurrentWeatherData) string {
-	str := fmt.Sprintf("\n")
+	str := "\n"
 
 	descs := []string{}
 	for _, weather := range data.Weather {

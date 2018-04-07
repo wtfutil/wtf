@@ -62,8 +62,7 @@ func (widget *Widget) addView() {
 }
 
 func (widget *Widget) contentFrom(data map[string][]string) string {
-	str := "\n"
-	str = str + " [red]Branch[white]\n"
+	str := " [red]Branch[white]\n"
 	str = str + fmt.Sprintf(" %s", data["branch"][0])
 	str = str + "\n"
 	str = str + widget.formatChanges(data["changes"])

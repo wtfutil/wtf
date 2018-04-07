@@ -47,8 +47,7 @@ func (widget *Widget) Refresh() {
 	widget.View.SetTitle(fmt.Sprintf(" Github: %s ", title))
 	widget.RefreshedAt = time.Now()
 
-	str := "\n"
-	str = str + " [red]Open Review Requests[white]\n"
+	str := " [red]Open Review Requests[white]\n"
 	str = str + widget.prsForReview(prs)
 	str = str + "\n"
 	str = str + " [red]Open Pull Requests[white]\n"

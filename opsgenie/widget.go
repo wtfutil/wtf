@@ -59,7 +59,7 @@ func (widget *Widget) addView() {
 }
 
 func (widget *Widget) contentFrom(onCallResponse *OnCallResponse) string {
-	str := "\n"
+	str := ""
 
 	for _, data := range onCallResponse.OnCallData {
 		str = str + fmt.Sprintf(" [green]%s[white]\n", widget.cleanScheduleName(data.Parent.Name))

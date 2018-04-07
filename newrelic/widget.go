@@ -61,8 +61,7 @@ func (widget *Widget) addView() {
 }
 
 func (widget *Widget) contentFrom(deploys []nr.ApplicationDeployment) string {
-	str := "\n"
-	str = str + " [red]Latest Deploys[white]\n"
+	str := " [red]Latest Deploys[white]\n"
 
 	revisions := []string{}
 
