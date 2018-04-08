@@ -2,7 +2,6 @@ package github
 
 import (
 	"context"
-	//"fmt"
 	"net/http"
 	"os"
 
@@ -32,8 +31,6 @@ func (client *Client) PullRequests(orgName string, repoName string) ([]*ghb.Pull
 
 	if err != nil {
 		return nil, err
-		//fmt.Printf("Problem in getting pull request information %v\n", err)
-		//os.Exit(1)
 	}
 
 	return prs, nil
@@ -47,8 +44,6 @@ func (client *Client) Repository(orgName string, repoName string) (*ghb.Reposito
 
 	if err != nil {
 		return nil, err
-		//fmt.Printf("Problem in getting repository information %v\n", err)
-		//os.Exit(1)
 	}
 
 	return repo, nil

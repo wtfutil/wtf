@@ -59,7 +59,10 @@ func (widget *Widget) addView() {
 }
 
 func (widget *Widget) contentFrom(deploys []nr.ApplicationDeployment) string {
-	str := " [red]Latest Deploys[white]\n"
+	str := fmt.Sprintf(
+		" %s\n",
+		"[red]Latest Deploys[white]",
+	)
 
 	revisions := []string{}
 

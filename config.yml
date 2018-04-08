@@ -1,7 +1,7 @@
 wtf:
   refreshInterval: 1
   bamboohr:
-    enabled: true
+    enabled: false
     position:
       top: 0
       left: 0
@@ -11,7 +11,7 @@ wtf:
     url: "https://api.bamboohr.com/api/gateway.php"
   gcal:
     currentIcon: "💥"
-    enabled: true
+    enabled: false
     eventCount: 10
     position:
       top: 2
@@ -31,7 +31,7 @@ wtf:
     refreshInterval: 8
     repository: "/Users/chris/go/src/github.com/senorprogrammer/wtf"
   github:
-    enabled: true
+    enabled: false
     organization: "BetterOfficeApps"
     position:
       top: 2
@@ -42,7 +42,7 @@ wtf:
     repo: "core-api"
     username: "senorprogrammer"
   jira:
-    enabled: true
+    enabled: false
     position:
       top: 1
       left: 1
@@ -60,7 +60,7 @@ wtf:
       width: 3
     refreshInterval: 900
   opsgenie:
-    enabled: true
+    enabled: false
     position:
       top: 2
       left: 0
@@ -85,7 +85,7 @@ wtf:
     refreshInterval: 1
   weather:
     cityId: 6173331
-    enabled: true
+    enabled: false
     language: "EN"
     position:
       top: 0
