@@ -22,7 +22,7 @@ wtf:
     secretFile: "~/.wtf/gcal/client_secret.json"
   git:
     commitCount: 5
-    enabled: true
+    enabled: false
     position:
       top: 0
       left: 2
@@ -51,7 +51,7 @@ wtf:
     refreshInterval: 900
   newrelic:
     applicationId: 10549735
-    enabled: true
+    enabled: false
     deployCount: 7
     position:
       top: 4
@@ -68,7 +68,7 @@ wtf:
       width: 1
     refreshInterval: 21600
   security:
-    enabled: true
+    enabled: false
     position:
       top: 5
       left: 0
@@ -76,7 +76,7 @@ wtf:
       width: 1
     refreshInterval: 3600
   status:
-    enabled: true
+    enabled: false
     position:
       top: 5
       left: 2
@@ -85,7 +85,7 @@ wtf:
     refreshInterval: 1
   weather:
     cityId: 6173331
-    enabled: false
+    enabled: true
     language: "EN"
     position:
       top: 0

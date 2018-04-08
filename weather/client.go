@@ -11,18 +11,20 @@ import (
 
 func Fetch(cityID int) *owm.CurrentWeatherData {
 	apiKey := os.Getenv("WTF_OWM_API_KEY")
-	return currentWeather(apiKey, cityID)
+	data, _ := currentWeather(apiKey, cityID)
+
+	return data
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
-func currentWeather(apiKey string, cityCode int) *owm.CurrentWeatherData {
+func currentWeather(apiKey string, cityCode int) (*owm.CurrentWeatherData, error) {
 	weather, err := owm.NewCurrent(Config.UString("wtf.weather.tempUnit", "C"), Config.UString("wtf.weather.language", "EN"), apiKey)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 
 	weather.CurrentByID(cityCode)
 
-	return weather
+	return weather, nil
 }

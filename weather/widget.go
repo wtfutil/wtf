@@ -59,6 +59,10 @@ func (widget *Widget) addView() {
 }
 
 func (widget *Widget) contentFrom(data *owm.CurrentWeatherData) string {
+	if len(data.Weather) == 0 {
+		return " Weather data is unavailable."
+	}
+
 	str := "\n"
 
 	descs := []string{}
@@ -89,6 +93,10 @@ func (widget *Widget) contentFrom(data *owm.CurrentWeatherData) string {
 // Note: these only work for English weather status. Sorry about that
 func icon(data *owm.CurrentWeatherData) string {
 	var icon string
+
+	if len(data.Weather) == 0 {
+		return ""
+	}
 
 	switch data.Weather[0].Description {
 	case "broken clouds":
