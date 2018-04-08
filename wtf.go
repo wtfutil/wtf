@@ -1,8 +1,6 @@
 package main
 
 import (
-	//"fmt"
-	//"os"
 	"time"
 
 	"github.com/rivo/tview"

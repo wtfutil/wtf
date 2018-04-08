@@ -52,7 +52,7 @@ wtf:
   newrelic:
     applicationId: 10549735
     enabled: true
-    deployCount: 5
+    deployCount: 7
     position:
       top: 4
       left: 2
