@@ -72,11 +72,11 @@ wtf:
     position:
       top: 4
       left: 0
-      height: 1
+      height: 2
       width: 1
     refreshInterval: 3600
   status:
-    enabled: true
+    enabled: false
     position:
       top: 5
       left: 0

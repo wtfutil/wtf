@@ -71,7 +71,7 @@ func (widget *Widget) contentFrom(deploys []nr.ApplicationDeployment) string {
 			str = str + fmt.Sprintf(
 				" [green]%s[white] %s %-16s\n",
 				deploy.Revision[0:8],
-				deploy.Timestamp.Format("Jan 02, 15:04"),
+				deploy.Timestamp.Format("Jan 02, 15:04 MST"),
 				wtf.NameFromEmail(deploy.User),
 			)
 

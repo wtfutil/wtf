@@ -2,7 +2,7 @@ package security
 
 import (
 	"fmt"
-	//"sort"
+	"strings"
 	"time"
 
 	"github.com/gdamore/tcell"
@@ -66,6 +66,11 @@ func (widget *Widget) contentFrom(data map[string]string) string {
 	str = str + fmt.Sprintf(" %8s: %s\n", "Enabled", data["Enabled"])
 	str = str + fmt.Sprintf(" %8s: %s\n", "Stealth", data["Stealth"])
 	str = str + "\n"
+	str = str + " [red]DNS[white]\n"
+
+	for _, record := range strings.Split(data["Dns"], "\n") {
+		str = str + fmt.Sprintf(" %8s\n", record)
+	}
 
 	return str
 }
