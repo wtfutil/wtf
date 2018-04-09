@@ -3,6 +3,18 @@
 WTF is a personal terminal-based dashboard utility, designed for
 displaying infrequently-updating, but very important, daily data.
 
+## Installation
+
+1. Clone this directory and install all the dependencies.
+2. Create a directory called `.wtf` in your `home` directory (ie:
+   `~/.wtf/`)
+3. In that directory copy the `config.yml` file (ie: `~/.wtf/config.yml`)
+4. Disable all the modules for which you need an API key, by setting
+   `enabled: false` in the config file
+5. `go run wtf.go`
+
+It'll probably run.
+
 ## Modules
 
 Modules are the heart of WTF. Each one connects to a specific services
