@@ -36,13 +36,17 @@ func (widget *Widget) Refresh() {
 	url, _ := Config.String("wtf.bamboohr.url")
 
 	client := NewClient(url)
-	items := client.Away("timeOff", wtf.Today(), wtf.Today())
+	todayItems := client.Away(
+		"timeOff",
+		wtf.Today().Format(wtf.DateFormat),
+		wtf.Today().Format(wtf.DateFormat),
+	)
 
-	widget.View.SetTitle(fmt.Sprintf(" 👽 Away (%d) ", len(items)))
+	widget.View.SetTitle(fmt.Sprintf(" 👽 Away (%d) ", len(todayItems)))
 	widget.RefreshedAt = time.Now()
 
 	widget.View.Clear()
-	fmt.Fprintf(widget.View, "%s", widget.contentFrom(items))
+	fmt.Fprintf(widget.View, "%s", widget.contentFrom(todayItems))
 }
 
 /* -------------------- Unexported Functions -------------------- */
