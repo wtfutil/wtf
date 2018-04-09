@@ -34,13 +34,20 @@ func (widget *Widget) Refresh() {
 		return
 	}
 
-	data := Fetch()
+	data, err := Fetch()
 
 	widget.View.SetTitle(" ⏰ On Call ")
 	widget.RefreshedAt = time.Now()
 
 	widget.View.Clear()
-	fmt.Fprintf(widget.View, "%s", widget.contentFrom(data))
+
+	if err != nil {
+		widget.View.SetWrap(true)
+		fmt.Fprintf(widget.View, "%s", err)
+	} else {
+		widget.View.SetWrap(false)
+		fmt.Fprintf(widget.View, "%s", widget.contentFrom(data))
+	}
 }
 
 /* -------------------- Unexported Functions -------------------- */

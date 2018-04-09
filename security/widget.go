@@ -58,8 +58,14 @@ func (widget *Widget) addView() {
 }
 
 func (widget *Widget) contentFrom(data map[string]string) string {
-	str := fmt.Sprintf(" Firewall: %s  Network: %s\n", data["Enabled"], data["Network"])
-	str = str + fmt.Sprintf("  Stealth: %s   Crypto: %s\n", data["Stealth"], data["Encryption"])
+	str := " [red]WiFi[white]\n"
+	str = str + fmt.Sprintf(" %8s: %s\n", "Network", data["Network"])
+	str = str + fmt.Sprintf(" %8s: %s\n", "Crypto", data["Encryption"])
+	str = str + "\n"
+	str = str + " [red]Firewall[white]\n"
+	str = str + fmt.Sprintf(" %8s: %s\n", "Enabled", data["Enabled"])
+	str = str + fmt.Sprintf(" %8s: %s\n", "Stealth", data["Stealth"])
+	str = str + "\n"
 
 	return str
 }

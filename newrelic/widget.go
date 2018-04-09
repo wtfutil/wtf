@@ -69,10 +69,9 @@ func (widget *Widget) contentFrom(deploys []nr.ApplicationDeployment) string {
 	for _, deploy := range deploys {
 		if (deploy.Revision != "") && wtf.Exclude(revisions, deploy.Revision) {
 			str = str + fmt.Sprintf(
-				" %03d [green]%s[white] %-6s %s\n",
-				deploy.ID%1000,
+				" [green]%s[white] %s %-16s\n",
 				deploy.Revision[0:8],
-				deploy.Timestamp.Format("Jan 2"),
+				deploy.Timestamp.Format("Jan 02, 15:04"),
 				wtf.NameFromEmail(deploy.User),
 			)
 

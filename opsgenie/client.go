@@ -27,22 +27,21 @@ type Parent struct {
 
 /* -------------------- Exported Functions -------------------- */
 
-func Fetch() *OnCallResponse {
+func Fetch() (*OnCallResponse, error) {
 	apiKey := os.Getenv("WTF_OPS_GENIE_API_KEY")
 	scheduleUrl := "https://api.opsgenie.com/v2/schedules/on-calls?flat=true"
 
-	var onCallResponse OnCallResponse
-	opsGenieRequest(scheduleUrl, apiKey, &onCallResponse)
+	response, err := opsGenieRequest(scheduleUrl, apiKey)
 
-	return &onCallResponse
+	return response, err
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
-func opsGenieRequest(url string, apiKey string, payload interface{}) {
+func opsGenieRequest(url string, apiKey string) (*OnCallResponse, error) {
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 
 	req.Header.Set("Authorization", fmt.Sprintf("GenieKey %s", apiKey))
@@ -51,11 +50,14 @@ func opsGenieRequest(url string, apiKey string, payload interface{}) {
 
 	resp, err := client.Do(req)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 	defer resp.Body.Close()
 
-	if err := json.NewDecoder(resp.Body).Decode(payload); err != nil {
-		panic(err)
+	response := &OnCallResponse{}
+	if err := json.NewDecoder(resp.Body).Decode(response); err != nil {
+		return nil, err
 	}
+
+	return response, nil
 }

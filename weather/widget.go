@@ -37,7 +37,7 @@ func (widget *Widget) Refresh() {
 
 	data := Fetch(Config.UInt("wtf.weather.cityId", 6176823))
 
-	widget.View.SetTitle(fmt.Sprintf(" %s Weather - %s ", icon(data), data.Name))
+	widget.View.SetTitle(fmt.Sprintf(" %s Weather: [green]%s[white] ", icon(data), data.Name))
 	widget.RefreshedAt = time.Now()
 
 	widget.View.Clear()
