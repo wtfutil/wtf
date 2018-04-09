@@ -1,4 +1,12 @@
 wtf:
+  grid:
+    # How _wide_ the columns are, in terminal characters. In this case we have
+    # five columns, each of which are 37 characters wide
+    columns: [37, 37, 37, 37, 37]
+
+    # How _high_ the rows are, in terminal lines. In this case we have five rows
+    # that support ten line of text, and one of four
+    rows: [10, 10, 10, 10, 10, 4]
   refreshInterval: 1
   bamboohr:
     enabled: true

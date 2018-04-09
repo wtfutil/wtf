@@ -68,9 +68,15 @@ func (widget *Widget) contentFrom(deploys []nr.ApplicationDeployment) string {
 
 	for _, deploy := range deploys {
 		if (deploy.Revision != "") && wtf.Exclude(revisions, deploy.Revision) {
+			lineColor := "white"
+			if wtf.IsToday(deploy.Timestamp) {
+				lineColor = "cornflowerblue"
+			}
+
 			str = str + fmt.Sprintf(
-				" [green]%s[white] %s %-16s\n",
+				" [green]%s[%s] %s %-16s[white]\n",
 				deploy.Revision[0:8],
+				lineColor,
 				deploy.Timestamp.Format("Jan 02, 15:04 MST"),
 				wtf.NameFromEmail(deploy.User),
 			)

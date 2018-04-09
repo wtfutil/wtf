@@ -57,6 +57,7 @@ var Config = wtf.LoadConfigFile()
 func main() {
 	wtf.Config = Config
 
+	// TODO: Really need to generalize all of these. This don't scale
 	bamboohr.Config = Config
 	bamboo := bamboohr.NewWidget()
 	go wtf.Schedule(bamboo)
@@ -98,8 +99,8 @@ func main() {
 	go wtf.Schedule(weather)
 
 	grid := tview.NewGrid()
-	grid.SetRows(10, 10, 10, 10, 10, 4) // How _high_ the row is, in terminal rows
-	grid.SetColumns(37, 37, 37, 37, 37) // How _wide_ the column is, in terminal columns
+	grid.SetColumns(wtf.ToInts(Config.UList("wtf.grid.columns"))...)
+	grid.SetRows(wtf.ToInts(Config.UList("wtf.grid.rows"))...)
 	grid.SetBorder(false)
 
 	addToApp(grid, bamboo)

@@ -44,6 +44,14 @@ func Exclude(strs []string, val string) bool {
 	return true
 }
 
+func IsToday(date time.Time) bool {
+	now := time.Now()
+
+	return (date.Year() == now.Year()) &&
+		(date.Month() == now.Month()) &&
+		(date.Day() == now.Day())
+}
+
 func NameFromEmail(email string) string {
 	parts := strings.Split(email, "@")
 	return strings.Title(strings.Replace(parts[0], ".", " ", -1))
@@ -67,6 +75,15 @@ func PrettyDate(dateStr string) string {
 func Today() string {
 	localNow := time.Now().Local()
 	return localNow.Format("2006-01-02")
+}
+
+func ToInts(slice []interface{}) []int {
+	results := []int{}
+	for _, val := range slice {
+		results = append(results, val.(int))
+	}
+
+	return results
 }
 
 func UnixTime(unix int64) time.Time {
