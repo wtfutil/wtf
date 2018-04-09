@@ -21,13 +21,13 @@ func NewClient() *Client {
 	return &client
 }
 
-func (client *Client) PullRequests(orgName string, repoName string) ([]*ghb.PullRequest, error) {
+func (client *Client) PullRequests(owner string, repoName string) ([]*ghb.PullRequest, error) {
 	oauthClient := client.oauthClient()
 	github := ghb.NewClient(oauthClient)
 
 	opts := &ghb.PullRequestListOptions{}
 
-	prs, _, err := github.PullRequests.List(context.Background(), orgName, repoName, opts)
+	prs, _, err := github.PullRequests.List(context.Background(), owner, repoName, opts)
 
 	if err != nil {
 		return nil, err
@@ -36,11 +36,11 @@ func (client *Client) PullRequests(orgName string, repoName string) ([]*ghb.Pull
 	return prs, nil
 }
 
-func (client *Client) Repository(orgName string, repoName string) (*ghb.Repository, error) {
+func (client *Client) Repository(owner string, repoName string) (*ghb.Repository, error) {
 	oauthClient := client.oauthClient()
 	github := ghb.NewClient(oauthClient)
 
-	repo, _, err := github.Repositories.Get(context.Background(), orgName, repoName)
+	repo, _, err := github.Repositories.Get(context.Background(), owner, repoName)
 
 	if err != nil {
 		return nil, err

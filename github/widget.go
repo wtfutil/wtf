@@ -35,15 +35,9 @@ func (widget *Widget) Refresh() {
 	}
 
 	client := NewClient()
+	prs, _ := client.PullRequests(Config.UString("wtf.github.owner"), Config.UString("wtf.github.repo"))
 
-	repo, _ := client.Repository(Config.UString("wtf.github.organization"), Config.UString("wtf.github.repo"))
-	org := *repo.Organization
-
-	prs, _ := client.PullRequests(Config.UString("wtf.github.organization"), Config.UString("wtf.github.repo"))
-
-	title := fmt.Sprintf("[green]%s - %s[white]", *org.Login, *repo.Name)
-
-	widget.View.SetTitle(fmt.Sprintf(" Github: %s ", title))
+	widget.View.SetTitle(fmt.Sprintf(" Github: %s ", widget.title()))
 	widget.RefreshedAt = time.Now()
 
 	str := " [red]Open Review Requests[white]\n"
@@ -112,4 +106,8 @@ func (widget *Widget) openPRs(prs []*ghb.PullRequest) string {
 	}
 
 	return " [grey]none[white]\n"
+}
+
+func (widget *Widget) title() string {
+	return fmt.Sprintf("[green]%s - %s[white]", Config.UString("wtf.github.owner"), Config.UString("wtf.github.repo"))
 }

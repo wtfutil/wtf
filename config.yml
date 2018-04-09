@@ -40,7 +40,7 @@ wtf:
     repository: "/Users/chris/go/src/github.com/senorprogrammer/wtf"
   github:
     enabled: true
-    organization: "BetterOfficeApps"
+    owner: "BetterOfficeApps"
     position:
       top: 2
       left: 2
