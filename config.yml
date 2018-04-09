@@ -40,14 +40,14 @@ wtf:
     repository: "/Users/chris/go/src/github.com/senorprogrammer/wtf"
   github:
     enabled: true
-    owner: "BetterOfficeApps"
+    owner: "senorprogrammer"
     position:
       top: 2
       left: 2
       height: 2
       width: 3
     refreshInterval: 300
-    repo: "core-api"
+    repo: "wtf"
     username: "senorprogrammer"
   jira:
     enabled: true
