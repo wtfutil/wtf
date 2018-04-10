@@ -18,6 +18,7 @@ import (
 	"time"
 
 	"github.com/senorprogrammer/wtf/homedir"
+	"github.com/senorprogrammer/wtf/wtf"
 	"golang.org/x/net/context"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
@@ -47,7 +48,7 @@ func Fetch() (*calendar.Events, error) {
 		return nil, err
 	}
 
-	t := today().Format(time.RFC3339)
+	t := wtf.Today().Format(time.RFC3339)
 	events, err := srv.Events.List("primary").ShowDeleted(false).SingleEvents(true).TimeMin(t).MaxResults(int64(Config.UInt("wtf.gcal.eventCount", 10))).OrderBy("startTime").Do()
 	if err != nil {
 		return nil, err
@@ -129,9 +130,4 @@ func saveToken(file string, token *oauth2.Token) {
 	defer f.Close()
 
 	json.NewEncoder(f).Encode(token)
-}
-
-func today() time.Time {
-	now := time.Now()
-	return time.Date(now.Year(), now.Month(), now.Day(), 0, 0, 0, 0, now.Location())
 }

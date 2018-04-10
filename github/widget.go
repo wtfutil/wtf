@@ -41,10 +41,10 @@ func (widget *Widget) Refresh() {
 	widget.RefreshedAt = time.Now()
 
 	str := " [red]Open Review Requests[white]\n"
-	str = str + widget.prsForReview(prs)
+	str = str + widget.prsForReview(prs, Config.UString("wtf.github.username"))
 	str = str + "\n"
 	str = str + " [red]Open Pull Requests[white]\n"
-	str = str + widget.openPRs(prs)
+	str = str + widget.openPRs(prs, Config.UString("wtf.github.username"))
 
 	widget.View.Clear()
 	fmt.Fprintf(widget.View, str)
@@ -64,13 +64,13 @@ func (widget *Widget) addView() {
 	widget.View = view
 }
 
-func (widget *Widget) prsForReview(prs []*ghb.PullRequest) string {
+func (widget *Widget) prsForReview(prs []*ghb.PullRequest, username string) string {
 	if len(prs) > 0 {
 		str := ""
 
 		for _, pr := range prs {
 			for _, reviewer := range pr.RequestedReviewers {
-				if *reviewer.Login == Config.UString("wtf.github.username") {
+				if *reviewer.Login == username {
 					str = str + fmt.Sprintf(" [green]%d[white] %s\n", *pr.Number, *pr.Title)
 				}
 			}
@@ -86,14 +86,14 @@ func (widget *Widget) prsForReview(prs []*ghb.PullRequest) string {
 	return " [grey]none[white]\n"
 }
 
-func (widget *Widget) openPRs(prs []*ghb.PullRequest) string {
+func (widget *Widget) openPRs(prs []*ghb.PullRequest, username string) string {
 	if len(prs) > 0 {
 		str := ""
 
 		for _, pr := range prs {
 			user := *pr.User
 
-			if *user.Login == Config.UString("wtf.github.username") {
+			if *user.Login == username {
 				str = str + fmt.Sprintf(" [green]%d[white] %s\n", *pr.Number, *pr.Title)
 			}
 		}
