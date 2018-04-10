@@ -44,39 +44,68 @@ It'll probably run.
 
 ## Modules
 
-Modules are the heart of WTF. Each one connects to a specific services
+Modules are the heart of `WTF`. Each one connects to a specific services
 or renders data about a specific concept. The following modules are
-included in WTF.
+included in `WTF`.
 
-### BambooHR
+#### BambooHR
 
-Displays who's out on vacation or off sick today.
+Displays the following Away information for your organization:
 
-### Git
+* Names of the people away today
+* Datespan for when they'll be away
 
-Displays the current branch, a list of changed files, and the last n
-commits for a specified repository.
+#### Git
 
-### Github
+Specify a local git repository to watch for the following:
 
-Displays your open pull requests and any code review requests assigned
-to you.
+* Current branch name
+* List all changed files
+* List last n commits against that branch
 
-### Google Calendar
+#### Github
 
-Displays the next n calendar events.
+Specify a Github repository to watch for the following:
 
-### OpsGenie
+* Lists all open code review requests assigned to you
+* Lists all open pull requests created by you
 
-Displays who's currently on call for all your schedules.
+#### Google Calendar
 
-### Security
+Displays the following information about your upcoming calendar events:
 
-Displays whether or not your firewall is on and configured in 'stealth'
-mode. Also displays the name of the current Wifi network and whether
-or not it's encrypted.
+* Event title
+* Date and time
+* Hours/minutes/seconds until event
 
-### Weather
+#### OpsGenie
 
-Displays the temperatures for the day, weather description, and the
-sunrise and sunset times.
+Displays the following on-call information for all your active schedules:
+
+* Schedule name
+* Who's currently on call
+
+#### Security
+
+Displays the following security/network related information about your
+local machine:
+
+* Wifi network name
+* Wifi network encryption
+* Firewall enabled/disabled
+* Firewall stealth mode enabled/disabled
+* DNS entries
+
+#### Weather
+
+Displays the following current weather information for the specified city:
+
+* weather description
+* current temperature
+* today's high
+* today's low
+* sunrise
+* sunset
+
+In the configuration, use a city code from the OpenWeatherMap [city
+list](http://openweathermap.org/help/city_list.txt).
