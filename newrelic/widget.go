@@ -34,14 +34,26 @@ func (widget *Widget) Refresh() {
 		return
 	}
 
-	app, _ := Application()
-	deploys, _ := Deployments()
+	app, appErr := Application()
+	deploys, depErr := Deployments()
 
-	widget.View.SetTitle(fmt.Sprintf(" New Relic: [green]%s[white] ", app.Name))
+	appName := "error"
+	if appErr == nil {
+		appName = app.Name
+	}
+
+	widget.View.SetTitle(fmt.Sprintf(" New Relic: [green]%s[white] ", appName))
 	widget.RefreshedAt = time.Now()
 
 	widget.View.Clear()
-	fmt.Fprintf(widget.View, "%s", widget.contentFrom(deploys))
+
+	if depErr != nil {
+		widget.View.SetWrap(true)
+		fmt.Fprintf(widget.View, "%s", depErr)
+	} else {
+		widget.View.SetWrap(false)
+		fmt.Fprintf(widget.View, "%s", widget.contentFrom(deploys))
+	}
 }
 
 /* -------------------- Unexported Functions -------------------- */
