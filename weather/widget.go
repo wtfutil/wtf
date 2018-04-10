@@ -35,7 +35,7 @@ func (widget *Widget) Refresh() {
 		return
 	}
 
-	data := Fetch(Config.UInt("wtf.weather.cityId", 6176823))
+	data := Fetch(Config.UInt("wtf.mods.weather.cityId", 6176823))
 
 	widget.View.SetTitle(fmt.Sprintf(" %s Weather: [green]%s[white] ", icon(data), data.Name))
 	widget.RefreshedAt = time.Now()
@@ -72,7 +72,7 @@ func (widget *Widget) contentFrom(data *owm.CurrentWeatherData) string {
 
 	str = str + strings.Join(descs, ",") + "\n\n"
 
-	tempUnit := Config.UString("wtf.weather.tempUnit", "C")
+	tempUnit := Config.UString("wtf.mods.weather.tempUnit", "C")
 
 	str = str + fmt.Sprintf("%8s: %4.1f° %s\n", "High", data.Main.TempMax, tempUnit)
 	str = str + fmt.Sprintf("%8s: [green]%4.1f° %s[white]\n", "Current", data.Main.Temp, tempUnit)

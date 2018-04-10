@@ -35,16 +35,16 @@ func (widget *Widget) Refresh() {
 	}
 
 	client := NewClient()
-	prs, _ := client.PullRequests(Config.UString("wtf.github.owner"), Config.UString("wtf.github.repo"))
+	prs, _ := client.PullRequests(Config.UString("wtf.mods.github.owner"), Config.UString("wtf.mods.github.repo"))
 
 	widget.View.SetTitle(fmt.Sprintf(" Github: %s ", widget.title()))
 	widget.RefreshedAt = time.Now()
 
 	str := " [red]Open Review Requests[white]\n"
-	str = str + widget.prsForReview(prs, Config.UString("wtf.github.username"))
+	str = str + widget.prsForReview(prs, Config.UString("wtf.mods.github.username"))
 	str = str + "\n"
 	str = str + " [red]Open Pull Requests[white]\n"
-	str = str + widget.openPRs(prs, Config.UString("wtf.github.username"))
+	str = str + widget.openPRs(prs, Config.UString("wtf.mods.github.username"))
 
 	widget.View.Clear()
 	fmt.Fprintf(widget.View, str)
@@ -109,5 +109,5 @@ func (widget *Widget) openPRs(prs []*ghb.PullRequest, username string) string {
 }
 
 func (widget *Widget) title() string {
-	return fmt.Sprintf("[green]%s - %s[white]", Config.UString("wtf.github.owner"), Config.UString("wtf.github.repo"))
+	return fmt.Sprintf("[green]%s - %s[white]", Config.UString("wtf.mods.github.owner"), Config.UString("wtf.mods.github.repo"))
 }

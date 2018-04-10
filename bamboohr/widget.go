@@ -33,7 +33,7 @@ func (widget *Widget) Refresh() {
 		return
 	}
 
-	url, _ := Config.String("wtf.bamboohr.url")
+	url, _ := Config.String("wtf.mods.bamboohr.url")
 
 	client := NewClient(url)
 	todayItems := client.Away(

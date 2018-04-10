@@ -19,7 +19,7 @@ func Fetch(cityID int) *owm.CurrentWeatherData {
 /* -------------------- Unexported Functions -------------------- */
 
 func currentWeather(apiKey string, cityCode int) (*owm.CurrentWeatherData, error) {
-	weather, err := owm.NewCurrent(Config.UString("wtf.weather.tempUnit", "C"), Config.UString("wtf.weather.language", "EN"), apiKey)
+	weather, err := owm.NewCurrent(Config.UString("wtf.mods.weather.tempUnit", "C"), Config.UString("wtf.mods.weather.language", "EN"), apiKey)
 	if err != nil {
 		return nil, err
 	}

@@ -5,12 +5,10 @@
 A personal terminal-based dashboard utility, designed for
 displaying infrequently-updating, but very important, daily data.
 
-## Required Prerequisites
+## Prerequisites
 
-1. [Git](https://git-scm.com/downloads)
-1. [Go](https://golang.org/doc/install)
-
-## Optional Prerequisites
+Ensure you have [Go](https://golang.org/doc/install) installed and
+operational.
 
 Depending on which modules you want to run, you'll need the appropriate API and
 configuration credentials. For each of the following supported services
@@ -109,3 +107,31 @@ Displays the following current weather information for the specified city:
 
 In the configuration, use a city code from the OpenWeatherMap [city
 list](http://openweathermap.org/help/city_list.txt).
+
+## Contributing
+
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests.
+
+## Authors
+
+* Chris Cummer, [senorprogrammer](https://github.com/senorprogrammer)
+
+## License
+
+See [LICENSE.md](LICENSE.md) file for details.
+
+## Acknowledgments
+
+The inspiration for `WTF` came from Monica Dinculescu's
+[tiny-care-terminal](https://github.com/notwaldorf/tiny-care-terminal).
+
+The following open-source libraries were used in the creation of `WTF`.
+Many thanks to all these developers.
+
+* [calendar](https://google.golang.org/api/calendar/v3)
+* [config](https://github.com/olebedev/config)
+* [go-github](https://github.com/google/go-github)
+* [newrelic](https://github.com/yfronto/newrelic)
+* [openweathremap](https://github.com/briandowns/openweathermap)
+* [tcell](https://github.com/gdamore/tcell)
+* [tview](https://github.com/rivo/tview)

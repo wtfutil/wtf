@@ -9,7 +9,7 @@ import (
 func Application() (*nr.Application, error) {
 	client := nr.NewClient(os.Getenv("WTF_NEW_RELIC_API_KEY"))
 
-	application, err := client.GetApplication(Config.UInt("wtf.newrelic.applicationId"))
+	application, err := client.GetApplication(Config.UInt("wtf.mods.newrelic.applicationId"))
 	if err != nil {
 		return nil, err
 	}
@@ -21,7 +21,7 @@ func Deployments() ([]nr.ApplicationDeployment, error) {
 	client := nr.NewClient(os.Getenv("WTF_NEW_RELIC_API_KEY"))
 
 	opts := &nr.ApplicationDeploymentOptions{Page: 1}
-	deployments, err := client.GetApplicationDeployments(Config.UInt("wtf.newrelic.applicationId"), opts)
+	deployments, err := client.GetApplicationDeployments(Config.UInt("wtf.mods.newrelic.applicationId"), opts)
 	if err != nil {
 		return nil, err
 	}

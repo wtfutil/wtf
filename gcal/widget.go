@@ -98,7 +98,7 @@ func (widget *Widget) dayDivider(event, prevEvent *calendar.Event) string {
 
 func (widget *Widget) eventSummary(event *calendar.Event) string {
 	if widget.eventIsNow(event) {
-		return fmt.Sprintf("%s %s", Config.UString("wtf.gcal.currentIcon", "🔸"), event.Summary)
+		return fmt.Sprintf("%s %s", Config.UString("wtf.mods.gcal.currentIcon", "🔸"), event.Summary)
 	}
 
 	return event.Summary

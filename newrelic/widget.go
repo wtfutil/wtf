@@ -95,7 +95,7 @@ func (widget *Widget) contentFrom(deploys []nr.ApplicationDeployment) string {
 
 			revisions = append(revisions, deploy.Revision)
 
-			if len(revisions) == Config.UInt("wtf.newrelic.deployCount", 5) {
+			if len(revisions) == Config.UInt("wtf.mods.newrelic.deployCount", 5) {
 				break
 			}
 		}

@@ -35,7 +35,7 @@ func (client *Client) ChangedFiles() []string {
 }
 
 func (client *Client) Commits() []string {
-	numStr := fmt.Sprintf("-n %d", Config.UInt("wtf.git.commitCount", 10))
+	numStr := fmt.Sprintf("-n %d", Config.UInt("wtf.mods.git.commitCount", 10))
 
 	arg := []string{client.gitDir(), client.workTree(), "log", "--date=format:\"%b %d, %Y\"", numStr, "--pretty=format:\"[forestgreen]%h [white]%s [grey]%an on %cd[white]\""}
 	cmd := exec.Command("git", arg...)
@@ -57,9 +57,9 @@ func (client *Client) Repository() string {
 /* -------------------- Exported Functions -------------------- */
 
 func (client *Client) gitDir() string {
-	return fmt.Sprintf("--git-dir=%s/.git", Config.UString("wtf.git.repository"))
+	return fmt.Sprintf("--git-dir=%s/.git", Config.UString("wtf.mods.git.repository"))
 }
 
 func (client *Client) workTree() string {
-	return fmt.Sprintf("--work-tree=%s", Config.UString("wtf.git.repository"))
+	return fmt.Sprintf("--work-tree=%s", Config.UString("wtf.mods.git.repository"))
 }

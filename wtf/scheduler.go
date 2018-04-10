@@ -10,7 +10,13 @@ type Scheduler interface {
 }
 
 func Schedule(widget Scheduler) {
-	tick := time.NewTicker(time.Duration(widget.RefreshInterval()) * time.Second)
+	interval := time.Duration(widget.RefreshInterval()) * time.Second
+
+	if interval <= 0 {
+		return
+	}
+
+	tick := time.NewTicker(interval)
 	quit := make(chan struct{})
 
 	// Kick off the first refresh and then leave the rest to the timer

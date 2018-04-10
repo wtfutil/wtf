@@ -30,7 +30,7 @@ import (
 func Fetch() (*calendar.Events, error) {
 	ctx := context.Background()
 
-	secretPath, _ := homedir.Expand(Config.UString("wtf.gcal.secretFile"))
+	secretPath, _ := homedir.Expand(Config.UString("wtf.mods.gcal.secretFile"))
 
 	b, err := ioutil.ReadFile(secretPath)
 	if err != nil {
@@ -49,7 +49,7 @@ func Fetch() (*calendar.Events, error) {
 	}
 
 	t := wtf.Today().Format(time.RFC3339)
-	events, err := srv.Events.List("primary").ShowDeleted(false).SingleEvents(true).TimeMin(t).MaxResults(int64(Config.UInt("wtf.gcal.eventCount", 10))).OrderBy("startTime").Do()
+	events, err := srv.Events.List("primary").ShowDeleted(false).SingleEvents(true).TimeMin(t).MaxResults(int64(Config.UInt("wtf.mods.gcal.eventCount", 10))).OrderBy("startTime").Do()
 	if err != nil {
 		return nil, err
 	}

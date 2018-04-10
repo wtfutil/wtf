@@ -23,14 +23,14 @@ type TextWidget struct {
 
 func NewTextWidget(name string, configKey string) TextWidget {
 	widget := TextWidget{
-		enabled:    Config.UBool(fmt.Sprintf("wtf.%s.enabled", configKey), false),
+		enabled:    Config.UBool(fmt.Sprintf("wtf.mods.%s.enabled", configKey), false),
 		Name:       name,
-		RefreshInt: Config.UInt(fmt.Sprintf("wtf.%s.refreshInterval", configKey)),
+		RefreshInt: Config.UInt(fmt.Sprintf("wtf.mods.%s.refreshInterval", configKey)),
 		Position: Position{
-			top:    Config.UInt(fmt.Sprintf("wtf.%s.position.top", configKey)),
-			left:   Config.UInt(fmt.Sprintf("wtf.%s.position.left", configKey)),
-			height: Config.UInt(fmt.Sprintf("wtf.%s.position.height", configKey)),
-			width:  Config.UInt(fmt.Sprintf("wtf.%s.position.width", configKey)),
+			top:    Config.UInt(fmt.Sprintf("wtf.mods.%s.position.top", configKey)),
+			left:   Config.UInt(fmt.Sprintf("wtf.mods.%s.position.left", configKey)),
+			height: Config.UInt(fmt.Sprintf("wtf.mods.%s.position.height", configKey)),
+			width:  Config.UInt(fmt.Sprintf("wtf.mods.%s.position.width", configKey)),
 		},
 	}
 
