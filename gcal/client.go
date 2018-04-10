@@ -18,7 +18,6 @@ import (
 	"time"
 
 	"github.com/senorprogrammer/wtf/homedir"
-	"github.com/senorprogrammer/wtf/wtf"
 	"golang.org/x/net/context"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
@@ -48,7 +47,7 @@ func Fetch() (*calendar.Events, error) {
 		return nil, err
 	}
 
-	t := wtf.Today().Format(time.RFC3339)
+	t := fromMidnight().Format(time.RFC3339)
 	events, err := srv.Events.List("primary").ShowDeleted(false).SingleEvents(true).TimeMin(t).MaxResults(int64(Config.UInt("wtf.mods.gcal.eventCount", 10))).OrderBy("startTime").Do()
 	if err != nil {
 		return nil, err
@@ -91,6 +90,11 @@ func getTokenFromWeb(config *oauth2.Config) *oauth2.Token {
 		log.Fatalf("Unable to retrieve token from web %v", err)
 	}
 	return tok
+}
+
+func fromMidnight() time.Time {
+	now := time.Now()
+	return time.Date(now.Year(), now.Month(), now.Day(), 0, 0, 0, 0, now.Location())
 }
 
 // tokenCacheFile generates credential file path/filename.

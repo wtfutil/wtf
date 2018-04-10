@@ -38,8 +38,8 @@ func (widget *Widget) Refresh() {
 	client := NewClient(url)
 	todayItems := client.Away(
 		"timeOff",
-		wtf.Today().Format(wtf.DateFormat),
-		wtf.Today().Format(wtf.DateFormat),
+		wtf.Now().Format(wtf.DateFormat),
+		wtf.Now().Format(wtf.DateFormat),
 	)
 
 	widget.View.SetTitle(fmt.Sprintf(" 👽 Away (%d) ", len(todayItems)))

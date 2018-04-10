@@ -72,12 +72,12 @@ func PrettyDate(dateStr string) string {
 	return fmt.Sprint(newTime.Format("Jan 2, 2006"))
 }
 
-func Today() time.Time {
+func Now() time.Time {
 	return time.Now().Local()
 }
 
 func Tomorrow() time.Time {
-	return Today().AddDate(0, 0, 1)
+	return Now().AddDate(0, 0, 1)
 }
 
 func ToInts(slice []interface{}) []int {
