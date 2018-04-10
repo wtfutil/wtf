@@ -1,7 +1,34 @@
-# WTF
+<p align="center">
+<img src="docs/wtf.jpg?raw=true" title="WTF" width="852" height="240")
+</p>
 
-WTF is a personal terminal-based dashboard utility, designed for
+A personal terminal-based dashboard utility, designed for
 displaying infrequently-updating, but very important, daily data.
+
+## Required Prerequisites
+
+1. [Git](https://git-scm.com/downloads)
+1. [Go](https://golang.org/doc/install)
+
+## Optional Prerequisites
+
+Depending on which modules you want to run, you'll need the appropriate API and
+configuration credentials. For each of the following supported services
+that you want to use, create an ENV var named as below with the
+described value.
+
+|    | Service         | ENV var                        | Value                         |
+|----|-----------------|--------------------------------|-------------------------------|
+| 1  | [BambooHR](https://www.bamboohr.com/api/documentation/)        | `WTF_BAMBOO_HR_TOKEN`          | BambooHR API token            |
+| 2  |                 | `WTF_BAMBOO_HR_SUBDOMAIN`      | BambooHR subdomain            |
+| 3  | [Github](https://developer.github.com/v3/)          | `WTF_GITHUB_TOKEN`             | Github API token              |
+| 4  | [Google Calendar](https://developers.google.com/calendar/) | `WTF_GOOGLE_CAL_CLIENT_ID`     | Google Calendar client ID     |
+| 5  |                 | `WTF_GOOGLE_CAL_CLIENT_SECRET` | Google Calendar client secret |
+| 6  | [JIRA](https://developer.atlassian.com/server/jira/platform/rest-apis/)            | `WTF_JIRA_USERNAME`            | You JIRA username             |
+| 7  |                 | `WTF_JIRA_PASSWORD`            | Your JIRA password            |
+| 8  | [New Relic](https://docs.newrelic.com/docs/apis/rest-api-v2/getting-started/introduction-new-relic-rest-api-v2)       | `WTF_NEW_RELIC_API_KEY`        | New Relic API key             |
+| 9  | [OpsGenie](https://docs.opsgenie.com/docs/api-overview)        | `WTF_OPS_GENIE_API_KEY`        | OpsGenie API key              |
+| 10 | [OpenWeatherMap](https://openweathermap.org/api)  | `WTF_OWM_API_KEY`              | OpenWeatherMap API key        |
 
 ## Installation
 
