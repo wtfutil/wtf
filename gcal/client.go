@@ -58,6 +58,11 @@ func Fetch() (*calendar.Events, error) {
 
 /* -------------------- Unexported Functions -------------------- */
 
+func fromMidnight() time.Time {
+	now := time.Now()
+	return time.Date(now.Year(), now.Month(), now.Day(), 0, 0, 0, 0, now.Location())
+}
+
 // getClient uses a Context and Config to retrieve a Token
 // then generate a Client. It returns the generated Client.
 func getClient(ctx context.Context, config *oauth2.Config) *http.Client {
@@ -90,11 +95,6 @@ func getTokenFromWeb(config *oauth2.Config) *oauth2.Token {
 		log.Fatalf("Unable to retrieve token from web %v", err)
 	}
 	return tok
-}
-
-func fromMidnight() time.Time {
-	now := time.Now()
-	return time.Date(now.Year(), now.Month(), now.Day(), 0, 0, 0, 0, now.Location())
 }
 
 // tokenCacheFile generates credential file path/filename.
