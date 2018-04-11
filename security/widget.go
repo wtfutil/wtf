@@ -2,7 +2,6 @@ package security
 
 import (
 	"fmt"
-	"strings"
 	"time"
 
 	"github.com/gdamore/tcell"
@@ -34,7 +33,8 @@ func (widget *Widget) Refresh() {
 		return
 	}
 
-	data := Fetch()
+	data := NewSecurityData()
+	data.Fetch()
 
 	widget.View.SetTitle(" 🤺 Security ")
 	widget.RefreshedAt = time.Now()
@@ -57,20 +57,15 @@ func (widget *Widget) addView() {
 	widget.View = view
 }
 
-func (widget *Widget) contentFrom(data map[string]string) string {
-	str := " [red]WiFi[white]\n"
-	str = str + fmt.Sprintf(" %8s: %s\n", "Network", data["Network"])
-	str = str + fmt.Sprintf(" %8s: %s\n", "Crypto", data["Encryption"])
-	str = str + "\n"
-	str = str + " [red]Firewall[white]\n"
-	str = str + fmt.Sprintf(" %8s: %s\n", "Enabled", data["Enabled"])
-	str = str + fmt.Sprintf(" %8s: %s\n", "Stealth", data["Stealth"])
-	str = str + "\n"
-	str = str + " [red]DNS[white]\n"
+func (widget *Widget) contentFrom(data *SecurityData) string {
 
-	for _, record := range strings.Split(data["Dns"], "\n") {
-		str = str + fmt.Sprintf(" %8s\n", record)
-	}
+	str := " [red]WiFi[white]\n"
+	str = str + fmt.Sprintf(" %8s: %s\n", "Network", data.WifiName)
+	str = str + fmt.Sprintf(" %8s: %s\n", "Crypto", data.WifiEncryption)
+	str = str + "\n"
+	str = str + " [red]Firewall[white]          [red]DNS[white]\n"
+	str = str + fmt.Sprintf(" %8s: %4s %12s\n", "Enabled", data.FirewallEnabled, data.DnsAt(0))
+	str = str + fmt.Sprintf(" %8s: %4s %12s\n", "Stealth", data.FirewallStealth, data.DnsAt(1))
 
 	return str
 }
