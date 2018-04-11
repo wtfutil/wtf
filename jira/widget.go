@@ -33,11 +33,20 @@ func (widget *Widget) Refresh() {
 		return
 	}
 
+	issues, err := IssuesFor(Config.UString("wtf.mods.jira.username"))
+
 	widget.View.SetTitle(fmt.Sprintf(" %s ", widget.Name))
 	widget.RefreshedAt = time.Now()
 
 	widget.View.Clear()
-	fmt.Fprintf(widget.View, "%s", "jira")
+
+	if err != nil {
+		widget.View.SetWrap(true)
+		fmt.Fprintf(widget.View, "%v", err)
+	} else {
+		widget.View.SetWrap(false)
+		fmt.Fprintf(widget.View, "%v", issues)
+	}
 }
 
 /* -------------------- Unexported Functions -------------------- */

@@ -22,8 +22,7 @@ described value.
 | 3  | [Github](https://developer.github.com/v3/)          | `WTF_GITHUB_TOKEN`             | Github API token              |
 | 4  | [Google Calendar](https://developers.google.com/calendar/) | `WTF_GOOGLE_CAL_CLIENT_ID`     | Google Calendar client ID     |
 | 5  |                 | `WTF_GOOGLE_CAL_CLIENT_SECRET` | Google Calendar client secret |
-| 6  | [JIRA](https://developer.atlassian.com/server/jira/platform/rest-apis/)            | `WTF_JIRA_USERNAME`            | You JIRA username             |
-| 7  |                 | `WTF_JIRA_PASSWORD`            | Your JIRA password            |
+| 6  | [JIRA](https://developer.atlassian.com/server/jira/platform/rest-apis/)            | `WTF_JIRA_API_KEY`            | You JIRA API key             |
 | 8  | [New Relic](https://docs.newrelic.com/docs/apis/rest-api-v2/getting-started/introduction-new-relic-rest-api-v2)       | `WTF_NEW_RELIC_API_KEY`        | New Relic API key             |
 | 9  | [OpsGenie](https://docs.opsgenie.com/docs/api-overview)        | `WTF_OPS_GENIE_API_KEY`        | OpsGenie API key              |
 | 10 | [OpenWeatherMap](https://openweathermap.org/api)  | `WTF_OWM_API_KEY`              | OpenWeatherMap API key        |

@@ -52,12 +52,15 @@ wtf:
       username: "senorprogrammer"
     jira:
       enabled: true
+      domain: "https://lendesk.atlassian.net"
       position:
         top: 1
         left: 1
         height: 1
         width: 1
+      project: "WTF"
       refreshInterval: 900
+      username: "chris.cummer"
     newrelic:
       applicationId: 10549735
       enabled: true
