@@ -15,6 +15,7 @@ import (
 	"github.com/senorprogrammer/wtf/opsgenie"
 	"github.com/senorprogrammer/wtf/security"
 	"github.com/senorprogrammer/wtf/status"
+	"github.com/senorprogrammer/wtf/textfile"
 	"github.com/senorprogrammer/wtf/weather"
 	"github.com/senorprogrammer/wtf/wtf"
 )
@@ -98,6 +99,7 @@ func main() {
 	opsgenie.Config = Config
 	security.Config = Config
 	status.Config = Config
+	textfile.Config = Config
 	weather.Config = Config
 
 	Modules = []wtf.TextViewer{
@@ -110,6 +112,7 @@ func main() {
 		opsgenie.NewWidget(),
 		security.NewWidget(),
 		status.NewWidget(),
+		textfile.NewWidget(),
 		weather.NewWidget(),
 	}
 
