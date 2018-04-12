@@ -123,7 +123,7 @@ func (widget *Widget) eventSummary(event *calendar.Event, conflict bool) string 
 	if conflict {
 		return fmt.Sprintf("%s %s", Config.UString("wtf.mods.gcal.conflictIcon", "🚨"), summary)
 	} else {
-		return event.Summary
+		return summary
 	}
 }
 
