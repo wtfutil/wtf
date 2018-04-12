@@ -10,31 +10,51 @@ import (
 	"os"
 )
 
-func Fetch() string {
-	resp, err := jiraRequest("/rest/api/2/project/CORE")
-	if err != nil {
-		return err.Error()
-	}
-
-	project := &JiraProject{}
-	parseJson(project, resp.Body)
-	//fmt.Printf("%#v\n", project)
-
-	return ""
+type SearchResult struct {
+	StartAt    int     `json:"startAt"`
+	MaxResults int     `json:"maxResults"`
+	Total      int     `json:"total"`
+	Issues     []Issue `json:"issues"`
 }
 
-func IssuesFor(username string) ([]JiraIssue, error) {
+type Issue struct {
+	Expand string `json:"expand"`
+	ID     string `json:"id"`
+	Self   string `json:"self"`
+	Key    string `json:"key"`
+
+	IssueFields *IssueFields `json:"fields"`
+}
+
+type IssueFields struct {
+	Summary string `json:"summary"`
+
+	IssueType *IssueType `json:"issuetype"`
+}
+
+type IssueType struct {
+	Self        string `json:"self"`
+	ID          string `json:"id"`
+	Description string `json:"description"`
+	IconURL     string `json:"iconUrl"`
+	Name        string `json:"name"`
+	Subtask     bool   `json:"subtask"`
+}
+
+/* -------------------- -------------------- */
+
+func IssuesFor(username string) (*SearchResult, error) {
 	url := fmt.Sprintf("/rest/api/2/search?jql=assignee=%s", username)
 
 	resp, err := jiraRequest(url)
 	if err != nil {
-		return nil, err
+		return &SearchResult{}, err
 	}
 
-	issues := []JiraIssue{}
-	parseJson(issues, resp.Body)
+	searchResult := &SearchResult{}
+	parseJson(searchResult, resp.Body)
 
-	return issues, nil
+	return searchResult, nil
 }
 
 /* -------------------- Unexported Functions -------------------- */
