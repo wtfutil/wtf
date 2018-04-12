@@ -1,9 +1,11 @@
 package main
 
 import (
+	//"fmt"
 	"os"
 	"time"
 
+	"github.com/gdamore/tcell"
 	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/bamboohr"
 	"github.com/senorprogrammer/wtf/gcal"
@@ -17,21 +19,6 @@ import (
 	"github.com/senorprogrammer/wtf/weather"
 	"github.com/senorprogrammer/wtf/wtf"
 )
-
-func refresher(stat *status.Widget, app *tview.Application) {
-	tick := time.NewTicker(time.Duration(Config.UInt("wtf.refreshInterval", 1)) * time.Second)
-	quit := make(chan struct{})
-
-	for {
-		select {
-		case <-tick.C:
-			app.Draw()
-		case <-quit:
-			tick.Stop()
-			return
-		}
-	}
-}
 
 func addToApp(grid *tview.Grid, widget wtf.TextViewer) {
 	if widget.Disabled() {
@@ -50,8 +37,36 @@ func addToApp(grid *tview.Grid, widget wtf.TextViewer) {
 	)
 }
 
+func keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
+	// Ctrl-R: force-refreshes every widget
+	if event.Key() == tcell.KeyCtrlR {
+		for _, module := range Modules {
+			go module.Refresh()
+		}
+	}
+
+	return event
+}
+
+func refresher(stat *status.Widget, app *tview.Application) {
+	tick := time.NewTicker(time.Duration(Config.UInt("wtf.refreshInterval", 1)) * time.Second)
+	quit := make(chan struct{})
+
+	for {
+		select {
+		case <-tick.C:
+			app.Draw()
+		case <-quit:
+			tick.Stop()
+			return
+		}
+	}
+}
+
 var result = wtf.CreateConfigDir()
 var Config = wtf.LoadConfigFile()
+
+var Modules []wtf.TextViewer
 
 /* -------------------- Main -------------------- */
 
@@ -105,18 +120,25 @@ func main() {
 	weather := weather.NewWidget()
 	go wtf.Schedule(weather)
 
-	addToApp(grid, bamboo)
-	addToApp(grid, cal)
-	addToApp(grid, git)
-	addToApp(grid, github)
-	addToApp(grid, newrelic)
-	addToApp(grid, weather)
-	addToApp(grid, sec)
-	addToApp(grid, opsgenie)
-	addToApp(grid, jira)
-	addToApp(grid, stat)
+	Modules = []wtf.TextViewer{
+		bamboo,
+		cal,
+		git,
+		github,
+		jira,
+		newrelic,
+		opsgenie,
+		sec,
+		stat,
+		weather,
+	}
+
+	for _, module := range Modules {
+		addToApp(grid, module)
+	}
 
 	app := tview.NewApplication()
+	app.SetInputCapture(keyboardIntercept)
 
 	// Loop in a routine to redraw the screen
 	go refresher(stat, app)

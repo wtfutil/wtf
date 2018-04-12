@@ -6,7 +6,10 @@ import (
 
 type TextViewer interface {
 	Enabler
+
+	Refresh()
 	TextView() *tview.TextView
+
 	Top() int
 	Left() int
 	Width() int
