@@ -86,7 +86,7 @@ func (widget *Widget) contentFrom(deploys []nr.ApplicationDeployment) string {
 			}
 
 			str = str + fmt.Sprintf(
-				" [green]%s[%s] %s %-16s[white]\n",
+				" [green]%s[%s] %s %-.16s[white]\n",
 				deploy.Revision[0:8],
 				lineColor,
 				deploy.Timestamp.Format("Jan 02, 15:04 MST"),

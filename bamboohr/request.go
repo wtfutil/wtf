@@ -8,7 +8,7 @@ import (
 func Request(apiKey string, apiURL string) ([]byte, error) {
 	req, err := http.NewRequest("GET", apiURL, nil)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 
 	req.SetBasicAuth(apiKey, "x")

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"os"
 	"time"
 
 	"github.com/rivo/tview"
@@ -121,6 +122,6 @@ func main() {
 	go refresher(stat, app)
 
 	if err := app.SetRoot(grid, true).Run(); err != nil {
-		panic(err)
+		os.Exit(1)
 	}
 }
