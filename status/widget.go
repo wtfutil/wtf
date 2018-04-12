@@ -2,6 +2,7 @@ package status
 
 import (
 	"fmt"
+	"strings"
 	"time"
 
 	"github.com/gdamore/tcell"
@@ -40,7 +41,12 @@ func (widget *Widget) Refresh() {
 	widget.RefreshedAt = time.Now()
 
 	widget.View.Clear()
-	fmt.Fprintf(widget.View, " %s", widget.contentFrom())
+	fmt.Fprintf(
+		widget.View,
+		"%107s\n%123s",
+		widget.animation(),
+		widget.timezones(),
+	)
 }
 
 /* -------------------- Unexported Functions -------------------- */
@@ -52,11 +58,12 @@ func (widget *Widget) addView() {
 	view.SetBorderColor(tcell.ColorGray)
 	view.SetDynamicColors(true)
 	view.SetTitle(widget.Name)
+	view.SetWrap(false)
 
 	widget.View = view
 }
 
-func (widget *Widget) contentFrom() string {
+func (widget *Widget) animation() string {
 	icons := []string{"👍", "🤜", "🤙", "🤜", "🤘", "🤜", "✊", "🤜", "👌", "🤜"}
 	next := icons[widget.Current]
 
@@ -66,4 +73,19 @@ func (widget *Widget) contentFrom() string {
 	}
 
 	return next
+}
+
+func (widget *Widget) timezones() string {
+	times := Timezones(wtf.ToStrs(Config.UList("wtf.mods.status.timezones")))
+
+	if len(times) == 0 {
+		return ""
+	}
+
+	formattedTimes := []string{}
+	for _, time := range times {
+		formattedTimes = append(formattedTimes, time.Format(wtf.TimeFormat))
+	}
+
+	return strings.Join(formattedTimes, " [yellow]•[white] ")
 }

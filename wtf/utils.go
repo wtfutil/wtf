@@ -10,6 +10,7 @@ import (
 
 // DateFormat defines the format we expect to receive dates from BambooHR in
 const DateFormat = "2006-01-02"
+const TimeFormat = "15:04 MST"
 
 func CenterText(str string, width int) string {
 	return fmt.Sprintf("%[1]*s", -width, fmt.Sprintf("%[1]*s", (width+len(str))/2, str))
@@ -84,6 +85,15 @@ func ToInts(slice []interface{}) []int {
 	results := []int{}
 	for _, val := range slice {
 		results = append(results, val.(int))
+	}
+
+	return results
+}
+
+func ToStrs(slice []interface{}) []string {
+	results := []string{}
+	for _, val := range slice {
+		results = append(results, val.(string))
 	}
 
 	return results
