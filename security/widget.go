@@ -18,7 +18,7 @@ type Widget struct {
 
 func NewWidget() *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget("Security", "security"),
+		TextWidget: wtf.NewTextWidget(" 🤺 Security ", "security"),
 	}
 
 	widget.addView()
@@ -36,7 +36,6 @@ func (widget *Widget) Refresh() {
 	data := NewSecurityData()
 	data.Fetch()
 
-	widget.View.SetTitle(" 🤺 Security ")
 	widget.RefreshedAt = time.Now()
 
 	widget.View.Clear()

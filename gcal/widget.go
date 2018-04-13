@@ -20,7 +20,7 @@ type Widget struct {
 
 func NewWidget() *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget("Calendar", "gcal"),
+		TextWidget: wtf.NewTextWidget(" 🍿 Calendar ", "gcal"),
 	}
 
 	widget.addView()
@@ -37,7 +37,6 @@ func (widget *Widget) Refresh() {
 
 	events, _ := Fetch()
 
-	widget.View.SetTitle(" 🍿 Calendar ")
 	widget.RefreshedAt = time.Now()
 
 	widget.View.Clear()

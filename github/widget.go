@@ -19,7 +19,7 @@ type Widget struct {
 
 func NewWidget() *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget("Github", "github"),
+		TextWidget: wtf.NewTextWidget(" Github ", "github"),
 	}
 
 	widget.addView()

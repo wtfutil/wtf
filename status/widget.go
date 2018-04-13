@@ -21,7 +21,7 @@ type Widget struct {
 
 func NewWidget() *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget("Status", "status"),
+		TextWidget: wtf.NewTextWidget(" 🎉 Status ", "status"),
 		Current:    0,
 	}
 
@@ -37,7 +37,6 @@ func (widget *Widget) Refresh() {
 		return
 	}
 
-	widget.View.SetTitle(" 🎉 Status ")
 	widget.RefreshedAt = time.Now()
 
 	widget.View.Clear()
