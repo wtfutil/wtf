@@ -39,10 +39,12 @@ func (widget *Widget) Refresh() {
 
 	widget.RefreshedAt = time.Now()
 
+	_, _, w, _ := widget.View.GetInnerRect()
+
 	widget.View.Clear()
 	fmt.Fprintf(
 		widget.View,
-		"%107s\n%123s",
+		fmt.Sprintf("%%%ds\n%%%ds", w-2, w-1),
 		widget.animation(),
 		widget.timezones(),
 	)
@@ -86,5 +88,5 @@ func (widget *Widget) timezones() string {
 		formattedTimes = append(formattedTimes, time.Format(wtf.TimeFormat))
 	}
 
-	return strings.Join(formattedTimes, " [yellow]•[white] ")
+	return strings.Join(formattedTimes, " • ")
 }
