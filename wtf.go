@@ -37,15 +37,22 @@ func addToGrid(grid *tview.Grid, widget wtf.TextViewer) {
 }
 
 // Grid stores all the widgets onscreen (like an HTML table)
-func buildGrid() *tview.Grid {
+func buildGrid(modules []wtf.TextViewer) *tview.Grid {
 	grid := tview.NewGrid()
 	grid.SetColumns(wtf.ToInts(Config.UList("wtf.grid.columns"))...)
 	grid.SetRows(wtf.ToInts(Config.UList("wtf.grid.rows"))...)
 	grid.SetBorder(false)
 
+	for _, module := range modules {
+		addToGrid(grid, module)
+		go wtf.Schedule(module)
+	}
+
 	return grid
 }
 
+// FIXME: Not a fan of how this function has to reach outside itself, grab
+// Modules, and then operate on them. Should be able to pass that in instead
 func keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	// Ctrl-R: force-refreshes every widget
 	if event.Key() == tcell.KeyCtrlR {
@@ -57,7 +64,7 @@ func keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	return event
 }
 
-func refresher(stat *status.Widget, app *tview.Application) {
+func refresher(app *tview.Application) {
 	tick := time.NewTicker(time.Duration(Config.UInt("wtf.refreshInterval", 1)) * time.Second)
 	quit := make(chan struct{})
 
@@ -82,63 +89,37 @@ var Modules []wtf.TextViewer
 func main() {
 	wtf.Config = Config
 
-	// TODO: Really need to generalize all of these. This don't scale
 	bamboohr.Config = Config
-	bamboo := bamboohr.NewWidget()
-
 	gcal.Config = Config
-	cal := gcal.NewWidget()
-
 	git.Config = Config
-	git := git.NewWidget()
-
 	github.Config = Config
-	github := github.NewWidget()
-
 	jira.Config = Config
-	jira := jira.NewWidget()
-
 	newrelic.Config = Config
-	newrelic := newrelic.NewWidget()
-
 	opsgenie.Config = Config
-	opsgenie := opsgenie.NewWidget()
-
 	security.Config = Config
-	sec := security.NewWidget()
-
 	status.Config = Config
-	stat := status.NewWidget()
-
 	weather.Config = Config
-	weather := weather.NewWidget()
 
 	Modules = []wtf.TextViewer{
-		bamboo,
-		cal,
-		git,
-		github,
-		jira,
-		newrelic,
-		opsgenie,
-		sec,
-		stat,
-		weather,
-	}
-
-	grid := buildGrid()
-
-	for _, module := range Modules {
-		addToGrid(grid, module)
-		go wtf.Schedule(module)
+		bamboohr.NewWidget(),
+		gcal.NewWidget(),
+		git.NewWidget(),
+		github.NewWidget(),
+		jira.NewWidget(),
+		newrelic.NewWidget(),
+		opsgenie.NewWidget(),
+		security.NewWidget(),
+		status.NewWidget(),
+		weather.NewWidget(),
 	}
 
 	app := tview.NewApplication()
 	app.SetInputCapture(keyboardIntercept)
 
 	// Loop in a routine to redraw the screen
-	go refresher(stat, app)
+	go refresher(app)
 
+	grid := buildGrid(Modules)
 	if err := app.SetRoot(grid, true).Run(); err != nil {
 		os.Exit(1)
 	}

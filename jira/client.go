@@ -10,39 +10,6 @@ import (
 	"os"
 )
 
-type SearchResult struct {
-	StartAt    int     `json:"startAt"`
-	MaxResults int     `json:"maxResults"`
-	Total      int     `json:"total"`
-	Issues     []Issue `json:"issues"`
-}
-
-type Issue struct {
-	Expand string `json:"expand"`
-	ID     string `json:"id"`
-	Self   string `json:"self"`
-	Key    string `json:"key"`
-
-	IssueFields *IssueFields `json:"fields"`
-}
-
-type IssueFields struct {
-	Summary string `json:"summary"`
-
-	IssueType *IssueType `json:"issuetype"`
-}
-
-type IssueType struct {
-	Self        string `json:"self"`
-	ID          string `json:"id"`
-	Description string `json:"description"`
-	IconURL     string `json:"iconUrl"`
-	Name        string `json:"name"`
-	Subtask     bool   `json:"subtask"`
-}
-
-/* -------------------- -------------------- */
-
 func IssuesFor(username string) (*SearchResult, error) {
 	url := fmt.Sprintf("/rest/api/2/search?jql=assignee=%s", username)
 
