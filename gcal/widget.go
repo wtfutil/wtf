@@ -158,11 +158,15 @@ func (widget *Widget) hasConflict(event *calendar.Event, events *calendar.Events
 	return conflict
 }
 
+func (widget *Widget) isOneOnOne(event *calendar.Event) bool {
+	return strings.Contains(event.Summary, "1on1") || strings.Contains(event.Summary, "1/1")
+}
+
 func (widget *Widget) titleColor(event *calendar.Event) string {
 	ts, _ := time.Parse(time.RFC3339, event.Start.DateTime)
 
 	color := "red"
-	if strings.Contains(event.Summary, "1on1") {
+	if widget.isOneOnOne(event) {
 		color = "green"
 	}
 

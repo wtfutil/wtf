@@ -18,7 +18,7 @@ type Widget struct {
 
 func NewWidget() *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(" JIRA ", "jira"),
+		TextWidget: wtf.NewTextWidget("JIRA", "jira"),
 	}
 
 	widget.addView()
@@ -47,10 +47,9 @@ func (widget *Widget) Refresh() {
 		widget.View.SetWrap(false)
 		widget.View.SetTitle(
 			fmt.Sprintf(
-				" %s: [green]%s[white] (%d)",
+				" %s: [green]%s[white] ",
 				widget.Name,
 				Config.UString("wtf.mods.jira.project"),
-				len(searchResult.Issues),
 			),
 		)
 		fmt.Fprintf(widget.View, "%s", widget.contentFrom(searchResult))
