@@ -38,10 +38,11 @@ func (widget *Widget) Refresh() {
 	data := Fetch(Config.UInt("wtf.mods.weather.cityId", 6176823))
 
 	widget.View.SetTitle(fmt.Sprintf(" %s %s ", icon(data), data.Name))
-	widget.RefreshedAt = time.Now()
 
 	widget.View.Clear()
 	fmt.Fprintf(widget.View, "%s", widget.contentFrom(data))
+
+	widget.RefreshedAt = time.Now()
 }
 
 /* -------------------- Unexported Functions -------------------- */

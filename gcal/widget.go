@@ -37,10 +37,10 @@ func (widget *Widget) Refresh() {
 
 	events, _ := Fetch()
 
-	widget.RefreshedAt = time.Now()
-
 	widget.View.Clear()
 	fmt.Fprintf(widget.View, "%s", widget.contentFrom(events))
+
+	widget.RefreshedAt = time.Now()
 }
 
 /* -------------------- Unexported Functions -------------------- */
@@ -207,5 +207,5 @@ func (widget *Widget) until(event *calendar.Event) string {
 		untilStr = fmt.Sprintf("%dm", mins)
 	}
 
-	return "[grey]" + untilStr + "[white]"
+	return "[lightblue]" + untilStr + "[white]"
 }

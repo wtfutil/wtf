@@ -37,7 +37,6 @@ func (widget *Widget) Refresh() {
 	data, err := Fetch()
 
 	widget.View.SetTitle(" ⏰ On Call ")
-	widget.RefreshedAt = time.Now()
 
 	widget.View.Clear()
 
@@ -48,6 +47,8 @@ func (widget *Widget) Refresh() {
 		widget.View.SetWrap(false)
 		fmt.Fprintf(widget.View, "%s", widget.contentFrom(data))
 	}
+
+	widget.RefreshedAt = time.Now()
 }
 
 /* -------------------- Unexported Functions -------------------- */

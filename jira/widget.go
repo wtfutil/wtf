@@ -35,8 +35,6 @@ func (widget *Widget) Refresh() {
 
 	searchResult, err := IssuesFor(Config.UString("wtf.mods.jira.username"))
 
-	widget.RefreshedAt = time.Now()
-
 	widget.View.Clear()
 
 	if err != nil {
@@ -54,6 +52,8 @@ func (widget *Widget) Refresh() {
 		)
 		fmt.Fprintf(widget.View, "%s", widget.contentFrom(searchResult))
 	}
+
+	widget.RefreshedAt = time.Now()
 }
 
 /* -------------------- Unexported Functions -------------------- */

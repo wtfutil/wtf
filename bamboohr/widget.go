@@ -43,10 +43,11 @@ func (widget *Widget) Refresh() {
 	)
 
 	widget.View.SetTitle(fmt.Sprintf(" 👽 Away (%d) ", len(todayItems)))
-	widget.RefreshedAt = time.Now()
 
 	widget.View.Clear()
 	fmt.Fprintf(widget.View, "%s", widget.contentFrom(todayItems))
+
+	widget.RefreshedAt = time.Now()
 }
 
 /* -------------------- Unexported Functions -------------------- */

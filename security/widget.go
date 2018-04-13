@@ -36,10 +36,10 @@ func (widget *Widget) Refresh() {
 	data := NewSecurityData()
 	data.Fetch()
 
-	widget.RefreshedAt = time.Now()
-
 	widget.View.Clear()
 	fmt.Fprintf(widget.View, "%s", widget.contentFrom(data))
+
+	widget.RefreshedAt = time.Now()
 }
 
 /* -------------------- Unexported Functions -------------------- */

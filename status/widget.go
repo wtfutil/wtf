@@ -37,8 +37,6 @@ func (widget *Widget) Refresh() {
 		return
 	}
 
-	widget.RefreshedAt = time.Now()
-
 	_, _, w, _ := widget.View.GetInnerRect()
 
 	widget.View.Clear()
@@ -48,6 +46,8 @@ func (widget *Widget) Refresh() {
 		widget.animation(),
 		widget.timezones(),
 	)
+
+	widget.RefreshedAt = time.Now()
 }
 
 /* -------------------- Unexported Functions -------------------- */

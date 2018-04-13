@@ -40,10 +40,11 @@ func (widget *Widget) Refresh() {
 	title := fmt.Sprintf("[green]%s[white]\n", data["repo"][0])
 
 	widget.View.SetTitle(fmt.Sprintf(" Git: %s ", title))
-	widget.RefreshedAt = time.Now()
 
 	widget.View.Clear()
 	fmt.Fprintf(widget.View, "%s", widget.contentFrom(data))
+
+	widget.RefreshedAt = time.Now()
 }
 
 /* -------------------- Unexported Functions -------------------- */

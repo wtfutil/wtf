@@ -38,7 +38,6 @@ func (widget *Widget) Refresh() {
 	prs, _ := client.PullRequests(Config.UString("wtf.mods.github.owner"), Config.UString("wtf.mods.github.repo"))
 
 	widget.View.SetTitle(fmt.Sprintf(" Github: %s ", widget.title()))
-	widget.RefreshedAt = time.Now()
 
 	str := " [red]Open Review Requests[white]\n"
 	str = str + widget.prsForReview(prs, Config.UString("wtf.mods.github.username"))
@@ -48,6 +47,8 @@ func (widget *Widget) Refresh() {
 
 	widget.View.Clear()
 	fmt.Fprintf(widget.View, str)
+
+	widget.RefreshedAt = time.Now()
 }
 
 /* -------------------- Unexported Functions -------------------- */

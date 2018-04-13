@@ -43,7 +43,6 @@ func (widget *Widget) Refresh() {
 	}
 
 	widget.View.SetTitle(fmt.Sprintf(" New Relic: [green]%s[white] ", appName))
-	widget.RefreshedAt = time.Now()
 
 	widget.View.Clear()
 
@@ -54,6 +53,8 @@ func (widget *Widget) Refresh() {
 		widget.View.SetWrap(false)
 		fmt.Fprintf(widget.View, "%s", widget.contentFrom(deploys))
 	}
+		
+	widget.RefreshedAt = time.Now()
 }
 
 /* -------------------- Unexported Functions -------------------- */
