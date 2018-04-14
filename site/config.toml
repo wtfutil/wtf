@@ -1,0 +1,9 @@
+baseURL = "http://wtfutil.com/"
+languageCode = "en-us"
+publishDir = "../docs"
+theme = "hyde-hyde"
+
+[params]
+  author = "Chris Cummer"
+  authorimage = "/img/wtf.png"
+  description = "Wtf is that?"

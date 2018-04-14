@@ -1,5 +1,5 @@
 <p align="center">
-<img src="docs/wtf.jpg?raw=true" title="WTF" width="852" height="240")
+<img src="./docs/img/wtf.jpg?raw=true" title="WTF" width="852" height="240")
 </p>
 
 A personal terminal-based dashboard utility, designed for
