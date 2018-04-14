@@ -6,4 +6,4 @@ theme = "hyde-hyde"
 [params]
   author = "Chris Cummer"
   authorimage = "/img/wtf.png"
-  description = "Wtf is that?"
+  description = "...is that?"
