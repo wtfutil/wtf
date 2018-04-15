@@ -6,9 +6,7 @@ import (
 	"time"
 	"unicode/utf8"
 
-	"github.com/gdamore/tcell"
 	"github.com/olebedev/config"
-	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/wtf"
 )
 
@@ -22,8 +20,6 @@ func NewWidget() *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(" Git ", "git"),
 	}
-
-	widget.addView()
 
 	return &widget
 }
@@ -48,18 +44,6 @@ func (widget *Widget) Refresh() {
 }
 
 /* -------------------- Unexported Functions -------------------- */
-
-func (widget *Widget) addView() {
-	view := tview.NewTextView()
-
-	view.SetBorder(true)
-	view.SetBorderColor(tcell.ColorGray)
-	view.SetDynamicColors(true)
-	view.SetTitle(widget.Name)
-	view.SetWrap(false)
-
-	widget.View = view
-}
 
 func (widget *Widget) contentFrom(data map[string][]string) string {
 	str := " [red]Branch[white]\n"

@@ -4,10 +4,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/gdamore/tcell"
 	ghb "github.com/google/go-github/github"
 	"github.com/olebedev/config"
-	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/wtf"
 )
 
@@ -21,8 +19,6 @@ func NewWidget() *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(" Github ", "github"),
 	}
-
-	widget.addView()
 
 	return &widget
 }
@@ -52,18 +48,6 @@ func (widget *Widget) Refresh() {
 }
 
 /* -------------------- Unexported Functions -------------------- */
-
-func (widget *Widget) addView() {
-	view := tview.NewTextView()
-
-	view.SetBorder(true)
-	view.SetBorderColor(tcell.ColorGray)
-	view.SetDynamicColors(true)
-	view.SetTitle(widget.Name)
-	view.SetWrap(false)
-
-	widget.View = view
-}
 
 func (widget *Widget) prsForReview(prs []*ghb.PullRequest, username string) string {
 	if len(prs) > 0 {

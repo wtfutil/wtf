@@ -5,9 +5,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/gdamore/tcell"
 	"github.com/olebedev/config"
-	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/wtf"
 	"google.golang.org/api/calendar/v3"
 )
@@ -22,8 +20,6 @@ func NewWidget() *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(" 🍿 Calendar ", "gcal"),
 	}
-
-	widget.addView()
 
 	return &widget
 }
@@ -44,18 +40,6 @@ func (widget *Widget) Refresh() {
 }
 
 /* -------------------- Unexported Functions -------------------- */
-
-func (widget *Widget) addView() {
-	view := tview.NewTextView()
-
-	view.SetBorder(true)
-	view.SetBorderColor(tcell.ColorGrey)
-	view.SetDynamicColors(true)
-	view.SetTitle(widget.Name)
-	view.SetWrap(false)
-
-	widget.View = view
-}
 
 func (widget *Widget) contentFrom(events *calendar.Events) string {
 	if events == nil {

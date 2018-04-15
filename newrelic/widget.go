@@ -4,9 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/gdamore/tcell"
 	"github.com/olebedev/config"
-	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/wtf"
 	nr "github.com/yfronto/newrelic"
 )
@@ -21,8 +19,6 @@ func NewWidget() *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(" New Relic ", "newrelic"),
 	}
-
-	widget.addView()
 
 	return &widget
 }
@@ -58,18 +54,6 @@ func (widget *Widget) Refresh() {
 }
 
 /* -------------------- Unexported Functions -------------------- */
-
-func (widget *Widget) addView() {
-	view := tview.NewTextView()
-
-	view.SetBorder(true)
-	view.SetBorderColor(tcell.ColorGray)
-	view.SetDynamicColors(true)
-	view.SetTitle(widget.Name)
-	view.SetWrap(false)
-
-	widget.View = view
-}
 
 func (widget *Widget) contentFrom(deploys []nr.ApplicationDeployment) string {
 	str := fmt.Sprintf(

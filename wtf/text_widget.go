@@ -6,6 +6,7 @@ import (
 
 	"github.com/olebedev/config"
 	"github.com/rivo/tview"
+	"github.com/senorprogrammer/wtf/color"
 )
 
 var Config *config.Config
@@ -34,7 +35,21 @@ func NewTextWidget(name string, configKey string) TextWidget {
 		},
 	}
 
+	widget.addView()
+
 	return widget
+}
+
+func (widget *TextWidget) addView() {
+	view := tview.NewTextView()
+
+	view.SetBorder(true)
+	view.SetBorderColor(color.ColorFor(Config.UString("wtf.border.normal")))
+	view.SetDynamicColors(true)
+	view.SetTitle(widget.Name)
+	view.SetWrap(false)
+
+	widget.View = view
 }
 
 /* -------------------- Exported Functions -------------------- */
