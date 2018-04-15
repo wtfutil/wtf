@@ -22,8 +22,8 @@ func CreateConfigDir() bool {
 }
 
 // LoadConfigFile loads the config.yml file to configure the app
-func LoadConfigFile() *config.Config {
-	absPath, _ := homedir.Expand("~/.wtf/config.yml")
+func LoadConfigFile(filePath string) *config.Config {
+	absPath, _ := homedir.Expand(filePath)
 
 	cfg, err := config.ParseYamlFile(absPath)
 	if err != nil {

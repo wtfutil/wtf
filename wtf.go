@@ -1,10 +1,12 @@
 package main
 
 import (
+	"flag"
 	"os"
 	"time"
 
 	"github.com/gdamore/tcell"
+	"github.com/olebedev/config"
 	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/bamboohr"
 	"github.com/senorprogrammer/wtf/gcal"
@@ -57,7 +59,7 @@ func buildGrid(modules []wtf.TextViewer) *tview.Grid {
 func keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	// Ctrl-R: force-refreshes every widget
 	if event.Key() == tcell.KeyCtrlR {
-		for _, module := range Modules {
+		for _, module := range Widgets {
 			go module.Refresh()
 		}
 	}
@@ -81,13 +83,19 @@ func refresher(app *tview.Application) {
 }
 
 var result = wtf.CreateConfigDir()
-var Config = wtf.LoadConfigFile()
 
-var Modules []wtf.TextViewer
+var Config *config.Config
+var Widgets []wtf.TextViewer
 
 /* -------------------- Main -------------------- */
 
 func main() {
+	// Optional argument to accept path to a config file
+	configFile := flag.String("config", "~/.wtf/config.yml", "Path to config file")
+	flag.Parse()
+
+	Config = wtf.LoadConfigFile(*configFile)
+
 	wtf.Config = Config
 
 	bamboohr.Config = Config
@@ -102,7 +110,7 @@ func main() {
 	textfile.Config = Config
 	weather.Config = Config
 
-	Modules = []wtf.TextViewer{
+	Widgets = []wtf.TextViewer{
 		bamboohr.NewWidget(),
 		gcal.NewWidget(),
 		git.NewWidget(),
@@ -122,7 +130,7 @@ func main() {
 	// Loop in a routine to redraw the screen
 	go refresher(app)
 
-	grid := buildGrid(Modules)
+	grid := buildGrid(Widgets)
 	if err := app.SetRoot(grid, true).Run(); err != nil {
 		os.Exit(1)
 	}
