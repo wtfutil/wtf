@@ -10,7 +10,7 @@ import (
 
 // DateFormat defines the format we expect to receive dates from BambooHR in
 const DateFormat = "2006-01-02"
-const TimeFormat = "15:04 MST"
+const TimeFormat = "15:04"
 
 func CenterText(str string, width int) string {
 	return fmt.Sprintf("%[1]*s", -width, fmt.Sprintf("%[1]*s", (width+len(str))/2, str))
