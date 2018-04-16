@@ -40,8 +40,7 @@ func (widget *Widget) Refresh() {
 	widget.View.Clear()
 	fmt.Fprintf(
 		widget.View,
-		fmt.Sprintf("%%%ds\n%%%ds", w-2, w-1),
-		widget.animation(),
+		fmt.Sprintf("\n%%%ds", w-1),
 		widget.timezones(),
 	)
 
