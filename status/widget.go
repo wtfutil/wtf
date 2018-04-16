@@ -2,7 +2,6 @@ package status
 
 import (
 	"fmt"
-	"sort"
 	"strings"
 	"time"
 
@@ -62,25 +61,16 @@ func (widget *Widget) animation() string {
 }
 
 func (widget *Widget) timezones() string {
-	timezones := Timezones(Config.UMap("wtf.mods.status.timezones"))
+	times := Timezones(wtf.ToStrs(Config.UList("wtf.mods.status.timezones")))
 
-	if len(timezones) == 0 {
+	if len(times) == 0 {
 		return ""
 	}
 
-	// All this is to display the time entries in alphabetical order
-	labels := []string{}
-	for label, _ := range timezones {
-		labels = append(labels, label)
+	formattedTimes := []string{}
+	for _, time := range times {
+		formattedTimes = append(formattedTimes, time.Format(wtf.TimeFormat))
 	}
 
-	sort.Strings(labels)
-
-	tzs := []string{}
-	for _, label := range labels {
-		zoneStr := fmt.Sprintf("%s %s", label, timezones[label].Format(wtf.TimeFormat))
-		tzs = append(tzs, zoneStr)
-	}
-
-	return strings.Join(tzs, " ◦ ")
+	return strings.Join(formattedTimes, " • ")
 }

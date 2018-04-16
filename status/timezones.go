@@ -4,17 +4,16 @@ import (
 	"time"
 )
 
-func Timezones(timezones map[string]interface{}) map[string]time.Time {
-	times := make(map[string]time.Time)
+func Timezones(zones []string) []time.Time {
+	times := []time.Time{}
 
-	for label, timezone := range timezones {
-		tzloc, err := time.LoadLocation(timezone.(string))
-
+	for _, zone := range zones {
+		loc, err := time.LoadLocation(zone)
 		if err != nil {
 			continue
 		}
 
-		times[label] = time.Now().In(tzloc)
+		times = append(times, time.Now().In(loc))
 	}
 
 	return times
