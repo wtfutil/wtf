@@ -37,17 +37,18 @@ func (widget *Widget) Refresh() {
 	data := Fetch(wtf.ToInts(Config.UList("wtf.mods.weather.cityids", widget.defaultCityCodes())))
 
 	widget.View.Clear()
-	widget.contentFrom(data)
+	widget.contentFor(data)
 	widget.RefreshedAt = time.Now()
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (widget *Widget) contentFrom(data []*owm.CurrentWeatherData) {
+func (widget *Widget) contentFor(data []*owm.CurrentWeatherData) {
 	cityData := widget.currentCityData(data)
 
 	if len(cityData.Weather) == 0 {
 		fmt.Fprintf(widget.View, "%s", " Weather data is unavailable.")
+		return
 	}
 
 	widget.View.SetTitle(widget.contentTitle(cityData))

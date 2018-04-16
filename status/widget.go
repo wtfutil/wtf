@@ -34,6 +34,7 @@ func (widget *Widget) Refresh() {
 		return
 	}
 
+	// FIXME: Use two calls to wtf.RightAlign here and get rid of this code duplication
 	_, _, w, _ := widget.View.GetInnerRect()
 
 	widget.View.Clear()
