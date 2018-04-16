@@ -10,8 +10,8 @@
     
     <meta name="generator" content="Hugo 0.38.2" />
     
-    <title>404 Page not found &middot; </title>
-    <meta content="404 Page not found - " property="og:title">
+    <title>Configuration &middot; </title>
+    <meta content="Configuration - " property="og:title">
     <meta content=" - " property="og:description">
     <!-- CSS -->
     <link href="https://fonts.googleapis.com/css?family=Fira+Sans:300,300i,400,400i|Roboto+Mono:300,300i,400,400i" rel="stylesheet">
@@ -77,10 +77,62 @@
 </div>
 
         <div class="content container">
-            <h1>404: Page not found</h1>
-<p class="lead">Sorry, we've misplaced that URL or it's pointing to something that doesn't exist. <a href="http://wtfutil.com/">Head back home</a> to try finding it again.</p>
+            <div class="post">
+  <h1>Configuration</h1>
+  
+  <div class="col-sm-12 col-md-12">
+    <span class="text-left post-date meta">
+            
+       
+        <i class="fas fa-calendar-alt"></i> Apr 15, 2018
+      
+      
+      
+      
+      <br/>
+      <i class="fas fa-clock"></i> 1 min read 
+      </span>  
+  </div>    
+  
+  
+
+<p>By default WTF looks in a <code>~/.wtf/</code> directory for a YAML file called
+<code>config.yml</code>. If <code>~/.wtf/</code> doesn&rsquo;t exist, WTF will create that directory
+on start-up, and then display instructions for creating the
+configuration file.</p>
+
+<h2 id="config-yml">Config.yml</h2>
+
+<h2 id="example-config-files">Example Config Files</h2>
+
+<p>A few example config files are provided in the <code>_sample_configs/</code>
+directory of the Git repository. To try out WTF quickly, copy
+<code>simple_config.yml</code> into <code>~/.wtf/</code> as <code>config.yml</code> and relaunch WTF. You
+should see the app launch and display the <em>Security</em> and <em>Status</em>
+modules.</p>
+
+<h2 id="custom-configuration-files">Custom Configuration Files</h2>
+
+<p>To load a custom configuration file (ie: one that&rsquo;s not
+<code>~/.wtf/config.yml</code>), pass in the path to configuration file as a
+parameter on launch:</p>
+
+<pre><code class="language-bash">    $&gt; wtf --config=path/to/custom/config.yml
+</code></pre>
+
+<p>Example:</p>
+
+<pre><code class="language-bash">    %&gt; wtf --config=~/Documents/monitoring.yml
+</code></pre>
+
+<p>This is also the easiest way to run multiple instances of WTF, should
+you want to run multiple independent dashboards.</p>
+
+</div>
             <div class="footer">
                 
+
+
             </div>
         </div>
         
