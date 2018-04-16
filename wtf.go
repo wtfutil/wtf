@@ -62,6 +62,7 @@ func keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 		for _, module := range Widgets {
 			go module.Refresh()
 		}
+	} else if event.Key() == tcell.KeyTab {
 	}
 
 	return event

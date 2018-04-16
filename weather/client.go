@@ -9,9 +9,17 @@ import (
 
 /* -------------------- Exported Functions -------------------- */
 
-func Fetch(cityID int) *owm.CurrentWeatherData {
+func Fetch(cityids []int) []*owm.CurrentWeatherData {
 	apiKey := os.Getenv("WTF_OWM_API_KEY")
-	data, _ := currentWeather(apiKey, cityID)
+
+	data := []*owm.CurrentWeatherData{}
+
+	for _, cityID := range cityids {
+		result, err := currentWeather(apiKey, cityID)
+		if err == nil {
+			data = append(data, result)
+		}
+	}
 
 	return data
 }

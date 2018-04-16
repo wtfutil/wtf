@@ -6,11 +6,13 @@ import (
 	"os/exec"
 	"strings"
 	"time"
+
+	"github.com/rivo/tview"
 )
 
 // DateFormat defines the format we expect to receive dates from BambooHR in
 const DateFormat = "2006-01-02"
-const TimeFormat = "15:04 MST"
+const TimeFormat = "15:04"
 
 func CenterText(str string, width int) string {
 	return fmt.Sprintf("%[1]*s", -width, fmt.Sprintf("%[1]*s", (width+len(str))/2, str))
@@ -19,11 +21,11 @@ func CenterText(str string, width int) string {
 func ExecuteCommand(cmd *exec.Cmd) string {
 	stdout, err := cmd.StdoutPipe()
 	if err != nil {
-		return fmt.Sprintf("A: %v\n", err)
+		return fmt.Sprintf("%v\n", err)
 	}
 
 	if err := cmd.Start(); err != nil {
-		return fmt.Sprintf("B: %v\n", err)
+		return fmt.Sprintf("%v\n", err)
 	}
 
 	var str string
@@ -77,8 +79,9 @@ func Now() time.Time {
 	return time.Now().Local()
 }
 
-func Tomorrow() time.Time {
-	return Now().AddDate(0, 0, 1)
+func RightAlignFormat(view *tview.TextView) string {
+	_, _, w, _ := view.GetInnerRect()
+	return fmt.Sprintf("%%%ds", w-1)
 }
 
 func ToInts(slice []interface{}) []int {
@@ -88,6 +91,10 @@ func ToInts(slice []interface{}) []int {
 	}
 
 	return results
+}
+
+func Tomorrow() time.Time {
+	return Now().AddDate(0, 0, 1)
 }
 
 func ToStrs(slice []interface{}) []string {
