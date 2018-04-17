@@ -6,6 +6,7 @@ import (
 	"time"
 
 	owm "github.com/briandowns/openweathermap"
+	"github.com/gdamore/tcell"
 	"github.com/olebedev/config"
 	"github.com/senorprogrammer/wtf/wtf"
 )
@@ -16,6 +17,7 @@ type Widget struct {
 	wtf.TextWidget
 
 	Current int
+	Data    []*owm.CurrentWeatherData
 }
 
 func NewWidget() *Widget {
@@ -23,6 +25,8 @@ func NewWidget() *Widget {
 		TextWidget: wtf.NewTextWidget(" Weather ", "weather"),
 		Current:    0,
 	}
+
+	widget.View.SetInputCapture(widget.keyboardIntercept)
 
 	return &widget
 }
@@ -34,12 +38,31 @@ func (widget *Widget) Refresh() {
 		return
 	}
 
-	data := Fetch(wtf.ToInts(Config.UList("wtf.mods.weather.cityids", widget.defaultCityCodes())))
+	widget.Data = Fetch(wtf.ToInts(Config.UList("wtf.mods.weather.cityids", widget.defaultCityCodes())))
 
-	//widget.SetBorder()
 	widget.View.Clear()
-	widget.contentFor(data)
+	widget.contentFor(widget.Data)
 	widget.RefreshedAt = time.Now()
+}
+
+func (widget *Widget) Next() {
+	widget.Current = widget.Current + 1
+	if widget.Current == len(widget.Data) {
+		widget.Current = 0
+	}
+
+	widget.View.Clear()
+	widget.contentFor(widget.Data)
+}
+
+func (widget *Widget) Prev() {
+	widget.Current = widget.Current - 1
+	if widget.Current < 0 {
+		widget.Current = len(widget.Data) - 1
+	}
+
+	widget.View.Clear()
+	widget.contentFor(widget.Data)
 }
 
 /* -------------------- Unexported Functions -------------------- */
@@ -62,6 +85,7 @@ func (widget *Widget) contentFor(data []*owm.CurrentWeatherData) {
 	fmt.Fprintf(widget.View, "%s", str)
 }
 
+// FIXME: content* functions into their own thing
 func (widget *Widget) contentTickMarks(data []*owm.CurrentWeatherData) string {
 	str := ""
 
@@ -100,7 +124,7 @@ func (widget *Widget) contentTemperatures(cityData *owm.CurrentWeatherData) stri
 
 func (widget *Widget) contentSunInfo(cityData *owm.CurrentWeatherData) string {
 	return fmt.Sprintf(
-		" Rise: %s    Set: %s\n",
+		" Rise: %s    Set: %s",
 		wtf.UnixTime(int64(cityData.Sys.Sunrise)).Format("15:04 MST"),
 		wtf.UnixTime(int64(cityData.Sys.Sunset)).Format("15:04 MST"),
 	)
@@ -124,6 +148,8 @@ func (widget *Widget) defaultCityCodes() []interface{} {
 // icon returns an emoji for the current weather
 // src: https://github.com/chubin/wttr.in/blob/master/share/translations/en.txt
 // Note: these only work for English weather status. Sorry about that
+//
+// FIXME: Move these into a configuration file so they can be changed without a compile
 func (widget *Widget) icon(data *owm.CurrentWeatherData) string {
 	var icon string
 
@@ -181,6 +207,19 @@ func (widget *Widget) icon(data *owm.CurrentWeatherData) string {
 	}
 
 	return icon
+}
+
+func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
+	switch event.Key() {
+	case tcell.KeyLeft:
+		widget.Prev()
+	case tcell.KeyRight:
+		widget.Next()
+	default:
+		return event
+	}
+
+	return event
 }
 
 func (widget *Widget) refreshedAt() string {
