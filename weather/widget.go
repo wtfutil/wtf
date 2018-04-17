@@ -1,6 +1,7 @@
 package weather
 
 import (
+	"os"
 	"time"
 
 	owm "github.com/briandowns/openweathermap"
@@ -9,19 +10,24 @@ import (
 	"github.com/senorprogrammer/wtf/wtf"
 )
 
+// Config is a pointer to the global config object.
 var Config *config.Config
 
+// Widget is the container for weather data.
 type Widget struct {
 	wtf.TextWidget
 
-	Idx int
-	Data    []*owm.CurrentWeatherData
+	APIKey string
+	Data   []*owm.CurrentWeatherData
+	Idx    int
 }
 
+// NewWidget creates and returns a new instance of the weather Widget.
 func NewWidget() *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(" Weather ", "weather"),
-		Idx:    0,
+		APIKey:     os.Getenv("WTF_OWM_API_KEY"),
+		Idx:        0,
 	}
 
 	widget.View.SetInputCapture(widget.keyboardIntercept)
@@ -31,17 +37,37 @@ func NewWidget() *Widget {
 
 /* -------------------- Exported Functions -------------------- */
 
+// Fetch retrieves OpenWeatherMap data from the OpenWeatherMap API.
+// It takes a list of OpenWeatherMap city IDs.
+// It returns a list of OpenWeatherMap CurrentWeatherData structs, one per valid city code.
+func (widget *Widget) Fetch(cityIDs []int) []*owm.CurrentWeatherData {
+	data := []*owm.CurrentWeatherData{}
+
+	for _, cityID := range cityIDs {
+		result, err := widget.currentWeather(widget.APIKey, cityID)
+		if err == nil {
+			data = append(data, result)
+		}
+	}
+
+	return data
+}
+
+// Refresh fetches new data from the OpenWeatherMap API and loads the new data into the.
+// widget's view for rendering
 func (widget *Widget) Refresh() {
 	if widget.Disabled() {
 		return
 	}
 
-	widget.Data = Fetch(wtf.ToInts(Config.UList("wtf.mods.weather.cityids", widget.defaultCityCodes())))
+	widget.Data = widget.Fetch(wtf.ToInts(Config.UList("wtf.mods.weather.cityids", widget.defaultCityCodes())))
 
 	widget.display(widget.Data)
 	widget.RefreshedAt = time.Now()
 }
 
+// Next displays data for the next city data in the list. If the current city is the last
+// city, it wraps to the first city.
 func (widget *Widget) Next() {
 	widget.Idx = widget.Idx + 1
 	if widget.Idx == len(widget.Data) {
@@ -51,6 +77,8 @@ func (widget *Widget) Next() {
 	widget.display(widget.Data)
 }
 
+// Prev displays data for the previous city in the list. If the previous city is the first
+// city, it wraps to the last city.
 func (widget *Widget) Prev() {
 	widget.Idx = widget.Idx - 1
 	if widget.Idx < 0 {
@@ -66,10 +94,24 @@ func (widget *Widget) currentCityData(data []*owm.CurrentWeatherData) *owm.Curre
 	return data[widget.Idx]
 }
 
+func (widget *Widget) currentWeather(apiKey string, cityCode int) (*owm.CurrentWeatherData, error) {
+	weather, err := owm.NewCurrent(Config.UString("wtf.mods.weather.tempUnit", "C"), Config.UString("wtf.mods.weather.language", "EN"), apiKey)
+	if err != nil {
+		return nil, err
+	}
+
+	err = weather.CurrentByID(cityCode)
+	if err != nil {
+		return nil, err
+	}
+
+	return weather, nil
+}
+
 func (widget *Widget) defaultCityCodes() []interface{} {
 	defaultArr := []int{6176823, 360630, 3413829}
 
-	var defaults []interface{} = make([]interface{}, len(defaultArr))
+	var defaults = make([]interface{}, len(defaultArr))
 	for i, d := range defaultArr {
 		defaults[i] = d
 	}
@@ -95,7 +137,7 @@ func (widget *Widget) icon(data *owm.CurrentWeatherData) string {
 	case "clear":
 		icon = "☀️"
 	case "clear sky":
-		icon = "☀️ "
+		icon = "☀️"
 	case "cloudy":
 		icon = "⛅️"
 	case "few clouds":
@@ -112,6 +154,8 @@ func (widget *Widget) icon(data *owm.CurrentWeatherData) string {
 		icon = "☔️"
 	case "light rain":
 		icon = "🌦"
+	case "light shower snow":
+		icon = "🌦⛄️"
 	case "light snow":
 		icon = "🌨"
 	case "mist":

@@ -8,6 +8,7 @@ import (
 	"github.com/senorprogrammer/wtf/wtf"
 )
 
+// Config is a pointer to the global config object
 var Config *config.Config
 
 type Widget struct {

@@ -9,6 +9,7 @@ import (
 	nr "github.com/yfronto/newrelic"
 )
 
+// Config is a pointer to the global config object
 var Config *config.Config
 
 type Widget struct {
@@ -49,7 +50,7 @@ func (widget *Widget) Refresh() {
 		widget.View.SetWrap(false)
 		fmt.Fprintf(widget.View, "%s", widget.contentFrom(deploys))
 	}
-		
+
 	widget.RefreshedAt = time.Now()
 }
 

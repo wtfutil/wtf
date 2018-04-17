@@ -33,7 +33,10 @@ func ExecuteCommand(cmd *exec.Cmd) string {
 		str += string(b)
 	}
 
-	cmd.Wait()
+	err = cmd.Wait()
+	if err != nil {
+		return fmt.Sprintf("%v\n", err)
+	}
 
 	return str
 }

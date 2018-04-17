@@ -10,6 +10,7 @@ import (
 	"google.golang.org/api/calendar/v3"
 )
 
+// Config is a pointer to the global config object
 var Config *config.Config
 
 type Widget struct {

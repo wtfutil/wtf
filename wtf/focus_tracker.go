@@ -5,6 +5,8 @@ import (
 	"github.com/senorprogrammer/wtf/color"
 )
 
+// FocusTracker is used by the app to track which onscreen widget currently has focus,
+// and to move focus between widgets.
 type FocusTracker struct {
 	App     *tview.Application
 	Idx     int
@@ -13,16 +15,21 @@ type FocusTracker struct {
 
 /* -------------------- Exported Functions -------------------- */
 
+// Next sets the focus on the next widget in the widget list. If the current widget is
+// the last widget, sets focus on the first widget.
 func (tracker *FocusTracker) Next() {
 	tracker.blur(tracker.Idx)
 	tracker.increment()
 	tracker.focus(tracker.Idx)
 }
 
+// None removes focus from the currently-focused widget.
 func (tracker *FocusTracker) None() {
 	tracker.blur(tracker.Idx)
 }
 
+// Prev sets the focus on the previous widget in the widget list. If the current widget is
+// the last widget, sets focus on the last widget.
 func (tracker *FocusTracker) Prev() {
 	tracker.blur(tracker.Idx)
 	tracker.decrement()
