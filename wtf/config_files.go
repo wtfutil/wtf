@@ -18,6 +18,7 @@ func CreateConfigDir() bool {
 			panic(err)
 		}
 	}
+
 	return true
 }
 

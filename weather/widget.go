@@ -36,6 +36,7 @@ func (widget *Widget) Refresh() {
 
 	data := Fetch(wtf.ToInts(Config.UList("wtf.mods.weather.cityids", widget.defaultCityCodes())))
 
+	//widget.SetBorder()
 	widget.View.Clear()
 	widget.contentFor(data)
 	widget.RefreshedAt = time.Now()

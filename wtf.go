@@ -4,6 +4,7 @@ import (
 	"flag"
 	"os"
 	"time"
+	//"math/rand"
 
 	"github.com/gdamore/tcell"
 	"github.com/olebedev/config"
@@ -35,7 +36,7 @@ func addToGrid(grid *tview.Grid, widget wtf.TextViewer) {
 		widget.Width(),
 		0,
 		0,
-		false, // has focus
+		false,
 	)
 }
 
@@ -54,22 +55,29 @@ func buildGrid(modules []wtf.TextViewer) *tview.Grid {
 	return grid
 }
 
-// FIXME: Not a fan of how this function has to reach outside itself, grab
-// Modules, and then operate on them. Should be able to pass that in instead
 func keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
-	// Ctrl-R: force-refreshes every widget
-	if event.Key() == tcell.KeyCtrlR {
-		for _, module := range Widgets {
-			go module.Refresh()
-		}
-	} else if event.Key() == tcell.KeyTab {
+	switch event.Key() {
+	case tcell.KeyCtrlR:
+		refreshAllModules()
+	case tcell.KeyTab:
+		FocusTracker.Next()
+	case tcell.KeyBacktab:
+		FocusTracker.Prev()
+	case tcell.KeyEsc:
+		FocusTracker.None()
+	default:
+		return event
 	}
 
 	return event
 }
 
-func refresher(app *tview.Application) {
-	tick := time.NewTicker(time.Duration(Config.UInt("wtf.refreshInterval", 1)) * time.Second)
+// redrawApp redraws the rendered views to screen on a defined interval (set in config.yml)
+// Use this because each textView widget can have it's own update interval, and I don't want to
+// manage drawing co-ordination amongst them all. If you need to have a
+// widget redraw on it's own schedule, use the view's SetChangedFunc() and pass it `app`.
+func redrawApp(app *tview.Application) {
+	tick := time.NewTicker(time.Duration(Config.UInt("wtf.refreshInterval", 2)) * time.Second)
 	quit := make(chan struct{})
 
 	for {
@@ -83,9 +91,16 @@ func refresher(app *tview.Application) {
 	}
 }
 
+func refreshAllModules() {
+	for _, module := range Widgets {
+		go module.Refresh()
+	}
+}
+
 var result = wtf.CreateConfigDir()
 
 var Config *config.Config
+var FocusTracker wtf.FocusTracker
 var Widgets []wtf.TextViewer
 
 /* -------------------- Main -------------------- */
@@ -128,8 +143,14 @@ func main() {
 	app := tview.NewApplication()
 	app.SetInputCapture(keyboardIntercept)
 
+	FocusTracker = wtf.FocusTracker{
+		App:     app,
+		Idx:     0,
+		Widgets: Widgets,
+	}
+
 	// Loop in a routine to redraw the screen
-	go refresher(app)
+	go redrawApp(app)
 
 	grid := buildGrid(Widgets)
 	if err := app.SetRoot(grid, true).Run(); err != nil {

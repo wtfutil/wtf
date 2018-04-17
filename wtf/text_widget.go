@@ -40,19 +40,19 @@ func NewTextWidget(name string, configKey string) TextWidget {
 	return widget
 }
 
-func (widget *TextWidget) addView() {
-	view := tview.NewTextView()
-
-	view.SetBorder(true)
-	view.SetBorderColor(color.ColorFor(Config.UString("wtf.border.normal")))
-	view.SetDynamicColors(true)
-	view.SetTitle(widget.Name)
-	view.SetWrap(false)
-
-	widget.View = view
-}
-
 /* -------------------- Exported Functions -------------------- */
+
+//func (widget *TextWidget) SetBorder() {
+  //var colorName string
+
+	//if widget.View.HasFocus() {
+		//colorName = Config.UString("wtf.border.normal")
+ //} else {
+		//colorName = Config.UString("wtf.border.focus")
+ //}
+
+ //widget.View.SetBorderColor(color.ColorFor(colorName))
+//}
 
 func (widget *TextWidget) Disabled() bool {
 	return !widget.Enabled()
@@ -69,3 +69,18 @@ func (widget *TextWidget) RefreshInterval() int {
 func (widget *TextWidget) TextView() *tview.TextView {
 	return widget.View
 }
+
+/* -------------------- Unexported Functions -------------------- */
+
+func (widget *TextWidget) addView() {
+	view := tview.NewTextView()
+
+	view.SetBorder(true)
+	view.SetBorderColor(color.ColorFor(Config.UString("wtf.border.normal")))
+	view.SetDynamicColors(true)
+	view.SetTitle(widget.Name)
+	view.SetWrap(false)
+
+	widget.View = view
+}
+
