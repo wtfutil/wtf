@@ -1,8 +1,6 @@
 package weather
 
 import (
-	"fmt"
-	"strings"
 	"time"
 
 	owm "github.com/briandowns/openweathermap"
@@ -16,14 +14,14 @@ var Config *config.Config
 type Widget struct {
 	wtf.TextWidget
 
-	Current int
+	Idx int
 	Data    []*owm.CurrentWeatherData
 }
 
 func NewWidget() *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(" Weather ", "weather"),
-		Current:    0,
+		Idx:    0,
 	}
 
 	widget.View.SetInputCapture(widget.keyboardIntercept)
@@ -40,98 +38,32 @@ func (widget *Widget) Refresh() {
 
 	widget.Data = Fetch(wtf.ToInts(Config.UList("wtf.mods.weather.cityids", widget.defaultCityCodes())))
 
-	widget.View.Clear()
-	widget.contentFor(widget.Data)
+	widget.display(widget.Data)
 	widget.RefreshedAt = time.Now()
 }
 
 func (widget *Widget) Next() {
-	widget.Current = widget.Current + 1
-	if widget.Current == len(widget.Data) {
-		widget.Current = 0
+	widget.Idx = widget.Idx + 1
+	if widget.Idx == len(widget.Data) {
+		widget.Idx = 0
 	}
 
-	widget.View.Clear()
-	widget.contentFor(widget.Data)
+	widget.display(widget.Data)
 }
 
 func (widget *Widget) Prev() {
-	widget.Current = widget.Current - 1
-	if widget.Current < 0 {
-		widget.Current = len(widget.Data) - 1
+	widget.Idx = widget.Idx - 1
+	if widget.Idx < 0 {
+		widget.Idx = len(widget.Data) - 1
 	}
 
-	widget.View.Clear()
-	widget.contentFor(widget.Data)
+	widget.display(widget.Data)
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (widget *Widget) contentFor(data []*owm.CurrentWeatherData) {
-	cityData := widget.currentCityData(data)
-
-	if len(cityData.Weather) == 0 {
-		fmt.Fprintf(widget.View, "%s", " Weather data is unavailable.")
-		return
-	}
-
-	widget.View.SetTitle(widget.contentTitle(cityData))
-
-	str := widget.contentTickMarks(data) + "\n"
-	str = str + widget.contentDescription(cityData) + "\n\n"
-	str = str + widget.contentTemperatures(cityData) + "\n"
-	str = str + widget.contentSunInfo(cityData)
-
-	fmt.Fprintf(widget.View, "%s", str)
-}
-
-// FIXME: content* functions into their own thing
-func (widget *Widget) contentTickMarks(data []*owm.CurrentWeatherData) string {
-	str := ""
-
-	if len(data) > 1 {
-		tickMarks := strings.Repeat("*", len(data))
-		tickMarks = tickMarks[:widget.Current] + "_" + tickMarks[widget.Current+1:]
-
-		str = "[lightblue]" + fmt.Sprintf(wtf.RightAlignFormat(widget.View), tickMarks) + "[white]"
-	}
-
-	return str
-}
-
-func (widget *Widget) contentTitle(cityData *owm.CurrentWeatherData) string {
-	return fmt.Sprintf(" %s %s ", widget.icon(cityData), cityData.Name)
-}
-
-func (widget *Widget) contentDescription(cityData *owm.CurrentWeatherData) string {
-	descs := []string{}
-	for _, weather := range cityData.Weather {
-		descs = append(descs, fmt.Sprintf(" %s", weather.Description))
-	}
-
-	return strings.Join(descs, ",")
-}
-
-func (widget *Widget) contentTemperatures(cityData *owm.CurrentWeatherData) string {
-	tempUnit := Config.UString("wtf.mods.weather.tempUnit", "C")
-
-	str := fmt.Sprintf("%8s: %4.1f° %s\n", "High", cityData.Main.TempMax, tempUnit)
-	str = str + fmt.Sprintf("%8s: [green]%4.1f° %s[white]\n", "Current", cityData.Main.Temp, tempUnit)
-	str = str + fmt.Sprintf("%8s: %4.1f° %s\n", "Low", cityData.Main.TempMin, tempUnit)
-
-	return str
-}
-
-func (widget *Widget) contentSunInfo(cityData *owm.CurrentWeatherData) string {
-	return fmt.Sprintf(
-		" Rise: %s    Set: %s",
-		wtf.UnixTime(int64(cityData.Sys.Sunrise)).Format("15:04 MST"),
-		wtf.UnixTime(int64(cityData.Sys.Sunset)).Format("15:04 MST"),
-	)
-}
-
 func (widget *Widget) currentCityData(data []*owm.CurrentWeatherData) *owm.CurrentWeatherData {
-	return data[widget.Current]
+	return data[widget.Idx]
 }
 
 func (widget *Widget) defaultCityCodes() []interface{} {
