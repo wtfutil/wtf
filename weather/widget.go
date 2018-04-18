@@ -62,7 +62,7 @@ func (widget *Widget) Refresh() {
 
 	widget.Data = widget.Fetch(wtf.ToInts(Config.UList("wtf.mods.weather.cityids", widget.defaultCityCodes())))
 
-	widget.display(widget.Data)
+	widget.display()
 	widget.RefreshedAt = time.Now()
 }
 
@@ -74,7 +74,7 @@ func (widget *Widget) Next() {
 		widget.Idx = 0
 	}
 
-	widget.display(widget.Data)
+	widget.display()
 }
 
 // Prev displays data for the previous city in the list. If the previous city is the first
@@ -85,13 +85,13 @@ func (widget *Widget) Prev() {
 		widget.Idx = len(widget.Data) - 1
 	}
 
-	widget.display(widget.Data)
+	widget.display()
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (widget *Widget) currentCityData(data []*owm.CurrentWeatherData) *owm.CurrentWeatherData {
-	return data[widget.Idx]
+func (widget *Widget) currentData() *owm.CurrentWeatherData {
+	return widget.Data[widget.Idx]
 }
 
 func (widget *Widget) currentWeather(apiKey string, cityCode int) (*owm.CurrentWeatherData, error) {
@@ -189,15 +189,13 @@ func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	switch event.Key() {
 	case tcell.KeyLeft:
 		widget.Prev()
+		return nil
 	case tcell.KeyRight:
 		widget.Next()
+		return nil
 	default:
 		return event
 	}
 
 	return event
-}
-
-func (widget *Widget) refreshedAt() string {
-	return widget.RefreshedAt.Format("15:04:05")
 }

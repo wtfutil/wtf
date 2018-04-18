@@ -4,8 +4,9 @@ import (
 	"fmt"
 	"strings"
 	"time"
-	"unicode/utf8"
+	
 
+	"github.com/gdamore/tcell"
 	"github.com/olebedev/config"
 	"github.com/senorprogrammer/wtf/wtf"
 )
@@ -15,99 +16,95 @@ var Config *config.Config
 
 type Widget struct {
 	wtf.TextWidget
+
+	Data []*GitRepo
+	Idx  int
 }
 
 func NewWidget() *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(" Git ", "git"),
+		Idx:        0,
 	}
+
+	widget.View.SetInputCapture(widget.keyboardIntercept)
 
 	return &widget
 }
 
 /* -------------------- Exported Functions -------------------- */
 
+func (widget *Widget) Fetch(repoPaths []string) []*GitRepo {
+	data := []*GitRepo{}
+
+	for _, repoPath := range repoPaths {
+		repo := NewGitRepo(repoPath)
+		data = append(data, repo)
+	}
+
+	return data
+}
+
 func (widget *Widget) Refresh() {
 	if widget.Disabled() {
 		return
 	}
 
-	data := Fetch()
+	repoPaths := wtf.ToStrs(Config.UList("wtf.mods.git.repositories"))
+	widget.Data = widget.Fetch(repoPaths)
 
-	title := fmt.Sprintf("[green]%s[white]\n", data["repo"][0])
-
-	widget.View.SetTitle(fmt.Sprintf(" Git: %s ", title))
-
-	widget.View.Clear()
-	fmt.Fprintf(widget.View, "%s", widget.contentFrom(data))
-
+	widget.display()
 	widget.RefreshedAt = time.Now()
+}
+
+func (widget *Widget) Next() {
+	widget.Idx = widget.Idx + 1
+	if widget.Idx == len(widget.Data) {
+		widget.Idx = 0
+	}
+
+	widget.display()
+}
+
+func (widget *Widget) Prev() {
+	widget.Idx = widget.Idx - 1
+	if widget.Idx < 0 {
+		widget.Idx = len(widget.Data) - 1
+	}
+
+	widget.display()
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (widget *Widget) contentFrom(data map[string][]string) string {
-	str := " [red]Branch[white]\n"
-	str = str + fmt.Sprintf(" %s", data["branch"][0])
-	str = str + "\n"
-	str = str + widget.formatChanges(data["changes"])
-	str = str + "\n"
-	str = str + widget.formatCommits(data["commits"])
-
-	return str
+func (widget *Widget) currentData() *GitRepo {
+  return widget.Data[widget.Idx]
 }
 
-func (widget *Widget) formatChanges(data []string) string {
-	str := ""
-	str = str + " [red]Changed Files[white]\n"
-
-	if len(data) == 1 {
-		str = str + " [grey]none[white]\n"
-	} else {
-		for _, line := range data {
-			str = str + widget.formatChange(line)
-		}
-	}
-
-	return str
-}
-
-func (widget *Widget) formatChange(line string) string {
-	if len(line) == 0 {
-		return ""
-	}
-
-	line = strings.TrimSpace(line)
-	firstChar, _ := utf8.DecodeRuneInString(line)
-
-	// Revisit this and kill the ugly duplication
-	switch firstChar {
-	case 'A':
-		line = strings.Replace(line, "A", "[green]A[white]", 1)
-	case 'D':
-		line = strings.Replace(line, "D", "[red]D[white]", 1)
-	case 'M':
-		line = strings.Replace(line, "M", "[yellow]M[white]", 1)
-	case 'R':
-		line = strings.Replace(line, "R", "[purple]R[white]", 1)
+func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
+	switch event.Key() {
+	case tcell.KeyLeft:
+		widget.Prev()
+		return nil
+	case tcell.KeyRight:
+		widget.Next()
+		return nil
 	default:
-		line = line
+		return event
 	}
 
-	return fmt.Sprintf(" %s\n", strings.Replace(line, "\"", "", -1))
+	return event
 }
 
-func (widget *Widget) formatCommits(data []string) string {
+func (widget *Widget) tickMarks(data []*GitRepo) string {
 	str := ""
-	str = str + " [red]Recent Commits[white]\n"
 
-	for _, line := range data {
-		str = str + widget.formatCommit(line)
+	if len(data) > 1 {
+		marks := strings.Repeat("*", len(data))
+		marks = marks[:widget.Idx] + "_" + marks[widget.Idx+1:]
+
+		str = "[lightblue]" + fmt.Sprintf(wtf.RightAlignFormat(widget.View), marks) + "[white]"
 	}
 
 	return str
-}
-
-func (widget *Widget) formatCommit(line string) string {
-	return fmt.Sprintf(" %s\n", strings.Replace(line, "\"", "", -1))
 }

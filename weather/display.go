@@ -8,10 +8,10 @@ import (
 	"github.com/senorprogrammer/wtf/wtf"
 )
 
-func (widget *Widget) display(data []*owm.CurrentWeatherData) {
+func (widget *Widget) display() {
 	widget.View.Clear()
 
-	cityData := widget.currentCityData(data)
+	cityData := widget.currentData()
 
 	if len(cityData.Weather) == 0 {
 		fmt.Fprintf(widget.View, "%s", " Weather data is unavailable.")
@@ -20,7 +20,7 @@ func (widget *Widget) display(data []*owm.CurrentWeatherData) {
 
 	widget.View.SetTitle(widget.title(cityData))
 
-	str := widget.tickMarks(data) + "\n"
+	str := widget.tickMarks(widget.Data) + "\n"
 	str = str + widget.description(cityData) + "\n\n"
 	str = str + widget.temperatures(cityData) + "\n"
 	str = str + widget.sunInfo(cityData)
@@ -59,10 +59,10 @@ func (widget *Widget) tickMarks(data []*owm.CurrentWeatherData) string {
 	str := ""
 
 	if len(data) > 1 {
-		tickMarks := strings.Repeat("*", len(data))
-		tickMarks = tickMarks[:widget.Idx] + "_" + tickMarks[widget.Idx+1:]
+		marks := strings.Repeat("*", len(data))
+		marks = marks[:widget.Idx] + "_" + marks[widget.Idx+1:]
 
-		str = "[lightblue]" + fmt.Sprintf(wtf.RightAlignFormat(widget.View), tickMarks) + "[white]"
+		str = "[lightblue]" + fmt.Sprintf(wtf.RightAlignFormat(widget.View), marks) + "[white]"
 	}
 
 	return str
