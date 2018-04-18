@@ -21,7 +21,7 @@ type Widget struct {
 
 func NewWidget() *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget("TextFile", "textfile"),
+		TextWidget: wtf.NewTextWidget(" Text File ", "textfile"),
 		FilePath:   Config.UString("wtf.mods.textfile.filepath"),
 	}
 
@@ -37,7 +37,7 @@ func (widget *Widget) Refresh() {
 		return
 	}
 
-	widget.View.SetTitle(fmt.Sprintf(" %s ", widget.FilePath))
+	widget.View.SetTitle(fmt.Sprintf(" 📄 %s ", widget.FilePath))
 	widget.RefreshedAt = time.Now()
 
 	widget.View.Clear()
