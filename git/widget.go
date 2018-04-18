@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"strings"
 	"time"
-	
 
 	"github.com/gdamore/tcell"
 	"github.com/olebedev/config"
@@ -78,7 +77,15 @@ func (widget *Widget) Prev() {
 /* -------------------- Unexported Functions -------------------- */
 
 func (widget *Widget) currentData() *GitRepo {
-  return widget.Data[widget.Idx]
+	if len(widget.Data) == 0 {
+		return nil
+	}
+
+	if widget.Idx < 0 || widget.Idx >= len(widget.Data) {
+		return nil
+	}
+
+	return widget.Data[widget.Idx]
 }
 
 func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {

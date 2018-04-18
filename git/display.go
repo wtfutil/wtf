@@ -10,6 +10,10 @@ func (widget *Widget) display() {
 	widget.View.Clear()
 
 	repoData := widget.currentData()
+	if repoData == nil {
+		fmt.Fprintf(widget.View, "%s", " Git repo data is unavailable (1)")
+		return
+	}
 
 	title := fmt.Sprintf("[green]%s[white]\n", repoData.Repository)
 	widget.View.SetTitle(fmt.Sprintf(" Git: %s ", title))
