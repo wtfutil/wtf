@@ -1,9 +1,9 @@
 package status
 
 import (
-	"fmt"
-	"sort"
-	"strings"
+	//"fmt"
+	//"sort"
+	//"strings"
 	"time"
 
 	"github.com/olebedev/config"
@@ -35,15 +35,14 @@ func (widget *Widget) Refresh() {
 		return
 	}
 
-	// FIXME: Use two calls to wtf.RightAlign here and get rid of this code duplication
-	_, _, w, _ := widget.View.GetInnerRect()
+	//_, _, w, _ := widget.View.GetInnerRect()
 
-	widget.View.Clear()
-	fmt.Fprintf(
-		widget.View,
-		fmt.Sprintf("\n%%%ds", w-1),
-		widget.timezones(),
-	)
+	//widget.View.Clear()
+	//fmt.Fprintf(
+	//widget.View,
+	//fmt.Sprintf("\n%%%ds", w-1),
+	//widget.timezones(),
+	//)
 
 	widget.RefreshedAt = time.Now()
 }
@@ -60,28 +59,4 @@ func (widget *Widget) animation() string {
 	}
 
 	return next
-}
-
-func (widget *Widget) timezones() string {
-	timezones := Timezones(Config.UMap("wtf.mods.status.timezones"))
-
-	if len(timezones) == 0 {
-		return ""
-	}
-
-	// All this is to display the time entries in alphabetical order
-	labels := []string{}
-	for label, _ := range timezones {
-		labels = append(labels, label)
-	}
-
-	sort.Strings(labels)
-
-	tzs := []string{}
-	for _, label := range labels {
-		zoneStr := fmt.Sprintf("%s %s", label, timezones[label].Format(wtf.TimeFormat))
-		tzs = append(tzs, zoneStr)
-	}
-
-	return strings.Join(tzs, " ◦ ")
 }

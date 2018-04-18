@@ -10,6 +10,7 @@ import (
 	"github.com/olebedev/config"
 	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/bamboohr"
+	"github.com/senorprogrammer/wtf/clocks"
 	"github.com/senorprogrammer/wtf/gcal"
 	"github.com/senorprogrammer/wtf/git"
 	"github.com/senorprogrammer/wtf/github"
@@ -115,6 +116,7 @@ func main() {
 	wtf.Config = Config
 
 	bamboohr.Config = Config
+	clocks.Config = Config
 	gcal.Config = Config
 	git.Config = Config
 	github.Config = Config
@@ -128,6 +130,7 @@ func main() {
 
 	Widgets = []wtf.TextViewer{
 		bamboohr.NewWidget(),
+		clocks.NewWidget(),
 		gcal.NewWidget(),
 		git.NewWidget(),
 		github.NewWidget(),
