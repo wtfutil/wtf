@@ -36,44 +36,72 @@ func (widget *Widget) Refresh() {
 	}
 
 	widget.View.Clear()
-
-	fmt.Fprintf(widget.View, "\n%s", widget.locations())
-
+	widget.display()
 	widget.RefreshedAt = time.Now()
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (widget *Widget) locations() string {
-	timezones := Timezones(Config.UMap("wtf.mods.clocks.locations"))
+func (widget *Widget) colorFor(idx int) string {
+	rowColor := Config.UString("wtf.mods.clocks.rowcolors.even", "lightblue")
 
-	if len(timezones) == 0 {
-		return ""
+	if idx%2 == 0 {
+		rowColor = Config.UString("wtf.mods.clocks.rowcolors.odd", "white")
 	}
 
-	// All this is to display the time entries in alphabetical order
+	return rowColor
+}
+
+func (widget *Widget) display() {
+	locs := widget.locations(Config.UMap("wtf.mods.clocks.locations"))
+
+	if len(locs) == 0 {
+		fmt.Fprintf(widget.View, "\n%s", " no timezone data available")
+		return
+	}
+
+	labels := widget.sortedLabels(locs)
+
+	tzs := []string{}
+	for idx, label := range labels {
+		zoneStr := fmt.Sprintf(
+			" [%s]%-12s %-10s %7s[white]",
+			widget.colorFor(idx),
+			label,
+			locs[label].Format(TimeFormat),
+			locs[label].Format(DateFormat),
+		)
+
+		tzs = append(tzs, zoneStr)
+	}
+
+	fmt.Fprintf(widget.View, "\n%s", strings.Join(tzs, "\n"))
+}
+
+func (widget *Widget) locations(locs map[string]interface{}) map[string]time.Time {
+	times := make(map[string]time.Time)
+
+	for label, loc := range locs {
+		tzloc, err := time.LoadLocation(loc.(string))
+
+		if err != nil {
+			continue
+		}
+
+		times[label] = time.Now().In(tzloc)
+	}
+
+	return times
+}
+
+func (widget *Widget) sortedLabels(locs map[string]time.Time) []string {
 	labels := []string{}
-	for label, _ := range timezones {
+
+	for label, _ := range locs {
 		labels = append(labels, label)
 	}
 
 	sort.Strings(labels)
 
-	tzs := []string{}
-	for idx, label := range labels {
-		rowColor := Config.UString("wtf.mods.clocks.rowcolors.even", "lightblue")
-		if idx%2 == 0 {
-			rowColor = Config.UString("wtf.mods.clocks.rowcolors.odd", "white")
-		}
-
-		zoneStr := fmt.Sprintf(
-			" [%s]%-12s %-10s %7s[white]",
-			rowColor, label,
-			timezones[label].Format(TimeFormat),
-			timezones[label].Format(DateFormat),
-		)
-		tzs = append(tzs, zoneStr)
-	}
-
-	return strings.Join(tzs, "\n")
+	return labels
 }

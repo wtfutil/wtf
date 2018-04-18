@@ -1,8 +1,6 @@
 package git
 
 import (
-	"fmt"
-	"strings"
 	"time"
 
 	"github.com/gdamore/tcell"
@@ -33,24 +31,13 @@ func NewWidget() *Widget {
 
 /* -------------------- Exported Functions -------------------- */
 
-func (widget *Widget) Fetch(repoPaths []string) []*GitRepo {
-	data := []*GitRepo{}
-
-	for _, repoPath := range repoPaths {
-		repo := NewGitRepo(repoPath)
-		data = append(data, repo)
-	}
-
-	return data
-}
-
 func (widget *Widget) Refresh() {
 	if widget.Disabled() {
 		return
 	}
 
 	repoPaths := wtf.ToStrs(Config.UList("wtf.mods.git.repositories"))
-	widget.Data = widget.Fetch(repoPaths)
+	widget.Data = widget.gitRepos(repoPaths)
 
 	widget.display()
 	widget.RefreshedAt = time.Now()
@@ -88,6 +75,17 @@ func (widget *Widget) currentData() *GitRepo {
 	return widget.Data[widget.Idx]
 }
 
+func (widget *Widget) gitRepos(repoPaths []string) []*GitRepo {
+	repos := []*GitRepo{}
+
+	for _, repoPath := range repoPaths {
+		repo := NewGitRepo(repoPath)
+		repos = append(repos, repo)
+	}
+
+	return repos
+}
+
 func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	switch event.Key() {
 	case tcell.KeyLeft:
@@ -101,17 +99,4 @@ func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	}
 
 	return event
-}
-
-func (widget *Widget) tickMarks(data []*GitRepo) string {
-	str := ""
-
-	if len(data) > 1 {
-		marks := strings.Repeat("*", len(data))
-		marks = marks[:widget.Idx] + "_" + marks[widget.Idx+1:]
-
-		str = "[lightblue]" + fmt.Sprintf(wtf.RightAlignFormat(widget.View), marks) + "[white]"
-	}
-
-	return str
 }

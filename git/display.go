@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"strings"
 	"unicode/utf8"
+
+	"github.com/senorprogrammer/wtf/wtf"
 )
 
 func (widget *Widget) display() {
@@ -82,4 +84,17 @@ func (widget *Widget) formatCommits(data []string) string {
 
 func (widget *Widget) formatCommit(line string) string {
 	return fmt.Sprintf(" %s\n", strings.Replace(line, "\"", "", -1))
+}
+
+func (widget *Widget) tickMarks(data []*GitRepo) string {
+	str := ""
+
+	if len(data) > 1 {
+		marks := strings.Repeat("*", len(data))
+		marks = marks[:widget.Idx] + "_" + marks[widget.Idx+1:]
+
+		str = "[lightblue]" + fmt.Sprintf(wtf.RightAlignFormat(widget.View), marks) + "[white]"
+	}
+
+	return str
 }
