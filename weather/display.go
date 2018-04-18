@@ -12,9 +12,13 @@ func (widget *Widget) display() {
 	widget.View.Clear()
 
 	cityData := widget.currentData()
+	if cityData == nil {
+		fmt.Fprintf(widget.View, "%s", " Weather data is unavailable (1)")
+		return
+	}
 
 	if len(cityData.Weather) == 0 {
-		fmt.Fprintf(widget.View, "%s", " Weather data is unavailable.")
+		fmt.Fprintf(widget.View, "%s", " Weather data is unavailable (2)")
 		return
 	}
 

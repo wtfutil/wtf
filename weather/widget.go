@@ -91,6 +91,14 @@ func (widget *Widget) Prev() {
 /* -------------------- Unexported Functions -------------------- */
 
 func (widget *Widget) currentData() *owm.CurrentWeatherData {
+	if len(widget.Data) == 0 {
+		return nil
+	}
+
+	if widget.Idx < 0 || widget.Idx >= len(widget.Data) {
+		return nil
+	}
+
 	return widget.Data[widget.Idx]
 }
 
