@@ -2,6 +2,9 @@ package github
 
 import (
 	"fmt"
+	"strings"
+
+	"github.com/senorprogrammer/wtf/wtf"
 )
 
 func (widget *Widget) display() {
@@ -15,7 +18,8 @@ func (widget *Widget) display() {
 
 	widget.View.SetTitle(fmt.Sprintf(" Github: %s ", widget.title(repo)))
 
-	str := " [red]Open Review Requests[white]\n"
+	str := widget.tickMarks(widget.Data) + "\n"
+	str = str + " [red]Open Review Requests[white]\n"
 	str = str + widget.prsForReview(repo, Config.UString("wtf.mods.github.username"))
 	str = str + "\n"
 	str = str + " [red]Open Pull Requests[white]\n"
@@ -68,6 +72,18 @@ func (widget *Widget) prsForReview(repo *GithubRepo, username string) string {
 	return str
 }
 
+func (widget *Widget) tickMarks(data []*GithubRepo) string {
+	str := ""
+
+	if len(data) > 1 {
+		marks := strings.Repeat("*", len(data))
+		marks = marks[:widget.Idx] + "_" + marks[widget.Idx+1:]
+
+		str = "[lightblue]" + fmt.Sprintf(wtf.RightAlignFormat(widget.View), marks) + "[white]"
+	}
+
+	return str
+}
 
 func (widget *Widget) title(repo *GithubRepo) string {
 	return fmt.Sprintf("[green]%s - %s[white]", repo.Owner, repo.Name)
