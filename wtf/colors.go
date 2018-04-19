@@ -1,4 +1,4 @@
-package color
+package wtf
 
 import (
 	"github.com/gdamore/tcell"

@@ -2,7 +2,6 @@ package wtf
 
 import (
 	"github.com/rivo/tview"
-	"github.com/senorprogrammer/wtf/color"
 )
 
 // FocusTracker is used by the app to track which onscreen widget currently has focus,
@@ -41,7 +40,7 @@ func (tracker *FocusTracker) Prev() {
 func (tracker *FocusTracker) blur(idx int) {
 	view := tracker.Widgets[idx].TextView()
 	view.Blur()
-	view.SetBorderColor(color.ColorFor(Config.UString("wtf.border.normal")))
+	view.SetBorderColor(ColorFor(Config.UString("wtf.border.normal")))
 }
 
 func (tracker *FocusTracker) decrement() {
@@ -55,7 +54,7 @@ func (tracker *FocusTracker) decrement() {
 func (tracker *FocusTracker) focus(idx int) {
 	view := tracker.Widgets[idx].TextView()
 	tracker.App.SetFocus(view)
-	view.SetBorderColor(color.ColorFor(Config.UString("wtf.border.focus")))
+	view.SetBorderColor(ColorFor(Config.UString("wtf.border.focus")))
 }
 
 func (tracker *FocusTracker) increment() {

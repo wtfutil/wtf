@@ -1,8 +1,8 @@
 // Package homedir helps with detecting and expanding the user's home directory
 
-// Copied verbatim from https://github.com/Atrox/homedir
+// Copied (mostly) verbatim from https://github.com/Atrox/homedir
 
-package homedir
+package wtf
 
 import (
 	"errors"
@@ -12,7 +12,7 @@ import (
 
 // Dir returns the home directory for the executing user.
 // An error is returned if a home directory cannot be detected.
-func Dir() (string, error) {
+func Home() (string, error) {
 	currentUser, err := user.Current()
 	if err != nil {
 		return "", err
@@ -27,7 +27,7 @@ func Dir() (string, error) {
 // Expand expands the path to include the home directory if the path
 // is prefixed with `~`. If it isn't prefixed with `~`, the path is
 // returned as-is.
-func Expand(path string) (string, error) {
+func ExpandHomeDir(path string) (string, error) {
 	if len(path) == 0 {
 		return path, nil
 	}
@@ -40,7 +40,7 @@ func Expand(path string) (string, error) {
 		return "", errors.New("cannot expand user-specific home dir")
 	}
 
-	dir, err := Dir()
+	dir, err := Home()
 	if err != nil {
 		return "", err
 	}

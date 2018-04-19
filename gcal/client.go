@@ -17,7 +17,7 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/senorprogrammer/wtf/homedir"
+	"github.com/senorprogrammer/wtf/wtf"
 	"golang.org/x/net/context"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
@@ -29,7 +29,7 @@ import (
 func Fetch() (*calendar.Events, error) {
 	ctx := context.Background()
 
-	secretPath, _ := homedir.Expand(Config.UString("wtf.mods.gcal.secretFile"))
+	secretPath, _ := wtf.ExpandHomeDir(Config.UString("wtf.mods.gcal.secretFile"))
 
 	b, err := ioutil.ReadFile(secretPath)
 	if err != nil {

@@ -6,7 +6,6 @@ import (
 	"time"
 
 	"github.com/olebedev/config"
-	"github.com/senorprogrammer/wtf/homedir"
 	"github.com/senorprogrammer/wtf/wtf"
 )
 
@@ -54,7 +53,7 @@ func (widget *Widget) Refresh() {
 /* -------------------- Uneported Functions -------------------- */
 
 func (widget *Widget) readFile() (string, error) {
-	absPath, _ := homedir.Expand(widget.FilePath)
+	absPath, _ := wtf.ExpandHomeDir(widget.FilePath)
 
 	bytes, err := ioutil.ReadFile(absPath)
 	if err != nil {

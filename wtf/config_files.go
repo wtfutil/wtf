@@ -5,12 +5,11 @@ import (
 	"os"
 
 	"github.com/olebedev/config"
-	"github.com/senorprogrammer/wtf/homedir"
 )
 
 // CreateConfigDir creates the .wtf directory in the user's home dir
 func CreateConfigDir() bool {
-	homeDir, _ := homedir.Expand("~/.wtf/")
+	homeDir, _ := ExpandHomeDir("~/.wtf/")
 
 	if _, err := os.Stat(homeDir); os.IsNotExist(err) {
 		err := os.Mkdir(homeDir, os.ModePerm)
@@ -24,7 +23,7 @@ func CreateConfigDir() bool {
 
 // LoadConfigFile loads the config.yml file to configure the app
 func LoadConfigFile(filePath string) *config.Config {
-	absPath, _ := homedir.Expand(filePath)
+	absPath, _ := ExpandHomeDir(filePath)
 
 	cfg, err := config.ParseYamlFile(absPath)
 	if err != nil {
