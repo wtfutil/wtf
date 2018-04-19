@@ -1,10 +1,9 @@
 package github
 
 import (
-	"fmt"
 	"time"
 
-	ghb "github.com/google/go-github/github"
+	"github.com/gdamore/tcell"
 	"github.com/olebedev/config"
 	"github.com/senorprogrammer/wtf/wtf"
 )
@@ -14,12 +13,18 @@ var Config *config.Config
 
 type Widget struct {
 	wtf.TextWidget
+
+	Data []*GithubRepo
+	Idx  int
 }
 
 func NewWidget() *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(" Github ", "github"),
+		Idx:        0,
 	}
+
+	widget.View.SetInputCapture(widget.keyboardIntercept)
 
 	return &widget
 }
@@ -31,56 +36,66 @@ func (widget *Widget) Refresh() {
 		return
 	}
 
+	widget.Data = widget.buildRepoCollection(Config.UMap("wtf.mods.github.repositories"))
+
 	widget.display()
 	widget.RefreshedAt = time.Now()
 }
 
+func (widget *Widget) Next() {
+	widget.Idx = widget.Idx + 1
+	if widget.Idx == len(widget.Data) {
+		widget.Idx = 0
+	}
+
+	widget.display()
+}
+
+func (widget *Widget) Prev() {
+	widget.Idx = widget.Idx - 1
+	if widget.Idx < 0 {
+		widget.Idx = len(widget.Data) - 1
+	}
+
+	widget.display()
+}
+
 /* -------------------- Unexported Functions -------------------- */
 
-func (widget *Widget) prsForReview(prs []*ghb.PullRequest, username string) string {
-	if len(prs) > 0 {
-		str := ""
+func (widget *Widget) buildRepoCollection(repoData map[string]interface{}) []*GithubRepo {
+	githubColl := []*GithubRepo{}
 
-		for _, pr := range prs {
-			for _, reviewer := range pr.RequestedReviewers {
-				if *reviewer.Login == username {
-					str = str + fmt.Sprintf(" [green]%d[white] %s\n", *pr.Number, *pr.Title)
-				}
-			}
-		}
-
-		if str == "" {
-			str = " [grey]none[white]\n"
-		}
-
-		return str
+	for name, owner := range repoData {
+		repo := NewGithubRepo(name, owner.(string))
+		githubColl = append(githubColl, repo)
 	}
 
-	return " [grey]none[white]\n"
+	return githubColl
 }
 
-func (widget *Widget) openPRs(prs []*ghb.PullRequest, username string) string {
-	if len(prs) > 0 {
-		str := ""
-
-		for _, pr := range prs {
-			user := *pr.User
-
-			if *user.Login == username {
-				str = str + fmt.Sprintf(" [green]%d[white] %s\n", *pr.Number, *pr.Title)
-			}
-		}
-
-		if str == "" {
-			str = " [grey]none[white]\n"
-		}
-
-		return str
+func (widget *Widget) currentData() *GithubRepo {
+	if len(widget.Data) == 0 {
+		return nil
 	}
 
-	return " [grey]none[white]\n"
+	if widget.Idx < 0 || widget.Idx >= len(widget.Data) {
+		return nil
+	}
+
+	return widget.Data[widget.Idx]
 }
 
-func (widget *Widget) title() string {
-	return fmt.Sprintf("[green]%s - %s[white]", Config.UString("wtf.mods.github.owner"), Config.UString("wtf.mods.github.repo"))
+func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
+	switch event.Key() {
+	case tcell.KeyLeft:
+		widget.Prev()
+		return nil
+	case tcell.KeyRight:
+		widget.Next()
+		return nil
+	default:
+		return event
+	}
+
+	return event
 }

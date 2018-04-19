@@ -68,7 +68,7 @@ func (widget *Widget) contentFrom(deploys []nr.ApplicationDeployment) string {
 		if (deploy.Revision != "") && wtf.Exclude(revisions, deploy.Revision) {
 			lineColor := "white"
 			if wtf.IsToday(deploy.Timestamp) {
-				lineColor = "cornflowerblue"
+				lineColor = "lightblue"
 			}
 
 			str = str + fmt.Sprintf(

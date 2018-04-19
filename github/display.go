@@ -5,18 +5,70 @@ import (
 )
 
 func (widget *Widget) display() {
-	client := NewClient()
-	prs, _ := client.PullRequests(Config.UString("wtf.mods.github.owner"), Config.UString("wtf.mods.github.repo"))
-
 	widget.View.Clear()
 
-	widget.View.SetTitle(fmt.Sprintf(" Github: %s ", widget.title()))
+	repo := widget.currentData()
+	if repo == nil {
+		fmt.Fprintf(widget.View, "%s", " Github repo data is unavailable (1)")
+		return
+	}
+
+	widget.View.SetTitle(fmt.Sprintf(" Github: %s ", widget.title(repo)))
 
 	str := " [red]Open Review Requests[white]\n"
-	str = str + widget.prsForReview(prs, Config.UString("wtf.mods.github.username"))
+	str = str + widget.prsForReview(repo, Config.UString("wtf.mods.github.username"))
 	str = str + "\n"
 	str = str + " [red]Open Pull Requests[white]\n"
-	str = str + widget.openPRs(prs, Config.UString("wtf.mods.github.username"))
+	str = str + widget.openPRs(repo, Config.UString("wtf.mods.github.username"))
 
 	fmt.Fprintf(widget.View, str)
+}
+
+func (widget *Widget) openPRs(repo *GithubRepo, username string) string {
+	if len(repo.PullRequests) == 0 {
+		return " [grey]none[white]\n"
+	}
+
+	str := ""
+
+	for _, pr := range repo.PullRequests {
+		user := *pr.User
+
+		if *user.Login == username {
+			str = str + fmt.Sprintf(" [green]%d[white] %s\n", *pr.Number, *pr.Title)
+		}
+	}
+
+	if str == "" {
+		str = " [grey]none[white]\n"
+	}
+
+	return str
+}
+
+func (widget *Widget) prsForReview(repo *GithubRepo, username string) string {
+	if len(repo.PullRequests) > 0 {
+		return " [grey]none[white]\n"
+	}
+
+	str := ""
+
+	for _, pr := range repo.PullRequests {
+		for _, reviewer := range pr.RequestedReviewers {
+			if *reviewer.Login == username {
+				str = str + fmt.Sprintf(" [green]%d[white] %s\n", *pr.Number, *pr.Title)
+			}
+		}
+	}
+
+	if str == "" {
+		str = " [grey]none[white]\n"
+	}
+
+	return str
+}
+
+
+func (widget *Widget) title(repo *GithubRepo) string {
+	return fmt.Sprintf("[green]%s - %s[white]", repo.Owner, repo.Name)
 }
