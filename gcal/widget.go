@@ -51,7 +51,7 @@ func (widget *Widget) contentFrom(events *calendar.Events) string {
 
 	str := ""
 	for _, event := range events.Items {
-		conflict := widget.hasConflict(event, events)
+		conflict := widget.conflicts(event, events)
 
 		str = str + fmt.Sprintf(
 			"%s [%s]%s[white]\n [%s]%s %s[white]\n\n",
@@ -124,9 +124,8 @@ func (widget *Widget) eventIsNow(event *calendar.Event) bool {
 	return time.Now().After(startTime) && time.Now().Before(endTime)
 }
 
-// hasConflict returns TRUE if this event conflicts with another, FALSE if it does not
-// Very basic implementation. Should really operate on ranges
-func (widget *Widget) hasConflict(event *calendar.Event, events *calendar.Events) bool {
+// conflicts returns TRUE if this event conflicts with another, FALSE if it does not
+func (widget *Widget) conflicts(event *calendar.Event, events *calendar.Events) bool {
 	conflict := false
 
 	for _, otherEvent := range events.Items {
@@ -134,7 +133,13 @@ func (widget *Widget) hasConflict(event *calendar.Event, events *calendar.Events
 			continue
 		}
 
-		if event.Start.DateTime == otherEvent.Start.DateTime {
+		eventStart, _ := time.Parse(time.RFC3339, event.Start.DateTime)
+		eventEnd, _ := time.Parse(time.RFC3339, event.End.DateTime)
+
+		otherEnd, _ := time.Parse(time.RFC3339, otherEvent.End.DateTime)
+		otherStart, _ := time.Parse(time.RFC3339, otherEvent.Start.DateTime)
+
+		if eventStart.Before(otherEnd) && eventEnd.After(otherStart) {
 			conflict = true
 			break
 		}
