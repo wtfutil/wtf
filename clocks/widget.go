@@ -1,7 +1,6 @@
 package clocks
 
 import (
-	"sort"
 	"time"
 
 	"github.com/olebedev/config"
@@ -33,47 +32,32 @@ func (widget *Widget) Refresh() {
 		return
 	}
 
+	clockColl := widget.buildClockCollection(Config.UMap("wtf.mods.clocks.locations"))
+
 	widget.View.Clear()
-	widget.display()
+	widget.display(clockColl.Sorted())
 	widget.RefreshedAt = time.Now()
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (widget *Widget) colorFor(idx int) string {
-	rowColor := Config.UString("wtf.mods.clocks.rowcolors.even", "lightblue")
+func (widget *Widget) buildClockCollection(locData map[string]interface{}) ClockCollection {
+	clockColl := ClockCollection{}
 
-	if idx%2 == 0 {
-		rowColor = Config.UString("wtf.mods.clocks.rowcolors.odd", "white")
-	}
-
-	return rowColor
-}
-
-func (widget *Widget) locations(locs map[string]interface{}) map[string]time.Time {
-	times := make(map[string]time.Time)
-
-	for label, loc := range locs {
-		tzloc, err := time.LoadLocation(loc.(string))
-
+	for label, locStr := range locData {
+		timeLoc, err := time.LoadLocation(locStr.(string))
 		if err != nil {
 			continue
 		}
 
-		times[label] = time.Now().In(tzloc)
+		clock := Clock{
+			Label:     label,
+			LocalTime: time.Now().In(timeLoc),
+			Timezone:  locStr.(string),
+		}
+
+		clockColl.Clocks = append(clockColl.Clocks, clock)
 	}
 
-	return times
-}
-
-func (widget *Widget) sortedLabels(locs map[string]time.Time) []string {
-	labels := []string{}
-
-	for label, _ := range locs {
-		labels = append(labels, label)
-	}
-
-	sort.Strings(labels)
-
-	return labels
+	return clockColl
 }

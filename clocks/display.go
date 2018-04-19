@@ -2,31 +2,34 @@ package clocks
 
 import (
 	"fmt"
-	"strings"
 )
 
-func (widget *Widget) display() {
-	locs := widget.locations(Config.UMap("wtf.mods.clocks.locations"))
-
-	if len(locs) == 0 {
+func (widget *Widget) display(clocks []Clock) {
+	if len(clocks) == 0 {
 		fmt.Fprintf(widget.View, "\n%s", " no timezone data available")
 		return
 	}
 
-	labels := widget.sortedLabels(locs)
-
-	tzs := []string{}
-	for idx, label := range labels {
-		zoneStr := fmt.Sprintf(
-			" [%s]%-12s %-10s %7s[white]",
-			widget.colorFor(idx),
-			label,
-			locs[label].Format(TimeFormat),
-			locs[label].Format(DateFormat),
+	str := "\n"
+	for idx, clock := range clocks {
+		str = str + fmt.Sprintf(
+			" [%s]%-12s %-10s %7s[white]\n",
+			widget.rowColor(idx),
+			clock.Label,
+			clock.LocalTime.Format(TimeFormat),
+			clock.LocalTime.Format(DateFormat),
 		)
-
-		tzs = append(tzs, zoneStr)
 	}
 
-	fmt.Fprintf(widget.View, "\n%s", strings.Join(tzs, "\n"))
+	fmt.Fprintf(widget.View, "%s", str)
+}
+
+func (widget *Widget) rowColor(idx int) string {
+	rowCol := Config.UString("wtf.mods.clocks.rowcolors.even", "lightblue")
+
+	if idx%2 == 0 {
+		rowCol = Config.UString("wtf.mods.clocks.rowcolors.odd", "white")
+	}
+
+	return rowCol
 }
