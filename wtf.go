@@ -20,6 +20,7 @@ import (
 	"github.com/senorprogrammer/wtf/security"
 	"github.com/senorprogrammer/wtf/status"
 	"github.com/senorprogrammer/wtf/textfile"
+	"github.com/senorprogrammer/wtf/todo"
 	"github.com/senorprogrammer/wtf/weather"
 	"github.com/senorprogrammer/wtf/wtf"
 )
@@ -126,6 +127,7 @@ func main() {
 	security.Config = Config
 	status.Config = Config
 	textfile.Config = Config
+	todo.Config = Config
 	weather.Config = Config
 
 	Widgets = []wtf.TextViewer{
@@ -140,6 +142,7 @@ func main() {
 		security.NewWidget(),
 		status.NewWidget(),
 		textfile.NewWidget(),
+		todo.NewWidget(),
 		weather.NewWidget(),
 	}
 

@@ -97,6 +97,4 @@ func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	default:
 		return event
 	}
-
-	return event
 }

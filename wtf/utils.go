@@ -82,6 +82,16 @@ func Now() time.Time {
 	return time.Now().Local()
 }
 
+func ReadYamlFile(filePath string) ([]byte, error) {
+	file, err := ioutil.ReadFile(filePath)
+
+	if err != nil {
+		return []byte{}, err
+	}
+
+	return file, nil
+}
+
 func RightAlignFormat(view *tview.TextView) string {
 	_, _, w, _ := view.GetInnerRect()
 	return fmt.Sprintf("%%%ds", w-1)

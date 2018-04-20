@@ -3,22 +3,60 @@ package wtf
 import (
 	"fmt"
 	"os"
+	"io/ioutil"
 
 	"github.com/olebedev/config"
 )
 
+func ConfigDir() (string, error) {
+	configDir, err := ExpandHomeDir("~/.wtf/")
+	if err != nil {
+		return "", err
+	}
+
+	return configDir, nil
+}
+
 // CreateConfigDir creates the .wtf directory in the user's home dir
 func CreateConfigDir() bool {
-	homeDir, _ := ExpandHomeDir("~/.wtf/")
+	configDir, _ := ConfigDir()
 
-	if _, err := os.Stat(homeDir); os.IsNotExist(err) {
-		err := os.Mkdir(homeDir, os.ModePerm)
+	if _, err := os.Stat(configDir); os.IsNotExist(err) {
+		err := os.Mkdir(configDir, os.ModePerm)
 		if err != nil {
 			panic(err)
 		}
 	}
 
 	return true
+}
+
+// CreateFile creates the named file in the config directory, if it does not already exist.
+// If the file exists it does not recreate it.
+// If successful, eturns the absolute path to the file
+// If unsuccessful, returns an error
+func CreateFile(fileName string) (string, error) {
+	configDir, err := ConfigDir()
+	if err != nil {
+		return "", err
+	}
+
+	filePath := fmt.Sprintf("%s/%s", configDir, fileName)
+
+	// Check if the file already exists; if it does not, create it
+	_, err = os.Stat(filePath)
+	if err != nil {
+		if os.IsNotExist(err) {
+			_, err = os.Create(filePath)
+			if err != nil {
+				return "", err
+			}
+		} else {
+			return "", err
+		}
+	}
+
+	return filePath, nil
 }
 
 // LoadConfigFile loads the config.yml file to configure the app
@@ -33,4 +71,21 @@ func LoadConfigFile(filePath string) *config.Config {
 	}
 
 	return cfg
+}
+
+
+func ReadFile(fileName string) (string, error) {
+	configDir, err := ConfigDir()
+	if err != nil {
+		return "", err
+	}
+
+	filePath := fmt.Sprintf("%s/%s", configDir, fileName)
+
+	bytes, err := ioutil.ReadFile(filePath)
+	if err != nil {
+		return "", err
+	}
+
+	return string(bytes), nil
 }

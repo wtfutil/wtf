@@ -2,7 +2,6 @@ package textfile
 
 import (
 	"fmt"
-	"io/ioutil"
 	"time"
 
 	"github.com/olebedev/config"
@@ -20,8 +19,8 @@ type Widget struct {
 
 func NewWidget() *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(" Text File ", "textfile"),
-		FilePath:   Config.UString("wtf.mods.textfile.filepath"),
+		TextWidget: wtf.NewTextWidget(" 📄 Text File ", "textfile"),
+		FilePath:   Config.UString("wtf.mods.textfile.filename"),
 	}
 
 	widget.View.SetWrap(true)
@@ -41,24 +40,11 @@ func (widget *Widget) Refresh() {
 
 	widget.View.Clear()
 
-	fileData, err := widget.readFile()
+	fileData, err := wtf.ReadFile(widget.FilePath)
 
 	if err != nil {
 		fmt.Fprintf(widget.View, "%s", err)
 	} else {
 		fmt.Fprintf(widget.View, "%s", fileData)
 	}
-}
-
-/* -------------------- Uneported Functions -------------------- */
-
-func (widget *Widget) readFile() (string, error) {
-	absPath, _ := wtf.ExpandHomeDir(widget.FilePath)
-
-	bytes, err := ioutil.ReadFile(absPath)
-	if err != nil {
-		return "", err
-	}
-
-	return string(bytes), nil
 }

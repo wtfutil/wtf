@@ -64,8 +64,6 @@ func (widget *Widget) formatChange(line string) string {
 		line = strings.Replace(line, "M", "[yellow]M[white]", 1)
 	case 'R':
 		line = strings.Replace(line, "R", "[purple]R[white]", 1)
-	default:
-		line = line
 	}
 
 	return fmt.Sprintf(" %s\n", strings.Replace(line, "\"", "", -1))
