@@ -44,7 +44,7 @@ func (widget *Widget) openPRs(repo *GithubRepo, username string) string {
 	}
 
 	if str == "" {
-		str = " [grey]none[white]\n"
+		return " [grey]none[white]\n"
 	}
 
 	return str
@@ -66,7 +66,7 @@ func (widget *Widget) prsForReview(repo *GithubRepo, username string) string {
 	}
 
 	if str == "" {
-		str = " [grey]none[white]\n"
+		return " [grey]none[white]\n"
 	}
 
 	return str
