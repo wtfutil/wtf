@@ -73,9 +73,21 @@ func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	}
 
 	switch event.Key() {
+	case tcell.KeyCtrlA:
+		// Move the selected item up
+		widget.list.Promote()
+		widget.persist()
+		widget.display()
+		return nil
 	case tcell.KeyCtrlD:
-		// Delete selected item
+		// Delete the selected item
 		widget.list.Delete()
+		widget.persist()
+		widget.display()
+		return nil
+	case tcell.KeyCtrlZ:
+		// Move the selected item down
+		widget.list.Demote()
 		widget.persist()
 		widget.display()
 		return nil
@@ -85,7 +97,7 @@ func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 		widget.display()
 		return nil
 	case tcell.KeyEsc:
-		// Unselect the current row (pass it on)
+		// Unselect the current row
 		widget.list.Unselect()
 		widget.display()
 		return event

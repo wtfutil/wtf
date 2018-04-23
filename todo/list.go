@@ -13,6 +13,16 @@ func (list *List) Delete() {
 	list.Items = append(list.Items[:list.selected], list.Items[list.selected+1:]...)
 }
 
+func (list *List) Demote() {
+	j := list.selected + 1
+	if j >= len(list.Items) {
+		j = 0
+	}
+
+	list.Swap(list.selected, j)
+	list.selected = j
+}
+
 func (list *List) Next() {
 	list.selected = list.selected + 1
 	if list.selected >= len(list.Items) {
@@ -25,6 +35,16 @@ func (list *List) Prev() {
 	if list.selected < 0 {
 		list.selected = len(list.Items) - 1
 	}
+}
+
+func (list *List) Promote() {
+	j := list.selected - 1
+	if j < 0 {
+		j = len(list.Items) - 1
+	}
+
+	list.Swap(list.selected, j)
+	list.selected = j
 }
 
 // Toggle switches the checked state of the selected item
