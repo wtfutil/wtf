@@ -10,10 +10,6 @@ import (
 	"github.com/rivo/tview"
 )
 
-// DateFormat defines the format we expect to receive dates from BambooHR in
-const DateFormat = "2006-01-02"
-const TimeFormat = "15:04"
-
 func CenterText(str string, width int) string {
 	return fmt.Sprintf("%[1]*s", -width, fmt.Sprintf("%[1]*s", (width+len(str))/2, str))
 }
@@ -50,14 +46,6 @@ func Exclude(strs []string, val string) bool {
 	return true
 }
 
-func IsToday(date time.Time) bool {
-	now := time.Now()
-
-	return (date.Year() == now.Year()) &&
-		(date.Month() == now.Month()) &&
-		(date.Day() == now.Day())
-}
-
 func NameFromEmail(email string) string {
 	parts := strings.Split(email, "@")
 	return strings.Title(strings.Replace(parts[0], ".", " ", -1))
@@ -73,16 +61,7 @@ func NamesFromEmails(emails []string) []string {
 	return names
 }
 
-func PrettyDate(dateStr string) string {
-	newTime, _ := time.Parse(DateFormat, dateStr)
-	return fmt.Sprint(newTime.Format("Jan 2, 2006"))
-}
-
-func Now() time.Time {
-	return time.Now().Local()
-}
-
-func ReadYamlFile(filePath string) ([]byte, error) {
+func ReadFileBytes(filePath string) ([]byte, error) {
 	fileData, err := ioutil.ReadFile(filePath)
 	if err != nil {
 		return []byte{}, err
@@ -96,6 +75,8 @@ func RightAlignFormat(view *tview.TextView) string {
 	return fmt.Sprintf("%%%ds", w-1)
 }
 
+/* -------------------- Slice Conversion -------------------- */
+
 func ToInts(slice []interface{}) []int {
 	results := []int{}
 	for _, val := range slice {
@@ -105,10 +86,6 @@ func ToInts(slice []interface{}) []int {
 	return results
 }
 
-func Tomorrow() time.Time {
-	return Now().AddDate(0, 0, 1)
-}
-
 func ToStrs(slice []interface{}) []string {
 	results := []string{}
 	for _, val := range slice {
@@ -116,6 +93,33 @@ func ToStrs(slice []interface{}) []string {
 	}
 
 	return results
+}
+
+/* -------------------- Date/Time -------------------- */
+
+// DateFormat defines the format we expect to receive dates from BambooHR in
+const DateFormat = "2006-01-02"
+const TimeFormat = "15:04"
+
+func IsToday(date time.Time) bool {
+	now := Now()
+
+	return (date.Year() == now.Year()) &&
+		(date.Month() == now.Month()) &&
+		(date.Day() == now.Day())
+}
+
+func Now() time.Time {
+	return time.Now().Local()
+}
+
+func PrettyDate(dateStr string) string {
+	newTime, _ := time.Parse(DateFormat, dateStr)
+	return fmt.Sprint(newTime.Format("Jan 2, 2006"))
+}
+
+func Tomorrow() time.Time {
+	return Now().AddDate(0, 0, 1)
 }
 
 func UnixTime(unix int64) time.Time {

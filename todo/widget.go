@@ -117,7 +117,7 @@ func (widget *Widget) load() {
 	confDir, _ := wtf.ConfigDir()
 	filePath := fmt.Sprintf("%s/%s", confDir, widget.FilePath)
 
-	fileData, _ := wtf.ReadYamlFile(filePath)
+	fileData, _ := wtf.ReadFileBytes(filePath)
 	yaml.Unmarshal(fileData, &widget.list)
 }
 

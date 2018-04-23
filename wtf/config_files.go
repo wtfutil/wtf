@@ -3,7 +3,6 @@ package wtf
 import (
 	"fmt"
 	"os"
-	"io/ioutil"
 
 	"github.com/olebedev/config"
 )
@@ -73,7 +72,6 @@ func LoadConfigFile(filePath string) *config.Config {
 	return cfg
 }
 
-
 func ReadFile(fileName string) (string, error) {
 	configDir, err := ConfigDir()
 	if err != nil {
@@ -82,10 +80,10 @@ func ReadFile(fileName string) (string, error) {
 
 	filePath := fmt.Sprintf("%s/%s", configDir, fileName)
 
-	bytes, err := ioutil.ReadFile(filePath)
+	fileData, err := ReadFileBytes(filePath)
 	if err != nil {
 		return "", err
 	}
 
-	return string(bytes), nil
+	return string(fileData), nil
 }

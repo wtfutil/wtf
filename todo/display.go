@@ -7,9 +7,6 @@ import (
 func (widget *Widget) display() {
 	widget.View.Clear()
 
-	title := fmt.Sprintf(" 📝 %s ", widget.FilePath)
-	widget.View.SetTitle(title)
-
 	str := ""
 	for idx, item := range widget.list.Items {
 		foreColor, backColor := "white", "black"

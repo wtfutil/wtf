@@ -40,7 +40,7 @@ func (tracker *FocusTracker) Prev() {
 func (tracker *FocusTracker) blur(idx int) {
 	view := tracker.Widgets[idx].TextView()
 	view.Blur()
-	view.SetBorderColor(ColorFor(Config.UString("wtf.border.normal")))
+	view.SetBorderColor(ColorFor(Config.UString("wtf.border.normal", "gray")))
 }
 
 func (tracker *FocusTracker) decrement() {
@@ -54,7 +54,7 @@ func (tracker *FocusTracker) decrement() {
 func (tracker *FocusTracker) focus(idx int) {
 	view := tracker.Widgets[idx].TextView()
 	tracker.App.SetFocus(view)
-	view.SetBorderColor(ColorFor(Config.UString("wtf.border.focus")))
+	view.SetBorderColor(ColorFor(Config.UString("wtf.border.focus", "gray")))
 }
 
 func (tracker *FocusTracker) increment() {
