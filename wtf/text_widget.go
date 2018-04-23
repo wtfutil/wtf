@@ -63,7 +63,7 @@ func (widget *TextWidget) addView() {
 	view := tview.NewTextView()
 
 	view.SetBorder(true)
-	view.SetBorderColor(ColorFor(Config.UString("wtf.border.normal")))
+	view.SetBorderColor(ColorFor(Config.UString("wtf.colors.border.normal")))
 	view.SetDynamicColors(true)
 	view.SetTitle(widget.Name)
 	view.SetWrap(false)

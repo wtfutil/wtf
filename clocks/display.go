@@ -25,10 +25,10 @@ func (widget *Widget) display(clocks []Clock) {
 }
 
 func (widget *Widget) rowColor(idx int) string {
-	rowCol := Config.UString("wtf.mods.clocks.rowcolors.even", "lightblue")
+	rowCol := Config.UString("wtf.mods.clocks.colors.row.even", "lightblue")
 
 	if idx%2 == 0 {
-		rowCol = Config.UString("wtf.mods.clocks.rowcolors.odd", "white")
+		rowCol = Config.UString("wtf.mods.clocks.colors.row.odd", "white")
 	}
 
 	return rowCol
