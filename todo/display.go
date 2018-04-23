@@ -14,6 +14,10 @@ func (widget *Widget) display() {
 	for idx, item := range widget.list.Items {
 		foreColor, backColor := "white", "black"
 
+		if item.Checked {
+			foreColor = "gray"
+		}
+
 		if widget.View.HasFocus() && idx == widget.list.selected {
 			foreColor, backColor = "black", "olive"
 		}
