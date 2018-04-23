@@ -1,7 +1,6 @@
 package todo
 
-import (
-)
+import ()
 
 type Item struct {
 	Checked bool
@@ -11,7 +10,7 @@ type Item struct {
 
 func (item *Item) CheckMark() string {
 	if item.Checked {
-		return "x"
+		return Config.UString("wtf.mods.todo.checkedIcon", "x")
 	} else {
 		return " "
 	}

@@ -1,6 +1,8 @@
 package todo
 
-import ("fmt")
+import (
+	"fmt"
+)
 
 type List struct {
 	Items []*Item
@@ -63,7 +65,7 @@ func (list *List) Len() int {
 }
 
 func (list *List) Less(i, j int) bool {
-	return list.Items[i].Index < list.Items[j].Index
+	return list.Items[i].Text < list.Items[j].Text
 }
 
 func (list *List) Swap(i, j int) {
