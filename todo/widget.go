@@ -3,6 +3,7 @@ package todo
 import (
 	"fmt"
 	"time"
+	"io/ioutil"
 
 	"github.com/gdamore/tcell"
 	"github.com/olebedev/config"
@@ -64,6 +65,7 @@ func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	case " ":
 		// Check/uncheck selected item
 		widget.list.Toggle()
+		widget.persist()
 		widget.display()
 		return nil
 	case "e":
@@ -97,5 +99,19 @@ func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 		return nil
 	default:
 		return event
+	}
+}
+
+// persist writes the todo list to Yaml file
+func (widget *Widget) persist() {
+	confDir, _ := wtf.ConfigDir()
+	filePath := fmt.Sprintf("%s/%s", confDir, widget.FilePath)
+
+	fileData, _ := yaml.Marshal(&widget.list)
+
+	err := ioutil.WriteFile(filePath, fileData, 0644)
+
+	if err != nil {
+		panic(err)
 	}
 }
