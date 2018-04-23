@@ -61,6 +61,20 @@ func NamesFromEmails(emails []string) []string {
 	return names
 }
 
+// PadRow returns a padding for a row to make it the full width of the containing widget.
+// Useful for ensurig row highlighting spans the full width (I suspect tcell has a better
+// way to do this, but I haven't yet found it)
+func PadRow(offset int, view *tview.TextView) string {
+	_, _, w, _ := view.GetInnerRect()
+
+	padSize := w - offset
+	if padSize < 0 {
+		padSize = 0
+	}
+
+	return strings.Repeat(" ", padSize)
+}
+
 func ReadFileBytes(filePath string) ([]byte, error) {
 	fileData, err := ioutil.ReadFile(filePath)
 	if err != nil {
