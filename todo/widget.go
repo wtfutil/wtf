@@ -2,8 +2,8 @@ package todo
 
 import (
 	"fmt"
-	"time"
 	"io/ioutil"
+	"time"
 
 	"github.com/gdamore/tcell"
 	"github.com/olebedev/config"
@@ -42,11 +42,7 @@ func (widget *Widget) Refresh() {
 		return
 	}
 
-	confDir, _ := wtf.ConfigDir()
-
-	fileData, _ := wtf.ReadYamlFile(fmt.Sprintf("%s/%s", confDir, widget.FilePath))
-	yaml.Unmarshal(fileData, &widget.list)
-
+	widget.load()
 	widget.display()
 	widget.RefreshedAt = time.Now()
 }
@@ -79,27 +75,38 @@ func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	switch event.Key() {
 	case tcell.KeyCtrlD:
 		// Delete selected item
+		widget.list.Delete()
+		widget.persist()
+		widget.display()
 		return nil
 	case tcell.KeyDown:
+		// Select the next item down
 		widget.list.Next()
 		widget.display()
 		return nil
-	//case tcell.KeySpac:
-	//// Check/uncheck an item
-	//return nil
 	case tcell.KeyEsc:
-		// Unselect the current row and pass the key on through to unselect the widget
+		// Unselect the current row (pass it on)
 		widget.list.Unselect()
 		widget.display()
 		return event
 	case tcell.KeyUp:
-		// Select next item up
+		// Select the next item up
 		widget.list.Prev()
 		widget.display()
 		return nil
 	default:
+		// Pass it along
 		return event
 	}
+}
+
+// Loads the todo list from Yaml file
+func (widget *Widget) load() {
+	confDir, _ := wtf.ConfigDir()
+	filePath := fmt.Sprintf("%s/%s", confDir, widget.FilePath)
+
+	fileData, _ := wtf.ReadYamlFile(filePath)
+	yaml.Unmarshal(fileData, &widget.list)
 }
 
 // persist writes the todo list to Yaml file

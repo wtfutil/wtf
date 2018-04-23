@@ -83,13 +83,12 @@ func Now() time.Time {
 }
 
 func ReadYamlFile(filePath string) ([]byte, error) {
-	file, err := ioutil.ReadFile(filePath)
-
+	fileData, err := ioutil.ReadFile(filePath)
 	if err != nil {
 		return []byte{}, err
 	}
 
-	return file, nil
+	return fileData, nil
 }
 
 func RightAlignFormat(view *tview.TextView) string {

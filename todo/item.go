@@ -1,16 +1,12 @@
 package todo
 
-import(
-	"time"
+import (
 )
 
 type Item struct {
 	Checked bool
 	Index   int
 	Text    string
-
-	createdAt time.Time
-	updatedAt time.Time
 }
 
 func (item *Item) CheckMark() string {
@@ -23,7 +19,4 @@ func (item *Item) CheckMark() string {
 
 func (item *Item) Toggle() {
 	item.Checked = !item.Checked
-	item.updatedAt = time.Now()
 }
-
-

@@ -1,6 +1,6 @@
 package todo
 
-import ()
+import ("fmt")
 
 type List struct {
 	Items []*Item
@@ -8,16 +8,9 @@ type List struct {
 	selected int
 }
 
-func (list *List) Len() int {
-	return len(list.Items)
-}
-
-func (list *List) Less(i, j int) bool {
-	return list.Items[i].Index < list.Items[j].Index
-}
-
-func (list *List) Swap(i, j int) {
-	list.Items[i], list.Items[j] = list.Items[j], list.Items[i]
+func (list *List) Delete() {
+	fmt.Println("del")
+	list.Items = append(list.Items[:list.selected], list.Items[list.selected+1:]...)
 }
 
 func (list *List) Next() {
@@ -41,4 +34,18 @@ func (list *List) Toggle() {
 
 func (list *List) Unselect() {
 	list.selected = -1
+}
+
+/* -------------------- Sort Interface -------------------- */
+
+func (list *List) Len() int {
+	return len(list.Items)
+}
+
+func (list *List) Less(i, j int) bool {
+	return list.Items[i].Index < list.Items[j].Index
+}
+
+func (list *List) Swap(i, j int) {
+	list.Items[i], list.Items[j] = list.Items[j], list.Items[i]
 }
