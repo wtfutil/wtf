@@ -25,6 +25,35 @@ import (
 	"github.com/senorprogrammer/wtf/wtf"
 )
 
+/* -------------------- Built-in Support Documentation -------------------- */
+
+func displayCommandInfo(args []string) {
+	if len(args) == 0 {
+		return
+	}
+
+	cmd := args[0]
+
+	switch cmd {
+	case "help", "--help":
+		displayHelpInfo()
+	case "version", "--version":
+		displayVersionInfo()
+	}
+}
+
+func displayHelpInfo() {
+	fmt.Println("Help is coming...")
+	os.Exit(0)
+}
+
+func displayVersionInfo() {
+	fmt.Printf("Version: %s\n", version)
+	os.Exit(0)
+}
+
+/* -------------------- Functions -------------------- */
+
 func addToGrid(grid *tview.Grid, widget wtf.TextViewer) {
 	if widget.Disabled() {
 		return
@@ -99,43 +128,35 @@ func refreshAllModules() {
 	}
 }
 
-func versionInfo() {
-fmt.Printf("Version: %s\n", version)
-		os.Exit(0)
-}
-
-var result = wtf.CreateConfigDir()
+/* -------------------- Main -------------------- */
 
 var Config *config.Config
 var FocusTracker wtf.FocusTracker
 var Widgets []wtf.TextViewer
 
+var result = wtf.CreateConfigDir()
 var version = "dev"
 
-/* -------------------- Main -------------------- */
-
 func main() {
-	// Optional argument to accept path to a config file
-	configFile := flag.String("config", "~/.wtf/config.yml", "Path to config file")
-	flagVersion := flag.Bool("version", false, "Show version info")
+	flagConf := flag.String("config", "~/.wtf/config.yml", "Path to config file")
+	flagHelp := flag.Bool("help", false, "Show help")
+	flagVers := flag.Bool("version", false, "Show version info")
+
 	flag.Parse()
 
-	if *flagVersion {
-		versionInfo()
+	if *flagHelp {
+		displayHelpInfo()
 	}
 
-	// If we're just displaying the version, exit early
-	args := flag.Args()
-	cmd := args[0]
-
-	switch cmd {
-	case "help", "--help", "-h":
-		os.Exit(0)
-	case "version", "--version":
-		versionInfo()
+	if *flagVers {
+		displayVersionInfo()
 	}
 
-	Config = wtf.LoadConfigFile(*configFile)
+	displayCommandInfo(flag.Args())
+
+	/* -------------------- end flag parsing and handling -------------------- */
+
+	Config = wtf.LoadConfigFile(*flagConf)
 
 	wtf.Config = Config
 
