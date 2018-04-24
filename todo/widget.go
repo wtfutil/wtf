@@ -67,27 +67,39 @@ func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	case "e":
 		// Edit selected item
 		return nil
+	case "h":
+		// Show help menu
+		fmt.Println("HELP!")
+		return nil
+	case "j":
+		widget.list.Next()
+		widget.display()
+		return nil
+	case "k":
+		widget.list.Prev()
+		widget.display()
+		return nil
 	case "n":
 		// Add a new item
 		return nil
 	}
 
 	switch event.Key() {
-	case tcell.KeyCtrlA:
-		// Move the selected item up
-		widget.list.Promote()
-		widget.persist()
-		widget.display()
-		return nil
 	case tcell.KeyCtrlD:
 		// Delete the selected item
 		widget.list.Delete()
 		widget.persist()
 		widget.display()
 		return nil
-	case tcell.KeyCtrlZ:
-		// Move the selected item down
+	case tcell.KeyCtrlJ:
+		// Move selected item down in the list
 		widget.list.Demote()
+		widget.persist()
+		widget.display()
+		return nil
+	case tcell.KeyCtrlK:
+		// Move selected item up in the list
+		widget.list.Promote()
 		widget.persist()
 		widget.display()
 		return nil

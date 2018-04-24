@@ -4,7 +4,6 @@ import ()
 
 type Item struct {
 	Checked bool
-	Index   int
 	Text    string
 }
 

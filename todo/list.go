@@ -11,7 +11,6 @@ type List struct {
 }
 
 func (list *List) Delete() {
-	fmt.Println("del")
 	list.Items = append(list.Items[:list.selected], list.Items[list.selected+1:]...)
 }
 
