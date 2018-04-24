@@ -2,9 +2,9 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"os"
 	"time"
-	//"math/rand"
 
 	"github.com/gdamore/tcell"
 	"github.com/olebedev/config"
@@ -99,18 +99,41 @@ func refreshAllModules() {
 	}
 }
 
+func versionInfo() {
+fmt.Printf("Version: %s\n", version)
+		os.Exit(0)
+}
+
 var result = wtf.CreateConfigDir()
 
 var Config *config.Config
 var FocusTracker wtf.FocusTracker
 var Widgets []wtf.TextViewer
 
+var version = "dev"
+
 /* -------------------- Main -------------------- */
 
 func main() {
 	// Optional argument to accept path to a config file
 	configFile := flag.String("config", "~/.wtf/config.yml", "Path to config file")
+	flagVersion := flag.Bool("version", false, "Show version info")
 	flag.Parse()
+
+	if *flagVersion {
+		versionInfo()
+	}
+
+	// If we're just displaying the version, exit early
+	args := flag.Args()
+	cmd := args[0]
+
+	switch cmd {
+	case "help", "--help", "-h":
+		os.Exit(0)
+	case "version", "--version":
+		versionInfo()
+	}
 
 	Config = wtf.LoadConfigFile(*configFile)
 
@@ -140,7 +163,7 @@ func main() {
 		newrelic.NewWidget(),
 		opsgenie.NewWidget(),
 		security.NewWidget(),
-		status.NewWidget(),
+		status.NewWidget(version),
 		textfile.NewWidget(),
 		todo.NewWidget(),
 		weather.NewWidget(),

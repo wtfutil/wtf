@@ -1,8 +1,6 @@
 package todo
 
-import (
-	"fmt"
-)
+import ()
 
 type List struct {
 	Items []*Item

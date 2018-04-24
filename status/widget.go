@@ -1,7 +1,7 @@
 package status
 
 import (
-	//"fmt"
+	"fmt"
 	//"sort"
 	//"strings"
 	"time"
@@ -17,12 +17,14 @@ type Widget struct {
 	wtf.TextWidget
 
 	Current int
+	Version string
 }
 
-func NewWidget() *Widget {
+func NewWidget(version string) *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(" 🎉 Status ", "status"),
 		Current:    0,
+		Version:    version,
 	}
 
 	return &widget
@@ -35,14 +37,14 @@ func (widget *Widget) Refresh() {
 		return
 	}
 
-	//_, _, w, _ := widget.View.GetInnerRect()
+	_, _, w, _ := widget.View.GetInnerRect()
 
-	//widget.View.Clear()
-	//fmt.Fprintf(
-	//widget.View,
-	//fmt.Sprintf("\n%%%ds", w-1),
-	//widget.timezones(),
-	//)
+	widget.View.Clear()
+	fmt.Fprintf(
+		widget.View,
+		fmt.Sprintf("\n%%%ds", w-1),
+		widget.Version,
+	)
 
 	widget.RefreshedAt = time.Now()
 }
