@@ -19,6 +19,7 @@ import (
 	"github.com/senorprogrammer/wtf/opsgenie"
 	"github.com/senorprogrammer/wtf/security"
 	"github.com/senorprogrammer/wtf/status"
+	"github.com/senorprogrammer/wtf/system"
 	"github.com/senorprogrammer/wtf/textfile"
 	"github.com/senorprogrammer/wtf/todo"
 	"github.com/senorprogrammer/wtf/weather"
@@ -135,7 +136,11 @@ var FocusTracker wtf.FocusTracker
 var Widgets []wtf.TextViewer
 
 var result = wtf.CreateConfigDir()
-var version = "dev"
+
+var (
+	builtat = "now"
+	version = "dev"
+)
 
 func main() {
 	flagConf := flag.String("config", "~/.wtf/config.yml", "Path to config file")
@@ -170,6 +175,7 @@ func main() {
 	opsgenie.Config = Config
 	security.Config = Config
 	status.Config = Config
+	system.Config = Config
 	textfile.Config = Config
 	todo.Config = Config
 	weather.Config = Config
@@ -184,7 +190,8 @@ func main() {
 		newrelic.NewWidget(),
 		opsgenie.NewWidget(),
 		security.NewWidget(),
-		status.NewWidget(version),
+		status.NewWidget(),
+		system.NewWidget(builtat, version),
 		textfile.NewWidget(),
 		todo.NewWidget(),
 		weather.NewWidget(),
