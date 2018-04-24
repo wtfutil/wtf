@@ -61,6 +61,14 @@ func NamesFromEmails(emails []string) []string {
 	return names
 }
 
+func OpenFile(path string) {
+	confDir, _ := ConfigDir()
+	filePath := fmt.Sprintf("%s/%s", confDir, path)
+
+	cmd := exec.Command("open", filePath)
+	ExecuteCommand(cmd)
+}
+
 // PadRow returns a padding for a row to make it the full width of the containing widget.
 // Useful for ensurig row highlighting spans the full width (I suspect tcell has a better
 // way to do this, but I haven't yet found it)

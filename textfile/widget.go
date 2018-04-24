@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/gdamore/tcell"
 	"github.com/olebedev/config"
 	"github.com/senorprogrammer/wtf/wtf"
 )
@@ -25,6 +26,8 @@ func NewWidget() *Widget {
 
 	widget.View.SetWrap(true)
 	widget.View.SetWordWrap(true)
+
+	widget.View.SetInputCapture(widget.keyboardIntercept)
 
 	return &widget
 }
@@ -48,4 +51,15 @@ func (widget *Widget) Refresh() {
 	} else {
 		fmt.Fprintf(widget.View, "%s", fileData)
 	}
+}
+
+/* -------------------- Unexported Functions -------------------- */
+func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
+	switch string(event.Rune()) {
+	case "o":
+		wtf.OpenFile(widget.FilePath)
+		return nil
+	}
+
+	return event
 }

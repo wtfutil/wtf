@@ -3,6 +3,7 @@ package todo
 import (
 	"fmt"
 	"io/ioutil"
+	//"os/exec"
 	"time"
 
 	"github.com/gdamore/tcell"
@@ -82,6 +83,11 @@ func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	case "n":
 		// Add a new item
 		return nil
+	case "o":
+		// Open the file
+		//widget.openFile()
+		wtf.OpenFile(widget.FilePath)
+		return nil
 	}
 
 	switch event.Key() {
@@ -132,6 +138,14 @@ func (widget *Widget) load() {
 	fileData, _ := wtf.ReadFileBytes(filePath)
 	yaml.Unmarshal(fileData, &widget.list)
 }
+
+//func (widget *Widget) openFile() {
+	//confDir, _ := wtf.ConfigDir()
+	//filePath := fmt.Sprintf("%s/%s", confDir, widget.FilePath)
+
+	//cmd := exec.Command("open", filePath)
+	//wtf.ExecuteCommand(cmd)
+//}
 
 // persist writes the todo list to Yaml file
 func (widget *Widget) persist() {
