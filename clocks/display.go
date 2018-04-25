@@ -2,6 +2,8 @@ package clocks
 
 import (
 	"fmt"
+
+	"github.com/senorprogrammer/wtf/wtf"
 )
 
 func (widget *Widget) display(clocks []Clock) {
@@ -16,8 +18,8 @@ func (widget *Widget) display(clocks []Clock) {
 			" [%s]%-12s %-10s %7s[white]\n",
 			widget.rowColor(idx),
 			clock.Label,
-			clock.LocalTime.Format(TimeFormat),
-			clock.LocalTime.Format(DateFormat),
+			clock.LocalTime.Format(wtf.SimpleTimeFormat),
+			clock.LocalTime.Format(wtf.SimpleDateFormat),
 		)
 	}
 

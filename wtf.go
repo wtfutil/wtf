@@ -138,7 +138,7 @@ var Widgets []wtf.TextViewer
 var result = wtf.CreateConfigDir()
 
 var (
-	builtat = "now"
+	builtat = time.Now().Format(wtf.TimestampFormat)
 	version = "dev"
 )
 
@@ -163,7 +163,8 @@ func main() {
 
 	Config = wtf.LoadConfigFile(*flagConf)
 
-	wtf.Config = Config
+	app := tview.NewApplication()
+	pages := tview.NewPages()
 
 	bamboohr.Config = Config
 	clocks.Config = Config
@@ -179,6 +180,7 @@ func main() {
 	textfile.Config = Config
 	todo.Config = Config
 	weather.Config = Config
+	wtf.Config = Config
 
 	Widgets = []wtf.TextViewer{
 		bamboohr.NewWidget(),
@@ -193,12 +195,9 @@ func main() {
 		status.NewWidget(),
 		system.NewWidget(builtat, version),
 		textfile.NewWidget(),
-		todo.NewWidget(),
+		todo.NewWidget(pages),
 		weather.NewWidget(),
 	}
-
-	app := tview.NewApplication()
-	app.SetInputCapture(keyboardIntercept)
 
 	FocusTracker = wtf.FocusTracker{
 		App:     app,
@@ -210,7 +209,10 @@ func main() {
 	go redrawApp(app)
 
 	grid := buildGrid(Widgets)
-	if err := app.SetRoot(grid, true).Run(); err != nil {
+	pages.AddPage("grid", grid, true, true)
+	app.SetInputCapture(keyboardIntercept)
+
+	if err := app.SetRoot(pages, true).Run(); err != nil {
 		os.Exit(1)
 	}
 }

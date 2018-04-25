@@ -10,6 +10,11 @@ import (
 	"github.com/rivo/tview"
 )
 
+const SimpleDateFormat = "Jan 2"
+const SimpleTimeFormat = "15:04 MST"
+const FriendlyDateTimeFormat = "Mon, Jan 2, 15:04"
+const TimestampFormat = "2006-01-02T15:04:05-0700"
+
 func CenterText(str string, width int) string {
 	return fmt.Sprintf("%[1]*s", -width, fmt.Sprintf("%[1]*s", (width+len(str))/2, str))
 }

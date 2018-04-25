@@ -48,7 +48,7 @@ func (widget *Widget) Refresh() {
 }
 
 func (widget *Widget) prettyBuiltAt() string {
-	str, err := time.Parse("2006-01-02T15:04:05-0700", widget.BuiltAt)
+	str, err := time.Parse(wtf.TimestampFormat, widget.BuiltAt)
 	if err != nil {
 		return err.Error()
 	} else {

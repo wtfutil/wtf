@@ -3,11 +3,11 @@ package todo
 import (
 	"fmt"
 	"io/ioutil"
-	//"os/exec"
 	"time"
 
 	"github.com/gdamore/tcell"
 	"github.com/olebedev/config"
+	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/wtf"
 	"gopkg.in/yaml.v2"
 )
@@ -18,16 +18,18 @@ var Config *config.Config
 type Widget struct {
 	wtf.TextWidget
 
-	FilePath string
+	pages    *tview.Pages
+	filePath string
 	list     *List
 }
 
-func NewWidget() *Widget {
+func NewWidget(pages *tview.Pages) *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(" 📝 Todo ", "todo"),
-		FilePath:   Config.UString("wtf.mods.todo.filename"),
 
-		list: &List{selected: -1},
+		pages:    pages,
+		filePath: Config.UString("wtf.mods.todo.filename"),
+		list:     &List{selected: -1},
 	}
 
 	widget.init()
@@ -50,8 +52,23 @@ func (widget *Widget) Refresh() {
 
 /* -------------------- Unexported Functions -------------------- */
 
+// edit opens a modal dialog that permits editing the text of the currently-selected item
+func (widget *Widget) edit() {
+	modal := tview.NewModal().
+		SetText("Do you want to quit the application?").
+		AddButtons([]string{"Quit", "Cancel"}).
+		SetDoneFunc(func(buttonIndex int, buttonLabel string) {
+			if buttonLabel == "Quit" {
+				widget.pages.RemovePage("edit")
+			}
+		})
+
+	widget.pages.AddPage("edit", modal, false, true)
+	//widget.app.SetFocus(modal)
+}
+
 func (widget *Widget) init() {
-	_, err := wtf.CreateFile(widget.FilePath)
+	_, err := wtf.CreateFile(widget.filePath)
 	if err != nil {
 		panic(err)
 	}
@@ -67,6 +84,7 @@ func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 		return nil
 	case "e":
 		// Edit selected item
+		widget.edit()
 		return nil
 	case "h":
 		// Show help menu
@@ -86,7 +104,7 @@ func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	case "o":
 		// Open the file
 		//widget.openFile()
-		wtf.OpenFile(widget.FilePath)
+		wtf.OpenFile(widget.filePath)
 		return nil
 	}
 
@@ -133,24 +151,16 @@ func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 // Loads the todo list from Yaml file
 func (widget *Widget) load() {
 	confDir, _ := wtf.ConfigDir()
-	filePath := fmt.Sprintf("%s/%s", confDir, widget.FilePath)
+	filePath := fmt.Sprintf("%s/%s", confDir, widget.filePath)
 
 	fileData, _ := wtf.ReadFileBytes(filePath)
 	yaml.Unmarshal(fileData, &widget.list)
 }
 
-//func (widget *Widget) openFile() {
-	//confDir, _ := wtf.ConfigDir()
-	//filePath := fmt.Sprintf("%s/%s", confDir, widget.FilePath)
-
-	//cmd := exec.Command("open", filePath)
-	//wtf.ExecuteCommand(cmd)
-//}
-
 // persist writes the todo list to Yaml file
 func (widget *Widget) persist() {
 	confDir, _ := wtf.ConfigDir()
-	filePath := fmt.Sprintf("%s/%s", confDir, widget.FilePath)
+	filePath := fmt.Sprintf("%s/%s", confDir, widget.filePath)
 
 	fileData, _ := yaml.Marshal(&widget.list)
 

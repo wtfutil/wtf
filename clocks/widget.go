@@ -7,9 +7,6 @@ import (
 	"github.com/senorprogrammer/wtf/wtf"
 )
 
-const TimeFormat = "15:04 MST"
-const DateFormat = "Jan 2"
-
 // Config is a pointer to the global config object
 var Config *config.Config
 
