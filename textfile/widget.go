@@ -24,6 +24,7 @@ func NewWidget() *Widget {
 	}
 
 	widget.View.SetWrap(true)
+	widget.View.SetWordWrap(true)
 
 	return &widget
 }

@@ -1,9 +1,13 @@
 <p align="center">
-<img src="./docs/img/wtf.jpg?raw=true" title="WTF" width="852" height="240")
+<img src="./docs/img/wtf.jpg?raw=true" title="WTF" width="852" height="240" />
 </p>
 
 A personal terminal-based dashboard utility, designed for
 displaying infrequently-updating, but very important, daily data.
+
+<p align="center">
+<img src="./docs/img/screenshot_sm.png" title="screenshot" width="800" height="507" />
+</p>
 
 ## Prerequisites
 
