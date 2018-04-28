@@ -18,15 +18,17 @@ var Config *config.Config
 type Widget struct {
 	wtf.TextWidget
 
+	app      *tview.Application
 	pages    *tview.Pages
 	filePath string
 	list     *List
 }
 
-func NewWidget(pages *tview.Pages) *Widget {
+func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(" 📝 Todo ", "todo"),
 
+		app:      app,
 		pages:    pages,
 		filePath: Config.UString("wtf.mods.todo.filename"),
 		list:     &List{selected: -1},
@@ -53,18 +55,39 @@ func (widget *Widget) Refresh() {
 /* -------------------- Unexported Functions -------------------- */
 
 // edit opens a modal dialog that permits editing the text of the currently-selected item
-func (widget *Widget) edit() {
-	modal := tview.NewModal().
-		SetText("Do you want to quit the application?").
-		AddButtons([]string{"Quit", "Cancel"}).
-		SetDoneFunc(func(buttonIndex int, buttonLabel string) {
-			if buttonLabel == "Quit" {
-				widget.pages.RemovePage("edit")
-			}
-		})
+func (widget *Widget) editItem() {
+	if widget.list.Selected() == nil {
+		return
+	}
 
-	widget.pages.AddPage("edit", modal, false, true)
-	//widget.app.SetFocus(modal)
+	_, _, w, h := widget.View.GetInnerRect()
+
+	form := tview.NewForm().
+		SetButtonsAlign(tview.AlignCenter).
+		SetButtonTextColor(tview.Styles.PrimaryTextColor)
+
+	form.AddInputField("New text:", widget.selectedText(), 60, nil, nil)
+
+	form.AddButton("Save", func() {
+		fld := form.GetFormItem(0)
+
+		widget.updateItem(fld.(*tview.InputField).GetText())
+		widget.pages.RemovePage("modal")
+		widget.app.SetFocus(widget.View)
+		widget.persist()
+		widget.display()
+	})
+
+	frame := tview.NewFrame(form).SetBorders(0, 0, 0, 0, 0, 0)
+	frame.SetBorder(true)
+	frame.SetRect(w+20, h+2, 80, 7)
+
+	widget.pages.AddPage("modal", frame, false, true)
+	widget.app.SetFocus(frame)
+}
+
+func (widget *Widget) newItem() {
+
 }
 
 func (widget *Widget) init() {
@@ -82,28 +105,26 @@ func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 		widget.persist()
 		widget.display()
 		return nil
-	case "e":
-		// Edit selected item
-		widget.edit()
-		return nil
 	case "h":
 		// Show help menu
 		fmt.Println("HELP!")
 		return nil
 	case "j":
+		// Select the next item down
 		widget.list.Next()
 		widget.display()
 		return nil
 	case "k":
+		// Select the next item up
 		widget.list.Prev()
 		widget.display()
 		return nil
 	case "n":
 		// Add a new item
+		widget.newItem()
 		return nil
 	case "o":
 		// Open the file
-		//widget.openFile()
 		wtf.OpenFile(widget.filePath)
 		return nil
 	}
@@ -131,6 +152,9 @@ func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 		// Select the next item down
 		widget.list.Next()
 		widget.display()
+		return nil
+	case tcell.KeyEnter:
+		widget.editItem()
 		return nil
 	case tcell.KeyEsc:
 		// Unselect the current row
@@ -168,5 +192,27 @@ func (widget *Widget) persist() {
 
 	if err != nil {
 		panic(err)
+	}
+}
+
+func (widget *Widget) selectedText() string {
+	selectedItem := widget.list.Selected()
+
+	if selectedItem == nil {
+		return ""
+	} else {
+		return selectedItem.Text
+	}
+}
+
+func (widget *Widget) updateItem(text string) {
+	selectedItem := widget.list.Selected()
+
+	if selectedItem == nil {
+		// Create a new item
+		widget.list.Add(text)
+	} else {
+		// Update the text of the existing item
+		selectedItem.Text = text
 	}
 }

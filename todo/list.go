@@ -1,11 +1,25 @@
 package todo
 
-import ()
+import (
+	"fmt"
+)
 
 type List struct {
 	Items []*Item
 
 	selected int
+}
+
+/* -------------------- Exported Functions -------------------- */
+
+func (list *List) Add(text string) {
+	item := Item{
+		Checked: false,
+		Text:    text,
+	}
+
+	list.Items = append([]*Item{&item}, list.Items...)
+	fmt.Println("added")
 }
 
 func (list *List) Delete() {
@@ -44,6 +58,14 @@ func (list *List) Promote() {
 
 	list.Swap(list.selected, j)
 	list.selected = j
+}
+
+func (list *List) Selected() *Item {
+	if list.selected < 0 || list.selected >= len(list.Items) {
+		return nil
+	}
+
+	return list.Items[list.selected]
 }
 
 // Toggle switches the checked state of the selected item

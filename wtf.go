@@ -195,7 +195,7 @@ func main() {
 		status.NewWidget(),
 		system.NewWidget(builtat, version),
 		textfile.NewWidget(),
-		todo.NewWidget(pages),
+		todo.NewWidget(app, pages),
 		weather.NewWidget(),
 	}
 
