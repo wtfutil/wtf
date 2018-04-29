@@ -13,6 +13,7 @@ var Config *config.Config
 type TextWidget struct {
 	enabled bool
 
+	focusable   bool
 	Name        string
 	RefreshedAt time.Time
 	RefreshInt  int
@@ -21,9 +22,10 @@ type TextWidget struct {
 	Position
 }
 
-func NewTextWidget(name string, configKey string) TextWidget {
+func NewTextWidget(name string, configKey string, focusable bool) TextWidget {
 	widget := TextWidget{
 		enabled:    Config.UBool(fmt.Sprintf("wtf.mods.%s.enabled", configKey), false),
+		focusable:  focusable,
 		Name:       name,
 		RefreshInt: Config.UInt(fmt.Sprintf("wtf.mods.%s.refreshInterval", configKey)),
 		Position: Position{
@@ -47,6 +49,10 @@ func (widget *TextWidget) Disabled() bool {
 
 func (widget *TextWidget) Enabled() bool {
 	return widget.enabled
+}
+
+func (widget *TextWidget) Focusable() bool {
+	return widget.focusable
 }
 
 func (widget *TextWidget) RefreshInterval() int {

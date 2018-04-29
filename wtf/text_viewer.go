@@ -9,7 +9,7 @@ type TextViewer interface {
 	Enabler
 	Scheduler
 
-	//Refresh()
+	Focusable() bool
 	TextView() *tview.TextView
 
 	Top() int

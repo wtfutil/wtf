@@ -18,7 +18,7 @@ type Widget struct {
 
 func NewWidget() *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(" ⏰ OpsGenie ", "opsgenie"),
+		TextWidget: wtf.NewTextWidget(" ⏰ OpsGenie ", "opsgenie", false),
 	}
 
 	return &widget

@@ -46,7 +46,7 @@ func (tracker *FocusTracker) Prev() {
 /* -------------------- Unexported Functions -------------------- */
 
 func (tracker *FocusTracker) blur(idx int) {
-	view := tracker.Widgets[idx].TextView()
+	view := tracker.focusable()[idx].TextView()
 	view.Blur()
 	view.SetBorderColor(ColorFor(Config.UString("wtf.colors.border.normal", "gray")))
 }
@@ -55,20 +55,32 @@ func (tracker *FocusTracker) decrement() {
 	tracker.Idx = tracker.Idx - 1
 
 	if tracker.Idx < 0 {
-		tracker.Idx = len(tracker.Widgets) - 1
+		tracker.Idx = len(tracker.focusable()) - 1
 	}
 }
 
 func (tracker *FocusTracker) focus(idx int) {
-	view := tracker.Widgets[idx].TextView()
+	view := tracker.focusable()[idx].TextView()
 	tracker.App.SetFocus(view)
 	view.SetBorderColor(ColorFor(Config.UString("wtf.colors.border.focus", "gray")))
+}
+
+func (tracker *FocusTracker) focusable() []TextViewer {
+	focusable := []TextViewer{}
+
+	for _, widget := range tracker.Widgets {
+		if widget.Focusable() {
+			focusable = append(focusable, widget)
+		}
+	}
+
+	return focusable
 }
 
 func (tracker *FocusTracker) increment() {
 	tracker.Idx = tracker.Idx + 1
 
-	if tracker.Idx == len(tracker.Widgets) {
+	if tracker.Idx == len(tracker.focusable()) {
 		tracker.Idx = 0
 	}
 }
