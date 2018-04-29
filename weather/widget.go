@@ -186,6 +186,8 @@ func (widget *Widget) icon(data *owm.CurrentWeatherData) string {
 		icon = "❄️"
 	case "sunny":
 		icon = "☀️"
+	case "thunderstorm":
+		icon = "⛈"
 	default:
 		icon = "💥"
 	}
