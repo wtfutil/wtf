@@ -66,6 +66,7 @@ func NamesFromEmails(emails []string) []string {
 	return names
 }
 
+// OpenFile opens the file defined in `path` via the operating system
 func OpenFile(path string) {
 	confDir, _ := ConfigDir()
 	filePath := fmt.Sprintf("%s/%s", confDir, path)

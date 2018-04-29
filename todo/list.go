@@ -1,8 +1,6 @@
 package todo
 
-import (
-	"fmt"
-)
+import ()
 
 type List struct {
 	Items []*Item
@@ -19,7 +17,6 @@ func (list *List) Add(text string) {
 	}
 
 	list.Items = append([]*Item{&item}, list.Items...)
-	fmt.Println("added")
 }
 
 func (list *List) Delete() {
@@ -75,6 +72,16 @@ func (list *List) Toggle() {
 
 func (list *List) Unselect() {
 	list.selected = -1
+}
+
+func (list *List) Update(text string) {
+	item := list.Selected()
+
+	if item == nil {
+		return
+	}
+
+	item.Text = text
 }
 
 /* -------------------- Sort Interface -------------------- */

@@ -66,15 +66,22 @@ func (widget *Widget) editItem() {
 		SetButtonsAlign(tview.AlignCenter).
 		SetButtonTextColor(tview.Styles.PrimaryTextColor)
 
-	form.AddInputField("New text:", widget.selectedText(), 60, nil, nil)
+	form.AddInputField("Edit item:", widget.list.Selected().Text, 60, nil, nil)
 
 	form.AddButton("Save", func() {
 		fld := form.GetFormItem(0)
+		text := fld.(*tview.InputField).GetText()
 
-		widget.updateItem(fld.(*tview.InputField).GetText())
+		widget.list.Update(text)
+		widget.persist()
 		widget.pages.RemovePage("modal")
 		widget.app.SetFocus(widget.View)
-		widget.persist()
+		widget.display()
+	})
+
+	form.AddButton("Cancel", func() {
+		widget.pages.RemovePage("modal")
+		widget.app.SetFocus(widget.View)
 		widget.display()
 	})
 
@@ -87,7 +94,37 @@ func (widget *Widget) editItem() {
 }
 
 func (widget *Widget) newItem() {
+	_, _, w, h := widget.View.GetInnerRect()
 
+	form := tview.NewForm().
+		SetButtonsAlign(tview.AlignCenter).
+		SetButtonTextColor(tview.Styles.PrimaryTextColor)
+
+	form.AddInputField("New item:", "", 60, nil, nil)
+
+	form.AddButton("Save", func() {
+		fld := form.GetFormItem(0)
+		text := fld.(*tview.InputField).GetText()
+
+		widget.list.Add(text)
+		widget.persist()
+		widget.pages.RemovePage("modal")
+		widget.app.SetFocus(widget.View)
+		widget.display()
+	})
+
+	form.AddButton("Cancel", func() {
+		widget.pages.RemovePage("modal")
+		widget.app.SetFocus(widget.View)
+		widget.display()
+	})
+
+	frame := tview.NewFrame(form).SetBorders(0, 0, 0, 0, 0, 0)
+	frame.SetBorder(true)
+	frame.SetRect(w+20, h+2, 80, 7)
+
+	widget.pages.AddPage("modal", frame, false, true)
+	widget.app.SetFocus(frame)
 }
 
 func (widget *Widget) init() {
@@ -192,27 +229,5 @@ func (widget *Widget) persist() {
 
 	if err != nil {
 		panic(err)
-	}
-}
-
-func (widget *Widget) selectedText() string {
-	selectedItem := widget.list.Selected()
-
-	if selectedItem == nil {
-		return ""
-	} else {
-		return selectedItem.Text
-	}
-}
-
-func (widget *Widget) updateItem(text string) {
-	selectedItem := widget.list.Selected()
-
-	if selectedItem == nil {
-		// Create a new item
-		widget.list.Add(text)
-	} else {
-		// Update the text of the existing item
-		selectedItem.Text = text
 	}
 }
