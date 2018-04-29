@@ -46,7 +46,11 @@ func (tracker *FocusTracker) Prev() {
 /* -------------------- Unexported Functions -------------------- */
 
 func (tracker *FocusTracker) blur(idx int) {
-	view := tracker.focusable()[idx].TextView()
+	view := tracker.focusableAt(idx)
+	if view == nil {
+		return
+	}
+
 	view.Blur()
 	view.SetBorderColor(ColorFor(Config.UString("wtf.colors.border.normal", "gray")))
 }
@@ -55,17 +59,21 @@ func (tracker *FocusTracker) decrement() {
 	tracker.Idx = tracker.Idx - 1
 
 	if tracker.Idx < 0 {
-		tracker.Idx = len(tracker.focusable()) - 1
+		tracker.Idx = len(tracker.focusables()) - 1
 	}
 }
 
 func (tracker *FocusTracker) focus(idx int) {
-	view := tracker.focusable()[idx].TextView()
+	view := tracker.focusableAt(idx)
+	if view == nil {
+		return
+	}
+
 	tracker.App.SetFocus(view)
 	view.SetBorderColor(ColorFor(Config.UString("wtf.colors.border.focus", "gray")))
 }
 
-func (tracker *FocusTracker) focusable() []TextViewer {
+func (tracker *FocusTracker) focusables() []TextViewer {
 	focusable := []TextViewer{}
 
 	for _, widget := range tracker.Widgets {
@@ -77,22 +85,30 @@ func (tracker *FocusTracker) focusable() []TextViewer {
 	return focusable
 }
 
+func (tracker *FocusTracker) focusableAt(idx int) *tview.TextView {
+	if idx < 0 || idx >= len(tracker.focusables()) {
+		return nil
+	}
+
+	return tracker.focusables()[idx].TextView()
+}
+
 func (tracker *FocusTracker) increment() {
 	tracker.Idx = tracker.Idx + 1
 
-	if tracker.Idx == len(tracker.focusable()) {
+	if tracker.Idx == len(tracker.focusables()) {
 		tracker.Idx = 0
 	}
 }
 
 // widgetHasFocus returns true if one of the widgets currently has the app's focus,
 // false if none of them do (ie: perhaps a modal dialog currently has it instead)
-//func (tracker *FocusTracker) widgetHasFocus() bool {
-//for _, widget := range tracker.Widgets {
-//if widget.TextView() == tracker.App.GetFocus() {
-//return true
-//}
-//}
+func (tracker *FocusTracker) widgetHasFocus() bool {
+	for _, widget := range tracker.Widgets {
+		if widget.TextView() == tracker.App.GetFocus() {
+			return true
+		}
+	}
 
-//return false
-//}
+	return false
+}
