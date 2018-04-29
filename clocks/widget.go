@@ -19,7 +19,7 @@ type Widget struct {
 
 func NewWidget() *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(" 🕗 World Clocks ", "clocks"),
+		TextWidget: wtf.NewTextWidget(" 🕗 World Clocks ", "clocks", false),
 	}
 
 	return &widget

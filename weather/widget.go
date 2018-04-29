@@ -25,7 +25,7 @@ type Widget struct {
 // NewWidget creates and returns a new instance of the weather Widget.
 func NewWidget() *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(" Weather ", "weather"),
+		TextWidget: wtf.NewTextWidget(" Weather ", "weather", true),
 		APIKey:     os.Getenv("WTF_OWM_API_KEY"),
 		Idx:        0,
 	}

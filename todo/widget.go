@@ -23,7 +23,7 @@ type Widget struct {
 
 func NewWidget() *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(" 📝 Todo ", "todo"),
+		TextWidget: wtf.NewTextWidget(" 📝 Todo ", "todo", true),
 		FilePath:   Config.UString("wtf.mods.todo.filename"),
 
 		list: &List{selected: -1},

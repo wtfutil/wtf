@@ -19,7 +19,7 @@ type Widget struct {
 
 func NewWidget() *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(" 📄 Text File ", "textfile"),
+		TextWidget: wtf.NewTextWidget(" 📄 Text File ", "textfile", true),
 		FilePath:   Config.UString("wtf.mods.textfile.filename"),
 	}
 
