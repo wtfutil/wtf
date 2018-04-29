@@ -60,73 +60,37 @@ func (widget *Widget) editItem() {
 		return
 	}
 
-	// FIXME: Remove all this duplication
-	_, _, w, h := widget.View.GetInnerRect()
+	form := widget.modalForm("Edit:", widget.list.Selected().Text)
 
-	form := tview.NewForm().
-		SetButtonsAlign(tview.AlignCenter).
-		SetButtonTextColor(tview.Styles.PrimaryTextColor)
-
-	form.AddInputField("Edit item:", widget.list.Selected().Text, 60, nil, nil)
-
-	form.AddButton("Save", func() {
-		fld := form.GetFormItem(0)
-		text := fld.(*tview.InputField).GetText()
+	saveFctn := func() {
+		text := form.GetFormItem(0).(*tview.InputField).GetText()
 
 		widget.list.Update(text)
 		widget.persist()
 		widget.pages.RemovePage("modal")
 		widget.app.SetFocus(widget.View)
 		widget.display()
-	})
+	}
 
-	form.AddButton("Cancel", func() {
-		widget.pages.RemovePage("modal")
-		widget.app.SetFocus(widget.View)
-		widget.display()
-	})
-
-	frame := tview.NewFrame(form).SetBorders(0, 0, 0, 0, 0, 0)
-	frame.SetBorder(true)
-	frame.SetRect(w+20, h+2, 80, 7)
-
-	widget.pages.AddPage("modal", frame, false, true)
-	widget.app.SetFocus(frame)
+	widget.addButtons(form, saveFctn)
+	widget.modalFocus(form)
 }
 
 func (widget *Widget) newItem() {
-	// FIXME: Remove all this duplication
-	_, _, w, h := widget.View.GetInnerRect()
+	form := widget.modalForm("New:", "")
 
-	form := tview.NewForm().
-		SetButtonsAlign(tview.AlignCenter).
-		SetButtonTextColor(tview.Styles.PrimaryTextColor)
-
-	form.AddInputField("New item:", "", 60, nil, nil)
-
-	form.AddButton("Save", func() {
-		fld := form.GetFormItem(0)
-		text := fld.(*tview.InputField).GetText()
+	saveFctn := func() {
+		text := form.GetFormItem(0).(*tview.InputField).GetText()
 
 		widget.list.Add(text)
 		widget.persist()
 		widget.pages.RemovePage("modal")
 		widget.app.SetFocus(widget.View)
 		widget.display()
-	})
+	}
 
-	form.AddButton("Cancel", func() {
-		widget.pages.RemovePage("modal")
-		widget.app.SetFocus(widget.View)
-		widget.display()
-	})
-
-	frame := tview.NewFrame(form).SetBorders(0, 0, 0, 0, 0, 0)
-	frame.SetBorder(true)
-	frame.SetRect(w+20, h+2, 80, 7)
-
-	widget.pages.AddPage("modal", frame, false, true)
-	widget.app.SetFocus(frame)
+	widget.addButtons(form, saveFctn)
+	widget.modalFocus(form)
 }
 
 func (widget *Widget) init() {
@@ -232,4 +196,49 @@ func (widget *Widget) persist() {
 	if err != nil {
 		panic(err)
 	}
+}
+
+/* -------------------- Modal Form -------------------- */
+
+func (widget *Widget) addButtons(form *tview.Form, saveFctn func()) {
+	widget.addSaveButton(form, saveFctn)
+	widget.addCancelButton(form)
+}
+
+func (widget *Widget) addCancelButton(form *tview.Form) {
+	form.AddButton("Cancel", func() {
+		widget.pages.RemovePage("modal")
+		widget.app.SetFocus(widget.View)
+		widget.display()
+	})
+}
+
+func (widget *Widget) addSaveButton(form *tview.Form, fctn func()) {
+	form.AddButton("Save", fctn)
+}
+
+func (widget *Widget) modalFocus(form *tview.Form) {
+	frame := widget.modalFrame(form)
+	widget.pages.AddPage("modal", frame, false, true)
+	widget.app.SetFocus(frame)
+}
+
+func (widget *Widget) modalForm(lbl, text string) *tview.Form {
+	form := tview.NewForm().
+		SetButtonsAlign(tview.AlignCenter).
+		SetButtonTextColor(tview.Styles.PrimaryTextColor)
+
+	form.AddInputField(lbl, text, 60, nil, nil)
+
+	return form
+}
+
+func (widget *Widget) modalFrame(form *tview.Form) *tview.Frame {
+	_, _, w, h := widget.View.GetInnerRect()
+
+	frame := tview.NewFrame(form).SetBorders(0, 0, 0, 0, 0, 0)
+	frame.SetBorder(true)
+	frame.SetRect(w+20, h+2, 80, 7)
+
+	return frame
 }
