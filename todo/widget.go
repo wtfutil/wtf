@@ -60,6 +60,7 @@ func (widget *Widget) editItem() {
 		return
 	}
 
+	// FIXME: Remove all this duplication
 	_, _, w, h := widget.View.GetInnerRect()
 
 	form := tview.NewForm().
@@ -94,6 +95,7 @@ func (widget *Widget) editItem() {
 }
 
 func (widget *Widget) newItem() {
+	// FIXME: Remove all this duplication
 	_, _, w, h := widget.View.GetInnerRect()
 
 	form := tview.NewForm().
