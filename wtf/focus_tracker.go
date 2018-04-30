@@ -17,10 +17,6 @@ type FocusTracker struct {
 // Next sets the focus on the next widget in the widget list. If the current widget is
 // the last widget, sets focus on the first widget.
 func (tracker *FocusTracker) Next() {
-	//if tracker.widgetHasFocus() == false {
-	//return
-	//}
-
 	tracker.blur(tracker.Idx)
 	tracker.increment()
 	tracker.focus(tracker.Idx)
@@ -34,12 +30,12 @@ func (tracker *FocusTracker) None() {
 // Prev sets the focus on the previous widget in the widget list. If the current widget is
 // the last widget, sets focus on the last widget.
 func (tracker *FocusTracker) Prev() {
-	//if tracker.widgetHasFocus() == false {
-	//return
-	//}
-
 	tracker.blur(tracker.Idx)
 	tracker.decrement()
+	tracker.focus(tracker.Idx)
+}
+
+func (tracker *FocusTracker) Refocus() {
 	tracker.focus(tracker.Idx)
 }
 
