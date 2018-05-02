@@ -9,6 +9,7 @@ type TextViewer interface {
 	Enabler
 	Scheduler
 
+	BorderColor() string
 	Focusable() bool
 	TextView() *tview.TextView
 

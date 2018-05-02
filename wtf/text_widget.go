@@ -24,8 +24,9 @@ type TextWidget struct {
 
 func NewTextWidget(name string, configKey string, focusable bool) TextWidget {
 	widget := TextWidget{
-		enabled:    Config.UBool(fmt.Sprintf("wtf.mods.%s.enabled", configKey), false),
-		focusable:  focusable,
+		enabled:   Config.UBool(fmt.Sprintf("wtf.mods.%s.enabled", configKey), false),
+		focusable: focusable,
+
 		Name:       name,
 		RefreshInt: Config.UInt(fmt.Sprintf("wtf.mods.%s.refreshInterval", configKey)),
 		Position: Position{
@@ -42,6 +43,14 @@ func NewTextWidget(name string, configKey string, focusable bool) TextWidget {
 }
 
 /* -------------------- Exported Functions -------------------- */
+
+func (widget *TextWidget) BorderColor() string {
+	if widget.Focusable() {
+		return Config.UString("wtf.colors.border.focusable", "red")
+	}
+
+	return Config.UString("wtf.colors.border.normal", "gray")
+}
 
 func (widget *TextWidget) Disabled() bool {
 	return !widget.Enabled()
@@ -69,7 +78,7 @@ func (widget *TextWidget) addView() {
 	view := tview.NewTextView()
 
 	view.SetBorder(true)
-	view.SetBorderColor(ColorFor(Config.UString("wtf.colors.border.normal")))
+	view.SetBorderColor(ColorFor(widget.BorderColor()))
 	view.SetDynamicColors(true)
 	view.SetTitle(widget.Name)
 	view.SetWrap(false)

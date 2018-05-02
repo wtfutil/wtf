@@ -42,13 +42,15 @@ func (tracker *FocusTracker) Refocus() {
 /* -------------------- Unexported Functions -------------------- */
 
 func (tracker *FocusTracker) blur(idx int) {
-	view := tracker.focusableAt(idx)
-	if view == nil {
+	widget := tracker.focusableAt(idx)
+	if widget == nil {
 		return
 	}
 
+	view := widget.TextView()
 	view.Blur()
-	view.SetBorderColor(ColorFor(Config.UString("wtf.colors.border.normal", "gray")))
+
+	view.SetBorderColor(ColorFor(widget.BorderColor()))
 }
 
 func (tracker *FocusTracker) decrement() {
@@ -60,13 +62,15 @@ func (tracker *FocusTracker) decrement() {
 }
 
 func (tracker *FocusTracker) focus(idx int) {
-	view := tracker.focusableAt(idx)
-	if view == nil {
+	widget := tracker.focusableAt(idx)
+	if widget == nil {
 		return
 	}
 
+	view := widget.TextView()
+
 	tracker.App.SetFocus(view)
-	view.SetBorderColor(ColorFor(Config.UString("wtf.colors.border.focus", "gray")))
+	view.SetBorderColor(ColorFor(Config.UString("wtf.colors.border.focused", "gray")))
 }
 
 func (tracker *FocusTracker) focusables() []TextViewer {
@@ -81,12 +85,12 @@ func (tracker *FocusTracker) focusables() []TextViewer {
 	return focusable
 }
 
-func (tracker *FocusTracker) focusableAt(idx int) *tview.TextView {
+func (tracker *FocusTracker) focusableAt(idx int) TextViewer {
 	if idx < 0 || idx >= len(tracker.focusables()) {
 		return nil
 	}
 
-	return tracker.focusables()[idx].TextView()
+	return tracker.focusables()[idx]
 }
 
 func (tracker *FocusTracker) increment() {
