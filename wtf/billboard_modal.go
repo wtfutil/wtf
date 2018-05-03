@@ -5,6 +5,10 @@ import (
 	"github.com/rivo/tview"
 )
 
+const offscreen = -1000
+const modalWidth = 80
+const modalHeight = 22
+
 func NewBillboardModal(text string) *tview.Frame {
 	textView := tview.NewTextView()
 	textView.SetWrap(true)
@@ -13,10 +17,11 @@ func NewBillboardModal(text string) *tview.Frame {
 	textView.SetBackgroundColor(tview.Styles.ContrastBackgroundColor)
 
 	thing := tview.NewFrame(textView)
+	thing.SetRect(offscreen, offscreen, modalWidth, modalHeight) // First draw it offscreen and then reposition below
 
 	drawFunc := func(screen tcell.Screen, x, y, width, height int) (int, int, int, int) {
 		w, h := screen.Size()
-		thing.SetRect((w/2)-40, (h/2)-11, 80, 22)
+		thing.SetRect((w/2)-(width/2), (h/2)-(height/2), width, height)
 		return x, y, width, height
 	}
 
