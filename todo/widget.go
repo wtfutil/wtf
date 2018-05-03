@@ -16,12 +16,8 @@ import (
 var Config *config.Config
 
 const helpText = `
-	Todo
-
-	h - Displays the help text
-	o - Opens the todo file in the operating system
-
-	space - checks an item on or off
+  h: Displays the help text. o: Opens the todo file in the operating system.
+	space: Checks an item on or off
 `
 
 type Widget struct {
@@ -86,16 +82,19 @@ func (widget *Widget) editItem() {
 }
 
 func (widget *Widget) help() {
-	cancelFn := func() {
-		widget.pages.RemovePage("billboard")
+	cancelFn := func(idx int, label string) {
+		widget.pages.RemovePage("help")
 		widget.app.SetFocus(widget.View)
 		widget.display()
 	}
 
-	billboard := wtf.NewBillboardModal(helpText, cancelFn)
+	helpModal := tview.NewModal()
+	helpModal.SetText(helpText)
+	helpModal.AddButtons([]string{"Close"})
+	helpModal.SetDoneFunc(cancelFn)
 
-	widget.pages.AddPage("billboard", billboard, false, true)
-	widget.app.SetFocus(billboard)
+	widget.pages.AddPage("help", helpModal, false, true)
+	widget.app.SetFocus(helpModal)
 }
 
 func (widget *Widget) init() {
@@ -228,11 +227,14 @@ func (widget *Widget) addButtons(form *tview.Form, saveFctn func()) {
 }
 
 func (widget *Widget) addCancelButton(form *tview.Form) {
-	form.AddButton("Cancel", func() {
+	cancelFn := func() {
 		widget.pages.RemovePage("modal")
 		widget.app.SetFocus(widget.View)
 		widget.display()
-	})
+	}
+
+	form.AddButton("Cancel", cancelFn)
+	form.SetCancelFunc(cancelFn)
 }
 
 func (widget *Widget) addSaveButton(form *tview.Form, fctn func()) {
