@@ -16,8 +16,22 @@ import (
 var Config *config.Config
 
 const helpText = `
-  h: Displays the help text. o: Opens the todo file in the operating system.
-	space: Checks an item on or off
+ Keyboard commands for Todo:
+
+   h: Displays the help text
+   j: Select the next item in the list
+   k: Select the previous item in the list
+   n: Create a new list item
+   o: Open the todo file in the operating system
+
+   arrow down: Select the next item in the list
+   arrow up:   Select the previous item in the list
+
+   ctrl-d: delete selected item
+
+   esc:    Unselect the todo list
+   return: Edit selected item
+   space:  Check the selected item on or off
 `
 
 type Widget struct {
@@ -81,22 +95,6 @@ func (widget *Widget) editItem() {
 	widget.modalFocus(form)
 }
 
-func (widget *Widget) help() {
-	cancelFn := func(idx int, label string) {
-		widget.pages.RemovePage("help")
-		widget.app.SetFocus(widget.View)
-		widget.display()
-	}
-
-	helpModal := tview.NewModal()
-	helpModal.SetText(helpText)
-	helpModal.AddButtons([]string{"Close"})
-	helpModal.SetDoneFunc(cancelFn)
-
-	widget.pages.AddPage("help", helpModal, false, true)
-	widget.app.SetFocus(helpModal)
-}
-
 func (widget *Widget) init() {
 	_, err := wtf.CreateFile(widget.filePath)
 	if err != nil {
@@ -114,7 +112,7 @@ func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 		return nil
 	case "h":
 		// Show help menu
-		widget.help()
+		widget.showHelp()
 		return nil
 	case "j":
 		// Select the next item down
@@ -188,20 +186,6 @@ func (widget *Widget) load() {
 	yaml.Unmarshal(fileData, &widget.list)
 }
 
-// persist writes the todo list to Yaml file
-func (widget *Widget) persist() {
-	confDir, _ := wtf.ConfigDir()
-	filePath := fmt.Sprintf("%s/%s", confDir, widget.filePath)
-
-	fileData, _ := yaml.Marshal(&widget.list)
-
-	err := ioutil.WriteFile(filePath, fileData, 0644)
-
-	if err != nil {
-		panic(err)
-	}
-}
-
 func (widget *Widget) newItem() {
 	form := widget.modalForm("New:", "")
 
@@ -217,6 +201,27 @@ func (widget *Widget) newItem() {
 
 	widget.addButtons(form, saveFctn)
 	widget.modalFocus(form)
+}
+
+// persist writes the todo list to Yaml file
+func (widget *Widget) persist() {
+	confDir, _ := wtf.ConfigDir()
+	filePath := fmt.Sprintf("%s/%s", confDir, widget.filePath)
+
+	fileData, _ := yaml.Marshal(&widget.list)
+
+	err := ioutil.WriteFile(filePath, fileData, 0644)
+
+	if err != nil {
+		panic(err)
+	}
+}
+
+func (widget *Widget) showHelp() {
+	modal := wtf.NewBillboardModal(helpText)
+
+	widget.pages.AddPage("help", modal, false, true)
+	widget.app.SetFocus(modal)
 }
 
 /* -------------------- Modal Form -------------------- */
