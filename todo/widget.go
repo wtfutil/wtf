@@ -15,6 +15,15 @@ import (
 // Config is a pointer to the global config object
 var Config *config.Config
 
+const helpText = `
+	Todo
+
+	h - Displays the help text
+	o - Opens the todo file in the operating system
+
+	space - checks an item on or off
+`
+
 type Widget struct {
 	wtf.TextWidget
 
@@ -76,21 +85,17 @@ func (widget *Widget) editItem() {
 	widget.modalFocus(form)
 }
 
-func (widget *Widget) newItem() {
-	form := widget.modalForm("New:", "")
-
-	saveFctn := func() {
-		text := form.GetFormItem(0).(*tview.InputField).GetText()
-
-		widget.list.Add(text)
-		widget.persist()
-		widget.pages.RemovePage("modal")
+func (widget *Widget) help() {
+	cancelFn := func() {
+		widget.pages.RemovePage("billboard")
 		widget.app.SetFocus(widget.View)
 		widget.display()
 	}
 
-	widget.addButtons(form, saveFctn)
-	widget.modalFocus(form)
+	billboard := wtf.NewBillboardModal(helpText, cancelFn)
+
+	widget.pages.AddPage("billboard", billboard, false, true)
+	widget.app.SetFocus(billboard)
 }
 
 func (widget *Widget) init() {
@@ -110,7 +115,7 @@ func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 		return nil
 	case "h":
 		// Show help menu
-		fmt.Println("HELP!")
+		widget.help()
 		return nil
 	case "j":
 		// Select the next item down
@@ -196,6 +201,23 @@ func (widget *Widget) persist() {
 	if err != nil {
 		panic(err)
 	}
+}
+
+func (widget *Widget) newItem() {
+	form := widget.modalForm("New:", "")
+
+	saveFctn := func() {
+		text := form.GetFormItem(0).(*tview.InputField).GetText()
+
+		widget.list.Add(text)
+		widget.persist()
+		widget.pages.RemovePage("modal")
+		widget.app.SetFocus(widget.View)
+		widget.display()
+	}
+
+	widget.addButtons(form, saveFctn)
+	widget.modalFocus(form)
 }
 
 /* -------------------- Modal Form -------------------- */

@@ -39,7 +39,7 @@ func (widget *Widget) openPRs(repo *GithubRepo, username string) string {
 		user := *pr.User
 
 		if *user.Login == username {
-			str = str + fmt.Sprintf(" [green]%d[white] %s\n", *pr.Number, *pr.Title)
+			str = str + fmt.Sprintf(" [green]%4d[white] %s\n", *pr.Number, *pr.Title)
 		}
 	}
 
