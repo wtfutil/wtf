@@ -9,15 +9,34 @@ const offscreen = -1000
 const modalWidth = 80
 const modalHeight = 22
 
-func NewBillboardModal(text string) *tview.Frame {
+func NewBillboardModal(text string, closeFunc func()) *tview.Frame {
+	keyboardIntercept := func(event *tcell.EventKey) *tcell.EventKey {
+		switch string(event.Rune()) {
+		case "h":
+			closeFunc()
+			return nil
+		}
+
+		switch event.Key() {
+		case tcell.KeyEsc:
+			closeFunc()
+			return nil
+		case tcell.KeyTab:
+			return nil
+		default:
+			return event
+		}
+	}
+
 	textView := tview.NewTextView()
 	textView.SetWrap(true)
 	textView.SetText(text)
 
 	textView.SetBackgroundColor(tview.Styles.ContrastBackgroundColor)
+	textView.SetInputCapture(keyboardIntercept)
 
 	thing := tview.NewFrame(textView)
-	thing.SetRect(offscreen, offscreen, modalWidth, modalHeight) // First draw it offscreen and then reposition below
+	thing.SetRect(offscreen, offscreen, modalWidth, modalHeight)
 
 	drawFunc := func(screen tcell.Screen, x, y, width, height int) (int, int, int, int) {
 		w, h := screen.Size()

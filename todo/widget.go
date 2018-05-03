@@ -218,7 +218,13 @@ func (widget *Widget) persist() {
 }
 
 func (widget *Widget) showHelp() {
-	modal := wtf.NewBillboardModal(helpText)
+	closeFunc := func() {
+		widget.pages.RemovePage("help")
+		widget.app.SetFocus(widget.View)
+		widget.display()
+	}
+
+	modal := wtf.NewBillboardModal(helpText, closeFunc)
 
 	widget.pages.AddPage("help", modal, false, true)
 	widget.app.SetFocus(modal)
