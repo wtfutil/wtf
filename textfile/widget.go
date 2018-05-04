@@ -6,22 +6,35 @@ import (
 
 	"github.com/gdamore/tcell"
 	"github.com/olebedev/config"
+	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/wtf"
 )
 
 // Config is a pointer to the global config object
 var Config *config.Config
 
+const helpText = `
+  Keyboard commands for Textfile:
+
+    h: Show/hide this help window
+    o: Open the text file in the operating system
+`
+
 type Widget struct {
 	wtf.TextWidget
 
-	FilePath string
+	app      *tview.Application
+	filePath string
+	pages    *tview.Pages
 }
 
-func NewWidget() *Widget {
+func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(" 📄 Text File ", "textfile", true),
-		FilePath:   Config.UString("wtf.mods.textfile.filename"),
+
+		app:      app,
+		filePath: Config.UString("wtf.mods.textfile.filename"),
+		pages:    pages,
 	}
 
 	widget.View.SetWrap(true)
@@ -39,12 +52,12 @@ func (widget *Widget) Refresh() {
 		return
 	}
 
-	widget.View.SetTitle(fmt.Sprintf(" 📄 %s ", widget.FilePath))
+	widget.View.SetTitle(fmt.Sprintf(" 📄 %s ", widget.filePath))
 	widget.RefreshedAt = time.Now()
 
 	widget.View.Clear()
 
-	fileData, err := wtf.ReadFile(widget.FilePath)
+	fileData, err := wtf.ReadFile(widget.filePath)
 
 	if err != nil {
 		fmt.Fprintf(widget.View, "%s", err)
@@ -54,12 +67,29 @@ func (widget *Widget) Refresh() {
 }
 
 /* -------------------- Unexported Functions -------------------- */
+
 func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	switch string(event.Rune()) {
+	case "h":
+		widget.showHelp()
+		return nil
 	case "o":
-		wtf.OpenFile(widget.FilePath)
+		wtf.OpenFile(widget.filePath)
 		return nil
 	}
 
 	return event
+}
+
+func (widget *Widget) showHelp() {
+	closeFunc := func() {
+		widget.pages.RemovePage("help")
+		widget.app.SetFocus(widget.View)
+		widget.Refresh()
+	}
+
+	modal := wtf.NewBillboardModal(helpText, closeFunc)
+
+	widget.pages.AddPage("help", modal, false, true)
+	widget.app.SetFocus(modal)
 }

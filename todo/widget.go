@@ -18,7 +18,7 @@ var Config *config.Config
 const helpText = `
  Keyboard commands for Todo:
 
-   h: Displays the help text
+   h: Show/hide this help window
    j: Select the next item in the list
    k: Select the previous item in the list
    n: Create a new list item
@@ -27,7 +27,7 @@ const helpText = `
    arrow down: Select the next item in the list
    arrow up:   Select the previous item in the list
 
-   ctrl-d: delete selected item
+   ctrl-d: Delete the selected item
 
    esc:    Unselect the todo list
    return: Edit selected item
@@ -38,9 +38,9 @@ type Widget struct {
 	wtf.TextWidget
 
 	app      *tview.Application
-	pages    *tview.Pages
 	filePath string
 	list     *List
+	pages    *tview.Pages
 }
 
 func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
@@ -48,9 +48,9 @@ func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 		TextWidget: wtf.NewTextWidget(" 📝 Todo ", "todo", true),
 
 		app:      app,
-		pages:    pages,
 		filePath: Config.UString("wtf.mods.todo.filename"),
 		list:     &List{selected: -1},
+		pages:    pages,
 	}
 
 	widget.init()
@@ -111,7 +111,6 @@ func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 		widget.display()
 		return nil
 	case "h":
-		// Show help menu
 		widget.showHelp()
 		return nil
 	case "j":
