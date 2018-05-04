@@ -220,7 +220,6 @@ func (widget *Widget) showHelp() {
 	closeFunc := func() {
 		widget.pages.RemovePage("help")
 		widget.app.SetFocus(widget.View)
-		widget.display()
 	}
 
 	modal := wtf.NewBillboardModal(helpText, closeFunc)

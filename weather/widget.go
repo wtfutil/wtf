@@ -7,15 +7,28 @@ import (
 	owm "github.com/briandowns/openweathermap"
 	"github.com/gdamore/tcell"
 	"github.com/olebedev/config"
+	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/wtf"
 )
 
 // Config is a pointer to the global config object.
 var Config *config.Config
 
+const helpText = `
+  Keyboard commands for Weather:
+
+    h: Show/hide this help window
+
+    arrow right: Next weather location
+    arrow left:  Previous weather location
+`
+
 // Widget is the container for weather data.
 type Widget struct {
 	wtf.TextWidget
+
+	app   *tview.Application
+	pages *tview.Pages
 
 	APIKey string
 	Data   []*owm.CurrentWeatherData
@@ -23,11 +36,15 @@ type Widget struct {
 }
 
 // NewWidget creates and returns a new instance of the weather Widget.
-func NewWidget() *Widget {
+func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(" Weather ", "weather", true),
-		APIKey:     os.Getenv("WTF_OWM_API_KEY"),
-		Idx:        0,
+
+		app:   app,
+		pages: pages,
+
+		APIKey: os.Getenv("WTF_OWM_API_KEY"),
+		Idx:    0,
 	}
 
 	widget.View.SetInputCapture(widget.keyboardIntercept)
@@ -196,6 +213,12 @@ func (widget *Widget) icon(data *owm.CurrentWeatherData) string {
 }
 
 func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
+	switch string(event.Rune()) {
+	case "h":
+		widget.showHelp()
+		return nil
+	}
+
 	switch event.Key() {
 	case tcell.KeyLeft:
 		widget.Prev()
@@ -206,4 +229,16 @@ func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	default:
 		return event
 	}
+}
+
+func (widget *Widget) showHelp() {
+	closeFunc := func() {
+		widget.pages.RemovePage("help")
+		widget.app.SetFocus(widget.View)
+	}
+
+	modal := wtf.NewBillboardModal(helpText, closeFunc)
+
+	widget.pages.AddPage("help", modal, false, true)
+	widget.app.SetFocus(modal)
 }

@@ -196,7 +196,7 @@ func main() {
 		system.NewWidget(builtat, version),
 		textfile.NewWidget(app, pages),
 		todo.NewWidget(app, pages),
-		weather.NewWidget(),
+		weather.NewWidget(app, pages),
 	}
 
 	FocusTracker = wtf.FocusTracker{
