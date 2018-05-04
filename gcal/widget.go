@@ -2,6 +2,7 @@ package gcal
 
 import (
 	"fmt"
+	"regexp"
 	"strings"
 	"time"
 
@@ -41,6 +42,30 @@ func (widget *Widget) Refresh() {
 }
 
 /* -------------------- Unexported Functions -------------------- */
+
+// conflicts returns TRUE if this event conflicts with another, FALSE if it does not
+func (widget *Widget) conflicts(event *calendar.Event, events *calendar.Events) bool {
+	conflict := false
+
+	for _, otherEvent := range events.Items {
+		if event == otherEvent {
+			continue
+		}
+
+		eventStart, _ := time.Parse(time.RFC3339, event.Start.DateTime)
+		eventEnd, _ := time.Parse(time.RFC3339, event.End.DateTime)
+
+		otherEnd, _ := time.Parse(time.RFC3339, otherEvent.End.DateTime)
+		otherStart, _ := time.Parse(time.RFC3339, otherEvent.Start.DateTime)
+
+		if eventStart.Before(otherEnd) && eventEnd.After(otherStart) {
+			conflict = true
+			break
+		}
+	}
+
+	return conflict
+}
 
 func (widget *Widget) contentFrom(events *calendar.Events) string {
 	if events == nil {
@@ -83,11 +108,10 @@ func (widget *Widget) dayDivider(event, prevEvent *calendar.Event) string {
 }
 
 func (widget *Widget) descriptionColor(event *calendar.Event) string {
-	ts, _ := time.Parse(time.RFC3339, event.Start.DateTime)
+	color := Config.UString("wtf.mods.gcal.colors.description", "white")
 
-	color := "white"
-	if (widget.eventIsNow(event) == false) && ts.Before(time.Now()) {
-		color = "grey"
+	if widget.eventIsPast(event) {
+		color = Config.UString("wtf.mods.gcal.colors.past", "gray")
 	}
 
 	return color
@@ -124,44 +148,29 @@ func (widget *Widget) eventIsNow(event *calendar.Event) bool {
 	return time.Now().After(startTime) && time.Now().Before(endTime)
 }
 
-// conflicts returns TRUE if this event conflicts with another, FALSE if it does not
-func (widget *Widget) conflicts(event *calendar.Event, events *calendar.Events) bool {
-	conflict := false
-
-	for _, otherEvent := range events.Items {
-		if event == otherEvent {
-			continue
-		}
-
-		eventStart, _ := time.Parse(time.RFC3339, event.Start.DateTime)
-		eventEnd, _ := time.Parse(time.RFC3339, event.End.DateTime)
-
-		otherEnd, _ := time.Parse(time.RFC3339, otherEvent.End.DateTime)
-		otherStart, _ := time.Parse(time.RFC3339, otherEvent.Start.DateTime)
-
-		if eventStart.Before(otherEnd) && eventEnd.After(otherStart) {
-			conflict = true
-			break
-		}
-	}
-
-	return conflict
-}
-
-func (widget *Widget) isOneOnOne(event *calendar.Event) bool {
-	return strings.Contains(event.Summary, "1on1") || strings.Contains(event.Summary, "1/1")
+func (widget *Widget) eventIsPast(event *calendar.Event) bool {
+	ts, _ := time.Parse(time.RFC3339, event.Start.DateTime)
+	return (widget.eventIsNow(event) == false) && ts.Before(time.Now())
 }
 
 func (widget *Widget) titleColor(event *calendar.Event) string {
-	ts, _ := time.Parse(time.RFC3339, event.Start.DateTime)
+	color := Config.UString("wtf.mods.gcal.colors.title", "white")
 
-	color := "red"
-	if widget.isOneOnOne(event) {
-		color = "green"
+	for _, untypedArr := range Config.UList("wtf.mods.gcal.colors.highlights") {
+		highlightElements := wtf.ToStrs(untypedArr.([]interface{}))
+
+		match, _ := regexp.MatchString(
+			strings.ToLower(highlightElements[0]),
+			strings.ToLower(event.Summary),
+		)
+
+		if match == true {
+			color = highlightElements[1]
+		}
 	}
 
-	if (widget.eventIsNow(event) == false) && ts.Before(time.Now()) {
-		color = "grey"
+	if widget.eventIsPast(event) {
+		color = Config.UString("wtf.mods.gcal.colors.past", "gray")
 	}
 
 	return color
