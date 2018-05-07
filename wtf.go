@@ -138,7 +138,7 @@ var Widgets []wtf.TextViewer
 var result = wtf.CreateConfigDir()
 
 var (
-	builtat = time.Now().Format(wtf.TimestampFormat)
+	builtat = "dev"
 	version = "dev"
 )
 
