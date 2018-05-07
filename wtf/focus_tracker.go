@@ -17,9 +17,11 @@ type FocusTracker struct {
 // Next sets the focus on the next widget in the widget list. If the current widget is
 // the last widget, sets focus on the first widget.
 func (tracker *FocusTracker) Next() {
-	tracker.blur(tracker.Idx)
-	tracker.increment()
-	tracker.focus(tracker.Idx)
+	if tracker.widgetHasFocus() {
+		tracker.blur(tracker.Idx)
+		tracker.increment()
+		tracker.focus(tracker.Idx)
+	}
 }
 
 // None removes focus from the currently-focused widget.
@@ -30,9 +32,11 @@ func (tracker *FocusTracker) None() {
 // Prev sets the focus on the previous widget in the widget list. If the current widget is
 // the last widget, sets focus on the last widget.
 func (tracker *FocusTracker) Prev() {
-	tracker.blur(tracker.Idx)
-	tracker.decrement()
-	tracker.focus(tracker.Idx)
+	if tracker.widgetHasFocus() {
+		tracker.blur(tracker.Idx)
+		tracker.decrement()
+		tracker.focus(tracker.Idx)
+	}
 }
 
 func (tracker *FocusTracker) Refocus() {
@@ -104,6 +108,10 @@ func (tracker *FocusTracker) increment() {
 // widgetHasFocus returns true if one of the widgets currently has the app's focus,
 // false if none of them do (ie: perhaps a modal dialog currently has it instead)
 func (tracker *FocusTracker) widgetHasFocus() bool {
+	if tracker.Idx < 0 {
+		return true
+	}
+
 	for _, widget := range tracker.Widgets {
 		if widget.TextView() == tracker.App.GetFocus() {
 			return true

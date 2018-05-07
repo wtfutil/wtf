@@ -201,7 +201,7 @@ func main() {
 
 	FocusTracker = wtf.FocusTracker{
 		App:     app,
-		Idx:     0,
+		Idx:     -1,
 		Widgets: Widgets,
 	}
 
