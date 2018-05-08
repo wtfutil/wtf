@@ -1,6 +1,7 @@
 baseURL = "http://wtfutil.com/"
 languageCode = "en-us"
 publishDir = "../docs"
+sectionPagesMenu = "main"
 theme = "hyde-hyde"
 
 [params]
