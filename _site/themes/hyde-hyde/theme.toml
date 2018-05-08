@@ -1,0 +1,19 @@
+name = "hyde-hyde"
+license = "MIT"
+licenselink = "https://github.com/htr3n/hyde-hyde/blob/master/LICENSE.md"
+description = "A forked/derived version of Hyde"
+tags = ["blog", "theme", "hyde", "highlight.js", "font-awesome", "google analytics", "disqus", "personal", "syntax highlighting", "responsive", "graphcomment"]
+features = ["blog", "theme", "highlight.js", "font-awesome"]
+min_version = "0.33"
+
+[author]
+    name = "htr3n"
+    homepage = "https://htr3n.github.io"
+
+# If Porting existing theme
+[original]
+    author =  "spf13"
+    homepage = "http://spf13.com/"
+    repo = "https://github.com/spf13/hyde"
+
+

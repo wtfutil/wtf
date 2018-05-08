@@ -8,29 +8,29 @@ type ClockCollection struct {
 	Clocks []Clock
 }
 
-func (clockColl *ClockCollection) Sorted() []Clock {
+func (clocks *ClockCollection) Sorted() []Clock {
 	if "chronological" == Config.UString("wtf.mods.clocks.sort", "alphabetical") {
-		clockColl.SortedChronologically()
+		clocks.SortedChronologically()
 	} else {
-		clockColl.SortedAlphabetically()
+		clocks.SortedAlphabetically()
 	}
 
-	return clockColl.Clocks
+	return clocks.Clocks
 }
 
-func (clockColl *ClockCollection) SortedAlphabetically() {
-	sort.Slice(clockColl.Clocks, func(i, j int) bool {
-		clock := clockColl.Clocks[i]
-		other := clockColl.Clocks[j]
+func (clocks *ClockCollection) SortedAlphabetically() {
+	sort.Slice(clocks.Clocks, func(i, j int) bool {
+		clock := clocks.Clocks[i]
+		other := clocks.Clocks[j]
 
 		return clock.Label < other.Label
 	})
 }
 
-func (clockColl *ClockCollection) SortedChronologically() {
-	sort.Slice(clockColl.Clocks, func(i, j int) bool {
-		clock := clockColl.Clocks[i]
-		other := clockColl.Clocks[j]
+func (clocks *ClockCollection) SortedChronologically() {
+	sort.Slice(clocks.Clocks, func(i, j int) bool {
+		clock := clocks.Clocks[i]
+		other := clocks.Clocks[j]
 
 		return clock.LocalTime.Before(other.LocalTime)
 	})

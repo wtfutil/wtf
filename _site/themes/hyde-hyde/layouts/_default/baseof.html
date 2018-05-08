@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}" class="wf-firasans-n4-active wf-active">
+	<head>
+    {{ block "header" . -}}{{- end }}
+	</head>
+    <body {{- if .Site.Params.themeColor }} class="{{ .Site.Params.themeColor }} {{if .Site.Params.layoutReverse}}layout-reverse{{end}}" {{ end }}>
+        {{ partial "sidebar.html" . }}
+        <div class="content container">
+            {{ block "content" . }}{{ end }}
+            <div class="footer">
+                {{ block "footer" . }}{{ end }}
+            </div>
+        </div>
+        <!-- Google Analytics -->
+        {{ if .Site.GoogleAnalytics -}}
+            {{ template "_internal/google_analytics_async.html" . }}
+        {{- end }}        
+    </body>
+</html>

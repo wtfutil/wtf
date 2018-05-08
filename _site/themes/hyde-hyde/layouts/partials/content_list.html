@@ -1,0 +1,15 @@
+<h1 class="title">{{ .Title }}</h1>
+<ul class="posts">
+    {{ range .Data.Pages -}}
+    <li>
+        <span>
+            <a href="{{ .Permalink }}">{{ .Title }}</a>
+            {{ if not .Date.IsZero }}
+            <time class="pull-right post-list">
+                {{- .Date.Format (.Site.Params.dateform | default "Jan 02, 2006") -}}
+            </time>    
+            {{end}}
+        </span>
+    </li>
+    {{- end }}
+</ul>

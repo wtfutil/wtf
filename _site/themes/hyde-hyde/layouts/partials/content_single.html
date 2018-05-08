@@ -1,0 +1,39 @@
+<div class="post">
+  <h1>{{ .Title }}</h1>
+  {{ if ne .Params.showpagemeta false }}
+  <div class="col-sm-12 col-md-12">
+    <span class="text-left post-date meta">
+      <!-- published date -->      
+      {{ if not .Date.IsZero }} 
+        <i class="fas fa-calendar-alt"></i> {{ .Date.Format (.Site.Params.dateformat | default "Jan 02, 2006") -}}
+      {{ end }}
+      <!-- categories -->
+      {{ with .Params.categories }}
+        {{ $total := len . }}
+        {{ if gt $total 0 }}
+            in
+            {{ $total := sub $total 1 }}
+            {{ range $i, $cat := sort . }}
+                <a class="meta" href="{{ "/categories/" | relURL }}{{ $cat | urlize }}">{{ $cat | upper }}</a>
+                {{ if lt $i $total }},{{ end }}
+            {{ end }}
+        {{ end }}
+      {{ end }}
+      <!-- tags -->
+      {{ with .Params.tags }}
+        {{ $total := len . }}
+        {{ if gt $total 0 }}
+            <br/>
+            {{ $subtotal := sub $total 1 }} <i class="fas fa-tags"></i>
+            {{ range $i, $tag := sort . }}
+            <a class="meta" href="{{ "/tags/" | relURL }}{{ $tag | urlize }}">{{ $tag | lower }}</a>{{ if lt $i $subtotal }} {{ end }}
+        {{ end }}
+      {{ end }}
+      {{ end }}
+      <br/>
+      <i class="fas fa-clock"></i> {{ .ReadingTime }} min read 
+      </span>  
+  </div>    
+  {{ end }}
+  {{ .Content }}
+</div>

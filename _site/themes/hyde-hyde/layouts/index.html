@@ -1,0 +1,49 @@
+{{ define "header" -}}
+  {{ partial "header.html" . }}
+{{- end }}
+
+{{ define "content" -}}
+  <div style="float: right;">
+    <a class="github-button" href="https://github.com/senorprogrammer/wtf" data-show-count="true" aria-label="Star senorprogrammer/wtf on GitHub">Star</a>
+  </div>
+
+  <a href="/img/screenshot.png" target="_screenshot"><img src='/img/screenshot_sm.png' /></a>
+
+  <p>
+  <span style="font-family: monospace; font-size: 1.5em;">WTF</span> is a personal information dashboard for your
+  terminal, made for those who spend most of their days in the command line.
+  </p>
+
+  <p>
+  It provides a framework for rapidly viewing important at-a-glance information quickly.
+  </p>
+
+  <p>
+  Keep an eye on your OpsGenie schedules, Google Calendar, Git and Github repositories, and New Relic deployments.
+  </p>
+
+  <p>
+  See who's away in BambooHR, which Jira tickets are assigned to you, and what time it is in Barcelona.
+  </p>
+
+  <!--<p>-->
+  <!--If you're a developer, adding new functionality is as easy as writing a new module in-->
+  <!--<a href="https://golang.org">Go</a>, connecting it to whichever API you want, and writing that data to screen.-->
+  <!--<p>-->
+
+  <p>
+  It even has weather. And emoji. Just enough emoji.
+  </p>
+
+  <a href="https://github.com/senorprogrammer/wtf" class="button">Github</a>
+
+  <p>
+  <small>
+    *WTF is endorsed by absolutely none of the companies mentioned above.
+  </small>
+  </p>
+
+{{- end }}
+
+{{ define "footer" -}}
+{{- end }}

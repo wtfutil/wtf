@@ -1,0 +1,32 @@
+<section class="row text-center">
+	{{ with .Site.Params.social.twitter }}
+	<a href="https://twitter.com/{{.}}"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a>
+	{{ end }}
+	{{ with .Site.Params.social.facebook }}
+	&nbsp;<a href="https://facebook.com/{{.}}"><i class="fab fa-facebook-f"></i></a>
+	{{ end }}
+	{{ with .Site.Params.social.github }}
+	&nbsp;<a href="https://github.com/{{.}}"><i class="fab fa-github fa-lg" aria-hidden="true"></i></a>
+	{{ end }}
+	{{ with .Site.Params.social.bitbucket }}
+	&nbsp;<a href="https://bitbucket.org/{{.}}"><i class="fab fa-bitbucket fa-lg" aria-hidden="true"></i></a>
+	{{ end }}
+	{{ with .Site.Params.social.instagram }}
+	&nbsp;<a href="https://instagram.com/{{.}}"><i class="fab fa-instagram fa-lg" aria-hidden="true"></i></a>
+	{{ end }}
+	{{ with .Site.Params.social.linkedin }}
+	&nbsp;<a href="https://linkedin.com/in/{{.}}"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a>
+	{{ end }}
+	{{ with .Site.Params.social.stackoverflow }}
+	&nbsp;<a href="https://stackoverflow.com/users/{{.}}"><i class="fab fa-stack-overflow fa-lg" aria-hidden="true"></i></a>
+	{{ end }}
+	{{ with .Site.Params.social.medium}}
+	&nbsp;<a href="https://medium.com/{{.}}"><i class="fab fa-medium fa-lg" aria-hidden="true"></i></a>
+	{{ end }}
+	{{ with .Site.Params.social.xing }}
+	&nbsp;<a href="https://www.xing.com/profile/{{.}}"><i class="fab fa-xing fa-lg" aria-hidden="true"></i></a>
+	{{ end }}
+	{{ with .Site.Params.social.email }}
+	&nbsp;<a href="mailto:{{.}}"><i class="fas fa-at fa-lg" aria-hidden="true"></i></a>
+	{{ end }}
+</section>
