@@ -6,10 +6,22 @@
     <description>Recent content in Posts on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 15 Apr 2018 21:17:16 -0700</lastBuildDate>
+    <lastBuildDate>Tue, 17 Apr 2018 12:34:51 -0700</lastBuildDate>
     
 	<atom:link href="http://wtfutil.com/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Glossary</title>
+      <link>http://wtfutil.com/posts/glossary/</link>
+      <pubDate>Tue, 17 Apr 2018 12:34:51 -0700</pubDate>
+      
+      <guid>http://wtfutil.com/posts/glossary/</guid>
+      <description>Module A discreet unit of data collection and display. A data interface concept. A package inside the app.
+Examples: New Relic, Git, Weather.
+Widget The onscreen representation of a Module. The widget is responsible for being the interface between the app and the data collection.
+Widgets are defined by a required widget.go file in a Module.</description>
+    </item>
     
     <item>
       <title>Configuration</title>
