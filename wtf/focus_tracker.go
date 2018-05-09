@@ -17,7 +17,7 @@ const (
 type FocusTracker struct {
 	App     *tview.Application
 	Idx     int
-	Widgets []TextViewer
+	Widgets []Wtfable
 }
 
 /* -------------------- Exported Functions -------------------- */
@@ -89,8 +89,8 @@ func (tracker *FocusTracker) focus(idx int) {
 	view.SetBorderColor(ColorFor(Config.UString("wtf.colors.border.focused", "gray")))
 }
 
-func (tracker *FocusTracker) focusables() []TextViewer {
-	focusable := []TextViewer{}
+func (tracker *FocusTracker) focusables() []Wtfable {
+	focusable := []Wtfable{}
 
 	for _, widget := range tracker.Widgets {
 		if widget.Focusable() {
@@ -101,7 +101,7 @@ func (tracker *FocusTracker) focusables() []TextViewer {
 	return focusable
 }
 
-func (tracker *FocusTracker) focusableAt(idx int) TextViewer {
+func (tracker *FocusTracker) focusableAt(idx int) Wtfable {
 	if idx < 0 || idx >= len(tracker.focusables()) {
 		return nil
 	}

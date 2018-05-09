@@ -55,7 +55,7 @@ func displayVersionInfo() {
 
 /* -------------------- Functions -------------------- */
 
-func addToGrid(grid *tview.Grid, widget wtf.TextViewer) {
+func addToGrid(grid *tview.Grid, widget wtf.Wtfable) {
 	if widget.Disabled() {
 		return
 	}
@@ -73,7 +73,7 @@ func addToGrid(grid *tview.Grid, widget wtf.TextViewer) {
 }
 
 // Grid stores all the widgets onscreen (like an HTML table)
-func buildGrid(modules []wtf.TextViewer) *tview.Grid {
+func buildGrid(modules []wtf.Wtfable) *tview.Grid {
 	grid := tview.NewGrid()
 	grid.SetColumns(wtf.ToInts(Config.UList("wtf.grid.columns"))...)
 	grid.SetRows(wtf.ToInts(Config.UList("wtf.grid.rows"))...)
@@ -133,7 +133,7 @@ func refreshAllModules() {
 
 var Config *config.Config
 var FocusTracker wtf.FocusTracker
-var Widgets []wtf.TextViewer
+var Widgets []wtf.Wtfable
 
 var result = wtf.CreateConfigDir()
 
@@ -182,7 +182,7 @@ func main() {
 	weather.Config = Config
 	wtf.Config = Config
 
-	Widgets = []wtf.TextViewer{
+	Widgets = []wtf.Wtfable{
 		bamboohr.NewWidget(),
 		clocks.NewWidget(),
 		gcal.NewWidget(),
