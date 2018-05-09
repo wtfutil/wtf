@@ -26,10 +26,10 @@ Available modules:
   <li><a href="/posts/modules/github" class="disabled">Github</a>
   <li><a href="/posts/modules/gcal" class="disabled">Google Calendar</a>
   <li><a href="/posts/modules/jira" class="disabled">Jira</a>
-  <li><a href="/posts/modules/newrelic" class="disabled">New Relic</a>
+  <li><a href="/posts/modules/newrelic">New Relic</a>
   <li><a href="/posts/modules/opsgenie">OpsGenie</a>
   <li><a href="/posts/modules/security">Security</a>
-  <li><a href="/posts/modules/textfiles" class="disabled">Text Files</a>
+  <li><a href="/posts/modules/textfile">Text File</a>
   <li><a href="/posts/modules/todo" class="disabled">Todo</a>
   <li><a href="/posts/modules/weather" class="disabled">Weather</a>
 </ul>

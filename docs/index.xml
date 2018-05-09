@@ -6,10 +6,35 @@
     <description>Recent content on WTF</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 08 May 2018 20:53:40 -0700</lastBuildDate>
+    <lastBuildDate>Wed, 09 May 2018 11:13:11 -0700</lastBuildDate>
     
 	<atom:link href="http://wtfutil.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Textfile</title>
+      <link>http://wtfutil.com/posts/modules/textfile/</link>
+      <pubDate>Wed, 09 May 2018 11:13:11 -0700</pubDate>
+      
+      <guid>http://wtfutil.com/posts/modules/textfile/</guid>
+      <description>Description Displays the contents of the specified text file in the widget.
+Source Code wtf/textfile/  Required ENV Variables None.
+Keyboard Commands Key: h Action: Open/close the widget&amp;rsquo;s help window.
+Key: o Action: Opens the text file in whichever text editor is associated with that file type.
+Configuration textfile: enabled: true filename: &amp;quot;notes.md&amp;quot; position: top: 5 left: 4 height: 2 width: 1 refreshInterval: 15  Attributes enabled Determines whether or not this module is executed and if its data displayed onscreen.</description>
+    </item>
+    
+    <item>
+      <title>Newrelic</title>
+      <link>http://wtfutil.com/posts/modules/newrelic/</link>
+      <pubDate>Wed, 09 May 2018 09:01:14 -0700</pubDate>
+      
+      <guid>http://wtfutil.com/posts/modules/newrelic/</guid>
+      <description>Description Connects to the New Relic API and displays the last n deploys of the monitored application: deploy ID, deploy time, and who deployed it.
+Source Code wtf/newrelic/  Required ENV Variables Key: WTF_NEW_RELIC_API_KEY Value: Your New Relic API token.
+Keyboard Commands None.
+Configuration newrelic: applicationId: 10549735 deployCount: 6 enabled: true position: top: 4 left: 3 height: 1 width: 2 refreshInterval: 900  Attributes applicationId The integer ID of the New Relic application you wish to report on.</description>
+    </item>
     
     <item>
       <title>Opsgenie</title>
@@ -18,10 +43,9 @@
       
       <guid>http://wtfutil.com/posts/modules/opsgenie/</guid>
       <description>Description Connects to the OpsGenie API and displays all your scheduled rotations and who&amp;rsquo;s currently on call.
-Location wtf/opsgenie  Required ENV Variables Key: WTF_OPS_GENIE_API_KEY Value: Your OpsGenie API token.
+Source Code wtf/opsgenie/  Required ENV Variables Key: WTF_OPS_GENIE_API_KEY Value: Your OpsGenie API token.
 Keyboard Commands None.
-Configuration opsgenie: enabled: true position: top: 2 left: 1 height: 2 width: 1 refreshInterval: 21600  Attributes enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.
-position Defines where in the grid this module&amp;rsquo;s widget will be displayed.</description>
+Configuration opsgenie: enabled: true position: top: 2 left: 1 height: 2 width: 1 refreshInterval: 21600  Attributes enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.</description>
     </item>
     
     <item>
@@ -31,7 +55,7 @@ position Defines where in the grid this module&amp;rsquo;s widget will be displa
       
       <guid>http://wtfutil.com/posts/modules/security/</guid>
       <description>Description Displays some general information about the state of the machine&amp;rsquo;s wifi connection, firewall, and DNS settings.
-Wifi Network The name of the current network Whether or not the network uses encryption and if so, what flavour  Firewall Whether or not the firewall is enabled Whether or not Stealth Mode is enabled  DNS Which DNS resolvers (servers) the machine is configured to use  Location wtf/security  Required ENV Variables None.</description>
+Wifi Network The name of the current network Whether or not the network uses encryption and if so, what flavour  Firewall Whether or not the firewall is enabled Whether or not Stealth Mode is enabled  DNS Which DNS resolvers (servers) the machine is configured to use  Source Code wtf/security  Required ENV Variables None.</description>
     </item>
     
     <item>
@@ -41,10 +65,10 @@ Wifi Network The name of the current network Whether or not the network uses enc
       
       <guid>http://wtfutil.com/posts/modules/bamboohr/</guid>
       <description>Description Connects to the BambooHR API and displays who will be Away today.
-Location wtf/bamboohr  Required ENV Variables Key: WTF_BAMBOO_HR_TOKEN Value: Your BambooHR API token.
+Source Code wtf/bamboohr  Required ENV Variables Key: WTF_BAMBOO_HR_TOKEN Value: Your BambooHR API token.
 Key: WTF_BAMBOO_HR_SUBDOMAIN Value: Your BambooHR API subdomain name.
 Keyboard Commands None.
-Configuration bamboohr: enabled: true position: top: 0 left: 1 height: 2 width: 1 refreshInterval: 900  Attributes enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.</description>
+Configuration bamboohr: enabled: true position: top: 0 left: 1 height: 2 width: 1 refreshInterval: 900  Attributes enabled Determines whether or not this module is executed and if its data displayed onscreen.</description>
     </item>
     
     <item>
@@ -54,7 +78,7 @@ Configuration bamboohr: enabled: true position: top: 0 left: 1 height: 2 width: 
       
       <guid>http://wtfutil.com/posts/modules/clocks/</guid>
       <description>Description Displays a configurable list of world clocks, the local time, and date.
-Location wtf/clocks/  Required ENV Variables None.
+Source Code wtf/clocks/  Required ENV Variables None.
 Keyboard Commands None.
 Configuration clocks: colors: rows: even: &amp;quot;lightblue&amp;quot; odd: &amp;quot;white&amp;quot; enabled: true locations: # From https://en.wikipedia.org/wiki/List_of_tz_database_time_zones Avignon: &amp;quot;Europe/Paris&amp;quot; Barcelona: &amp;quot;Europe/Madrid&amp;quot; Dubai: &amp;quot;Asia/Dubai&amp;quot; UTC: &amp;quot;Etc/UTC&amp;quot; Vancouver: &amp;quot;America/Vancouver&amp;quot; Toronto: &amp;quot;America/Toronto&amp;quot; position: top: 4 left: 0 height: 1 width: 1 refreshInterval: 15 # Valid options are: alphabetical, chronological sort: &amp;quot;alphabetical&amp;quot;  Attributes colors.</description>
     </item>

@@ -8,7 +8,7 @@ draft: false
 
 Connects to the BambooHR API and displays who will be Away today.
 
-## Location
+## Source Code
 
 ```bash
 wtf/bamboohr

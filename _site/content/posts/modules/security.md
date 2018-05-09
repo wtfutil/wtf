@@ -31,7 +31,7 @@ connection, firewall, and DNS settings.
 <li>Which <a hre="https://developers.cloudflare.com/1.1.1.1/what-is-1.1.1.1/">DNS resolvers</a> (servers) the machine is configured to use</li>
 </ul>
 
-## Location
+## Source Code
 
 ```bash
 wtf/security

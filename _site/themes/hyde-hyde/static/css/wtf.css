@@ -16,6 +16,7 @@ pre code {
 
 span.caption {
   display: inline-block;
+  font-weight: bold;
   margin-right: 4px;
   min-width: 50px;
   text-align: right;

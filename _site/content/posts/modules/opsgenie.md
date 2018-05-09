@@ -11,10 +11,10 @@ and who's currently on call.
 
 <img src="/imgs/modules/opsgenie.png" width="320" height="389" alt="opsgenie screenshot" />
 
-## Location
+## Source Code
 
 ```bash
-wtf/opsgenie
+wtf/opsgenie/
 ```
 
 ## Required ENV Variables
@@ -51,4 +51,4 @@ Defines where in the grid this module's widget will be displayed. <br />
 
 `refreshInterval` <br />
 How often, in seconds, this module will update its data. <br />
-Values: Any positive integer, `0...n`.
+Values: A positive integer, `0...n`.

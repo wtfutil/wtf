@@ -10,8 +10,8 @@
 
 <meta name="generator" content="Hugo 0.38.2" />
 
-<title>Security | WTF</title>
-<meta content="Security - WTF" property="og:title">
+<title>Newrelic | WTF</title>
+<meta content="Newrelic - WTF" property="og:title">
 <meta content=" - " property="og:description">
 <!-- CSS -->
 <link rel="stylesheet" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
@@ -85,13 +85,13 @@
 
         <div class="content container">
             <div class="post">
-  <h1>Security</h1>
+  <h1>Newrelic</h1>
   
   <div class="col-sm-12 col-md-12">
     <span class="text-left post-date meta">
             
        
-        <i class="fas fa-calendar-alt"></i> May 08, 2018
+        <i class="fas fa-calendar-alt"></i> May 09, 2018
       
       
       
@@ -105,39 +105,21 @@
 
 <h2 id="description">Description</h2>
 
-<p>Displays some general information about the state of the machine&rsquo;s wifi
-connection, firewall, and DNS settings.</p>
+<p>Connects to the New Relic API and displays the last n deploys of the
+monitored application: deploy ID, deploy time, and who deployed it.</p>
 
-<p><img src="/imgs/modules/security.png" width="320" height="192" alt="security screenshot" /></p>
-
-<h4 id="wifi-network">Wifi Network</h4>
-
-<ul class="list-ornate">
-  <li>The name of the current network</li>
-  <li>Whether or not the network uses <a href="https://www.howtogeek.com/167783/htg-explains-the-difference-between-wep-wpa-and-wpa2-wireless-encryption-and-why-it-matters/">encryption</a> and if so, what flavour</li>
-</ul>
-
-<h4 id="firewall">Firewall</h4>
-
-<ul class="list-ornate">
-<li>Whether or not the <a href="https://support.apple.com/en-ca/HT201642">firewall</a> is enabled</li>
-<li>Whether or not <a href="https://support.apple.com/en-ca/HT201642">Stealth Mode</a> is enabled</li>
-</ul>
-
-<h4 id="dns">DNS</h4>
-
-<ul class="list-ornate">
-<li>Which <a hre="https://developers.cloudflare.com/1.1.1.1/what-is-1.1.1.1/">DNS resolvers</a> (servers) the machine is configured to use</li>
-</ul>
+<p><img src="/imgs/modules/newrelic.png" width="640" height="189" alt="newrelic screenshot" /></p>
 
 <h2 id="source-code">Source Code</h2>
 
-<pre><code class="language-bash">wtf/security
+<pre><code class="language-bash">wtf/newrelic/
 </code></pre>
 
 <h2 id="required-env-variables">Required ENV Variables</h2>
 
-<p>None.</p>
+<p><span class="caption">Key:</span> <code>WTF_NEW_RELIC_API_KEY</code> <br />
+<span class="caption">Value:</span> Your <a href="">New Relic API</a>
+token.</p>
 
 <h2 id="keyboard-commands">Keyboard Commands</h2>
 
@@ -145,17 +127,28 @@ connection, firewall, and DNS settings.</p>
 
 <h2 id="configuration">Configuration</h2>
 
-<pre><code class="language-yaml">security:
+<pre><code class="language-yaml">newrelic:
+  applicationId: 10549735
+  deployCount: 6
   enabled: true
   position:
-    top: 1
-    left: 2
+    top: 4
+    left: 3
     height: 1
-    width: 1
-  refreshInterval: 3600
+    width: 2
+  refreshInterval: 900
 </code></pre>
 
 <h3 id="attributes">Attributes</h3>
+
+<p><code>applicationId</code> <br />
+The integer ID of the New Relic application you wish to report on. <br
+/>
+Values: A positive integer, <code>0...n</code>.</p>
+
+<p><code>deployCount</code> <br />
+The number of past deploys to display on screen. <br />
+Values: A positive integer, <code>0...n</code>.</p>
 
 <p><code>enabled</code> <br />
 Determines whether or not this module is executed and if its data displayed onscreen. <br />
@@ -166,7 +159,7 @@ Defines where in the grid this module&rsquo;s widget will be displayed. <br /></
 
 <p><code>refreshInterval</code> <br />
 How often, in seconds, this module will update its data. <br />
-Values: Any positive integer, <code>0...n</code>.</p>
+Values: A positive integer, <code>0...n</code>.</p>
 
 </div>
             <div class="footer">
