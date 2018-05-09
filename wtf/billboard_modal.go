@@ -12,7 +12,7 @@ const modalHeight = 22
 func NewBillboardModal(text string, closeFunc func()) *tview.Frame {
 	keyboardIntercept := func(event *tcell.EventKey) *tcell.EventKey {
 		switch string(event.Rune()) {
-		case "h":
+		case "/":
 			closeFunc()
 			return nil
 		}

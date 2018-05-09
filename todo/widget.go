@@ -18,7 +18,7 @@ var Config *config.Config
 const helpText = `
  Keyboard commands for Todo:
 
-   h: Show/hide this help window
+   /: Show/hide this help window
    j: Select the next item in the list
    k: Select the previous item in the list
    n: Create a new list item
@@ -110,7 +110,7 @@ func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 		widget.persist()
 		widget.display()
 		return nil
-	case "h":
+	case "/":
 		widget.showHelp()
 		return nil
 	case "j":

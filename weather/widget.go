@@ -17,10 +17,12 @@ var Config *config.Config
 const helpText = `
   Keyboard commands for Weather:
 
-    h: Show/hide this help window
+    /: Show/hide this help window
+		h: Previous weather location
+		l: Next weather location
 
-    arrow right: Next weather location
     arrow left:  Previous weather location
+    arrow right: Next weather location
 `
 
 // Widget is the container for weather data.
@@ -214,8 +216,14 @@ func (widget *Widget) icon(data *owm.CurrentWeatherData) string {
 
 func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	switch string(event.Rune()) {
-	case "h":
+	case "/":
 		widget.showHelp()
+		return nil
+  case "h":
+		widget.Prev()
+		return nil
+	case "l":
+		widget.Next()
 		return nil
 	}
 

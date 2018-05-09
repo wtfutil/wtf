@@ -6,10 +6,25 @@
     <description>Recent content in Posts on WTF</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 09 May 2018 11:13:11 -0700</lastBuildDate>
+    <lastBuildDate>Wed, 09 May 2018 11:44:13 -0700</lastBuildDate>
     
 	<atom:link href="http://wtfutil.com/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Weather</title>
+      <link>http://wtfutil.com/posts/modules/weather/</link>
+      <pubDate>Wed, 09 May 2018 11:44:13 -0700</pubDate>
+      
+      <guid>http://wtfutil.com/posts/modules/weather/</guid>
+      <description> Description Source Code wtf/weather/  Required ENV Variables Key: WTF_OWM_API_KEY Action: Your OpenWeatherMap API key.
+Keyboard Commands Key: / Action: Open/close the widget&amp;rsquo;s help window.
+Key: h Action: Show the previous weather location.
+Key: l Action: Show the next weather location.
+Key: ← Action: Show the previous weather location.
+Key: → Action: Show the next weather location.
+Configuration weather: cityids: - 6173331 - 3128760 - 6167865 - 6176823 colors: current: &amp;quot;lightblue&amp;quot; enabled: true language: &amp;quot;EN&amp;quot; position: top: 0 left: 2 height: 1 width: 1 refreshInterval: 900 tempUnit: &amp;quot;C&amp;quot;  Attributes </description>
+    </item>
     
     <item>
       <title>Textfile</title>
@@ -19,7 +34,7 @@
       <guid>http://wtfutil.com/posts/modules/textfile/</guid>
       <description>Description Displays the contents of the specified text file in the widget.
 Source Code wtf/textfile/  Required ENV Variables None.
-Keyboard Commands Key: h Action: Open/close the widget&amp;rsquo;s help window.
+Keyboard Commands Key: / Action: Open/close the widget&amp;rsquo;s help window.
 Key: o Action: Opens the text file in whichever text editor is associated with that file type.
 Configuration textfile: enabled: true filename: &amp;quot;notes.md&amp;quot; position: top: 5 left: 4 height: 2 width: 1 refreshInterval: 15  Attributes enabled Determines whether or not this module is executed and if its data displayed onscreen.</description>
     </item>

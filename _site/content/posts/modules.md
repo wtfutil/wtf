@@ -31,5 +31,5 @@ Available modules:
   <li><a href="/posts/modules/security">Security</a>
   <li><a href="/posts/modules/textfile">Text File</a>
   <li><a href="/posts/modules/todo" class="disabled">Todo</a>
-  <li><a href="/posts/modules/weather" class="disabled">Weather</a>
+  <li><a href="/posts/modules/weather">Weather</a>
 </ul>

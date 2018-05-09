@@ -22,12 +22,11 @@ None.
 
 ## Keyboard Commands
 
-<span class="caption">Key:</span> `h` <br />
+<span class="caption">Key:</span> `/` <br />
 <span class="caption">Action:</span> Open/close the widget's help window.
 
 <span class="caption">Key:</span> `o` <br />
-<span class="caption">Action:</span> Opens the text file in whichever
-text editor is associated with that file type.
+<span class="caption">Action:</span> Opens the text file in whichever text editor is associated  with that file type.
 
 ## Configuration
 

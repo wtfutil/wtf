@@ -16,7 +16,7 @@ var Config *config.Config
 const helpText = `
   Keyboard commands for Textfile:
 
-    h: Show/hide this help window
+    /: Show/hide this help window
     o: Open the text file in the operating system
 `
 
@@ -70,7 +70,7 @@ func (widget *Widget) Refresh() {
 
 func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	switch string(event.Rune()) {
-	case "h":
+	case "/":
 		widget.showHelp()
 		return nil
 	case "o":
