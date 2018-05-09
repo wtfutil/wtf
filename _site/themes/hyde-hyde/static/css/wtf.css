@@ -1,4 +1,4 @@
-h1, h2, h3 {
+h1, h2, h3, h4 {
   letter-spacing: 0.25px;
 }
 
@@ -14,12 +14,23 @@ pre code {
   padding-left: 8px !important;
 }
 
+.disabled {
+  color: gray !important;
+  cursor: not-allowed;
+  opacity: 0.5 !important;
+  text-decoration: none !important;
+}
+
 .list-bare {
   list-style-type: none;
 }
 
-.list-bare li {
+.list-bare li, .list-ornate li {
   margin: 2px 0 0 12px;
+}
+
+.list-ornate {
+  list-style-type: disc;
 }
 
 .sidebar-list-item-1 {

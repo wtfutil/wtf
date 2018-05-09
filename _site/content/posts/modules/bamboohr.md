@@ -39,10 +39,10 @@ bamboohr:
   refreshInterval: 900
 ```
 
-### Definitions
+### Attributes
 
 `enabled` <br />
-Whether or not this module is executed and its data displayed onscreen. <br />
+Determines whether or not this module is executed and if its data displayed onscreen. <br />
 Values: `true`, `false`.
 
 `position` <br />

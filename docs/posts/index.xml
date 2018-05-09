@@ -6,10 +6,20 @@
     <description>Recent content in Posts on WTF</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 07 May 2018 20:17:37 -0700</lastBuildDate>
+    <lastBuildDate>Tue, 08 May 2018 20:33:28 -0700</lastBuildDate>
     
 	<atom:link href="http://wtfutil.com/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Security</title>
+      <link>http://wtfutil.com/posts/modules/security/</link>
+      <pubDate>Tue, 08 May 2018 20:33:28 -0700</pubDate>
+      
+      <guid>http://wtfutil.com/posts/modules/security/</guid>
+      <description>Description Displays some general information about the state of the machine&amp;rsquo;s wifi connection, firewall, and DNS settings.
+Wifi Network The name of the current network Whether or not the network uses encryption and if so, what flavour  Firewall Whether or not the firewall is enabled Whether or not Stealth Mode is enabled  DNS Which DNS resolvers (servers) the machine is configured to use  Location wtf/security  Required ENV Variables None.</description>
+    </item>
     
     <item>
       <title>Bamboohr</title>
@@ -21,7 +31,7 @@
 Location wtf/bamboohr  Required ENV Variables WTF_BAMBOO_HR_TOKEN Your BambooHR API token.
 WTF_BAMBOO_HR_SUBDOMAIN Your BambooHR API subdomain name.
 Keyboard Commands None.
-Configuration bamboohr: enabled: true position: top: 0 left: 1 height: 2 width: 1 refreshInterval: 900  Definitions enabled Whether or not this module is executed and its data displayed onscreen. Values: true, false.
+Configuration bamboohr: enabled: true position: top: 0 left: 1 height: 2 width: 1 refreshInterval: 900  Attributes enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.
 position Defines where in the grid this module&amp;rsquo;s widget will be displayed.</description>
     </item>
     
@@ -34,7 +44,7 @@ position Defines where in the grid this module&amp;rsquo;s widget will be displa
       <description>Description Displays a configurable list of world clocks, the local time, and date.
 Location wtf/clocks/  Required ENV Variables None.
 Keyboard Commands None.
-Configuration clocks: colors: rows: even: &amp;quot;lightblue&amp;quot; odd: &amp;quot;white&amp;quot; enabled: true locations: # From https://en.wikipedia.org/wiki/List_of_tz_database_time_zones Avignon: &amp;quot;Europe/Paris&amp;quot; Barcelona: &amp;quot;Europe/Madrid&amp;quot; Dubai: &amp;quot;Asia/Dubai&amp;quot; UTC: &amp;quot;Etc/UTC&amp;quot; Vancouver: &amp;quot;America/Vancouver&amp;quot; Toronto: &amp;quot;America/Toronto&amp;quot; position: top: 4 left: 0 height: 1 width: 1 refreshInterval: 15 # Valid options are: alphabetical, chronological sort: &amp;quot;alphabetical&amp;quot;  Definitions colors.</description>
+Configuration clocks: colors: rows: even: &amp;quot;lightblue&amp;quot; odd: &amp;quot;white&amp;quot; enabled: true locations: # From https://en.wikipedia.org/wiki/List_of_tz_database_time_zones Avignon: &amp;quot;Europe/Paris&amp;quot; Barcelona: &amp;quot;Europe/Madrid&amp;quot; Dubai: &amp;quot;Asia/Dubai&amp;quot; UTC: &amp;quot;Etc/UTC&amp;quot; Vancouver: &amp;quot;America/Vancouver&amp;quot; Toronto: &amp;quot;America/Toronto&amp;quot; position: top: 4 left: 0 height: 1 width: 1 refreshInterval: 15 # Valid options are: alphabetical, chronological sort: &amp;quot;alphabetical&amp;quot;  Attributes colors.</description>
     </item>
     
     <item>

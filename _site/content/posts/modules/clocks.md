@@ -50,7 +50,7 @@ clocks:
   # Valid options are: alphabetical, chronological
   sort: "alphabetical"
 ```
-### Definitions
+### Attributes
 
 `colors.even` <br />
 Define the text color for even-numbered rows (2, 4, 6...). <br />
@@ -61,6 +61,10 @@ color name</a>.
 Define the text color for the odd-numbered rows (1, 3, 5...). <br />
 Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11
 color name</a>.
+
+`enabled` <br />
+Determines whether or not this module is executed and if its data displayed onscreen. <br />
+Values: `true`, `false`.
 
 `locations` <br />
 Defines the timezones for the world clocks that you want to display.

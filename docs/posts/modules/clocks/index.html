@@ -51,11 +51,7 @@
     <div>
       <h3 style="color: white;">Content</h3>
       <ul style="list-style-type: none;">
-        <li class="sidebar-list-item-1"><a href="/posts/overview/">Overview</a></li>
-      </ul>
-
-      <ul style="list-style-type: none;">
-        <li class="sidebar-list-item-1"><a href="/posts/installation/">Installation</a></li>
+        <li class="sidebar-list-item-1"><a href="/posts/installation/" class="disabled">Installation</a></li>
         <li class="sidebar-list-item-1"><a href="/posts/configuration/">Configuration</a></li>
       </ul>
 
@@ -63,16 +59,16 @@
         <li class="sidebar-list-item-1"><a href="/posts/modules/">Modules</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/bamboohr/">BambooHR</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/clocks/">Clocks</a></li>
-        <li class="sidebar-list-item-2"><a href="/posts/modules/git/">Git</a></li>
-        <li class="sidebar-list-item-2"><a href="/posts/modules/github/">Github</a></li>
-        <li class="sidebar-list-item-2"><a href="/posts/modules/gcal/">Google Calendar</a></li>
-        <li class="sidebar-list-item-2"><a href="/posts/modules/jira/">Jira</a></li>
-        <li class="sidebar-list-item-2"><a href="/posts/modules/newrelic/">New Relic</a></li>
-        <li class="sidebar-list-item-2"><a href="/posts/modules/opsgenie/">OpsGenie</a></li>
+        <li class="sidebar-list-item-2"><a href="/posts/modules/git/" class="disabled">Git</a></li>
+        <li class="sidebar-list-item-2"><a href="/posts/modules/github/" class="disabled">Github</a></li>
+        <li class="sidebar-list-item-2"><a href="/posts/modules/gcal/" class="disabled">Google Calendar</a></li>
+        <li class="sidebar-list-item-2"><a href="/posts/modules/jira/" class="disabled">Jira</a></li>
+        <li class="sidebar-list-item-2"><a href="/posts/modules/newrelic/" class="disabled">New Relic</a></li>
+        <li class="sidebar-list-item-2"><a href="/posts/modules/opsgenie/" class="disabled">OpsGenie</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/security/">Security</a></li>
-        <li class="sidebar-list-item-2"><a href="/posts/modules/textfiles/">Text Files</a></li>
-        <li class="sidebar-list-item-2"><a href="/posts/modules/todo/">Todo</a></li>
-        <li class="sidebar-list-item-2"><a href="/posts/modules/weather/">Weather</a></li>
+        <li class="sidebar-list-item-2"><a href="/posts/modules/textfiles/" class="disabled">Text Files</a></li>
+        <li class="sidebar-list-item-2"><a href="/posts/modules/todo/" class="disabled">Todo</a></li>
+        <li class="sidebar-list-item-2"><a href="/posts/modules/weather/" class="disabled">Weather</a></li>
       </ul>
     </div>
 
@@ -152,7 +148,7 @@
   sort: &quot;alphabetical&quot;
 </code></pre>
 
-<h3 id="definitions">Definitions</h3>
+<h3 id="attributes">Attributes</h3>
 
 <p><code>colors.even</code> <br />
 Define the text color for even-numbered rows (2, 4, 6&hellip;). <br />
@@ -163,6 +159,10 @@ color name</a>.</p>
 Define the text color for the odd-numbered rows (1, 3, 5&hellip;). <br />
 Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11
 color name</a>.</p>
+
+<p><code>enabled</code> <br />
+Determines whether or not this module is executed and if its data displayed onscreen. <br />
+Values: <code>true</code>, <code>false</code>.</p>
 
 <p><code>locations</code> <br />
 Defines the timezones for the world clocks that you want to display.

@@ -10,8 +10,8 @@
 
 <meta name="generator" content="Hugo 0.38.2" />
 
-<title>Glossary | WTF</title>
-<meta content="Glossary - WTF" property="og:title">
+<title>Security | WTF</title>
+<meta content="Security - WTF" property="og:title">
 <meta content=" - " property="og:description">
 <!-- CSS -->
 <link rel="stylesheet" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
@@ -85,13 +85,13 @@
 
         <div class="content container">
             <div class="post">
-  <h1>Glossary</h1>
+  <h1>Security</h1>
   
   <div class="col-sm-12 col-md-12">
     <span class="text-left post-date meta">
             
        
-        <i class="fas fa-calendar-alt"></i> Apr 17, 2018
+        <i class="fas fa-calendar-alt"></i> May 08, 2018
       
       
       
@@ -103,19 +103,70 @@
   
   
 
-<h3 id="module">Module</h3>
+<h2 id="description">Description</h2>
 
-<p>A discreet unit of data collection and display. A data interface
-concept. A package inside the app.</p>
+<p>Displays some general information about the state of the machine&rsquo;s wifi
+connection, firewall, and DNS settings.</p>
 
-<p>Examples: New Relic, Git, Weather.</p>
+<h4 id="wifi-network">Wifi Network</h4>
 
-<h3 id="widget">Widget</h3>
+<ul class="list-ornate">
+  <li>The name of the current network</li>
+  <li>Whether or not the network uses <a href="https://www.howtogeek.com/167783/htg-explains-the-difference-between-wep-wpa-and-wpa2-wireless-encryption-and-why-it-matters/">encryption</a> and if so, what flavour</li>
+</ul>
 
-<p>The onscreen representation of a Module. The widget is responsible for
-being the interface between the app and the data collection.</p>
+<h4 id="firewall">Firewall</h4>
 
-<p>Widgets are defined by a required <code>widget.go</code> file in a Module.</p>
+<ul class="list-ornate">
+<li>Whether or not the <a href="https://support.apple.com/en-ca/HT201642">firewall</a> is enabled</li>
+<li>Whether or not <a href="https://support.apple.com/en-ca/HT201642">Stealth Mode</a> is enabled</li>
+</ul>
+
+<h4 id="dns">DNS</h4>
+
+<ul class="list-ornate">
+<li>Which <a hre="https://developers.cloudflare.com/1.1.1.1/what-is-1.1.1.1/">DNS resolvers</a> (servers) the machine is configured to use</li>
+</ul>
+
+<p><img src="/imgs/modules/security.png" width="320" height="192" alt="clocks screenshot" /></p>
+
+<h2 id="location">Location</h2>
+
+<pre><code class="language-bash">wtf/security
+</code></pre>
+
+<h2 id="required-env-variables">Required ENV Variables</h2>
+
+<p>None.</p>
+
+<h2 id="keyboard-commands">Keyboard Commands</h2>
+
+<p>None.</p>
+
+<h2 id="configuration">Configuration</h2>
+
+<pre><code class="language-yaml">security:
+  enabled: true
+  position:
+    top: 1
+    left: 2
+    height: 1
+    width: 1
+  refreshInterval: 3600
+</code></pre>
+
+<h3 id="attributes">Attributes</h3>
+
+<p><code>enabled</code> <br />
+Determines whether or not this module is executed and if its data displayed onscreen. <br />
+Values: <code>true</code>, <code>false</code>.</p>
+
+<p><code>position</code> <br />
+Defines where in the grid this module&rsquo;s widget will be displayed. <br /></p>
+
+<p><code>refreshInterval</code> <br />
+How often, in seconds, this module will update its data. <br />
+Values: Any positive integer, <code>0...n</code>.</p>
 
 </div>
             <div class="footer">
