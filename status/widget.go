@@ -1,7 +1,7 @@
 package status
 
 import (
-	//"fmt"
+	"fmt"
 	"time"
 
 	"github.com/olebedev/config"
@@ -14,13 +14,13 @@ var Config *config.Config
 type Widget struct {
 	wtf.TextWidget
 
-	Current int
+	CurrentIcon int
 }
 
 func NewWidget() *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(" 🎉 Status ", "status", false),
-		Current:    0,
+		TextWidget:  wtf.NewTextWidget(" 🎉 Status ", "status", false),
+		CurrentIcon: 0,
 	}
 
 	return &widget
@@ -33,28 +33,26 @@ func (widget *Widget) Refresh() {
 		return
 	}
 
-	//_, _, w, _ := widget.View.GetInnerRect()
-
 	widget.View.Clear()
-	//fmt.Fprintf(
-	//widget.View,
-	//fmt.Sprintf("%%%ds\n", w-1),
-	//widget.Version,
-	//)
+	fmt.Fprintf(
+		widget.View,
+		"\n%s",
+		widget.animation(),
+	)
 
 	widget.RefreshedAt = time.Now()
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
-//func (widget *Widget) animation() string {
-//icons := []string{"👍", "🤜", "🤙", "🤜", "🤘", "🤜", "✊", "🤜", "👌", "🤜"}
-//next := icons[widget.Current]
+func (widget *Widget) animation() string {
+	icons := []string{"👍", "🤜", "🤙", "🤜", "🤘", "🤜", "✊", "🤜", "👌", "🤜"}
+	next := icons[widget.CurrentIcon]
 
-//widget.Current = widget.Current + 1
-//if widget.Current == len(icons) {
-//widget.Current = 0
-//}
+	widget.CurrentIcon = widget.CurrentIcon + 1
+	if widget.CurrentIcon == len(icons) {
+		widget.CurrentIcon = 0
+	}
 
-//return next
-//}
+	return next
+}

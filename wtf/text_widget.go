@@ -11,9 +11,9 @@ import (
 var Config *config.Config
 
 type TextWidget struct {
-	enabled bool
+	enabled   bool
+	focusable bool
 
-	focusable   bool
 	Name        string
 	RefreshedAt time.Time
 	RefreshInt  int
