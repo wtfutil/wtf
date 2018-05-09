@@ -64,7 +64,7 @@
         <li class="sidebar-list-item-2"><a href="/posts/modules/gcal/" class="disabled">Google Calendar</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/jira/" class="disabled">Jira</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/newrelic/" class="disabled">New Relic</a></li>
-        <li class="sidebar-list-item-2"><a href="/posts/modules/opsgenie/" class="disabled">OpsGenie</a></li>
+        <li class="sidebar-list-item-2"><a href="/posts/modules/opsgenie/">OpsGenie</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/security/">Security</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/textfiles/" class="disabled">Text Files</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/todo/" class="disabled">Todo</a></li>
@@ -97,11 +97,13 @@
       
       
       <br/>
-      <i class="fas fa-clock"></i> 1 min read 
+      <i class="fas fa-clock"></i> 2 min read 
       </span>  
   </div>    
   
   
+
+<h2 id="configuration-files">Configuration Files</h2>
 
 <p>By default WTF looks in a <code>~/.wtf/</code> directory for a YAML file called
 <code>config.yml</code>. If the <code>~/.wtf/</code> directory doesn&rsquo;t exist, WTF will create that directory
@@ -110,7 +112,7 @@ configuration file.</p>
 
 <p>In other words, WTF expects to have a YAML config file at: <code>~/.wtf/config.yml</code>.</p>
 
-<h2 id="example-configuration-files">Example Configuration Files</h2>
+<h4 id="example-configuration-files">Example Configuration Files</h4>
 
 <p>A couple of example config files are provided in the <code>_sample_configs/</code>
 directory of the Git repository.</p>
@@ -120,7 +122,7 @@ directory of the Git repository.</p>
 should see the app launch and display the <a href="/posts/modules/security/">Security</a>,
 <a href="/posts/modules/clocks/">Clocks</a> and <a href="/posts/modules/status/">Status</a> widgets onscreen.</p>
 
-<h2 id="custom-configuration-files">Custom Configuration Files</h2>
+<h4 id="custom-configuration-files">Custom Configuration Files</h4>
 
 <p>To try out different configurations (or run multiple instances of WTF),
 you can pass the path to a config file via command line arguments on
@@ -132,6 +134,16 @@ parameter on launch:</p>
 
 <pre><code class="language-bash">    $&gt; wtf --config=path/to/custom/config.yml
 </code></pre>
+
+<h2 id="environment-env-variables">Environment (ENV) Variables</h2>
+
+<p>Some modules require the presence of environment variables to function
+properly. Usually these are API keys or other sensitive data that one
+wouldn&rsquo;t want to have laying about in the config files.</p>
+
+<p>For modules that require them, the name of the required environment
+variable(s) can be found in that module&rsquo;s &ldquo;Required ENV Variables&rdquo;
+section of the documentation. See <a href="/posts/modules/opgenie/">OpsGenie</a> for an example.</p>
 
 </div>
             <div class="footer">

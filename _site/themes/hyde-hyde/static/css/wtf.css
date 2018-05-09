@@ -14,6 +14,13 @@ pre code {
   padding-left: 8px !important;
 }
 
+span.caption {
+  display: inline-block;
+  margin-right: 4px;
+  min-width: 50px;
+  text-align: right;
+}
+
 .disabled {
   color: gray !important;
   cursor: not-allowed;

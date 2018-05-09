@@ -9,6 +9,8 @@ draft: false
 Displays some general information about the state of the machine's wifi
 connection, firewall, and DNS settings.
 
+<img src="/imgs/modules/security.png" width="320" height="192" alt="security screenshot" />
+
 #### Wifi Network
 
 <ul class="list-ornate">
@@ -28,8 +30,6 @@ connection, firewall, and DNS settings.
 <ul class="list-ornate">
 <li>Which <a hre="https://developers.cloudflare.com/1.1.1.1/what-is-1.1.1.1/">DNS resolvers</a> (servers) the machine is configured to use</li>
 </ul>
-
-<img src="/imgs/modules/security.png" width="320" height="192" alt="clocks screenshot" />
 
 ## Location
 

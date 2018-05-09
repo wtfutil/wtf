@@ -1,26 +1,27 @@
 ---
-title: "Bamboohr"
-date: 2018-05-07T20:17:37-07:00
+title: "Opsgenie"
+date: 2018-05-08T20:53:40-07:00
 draft: false
 ---
 
 ## Description
 
-Connects to the BambooHR API and displays who will be Away today.
+Connects to the OpsGenie API and displays all your scheduled rotations
+and who's currently on call.
+
+<img src="/imgs/modules/opsgenie.png" width="320" height="389" alt="opsgenie screenshot" />
 
 ## Location
 
 ```bash
-wtf/bamboohr
+wtf/opsgenie
 ```
 
 ## Required ENV Variables
 
-<span class="caption">Key:</span> `WTF_BAMBOO_HR_TOKEN` <br />
-<span class="caption">Value:</span> Your <a href="https://www.bamboohr.com/api/documentation/">BambooHR API</a> token.
-
-<span class="caption">Key:</span> `WTF_BAMBOO_HR_SUBDOMAIN` <br />
-<span class="caption">Value:</span> Your <a href="https://www.bamboohr.com/api/documentation/">BambooHR API</a> subdomain name.
+<span class="caption">Key:</span> `WTF_OPS_GENIE_API_KEY` <br />
+<span class="caption">Value:</span> Your <a href="https://docs.opsgenie.com/docs/api-integration">OpsGenie
+API</a> token.
 
 ## Keyboard Commands
 
@@ -29,14 +30,14 @@ None.
 ## Configuration
 
 ```yaml
-bamboohr:
+opsgenie:
   enabled: true
   position:
-    top: 0
+    top: 2
     left: 1
     height: 2
     width: 1
-  refreshInterval: 900
+  refreshInterval: 21600
 ```
 
 ### Attributes

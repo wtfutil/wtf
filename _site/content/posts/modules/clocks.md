@@ -8,7 +8,7 @@ draft: false
 
 Displays a configurable list of world clocks, the local time, and date.
 
-<img src="/imgs/modules/clocks.png" width="320" height="180" alt="clocks screenshot" />
+<img src="/imgs/modules/clocks.png" width="320" height="191" alt="clocks screenshot" />
 
 ## Location
 

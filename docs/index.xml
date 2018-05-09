@@ -6,10 +6,23 @@
     <description>Recent content on WTF</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 08 May 2018 20:33:28 -0700</lastBuildDate>
+    <lastBuildDate>Tue, 08 May 2018 20:53:40 -0700</lastBuildDate>
     
 	<atom:link href="http://wtfutil.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Opsgenie</title>
+      <link>http://wtfutil.com/posts/modules/opsgenie/</link>
+      <pubDate>Tue, 08 May 2018 20:53:40 -0700</pubDate>
+      
+      <guid>http://wtfutil.com/posts/modules/opsgenie/</guid>
+      <description>Description Connects to the OpsGenie API and displays all your scheduled rotations and who&amp;rsquo;s currently on call.
+Location wtf/opsgenie  Required ENV Variables Key: WTF_OPS_GENIE_API_KEY Value: Your OpsGenie API token.
+Keyboard Commands None.
+Configuration opsgenie: enabled: true position: top: 2 left: 1 height: 2 width: 1 refreshInterval: 21600  Attributes enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.
+position Defines where in the grid this module&amp;rsquo;s widget will be displayed.</description>
+    </item>
     
     <item>
       <title>Security</title>
@@ -28,11 +41,10 @@ Wifi Network The name of the current network Whether or not the network uses enc
       
       <guid>http://wtfutil.com/posts/modules/bamboohr/</guid>
       <description>Description Connects to the BambooHR API and displays who will be Away today.
-Location wtf/bamboohr  Required ENV Variables WTF_BAMBOO_HR_TOKEN Your BambooHR API token.
-WTF_BAMBOO_HR_SUBDOMAIN Your BambooHR API subdomain name.
+Location wtf/bamboohr  Required ENV Variables Key: WTF_BAMBOO_HR_TOKEN Value: Your BambooHR API token.
+Key: WTF_BAMBOO_HR_SUBDOMAIN Value: Your BambooHR API subdomain name.
 Keyboard Commands None.
-Configuration bamboohr: enabled: true position: top: 0 left: 1 height: 2 width: 1 refreshInterval: 900  Attributes enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.
-position Defines where in the grid this module&amp;rsquo;s widget will be displayed.</description>
+Configuration bamboohr: enabled: true position: top: 0 left: 1 height: 2 width: 1 refreshInterval: 900  Attributes enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.</description>
     </item>
     
     <item>
@@ -76,7 +88,7 @@ Widgets are defined by a required widget.go file in a Module.</description>
       <pubDate>Sun, 15 Apr 2018 21:17:16 -0700</pubDate>
       
       <guid>http://wtfutil.com/posts/configuration/</guid>
-      <description>By default WTF looks in a ~/.wtf/ directory for a YAML file called config.yml. If the ~/.wtf/ directory doesn&amp;rsquo;t exist, WTF will create that directory on start-up, and then display instructions for creating a new configuration file.
+      <description>Configuration Files By default WTF looks in a ~/.wtf/ directory for a YAML file called config.yml. If the ~/.wtf/ directory doesn&amp;rsquo;t exist, WTF will create that directory on start-up, and then display instructions for creating a new configuration file.
 In other words, WTF expects to have a YAML config file at: ~/.wtf/config.yml.
 Example Configuration Files A couple of example config files are provided in the _sample_configs/ directory of the Git repository.</description>
     </item>

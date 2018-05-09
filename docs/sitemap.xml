@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://wtfutil.com/posts/modules/opsgenie/</loc>
+    <lastmod>2018-05-08T20:53:40-07:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://wtfutil.com/posts/modules/security/</loc>
     <lastmod>2018-05-08T20:33:28-07:00</lastmod>
   </url>
@@ -39,7 +44,7 @@
   
   <url>
     <loc>http://wtfutil.com/posts/</loc>
-    <lastmod>2018-05-08T20:33:28-07:00</lastmod>
+    <lastmod>2018-05-08T20:53:40-07:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -50,7 +55,7 @@
   
   <url>
     <loc>http://wtfutil.com/</loc>
-    <lastmod>2018-05-08T20:33:28-07:00</lastmod>
+    <lastmod>2018-05-08T20:53:40-07:00</lastmod>
     <priority>0</priority>
   </url>
   
