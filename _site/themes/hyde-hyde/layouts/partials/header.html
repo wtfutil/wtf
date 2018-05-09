@@ -9,7 +9,7 @@
 {{ if .IsHome -}}
 <title>{{ .Site.Title }}</title>
 {{- else }}
-<title>{{ .Title }} &middot; {{ .Site.Title }}</title>
+<title>{{ .Title }} | {{ .Site.Title }}</title>
 {{- end }}
 <meta content="{{ $isHomePage := eq .Title .Site.Title }}{{ .Title }}{{ if eq $isHomePage false }} - {{ .Site.Title }}{{ end }}" property="og:title">
 <meta content="{{ $isHomePage := eq .Title .Site.Title }}{{ .Site.Params.meta.description }}{{ if eq $isHomePage false }} - {{ .Description }}{{ end }}" property="og:description">

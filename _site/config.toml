@@ -3,6 +3,7 @@ languageCode = "en-us"
 publishDir = "../docs"
 sectionPagesMenu = "main"
 theme = "hyde-hyde"
+title = "WTF"
 
 [params]
   author = "Chris Cummer"

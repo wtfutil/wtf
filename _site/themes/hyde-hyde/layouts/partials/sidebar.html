@@ -1,7 +1,7 @@
 <div class="sidebar">
 	<div class="container sidebar-sticky">
 		<div class="sidebar-about text-center">
-			<a href="{{ .Site.BaseURL }}"><h1 class="brand">{{ .Site.Title }}</h1></a>
+			<!--<a href="{{ .Site.BaseURL }}"><h1 class="brand">{{ .Site.Title }}</h1></a>-->
       <a href="{{ .Site.BaseURL }}">{{ with .Site.Params.authorimage }} <img src="{{.}}" alt="WFT Logo" class="" width=""> {{ end }}</a>
 			<p class="lead">
 				{{ with .Site.Params.description }} {{.}} {{ else }} {{end}}
@@ -20,23 +20,19 @@
       </ul>
 
       <ul style="list-style-type: none;">
-        <li class="sidebar-list-item-1"><a href="/posts/source/">Source Code</a></li>
-      </ul>
-
-      <ul style="list-style-type: none;">
         <li class="sidebar-list-item-1"><a href="/posts/modules/">Modules</a></li>
-        <li class="sidebar-list-item-2"><a href="/posts/modules/bamboohr">BambooHR</a></li>
-        <li class="sidebar-list-item-2"><a href="/posts/modules/clocks">Clocks</a></li>
-        <li class="sidebar-list-item-2"><a href="/posts/modules/git">Git</a></li>
-        <li class="sidebar-list-item-2"><a href="/posts/modules/github">Github</a></li>
-        <li class="sidebar-list-item-2"><a href="/posts/modules/gcal">Google Calendar</a></li>
-        <li class="sidebar-list-item-2"><a href="/posts/modules/jira">Jira</a></li>
-        <li class="sidebar-list-item-2"><a href="/posts/modules/newrelic">New Relic</a></li>
-        <li class="sidebar-list-item-2"><a href="/posts/modules/opsgenie">OpsGenie</a></li>
-        <li class="sidebar-list-item-2"><a href="/posts/modules/security">Security</a></li>
-        <li class="sidebar-list-item-2"><a href="/posts/modules/textfiles">Text Files</a></li>
-        <li class="sidebar-list-item-2"><a href="/posts/modules/todo">Todo</a></li>
-        <li class="sidebar-list-item-2"><a href="/posts/modules/weather">Weather</a></li>
+        <li class="sidebar-list-item-2"><a href="/posts/modules/bamboohr/">BambooHR</a></li>
+        <li class="sidebar-list-item-2"><a href="/posts/modules/clocks/">Clocks</a></li>
+        <li class="sidebar-list-item-2"><a href="/posts/modules/git/">Git</a></li>
+        <li class="sidebar-list-item-2"><a href="/posts/modules/github/">Github</a></li>
+        <li class="sidebar-list-item-2"><a href="/posts/modules/gcal/">Google Calendar</a></li>
+        <li class="sidebar-list-item-2"><a href="/posts/modules/jira/">Jira</a></li>
+        <li class="sidebar-list-item-2"><a href="/posts/modules/newrelic/">New Relic</a></li>
+        <li class="sidebar-list-item-2"><a href="/posts/modules/opsgenie/">OpsGenie</a></li>
+        <li class="sidebar-list-item-2"><a href="/posts/modules/security/">Security</a></li>
+        <li class="sidebar-list-item-2"><a href="/posts/modules/textfiles/">Text Files</a></li>
+        <li class="sidebar-list-item-2"><a href="/posts/modules/todo/">Todo</a></li>
+        <li class="sidebar-list-item-2"><a href="/posts/modules/weather/">Weather</a></li>
       </ul>
     </div>
 

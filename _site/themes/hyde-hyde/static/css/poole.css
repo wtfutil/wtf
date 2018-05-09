@@ -150,11 +150,11 @@ pre {
   font-family: Menlo, Monaco, "Courier New", monospace;
 }
 code {
-  padding: .25em .5em;
+  /*padding: .25em .5em;*/
   font-size: 85%;
   color: #bf616a;
-  background-color: #f9f9f9;
-  border-radius: 3px;
+  /*background-color: #f9f9f9;*/
+  /*border-radius: 3px;*/
 }
 pre {
   display: block;
@@ -173,7 +173,7 @@ pre code {
   padding: 0;
   font-size: 100%;
   color: inherit;
-  background-color: transparent;
+  /*background-color: transparent;*/
 }
 .highlight {
   margin-bottom: 1rem;

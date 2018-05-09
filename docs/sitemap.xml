@@ -3,6 +3,21 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://wtfutil.com/posts/modules/bamboohr/</loc>
+    <lastmod>2018-05-07T20:17:37-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://wtfutil.com/posts/modules/clocks/</loc>
+    <lastmod>2018-05-07T19:47:31-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://wtfutil.com/posts/modules/</loc>
+    <lastmod>2018-05-07T18:04:58-07:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://wtfutil.com/posts/glossary/</loc>
     <lastmod>2018-04-17T12:34:51-07:00</lastmod>
   </url>
@@ -13,24 +28,24 @@
   </url>
   
   <url>
-    <loc>http://wtfutil.com/</loc>
-    <lastmod>2018-04-17T12:34:51-07:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>http://wtfutil.com/categories/</loc>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://wtfutil.com/posts/</loc>
-    <lastmod>2018-04-17T12:34:51-07:00</lastmod>
+    <lastmod>2018-05-07T20:17:37-07:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://wtfutil.com/tags/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://wtfutil.com/</loc>
+    <lastmod>2018-05-07T20:17:37-07:00</lastmod>
     <priority>0</priority>
   </url>
   

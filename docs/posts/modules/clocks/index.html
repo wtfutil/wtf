@@ -10,8 +10,8 @@
 
 <meta name="generator" content="Hugo 0.38.2" />
 
-<title>Categories | WTF</title>
-<meta content="Categories - WTF" property="og:title">
+<title>Clocks | WTF</title>
+<meta content="Clocks - WTF" property="og:title">
 <meta content=" - " property="og:description">
 <!-- CSS -->
 <link rel="stylesheet" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
@@ -33,9 +33,7 @@
 <!-- Icons -->
 <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
 <link rel="shortcut icon" href="/favicon.png">
-<!-- RSS -->
-<link href="http://wtfutil.com/categories/index.xml" rel="alternate" type="application/rss+xml" title="WTF" />
-<link href="http://wtfutil.com/categories/index.xml" rel="feed" type="application/rss+xml" title="WTF" />
+
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 
 	</head>
@@ -90,13 +88,106 @@
 </div>
 
         <div class="content container">
-            <h1 class="title">Categories</h1>
-<ul class="posts">
-    
-</ul>
+            <div class="post">
+  <h1>Clocks</h1>
+  
+  <div class="col-sm-12 col-md-12">
+    <span class="text-left post-date meta">
+            
+       
+        <i class="fas fa-calendar-alt"></i> May 07, 2018
+      
+      
+      
+      
+      <br/>
+      <i class="fas fa-clock"></i> 1 min read 
+      </span>  
+  </div>    
+  
+  
 
+<h2 id="description">Description</h2>
+
+<p>Displays a configurable list of world clocks, the local time, and date.</p>
+
+<p><img src="/imgs/modules/clocks.png" width="320" height="180" alt="clocks screenshot" /></p>
+
+<h2 id="location">Location</h2>
+
+<pre><code class="language-bash">wtf/clocks/
+</code></pre>
+
+<h2 id="required-env-variables">Required ENV Variables</h2>
+
+<p>None.</p>
+
+<h2 id="keyboard-commands">Keyboard Commands</h2>
+
+<p>None.</p>
+
+<h2 id="configuration">Configuration</h2>
+
+<pre><code class="language-yaml">clocks:
+  colors:
+    rows:
+      even: &quot;lightblue&quot;
+      odd: &quot;white&quot;
+  enabled: true
+  locations:
+    # From https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+    Avignon: &quot;Europe/Paris&quot;
+    Barcelona: &quot;Europe/Madrid&quot;
+    Dubai: &quot;Asia/Dubai&quot;
+    UTC: &quot;Etc/UTC&quot;
+    Vancouver: &quot;America/Vancouver&quot;
+    Toronto: &quot;America/Toronto&quot;
+  position:
+    top: 4
+    left: 0
+    height: 1
+    width: 1
+  refreshInterval: 15
+  # Valid options are: alphabetical, chronological
+  sort: &quot;alphabetical&quot;
+</code></pre>
+
+<h3 id="definitions">Definitions</h3>
+
+<p><code>colors.even</code> <br />
+Define the text color for even-numbered rows (2, 4, 6&hellip;). <br />
+Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11
+color name</a>.</p>
+
+<p><code>colors.odd</code> <br />
+Define the text color for the odd-numbered rows (1, 3, 5&hellip;). <br />
+Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11
+color name</a>.</p>
+
+<p><code>locations</code> <br />
+Defines the timezones for the world clocks that you want to display.
+<code>key</code> is a unique label that will be displayed in the UI. <code>value</code> is a
+timezone name. <br />
+Values: Any <a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones">TZ database timezone</a>.</p>
+
+<p><code>position</code> <br />
+Defines where in the grid this module&rsquo;s widget will be displayed.</p>
+
+<p><code>refreshInterval</code> <br />
+How often, in seconds, this module will update its data. <br />
+Values: Any positive integer, <code>0...n</code>.</p>
+
+<p><code>sort</code> <br />
+Defines the display order of the clocks in the widget. <br />
+Values: <code>alphabetical</code> or <code>chronological</code>. <code>alphabetical</code> will sort in
+acending order by <code>key</code>, <code>chronological</code> will sort in ascending order by
+date/time.</p>
+
+</div>
             <div class="footer">
                 
+
+
             </div>
         </div>
         

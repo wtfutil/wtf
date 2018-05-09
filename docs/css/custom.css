@@ -52,12 +52,15 @@ pre
 
 pre code, li code, td code, code
 {
-    border-radius: 4px;
+    /*border-radius: 4px;*/
     white-space: pre-wrap;
-    padding:1px 4px;
-	background: #eee;
+    background-color: white;
+    margin: 0 !important;
+    padding: 0;
+    /*padding:1px 4px;*/
+	/*background: #eee;*/
 	/* color: #444; */
-	border: 1px solid #d9d9d9;
+	/*border: 1px solid #d9d9d9;*/
 }
 
 code {

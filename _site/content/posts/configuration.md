@@ -5,32 +5,32 @@ draft: false
 ---
 
 By default WTF looks in a `~/.wtf/` directory for a YAML file called
-`config.yml`. If `~/.wtf/` doesn't exist, WTF will create that directory
-on start-up, and then display instructions for creating the
+`config.yml`. If the `~/.wtf/` directory doesn't exist, WTF will create that directory
+on start-up, and then display instructions for creating a new
 configuration file.
 
-## Config.yml
+In other words, WTF expects to have a YAML config file at: `~/.wtf/config.yml`.
 
-## Example Config Files
+## Example Configuration Files
 
-A few example config files are provided in the `_sample_configs/`
-directory of the Git repository. To try out WTF quickly, copy
+A couple of example config files are provided in the `_sample_configs/`
+directory of the Git repository.
+
+To try out WTF quickly, copy
 `simple_config.yml` into `~/.wtf/` as `config.yml` and relaunch WTF. You
-should see the app launch and display the _Security_ and _Status_
-modules.
+should see the app launch and display the <a href="/posts/modules/security/">Security</a>,
+<a href="/posts/modules/clocks/">Clocks</a> and <a href="/posts/modules/status/">Status</a> widgets onscreen.
 
 ## Custom Configuration Files
+
+To try out different configurations (or run multiple instances of WTF),
+you can pass the path to a config file via command line arguments on
+start-up.
 
 To load a custom configuration file (ie: one that's not
 `~/.wtf/config.yml`), pass in the path to configuration file as a
 parameter on launch:
+
 ```bash
     $> wtf --config=path/to/custom/config.yml
 ```
-Example:
-```bash
-    %> wtf --config=~/Documents/monitoring.yml
-```
-
-This is also the easiest way to run multiple instances of WTF, should
-you want to run multiple independent dashboards.

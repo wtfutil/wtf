@@ -30,9 +30,7 @@ func (widget *Widget) Refresh() {
 		return
 	}
 
-	url, _ := Config.String("wtf.mods.bamboohr.url")
-
-	client := NewClient(url)
+	client := NewClient("https://api.bamboohr.com/api/gateway.php")
 	todayItems := client.Away(
 		"timeOff",
 		wtf.Now().Format(wtf.DateFormat),

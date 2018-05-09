@@ -1,15 +1,52 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title></title>
+    <title>WTF</title>
     <link>http://wtfutil.com/</link>
-    <description>Recent content on </description>
+    <description>Recent content on WTF</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 17 Apr 2018 12:34:51 -0700</lastBuildDate>
+    <lastBuildDate>Mon, 07 May 2018 20:17:37 -0700</lastBuildDate>
     
 	<atom:link href="http://wtfutil.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Bamboohr</title>
+      <link>http://wtfutil.com/posts/modules/bamboohr/</link>
+      <pubDate>Mon, 07 May 2018 20:17:37 -0700</pubDate>
+      
+      <guid>http://wtfutil.com/posts/modules/bamboohr/</guid>
+      <description>Description Connects to the BambooHR API and displays who will be Away today.
+Location wtf/bamboohr  Required ENV Variables WTF_BAMBOO_HR_TOKEN Your BambooHR API token.
+WTF_BAMBOO_HR_SUBDOMAIN Your BambooHR API subdomain name.
+Keyboard Commands None.
+Configuration bamboohr: enabled: true position: top: 0 left: 1 height: 2 width: 1 refreshInterval: 900  Definitions enabled Whether or not this module is executed and its data displayed onscreen. Values: true, false.
+position Defines where in the grid this module&amp;rsquo;s widget will be displayed.</description>
+    </item>
+    
+    <item>
+      <title>Clocks</title>
+      <link>http://wtfutil.com/posts/modules/clocks/</link>
+      <pubDate>Mon, 07 May 2018 19:47:31 -0700</pubDate>
+      
+      <guid>http://wtfutil.com/posts/modules/clocks/</guid>
+      <description>Description Displays a configurable list of world clocks, the local time, and date.
+Location wtf/clocks/  Required ENV Variables None.
+Keyboard Commands None.
+Configuration clocks: colors: rows: even: &amp;quot;lightblue&amp;quot; odd: &amp;quot;white&amp;quot; enabled: true locations: # From https://en.wikipedia.org/wiki/List_of_tz_database_time_zones Avignon: &amp;quot;Europe/Paris&amp;quot; Barcelona: &amp;quot;Europe/Madrid&amp;quot; Dubai: &amp;quot;Asia/Dubai&amp;quot; UTC: &amp;quot;Etc/UTC&amp;quot; Vancouver: &amp;quot;America/Vancouver&amp;quot; Toronto: &amp;quot;America/Toronto&amp;quot; position: top: 4 left: 0 height: 1 width: 1 refreshInterval: 15 # Valid options are: alphabetical, chronological sort: &amp;quot;alphabetical&amp;quot;  Definitions colors.</description>
+    </item>
+    
+    <item>
+      <title>Modules</title>
+      <link>http://wtfutil.com/posts/modules/</link>
+      <pubDate>Mon, 07 May 2018 18:04:58 -0700</pubDate>
+      
+      <guid>http://wtfutil.com/posts/modules/</guid>
+      <description>The heart of WTF is the modules. A module is a discreet unit of functionality that extracts data from some source and packages that data for display.
+For example, the New Relic module uses New Relic&amp;rsquo;s API to retrieve a list of the latest deploys and packages that information as a list for display in the &amp;ldquo;New Relic&amp;rdquo; widget.
+The Clocks module takes a list of timezones and packages that information as a list of city/time pairs for display in the &amp;ldquo;Clocks&amp;rdquo; widget.</description>
+    </item>
     
     <item>
       <title>Glossary</title>
@@ -29,8 +66,9 @@ Widgets are defined by a required widget.go file in a Module.</description>
       <pubDate>Sun, 15 Apr 2018 21:17:16 -0700</pubDate>
       
       <guid>http://wtfutil.com/posts/configuration/</guid>
-      <description>By default WTF looks in a ~/.wtf/ directory for a YAML file called config.yml. If ~/.wtf/ doesn&amp;rsquo;t exist, WTF will create that directory on start-up, and then display instructions for creating the configuration file.
-Config.yml Example Config Files A few example config files are provided in the _sample_configs/ directory of the Git repository. To try out WTF quickly, copy simple_config.yml into ~/.wtf/ as config.yml and relaunch WTF. You should see the app launch and display the Security and Status modules.</description>
+      <description>By default WTF looks in a ~/.wtf/ directory for a YAML file called config.yml. If the ~/.wtf/ directory doesn&amp;rsquo;t exist, WTF will create that directory on start-up, and then display instructions for creating a new configuration file.
+In other words, WTF expects to have a YAML config file at: ~/.wtf/config.yml.
+Example Configuration Files A couple of example config files are provided in the _sample_configs/ directory of the Git repository.</description>
     </item>
     
   </channel>

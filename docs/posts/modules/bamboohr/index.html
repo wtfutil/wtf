@@ -10,8 +10,8 @@
 
 <meta name="generator" content="Hugo 0.38.2" />
 
-<title>Categories | WTF</title>
-<meta content="Categories - WTF" property="og:title">
+<title>Bamboohr | WTF</title>
+<meta content="Bamboohr - WTF" property="og:title">
 <meta content=" - " property="og:description">
 <!-- CSS -->
 <link rel="stylesheet" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
@@ -33,9 +33,7 @@
 <!-- Icons -->
 <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
 <link rel="shortcut icon" href="/favicon.png">
-<!-- RSS -->
-<link href="http://wtfutil.com/categories/index.xml" rel="alternate" type="application/rss+xml" title="WTF" />
-<link href="http://wtfutil.com/categories/index.xml" rel="feed" type="application/rss+xml" title="WTF" />
+
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 
 	</head>
@@ -90,13 +88,76 @@
 </div>
 
         <div class="content container">
-            <h1 class="title">Categories</h1>
-<ul class="posts">
-    
-</ul>
+            <div class="post">
+  <h1>Bamboohr</h1>
+  
+  <div class="col-sm-12 col-md-12">
+    <span class="text-left post-date meta">
+            
+       
+        <i class="fas fa-calendar-alt"></i> May 07, 2018
+      
+      
+      
+      
+      <br/>
+      <i class="fas fa-clock"></i> 1 min read 
+      </span>  
+  </div>    
+  
+  
 
+<h2 id="description">Description</h2>
+
+<p>Connects to the BambooHR API and displays who will be Away today.</p>
+
+<h2 id="location">Location</h2>
+
+<pre><code class="language-bash">wtf/bamboohr
+</code></pre>
+
+<h2 id="required-env-variables">Required ENV Variables</h2>
+
+<p><code>WTF_BAMBOO_HR_TOKEN</code> <br />
+Your <a href="https://www.bamboohr.com/api/documentation/">BambooHR API</a> token.</p>
+
+<p><code>WTF_BAMBOO_HR_SUBDOMAIN</code> <br />
+Your <a href="https://www.bamboohr.com/api/documentation/">BambooHR API</a> subdomain name.</p>
+
+<h2 id="keyboard-commands">Keyboard Commands</h2>
+
+<p>None.</p>
+
+<h2 id="configuration">Configuration</h2>
+
+<pre><code class="language-yaml">bamboohr:
+  enabled: true
+  position:
+    top: 0
+    left: 1
+    height: 2
+    width: 1
+  refreshInterval: 900
+</code></pre>
+
+<h3 id="definitions">Definitions</h3>
+
+<p><code>enabled</code> <br />
+Whether or not this module is executed and its data displayed onscreen. <br />
+Values: <code>true</code>, <code>false</code>.</p>
+
+<p><code>position</code> <br />
+Defines where in the grid this module&rsquo;s widget will be displayed. <br /></p>
+
+<p><code>refreshInterval</code> <br />
+How often, in seconds, this module will update its data. <br />
+Values: Any positive integer, <code>0...n</code>.</p>
+
+</div>
             <div class="footer">
                 
+
+
             </div>
         </div>
         
