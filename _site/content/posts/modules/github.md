@@ -1,38 +1,34 @@
 ---
-title: "Git"
-date: 2018-05-09T14:20:48-07:00
+title: "Github"
+date: 2018-05-09T19:20:20-07:00
 draft: false
 ---
 
 ## Description
 
-Displays information about local git repositories: branch, changed
-files, and recent commits.
+Displays information about git repositories hosted on Github: open
+review requests, and open pull requests.
 
-<img src="/imgs/modules/git.png" width="720" height="292" alt="git screenshot" />
+<img src="/imgs/modules/github.png" width="640" height="384" alt="github screenshot" />
 
-#### Branch
+#### Open Review Requests
 
-Displays the of the currently-active git branch.
+Displays all open code review requests assigned to you.
 
-#### Changed Files
+#### Open Pull Requests
 
-Displays a list of all the files that have changed since the last
-commit, and their status.
-
-#### Recent Commits
-
-Displays a list of `n` recent commits, who committed it, and when.
+Displays all open pull requests created by you.
 
 ## Source Code
 
 ```bash
-wtf/git/
+wtf/github/
 ```
 
 ## Required ENV Variables
 
-None.
+<span class="caption">Key:</span> `WTF_GITHUB_TOKEN` <br />
+<span class="caption">Action:</span> Your <a href="https://developer.github.com/v3/oauth_authorizations/#create-a-new-authorization">Github API</a> token.
 
 ## Keyboard Commands
 
@@ -54,25 +50,21 @@ None.
 ## Configuration
 
 ```yaml
-git:
-  commitCount: 5
+github:
   enabled: true
   position:
-    top: 0
+    top: 2
     left: 3
     height: 2
     width: 2
-  refreshInterval: 8
+  refreshInterval: 300
   repositories:
-  - "/Users/chris/go/src/github.com/senorprogrammer/wtf"
-  - "/Users/chris/Documents/Lendesk/core-api"
+    wesker-api: "UmbrellaCorp"
+    wtf: "senorprogrammer"
+  username: "senorprogrammer"
 ```
 
 ### Attributes
-
-`commitCount` <br />
-The number of past commits to display. <br />
-Values: A positive integer, `0..n`.
 
 `enabled` <br />
 Determines whether or not this module is executed and if its data displayed onscreen. <br />
@@ -86,5 +78,11 @@ How often, in seconds, this module will update its data. <br />
 Values: A positive integer, `0..n`.
 
 `repositories` <br />
-Defines which git repositories to watch. <br />
-Values: A list of zero or more local file paths pointing to valid git repositories.
+A list of key/value pairs each describing a Github repository to fetch data
+for. <br />
+<span class="caption">Key:</span> The name of the repository. <br />
+<span class="caption">Value:</span> The name of the account or organization that owns the repository.
+
+`username` <br />
+Your Github username. Used to figure out which review requests you've
+been added to.

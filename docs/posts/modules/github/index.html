@@ -10,8 +10,8 @@
 
 <meta name="generator" content="Hugo 0.38.2" />
 
-<title>Opsgenie | WTF</title>
-<meta content="Opsgenie - WTF" property="og:title">
+<title>Github | WTF</title>
+<meta content="Github - WTF" property="og:title">
 <meta content=" - " property="og:description">
 <!-- CSS -->
 <link rel="stylesheet" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
@@ -85,13 +85,13 @@
 
         <div class="content container">
             <div class="post">
-  <h1>Opsgenie</h1>
+  <h1>Github</h1>
   
   <div class="col-sm-12 col-md-12">
     <span class="text-left post-date meta">
             
        
-        <i class="fas fa-calendar-alt"></i> May 08, 2018
+        <i class="fas fa-calendar-alt"></i> May 09, 2018
       
       
       
@@ -105,36 +105,60 @@
 
 <h2 id="description">Description</h2>
 
-<p>Connects to the OpsGenie API and displays all your scheduled rotations
-and who&rsquo;s currently on call.</p>
+<p>Displays information about git repositories hosted on Github: open
+review requests, and open pull requests.</p>
 
-<p><img src="/imgs/modules/opsgenie.png" width="320" height="389" alt="opsgenie screenshot" /></p>
+<p><img src="/imgs/modules/github.png" width="640" height="384" alt="github screenshot" /></p>
+
+<h4 id="open-review-requests">Open Review Requests</h4>
+
+<p>Displays all open code review requests assigned to you.</p>
+
+<h4 id="open-pull-requests">Open Pull Requests</h4>
+
+<p>Displays all open pull requests created by you.</p>
 
 <h2 id="source-code">Source Code</h2>
 
-<pre><code class="language-bash">wtf/opsgenie/
+<pre><code class="language-bash">wtf/github/
 </code></pre>
 
 <h2 id="required-env-variables">Required ENV Variables</h2>
 
-<p><span class="caption">Key:</span> <code>WTF_OPS_GENIE_API_KEY</code> <br />
-<span class="caption">Value:</span> Your <a href="https://docs.opsgenie.com/docs/api-integration">OpsGenie
-API</a> token.</p>
+<p><span class="caption">Key:</span> <code>WTF_GITHUB_TOKEN</code> <br />
+<span class="caption">Action:</span> Your <a href="https://developer.github.com/v3/oauth_authorizations/#create-a-new-authorization">Github API</a> token.</p>
 
 <h2 id="keyboard-commands">Keyboard Commands</h2>
 
-<p>None.</p>
+<p><span class="caption">Key:</span> <code>/</code> <br />
+<span class="caption">Action:</span> Open/close the widget&rsquo;s help window.</p>
+
+<p><span class="caption">Key:</span> <code>h</code> <br />
+<span class="caption">Action:</span> Show the previous git repository.</p>
+
+<p><span class="caption">Key:</span> <code>l</code> <br />
+<span class="caption">Action:</span> Show the next git repository.</p>
+
+<p><span class="caption">Key:</span> <code>←</code> <br />
+<span class="caption">Action:</span> Show the previous git repository.</p>
+
+<p><span class="caption">Key:</span> <code>→</code> <br />
+<span class="caption">Action:</span> Show the next git repository.</p>
 
 <h2 id="configuration">Configuration</h2>
 
-<pre><code class="language-yaml">opsgenie:
+<pre><code class="language-yaml">github:
   enabled: true
   position:
     top: 2
-    left: 1
+    left: 3
     height: 2
-    width: 1
-  refreshInterval: 21600
+    width: 2
+  refreshInterval: 300
+  repositories:
+    wesker-api: &quot;UmbrellaCorp&quot;
+    wtf: &quot;senorprogrammer&quot;
+  username: &quot;senorprogrammer&quot;
 </code></pre>
 
 <h3 id="attributes">Attributes</h3>
@@ -149,6 +173,16 @@ Defines where in the grid this module&rsquo;s widget will be displayed. <br /></
 <p><code>refreshInterval</code> <br />
 How often, in seconds, this module will update its data. <br />
 Values: A positive integer, <code>0..n</code>.</p>
+
+<p><code>repositories</code> <br />
+A list of key/value pairs each describing a Github repository to fetch data
+for. <br />
+<span class="caption">Key:</span> The name of the repository. <br />
+<span class="caption">Value:</span> The name of the account or organization that owns the repository.</p>
+
+<p><code>username</code> <br />
+Your Github username. Used to figure out which review requests you&rsquo;ve
+been added to.</p>
 
 </div>
             <div class="footer">

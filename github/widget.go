@@ -11,6 +11,17 @@ import (
 // Config is a pointer to the global config object
 var Config *config.Config
 
+const helpText = `
+  Keyboard commands for Git:
+
+    /: Show/hide this help window
+		h: Previous git repository
+		l: Next git repository
+
+    arrow left:  Previous git repository
+    arrow right: Next git repository
+`
+
 type Widget struct {
 	wtf.TextWidget
 
@@ -63,14 +74,14 @@ func (widget *Widget) Prev() {
 /* -------------------- Unexported Functions -------------------- */
 
 func (widget *Widget) buildRepoCollection(repoData map[string]interface{}) []*GithubRepo {
-	githubColl := []*GithubRepo{}
+	githubRepos := []*GithubRepo{}
 
 	for name, owner := range repoData {
 		repo := NewGithubRepo(name, owner.(string))
-		githubColl = append(githubColl, repo)
+		githubColl = append(githubRepos, repo)
 	}
 
-	return githubColl
+	return githubRepos
 }
 
 func (widget *Widget) currentData() *GithubRepo {
@@ -86,6 +97,15 @@ func (widget *Widget) currentData() *GithubRepo {
 }
 
 func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
+	switch string(event.Rune()) {
+	case "h":
+		widget.Prev()
+		return nil
+	case "l":
+		widget.Next()
+		return nil
+	}
+
 	switch event.Key() {
 	case tcell.KeyLeft:
 		widget.Prev()

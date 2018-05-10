@@ -15,11 +15,11 @@ const helpText = `
   Keyboard commands for Git:
 
     /: Show/hide this help window
-		h: Previous weather location
-		l: Next weather location
+		h: Previous git repository
+		l: Next git repository
 
-    arrow left:  Previous weather location
-    arrow right: Next weather location
+    arrow left:  Previous git repository
+    arrow right: Next git repository
 `
 
 type Widget struct {
