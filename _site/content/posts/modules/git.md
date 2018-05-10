@@ -1,0 +1,89 @@
+---
+title: "Git"
+date: 2018-05-09T14:20:48-07:00
+draft: false
+---
+
+## Description
+
+Displays information about local git repositories: branch, changed
+files, and recent commits.
+
+#### Branch
+
+Displays the of the currently-active git branch.
+
+#### Changed Files
+
+Displays a list of all the files that have changed since the last
+commit, and their status.
+
+#### Recent Commits
+
+Displays a list of `n` recent commits, who committed it, and when.
+
+## Source Code
+
+```bash
+wtf/git/
+```
+
+## Required ENV Variables
+
+None.
+
+## Keyboard Commands
+
+<span class="caption">Key:</span> `/` <br />
+<span class="caption">Action:</span> Open/close the widget's help window.
+
+<span class="caption">Key:</span> `h` <br />
+<span class="caption">Action:</span> Show the previous git repository.
+
+<span class="caption">Key:</span> `l` <br />
+<span class="caption">Action:</span> Show the next git repository.
+
+<span class="caption">Key:</span> `←` <br />
+<span class="caption">Action:</span> Show the previous git repository.
+
+<span class="caption">Key:</span> `→` <br />
+<span class="caption">Action:</span> Show the next git repository.
+
+## Configuration
+
+```yaml
+git:
+  commitCount: 5
+  enabled: true
+  position:
+    top: 0
+    left: 3
+    height: 2
+    width: 2
+  refreshInterval: 8
+  repositories:
+  - "/Users/chris/go/src/github.com/senorprogrammer/wtf"
+  - "/Users/chris/Documents/Lendesk/core-api"
+```
+
+### Attributes
+
+`commitCount` <br />
+The number of past commits to display. <br />
+Values: A positive integer, `0..n`.
+
+
+`enabled` <br />
+Determines whether or not this module is executed and if its data displayed onscreen. <br />
+Values: `true`, `false`.
+
+`position` <br />
+Defines where in the grid this module's widget will be displayed. <br />
+
+`refreshInterval` <br />
+How often, in seconds, this module will update its data. <br />
+Values: A positive integer, `0..n`.
+
+`repositories` <br />
+Defines which git repositories to watch. <br />
+Values: A list of zero or more local file paths pointing to valid git repositories.

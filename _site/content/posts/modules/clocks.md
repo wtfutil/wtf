@@ -77,7 +77,7 @@ Defines where in the grid this module's widget will be displayed.
 
 `refreshInterval` <br />
 How often, in seconds, this module will update its data. <br />
-Values: Any positive integer, `0...n`.
+Values: A positive integer, `0..n`.
 
 `sort` <br />
 Defines the display order of the clocks in the widget. <br />

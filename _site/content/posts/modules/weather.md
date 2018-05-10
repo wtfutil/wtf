@@ -6,6 +6,11 @@ draft: false
 
 ## Description
 
+Displays a configurable list of current weather report, including
+current temperature, sunrise time, and sunset time.
+
+<img src="/imgs/modules/weather.png" width="320" height="187" alt="weather screenshot" />
+
 ## Source Code
 
 ```bash
@@ -38,6 +43,7 @@ wtf/weather/
 
 ```yaml
 weather:
+  # From http://openweathermap.org/help/city_list.txt
   cityids:
   - 6173331
   - 3128760
@@ -57,3 +63,33 @@ weather:
 ```
 
 ### Attributes
+
+`cityids` <br />
+A list of the <a
+href="http://openweathermap.org/help/city_list.txt">OpenWeatherMap city
+IDs</a> for the cities you want to view. <br />
+Values: A list of positive integers, `0..n`
+
+`colors.current` <br />
+The color to highlight the current temperature in. <br />
+Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11
+color name</a>.
+
+`enabled` <br />
+Determines whether or not this module is executed and if its data displayed onscreen. <br />
+Values: `true`, `false`.
+
+`language` <br />
+The human language in which to present the weather data. <br />
+Values: Any <a href="https://openweathermap.org/current">language identifier</a> specified by OpenWeatherMap.
+
+`position` <br />
+Defines where in the grid this module's widget will be displayed. <br />
+
+`refreshInterval` <br />
+How often, in seconds, this module will update its data. <br />
+Values: A positive integer, `0..n`.
+
+`tempUnit` <br />
+The temperature scale in which to display temperature values. <br />
+Values: `F` for Fahrenheit, `C` for Celcius.

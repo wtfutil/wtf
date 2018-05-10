@@ -47,11 +47,11 @@ newrelic:
 `applicationId` <br />
 The integer ID of the New Relic application you wish to report on. <br
 />
-Values: A positive integer, `0...n`.
+Values: A positive integer, `0..n`.
 
 `deployCount` <br />
 The number of past deploys to display on screen. <br />
-Values: A positive integer, `0...n`.
+Values: A positive integer, `0..n`.
 
 `enabled` <br />
 Determines whether or not this module is executed and if its data displayed onscreen. <br />
@@ -62,4 +62,4 @@ Defines where in the grid this module's widget will be displayed. <br />
 
 `refreshInterval` <br />
 How often, in seconds, this module will update its data. <br />
-Values: A positive integer, `0...n`.
+Values: A positive integer, `0..n`.

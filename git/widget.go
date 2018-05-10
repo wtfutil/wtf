@@ -11,6 +11,17 @@ import (
 // Config is a pointer to the global config object
 var Config *config.Config
 
+const helpText = `
+  Keyboard commands for Git:
+
+    /: Show/hide this help window
+		h: Previous weather location
+		l: Next weather location
+
+    arrow left:  Previous weather location
+    arrow right: Next weather location
+`
+
 type Widget struct {
 	wtf.TextWidget
 
@@ -87,6 +98,15 @@ func (widget *Widget) gitRepos(repoPaths []string) []*GitRepo {
 }
 
 func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
+	switch string(event.Rune()) {
+	case "h":
+		widget.Prev()
+		return nil
+	case "l":
+		widget.Next()
+		return nil
+	}
+
 	switch event.Key() {
 	case tcell.KeyLeft:
 		widget.Prev()

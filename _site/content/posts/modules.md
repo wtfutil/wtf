@@ -22,7 +22,7 @@ Available modules:
 <ul class="list-bare">
   <li><a href="/posts/modules/bamboohr">BambooHR</a>
   <li><a href="/posts/modules/clocks">Clocks</a>
-  <li><a href="/posts/modules/git" class="disabled">Git</a>
+  <li><a href="/posts/modules/git">Git</a>
   <li><a href="/posts/modules/github" class="disabled">Github</a>
   <li><a href="/posts/modules/gcal" class="disabled">Google Calendar</a>
   <li><a href="/posts/modules/jira" class="disabled">Jira</a>

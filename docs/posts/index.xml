@@ -6,10 +6,24 @@
     <description>Recent content in Posts on WTF</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 09 May 2018 11:44:13 -0700</lastBuildDate>
+    <lastBuildDate>Wed, 09 May 2018 14:20:48 -0700</lastBuildDate>
     
 	<atom:link href="http://wtfutil.com/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Git</title>
+      <link>http://wtfutil.com/posts/modules/git/</link>
+      <pubDate>Wed, 09 May 2018 14:20:48 -0700</pubDate>
+      
+      <guid>http://wtfutil.com/posts/modules/git/</guid>
+      <description>Description Displays information about local git repositories: branch, changed files, and recent commits.
+Branch Displays the of the currently-active git branch.
+Changed Files Displays a list of all the files that have changed since the last commit, and their status.
+Recent Commits Displays a list of n recent commits, who committed it, and when.
+Source Code wtf/git/  Required ENV Variables None.
+Keyboard Commands Key: / Action: Open/close the widget&amp;rsquo;s help window.</description>
+    </item>
     
     <item>
       <title>Weather</title>
@@ -17,13 +31,13 @@
       <pubDate>Wed, 09 May 2018 11:44:13 -0700</pubDate>
       
       <guid>http://wtfutil.com/posts/modules/weather/</guid>
-      <description> Description Source Code wtf/weather/  Required ENV Variables Key: WTF_OWM_API_KEY Action: Your OpenWeatherMap API key.
+      <description>Description Displays a configurable list of current weather report, including current temperature, sunrise time, and sunset time.
+Source Code wtf/weather/  Required ENV Variables Key: WTF_OWM_API_KEY Action: Your OpenWeatherMap API key.
 Keyboard Commands Key: / Action: Open/close the widget&amp;rsquo;s help window.
 Key: h Action: Show the previous weather location.
 Key: l Action: Show the next weather location.
 Key: ← Action: Show the previous weather location.
-Key: → Action: Show the next weather location.
-Configuration weather: cityids: - 6173331 - 3128760 - 6167865 - 6176823 colors: current: &amp;quot;lightblue&amp;quot; enabled: true language: &amp;quot;EN&amp;quot; position: top: 0 left: 2 height: 1 width: 1 refreshInterval: 900 tempUnit: &amp;quot;C&amp;quot;  Attributes </description>
+Key: → Action: Show the next weather location.</description>
     </item>
     
     <item>

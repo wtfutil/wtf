@@ -51,4 +51,4 @@ Defines where in the grid this module's widget will be displayed. <br />
 
 `refreshInterval` <br />
 How often, in seconds, this module will update its data. <br />
-Values: A positive integer, `0...n`.
+Values: A positive integer, `0..n`.

@@ -10,8 +10,8 @@
 
 <meta name="generator" content="Hugo 0.38.2" />
 
-<title>Weather | WTF</title>
-<meta content="Weather - WTF" property="og:title">
+<title>Git | WTF</title>
+<meta content="Git - WTF" property="og:title">
 <meta content=" - " property="og:description">
 <!-- CSS -->
 <link rel="stylesheet" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
@@ -85,7 +85,7 @@
 
         <div class="content container">
             <div class="post">
-  <h1>Weather</h1>
+  <h1>Git</h1>
   
   <div class="col-sm-12 col-md-12">
     <span class="text-left post-date meta">
@@ -97,7 +97,7 @@
       
       
       <br/>
-      <i class="fas fa-clock"></i> 2 min read 
+      <i class="fas fa-clock"></i> 1 min read 
       </span>  
   </div>    
   
@@ -105,20 +105,30 @@
 
 <h2 id="description">Description</h2>
 
-<p>Displays a configurable list of current weather report, including
-current temperature, sunrise time, and sunset time.</p>
+<p>Displays information about local git repositories: branch, changed
+files, and recent commits.</p>
 
-<p><img src="/imgs/modules/weather.png" width="320" height="187" alt="weather screenshot" /></p>
+<h4 id="branch">Branch</h4>
+
+<p>Displays the of the currently-active git branch.</p>
+
+<h4 id="changed-files">Changed Files</h4>
+
+<p>Displays a list of all the files that have changed since the last
+commit, and their status.</p>
+
+<h4 id="recent-commits">Recent Commits</h4>
+
+<p>Displays a list of <code>n</code> recent commits, who committed it, and when.</p>
 
 <h2 id="source-code">Source Code</h2>
 
-<pre><code class="language-bash">wtf/weather/
+<pre><code class="language-bash">wtf/git/
 </code></pre>
 
 <h2 id="required-env-variables">Required ENV Variables</h2>
 
-<p><span class="caption">Key:</span> <code>WTF_OWM_API_KEY</code> <br />
-<span class="caption">Action:</span> Your <a href="https://openweathermap.org/appid">OpenWeatherMap API</a> key.</p>
+<p>None.</p>
 
 <h2 id="keyboard-commands">Keyboard Commands</h2>
 
@@ -126,59 +136,42 @@ current temperature, sunrise time, and sunset time.</p>
 <span class="caption">Action:</span> Open/close the widget&rsquo;s help window.</p>
 
 <p><span class="caption">Key:</span> <code>h</code> <br />
-<span class="caption">Action:</span> Show the previous weather location.</p>
+<span class="caption">Action:</span> Show the previous git repository.</p>
 
 <p><span class="caption">Key:</span> <code>l</code> <br />
-<span class="caption">Action:</span> Show the next weather location.</p>
+<span class="caption">Action:</span> Show the next git repository.</p>
 
 <p><span class="caption">Key:</span> <code>←</code> <br />
-<span class="caption">Action:</span> Show the previous weather location.</p>
+<span class="caption">Action:</span> Show the previous git repository.</p>
 
 <p><span class="caption">Key:</span> <code>→</code> <br />
-<span class="caption">Action:</span> Show the next weather location.</p>
+<span class="caption">Action:</span> Show the next git repository.</p>
 
 <h2 id="configuration">Configuration</h2>
 
-<pre><code class="language-yaml">weather:
-  # From http://openweathermap.org/help/city_list.txt
-  cityids:
-  - 6173331
-  - 3128760
-  - 6167865
-  - 6176823
-  colors:
-    current: &quot;lightblue&quot;
+<pre><code class="language-yaml">git:
+  commitCount: 5
   enabled: true
-  language: &quot;EN&quot;
   position:
     top: 0
-    left: 2
-    height: 1
-    width: 1
-  refreshInterval: 900
-  tempUnit: &quot;C&quot;
+    left: 3
+    height: 2
+    width: 2
+  refreshInterval: 8
+  repositories:
+  - &quot;/Users/chris/go/src/github.com/senorprogrammer/wtf&quot;
+  - &quot;/Users/chris/Documents/Lendesk/core-api&quot;
 </code></pre>
 
 <h3 id="attributes">Attributes</h3>
 
-<p><code>cityids</code> <br />
-A list of the <a
-href="http://openweathermap.org/help/city_list.txt">OpenWeatherMap city
-IDs</a> for the cities you want to view. <br />
-Values: A list of positive integers, <code>0..n</code></p>
-
-<p><code>colors.current</code> <br />
-The color to highlight the current temperature in. <br />
-Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11
-color name</a>.</p>
+<p><code>commitCount</code> <br />
+The number of past commits to display. <br />
+Values: A positive integer, <code>0..n</code>.</p>
 
 <p><code>enabled</code> <br />
 Determines whether or not this module is executed and if its data displayed onscreen. <br />
 Values: <code>true</code>, <code>false</code>.</p>
-
-<p><code>language</code> <br />
-The human language in which to present the weather data. <br />
-Values: Any <a href="https://openweathermap.org/current">language identifier</a> specified by OpenWeatherMap.</p>
 
 <p><code>position</code> <br />
 Defines where in the grid this module&rsquo;s widget will be displayed. <br /></p>
@@ -187,9 +180,9 @@ Defines where in the grid this module&rsquo;s widget will be displayed. <br /></
 How often, in seconds, this module will update its data. <br />
 Values: A positive integer, <code>0..n</code>.</p>
 
-<p><code>tempUnit</code> <br />
-The temperature scale in which to display temperature values. <br />
-Values: <code>F</code> for Fahrenheit, <code>C</code> for Celcius.</p>
+<p><code>repositories</code> <br />
+Defines which git repositories to watch. <br />
+Values: A list of zero or more local file paths pointing to valid git repositories.</p>
 
 </div>
             <div class="footer">

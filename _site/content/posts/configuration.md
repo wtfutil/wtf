@@ -45,4 +45,4 @@ wouldn't want to have laying about in the config files.
 
 For modules that require them, the name of the required environment
 variable(s) can be found in that module's "Required ENV Variables"
-section of the documentation. See <a href="/posts/modules/opgenie/">OpsGenie</a> for an example.
+section of the documentation. See <a href="/posts/modules/opsgenie/">OpsGenie</a> for an example.
