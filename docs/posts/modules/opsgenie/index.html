@@ -20,6 +20,7 @@
 <link rel="stylesheet" href="http://wtfutil.com/css/poole.css">
 <link rel="stylesheet" href="http://wtfutil.com/css/hyde.css">
 <link rel="stylesheet" href="http://wtfutil.com/css/wtf.css">
+<link rel="stylesheet" href="http://wtfutil.com/css/syntax.css">
 <!-- Font-Awesome -->
 <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
 
@@ -50,9 +51,11 @@
 
     <div>
       <h3 style="color: white;">Content</h3>
+
       <ul style="list-style-type: none;">
         <li class="sidebar-list-item-1"><a href="/posts/installation/" class="disabled">Installation</a></li>
         <li class="sidebar-list-item-1"><a href="/posts/configuration/">Configuration</a></li>
+        <li class="sidebar-list-item-1"><a href="/posts/howto/" class="disabled">How to Use</a></li>
       </ul>
 
       <ul style="list-style-type: none;">
@@ -111,10 +114,7 @@ and who&rsquo;s currently on call.</p>
 <p><img src="/imgs/modules/opsgenie.png" width="320" height="389" alt="opsgenie screenshot" /></p>
 
 <h2 id="source-code">Source Code</h2>
-
-<pre><code class="language-bash">wtf/opsgenie/
-</code></pre>
-
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">wtf/opsgenie/</code></pre></div>
 <h2 id="required-env-variables">Required ENV Variables</h2>
 
 <p><span class="caption">Key:</span> <code>WTF_OPS_GENIE_API_KEY</code> <br />
@@ -126,17 +126,14 @@ API</a> token.</p>
 <p>None.</p>
 
 <h2 id="configuration">Configuration</h2>
-
-<pre><code class="language-yaml">opsgenie:
-  enabled: true
-  position:
-    top: 2
-    left: 1
-    height: 2
-    width: 1
-  refreshInterval: 21600
-</code></pre>
-
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">opsgenie<span class="p">:</span><span class="w">
+</span><span class="w">  </span>enabled<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span>position<span class="p">:</span><span class="w">
+</span><span class="w">    </span>top<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span><span class="w">    </span>left<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">    </span>height<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span><span class="w">    </span>width<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">  </span>refreshInterval<span class="p">:</span><span class="w"> </span><span class="m">21600</span></code></pre></div>
 <h3 id="attributes">Attributes</h3>
 
 <p><code>enabled</code> <br />

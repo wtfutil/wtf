@@ -20,6 +20,7 @@
 <link rel="stylesheet" href="http://wtfutil.com/css/poole.css">
 <link rel="stylesheet" href="http://wtfutil.com/css/hyde.css">
 <link rel="stylesheet" href="http://wtfutil.com/css/wtf.css">
+<link rel="stylesheet" href="http://wtfutil.com/css/syntax.css">
 <!-- Font-Awesome -->
 <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
 
@@ -50,9 +51,11 @@
 
     <div>
       <h3 style="color: white;">Content</h3>
+
       <ul style="list-style-type: none;">
         <li class="sidebar-list-item-1"><a href="/posts/installation/" class="disabled">Installation</a></li>
         <li class="sidebar-list-item-1"><a href="/posts/configuration/">Configuration</a></li>
+        <li class="sidebar-list-item-1"><a href="/posts/howto/" class="disabled">How to Use</a></li>
       </ul>
 
       <ul style="list-style-type: none;">
@@ -97,7 +100,7 @@
       
       
       <br/>
-      <i class="fas fa-clock"></i> 2 min read 
+      <i class="fas fa-clock"></i> 1 min read 
       </span>  
   </div>    
   
@@ -111,10 +114,7 @@ current temperature, sunrise time, and sunset time.</p>
 <p><img src="/imgs/modules/weather.png" width="320" height="187" alt="weather screenshot" /></p>
 
 <h2 id="source-code">Source Code</h2>
-
-<pre><code class="language-bash">wtf/weather/
-</code></pre>
-
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">wtf/weather/</code></pre></div>
 <h2 id="required-env-variables">Required ENV Variables</h2>
 
 <p><span class="caption">Key:</span> <code>WTF_OWM_API_KEY</code> <br />
@@ -138,27 +138,24 @@ current temperature, sunrise time, and sunset time.</p>
 <span class="caption">Action:</span> Show the next weather location.</p>
 
 <h2 id="configuration">Configuration</h2>
-
-<pre><code class="language-yaml">weather:
-  # From http://openweathermap.org/help/city_list.txt
-  cityids:
-  - 6173331
-  - 3128760
-  - 6167865
-  - 6176823
-  colors:
-    current: &quot;lightblue&quot;
-  enabled: true
-  language: &quot;EN&quot;
-  position:
-    top: 0
-    left: 2
-    height: 1
-    width: 1
-  refreshInterval: 900
-  tempUnit: &quot;C&quot;
-</code></pre>
-
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">weather<span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="c"># From http://openweathermap.org/help/city_list.txt</span><span class="w">
+</span><span class="w">  </span>cityids<span class="p">:</span><span class="w">
+</span><span class="w">  </span>-<span class="w"> </span><span class="m">6173331</span><span class="w">
+</span><span class="w">  </span>-<span class="w"> </span><span class="m">3128760</span><span class="w">
+</span><span class="w">  </span>-<span class="w"> </span><span class="m">6167865</span><span class="w">
+</span><span class="w">  </span>-<span class="w"> </span><span class="m">6176823</span><span class="w">
+</span><span class="w">  </span>colors<span class="p">:</span><span class="w">
+</span><span class="w">    </span>current<span class="p">:</span><span class="w"> </span><span class="s2">&#34;lightblue&#34;</span><span class="w">
+</span><span class="w">  </span>enabled<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span>language<span class="p">:</span><span class="w"> </span><span class="s2">&#34;EN&#34;</span><span class="w">
+</span><span class="w">  </span>position<span class="p">:</span><span class="w">
+</span><span class="w">    </span>top<span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
+</span><span class="w">    </span>left<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span><span class="w">    </span>height<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">    </span>width<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">  </span>refreshInterval<span class="p">:</span><span class="w"> </span><span class="m">900</span><span class="w">
+</span><span class="w">  </span>tempUnit<span class="p">:</span><span class="w"> </span><span class="s2">&#34;C&#34;</span></code></pre></div>
 <h3 id="attributes">Attributes</h3>
 
 <p><code>cityids</code> <br />

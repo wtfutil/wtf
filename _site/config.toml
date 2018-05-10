@@ -1,5 +1,7 @@
 baseURL = "http://wtfutil.com/"
 languageCode = "en-us"
+pygmentsCodeFences = true
+pygmentsUseClasses = true
 publishDir = "../docs"
 sectionPagesMenu = "main"
 theme = "hyde-hyde"

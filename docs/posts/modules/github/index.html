@@ -20,6 +20,7 @@
 <link rel="stylesheet" href="http://wtfutil.com/css/poole.css">
 <link rel="stylesheet" href="http://wtfutil.com/css/hyde.css">
 <link rel="stylesheet" href="http://wtfutil.com/css/wtf.css">
+<link rel="stylesheet" href="http://wtfutil.com/css/syntax.css">
 <!-- Font-Awesome -->
 <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
 
@@ -50,9 +51,11 @@
 
     <div>
       <h3 style="color: white;">Content</h3>
+
       <ul style="list-style-type: none;">
         <li class="sidebar-list-item-1"><a href="/posts/installation/" class="disabled">Installation</a></li>
         <li class="sidebar-list-item-1"><a href="/posts/configuration/">Configuration</a></li>
+        <li class="sidebar-list-item-1"><a href="/posts/howto/" class="disabled">How to Use</a></li>
       </ul>
 
       <ul style="list-style-type: none;">
@@ -112,17 +115,14 @@ review requests, and open pull requests.</p>
 
 <h4 id="open-review-requests">Open Review Requests</h4>
 
-<p>Displays all open code review requests assigned to you.</p>
+<p>All open code review requests assigned to you.</p>
 
 <h4 id="open-pull-requests">Open Pull Requests</h4>
 
-<p>Displays all open pull requests created by you.</p>
+<p>All open pull requests created by you.</p>
 
 <h2 id="source-code">Source Code</h2>
-
-<pre><code class="language-bash">wtf/github/
-</code></pre>
-
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">wtf/github/</code></pre></div>
 <h2 id="required-env-variables">Required ENV Variables</h2>
 
 <p><span class="caption">Key:</span> <code>WTF_GITHUB_TOKEN</code> <br />
@@ -146,21 +146,18 @@ review requests, and open pull requests.</p>
 <span class="caption">Action:</span> Show the next git repository.</p>
 
 <h2 id="configuration">Configuration</h2>
-
-<pre><code class="language-yaml">github:
-  enabled: true
-  position:
-    top: 2
-    left: 3
-    height: 2
-    width: 2
-  refreshInterval: 300
-  repositories:
-    wesker-api: &quot;UmbrellaCorp&quot;
-    wtf: &quot;senorprogrammer&quot;
-  username: &quot;senorprogrammer&quot;
-</code></pre>
-
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">github<span class="p">:</span><span class="w">
+</span><span class="w">  </span>enabled<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span>position<span class="p">:</span><span class="w">
+</span><span class="w">    </span>top<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span><span class="w">    </span>left<span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
+</span><span class="w">    </span>height<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span><span class="w">    </span>width<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span><span class="w">  </span>refreshInterval<span class="p">:</span><span class="w"> </span><span class="m">300</span><span class="w">
+</span><span class="w">  </span>repositories<span class="p">:</span><span class="w">
+</span><span class="w">    </span>wesker-api<span class="p">:</span><span class="w"> </span><span class="s2">&#34;UmbrellaCorp&#34;</span><span class="w">
+</span><span class="w">    </span>wtf<span class="p">:</span><span class="w"> </span><span class="s2">&#34;senorprogrammer&#34;</span><span class="w">
+</span><span class="w">  </span>username<span class="p">:</span><span class="w"> </span><span class="s2">&#34;senorprogrammer&#34;</span></code></pre></div>
 <h3 id="attributes">Attributes</h3>
 
 <p><code>enabled</code> <br />

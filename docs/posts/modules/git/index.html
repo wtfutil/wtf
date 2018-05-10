@@ -20,6 +20,7 @@
 <link rel="stylesheet" href="http://wtfutil.com/css/poole.css">
 <link rel="stylesheet" href="http://wtfutil.com/css/hyde.css">
 <link rel="stylesheet" href="http://wtfutil.com/css/wtf.css">
+<link rel="stylesheet" href="http://wtfutil.com/css/syntax.css">
 <!-- Font-Awesome -->
 <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
 
@@ -50,9 +51,11 @@
 
     <div>
       <h3 style="color: white;">Content</h3>
+
       <ul style="list-style-type: none;">
         <li class="sidebar-list-item-1"><a href="/posts/installation/" class="disabled">Installation</a></li>
         <li class="sidebar-list-item-1"><a href="/posts/configuration/">Configuration</a></li>
+        <li class="sidebar-list-item-1"><a href="/posts/howto/" class="disabled">How to Use</a></li>
       </ul>
 
       <ul style="list-style-type: none;">
@@ -112,22 +115,19 @@ files, and recent commits.</p>
 
 <h4 id="branch">Branch</h4>
 
-<p>Displays the of the currently-active git branch.</p>
+<p>The name of the currently-active git branch.</p>
 
 <h4 id="changed-files">Changed Files</h4>
 
-<p>Displays a list of all the files that have changed since the last
+<p>A list of all the files that have changed since the last
 commit, and their status.</p>
 
 <h4 id="recent-commits">Recent Commits</h4>
 
-<p>Displays a list of <code>n</code> recent commits, who committed it, and when.</p>
+<p>A list of <code>n</code> recent commits, who committed it, and when.</p>
 
 <h2 id="source-code">Source Code</h2>
-
-<pre><code class="language-bash">wtf/git/
-</code></pre>
-
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">wtf/git/</code></pre></div>
 <h2 id="required-env-variables">Required ENV Variables</h2>
 
 <p>None.</p>
@@ -150,21 +150,18 @@ commit, and their status.</p>
 <span class="caption">Action:</span> Show the next git repository.</p>
 
 <h2 id="configuration">Configuration</h2>
-
-<pre><code class="language-yaml">git:
-  commitCount: 5
-  enabled: true
-  position:
-    top: 0
-    left: 3
-    height: 2
-    width: 2
-  refreshInterval: 8
-  repositories:
-  - &quot;/Users/chris/go/src/github.com/senorprogrammer/wtf&quot;
-  - &quot;/Users/chris/Documents/Lendesk/core-api&quot;
-</code></pre>
-
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">git<span class="p">:</span><span class="w">
+</span><span class="w">  </span>commitCount<span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
+</span><span class="w">  </span>enabled<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span>position<span class="p">:</span><span class="w">
+</span><span class="w">    </span>top<span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
+</span><span class="w">    </span>left<span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
+</span><span class="w">    </span>height<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span><span class="w">    </span>width<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span><span class="w">  </span>refreshInterval<span class="p">:</span><span class="w"> </span><span class="m">8</span><span class="w">
+</span><span class="w">  </span>repositories<span class="p">:</span><span class="w">
+</span><span class="w">  </span>-<span class="w"> </span><span class="s2">&#34;/Users/chris/go/src/github.com/senorprogrammer/wtf&#34;</span><span class="w">
+</span><span class="w">  </span>-<span class="w"> </span><span class="s2">&#34;/Users/chris/Documents/Lendesk/core-api&#34;</span></code></pre></div>
 <h3 id="attributes">Attributes</h3>
 
 <p><code>commitCount</code> <br />

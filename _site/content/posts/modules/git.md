@@ -13,16 +13,16 @@ files, and recent commits.
 
 #### Branch
 
-Displays the of the currently-active git branch.
+The name of the currently-active git branch.
 
 #### Changed Files
 
-Displays a list of all the files that have changed since the last
+A list of all the files that have changed since the last
 commit, and their status.
 
 #### Recent Commits
 
-Displays a list of `n` recent commits, who committed it, and when.
+A list of `n` recent commits, who committed it, and when.
 
 ## Source Code
 

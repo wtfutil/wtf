@@ -20,6 +20,7 @@
 <link rel="stylesheet" href="http://wtfutil.com/css/poole.css">
 <link rel="stylesheet" href="http://wtfutil.com/css/hyde.css">
 <link rel="stylesheet" href="http://wtfutil.com/css/wtf.css">
+<link rel="stylesheet" href="http://wtfutil.com/css/syntax.css">
 <!-- Font-Awesome -->
 <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
 
@@ -50,9 +51,11 @@
 
     <div>
       <h3 style="color: white;">Content</h3>
+
       <ul style="list-style-type: none;">
         <li class="sidebar-list-item-1"><a href="/posts/installation/" class="disabled">Installation</a></li>
         <li class="sidebar-list-item-1"><a href="/posts/configuration/">Configuration</a></li>
+        <li class="sidebar-list-item-1"><a href="/posts/howto/" class="disabled">How to Use</a></li>
       </ul>
 
       <ul style="list-style-type: none;">
@@ -131,10 +134,7 @@ start-up.</p>
 <p>To load a custom configuration file (ie: one that&rsquo;s not
 <code>~/.wtf/config.yml</code>), pass in the path to configuration file as a
 parameter on launch:</p>
-
-<pre><code class="language-bash">    $&gt; wtf --config=path/to/custom/config.yml
-</code></pre>
-
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">    $&gt; wtf --config<span class="o">=</span>path/to/custom/config.yml</code></pre></div>
 <h2 id="environment-env-variables">Environment (ENV) Variables</h2>
 
 <p>Some modules require the presence of environment variables to function

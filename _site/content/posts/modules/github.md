@@ -13,11 +13,11 @@ review requests, and open pull requests.
 
 #### Open Review Requests
 
-Displays all open code review requests assigned to you.
+All open code review requests assigned to you.
 
 #### Open Pull Requests
 
-Displays all open pull requests created by you.
+All open pull requests created by you.
 
 ## Source Code
 
