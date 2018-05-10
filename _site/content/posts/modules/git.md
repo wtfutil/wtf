@@ -9,6 +9,8 @@ draft: false
 Displays information about local git repositories: branch, changed
 files, and recent commits.
 
+<img src="/imgs/modules/git.png" width="720" height="292" alt="git screenshot" />
+
 #### Branch
 
 Displays the of the currently-active git branch.
