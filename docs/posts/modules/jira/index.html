@@ -10,8 +10,8 @@
 
 <meta name="generator" content="Hugo 0.38.2" />
 
-<title>Github | WTF</title>
-<meta content="Github - WTF" property="og:title">
+<title>Jira | WTF</title>
+<meta content="Jira - WTF" property="og:title">
 <meta content=" - " property="og:description">
 <!-- CSS -->
 <link rel="stylesheet" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
@@ -88,13 +88,13 @@
 
         <div class="content container">
             <div class="post">
-  <h1>Github</h1>
+  <h1>Jira</h1>
   
   <div class="col-sm-12 col-md-12">
     <span class="text-left post-date meta">
             
        
-        <i class="fas fa-calendar-alt"></i> May 09, 2018
+        <i class="fas fa-calendar-alt"></i> May 10, 2018
       
       
       
@@ -108,57 +108,39 @@
 
 <h2 id="description">Description</h2>
 
-<p>Displays information about git repositories hosted on Github: open
-review requests, and open pull requests.</p>
+<p>Displays all Jira issues assigned to you for the specified project.</p>
 
-<p><img src="/imgs/modules/github.png" width="640" height="384" alt="github screenshot" /></p>
-
-<h4 id="open-review-requests">Open Review Requests</h4>
-
-<p>All open code review requests assigned to you.</p>
-
-<h4 id="open-pull-requests">Open Pull Requests</h4>
-
-<p>All open pull requests created by you.</p>
+<p><img src="/imgs/modules/jira.png" width="640" height="188" alt="jira screenshot" /></p>
 
 <h2 id="source-code">Source Code</h2>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">wtf/github/</code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">wtf/jira/</code></pre></div>
 <h2 id="required-env-variables">Required ENV Variables</h2>
 
-<p><span class="caption">Key:</span> <code>WTF_GITHUB_TOKEN</code> <br />
-<span class="caption">Action:</span> Your <a href="https://developer.github.com/v3/oauth_authorizations/#create-a-new-authorization">Github API</a> token.</p>
+<p><span class="caption">Key:</span> <code>WTF_JIRA_API_KEY</code> <br />
+<span class="caption">Value:</span> Your <a href="https://confluence.atlassian.com/cloud/api-tokens-938839638.html">Jira API</a> key.</p>
 
 <h2 id="keyboard-commands">Keyboard Commands</h2>
 
-<p><span class="caption">Key:</span> <code>/</code> <br />
-<span class="caption">Action:</span> Open/close the widget&rsquo;s help window.</p>
-
-<p><span class="caption">Key:</span> <code>h</code> <br />
-<span class="caption">Action:</span> Show the previous git repository.</p>
-
-<p><span class="caption">Key:</span> <code>l</code> <br />
-<span class="caption">Action:</span> Show the next git repository.</p>
-
-<p><span class="caption">Key:</span> <code>←</code> <br />
-<span class="caption">Action:</span> Show the previous git repository.</p>
-
-<p><span class="caption">Key:</span> <code>→</code> <br />
-<span class="caption">Action:</span> Show the next git repository.</p>
+<p>None.</p>
 
 <h2 id="configuration">Configuration</h2>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">github<span class="p">:</span><span class="w">
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">jira<span class="p">:</span><span class="w">
+</span><span class="w">  </span>domain<span class="p">:</span><span class="w"> </span><span class="s2">&#34;https://umbrellacorp.atlassian.net&#34;</span><span class="w">
+</span><span class="w">  </span>email<span class="p">:</span><span class="w"> </span><span class="s2">&#34;chriscummer@me.com&#34;</span><span class="w">
 </span><span class="w">  </span>enabled<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span><span class="w">  </span>position<span class="p">:</span><span class="w">
-</span><span class="w">    </span>top<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
-</span><span class="w">    </span>left<span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
-</span><span class="w">    </span>height<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span><span class="w">    </span>top<span class="p">:</span><span class="w"> </span><span class="m">4</span><span class="w">
+</span><span class="w">    </span>left<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">    </span>height<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
 </span><span class="w">    </span>width<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
-</span><span class="w">  </span>refreshInterval<span class="p">:</span><span class="w"> </span><span class="m">300</span><span class="w">
-</span><span class="w">  </span>repositories<span class="p">:</span><span class="w">
-</span><span class="w">    </span>wesker-api<span class="p">:</span><span class="w"> </span><span class="s2">&#34;UmbrellaCorp&#34;</span><span class="w">
-</span><span class="w">    </span>wtf<span class="p">:</span><span class="w"> </span><span class="s2">&#34;senorprogrammer&#34;</span><span class="w">
-</span><span class="w">  </span>username<span class="p">:</span><span class="w"> </span><span class="s2">&#34;senorprogrammer&#34;</span></code></pre></div>
+</span><span class="w">  </span>project<span class="p">:</span><span class="w"> </span><span class="s2">&#34;CORE&#34;</span><span class="w">
+</span><span class="w">  </span>refreshInterval<span class="p">:</span><span class="w"> </span><span class="m">900</span><span class="w">
+</span><span class="w">  </span>username<span class="p">:</span><span class="w"> </span><span class="s2">&#34;chris.cummer&#34;</span></code></pre></div>
 <h3 id="attributes">Attributes</h3>
+
+<p><code>domain</code> <br /></p>
+
+<p><code>email</code> <br /></p>
 
 <p><code>enabled</code> <br />
 Determines whether or not this module is executed and if its data displayed onscreen. <br />
@@ -167,19 +149,13 @@ Values: <code>true</code>, <code>false</code>.</p>
 <p><code>position</code> <br />
 Defines where in the grid this module&rsquo;s widget will be displayed. <br /></p>
 
+<p><code>project</code> <br /></p>
+
 <p><code>refreshInterval</code> <br />
 How often, in seconds, this module will update its data. <br />
 Values: A positive integer, <code>0..n</code>.</p>
 
-<p><code>repositories</code> <br />
-A list of key/value pairs each describing a Github repository to fetch data
-for. <br />
-<span class="caption">Key:</span> The name of the repository. <br />
-<span class="caption">Value:</span> The name of the account or organization that owns the repository.</p>
-
-<p><code>username</code> <br />
-Your Github username. Used to figure out which review requests you&rsquo;ve
-been added to.</p>
+<p><code>username</code> <br /></p>
 
 </div>
             <div class="footer">

@@ -24,8 +24,8 @@ Available modules:
   <li><a href="/posts/modules/clocks">Clocks</a>
   <li><a href="/posts/modules/git">Git</a>
   <li><a href="/posts/modules/github">Github</a>
-  <li><a href="/posts/modules/gcal" class="disabled">Google Calendar</a>
-  <li><a href="/posts/modules/jira" class="disabled">Jira</a>
+  <li><a href="/posts/modules/gcal">Google Calendar</a>
+  <li><a href="/posts/modules/jira">Jira</a>
   <li><a href="/posts/modules/newrelic">New Relic</a>
   <li><a href="/posts/modules/opsgenie">OpsGenie</a>
   <li><a href="/posts/modules/security">Security</a>

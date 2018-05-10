@@ -10,8 +10,8 @@
 
 <meta name="generator" content="Hugo 0.38.2" />
 
-<title>Github | WTF</title>
-<meta content="Github - WTF" property="og:title">
+<title>Google Calendar | WTF</title>
+<meta content="Google Calendar - WTF" property="og:title">
 <meta content=" - " property="og:description">
 <!-- CSS -->
 <link rel="stylesheet" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
@@ -88,19 +88,19 @@
 
         <div class="content container">
             <div class="post">
-  <h1>Github</h1>
+  <h1>Google Calendar</h1>
   
   <div class="col-sm-12 col-md-12">
     <span class="text-left post-date meta">
             
        
-        <i class="fas fa-calendar-alt"></i> May 09, 2018
+        <i class="fas fa-calendar-alt"></i> May 10, 2018
       
       
       
       
       <br/>
-      <i class="fas fa-clock"></i> 1 min read 
+      <i class="fas fa-clock"></i> 2 min read 
       </span>  
   </div>    
   
@@ -108,61 +108,85 @@
 
 <h2 id="description">Description</h2>
 
-<p>Displays information about git repositories hosted on Github: open
-review requests, and open pull requests.</p>
+<p>Displays your upcoming Google calendar events.</p>
 
-<p><img src="/imgs/modules/github.png" width="640" height="384" alt="github screenshot" /></p>
-
-<h4 id="open-review-requests">Open Review Requests</h4>
-
-<p>All open code review requests assigned to you.</p>
-
-<h4 id="open-pull-requests">Open Pull Requests</h4>
-
-<p>All open pull requests created by you.</p>
+<p><img src="/imgs/modules/gcal.png" width="320" height="389" alt="gcal screenshot" /></p>
 
 <h2 id="source-code">Source Code</h2>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">wtf/github/</code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">wtf/gcal/</code></pre></div>
 <h2 id="required-env-variables">Required ENV Variables</h2>
 
-<p><span class="caption">Key:</span> <code>WTF_GITHUB_TOKEN</code> <br />
-<span class="caption">Action:</span> Your <a href="https://developer.github.com/v3/oauth_authorizations/#create-a-new-authorization">Github API</a> token.</p>
+<p><span class="caption">Key:</span> <code>WTF_GOOGLE_CAL_CLIENT_ID</code> <br />
+<span class="caption">Value:</span> Your <a href="https://developers.google.com/calendar/auth">Google API</a> client ID.</p>
+
+<p><span class="caption">Key:</span> <code>WTF_GOOGLE_CAL_CLIENT_SECRET</code> <br />
+<span class="caption">Value:</span> Your <a href="https://developers.google.com/calendar/auth">Google API</a> client secret.</p>
 
 <h2 id="keyboard-commands">Keyboard Commands</h2>
 
-<p><span class="caption">Key:</span> <code>/</code> <br />
-<span class="caption">Action:</span> Open/close the widget&rsquo;s help window.</p>
-
-<p><span class="caption">Key:</span> <code>h</code> <br />
-<span class="caption">Action:</span> Show the previous git repository.</p>
-
-<p><span class="caption">Key:</span> <code>l</code> <br />
-<span class="caption">Action:</span> Show the next git repository.</p>
-
-<p><span class="caption">Key:</span> <code>←</code> <br />
-<span class="caption">Action:</span> Show the previous git repository.</p>
-
-<p><span class="caption">Key:</span> <code>→</code> <br />
-<span class="caption">Action:</span> Show the next git repository.</p>
+<p>None.</p>
 
 <h2 id="configuration">Configuration</h2>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">github<span class="p">:</span><span class="w">
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">gcal<span class="p">:</span><span class="w">
+</span><span class="w">  </span>colors<span class="p">:</span><span class="w">
+</span><span class="w">    </span>title<span class="p">:</span><span class="w"> </span><span class="s2">&#34;red&#34;</span><span class="w">
+</span><span class="w">    </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;lightblue&#34;</span><span class="w">
+</span><span class="w">    </span>highlights<span class="p">:</span><span class="w">
+</span><span class="w">    </span>-<span class="w"> </span><span class="p">[</span><span class="s1">&#39;1on1|1\/11&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;green&#39;</span><span class="p">]</span><span class="w">
+</span><span class="w">    </span>-<span class="w"> </span><span class="p">[</span><span class="s1">&#39;apple|google|aws&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;blue&#39;</span><span class="p">]</span><span class="w">
+</span><span class="w">    </span>-<span class="w"> </span><span class="p">[</span><span class="s1">&#39;interview|meet&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;magenta&#39;</span><span class="p">]</span><span class="w">
+</span><span class="w">    </span>-<span class="w"> </span><span class="p">[</span><span class="s1">&#39;lunch&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;yellow&#39;</span><span class="p">]</span><span class="w">
+</span><span class="w">    </span>past<span class="p">:</span><span class="w"> </span><span class="s2">&#34;gray&#34;</span><span class="w">
+</span><span class="w">  </span>conflictIcon<span class="p">:</span><span class="w"> </span><span class="s2">&#34;🚨&#34;</span><span class="w">
+</span><span class="w">  </span>currentIcon<span class="p">:</span><span class="w"> </span><span class="s2">&#34;💥&#34;</span><span class="w">
 </span><span class="w">  </span>enabled<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span>eventCount<span class="p">:</span><span class="w"> </span><span class="m">12</span><span class="w">
 </span><span class="w">  </span>position<span class="p">:</span><span class="w">
-</span><span class="w">    </span>top<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
-</span><span class="w">    </span>left<span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
-</span><span class="w">    </span>height<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
-</span><span class="w">    </span>width<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span><span class="w">    </span>top<span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
+</span><span class="w">    </span>left<span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
+</span><span class="w">    </span>height<span class="p">:</span><span class="w"> </span><span class="m">4</span><span class="w">
+</span><span class="w">    </span>width<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
 </span><span class="w">  </span>refreshInterval<span class="p">:</span><span class="w"> </span><span class="m">300</span><span class="w">
-</span><span class="w">  </span>repositories<span class="p">:</span><span class="w">
-</span><span class="w">    </span>wesker-api<span class="p">:</span><span class="w"> </span><span class="s2">&#34;UmbrellaCorp&#34;</span><span class="w">
-</span><span class="w">    </span>wtf<span class="p">:</span><span class="w"> </span><span class="s2">&#34;senorprogrammer&#34;</span><span class="w">
-</span><span class="w">  </span>username<span class="p">:</span><span class="w"> </span><span class="s2">&#34;senorprogrammer&#34;</span></code></pre></div>
+</span><span class="w">  </span>secretFile<span class="p">:</span><span class="w"> </span><span class="s2">&#34;~/.wtf/gcal/client_secret.json&#34;</span></code></pre></div>
 <h3 id="attributes">Attributes</h3>
+
+<p><code>colors.title</code> <br />
+Specifies the default colour for calendar event titles. <br />
+Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11
+color</a> name.</p>
+
+<p><code>colors.description</code> <br />
+Specifies the default color for calendar event descriptions. <br />
+Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11
+color</a> name.</p>
+
+<p><code>colors.highlights</code> <br />
+A list of arrays that define a regular expression pattern and a color.
+If a calendar event title matches a regular expression, the title will
+be drawn in that colour. Over-rides the default title colour. <br />
+Values: [a valid regular expression, any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11 color</a> name.]</p>
+
+<p><code>colors.past</code> <br />
+Specifies the color for calendar events that have passed. <br />
+Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11
+color</a> name.</p>
+
+<p><code>conflictIcon</code> <br />
+The icon displayed beside calendar events that have conflicting times
+(they intersect or overlap in some way). <br />
+Values: Any displayable unicode character.</p>
+
+<p><code>currentIcon</code> <br />
+The icon displayed beside the current calendar event. <br />
+Values: Any displayable unicode character.</p>
 
 <p><code>enabled</code> <br />
 Determines whether or not this module is executed and if its data displayed onscreen. <br />
 Values: <code>true</code>, <code>false</code>.</p>
+
+<p><code>eventCount</code> <br />
+The number of calendar events to display. <br />
+Values: A positive integer, <code>0..n</code>.</p>
 
 <p><code>position</code> <br />
 Defines where in the grid this module&rsquo;s widget will be displayed. <br /></p>
@@ -171,15 +195,9 @@ Defines where in the grid this module&rsquo;s widget will be displayed. <br /></
 How often, in seconds, this module will update its data. <br />
 Values: A positive integer, <code>0..n</code>.</p>
 
-<p><code>repositories</code> <br />
-A list of key/value pairs each describing a Github repository to fetch data
-for. <br />
-<span class="caption">Key:</span> The name of the repository. <br />
-<span class="caption">Value:</span> The name of the account or organization that owns the repository.</p>
-
-<p><code>username</code> <br />
-Your Github username. Used to figure out which review requests you&rsquo;ve
-been added to.</p>
+<p><code>secretFile</code> <br />
+Your <a href="https://developers.google.com/calendar/quickstart/go">Google client secret</a> JSON file. <br />
+Values: A string representing a file path to the JSON secret file.</p>
 
 </div>
             <div class="footer">

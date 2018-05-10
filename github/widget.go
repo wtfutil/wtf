@@ -78,7 +78,7 @@ func (widget *Widget) buildRepoCollection(repoData map[string]interface{}) []*Gi
 
 	for name, owner := range repoData {
 		repo := NewGithubRepo(name, owner.(string))
-		githubColl = append(githubRepos, repo)
+		githubRepos = append(githubRepos, repo)
 	}
 
 	return githubRepos
