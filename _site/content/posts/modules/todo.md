@@ -6,6 +6,8 @@ draft:  false
 
 ## Description
 
+An interactive todo list.
+
 <img src="/imgs/modules/todo.png" width="320" height="388" alt="todo screenshot" />
 
 ## Source Code
@@ -20,7 +22,47 @@ None.
 
 ## Keyboard Commands
 
-A basic, interactive todo list.
+<span class="caption">Key:</span> `[return]` <br />
+<span class="caption">Action:</span> Edit the selected item. <br />
+<span class="caption">Action:</span> Close the modal item dialog and save changes. <br />
+
+<span class="caption">Key:</span> `[esc]` <br />
+<span class="caption">Action:</span> Remove focus from the selected item. <br />
+<span class="caption">Action:</span> Close the modal item dialog without saving changes.
+
+<span class="caption">Key:</span> `[space]` <br />
+<span class="caption">Action:</span> Check/uncheck the selected item.
+
+<span class="caption">Key:</span> `/` <br />
+<span class="caption">Action:</span> Open/close the widget's help window.
+
+<span class="caption">Key:</span> `j` <br />
+<span class="caption">Action:</span> Select the next item in the list.
+
+<span class="caption">Key:</span> `k` <br />
+<span class="caption">Action:</span> Select the previous item in the list.
+
+<span class="caption">Key:</span> `n` <br />
+<span class="caption">Action:</span> Create a new list item.
+
+<span class="caption">Key:</span> `o` <br />
+<span class="caption">Action:</span> Opens the todo list file in
+whichever text editor is associated with that file type.
+
+<span class="caption">Key:</span> `↓` <br />
+<span class="caption">Action:</span> Select the next item in the list.
+
+<span class="caption">Key:</span> `↑` <br />
+<span class="caption">Action:</span> Select the previous item in the list.
+
+<span class="caption">Key:</span> `Ctrl-d` <br />
+<span class="caption">Action:</span> Delete the selected item.
+
+<span class="caption">Key:</span> `Ctrl-J` <br />
+<span class="caption">Action:</span> Move the selected item down the list.
+
+<span class="caption">Key:</span> `Ctrl-K` <br />
+<span class="caption">Action:</span> Move the selected item up the list.
 
 ## Configuration
 
