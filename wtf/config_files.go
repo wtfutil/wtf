@@ -72,7 +72,7 @@ func LoadConfigFile(filePath string) *config.Config {
 	return cfg
 }
 
-func ReadFile(fileName string) (string, error) {
+func ReadConfigFile(fileName string) (string, error) {
 	configDir, err := ConfigDir()
 	if err != nil {
 		return "", err

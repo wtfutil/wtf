@@ -2,6 +2,7 @@ package textfile
 
 import (
 	"fmt"
+	"io/ioutil"
 	"time"
 
 	"github.com/gdamore/tcell"
@@ -33,7 +34,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 		TextWidget: wtf.NewTextWidget(" 📄 Text File ", "textfile", true),
 
 		app:      app,
-		filePath: Config.UString("wtf.mods.textfile.filename"),
+		filePath: Config.UString("wtf.mods.textfile.filePath"),
 		pages:    pages,
 	}
 
@@ -57,12 +58,17 @@ func (widget *Widget) Refresh() {
 
 	widget.View.Clear()
 
-	fileData, err := wtf.ReadFile(widget.filePath)
+	filePath, _ := wtf.ExpandHomeDir(widget.filePath)
+
+	fileData, err := ioutil.ReadFile(filePath)
+	if err != nil {
+		fileData = []byte{}
+	}
 
 	if err != nil {
 		fmt.Fprintf(widget.View, "%s", err)
 	} else {
-		fmt.Fprintf(widget.View, "%s", fileData)
+		fmt.Fprintf(widget.View, "%s", string(fileData))
 	}
 }
 

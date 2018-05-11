@@ -33,7 +33,7 @@ None.
 ```yaml
 textfile:
   enabled: true
-  filename: "notes.md"
+  filePath: "~/Desktop/notes.md"
   position:
     top: 5
     left: 4
@@ -48,10 +48,8 @@ textfile:
 Determines whether or not this module is executed and if its data displayed onscreen. <br />
 Values: `true`, `false`.
 
-`filename` <br />
-The name of the file to be displayed in the widget. <br />
-*Note:* Currently this file *must* reside in the `~/.wtf/` directory.
-This is a <a href="https://github.com/senorprogrammer/wtf/issues/35">known bug</a>.
+`filePath` <br />
+The path to the file to be displayed in the widget. <br />
 
 `position` <br />
 Defines where in the grid this module's widget will be displayed. <br />
