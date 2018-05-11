@@ -57,14 +57,12 @@ gcal:
 ### Attributes
 
 `colors.title` <br />
-Specifies the default colour for calendar event titles. <br />
-Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11
-color</a> name.
+The default colour for calendar event titles. <br />
+Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11 color</a> name.
 
 `colors.description` <br />
-Specifies the default color for calendar event descriptions. <br />
-Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11
-color</a> name.
+The default color for calendar event descriptions. <br />
+Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11 color</a> name.
 
 `colors.highlights` <br />
 A list of arrays that define a regular expression pattern and a color.
@@ -73,9 +71,8 @@ be drawn in that colour. Over-rides the default title colour. <br />
 Values: [a valid regular expression, any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11 color</a> name.]
 
 `colors.past` <br />
-Specifies the color for calendar events that have passed. <br />
-Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11
-color</a> name.
+The color for calendar events that have passed. <br />
+Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11 color</a> name.
 
 `conflictIcon` <br />
 The icon displayed beside calendar events that have conflicting times
@@ -87,7 +84,7 @@ The icon displayed beside the current calendar event. <br />
 Values: Any displayable unicode character.
 
 `enabled` <br />
-Determines whether or not this module is executed and if its data displayed onscreen. <br />
+Whether or not this module is executed and if its data displayed onscreen. <br />
 Values: `true`, `false`.
 
 `eventCount` <br />
@@ -95,7 +92,7 @@ The number of calendar events to display. <br />
 Values: A positive integer, `0..n`.
 
 `position` <br />
-Defines where in the grid this module's widget will be displayed. <br />
+Where in the grid this module's widget will be displayed. <br />
 
 `refreshInterval` <br />
 How often, in seconds, this module will update its data. <br />

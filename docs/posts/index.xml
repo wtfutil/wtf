@@ -6,10 +6,26 @@
     <description>Recent content in Posts on WTF</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 10 May 2018 10:44:35 -0700</lastBuildDate>
+    <lastBuildDate>Thu, 10 May 2018 12:41:50 -0700</lastBuildDate>
     
 	<atom:link href="http://wtfutil.com/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Todo</title>
+      <link>http://wtfutil.com/posts/modules/todo/</link>
+      <pubDate>Thu, 10 May 2018 12:41:50 -0700</pubDate>
+      
+      <guid>http://wtfutil.com/posts/modules/todo/</guid>
+      <description>Description Source Code wtf/todo/ Required ENV Variables None.
+Keyboard Commands A basic, interactive todo list.
+Configuration todo:checkedIcon:&amp;#34;X&amp;#34;colors:checked:grayhighlight:fore:&amp;#34;black&amp;#34;back:&amp;#34;orange&amp;#34;enabled:truefilename:&amp;#34;todo.yml&amp;#34;position:top:2left:2height:2width:1refreshInterval:3600 Attributes checkedIcon The icon used to denote a &amp;ldquo;checked&amp;rdquo; todo item. Values: Any displayable unicode character.
+colors.checked Values: Any X11 color name.
+colors.highlight.fore Values: Any X11 color name.
+colors.highlight.back Values: Any X11 color name.
+enabled Whether or not this module is executed and if its data displayed onscreen. Values: true, false.
+filename The name for the todo file.</description>
+    </item>
     
     <item>
       <title>Jira</title>
@@ -34,8 +50,8 @@ position Defines where in the grid this module&amp;rsquo;s widget will be displa
 Source Code wtf/gcal/ Required ENV Variables Key: WTF_GOOGLE_CAL_CLIENT_ID Value: Your Google API client ID.
 Key: WTF_GOOGLE_CAL_CLIENT_SECRET Value: Your Google API client secret.
 Keyboard Commands None.
-Configuration gcal:colors:title:&amp;#34;red&amp;#34;description:&amp;#34;lightblue&amp;#34;highlights:-[&amp;#39;1on1|1\/11&amp;#39;,&amp;#39;green&amp;#39;]-[&amp;#39;apple|google|aws&amp;#39;,&amp;#39;blue&amp;#39;]-[&amp;#39;interview|meet&amp;#39;,&amp;#39;magenta&amp;#39;]-[&amp;#39;lunch&amp;#39;,&amp;#39;yellow&amp;#39;]past:&amp;#34;gray&amp;#34;conflictIcon:&amp;#34;🚨&amp;#34;currentIcon:&amp;#34;💥&amp;#34;enabled:trueeventCount:12position:top:0left:0height:4width:1refreshInterval:300secretFile:&amp;#34;~/.wtf/gcal/client_secret.json&amp;#34; Attributes colors.title Specifies the default colour for calendar event titles. Values: Any X11 color name.
-colors.description Specifies the default color for calendar event descriptions. Values: Any X11 color name.
+Configuration gcal:colors:title:&amp;#34;red&amp;#34;description:&amp;#34;lightblue&amp;#34;highlights:-[&amp;#39;1on1|1\/11&amp;#39;,&amp;#39;green&amp;#39;]-[&amp;#39;apple|google|aws&amp;#39;,&amp;#39;blue&amp;#39;]-[&amp;#39;interview|meet&amp;#39;,&amp;#39;magenta&amp;#39;]-[&amp;#39;lunch&amp;#39;,&amp;#39;yellow&amp;#39;]past:&amp;#34;gray&amp;#34;conflictIcon:&amp;#34;🚨&amp;#34;currentIcon:&amp;#34;💥&amp;#34;enabled:trueeventCount:12position:top:0left:0height:4width:1refreshInterval:300secretFile:&amp;#34;~/.wtf/gcal/client_secret.json&amp;#34; Attributes colors.title The default colour for calendar event titles. Values: Any X11 color name.
+colors.description The default color for calendar event descriptions. Values: Any X11 color name.
 colors.highlights A list of arrays that define a regular expression pattern and a color.</description>
     </item>
     

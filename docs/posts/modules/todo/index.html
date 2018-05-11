@@ -10,8 +10,8 @@
 
 <meta name="generator" content="Hugo 0.38.2" />
 
-<title>Configuration | WTF</title>
-<meta content="Configuration - WTF" property="og:title">
+<title>Todo | WTF</title>
+<meta content="Todo - WTF" property="og:title">
 <meta content=" - " property="og:description">
 <!-- CSS -->
 <link rel="stylesheet" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
@@ -88,62 +88,85 @@
 
         <div class="content container">
             <div class="post">
-  <h1>Configuration</h1>
+  <h1>Todo</h1>
   
   <div class="col-sm-12 col-md-12">
     <span class="text-left post-date meta">
             
        
-        <i class="fas fa-calendar-alt"></i> Apr 15, 2018
+        <i class="fas fa-calendar-alt"></i> May 10, 2018
       
       
       
       
       <br/>
-      <i class="fas fa-clock"></i> 2 min read 
+      <i class="fas fa-clock"></i> 1 min read 
       </span>  
   </div>    
   
   
 
-<h2 id="configuration-files">Configuration Files</h2>
+<h2 id="description">Description</h2>
 
-<p>By default WTF looks in a <code>~/.wtf/</code> directory for a YAML file called
-<code>config.yml</code>. If the <code>~/.wtf/</code> directory doesn&rsquo;t exist, WTF will create that directory
-on start-up, and then display instructions for creating a new
-configuration file.</p>
+<p><img src="/imgs/modules/todo.png" width="320" height="388" alt="todo screenshot" /></p>
 
-<p>In other words, WTF expects to have a YAML config file at: <code>~/.wtf/config.yml</code>.</p>
+<h2 id="source-code">Source Code</h2>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">wtf/todo/</code></pre></div>
+<h2 id="required-env-variables">Required ENV Variables</h2>
 
-<h4 id="example-configuration-files">Example Configuration Files</h4>
+<p>None.</p>
 
-<p>A couple of example config files are provided in the <code>_sample_configs/</code>
-directory of the Git repository.</p>
+<h2 id="keyboard-commands">Keyboard Commands</h2>
 
-<p>To try out WTF quickly, copy
-<code>simple_config.yml</code> into <code>~/.wtf/</code> as <code>config.yml</code> and relaunch WTF. You
-should see the app launch and display the <a href="/posts/modules/security/">Security</a>,
-<a href="/posts/modules/clocks/">Clocks</a> and <a href="/posts/modules/status/">Status</a> widgets onscreen.</p>
+<p>A basic, interactive todo list.</p>
 
-<h4 id="custom-configuration-files">Custom Configuration Files</h4>
+<h2 id="configuration">Configuration</h2>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">todo<span class="p">:</span><span class="w">
+</span><span class="w">  </span>checkedIcon<span class="p">:</span><span class="w"> </span><span class="s2">&#34;X&#34;</span><span class="w">
+</span><span class="w">  </span>colors<span class="p">:</span><span class="w">
+</span><span class="w">    </span>checked<span class="p">:</span><span class="w"> </span>gray<span class="w">
+</span><span class="w">    </span>highlight<span class="p">:</span><span class="w">
+</span><span class="w">      </span>fore<span class="p">:</span><span class="w"> </span><span class="s2">&#34;black&#34;</span><span class="w">
+</span><span class="w">      </span>back<span class="p">:</span><span class="w"> </span><span class="s2">&#34;orange&#34;</span><span class="w">
+</span><span class="w">  </span>enabled<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span>filename<span class="p">:</span><span class="w"> </span><span class="s2">&#34;todo.yml&#34;</span><span class="w">
+</span><span class="w">  </span>position<span class="p">:</span><span class="w">
+</span><span class="w">    </span>top<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span><span class="w">    </span>left<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span><span class="w">    </span>height<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span><span class="w">    </span>width<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">  </span>refreshInterval<span class="p">:</span><span class="w"> </span><span class="m">3600</span></code></pre></div>
+<h3 id="attributes">Attributes</h3>
 
-<p>To try out different configurations (or run multiple instances of WTF),
-you can pass the path to a config file via command line arguments on
-start-up.</p>
+<p><code>checkedIcon</code> <br />
+The icon used to denote a &ldquo;checked&rdquo; todo item. <br />
+Values: Any displayable unicode character.</p>
 
-<p>To load a custom configuration file (ie: one that&rsquo;s not
-<code>~/.wtf/config.yml</code>), pass in the path to configuration file as a
-parameter on launch:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">    $&gt; wtf --config<span class="o">=</span>path/to/custom/config.yml</code></pre></div>
-<h2 id="environment-env-variables">Environment (ENV) Variables</h2>
+<p><code>colors.checked</code> <br />
+Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11 color</a> name.</p>
 
-<p>Some modules require the presence of environment variables to function
-properly. Usually these are API keys or other sensitive data that one
-wouldn&rsquo;t want to have laying about in the config files.</p>
+<p><code>colors.highlight.fore</code> <br />
+Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11 color</a> name.</p>
 
-<p>For modules that require them, the name of the required environment
-variable(s) can be found in that module&rsquo;s &ldquo;Required ENV Variables&rdquo;
-section of the documentation. See <a href="/posts/modules/opsgenie/">OpsGenie</a> for an example.</p>
+<p><code>colors.highlight.back</code> <br />
+Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11 color</a> name.</p>
+
+<p><code>enabled</code> <br />
+Whether or not this module is executed and if its data displayed onscreen. <br />
+Values: <code>true</code>, <code>false</code>.</p>
+
+<p><code>filename</code> <br />
+The name for the todo file. <br />
+<em>Note:</em> Currently this file <em>must</em> reside in the <code>~/.wtf/</code> directory.
+This is a <a href="https://github.com/senorprogrammer/wtf/issues/35">known bug</a>. <br />
+Values: Any valid filename, ideally ending in <code>yml</code>.</p>
+
+<p><code>position</code> <br />
+Where in the grid this module&rsquo;s widget will be displayed. <br /></p>
+
+<p><code>refreshInterval</code> <br />
+How often, in seconds, this module will update its data. <br />
+Values: A positive integer, <code>0..n</code>.</p>
 
 </div>
             <div class="footer">
