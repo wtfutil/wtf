@@ -17,6 +17,7 @@ const helpText = `
     /: Show/hide this help window
 		h: Previous git repository
 		l: Next git repository
+		r: Refresh the data
 
     arrow left:  Previous git repository
     arrow right: Next git repository
@@ -103,6 +104,9 @@ func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 		return nil
 	case "l":
 		widget.Next()
+		return nil
+	case "r":
+		widget.Refresh()
 		return nil
 	}
 

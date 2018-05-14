@@ -51,7 +51,7 @@ func (widget *Widget) openPRs(repo *GithubRepo, username string) string {
 }
 
 func (widget *Widget) prsForReview(repo *GithubRepo, username string) string {
-	if len(repo.PullRequests) > 0 {
+	if len(repo.PullRequests) == 0 {
 		return " [grey]none[white]\n"
 	}
 
