@@ -18,8 +18,8 @@ func (widget *Widget) display(clocks []Clock) {
 			" [%s]%-12s %-10s %7s[white]\n",
 			wtf.RowColor("clocks", idx),
 			clock.Label,
-			clock.LocalTime.Format(wtf.SimpleTimeFormat),
-			clock.LocalTime.Format(wtf.SimpleDateFormat),
+			clock.Time(),
+			clock.Date(),
 		)
 	}
 

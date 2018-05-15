@@ -32,6 +32,6 @@ func (clocks *ClockCollection) SortedChronologically() {
 		clock := clocks.Clocks[i]
 		other := clocks.Clocks[j]
 
-		return clock.LocalTime.Before(other.LocalTime)
+		return clock.LocalTime().Before(other.LocalTime())
 	})
 }

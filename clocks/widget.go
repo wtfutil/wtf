@@ -12,12 +12,16 @@ var Config *config.Config
 
 type Widget struct {
 	wtf.TextWidget
+
+	clockColl ClockCollection
 }
 
 func NewWidget() *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(" 🕗 World Clocks ", "clocks", false),
 	}
+
+	widget.clockColl = widget.buildClockCollection(Config.UMap("wtf.mods.clocks.locations"))
 
 	return &widget
 }
@@ -29,10 +33,8 @@ func (widget *Widget) Refresh() {
 		return
 	}
 
-	clockColl := widget.buildClockCollection(Config.UMap("wtf.mods.clocks.locations"))
-
 	widget.View.Clear()
-	widget.display(clockColl.Sorted())
+	widget.display(widget.clockColl.Sorted())
 	widget.RefreshedAt = time.Now()
 }
 
@@ -47,13 +49,7 @@ func (widget *Widget) buildClockCollection(locData map[string]interface{}) Clock
 			continue
 		}
 
-		clock := Clock{
-			Label:     label,
-			LocalTime: time.Now().In(timeLoc),
-			Timezone:  locStr.(string),
-		}
-
-		clockColl.Clocks = append(clockColl.Clocks, clock)
+		clockColl.Clocks = append(clockColl.Clocks, NewClock(label, timeLoc))
 	}
 
 	return clockColl
