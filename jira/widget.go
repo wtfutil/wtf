@@ -64,7 +64,7 @@ func (widget *Widget) contentFrom(searchResult *SearchResult) string {
 			widget.issueTypeColor(&issue),
 			issue.IssueFields.IssueType.Name,
 			issue.Key,
-			widget.rowColor(idx),
+			wtf.RowColor("jira", idx),
 			issue.IssueFields.Summary,
 		)
 	}
@@ -87,14 +87,4 @@ func (widget *Widget) issueTypeColor(issue *Issue) string {
 	}
 
 	return color
-}
-
-func (widget *Widget) rowColor(idx int) string {
-	rowCol := Config.UString("wtf.mods.jira.colors.row.even", "lightblue")
-
-	if idx%2 == 0 {
-		rowCol = Config.UString("wtf.mods.jira.colors.row.odd", "white")
-	}
-
-	return rowCol
 }

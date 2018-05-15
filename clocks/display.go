@@ -16,7 +16,7 @@ func (widget *Widget) display(clocks []Clock) {
 	for idx, clock := range clocks {
 		str = str + fmt.Sprintf(
 			" [%s]%-12s %-10s %7s[white]\n",
-			widget.rowColor(idx),
+			wtf.RowColor("clocks", idx),
 			clock.Label,
 			clock.LocalTime.Format(wtf.SimpleTimeFormat),
 			clock.LocalTime.Format(wtf.SimpleDateFormat),
@@ -24,14 +24,4 @@ func (widget *Widget) display(clocks []Clock) {
 	}
 
 	fmt.Fprintf(widget.View, "%s", str)
-}
-
-func (widget *Widget) rowColor(idx int) string {
-	rowCol := Config.UString("wtf.mods.clocks.colors.row.even", "lightblue")
-
-	if idx%2 == 0 {
-		rowCol = Config.UString("wtf.mods.clocks.colors.row.odd", "white")
-	}
-
-	return rowCol
 }

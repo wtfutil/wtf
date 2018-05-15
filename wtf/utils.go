@@ -103,6 +103,17 @@ func RightAlignFormat(view *tview.TextView) string {
 	return fmt.Sprintf("%%%ds", w-1)
 }
 
+func RowColor(module string, idx int) string {
+	evenKey := fmt.Sprintf("wtf.mods.%s.colors.row.even", module)
+	oddKey := fmt.Sprintf("wtf.mods.%s.colors.row.odd", module)
+
+	if idx%2 == 0 {
+		return Config.UString(evenKey, "white")
+	} else {
+		return Config.UString(oddKey, "lightblue")
+	}
+}
+
 /* -------------------- Slice Conversion -------------------- */
 
 func ToInts(slice []interface{}) []int {
