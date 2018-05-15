@@ -43,7 +43,7 @@ func (widget *Widget) description(cityData *owm.CurrentWeatherData) string {
 
 func (widget *Widget) sunInfo(cityData *owm.CurrentWeatherData) string {
 	return fmt.Sprintf(
-		" Rise: %s    Set: %s",
+		" Rise: %s   Set: %s",
 		wtf.UnixTime(int64(cityData.Sys.Sunrise)).Format("15:04 MST"),
 		wtf.UnixTime(int64(cityData.Sys.Sunset)).Format("15:04 MST"),
 	)
