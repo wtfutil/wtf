@@ -53,21 +53,28 @@ func (widget *Widget) Refresh() {
 func (widget *Widget) contentFrom(onCallResponse *OnCallResponse) string {
 	str := ""
 
-	for _, data := range onCallResponse.OnCallData {
-		str = str + fmt.Sprintf(" [green]%s[white]\n", widget.cleanScheduleName(data.Parent.Name))
+	hideEmpty := Config.UBool("wtf.mods.opsgenie.hideEmpty", false)
 
-		if len(data.Recipients) == 0 {
-			str = str + " [gray]no one[white]\n"
-		} else {
-			str = str + fmt.Sprintf(" %s\n", strings.Join(wtf.NamesFromEmails(data.Recipients), ", "))
+	for _, data := range onCallResponse.OnCallData {
+		if (len(data.Recipients) == 0) && (hideEmpty == true) {
+			continue
 		}
 
-		str = str + "\n"
+		var msg string
+		if len(data.Recipients) == 0 {
+			msg = " [gray]no one[white]\n\n"
+		} else {
+			msg = fmt.Sprintf(" %s\n\n", strings.Join(wtf.NamesFromEmails(data.Recipients), ", "))
+		}
+
+		str = str + widget.cleanScheduleName(data.Parent.Name)
+		str = str + msg
 	}
 
 	return str
 }
 
 func (widget *Widget) cleanScheduleName(schedule string) string {
-	return strings.Replace(schedule, "_", " ", -1)
+	cleanedName := strings.Replace(schedule, "_", " ", -1)
+	return fmt.Sprintf(" [green]%s[white]\n", cleanedName)
 }
