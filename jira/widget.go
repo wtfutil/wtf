@@ -58,12 +58,13 @@ func (widget *Widget) Refresh() {
 func (widget *Widget) contentFrom(searchResult *SearchResult) string {
 	str := " [red]Assigned Issues[white]\n"
 
-	for _, issue := range searchResult.Issues {
+	for idx, issue := range searchResult.Issues {
 		str = str + fmt.Sprintf(
-			" [%s]%-6s[white] [green]%-10s[white] %s\n",
+			" [%s]%-6s[white] [green]%-10s[%s] %s\n",
 			widget.issueTypeColor(&issue),
 			issue.IssueFields.IssueType.Name,
 			issue.Key,
+			widget.rowColor(idx),
 			issue.IssueFields.Summary,
 		)
 	}
@@ -86,4 +87,14 @@ func (widget *Widget) issueTypeColor(issue *Issue) string {
 	}
 
 	return color
+}
+
+func (widget *Widget) rowColor(idx int) string {
+	rowCol := Config.UString("wtf.mods.jira.colors.row.even", "lightblue")
+
+	if idx%2 == 0 {
+		rowCol = Config.UString("wtf.mods.jira.colors.row.odd", "white")
+	}
+
+	return rowCol
 }
