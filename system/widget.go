@@ -2,6 +2,7 @@ package system
 
 import (
 	"fmt"
+	"os/exec"
 	"time"
 
 	"github.com/olebedev/config"
@@ -14,16 +15,20 @@ var Config *config.Config
 type Widget struct {
 	wtf.TextWidget
 
-	BuiltAt string
-	Version string
+	systemInfo *SystemInfo
+	BuiltAt    string
+	Version    string
 }
 
 func NewWidget(builtAt, version string) *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(" Build ", "system", false),
-		BuiltAt:    builtAt,
-		Version:    version,
+
+		BuiltAt: builtAt,
+		Version: version,
 	}
+
+	widget.buildSystemInfo()
 
 	return &widget
 }
@@ -37,11 +42,15 @@ func (widget *Widget) Refresh() {
 
 	fmt.Fprintf(
 		widget.View,
-		"%6s: %s\n%6s: %s",
+		"%8s: %s\n%8s: %s\n\n%8s: %s\n%8s: %s",
 		"Built",
 		widget.prettyBuiltAt(),
 		"Vers",
 		widget.Version,
+		"OS",
+		widget.systemInfo.ProductVersion,
+		"Build",
+		widget.systemInfo.BuildVersion,
 	)
 
 	widget.RefreshedAt = time.Now()
@@ -54,4 +63,13 @@ func (widget *Widget) prettyBuiltAt() string {
 	} else {
 		return str.Format("Jan _2, 15:04")
 	}
+}
+
+func (widget *Widget) buildSystemInfo() {
+	arg := []string{}
+
+	cmd := exec.Command("sw_vers", arg...)
+	str := wtf.ExecuteCommand(cmd)
+
+	widget.systemInfo = NewSystemInfo(str)
 }
