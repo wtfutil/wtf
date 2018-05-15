@@ -79,8 +79,9 @@ func (widget *Widget) contentFrom(events *calendar.Events) string {
 		conflict := widget.conflicts(event, events)
 
 		str = str + fmt.Sprintf(
-			"%s [%s]%s[white]\n %s[%s]%s %s[white]\n\n",
+			"%s %s[%s]%s[white]\n %s[%s]%s %s[white]\n\n",
 			widget.dayDivider(event, prevEvent),
+			widget.responseIcon(event),
 			widget.titleColor(event),
 			widget.eventSummary(event, conflict),
 			widget.location(event),
@@ -191,6 +192,36 @@ func (widget *Widget) location(event *calendar.Event) string {
 		widget.descriptionColor(event),
 		event.Location,
 	)
+}
+
+func (widget *Widget) responseIcon(event *calendar.Event) string {
+	if false == Config.UBool("wtf.mods.gcal.displayResponseStatus", true) {
+		return ""
+	}
+
+	response := ""
+
+	for _, attendee := range event.Attendees {
+		if attendee.Email == Config.UString("wtf.mods.gcal.email") {
+			response = attendee.ResponseStatus
+			break
+		}
+	}
+
+	icon := "[gray]"
+
+	switch response {
+	case "accepted":
+		icon = icon + "✔︎ "
+	case "declined":
+		icon = icon + "✘ "
+	case "needsAction":
+		icon = icon + "? "
+	default:
+		icon = icon + ""
+	}
+
+	return icon
 }
 
 // until returns the number of hours or days until the event

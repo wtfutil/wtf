@@ -53,10 +53,10 @@ func (widget *Widget) Refresh() {
 func (widget *Widget) contentFrom(onCallResponse *OnCallResponse) string {
 	str := ""
 
-	hideEmpty := Config.UBool("wtf.mods.opsgenie.hideEmpty", false)
+	displayEmpty := Config.UBool("wtf.mods.opsgenie.displayEmpty", true)
 
 	for _, data := range onCallResponse.OnCallData {
-		if (len(data.Recipients) == 0) && (hideEmpty == true) {
+		if (len(data.Recipients) == 0) && (displayEmpty == false) {
 			continue
 		}
 
