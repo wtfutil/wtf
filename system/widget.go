@@ -2,7 +2,6 @@ package system
 
 import (
 	"fmt"
-	"os/exec"
 	"time"
 
 	"github.com/olebedev/config"
@@ -28,7 +27,7 @@ func NewWidget(builtAt, version string) *Widget {
 		Version: version,
 	}
 
-	widget.buildSystemInfo()
+	widget.systemInfo = NewSystemInfo()
 
 	return &widget
 }
@@ -63,13 +62,4 @@ func (widget *Widget) prettyBuiltAt() string {
 	} else {
 		return str.Format("Jan _2, 15:04")
 	}
-}
-
-func (widget *Widget) buildSystemInfo() {
-	arg := []string{}
-
-	cmd := exec.Command("sw_vers", arg...)
-	str := wtf.ExecuteCommand(cmd)
-
-	widget.systemInfo = NewSystemInfo(str)
 }

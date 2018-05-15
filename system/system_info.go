@@ -1,7 +1,10 @@
 package system
 
 import (
+	"os/exec"
 	"strings"
+
+	"github.com/senorprogrammer/wtf/wtf"
 )
 
 type SystemInfo struct {
@@ -10,8 +13,13 @@ type SystemInfo struct {
 	BuildVersion   string
 }
 
-func NewSystemInfo(raw string) *SystemInfo {
+func NewSystemInfo() *SystemInfo {
 	m := make(map[string]string)
+
+	arg := []string{}
+
+	cmd := exec.Command("sw_vers", arg...)
+	raw := wtf.ExecuteCommand(cmd)
 
 	for _, row := range strings.Split(raw, "\n") {
 		parts := strings.Split(row, ":")
