@@ -79,10 +79,11 @@ func (widget *Widget) contentFrom(events *calendar.Events) string {
 		conflict := widget.conflicts(event, events)
 
 		str = str + fmt.Sprintf(
-			"%s [%s]%s[white]\n [%s]%s %s[white]\n\n",
+			"%s [%s]%s[white]\n %s[%s]%s %s[white]\n\n",
 			widget.dayDivider(event, prevEvent),
 			widget.titleColor(event),
 			widget.eventSummary(event, conflict),
+			widget.location(event),
 			widget.descriptionColor(event),
 			widget.eventTimestamp(event),
 			widget.until(event),
@@ -174,6 +175,22 @@ func (widget *Widget) titleColor(event *calendar.Event) string {
 	}
 
 	return color
+}
+
+func (widget *Widget) location(event *calendar.Event) string {
+	if Config.UBool("wtf.mods.gcal.withLocation", true) == false {
+		return ""
+	}
+
+	if event.Location == "" {
+		return ""
+	}
+
+	return fmt.Sprintf(
+		"[%s]%s\n ",
+		widget.descriptionColor(event),
+		event.Location,
+	)
 }
 
 // until returns the number of hours or days until the event

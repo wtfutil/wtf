@@ -5,6 +5,7 @@ import (
 
 	"github.com/gdamore/tcell"
 	"github.com/olebedev/config"
+	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/wtf"
 )
 
@@ -12,12 +13,12 @@ import (
 var Config *config.Config
 
 const helpText = `
-  Keyboard commands for Git:
+  Keyboard commands for Github:
 
     /: Show/hide this help window
-		h: Previous git repository
-		l: Next git repository
-		r: Refresh the data
+    h: Previous git repository
+    l: Next git repository
+    r: Refresh the data
 
     arrow left:  Previous git repository
     arrow right: Next git repository
@@ -26,14 +27,19 @@ const helpText = `
 type Widget struct {
 	wtf.TextWidget
 
-	Data []*GithubRepo
-	Idx  int
+	app   *tview.Application
+	Data  []*GithubRepo
+	Idx   int
+	pages *tview.Pages
 }
 
-func NewWidget() *Widget {
+func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(" Github ", "github", true),
-		Idx:        0,
+
+		app:   app,
+		Idx:   0,
+		pages: pages,
 	}
 
 	widget.View.SetInputCapture(widget.keyboardIntercept)
@@ -99,6 +105,9 @@ func (widget *Widget) currentData() *GithubRepo {
 
 func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	switch string(event.Rune()) {
+	case "/":
+		widget.showHelp()
+		return nil
 	case "h":
 		widget.Prev()
 		return nil
@@ -120,4 +129,16 @@ func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	default:
 		return event
 	}
+}
+
+func (widget *Widget) showHelp() {
+	closeFunc := func() {
+		widget.pages.RemovePage("help")
+		widget.app.SetFocus(widget.View)
+	}
+
+	modal := wtf.NewBillboardModal(helpText, closeFunc)
+
+	widget.pages.AddPage("help", modal, false, true)
+	widget.app.SetFocus(modal)
 }

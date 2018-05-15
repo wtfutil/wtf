@@ -47,8 +47,9 @@ func Fetch() (*calendar.Events, error) {
 		return nil, err
 	}
 
-	t := fromMidnight().Format(time.RFC3339)
-	events, err := srv.Events.List("primary").ShowDeleted(false).SingleEvents(true).TimeMin(t).MaxResults(int64(Config.UInt("wtf.mods.gcal.eventCount", 10))).OrderBy("startTime").Do()
+	startTime := fromMidnight().Format(time.RFC3339)
+	eventLimit := int64(Config.UInt("wtf.mods.gcal.eventCount", 10))
+	events, err := srv.Events.List("primary").ShowDeleted(false).SingleEvents(true).TimeMin(startTime).MaxResults(eventLimit).OrderBy("startTime").Do()
 	if err != nil {
 		return nil, err
 	}
