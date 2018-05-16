@@ -27,33 +27,6 @@ import (
 	"github.com/senorprogrammer/wtf/wtf"
 )
 
-/* -------------------- Built-in Support Documentation -------------------- */
-
-//func displayCommandInfo(args []string) {
-//if len(args) == 0 {
-//return
-//}
-
-//cmd := args[0]
-
-//switch cmd {
-//case "help", "--help":
-//displayHelpInfo()
-//case "version", "--version":
-//displayVersionInfo()
-//}
-//}
-
-//func displayHelpInfo() {
-//fmt.Println("Help is coming...")
-//os.Exit(0)
-//}
-
-//func displayVersionInfo() {
-//fmt.Printf("Version: %s\n", version)
-//os.Exit(0)
-//}
-
 /* -------------------- Functions -------------------- */
 
 func addToGrid(grid *tview.Grid, widget wtf.Wtfable) {
@@ -142,10 +115,12 @@ var (
 )
 
 func main() {
-	// This all allows the user to pass flags in however they prefer. It supports the likes
-	// of:
-	//      wtf help    | -help    | --help
-	//      wtf version | -version | --version
+	/*
+	  This allows the user to pass flags in however they prefer. It supports the likes of:
+
+	    wtf help    | -help    | --help
+	    wtf version | -version | --version
+	*/
 	flagConf := flag.String("config", "~/.wtf/config.yml", "Path to config file")
 	flagHelp := flag.Bool("help", false, "Show help")
 	flagVers := flag.Bool("version", false, "Show version info")
