@@ -2,7 +2,7 @@ package main
 
 import (
 	"flag"
-	"fmt"
+	//"fmt"
 	"os"
 	"time"
 
@@ -14,6 +14,7 @@ import (
 	"github.com/senorprogrammer/wtf/gcal"
 	"github.com/senorprogrammer/wtf/git"
 	"github.com/senorprogrammer/wtf/github"
+	"github.com/senorprogrammer/wtf/help"
 	"github.com/senorprogrammer/wtf/jira"
 	"github.com/senorprogrammer/wtf/newrelic"
 	"github.com/senorprogrammer/wtf/opsgenie"
@@ -28,30 +29,30 @@ import (
 
 /* -------------------- Built-in Support Documentation -------------------- */
 
-func displayCommandInfo(args []string) {
-	if len(args) == 0 {
-		return
-	}
+//func displayCommandInfo(args []string) {
+//if len(args) == 0 {
+//return
+//}
 
-	cmd := args[0]
+//cmd := args[0]
 
-	switch cmd {
-	case "help", "--help":
-		displayHelpInfo()
-	case "version", "--version":
-		displayVersionInfo()
-	}
-}
+//switch cmd {
+//case "help", "--help":
+//displayHelpInfo()
+//case "version", "--version":
+//displayVersionInfo()
+//}
+//}
 
-func displayHelpInfo() {
-	fmt.Println("Help is coming...")
-	os.Exit(0)
-}
+//func displayHelpInfo() {
+//fmt.Println("Help is coming...")
+//os.Exit(0)
+//}
 
-func displayVersionInfo() {
-	fmt.Printf("Version: %s\n", version)
-	os.Exit(0)
-}
+//func displayVersionInfo() {
+//fmt.Printf("Version: %s\n", version)
+//os.Exit(0)
+//}
 
 /* -------------------- Functions -------------------- */
 
@@ -141,6 +142,10 @@ var (
 )
 
 func main() {
+	// This all allows the user to pass flags in however they prefer. It supports the likes
+	// of:
+	//      wtf help    | -help    | --help
+	//      wtf version | -version | --version
 	flagConf := flag.String("config", "~/.wtf/config.yml", "Path to config file")
 	flagHelp := flag.Bool("help", false, "Show help")
 	flagVers := flag.Bool("version", false, "Show version info")
@@ -148,17 +153,19 @@ func main() {
 	flag.Parse()
 
 	if *flagHelp {
-		displayHelpInfo()
+		help.DisplayHelpInfo()
 	}
 
 	if *flagVers {
-		displayVersionInfo()
+		help.DisplayVersionInfo(version)
 	}
 
-	displayCommandInfo(flag.Args())
+	help.DisplayCommandInfo(flag.Args(), version)
 
 	/* -------------------- end flag parsing and handling -------------------- */
 
+	// Responsible for creating the configuration directory and default
+	// configuration file if they don't already exist
 	wtf.CreateConfigDir()
 	wtf.WriteConfigFile()
 
