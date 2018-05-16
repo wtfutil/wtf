@@ -135,8 +135,6 @@ var Config *config.Config
 var FocusTracker wtf.FocusTracker
 var Widgets []wtf.Wtfable
 
-var result = wtf.CreateConfigDir()
-
 var (
 	builtat = "dev"
 	version = "dev"
@@ -160,6 +158,9 @@ func main() {
 	displayCommandInfo(flag.Args())
 
 	/* -------------------- end flag parsing and handling -------------------- */
+
+	wtf.CreateConfigDir()
+	wtf.WriteConfigFile()
 
 	Config = wtf.LoadConfigFile(*flagConf)
 

@@ -217,6 +217,8 @@ func (widget *Widget) responseIcon(event *calendar.Event) string {
 		icon = icon + "✘ "
 	case "needsAction":
 		icon = icon + "? "
+	case "tentative":
+		icon = icon + "~ "
 	default:
 		icon = icon + ""
 	}

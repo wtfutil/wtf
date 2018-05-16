@@ -1,13 +1,33 @@
 wtf:
   grid:
-    columns: [40]
-    rows: [13, 3]
+    columns: [40, 40]
+    rows: [13, 13, 4]
   refreshInterval: 1
   mods:
+    clocks:
+      colors:
+        rows:
+          even: "lightblue"
+          odd: "white"
+      enabled: true
+      locations:
+        Avignon: "Europe/Paris"
+        Barcelona: "Europe/Madrid"
+        Dubai: "Asia/Dubai"
+        UTC: "Etc/UTC"
+        Vancouver: "America/Vancouver"
+        Toronto: "America/Toronto"
+      position:
+        top: 0
+        left: 0
+        height: 1
+        width: 1
+      refreshInterval: 15
+      sort: "alphabetical"
     security:
       enabled: true
       position:
-        top: 0
+        top: 1
         left: 0
         height: 1
         width: 1
@@ -15,8 +35,25 @@ wtf:
     status:
       enabled: true
       position:
-        top: 1
+        top: 2
         left: 0
         height: 1
-        width: 1
+        width: 2
       refreshInterval: 1
+    system:
+      enabled: true
+      position:
+        top: 0
+        left: 1
+        height: 1
+        width: 1
+      refreshInterval: 3600
+    textfile:
+      enabled: true
+      filePath: "~/.wtf/config.yml"
+      position:
+        top: 1
+        left: 1
+        height: 1
+        width: 1
+      refreshInterval: 15

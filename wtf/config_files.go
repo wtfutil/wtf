@@ -2,6 +2,7 @@ package wtf
 
 import (
 	"fmt"
+	"io/ioutil"
 	"os"
 
 	"github.com/olebedev/config"
@@ -17,7 +18,7 @@ func ConfigDir() (string, error) {
 }
 
 // CreateConfigDir creates the .wtf directory in the user's home dir
-func CreateConfigDir() bool {
+func CreateConfigDir() {
 	configDir, _ := ConfigDir()
 
 	if _, err := os.Stat(configDir); os.IsNotExist(err) {
@@ -26,8 +27,6 @@ func CreateConfigDir() bool {
 			panic(err)
 		}
 	}
-
-	return true
 }
 
 // CreateFile creates the named file in the config directory, if it does not already exist.
@@ -87,3 +86,83 @@ func ReadConfigFile(fileName string) (string, error) {
 
 	return string(fileData), nil
 }
+
+// WriteConfigFile creates a simple config file in the config directory if
+// one does not already exist
+func WriteConfigFile() {
+	filePath, err := CreateFile("config.yml")
+	if err != nil {
+		panic(err)
+	}
+
+	// If the file is empty, write to it
+	file, err := os.Stat(filePath)
+
+	if file.Size() == 0 {
+		err = ioutil.WriteFile(filePath, []byte(simpleConfig), 0644)
+		if err != nil {
+			panic(err)
+		}
+	}
+}
+
+const simpleConfig = `
+wtf:
+  grid:
+    columns: [40, 40]
+    rows: [13, 13, 4]
+  refreshInterval: 1
+  mods:
+    clocks:
+      colors:
+        rows:
+          even: "lightblue"
+          odd: "white"
+      enabled: true
+      locations:
+        Avignon: "Europe/Paris"
+        Barcelona: "Europe/Madrid"
+        Dubai: "Asia/Dubai"
+        Vancouver: "America/Vancouver"
+        Toronto: "America/Toronto"
+      position:
+        top: 0
+        left: 0
+        height: 1
+        width: 1
+      refreshInterval: 15
+      sort: "alphabetical"
+    security:
+      enabled: true
+      position:
+        top: 1
+        left: 0
+        height: 1
+        width: 1
+      refreshInterval: 3600
+    status:
+      enabled: true
+      position:
+        top: 2
+        left: 0
+        height: 1
+        width: 2
+      refreshInterval: 1
+    system:
+      enabled: true
+      position:
+        top: 0
+        left: 1
+        height: 1
+        width: 1
+      refreshInterval: 3600
+    textfile:
+      enabled: true
+      filePath: "~/.wtf/config.yml"
+      position:
+        top: 1
+        left: 1
+        height: 1
+        width: 1
+      refreshInterval: 30
+`
