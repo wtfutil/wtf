@@ -179,7 +179,7 @@ func (widget *Widget) titleColor(event *calendar.Event) string {
 }
 
 func (widget *Widget) location(event *calendar.Event) string {
-	if Config.UBool("wtf.mods.gcal.withLocation", true) == false {
+	if Config.UBool("wtf.mods.gcal.displayLocation", true) == false {
 		return ""
 	}
 

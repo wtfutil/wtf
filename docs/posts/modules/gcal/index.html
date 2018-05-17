@@ -139,6 +139,8 @@
 </span><span class="w">    </span>past<span class="p">:</span><span class="w"> </span><span class="s2">&#34;gray&#34;</span><span class="w">
 </span><span class="w">  </span>conflictIcon<span class="p">:</span><span class="w"> </span><span class="s2">&#34;🚨&#34;</span><span class="w">
 </span><span class="w">  </span>currentIcon<span class="p">:</span><span class="w"> </span><span class="s2">&#34;💥&#34;</span><span class="w">
+</span><span class="w">  </span>displayResponseStatus<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span>email<span class="p">:</span><span class="w"> </span><span class="s2">&#34;chriscummer@me.com&#34;</span><span class="w">
 </span><span class="w">  </span>enabled<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span><span class="w">  </span>eventCount<span class="p">:</span><span class="w"> </span><span class="m">12</span><span class="w">
 </span><span class="w">  </span>position<span class="p">:</span><span class="w">
@@ -147,7 +149,8 @@
 </span><span class="w">    </span>height<span class="p">:</span><span class="w"> </span><span class="m">4</span><span class="w">
 </span><span class="w">    </span>width<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
 </span><span class="w">  </span>refreshInterval<span class="p">:</span><span class="w"> </span><span class="m">300</span><span class="w">
-</span><span class="w">  </span>secretFile<span class="p">:</span><span class="w"> </span><span class="s2">&#34;~/.wtf/gcal/client_secret.json&#34;</span></code></pre></div>
+</span><span class="w">  </span>secretFile<span class="p">:</span><span class="w"> </span><span class="s2">&#34;~/.wtf/gcal/client_secret.json&#34;</span><span class="w">
+</span><span class="w">  </span>withLocation<span class="p">:</span><span class="w"> </span><span class="kc">true</span></code></pre></div>
 <h3 id="attributes">Attributes</h3>
 
 <p><code>colors.title</code> <br />
@@ -176,6 +179,20 @@ Values: Any displayable unicode character.</p>
 <p><code>currentIcon</code> <br />
 The icon displayed beside the current calendar event. <br />
 Values: Any displayable unicode character.</p>
+
+<p><code>displayLocation</code> <br />
+Whether or not to display the location of the calendar event. <br />
+Values: <code>true</code>, <code>false</code>.</p>
+
+<p><code>displayResponseStatus</code> <br />
+Whether or not to display your response status to the calendar event.
+<br />
+Values: <code>true</code>, <code>false</code>.</p>
+
+<p><code>email</code> <br />
+The email address associated with your Google account. Necessary for
+determining <code>responseStatus</code>. <br />
+Values: A valid email address string.</p>
 
 <p><code>enabled</code> <br />
 Whether or not this module is executed and if its data displayed onscreen. <br />

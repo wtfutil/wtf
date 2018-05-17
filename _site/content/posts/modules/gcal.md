@@ -43,6 +43,8 @@ gcal:
     past: "gray"
   conflictIcon: "🚨"
   currentIcon: "💥"
+  displayResponseStatus: true
+  email: "chriscummer@me.com"
   enabled: true
   eventCount: 12
   position:
@@ -52,6 +54,7 @@ gcal:
     width: 1
   refreshInterval: 300
   secretFile: "~/.wtf/gcal/client_secret.json"
+  withLocation: true
 ```
 
 ### Attributes
@@ -83,6 +86,20 @@ Values: Any displayable unicode character.
 The icon displayed beside the current calendar event. <br />
 Values: Any displayable unicode character.
 
+`displayLocation` <br />
+Whether or not to display the location of the calendar event. <br />
+Values: `true`, `false`.
+
+`displayResponseStatus` <br />
+Whether or not to display your response status to the calendar event.
+<br />
+Values: `true`, `false`.
+
+`email` <br />
+The email address associated with your Google account. Necessary for
+determining `responseStatus`. <br />
+Values: A valid email address string.
+
 `enabled` <br />
 Whether or not this module is executed and if its data displayed onscreen. <br />
 Values: `true`, `false`.
@@ -101,3 +118,4 @@ Values: A positive integer, `0..n`.
 `secretFile` <br />
 Your <a href="https://developers.google.com/calendar/quickstart/go">Google client secret</a> JSON file. <br />
 Values: A string representing a file path to the JSON secret file.
+

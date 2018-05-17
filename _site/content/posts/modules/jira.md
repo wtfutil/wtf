@@ -29,6 +29,10 @@ None.
 
 ```yaml
 jira:
+  colors:
+    rows:
+      even: "lightblue"
+      odd: "white"
   domain: "https://umbrellacorp.atlassian.net"
   email: "chriscummer@me.com"
   enabled: true
@@ -44,9 +48,23 @@ jira:
 
 ### Attributes
 
+`colors.rows.even` <br />
+Define the foreground color for even-numbered rows. <br />
+Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11
+color name</a>.
+
+`colors.rows.odd` <br />
+Define the foreground color for odd-numbered rows. <br />
+Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11
+color name</a>.
+
 `domain` <br />
+Your Jira corporate domain. <br />
+Values: A valid URI.
 
 `email` <br />
+The email address associated with your Jira account. <br />
+Values: A valid email address string.
 
 `enabled` <br />
 Determines whether or not this module is executed and if its data displayed onscreen. <br />
@@ -56,9 +74,11 @@ Values: `true`, `false`.
 Defines where in the grid this module's widget will be displayed. <br />
 
 `project` <br />
+The Jira project to fetch information for. <br />
 
 `refreshInterval` <br />
 How often, in seconds, this module will update its data. <br />
 Values: A positive integer, `0..n`.
 
 `username` <br />
+Your Jira username. <br />
