@@ -108,6 +108,11 @@ func WriteConfigFile() {
 
 const simpleConfig = `
 wtf:
+	colors:
+    border:
+      focusable: darkslateblue
+      focused: orange
+      normal: gray
   grid:
     columns: [40, 40]
     rows: [13, 13, 4]

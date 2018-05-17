@@ -61,7 +61,7 @@ func (widget *TextWidget) Enabled() bool {
 }
 
 func (widget *TextWidget) Focusable() bool {
-	return widget.focusable
+	return widget.enabled && widget.focusable
 }
 
 func (widget *TextWidget) RefreshInterval() int {
