@@ -53,12 +53,12 @@ clocks:
 ### Attributes
 
 `colors.rows.even` <br />
-Define the foreground color for even-numbered rows. <br />
+The foreground color for even-numbered rows. <br />
 Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11
 color name</a>.
 
 `colors.rows.odd` <br />
-Define the foreground color for the odd-numbered rows. <br />
+The foreground color for the odd-numbered rows. <br />
 Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11
 color name</a>.
 

@@ -31,6 +31,7 @@ None.
 
 ```yaml
 opsgenie:
+  displayEmpty: false
   enabled: true
   position:
     top: 2
@@ -42,12 +43,16 @@ opsgenie:
 
 ### Attributes
 
+`displayEmpty` <br />
+Whether schedules with no assigned person on-call should be displayed. <br />
+Values:  `true`, `false`.
+
 `enabled` <br />
-Determines whether or not this module is executed and if its data displayed onscreen. <br />
+Whether or not this module is executed and if its data displayed onscreen. <br />
 Values: `true`, `false`.
 
 `position` <br />
-Defines where in the grid this module's widget will be displayed. <br />
+Where in the grid this module's widget will be displayed. <br />
 
 `refreshInterval` <br />
 How often, in seconds, this module will update its data. <br />

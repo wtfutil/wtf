@@ -94,9 +94,11 @@ Values: Any displayable unicode character.
 Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11 color</a> name.
 
 `colors.highlight.fore` <br />
+The foreground color for the currently-selected row. <br />
 Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11 color</a> name.
 
 `colors.highlight.back` <br />
+The background color for the currently-selected row. <br />
 Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11 color</a> name.
 
 `enabled` <br />
@@ -105,8 +107,6 @@ Values: `true`, `false`.
 
 `filename` <br />
 The name for the todo file. <br />
-*Note:* Currently this file *must* reside in the `~/.wtf/` directory.
-This is a <a href="https://github.com/senorprogrammer/wtf/issues/35">known bug</a>. <br />
 Values: Any valid filename, ideally ending in `yml`.
 
 `position` <br />

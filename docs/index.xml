@@ -135,8 +135,9 @@ deployCount The number of past deploys to display on screen.</description>
       <description>Description Connects to the OpsGenie API and displays all your scheduled rotations and who&amp;rsquo;s currently on call.
 Source Code wtf/opsgenie/ Required ENV Variables Key: WTF_OPS_GENIE_API_KEY Value: Your OpsGenie API token.
 Keyboard Commands None.
-Configuration opsgenie:enabled:trueposition:top:2left:1height:2width:1refreshInterval:21600 Attributes enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.
-position Defines where in the grid this module&amp;rsquo;s widget will be displayed. refreshInterval How often, in seconds, this module will update its data.</description>
+Configuration opsgenie:displayEmpty:falseenabled:trueposition:top:2left:1height:2width:1refreshInterval:21600 Attributes displayEmpty Whether schedules with no assigned person on-call should be displayed. Values: true, false.
+enabled Whether or not this module is executed and if its data displayed onscreen. Values: true, false.
+position Where in the grid this module&amp;rsquo;s widget will be displayed.</description>
     </item>
     
     <item>
@@ -172,8 +173,8 @@ position Defines where in the grid this module&amp;rsquo;s widget will be displa
       <description>Description Displays a configurable list of world clocks, the local time, and date.
 Source Code wtf/clocks/ Required ENV Variables None.
 Keyboard Commands None.
-Configuration clocks:colors:rows:even:&amp;#34;lightblue&amp;#34;odd:&amp;#34;white&amp;#34;enabled:truelocations:# From https://en.wikipedia.org/wiki/List_of_tz_database_time_zonesAvignon:&amp;#34;Europe/Paris&amp;#34;Barcelona:&amp;#34;Europe/Madrid&amp;#34;Dubai:&amp;#34;Asia/Dubai&amp;#34;UTC:&amp;#34;Etc/UTC&amp;#34;Vancouver:&amp;#34;America/Vancouver&amp;#34;Toronto:&amp;#34;America/Toronto&amp;#34;position:top:4left:0height:1width:1refreshInterval:15# Valid options are: alphabetical, chronologicalsort:&amp;#34;alphabetical&amp;#34; Attributes colors.rows.even Define the foreground color for even-numbered rows. Values: Any X11 color name.
-colors.rows.odd Define the foreground color for the odd-numbered rows. Values: Any X11 color name.
+Configuration clocks:colors:rows:even:&amp;#34;lightblue&amp;#34;odd:&amp;#34;white&amp;#34;enabled:truelocations:# From https://en.wikipedia.org/wiki/List_of_tz_database_time_zonesAvignon:&amp;#34;Europe/Paris&amp;#34;Barcelona:&amp;#34;Europe/Madrid&amp;#34;Dubai:&amp;#34;Asia/Dubai&amp;#34;UTC:&amp;#34;Etc/UTC&amp;#34;Vancouver:&amp;#34;America/Vancouver&amp;#34;Toronto:&amp;#34;America/Toronto&amp;#34;position:top:4left:0height:1width:1refreshInterval:15# Valid options are: alphabetical, chronologicalsort:&amp;#34;alphabetical&amp;#34; Attributes colors.rows.even The foreground color for even-numbered rows. Values: Any X11 color name.
+colors.rows.odd The foreground color for the odd-numbered rows. Values: Any X11 color name.
 enabled Determines whether or not this module is executed and if its data displayed onscreen.</description>
     </item>
     

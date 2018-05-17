@@ -127,6 +127,7 @@ API</a> token.</p>
 
 <h2 id="configuration">Configuration</h2>
 <div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">opsgenie<span class="p">:</span><span class="w">
+</span><span class="w">  </span>displayEmpty<span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
 </span><span class="w">  </span>enabled<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span><span class="w">  </span>position<span class="p">:</span><span class="w">
 </span><span class="w">    </span>top<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
@@ -136,12 +137,16 @@ API</a> token.</p>
 </span><span class="w">  </span>refreshInterval<span class="p">:</span><span class="w"> </span><span class="m">21600</span></code></pre></div>
 <h3 id="attributes">Attributes</h3>
 
+<p><code>displayEmpty</code> <br />
+Whether schedules with no assigned person on-call should be displayed. <br />
+Values:  <code>true</code>, <code>false</code>.</p>
+
 <p><code>enabled</code> <br />
-Determines whether or not this module is executed and if its data displayed onscreen. <br />
+Whether or not this module is executed and if its data displayed onscreen. <br />
 Values: <code>true</code>, <code>false</code>.</p>
 
 <p><code>position</code> <br />
-Defines where in the grid this module&rsquo;s widget will be displayed. <br /></p>
+Where in the grid this module&rsquo;s widget will be displayed. <br /></p>
 
 <p><code>refreshInterval</code> <br />
 How often, in seconds, this module will update its data. <br />
