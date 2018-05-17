@@ -1,10 +1,8 @@
 ---
-title: "Opsgenie"
+title: "Modules: OpsGenie"
 date: 2018-05-08T20:53:40-07:00
 draft: false
 ---
-
-## Description
 
 Connects to the OpsGenie API and displays all your scheduled rotations
 and who's currently on call.

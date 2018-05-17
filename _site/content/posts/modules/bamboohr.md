@@ -1,10 +1,8 @@
 ---
-title: "Bamboohr"
+title: "Modules: Bamboohr"
 date: 2018-05-07T20:17:37-07:00
 draft: false
 ---
-
-## Description
 
 Connects to the BambooHR API and displays who will be Away today.
 

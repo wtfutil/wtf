@@ -1,10 +1,8 @@
 ---
-title: "Git"
+title: "Modules: Git"
 date: 2018-05-09T14:20:48-07:00
 draft: false
 ---
-
-## Description
 
 Displays information about local git repositories: branch, changed
 files, and recent commits.

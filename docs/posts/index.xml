@@ -12,22 +12,22 @@
     
     
     <item>
-      <title>Attributes</title>
+      <title>Configuration: Attributes</title>
       <link>http://wtfutil.com/posts/configuration/attributes/</link>
       <pubDate>Wed, 16 May 2018 21:51:23 -0700</pubDate>
       
       <guid>http://wtfutil.com/posts/configuration/attributes/</guid>
-      <description>This page describes the top-level attributes that can be added to config.yml.
+      <description>The following top-level attributes are configurable in config.yml. See this example config file for more details.
 wtf:colors:border:Focusable:&amp;#34;darkslateblue&amp;#34;focused:&amp;#34;orange&amp;#34;normal:&amp;#34;gray&amp;#34;grid:# How _wide_ the columns are, in terminal characters. In this case we have# six columns, each of which are 35 characters widecolumns:[35,35,35,35,35,35]# How _high_ the rows are, in terminal lines. In this case we have five rows# that support ten line of text, one of three lines, and one of fourrows:[10,10,10,10,10,3,4]# The app redraws itself once a secondrefreshInterval:1 Attributes colors.</description>
     </item>
     
     <item>
-      <title>Todo</title>
+      <title>Modules: Todo</title>
       <link>http://wtfutil.com/posts/modules/todo/</link>
       <pubDate>Thu, 10 May 2018 12:41:50 -0700</pubDate>
       
       <guid>http://wtfutil.com/posts/modules/todo/</guid>
-      <description>Description An interactive todo list.
+      <description>An interactive todo list.
 Source Code wtf/todo/ Required ENV Variables None.
 Keyboard Commands Key: [return] Action: Edit the selected item. Action: Close the modal item dialog and save changes. Key: [esc] Action: Remove focus from the selected item. Action: Close the modal item dialog without saving changes.
 Key: [space] Action: Check/uncheck the selected item.
@@ -36,12 +36,12 @@ Key: j Action: Select the next item in the list.</description>
     </item>
     
     <item>
-      <title>Jira</title>
+      <title>Modules: Jira</title>
       <link>http://wtfutil.com/posts/modules/jira/</link>
       <pubDate>Thu, 10 May 2018 10:44:35 -0700</pubDate>
       
       <guid>http://wtfutil.com/posts/modules/jira/</guid>
-      <description>Description Displays all Jira issues assigned to you for the specified project.
+      <description>Displays all Jira issues assigned to you for the specified project.
 Source Code wtf/jira/ Required ENV Variables Key: WTF_JIRA_API_KEY Value: Your Jira API key.
 Keyboard Commands None.
 Configuration jira:colors:rows:even:&amp;#34;lightblue&amp;#34;odd:&amp;#34;white&amp;#34;domain:&amp;#34;https://umbrellacorp.atlassian.net&amp;#34;email:&amp;#34;chriscummer@me.com&amp;#34;enabled:trueposition:top:4left:1height:1width:2project:&amp;#34;CORE&amp;#34;refreshInterval:900username:&amp;#34;chris.cummer&amp;#34; Attributes colors.rows.even Define the foreground color for even-numbered rows. Values: Any X11 color name.
@@ -51,12 +51,12 @@ email The email address associated with your Jira account.</description>
     </item>
     
     <item>
-      <title>Google Calendar</title>
+      <title>Modules: Google Calendar</title>
       <link>http://wtfutil.com/posts/modules/gcal/</link>
       <pubDate>Thu, 10 May 2018 08:25:33 -0700</pubDate>
       
       <guid>http://wtfutil.com/posts/modules/gcal/</guid>
-      <description>Description Displays your upcoming Google calendar events.
+      <description>Displays your upcoming Google calendar events.
 Source Code wtf/gcal/ Required ENV Variables Key: WTF_GOOGLE_CAL_CLIENT_ID Value: Your Google API client ID.
 Key: WTF_GOOGLE_CAL_CLIENT_SECRET Value: Your Google API client secret.
 Keyboard Commands None.
@@ -66,12 +66,12 @@ colors.highlights A list of arrays that define a regular expression pattern and 
     </item>
     
     <item>
-      <title>Github</title>
+      <title>Modules: Github</title>
       <link>http://wtfutil.com/posts/modules/github/</link>
       <pubDate>Wed, 09 May 2018 19:20:20 -0700</pubDate>
       
       <guid>http://wtfutil.com/posts/modules/github/</guid>
-      <description>Description Displays information about git repositories hosted on Github: open review requests, and open pull requests.
+      <description>Displays information about git repositories hosted on Github: open review requests, and open pull requests.
 Open Review Requests All open code review requests assigned to you.
 Open Pull Requests All open pull requests created by you.
 Source Code wtf/github/ Required ENV Variables Key: WTF_GITHUB_TOKEN Action: Your Github API token.
@@ -81,26 +81,27 @@ Key: l Action: Show the next git repository.</description>
     </item>
     
     <item>
-      <title>Git</title>
+      <title>Modules: Git</title>
       <link>http://wtfutil.com/posts/modules/git/</link>
       <pubDate>Wed, 09 May 2018 14:20:48 -0700</pubDate>
       
       <guid>http://wtfutil.com/posts/modules/git/</guid>
-      <description>Description Displays information about local git repositories: branch, changed files, and recent commits.
+      <description>Displays information about local git repositories: branch, changed files, and recent commits.
 Branch The name of the currently-active git branch.
 Changed Files A list of all the files that have changed since the last commit, and their status.
 Recent Commits A list of n recent commits, who committed it, and when.
 Source Code wtf/git/ Required ENV Variables None.
-Keyboard Commands Key: / Action: Open/close the widget&amp;rsquo;s help window.</description>
+Keyboard Commands Key: / Action: Open/close the widget&amp;rsquo;s help window.
+Key: h Action: Show the previous git repository.</description>
     </item>
     
     <item>
-      <title>Weather</title>
+      <title>Modules: Weather</title>
       <link>http://wtfutil.com/posts/modules/weather/</link>
       <pubDate>Wed, 09 May 2018 11:44:13 -0700</pubDate>
       
       <guid>http://wtfutil.com/posts/modules/weather/</guid>
-      <description>Description Displays a configurable list of current weather report, including current temperature, sunrise time, and sunset time.
+      <description>Displays a configurable list of current weather report, including current temperature, sunrise time, and sunset time.
 Source Code wtf/weather/ Required ENV Variables Key: WTF_OWM_API_KEY Action: Your OpenWeatherMap API key.
 Keyboard Commands Key: / Action: Open/close the widget&amp;rsquo;s help window.
 Key: h Action: Show the previous weather location.
@@ -110,12 +111,12 @@ Key: → Action: Show the next weather location.</description>
     </item>
     
     <item>
-      <title>Textfile</title>
+      <title>Modules: Textfile</title>
       <link>http://wtfutil.com/posts/modules/textfile/</link>
       <pubDate>Wed, 09 May 2018 11:13:11 -0700</pubDate>
       
       <guid>http://wtfutil.com/posts/modules/textfile/</guid>
-      <description>Description Displays the contents of the specified text file in the widget.
+      <description>Displays the contents of the specified text file in the widget.
 Source Code wtf/textfile/ Required ENV Variables None.
 Keyboard Commands Key: / Action: Open/close the widget&amp;rsquo;s help window.
 Key: o Action: Opens the text file in whichever text editor is associated with that file type.
@@ -124,12 +125,12 @@ filePath The path to the file to be displayed in the widget.</description>
     </item>
     
     <item>
-      <title>Newrelic</title>
+      <title>Modules: New Relic</title>
       <link>http://wtfutil.com/posts/modules/newrelic/</link>
       <pubDate>Wed, 09 May 2018 09:01:14 -0700</pubDate>
       
       <guid>http://wtfutil.com/posts/modules/newrelic/</guid>
-      <description>Description Connects to the New Relic API and displays the last n deploys of the monitored application: deploy ID, deploy time, and who deployed it.
+      <description>Connects to the New Relic API and displays the last n deploys of the monitored application: deploy ID, deploy time, and who deployed it.
 Source Code wtf/newrelic/ Required ENV Variables Key: WTF_NEW_RELIC_API_KEY Value: Your New Relic API token.
 Keyboard Commands None.
 Configuration newrelic:applicationId:10549735deployCount:6enabled:trueposition:top:4left:3height:1width:2refreshInterval:900 Attributes applicationId The integer ID of the New Relic application you wish to report on. Values: A positive integer, 0..n.
@@ -137,12 +138,12 @@ deployCount The number of past deploys to display on screen.</description>
     </item>
     
     <item>
-      <title>Opsgenie</title>
+      <title>Modules: OpsGenie</title>
       <link>http://wtfutil.com/posts/modules/opsgenie/</link>
       <pubDate>Tue, 08 May 2018 20:53:40 -0700</pubDate>
       
       <guid>http://wtfutil.com/posts/modules/opsgenie/</guid>
-      <description>Description Connects to the OpsGenie API and displays all your scheduled rotations and who&amp;rsquo;s currently on call.
+      <description>Connects to the OpsGenie API and displays all your scheduled rotations and who&amp;rsquo;s currently on call.
 Source Code wtf/opsgenie/ Required ENV Variables Key: WTF_OPS_GENIE_API_KEY Value: Your OpsGenie API token.
 Keyboard Commands None.
 Configuration opsgenie:displayEmpty:falseenabled:trueposition:top:2left:1height:2width:1refreshInterval:21600 Attributes displayEmpty Whether schedules with no assigned person on-call should be displayed. Values: true, false.
@@ -151,36 +152,36 @@ position Where in the grid this module&amp;rsquo;s widget will be displayed.</de
     </item>
     
     <item>
-      <title>Security</title>
+      <title>Modules: Security</title>
       <link>http://wtfutil.com/posts/modules/security/</link>
       <pubDate>Tue, 08 May 2018 20:33:28 -0700</pubDate>
       
       <guid>http://wtfutil.com/posts/modules/security/</guid>
-      <description>Description Displays some general information about the state of the machine&amp;rsquo;s wifi connection, firewall, and DNS settings.
+      <description>Displays some general information about the state of the machine&amp;rsquo;s wifi connection, firewall, and DNS settings.
 Wifi Network The name of the current network Whether or not the network uses encryption and if so, what flavour  Firewall Whether or not the firewall is enabled Whether or not Stealth Mode is enabled  DNS Which DNS resolvers (servers) the machine is configured to use  Source Code wtf/security Required ENV Variables None.</description>
     </item>
     
     <item>
-      <title>Bamboohr</title>
+      <title>Modules: Bamboohr</title>
       <link>http://wtfutil.com/posts/modules/bamboohr/</link>
       <pubDate>Mon, 07 May 2018 20:17:37 -0700</pubDate>
       
       <guid>http://wtfutil.com/posts/modules/bamboohr/</guid>
-      <description>Description Connects to the BambooHR API and displays who will be Away today.
+      <description>Connects to the BambooHR API and displays who will be Away today.
 Source Code wtf/bamboohr Required ENV Variables Key: WTF_BAMBOO_HR_TOKEN Value: Your BambooHR API token.
 Key: WTF_BAMBOO_HR_SUBDOMAIN Value: Your BambooHR API subdomain name.
 Keyboard Commands None.
 Configuration bamboohr:enabled:trueposition:top:0left:1height:2width:1refreshInterval:900 Attributes enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.
-position Defines where in the grid this module&amp;rsquo;s widget will be displayed.</description>
+position Defines where in the grid this module&amp;rsquo;s widget will be displayed. refreshInterval How often, in seconds, this module will update its data.</description>
     </item>
     
     <item>
-      <title>Clocks</title>
+      <title>Modules: Clocks</title>
       <link>http://wtfutil.com/posts/modules/clocks/</link>
       <pubDate>Mon, 07 May 2018 19:47:31 -0700</pubDate>
       
       <guid>http://wtfutil.com/posts/modules/clocks/</guid>
-      <description>Description Displays a configurable list of world clocks, the local time, and date.
+      <description>Displays a configurable list of world clocks, the local time, and date.
 Source Code wtf/clocks/ Required ENV Variables None.
 Keyboard Commands None.
 Configuration clocks:colors:rows:even:&amp;#34;lightblue&amp;#34;odd:&amp;#34;white&amp;#34;enabled:truelocations:# From https://en.wikipedia.org/wiki/List_of_tz_database_time_zonesAvignon:&amp;#34;Europe/Paris&amp;#34;Barcelona:&amp;#34;Europe/Madrid&amp;#34;Dubai:&amp;#34;Asia/Dubai&amp;#34;UTC:&amp;#34;Etc/UTC&amp;#34;Vancouver:&amp;#34;America/Vancouver&amp;#34;Toronto:&amp;#34;America/Toronto&amp;#34;position:top:4left:0height:1width:1refreshInterval:15# Valid options are: alphabetical, chronologicalsort:&amp;#34;alphabetical&amp;#34; Attributes colors.rows.even The foreground color for even-numbered rows. Values: Any X11 color name.

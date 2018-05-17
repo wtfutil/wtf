@@ -1,10 +1,8 @@
 ---
-title: "Clocks"
+title: "Modules: Clocks"
 date: 2018-05-07T19:47:31-07:00
 draft: false
 ---
-
-## Description
 
 Displays a configurable list of world clocks, the local time, and date.
 

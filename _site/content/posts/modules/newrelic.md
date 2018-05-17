@@ -1,10 +1,8 @@
 ---
-title: "Newrelic"
+title: "Modules: New Relic"
 date: 2018-05-09T09:01:14-07:00
 draft: false
 ---
-
-## Description
 
 Connects to the New Relic API and displays the last n deploys of the
 monitored application: deploy ID, deploy time, and who deployed it.

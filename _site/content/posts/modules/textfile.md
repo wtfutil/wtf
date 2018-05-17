@@ -1,10 +1,8 @@
 ---
-title: "Textfile"
+title: "Modules: Textfile"
 date: 2018-05-09T11:13:11-07:00
 draft: false
 ---
-
-## Description
 
 Displays the contents of the specified text file in the widget.
 

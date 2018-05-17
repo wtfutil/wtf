@@ -1,10 +1,8 @@
 ---
-title: "Github"
+title: "Modules: Github"
 date: 2018-05-09T19:20:20-07:00
 draft: false
 ---
-
-## Description
 
 Displays information about git repositories hosted on Github: open
 review requests, and open pull requests.

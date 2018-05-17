@@ -1,10 +1,8 @@
 ---
-title: "Todo"
+title: "Modules: Todo"
 date: 2018-05-10T12:41:50-07:00
 draft:  false
 ---
-
-## Description
 
 An interactive todo list.
 

@@ -1,11 +1,11 @@
 ---
-title: "Attributes"
+title: "Configuration: Attributes"
 date: 2018-05-16T21:51:23-07:00
 draft: false
 ---
 
-This page describes the top-level attributes that can be added to
-`config.yml`.
+The following top-level attributes are configurable in `config.yml`.
+See this <a href="https://github.com/senorprogrammer/wtf/blob/master/_sample_configs/simple_config.yml">example config file</a> for more details.
 
 ```yaml
 wtf:

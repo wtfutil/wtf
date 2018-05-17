@@ -1,10 +1,8 @@
 ---
-title: "Jira"
+title: "Modules: Jira"
 date: 2018-05-10T10:44:35-07:00
 draft: false
 ---
-
-## Description
 
 Displays all Jira issues assigned to you for the specified project.
 

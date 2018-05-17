@@ -1,10 +1,8 @@
 ---
-title: "Security"
+title: "Modules: Security"
 date: 2018-05-08T20:33:28-07:00
 draft: false
 ---
-
-## Description
 
 Displays some general information about the state of the machine's wifi
 connection, firewall, and DNS settings.

@@ -1,10 +1,8 @@
 ---
-title: "Google Calendar"
+title: "Modules: Google Calendar"
 date: 2018-05-10T08:25:33-07:00
 draft: false
 ---
-
-## Description
 
 Displays your upcoming Google calendar events.
 
