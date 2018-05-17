@@ -1,0 +1,13 @@
+before:
+  hooks:
+    - make install
+
+builds:
+  - binary: wtf
+    goos:
+      - darwin
+      - linux
+    goarch:
+      - amd64
+    ldflags:
+      - -X main.builtat=$(shell date +%FT%T%z)"
