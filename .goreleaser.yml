@@ -1,0 +1,7 @@
+builds:
+  - binary: wtf
+    goos:
+      - darwin
+      - linux
+    goarch:
+      - amd64
