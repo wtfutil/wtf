@@ -9,5 +9,3 @@ builds:
       - linux
     goarch:
       - amd64
-    ldflags:
-      - -X main.builtat=$(shell date +%FT%T%z)"

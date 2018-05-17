@@ -15,15 +15,15 @@ type Widget struct {
 	wtf.TextWidget
 
 	systemInfo *SystemInfo
-	BuiltAt    string
+	Date       string
 	Version    string
 }
 
-func NewWidget(builtAt, version string) *Widget {
+func NewWidget(date, version string) *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(" Build ", "system", false),
 
-		BuiltAt: builtAt,
+		Date:    date,
 		Version: version,
 	}
 
@@ -43,7 +43,7 @@ func (widget *Widget) Refresh() {
 		widget.View,
 		"%8s: %s\n%8s: %s\n\n%8s: %s\n%8s: %s",
 		"Built",
-		widget.prettyBuiltAt(),
+		widget.prettyDate(),
 		"Vers",
 		widget.Version,
 		"OS",
@@ -55,8 +55,8 @@ func (widget *Widget) Refresh() {
 	widget.RefreshedAt = time.Now()
 }
 
-func (widget *Widget) prettyBuiltAt() string {
-	str, err := time.Parse(wtf.TimestampFormat, widget.BuiltAt)
+func (widget *Widget) prettyDate() string {
+	str, err := time.Parse(wtf.TimestampFormat, widget.Date)
 	if err != nil {
 		return err.Error()
 	} else {

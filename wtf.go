@@ -109,7 +109,8 @@ var FocusTracker wtf.FocusTracker
 var Widgets []wtf.Wtfable
 
 var (
-	builtat = "dev"
+	commit  = "dev"
+	date    = "dev"
 	version = "dev"
 )
 
@@ -175,7 +176,7 @@ func main() {
 		opsgenie.NewWidget(),
 		security.NewWidget(),
 		status.NewWidget(),
-		system.NewWidget(builtat, version),
+		system.NewWidget(date, version),
 		textfile.NewWidget(app, pages),
 		todo.NewWidget(app, pages),
 		weather.NewWidget(app, pages),
