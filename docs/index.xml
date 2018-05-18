@@ -6,10 +6,25 @@
     <description>Recent content on WTF</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 17 May 2018 17:17:10 -0700</lastBuildDate>
+    <lastBuildDate>Fri, 18 May 2018 09:59:40 -0700</lastBuildDate>
     
 	<atom:link href="http://wtfutil.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Installation</title>
+      <link>http://wtfutil.com/posts/installation/</link>
+      <pubDate>Fri, 18 May 2018 09:59:40 -0700</pubDate>
+      
+      <guid>http://wtfutil.com/posts/installation/</guid>
+      <description>There are two ways to install WTF:
+From Source Clone this repo:
+git clone git@github.com:senorprogrammer/wtf.git cd into that wtf/ directory and run:
+make install and that should probably do it.
+As a Binary Grab the latest version from here:
+https://github.com/senorprogrammer/wtf/releases expand it, and cd into the resulting directory. Then run:
+./wtf and that should also do it.</description>
+    </item>
     
     <item>
       <title>Modules: CmdRunner</title>
