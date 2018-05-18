@@ -19,6 +19,7 @@ git clone git@github.com:senorprogrammer/wtf.git
 ```bash
 make dependencies
 make install
+make run
 ```
 
 and that should probably do it.
