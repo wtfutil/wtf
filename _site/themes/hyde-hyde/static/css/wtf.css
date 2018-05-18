@@ -3,7 +3,12 @@ h1, h2, h3, h4 {
 }
 
 h2 {
-  margin-top: 24px;
+  background-color: #623C60;
+  border-radius: 5px;
+  color: #fff;
+  margin-top: 32px;
+  margin-bottom: 18px;
+  padding: 10px 8px;
 }
 
 p {
