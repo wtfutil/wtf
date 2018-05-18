@@ -40,9 +40,7 @@
       {{ with .Site.Params.copyright }}{{.}}{{ else }}&copy; {{ now.Format "2006"}} {{.Site.Params.author}}.
       <br />
       <a href="https://creativecommons.org/licenses/by/4.0">Some Rights Reserved</a>.
-    </p>
-    <p class="copyright">
-      Built with <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/htr3n/hyde-hyde">hyde-hyde</a>.{{end}}
+      {{end}}
     </p>
 	</div>
 </div>
