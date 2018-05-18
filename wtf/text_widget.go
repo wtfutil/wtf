@@ -34,8 +34,8 @@ func NewTextWidget(name string, configKey string, focusable bool) TextWidget {
 	widget.Position = NewPosition(
 		Config.UInt(fmt.Sprintf("wtf.mods.%s.position.top", configKey)),
 		Config.UInt(fmt.Sprintf("wtf.mods.%s.position.left", configKey)),
-		Config.UInt(fmt.Sprintf("wtf.mods.%s.position.height", configKey)),
 		Config.UInt(fmt.Sprintf("wtf.mods.%s.position.width", configKey)),
+		Config.UInt(fmt.Sprintf("wtf.mods.%s.position.height", configKey)),
 	)
 
 	widget.addView()

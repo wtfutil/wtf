@@ -11,10 +11,10 @@ type Position struct {
 
 func NewPosition(top, left, width, height int) Position {
 	pos := Position{
-		top:    0,
-		left:   1,
-		width:  2,
-		height: 3,
+		top:    top,
+		left:   left,
+		width:  width,
+		height: height,
 	}
 
 	return pos
