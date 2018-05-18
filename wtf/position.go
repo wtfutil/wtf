@@ -9,6 +9,17 @@ type Position struct {
 	height int
 }
 
+func NewPosition(top, left, width, height int) Position {
+	pos := Position{
+		top:    0,
+		left:   1,
+		width:  2,
+		height: 3,
+	}
+
+	return pos
+}
+
 func (pos *Position) Top() int {
 	return pos.top
 }

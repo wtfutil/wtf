@@ -29,13 +29,14 @@ func NewTextWidget(name string, configKey string, focusable bool) TextWidget {
 
 		Name:       name,
 		RefreshInt: Config.UInt(fmt.Sprintf("wtf.mods.%s.refreshInterval", configKey)),
-		Position: Position{
-			top:    Config.UInt(fmt.Sprintf("wtf.mods.%s.position.top", configKey)),
-			left:   Config.UInt(fmt.Sprintf("wtf.mods.%s.position.left", configKey)),
-			height: Config.UInt(fmt.Sprintf("wtf.mods.%s.position.height", configKey)),
-			width:  Config.UInt(fmt.Sprintf("wtf.mods.%s.position.width", configKey)),
-		},
 	}
+
+	widget.Position = NewPosition(
+		Config.UInt(fmt.Sprintf("wtf.mods.%s.position.top", configKey)),
+		Config.UInt(fmt.Sprintf("wtf.mods.%s.position.left", configKey)),
+		Config.UInt(fmt.Sprintf("wtf.mods.%s.position.height", configKey)),
+		Config.UInt(fmt.Sprintf("wtf.mods.%s.position.width", configKey)),
+	)
 
 	widget.addView()
 
