@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://wtfutil.com/posts/modules/cmdrunner/</loc>
+    <lastmod>2018-05-17T17:17:10-07:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://wtfutil.com/posts/configuration/attributes/</loc>
     <lastmod>2018-05-16T21:51:23-07:00</lastmod>
   </url>
@@ -89,7 +94,7 @@
   
   <url>
     <loc>http://wtfutil.com/posts/</loc>
-    <lastmod>2018-05-16T21:51:23-07:00</lastmod>
+    <lastmod>2018-05-17T17:17:10-07:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -100,7 +105,7 @@
   
   <url>
     <loc>http://wtfutil.com/</loc>
-    <lastmod>2018-05-16T21:51:23-07:00</lastmod>
+    <lastmod>2018-05-17T17:17:10-07:00</lastmod>
     <priority>0</priority>
   </url>
   

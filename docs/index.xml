@@ -6,10 +6,23 @@
     <description>Recent content on WTF</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 16 May 2018 21:51:23 -0700</lastBuildDate>
+    <lastBuildDate>Thu, 17 May 2018 17:17:10 -0700</lastBuildDate>
     
 	<atom:link href="http://wtfutil.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Modules: CmdRunner</title>
+      <link>http://wtfutil.com/posts/modules/cmdrunner/</link>
+      <pubDate>Thu, 17 May 2018 17:17:10 -0700</pubDate>
+      
+      <guid>http://wtfutil.com/posts/modules/cmdrunner/</guid>
+      <description>Runs a terminal command on a schedule.
+Source Code wtf/cmdrunner/ Required ENV Variables None.
+Keyboard Commands None.
+Configuration cmdrunner:args:[&amp;#34;-g&amp;#34;,&amp;#34;batt&amp;#34;]cmd:&amp;#34;pmset&amp;#34;enabled:trueposition:top:6left:1height:1width:3refreshInterval:30 Attributes args The arguments to the command, with each item as an element in an array. Example: for curl -I cisco.com, the arguments array would be [&amp;quot;-I&amp;quot;, &amp;quot;cisco.com&amp;quot;].
+cmd The terminal command to be run, withouth the arguments. Ie: ping, whoami, curl. enabled Determines whether or not this module is executed and if its data displayed onscreen.</description>
+    </item>
     
     <item>
       <title>Configuration: Attributes</title>
