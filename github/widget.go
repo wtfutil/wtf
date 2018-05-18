@@ -1,8 +1,6 @@
 package github
 
 import (
-	"time"
-
 	"github.com/gdamore/tcell"
 	"github.com/olebedev/config"
 	"github.com/rivo/tview"
@@ -56,8 +54,8 @@ func (widget *Widget) Refresh() {
 
 	widget.Data = widget.buildRepoCollection(Config.UMap("wtf.mods.github.repositories"))
 
+	widget.UpdateRefreshedAt()
 	widget.display()
-	widget.RefreshedAt = time.Now()
 }
 
 func (widget *Widget) Next() {

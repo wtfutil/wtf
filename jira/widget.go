@@ -2,7 +2,6 @@ package jira
 
 import (
 	"fmt"
-	"time"
 
 	"github.com/olebedev/config"
 	"github.com/senorprogrammer/wtf/wtf"
@@ -32,6 +31,7 @@ func (widget *Widget) Refresh() {
 
 	searchResult, err := IssuesFor(Config.UString("wtf.mods.jira.username"))
 
+	widget.UpdateRefreshedAt()
 	widget.View.Clear()
 
 	if err != nil {
@@ -49,8 +49,6 @@ func (widget *Widget) Refresh() {
 		)
 		fmt.Fprintf(widget.View, "%s", widget.contentFrom(searchResult))
 	}
-
-	widget.RefreshedAt = time.Now()
 }
 
 /* -------------------- Unexported Functions -------------------- */

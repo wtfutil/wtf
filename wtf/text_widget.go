@@ -85,3 +85,7 @@ func (widget *TextWidget) addView() {
 
 	widget.View = view
 }
+
+func (widget *TextWidget) UpdateRefreshedAt() {
+	widget.RefreshedAt = time.Now()
+}

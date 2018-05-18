@@ -2,7 +2,6 @@ package status
 
 import (
 	"fmt"
-	"time"
 
 	"github.com/olebedev/config"
 	"github.com/senorprogrammer/wtf/wtf"
@@ -33,14 +32,14 @@ func (widget *Widget) Refresh() {
 		return
 	}
 
+	widget.UpdateRefreshedAt()
 	widget.View.Clear()
+
 	fmt.Fprintf(
 		widget.View,
 		"\n%s",
 		widget.animation(),
 	)
-
-	widget.RefreshedAt = time.Now()
 }
 
 /* -------------------- Unexported Functions -------------------- */

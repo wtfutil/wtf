@@ -37,6 +37,7 @@ func (widget *Widget) Refresh() {
 		return
 	}
 
+	widget.UpdateRefreshedAt()
 	widget.View.Clear()
 
 	fmt.Fprintf(
@@ -51,8 +52,6 @@ func (widget *Widget) Refresh() {
 		"Build",
 		widget.systemInfo.BuildVersion,
 	)
-
-	widget.RefreshedAt = time.Now()
 }
 
 func (widget *Widget) prettyDate() string {

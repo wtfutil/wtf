@@ -3,7 +3,6 @@ package textfile
 import (
 	"fmt"
 	"io/ioutil"
-	"time"
 
 	"github.com/gdamore/tcell"
 	"github.com/olebedev/config"
@@ -53,9 +52,8 @@ func (widget *Widget) Refresh() {
 		return
 	}
 
+	widget.UpdateRefreshedAt()
 	widget.View.SetTitle(fmt.Sprintf(" 📄 %s ", widget.filePath))
-	widget.RefreshedAt = time.Now()
-
 	widget.View.Clear()
 
 	filePath, _ := wtf.ExpandHomeDir(widget.filePath)

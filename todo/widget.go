@@ -3,7 +3,6 @@ package todo
 import (
 	"fmt"
 	"io/ioutil"
-	"time"
 
 	"github.com/gdamore/tcell"
 	"github.com/olebedev/config"
@@ -66,9 +65,9 @@ func (widget *Widget) Refresh() {
 		return
 	}
 
+	widget.UpdateRefreshedAt()
 	widget.load()
 	widget.display()
-	widget.RefreshedAt = time.Now()
 }
 
 /* -------------------- Unexported Functions -------------------- */

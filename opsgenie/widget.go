@@ -3,7 +3,6 @@ package opsgenie
 import (
 	"fmt"
 	"strings"
-	"time"
 
 	"github.com/olebedev/config"
 	"github.com/senorprogrammer/wtf/wtf"
@@ -33,8 +32,8 @@ func (widget *Widget) Refresh() {
 
 	data, err := Fetch()
 
+	widget.UpdateRefreshedAt()
 	widget.View.SetTitle(" ⏰ On Call ")
-
 	widget.View.Clear()
 
 	if err != nil {
@@ -44,8 +43,6 @@ func (widget *Widget) Refresh() {
 		widget.View.SetWrap(false)
 		fmt.Fprintf(widget.View, "%s", widget.contentFrom(data))
 	}
-
-	widget.RefreshedAt = time.Now()
 }
 
 /* -------------------- Unexported Functions -------------------- */

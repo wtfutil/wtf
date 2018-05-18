@@ -1,8 +1,6 @@
 package git
 
 import (
-	"time"
-
 	"github.com/gdamore/tcell"
 	"github.com/olebedev/config"
 	"github.com/rivo/tview"
@@ -26,7 +24,7 @@ const helpText = `
 type Widget struct {
 	wtf.TextWidget
 
-	app      *tview.Application
+	app   *tview.Application
 	Data  []*GitRepo
 	Idx   int
 	pages *tview.Pages
@@ -36,9 +34,9 @@ func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(" Git ", "git", true),
 
-		app: app,
-		Idx:        0,
-		pages:      pages,
+		app:   app,
+		Idx:   0,
+		pages: pages,
 	}
 
 	widget.View.SetInputCapture(widget.keyboardIntercept)
@@ -54,10 +52,10 @@ func (widget *Widget) Refresh() {
 	}
 
 	repoPaths := wtf.ToStrs(Config.UList("wtf.mods.git.repositories"))
-	widget.Data = widget.gitRepos(repoPaths)
 
+	widget.UpdateRefreshedAt()
+	widget.Data = widget.gitRepos(repoPaths)
 	widget.display()
-	widget.RefreshedAt = time.Now()
 }
 
 func (widget *Widget) Next() {

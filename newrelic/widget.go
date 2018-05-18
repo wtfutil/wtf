@@ -2,7 +2,6 @@ package newrelic
 
 import (
 	"fmt"
-	"time"
 
 	"github.com/olebedev/config"
 	"github.com/senorprogrammer/wtf/wtf"
@@ -39,8 +38,8 @@ func (widget *Widget) Refresh() {
 		appName = app.Name
 	}
 
+	widget.UpdateRefreshedAt()
 	widget.View.SetTitle(fmt.Sprintf(" New Relic: [green]%s[white] ", appName))
-
 	widget.View.Clear()
 
 	if depErr != nil {
@@ -50,8 +49,6 @@ func (widget *Widget) Refresh() {
 		widget.View.SetWrap(false)
 		fmt.Fprintf(widget.View, "%s", widget.contentFrom(deploys))
 	}
-
-	widget.RefreshedAt = time.Now()
 }
 
 /* -------------------- Unexported Functions -------------------- */

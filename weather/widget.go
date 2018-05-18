@@ -2,7 +2,6 @@ package weather
 
 import (
 	"os"
-	"time"
 
 	owm "github.com/briandowns/openweathermap"
 	"github.com/gdamore/tcell"
@@ -81,8 +80,8 @@ func (widget *Widget) Refresh() {
 
 	widget.Data = widget.Fetch(wtf.ToInts(Config.UList("wtf.mods.weather.cityids", widget.defaultCityCodes())))
 
+	widget.UpdateRefreshedAt()
 	widget.display()
-	widget.RefreshedAt = time.Now()
 }
 
 // Next displays data for the next city data in the list. If the current city is the last
@@ -219,7 +218,7 @@ func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	case "/":
 		widget.showHelp()
 		return nil
-  case "h":
+	case "h":
 		widget.Prev()
 		return nil
 	case "l":

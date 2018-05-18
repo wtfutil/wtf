@@ -2,7 +2,6 @@ package security
 
 import (
 	"fmt"
-	"time"
 
 	"github.com/olebedev/config"
 	"github.com/senorprogrammer/wtf/wtf"
@@ -33,10 +32,10 @@ func (widget *Widget) Refresh() {
 	data := NewSecurityData()
 	data.Fetch()
 
+	widget.UpdateRefreshedAt()
 	widget.View.Clear()
-	fmt.Fprintf(widget.View, "%s", widget.contentFrom(data))
 
-	widget.RefreshedAt = time.Now()
+	fmt.Fprintf(widget.View, "%s", widget.contentFrom(data))
 }
 
 /* -------------------- Unexported Functions -------------------- */

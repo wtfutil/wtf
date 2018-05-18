@@ -33,9 +33,9 @@ func (widget *Widget) Refresh() {
 		return
 	}
 
+	widget.UpdateRefreshedAt()
 	widget.View.Clear()
 	widget.display(widget.clockColl.Sorted())
-	widget.RefreshedAt = time.Now()
 }
 
 /* -------------------- Unexported Functions -------------------- */

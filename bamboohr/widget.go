@@ -2,7 +2,6 @@ package bamboohr
 
 import (
 	"fmt"
-	"time"
 
 	"github.com/olebedev/config"
 	"github.com/senorprogrammer/wtf/wtf"
@@ -37,12 +36,11 @@ func (widget *Widget) Refresh() {
 		wtf.Now().Format(wtf.DateFormat),
 	)
 
+	widget.UpdateRefreshedAt()
 	widget.View.SetTitle(fmt.Sprintf(" 👽 Away (%d) ", len(todayItems)))
-
 	widget.View.Clear()
-	fmt.Fprintf(widget.View, "%s", widget.contentFrom(todayItems))
 
-	widget.RefreshedAt = time.Now()
+	fmt.Fprintf(widget.View, "%s", widget.contentFrom(todayItems))
 }
 
 /* -------------------- Unexported Functions -------------------- */

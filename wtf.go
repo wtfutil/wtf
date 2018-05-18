@@ -10,6 +10,7 @@ import (
 	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/bamboohr"
 	"github.com/senorprogrammer/wtf/clocks"
+	"github.com/senorprogrammer/wtf/cmdrunner"
 	"github.com/senorprogrammer/wtf/gcal"
 	"github.com/senorprogrammer/wtf/git"
 	"github.com/senorprogrammer/wtf/github"
@@ -63,7 +64,7 @@ func buildGrid(modules []wtf.Wtfable) *tview.Grid {
 func keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	switch event.Key() {
 	case tcell.KeyCtrlR:
-		refreshAllModules()
+		refreshAllWidgets()
 	case tcell.KeyTab:
 		FocusTracker.Next()
 	case tcell.KeyBacktab:
@@ -96,9 +97,9 @@ func redrawApp(app *tview.Application) {
 	}
 }
 
-func refreshAllModules() {
-	for _, module := range Widgets {
-		go module.Refresh()
+func refreshAllWidgets() {
+	for _, widget := range Widgets {
+		go widget.Refresh()
 	}
 }
 
@@ -151,6 +152,7 @@ func main() {
 
 	bamboohr.Config = Config
 	clocks.Config = Config
+	cmdrunner.Config = Config
 	gcal.Config = Config
 	git.Config = Config
 	github.Config = Config
@@ -168,6 +170,7 @@ func main() {
 	Widgets = []wtf.Wtfable{
 		bamboohr.NewWidget(),
 		clocks.NewWidget(),
+		cmdrunner.NewWidget(),
 		gcal.NewWidget(),
 		git.NewWidget(app, pages),
 		github.NewWidget(app, pages),
