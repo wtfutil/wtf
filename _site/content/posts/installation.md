@@ -17,6 +17,7 @@ git clone git@github.com:senorprogrammer/wtf.git
 `cd` into that `wtf/` directory and run:
 
 ```bash
+make dependencies
 make install
 ```
 
