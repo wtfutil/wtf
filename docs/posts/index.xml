@@ -6,10 +6,22 @@
     <description>Recent content in Posts on WTF</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 18 May 2018 09:59:40 -0700</lastBuildDate>
+    <lastBuildDate>Mon, 21 May 2018 16:11:58 -0700</lastBuildDate>
     
 	<atom:link href="http://wtfutil.com/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Overview</title>
+      <link>http://wtfutil.com/posts/overview/</link>
+      <pubDate>Mon, 21 May 2018 16:11:58 -0700</pubDate>
+      
+      <guid>http://wtfutil.com/posts/overview/</guid>
+      <description>WTF is a personal information dashboard for your terminal, developed for those who spend most of their day in the command line.
+It allows you to monitor services and systems that you otherwise might keep browser tabs open for, the kinds of things you don&amp;rsquo;t always need visible, but might check in on every now and then.
+Download it as a stand-alone, compiled binary, or install it from source.
+Once installed, edit your configuration file and define the modules you want to run.</description>
+    </item>
     
     <item>
       <title>Installation</title>
