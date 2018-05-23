@@ -33,6 +33,9 @@ See [LICENSE.md](LICENSE.md) file for details.
 The inspiration for `WTF` came from Monica Dinculescu's
 [tiny-care-terminal](https://github.com/notwaldorf/tiny-care-terminal).
 
+Many thanks to <a href="https://lendesk.com">Lendesk</a> for supporting this project by
+providing time to develop it.
+
 The following open-source libraries were used in the creation of `WTF`.
 Many thanks to all these developers.
 
@@ -41,6 +44,6 @@ Many thanks to all these developers.
 * [go-github](https://github.com/google/go-github)
 * [goreleaser](https://github.com/goreleaser/goreleaser)
 * [newrelic](https://github.com/yfronto/newrelic)
-* [openweathremap](https://github.com/briandowns/openweathermap)
+* [openweathermap](https://github.com/briandowns/openweathermap)
 * [tcell](https://github.com/gdamore/tcell)
 * [tview](https://github.com/rivo/tview)
