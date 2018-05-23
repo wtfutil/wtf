@@ -8,6 +8,7 @@ type SecurityData struct {
 	Dns             string
 	FirewallEnabled string
 	FirewallStealth string
+	LoggedInUsers   []string
 	WifiEncryption  string
 	WifiName        string
 }
@@ -30,6 +31,7 @@ func (data *SecurityData) Fetch() {
 	data.Dns = DnsServers()
 	data.FirewallEnabled = FirewallState()
 	data.FirewallStealth = FirewallStealthState()
+	data.LoggedInUsers = LoggedInUsers()
 	data.WifiName = WifiName()
 	data.WifiEncryption = WifiEncryption()
 }

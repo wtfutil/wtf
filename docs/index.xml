@@ -197,8 +197,8 @@ position Where in the grid this module&amp;rsquo;s widget will be displayed.</de
       <pubDate>Tue, 08 May 2018 20:33:28 -0700</pubDate>
       
       <guid>http://wtfutil.com/posts/modules/security/</guid>
-      <description>Displays some general information about the state of the machine&amp;rsquo;s wifi connection, firewall, and DNS settings.
-Wifi Network The name of the current network Whether or not the network uses encryption and if so, what flavour  Firewall Whether or not the firewall is enabled Whether or not Stealth Mode is enabled  DNS Which DNS resolvers (servers) the machine is configured to use  Source Code wtf/security Required ENV Variables None.</description>
+      <description>Displays some general information about the state of the machine&amp;rsquo;s wifi connection, firewall, DNS settings, and logged-in users.
+Wifi Network The name of the current network Whether or not the network uses encryption and if so, what flavour  Firewall Whether or not the firewall is enabled Whether or not Stealth Mode is enabled  DNS Which DNS resolvers (servers) the machine is configured to use  Users  Which users are logged into the machine.</description>
     </item>
     
     <item>

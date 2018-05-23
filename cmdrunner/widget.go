@@ -23,11 +23,13 @@ type Widget struct {
 func NewWidget() *Widget {
 
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(" 🏃 Runner ", "cmdrunner", true),
+		TextWidget: wtf.NewTextWidget(" 🏃 Runner ", "cmdrunner", false),
 
 		args: wtf.ToStrs(Config.UList("wtf.mods.cmdrunner.args")),
 		cmd:  Config.UString("wtf.mods.cmdrunner.cmd"),
 	}
+
+	widget.View.SetWrap(true)
 
 	return &widget
 }

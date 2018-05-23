@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os/exec"
+	"regexp"
 	"strings"
 	"time"
 
@@ -51,6 +52,11 @@ func Exclude(strs []string, val string) bool {
 	return true
 }
 
+func FindMatch(pattern string, data string) [][]string {
+	r := regexp.MustCompile(pattern)
+	return r.FindAllStringSubmatch(data, -1)
+}
+
 func NameFromEmail(email string) string {
 	parts := strings.Split(email, "@")
 	return strings.Title(strings.Replace(parts[0], ".", " ", -1))
@@ -68,10 +74,9 @@ func NamesFromEmails(emails []string) []string {
 
 // OpenFile opens the file defined in `path` via the operating system
 func OpenFile(path string) {
-	confDir, _ := ConfigDir()
-	filePath := fmt.Sprintf("%s/%s", confDir, path)
-
+	filePath, _ := ExpandHomeDir(path)
 	cmd := exec.Command("open", filePath)
+
 	ExecuteCommand(cmd)
 }
 

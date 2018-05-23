@@ -5,7 +5,7 @@ draft: false
 ---
 
 Displays some general information about the state of the machine's wifi
-connection, firewall, and DNS settings.
+connection, firewall, DNS settings, and logged-in users.
 
 <img src="/imgs/modules/security.png" width="320" height="192" alt="security screenshot" />
 
@@ -27,6 +27,13 @@ connection, firewall, and DNS settings.
 
 <ul class="list-ornate">
 <li>Which <a hre="https://developers.cloudflare.com/1.1.1.1/what-is-1.1.1.1/">DNS resolvers</a> (servers) the machine is configured to use</li>
+</ul>
+
+#### Users
+
+<ul class="list-ornate">
+<li> Which users are logged into the machine. Note: Does not yet
+show hidden users.</li>
 </ul>
 
 ## Source Code
