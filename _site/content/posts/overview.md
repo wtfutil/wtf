@@ -38,7 +38,7 @@ Shows version info.
 ## Keyboard Commands
 
 <span class="caption">Key:</span> `Ctrl-R` <br />
-<span class="caption">Action:</span> Force-rrefresh the data for all modules.
+<span class="caption">Action:</span> Force-refresh the data for all modules.
 
 <span class="caption">Key:</span> `Esc` <br />
 <span class="caption">Action:</span> Unfocus the currently-focused
