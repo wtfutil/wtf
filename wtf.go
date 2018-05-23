@@ -119,8 +119,8 @@ func main() {
 	/*
 	  This allows the user to pass flags in however they prefer. It supports the likes of:
 
-	    wtf help    | -help    | --help
-	    wtf version | -version | --version
+	    wtf -help    | --help
+	    wtf -version | --version
 	*/
 	flagConf := flag.String("config", "~/.wtf/config.yml", "Path to config file")
 	flagHelp := flag.Bool("help", false, "Show help")
@@ -129,14 +129,14 @@ func main() {
 	flag.Parse()
 
 	if *flagHelp {
-		help.DisplayHelpInfo()
+		help.DisplayHelpInfo(flag.Args())
 	}
 
 	if *flagVers {
 		help.DisplayVersionInfo(version)
 	}
 
-	help.DisplayCommandInfo(flag.Args(), version)
+	//help.DisplayCommandInfo(flag.Args(), version)
 
 	/* -------------------- end flag parsing and handling -------------------- */
 

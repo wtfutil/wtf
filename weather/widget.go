@@ -13,12 +13,12 @@ import (
 // Config is a pointer to the global config object.
 var Config *config.Config
 
-const helpText = `
+const HelpText = `
   Keyboard commands for Weather:
 
     /: Show/hide this help window
-		h: Previous weather location
-		l: Next weather location
+    h: Previous weather location
+    l: Next weather location
 
     arrow left:  Previous weather location
     arrow right: Next weather location
@@ -244,7 +244,7 @@ func (widget *Widget) showHelp() {
 		widget.app.SetFocus(widget.View)
 	}
 
-	modal := wtf.NewBillboardModal(helpText, closeFunc)
+	modal := wtf.NewBillboardModal(HelpText, closeFunc)
 
 	widget.pages.AddPage("help", modal, false, true)
 	widget.app.SetFocus(modal)

@@ -13,7 +13,7 @@ import (
 // Config is a pointer to the global config object
 var Config *config.Config
 
-const helpText = `
+const HelpText = `
   Keyboard commands for Textfile:
 
     /: Show/hide this help window
@@ -91,7 +91,7 @@ func (widget *Widget) showHelp() {
 		widget.app.SetFocus(widget.View)
 	}
 
-	modal := wtf.NewBillboardModal(helpText, closeFunc)
+	modal := wtf.NewBillboardModal(HelpText, closeFunc)
 
 	widget.pages.AddPage("help", modal, false, true)
 	widget.app.SetFocus(modal)
