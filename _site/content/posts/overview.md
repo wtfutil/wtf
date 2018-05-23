@@ -18,3 +18,31 @@ modules you want to run.
 
 Configuration instructions for each module can be found in the module
 pages, listed at left.
+
+## Command-line Options
+
+`--config` <br />
+Allows you to define a custom config file to use. See <a href="/posts/configuration/">Configuration</a> for more details.
+
+`-h` <br />
+Shows help information for the command-line arguments that WTF
+takes.
+
+`--help [module name]` <br />
+Shows help information for the specific named module, if that module
+supports help text. Ex: `wtf --help git`.
+
+`--version` <br />
+Shows version info.
+
+## Keyboard Commands
+
+<span class="caption">Key:</span> `Ctrl-R` <br />
+<span class="caption">Action:</span> Force-rrefresh the data for all modules.
+
+<span class="caption">Key:</span> `Esc` <br />
+<span class="caption">Action:</span> Unfocus the currently-focused
+widget.
+
+<span class="caption">Key:</span> `Tab` <br />
+<span class="caption">Action:</span> Move between focusable modules (`Shift-Tab` to move backwards).

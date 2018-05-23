@@ -105,7 +105,9 @@
       </span>
   </div>
   
-  <p><span style="font-family: monospace; font-size: 1.6em;">WTF</span> is a personal information dashboard for your terminal, developed for those who spend most of their day in the command line.</p>
+  
+
+<p><span style="font-family: monospace; font-size: 1.6em;">WTF</span> is a personal information dashboard for your terminal, developed for those who spend most of their day in the command line.</p>
 
 <p>It allows you to monitor services and systems that you otherwise might
 keep browser tabs open for, the kinds of things you don&rsquo;t always need
@@ -119,6 +121,34 @@ modules you want to run.</p>
 
 <p>Configuration instructions for each module can be found in the module
 pages, listed at left.</p>
+
+<h2 id="command-line-options">Command-line Options</h2>
+
+<p><code>--config</code> <br />
+Allows you to define a custom config file to use. See <a href="/posts/configuration/">Configuration</a> for more details.</p>
+
+<p><code>-h</code> <br />
+Shows help information for the command-line arguments that WTF
+takes.</p>
+
+<p><code>--help [module name]</code> <br />
+Shows help information for the specific named module, if that module
+supports help text. Ex: <code>wtf --help git</code>.</p>
+
+<p><code>--version</code> <br />
+Shows version info.</p>
+
+<h2 id="keyboard-commands">Keyboard Commands</h2>
+
+<p><span class="caption">Key:</span> <code>Ctrl-R</code> <br />
+<span class="caption">Action:</span> Force-rrefresh the data for all modules.</p>
+
+<p><span class="caption">Key:</span> <code>Esc</code> <br />
+<span class="caption">Action:</span> Unfocus the currently-focused
+widget.</p>
+
+<p><span class="caption">Key:</span> <code>Tab</code> <br />
+<span class="caption">Action:</span> Move between focusable modules (<code>Shift-Tab</code> to move backwards).</p>
 
 </div>
 

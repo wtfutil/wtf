@@ -19,8 +19,7 @@
       <guid>http://wtfutil.com/posts/overview/</guid>
       <description>WTF is a personal information dashboard for your terminal, developed for those who spend most of their day in the command line.
 It allows you to monitor services and systems that you otherwise might keep browser tabs open for, the kinds of things you don&amp;rsquo;t always need visible, but might check in on every now and then.
-Download it as a stand-alone, compiled binary, or install it from source.
-Once installed, edit your configuration file and define the modules you want to run.</description>
+Download it as a stand-alone, compiled binary, or install it from source.</description>
     </item>
     
     <item>

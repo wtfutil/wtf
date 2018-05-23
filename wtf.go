@@ -136,8 +136,6 @@ func main() {
 		help.DisplayVersionInfo(version)
 	}
 
-	//help.DisplayCommandInfo(flag.Args(), version)
-
 	/* -------------------- end flag parsing and handling -------------------- */
 
 	// Responsible for creating the configuration directory and default
