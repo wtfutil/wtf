@@ -10,14 +10,16 @@ It allows you to monitor services and systems that you otherwise might
 keep browser tabs open for, the kinds of things you don't always need
 visible, but might check in on every now and then.
 
-<a href="https://github.com/senorprogrammer/wtf/releases">Download it</a> as a stand-alone, compiled binary, or install it <a href="https://github.com/senorprogrammer/wtf">from source</a>.
+## Quick Start
 
-Once installed, edit your <a
-href="/posts/configuration/">configuration file</a> and define the
-modules you want to run.
+1. <a href="https://github.com/senorprogrammer/wtf/releases">Download</a> the stand-alone, compiled binary.
+2. Unzip the downloaded file.
+3. From the command line, `cd` into the newly-created `/wtf` directory.
+4. From the command line, run the app: `./wtf`
 
-Configuration instructions for each module can be found in the module
-pages, listed at left.
+This should launch the app in your terminal using the default simple
+configuration. See <a href="/posts/configuration/">Configuration</a> for
+more details.
 
 ## Command-line Options
 
