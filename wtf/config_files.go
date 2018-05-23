@@ -106,9 +106,8 @@ func WriteConfigFile() {
 	}
 }
 
-const simpleConfig = `
-wtf:
-	colors:
+const simpleConfig = `wtf:
+  colors:
     border:
       focusable: darkslateblue
       focused: orange
