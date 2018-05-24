@@ -88,8 +88,9 @@ func (widget *Widget) tickMarks(data []*GitRepo) string {
 	str := ""
 
 	if len(data) > 1 {
-		marks := strings.Repeat("*", len(data))
-		marks = marks[:widget.Idx] + "_" + marks[widget.Idx+1:]
+		marks := strings.Repeat("•", widget.Idx)
+		marks = marks + "⦿"
+		marks = marks + strings.Repeat("•", len(data) - 1 - widget.Idx)
 
 		str = "[lightblue]" + fmt.Sprintf(wtf.RightAlignFormat(widget.View), marks) + "[white]"
 	}
