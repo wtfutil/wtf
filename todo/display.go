@@ -2,8 +2,6 @@ package todo
 
 import (
 	"fmt"
-	//"strings"
-	//"github.com/gdamore/tcell"
 
 	"github.com/senorprogrammer/wtf/wtf"
 )
