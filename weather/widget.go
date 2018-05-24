@@ -135,7 +135,7 @@ func (widget *Widget) currentWeather(apiKey string, cityCode int) (*owm.CurrentW
 }
 
 func (widget *Widget) defaultCityCodes() []interface{} {
-	defaultArr := []int{6176823, 360630, 3413829}
+	defaultArr := []int{3370352}
 
 	var defaults = make([]interface{}, len(defaultArr))
 	for i, d := range defaultArr {

@@ -17,18 +17,62 @@ wtf:
         height: 2
         width: 1
       refreshInterval: 900
-      url: "https://api.bamboohr.com/api/gateway.php"
-    gcal:
-      currentIcon: "💥"
+    clocks:
+      colors:
+        rows:
+          even: "lightblue"
+          odd: "white"
       enabled: true
-      eventCount: 10
+      locations:
+        # From https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+        Avignon: "Europe/Paris"
+        Barcelona: "Europe/Madrid"
+        Dubai: "Asia/Dubai"
+        UTC: "Etc/UTC"
+        Vancouver: "America/Vancouver"
+        Toronto: "America/Toronto"
       position:
-        top: 2
+        top: 3
         left: 1
+        height: 1
+        width: 1
+      refreshInterval: 15
+      # Valid options are: alphabetical, chronological
+      sort: "alphabetical"
+    cmdrunner:
+      args: ["-g", "batt"]
+      cmd: "pmset"
+      enabled: true
+      position:
+        top: 6
+        left: 2
+        height: 1
+        width: 2
+      refreshInterval: 30
+    gcal:
+      colors:
+        title: "red"
+        description: "lightblue"
+        highlights:
+        - ['1on1|1\/11', 'green']
+        - ['apple|google|aws', 'blue']
+        - ['interview|meet\ ', 'lightseagreen']
+        - ['lunch', 'yellow']
+        past: "gray"
+      conflictIcon: "🚨"
+      currentIcon: "💥"
+      displayResponseStatus: true
+      email: "your.email@example.com"
+      enabled: true
+      eventCount: 12
+      position:
+        top: 0
+        left: 0
         height: 4
         width: 1
       refreshInterval: 300
       secretFile: "~/.wtf/gcal/client_secret.json"
+      withLocation: true
     git:
       commitCount: 5
       enabled: true
@@ -38,21 +82,27 @@ wtf:
         height: 2
         width: 3
       refreshInterval: 8
-      repository: "/Users/chris/go/src/github.com/senorprogrammer/wtf"
+      repositories:
+      - "/Users/chris/go/src/github.com/senorprogrammer/wtf"
     github:
       enabled: true
-      owner: "senorprogrammer"
       position:
         top: 2
         left: 2
         height: 2
         width: 3
       refreshInterval: 300
-      repo: "wtf"
+      repositories:
+        repo-name: "owner id"
+        wtf: "senorprogrammer"
       username: "senorprogrammer"
     jira:
-      enabled: true
+      colors:
+        rows:
+          even: "lightblue"
+          odd: "white"
       domain: "https://lendesk.atlassian.net"
+      enabled: true
       position:
         top: 1
         left: 1
@@ -62,7 +112,7 @@ wtf:
       refreshInterval: 900
       username: "chris.cummer"
     newrelic:
-      applicationId: 10549735
+      applicationId: 10594735
       enabled: true
       deployCount: 10
       position:
@@ -72,6 +122,7 @@ wtf:
         width: 3
       refreshInterval: 900
     opsgenie:
+      displayEmpty: true
       enabled: true
       position:
         top: 2
@@ -95,14 +146,42 @@ wtf:
         height: 1
         width: 1
       refreshInterval: 1
-    weather:
-      cityId: 6173331
+    system:
       enabled: true
-      language: "EN"
+      position:
+        top: 5
+        left: 1
+        height: 2
+        width: 1
+      refreshInterval: 3600
+    todo:
+      checkedIcon: "X"
+      colors:
+        checked: gray
+        highlight:
+          fore: "black"
+          back: "orange"
+      enabled: true
+      filename: "todo.yml"
       position:
         top: 0
         left: 1
+        height: 2
+        width: 1
+      refreshInterval: 3600
+    weather:
+      # From http://openweathermap.org/help/city_list.txt
+      cityids:
+      - 3370352
+      - 1283240
+      colors:
+        current: "lightblue"
+      enabled: true
+      language: "EN"
+      position:
+        top: 2
+        left: 1
         height: 1
         width: 1
+      refreshInterval: 90
       tempUnit: "C"
-      refreshInterval: 900
