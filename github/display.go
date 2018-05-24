@@ -2,7 +2,6 @@ package github
 
 import (
 	"fmt"
-	"strings"
 
 	"github.com/senorprogrammer/wtf/wtf"
 )
@@ -18,7 +17,7 @@ func (widget *Widget) display() {
 
 	widget.View.SetTitle(fmt.Sprintf(" Github: %s ", widget.title(repo)))
 
-	str := widget.tickMarks(widget.Data) + "\n"
+	str := wtf.SygilStr(len(widget.Data), widget.Idx, widget.View) + "\n"
 	str = str + " [red]Open Review Requests[white]\n"
 	str = str + widget.prsForReview(repo, Config.UString("wtf.mods.github.username"))
 	str = str + "\n"
@@ -67,19 +66,6 @@ func (widget *Widget) prsForReview(repo *GithubRepo, username string) string {
 
 	if str == "" {
 		return " [grey]none[white]\n"
-	}
-
-	return str
-}
-
-func (widget *Widget) tickMarks(data []*GithubRepo) string {
-	str := ""
-
-	if len(data) > 1 {
-		marks := strings.Repeat("*", len(data))
-		marks = marks[:widget.Idx] + "_" + marks[widget.Idx+1:]
-
-		str = "[lightblue]" + fmt.Sprintf(wtf.RightAlignFormat(widget.View), marks) + "[white]"
 	}
 
 	return str

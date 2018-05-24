@@ -24,7 +24,7 @@ func (widget *Widget) display() {
 
 	widget.View.SetTitle(widget.title(cityData))
 
-	str := widget.tickMarks(widget.Data) + "\n"
+	str := wtf.SygilStr(len(widget.Data), widget.Idx, widget.View) + "\n"
 	str = str + widget.description(cityData) + "\n\n"
 	str = str + widget.temperatures(cityData) + "\n"
 	str = str + widget.sunInfo(cityData)
@@ -63,19 +63,6 @@ func (widget *Widget) temperatures(cityData *owm.CurrentWeatherData) string {
 	)
 
 	str = str + fmt.Sprintf("%8s: %4.1f° %s\n", "Low", cityData.Main.TempMin, tempUnit)
-
-	return str
-}
-
-func (widget *Widget) tickMarks(data []*owm.CurrentWeatherData) string {
-	str := ""
-
-	if len(data) > 1 {
-		marks := strings.Repeat("*", len(data))
-		marks = marks[:widget.Idx] + "_" + marks[widget.Idx+1:]
-
-		str = "[lightblue]" + fmt.Sprintf(wtf.RightAlignFormat(widget.View), marks) + "[white]"
-	}
 
 	return str
 }

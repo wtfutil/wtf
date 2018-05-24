@@ -20,7 +20,7 @@ func (widget *Widget) display() {
 	title := fmt.Sprintf("[green]%s[white]\n", repoData.Repository)
 	widget.View.SetTitle(fmt.Sprintf(" Git: %s ", title))
 
-	str := widget.tickMarks(widget.Data) + "\n"
+	str := wtf.SygilStr(len(widget.Data), widget.Idx, widget.View) + "\n"
 	str = str + " [red]Branch[white]\n"
 	str = str + fmt.Sprintf(" %s", repoData.Branch)
 	str = str + "\n"
@@ -82,17 +82,4 @@ func (widget *Widget) formatCommits(data []string) string {
 
 func (widget *Widget) formatCommit(line string) string {
 	return fmt.Sprintf(" %s\n", strings.Replace(line, "\"", "", -1))
-}
-
-func (widget *Widget) tickMarks(data []*GitRepo) string {
-	str := ""
-
-	if len(data) > 1 {
-		marks := strings.Repeat("*", len(data))
-		marks = marks[:widget.Idx] + "_" + marks[widget.Idx+1:]
-
-		str = "[lightblue]" + fmt.Sprintf(wtf.RightAlignFormat(widget.View), marks) + "[white]"
-	}
-
-	return str
 }

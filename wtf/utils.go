@@ -119,6 +119,20 @@ func RowColor(module string, idx int) string {
 	}
 }
 
+func SygilStr(len, pos int, view *tview.TextView) string {
+	sygils := ""
+
+	if len > 0 {
+		sygils = strings.Repeat(Config.UString("wtf.paging.pageSygil", "*"), pos)
+		sygils = sygils + Config.UString("wtf.paging.selectedSygil", "_")
+		sygils = sygils + strings.Repeat(Config.UString("wtf.paging.pageSygil", "*"), len-1-pos)
+
+		sygils = "[lightblue]" + fmt.Sprintf(RightAlignFormat(view), sygils) + "[white]"
+	}
+
+	return sygils
+}
+
 /* -------------------- Slice Conversion -------------------- */
 
 func ToInts(slice []interface{}) []int {
