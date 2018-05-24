@@ -6,10 +6,22 @@
     <description>Recent content in Posts on WTF</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 21 May 2018 16:11:58 -0700</lastBuildDate>
+    <lastBuildDate>Thu, 24 May 2018 09:57:40 -0700</lastBuildDate>
     
 	<atom:link href="http://wtfutil.com/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Configuration: iTerm2</title>
+      <link>http://wtfutil.com/posts/configuration/iterm2/</link>
+      <pubDate>Thu, 24 May 2018 09:57:40 -0700</pubDate>
+      
+      <guid>http://wtfutil.com/posts/configuration/iterm2/</guid>
+      <description>Many terminal apps don&amp;rsquo;t properly display multibyte emoji characters properly. This may fix the issue for you in iTerm2, it also may not.
+By default iTerm2 uses a unicode rendering format that is not comletely compatible with some emoji characters. Instead what you&amp;rsquo;ll see is the emoji over-lapping normal text characters, or drawing outside the bounds of where they should be.
+In iTerm2 open:
+Preferences -&amp;gt; Profiles -&amp;gt; Text and check on the &amp;ldquo;Use Unicode Version 9 Widths&amp;rdquo; checkbox.</description>
+    </item>
     
     <item>
       <title>Overview</title>

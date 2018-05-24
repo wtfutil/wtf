@@ -10,8 +10,8 @@
 
 <meta name="generator" content="Hugo 0.38.2" />
 
-<title>Modules: Security | WTF</title>
-<meta content="Modules: Security - WTF" property="og:title">
+<title>Configuration: iTerm2 | WTF</title>
+<meta content="Configuration: iTerm2 - WTF" property="og:title">
 <meta content=" - " property="og:description">
 <!-- CSS -->
 <link rel="stylesheet" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
@@ -90,13 +90,13 @@
 
         <div class="content container">
             <div class="post">
-  <h1>Modules: Security</h1>
+  <h1>Configuration: iTerm2</h1>
   
   <div class="col-sm-12 col-md-12">
     <span class="text-left post-date meta">
       
       
-        May 08, 2018
+        May 24, 2018
       
       
       
@@ -106,71 +106,24 @@
       </span>
   </div>
   
-  
+  <p>Many terminal apps don&rsquo;t properly display multibyte emoji characters
+properly. This <strong>may</strong> fix the issue for you in iTerm2, it also may not.</p>
 
-<p>Displays some general information about the state of the machine&rsquo;s wifi
-connection, firewall, DNS settings, and logged-in users.</p>
+<p>By default iTerm2 uses a unicode rendering format
+that is not comletely compatible with some emoji characters. Instead what you&rsquo;ll
+see is the emoji over-lapping normal text characters, or drawing outside
+the bounds of where they should be.</p>
 
-<p><img src="/imgs/modules/security.png" width="320" height="192" alt="security screenshot" /></p>
+<p>In iTerm2 open:</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">Preferences -&gt; Profiles -&gt; Text</code></pre></div>
+<p>and check <strong>on</strong> the &ldquo;Use Unicode Version 9 Widths&rdquo; checkbox. Then
+restart WTF.</p>
 
-<h4 id="wifi-network">Wifi Network</h4>
+<p><img src="/imgs/iterm2prefs.png" width="800" height="437" alt="iTerm2
+Prefs" /></p>
 
-<ul class="list-ornate">
-  <li>The name of the current network</li>
-  <li>Whether or not the network uses <a href="https://www.howtogeek.com/167783/htg-explains-the-difference-between-wep-wpa-and-wpa2-wireless-encryption-and-why-it-matters/">encryption</a> and if so, what flavour</li>
-</ul>
-
-<h4 id="firewall">Firewall</h4>
-
-<ul class="list-ornate">
-<li>Whether or not the <a href="https://support.apple.com/en-ca/HT201642">firewall</a> is enabled</li>
-<li>Whether or not <a href="https://support.apple.com/en-ca/HT201642">Stealth Mode</a> is enabled</li>
-</ul>
-
-<h4 id="dns">DNS</h4>
-
-<ul class="list-ornate">
-<li>Which <a hre="https://developers.cloudflare.com/1.1.1.1/what-is-1.1.1.1/">DNS resolvers</a> (servers) the machine is configured to use</li>
-</ul>
-
-<h4 id="users">Users</h4>
-
-<ul class="list-ornate">
-<li> Which users are logged into the machine. Note: Does not yet
-show hidden users.</li>
-</ul>
-
-<h2 id="source-code">Source Code</h2>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">wtf/security</code></pre></div>
-<h2 id="required-env-variables">Required ENV Variables</h2>
-
-<p>None.</p>
-
-<h2 id="keyboard-commands">Keyboard Commands</h2>
-
-<p>None.</p>
-
-<h2 id="configuration">Configuration</h2>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">security<span class="p">:</span><span class="w">
-</span><span class="w">  </span>enabled<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="w">  </span>position<span class="p">:</span><span class="w">
-</span><span class="w">    </span>top<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="w">    </span>left<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
-</span><span class="w">    </span>height<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="w">    </span>width<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="w">  </span>refreshInterval<span class="p">:</span><span class="w"> </span><span class="m">3600</span></code></pre></div>
-<h3 id="attributes">Attributes</h3>
-
-<p><code>enabled</code> <br />
-Determines whether or not this module is executed and if its data displayed onscreen. <br />
-Values: <code>true</code>, <code>false</code>.</p>
-
-<p><code>position</code> <br />
-Defines where in the grid this module&rsquo;s widget will be displayed. <br /></p>
-
-<p><code>refreshInterval</code> <br />
-How often, in seconds, this module will update its data. <br />
-Values: A positive integer, <code>0..n</code>.</p>
+<p>(<em>Note:</em> This issue is not unique to iTerm2. As of this writing it also
+affects <a href="https://en.wikipedia.org/wiki/Terminal_(macOS)">Terminal</a>, and <a href="https://hyper.is">Hyper</a>.)</p>
 
 </div>
 
