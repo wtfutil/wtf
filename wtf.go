@@ -18,6 +18,7 @@ import (
 	"github.com/senorprogrammer/wtf/jira"
 	"github.com/senorprogrammer/wtf/newrelic"
 	"github.com/senorprogrammer/wtf/opsgenie"
+	"github.com/senorprogrammer/wtf/power"
 	"github.com/senorprogrammer/wtf/security"
 	"github.com/senorprogrammer/wtf/status"
 	"github.com/senorprogrammer/wtf/system"
@@ -157,6 +158,7 @@ func main() {
 	jira.Config = Config
 	newrelic.Config = Config
 	opsgenie.Config = Config
+	power.Config = Config
 	security.Config = Config
 	status.Config = Config
 	system.Config = Config
@@ -175,6 +177,7 @@ func main() {
 		jira.NewWidget(),
 		newrelic.NewWidget(),
 		opsgenie.NewWidget(),
+		power.NewWidget(),
 		security.NewWidget(),
 		status.NewWidget(),
 		system.NewWidget(date, version),

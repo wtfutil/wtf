@@ -21,7 +21,6 @@ type Widget struct {
 }
 
 func NewWidget() *Widget {
-
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(" 🏃 Runner ", "cmdrunner", false),
 
