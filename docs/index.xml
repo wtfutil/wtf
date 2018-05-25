@@ -41,9 +41,9 @@ Quick Start  Download the stand-alone, compiled binary. Unzip the downloaded fil
       
       <guid>http://wtfutil.com/posts/installation/</guid>
       <description>There are two ways to install WTF:
-From Source Clone this repo:
-git clone git@github.com:senorprogrammer/wtf.git cd into that wtf/ directory and run:
-make dependencies make install make run and that should probably do it.
+From source:
+Setup Go – https://golang.org/doc/install
+go get github.com/senorprogrammer/wtf cd $GOPATH/github.com/senorprogrammer/wtf make install make run 
 As a Binary Grab the latest version from here:
 https://github.com/senorprogrammer/wtf/releases expand it, and cd into the resulting directory. Then run:
 ./wtf and that should also do it.</description>
