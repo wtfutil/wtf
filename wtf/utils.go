@@ -123,9 +123,9 @@ func SigilStr(len, pos int, view *tview.TextView) string {
 	sigils := ""
 
 	if len > 0 {
-		sigils = strings.Repeat(Config.UString("wtf.paging.pagesigil", "*"), pos)
-		sigils = sigils + Config.UString("wtf.paging.selectedsigil", "_")
-		sigils = sigils + strings.Repeat(Config.UString("wtf.paging.pagesigil", "*"), len-1-pos)
+		sigils = strings.Repeat(Config.UString("wtf.paging.pageSigil", "*"), pos)
+		sigils = sigils + Config.UString("wtf.paging.selectedSigil", "_")
+		sigils = sigils + strings.Repeat(Config.UString("wtf.paging.pageSigil", "*"), len-1-pos)
 
 		sigils = "[lightblue]" + fmt.Sprintf(RightAlignFormat(view), sigils) + "[white]"
 	}
