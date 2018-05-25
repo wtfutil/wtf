@@ -8,20 +8,15 @@ There are two ways to install WTF:
 
 ## From Source
 
-Clone this repo:
+Get this repo and install the dependencies:
 
 ```bash
-git clone git@github.com:senorprogrammer/wtf.git
-```
-
-`cd` into that `wtf/` directory and run:
-
-```bash
-make dependencies
+go get github.com/senorprogrammer/wtf
+cd $GOPATH/github.com/senorprogrammer/wtf
+go get ./...
 make install
 make run
 ```
-
 and that should probably do it.
 
 ## As a Binary
