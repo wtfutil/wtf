@@ -20,7 +20,7 @@ func (widget *Widget) display() {
 	title := fmt.Sprintf("[green]%s[white]\n", repoData.Repository)
 	widget.View.SetTitle(fmt.Sprintf(" Git: %s ", title))
 
-	str := wtf.SygilStr(len(widget.Data), widget.Idx, widget.View) + "\n"
+	str := wtf.SigilStr(len(widget.Data), widget.Idx, widget.View) + "\n"
 	str = str + " [red]Branch[white]\n"
 	str = str + fmt.Sprintf(" %s", repoData.Branch)
 	str = str + "\n"

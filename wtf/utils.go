@@ -119,18 +119,18 @@ func RowColor(module string, idx int) string {
 	}
 }
 
-func SygilStr(len, pos int, view *tview.TextView) string {
-	sygils := ""
+func SigilStr(len, pos int, view *tview.TextView) string {
+	sigils := ""
 
 	if len > 0 {
-		sygils = strings.Repeat(Config.UString("wtf.paging.pageSygil", "*"), pos)
-		sygils = sygils + Config.UString("wtf.paging.selectedSygil", "_")
-		sygils = sygils + strings.Repeat(Config.UString("wtf.paging.pageSygil", "*"), len-1-pos)
+		sigils = strings.Repeat(Config.UString("wtf.paging.pagesigil", "*"), pos)
+		sigils = sigils + Config.UString("wtf.paging.selectedsigil", "_")
+		sigils = sigils + strings.Repeat(Config.UString("wtf.paging.pagesigil", "*"), len-1-pos)
 
-		sygils = "[lightblue]" + fmt.Sprintf(RightAlignFormat(view), sygils) + "[white]"
+		sigils = "[lightblue]" + fmt.Sprintf(RightAlignFormat(view), sigils) + "[white]"
 	}
 
-	return sygils
+	return sigils
 }
 
 /* -------------------- Slice Conversion -------------------- */

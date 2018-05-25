@@ -24,7 +24,7 @@ func (widget *Widget) display() {
 
 	widget.View.SetTitle(widget.title(cityData))
 
-	str := wtf.SygilStr(len(widget.Data), widget.Idx, widget.View) + "\n"
+	str := wtf.SigilStr(len(widget.Data), widget.Idx, widget.View) + "\n"
 	str = str + widget.description(cityData) + "\n\n"
 	str = str + widget.temperatures(cityData) + "\n"
 	str = str + widget.sunInfo(cityData)

@@ -17,7 +17,7 @@ func (widget *Widget) display() {
 
 	widget.View.SetTitle(fmt.Sprintf(" Github: %s ", widget.title(repo)))
 
-	str := wtf.SygilStr(len(widget.Data), widget.Idx, widget.View) + "\n"
+	str := wtf.SigilStr(len(widget.Data), widget.Idx, widget.View) + "\n"
 	str = str + " [red]Open Review Requests[white]\n"
 	str = str + widget.prsForReview(repo, Config.UString("wtf.mods.github.username"))
 	str = str + "\n"
