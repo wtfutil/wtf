@@ -25,10 +25,11 @@ const HelpText = `
 type Widget struct {
 	wtf.TextWidget
 
-	app   *tview.Application
-	Data  []*GithubRepo
-	Idx   int
-	pages *tview.Pages
+	app         *tview.Application
+	pages       *tview.Pages
+
+	GithubRepos []*GithubRepo
+	Idx         int
 }
 
 func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
@@ -39,6 +40,8 @@ func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 		Idx:   0,
 		pages: pages,
 	}
+
+	widget.GithubRepos = widget.buildRepoCollection(Config.UMap("wtf.mods.github.repositories"))
 
 	widget.View.SetInputCapture(widget.keyboardIntercept)
 
@@ -52,7 +55,7 @@ func (widget *Widget) Refresh() {
 		return
 	}
 
-	widget.Data = widget.buildRepoCollection(Config.UMap("wtf.mods.github.repositories"))
+	// TODO: Tell all the Github repos to refresh their data
 
 	widget.UpdateRefreshedAt()
 	widget.display()
@@ -60,7 +63,7 @@ func (widget *Widget) Refresh() {
 
 func (widget *Widget) Next() {
 	widget.Idx = widget.Idx + 1
-	if widget.Idx == len(widget.Data) {
+	if widget.Idx == len(widget.GithubRepos) {
 		widget.Idx = 0
 	}
 
@@ -70,7 +73,7 @@ func (widget *Widget) Next() {
 func (widget *Widget) Prev() {
 	widget.Idx = widget.Idx - 1
 	if widget.Idx < 0 {
-		widget.Idx = len(widget.Data) - 1
+		widget.Idx = len(widget.GithubRepos) - 1
 	}
 
 	widget.display()
@@ -89,16 +92,16 @@ func (widget *Widget) buildRepoCollection(repoData map[string]interface{}) []*Gi
 	return githubRepos
 }
 
-func (widget *Widget) currentData() *GithubRepo {
-	if len(widget.Data) == 0 {
+func (widget *Widget) currentGithubRepo() *GithubRepo {
+	if len(widget.GithubRepos) == 0 {
 		return nil
 	}
 
-	if widget.Idx < 0 || widget.Idx >= len(widget.Data) {
+	if widget.Idx < 0 || widget.Idx >= len(widget.GithubRepos) {
 		return nil
 	}
 
-	return widget.Data[widget.Idx]
+	return widget.GithubRepos[widget.Idx]
 }
 
 func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
