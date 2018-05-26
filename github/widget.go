@@ -25,8 +25,8 @@ const HelpText = `
 type Widget struct {
 	wtf.TextWidget
 
-	app         *tview.Application
-	pages       *tview.Pages
+	app   *tview.Application
+	pages *tview.Pages
 
 	GithubRepos []*GithubRepo
 	Idx         int
@@ -55,7 +55,9 @@ func (widget *Widget) Refresh() {
 		return
 	}
 
-	// TODO: Tell all the Github repos to refresh their data
+	for _, repo := range widget.GithubRepos {
+		repo.Refresh()
+	}
 
 	widget.UpdateRefreshedAt()
 	widget.display()

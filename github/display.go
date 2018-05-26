@@ -18,13 +18,57 @@ func (widget *Widget) display() {
 	widget.View.SetTitle(fmt.Sprintf(" Github: %s ", widget.title(repo)))
 
 	str := wtf.SigilStr(len(widget.GithubRepos), widget.Idx, widget.View) + "\n"
+	str = str + " [red]Stats[white]\n"
+	str = str + widget.displayStats(repo)
+	str = str + "\n"
 	str = str + " [red]Open Review Requests[white]\n"
-	str = str + repo.pullRequetsForMeToReview(Config.UString("wtf.mods.github.username"))
+	str = str + widget.displayMyReviewRequests(repo, Config.UString("wtf.mods.github.username"))
 	str = str + "\n"
 	str = str + " [red]My Pull Requests[white]\n"
-	str = str + repo.myPullRequests(Config.UString("wtf.mods.github.username"))
+	str = str + widget.displayMyPullRequests(repo, Config.UString("wtf.mods.github.username"))
 
 	fmt.Fprintf(widget.View, str)
+}
+
+func (widget *Widget) displayMyPullRequests(repo *GithubRepo, username string) string {
+	prs := repo.myPullRequests(username)
+
+	if len(prs) == 0 {
+		return " [grey]none[white]\n"
+	}
+
+	str := ""
+	for _, pr := range prs {
+		str = str + fmt.Sprintf(" [green]%4d[white] %s\n", *pr.Number, *pr.Title)
+	}
+
+	return str
+}
+
+func (widget *Widget) displayMyReviewRequests(repo *GithubRepo, username string) string {
+	prs := repo.myReviewRequests(username)
+
+	if len(prs) == 0 {
+		return " [grey]none[white]\n"
+	}
+
+	str := ""
+	for _, pr := range prs {
+		str = str + fmt.Sprintf(" [green]%4d[white] %s\n", *pr.Number, *pr.Title)
+	}
+
+	return str
+}
+
+func (widget *Widget) displayStats(repo *GithubRepo) string {
+	str := fmt.Sprintf(
+		" PRs: %d  Issues: %d  Stars: %d\n",
+		repo.PullRequestCount(),
+		repo.IssueCount(),
+		repo.StarCount(),
+	)
+
+	return str
 }
 
 func (widget *Widget) title(repo *GithubRepo) string {
