@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://wtfutil.com/posts/modules/power/</loc>
+    <lastmod>2018-05-26T19:26:23-07:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://wtfutil.com/posts/configuration/iterm2/</loc>
     <lastmod>2018-05-24T09:57:40-07:00</lastmod>
   </url>
@@ -109,7 +114,7 @@
   
   <url>
     <loc>http://wtfutil.com/posts/</loc>
-    <lastmod>2018-05-24T09:57:40-07:00</lastmod>
+    <lastmod>2018-05-26T19:26:23-07:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -120,7 +125,7 @@
   
   <url>
     <loc>http://wtfutil.com/</loc>
-    <lastmod>2018-05-24T09:57:40-07:00</lastmod>
+    <lastmod>2018-05-26T19:26:23-07:00</lastmod>
     <priority>0</priority>
   </url>
   

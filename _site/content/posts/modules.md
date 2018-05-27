@@ -17,20 +17,4 @@ The <a href="/posts/modules/clocks">Clocks</a> module takes a list of
 timezones and packages that information as a list of city/time pairs for
 display in the "Clocks" widget.
 
-Available modules:
-
-<ul class="list-bare">
-  <li><a href="/posts/modules/bamboohr">BambooHR</a>
-  <li><a href="/posts/modules/clocks">Clocks</a>
-  <li><a href="/posts/modules/cmdrunner">CmdRunner</a>
-  <li><a href="/posts/modules/git">Git</a>
-  <li><a href="/posts/modules/github">Github</a>
-  <li><a href="/posts/modules/gcal">Google Calendar</a>
-  <li><a href="/posts/modules/jira">Jira</a>
-  <li><a href="/posts/modules/newrelic">New Relic</a>
-  <li><a href="/posts/modules/opsgenie">OpsGenie</a>
-  <li><a href="/posts/modules/security">Security</a>
-  <li><a href="/posts/modules/textfile">Text File</a>
-  <li><a href="/posts/modules/todo">Todo</a>
-  <li><a href="/posts/modules/weather">Weather</a>
-</ul>
+See available modules at left.

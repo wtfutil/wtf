@@ -6,10 +6,24 @@
     <description>Recent content on WTF</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 24 May 2018 09:57:40 -0700</lastBuildDate>
+    <lastBuildDate>Sat, 26 May 2018 19:26:23 -0700</lastBuildDate>
     
 	<atom:link href="http://wtfutil.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Modules: Power</title>
+      <link>http://wtfutil.com/posts/modules/power/</link>
+      <pubDate>Sat, 26 May 2018 19:26:23 -0700</pubDate>
+      
+      <guid>http://wtfutil.com/posts/modules/power/</guid>
+      <description>Displays information about the current power source.
+For battery, also displays the current charge, estimated time remaining, and whether it is charging or discharging.
+Source Code wtf/power/ Required ENV Variables None.
+Keyboard Commands None.
+Configuration power:enabled:trueposition:top:5left:0height:2width:1refreshInterval:15 Attributes enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.
+position Defines where in the grid this module&amp;rsquo;s widget will be displayed. refreshInterval How often, in seconds, this module will update its data.</description>
+    </item>
     
     <item>
       <title>Configuration: iTerm2</title>
@@ -218,7 +232,7 @@ Wifi Network The name of the current network Whether or not the network uses enc
       
       <guid>http://wtfutil.com/posts/modules/bamboohr/</guid>
       <description>Connects to the BambooHR API and displays who will be Away today.
-Source Code wtf/bamboohr Required ENV Variables Key: WTF_BAMBOO_HR_TOKEN Value: Your BambooHR API token.
+Source Code wtf/bamboohr/ Required ENV Variables Key: WTF_BAMBOO_HR_TOKEN Value: Your BambooHR API token.
 Key: WTF_BAMBOO_HR_SUBDOMAIN Value: Your BambooHR API subdomain name.
 Keyboard Commands None.
 Configuration bamboohr:enabled:trueposition:top:0left:1height:2width:1refreshInterval:900 Attributes enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.

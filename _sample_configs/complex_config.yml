@@ -130,6 +130,14 @@ wtf:
         height: 2
         width: 1
       refreshInterval: 21600
+    power:
+      enabled: true
+      position:
+        top: 5
+        left: 0
+        height: 2
+        width: 1
+      refreshInterval: 15
     security:
       enabled: true
       position:
