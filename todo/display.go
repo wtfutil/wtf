@@ -11,6 +11,8 @@ const checkWidth = 4
 func (widget *Widget) display() {
 	widget.View.Clear()
 
+	maxLen := widget.longestLineLen(widget.list.Items)
+
 	str := ""
 	for idx, item := range widget.list.Items {
 		foreColor, backColor := "white", "black"
@@ -32,8 +34,21 @@ func (widget *Widget) display() {
 			item.Text,
 		)
 
-		str = str + wtf.PadRow((4+len(item.Text)), widget.View) + "\n"
+		str = str + wtf.PadRow((4+len(item.Text)), (4+maxLen)) + "\n"
 	}
 
 	fmt.Fprintf(widget.View, "%s", str)
+}
+
+// longestLineLen returns the length of the longest todo item line
+func (widget *Widget) longestLineLen(items []*Item) int {
+	maxLen := 0
+
+	for _, item := range items {
+		if len(item.Text) > maxLen {
+			maxLen = len(item.Text)
+		}
+	}
+
+	return maxLen
 }

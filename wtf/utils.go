@@ -83,10 +83,8 @@ func OpenFile(path string) {
 // PadRow returns a padding for a row to make it the full width of the containing widget.
 // Useful for ensurig row highlighting spans the full width (I suspect tcell has a better
 // way to do this, but I haven't yet found it)
-func PadRow(offset int, view *tview.TextView) string {
-	_, _, w, _ := view.GetInnerRect()
-
-	padSize := w - offset
+func PadRow(offset int, max int) string {
+	padSize := max - offset
 	if padSize < 0 {
 		padSize = 0
 	}
