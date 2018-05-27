@@ -9,7 +9,7 @@ Connects to the BambooHR API and displays who will be Away today.
 ## Source Code
 
 ```bash
-wtf/bamboohr
+wtf/bamboohr/
 ```
 
 ## Required ENV Variables

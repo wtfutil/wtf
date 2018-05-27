@@ -39,7 +39,7 @@ show hidden users.</li>
 ## Source Code
 
 ```bash
-wtf/security
+wtf/security/
 ```
 
 ## Required ENV Variables
