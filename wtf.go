@@ -4,7 +4,6 @@ import (
 	"flag"
 	"log"
 	"os"
-	"os/user"
 	"path/filepath"
 	"time"
 
@@ -108,20 +107,6 @@ func refreshAllWidgets() {
 	}
 }
 
-/* -------------------- Main -------------------- */
-
-var Config *config.Config
-var FocusTracker wtf.FocusTracker
-var Widgets []wtf.Wtfable
-var Pages *tview.Pages
-var MainPage *tview.Grid
-
-var (
-	commit  = "dev"
-	date    = "dev"
-	version = "dev"
-)
-
 func watchForConfigChanges(app *tview.Application, configFlag *string) {
 	w := watcher.New()
 
@@ -150,18 +135,25 @@ func watchForConfigChanges(app *tview.Application, configFlag *string) {
 		log.Fatalln(err)
 	}
 
-	// Trigger 2 events after watcher started.
-	// go func() {
-	// 	w.Wait()
-	// 	w.TriggerEvent(watcher.Create, nil)
-	// 	w.TriggerEvent(watcher.Remove, nil)
-	// }()
-
 	// Start the watching process - it'll check for changes every 100ms.
 	if err := w.Start(time.Millisecond * 100); err != nil {
 		log.Fatalln(err)
 	}
 }
+
+/* -------------------- Main -------------------- */
+
+var Config *config.Config
+var FocusTracker wtf.FocusTracker
+var Widgets []wtf.Wtfable
+var Pages *tview.Pages
+var MainPage *tview.Grid
+
+var (
+	commit  = "dev"
+	date    = "dev"
+	version = "dev"
+)
 
 func makeWidgets(app *tview.Application) {
 	bamboohr.Config = Config
@@ -202,26 +194,24 @@ func makeWidgets(app *tview.Application) {
 	}
 }
 
-func homeDir() string {
-	u, err := user.Current()
-	if err != nil {
-		return "~/"
-	}
-	return u.HomeDir
-}
-
 func loadConfig(configFlag *string) {
 	Config = wtf.LoadConfigFile(*configFlag)
 }
 
 func main() {
-	/*
-	  This allows the user to pass flags in however they prefer. It supports the likes of:
 
-	    wtf -help    | --help
-	    wtf -version | --version
+	/*
+		This allows the user to pass flags in however they prefer. It supports the likes of:
+
+		wtf -help    | --help
+		wtf -version | --version
 	*/
-	flagConf := flag.String("config", filepath.Join(homeDir(), ".wtf", "config.yml"), "Path to config file")
+	homeDir, err := wtf.Home()
+	if err != nil {
+		os.Exit(1)
+	}
+
+	flagConf := flag.String("config", filepath.Join(homeDir, ".wtf", "config.yml"), "Path to config file")
 	flagHelp := flag.Bool("help", false, "Show help")
 	flagVers := flag.Bool("version", false, "Show version info")
 
@@ -242,7 +232,7 @@ func main() {
 	wtf.CreateConfigDir()
 	wtf.WriteConfigFile()
 
-	Config = wtf.LoadConfigFile(*flagConf)
+	loadConfig(flagConf)
 
 	app := tview.NewApplication()
 	Pages = tview.NewPages()
