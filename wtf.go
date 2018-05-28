@@ -2,11 +2,15 @@ package main
 
 import (
 	"flag"
+	"log"
 	"os"
+	"os/user"
+	"path/filepath"
 	"time"
 
 	"github.com/gdamore/tcell"
 	"github.com/olebedev/config"
+	"github.com/radovskyb/watcher"
 	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/bamboohr"
 	"github.com/senorprogrammer/wtf/clocks"
@@ -109,6 +113,8 @@ func refreshAllWidgets() {
 var Config *config.Config
 var FocusTracker wtf.FocusTracker
 var Widgets []wtf.Wtfable
+var Pages *tview.Pages
+var MainPage *tview.Grid
 
 var (
 	commit  = "dev"
@@ -116,39 +122,48 @@ var (
 	version = "dev"
 )
 
-func main() {
-	/*
-	  This allows the user to pass flags in however they prefer. It supports the likes of:
+func watchForConfigChanges(app *tview.Application, configFlag *string) {
+	w := watcher.New()
 
-	    wtf -help    | --help
-	    wtf -version | --version
-	*/
-	flagConf := flag.String("config", "~/.wtf/config.yml", "Path to config file")
-	flagHelp := flag.Bool("help", false, "Show help")
-	flagVers := flag.Bool("version", false, "Show version info")
+	// notify write events.
+	w.FilterOps(watcher.Write)
 
-	flag.Parse()
+	go func() {
+		for {
+			select {
+			case <-w.Event:
+				Pages.RemovePage("grid")
+				loadConfig(configFlag)
+				makeWidgets(app)
+				MainPage = buildGrid(Widgets)
+				Pages.AddPage("grid", MainPage, true, true)
+			case err := <-w.Error:
+				log.Fatalln(err)
+			case <-w.Closed:
+				return
+			}
+		}
+	}()
 
-	if *flagHelp {
-		help.DisplayHelpInfo(flag.Args())
+	// Watch config file for changes.
+	if err := w.Add(*configFlag); err != nil {
+		log.Fatalln(err)
 	}
 
-	if *flagVers {
-		help.DisplayVersionInfo(version)
+	// Trigger 2 events after watcher started.
+	// go func() {
+	// 	w.Wait()
+	// 	w.TriggerEvent(watcher.Create, nil)
+	// 	w.TriggerEvent(watcher.Remove, nil)
+	// }()
+
+	// Start the watching process - it'll check for changes every 100ms.
+	if err := w.Start(time.Millisecond * 100); err != nil {
+		log.Fatalln(err)
 	}
+}
 
-	/* -------------------- end flag parsing and handling -------------------- */
-
-	// Responsible for creating the configuration directory and default
-	// configuration file if they don't already exist
-	wtf.CreateConfigDir()
-	wtf.WriteConfigFile()
-
-	Config = wtf.LoadConfigFile(*flagConf)
-
-	app := tview.NewApplication()
-	pages := tview.NewPages()
-
+func makeWidgets(app *tview.Application) {
 	bamboohr.Config = Config
 	clocks.Config = Config
 	cmdrunner.Config = Config
@@ -172,8 +187,8 @@ func main() {
 		clocks.NewWidget(),
 		cmdrunner.NewWidget(),
 		gcal.NewWidget(),
-		git.NewWidget(app, pages),
-		github.NewWidget(app, pages),
+		git.NewWidget(app, Pages),
+		github.NewWidget(app, Pages),
 		jira.NewWidget(),
 		newrelic.NewWidget(),
 		opsgenie.NewWidget(),
@@ -181,10 +196,58 @@ func main() {
 		security.NewWidget(),
 		status.NewWidget(),
 		system.NewWidget(date, version),
-		textfile.NewWidget(app, pages),
-		todo.NewWidget(app, pages),
-		weather.NewWidget(app, pages),
+		textfile.NewWidget(app, Pages),
+		todo.NewWidget(app, Pages),
+		weather.NewWidget(app, Pages),
 	}
+}
+
+func homeDir() string {
+	u, err := user.Current()
+	if err != nil {
+		return "~/"
+	}
+	return u.HomeDir
+}
+
+func loadConfig(configFlag *string) {
+	Config = wtf.LoadConfigFile(*configFlag)
+}
+
+func main() {
+	/*
+	  This allows the user to pass flags in however they prefer. It supports the likes of:
+
+	    wtf -help    | --help
+	    wtf -version | --version
+	*/
+	flagConf := flag.String("config", filepath.Join(homeDir(), ".wtf", "config.yml"), "Path to config file")
+	flagHelp := flag.Bool("help", false, "Show help")
+	flagVers := flag.Bool("version", false, "Show version info")
+
+	flag.Parse()
+
+	if *flagHelp {
+		help.DisplayHelpInfo(flag.Args())
+	}
+
+	if *flagVers {
+		help.DisplayVersionInfo(version)
+	}
+
+	/* -------------------- end flag parsing and handling -------------------- */
+
+	// Responsible for creating the configuration directory and default
+	// configuration file if they don't already exist
+	wtf.CreateConfigDir()
+	wtf.WriteConfigFile()
+
+	Config = wtf.LoadConfigFile(*flagConf)
+
+	app := tview.NewApplication()
+	Pages = tview.NewPages()
+
+	makeWidgets(app)
 
 	FocusTracker = wtf.FocusTracker{
 		App:     app,
@@ -194,12 +257,13 @@ func main() {
 
 	// Loop in a routine to redraw the screen
 	go redrawApp(app)
+	go watchForConfigChanges(app, flagConf)
 
-	grid := buildGrid(Widgets)
-	pages.AddPage("grid", grid, true, true)
+	MainPage = buildGrid(Widgets)
+	Pages.AddPage("grid", MainPage, true, true)
 	app.SetInputCapture(keyboardIntercept)
 
-	if err := app.SetRoot(pages, true).Run(); err != nil {
+	if err := app.SetRoot(Pages, true).Run(); err != nil {
 		os.Exit(1)
 	}
 }
