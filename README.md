@@ -13,6 +13,9 @@ displaying infrequently-updating, but very important, daily data.
 
 ### Installation from Source
 
+*Note:* Requires `go v1.7` or later (because it uses the `context`
+package).
+
 ```bash
 go get github.com/senorprogrammer/wtf
 cd $GOPATH/github.com/senorprogrammer/wtf
