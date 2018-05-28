@@ -1,11 +1,11 @@
 package github
 
 import (
-	"context"
 	"net/http"
 	"os"
 
 	ghb "github.com/google/go-github/github"
+	"golang.org/x/net/context"
 	"golang.org/x/oauth2"
 )
 
