@@ -63,7 +63,7 @@ git:
   refreshInterval: 8
   repositories:
   - "/Users/chris/go/src/github.com/senorprogrammer/wtf"
-  - "/Users/chris/Documents/Lendesk/fakeapp"
+  - "/Users/user/fakeapp"
 ```
 
 ### Attributes

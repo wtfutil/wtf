@@ -101,7 +101,7 @@ wtf:
         rows:
           even: "lightblue"
           odd: "white"
-      domain: "https://lendesk.atlassian.net"
+      domain: "https://company.atlassian.net"
       enabled: true
       position:
         top: 1

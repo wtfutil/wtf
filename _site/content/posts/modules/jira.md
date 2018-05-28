@@ -39,7 +39,7 @@ jira:
     left: 1
     height: 1
     width: 2
-  project: "CORE"
+  project: "JIRA"
   refreshInterval: 900
   username: "chris.cummer"
 ```
