@@ -14,7 +14,24 @@ documentation. Here's some short-cuts:
 
 * [Installation](http://wtfutil.com/posts/installation/)
 * [Configuration](http://wtfutil.com/posts/configuration/)
-* [Available Modules](http://wtfutil.com/posts/modules/)
+* [Module Documentation](http://wtfutil.com/posts/modules/)
+
+And a "probably up-to-date" list of currently-implemented modules:
+
+* [BambooHR](http://wtfutil.com/posts/modules/bamboohr/)
+* [World Clocks](http://wtfutil.com/posts/modules/clocks/)
+* [Command Runner](http://wtfutil.com/posts/modules/cmdrunner/)
+* [Google Calendar](http://wtfutil.com/posts/modules/gcal/)
+* [Git](http://wtfutil.com/posts/modules/git/)
+* [Github](http://wtfutil.com/posts/modules/github/)
+* [Jira](http://wtfutil.com/posts/modules/jira/)
+* [New Relic](http://wtfutil.com/posts/modules/newrelic/)
+* [OpsGenie](http://wtfutil.com/posts/modules/opsgenie)
+* [Power](http://wtfutil.com/posts/modules/power/)
+* [Security](http://wtfutil.com/posts/modules/security/)
+* [Textfile](http://wtfutil.com/posts/modules/textfile/)
+* [Todo List](http://wtfutil.com/posts/modules/todo/)
+* [Weather](http://wtfutil.com/posts/modules/weather/)
 
 ## Contributing
 
