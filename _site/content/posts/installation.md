@@ -12,8 +12,7 @@ Get this repo and install the dependencies:
 
 ```bash
 go get github.com/senorprogrammer/wtf
-cd $GOPATH/github.com/senorprogrammer/wtf
-go get ./...
+cd $GOPATH/src/github.com/senorprogrammer/wtf
 make install
 make run
 ```
