@@ -9,6 +9,17 @@ displaying infrequently-updating, but very important, daily data.
 <img src="./docs/img/screenshot.jpg" title="screenshot" width="720" height="420" />
 </p>
 
+## Quick Start
+
+### Installation from Source
+
+```bash
+go get github.com/senorprogrammer/wtf
+cd $GOPATH/github.com/senorprogrammer/wtf
+make install
+make run
+```
+
 See [https://wtfutil.com](https://wtfutil.com) for the definitive
 documentation. Here's some short-cuts:
 
