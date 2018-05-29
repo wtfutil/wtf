@@ -1,13 +1,13 @@
 package main
 
 import (
-	"flag"
 	"log"
 	"os"
 	"path/filepath"
 	"time"
 
 	"github.com/gdamore/tcell"
+	flags "github.com/jessevdk/go-flags"
 	"github.com/olebedev/config"
 	"github.com/radovskyb/watcher"
 	"github.com/rivo/tview"
@@ -208,17 +208,19 @@ func main() {
 		os.Exit(1)
 	}
 
-	flagConf := flag.String("config", filepath.Join(homeDir, ".wtf", "config.yml"), "Path to config file")
-	flagHelp := flag.Bool("help", false, "Show help")
-	flagVers := flag.Bool("version", false, "Show version info")
-
-	flag.Parse()
-
-	if *flagHelp {
-		help.DisplayHelpInfo(flag.Args())
+	var cmdFlags struct {
+		Version bool   `short:"v" long:"version" description:"Show Version Info"`
+		Config  string `short:"c" long:"config" optional:"yes" description:"Path to config file"`
 	}
 
-	if *flagVers {
+	var parser = flags.NewParser(&cmdFlags, flags.Default)
+	parser.Parse()
+
+	if len(cmdFlags.Config) == 0 {
+		cmdFlags.Config = filepath.Join(homeDir, ".wtf", "config.yml")
+	}
+
+	if cmdFlags.Version {
 		help.DisplayVersionInfo(version)
 	}
 
@@ -229,7 +231,7 @@ func main() {
 	wtf.CreateConfigDir()
 	wtf.WriteConfigFile()
 
-	loadConfig(flagConf)
+	loadConfig(&cmdFlags.Config)
 
 	app := tview.NewApplication()
 	pages := tview.NewPages()
@@ -248,7 +250,7 @@ func main() {
 
 	// Loop in a routine to redraw the screen
 	go redrawApp(app)
-	go watchForConfigChanges(app, flagConf, grid, pages)
+	go watchForConfigChanges(app, &cmdFlags.Config, grid, pages)
 
 	if err := app.SetRoot(pages, true).Run(); err != nil {
 		os.Exit(1)
