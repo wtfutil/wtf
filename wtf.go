@@ -13,6 +13,7 @@ import (
 	"github.com/senorprogrammer/wtf/bamboohr"
 	"github.com/senorprogrammer/wtf/clocks"
 	"github.com/senorprogrammer/wtf/cmdrunner"
+	"github.com/senorprogrammer/wtf/cryptolive"
 	"github.com/senorprogrammer/wtf/gcal"
 	"github.com/senorprogrammer/wtf/git"
 	"github.com/senorprogrammer/wtf/github"
@@ -154,9 +155,12 @@ var (
 )
 
 func makeWidgets(app *tview.Application, pages *tview.Pages) {
+	// Always in alphabetical order
 	bamboohr.Config = Config
 	clocks.Config = Config
 	cmdrunner.Config = Config
+	wtf.Config = Config
+	cryptolive.Config = Config
 	gcal.Config = Config
 	git.Config = Config
 	github.Config = Config
@@ -165,19 +169,20 @@ func makeWidgets(app *tview.Application, pages *tview.Pages) {
 	newrelic.Config = Config
 	opsgenie.Config = Config
 	power.Config = Config
+	prettyweather.Config = Config
 	security.Config = Config
 	status.Config = Config
 	system.Config = Config
 	textfile.Config = Config
 	todo.Config = Config
 	weather.Config = Config
-	prettyweather.Config = Config
-	wtf.Config = Config
 
+	// Always in alphabetical order
 	Widgets = []wtf.Wtfable{
 		bamboohr.NewWidget(),
 		clocks.NewWidget(),
 		cmdrunner.NewWidget(),
+		cryptolive.NewWidget(),
 		gcal.NewWidget(),
 		git.NewWidget(app, pages),
 		github.NewWidget(app, pages),
@@ -186,13 +191,13 @@ func makeWidgets(app *tview.Application, pages *tview.Pages) {
 		newrelic.NewWidget(),
 		opsgenie.NewWidget(),
 		power.NewWidget(),
+		prettyweather.NewWidget(),
 		security.NewWidget(),
 		status.NewWidget(),
 		system.NewWidget(date, version),
 		textfile.NewWidget(app, pages),
 		todo.NewWidget(app, pages),
 		weather.NewWidget(app, pages),
-		prettyweather.NewWidget(),
 	}
 
 	FocusTracker = wtf.FocusTracker{

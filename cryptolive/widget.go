@@ -2,12 +2,10 @@ package cryptolive
 
 import (
 	"fmt"
+	"reflect"
 	"time"
 
 	"github.com/cizixs/gohttp"
-
-	"reflect"
-
 	"github.com/olebedev/config"
 	"github.com/senorprogrammer/wtf/wtf"
 )
