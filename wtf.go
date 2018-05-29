@@ -108,35 +108,34 @@ func refreshAllWidgets() {
 }
 
 func watchForConfigChanges(app *tview.Application, configFlag *string) {
-	w := watcher.New()
+	watch := watcher.New()
 
 	// notify write events.
-	w.FilterOps(watcher.Write)
+	watch.FilterOps(watcher.Write)
 
 	go func() {
 		for {
 			select {
-			case <-w.Event:
-				Pages.RemovePage("grid")
+			case <-watch.Event:
 				loadConfig(configFlag)
 				makeWidgets(app)
-				MainPage = buildGrid(Widgets)
-				Pages.AddPage("grid", MainPage, true, true)
-			case err := <-w.Error:
+				mainPage = buildGrid(Widgets)
+				pages.AddPage("grid", mainPage, true, true)
+			case err := <-watch.Error:
 				log.Fatalln(err)
-			case <-w.Closed:
+			case <-watch.Closed:
 				return
 			}
 		}
 	}()
 
 	// Watch config file for changes.
-	if err := w.Add(*configFlag); err != nil {
+	if err := watch.Add(*configFlag); err != nil {
 		log.Fatalln(err)
 	}
 
 	// Start the watching process - it'll check for changes every 100ms.
-	if err := w.Start(time.Millisecond * 100); err != nil {
+	if err := watch.Start(time.Millisecond * 100); err != nil {
 		log.Fatalln(err)
 	}
 }
@@ -146,8 +145,8 @@ func watchForConfigChanges(app *tview.Application, configFlag *string) {
 var Config *config.Config
 var FocusTracker wtf.FocusTracker
 var Widgets []wtf.Wtfable
-var Pages *tview.Pages
-var MainPage *tview.Grid
+var pages *tview.Pages
+var mainPage *tview.Grid
 
 var (
 	commit  = "dev"
@@ -179,8 +178,8 @@ func makeWidgets(app *tview.Application) {
 		clocks.NewWidget(),
 		cmdrunner.NewWidget(),
 		gcal.NewWidget(),
-		git.NewWidget(app, Pages),
-		github.NewWidget(app, Pages),
+		git.NewWidget(app, pages),
+		github.NewWidget(app, pages),
 		jira.NewWidget(),
 		newrelic.NewWidget(),
 		opsgenie.NewWidget(),
@@ -188,9 +187,9 @@ func makeWidgets(app *tview.Application) {
 		security.NewWidget(),
 		status.NewWidget(),
 		system.NewWidget(date, version),
-		textfile.NewWidget(app, Pages),
-		todo.NewWidget(app, Pages),
-		weather.NewWidget(app, Pages),
+		textfile.NewWidget(app, pages),
+		todo.NewWidget(app, pages),
+		weather.NewWidget(app, pages),
 	}
 }
 
@@ -235,7 +234,7 @@ func main() {
 	loadConfig(flagConf)
 
 	app := tview.NewApplication()
-	Pages = tview.NewPages()
+	pages = tview.NewPages()
 
 	makeWidgets(app)
 
@@ -249,11 +248,11 @@ func main() {
 	go redrawApp(app)
 	go watchForConfigChanges(app, flagConf)
 
-	MainPage = buildGrid(Widgets)
-	Pages.AddPage("grid", MainPage, true, true)
+	mainPage = buildGrid(Widgets)
+	pages.AddPage("grid", mainPage, true, true)
 	app.SetInputCapture(keyboardIntercept)
 
-	if err := app.SetRoot(Pages, true).Run(); err != nil {
+	if err := app.SetRoot(pages, true).Run(); err != nil {
 		os.Exit(1)
 	}
 }
