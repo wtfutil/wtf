@@ -3,7 +3,7 @@
 </p>
 
 A personal terminal-based dashboard utility, designed for
-displaying infrequently-updating, but very important, daily data.
+displaying infrequently-needed, but very important, daily data.
 
 <p align="center">
 <img src="./docs/img/screenshot.jpg" title="screenshot" width="720" height="420" />
