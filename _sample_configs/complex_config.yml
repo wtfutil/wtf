@@ -111,6 +111,7 @@ wtf:
       - "/Users/chris/go/src/github.com/senorprogrammer/wtf"
     github:
       enabled: true
+      notificationUser: "user id"
       position:
         top: 2
         left: 2

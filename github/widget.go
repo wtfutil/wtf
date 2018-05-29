@@ -23,6 +23,7 @@ type Widget struct {
 	wtf.TextWidget
 
 	GithubRepos []*GithubRepo
+	Activity    *GithubActivity
 	Idx         int
 }
 
@@ -35,6 +36,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 	}
 
 	widget.GithubRepos = widget.buildRepoCollection(wtf.Config.UMap("wtf.mods.github.repositories"))
+	widget.Activity = NewGithubActivitys(wtf.Config.UString("wtf.mods.github.notificationUser"))
 
 	widget.HelpfulWidget.SetView(widget.View)
 	widget.View.SetInputCapture(widget.keyboardIntercept)
@@ -48,6 +50,7 @@ func (widget *Widget) Refresh() {
 	for _, repo := range widget.GithubRepos {
 		repo.Refresh()
 	}
+	widget.Activity.Refresh()
 
 	widget.UpdateRefreshedAt()
 	widget.display()

@@ -25,6 +25,9 @@ func (widget *Widget) display() {
 	str = str + "\n"
 	str = str + " [red]My Pull Requests[white]\n"
 	str = str + widget.displayMyPullRequests(repo, wtf.Config.UString("wtf.mods.github.username"))
+	str = str + "\n"
+	str = str + widget.displayNotifications()
+	str = str + "\n"
 
 	widget.View.SetText(str)
 }
@@ -54,6 +57,19 @@ func (widget *Widget) displayMyReviewRequests(repo *GithubRepo, username string)
 	str := ""
 	for _, pr := range prs {
 		str = str + fmt.Sprintf(" [green]%4d[white] %s\n", *pr.Number, *pr.Title)
+	}
+
+	return str
+}
+
+func (widget *Widget) displayNotifications() string {
+	str := wtf.SigilStr(len(widget.Activity.Notifications), widget.Idx, widget.View) + "\n"
+	for _, notification := range widget.Activity.Notifications {
+		str = str + "(" + notification.Type + ") "
+		str = str + notification.Title
+		str = str + " - "
+		str = str + notification.URL
+		str = str + "\n"
 	}
 
 	return str
