@@ -107,7 +107,7 @@ func refreshAllWidgets() {
 	}
 }
 
-func watchForConfigChanges(app *tview.Application, configFlag *string) {
+func watchForConfigChanges(app *tview.Application, configFlag *string, grid *tview.Grid, pages *tview.Pages) {
 	watch := watcher.New()
 
 	// notify write events.
@@ -118,9 +118,9 @@ func watchForConfigChanges(app *tview.Application, configFlag *string) {
 			select {
 			case <-watch.Event:
 				loadConfig(configFlag)
-				makeWidgets(app)
-				mainPage = buildGrid(Widgets)
-				pages.AddPage("grid", mainPage, true, true)
+				makeWidgets(app, pages)
+				grid = buildGrid(Widgets)
+				pages.AddPage("grid", grid, true, true)
 			case err := <-watch.Error:
 				log.Fatalln(err)
 			case <-watch.Closed:
@@ -145,8 +145,6 @@ func watchForConfigChanges(app *tview.Application, configFlag *string) {
 var Config *config.Config
 var FocusTracker wtf.FocusTracker
 var Widgets []wtf.Wtfable
-var pages *tview.Pages
-var mainPage *tview.Grid
 
 var (
 	commit  = "dev"
@@ -154,7 +152,7 @@ var (
 	version = "dev"
 )
 
-func makeWidgets(app *tview.Application) {
+func makeWidgets(app *tview.Application, pages *tview.Pages) {
 	bamboohr.Config = Config
 	clocks.Config = Config
 	cmdrunner.Config = Config
@@ -234,9 +232,9 @@ func main() {
 	loadConfig(flagConf)
 
 	app := tview.NewApplication()
-	pages = tview.NewPages()
+	pages := tview.NewPages()
 
-	makeWidgets(app)
+	makeWidgets(app, pages)
 
 	FocusTracker = wtf.FocusTracker{
 		App:     app,
@@ -244,13 +242,13 @@ func main() {
 		Widgets: Widgets,
 	}
 
+	grid := buildGrid(Widgets)
+	pages.AddPage("grid", grid, true, true)
+	app.SetInputCapture(keyboardIntercept)
+
 	// Loop in a routine to redraw the screen
 	go redrawApp(app)
-	go watchForConfigChanges(app, flagConf)
-
-	mainPage = buildGrid(Widgets)
-	pages.AddPage("grid", mainPage, true, true)
-	app.SetInputCapture(keyboardIntercept)
+	go watchForConfigChanges(app, flagConf, grid, pages)
 
 	if err := app.SetRoot(pages, true).Run(); err != nil {
 		os.Exit(1)
