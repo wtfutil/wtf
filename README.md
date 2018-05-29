@@ -18,7 +18,7 @@ package).
 
 ```bash
 go get github.com/senorprogrammer/wtf
-cd $GOPATH/github.com/senorprogrammer/wtf
+cd $GOPATH/src/github.com/senorprogrammer/wtf
 make install
 make run
 ```
