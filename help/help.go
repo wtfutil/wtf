@@ -11,25 +11,25 @@ import (
 	"github.com/senorprogrammer/wtf/weather"
 )
 
-func DisplayCommandInfo(args []string, version string) {
-	if len(args) == 0 {
-		return
-	}
+//func DisplayCommandInfo(args []string, version string) {
+//if len(args) == 0 {
+//return
+//}
 
-	cmd := args[0]
+//cmd := args[0]
 
-	switch cmd {
-	case "help", "--help":
-		DisplayHelpInfo(args)
-	case "version", "--version":
-		DisplayVersionInfo(version)
-	}
+//switch cmd {
+//case "help", "--help":
+//DisplayHelpInfo(args)
+//case "version", "--version":
+//DisplayVersionInfo(version)
+//}
 
-}
+//}
 
-func DisplayHelpInfo(args []string) {
-	if len(args) >= 1 {
-		fmt.Printf("%s\n", helpFor(args[0]))
+func DisplayHelpInfo(moduleName string) {
+	if moduleName != "" {
+		fmt.Printf("%s\n", helpFor(moduleName))
 	} else {
 		fmt.Println("\n  --help takes a module name as an argument, i.e: '--help github'")
 	}

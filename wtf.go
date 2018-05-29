@@ -215,12 +215,16 @@ func main() {
 	}
 
 	var cmdFlags struct {
-		Version bool   `short:"v" long:"version" description:"Show Version Info"`
 		Config  string `short:"c" long:"config" optional:"yes" description:"Path to config file"`
+		Version bool   `short:"v" long:"version" description:"Show Version Info"`
 	}
 
 	var parser = flags.NewParser(&cmdFlags, flags.Default)
-	parser.Parse()
+	if _, err := parser.Parse(); err != nil {
+		if flagsErr, ok := err.(*flags.Error); ok && flagsErr.Type == flags.ErrHelp {
+			os.Exit(0)
+		}
+	}
 
 	if len(cmdFlags.Config) == 0 {
 		cmdFlags.Config = filepath.Join(homeDir, ".wtf", "config.yml")
