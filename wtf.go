@@ -2,11 +2,14 @@ package main
 
 import (
 	"flag"
+	"log"
 	"os"
+	"path/filepath"
 	"time"
 
 	"github.com/gdamore/tcell"
 	"github.com/olebedev/config"
+	"github.com/radovskyb/watcher"
 	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/bamboohr"
 	"github.com/senorprogrammer/wtf/clocks"
@@ -104,6 +107,39 @@ func refreshAllWidgets() {
 	}
 }
 
+func watchForConfigChanges(app *tview.Application, configFlag *string, grid *tview.Grid, pages *tview.Pages) {
+	watch := watcher.New()
+
+	// notify write events.
+	watch.FilterOps(watcher.Write)
+
+	go func() {
+		for {
+			select {
+			case <-watch.Event:
+				loadConfig(configFlag)
+				makeWidgets(app, pages)
+				grid = buildGrid(Widgets)
+				pages.AddPage("grid", grid, true, true)
+			case err := <-watch.Error:
+				log.Fatalln(err)
+			case <-watch.Closed:
+				return
+			}
+		}
+	}()
+
+	// Watch config file for changes.
+	if err := watch.Add(*configFlag); err != nil {
+		log.Fatalln(err)
+	}
+
+	// Start the watching process - it'll check for changes every 100ms.
+	if err := watch.Start(time.Millisecond * 100); err != nil {
+		log.Fatalln(err)
+	}
+}
+
 /* -------------------- Main -------------------- */
 
 var Config *config.Config
@@ -116,39 +152,7 @@ var (
 	version = "dev"
 )
 
-func main() {
-	/*
-	  This allows the user to pass flags in however they prefer. It supports the likes of:
-
-	    wtf -help    | --help
-	    wtf -version | --version
-	*/
-	flagConf := flag.String("config", "~/.wtf/config.yml", "Path to config file")
-	flagHelp := flag.Bool("help", false, "Show help")
-	flagVers := flag.Bool("version", false, "Show version info")
-
-	flag.Parse()
-
-	if *flagHelp {
-		help.DisplayHelpInfo(flag.Args())
-	}
-
-	if *flagVers {
-		help.DisplayVersionInfo(version)
-	}
-
-	/* -------------------- end flag parsing and handling -------------------- */
-
-	// Responsible for creating the configuration directory and default
-	// configuration file if they don't already exist
-	wtf.CreateConfigDir()
-	wtf.WriteConfigFile()
-
-	Config = wtf.LoadConfigFile(*flagConf)
-
-	app := tview.NewApplication()
-	pages := tview.NewPages()
-
+func makeWidgets(app *tview.Application, pages *tview.Pages) {
 	bamboohr.Config = Config
 	clocks.Config = Config
 	cmdrunner.Config = Config
@@ -185,6 +189,52 @@ func main() {
 		todo.NewWidget(app, pages),
 		weather.NewWidget(app, pages),
 	}
+}
+
+func loadConfig(configFlag *string) {
+	Config = wtf.LoadConfigFile(*configFlag)
+}
+
+func main() {
+
+	/*
+		This allows the user to pass flags in however they prefer. It supports the likes of:
+
+		wtf -help    | --help
+		wtf -version | --version
+	*/
+	homeDir, err := wtf.Home()
+	if err != nil {
+		os.Exit(1)
+	}
+
+	flagConf := flag.String("config", filepath.Join(homeDir, ".wtf", "config.yml"), "Path to config file")
+	flagHelp := flag.Bool("help", false, "Show help")
+	flagVers := flag.Bool("version", false, "Show version info")
+
+	flag.Parse()
+
+	if *flagHelp {
+		help.DisplayHelpInfo(flag.Args())
+	}
+
+	if *flagVers {
+		help.DisplayVersionInfo(version)
+	}
+
+	/* -------------------- end flag parsing and handling -------------------- */
+
+	// Responsible for creating the configuration directory and default
+	// configuration file if they don't already exist
+	wtf.CreateConfigDir()
+	wtf.WriteConfigFile()
+
+	loadConfig(flagConf)
+
+	app := tview.NewApplication()
+	pages := tview.NewPages()
+
+	makeWidgets(app, pages)
 
 	FocusTracker = wtf.FocusTracker{
 		App:     app,
@@ -192,12 +242,13 @@ func main() {
 		Widgets: Widgets,
 	}
 
-	// Loop in a routine to redraw the screen
-	go redrawApp(app)
-
 	grid := buildGrid(Widgets)
 	pages.AddPage("grid", grid, true, true)
 	app.SetInputCapture(keyboardIntercept)
+
+	// Loop in a routine to redraw the screen
+	go redrawApp(app)
+	go watchForConfigChanges(app, flagConf, grid, pages)
 
 	if err := app.SetRoot(pages, true).Run(); err != nil {
 		os.Exit(1)
