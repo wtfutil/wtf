@@ -189,6 +189,12 @@ func makeWidgets(app *tview.Application, pages *tview.Pages) {
 		todo.NewWidget(app, pages),
 		weather.NewWidget(app, pages),
 	}
+
+	FocusTracker = wtf.FocusTracker{
+		App:     app,
+		Idx:     -1,
+		Widgets: Widgets,
+	}
 }
 
 func loadConfig(configFlag *string) {
@@ -235,12 +241,6 @@ func main() {
 	pages := tview.NewPages()
 
 	makeWidgets(app, pages)
-
-	FocusTracker = wtf.FocusTracker{
-		App:     app,
-		Idx:     -1,
-		Widgets: Widgets,
-	}
 
 	grid := buildGrid(Widgets)
 	pages.AddPage("grid", grid, true, true)
