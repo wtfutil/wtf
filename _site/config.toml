@@ -5,7 +5,7 @@ pygmentsUseClasses = true
 publishDir = "../docs"
 sectionPagesMenu = "main"
 theme = "hyde-hyde"
-title = "WTF"
+title = "WTF - A Terminal Dashboard"
 
 [params]
   author = "Chris Cummer"

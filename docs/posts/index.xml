@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on WTF</title>
+    <title>Posts on WTF - A Terminal Dashboard</title>
     <link>https://wtfutil.com/posts/</link>
-    <description>Recent content in Posts on WTF</description>
+    <description>Recent content in Posts on WTF - A Terminal Dashboard</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 26 May 2018 19:26:23 -0700</lastBuildDate>
