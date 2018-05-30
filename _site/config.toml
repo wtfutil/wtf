@@ -1,4 +1,4 @@
-baseURL = "http://wtfutil.com/"
+baseURL = "https://wtfutil.com/"
 languageCode = "en-us"
 pygmentsCodeFences = true
 pygmentsUseClasses = true

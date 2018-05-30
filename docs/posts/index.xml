@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on WTF</title>
-    <link>http://wtfutil.com/posts/</link>
+    <link>https://wtfutil.com/posts/</link>
     <description>Recent content in Posts on WTF</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 26 May 2018 19:26:23 -0700</lastBuildDate>
     
-	<atom:link href="http://wtfutil.com/posts/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://wtfutil.com/posts/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Modules: Power</title>
-      <link>http://wtfutil.com/posts/modules/power/</link>
+      <link>https://wtfutil.com/posts/modules/power/</link>
       <pubDate>Sat, 26 May 2018 19:26:23 -0700</pubDate>
       
-      <guid>http://wtfutil.com/posts/modules/power/</guid>
+      <guid>https://wtfutil.com/posts/modules/power/</guid>
       <description>Displays information about the current power source.
 For battery, also displays the current charge, estimated time remaining, and whether it is charging or discharging.
 Source Code wtf/power/ Required ENV Variables None.
@@ -27,10 +27,10 @@ position Defines where in the grid this module&amp;rsquo;s widget will be displa
     
     <item>
       <title>Configuration: iTerm2</title>
-      <link>http://wtfutil.com/posts/configuration/iterm2/</link>
+      <link>https://wtfutil.com/posts/configuration/iterm2/</link>
       <pubDate>Thu, 24 May 2018 09:57:40 -0700</pubDate>
       
-      <guid>http://wtfutil.com/posts/configuration/iterm2/</guid>
+      <guid>https://wtfutil.com/posts/configuration/iterm2/</guid>
       <description>Many terminal apps don&amp;rsquo;t properly display multibyte emoji characters properly. This may fix the issue for you in iTerm2, it also may not.
 By default iTerm2 uses a unicode rendering format that is not comletely compatible with some emoji characters. Instead what you&amp;rsquo;ll see is the emoji over-lapping normal text characters, or drawing outside the bounds of where they should be.
 In iTerm2 open:
@@ -39,10 +39,10 @@ Preferences -&amp;gt; Profiles -&amp;gt; Text and check on the &amp;ldquo;Use Un
     
     <item>
       <title>Overview</title>
-      <link>http://wtfutil.com/posts/overview/</link>
+      <link>https://wtfutil.com/posts/overview/</link>
       <pubDate>Mon, 21 May 2018 16:11:58 -0700</pubDate>
       
-      <guid>http://wtfutil.com/posts/overview/</guid>
+      <guid>https://wtfutil.com/posts/overview/</guid>
       <description>WTF is a personal information dashboard for your terminal, developed for those who spend most of their day in the command line.
 It allows you to monitor services and systems that you otherwise might keep browser tabs open for, the kinds of things you don&amp;rsquo;t always need visible, but might check in on every now and then.
 Quick Start  Download the stand-alone, compiled binary. Unzip the downloaded file. From the command line, cd into the newly-created /wtf directory.</description>
@@ -50,10 +50,10 @@ Quick Start  Download the stand-alone, compiled binary. Unzip the downloaded fil
     
     <item>
       <title>Installation</title>
-      <link>http://wtfutil.com/posts/installation/</link>
+      <link>https://wtfutil.com/posts/installation/</link>
       <pubDate>Fri, 18 May 2018 09:59:40 -0700</pubDate>
       
-      <guid>http://wtfutil.com/posts/installation/</guid>
+      <guid>https://wtfutil.com/posts/installation/</guid>
       <description>There are two ways to install WTF:
 From Source Get this repo and install the dependencies:
 go get github.com/senorprogrammer/wtf cd $GOPATH/src/github.com/senorprogrammer/wtf make install make run and that should probably do it.
@@ -64,10 +64,10 @@ https://github.com/senorprogrammer/wtf/releases expand it, and cd into the resul
     
     <item>
       <title>Modules: CmdRunner</title>
-      <link>http://wtfutil.com/posts/modules/cmdrunner/</link>
+      <link>https://wtfutil.com/posts/modules/cmdrunner/</link>
       <pubDate>Thu, 17 May 2018 17:17:10 -0700</pubDate>
       
-      <guid>http://wtfutil.com/posts/modules/cmdrunner/</guid>
+      <guid>https://wtfutil.com/posts/modules/cmdrunner/</guid>
       <description>Runs a terminal command on a schedule.
 Source Code wtf/cmdrunner/ Required ENV Variables None.
 Keyboard Commands None.
@@ -77,20 +77,20 @@ cmd The terminal command to be run, withouth the arguments. Ie: ping, whoami, cu
     
     <item>
       <title>Configuration: Attributes</title>
-      <link>http://wtfutil.com/posts/configuration/attributes/</link>
+      <link>https://wtfutil.com/posts/configuration/attributes/</link>
       <pubDate>Wed, 16 May 2018 21:51:23 -0700</pubDate>
       
-      <guid>http://wtfutil.com/posts/configuration/attributes/</guid>
+      <guid>https://wtfutil.com/posts/configuration/attributes/</guid>
       <description>The following top-level attributes are configurable in config.yml. See this example config file for more details.
 wtf:colors:border:Focusable:&amp;#34;darkslateblue&amp;#34;focused:&amp;#34;orange&amp;#34;normal:&amp;#34;gray&amp;#34;grid:# How _wide_ the columns are, in terminal characters. In this case we have# six columns, each of which are 35 characters widecolumns:[35,35,35,35,35,35]# How _high_ the rows are, in terminal lines. In this case we have five rows# that support ten line of text, one of three lines, and one of fourrows:[10,10,10,10,10,3,4]# The app redraws itself once a secondrefreshInterval:1 Attributes colors.</description>
     </item>
     
     <item>
       <title>Modules: Todo</title>
-      <link>http://wtfutil.com/posts/modules/todo/</link>
+      <link>https://wtfutil.com/posts/modules/todo/</link>
       <pubDate>Thu, 10 May 2018 12:41:50 -0700</pubDate>
       
-      <guid>http://wtfutil.com/posts/modules/todo/</guid>
+      <guid>https://wtfutil.com/posts/modules/todo/</guid>
       <description>An interactive todo list.
 Source Code wtf/todo/ Required ENV Variables None.
 Keyboard Commands Key: [return] Action: Edit the selected item. Action: Close the modal item dialog and save changes. Key: [esc] Action: Remove focus from the selected item. Action: Close the modal item dialog without saving changes.
@@ -101,10 +101,10 @@ Key: j Action: Select the next item in the list.</description>
     
     <item>
       <title>Modules: Jira</title>
-      <link>http://wtfutil.com/posts/modules/jira/</link>
+      <link>https://wtfutil.com/posts/modules/jira/</link>
       <pubDate>Thu, 10 May 2018 10:44:35 -0700</pubDate>
       
-      <guid>http://wtfutil.com/posts/modules/jira/</guid>
+      <guid>https://wtfutil.com/posts/modules/jira/</guid>
       <description>Displays all Jira issues assigned to you for the specified project.
 Source Code wtf/jira/ Required ENV Variables Key: WTF_JIRA_API_KEY Value: Your Jira API key.
 Keyboard Commands None.
@@ -116,10 +116,10 @@ email The email address associated with your Jira account.</description>
     
     <item>
       <title>Modules: Google Calendar</title>
-      <link>http://wtfutil.com/posts/modules/gcal/</link>
+      <link>https://wtfutil.com/posts/modules/gcal/</link>
       <pubDate>Thu, 10 May 2018 08:25:33 -0700</pubDate>
       
-      <guid>http://wtfutil.com/posts/modules/gcal/</guid>
+      <guid>https://wtfutil.com/posts/modules/gcal/</guid>
       <description>Displays your upcoming Google calendar events.
 Source Code wtf/gcal/ Required ENV Variables Key: WTF_GOOGLE_CAL_CLIENT_ID Value: Your Google API client ID.
 Key: WTF_GOOGLE_CAL_CLIENT_SECRET Value: Your Google API client secret.
@@ -131,10 +131,10 @@ colors.highlights A list of arrays that define a regular expression pattern and 
     
     <item>
       <title>Modules: Github</title>
-      <link>http://wtfutil.com/posts/modules/github/</link>
+      <link>https://wtfutil.com/posts/modules/github/</link>
       <pubDate>Wed, 09 May 2018 19:20:20 -0700</pubDate>
       
-      <guid>http://wtfutil.com/posts/modules/github/</guid>
+      <guid>https://wtfutil.com/posts/modules/github/</guid>
       <description>Displays information about git repositories hosted on Github: open review requests, and open pull requests.
 Open Review Requests All open code review requests assigned to you.
 Open Pull Requests All open pull requests created by you.
@@ -146,10 +146,10 @@ Key: l Action: Show the next git repository.</description>
     
     <item>
       <title>Modules: Git</title>
-      <link>http://wtfutil.com/posts/modules/git/</link>
+      <link>https://wtfutil.com/posts/modules/git/</link>
       <pubDate>Wed, 09 May 2018 14:20:48 -0700</pubDate>
       
-      <guid>http://wtfutil.com/posts/modules/git/</guid>
+      <guid>https://wtfutil.com/posts/modules/git/</guid>
       <description>Displays information about local git repositories: branch, changed files, and recent commits.
 Branch The name of the currently-active git branch.
 Changed Files A list of all the files that have changed since the last commit, and their status.
@@ -161,10 +161,10 @@ Key: h Action: Show the previous git repository.</description>
     
     <item>
       <title>Modules: Weather</title>
-      <link>http://wtfutil.com/posts/modules/weather/</link>
+      <link>https://wtfutil.com/posts/modules/weather/</link>
       <pubDate>Wed, 09 May 2018 11:44:13 -0700</pubDate>
       
-      <guid>http://wtfutil.com/posts/modules/weather/</guid>
+      <guid>https://wtfutil.com/posts/modules/weather/</guid>
       <description>Displays a configurable list of current weather report, including current temperature, sunrise time, and sunset time.
 Source Code wtf/weather/ Required ENV Variables Key: WTF_OWM_API_KEY Action: Your OpenWeatherMap API key.
 Keyboard Commands Key: / Action: Open/close the widget&amp;rsquo;s help window.
@@ -176,10 +176,10 @@ Key: → Action: Show the next weather location.</description>
     
     <item>
       <title>Modules: Textfile</title>
-      <link>http://wtfutil.com/posts/modules/textfile/</link>
+      <link>https://wtfutil.com/posts/modules/textfile/</link>
       <pubDate>Wed, 09 May 2018 11:13:11 -0700</pubDate>
       
-      <guid>http://wtfutil.com/posts/modules/textfile/</guid>
+      <guid>https://wtfutil.com/posts/modules/textfile/</guid>
       <description>Displays the contents of the specified text file in the widget.
 Source Code wtf/textfile/ Required ENV Variables None.
 Keyboard Commands Key: / Action: Open/close the widget&amp;rsquo;s help window.
@@ -190,10 +190,10 @@ filePath The path to the file to be displayed in the widget.</description>
     
     <item>
       <title>Modules: New Relic</title>
-      <link>http://wtfutil.com/posts/modules/newrelic/</link>
+      <link>https://wtfutil.com/posts/modules/newrelic/</link>
       <pubDate>Wed, 09 May 2018 09:01:14 -0700</pubDate>
       
-      <guid>http://wtfutil.com/posts/modules/newrelic/</guid>
+      <guid>https://wtfutil.com/posts/modules/newrelic/</guid>
       <description>Connects to the New Relic API and displays the last n deploys of the monitored application: deploy ID, deploy time, and who deployed it.
 Source Code wtf/newrelic/ Required ENV Variables Key: WTF_NEW_RELIC_API_KEY Value: Your New Relic API token.
 Keyboard Commands None.
@@ -203,10 +203,10 @@ deployCount The number of past deploys to display on screen.</description>
     
     <item>
       <title>Modules: OpsGenie</title>
-      <link>http://wtfutil.com/posts/modules/opsgenie/</link>
+      <link>https://wtfutil.com/posts/modules/opsgenie/</link>
       <pubDate>Tue, 08 May 2018 20:53:40 -0700</pubDate>
       
-      <guid>http://wtfutil.com/posts/modules/opsgenie/</guid>
+      <guid>https://wtfutil.com/posts/modules/opsgenie/</guid>
       <description>Connects to the OpsGenie API and displays all your scheduled rotations and who&amp;rsquo;s currently on call.
 Source Code wtf/opsgenie/ Required ENV Variables Key: WTF_OPS_GENIE_API_KEY Value: Your OpsGenie API token.
 Keyboard Commands None.
@@ -217,20 +217,20 @@ position Where in the grid this module&amp;rsquo;s widget will be displayed.</de
     
     <item>
       <title>Modules: Security</title>
-      <link>http://wtfutil.com/posts/modules/security/</link>
+      <link>https://wtfutil.com/posts/modules/security/</link>
       <pubDate>Tue, 08 May 2018 20:33:28 -0700</pubDate>
       
-      <guid>http://wtfutil.com/posts/modules/security/</guid>
+      <guid>https://wtfutil.com/posts/modules/security/</guid>
       <description>Displays some general information about the state of the machine&amp;rsquo;s wifi connection, firewall, DNS settings, and logged-in users.
 Wifi Network The name of the current network Whether or not the network uses encryption and if so, what flavour  Firewall Whether or not the firewall is enabled Whether or not Stealth Mode is enabled  DNS Which DNS resolvers (servers) the machine is configured to use  Users  Which users are logged into the machine.</description>
     </item>
     
     <item>
       <title>Modules: Bamboohr</title>
-      <link>http://wtfutil.com/posts/modules/bamboohr/</link>
+      <link>https://wtfutil.com/posts/modules/bamboohr/</link>
       <pubDate>Mon, 07 May 2018 20:17:37 -0700</pubDate>
       
-      <guid>http://wtfutil.com/posts/modules/bamboohr/</guid>
+      <guid>https://wtfutil.com/posts/modules/bamboohr/</guid>
       <description>Connects to the BambooHR API and displays who will be Away today.
 Source Code wtf/bamboohr/ Required ENV Variables Key: WTF_BAMBOO_HR_TOKEN Value: Your BambooHR API token.
 Key: WTF_BAMBOO_HR_SUBDOMAIN Value: Your BambooHR API subdomain name.
@@ -241,10 +241,10 @@ position Defines where in the grid this module&amp;rsquo;s widget will be displa
     
     <item>
       <title>Modules: Clocks</title>
-      <link>http://wtfutil.com/posts/modules/clocks/</link>
+      <link>https://wtfutil.com/posts/modules/clocks/</link>
       <pubDate>Mon, 07 May 2018 19:47:31 -0700</pubDate>
       
-      <guid>http://wtfutil.com/posts/modules/clocks/</guid>
+      <guid>https://wtfutil.com/posts/modules/clocks/</guid>
       <description>Displays a configurable list of world clocks, the local time, and date.
 Source Code wtf/clocks/ Required ENV Variables None.
 Keyboard Commands None.
@@ -255,10 +255,10 @@ enabled Determines whether or not this module is executed and if its data displa
     
     <item>
       <title>Modules</title>
-      <link>http://wtfutil.com/posts/modules/</link>
+      <link>https://wtfutil.com/posts/modules/</link>
       <pubDate>Mon, 07 May 2018 18:04:58 -0700</pubDate>
       
-      <guid>http://wtfutil.com/posts/modules/</guid>
+      <guid>https://wtfutil.com/posts/modules/</guid>
       <description>The heart of WTF is the modules. A module is a discreet unit of functionality that extracts data from some source and packages that data for display.
 For example, the New Relic module uses New Relic&amp;rsquo;s API to retrieve a list of the latest deploys and packages that information as a list for display in the &amp;ldquo;New Relic&amp;rdquo; widget.
 The Clocks module takes a list of timezones and packages that information as a list of city/time pairs for display in the &amp;ldquo;Clocks&amp;rdquo; widget.</description>
@@ -266,10 +266,10 @@ The Clocks module takes a list of timezones and packages that information as a l
     
     <item>
       <title>Glossary</title>
-      <link>http://wtfutil.com/posts/glossary/</link>
+      <link>https://wtfutil.com/posts/glossary/</link>
       <pubDate>Tue, 17 Apr 2018 12:34:51 -0700</pubDate>
       
-      <guid>http://wtfutil.com/posts/glossary/</guid>
+      <guid>https://wtfutil.com/posts/glossary/</guid>
       <description>Module A discreet unit of data collection and display. A data interface concept. A package inside the app.
 Examples: New Relic, Git, Weather.
 Widget The onscreen representation of a Module. The widget is responsible for being the interface between the app and the data collection.
@@ -278,10 +278,10 @@ Widgets are defined by a required widget.go file in a Module.</description>
     
     <item>
       <title>Configuration</title>
-      <link>http://wtfutil.com/posts/configuration/</link>
+      <link>https://wtfutil.com/posts/configuration/</link>
       <pubDate>Sun, 15 Apr 2018 21:17:16 -0700</pubDate>
       
-      <guid>http://wtfutil.com/posts/configuration/</guid>
+      <guid>https://wtfutil.com/posts/configuration/</guid>
       <description>Configuration Files By default WTF looks in a ~/.wtf/ directory for a YAML file called config.yml. If the ~/.wtf/ directory doesn&amp;rsquo;t exist, WTF will create that directory on start-up, and then display instructions for creating a new configuration file.
 In other words, WTF expects to have a YAML config file at: ~/.wtf/config.yml.
 Example Configuration Files A couple of example config files are provided in the _sample_configs/ directory of the Git repository.</description>
