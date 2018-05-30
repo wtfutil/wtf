@@ -15,15 +15,14 @@ func (widget *Widget) display() {
 
 	str := ""
 	checked := []*Item{}
-	uncheckedLen := 0
-	var selected *Item
+	var selectedItem *Item
 	var newList List
 	for idx, item := range widget.list.Items {
 		foreColor, backColor := "white", "black"
 
 		// save the selected one
 		if idx == widget.list.selected {
-			selected = item
+			selectedItem = item
 		}
 
 		if item.Checked {
@@ -31,9 +30,7 @@ func (widget *Widget) display() {
 			continue
 		}
 
-		uncheckedLen++
-
-		if widget.View.HasFocus() && item == selected {
+		if widget.View.HasFocus() && item == selectedItem {
 			foreColor = Config.UString("wtf.mods.todo.colors.highlight.fore", "black")
 			backColor = Config.UString("wtf.mods.todo.colors.highlight.back", "white")
 		}
@@ -53,7 +50,7 @@ func (widget *Widget) display() {
 	for _, item := range checked {
 		foreColor, backColor := Config.UString("wtf.mods.todo.colors.checked", "white"), "black"
 
-		if widget.View.HasFocus() && item == selected {
+		if widget.View.HasFocus() && item == selectedItem {
 			foreColor = Config.UString("wtf.mods.todo.colors.highlight.fore", "black")
 			backColor = Config.UString("wtf.mods.todo.colors.highlight.back", "white")
 		}
@@ -70,9 +67,9 @@ func (widget *Widget) display() {
 		newList.Items = append(newList.Items, item)
 	}
 
-	// update new index of selected item
+	// update selected index with new index of selected item
 	for idx, item := range newList.Items {
-		if item == selected {
+		if item == selectedItem {
 			newList.selected = idx
 		}
 	}
