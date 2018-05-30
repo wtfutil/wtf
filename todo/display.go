@@ -34,8 +34,6 @@ func (widget *Widget) display() {
 		uncheckedLen++
 
 		if widget.View.HasFocus() && item == selected {
-			// set selected item index
-			newList.selected = idx
 			foreColor = Config.UString("wtf.mods.todo.colors.highlight.fore", "black")
 			backColor = Config.UString("wtf.mods.todo.colors.highlight.back", "white")
 		}
@@ -52,11 +50,10 @@ func (widget *Widget) display() {
 
 		newList.Items = append(newList.Items, item)
 	}
-	for idx, item := range checked {
+	for _, item := range checked {
 		foreColor, backColor := Config.UString("wtf.mods.todo.colors.checked", "white"), "black"
 
 		if widget.View.HasFocus() && item == selected {
-			newList.selected = idx + uncheckedLen
 			foreColor = Config.UString("wtf.mods.todo.colors.highlight.fore", "black")
 			backColor = Config.UString("wtf.mods.todo.colors.highlight.back", "white")
 		}
@@ -71,6 +68,13 @@ func (widget *Widget) display() {
 		str = str + wtf.PadRow((4+len(item.Text)), (4+maxLen)) + "\n"
 
 		newList.Items = append(newList.Items, item)
+	}
+
+	// update new index of selected item
+	for idx, item := range newList.Items {
+		if item == selected {
+			newList.selected = idx
+		}
 	}
 
 	// update list with new Items and selected item index
