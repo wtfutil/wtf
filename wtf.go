@@ -3,11 +3,9 @@ package main
 import (
 	"log"
 	"os"
-	"path/filepath"
 	"time"
 
 	"github.com/gdamore/tcell"
-	flags "github.com/jessevdk/go-flags"
 	"github.com/olebedev/config"
 	"github.com/radovskyb/watcher"
 	"github.com/rivo/tview"
@@ -17,7 +15,6 @@ import (
 	"github.com/senorprogrammer/wtf/gcal"
 	"github.com/senorprogrammer/wtf/git"
 	"github.com/senorprogrammer/wtf/github"
-	"github.com/senorprogrammer/wtf/help"
 	"github.com/senorprogrammer/wtf/jira"
 	"github.com/senorprogrammer/wtf/newrelic"
 	"github.com/senorprogrammer/wtf/opsgenie"
@@ -107,7 +104,7 @@ func refreshAllWidgets() {
 	}
 }
 
-func watchForConfigChanges(app *tview.Application, configFlag *string, grid *tview.Grid, pages *tview.Pages) {
+func watchForConfigChanges(app *tview.Application, configFlag string, grid *tview.Grid, pages *tview.Pages) {
 	watch := watcher.New()
 
 	// notify write events.
@@ -130,7 +127,7 @@ func watchForConfigChanges(app *tview.Application, configFlag *string, grid *tvi
 	}()
 
 	// Watch config file for changes.
-	if err := watch.Add(*configFlag); err != nil {
+	if err := watch.Add(configFlag); err != nil {
 		log.Fatalln(err)
 	}
 
@@ -197,42 +194,13 @@ func makeWidgets(app *tview.Application, pages *tview.Pages) {
 	}
 }
 
-func loadConfig(configFlag *string) {
-	Config = wtf.LoadConfigFile(*configFlag)
+func loadConfig(configFlag string) {
+	Config = wtf.LoadConfigFile(configFlag)
 }
 
 func main() {
-
-	/*
-		This allows the user to pass flags in however they prefer. It supports the likes of:
-
-		wtf -help    | --help
-		wtf -version | --version
-	*/
-	homeDir, err := wtf.Home()
-	if err != nil {
-		os.Exit(1)
-	}
-
-	var cmdFlags struct {
-		Config  string `short:"c" long:"config" optional:"yes" description:"Path to config file"`
-		Version bool   `short:"v" long:"version" description:"Show Version Info"`
-	}
-
-	var parser = flags.NewParser(&cmdFlags, flags.Default)
-	if _, err := parser.Parse(); err != nil {
-		if flagsErr, ok := err.(*flags.Error); ok && flagsErr.Type == flags.ErrHelp {
-			os.Exit(0)
-		}
-	}
-
-	if len(cmdFlags.Config) == 0 {
-		cmdFlags.Config = filepath.Join(homeDir, ".wtf", "config.yml")
-	}
-
-	if cmdFlags.Version {
-		help.DisplayVersionInfo(version)
-	}
+	cmdFlags := wtf.NewCommandFlags()
+	cmdFlags.Parse(version)
 
 	/* -------------------- end flag parsing and handling -------------------- */
 
@@ -241,7 +209,7 @@ func main() {
 	wtf.CreateConfigDir()
 	wtf.WriteConfigFile()
 
-	loadConfig(&cmdFlags.Config)
+	loadConfig(cmdFlags.Config)
 
 	app := tview.NewApplication()
 	pages := tview.NewPages()
@@ -254,7 +222,7 @@ func main() {
 
 	// Loop in a routine to redraw the screen
 	go redrawApp(app)
-	go watchForConfigChanges(app, &cmdFlags.Config, grid, pages)
+	go watchForConfigChanges(app, cmdFlags.Config, grid, pages)
 
 	if err := app.SetRoot(pages, true).Run(); err != nil {
 		os.Exit(1)
