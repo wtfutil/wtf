@@ -11,22 +11,6 @@ import (
 	"github.com/senorprogrammer/wtf/weather"
 )
 
-//func DisplayCommandInfo(args []string, version string) {
-//if len(args) == 0 {
-//return
-//}
-
-//cmd := args[0]
-
-//switch cmd {
-//case "help", "--help":
-//DisplayHelpInfo(args)
-//case "version", "--version":
-//DisplayVersionInfo(version)
-//}
-
-//}
-
 func DisplayHelpInfo(moduleName string) {
 	if moduleName != "" {
 		fmt.Printf("%s\n", helpFor(moduleName))
@@ -34,11 +18,6 @@ func DisplayHelpInfo(moduleName string) {
 		fmt.Println("\n  --help takes a module name as an argument, i.e: '--help github'")
 	}
 
-	os.Exit(0)
-}
-
-func DisplayVersionInfo(version string) {
-	fmt.Printf("Version: %s\n", version)
 	os.Exit(0)
 }
 
