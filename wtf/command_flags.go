@@ -10,6 +10,7 @@ import (
 
 type CommandFlags struct {
 	Config  string `short:"c" long:"config" optional:"yes" description:"Path to config file"`
+	Info    string `short:"i" long:"info" optional:"yes" description:"Display info about the specified module"`
 	Version bool   `short:"v" long:"version" description:"Show Version Info"`
 }
 
@@ -20,6 +21,14 @@ func NewCommandFlags() *CommandFlags {
 
 /* -------------------- Exported Functions -------------------- */
 
+func (cmdFlags *CommandFlags) HasConfig() bool {
+	return len(cmdFlags.Config) > 0
+}
+
+func (cmdFlags *CommandFlags) HasInfo() bool {
+	return len(cmdFlags.Info) > 0
+}
+
 func (cmdFlags *CommandFlags) Parse(version string) {
 	parser := flags.NewParser(cmdFlags, flags.Default)
 	if _, err := parser.Parse(); err != nil {
@@ -28,14 +37,13 @@ func (cmdFlags *CommandFlags) Parse(version string) {
 		}
 	}
 
-	if len(cmdFlags.Config) == 0 {
+	if !cmdFlags.HasConfig() {
 		homeDir, err := Home()
 		if err != nil {
 			os.Exit(1)
 		}
 
 		cmdFlags.Config = filepath.Join(homeDir, ".wtf", "config.yml")
-		fmt.Printf(">> A: %s\n", cmdFlags.Config)
 	}
 
 	if cmdFlags.Version {

@@ -59,8 +59,6 @@ func CreateFile(fileName string) (string, error) {
 
 // LoadConfigFile loads the config.yml file to configure the app
 func LoadConfigFile(filePath string) *config.Config {
-	fmt.Printf(">> B: %s\n", filePath)
-
 	absPath, _ := ExpandHomeDir(filePath)
 
 	cfg, err := config.ParseYamlFile(absPath)

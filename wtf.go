@@ -15,6 +15,7 @@ import (
 	"github.com/senorprogrammer/wtf/gcal"
 	"github.com/senorprogrammer/wtf/git"
 	"github.com/senorprogrammer/wtf/github"
+	"github.com/senorprogrammer/wtf/help"
 	"github.com/senorprogrammer/wtf/jira"
 	"github.com/senorprogrammer/wtf/newrelic"
 	"github.com/senorprogrammer/wtf/opsgenie"
@@ -201,6 +202,10 @@ func loadConfig(configFlag string) {
 func main() {
 	cmdFlags := wtf.NewCommandFlags()
 	cmdFlags.Parse(version)
+
+	if cmdFlags.HasInfo() {
+		help.DisplayHelpInfo(cmdFlags.Info)
+	}
 
 	/* -------------------- end flag parsing and handling -------------------- */
 
