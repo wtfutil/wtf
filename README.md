@@ -37,7 +37,7 @@ And a "probably up-to-date" list of currently-implemented modules:
 * [Command Runner](http://wtfutil.com/posts/modules/cmdrunner/)
 * [Google Calendar](http://wtfutil.com/posts/modules/gcal/)
 * [Git](http://wtfutil.com/posts/modules/git/)
-* [Github](http://wtfutil.com/posts/modules/github/)
+* [GitHub](http://wtfutil.com/posts/modules/github/)
 * [Jira](http://wtfutil.com/posts/modules/jira/)
 * [New Relic](http://wtfutil.com/posts/modules/newrelic/)
 * [OpsGenie](http://wtfutil.com/posts/modules/opsgenie)
