@@ -6,7 +6,7 @@ dependencies:
 	go get -v ./...
 
 install:
-	which wtf | xargs rm
+	which wtf | xargs rm || true
 	go install -ldflags="-X main.version=$(shell git describe --always --abbrev=6)_$(BRANCH) -X main.date=$(shell date +%FT%T%z)"
 	which wtf
 
