@@ -37,6 +37,10 @@ func (repo *GithubRepo) Refresh() {
 /* -------------------- Counts -------------------- */
 
 func (repo *GithubRepo) IssueCount() int {
+	if repo.RemoteRepo == nil {
+		return 0
+	}
+
 	return *repo.RemoteRepo.OpenIssuesCount
 }
 
@@ -45,6 +49,10 @@ func (repo *GithubRepo) PullRequestCount() int {
 }
 
 func (repo *GithubRepo) StarCount() int {
+	if repo.RemoteRepo == nil {
+		return 0
+	}
+
 	return *repo.RemoteRepo.StargazersCount
 }
 
