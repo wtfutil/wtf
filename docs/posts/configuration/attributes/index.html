@@ -113,6 +113,7 @@
 See this <a href="https://github.com/senorprogrammer/wtf/blob/master/_sample_configs/simple_config.yml">example config file</a> for more details.</p>
 <div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">wtf<span class="p">:</span><span class="w">
 </span><span class="w">  </span>colors<span class="p">:</span><span class="w">
+</span><span class="w">    </span>background<span class="p">:</span><span class="w"> </span><span class="s2">&#34;red&#34;</span><span class="w">
 </span><span class="w">    </span>border<span class="p">:</span><span class="w">
 </span><span class="w">      </span>Focusable<span class="p">:</span><span class="w"> </span><span class="s2">&#34;darkslateblue&#34;</span><span class="w">
 </span><span class="w">      </span>focused<span class="p">:</span><span class="w"> </span><span class="s2">&#34;orange&#34;</span><span class="w">
@@ -128,6 +129,13 @@ See this <a href="https://github.com/senorprogrammer/wtf/blob/master/_sample_con
 </span><span class="w">  </span><span class="c"># The app redraws itself once a second</span><span class="w">
 </span><span class="w">  </span>refreshInterval<span class="p">:</span><span class="w"> </span><span class="m">1</span></code></pre></div>
 <h3 id="attributes">Attributes</h3>
+
+<p><code>colors.background</code> <br />
+The color to draw the background of the app in. Use this to match your
+terminal colors. May be over-written by individual module
+configurations. <br />
+Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11
+color name</a>.</p>
 
 <p><code>colors.border.focusable</code> <br />
 The color in which to draw the border of widgets that can accept

@@ -33,7 +33,7 @@ func (widget *Widget) display() {
 }
 
 func (widget *Widget) formattedItemLine(item *Item, selectedItem *Item, maxLen int) string {
-	foreColor, backColor := "white", "black"
+	foreColor, backColor := "white", Config.UString("wtf.colors.background", "black")
 
 	if item.Checked {
 		foreColor = Config.UString("wtf.mods.todo.colors.checked", "white")

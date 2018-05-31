@@ -1,4 +1,10 @@
 wtf:
+  colors:
+    background: gray
+    border:
+      focusable: darkslateblue
+      focused: orange
+      normal: gray
   grid:
     # How _wide_ the columns are, in terminal characters. In this case we have
     # five columns, each of which are 37 characters wide

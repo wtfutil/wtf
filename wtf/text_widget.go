@@ -78,6 +78,7 @@ func (widget *TextWidget) TextView() *tview.TextView {
 func (widget *TextWidget) addView() {
 	view := tview.NewTextView()
 
+	view.SetBackgroundColor(ColorFor(Config.UString("wtf.colors.background", "black")))
 	view.SetBorder(true)
 	view.SetBorderColor(ColorFor(widget.BorderColor()))
 	view.SetDynamicColors(true)
