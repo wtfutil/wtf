@@ -203,8 +203,8 @@ func main() {
 	cmdFlags := wtf.NewCommandFlags()
 	cmdFlags.Parse(version)
 
-	if cmdFlags.HasInfo() {
-		help.DisplayHelpInfo(cmdFlags.Info)
+	if cmdFlags.HasModule() {
+		help.DisplayModuleInfo(cmdFlags.Module)
 	}
 
 	/* -------------------- end flag parsing and handling -------------------- */

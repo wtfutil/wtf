@@ -11,11 +11,11 @@ import (
 	"github.com/senorprogrammer/wtf/weather"
 )
 
-func DisplayHelpInfo(moduleName string) {
+func DisplayModuleInfo(moduleName string) {
 	if moduleName != "" {
 		fmt.Printf("%s\n", helpFor(moduleName))
 	} else {
-		fmt.Println("\n  --help takes a module name as an argument, i.e: '--help github'")
+		fmt.Println("\n  --module takes a module name as an argument, i.e: '--module=github'")
 	}
 
 	os.Exit(0)

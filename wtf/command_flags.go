@@ -10,7 +10,7 @@ import (
 
 type CommandFlags struct {
 	Config  string `short:"c" long:"config" optional:"yes" description:"Path to config file"`
-	Info    string `short:"i" long:"info" optional:"yes" description:"Display info about the specified module"`
+	Module  string `short:"m" long:"module" optional:"yes" description:"Display info about a specific module, i.e.: 'wtf -m=todo'"`
 	Version bool   `short:"v" long:"version" description:"Show Version Info"`
 }
 
@@ -25,8 +25,8 @@ func (cmdFlags *CommandFlags) HasConfig() bool {
 	return len(cmdFlags.Config) > 0
 }
 
-func (cmdFlags *CommandFlags) HasInfo() bool {
-	return len(cmdFlags.Info) > 0
+func (cmdFlags *CommandFlags) HasModule() bool {
+	return len(cmdFlags.Module) > 0
 }
 
 func (cmdFlags *CommandFlags) Parse(version string) {
