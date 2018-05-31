@@ -225,6 +225,8 @@ func main() {
 	pages.AddPage("grid", grid, true, true)
 	app.SetInputCapture(keyboardIntercept)
 
+	grid.SetBackgroundColor(wtf.ColorFor(Config.UString("wtf.colors.background", "black")))
+
 	// Loop in a routine to redraw the screen
 	go redrawApp(app)
 	go watchForConfigChanges(app, cmdFlags.Config, grid, pages)

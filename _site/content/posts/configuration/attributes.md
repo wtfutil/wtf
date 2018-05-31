@@ -10,6 +10,7 @@ See this <a href="https://github.com/senorprogrammer/wtf/blob/master/_sample_con
 ```yaml
 wtf:
   colors:
+    background: "red"
     border:
       Focusable: "darkslateblue"
       focused: "orange"
@@ -27,6 +28,13 @@ wtf:
 ```
 
 ### Attributes
+
+`colors.background` <br />
+The color to draw the background of the app in. Use this to match your
+terminal colors. May be over-written by individual module
+configurations. <br />
+Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11
+color name</a>.
 
 `colors.border.focusable` <br />
 The color in which to draw the border of widgets that can accept
