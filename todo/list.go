@@ -19,6 +19,18 @@ func (list *List) Add(text string) {
 	list.Items = append([]*Item{&item}, list.Items...)
 }
 
+func (list *List) CheckedItems() []*Item {
+	items := []*Item{}
+
+	for _, item := range list.Items {
+		if item.Checked {
+			items = append(items, item)
+		}
+	}
+
+	return items
+}
+
 func (list *List) Delete() {
 	list.Items = append(list.Items[:list.selected], list.Items[list.selected+1:]...)
 }
@@ -42,6 +54,18 @@ func (list *List) Next() {
 	if list.selected >= len(list.Items) {
 		list.selected = 0
 	}
+}
+
+func (list *List) LongestLine() int {
+	maxLen := 0
+
+	for _, item := range list.Items {
+		if len(item.Text) > maxLen {
+			maxLen = len(item.Text)
+		}
+	}
+
+	return maxLen
 }
 
 func (list *List) Prev() {
@@ -73,13 +97,34 @@ func (list *List) Selected() *Item {
 	return list.Items[list.selected]
 }
 
-// Toggle switches the checked state of the selected item
+func (list *List) SetSelectedByItem(selectableItem *Item) {
+	for idx, item := range list.Items {
+		if item == selectableItem {
+			list.selected = idx
+			break
+		}
+	}
+}
+
+// Toggle switches the checked state of the currently-selected item
 func (list *List) Toggle() {
 	if list.isUnselectable() {
 		return
 	}
 
-	list.Items[list.selected].Toggle()
+	list.Selected().Toggle()
+}
+
+func (list *List) UncheckedItems() []*Item {
+	items := []*Item{}
+
+	for _, item := range list.Items {
+		if !item.Checked {
+			items = append(items, item)
+		}
+	}
+
+	return items
 }
 
 func (list *List) Unselect() {

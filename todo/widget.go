@@ -70,6 +70,10 @@ func (widget *Widget) Refresh() {
 	widget.display()
 }
 
+func (widget *Widget) SetList(newList *List) {
+	widget.list = newList
+}
+
 /* -------------------- Unexported Functions -------------------- */
 
 // edit opens a modal dialog that permits editing the text of the currently-selected item
