@@ -46,7 +46,6 @@ func firewallStealthStateMacOS() string {
 }
 
 func FirewallStealthState() string {
-	q
 	switch runtime.GOOS {
 	case "linux":
 		return firewallStealthStateLinux()
