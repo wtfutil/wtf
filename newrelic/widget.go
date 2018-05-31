@@ -68,9 +68,14 @@ func (widget *Widget) contentFrom(deploys []nr.ApplicationDeployment) string {
 				lineColor = "lightblue"
 			}
 
+			var revLen = 8
+			if revLen > len(deploy.Revision) {
+			  revLen = len(deploy.Revision)
+			}
+
 			str = str + fmt.Sprintf(
 				" [green]%s[%s] %s %-.16s[white]\n",
-				deploy.Revision[0:8],
+				deploy.Revision[0:revLen],
 				lineColor,
 				deploy.Timestamp.Format("Jan 02, 15:04 MST"),
 				wtf.NameFromEmail(deploy.User),
