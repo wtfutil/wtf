@@ -32,7 +32,7 @@ func WifiEncryption() string {
 	switch runtime.GOOS {
 	case "linux":
 		return wifiEncryptionLinux()
-	case "macos":
+	case "darwin":
 		return wifkEncryptionMacOS()
 	default:
 		return ""
@@ -58,7 +58,7 @@ func WifiName() string {
 	switch runtime.GOOS {
 	case "linux":
 		return wifiNameLinux()
-	case "macos":
+	case "darwin":
 		return wifiNameMacOS()
 	default:
 		return ""

@@ -39,7 +39,7 @@ func DnsServers() []string {
 	switch runtime.GOOS {
 	case "linux":
 		return dnsLinux()
-	case "macos":
+	case "darwin":
 		return dnsMacOS()
 	default:
 		return []string{runtime.GOOS}

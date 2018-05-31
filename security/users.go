@@ -45,7 +45,7 @@ func LoggedInUsers() []string {
 	switch runtime.GOOS {
 	case "linux":
 		return loggedInUsersLinux()
-	case "macos":
+	case "darwin":
 		return loggedInUsersMacOs()
 	default:
 		return []string{}
