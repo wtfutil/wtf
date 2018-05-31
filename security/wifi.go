@@ -2,6 +2,7 @@ package security
 
 import (
 	"os/exec"
+	"runtime"
 
 	"github.com/senorprogrammer/wtf/wtf"
 )
@@ -12,14 +13,56 @@ const osxWifiArg = "-I"
 
 /* -------------------- Exported Functions -------------------- */
 
-func WifiEncryption() string {
+func wifiEncryptionLinux() string {
+	cmd := exec.Command("nmcli", "-t", "-f", "active,security", "dev", "wifi")
+	out := wtf.ExecuteCommand(cmd)
+	name := wtf.FindMatch(`yes:(.+)`, out)
+	if len(name) > 0 {
+		return name[0][1]
+	}
+	return ""
+}
+
+func wifkEncryptionMacOS() string {
 	name := wtf.FindMatch(`s*auth: (.+)s*`, wifiInfo())
 	return matchStr(name)
 }
 
-func WifiName() string {
+func WifiEncryption() string {
+	switch runtime.GOOS {
+	case "linux":
+		return wifiEncryptionLinux()
+	case "macos":
+		return wifkEncryptionMacOS()
+	default:
+		return ""
+	}
+}
+
+func wifiNameMacOS() string {
 	name := wtf.FindMatch(`s*SSID: (.+)s*`, wifiInfo())
 	return matchStr(name)
+}
+
+func wifiNameLinux() string {
+	cmd := exec.Command("nmcli", "-t", "-f", "active,ssid", "dev", "wifi")
+	out := wtf.ExecuteCommand(cmd)
+	name := wtf.FindMatch(`yes:(.+)`, out)
+	if len(name) > 0 {
+		return name[0][1]
+	}
+	return ""
+}
+
+func WifiName() string {
+	switch runtime.GOOS {
+	case "linux":
+		return wifiNameLinux()
+	case "macos":
+		return wifiNameMacOS()
+	default:
+		return ""
+	}
 }
 
 /* -------------------- Unexported Functions -------------------- */
