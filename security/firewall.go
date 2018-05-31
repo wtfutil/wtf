@@ -27,7 +27,7 @@ func FirewallState() string {
 	switch runtime.GOOS {
 	case "linux":
 		return firewallStateLinux()
-	case "macos":
+	case "darwin":
 		return firewallStateMacOS()
 	default:
 		return ""
@@ -49,7 +49,7 @@ func FirewallStealthState() string {
 	switch runtime.GOOS {
 	case "linux":
 		return firewallStealthStateLinux()
-	case "macos":
+	case "darwin":
 		return firewallStealthStateMacOS()
 	default:
 		return ""
