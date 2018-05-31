@@ -13,8 +13,8 @@ displaying infrequently-needed, but very important, daily data.
 
 ### Installation from Source
 
-*Note:* Requires `go v1.7` or later (because it uses the `context`
-package).
+*Note:* This has only been tested to build against Go 1.9.2. It won't
+work with Go versions < 1.7, and only _may_ work on other versions.
 
 ```bash
 go get github.com/senorprogrammer/wtf
