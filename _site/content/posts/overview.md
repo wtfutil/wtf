@@ -23,18 +23,19 @@ more details.
 
 ## Command-line Options
 
-`--config` <br />
+`--config, -c` <br />
 Allows you to define a custom config file to use. See <a href="/posts/configuration/">Configuration</a> for more details.
 
-`-h` <br />
+`--help, -h` <br />
 Shows help information for the command-line arguments that WTF
 takes.
 
-`--help [module name]` <br />
+`--module, -m` <br />
 Shows help information for the specific named module, if that module
-supports help text. Ex: `wtf --help git`.
+supports help text. <br />
+Example: `wtf --module=todo`.
 
-`--version` <br />
+`--version, -v` <br />
 Shows version info.
 
 ## Keyboard Commands
