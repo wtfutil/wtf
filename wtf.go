@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"time"
@@ -232,6 +233,7 @@ func main() {
 	go watchForConfigChanges(app, cmdFlags.Config, grid, pages)
 
 	if err := app.SetRoot(pages, true).Run(); err != nil {
+		fmt.Printf("An error occurred: %v\n", err)
 		os.Exit(1)
 	}
 }
