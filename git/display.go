@@ -24,9 +24,9 @@ func (widget *Widget) display() {
 	str = str + " [red]Branch[white]\n"
 	str = str + fmt.Sprintf(" %s", repoData.Branch)
 	str = str + "\n"
-	str = str + widget.formatChanges(repoData.ChangedFiles)
-	str = str + "\n"
 	str = str + widget.formatCommits(repoData.Commits)
+	str = str + "\n"
+	str = str + widget.formatChanges(repoData.ChangedFiles)
 
 	fmt.Fprintf(widget.View, "%s", str)
 }
