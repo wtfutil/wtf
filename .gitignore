@@ -1,2 +1,4 @@
 .DS_Store
 gcal/client_secret.json
+#intellij idea
+.idea/
