@@ -20,11 +20,11 @@ func NewSystemInfo() *SystemInfo {
 
 	switch runtime.GOOS {
 	case "linux":
-		cmd := exec.Command("lsb_release -a", arg...)
+		cmd := exec.Command("uname -a", arg...)
 	case "darwin":
 		cmd := exec.Command("sw_vers", arg...)
 	default:
-		return ""
+		cmd := exec.Command("sw_vers", arg...)
 	}
 	
 	raw := wtf.ExecuteCommand(cmd)
