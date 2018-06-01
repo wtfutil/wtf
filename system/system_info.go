@@ -2,6 +2,7 @@ package system
 
 import (
 	"os/exec"
+	"runtime"
 	"strings"
 
 	"github.com/senorprogrammer/wtf/wtf"
@@ -18,13 +19,14 @@ func NewSystemInfo() *SystemInfo {
 
 	arg := []string{}
 
+	var cmd *exec.Cmd
 	switch runtime.GOOS {
 	case "linux":
-		cmd := exec.Command("uname -a", arg...)
+		cmd = exec.Command("uname -a", arg...)
 	case "darwin":
-		cmd := exec.Command("sw_vers", arg...)
+		cmd = exec.Command("sw_vers", arg...)
 	default:
-		cmd := exec.Command("sw_vers", arg...)
+		cmd = exec.Command("sw_vers", arg...)
 	}
 	
 	raw := wtf.ExecuteCommand(cmd)
