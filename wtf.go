@@ -204,6 +204,7 @@ func loadConfig(configFlag string) {
 }
 
 func main() {
+
 	cmdFlags := wtf.NewCommandFlags()
 	cmdFlags.Parse(version)
 
@@ -219,6 +220,7 @@ func main() {
 	wtf.WriteConfigFile()
 
 	loadConfig(cmdFlags.Config)
+	os.Setenv("TERM", Config.UString("wtf.term", os.Getenv("TERM")))
 
 	app := tview.NewApplication()
 	pages := tview.NewPages()
