@@ -13,45 +13,15 @@ const osxWifiArg = "-I"
 
 /* -------------------- Exported Functions -------------------- */
 
-func wifiEncryptionLinux() string {
-	cmd := exec.Command("nmcli", "-t", "-f", "active,security", "dev", "wifi")
-	out := wtf.ExecuteCommand(cmd)
-	name := wtf.FindMatch(`yes:(.+)`, out)
-	if len(name) > 0 {
-		return name[0][1]
-	}
-	return ""
-}
-
-func wifkEncryptionMacOS() string {
-	name := wtf.FindMatch(`s*auth: (.+)s*`, wifiInfo())
-	return matchStr(name)
-}
-
 func WifiEncryption() string {
 	switch runtime.GOOS {
 	case "linux":
 		return wifiEncryptionLinux()
 	case "darwin":
-		return wifkEncryptionMacOS()
+		return wifiEncryptionMacOS()
 	default:
 		return ""
 	}
-}
-
-func wifiNameMacOS() string {
-	name := wtf.FindMatch(`s*SSID: (.+)s*`, wifiInfo())
-	return matchStr(name)
-}
-
-func wifiNameLinux() string {
-	cmd := exec.Command("nmcli", "-t", "-f", "active,ssid", "dev", "wifi")
-	out := wtf.ExecuteCommand(cmd)
-	name := wtf.FindMatch(`yes:(.+)`, out)
-	if len(name) > 0 {
-		return name[0][1]
-	}
-	return ""
 }
 
 func WifiName() string {
@@ -67,9 +37,42 @@ func WifiName() string {
 
 /* -------------------- Unexported Functions -------------------- */
 
+func wifiEncryptionLinux() string {
+	cmd := exec.Command("nmcli", "-t", "-f", "active,security", "dev", "wifi")
+	out := wtf.ExecuteCommand(cmd)
+
+	name := wtf.FindMatch(`yes:(.+)`, out)
+
+	if len(name) > 0 {
+		return name[0][1]
+	}
+
+	return ""
+}
+
+func wifiEncryptionMacOS() string {
+	name := wtf.FindMatch(`s*auth: (.+)s*`, wifiInfo())
+	return matchStr(name)
+}
+
 func wifiInfo() string {
 	cmd := exec.Command(osxWifiCmd, osxWifiArg)
 	return wtf.ExecuteCommand(cmd)
+}
+
+func wifiNameLinux() string {
+	cmd := exec.Command("nmcli", "-t", "-f", "active,ssid", "dev", "wifi")
+	out := wtf.ExecuteCommand(cmd)
+	name := wtf.FindMatch(`yes:(.+)`, out)
+	if len(name) > 0 {
+		return name[0][1]
+	}
+	return ""
+}
+
+func wifiNameMacOS() string {
+	name := wtf.FindMatch(`s*SSID: (.+)s*`, wifiInfo())
+	return matchStr(name)
 }
 
 func matchStr(data [][]string) string {
