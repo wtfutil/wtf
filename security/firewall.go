@@ -44,7 +44,7 @@ func firewallStateMacOS() string {
 	cmd := exec.Command(osxFirewallCmd, "--getglobalstate")
 	str := wtf.ExecuteCommand(cmd)
 
-	return status(str)
+	return statusLabel(str)
 }
 
 func firewallStealthStateLinux() string {
@@ -55,15 +55,15 @@ func firewallStealthStateMacOS() string {
 	cmd := exec.Command(osxFirewallCmd, "--getstealthmode")
 	str := wtf.ExecuteCommand(cmd)
 
-	return status(str)
+	return statusLabel(str)
 }
 
-func status(str string) string {
-	icon := "[red]off[white]"
+func statusLabel(str string) string {
+	label := "off"
 
 	if strings.Contains(str, "enabled") {
-		icon = "[green]on[white]"
+		label = "on"
 	}
 
-	return icon
+	return label
 }
