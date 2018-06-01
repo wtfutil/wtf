@@ -18,7 +18,15 @@ func NewSystemInfo() *SystemInfo {
 
 	arg := []string{}
 
-	cmd := exec.Command("sw_vers", arg...)
+	switch runtime.GOOS {
+	case "linux":
+		cmd := exec.Command("lsb_release -a", arg...)
+	case "darwin":
+		cmd := exec.Command("sw_vers", arg...)
+	default:
+		return ""
+	}
+	
 	raw := wtf.ExecuteCommand(cmd)
 
 	for _, row := range strings.Split(raw, "\n") {
