@@ -12,17 +12,6 @@ const osxFirewallCmd = "/usr/libexec/ApplicationFirewall/socketfilterfw"
 
 /* -------------------- Exported Functions -------------------- */
 
-func firewallStateLinux() string {
-	return "[red]NA[white]"
-}
-
-func firewallStateMacOS() string {
-	cmd := exec.Command(osxFirewallCmd, "--getglobalstate")
-	str := wtf.ExecuteCommand(cmd)
-
-	return status(str)
-}
-
 func FirewallState() string {
 	switch runtime.GOOS {
 	case "linux":
@@ -32,17 +21,6 @@ func FirewallState() string {
 	default:
 		return ""
 	}
-}
-
-func firewallStealthStateLinux() string {
-	return "[red]NA[white]"
-}
-
-func firewallStealthStateMacOS() string {
-	cmd := exec.Command(osxFirewallCmd, "--getstealthmode")
-	str := wtf.ExecuteCommand(cmd)
-
-	return status(str)
 }
 
 func FirewallStealthState() string {
@@ -57,6 +35,28 @@ func FirewallStealthState() string {
 }
 
 /* -------------------- Unexported Functions -------------------- */
+
+func firewallStateLinux() string {
+	return "[red]NA[white]"
+}
+
+func firewallStateMacOS() string {
+	cmd := exec.Command(osxFirewallCmd, "--getglobalstate")
+	str := wtf.ExecuteCommand(cmd)
+
+	return status(str)
+}
+
+func firewallStealthStateLinux() string {
+	return "[red]NA[white]"
+}
+
+func firewallStealthStateMacOS() string {
+	cmd := exec.Command(osxFirewallCmd, "--getstealthmode")
+	str := wtf.ExecuteCommand(cmd)
+
+	return status(str)
+}
 
 func status(str string) string {
 	icon := "[red]off[white]"

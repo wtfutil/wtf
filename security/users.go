@@ -1,5 +1,7 @@
 package security
 
+// http://applehelpwriter.com/2017/05/21/how-to-reveal-hidden-users/
+
 import (
 	"os/exec"
 	"runtime"
@@ -8,38 +10,7 @@ import (
 	"github.com/senorprogrammer/wtf/wtf"
 )
 
-func loggedInUsersLinux() []string {
-	cmd := exec.Command("who", "-us")
-	users := wtf.ExecuteCommand(cmd)
-
-	cleaned := []string{}
-	for _, u := range strings.Split(users, "\n") {
-		clean := true
-		col := strings.Split(u, " ")
-		if len(col) > 0 {
-			for _, cleanedU := range cleaned {
-				if strings.Compare(cleanedU, col[0]) == 0 {
-					clean = false
-				}
-			}
-			if clean {
-				cleaned = append(cleaned, col[0])
-			}
-		}
-
-	}
-
-	return cleaned
-}
-
-func loggedInUsersMacOs() []string {
-	cmd := exec.Command("dscl", []string{".", "-list", "/Users"}...)
-	users := wtf.ExecuteCommand(cmd)
-
-	return cleanUsers(strings.Split(users, "\n"))
-}
-
-// http://applehelpwriter.com/2017/05/21/how-to-reveal-hidden-users/
+/* -------------------- Exported Functions -------------------- */
 
 func LoggedInUsers() []string {
 	switch runtime.GOOS {
@@ -51,6 +22,8 @@ func LoggedInUsers() []string {
 		return []string{}
 	}
 }
+
+/* -------------------- Unexported Functions -------------------- */
 
 func cleanUsers(users []string) []string {
 	rejects := []string{"_", "root", "nobody", "daemon", "Guest"}
@@ -72,4 +45,38 @@ func cleanUsers(users []string) []string {
 	}
 
 	return cleaned
+}
+
+func loggedInUsersLinux() []string {
+	cmd := exec.Command("who", "-us")
+	users := wtf.ExecuteCommand(cmd)
+
+	cleaned := []string{}
+
+	for _, user := range strings.Split(users, "\n") {
+		clean := true
+		col := strings.Split(user, " ")
+
+		if len(col) > 0 {
+			for _, cleanedU := range cleaned {
+				if strings.Compare(cleanedU, col[0]) == 0 {
+					clean = false
+				}
+			}
+
+			if clean {
+				cleaned = append(cleaned, col[0])
+			}
+		}
+
+	}
+
+	return cleaned
+}
+
+func loggedInUsersMacOs() []string {
+	cmd := exec.Command("dscl", []string{".", "-list", "/Users"}...)
+	users := wtf.ExecuteCommand(cmd)
+
+	return cleanUsers(strings.Split(users, "\n"))
 }
