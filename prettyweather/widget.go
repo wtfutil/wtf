@@ -48,19 +48,21 @@ func (widget *Widget) prettyWeather() {
 	widget.unit, widget.city = Config.UString("wtf.mods.prettyweather.unit", "m"), Config.UString("wtf.mods.prettyweather.city", "")
 	req, err := http.NewRequest("GET", "https://wttr.in/"+widget.city+"?0"+"?"+widget.unit, nil)
 	if err != nil {
-		fmt.Println(err)
+		widget.result = fmt.Sprintf("%s", err.Error())
+		return
 	}
-
 	req.Header.Set("User-Agent", "curl")
 	response, err := client.Do(req)
 	if err != nil {
-		fmt.Printf("%s", err)
-	} else {
-		defer response.Body.Close()
-		contents, err := ioutil.ReadAll(response.Body)
-		if err != nil {
-			fmt.Printf("%s", err)
-		}
-		widget.result = fmt.Sprintf("%s", strings.TrimSpace(string(contents)))
+		widget.result = fmt.Sprintf("%s", err.Error())
+		return
 	}
+	defer response.Body.Close()
+	contents, err := ioutil.ReadAll(response.Body)
+	if err != nil {
+		widget.result = fmt.Sprintf("%s", err.Error())
+		return
+	}
+	widget.result = fmt.Sprintf("%s", strings.TrimSpace(string(contents)))
+
 }
