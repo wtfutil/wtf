@@ -34,13 +34,14 @@
 html {
   font-family: 'Fira Sans', 'Helvetica Neue', 'Arial', sans-serif;
   font-weight:300;
-
 }
+
 @media (min-width: 48em) {
   html {
     font-size: 16px;
   }
 }
+
 @media (min-width: 58em) {
   html {
     font-size: 20px;
@@ -63,13 +64,14 @@ pre {
   padding: 2rem 1rem;
   color: rgba(255,255,255,.5);
   background-color: #300030;
+  height: 100%;
+  float: left;
 }
 @media (min-width: 48em) {
   .sidebar {
-    position: fixed;
+    position: relative;
     top: 0;
     left: 0;
-    bottom: 0;
     width: 18rem;
     text-align: left;
   }
@@ -167,7 +169,7 @@ a.sidebar-nav-item:focus {
   display:inline;
   vertical-align: bottom;
 }
- 
+
 .badges {
   float: right;
 }
