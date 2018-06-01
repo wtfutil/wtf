@@ -2,6 +2,7 @@ package clocks
 
 import (
 	"sort"
+	"time"
 )
 
 type ClockCollection struct {
@@ -28,10 +29,11 @@ func (clocks *ClockCollection) SortedAlphabetically() {
 }
 
 func (clocks *ClockCollection) SortedChronologically() {
+	now := time.Now()
 	sort.Slice(clocks.Clocks, func(i, j int) bool {
 		clock := clocks.Clocks[i]
 		other := clocks.Clocks[j]
 
-		return clock.LocalTime().Before(other.LocalTime())
+		return clock.ToLocal(now).String() < other.ToLocal(now).String()
 	})
 }
