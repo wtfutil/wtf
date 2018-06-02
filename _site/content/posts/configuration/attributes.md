@@ -72,7 +72,8 @@ change. <br />
 Values: A positive integer, `0..n`.
 
 `term` <br />
-This value is _optional_. Sets a custom value for the terminal type this app runs in. Leave this entry out of the config if you simply want to use your terminal's
+_Optional_. <br />
+Sets a custom value for the terminal type this app runs in. Leave this entry out of the config if you simply want to use your terminal's
 default setting. <br />
 **Note:** If an invalid value is provided for this setting, the app will
  crash with a `"terminal entry not found"` error. <br />
