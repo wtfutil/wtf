@@ -6,6 +6,8 @@ draft: false
 
 Displays your current IP address information, from ipinfo.io.
 
+<img src="/imgs/modules/ipinfo.png" width="320" height="199" alt="ipinfo screenshot" />
+
 ## Source Code
 
 ```bash
