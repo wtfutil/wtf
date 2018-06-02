@@ -1,11 +1,12 @@
 package cryptolive
 
 import (
+	"encoding/json"
 	"fmt"
+	"net/http"
 	"reflect"
 	"time"
 
-	"github.com/cizixs/gohttp"
 	"github.com/olebedev/config"
 	"github.com/senorprogrammer/wtf/wtf"
 )
@@ -14,6 +15,8 @@ import (
 var Config *config.Config
 
 var started = false
+var baseURL = "https://min-api.cryptocompare.com/data/price"
+var ok = true
 
 // Widget define wtf widget to register widget later
 type Widget struct {
@@ -60,6 +63,7 @@ func (widget *Widget) Refresh() {
 	}
 
 	if started == false {
+		// this code should run once
 		go func() {
 			for {
 				widget.updateCurrencies()
@@ -73,6 +77,13 @@ func (widget *Widget) Refresh() {
 
 	widget.UpdateRefreshedAt()
 	widget.View.Clear()
+
+	if !ok {
+		widget.View.SetText(
+			fmt.Sprint("Please check your internet connection!"),
+		)
+		return
+	}
 	display(widget)
 }
 
@@ -80,45 +91,21 @@ func (widget *Widget) Refresh() {
 
 func display(widget *Widget) {
 	str := ""
+	var (
+		fromNameColor        = Config.UString("wtf.mods.cryptolive.colors.from.name", "coral")
+		fromDisplayNameColor = Config.UString("wtf.mods.cryptolive.colors.from.displayName", "gray")
+		toNameColor          = Config.UString("wtf.mods.cryptolive.colors.to.name", "white")
+		toPriceColor         = Config.UString("wtf.mods.cryptolive.colors.to.price", "green")
+	)
 	for _, item := range widget.list.items {
-		str += fmt.Sprintf("[coral]%s[gray](%s):\n", item.displayName, item.name)
+		str += fmt.Sprintf("[%s]%s[%s](%s):\n", fromNameColor, item.displayName, fromDisplayNameColor, item.name)
 		for _, toItem := range item.to {
-			str += fmt.Sprintf("\t%s[%s]: %f\n", toItem.name, "green", toItem.price)
+			str += fmt.Sprintf("\t[%s]%s: [%s]%f\n", toNameColor, toItem.name, toPriceColor, toItem.price)
 		}
 		str += "\n"
 	}
 
-	fmt.Fprintf(
-		widget.View,
-		"\n%s",
-		str,
-	)
-}
-
-func (widget *Widget) updateCurrencies() {
-	defer func() {
-		recover()
-	}()
-	for _, fromCurrency := range widget.list.items {
-		request := gohttp.New().Path("data", "price").Query("fsym", fromCurrency.name)
-		tsyms := ""
-		for _, toCurrency := range fromCurrency.to {
-			tsyms += fmt.Sprintf("%s,", toCurrency.name)
-		}
-
-		response, err := request.Query("tsyms", tsyms).Get("https://min-api.cryptocompare.com")
-		if err != nil {
-		}
-
-		jsonResponse := &cResponse{}
-		response.AsJSON(jsonResponse)
-
-		responseRef := reflect.Indirect(reflect.ValueOf(jsonResponse))
-		for idx, toCurrency := range fromCurrency.to {
-			fromCurrency.to[idx].price = responseRef.FieldByName(toCurrency.name).Interface().(float32)
-		}
-
-	}
+	widget.View.SetText(fmt.Sprintf("\n%s", str))
 }
 
 func getToList(fromName string) []*toCurrency {
@@ -134,4 +121,59 @@ func getToList(fromName string) []*toCurrency {
 	}
 
 	return toList
+}
+
+func (widget *Widget) updateCurrencies() {
+	defer func() {
+		recover()
+	}()
+	for _, fromCurrency := range widget.list.items {
+		var (
+			client       http.Client
+			jsonResponse cResponse
+		)
+
+		client = http.Client{
+			Timeout: time.Duration(5 * time.Second),
+		}
+
+		request := makeRequest(fromCurrency)
+		response, err := client.Do(request)
+
+		if err != nil {
+			ok = false
+		} else {
+			ok = true
+		}
+
+		defer response.Body.Close()
+
+		_ = json.NewDecoder(response.Body).Decode(&jsonResponse)
+
+		setPrices(&jsonResponse, fromCurrency)
+
+	}
+}
+
+func makeRequest(currency *fromCurrency) *http.Request {
+	fsym := currency.name
+	tsyms := ""
+	for _, to := range currency.to {
+		tsyms += fmt.Sprintf("%s,", to.name)
+	}
+
+	url := fmt.Sprintf("%s?fsym=%s&tsyms=%s", baseURL, fsym, tsyms)
+	request, err := http.NewRequest("GET", url, nil)
+
+	if err != nil {
+	}
+
+	return request
+}
+
+func setPrices(response *cResponse, currencry *fromCurrency) {
+	responseRef := reflect.Indirect(reflect.ValueOf(response))
+	for idx, toCurrency := range currencry.to {
+		currencry.to[idx].price = responseRef.FieldByName(toCurrency.name).Interface().(float32)
+	}
 }
