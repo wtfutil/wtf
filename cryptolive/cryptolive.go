@@ -42,3 +42,13 @@ type cResponse struct {
 	USD  float32 `json:"USD"`
 	EUR  float32 `json:"EUR"`
 }
+
+/* -------------------- Unexported Functions -------------------- */
+
+func (l *list) addItem(name string, displayName string, to []*toCurrency) {
+	l.items = append(l.items, &fromCurrency{
+		name:        name,
+		displayName: displayName,
+		to:          to,
+	})
+}

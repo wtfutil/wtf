@@ -33,32 +33,22 @@ func NewWidget() *Widget {
 		updateInterval: Config.UInt("wtf.mods.cryptolive.updateInterval", 10),
 	}
 
+	widget.setList()
+
+	return &widget
+}
+
+func (widget *Widget) setList() {
 	currenciesMap, _ := Config.Map("wtf.mods.cryptolive.currencies")
 
-	var currencies []*fromCurrency
+	widget.list = &list{}
 
 	for currency := range currenciesMap {
 		displayName, _ := Config.String("wtf.mods.cryptolive.currencies." + currency + ".displayName")
-		toCList, _ := Config.List("wtf.mods.cryptolive.currencies." + currency + ".to")
-		var toList []*toCurrency
-		for _, v := range toCList {
-			toList = append(toList, &toCurrency{
-				name:  v.(string),
-				price: -1,
-			})
-		}
-		currencies = append(currencies, &fromCurrency{
-			name:        currency,
-			displayName: displayName,
-			to:          toList,
-		})
+		toList := getToList(currency)
+		widget.list.addItem(currency, displayName, toList)
 	}
 
-	widget.list = &list{
-		items: currencies,
-	}
-
-	return &widget
 }
 
 /* -------------------- Exported Functions -------------------- */
@@ -129,4 +119,19 @@ func (widget *Widget) updateCurrencies() {
 		}
 
 	}
+}
+
+func getToList(fromName string) []*toCurrency {
+	toNames, _ := Config.List("wtf.mods.cryptolive.currencies." + fromName + ".to")
+
+	var toList []*toCurrency
+
+	for _, to := range toNames {
+		toList = append(toList, &toCurrency{
+			name:  to.(string),
+			price: -1,
+		})
+	}
+
+	return toList
 }
