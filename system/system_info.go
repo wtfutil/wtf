@@ -41,7 +41,7 @@ func NewSystemInfo() *SystemInfo {
 		m[strings.TrimSpace(parts[0])] = strings.TrimSpace(parts[1])
 	}
 
-	sysInfo := new(SystemInfo)
+	var sysInfo *SystemInfo
 	switch runtime.GOOS {
 	case "linux":
 		sysInfo = &SystemInfo{
