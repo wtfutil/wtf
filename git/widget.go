@@ -16,6 +16,8 @@ const HelpText = `
     /: Show/hide this help window
     h: Previous git repository
     l: Next git repository
+	p: Pull current git repository
+	c: Checkout to branch
 
     arrow left:  Previous git repository
     arrow right: Next git repository
@@ -75,8 +77,72 @@ func (widget *Widget) Prev() {
 
 	widget.display()
 }
+func (widget *Widget) Pull() {
+	repoToPull := widget.Data[widget.Idx]
+	repoToPull.pull()
+	widget.Refresh()
+
+}
+func (widget *Widget) Checkout() {
+	form := widget.modalForm("Branch to checkout:", "")
+
+	checkoutFctn := func() {
+		text := form.GetFormItem(0).(*tview.InputField).GetText()
+		repoToCheckout := widget.Data[widget.Idx]
+		repoToCheckout.checkout(text)
+		widget.pages.RemovePage("modal")
+		widget.app.SetFocus(widget.View)
+		widget.display()
+		widget.Refresh()
+	}
+
+	widget.addButtons(form, checkoutFctn)
+	widget.modalFocus(form)
+
+}
 
 /* -------------------- Unexported Functions -------------------- */
+func (widget *Widget) addCheckoutButton(form *tview.Form, fctn func()) {
+	form.AddButton("Checkout", fctn)
+}
+func (widget *Widget) addButtons(form *tview.Form, checkoutFctn func()) {
+	widget.addCheckoutButton(form, checkoutFctn)
+	widget.addCancelButton(form)
+}
+func (widget *Widget) addCancelButton(form *tview.Form) {
+	cancelFn := func() {
+		widget.pages.RemovePage("modal")
+		widget.app.SetFocus(widget.View)
+		widget.display()
+	}
+
+	form.AddButton("Cancel", cancelFn)
+	form.SetCancelFunc(cancelFn)
+}
+func (widget *Widget) modalFocus(form *tview.Form) {
+	frame := widget.modalFrame(form)
+	widget.pages.AddPage("modal", frame, false, true)
+	widget.app.SetFocus(frame)
+}
+
+func (widget *Widget) modalForm(lbl, text string) *tview.Form {
+	form := tview.NewForm().
+		SetButtonsAlign(tview.AlignCenter).
+		SetButtonTextColor(tview.Styles.PrimaryTextColor)
+
+	form.AddInputField(lbl, text, 60, nil, nil)
+
+	return form
+}
+func (widget *Widget) modalFrame(form *tview.Form) *tview.Frame {
+	_, _, w, h := widget.View.GetInnerRect()
+
+	frame := tview.NewFrame(form).SetBorders(0, 0, 0, 0, 0, 0)
+	frame.SetBorder(true)
+	frame.SetRect(w+20, h+2, 80, 7)
+
+	return frame
+}
 
 func (widget *Widget) currentData() *GitRepo {
 	if len(widget.Data) == 0 {
@@ -111,6 +177,12 @@ func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 		return nil
 	case "l":
 		widget.Next()
+		return nil
+	case "p":
+		widget.Pull()
+		return nil
+	case "c":
+		widget.Checkout()
 		return nil
 	}
 
