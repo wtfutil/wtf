@@ -21,9 +21,10 @@
 Displays weather information as ASCII art from Wttr.in.
 Source Code wtf/prettyweather/ Required ENV Variables None.
 Keyboard Commands None.
-Configuration prettyweather:enabled:truecity:&amp;#34;tehran&amp;#34;position:top:3left:5height:1width:1refreshInterval:300unit:&amp;#34;c&amp;#34; Attributes city Optional. Values: The name of any city supported by Wttr.in.
+Configuration prettyweather:enabled:truecity:&amp;#34;tehran&amp;#34;position:top:3left:5height:1width:1refreshInterval:300unit:&amp;#34;c&amp;#34; Attributes city Optional. It will grab the current location from your IP address if omitted.
+Values: The name of any city supported by Wttr.in.
 enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.
-position Defines where in the grid this module&amp;rsquo;s widget will be displayed. refreshInterval How often, in seconds, this module will update its data.</description>
+position Defines where in the grid this module&amp;rsquo;s widget will be displayed.</description>
     </item>
     
     <item>

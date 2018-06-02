@@ -43,7 +43,8 @@ None.
 ### Attributes
 
 `city` <br />
-_Optional_. <br />
+_Optional_. It will grab the current location from your IP address if
+omitted.<br />
 Values: The name of any city supported by [Wttr.in](http://wttr.in).
 
 `enabled` <br />
@@ -58,6 +59,6 @@ How often, in seconds, this module will update its data. <br />
 Values: A positive integer, `0..n`.
 
 `unit` <br />
-_Optional_. <br />
+_Optional_. It will use metric if you are out of US and imperial for US.<br />
 The temperature scale in which to display temperature values. <br />
 Values: `F` for Fahrenheit, `C` for Celcius.
