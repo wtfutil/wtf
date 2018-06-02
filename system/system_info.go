@@ -28,7 +28,7 @@ func NewSystemInfo() *SystemInfo {
 	default:
 		cmd = exec.Command("sw_vers", arg...)
 	}
-	
+
 	raw := wtf.ExecuteCommand(cmd)
 
 	for _, row := range strings.Split(raw, "\n") {
@@ -41,11 +41,27 @@ func NewSystemInfo() *SystemInfo {
 		m[strings.TrimSpace(parts[0])] = strings.TrimSpace(parts[1])
 	}
 
-	sysInfo := SystemInfo{
-		ProductName:    m["ProductName"],
-		ProductVersion: m["ProductVersion"],
-		BuildVersion:   m["BuildVersion"],
-	}
+	var sysInfo *SystemInfo
+	switch runtime.GOOS {
+	case "linux":
+		sysInfo = &SystemInfo{
+			ProductName:    m["Distributor ID"],
+			ProductVersion: m["Description"],
+			BuildVersion:   m["Release"],
+		}
+	case "darwin":
+		sysInfo = &SystemInfo{
+			ProductName:    m["ProductName"],
+			ProductVersion: m["ProductVersion"],
+			BuildVersion:   m["BuildVersion"],
+		}
+	default:
+		sysInfo = &SystemInfo{
+			ProductName:    m["ProductName"],
+			ProductVersion: m["ProductVersion"],
+			BuildVersion:   m["BuildVersion"],
+		}
 
-	return &sysInfo
+	}
+	return sysInfo
 }
