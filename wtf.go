@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"time"
@@ -16,10 +17,12 @@ import (
 	"github.com/senorprogrammer/wtf/git"
 	"github.com/senorprogrammer/wtf/github"
 	"github.com/senorprogrammer/wtf/help"
+  "github.com/senorprogrammer/wtf/ipinfo"
 	"github.com/senorprogrammer/wtf/jira"
 	"github.com/senorprogrammer/wtf/newrelic"
 	"github.com/senorprogrammer/wtf/opsgenie"
 	"github.com/senorprogrammer/wtf/power"
+  "github.com/senorprogrammer/wtf/prettyweather"
 	"github.com/senorprogrammer/wtf/security"
 	"github.com/senorprogrammer/wtf/status"
 	"github.com/senorprogrammer/wtf/system"
@@ -27,7 +30,6 @@ import (
 	"github.com/senorprogrammer/wtf/todo"
 	"github.com/senorprogrammer/wtf/weather"
 	"github.com/senorprogrammer/wtf/wtf"
-	"github.com/senorprogrammer/wtf/prettyweather"
 )
 
 /* -------------------- Functions -------------------- */
@@ -158,17 +160,18 @@ func makeWidgets(app *tview.Application, pages *tview.Pages) {
 	gcal.Config = Config
 	git.Config = Config
 	github.Config = Config
+	ipinfo.Config = Config
 	jira.Config = Config
 	newrelic.Config = Config
 	opsgenie.Config = Config
 	power.Config = Config
+  prettyweather.Config = Config
 	security.Config = Config
 	status.Config = Config
 	system.Config = Config
 	textfile.Config = Config
 	todo.Config = Config
 	weather.Config = Config
-	prettyweather.Config = Config
 	wtf.Config = Config
 
 	Widgets = []wtf.Wtfable{
@@ -178,17 +181,18 @@ func makeWidgets(app *tview.Application, pages *tview.Pages) {
 		gcal.NewWidget(),
 		git.NewWidget(app, pages),
 		github.NewWidget(app, pages),
+		ipinfo.NewWidget(),
 		jira.NewWidget(),
 		newrelic.NewWidget(),
 		opsgenie.NewWidget(),
 		power.NewWidget(),
+    prettyweather.NewWidget(),
 		security.NewWidget(),
 		status.NewWidget(),
 		system.NewWidget(date, version),
 		textfile.NewWidget(app, pages),
 		todo.NewWidget(app, pages),
 		weather.NewWidget(app, pages),
-		prettyweather.NewWidget(),
 	}
 
 	FocusTracker = wtf.FocusTracker{
@@ -203,6 +207,7 @@ func loadConfig(configFlag string) {
 }
 
 func main() {
+
 	cmdFlags := wtf.NewCommandFlags()
 	cmdFlags.Parse(version)
 
@@ -218,6 +223,7 @@ func main() {
 	wtf.WriteConfigFile()
 
 	loadConfig(cmdFlags.Config)
+	os.Setenv("TERM", Config.UString("wtf.term", os.Getenv("TERM")))
 
 	app := tview.NewApplication()
 	pages := tview.NewPages()
@@ -235,6 +241,7 @@ func main() {
 	go watchForConfigChanges(app, cmdFlags.Config, grid, pages)
 
 	if err := app.SetRoot(pages, true).Run(); err != nil {
+		fmt.Printf("An error occurred: %v\n", err)
 		os.Exit(1)
 	}
 }

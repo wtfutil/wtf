@@ -69,6 +69,7 @@
         <li class="sidebar-list-item-2"><a href="/posts/modules/git/">Git</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/github/">Github</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/gcal/">Google Calendar</a></li>
+        <li class="sidebar-list-item-2"><a href="/posts/modules/ipinfo/">IPInfo</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/jira/">Jira</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/newrelic/">New Relic</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/opsgenie/">OpsGenie</a></li>
@@ -127,7 +128,8 @@ See this <a href="https://github.com/senorprogrammer/wtf/blob/master/_sample_con
 </span><span class="w">    </span><span class="c"># that support ten line of text, one of three lines, and one of four</span><span class="w">
 </span><span class="w">    </span>rows<span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="m">10</span><span class="p">,</span><span class="w"> </span><span class="m">10</span><span class="p">,</span><span class="w"> </span><span class="m">10</span><span class="p">,</span><span class="w"> </span><span class="m">10</span><span class="p">,</span><span class="w"> </span><span class="m">10</span><span class="p">,</span><span class="w"> </span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="m">4</span><span class="p">]</span><span class="w">
 </span><span class="w">  </span><span class="c"># The app redraws itself once a second</span><span class="w">
-</span><span class="w">  </span>refreshInterval<span class="p">:</span><span class="w"> </span><span class="m">1</span></code></pre></div>
+</span><span class="w">  </span>refreshInterval<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">  </span>term<span class="p">:</span><span class="w"> </span><span class="s2">&#34;xterm-256color&#34;</span></code></pre></div>
 <h3 id="attributes">Attributes</h3>
 
 <p><code>colors.background</code> <br />
@@ -170,6 +172,14 @@ How often, in seconds, the UI refreshes itself. <br />
 <strong>Note:</strong> This implementation is probably wrong and buggy and likely to
 change. <br />
 Values: A positive integer, <code>0..n</code>.</p>
+
+<p><code>term</code> <br />
+This value is <em>optional</em>. Sets a custom value for the terminal type this app runs in. Leave this entry out of the config if you simply want to use your terminal&rsquo;s
+default setting. <br />
+<strong>Note:</strong> If an invalid value is provided for this setting, the app will
+ crash with a <code>&quot;terminal entry not found&quot;</code> error. <br />
+Values: Any valid terminal type (ie: vt100, xterm, xterm-256color, ansi,
+etc.).</p>
 
 </div>
 

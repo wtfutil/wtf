@@ -25,6 +25,7 @@ wtf:
     rows: [10, 10, 10, 10, 10, 3, 4]
   # The app redraws itself once a second
   refreshInterval: 1
+  term: "xterm-256color"
 ```
 
 ### Attributes
@@ -69,3 +70,11 @@ How often, in seconds, the UI refreshes itself. <br />
 **Note:** This implementation is probably wrong and buggy and likely to
 change. <br />
 Values: A positive integer, `0..n`.
+
+`term` <br />
+This value is _optional_. Sets a custom value for the terminal type this app runs in. Leave this entry out of the config if you simply want to use your terminal's
+default setting. <br />
+**Note:** If an invalid value is provided for this setting, the app will
+ crash with a `"terminal entry not found"` error. <br />
+Values: Any valid terminal type (ie: vt100, xterm, xterm-256color, ansi,
+etc.).

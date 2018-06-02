@@ -7,11 +7,31 @@ import (
 	"io"
 	"io/ioutil"
 	"net/http"
+	"net/url"
 	"os"
+	"strings"
 )
 
-func IssuesFor(username string) (*SearchResult, error) {
-	url := fmt.Sprintf("/rest/api/2/search?jql=assignee=%s", username)
+func IssuesFor(username string, project string, jql string) (*SearchResult, error) {
+	query := []string{}
+
+	if project != "" {
+		query = append(query, buildJql("project", project))
+	}
+
+	if username != "" {
+		query = append(query, buildJql("assignee", username))
+	}
+
+	if jql != "" {
+		query = append(query, jql)
+	}
+
+	v := url.Values{}
+
+	v.Set("jql", strings.Join(query, " AND "))
+
+	url := fmt.Sprintf("/rest/api/2/search?%s", v.Encode())
 
 	resp, err := jiraRequest(url)
 	if err != nil {
@@ -22,6 +42,10 @@ func IssuesFor(username string) (*SearchResult, error) {
 	parseJson(searchResult, resp.Body)
 
 	return searchResult, nil
+}
+
+func buildJql(key string, value string) string {
+	return fmt.Sprintf("%s = \"%s\"", key, value)
 }
 
 /* -------------------- Unexported Functions -------------------- */
