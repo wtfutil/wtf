@@ -17,10 +17,12 @@ import (
 	"github.com/senorprogrammer/wtf/git"
 	"github.com/senorprogrammer/wtf/github"
 	"github.com/senorprogrammer/wtf/help"
+	"github.com/senorprogrammer/wtf/ipinfo"
 	"github.com/senorprogrammer/wtf/jira"
 	"github.com/senorprogrammer/wtf/newrelic"
 	"github.com/senorprogrammer/wtf/opsgenie"
 	"github.com/senorprogrammer/wtf/power"
+	"github.com/senorprogrammer/wtf/prettyweather"
 	"github.com/senorprogrammer/wtf/security"
 	"github.com/senorprogrammer/wtf/status"
 	"github.com/senorprogrammer/wtf/system"
@@ -28,7 +30,6 @@ import (
 	"github.com/senorprogrammer/wtf/todo"
 	"github.com/senorprogrammer/wtf/weather"
 	"github.com/senorprogrammer/wtf/wtf"
-	"github.com/senorprogrammer/wtf/ipinfo"
 )
 
 /* -------------------- Functions -------------------- */
@@ -170,6 +171,7 @@ func makeWidgets(app *tview.Application, pages *tview.Pages) {
 	textfile.Config = Config
 	todo.Config = Config
 	weather.Config = Config
+	prettyweather.Config = Config
 	wtf.Config = Config
 
 	Widgets = []wtf.Wtfable{
@@ -190,6 +192,7 @@ func makeWidgets(app *tview.Application, pages *tview.Pages) {
 		textfile.NewWidget(app, pages),
 		todo.NewWidget(app, pages),
 		weather.NewWidget(app, pages),
+		prettyweather.NewWidget(),
 	}
 
 	FocusTracker = wtf.FocusTracker{
