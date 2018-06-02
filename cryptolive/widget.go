@@ -128,6 +128,7 @@ func (widget *Widget) updateCurrencies() {
 		recover()
 	}()
 	for _, fromCurrency := range widget.list.items {
+
 		var (
 			client       http.Client
 			jsonResponse cResponse
@@ -151,8 +152,9 @@ func (widget *Widget) updateCurrencies() {
 		_ = json.NewDecoder(response.Body).Decode(&jsonResponse)
 
 		setPrices(&jsonResponse, fromCurrency)
-
 	}
+
+	display(widget)
 }
 
 func makeRequest(currency *fromCurrency) *http.Request {
