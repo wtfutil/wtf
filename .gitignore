@@ -17,3 +17,5 @@
 gcal/client_secret.json
 #intellij idea
 .idea/
+
+dist/*
