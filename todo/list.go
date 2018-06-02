@@ -33,6 +33,9 @@ func (list *List) CheckedItems() []*Item {
 
 func (list *List) Delete() {
 	list.Items = append(list.Items[:list.selected], list.Items[list.selected+1:]...)
+	if list.selected >= len(list.Items) {
+		list.selected--
+	}
 }
 
 func (list *List) Demote() {
