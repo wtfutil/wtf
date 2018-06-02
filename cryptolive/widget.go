@@ -93,7 +93,7 @@ func display(widget *Widget) {
 	str := ""
 	var (
 		fromNameColor        = Config.UString("wtf.mods.cryptolive.colors.from.name", "coral")
-		fromDisplayNameColor = Config.UString("wtf.mods.cryptolive.colors.from.displayName", "gray")
+		fromDisplayNameColor = Config.UString("wtf.mods.cryptolive.colors.from.displayName", "grey")
 		toNameColor          = Config.UString("wtf.mods.cryptolive.colors.to.name", "white")
 		toPriceColor         = Config.UString("wtf.mods.cryptolive.colors.to.price", "green")
 	)
