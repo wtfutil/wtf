@@ -207,6 +207,7 @@ func loadConfig(configFlag string) {
 }
 
 func main() {
+	log.SetFlags(log.LstdFlags | log.Lshortfile)
 
 	cmdFlags := wtf.NewCommandFlags()
 	cmdFlags.Parse(version)
