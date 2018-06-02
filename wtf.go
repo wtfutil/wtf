@@ -17,12 +17,12 @@ import (
 	"github.com/senorprogrammer/wtf/git"
 	"github.com/senorprogrammer/wtf/github"
 	"github.com/senorprogrammer/wtf/help"
-  "github.com/senorprogrammer/wtf/ipinfo"
+	"github.com/senorprogrammer/wtf/ipinfo"
 	"github.com/senorprogrammer/wtf/jira"
 	"github.com/senorprogrammer/wtf/newrelic"
 	"github.com/senorprogrammer/wtf/opsgenie"
 	"github.com/senorprogrammer/wtf/power"
-  "github.com/senorprogrammer/wtf/prettyweather"
+	"github.com/senorprogrammer/wtf/prettyweather"
 	"github.com/senorprogrammer/wtf/security"
 	"github.com/senorprogrammer/wtf/status"
 	"github.com/senorprogrammer/wtf/system"
@@ -165,7 +165,7 @@ func makeWidgets(app *tview.Application, pages *tview.Pages) {
 	newrelic.Config = Config
 	opsgenie.Config = Config
 	power.Config = Config
-  prettyweather.Config = Config
+	prettyweather.Config = Config
 	security.Config = Config
 	status.Config = Config
 	system.Config = Config
@@ -186,7 +186,7 @@ func makeWidgets(app *tview.Application, pages *tview.Pages) {
 		newrelic.NewWidget(),
 		opsgenie.NewWidget(),
 		power.NewWidget(),
-    prettyweather.NewWidget(),
+		prettyweather.NewWidget(),
 		security.NewWidget(),
 		status.NewWidget(),
 		system.NewWidget(date, version),
