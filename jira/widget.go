@@ -29,7 +29,7 @@ func (widget *Widget) Refresh() {
 		return
 	}
 
-	searchResult, err := IssuesFor(Config.UString("wtf.mods.jira.username"))
+	searchResult, err := IssuesFor(Config.UString("wtf.mods.jira.username"), Config.UString("wtf.mods.jira.project", ""), Config.UString("wtf.mods.jira.jql", ""))
 
 	widget.UpdateRefreshedAt()
 	widget.View.Clear()
