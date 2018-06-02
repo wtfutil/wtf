@@ -28,6 +28,7 @@ import (
 	"github.com/senorprogrammer/wtf/todo"
 	"github.com/senorprogrammer/wtf/weather"
 	"github.com/senorprogrammer/wtf/wtf"
+	"github.com/senorprogrammer/wtf/ipinfo"
 )
 
 /* -------------------- Functions -------------------- */
@@ -158,6 +159,7 @@ func makeWidgets(app *tview.Application, pages *tview.Pages) {
 	gcal.Config = Config
 	git.Config = Config
 	github.Config = Config
+	ipinfo.Config = Config
 	jira.Config = Config
 	newrelic.Config = Config
 	opsgenie.Config = Config
@@ -177,6 +179,7 @@ func makeWidgets(app *tview.Application, pages *tview.Pages) {
 		gcal.NewWidget(),
 		git.NewWidget(app, pages),
 		github.NewWidget(app, pages),
+		ipinfo.NewWidget(),
 		jira.NewWidget(),
 		newrelic.NewWidget(),
 		opsgenie.NewWidget(),

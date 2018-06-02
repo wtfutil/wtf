@@ -38,6 +38,7 @@ And a "probably up-to-date" list of currently-implemented modules:
 * [Google Calendar](http://wtfutil.com/posts/modules/gcal/)
 * [Git](http://wtfutil.com/posts/modules/git/)
 * [GitHub](http://wtfutil.com/posts/modules/github/)
+* [IPInfo](http://wtfutil.com/posts/modules/ipinfo/)
 * [Jira](http://wtfutil.com/posts/modules/jira/)
 * [New Relic](http://wtfutil.com/posts/modules/newrelic/)
 * [OpsGenie](http://wtfutil.com/posts/modules/opsgenie)

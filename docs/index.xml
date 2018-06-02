@@ -6,10 +6,23 @@
     <description>Recent content on WTF - A Terminal Dashboard</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 26 May 2018 19:26:23 -0700</lastBuildDate>
+    <lastBuildDate>Fri, 01 Jun 2018 23:18:48 -0700</lastBuildDate>
     
 	<atom:link href="https://wtfutil.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Module: IPInfo</title>
+      <link>https://wtfutil.com/posts/modules/ipinfo/</link>
+      <pubDate>Fri, 01 Jun 2018 23:18:48 -0700</pubDate>
+      
+      <guid>https://wtfutil.com/posts/modules/ipinfo/</guid>
+      <description>Displays your current IP address information, from ipinfo.io.
+Source Code wtf/ipinfo/ Required ENV Variables None.
+Keyboard Commands None.
+Configuration ipinfo:enabled:trueposition:top:1left:2height:1width:1refreshInterval:15 Attributes enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.
+position Defines where in the grid this module&amp;rsquo;s widget will be displayed. refreshInterval How often, in seconds, this module will update its data. Values: A positive integer, 0..n.</description>
+    </item>
     
     <item>
       <title>Modules: Power</title>
