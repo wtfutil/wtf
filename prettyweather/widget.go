@@ -24,8 +24,6 @@ func NewWidget() *Widget {
 		TextWidget: wtf.NewTextWidget("Pretty Weather", "prettyweather", false),
 	}
 
-	widget.View.SetWrap(true)
-
 	return &widget
 }
 
