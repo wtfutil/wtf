@@ -10,8 +10,8 @@
 
 <meta name="generator" content="Hugo 0.38.2" />
 
-<title>Modules: CmdRunner | WTF - A Terminal Dashboard</title>
-<meta content="Modules: CmdRunner - WTF - A Terminal Dashboard" property="og:title">
+<title>Prettyweather | WTF - A Terminal Dashboard</title>
+<meta content="Prettyweather - WTF - A Terminal Dashboard" property="og:title">
 <meta content=" - " property="og:description">
 <!-- CSS -->
 <link rel="stylesheet" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
@@ -93,13 +93,13 @@
 
         <div class="content container">
             <div class="post">
-  <h1>Modules: CmdRunner</h1>
+  <h1>Prettyweather</h1>
   
   <div class="col-sm-12 col-md-12">
     <span class="text-left post-date meta">
       
       
-        May 17, 2018
+        Jun 02, 2018
       
       
       
@@ -111,10 +111,15 @@
   
   
 
-<p>Runs a terminal command on a schedule.</p>
+<p><strong>🔬 Experimental</strong></p>
+
+<p>Displays weather information as ASCII art from
+<a href="http://wttr.in">Wttr.in</a>.</p>
+
+<p><img src="/imgs/modules/prettyweather.png" width="320" height="191" alt="prettyweather screenshot" /></p>
 
 <h2 id="source-code">Source Code</h2>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">wtf/cmdrunner/</code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">wtf/prettyweather/</code></pre></div>
 <h2 id="required-env-variables">Required ENV Variables</h2>
 
 <p>None.</p>
@@ -124,36 +129,37 @@
 <p>None.</p>
 
 <h2 id="configuration">Configuration</h2>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">cmdrunner<span class="p">:</span><span class="w">
-</span><span class="w">  </span>args<span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;-g&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;batt&#34;</span><span class="p">]</span><span class="w">
-</span><span class="w">  </span>cmd<span class="p">:</span><span class="w"> </span><span class="s2">&#34;pmset&#34;</span><span class="w">
-</span><span class="w">  </span>enabled<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="w">  </span>position<span class="p">:</span><span class="w">
-</span><span class="w">    </span>top<span class="p">:</span><span class="w"> </span><span class="m">6</span><span class="w">
-</span><span class="w">    </span>left<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="w">    </span>height<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="w">    </span>width<span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
-</span><span class="w">  </span>refreshInterval<span class="p">:</span><span class="w"> </span><span class="m">30</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="w">    </span>prettyweather<span class="p">:</span><span class="w">
+</span><span class="w">      </span>enabled<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">      </span>city<span class="p">:</span><span class="w"> </span><span class="s2">&#34;tehran&#34;</span><span class="w">
+</span><span class="w">      </span>position<span class="p">:</span><span class="w">
+</span><span class="w">        </span>top<span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
+</span><span class="w">        </span>left<span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
+</span><span class="w">        </span>height<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">        </span>width<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">      </span>refreshInterval<span class="p">:</span><span class="w"> </span><span class="m">300</span><span class="w">
+</span><span class="w">      </span>unit<span class="p">:</span><span class="w"> </span><span class="s2">&#34;c&#34;</span></code></pre></div>
 <h3 id="attributes">Attributes</h3>
 
-<p><code>args</code> <br />
-The arguments to the command, with each item as an element in an array.
-Example: for <code>curl -I cisco.com</code>, the arguments array would be <code>[&quot;-I&quot;, &quot;cisco.com&quot;]</code>.</p>
-
-<p><code>cmd</code> <br />
-The terminal command to be run, withouth the arguments. Ie: <code>ping</code>,
-<code>whoami</code>, <code>curl</code>. <br /></p>
+<p><code>city</code> <br />
+<em>Optional</em>. <br />
+Values: The name of any city supported by <a href="http://wttr.in">Wttr.in</a>.</p>
 
 <p><code>enabled</code> <br />
 Determines whether or not this module is executed and if its data displayed onscreen. <br />
 Values: <code>true</code>, <code>false</code>.</p>
 
 <p><code>position</code> <br />
-Defines where in the grid this module&rsquo;s widget will be displayed.</p>
+Defines where in the grid this module&rsquo;s widget will be displayed. <br /></p>
 
 <p><code>refreshInterval</code> <br />
 How often, in seconds, this module will update its data. <br />
 Values: A positive integer, <code>0..n</code>.</p>
+
+<p><code>unit</code> <br />
+<em>Optional</em>. <br />
+The temperature scale in which to display temperature values. <br />
+Values: <code>F</code> for Fahrenheit, <code>C</code> for Celcius.</p>
 
 </div>
 

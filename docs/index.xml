@@ -6,10 +6,25 @@
     <description>Recent content on WTF - A Terminal Dashboard</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 01 Jun 2018 23:18:48 -0700</lastBuildDate>
+    <lastBuildDate>Sat, 02 Jun 2018 05:32:04 -0700</lastBuildDate>
     
 	<atom:link href="https://wtfutil.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Prettyweather</title>
+      <link>https://wtfutil.com/posts/modules/prettyweather/</link>
+      <pubDate>Sat, 02 Jun 2018 05:32:04 -0700</pubDate>
+      
+      <guid>https://wtfutil.com/posts/modules/prettyweather/</guid>
+      <description>🔬 Experimental
+Displays weather information as ASCII art from Wttr.in.
+Source Code wtf/prettyweather/ Required ENV Variables None.
+Keyboard Commands None.
+Configuration prettyweather:enabled:truecity:&amp;#34;tehran&amp;#34;position:top:3left:5height:1width:1refreshInterval:300unit:&amp;#34;c&amp;#34; Attributes city Optional. Values: The name of any city supported by Wttr.in.
+enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.
+position Defines where in the grid this module&amp;rsquo;s widget will be displayed. refreshInterval How often, in seconds, this module will update its data.</description>
+    </item>
     
     <item>
       <title>Module: IPInfo</title>
