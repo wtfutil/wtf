@@ -17,7 +17,7 @@ displaying infrequently-needed, but very important, daily data.
 work with Go versions < 1.7, and only _may_ work on other versions.
 
 ```bash
-go get github.com/senorprogrammer/wtf
+go get -u github.com/senorprogrammer/wtf
 cd $GOPATH/src/github.com/senorprogrammer/wtf
 make install
 make run
@@ -78,3 +78,7 @@ Many thanks to all these developers.
 * [openweathermap](https://github.com/briandowns/openweathermap)
 * [tcell](https://github.com/gdamore/tcell)
 * [tview](https://github.com/rivo/tview)
+
+<p align="center">
+<img src="./docs/img/dude_wtf.png?raw=true" title="Dude WTF" width="251" height="201" />
+</p>
