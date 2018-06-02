@@ -29,7 +29,7 @@ type ipinfo struct {
 
 func NewWidget() *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget("Ipinfo", "ipinfo", false),
+		TextWidget: wtf.NewTextWidget("IPInfo", "ipinfo", false),
 	}
 
 	widget.View.SetWrap(true)
@@ -75,7 +75,15 @@ func (widget *Widget) ipinfo() {
 		widget.result = fmt.Sprintf("%s", err.Error())
 		return
 	}
-	widget.result = fmt.Sprintf("[red]IP Address:[white] %s\n[red]Hostname:[white] %v\n[red]City:[white] %s\n[red]Region:[white] %s\n[red]Country:[white] %s\n[red]Coordinates:[white] %v\n[red]Postal Code:[white] %s\n[red]Organization:[white] %v",
-		info.Ip, info.Hostname, info.City, info.Region, info.Country, info.Coordinates, info.PostalCode, info.Organization)
-
+	widget.result = fmt.Sprintf(
+		"[red]IP Address:[white] %s\n[red]Hostname:[white] %v\n[red]City:[white] %s\n[red]Region:[white] %s\n[red]Country:[white] %s\n[red]Coordinates:[white] %v\n[red]Postal Code:[white] %s\n[red]Organization:[white] %v",
+		info.Ip,
+		info.Hostname,
+		info.City,
+		info.Region,
+		info.Country,
+		info.Coordinates,
+		info.PostalCode,
+		info.Organization,
+	)
 }
