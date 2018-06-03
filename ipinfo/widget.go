@@ -39,7 +39,7 @@ func NewWidget() *Widget {
 		TextWidget: wtf.NewTextWidget(" IPInfo ", "ipinfo", false),
 	}
 
-	widget.View.SetWrap(true)
+	widget.View.SetWrap(false)
 
 	widget.config()
 
