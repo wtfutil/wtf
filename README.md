@@ -11,6 +11,8 @@ displaying infrequently-needed, but very important, daily data.
 
 ## Quick Start
 
+[![Join the chat at https://gitter.im/wtfutil/Lobby](https://badges.gitter.im/wtfutil/Lobby.svg)](https://gitter.im/wtfutil/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ### Installation from Source
 
 *Note:* This has only been tested to build against Go 1.9.2. It won't
