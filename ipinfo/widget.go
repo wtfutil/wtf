@@ -125,5 +125,5 @@ func (widget *Widget) setResult(info *ipinfo) {
 }
 
 func formatableText(key, value string) string {
-	return fmt.Sprintf("[{{.nameColor}}]%s: [{{.valueColor}}]{{.%s}}\n", key, value)
+	return fmt.Sprintf(" [{{.nameColor}}]%s: [{{.valueColor}}]{{.%s}}\n", key, value)
 }
