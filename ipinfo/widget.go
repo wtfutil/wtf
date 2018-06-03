@@ -96,14 +96,14 @@ func (widget *Widget) config() {
 
 func (widget *Widget) setResult(info *ipinfo) {
 	resultTemplate, _ := template.New("ipinfo_result").Parse(
-		"[{{.nameColor}}]IP Address: [{{.valueColor}}]{{.Ip}}\n" +
-			"[{{.nameColor}}]Hostname: [{{.valueColor}}]{{.Hostname}}\n" +
-			"[{{.nameColor}}]City: [{{.valueColor}}]{{.City}}\n" +
-			"[{{.nameColor}}]Region: [{{.valueColor}}]{{.Region}}\n" +
-			"[{{.nameColor}}]Country: [{{.valueColor}}]{{.Country}}\n" +
-			"[{{.nameColor}}]Coordinates: [{{.valueColor}}]{{.Coordinates}}\n" +
-			"[{{.nameColor}}]Postal Code: [{{.valueColor}}]{{.PostalCode}}\n" +
-			"[{{.nameColor}}]Organization: [{{.valueColor}}]{{.Organization}}\n",
+		formatableText("IP Address", "Ip") +
+			formatableText("Hostname", "Hostname") +
+			formatableText("City", "City") +
+			formatableText("Region", "Region") +
+			formatableText("Country", "Country") +
+			formatableText("Coordinates", "Coordinates") +
+			formatableText("Postal Code", "PostalCode") +
+			formatableText("Organization", "Organization"),
 	)
 
 	resultBuffer := new(bytes.Buffer)
@@ -122,4 +122,8 @@ func (widget *Widget) setResult(info *ipinfo) {
 	})
 
 	widget.result = resultBuffer.String()
+}
+
+func formatableText(key, value string) string {
+	return fmt.Sprintf("[{{.nameColor}}]%s: [{{.valueColor}}]{{.%s}}\n", key, value)
 }
