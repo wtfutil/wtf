@@ -69,6 +69,19 @@ func (repo *GitRepo) repository() string {
 
 	return str
 }
+func (repo *GitRepo) pull() string {
+	arg := []string{repo.gitDir(), repo.workTree(), "pull"}
+	cmd := exec.Command("git", arg...)
+	str := wtf.ExecuteCommand(cmd)
+	return str
+}
+
+func (repo *GitRepo) checkout(branch string) string {
+	arg := []string{repo.gitDir(), repo.workTree(), "checkout", branch}
+	cmd := exec.Command("git", arg...)
+	str := wtf.ExecuteCommand(cmd)
+	return str
+}
 
 func (repo *GitRepo) gitDir() string {
 	return fmt.Sprintf("--git-dir=%s/.git", repo.Path)
