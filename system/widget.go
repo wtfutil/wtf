@@ -65,13 +65,10 @@ func (widget *Widget) Refresh() {
 }
 
 func (widget *Widget) prettyDate() string {
-	//if the date is not set in the build, print empty string instead of error
-	if widget.Date == "" {
-		return ""
-	}
 	str, err := time.Parse(wtf.TimestampFormat, widget.Date)
 	if err != nil {
-		return err.Error()
+		//if the date is not set in the build or bad format passed, print empty string instead of error
+		return ""
 	} else {
 		return str.Format("Jan _2, 15:04")
 	}
