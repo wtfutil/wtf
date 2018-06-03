@@ -63,6 +63,16 @@ func (repo *GithubRepo) StarCount() int {
 
 /* -------------------- Unexported Functions -------------------- */
 
+func (repo *GithubRepo) isGitHubEnterprise() bool {
+	if len(repo.baseURL) > 0 {
+		if len(repo.uploadURL) == 0 {
+			repo.uploadURL = repo.baseURL
+		}
+		return true
+	}
+	return false
+}
+
 func (repo *GithubRepo) oauthClient() *http.Client {
 	tokenService := oauth2.StaticTokenSource(
 		&oauth2.Token{AccessToken: repo.apiKey},
@@ -74,11 +84,8 @@ func (repo *GithubRepo) oauthClient() *http.Client {
 func (repo *GithubRepo) githubClient() (*ghb.Client, error) {
 	oauthClient := repo.oauthClient()
 
-	if len(repo.baseURL) > 0 {
-		if len(repo.uploadURL) == 0 {
-			repo.uploadURL = repo.baseURL
-		}
-		return ghb.NewEnterpriseClient(repo.baseURL, repo.baseURL, oauthClient)
+	if repo.isGitHubEnterprise() {
+		return ghb.NewEnterpriseClient(repo.baseURL, repo.uploadURL, oauthClient)
 	}
 
 	return ghb.NewClient(oauthClient), nil
