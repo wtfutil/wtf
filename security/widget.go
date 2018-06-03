@@ -34,9 +34,8 @@ func (widget *Widget) Refresh() {
 	data.Fetch()
 
 	widget.UpdateRefreshedAt()
-	widget.View.Clear()
 
-	fmt.Fprintf(widget.View, "%s", widget.contentFrom(data))
+	widget.View.SetText(fmt.Sprintf("%s", widget.contentFrom(data)))
 }
 
 /* -------------------- Unexported Functions -------------------- */

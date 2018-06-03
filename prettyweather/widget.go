@@ -2,11 +2,12 @@ package prettyweather
 
 import (
 	"fmt"
-	"github.com/olebedev/config"
-	"github.com/senorprogrammer/wtf/wtf"
 	"io/ioutil"
 	"net/http"
 	"strings"
+
+	"github.com/olebedev/config"
+	"github.com/senorprogrammer/wtf/wtf"
 )
 
 // Config is a pointer to the global config object
@@ -34,10 +35,9 @@ func (widget *Widget) Refresh() {
 
 	widget.UpdateRefreshedAt()
 	widget.prettyWeather()
-	widget.View.Clear()
 	widget.View.SetTitle(fmt.Sprintf(" %s ", widget.Name))
 
-	fmt.Fprintf(widget.View, "%s", widget.result)
+	widget.View.SetText(fmt.Sprintf("%s", widget.result))
 }
 
 //this method reads the config and calls wttr.in for pretty weather

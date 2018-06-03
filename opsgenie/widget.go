@@ -34,14 +34,13 @@ func (widget *Widget) Refresh() {
 
 	widget.UpdateRefreshedAt()
 	widget.View.SetTitle(" ⏰ On Call ")
-	widget.View.Clear()
 
 	if err != nil {
 		widget.View.SetWrap(true)
-		fmt.Fprintf(widget.View, "%s", err)
+		widget.View.SetText(fmt.Sprintf("%s", err))
 	} else {
 		widget.View.SetWrap(false)
-		fmt.Fprintf(widget.View, "%s", widget.contentFrom(data))
+		widget.View.SetText(fmt.Sprintf("%s", widget.contentFrom(data)))
 	}
 }
 
