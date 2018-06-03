@@ -54,7 +54,6 @@ func (widget *Widget) Refresh() {
 
 	widget.UpdateRefreshedAt()
 	widget.View.SetTitle(fmt.Sprintf(" 📄 %s ", widget.filePath))
-	widget.View.Clear()
 
 	filePath, _ := wtf.ExpandHomeDir(widget.filePath)
 
@@ -64,9 +63,9 @@ func (widget *Widget) Refresh() {
 	}
 
 	if err != nil {
-		fmt.Fprintf(widget.View, "%s", err)
+		widget.View.SetText(fmt.Sprintf("%s", err))
 	} else {
-		fmt.Fprintf(widget.View, "%s", string(fileData))
+		widget.View.SetText(fmt.Sprintf("%s", string(fileData)))
 	}
 }
 

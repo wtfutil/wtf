@@ -44,10 +44,10 @@ func (widget *Widget) Refresh() {
 
 	if depErr != nil {
 		widget.View.SetWrap(true)
-		fmt.Fprintf(widget.View, "%s", depErr)
+		widget.View.SetText(fmt.Sprintf("%s", depErr))
 	} else {
 		widget.View.SetWrap(false)
-		fmt.Fprintf(widget.View, "%s", widget.contentFrom(deploys))
+		widget.View.SetText(fmt.Sprintf("%s", widget.contentFrom(deploys)))
 	}
 }
 
@@ -70,7 +70,7 @@ func (widget *Widget) contentFrom(deploys []nr.ApplicationDeployment) string {
 
 			var revLen = 8
 			if revLen > len(deploy.Revision) {
-			  revLen = len(deploy.Revision)
+				revLen = len(deploy.Revision)
 			}
 
 			str = str + fmt.Sprintf(

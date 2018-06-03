@@ -34,7 +34,6 @@ func (widget *Widget) Refresh() {
 	}
 
 	widget.UpdateRefreshedAt()
-	widget.View.Clear()
 	widget.display(widget.clockColl.Sorted())
 }
 

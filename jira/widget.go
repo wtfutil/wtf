@@ -32,7 +32,6 @@ func (widget *Widget) Refresh() {
 	searchResult, err := IssuesFor(Config.UString("wtf.mods.jira.username"), Config.UString("wtf.mods.jira.project", ""), Config.UString("wtf.mods.jira.jql", ""))
 
 	widget.UpdateRefreshedAt()
-	widget.View.Clear()
 
 	if err != nil {
 		widget.View.SetWrap(true)
@@ -47,7 +46,7 @@ func (widget *Widget) Refresh() {
 				Config.UString("wtf.mods.jira.project"),
 			),
 		)
-		fmt.Fprintf(widget.View, "%s", widget.contentFrom(searchResult))
+		widget.View.SetText(fmt.Sprintf("%s", widget.contentFrom(searchResult)))
 	}
 }
 
