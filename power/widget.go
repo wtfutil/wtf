@@ -34,12 +34,11 @@ func (widget *Widget) Refresh() {
 
 	widget.UpdateRefreshedAt()
 	widget.Battery.Refresh()
-	widget.View.Clear()
 
 	str := ""
 	str = str + fmt.Sprintf(" %10s: %s\n", "Source", powerSource())
 	str = str + "\n"
 	str = str + widget.Battery.String()
 
-	fmt.Fprintf(widget.View, "%s", str)
+	widget.View.SetText(fmt.Sprintf("%s", str))
 }

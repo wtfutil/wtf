@@ -40,10 +40,9 @@ func (widget *Widget) Refresh() {
 
 	widget.UpdateRefreshedAt()
 	widget.execute()
-	widget.View.Clear()
 	widget.View.SetTitle(fmt.Sprintf(" %s ", widget))
 
-	fmt.Fprintf(widget.View, "%s", widget.result)
+	widget.View.SetText(fmt.Sprintf("%s", widget.result))
 }
 
 func (widget *Widget) String() string {
