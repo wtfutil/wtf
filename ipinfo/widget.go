@@ -3,9 +3,13 @@ package ipinfo
 import (
 	"encoding/json"
 	"fmt"
+	"net/http"
+	"text/template"
+
+	"bytes"
+
 	"github.com/olebedev/config"
 	"github.com/senorprogrammer/wtf/wtf"
-	"net/http"
 )
 
 // Config is a pointer to the global config object
@@ -14,6 +18,9 @@ var Config *config.Config
 type Widget struct {
 	wtf.TextWidget
 	result string
+	colors struct {
+		name, value string
+	}
 }
 
 type ipinfo struct {
@@ -29,10 +36,12 @@ type ipinfo struct {
 
 func NewWidget() *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget("IPInfo", "ipinfo", false),
+		TextWidget: wtf.NewTextWidget(" IPInfo ", "ipinfo", false),
 	}
 
 	widget.View.SetWrap(true)
+
+	widget.config()
 
 	return &widget
 }
@@ -45,9 +54,8 @@ func (widget *Widget) Refresh() {
 	widget.UpdateRefreshedAt()
 	widget.ipinfo()
 	widget.View.Clear()
-	widget.View.SetTitle(fmt.Sprintf(" %s ", widget.Name))
 
-	fmt.Fprintf(widget.View, "%s", widget.result)
+	widget.View.SetText(widget.result)
 }
 
 //this method reads the config and calls ipinfo for ip information
@@ -75,15 +83,47 @@ func (widget *Widget) ipinfo() {
 		widget.result = fmt.Sprintf("%s", err.Error())
 		return
 	}
-	widget.result = fmt.Sprintf(
-		"[red]IP Address:[white] %s\n[red]Hostname:[white] %v\n[red]City:[white] %s\n[red]Region:[white] %s\n[red]Country:[white] %s\n[red]Coordinates:[white] %v\n[red]Postal Code:[white] %s\n[red]Organization:[white] %v",
-		info.Ip,
-		info.Hostname,
-		info.City,
-		info.Region,
-		info.Country,
-		info.Coordinates,
-		info.PostalCode,
-		info.Organization,
+
+	widget.setResult(&info)
+}
+
+// read module configs
+func (widget *Widget) config() {
+	nameColor, valueColor := Config.UString("wtf.mods.ipinfo.colors.name", "red"), Config.UString("wtf.mods.ipinfo.colors.value", "white")
+	widget.colors.name = nameColor
+	widget.colors.value = valueColor
+}
+
+func (widget *Widget) setResult(info *ipinfo) {
+	resultTemplate, _ := template.New("ipinfo_result").Parse(
+		formatableText("IP Address", "Ip") +
+			formatableText("Hostname", "Hostname") +
+			formatableText("City", "City") +
+			formatableText("Region", "Region") +
+			formatableText("Country", "Country") +
+			formatableText("Coordinates", "Coordinates") +
+			formatableText("Postal Code", "PostalCode") +
+			formatableText("Organization", "Organization"),
 	)
+
+	resultBuffer := new(bytes.Buffer)
+
+	resultTemplate.Execute(resultBuffer, map[string]string{
+		"nameColor":    widget.colors.name,
+		"valueColor":   widget.colors.value,
+		"Ip":           info.Ip,
+		"Hostname":     info.Hostname,
+		"City":         info.City,
+		"Region":       info.Region,
+		"Country":      info.Country,
+		"Coordinates":  info.Coordinates,
+		"PostalCode":   info.PostalCode,
+		"Organization": info.Organization,
+	})
+
+	widget.result = resultBuffer.String()
+}
+
+func formatableText(key, value string) string {
+	return fmt.Sprintf("[{{.nameColor}}]%s: [{{.valueColor}}]{{.%s}}\n", key, value)
 }
