@@ -26,6 +26,9 @@ None.
 
 ```yaml
 ipinfo:
+  colors:
+    name: red
+    value: white
   enabled: true
   position:
     top: 1
@@ -36,6 +39,14 @@ ipinfo:
 ```
 
 ### Attributes
+
+`colors.name` <br />
+The default colour for the row names. <br />
+Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11 color</a> name.
+
+`colors.value` <br />
+The default colour for the row values. <br />
+Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11 color</a> name.
 
 `enabled` <br />
 Determines whether or not this module is executed and if its data displayed onscreen. <br />
