@@ -149,8 +149,8 @@ var Widgets []wtf.Wtfable
 
 var (
 	commit  = "dev"
-	date    = "dev"
-	version = "dev"
+	date    string
+	version string
 )
 
 func makeWidgets(app *tview.Application, pages *tview.Pages) {

@@ -21,7 +21,7 @@ type Widget struct {
 
 func NewWidget(date, version string) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(" Build ", "system", false),
+		TextWidget: wtf.NewTextWidget(" System and Build Info ", "system", false),
 
 		Date:    date,
 		Version: version,
@@ -38,23 +38,37 @@ func (widget *Widget) Refresh() {
 	}
 
 	widget.UpdateRefreshedAt()
+	widget.View.Clear()
 
-	widget.View.SetText(
-		fmt.Sprintf(
-			"%8s: %s\n%8s: %s\n\n%8s: %s\n%8s: %s",
-			"Built",
-			widget.prettyDate(),
-			"Vers",
-			widget.Version,
-			"OS",
-			widget.systemInfo.ProductVersion,
-			"Build",
-			widget.systemInfo.BuildVersion,
-		),
+	fmt.Fprintf(
+		widget.View,
+		" %s: %s\n %s: %s\n %s: %s\n %s: %s\n %s: %s\n %s: %s\n %s: %s\n %s: %s\n %s: %d",
+		"Built",
+		widget.prettyDate(),
+		"Version",
+		widget.Version,
+		"GoOS",
+		widget.systemInfo.GoOs,
+		"OS",
+		widget.systemInfo.OS,
+		"Platform",
+		widget.systemInfo.Platform,
+		"Kernel",
+		widget.systemInfo.Kernel,
+		"Kernel Version",
+		widget.systemInfo.Version,
+		"Hostname",
+		widget.systemInfo.Hostname,
+		"CPUs",
+		widget.systemInfo.CPUs,
 	)
 }
 
 func (widget *Widget) prettyDate() string {
+	//if the date is not set in the build, print empty string instead of error
+	if widget.Date == "" {
+		return ""
+	}
 	str, err := time.Parse(wtf.TimestampFormat, widget.Date)
 	if err != nil {
 		return err.Error()
