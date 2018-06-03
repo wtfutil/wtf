@@ -11,8 +11,6 @@ displaying infrequently-needed, but very important, daily data.
 
 ## Quick Start
 
-[![Join the chat at https://gitter.im/wtfutil/Lobby](https://badges.gitter.im/wtfutil/Lobby.svg)](https://gitter.im/wtfutil/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
 ### Installation from Source
 
 *Note:* This has only been tested to build against Go 1.9.2. It won't
@@ -24,6 +22,15 @@ cd $GOPATH/src/github.com/senorprogrammer/wtf
 make install
 make run
 ```
+
+Or [download the latest binary](https://github.com/senorprogrammer/wtf/releases).
+
+## Support
+
+Chat on Gitter:
+[![Join the chat at https://gitter.im/wtfutil/Lobby](https://badges.gitter.im/wtfutil/Lobby.svg)](https://gitter.im/wtfutil/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
+## Documentation
 
 See [https://wtfutil.com](https://wtfutil.com) for the definitive
 documentation. Here's some short-cuts:
@@ -45,10 +52,13 @@ And a "probably up-to-date" list of currently-implemented modules:
 * [New Relic](http://wtfutil.com/posts/modules/newrelic/)
 * [OpsGenie](http://wtfutil.com/posts/modules/opsgenie)
 * [Power](http://wtfutil.com/posts/modules/power/)
+* [PrettyWeather](http://wtfutil.com/posts/modules/prettyweather/)*
 * [Security](http://wtfutil.com/posts/modules/security/)
 * [Textfile](http://wtfutil.com/posts/modules/textfile/)
 * [Todo List](http://wtfutil.com/posts/modules/todo/)
 * [Weather](http://wtfutil.com/posts/modules/weather/)
+
+*experimental
 
 ## Contributing
 
