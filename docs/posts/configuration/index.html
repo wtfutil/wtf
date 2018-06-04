@@ -156,6 +156,32 @@ wouldn&rsquo;t want to have laying about in the config files.</p>
 variable(s) can be found in that module&rsquo;s &ldquo;Required ENV Variables&rdquo;
 section of the documentation. See <a href="/posts/modules/opsgenie/">OpsGenie</a> for an example.</p>
 
+<h2 id="grid-layout">Grid Layout</h2>
+
+<p>WTF uses the <code>Grid</code> layout system from <a href="https://github.com/rivo/tview/blob/master/grid.go">tview</a> to position widgets
+onscreen. It&rsquo;s not immediately obvious how this works, so here&rsquo;s an
+explanation:</p>
+
+<p>Think of your terminal screen as a matrix of letter positions, say <code>100</code> chrs wide and <code>58</code> chrs tall.</p>
+
+<p>Columns breaks up the width of the screen into chunks, each chunk a specified number of characters wide. use</p>
+
+<p><code>[10, 10, 10, 10, 10, 10, 10, 10, 10, 10]</code></p>
+
+<p>Ten columns that are ten characters wide</p>
+
+<p>Rows break up the height of the screen into chunks, each chunk a specified number of characters tall. If we wanted to have five rows:</p>
+
+<p><code>[10, 10, 10, 10, 18]</code></p>
+
+<p>The co-ordinate system starts at top-left and defines how wide and tall a widget is. If we wanted to put a 2-col, 2-row widget in the bottom of the screen, we&rsquo;d position it at:</p>
+
+<pre><code>  top: 4     // top starts in the 4th row
+  left: 9    // left starts in the 9th column
+  height: 2  // span down rows 4 &amp; 5 (18 characters in size, total)
+  width: 2   // span across cols 9 &amp; 10 (20 characters in size, total)
+</code></pre>
+
 </div>
 
             <div class="footer">
