@@ -127,6 +127,11 @@ func (widget *Widget) Refresh() {
 /* -------------------- Unexported Functions -------------------- */
 
 func (widget *Widget) updateSummary() {
+	// In case if anything bad happened!
+	defer func() {
+		recover()
+	}()
+
 	client := &http.Client{
 		Timeout: time.Duration(5 * time.Second),
 	}
