@@ -27,6 +27,11 @@ span.caption {
   text-align: right;
 }
 
+ul {
+  line-height: 22px !important;
+  margin-bottom: 14px !important;
+}
+
 .disabled {
   color: gray !important;
   cursor: not-allowed;
