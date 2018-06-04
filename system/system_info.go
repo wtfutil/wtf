@@ -22,7 +22,8 @@ func NewSystemInfo() *SystemInfo {
 	var cmd *exec.Cmd
 	switch runtime.GOOS {
 	case "linux":
-		cmd = exec.Command("uname -a", arg...)
+		arg = append(arg, "-a")
+		cmd = exec.Command("lsb_release", arg...)
 	case "darwin":
 		cmd = exec.Command("sw_vers", arg...)
 	default:
