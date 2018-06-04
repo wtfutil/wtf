@@ -1,8 +1,5 @@
 package jira
 
-import (
-)
-
 type Issue struct {
 	Expand string `json:"expand"`
 	ID     string `json:"id"`
