@@ -1,18 +1,18 @@
 package bittrex
 
 type summaryList struct {
-	items []*fCurrency
+	items []*bCurrency
 }
 
-// fCurrency From Currency
-type fCurrency struct {
+// Base Currency
+type bCurrency struct {
 	name        string
 	displayName string
-	to          []*tCurrency
+	markets     []*mCurrency
 }
 
-// tCurrency To Currency
-type tCurrency struct {
+// Market Currency
+type mCurrency struct {
 	name string
 	summaryInfo
 }
@@ -40,10 +40,10 @@ type summaryResponse struct {
 	} `json:"result"`
 }
 
-func (list *summaryList) addSummaryItem(name, displayName string, toList []*tCurrency) {
-	list.items = append(list.items, &fCurrency{
+func (list *summaryList) addSummaryItem(name, displayName string, marketList []*mCurrency) {
+	list.items = append(list.items, &bCurrency{
 		name:        name,
 		displayName: displayName,
-		to:          toList,
+		markets:     marketList,
 	})
 }
