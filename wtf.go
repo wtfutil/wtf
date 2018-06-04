@@ -13,6 +13,7 @@ import (
 	"github.com/senorprogrammer/wtf/bamboohr"
 	"github.com/senorprogrammer/wtf/clocks"
 	"github.com/senorprogrammer/wtf/cmdrunner"
+	"github.com/senorprogrammer/wtf/cryptoexchanges/cryptolive"
 	"github.com/senorprogrammer/wtf/gcal"
 	"github.com/senorprogrammer/wtf/git"
 	"github.com/senorprogrammer/wtf/github"
@@ -173,6 +174,7 @@ func makeWidgets(app *tview.Application, pages *tview.Pages) {
 	weather.Config = Config
 	prettyweather.Config = Config
 	wtf.Config = Config
+	cryptolive.Config = Config
 
 	Widgets = []wtf.Wtfable{
 		bamboohr.NewWidget(),
@@ -192,6 +194,7 @@ func makeWidgets(app *tview.Application, pages *tview.Pages) {
 		textfile.NewWidget(app, pages),
 		todo.NewWidget(app, pages),
 		weather.NewWidget(app, pages),
+		cryptolive.NewWidget(),
 		prettyweather.NewWidget(),
 	}
 
