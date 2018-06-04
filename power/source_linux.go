@@ -6,7 +6,7 @@ package power
 // "AC Power" or "Battery Power"
 func powerSource() string {
 	switch batteryState {
-	case "charging":
+	case "charging", "fully-charged":
 		return "AC Power"
 	case "discharging":
 		return "Battery Power"
