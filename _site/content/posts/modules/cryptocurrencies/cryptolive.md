@@ -11,7 +11,7 @@ Compare crypto currencies using [CryptoCompare](https://cryptocompare.com).
 ## Source Code
 
 ```bash
-wtf/cryptocurrencies/cryptolive/
+wtf/cryptoexchanges/cryptolive/
 ```
 
 ## Required ENV Vars
@@ -52,7 +52,6 @@ cryptolive:
     left: 2
     height: 1
     width: 2
-  refreshInterval: 30
   updateInterval: 15
 ```
 
@@ -83,6 +82,6 @@ Values: `true`, `false`.
 `position` <br />
 Defines where in the grid this module's widget will be displayed. <br />
 
-`refreshInterval` <br />
+`updateInterval` <br />
 How often, in seconds, this module will update its data. <br />
 Values: A positive integer, `0..n`.
