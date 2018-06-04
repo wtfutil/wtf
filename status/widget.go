@@ -18,7 +18,7 @@ type Widget struct {
 
 func NewWidget() *Widget {
 	widget := Widget{
-		TextWidget:  wtf.NewTextWidget(" 🎉 Status ", "status", false),
+		TextWidget:  wtf.NewTextWidget(" Status ", "status", false),
 		CurrentIcon: 0,
 	}
 
@@ -45,7 +45,7 @@ func (widget *Widget) Refresh() {
 /* -------------------- Unexported Functions -------------------- */
 
 func (widget *Widget) animation() string {
-	icons := []string{"👍", "🤜", "🤙", "🤜", "🤘", "🤜", "✊", "🤜", "👌", "🤜"}
+	icons := []string{"|", "/", "-", "\\", "|"}
 	next := icons[widget.CurrentIcon]
 
 	widget.CurrentIcon = widget.CurrentIcon + 1
