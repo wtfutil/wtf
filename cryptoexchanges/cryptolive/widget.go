@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"reflect"
 	"time"
 
 	"github.com/olebedev/config"
@@ -32,7 +31,7 @@ type Widget struct {
 func NewWidget() *Widget {
 	started = false
 	widget := Widget{
-		TextWidget:     wtf.NewTextWidget(" $ CryptoLive ", "cryptolive", false),
+		TextWidget:     wtf.NewTextWidget(" CryptoLive ", "cryptolive", false),
 		updateInterval: Config.UInt("wtf.mods.cryptolive.updateInterval", 10),
 	}
 

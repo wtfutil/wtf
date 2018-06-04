@@ -18,7 +18,7 @@ type Widget struct {
 
 func NewWidget() *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(" 🕗 World Clocks ", "clocks", false),
+		TextWidget: wtf.NewTextWidget(" World Clocks ", "clocks", false),
 	}
 
 	widget.clockColl = widget.buildClockCollection(Config.UMap("wtf.mods.clocks.locations"))
