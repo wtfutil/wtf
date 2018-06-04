@@ -174,8 +174,7 @@ func makeRequest(currency *fromCurrency) *http.Request {
 }
 
 func setPrices(response *cResponse, currencry *fromCurrency) {
-	responseRef := reflect.Indirect(reflect.ValueOf(response))
 	for idx, toCurrency := range currencry.to {
-		currencry.to[idx].price = responseRef.FieldByName(toCurrency.name).Interface().(float32)
+		currencry.to[idx].price = (*response)[toCurrency.name]
 	}
 }
