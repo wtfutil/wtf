@@ -35,7 +35,6 @@ var baseURL = "https://bittrex.com/api/v1.1/public/getmarketsummary"
 type Widget struct {
 	wtf.TextWidget
 	summaryList
-	updateInterval int
 	TextColors
 }
 
@@ -43,9 +42,8 @@ type Widget struct {
 func NewWidget() *Widget {
 
 	widget := Widget{
-		TextWidget:     wtf.NewTextWidget(" $ Bittrex ", "bittrex", false),
-		summaryList:    summaryList{},
-		updateInterval: Config.UInt("wtf.mods.bittrex.updateInterval", 10),
+		TextWidget:  wtf.NewTextWidget(" $ Bittrex ", "bittrex", false),
+		summaryList: summaryList{},
 	}
 
 	started = false
@@ -112,7 +110,7 @@ func (widget *Widget) Refresh() {
 		go func() {
 			for {
 				widget.updateSummary()
-				time.Sleep(time.Second * time.Duration(widget.updateInterval))
+				time.Sleep(time.Second * time.Duration(widget.RefreshInterval()))
 			}
 		}()
 		started = true
