@@ -13,6 +13,7 @@ import (
 	"github.com/senorprogrammer/wtf/bamboohr"
 	"github.com/senorprogrammer/wtf/clocks"
 	"github.com/senorprogrammer/wtf/cmdrunner"
+	"github.com/senorprogrammer/wtf/cryptoexchanges/bittrex"
 	"github.com/senorprogrammer/wtf/cryptoexchanges/cryptolive"
 	"github.com/senorprogrammer/wtf/gcal"
 	"github.com/senorprogrammer/wtf/git"
@@ -175,6 +176,7 @@ func makeWidgets(app *tview.Application, pages *tview.Pages) {
 	prettyweather.Config = Config
 	wtf.Config = Config
 	cryptolive.Config = Config
+	bittrex.Config = Config
 
 	Widgets = []wtf.Wtfable{
 		bamboohr.NewWidget(),
@@ -196,6 +198,7 @@ func makeWidgets(app *tview.Application, pages *tview.Pages) {
 		weather.NewWidget(app, pages),
 		cryptolive.NewWidget(),
 		prettyweather.NewWidget(),
+		bittrex.NewWidget(),
 	}
 
 	FocusTracker = wtf.FocusTracker{
