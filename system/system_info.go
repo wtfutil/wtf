@@ -1,67 +1,32 @@
 package system
 
 import (
-	"os/exec"
-	"runtime"
-	"strings"
-
-	"github.com/senorprogrammer/wtf/wtf"
+	"github.com/matishsiao/goInfo"
 )
 
+//systemInfo will hold system information using goInfo pkg
 type SystemInfo struct {
-	ProductName    string
-	ProductVersion string
-	BuildVersion   string
+	GoOs     string
+	Kernel   string
+	Version  string
+	Platform string
+	OS       string
+	Hostname string
+	CPUs     int
 }
 
+//NewSystemInfo will get  current system info, should work on linux/mac/win but I could only test it on linux
 func NewSystemInfo() *SystemInfo {
-	m := make(map[string]string)
-
-	arg := []string{}
-
-	var cmd *exec.Cmd
-	switch runtime.GOOS {
-	case "linux":
-		cmd = exec.Command("uname -a", arg...)
-	case "darwin":
-		cmd = exec.Command("sw_vers", arg...)
-	default:
-		cmd = exec.Command("sw_vers", arg...)
-	}
-
-	raw := wtf.ExecuteCommand(cmd)
-
-	for _, row := range strings.Split(raw, "\n") {
-		parts := strings.Split(row, ":")
-
-		if len(parts) < 2 {
-			continue
-		}
-
-		m[strings.TrimSpace(parts[0])] = strings.TrimSpace(parts[1])
-	}
-
+	gi := goInfo.GetInfo()
 	var sysInfo *SystemInfo
-	switch runtime.GOOS {
-	case "linux":
-		sysInfo = &SystemInfo{
-			ProductName:    m["Distributor ID"],
-			ProductVersion: m["Description"],
-			BuildVersion:   m["Release"],
-		}
-	case "darwin":
-		sysInfo = &SystemInfo{
-			ProductName:    m["ProductName"],
-			ProductVersion: m["ProductVersion"],
-			BuildVersion:   m["BuildVersion"],
-		}
-	default:
-		sysInfo = &SystemInfo{
-			ProductName:    m["ProductName"],
-			ProductVersion: m["ProductVersion"],
-			BuildVersion:   m["BuildVersion"],
-		}
-
+	sysInfo = &SystemInfo{
+		GoOs:     gi.GoOS,
+		Kernel:   gi.Kernel,
+		Version:  gi.Core,
+		Platform: gi.Platform,
+		OS:       gi.OS,
+		Hostname: gi.Hostname,
+		CPUs:     gi.CPUs,
 	}
 	return sysInfo
 }
