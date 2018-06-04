@@ -10,8 +10,8 @@
 
 <meta name="generator" content="Hugo 0.38.2" />
 
-<title>Modules: Bamboohr | WTF - A Terminal Dashboard</title>
-<meta content="Modules: Bamboohr - WTF - A Terminal Dashboard" property="og:title">
+<title>Cryptolive | WTF - A Terminal Dashboard</title>
+<meta content="Cryptolive - WTF - A Terminal Dashboard" property="og:title">
 <meta content=" - " property="og:description">
 <!-- CSS -->
 <link rel="stylesheet" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
@@ -94,13 +94,13 @@
 
         <div class="content container">
             <div class="post">
-  <h1>Modules: Bamboohr</h1>
+  <h1>Cryptolive</h1>
   
   <div class="col-sm-12 col-md-12">
     <span class="text-left post-date meta">
       
       
-        May 07, 2018
+        Jun 03, 2018
       
       
       
@@ -112,32 +112,69 @@
   
   
 
-<p>Connects to the BambooHR API and displays who will be Away today.</p>
+<p>Added in <code>v0.0.5</code>.</p>
+
+<p>Compare crypto currencies using <a href="https://cryptocompare.com">CryptoCompare</a>.</p>
 
 <h2 id="source-code">Source Code</h2>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">wtf/bamboohr/</code></pre></div>
-<h2 id="required-env-variables">Required ENV Variables</h2>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">wtf/cryptocurrencies/cryptolive/</code></pre></div>
+<h2 id="required-env-vars">Required ENV Vars</h2>
 
-<p><span class="caption">Key:</span> <code>WTF_BAMBOO_HR_TOKEN</code> <br />
-<span class="caption">Value:</span> Your <a href="https://www.bamboohr.com/api/documentation/">BambooHR API</a> token.</p>
-
-<p><span class="caption">Key:</span> <code>WTF_BAMBOO_HR_SUBDOMAIN</code> <br />
-<span class="caption">Value:</span> Your <a href="https://www.bamboohr.com/api/documentation/">BambooHR API</a> subdomain name.</p>
+<p>None.</p>
 
 <h2 id="keyboard-commands">Keyboard Commands</h2>
 
 <p>None.</p>
 
 <h2 id="configuration">Configuration</h2>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">bamboohr<span class="p">:</span><span class="w">
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">cryptolive<span class="p">:</span><span class="w">
+</span><span class="w">  </span>colors<span class="p">:</span><span class="w">
+</span><span class="w">    </span>from<span class="p">:</span><span class="w">
+</span><span class="w">      </span>name<span class="p">:</span><span class="w"> </span>coral<span class="w">
+</span><span class="w">      </span>displayName<span class="p">:</span><span class="w"> </span>grey<span class="w">
+</span><span class="w">    </span>to<span class="p">:</span><span class="w">
+</span><span class="w">      </span>name<span class="p">:</span><span class="w"> </span>white<span class="w">
+</span><span class="w">      </span>price<span class="p">:</span><span class="w"> </span>green<span class="w">
+</span><span class="w">  </span>currencies<span class="p">:</span><span class="w">
+</span><span class="w">    </span>BTC<span class="p">:</span><span class="w">
+</span><span class="w">      </span>displayName<span class="p">:</span><span class="w"> </span>Bitcoin<span class="w">
+</span><span class="w">      </span>to<span class="p">:</span><span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>USD<span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>EUR<span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>ETH<span class="w">
+</span><span class="w">    </span>ETH<span class="p">:</span><span class="w">
+</span><span class="w">      </span>displayName<span class="p">:</span><span class="w"> </span>Ethereum<span class="w">
+</span><span class="w">      </span>to<span class="p">:</span><span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>USD<span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>EUR<span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>ETH<span class="w">
 </span><span class="w">  </span>enabled<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span><span class="w">  </span>position<span class="p">:</span><span class="w">
-</span><span class="w">    </span>top<span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
-</span><span class="w">    </span>left<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="w">    </span>height<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
-</span><span class="w">    </span>width<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="w">  </span>refreshInterval<span class="p">:</span><span class="w"> </span><span class="m">900</span></code></pre></div>
+</span><span class="w">    </span>top<span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
+</span><span class="w">    </span>left<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span><span class="w">    </span>height<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">    </span>width<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span><span class="w">  </span>refreshInterval<span class="p">:</span><span class="w"> </span><span class="m">30</span><span class="w">
+</span><span class="w">  </span>updateInterval<span class="p">:</span><span class="w"> </span><span class="m">15</span></code></pre></div>
 <h3 id="attributes">Attributes</h3>
+
+<p><code>colors.from.name</code> <br />
+Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11
+color name</a>.</p>
+
+<p><code>colors.from.dispayName</code> <br />
+Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11
+color name</a>.</p>
+
+<p><code>colors.to.name</code> <br />
+Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11
+color name</a>.</p>
+
+<p><code>colors.to.price</code> <br />
+Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11
+color name</a>.</p>
+
+<p><code>currencies</code> <br /></p>
 
 <p><code>enabled</code> <br />
 Determines whether or not this module is executed and if its data displayed onscreen. <br />
@@ -148,7 +185,7 @@ Defines where in the grid this module&rsquo;s widget will be displayed. <br /></
 
 <p><code>refreshInterval</code> <br />
 How often, in seconds, this module will update its data. <br />
-Values: Any positive integer, <code>0..n</code>.</p>
+Values: A positive integer, <code>0..n</code>.</p>
 
 </div>
 

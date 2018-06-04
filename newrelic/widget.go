@@ -39,7 +39,7 @@ func (widget *Widget) Refresh() {
 	}
 
 	widget.UpdateRefreshedAt()
-	widget.View.SetTitle(fmt.Sprintf(" New Relic: [green]%s[white] ", appName))
+	widget.View.SetTitle(fmt.Sprintf("%s- [green]%s[white]", widget.Name, appName))
 	widget.View.Clear()
 
 	if depErr != nil {

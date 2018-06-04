@@ -14,7 +14,7 @@ func (widget *Widget) display() {
 		return
 	}
 
-	widget.View.SetTitle(fmt.Sprintf(" Github: %s ", widget.title(repo)))
+	widget.View.SetTitle(fmt.Sprintf("%s- %s", widget.Name, widget.title(repo)))
 
 	str := wtf.SigilStr(len(widget.GithubRepos), widget.Idx, widget.View) + "\n"
 	str = str + " [red]Stats[white]\n"

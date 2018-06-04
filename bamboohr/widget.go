@@ -16,7 +16,7 @@ type Widget struct {
 
 func NewWidget() *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(" 👽 BambooHR ", "bamboohr", false),
+		TextWidget: wtf.NewTextWidget(" BambooHR ", "bamboohr", false),
 	}
 
 	return &widget
@@ -37,7 +37,7 @@ func (widget *Widget) Refresh() {
 	)
 
 	widget.UpdateRefreshedAt()
-	widget.View.SetTitle(fmt.Sprintf(" 👽 Away (%d) ", len(todayItems)))
+	widget.View.SetTitle(fmt.Sprintf("%s(%d)", widget.Name, len(todayItems)))
 
 	widget.View.SetText(fmt.Sprintf("%s", widget.contentFrom(todayItems)))
 }
