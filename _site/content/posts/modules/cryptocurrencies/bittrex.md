@@ -32,7 +32,7 @@ bittrex:
         left: 2
         height: 3
         width: 1
-    updateInterval: 5
+    refreshInterval: 5
     summary: 
         BTC:
             displayName: Bitcoin
@@ -80,6 +80,6 @@ Values: `true`, `false`.
 `position` <br />
 Defines where in the grid this module's widget will be displayed. <br />
 
-`updateInterval` <br />
+`refreshInterval` <br />
 How often, in seconds, this module will update its data. <br />
 Values: A positive integer, `0..n`.
