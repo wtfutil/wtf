@@ -329,7 +329,7 @@ Widgets are defined by a required widget.go file in a Module.</description>
       <pubDate>Sun, 15 Apr 2018 21:17:16 -0700</pubDate>
       
       <guid>https://wtfutil.com/posts/configuration/</guid>
-      <description>Configuration Files By default WTF looks in a ~/.wtf/ directory for a YAML file called config.yml. If the ~/.wtf/ directory doesn&amp;rsquo;t exist, WTF will create that directory on start-up, and then display instructions for creating a new configuration file.
+      <description>Index  Configuration Files Environment (ENV) Variables Grid Layout  Configuration Files By default WTF looks in a ~/.wtf/ directory for a YAML file called config.yml. If the ~/.wtf/ directory doesn&amp;rsquo;t exist, WTF will create that directory on start-up, and then display instructions for creating a new configuration file.
 In other words, WTF expects to have a YAML config file at: ~/.wtf/config.yml.
 Example Configuration Files A couple of example config files are provided in the _sample_configs/ directory of the Git repository.</description>
     </item>

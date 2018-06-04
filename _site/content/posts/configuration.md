@@ -4,6 +4,12 @@ date: 2018-04-15T21:17:16-07:00
 draft: false
 ---
 
+## Index
+
+* [Configuration Files](#configuration-files)
+* [Environment (ENV) Variables](#environment-env-variables)
+* [Grid Layout](#grid-layout)
+
 ## Configuration Files
 
 By default WTF looks in a `~/.wtf/` directory for a YAML file called
@@ -66,7 +72,7 @@ Columns breaks up the width of the screen into chunks, each chunk a specified nu
 
 Ten columns that are ten characters wide
 
-Rows break up the height of the screen into chunks, each chunk a specified number of characters tall. If we wanted to have five rows: 
+Rows break up the height of the screen into chunks, each chunk a specified number of characters tall. If we wanted to have five rows:
 
 `[10, 10, 10, 10, 18]`
 
