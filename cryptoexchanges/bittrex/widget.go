@@ -68,26 +68,26 @@ func (widget *Widget) config() {
 
 func (widget *Widget) setSummaryList() {
 	sCurrencies, _ := Config.Map("wtf.mods.bittrex.summary")
-	for fromCurrencyName := range sCurrencies {
-		displayName, _ := Config.String("wtf.mods.bittrex.summary." + fromCurrencyName + ".displayName")
-		toCurrencyList := makeSummaryToList(fromCurrencyName)
-		widget.summaryList.addSummaryItem(fromCurrencyName, displayName, toCurrencyList)
+	for baseCurrencyName := range sCurrencies {
+		displayName, _ := Config.String("wtf.mods.bittrex.summary." + baseCurrencyName + ".displayName")
+		mCurrencyList := makeSummaryMarketList(baseCurrencyName)
+		widget.summaryList.addSummaryItem(baseCurrencyName, displayName, mCurrencyList)
 	}
 }
 
-func makeSummaryToList(currencyName string) []*tCurrency {
-	tCurrencyList := []*tCurrency{}
+func makeSummaryMarketList(currencyName string) []*mCurrency {
+	mCurrencyList := []*mCurrency{}
 
-	configToList, _ := Config.List("wtf.mods.bittrex.summary." + currencyName + ".market")
-	for _, toCurrencyName := range configToList {
-		tCurrencyList = append(tCurrencyList, makeToCurrency(toCurrencyName.(string)))
+	configMarketList, _ := Config.List("wtf.mods.bittrex.summary." + currencyName + ".market")
+	for _, mCurrencyName := range configMarketList {
+		mCurrencyList = append(mCurrencyList, makeMarketCurrency(mCurrencyName.(string)))
 	}
 
-	return tCurrencyList
+	return mCurrencyList
 }
 
-func makeToCurrency(name string) *tCurrency {
-	return &tCurrency{
+func makeMarketCurrency(name string) *mCurrency {
+	return &mCurrency{
 		name: name,
 		summaryInfo: summaryInfo{
 			High:           "-1",
@@ -136,9 +136,9 @@ func (widget *Widget) updateSummary() {
 		Timeout: time.Duration(5 * time.Second),
 	}
 
-	for _, fromCurrency := range widget.summaryList.items {
-		for _, toCurrency := range fromCurrency.to {
-			request := makeRequest(fromCurrency.name, toCurrency.name)
+	for _, baseCurrency := range widget.summaryList.items {
+		for _, mCurrency := range baseCurrency.markets {
+			request := makeRequest(baseCurrency.name, mCurrency.name)
 			response, err := client.Do(request)
 
 			if err != nil {
@@ -166,26 +166,26 @@ func (widget *Widget) updateSummary() {
 
 			if !jsonResponse.Success {
 				ok = false
-				errorText = fmt.Sprintf("%s-%s: %s", fromCurrency.name, toCurrency.name, jsonResponse.Message)
+				errorText = fmt.Sprintf("%s-%s: %s", baseCurrency.name, mCurrency.name, jsonResponse.Message)
 				break
 			}
 			ok = true
 			errorText = ""
 
-			toCurrency.Last = fmt.Sprintf("%f", jsonResponse.Result[0].Last)
-			toCurrency.High = fmt.Sprintf("%f", jsonResponse.Result[0].High)
-			toCurrency.Low = fmt.Sprintf("%f", jsonResponse.Result[0].Low)
-			toCurrency.Volume = fmt.Sprintf("%f", jsonResponse.Result[0].Volume)
-			toCurrency.OpenBuyOrders = fmt.Sprintf("%d", jsonResponse.Result[0].OpenBuyOrders)
-			toCurrency.OpenSellOrders = fmt.Sprintf("%d", jsonResponse.Result[0].OpenSellOrders)
+			mCurrency.Last = fmt.Sprintf("%f", jsonResponse.Result[0].Last)
+			mCurrency.High = fmt.Sprintf("%f", jsonResponse.Result[0].High)
+			mCurrency.Low = fmt.Sprintf("%f", jsonResponse.Result[0].Low)
+			mCurrency.Volume = fmt.Sprintf("%f", jsonResponse.Result[0].Volume)
+			mCurrency.OpenBuyOrders = fmt.Sprintf("%d", jsonResponse.Result[0].OpenBuyOrders)
+			mCurrency.OpenSellOrders = fmt.Sprintf("%d", jsonResponse.Result[0].OpenSellOrders)
 		}
 	}
 
 	widget.display()
 }
 
-func makeRequest(fName, tName string) *http.Request {
-	url := fmt.Sprintf("%s?market=%s-%s", baseURL, fName, tName)
+func makeRequest(baseName, marketName string) *http.Request {
+	url := fmt.Sprintf("%s?market=%s-%s", baseURL, baseName, marketName)
 	request, _ := http.NewRequest("GET", url, nil)
 
 	return request
