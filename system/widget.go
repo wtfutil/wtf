@@ -21,7 +21,7 @@ type Widget struct {
 
 func NewWidget(date, version string) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(" Build ", "system", false),
+		TextWidget: wtf.NewTextWidget(" System ", "system", false),
 
 		Date:    date,
 		Version: version,

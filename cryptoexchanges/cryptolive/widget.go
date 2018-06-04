@@ -3,9 +3,8 @@ package cryptolive
 import (
 	"encoding/json"
 	"fmt"
-	"time"
-
 	"net/http"
+	"time"
 
 	"github.com/olebedev/config"
 	"github.com/senorprogrammer/wtf/wtf"
@@ -32,7 +31,7 @@ type Widget struct {
 func NewWidget() *Widget {
 	started = false
 	widget := Widget{
-		TextWidget:     wtf.NewTextWidget(" $ CryptoLive ", "cryptolive", false),
+		TextWidget:     wtf.NewTextWidget(" CryptoLive ", "cryptolive", false),
 		updateInterval: Config.UInt("wtf.mods.cryptolive.updateInterval", 10),
 	}
 
