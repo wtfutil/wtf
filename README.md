@@ -17,11 +17,20 @@ displaying infrequently-needed, but very important, daily data.
 work with Go versions < 1.7, and only _may_ work on other versions.
 
 ```bash
-go get github.com/senorprogrammer/wtf
+go get -u github.com/senorprogrammer/wtf
 cd $GOPATH/src/github.com/senorprogrammer/wtf
 make install
 make run
 ```
+
+Or [download the latest binary](https://github.com/senorprogrammer/wtf/releases).
+
+## Support
+
+Chat on Gitter:
+[![Join the chat at https://gitter.im/wtfutil/Lobby](https://badges.gitter.im/wtfutil/Lobby.svg)](https://gitter.im/wtfutil/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
+## Documentation
 
 See [https://wtfutil.com](https://wtfutil.com) for the definitive
 documentation. Here's some short-cuts:
@@ -38,14 +47,18 @@ And a "probably up-to-date" list of currently-implemented modules:
 * [Google Calendar](http://wtfutil.com/posts/modules/gcal/)
 * [Git](http://wtfutil.com/posts/modules/git/)
 * [GitHub](http://wtfutil.com/posts/modules/github/)
+* [IPInfo](http://wtfutil.com/posts/modules/ipinfo/)
 * [Jira](http://wtfutil.com/posts/modules/jira/)
 * [New Relic](http://wtfutil.com/posts/modules/newrelic/)
 * [OpsGenie](http://wtfutil.com/posts/modules/opsgenie)
 * [Power](http://wtfutil.com/posts/modules/power/)
+* [PrettyWeather](http://wtfutil.com/posts/modules/prettyweather/)*
 * [Security](http://wtfutil.com/posts/modules/security/)
 * [Textfile](http://wtfutil.com/posts/modules/textfile/)
 * [Todo List](http://wtfutil.com/posts/modules/todo/)
 * [Weather](http://wtfutil.com/posts/modules/weather/)
+
+*experimental
 
 ## Contributing
 
@@ -78,3 +91,7 @@ Many thanks to all these developers.
 * [openweathermap](https://github.com/briandowns/openweathermap)
 * [tcell](https://github.com/gdamore/tcell)
 * [tview](https://github.com/rivo/tview)
+
+<p align="center">
+<img src="./docs/img/dude_wtf.png?raw=true" title="Dude WTF" width="251" height="201" />
+</p>

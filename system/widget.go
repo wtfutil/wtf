@@ -21,7 +21,7 @@ type Widget struct {
 
 func NewWidget(date, version string) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(" Build ", "system", false),
+		TextWidget: wtf.NewTextWidget(" System ", "system", false),
 
 		Date:    date,
 		Version: version,
@@ -38,19 +38,19 @@ func (widget *Widget) Refresh() {
 	}
 
 	widget.UpdateRefreshedAt()
-	widget.View.Clear()
 
-	fmt.Fprintf(
-		widget.View,
-		"%8s: %s\n%8s: %s\n\n%8s: %s\n%8s: %s",
-		"Built",
-		widget.prettyDate(),
-		"Vers",
-		widget.Version,
-		"OS",
-		widget.systemInfo.ProductVersion,
-		"Build",
-		widget.systemInfo.BuildVersion,
+	widget.View.SetText(
+		fmt.Sprintf(
+			"%8s: %s\n%8s: %s\n\n%8s: %s\n%8s: %s",
+			"Built",
+			widget.prettyDate(),
+			"Vers",
+			widget.Version,
+			"OS",
+			widget.systemInfo.ProductVersion,
+			"Build",
+			widget.systemInfo.BuildVersion,
+		),
 	)
 }
 

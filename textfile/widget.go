@@ -30,7 +30,7 @@ type Widget struct {
 
 func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(" 📄 Text File ", "textfile", true),
+		TextWidget: wtf.NewTextWidget(" Text File ", "textfile", true),
 
 		app:      app,
 		filePath: Config.UString("wtf.mods.textfile.filePath"),
@@ -53,8 +53,7 @@ func (widget *Widget) Refresh() {
 	}
 
 	widget.UpdateRefreshedAt()
-	widget.View.SetTitle(fmt.Sprintf(" 📄 %s ", widget.filePath))
-	widget.View.Clear()
+	widget.View.SetTitle(fmt.Sprintf("%s %s", widget.Name, widget.filePath))
 
 	filePath, _ := wtf.ExpandHomeDir(widget.filePath)
 
@@ -64,9 +63,9 @@ func (widget *Widget) Refresh() {
 	}
 
 	if err != nil {
-		fmt.Fprintf(widget.View, "%s", err)
+		widget.View.SetText(fmt.Sprintf("%s", err))
 	} else {
-		fmt.Fprintf(widget.View, "%s", string(fileData))
+		widget.View.SetText(fmt.Sprintf("%s", string(fileData)))
 	}
 }
 

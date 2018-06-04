@@ -1,11 +1,7 @@
 package security
 
-import (
-	"strings"
-)
-
 type SecurityData struct {
-	Dns             string
+	Dns             []string
 	FirewallEnabled string
 	FirewallStealth string
 	LoggedInUsers   []string
@@ -17,14 +13,11 @@ func NewSecurityData() *SecurityData {
 	return &SecurityData{}
 }
 
-func (data *SecurityData) DnsAt(idx int) string {
-	records := strings.Split(data.Dns, "\n")
-
-	if len(records) > 0 && len(records) > idx {
-		return records[idx]
-	} else {
-		return ""
+func (data SecurityData) DnsAt(idx int) string {
+	if len(data.Dns) > idx {
+		return data.Dns[idx]
 	}
+	return ""
 }
 
 func (data *SecurityData) Fetch() {

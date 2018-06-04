@@ -33,12 +33,12 @@ func (widget *Widget) Refresh() {
 	}
 
 	widget.UpdateRefreshedAt()
-	widget.View.Clear()
 
-	fmt.Fprintf(
-		widget.View,
-		"\n%s",
-		widget.animation(),
+	widget.View.SetText(
+		fmt.Sprintf(
+			"\n%s",
+			widget.animation(),
+		),
 	)
 }
 

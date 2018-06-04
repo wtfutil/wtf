@@ -22,7 +22,7 @@ type Widget struct {
 
 func NewWidget() *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(" 🏃 Runner ", "cmdrunner", false),
+		TextWidget: wtf.NewTextWidget(" CmdRunner ", "cmdrunner", false),
 
 		args: wtf.ToStrs(Config.UList("wtf.mods.cmdrunner.args")),
 		cmd:  Config.UString("wtf.mods.cmdrunner.cmd"),
@@ -40,10 +40,9 @@ func (widget *Widget) Refresh() {
 
 	widget.UpdateRefreshedAt()
 	widget.execute()
-	widget.View.Clear()
 	widget.View.SetTitle(fmt.Sprintf(" %s ", widget))
 
-	fmt.Fprintf(widget.View, "%s", widget.result)
+	widget.View.SetText(fmt.Sprintf("%s", widget.result))
 }
 
 func (widget *Widget) String() string {

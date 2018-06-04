@@ -6,10 +6,59 @@
     <description>Recent content in Posts on WTF - A Terminal Dashboard</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 26 May 2018 19:26:23 -0700</lastBuildDate>
+    <lastBuildDate>Sun, 03 Jun 2018 20:06:40 -0700</lastBuildDate>
     
 	<atom:link href="https://wtfutil.com/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Cryptolive</title>
+      <link>https://wtfutil.com/posts/modules/cryptocurrencies/cryptolive/</link>
+      <pubDate>Sun, 03 Jun 2018 20:06:40 -0700</pubDate>
+      
+      <guid>https://wtfutil.com/posts/modules/cryptocurrencies/cryptolive/</guid>
+      <description>Added in v0.0.5.
+Compare crypto currencies using CryptoCompare.
+Source Code wtf/cryptocurrencies/cryptolive/ Required ENV Vars None.
+Keyboard Commands None.
+Configuration cryptolive:colors:from:name:coraldisplayName:greyto:name:whiteprice:greencurrencies:BTC:displayName:Bitcointo:-USD-EUR-ETHETH:displayName:Ethereumto:-USD-EUR-ETHenabled:trueposition:top:5left:2height:1width:2refreshInterval:30updateInterval:15 Attributes colors.from.name Values: Any X11 color name.
+colors.from.dispayName Values: Any X11 color name.
+colors.to.name Values: Any X11 color name.
+colors.to.price Values: Any X11 color name.
+currencies enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.
+position Defines where in the grid this module&amp;rsquo;s widget will be displayed.</description>
+    </item>
+    
+    <item>
+      <title>Prettyweather</title>
+      <link>https://wtfutil.com/posts/modules/prettyweather/</link>
+      <pubDate>Sat, 02 Jun 2018 05:32:04 -0700</pubDate>
+      
+      <guid>https://wtfutil.com/posts/modules/prettyweather/</guid>
+      <description>🔬 Experimental
+Displays weather information as ASCII art from Wttr.in.
+Source Code wtf/prettyweather/ Required ENV Variables None.
+Keyboard Commands None.
+Configuration prettyweather:enabled:truecity:&amp;#34;tehran&amp;#34;position:top:3left:5height:1width:1refreshInterval:300unit:&amp;#34;c&amp;#34; Attributes city Optional. It will grab the current location from your IP address if omitted.
+Values: The name of any city supported by Wttr.in.
+enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.
+position Defines where in the grid this module&amp;rsquo;s widget will be displayed.</description>
+    </item>
+    
+    <item>
+      <title>Module: IPInfo</title>
+      <link>https://wtfutil.com/posts/modules/ipinfo/</link>
+      <pubDate>Fri, 01 Jun 2018 23:18:48 -0700</pubDate>
+      
+      <guid>https://wtfutil.com/posts/modules/ipinfo/</guid>
+      <description>Displays your current IP address information, from ipinfo.io.
+Source Code wtf/ipinfo/ Required ENV Variables None.
+Keyboard Commands None.
+Configuration ipinfo:colors:name:redvalue:whiteenabled:trueposition:top:1left:2height:1width:1refreshInterval:15 Attributes colors.name The default colour for the row names. Values: Any X11 color name.
+colors.value The default colour for the row values. Values: Any X11 color name.
+enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.
+position Defines where in the grid this module&amp;rsquo;s widget will be displayed.</description>
+    </item>
     
     <item>
       <title>Modules: Power</title>
@@ -56,7 +105,7 @@ Quick Start  Download the stand-alone, compiled binary. Unzip the downloaded fil
       <guid>https://wtfutil.com/posts/installation/</guid>
       <description>There are two ways to install WTF:
 From Source Get this repo and install the dependencies:
-go get github.com/senorprogrammer/wtf cd $GOPATH/src/github.com/senorprogrammer/wtf make install make run and that should probably do it.
+go get -u github.com/senorprogrammer/wtf cd $GOPATH/src/github.com/senorprogrammer/wtf make install make run and that should probably do it.
 As a Binary Grab the latest version from here:
 https://github.com/senorprogrammer/wtf/releases expand it, and cd into the resulting directory. Then run:
 ./wtf and that should also do it.</description>
@@ -82,7 +131,7 @@ cmd The terminal command to be run, withouth the arguments. Ie: ping, whoami, cu
       
       <guid>https://wtfutil.com/posts/configuration/attributes/</guid>
       <description>The following top-level attributes are configurable in config.yml. See this example config file for more details.
-wtf:colors:background:&amp;#34;red&amp;#34;border:Focusable:&amp;#34;darkslateblue&amp;#34;focused:&amp;#34;orange&amp;#34;normal:&amp;#34;gray&amp;#34;grid:# How _wide_ the columns are, in terminal characters. In this case we have# six columns, each of which are 35 characters widecolumns:[35,35,35,35,35,35]# How _high_ the rows are, in terminal lines. In this case we have five rows# that support ten line of text, one of three lines, and one of fourrows:[10,10,10,10,10,3,4]# The app redraws itself once a secondrefreshInterval:1 Attributes colors.</description>
+wtf:colors:background:&amp;#34;red&amp;#34;border:Focusable:&amp;#34;darkslateblue&amp;#34;focused:&amp;#34;orange&amp;#34;normal:&amp;#34;gray&amp;#34;grid:# How _wide_ the columns are, in terminal characters. In this case we have# six columns, each of which are 35 characters widecolumns:[35,35,35,35,35,35]# How _high_ the rows are, in terminal lines. In this case we have five rows# that support ten line of text, one of three lines, and one of fourrows:[10,10,10,10,10,3,4]# The app redraws itself once a secondrefreshInterval:1term:&amp;#34;xterm-256color&amp;#34; Attributes colors.</description>
     </item>
     
     <item>
@@ -108,7 +157,7 @@ Key: j Action: Select the next item in the list.</description>
       <description>Displays all Jira issues assigned to you for the specified project.
 Source Code wtf/jira/ Required ENV Variables Key: WTF_JIRA_API_KEY Value: Your Jira API key.
 Keyboard Commands None.
-Configuration jira:colors:rows:even:&amp;#34;lightblue&amp;#34;odd:&amp;#34;white&amp;#34;domain:&amp;#34;https://umbrellacorp.atlassian.net&amp;#34;email:&amp;#34;chriscummer@me.com&amp;#34;enabled:trueposition:top:4left:1height:1width:2project:&amp;#34;JIRA&amp;#34;refreshInterval:900username:&amp;#34;chris.cummer&amp;#34; Attributes colors.rows.even Define the foreground color for even-numbered rows. Values: Any X11 color name.
+Configuration jira:colors:rows:even:&amp;#34;lightblue&amp;#34;odd:&amp;#34;white&amp;#34;domain:&amp;#34;https://umbrellacorp.atlassian.net&amp;#34;email:&amp;#34;chriscummer@me.com&amp;#34;enabled:truejql:&amp;#34;issueType = Story&amp;#34;position:top:4left:1height:1width:2project:&amp;#34;JIRA&amp;#34;refreshInterval:900username:&amp;#34;chris.cummer&amp;#34; Attributes colors.rows.even Define the foreground color for even-numbered rows. Values: Any X11 color name.
 colors.rows.odd Define the foreground color for odd-numbered rows. Values: Any X11 color name.
 domain Your Jira corporate domain. Values: A valid URI.
 email The email address associated with your Jira account.</description>
@@ -121,12 +170,10 @@ email The email address associated with your Jira account.</description>
       
       <guid>https://wtfutil.com/posts/modules/gcal/</guid>
       <description>Displays your upcoming Google calendar events.
+Not: Setting up access to Google Calendars for Go is a bit unobvious. Check out Google&amp;rsquo;s Go Quickstart first and if you have problems, then take a look at this comment by WesleydeSouza which offers a slightly different approach.
 Source Code wtf/gcal/ Required ENV Variables Key: WTF_GOOGLE_CAL_CLIENT_ID Value: Your Google API client ID.
 Key: WTF_GOOGLE_CAL_CLIENT_SECRET Value: Your Google API client secret.
-Keyboard Commands None.
-Configuration gcal:colors:title:&amp;#34;red&amp;#34;description:&amp;#34;lightblue&amp;#34;highlights:-[&amp;#39;1on1|1\/11&amp;#39;,&amp;#39;green&amp;#39;]-[&amp;#39;apple|google|aws&amp;#39;,&amp;#39;blue&amp;#39;]-[&amp;#39;interview|meet&amp;#39;,&amp;#39;magenta&amp;#39;]-[&amp;#39;lunch&amp;#39;,&amp;#39;yellow&amp;#39;]past:&amp;#34;gray&amp;#34;conflictIcon:&amp;#34;🚨&amp;#34;currentIcon:&amp;#34;💥&amp;#34;displayResponseStatus:trueemail:&amp;#34;chriscummer@me.com&amp;#34;enabled:trueeventCount:12position:top:0left:0height:4width:1refreshInterval:300secretFile:&amp;#34;~/.wtf/gcal/client_secret.json&amp;#34;withLocation:true Attributes colors.title The default colour for calendar event titles. Values: Any X11 color name.
-colors.description The default color for calendar event descriptions. Values: Any X11 color name.
-colors.highlights A list of arrays that define a regular expression pattern and a color.</description>
+Keyboard Commands None.</description>
     </item>
     
     <item>

@@ -7,7 +7,6 @@ import (
 )
 
 func (widget *Widget) display() {
-	widget.View.Clear()
 
 	repo := widget.currentGithubRepo()
 	if repo == nil {
@@ -15,7 +14,7 @@ func (widget *Widget) display() {
 		return
 	}
 
-	widget.View.SetTitle(fmt.Sprintf(" Github: %s ", widget.title(repo)))
+	widget.View.SetTitle(fmt.Sprintf("%s- %s", widget.Name, widget.title(repo)))
 
 	str := wtf.SigilStr(len(widget.GithubRepos), widget.Idx, widget.View) + "\n"
 	str = str + " [red]Stats[white]\n"
@@ -27,7 +26,7 @@ func (widget *Widget) display() {
 	str = str + " [red]My Pull Requests[white]\n"
 	str = str + widget.displayMyPullRequests(repo, Config.UString("wtf.mods.github.username"))
 
-	fmt.Fprintf(widget.View, str)
+	widget.View.SetText(str)
 }
 
 func (widget *Widget) displayMyPullRequests(repo *GithubRepo, username string) string {
