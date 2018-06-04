@@ -98,7 +98,7 @@ func display(widget *Widget) {
 		toPriceColor         = Config.UString("wtf.mods.cryptolive.colors.to.price", "green")
 	)
 	for _, item := range widget.list.items {
-		str += fmt.Sprintf("[%s]%s[%s](%s):\n", fromNameColor, item.displayName, fromDisplayNameColor, item.name)
+		str += fmt.Sprintf(" [%s]%s[%s] (%s)\n", fromNameColor, item.displayName, fromDisplayNameColor, item.name)
 		for _, toItem := range item.to {
 			str += fmt.Sprintf("\t[%s]%s: [%s]%f\n", toNameColor, toItem.name, toPriceColor, toItem.price)
 		}
@@ -116,7 +116,7 @@ func getToList(fromName string) []*toCurrency {
 	for _, to := range toNames {
 		toList = append(toList, &toCurrency{
 			name:  to.(string),
-			price: -1,
+			price: 0,
 		})
 	}
 
