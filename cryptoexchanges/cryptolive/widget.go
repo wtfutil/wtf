@@ -21,9 +21,6 @@ var ok = true
 type Widget struct {
 	wtf.TextWidget
 
-	// time interval for send http request
-	updateInterval int
-
 	*list
 }
 
@@ -31,8 +28,7 @@ type Widget struct {
 func NewWidget() *Widget {
 	started = false
 	widget := Widget{
-		TextWidget:     wtf.NewTextWidget(" CryptoLive ", "cryptolive", false),
-		updateInterval: Config.UInt("wtf.mods.cryptolive.updateInterval", 10),
+		TextWidget: wtf.NewTextWidget(" CryptoLive ", "cryptolive", false),
 	}
 
 	widget.setList()
@@ -66,7 +62,7 @@ func (widget *Widget) Refresh() {
 		go func() {
 			for {
 				widget.updateCurrencies()
-				time.Sleep(time.Duration(widget.updateInterval) * time.Second)
+				time.Sleep(time.Duration(widget.RefreshInterval()) * time.Second)
 			}
 		}()
 
