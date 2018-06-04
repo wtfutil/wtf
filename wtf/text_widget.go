@@ -27,7 +27,7 @@ func NewTextWidget(name string, configKey string, focusable bool) TextWidget {
 		enabled:   Config.UBool(fmt.Sprintf("wtf.mods.%s.enabled", configKey), false),
 		focusable: focusable,
 
-		Name:       name,
+		Name:       Config.UString(fmt.Sprintf("wtf.mods.%s.title", configKey), name),
 		RefreshInt: Config.UInt(fmt.Sprintf("wtf.mods.%s.refreshInterval", configKey)),
 	}
 
