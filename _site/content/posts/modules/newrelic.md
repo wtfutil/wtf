@@ -1,5 +1,5 @@
 ---
-title: "Modules: New Relic"
+title: "New Relic"
 date: 2018-05-09T09:01:14-07:00
 draft: false
 ---

@@ -30,7 +30,7 @@ summary enabled Determines whether or not this module is executed and if its dat
     </item>
     
     <item>
-      <title>Cryptolive</title>
+      <title>CryptoLive</title>
       <link>https://wtfutil.com/posts/modules/cryptocurrencies/cryptolive/</link>
       <pubDate>Sun, 03 Jun 2018 20:06:40 -0700</pubDate>
       
@@ -48,7 +48,7 @@ position Defines where in the grid this module&amp;rsquo;s widget will be displa
     </item>
     
     <item>
-      <title>Prettyweather</title>
+      <title>Pretty Weather</title>
       <link>https://wtfutil.com/posts/modules/prettyweather/</link>
       <pubDate>Sat, 02 Jun 2018 05:32:04 -0700</pubDate>
       
@@ -64,7 +64,7 @@ position Defines where in the grid this module&amp;rsquo;s widget will be displa
     </item>
     
     <item>
-      <title>Module: IPInfo</title>
+      <title>IPInfo</title>
       <link>https://wtfutil.com/posts/modules/ipinfo/</link>
       <pubDate>Fri, 01 Jun 2018 23:18:48 -0700</pubDate>
       
@@ -79,7 +79,7 @@ position Defines where in the grid this module&amp;rsquo;s widget will be displa
     </item>
     
     <item>
-      <title>Modules: Power</title>
+      <title>Power</title>
       <link>https://wtfutil.com/posts/modules/power/</link>
       <pubDate>Sat, 26 May 2018 19:26:23 -0700</pubDate>
       
@@ -130,7 +130,7 @@ https://github.com/senorprogrammer/wtf/releases expand it, and cd into the resul
     </item>
     
     <item>
-      <title>Modules: CmdRunner</title>
+      <title>CmdRunner</title>
       <link>https://wtfutil.com/posts/modules/cmdrunner/</link>
       <pubDate>Thu, 17 May 2018 17:17:10 -0700</pubDate>
       
@@ -153,7 +153,7 @@ wtf:colors:background:&amp;#34;red&amp;#34;border:Focusable:&amp;#34;darkslatebl
     </item>
     
     <item>
-      <title>Modules: Todo</title>
+      <title>Todo</title>
       <link>https://wtfutil.com/posts/modules/todo/</link>
       <pubDate>Thu, 10 May 2018 12:41:50 -0700</pubDate>
       
@@ -167,7 +167,7 @@ Key: j Action: Select the next item in the list.</description>
     </item>
     
     <item>
-      <title>Modules: Jira</title>
+      <title>Jira</title>
       <link>https://wtfutil.com/posts/modules/jira/</link>
       <pubDate>Thu, 10 May 2018 10:44:35 -0700</pubDate>
       
@@ -182,7 +182,7 @@ email The email address associated with your Jira account.</description>
     </item>
     
     <item>
-      <title>Modules: Google Calendar</title>
+      <title>Google Calendar</title>
       <link>https://wtfutil.com/posts/modules/gcal/</link>
       <pubDate>Thu, 10 May 2018 08:25:33 -0700</pubDate>
       
@@ -195,7 +195,7 @@ Keyboard Commands None.</description>
     </item>
     
     <item>
-      <title>Modules: Github</title>
+      <title>Github</title>
       <link>https://wtfutil.com/posts/modules/github/</link>
       <pubDate>Wed, 09 May 2018 19:20:20 -0700</pubDate>
       
@@ -210,7 +210,7 @@ Key: l Action: Show the next git repository.</description>
     </item>
     
     <item>
-      <title>Modules: Git</title>
+      <title>Git</title>
       <link>https://wtfutil.com/posts/modules/git/</link>
       <pubDate>Wed, 09 May 2018 14:20:48 -0700</pubDate>
       
@@ -225,7 +225,7 @@ Key: h Action: Show the previous git repository.</description>
     </item>
     
     <item>
-      <title>Modules: Weather</title>
+      <title>Weather</title>
       <link>https://wtfutil.com/posts/modules/weather/</link>
       <pubDate>Wed, 09 May 2018 11:44:13 -0700</pubDate>
       
@@ -240,7 +240,7 @@ Key: → Action: Show the next weather location.</description>
     </item>
     
     <item>
-      <title>Modules: Textfile</title>
+      <title>Textfile</title>
       <link>https://wtfutil.com/posts/modules/textfile/</link>
       <pubDate>Wed, 09 May 2018 11:13:11 -0700</pubDate>
       
@@ -254,7 +254,7 @@ filePath The path to the file to be displayed in the widget.</description>
     </item>
     
     <item>
-      <title>Modules: New Relic</title>
+      <title>New Relic</title>
       <link>https://wtfutil.com/posts/modules/newrelic/</link>
       <pubDate>Wed, 09 May 2018 09:01:14 -0700</pubDate>
       
@@ -267,7 +267,7 @@ deployCount The number of past deploys to display on screen.</description>
     </item>
     
     <item>
-      <title>Modules: OpsGenie</title>
+      <title>OpsGenie</title>
       <link>https://wtfutil.com/posts/modules/opsgenie/</link>
       <pubDate>Tue, 08 May 2018 20:53:40 -0700</pubDate>
       
@@ -281,7 +281,7 @@ position Where in the grid this module&amp;rsquo;s widget will be displayed.</de
     </item>
     
     <item>
-      <title>Modules: Security</title>
+      <title>Security</title>
       <link>https://wtfutil.com/posts/modules/security/</link>
       <pubDate>Tue, 08 May 2018 20:33:28 -0700</pubDate>
       
@@ -291,7 +291,7 @@ Wifi Network The name of the current network Whether or not the network uses enc
     </item>
     
     <item>
-      <title>Modules: Bamboohr</title>
+      <title>BambooHR</title>
       <link>https://wtfutil.com/posts/modules/bamboohr/</link>
       <pubDate>Mon, 07 May 2018 20:17:37 -0700</pubDate>
       
@@ -305,7 +305,7 @@ position Defines where in the grid this module&amp;rsquo;s widget will be displa
     </item>
     
     <item>
-      <title>Modules: Clocks</title>
+      <title>Clocks</title>
       <link>https://wtfutil.com/posts/modules/clocks/</link>
       <pubDate>Mon, 07 May 2018 19:47:31 -0700</pubDate>
       

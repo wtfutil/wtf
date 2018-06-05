@@ -1,5 +1,5 @@
 ---
-title: "Module: IPInfo"
+title: "IPInfo"
 date: 2018-06-01T23:18:48-07:00
 draft: false
 ---
