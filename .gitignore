@@ -19,3 +19,4 @@ gcal/client_secret.json
 .idea/
 
 dist/*
+bin/
