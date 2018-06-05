@@ -1,14 +1,8 @@
-BRANCH := `git rev-parse --abbrev-ref HEAD`
 
-.PHONY: dependencies install run
-
-dependencies:
-	go get -v ./...
+.PHONY: install run
 
 install:
-	which wtf | xargs rm || true
-	go install -ldflags="-X main.version=$(shell git describe --always --abbrev=6)_$(BRANCH) -X main.date=$(shell date +%FT%T%z)"
-	which wtf
+	bash installer.sh
 
 run:
 	wtf

@@ -1,0 +1,122 @@
+
+# Set aspect-ration.
+aspect = 0
+
+# Set separator (for multiple widgets output).
+separate_widget = ""
+
+# Set tab-length (for textbox tab-conversion).
+tab_len = 0
+
+# Make tab-traversal for checklist, etc., include the list.
+visit_items = OFF
+
+# Shadow dialog boxes? This also turns on color.
+use_shadow = ON
+
+# Turn color support ON or OFF
+use_colors = ON
+
+# Screen color
+screen_color = (BLUE,BLACK,ON)
+
+# Shadow color
+shadow_color = (BLACK,BLACK,OFF)
+
+# Dialog box color
+dialog_color = (BLUE,BLACK,OFF)
+
+# Dialog box title color
+title_color = (BLUE,BLACK,OFF)
+
+# Dialog box border color
+border_color = (BLUE,BLACK,ON)
+border2_color = border_color
+
+# Active button color
+button_active_color = (BLUE,BLACK,ON)
+
+# Inactive button color
+button_inactive_color = (RED,BLACK,OFF)
+
+# Active button key color
+button_key_active_color = (BLACK,BLUE,OFF)
+
+# Inactive button key color
+button_key_inactive_color = (RED,BLACK,OFF)
+
+# Active button label color
+button_label_active_color = (BLUE,BLACK,OFF)
+
+# Inactive button label color
+button_label_inactive_color = (RED,BLACK,ON)
+
+# Input box color
+inputbox_color = (BLUE,BLACK,OFF)
+
+# Input box border color
+inputbox_border_color = (BLUE,BLACK,OFF)
+
+# Search box color
+searchbox_color = (BLUE,BLACK,OFF)
+
+# Search box title color
+searchbox_title_color = (BLUE,WHITE,ON)
+
+# Search box border color
+searchbox_border_color = (WHITE,WHITE,OFF)
+
+# File position indicator color
+position_indicator_color = (BLUE,BLACK,ON)
+
+# Menu box color
+menubox_color = (BLACK,BLACK,OFF)
+
+# Menu box border color
+menubox_border_color = (BLUE,BLACK,ON)
+menubox_border2_color = menubox_border_color
+
+# Item color
+item_color = (BLUE,BLACK,OFF)
+
+# Selected item color
+item_selected_color = (BLUE,BLACK,ON)
+
+# Tag color
+tag_color = (BLUE,BLACK,ON)
+
+# Selected tag color
+tag_selected_color = (BLUE,BLACK,ON)
+
+# Tag key color
+tag_key_color = (RED,BLACK,OFF)
+
+# Selected tag key color
+tag_key_selected_color = (BLACK,BLUE,OFF)
+
+# Check box color
+check_color = (BLUE,BLACK,ON)
+
+# Selected check box color
+check_selected_color = (BLACK,BLUE,OFF)
+
+# Up arrow color
+uarrow_color = (BLUE,BLACK,ON)
+
+# Down arrow color
+darrow_color = (BLUE,BLACK,ON)
+
+# Item help-text color
+itemhelp_color = (WHITE,BLACK,OFF)
+
+# Active form text color
+form_active_text_color = (WHITE,BLUE,ON)
+
+# Form text color
+form_text_color = (WHITE,CYAN,ON)
+
+# Dialog box gauge color
+gauge_color = (BLUE,BLACK,OFF)
+
+# Readonly form item color
+form_item_readonly_color = (CYAN,BLACK,ON)
