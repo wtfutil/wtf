@@ -19,9 +19,9 @@
       <guid>https://wtfutil.com/posts/modules/cryptocurrencies/cryptolive/</guid>
       <description>Added in v0.0.5.
 Compare crypto currencies using CryptoCompare.
-Source Code wtf/cryptocurrencies/cryptolive/ Required ENV Vars None.
+Source Code wtf/cryptoexchanges/cryptolive/ Required ENV Vars None.
 Keyboard Commands None.
-Configuration cryptolive:colors:from:name:coraldisplayName:greyto:name:whiteprice:greencurrencies:BTC:displayName:Bitcointo:-USD-EUR-ETHETH:displayName:Ethereumto:-USD-EUR-ETHenabled:trueposition:top:5left:2height:1width:2refreshInterval:30updateInterval:15 Attributes colors.from.name Values: Any X11 color name.
+Configuration cryptolive:colors:from:name:coraldisplayName:greyto:name:whiteprice:greencurrencies:BTC:displayName:Bitcointo:-USD-EUR-ETHETH:displayName:Ethereumto:-USD-EUR-ETHenabled:trueposition:top:5left:2height:1width:2updateInterval:15 Attributes colors.from.name Values: Any X11 color name.
 colors.from.dispayName Values: Any X11 color name.
 colors.to.name Values: Any X11 color name.
 colors.to.price Values: Any X11 color name.
