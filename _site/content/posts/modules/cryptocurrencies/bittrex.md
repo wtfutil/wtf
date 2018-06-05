@@ -8,6 +8,8 @@ Added in `v0.0.5`.
 
 Get the last 24 hour summary of cryptocurrencies market using [Bittrex](https://bittrex.com).
 
+<img src="/imgs/modules/bittrex.png" width="320" height="412" alt="bittrex screenshot" />
+
 ## Source Code
 
 ```bash
@@ -33,14 +35,14 @@ bittrex:
         height: 3
         width: 1
     refreshInterval: 5
-    summary: 
+    summary:
         BTC:
             displayName: Bitcoin
             market:
             - LTC
             - ETH
-    colors: 
-        base: 
+    colors:
+        base:
             name: orange
             displayName: red
         market:
