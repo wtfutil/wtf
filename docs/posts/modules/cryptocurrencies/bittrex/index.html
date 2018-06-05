@@ -10,8 +10,8 @@
 
 <meta name="generator" content="Hugo 0.38.2" />
 
-<title>Glossary | WTF - A Terminal Dashboard</title>
-<meta content="Glossary - WTF - A Terminal Dashboard" property="og:title">
+<title>Bittrex | WTF - A Terminal Dashboard</title>
+<meta content="Bittrex - WTF - A Terminal Dashboard" property="og:title">
 <meta content=" - " property="og:description">
 <!-- CSS -->
 <link rel="stylesheet" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
@@ -95,13 +95,13 @@
 
         <div class="content container">
             <div class="post">
-  <h1>Glossary</h1>
+  <h1>Bittrex</h1>
   
   <div class="col-sm-12 col-md-12">
     <span class="text-left post-date meta">
       
       
-        Apr 17, 2018
+        Jun 04, 2018
       
       
       
@@ -113,19 +113,79 @@
   
   
 
-<h3 id="module">Module</h3>
+<p>Added in <code>v0.0.5</code>.</p>
 
-<p>A discreet unit of data collection and display. A data interface
-concept. A package inside the app.</p>
+<p>Get the last 24 hour summary of cryptocurrencies market using <a href="https://bittrex.com">Bittrex</a>.</p>
 
-<p>Examples: New Relic, Git, Weather.</p>
+<p><img src="/imgs/modules/bittrex.png" width="320" height="412" alt="bittrex screenshot" /></p>
 
-<h3 id="widget">Widget</h3>
+<h2 id="source-code">Source Code</h2>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">wtf/cryptoexchanges/bittrex/</code></pre></div>
+<h2 id="required-env-vars">Required ENV Vars</h2>
 
-<p>The onscreen representation of a Module. The widget is responsible for
-being the interface between the app and the data collection.</p>
+<p>None.</p>
 
-<p>Widgets are defined by a required <code>widget.go</code> file in a Module.</p>
+<h2 id="keyboard-commands">Keyboard Commands</h2>
+
+<p>None.</p>
+
+<h2 id="configuration">Configuration</h2>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">bittrex<span class="p">:</span><span class="w">
+</span><span class="w">    </span>enabled<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">    </span>position<span class="p">:</span><span class="w">
+</span><span class="w">        </span>top<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">        </span>left<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span><span class="w">        </span>height<span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
+</span><span class="w">        </span>width<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">    </span>refreshInterval<span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
+</span><span class="w">    </span>summary<span class="p">:</span><span class="w">
+</span><span class="w">        </span>BTC<span class="p">:</span><span class="w">
+</span><span class="w">            </span>displayName<span class="p">:</span><span class="w"> </span>Bitcoin<span class="w">
+</span><span class="w">            </span>market<span class="p">:</span><span class="w">
+</span><span class="w">            </span>-<span class="w"> </span>LTC<span class="w">
+</span><span class="w">            </span>-<span class="w"> </span>ETH<span class="w">
+</span><span class="w">    </span>colors<span class="p">:</span><span class="w">
+</span><span class="w">        </span>base<span class="p">:</span><span class="w">
+</span><span class="w">            </span>name<span class="p">:</span><span class="w"> </span>orange<span class="w">
+</span><span class="w">            </span>displayName<span class="p">:</span><span class="w"> </span>red<span class="w">
+</span><span class="w">        </span>market<span class="p">:</span><span class="w">
+</span><span class="w">            </span>name<span class="p">:</span><span class="w"> </span>red<span class="w">
+</span><span class="w">            </span>field<span class="p">:</span><span class="w"> </span>white<span class="w">
+</span><span class="w">            </span>value<span class="p">:</span><span class="w"> </span>green</code></pre></div>
+<h3 id="attributes">Attributes</h3>
+
+<p><code>colors.base.name</code> <br />
+Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11
+color name</a>.</p>
+
+<p><code>colors.base.dispayName</code> <br />
+Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11
+color name</a>.</p>
+
+<p><code>colors.market.name</code> <br />
+Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11
+color name</a>.</p>
+
+<p><code>colors.market.field</code> <br />
+Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11
+color name</a>.</p>
+
+<p><code>colors.market.value</code> <br />
+Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11
+color name</a>.</p>
+
+<p><code>summary</code> <br /></p>
+
+<p><code>enabled</code> <br />
+Determines whether or not this module is executed and if its data displayed onscreen. <br />
+Values: <code>true</code>, <code>false</code>.</p>
+
+<p><code>position</code> <br />
+Defines where in the grid this module&rsquo;s widget will be displayed. <br /></p>
+
+<p><code>refreshInterval</code> <br />
+How often, in seconds, this module will update its data. <br />
+Values: A positive integer, <code>0..n</code>.</p>
 
 </div>
 
