@@ -1,5 +1,5 @@
 ---
-title: "Modules: Weather"
+title: "Weather"
 date: 2018-05-09T11:44:13-07:00
 draft: false
 ---

@@ -1,5 +1,5 @@
 ---
-title: "Modules: Power"
+title: "Power"
 date: 2018-05-26T19:26:23-07:00
 draft: false
 ---

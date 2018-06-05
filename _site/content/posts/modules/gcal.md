@@ -1,5 +1,5 @@
 ---
-title: "Modules: Google Calendar"
+title: "Google Calendar"
 date: 2018-05-10T08:25:33-07:00
 draft: false
 ---

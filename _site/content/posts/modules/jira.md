@@ -1,5 +1,5 @@
 ---
-title: "Modules: Jira"
+title: "Jira"
 date: 2018-05-10T10:44:35-07:00
 draft: false
 ---

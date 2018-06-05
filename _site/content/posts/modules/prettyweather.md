@@ -1,5 +1,5 @@
 ---
-title: "Prettyweather"
+title: "Pretty Weather"
 date: 2018-06-02T05:32:04-07:00
 draft: false
 ---
