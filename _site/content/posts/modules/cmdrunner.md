@@ -1,5 +1,5 @@
 ---
-title: "Modules: CmdRunner"
+title: "CmdRunner"
 date: 2018-05-17T17:17:10-07:00
 draft: false
 ---
@@ -38,7 +38,7 @@ cmdrunner:
 ### Attributes
 
 `args` <br />
-The arguments to the command, with each item as an element in an array. 
+The arguments to the command, with each item as an element in an array.
 Example: for `curl -I cisco.com`, the arguments array would be `["-I", "cisco.com"]`.
 
 `cmd` <br />

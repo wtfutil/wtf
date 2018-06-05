@@ -1,5 +1,5 @@
 ---
-title: "Modules: Git"
+title: "Git"
 date: 2018-05-09T14:20:48-07:00
 draft: false
 ---

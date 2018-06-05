@@ -1,5 +1,5 @@
 ---
-title: "Cryptolive"
+title: "CryptoLive"
 date: 2018-06-03T20:06:40-07:00
 draft: false
 ---
