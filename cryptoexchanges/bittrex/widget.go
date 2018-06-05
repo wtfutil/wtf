@@ -42,7 +42,7 @@ type Widget struct {
 func NewWidget() *Widget {
 
 	widget := Widget{
-		TextWidget:  wtf.NewTextWidget(" $ Bittrex ", "bittrex", false),
+		TextWidget:  wtf.NewTextWidget(" Bittrex ", "bittrex", false),
 		summaryList: summaryList{},
 	}
 
@@ -88,12 +88,12 @@ func makeMarketCurrency(name string) *mCurrency {
 	return &mCurrency{
 		name: name,
 		summaryInfo: summaryInfo{
-			High:           "-1",
-			Low:            "-1",
-			Volume:         "-1",
-			Last:           "-1",
-			OpenBuyOrders:  "-1",
-			OpenSellOrders: "-1",
+			High:           "",
+			Low:            "",
+			Volume:         "",
+			Last:           "",
+			OpenBuyOrders:  "",
+			OpenSellOrders: "",
 		},
 	}
 }
