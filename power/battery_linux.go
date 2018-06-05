@@ -23,13 +23,7 @@ type Battery struct {
 }
 
 func NewBattery() *Battery {
-	var battery *Battery
-	//sh := `upower -i $(upower -e | grep '/battery') | grep --color=never -E "state|to\ full|to\ empty|percentage"`
-	battery = &Battery{
-		//args: []string{"-c", sh},
-		//cmd:  "/bin/sh",
-	}
-	return battery
+	return &Battery{}
 }
 
 /* -------------------- Exported Functions -------------------- */
