@@ -40,7 +40,7 @@ func (widget *Widget) setList() {
 
 	for fromCurrency := range currenciesMap {
 		displayName := Config.UString("wtf.mods.cryptolive.top."+fromCurrency+".displayName", "")
-		limit := Config.UInt("wtf.mods.cryptolive.top."+fromCurrency+".limit", 5)
+		limit := Config.UInt("wtf.mods.cryptolive.top."+fromCurrency+".limit", 1)
 		widget.list.addItem(fromCurrency, displayName, limit, makeToList(fromCurrency, limit))
 	}
 }
