@@ -22,20 +22,22 @@ func summaryText(list *summaryList, colors *TextColors) string {
 	str := ""
 
 	for _, baseCurrency := range list.items {
-		str += fmt.Sprintf("[%s]%s[%s](%s):\n", colors.base.displayName, baseCurrency.displayName, colors.base.name, baseCurrency.name)
+		str += fmt.Sprintf(" [%s]%s[%s] (%s)\n\n", colors.base.displayName, baseCurrency.displayName, colors.base.name, baseCurrency.name)
 
 		resultTemplate := template.New("bittrex")
 
 		for _, marketCurrency := range baseCurrency.markets {
 			writer := new(bytes.Buffer)
+
 			strTemplate, _ := resultTemplate.Parse(
-				"\t[{{.nameColor}}]{{.mName}}\n" +
+				"  [{{.nameColor}}]{{.mName}}\n" +
 					formatableText("High", "High") +
 					formatableText("Low", "Low") +
 					formatableText("Last", "Last") +
 					formatableText("Volume", "Volume") +
-					formatableText("OpenSellOrders", "OpenSellOrders") +
-					formatableText("OpenBuyOrders", "OpenBuyOrders"),
+					"\n" +
+					formatableText("Open Buy", "OpenBuyOrders") +
+					formatableText("Open Sell", "OpenSellOrders"),
 			)
 
 			strTemplate.Execute(writer, map[string]string{
@@ -47,11 +49,11 @@ func summaryText(list *summaryList, colors *TextColors) string {
 				"Low":            marketCurrency.Low,
 				"Last":           marketCurrency.Last,
 				"Volume":         marketCurrency.Volume,
-				"OpenSellOrders": marketCurrency.OpenSellOrders,
 				"OpenBuyOrders":  marketCurrency.OpenBuyOrders,
+				"OpenSellOrders": marketCurrency.OpenSellOrders,
 			})
 
-			str += writer.String()
+			str += writer.String() + "\n"
 		}
 
 	}
@@ -61,5 +63,5 @@ func summaryText(list *summaryList, colors *TextColors) string {
 }
 
 func formatableText(key, value string) string {
-	return fmt.Sprintf("\t\t[{{.fieldColor}}]%s: [{{.valueColor}}]{{.%s}}\n", key, value)
+	return fmt.Sprintf("[{{.fieldColor}}]%12s: [{{.valueColor}}]{{.%s}}\n", key, value)
 }
