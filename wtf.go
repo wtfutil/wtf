@@ -6,6 +6,7 @@ import (
 	"os"
 	"time"
 
+	"github.com/BillKeenan/wtf/bargraph"
 	"github.com/gdamore/tcell"
 	"github.com/olebedev/config"
 	"github.com/radovskyb/watcher"
@@ -186,6 +187,7 @@ func makeWidgets(app *tview.Application, pages *tview.Pages) {
 		clocks.NewWidget(),
 		cmdrunner.NewWidget(),
 		cryptolive.NewWidget(),
+		bargraph.NewWidget(),
 		gcal.NewWidget(),
 		git.NewWidget(app, pages),
 		github.NewWidget(app, pages),
