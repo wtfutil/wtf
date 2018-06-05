@@ -13,6 +13,7 @@ import (
 	"github.com/senorprogrammer/wtf/bamboohr"
 	"github.com/senorprogrammer/wtf/clocks"
 	"github.com/senorprogrammer/wtf/cmdrunner"
+	"github.com/senorprogrammer/wtf/cryptoexchanges/bittrex"
 	"github.com/senorprogrammer/wtf/cryptoexchanges/cryptolive"
 	"github.com/senorprogrammer/wtf/gcal"
 	"github.com/senorprogrammer/wtf/git"
@@ -157,6 +158,7 @@ var (
 func makeWidgets(app *tview.Application, pages *tview.Pages) {
 	// Always in alphabetical order
 	bamboohr.Config = Config
+	bittrex.Config = Config
 	clocks.Config = Config
 	cmdrunner.Config = Config
 	wtf.Config = Config
@@ -181,6 +183,7 @@ func makeWidgets(app *tview.Application, pages *tview.Pages) {
 	// Always in alphabetical order
 	Widgets = []wtf.Wtfable{
 		bamboohr.NewWidget(),
+		bittrex.NewWidget(),
 		clocks.NewWidget(),
 		cmdrunner.NewWidget(),
 		cryptolive.NewWidget(),
