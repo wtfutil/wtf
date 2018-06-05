@@ -186,7 +186,6 @@ func makeWidgets(app *tview.Application, pages *tview.Pages) {
 		bamboohr.NewWidget(),
 		clocks.NewWidget(),
 		cmdrunner.NewWidget(),
-		cryptolive.NewWidget(),
 		gcal.NewWidget(),
 		git.NewWidget(app, pages),
 		github.NewWidget(app, pages),
@@ -203,7 +202,6 @@ func makeWidgets(app *tview.Application, pages *tview.Pages) {
 		todo.NewWidget(app, pages),
 		weather.NewWidget(app, pages),
 		cryptolive.NewWidget(),
-		prettyweather.NewWidget(),
 		bittrex.NewWidget(),
 	}
 
