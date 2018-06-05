@@ -8,6 +8,8 @@ Added in `v0.0.5`.
 
 Compare crypto currencies using [CryptoCompare](https://cryptocompare.com).
 
+<img src="/imgs/modules/cryptolive.png" width="320" height="203" alt="cryptolive screenshot" />
+
 ## Source Code
 
 ```bash
