@@ -161,7 +161,6 @@ func makeWidgets(app *tview.Application, pages *tview.Pages) {
 	bittrex.Config = Config
 	clocks.Config = Config
 	cmdrunner.Config = Config
-	wtf.Config = Config
 	cryptolive.Config = Config
 	gcal.Config = Config
 	git.Config = Config
