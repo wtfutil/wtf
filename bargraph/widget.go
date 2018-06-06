@@ -1,7 +1,10 @@
 package bargraph
 
+/**************
+This is a demo bargraph that just populates some random date/val data
+*/
+
 import (
-	"fmt"
 	"math/rand"
 	"time"
 
@@ -26,7 +29,7 @@ type Widget struct {
 // NewWidget Make new instance of widget
 func NewWidget() *Widget {
 	widget := Widget{
-		BarGraph: wtf.NewBarGraph(" Bar Graph", "bargraph", false),
+		BarGraph: wtf.NewBarGraph(" Sample Bar Graph", "bargraph", false),
 	}
 
 	widget.View.SetWrap(true)
