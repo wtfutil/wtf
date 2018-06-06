@@ -178,7 +178,7 @@ func ValidDataUnitSymbol(u string) bool {
 
 // ValidAPIKey makes sure that the key given is a valid one
 func ValidAPIKey(key string) error {
-	if len(key) == 32 {
+	if len(key) != 32 {
 		return errors.New("invalid key")
 	}
 	return nil
