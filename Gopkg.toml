@@ -27,7 +27,7 @@
 
 [[constraint]]
   name = "github.com/briandowns/openweathermap"
-  version = "0.11.0"
+  branch = "master"
 
 [[constraint]]
   name = "github.com/gdamore/tcell"

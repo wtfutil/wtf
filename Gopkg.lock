@@ -8,10 +8,10 @@
   version = "v0.23.0"
 
 [[projects]]
+  branch = "master"
   name = "github.com/briandowns/openweathermap"
   packages = ["."]
-  revision = "1b875797cb8f0a25f7232377c231bf9a294f7c86"
-  version = "0.11"
+  revision = "2adae1e5d10290d8cd435bd30296fc5e8f754862"
 
 [[projects]]
   branch = "master"
@@ -164,6 +164,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "96c4d6298328080435e3f1de8240ec9fb04419db37e20ae77d7fa8dc75ca3e5a"
+  inputs-digest = "b0e632406212933c5f4d7652db7aa06e63f4ed94d38ceb823e5c51b865c20be0"
   solver-name = "gps-cdcl"
   solver-version = 1
