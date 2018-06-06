@@ -62,27 +62,8 @@ func (widget *Widget) Refresh() {
 		return
 	}
 
-	if started == false {
-		// this code should run once
-		go func() {
-			for {
-				time.Sleep(time.Duration(widget.updateInterval) * time.Second)
-			}
-		}()
-
-	}
-
-	started = true
-
 	widget.UpdateRefreshedAt()
 	widget.View.Clear()
-
-	if !ok {
-		widget.View.SetText(
-			fmt.Sprint("Error!"),
-		)
-		return
-	}
 
 	display(widget)
 
