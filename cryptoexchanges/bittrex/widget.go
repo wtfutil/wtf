@@ -28,7 +28,7 @@ type TextColors struct {
 
 var ok = true
 var errorText = ""
-var started = false
+
 var baseURL = "https://bittrex.com/api/v1.1/public/getmarketsummary"
 
 // Widget define wtf widget to register widget later
@@ -40,13 +40,11 @@ type Widget struct {
 
 // NewWidget Make new instance of widget
 func NewWidget() *Widget {
-
 	widget := Widget{
 		TextWidget:  wtf.NewTextWidget(" Bittrex ", "bittrex", false),
 		summaryList: summaryList{},
 	}
 
-	started = false
 	ok = true
 	errorText = ""
 
@@ -106,20 +104,9 @@ func (widget *Widget) Refresh() {
 		return
 	}
 
-	if started == false {
-		go func() {
-			for {
-				widget.updateSummary()
-				time.Sleep(time.Second * time.Duration(widget.RefreshInterval()))
-			}
-		}()
-		started = true
-	}
-
+	widget.updateSummary()
 	widget.UpdateRefreshedAt()
-
 	widget.display()
-
 }
 
 /* -------------------- Unexported Functions -------------------- */
