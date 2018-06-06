@@ -17,7 +17,7 @@ var ok = true
 
 // Widget define wtf widget to register widget later
 type Widget struct {
-	wtf.GraphWidget
+	wtf.BarGraph
 
 	// time interval for send http request
 	updateInterval int
@@ -26,7 +26,7 @@ type Widget struct {
 // NewWidget Make new instance of widget
 func NewWidget() *Widget {
 	widget := Widget{
-		GraphWidget: wtf.NewGraphWidget(" Bar Graph", "bargraph", false),
+		BarGraph: wtf.NewBarGraph(" Bar Graph", "bargraph", false),
 	}
 
 	widget.View.SetWrap(true)
@@ -51,7 +51,7 @@ func MakeGraph(widget *Widget) {
 
 	}
 
-	widget.GraphWidget.BuildBars(20, "🌟", stats[:])
+	widget.BarGraph.BuildBars(20, "🌟", stats[:])
 
 }
 

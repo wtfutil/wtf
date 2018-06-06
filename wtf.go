@@ -6,12 +6,12 @@ import (
 	"os"
 	"time"
 
-	"github.com/BillKeenan/wtf/bargraph"
 	"github.com/gdamore/tcell"
 	"github.com/olebedev/config"
 	"github.com/radovskyb/watcher"
 	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/bamboohr"
+	"github.com/senorprogrammer/wtf/bargraph"
 	"github.com/senorprogrammer/wtf/clocks"
 	"github.com/senorprogrammer/wtf/cmdrunner"
 	"github.com/senorprogrammer/wtf/cryptoexchanges/bittrex"

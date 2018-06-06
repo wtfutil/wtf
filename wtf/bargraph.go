@@ -9,7 +9,8 @@ import (
 	"github.com/rivo/tview"
 )
 
-type GraphWidget struct {
+//BarGraph lets make graphs
+type BarGraph struct {
 	enabled   bool
 	focusable bool
 
@@ -23,9 +24,9 @@ type GraphWidget struct {
 	Data [][2]int64
 }
 
-// NewGraphWidget initialize your fancy new graph
-func NewGraphWidget(name string, configKey string, focusable bool) GraphWidget {
-	widget := GraphWidget{
+// NewBarGraph initialize your fancy new graph
+func NewBarGraph(name string, configKey string, focusable bool) BarGraph {
+	widget := BarGraph{
 		enabled:   Config.UBool(fmt.Sprintf("wtf.mods.%s.enabled", configKey), false),
 		focusable: focusable,
 
@@ -45,7 +46,7 @@ func NewGraphWidget(name string, configKey string, focusable bool) GraphWidget {
 	return widget
 }
 
-func (widget *GraphWidget) BorderColor() string {
+func (widget *BarGraph) BorderColor() string {
 	if widget.Focusable() {
 		return Config.UString("wtf.colors.border.focusable", "red")
 	}
@@ -53,33 +54,33 @@ func (widget *GraphWidget) BorderColor() string {
 	return Config.UString("wtf.colors.border.normal", "gray")
 }
 
-func (widget *GraphWidget) Disabled() bool {
+func (widget *BarGraph) Disabled() bool {
 	return !widget.Enabled()
 }
 
-func (widget *GraphWidget) Enabled() bool {
+func (widget *BarGraph) Enabled() bool {
 	return widget.enabled
 }
 
-func (widget *GraphWidget) Focusable() bool {
+func (widget *BarGraph) Focusable() bool {
 	return widget.enabled && widget.focusable
 }
 
-func (widget *GraphWidget) RefreshInterval() int {
+func (widget *BarGraph) RefreshInterval() int {
 	return widget.RefreshInt
 }
 
-func (widget *GraphWidget) TextView() *tview.TextView {
+func (widget *BarGraph) TextView() *tview.TextView {
 	return widget.View
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (widget *GraphWidget) UpdateRefreshedAt() {
+func (widget *BarGraph) UpdateRefreshedAt() {
 	widget.RefreshedAt = time.Now()
 }
 
-func (widget *GraphWidget) addView() {
+func (widget *BarGraph) addView() {
 	view := tview.NewTextView()
 
 	view.SetBackgroundColor(ColorFor(Config.UString("wtf.colors.background", "black")))
@@ -94,7 +95,7 @@ func (widget *GraphWidget) addView() {
 
 // BuildBars will build a string of * to represent your data of [time][value]
 // time should be passed as a int64
-func (widget *GraphWidget) BuildBars(maxStars int, starChar string, data [][2]int64) {
+func (widget *BarGraph) BuildBars(maxStars int, starChar string, data [][2]int64) {
 
 	var buffer bytes.Buffer
 
