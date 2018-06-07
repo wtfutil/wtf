@@ -158,9 +158,9 @@ var (
 func makeWidgets(app *tview.Application, pages *tview.Pages) {
 	// Always in alphabetical order
 	bamboohr.Config = Config
+	bittrex.Config = Config
 	clocks.Config = Config
 	cmdrunner.Config = Config
-	wtf.Config = Config
 	cryptolive.Config = Config
 	gcal.Config = Config
 	git.Config = Config
@@ -178,12 +178,11 @@ func makeWidgets(app *tview.Application, pages *tview.Pages) {
 	todo.Config = Config
 	weather.Config = Config
 	wtf.Config = Config
-	cryptolive.Config = Config
-	bittrex.Config = Config
 
 	// Always in alphabetical order
 	Widgets = []wtf.Wtfable{
 		bamboohr.NewWidget(),
+		bittrex.NewWidget(),
 		clocks.NewWidget(),
 		cmdrunner.NewWidget(),
 		cryptolive.NewWidget(),
@@ -202,9 +201,6 @@ func makeWidgets(app *tview.Application, pages *tview.Pages) {
 		textfile.NewWidget(app, pages),
 		todo.NewWidget(app, pages),
 		weather.NewWidget(app, pages),
-		cryptolive.NewWidget(),
-		prettyweather.NewWidget(),
-		bittrex.NewWidget(),
 	}
 
 	FocusTracker = wtf.FocusTracker{

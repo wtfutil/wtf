@@ -1,3 +1,8 @@
+<p align="right">
+  
+  <img src="https://travis-ci.com/senorprogrammer/wtf.svg?branch=master" />
+</p>
+
 <p align="center">
 <img src="./docs/img/wtf.jpg?raw=true" title="WTF" width="852" height="240" />
 </p>
@@ -13,8 +18,7 @@ displaying infrequently-needed, but very important, daily data.
 
 ### Installation from Source
 
-*Note:* This has only been tested to build against Go 1.9.2. It won't
-work with Go versions < 1.7, and only _may_ work on other versions.
+**Note:** WTF is _only_ compatible with Go versions **1.9.2** or later. It currently _does not_ compile with `gccgo`.
 
 ```bash
 go get -u github.com/senorprogrammer/wtf
@@ -27,7 +31,7 @@ Or [download the latest binary](https://github.com/senorprogrammer/wtf/releases)
 
 ## Support
 
-Chat on Gitter:
+Chat on Gitter
 [![Join the chat at https://gitter.im/wtfutil/Lobby](https://badges.gitter.im/wtfutil/Lobby.svg)](https://gitter.im/wtfutil/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## Documentation
@@ -95,3 +99,4 @@ Many thanks to all these developers.
 <p align="center">
 <img src="./docs/img/dude_wtf.png?raw=true" title="Dude WTF" width="251" height="201" />
 </p>
+

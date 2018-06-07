@@ -18,6 +18,7 @@ type Widget struct {
 	result string
 	unit   string
 	city   string
+	view   string
 }
 
 func NewWidget() *Widget {
@@ -42,8 +43,10 @@ func (widget *Widget) Refresh() {
 //this method reads the config and calls wttr.in for pretty weather
 func (widget *Widget) prettyWeather() {
 	client := &http.Client{}
-	widget.unit, widget.city = Config.UString("wtf.mods.prettyweather.unit", "m"), Config.UString("wtf.mods.prettyweather.city", "")
-	req, err := http.NewRequest("GET", "https://wttr.in/"+widget.city+"?0"+"?"+widget.unit, nil)
+	widget.unit = Config.UString("wtf.mods.prettyweather.unit", "m")
+	widget.city = Config.UString("wtf.mods.prettyweather.city", "")
+	widget.view = Config.UString("wtf.mods.prettyweather.view", "0")
+	req, err := http.NewRequest("GET", "https://wttr.in/"+widget.city+"?"+widget.view+"?"+widget.unit, nil)
 	if err != nil {
 		widget.result = fmt.Sprintf("%s", err.Error())
 		return

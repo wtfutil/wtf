@@ -4,5 +4,5 @@
 install:
 	bash installer.sh
 
-run:
-	wtf
+run: build
+	bin/wtf

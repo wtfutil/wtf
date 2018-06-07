@@ -1,13 +1,11 @@
 ---
-title: "Github"
+title: "GitHub"
 date: 2018-05-09T19:20:20-07:00
 draft: false
 ---
 
-Displays information about git repositories hosted on Github: open
-review requests, and open pull requests.
+Displays information about your git repositories hosted on Github:
 
-<img src="/imgs/modules/github.png" width="640" height="384" alt="github screenshot" />
 
 #### Open Review Requests
 
@@ -16,6 +14,8 @@ All open code review requests assigned to you.
 #### Open Pull Requests
 
 All open pull requests created by you.
+
+<img src="/imgs/modules/github.png" width="640" height="384" alt="github screenshot" />
 
 ## Source Code
 
