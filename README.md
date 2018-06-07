@@ -1,3 +1,5 @@
+<p align="right">[![Build Status](https://travis-ci.com/senorprogrammer/wtf.svg?branch=master)](https://travis-ci.com/senorprogrammer/wtf)</p>
+
 <p align="center">
 <img src="./docs/img/wtf.jpg?raw=true" title="WTF" width="852" height="240" />
 </p>
