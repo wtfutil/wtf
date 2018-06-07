@@ -1,7 +1,5 @@
 package bamboohr
 
-import ()
-
 type Calendar struct {
 	Items []Item `xml:"item"`
 }
