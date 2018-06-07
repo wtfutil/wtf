@@ -8,3 +8,5 @@ before_install:
   - test ! -d $GOPATH/src/github.com/senorprogrammer/wtf && mv $TRAVIS_BUILD_DIR $GOPATH/src/github.com/senorprogrammer/wtf || true
   - export TRAVIS_BUILD_DIR=$HOME/gopath/src/github.com/senorprogrammer/wtf
   - cd $HOME/gopath/src/github.com/senorprogrammer/wtf
+
+script: go get ./... && go get github.com/go-test/deep && go test -v github.com/senorprogrammer/wtf/wtf_tests
