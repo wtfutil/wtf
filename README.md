@@ -1,4 +1,7 @@
-<p align="right"><img src="https://travis-ci.com/senorprogrammer/wtf.svg?branch=master" /></p>
+<p align="right">
+  [![Join the chat at https://gitter.im/wtfutil/Lobby](https://badges.gitter.im/wtfutil/Lobby.svg)](https://gitter.im/wtfutil/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+  <img src="https://travis-ci.com/senorprogrammer/wtf.svg?branch=master" />
+</p>
 
 <p align="center">
 <img src="./docs/img/wtf.jpg?raw=true" title="WTF" width="852" height="240" />
@@ -26,11 +29,6 @@ make run
 ```
 
 Or [download the latest binary](https://github.com/senorprogrammer/wtf/releases).
-
-## Support
-
-Chat on Gitter:
-[![Join the chat at https://gitter.im/wtfutil/Lobby](https://badges.gitter.im/wtfutil/Lobby.svg)](https://gitter.im/wtfutil/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## Documentation
 
