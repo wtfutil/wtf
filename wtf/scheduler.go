@@ -9,7 +9,7 @@ type Scheduler interface {
 	RefreshInterval() int
 }
 
-func Schedule(widget Scheduler) {
+func Schedule(widget Wtfable) {
 	// Kick off the first refresh and then leave the rest to the timer
 	widget.Refresh()
 
@@ -25,7 +25,12 @@ func Schedule(widget Scheduler) {
 	for {
 		select {
 		case <-tick.C:
-			widget.Refresh()
+			if widget.Enabled() {
+				widget.Refresh()
+			} else {
+				tick.Stop()
+				return
+			}
 		case <-quit:
 			tick.Stop()
 			return
