@@ -6,6 +6,8 @@ draft: false
 
 Displays your current IP address information, from ipinfo.io.
 
+**Note:** IPInfo.io has a free-plan rate limit of 1000 requests per day.
+
 <img src="/imgs/modules/ipinfo.png" width="320" height="199" alt="ipinfo screenshot" />
 
 ## Source Code
@@ -35,7 +37,7 @@ ipinfo:
     left: 2
     height: 1
     width: 1
-  refreshInterval: 15
+  refreshInterval: 150
 ```
 
 ### Attributes
