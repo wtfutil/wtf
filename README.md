@@ -18,8 +18,7 @@ displaying infrequently-needed, but very important, daily data.
 
 ### Installation from Source
 
-*Note:* This has only been tested to build against Go 1.9.2. It won't
-work with Go versions < 1.7, and only _may_ work on other versions.
+*Note:* WTF is _only_ compatible with Go versions *1.9.2* or later. It currently does not compile with `gccgo`.
 
 ```bash
 go get -u github.com/senorprogrammer/wtf
