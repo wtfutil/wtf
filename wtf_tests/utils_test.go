@@ -74,7 +74,7 @@ func TestToInts(t *testing.T) {
 	actual := ToInts(source)
 
 	if diff := deep.Equal(expected, actual); diff != nil {
-		t.Fatalf("Expected %s but got %s", expected, actual)
+		t.Fatalf("Expected %v but got %v", expected, actual)
 	}
 }
 
