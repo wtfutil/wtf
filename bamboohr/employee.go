@@ -1,7 +1,5 @@
 package bamboohr
 
-import ()
-
 /*
 * Note: this currently implements the minimum number of fields to fulfill the Away functionality.
 * Undoubtedly there are more fields than this to an employee

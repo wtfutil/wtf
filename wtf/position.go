@@ -1,7 +1,5 @@
 package wtf
 
-import ()
-
 type Position struct {
 	top    int
 	left   int

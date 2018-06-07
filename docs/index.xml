@@ -57,7 +57,7 @@ position Defines where in the grid this module&amp;rsquo;s widget will be displa
 Displays weather information as ASCII art from Wttr.in.
 Source Code wtf/prettyweather/ Required ENV Variables None.
 Keyboard Commands None.
-Configuration prettyweather:enabled:truecity:&amp;#34;tehran&amp;#34;position:top:3left:5height:1width:1refreshInterval:300unit:&amp;#34;c&amp;#34; Attributes city Optional. It will grab the current location from your IP address if omitted.
+Configuration prettyweather:enabled:truecity:&amp;#34;tehran&amp;#34;position:top:3left:5height:1width:1refreshInterval:300unit:&amp;#34;c&amp;#34;view:0 Attributes city Optional. It will grab the current location from your IP address if omitted.
 Values: The name of any city supported by Wttr.in.
 enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.
 position Defines where in the grid this module&amp;rsquo;s widget will be displayed.</description>
@@ -70,12 +70,12 @@ position Defines where in the grid this module&amp;rsquo;s widget will be displa
       
       <guid>https://wtfutil.com/posts/modules/ipinfo/</guid>
       <description>Displays your current IP address information, from ipinfo.io.
+Note: IPInfo.io has a free-plan rate limit of 1000 requests per day.
 Source Code wtf/ipinfo/ Required ENV Variables None.
 Keyboard Commands None.
-Configuration ipinfo:colors:name:redvalue:whiteenabled:trueposition:top:1left:2height:1width:1refreshInterval:15 Attributes colors.name The default colour for the row names. Values: Any X11 color name.
+Configuration ipinfo:colors:name:redvalue:whiteenabled:trueposition:top:1left:2height:1width:1refreshInterval:150 Attributes colors.name The default colour for the row names. Values: Any X11 color name.
 colors.value The default colour for the row values. Values: Any X11 color name.
-enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.
-position Defines where in the grid this module&amp;rsquo;s widget will be displayed.</description>
+enabled Determines whether or not this module is executed and if its data displayed onscreen.</description>
     </item>
     
     <item>
@@ -195,12 +195,12 @@ Keyboard Commands None.</description>
     </item>
     
     <item>
-      <title>Github</title>
+      <title>GitHub</title>
       <link>https://wtfutil.com/posts/modules/github/</link>
       <pubDate>Wed, 09 May 2018 19:20:20 -0700</pubDate>
       
       <guid>https://wtfutil.com/posts/modules/github/</guid>
-      <description>Displays information about git repositories hosted on Github: open review requests, and open pull requests.
+      <description>Displays information about your git repositories hosted on Github:
 Open Review Requests All open code review requests assigned to you.
 Open Pull Requests All open pull requests created by you.
 Source Code wtf/github/ Required ENV Variables Key: WTF_GITHUB_TOKEN Action: Your Github API token.
