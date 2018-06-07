@@ -155,6 +155,53 @@ var (
 	version = "dev"
 )
 
+func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
+	// Always in alphabetical order
+	switch widgetName {
+	case "bamboohr":
+		Widgets = append(Widgets, bamboohr.NewWidget())
+	case "bittrex":
+		Widgets = append(Widgets, bittrex.NewWidget())
+	case "clocks":
+		Widgets = append(Widgets, clocks.NewWidget())
+	case "cmdrunner":
+		Widgets = append(Widgets, cmdrunner.NewWidget())
+	case "cryptolive":
+		Widgets = append(Widgets, cryptolive.NewWidget())
+	case "gcal":
+		Widgets = append(Widgets, gcal.NewWidget())
+	case "git":
+		Widgets = append(Widgets, git.NewWidget(app, pages))
+	case "github":
+		Widgets = append(Widgets, github.NewWidget(app, pages))
+	case "ipinfo":
+		Widgets = append(Widgets, ipinfo.NewWidget())
+	case "jira":
+		Widgets = append(Widgets, jira.NewWidget())
+	case "newrelic":
+		Widgets = append(Widgets, newrelic.NewWidget())
+	case "opsgenie":
+		Widgets = append(Widgets, opsgenie.NewWidget())
+	case "power":
+		Widgets = append(Widgets, power.NewWidget())
+	case "prettyweather":
+		Widgets = append(Widgets, prettyweather.NewWidget())
+	case "security":
+		Widgets = append(Widgets, security.NewWidget())
+	case "status":
+		Widgets = append(Widgets, status.NewWidget())
+	case "system":
+		Widgets = append(Widgets, system.NewWidget(date, version))
+	case "textfile":
+		Widgets = append(Widgets, textfile.NewWidget(app, pages))
+	case "todo":
+		Widgets = append(Widgets, todo.NewWidget(app, pages))
+	case "weather":
+		Widgets = append(Widgets, weather.NewWidget(app, pages))
+	default:
+	}
+}
+
 func makeWidgets(app *tview.Application, pages *tview.Pages) {
 	// Always in alphabetical order
 	bamboohr.Config = Config
@@ -179,28 +226,11 @@ func makeWidgets(app *tview.Application, pages *tview.Pages) {
 	weather.Config = Config
 	wtf.Config = Config
 
-	// Always in alphabetical order
-	Widgets = []wtf.Wtfable{
-		bamboohr.NewWidget(),
-		bittrex.NewWidget(),
-		clocks.NewWidget(),
-		cmdrunner.NewWidget(),
-		cryptolive.NewWidget(),
-		gcal.NewWidget(),
-		git.NewWidget(app, pages),
-		github.NewWidget(app, pages),
-		ipinfo.NewWidget(),
-		jira.NewWidget(),
-		newrelic.NewWidget(),
-		opsgenie.NewWidget(),
-		power.NewWidget(),
-		prettyweather.NewWidget(),
-		security.NewWidget(),
-		status.NewWidget(),
-		system.NewWidget(date, version),
-		textfile.NewWidget(app, pages),
-		todo.NewWidget(app, pages),
-		weather.NewWidget(app, pages),
+	mods, _ := Config.Map("wtf.mods")
+	for mod := range mods {
+		if enabled, _ := Config.Bool("wtf.mods." + mod + ".enabled"); enabled {
+			addWidget(app, pages, mod)
+		}
 	}
 
 	FocusTracker = wtf.FocusTracker{
