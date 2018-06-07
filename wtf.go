@@ -203,6 +203,8 @@ func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
 }
 
 func makeWidgets(app *tview.Application, pages *tview.Pages) {
+	Widgets = []wtf.Wtfable{}
+
 	// Always in alphabetical order
 	bamboohr.Config = Config
 	bittrex.Config = Config
