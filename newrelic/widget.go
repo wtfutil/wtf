@@ -26,10 +26,6 @@ func NewWidget() *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	if widget.Disabled() {
-		return
-	}
-
 	app, appErr := Application()
 	deploys, depErr := Deployments()
 

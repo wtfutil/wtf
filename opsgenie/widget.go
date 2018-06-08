@@ -26,10 +26,6 @@ func NewWidget() *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	if widget.Disabled() {
-		return
-	}
-
 	data, err := Fetch()
 
 	widget.UpdateRefreshedAt()
