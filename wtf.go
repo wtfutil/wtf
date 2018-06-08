@@ -11,6 +11,7 @@ import (
 	"github.com/radovskyb/watcher"
 	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/bamboohr"
+	"github.com/senorprogrammer/wtf/bargraph"
 	"github.com/senorprogrammer/wtf/clocks"
 	"github.com/senorprogrammer/wtf/cmdrunner"
 	"github.com/senorprogrammer/wtf/cryptoexchanges/bittrex"
@@ -215,6 +216,7 @@ func makeWidgets(app *tview.Application, pages *tview.Pages) {
 
 	// Always in alphabetical order
 	bamboohr.Config = Config
+  bargraph.Config = Config
 	bittrex.Config = Config
 	clocks.Config = Config
 	cmdrunner.Config = Config
@@ -241,6 +243,7 @@ func makeWidgets(app *tview.Application, pages *tview.Pages) {
 		if enabled, _ := Config.Bool("wtf.mods." + mod + ".enabled"); enabled {
 			addWidget(app, pages, mod)
 		}
+
 	}
 
 	FocusTracker = wtf.FocusTracker{
