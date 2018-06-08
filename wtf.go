@@ -17,6 +17,7 @@ import (
 	"github.com/senorprogrammer/wtf/cryptoexchanges/bittrex"
 	"github.com/senorprogrammer/wtf/cryptoexchanges/cryptolive"
 	"github.com/senorprogrammer/wtf/gcal"
+	"github.com/senorprogrammer/wtf/gspreadsheets"
 	"github.com/senorprogrammer/wtf/git"
 	"github.com/senorprogrammer/wtf/github"
 	"github.com/senorprogrammer/wtf/gitlab"
@@ -228,6 +229,7 @@ func makeWidgets(app *tview.Application, pages *tview.Pages) {
 	cmdrunner.Config = Config
 	cryptolive.Config = Config
 	gcal.Config = Config
+	gspreadsheets.Config = Config
 	git.Config = Config
 	github.Config = Config
 	gitlab.Config = Config
