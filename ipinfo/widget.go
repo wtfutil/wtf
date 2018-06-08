@@ -69,10 +69,7 @@ func (widget *Widget) ipinfo() {
 		return
 	}
 	defer response.Body.Close()
-	if err != nil {
-		widget.result = fmt.Sprintf("%s", err.Error())
-		return
-	}
+
 	var info ipinfo
 	err = json.NewDecoder(response.Body).Decode(&info)
 	if err != nil {
