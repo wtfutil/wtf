@@ -4,13 +4,8 @@ about: You have some improvement to make wtf better?
 ---
 
 ### Improvement
-<!-- Fill in the relevant information below to help triage your issue. -->
 
-|    Q        |   A
-|------------ | ------
-| New Feature | yes
-| RFC         | yes/no
-| BC Break    | yes/no
+#### What problem does this solve?
 
-#### Summary
-<!-- Provide a summary of the improvement you are submitting. -->
+
+#### Is this related to an existing Issue? If so, which one?
