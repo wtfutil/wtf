@@ -3,8 +3,6 @@ name:  Bug Report
 about: Something is broken?
 ---
 
-### Bug Report
-
 #### What's the problem?
 
 
