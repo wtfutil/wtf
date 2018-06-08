@@ -172,6 +172,8 @@ func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
 	switch widgetName {
 	case "bamboohr":
 		Widgets = append(Widgets, bamboohr.NewWidget())
+	case "bargraph":
+		Widgets = append(Widgets, bargraph.NewWidget())
 	case "bittrex":
 		Widgets = append(Widgets, bittrex.NewWidget())
 	case "clocks":
@@ -223,7 +225,7 @@ func makeWidgets(app *tview.Application, pages *tview.Pages) {
 
 	// Always in alphabetical order
 	bamboohr.Config = Config
-  bargraph.Config = Config
+	bargraph.Config = Config
 	bittrex.Config = Config
 	clocks.Config = Config
 	cmdrunner.Config = Config
