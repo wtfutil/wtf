@@ -30,10 +30,6 @@ func NewWidget() *Widget {
 }
 
 func (widget *Widget) Refresh() {
-	if widget.Disabled() {
-		return
-	}
-
 	widget.UpdateRefreshedAt()
 	widget.prettyWeather()
 
