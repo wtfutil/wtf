@@ -79,6 +79,25 @@ wtf:
       refreshInterval: 300
       secretFile: "~/.wtf/gcal/client_secret.json"
       withLocation: true
+    gspreadsheets:
+      enabled: true
+      secretFile: "~/.wtf/gspreadsheets/client_secret.json"
+      refreshInterval: "300"
+      sheetId: "id_of_google_spreadsheet"
+      colors:
+        values: "green"
+      cells:
+        names:
+        - "Cell 1 name"
+        - "Cell 2 name"
+        addresses:
+        - "A1"
+        - "A2"
+      position:
+        top: 0
+        left: 0
+        width: 1
+        height: 1
     git:
       commitCount: 5
       enabled: true
