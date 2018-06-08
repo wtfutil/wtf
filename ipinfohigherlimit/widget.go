@@ -55,13 +55,8 @@ func NewWidget() *Widget {
 
 // Refresh refresh the module
 func (widget *Widget) Refresh() {
-	if widget.Disabled() {
-		return
-	}
-
 	widget.UpdateRefreshedAt()
 	widget.ipinfo()
-
 	widget.View.SetText(widget.result)
 }
 
