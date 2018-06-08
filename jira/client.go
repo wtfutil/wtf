@@ -12,11 +12,12 @@ import (
 	"strings"
 )
 
-func IssuesFor(username string, project string, jql string) (*SearchResult, error) {
+func IssuesFor(username string, projects []string, jql string) (*SearchResult, error) {
 	query := []string{}
 
-	if project != "" {
-		query = append(query, buildJql("project", project))
+	var projQuery = getProjectQuery(projects)
+	if projQuery != "" {
+		query = append(query, projQuery)
 	}
 
 	if username != "" {
@@ -87,4 +88,19 @@ func parseJson(obj interface{}, text io.Reader) {
 			panic(err)
 		}
 	}
+}
+
+func getProjectQuery(projects []string) string {
+	singleEmptyProject := len(projects) == 1 && len(projects[0]) == 0
+	if len(projects) == 0 || singleEmptyProject {
+		return ""
+	} else if len(projects) == 1 {
+		return buildJql("project", projects[0])
+	}
+
+	quoted := make([]string, len(projects))
+	for i := range projects {
+		quoted[i] = fmt.Sprintf("\"%s\"", projects[i])
+	}
+	return fmt.Sprintf("project in (%s)", strings.Join(quoted, ", "))
 }
