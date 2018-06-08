@@ -3,9 +3,9 @@ name: Improvement
 about: You have some improvement to make wtf better?
 ---
 
-### Improvement
-
 #### What problem does this solve?
 
 
 #### Is this related to an existing Issue? If so, which one?
+
+
