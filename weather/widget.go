@@ -74,10 +74,6 @@ func (widget *Widget) Fetch(cityIDs []int) []*owm.CurrentWeatherData {
 // Refresh fetches new data from the OpenWeatherMap API and loads the new data into the.
 // widget's view for rendering
 func (widget *Widget) Refresh() {
-	if widget.Disabled() {
-		return
-	}
-
 	widget.Data = widget.Fetch(wtf.ToInts(Config.UList("wtf.mods.weather.cityids", widget.defaultCityCodes())))
 
 	widget.UpdateRefreshedAt()

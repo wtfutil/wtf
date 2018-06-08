@@ -61,6 +61,10 @@ func (widget *TextWidget) Enabled() bool {
 	return widget.enabled
 }
 
+func (widget *TextWidget) Disable() {
+	widget.enabled = false
+}
+
 func (widget *TextWidget) Focusable() bool {
 	return widget.enabled && widget.focusable
 }
