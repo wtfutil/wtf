@@ -1,0 +1,27 @@
+wtf:
+  colors:
+    border:
+      focusable: darkslateblue
+      focused: orange
+      normal: gray
+  grid:
+    columns: [40, 40]
+    rows: [13, 13, 4]
+  refreshInterval: 1
+  mods:
+    bargraph:
+      colors:
+        from:
+          name: coral
+          displayName: grey
+        to:
+          name: white
+          price: green
+      enabled: true
+      position:
+        top: 2
+        left: 0
+        height: 2
+        width: 2
+      refreshInterval: 30
+      updateInterval: 15
