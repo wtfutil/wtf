@@ -10,5 +10,3 @@ about: Something is broken?
 
 #### How did you expect it to behave?
 
-
-#### How serious an issue do you think this is?
