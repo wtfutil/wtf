@@ -1,10 +1,9 @@
 <p align="right">
-  
   <img src="https://travis-ci.com/senorprogrammer/wtf.svg?branch=master" />
 </p>
 
 <p align="center">
-<img src="./docs/img/wtf.jpg?raw=true" title="WTF" width="852" height="240" />
+  <img src="./docs/img/wtf.jpg?raw=true" title="WTF" width="852" height="240" />
 </p>
 
 A personal terminal-based dashboard utility, designed for
@@ -42,8 +41,6 @@ documentation. Here's some short-cuts:
 * [Installation](http://wtfutil.com/posts/installation/)
 * [Configuration](http://wtfutil.com/posts/configuration/)
 * [Module Documentation](http://wtfutil.com/posts/modules/)
-
-*experimental
 
 ## Contributing
 
