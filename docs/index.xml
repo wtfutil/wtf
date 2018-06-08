@@ -68,8 +68,7 @@ position Defines where in the grid this module&amp;rsquo;s widget will be displa
       <pubDate>Sat, 02 Jun 2018 05:32:04 -0700</pubDate>
       
       <guid>https://wtfutil.com/posts/modules/prettyweather/</guid>
-      <description>🔬 Experimental
-Displays weather information as ASCII art from Wttr.in.
+      <description>Displays weather information as ASCII art from Wttr.in.
 Source Code wtf/prettyweather/ Required ENV Variables None.
 Keyboard Commands None.
 Configuration prettyweather:enabled:truecity:&amp;#34;tehran&amp;#34;position:top:3left:5height:1width:1refreshInterval:300unit:&amp;#34;c&amp;#34;view:0 Attributes city Optional. It will grab the current location from your IP address if omitted.
