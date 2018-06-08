@@ -121,7 +121,7 @@ func watchForConfigChanges(app *tview.Application, configFlag string, grid *tvie
 			select {
 			case <-watch.Event:
 				loadConfig(configFlag)
-				// Disable all widgets to stop scheduler goroutines and widgets from memory.
+				// Disable all widgets to stop scheduler goroutines and rmeove widgets from memory.
 				disableAllWidgets()
 				makeWidgets(app, pages)
 				grid = buildGrid(Widgets)
