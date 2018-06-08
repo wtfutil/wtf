@@ -19,6 +19,7 @@ import (
 	"github.com/senorprogrammer/wtf/gcal"
 	"github.com/senorprogrammer/wtf/git"
 	"github.com/senorprogrammer/wtf/github"
+	"github.com/senorprogrammer/wtf/gspreadsheets"
 	"github.com/senorprogrammer/wtf/help"
 	"github.com/senorprogrammer/wtf/ipinfo"
 	"github.com/senorprogrammer/wtf/jira"
@@ -185,6 +186,8 @@ func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
 		Widgets = append(Widgets, git.NewWidget(app, pages))
 	case "github":
 		Widgets = append(Widgets, github.NewWidget(app, pages))
+	case "gspreadsheets":
+		Widgets = append(Widgets, gspreadsheets.NewWidget())
 	case "ipinfo":
 		Widgets = append(Widgets, ipinfo.NewWidget())
 	case "jira":
@@ -226,6 +229,7 @@ func makeWidgets(app *tview.Application, pages *tview.Pages) {
 	gcal.Config = Config
 	git.Config = Config
 	github.Config = Config
+	gspreadsheets.Config = Config
 	ipinfo.Config = Config
 	jira.Config = Config
 	newrelic.Config = Config
