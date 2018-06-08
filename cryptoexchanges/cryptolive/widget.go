@@ -38,10 +38,6 @@ func NewWidget() *Widget {
 
 // Refresh & update after interval time
 func (widget *Widget) Refresh() {
-	if widget.Disabled() {
-		return
-	}
-
 	widget.updateCurrencies()
 	widget.UpdateRefreshedAt()
 

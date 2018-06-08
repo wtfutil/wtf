@@ -49,10 +49,6 @@ func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	if widget.Disabled() {
-		return
-	}
-
 	repoPaths := wtf.ToStrs(Config.UList("wtf.mods.git.repositories"))
 
 	widget.UpdateRefreshedAt()
