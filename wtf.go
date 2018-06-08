@@ -293,4 +293,6 @@ func main() {
 		fmt.Printf("An error occurred: %v\n", err)
 		os.Exit(1)
 	}
+
+	wtf.Log("running!")
 }
