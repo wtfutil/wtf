@@ -61,7 +61,6 @@ func (widget *Widget) Refresh() {
 
 	widget.UpdateRefreshedAt()
 	widget.ipinfo()
-	widget.View.Clear()
 
 	widget.View.SetText(widget.result)
 }
