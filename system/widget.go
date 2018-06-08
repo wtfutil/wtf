@@ -33,10 +33,6 @@ func NewWidget(date, version string) *Widget {
 }
 
 func (widget *Widget) Refresh() {
-	if widget.Disabled() {
-		return
-	}
-
 	widget.UpdateRefreshedAt()
 
 	widget.View.SetText(

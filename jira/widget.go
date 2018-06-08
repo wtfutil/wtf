@@ -25,10 +25,6 @@ func NewWidget() *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	if widget.Disabled() {
-		return
-	}
-
 	searchResult, err := IssuesFor(Config.UString("wtf.mods.jira.username"), Config.UString("wtf.mods.jira.project", ""), Config.UString("wtf.mods.jira.jql", ""))
 
 	widget.UpdateRefreshedAt()
