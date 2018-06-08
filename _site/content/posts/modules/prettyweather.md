@@ -4,8 +4,6 @@ date: 2018-06-02T05:32:04-07:00
 draft: false
 ---
 
-**🔬 Experimental**
-
 Displays weather information as ASCII art from
 [Wttr.in](http://wttr.in).
 
