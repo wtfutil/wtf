@@ -48,7 +48,6 @@ func (widget *Widget) Refresh() {
 func contentFrom(positions *AllPositionsResponse) string {
 	res := ""
 	colorName := Config.UString("wtf.mods.blockfolio.colors.name")
-	//	colorPrice := Config.UString("wtf.mods.blockfolio.colors.price")
 	colorGrows := Config.UString("wtf.mods.blockfolio.colors.grows")
 	colorDrop := Config.UString("wtf.mods.blockfolio.colors.drop")
 	for i := 0; i < len(positions.PositionList); i++ {
@@ -56,7 +55,7 @@ func contentFrom(positions *AllPositionsResponse) string {
 		if positions.PositionList[i].TwentyFourHourPercentChangeFiat <= 0 {
 			colorForChange = colorDrop
 		}
-		res = res + fmt.Sprintf(" [%s]%6s - ([%s]%.2f%)", colorName, positions.PositionList[i].Coin, colorForChange, positions.PositionList[i].TwentyFourHourPercentChangeFiat)
+		res = res + fmt.Sprintf("[%s]%6s - %3d ([%s]%.2f [%s]%.2f%)\n", colorName, positions.PositionList[i].Coin, positions.PositionList[i].Quantity, colorForChange, positions.PositionList[i].HoldingValueFiat/1000, colorForChange, positions.PositionList[i].TwentyFourHourPercentChangeFiat)
 	}
 
 	return res
