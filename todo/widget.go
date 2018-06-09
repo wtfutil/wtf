@@ -7,6 +7,7 @@ import (
 	"github.com/gdamore/tcell"
 	"github.com/olebedev/config"
 	"github.com/rivo/tview"
+	"github.com/senorprogrammer/wtf/cfg"
 	"github.com/senorprogrammer/wtf/wtf"
 	"gopkg.in/yaml.v2"
 )
@@ -95,7 +96,7 @@ func (widget *Widget) editItem() {
 }
 
 func (widget *Widget) init() {
-	_, err := wtf.CreateFile(widget.filePath)
+	_, err := cfg.CreateFile(widget.filePath)
 	if err != nil {
 		panic(err)
 	}
@@ -177,7 +178,7 @@ func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 
 // Loads the todo list from Yaml file
 func (widget *Widget) load() {
-	confDir, _ := wtf.ConfigDir()
+	confDir, _ := cfg.ConfigDir()
 	filePath := fmt.Sprintf("%s/%s", confDir, widget.filePath)
 
 	fileData, _ := wtf.ReadFileBytes(filePath)
@@ -203,7 +204,7 @@ func (widget *Widget) newItem() {
 
 // persist writes the todo list to Yaml file
 func (widget *Widget) persist() {
-	confDir, _ := wtf.ConfigDir()
+	confDir, _ := cfg.ConfigDir()
 	filePath := fmt.Sprintf("%s/%s", confDir, widget.filePath)
 
 	fileData, _ := yaml.Marshal(&widget.list)
