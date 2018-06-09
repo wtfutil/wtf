@@ -24,7 +24,7 @@ type Widget struct {
 
 func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 	widget := Widget{
-		TextWidget:   wtf.NewTextWidget(" Blockfolio ", "blockfolio", true),
+		TextWidget:   wtf.NewTextWidget(" Blockfolio ", "blockfolio", false),
 		device_token: Config.UString("wtf.mods.blockfolio.device_token"),
 	}
 
@@ -58,7 +58,7 @@ func contentFrom(positions *AllPositionsResponse) string {
 			colorForChange = colorDrop
 		}
 		totalFiat += positions.PositionList[i].HoldingValueFiat
-		res = res + fmt.Sprintf("[%s]%6s - %5.2f ([%s]%.2fk [%s]%.2f%s)\n", colorName, positions.PositionList[i].Coin, positions.PositionList[i].Quantity, colorForChange, positions.PositionList[i].HoldingValueFiat/1000, colorForChange, positions.PositionList[i].TwentyFourHourPercentChangeFiat, "%")
+		res = res + fmt.Sprintf("[%s]%-6s - %5.2f ([%s]%.2fk [%s]%.2f%s)\n", colorName, positions.PositionList[i].Coin, positions.PositionList[i].Quantity, colorForChange, positions.PositionList[i].HoldingValueFiat/1000, colorForChange, positions.PositionList[i].TwentyFourHourPercentChangeFiat, "%")
 	}
 	res = res + fmt.Sprintf("\n[%s]Total value: $%.2fk", "green", totalFiat/1000)
 
