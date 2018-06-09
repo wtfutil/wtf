@@ -11,8 +11,8 @@ There are two ways to install WTF:
 Get this repo and install the dependencies:
 
 ```bash
-go get -u github.com/senorprogrammer/wtf
-cd $GOPATH/src/github.com/senorprogrammer/wtf
+go get -u github.com/andrewzolotukhin/wtf
+cd $GOPATH/src/github.com/andrewzolotukhin/wtf
 make install
 make run
 ```
@@ -23,7 +23,7 @@ and that should probably do it.
 Grab the latest version from here:
 
 ```bash
-https://github.com/senorprogrammer/wtf/releases
+https://github.com/andrewzolotukhin/wtf/releases
 ```
 
 expand it, and `cd` into the resulting directory. Then run:

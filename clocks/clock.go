@@ -3,7 +3,7 @@ package clocks
 import (
 	"time"
 
-	"github.com/senorprogrammer/wtf/wtf"
+	"github.com/andrewzolotukhin/wtf/wtf"
 )
 
 type Clock struct {

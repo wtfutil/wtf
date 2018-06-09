@@ -7,7 +7,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/senorprogrammer/wtf/wtf"
+	"github.com/andrewzolotukhin/wtf/wtf"
 )
 
 const SingleQuotesRegExp = "'(.*)'"

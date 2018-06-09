@@ -3,7 +3,7 @@ package gspreadsheets
 import (
 	"fmt"
 
-	"github.com/senorprogrammer/wtf/wtf"
+	"github.com/andrewzolotukhin/wtf/wtf"
 	"github.com/olebedev/config"
 	sheets "google.golang.org/api/sheets/v4"
 )

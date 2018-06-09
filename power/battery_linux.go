@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/senorprogrammer/wtf/wtf"
+	"github.com/andrewzolotukhin/wtf/wtf"
 )
 
 var batteryState string

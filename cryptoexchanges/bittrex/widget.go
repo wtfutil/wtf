@@ -8,7 +8,7 @@ import (
 	"net/http"
 
 	"github.com/olebedev/config"
-	"github.com/senorprogrammer/wtf/wtf"
+	"github.com/andrewzolotukhin/wtf/wtf"
 )
 
 // Config is a pointer to the global config object

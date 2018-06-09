@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/go-test/deep"
-	. "github.com/senorprogrammer/wtf/wtf"
+	. "github.com/andrewzolotukhin/wtf/wtf"
 )
 
 /* -------------------- Exclude() -------------------- */

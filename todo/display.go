@@ -3,7 +3,7 @@ package todo
 import (
 	"fmt"
 
-	"github.com/senorprogrammer/wtf/wtf"
+	"github.com/andrewzolotukhin/wtf/wtf"
 )
 
 const checkWidth = 4
