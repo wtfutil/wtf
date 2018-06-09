@@ -50,7 +50,7 @@ func contentFrom(positions *AllPositionsResponse) string {
 	colorName := Config.UString("wtf.mods.blockfolio.colors.name")
 	colorGrows := Config.UString("wtf.mods.blockfolio.colors.grows")
 	colorDrop := Config.UString("wtf.mods.blockfolio.colors.drop")
-	totalFiat := 0
+	totalFiat := 0.0
 	for i := 0; i < len(positions.PositionList); i++ {
 		colorForChange := colorGrows
 		if positions.PositionList[i].TwentyFourHourPercentChangeFiat <= 0 {
