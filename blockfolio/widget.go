@@ -62,7 +62,7 @@ func contentFrom(positions *AllPositionsResponse) string {
 		if displayHoldings {
 			res = res + fmt.Sprintf("[%s]%-6s - %5.2f ([%s]%.3fk [%s]%.2f%s)\n", colorName, positions.PositionList[i].Coin, positions.PositionList[i].Quantity, colorForChange, positions.PositionList[i].HoldingValueFiat/1000, colorForChange, positions.PositionList[i].TwentyFourHourPercentChangeFiat, "%")
 		} else {
-			res = res + fmt.Sprintf("[%s]%-6s - %5.2f ([%s]%.2f%s)\n", colorName, positions.PositionList[i].Coin, positions.PositionList[i].Quantity, colorForChange, colorForChange, positions.PositionList[i].TwentyFourHourPercentChangeFiat, "%")
+			res = res + fmt.Sprintf("[%s]%-6s - %5.2f ([%s]%.2f%s)\n", colorName, positions.PositionList[i].Coin, positions.PositionList[i].Quantity, colorForChange, positions.PositionList[i].TwentyFourHourPercentChangeFiat, "%")
 		}
 	}
 	if displayHoldings {
