@@ -6,20 +6,17 @@ import (
 	"os"
 	"time"
 
-	"github.com/gdamore/tcell"
-	"github.com/olebedev/config"
-	"github.com/radovskyb/watcher"
-	"github.com/rivo/tview"
 	"github.com/andrewzolotukhin/wtf/bamboohr"
 	"github.com/andrewzolotukhin/wtf/bargraph"
+	"github.com/andrewzolotukhin/wtf/blockfolio"
 	"github.com/andrewzolotukhin/wtf/clocks"
 	"github.com/andrewzolotukhin/wtf/cmdrunner"
 	"github.com/andrewzolotukhin/wtf/cryptoexchanges/bittrex"
 	"github.com/andrewzolotukhin/wtf/cryptoexchanges/cryptolive"
 	"github.com/andrewzolotukhin/wtf/gcal"
-	"github.com/andrewzolotukhin/wtf/gspreadsheets"
 	"github.com/andrewzolotukhin/wtf/git"
 	"github.com/andrewzolotukhin/wtf/github"
+	"github.com/andrewzolotukhin/wtf/gspreadsheets"
 	"github.com/andrewzolotukhin/wtf/help"
 	"github.com/andrewzolotukhin/wtf/ipinfo"
 	"github.com/andrewzolotukhin/wtf/jira"
@@ -34,6 +31,10 @@ import (
 	"github.com/andrewzolotukhin/wtf/todo"
 	"github.com/andrewzolotukhin/wtf/weather"
 	"github.com/andrewzolotukhin/wtf/wtf"
+	"github.com/gdamore/tcell"
+	"github.com/olebedev/config"
+	"github.com/radovskyb/watcher"
+	"github.com/rivo/tview"
 )
 
 /* -------------------- Functions -------------------- */
@@ -210,6 +211,8 @@ func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
 		Widgets = append(Widgets, todo.NewWidget(app, pages))
 	case "weather":
 		Widgets = append(Widgets, weather.NewWidget(app, pages))
+	case "blockfolio":
+		Widgets = append(Widgets, blockfolio.NewWidget(app, pages))
 	default:
 	}
 }
@@ -240,6 +243,7 @@ func makeWidgets(app *tview.Application, pages *tview.Pages) {
 	textfile.Config = Config
 	todo.Config = Config
 	weather.Config = Config
+	blockfolio.Config = Config
 	wtf.Config = Config
 
 	mods, _ := Config.Map("wtf.mods")
