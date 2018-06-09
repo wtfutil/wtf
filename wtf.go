@@ -13,6 +13,7 @@ import (
 	"github.com/senorprogrammer/wtf/bamboohr"
 	"github.com/senorprogrammer/wtf/bargraph"
 	"github.com/senorprogrammer/wtf/cfg"
+	"github.com/senorprogrammer/wtf/circleci"
 	"github.com/senorprogrammer/wtf/clocks"
 	"github.com/senorprogrammer/wtf/cmdrunner"
 	"github.com/senorprogrammer/wtf/cryptoexchanges/bittrex"
@@ -177,6 +178,8 @@ func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
 		Widgets = append(Widgets, bargraph.NewWidget())
 	case "bittrex":
 		Widgets = append(Widgets, bittrex.NewWidget())
+	case "circleci":
+		Widgets = append(Widgets, circleci.NewWidget())
 	case "clocks":
 		Widgets = append(Widgets, clocks.NewWidget())
 	case "cmdrunner":
@@ -230,6 +233,7 @@ func makeWidgets(app *tview.Application, pages *tview.Pages) {
 	bamboohr.Config = Config
 	bargraph.Config = Config
 	bittrex.Config = Config
+	circleci.Config = Config
 	clocks.Config = Config
 	cmdrunner.Config = Config
 	cryptolive.Config = Config
