@@ -54,6 +54,10 @@ func (widget *BarGraph) BorderColor() string {
 	return Config.UString("wtf.colors.border.normal", "gray")
 }
 
+func (widget *BarGraph) Disable() {
+	widget.enabled = false
+}
+
 func (widget *BarGraph) Disabled() bool {
 	return !widget.Enabled()
 }
