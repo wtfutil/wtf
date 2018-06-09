@@ -37,15 +37,15 @@ func (widget *Widget) Refresh() {
 	widget.UpdateRefreshedAt()
 	widget.View.SetTitle(" Blockfolio ")
 
-	positions, _ := Fetch(widget.device_token)
-	if _ != nil {
+	positions, err := Fetch(widget.device_token)
+	if err != nil {
 		return
 	}
 	widget.View.SetText(fmt.Sprintf("%s", contentFrom(positions)))
 }
 
 /* -------------------- Unexported Functions -------------------- */
-func contentFrom(positions AllPositionsResponse) string {
+func contentFrom(positions *AllPositionsResponse) string {
 	res := ""
 	for i := 0; i < len(positions.PositionList); i++ {
 		res = res + "a"
