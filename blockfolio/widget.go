@@ -50,6 +50,7 @@ func contentFrom(positions *AllPositionsResponse) string {
 	colorName := Config.UString("wtf.mods.blockfolio.colors.name")
 	colorGrows := Config.UString("wtf.mods.blockfolio.colors.grows")
 	colorDrop := Config.UString("wtf.mods.blockfolio.colors.drop")
+	displayHoldings := Config.UBool("wtf.mods.blockfolio.displayHoldings")
 	var totalFiat float32
 	totalFiat = 0.0
 	for i := 0; i < len(positions.PositionList); i++ {
@@ -58,9 +59,15 @@ func contentFrom(positions *AllPositionsResponse) string {
 			colorForChange = colorDrop
 		}
 		totalFiat += positions.PositionList[i].HoldingValueFiat
-		res = res + fmt.Sprintf("[%s]%-6s - %5.2f ([%s]%.2fk [%s]%.2f%s)\n", colorName, positions.PositionList[i].Coin, positions.PositionList[i].Quantity, colorForChange, positions.PositionList[i].HoldingValueFiat/1000, colorForChange, positions.PositionList[i].TwentyFourHourPercentChangeFiat, "%")
+		if displayHoldings {
+			res = res + fmt.Sprintf("[%s]%-6s - %5.2f ([%s]%.3fk [%s]%.2f%s)\n", colorName, positions.PositionList[i].Coin, positions.PositionList[i].Quantity, colorForChange, positions.PositionList[i].HoldingValueFiat/1000, colorForChange, positions.PositionList[i].TwentyFourHourPercentChangeFiat, "%")
+		} else {
+			res = res + fmt.Sprintf("[%s]%-6s - %5.2f ([%s]%.2f%s)\n", colorName, positions.PositionList[i].Coin, positions.PositionList[i].Quantity, colorForChange, colorForChange, positions.PositionList[i].TwentyFourHourPercentChangeFiat, "%")
+		}
 	}
-	res = res + fmt.Sprintf("\n[%s]Total value: $%.2fk", "green", totalFiat/1000)
+	if displayHoldings {
+		res = res + fmt.Sprintf("\n[%s]Total value: $%.3fk", "green", totalFiat/1000)
+	}
 
 	return res
 }
