@@ -12,6 +12,7 @@ import (
 	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/bamboohr"
 	"github.com/senorprogrammer/wtf/bargraph"
+	"github.com/senorprogrammer/wtf/cfg"
 	"github.com/senorprogrammer/wtf/clocks"
 	"github.com/senorprogrammer/wtf/cmdrunner"
 	"github.com/senorprogrammer/wtf/cryptoexchanges/bittrex"
@@ -268,7 +269,7 @@ func makeWidgets(app *tview.Application, pages *tview.Pages) {
 }
 
 func loadConfig(configFlag string) {
-	Config = wtf.LoadConfigFile(configFlag)
+	Config = cfg.LoadConfigFile(configFlag)
 }
 
 func main() {
@@ -285,8 +286,8 @@ func main() {
 
 	// Responsible for creating the configuration directory and default
 	// configuration file if they don't already exist
-	wtf.CreateConfigDir()
-	wtf.WriteConfigFile()
+	cfg.CreateConfigDir()
+	cfg.WriteConfigFile()
 
 	loadConfig(cmdFlags.Config)
 	os.Setenv("TERM", Config.UString("wtf.term", os.Getenv("TERM")))
