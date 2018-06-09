@@ -47,8 +47,16 @@ func (widget *Widget) Refresh() {
 /* -------------------- Unexported Functions -------------------- */
 func contentFrom(positions *AllPositionsResponse) string {
 	res := ""
+	colorName := Config.USTRING("wtf.mods.blockfolio.colors.name")
+	colorPrice := Config.USTRING("wtf.mods.blockfolio.colors.price")
+	colorGrows := Config.USTRING("wtf.mods.blockfolio.colors.grows")
+	colorDrop := Config.USTRING("wtf.mods.blockfolio.colors.drop")
 	for i := 0; i < len(positions.PositionList); i++ {
-		res = res + "a"
+		colorForChange := colorGrows
+		if positions.PositionList[i].TwentyFourHourPercentChangeFiat <= 0 {
+			colorForChange = colorDrop
+		}
+		res = res + fmt.Sprintf(" [%s]%6s - [%s]%.2f", colorName, positions.PositionList[i].Coin, colorForChange, positions.PositionList[i].TwentyFourHourPercentChangeFiat)
 	}
 
 	return res
