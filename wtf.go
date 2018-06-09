@@ -23,6 +23,7 @@ import (
 	"github.com/senorprogrammer/wtf/gspreadsheets"
 	"github.com/senorprogrammer/wtf/help"
 	"github.com/senorprogrammer/wtf/ipinfo"
+	"github.com/senorprogrammer/wtf/jenkins"
 	"github.com/senorprogrammer/wtf/jira"
 	"github.com/senorprogrammer/wtf/newrelic"
 	"github.com/senorprogrammer/wtf/opsgenie"
@@ -191,6 +192,8 @@ func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
 		Widgets = append(Widgets, gspreadsheets.NewWidget())
 	case "ipinfo":
 		Widgets = append(Widgets, ipinfo.NewWidget())
+	case "jenkins":
+		Widgets = append(Widgets, jenkins.NewWidget())
 	case "jira":
 		Widgets = append(Widgets, jira.NewWidget())
 	case "newrelic":
@@ -232,6 +235,7 @@ func makeWidgets(app *tview.Application, pages *tview.Pages) {
 	github.Config = Config
 	gspreadsheets.Config = Config
 	ipinfo.Config = Config
+	jenkins.Config = Config
 	jira.Config = Config
 	newrelic.Config = Config
 	opsgenie.Config = Config
