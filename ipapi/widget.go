@@ -1,4 +1,4 @@
-package ipinfohigherlimit
+package ipapi
 
 import (
 	"encoding/json"
@@ -43,7 +43,7 @@ type ipinfo struct {
 // NewWidget constructor
 func NewWidget() *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(" IPInfo ", "ipinfohigherlimit", false),
+		TextWidget: wtf.NewTextWidget(" IPInfo ", "ipapi", false),
 	}
 
 	widget.View.SetWrap(false)
