@@ -7,7 +7,7 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/andrewzolotukhin/wtf/wtf"
+	"github.com/senorprogrammer/wtf/wtf"
 )
 
 /* -------------------- Exported Functions -------------------- */

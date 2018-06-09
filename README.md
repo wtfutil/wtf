@@ -1,6 +1,6 @@
 <p align="right">
   
-  <img src="https://travis-ci.com/andrewzolotukhin/wtf.svg?branch=master" />
+  <img src="https://travis-ci.com/senorprogrammer/wtf.svg?branch=master" />
 </p>
 
 <p align="center">
@@ -21,13 +21,13 @@ displaying infrequently-needed, but very important, daily data.
 **Note:** WTF is _only_ compatible with Go versions **1.9.2** or later. It currently _does not_ compile with `gccgo`.
 
 ```bash
-go get -u github.com/andrewzolotukhin/wtf
-cd $GOPATH/src/github.com/andrewzolotukhin/wtf
+go get -u github.com/senorprogrammer/wtf
+cd $GOPATH/src/github.com/senorprogrammer/wtf
 make install
 make run
 ```
 
-Or [download the latest binary](https://github.com/andrewzolotukhin/wtf/releases).
+Or [download the latest binary](https://github.com/senorprogrammer/wtf/releases).
 
 ## Support
 
@@ -70,7 +70,7 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduc
 
 ## Authors
 
-* Chris Cummer, [andrewzolotukhin](https://github.com/andrewzolotukhin)
+* Chris Cummer, [senorprogrammer](https://github.com/senorprogrammer)
 
 ## License
 

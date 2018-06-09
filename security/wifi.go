@@ -4,7 +4,7 @@ import (
 	"os/exec"
 	"runtime"
 
-	"github.com/andrewzolotukhin/wtf/wtf"
+	"github.com/senorprogrammer/wtf/wtf"
 )
 
 // https://github.com/yelinaung/wifi-name/blob/master/wifi-name.go

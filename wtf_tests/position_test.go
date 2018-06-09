@@ -3,7 +3,7 @@ package wtf_tests
 import (
 	"testing"
 
-	. "github.com/andrewzolotukhin/wtf/wtf"
+	. "github.com/senorprogrammer/wtf/wtf"
 )
 
 func TestPosition(t *testing.T) {

@@ -62,7 +62,7 @@ git:
     width: 2
   refreshInterval: 8
   repositories:
-  - "/Users/chris/go/src/github.com/andrewzolotukhin/wtf"
+  - "/Users/chris/go/src/github.com/senorprogrammer/wtf"
   - "/Users/user/fakeapp"
 ```
 

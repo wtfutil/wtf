@@ -5,7 +5,7 @@ import (
 	"strings"
 	"unicode/utf8"
 
-	"github.com/andrewzolotukhin/wtf/wtf"
+	"github.com/senorprogrammer/wtf/wtf"
 )
 
 func (widget *Widget) display() {

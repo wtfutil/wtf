@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/andrewzolotukhin/wtf/git"
-	"github.com/andrewzolotukhin/wtf/github"
-	"github.com/andrewzolotukhin/wtf/textfile"
-	"github.com/andrewzolotukhin/wtf/todo"
-	"github.com/andrewzolotukhin/wtf/weather"
+	"github.com/senorprogrammer/wtf/git"
+	"github.com/senorprogrammer/wtf/github"
+	"github.com/senorprogrammer/wtf/textfile"
+	"github.com/senorprogrammer/wtf/todo"
+	"github.com/senorprogrammer/wtf/weather"
 )
 
 func DisplayModuleInfo(moduleName string) {

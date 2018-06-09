@@ -7,7 +7,7 @@ import (
 	"github.com/gdamore/tcell"
 	"github.com/olebedev/config"
 	"github.com/rivo/tview"
-	"github.com/andrewzolotukhin/wtf/wtf"
+	"github.com/senorprogrammer/wtf/wtf"
 	"gopkg.in/yaml.v2"
 )
 

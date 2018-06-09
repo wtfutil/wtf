@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/olebedev/config"
-	"github.com/andrewzolotukhin/wtf/wtf"
+	"github.com/senorprogrammer/wtf/wtf"
 	nr "github.com/yfronto/newrelic"
 )
 

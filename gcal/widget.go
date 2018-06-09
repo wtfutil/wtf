@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/olebedev/config"
-	"github.com/andrewzolotukhin/wtf/wtf"
+	"github.com/senorprogrammer/wtf/wtf"
 	"google.golang.org/api/calendar/v3"
 )
 
