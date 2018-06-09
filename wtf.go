@@ -21,7 +21,7 @@ import (
 	"github.com/senorprogrammer/wtf/github"
 	"github.com/senorprogrammer/wtf/help"
 	"github.com/senorprogrammer/wtf/ipinfo"
-	"github.com/senorprogrammer/wtf/ipinfohigherlimit"
+	"github.com/senorprogrammer/wtf/ipapi"
 	"github.com/senorprogrammer/wtf/jira"
 	"github.com/senorprogrammer/wtf/newrelic"
 	"github.com/senorprogrammer/wtf/opsgenie"
@@ -186,8 +186,8 @@ func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
 		Widgets = append(Widgets, github.NewWidget(app, pages))
 	case "ipinfo":
 		Widgets = append(Widgets, ipinfo.NewWidget())
-	case "ipinfohigherlimit":
-		Widgets = append(Widgets, ipinfohigherlimit.NewWidget())
+	case "ipapi":
+		Widgets = append(Widgets, ipapi.NewWidget())
 	case "jira":
 		Widgets = append(Widgets, jira.NewWidget())
 	case "newrelic":
@@ -228,7 +228,7 @@ func makeWidgets(app *tview.Application, pages *tview.Pages) {
 	git.Config = Config
 	github.Config = Config
 	ipinfo.Config = Config
-	ipinfohigherlimit.Config = Config
+	ipapi.Config = Config
 	jira.Config = Config
 	newrelic.Config = Config
 	opsgenie.Config = Config
