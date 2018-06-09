@@ -104,6 +104,18 @@ func (widget *Widget) Prev() {
 
 /* -------------------- Unexported Functions -------------------- */
 
+func (widget *Widget) apiKeyValid() bool {
+	if widget.APIKey == "" {
+		return false
+	}
+
+	if len(widget.APIKey) != 32 {
+		return false
+	}
+
+	return true
+}
+
 func (widget *Widget) currentData() *owm.CurrentWeatherData {
 	if len(widget.Data) == 0 {
 		return nil
