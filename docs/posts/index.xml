@@ -6,10 +6,25 @@
     <description>Recent content in Posts on WTF - A Terminal Dashboard</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 10 Jun 2018 19:26:08 -0400</lastBuildDate>
+    <lastBuildDate>Sun, 10 Jun 2018 19:41:52 -0400</lastBuildDate>
     
 	<atom:link href="https://wtfutil.com/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>IP API</title>
+      <link>https://wtfutil.com/posts/modules/ipapi/</link>
+      <pubDate>Sun, 10 Jun 2018 19:41:52 -0400</pubDate>
+      
+      <guid>https://wtfutil.com/posts/modules/ipapi/</guid>
+      <description>Displays your current IP address information, from IP-APIcom.
+Note: IP-API.com has a free-plan rate limit of 120 requests per minute.
+Source Code wtf/ipapi/ Required ENV Variables None.
+Keyboard Commands None.
+Configuration ipinfo:colors:name:redvalue:whiteenabled:trueposition:top:1left:2height:1width:1refreshInterval:150 Attributes colors.name The default colour for the row names. Values: Any X11 color name.
+colors.value The default colour for the row values. Values: Any X11 color name.
+enabled Determines whether or not this module is executed and if its data displayed onscreen.</description>
+    </item>
     
     <item>
       <title>CircleCI</title>
