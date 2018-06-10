@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/andrewzolotukhin/wtf/wtf"
 	owm "github.com/briandowns/openweathermap"
+	"github.com/senorprogrammer/wtf/wtf"
 )
 
 func (widget *Widget) display() {

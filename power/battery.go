@@ -9,7 +9,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/andrewzolotukhin/wtf/wtf"
+	"github.com/senorprogrammer/wtf/wtf"
 )
 
 const TimeRegExp = "^(?:\\d|[01]\\d|2[0-3]):[0-5]\\d"

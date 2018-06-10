@@ -5,7 +5,7 @@ draft: false
 ---
 
 The following top-level attributes are configurable in `config.yml`.
-See this <a href="https://github.com/andrewzolotukhin/wtf/blob/master/_sample_configs/simple_config.yml">example config file</a> for more details.
+See this <a href="https://github.com/senorprogrammer/wtf/blob/master/_sample_configs/simple_config.yml">example config file</a> for more details.
 
 ```yaml
 wtf:

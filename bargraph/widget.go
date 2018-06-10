@@ -8,7 +8,7 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/andrewzolotukhin/wtf/wtf"
+	"github.com/senorprogrammer/wtf/wtf"
 	"github.com/olebedev/config"
 )
 

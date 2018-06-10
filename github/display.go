@@ -3,7 +3,7 @@ package github
 import (
 	"fmt"
 
-	"github.com/andrewzolotukhin/wtf/wtf"
+	"github.com/senorprogrammer/wtf/wtf"
 )
 
 func (widget *Widget) display() {
