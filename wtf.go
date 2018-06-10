@@ -6,9 +6,14 @@ import (
 	"os"
 	"time"
 
+	"github.com/gdamore/tcell"
+	"github.com/olebedev/config"
+	"github.com/radovskyb/watcher"
+	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/bamboohr"
 	"github.com/senorprogrammer/wtf/bargraph"
 	"github.com/senorprogrammer/wtf/blockfolio"
+	"github.com/senorprogrammer/wtf/cfg"
 	"github.com/senorprogrammer/wtf/clocks"
 	"github.com/senorprogrammer/wtf/cmdrunner"
 	"github.com/senorprogrammer/wtf/cryptoexchanges/bittrex"
@@ -18,6 +23,7 @@ import (
 	"github.com/senorprogrammer/wtf/github"
 	"github.com/senorprogrammer/wtf/gspreadsheets"
 	"github.com/senorprogrammer/wtf/help"
+	"github.com/senorprogrammer/wtf/ipapi"
 	"github.com/senorprogrammer/wtf/ipinfo"
 	"github.com/senorprogrammer/wtf/jira"
 	"github.com/senorprogrammer/wtf/newrelic"
@@ -31,10 +37,6 @@ import (
 	"github.com/senorprogrammer/wtf/todo"
 	"github.com/senorprogrammer/wtf/weather"
 	"github.com/senorprogrammer/wtf/wtf"
-	"github.com/gdamore/tcell"
-	"github.com/olebedev/config"
-	"github.com/radovskyb/watcher"
-	"github.com/rivo/tview"
 )
 
 /* -------------------- Functions -------------------- */
@@ -187,8 +189,12 @@ func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
 		Widgets = append(Widgets, git.NewWidget(app, pages))
 	case "github":
 		Widgets = append(Widgets, github.NewWidget(app, pages))
+	case "gspreadsheets":
+		Widgets = append(Widgets, gspreadsheets.NewWidget())
 	case "ipinfo":
 		Widgets = append(Widgets, ipinfo.NewWidget())
+	case "ipapi":
+		Widgets = append(Widgets, ipapi.NewWidget())
 	case "jira":
 		Widgets = append(Widgets, jira.NewWidget())
 	case "newrelic":
@@ -228,10 +234,11 @@ func makeWidgets(app *tview.Application, pages *tview.Pages) {
 	cmdrunner.Config = Config
 	cryptolive.Config = Config
 	gcal.Config = Config
-	gspreadsheets.Config = Config
 	git.Config = Config
 	github.Config = Config
+	gspreadsheets.Config = Config
 	ipinfo.Config = Config
+	ipapi.Config = Config
 	jira.Config = Config
 	newrelic.Config = Config
 	opsgenie.Config = Config
@@ -262,7 +269,7 @@ func makeWidgets(app *tview.Application, pages *tview.Pages) {
 }
 
 func loadConfig(configFlag string) {
-	Config = wtf.LoadConfigFile(configFlag)
+	Config = cfg.LoadConfigFile(configFlag)
 }
 
 func main() {
@@ -279,8 +286,8 @@ func main() {
 
 	// Responsible for creating the configuration directory and default
 	// configuration file if they don't already exist
-	wtf.CreateConfigDir()
-	wtf.WriteConfigFile()
+	cfg.CreateConfigDir()
+	cfg.WriteConfigFile()
 
 	loadConfig(cmdFlags.Config)
 	os.Setenv("TERM", Config.UString("wtf.term", os.Getenv("TERM")))

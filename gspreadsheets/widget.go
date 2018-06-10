@@ -3,8 +3,8 @@ package gspreadsheets
 import (
 	"fmt"
 
-	"github.com/senorprogrammer/wtf/wtf"
 	"github.com/olebedev/config"
+	"github.com/senorprogrammer/wtf/wtf"
 	sheets "google.golang.org/api/sheets/v4"
 )
 
@@ -26,10 +26,6 @@ func NewWidget() *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	if widget.Disabled() {
-		return
-	}
-
 	cells, _ := Fetch()
 
 	widget.UpdateRefreshedAt()

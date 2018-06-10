@@ -11,6 +11,11 @@ import (
 func (widget *Widget) display() {
 	widget.View.Clear()
 
+	if widget.apiKeyValid() == false {
+		fmt.Fprintf(widget.View, "%s", " Environment variable WTF_OWM_API_KEY is not set")
+		return
+	}
+
 	cityData := widget.currentData()
 	if cityData == nil {
 		fmt.Fprintf(widget.View, "%s", " Weather data is unavailable (1)")
