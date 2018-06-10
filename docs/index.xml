@@ -6,17 +6,31 @@
     <description>Recent content on WTF - A Terminal Dashboard</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 10 Jun 2018 18:26:26 -0400</lastBuildDate>
+    <lastBuildDate>Sun, 10 Jun 2018 19:26:08 -0400</lastBuildDate>
     
 	<atom:link href="https://wtfutil.com/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>CircleCI</title>
+      <link>https://wtfutil.com/posts/modules/circleci/</link>
+      <pubDate>Sun, 10 Jun 2018 19:26:08 -0400</pubDate>
+      
+      <guid>https://wtfutil.com/posts/modules/circleci/</guid>
+      <description>Added in v0.0.7.
+Displays build information for your CircleCI account.
+Source Code wtf/circleci/ Required ENV Variables Key: WTF_CIRCLE_API_KEY Value: Your CircleCI API token.
+Keyboard Commands None.
+Configuration circleci:enabled:trueposition:top:4left:1height:1width:2refreshInterval:900 Attributes enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.
+position Defines where in the grid this module&amp;rsquo;s widget will be displayed. refreshInterval How often, in seconds, this module will update its data.</description>
+    </item>
+    
+    <item>
       <title>Google Spreadsheets</title>
-      <link>https://wtfutil.com/posts/modules/gspreadsheets/</link>
+      <link>https://wtfutil.com/posts/modules/gspreadsheet/</link>
       <pubDate>Sun, 10 Jun 2018 18:26:26 -0400</pubDate>
       
-      <guid>https://wtfutil.com/posts/modules/gspreadsheets/</guid>
+      <guid>https://wtfutil.com/posts/modules/gspreadsheet/</guid>
       <description>Added in v0.0.7.
 Display information
 wtf/gspreadsheets/ Required ENV Variables None.

@@ -10,8 +10,8 @@
 
 <meta name="generator" content="Hugo 0.38.2" />
 
-<title>Jira | WTF - A Terminal Dashboard</title>
-<meta content="Jira - WTF - A Terminal Dashboard" property="og:title">
+<title>Google Spreadsheets | WTF - A Terminal Dashboard</title>
+<meta content="Google Spreadsheets - WTF - A Terminal Dashboard" property="og:title">
 <meta content=" - " property="og:description">
 <!-- CSS -->
 <link rel="stylesheet" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
@@ -97,13 +97,13 @@
 
         <div class="content container">
             <div class="post">
-  <h1>Jira</h1>
+  <h1>Google Spreadsheets</h1>
   
   <div class="col-sm-12 col-md-12">
     <span class="text-left post-date meta">
       
       
-        May 10, 2018
+        Jun 10, 2018
       
       
       
@@ -115,103 +115,62 @@
   
   
 
-<p>Displays all Jira issues assigned to you for the specified project.</p>
+<p>Added in <code>v0.0.7</code>.</p>
 
-<p><img src="/imgs/modules/jira.png" width="640" height="188" alt="jira screenshot" /></p>
-
-<h2 id="source-code">Source Code</h2>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">wtf/jira/</code></pre></div>
+<p>Display information</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">wtf/gspreadsheets/</code></pre></div>
 <h2 id="required-env-variables">Required ENV Variables</h2>
 
-<p><span class="caption">Key:</span> <code>WTF_JIRA_API_KEY</code> <br />
-<span class="caption">Value:</span> Your <a href="https://confluence.atlassian.com/cloud/api-tokens-938839638.html">Jira API</a> key.</p>
+<p>None.</p>
 
 <h2 id="keyboard-commands">Keyboard Commands</h2>
 
 <p>None.</p>
 
 <h2 id="configuration">Configuration</h2>
-
-<h3 id="single-jira-project">Single Jira Project</h3>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">jira<span class="p">:</span><span class="w">
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">gspreadsheets<span class="p">:</span><span class="w">
 </span><span class="w">  </span>colors<span class="p">:</span><span class="w">
-</span><span class="w">    </span>rows<span class="p">:</span><span class="w">
-</span><span class="w">      </span>even<span class="p">:</span><span class="w"> </span><span class="s2">&#34;lightblue&#34;</span><span class="w">
-</span><span class="w">      </span>odd<span class="p">:</span><span class="w"> </span><span class="s2">&#34;white&#34;</span><span class="w">
-</span><span class="w">  </span>domain<span class="p">:</span><span class="w"> </span><span class="s2">&#34;https://umbrellacorp.atlassian.net&#34;</span><span class="w">
-</span><span class="w">  </span>email<span class="p">:</span><span class="w"> </span><span class="s2">&#34;chriscummer@me.com&#34;</span><span class="w">
+</span><span class="w">    </span>values<span class="p">:</span><span class="w"> </span><span class="s2">&#34;green&#34;</span><span class="w">
+</span><span class="w">  </span>cells<span class="p">:</span><span class="w">
+</span><span class="w">    </span>names<span class="p">:</span><span class="w">
+</span><span class="w">    </span>-<span class="w"> </span><span class="s2">&#34;Cell 1 name&#34;</span><span class="w">
+</span><span class="w">    </span>-<span class="w"> </span><span class="s2">&#34;Cell 2 name&#34;</span><span class="w">
+</span><span class="w">    </span>addresses<span class="p">:</span><span class="w">
+</span><span class="w">    </span>-<span class="w"> </span><span class="s2">&#34;A1&#34;</span><span class="w">
+</span><span class="w">    </span>-<span class="w"> </span><span class="s2">&#34;A2&#34;</span><span class="w">
 </span><span class="w">  </span>enabled<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="w">  </span>jql<span class="p">:</span><span class="w"> </span><span class="s2">&#34;issueType = Story&#34;</span><span class="w">
 </span><span class="w">  </span>position<span class="p">:</span><span class="w">
-</span><span class="w">    </span>top<span class="p">:</span><span class="w"> </span><span class="m">4</span><span class="w">
-</span><span class="w">    </span>left<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">    </span>top<span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
+</span><span class="w">    </span>left<span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
+</span><span class="w">    </span>width<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
 </span><span class="w">    </span>height<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="w">    </span>width<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
-</span><span class="w">  </span>project<span class="p">:</span><span class="w"> </span><span class="s2">&#34;ProjectA&#34;</span><span class="w">
-</span><span class="w">  </span>refreshInterval<span class="p">:</span><span class="w"> </span><span class="m">900</span><span class="w">
-</span><span class="w">  </span>username<span class="p">:</span><span class="w"> </span><span class="s2">&#34;chris.cummer&#34;</span></code></pre></div>
-<h3 id="multiple-jira-projects">Multiple Jira Projects</h3>
-
-<p>If you want to monitor multiple Jira projects, use the following
-configuration (note the difference in <code>project</code>):</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">jira<span class="p">:</span><span class="w">
-</span><span class="w">  </span>colors<span class="p">:</span><span class="w">
-</span><span class="w">    </span>rows<span class="p">:</span><span class="w">
-</span><span class="w">      </span>even<span class="p">:</span><span class="w"> </span><span class="s2">&#34;lightblue&#34;</span><span class="w">
-</span><span class="w">      </span>odd<span class="p">:</span><span class="w"> </span><span class="s2">&#34;white&#34;</span><span class="w">
-</span><span class="w">  </span>domain<span class="p">:</span><span class="w"> </span><span class="s2">&#34;https://umbrellacorp.atlassian.net&#34;</span><span class="w">
-</span><span class="w">  </span>email<span class="p">:</span><span class="w"> </span><span class="s2">&#34;chriscummer@me.com&#34;</span><span class="w">
-</span><span class="w">  </span>enabled<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="w">  </span>jql<span class="p">:</span><span class="w"> </span><span class="s2">&#34;issueType = Story&#34;</span><span class="w">
-</span><span class="w">  </span>position<span class="p">:</span><span class="w">
-</span><span class="w">    </span>top<span class="p">:</span><span class="w"> </span><span class="m">4</span><span class="w">
-</span><span class="w">    </span>left<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="w">    </span>height<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="w">    </span>width<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
-</span><span class="w">  </span>project<span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;ProjectA&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;ProjectB&#34;</span><span class="p">]</span><span class="w">
-</span><span class="w">  </span>refreshInterval<span class="p">:</span><span class="w"> </span><span class="m">900</span><span class="w">
-</span><span class="w">  </span>username<span class="p">:</span><span class="w"> </span><span class="s2">&#34;chris.cummer&#34;</span></code></pre></div>
+</span><span class="w">  </span>refreshInterval<span class="p">:</span><span class="w"> </span><span class="s2">&#34;300&#34;</span><span class="w">
+</span><span class="w">  </span>secretFile<span class="p">:</span><span class="w"> </span><span class="s2">&#34;~/.wtf/gspreadsheets/client_secret.json&#34;</span><span class="w">
+</span><span class="w">  </span>sheetId<span class="p">:</span><span class="w"> </span><span class="s2">&#34;id_of_google_spreadsheet&#34;</span></code></pre></div>
 <h3 id="attributes">Attributes</h3>
 
-<p><code>colors.rows.even</code> <br />
-Define the foreground color for even-numbered rows. <br />
-Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11
-color name</a>.</p>
+<p><code>colors.values</code> <br />
+The color to display the cell values in. <br />
+Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11 color</a> name.</p>
 
-<p><code>colors.rows.odd</code> <br />
-Define the foreground color for odd-numbered rows. <br />
-Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11
-color name</a>.</p>
+<p><code>cells.names</code> <br /></p>
 
-<p><code>domain</code> <br />
-Your Jira corporate domain. <br />
-Values: A valid URI.</p>
-
-<p><code>email</code> <br />
-The email address associated with your Jira account. <br />
-Values: A valid email address string.</p>
+<p><code>cells.addresses</code> <br /></p>
 
 <p><code>enabled</code> <br />
-Determines whether or not this module is executed and if its data displayed onscreen. <br />
+Whether or not this module is executed and if its data displayed onscreen. <br />
 Values: <code>true</code>, <code>false</code>.</p>
 
-<p><code>jql</code> <br />
-<em>Optional</em> <br />
-Custom JQL to be appended to the search query. <br />
-Values: See <a href="https://confluence.atlassian.com/jiracore/blog/2015/07/search-jira-like-a-boss-with-jql">Search Jira like a boss with JQL</a> for details.</p>
-
 <p><code>position</code> <br />
-Defines where in the grid this module&rsquo;s widget will be displayed. <br /></p>
-
-<p><code>project</code> <br />
-The Jira project to fetch information for. <br /></p>
+Where in the grid this module&rsquo;s widget will be displayed. <br /></p>
 
 <p><code>refreshInterval</code> <br />
 How often, in seconds, this module will update its data. <br />
 Values: A positive integer, <code>0..n</code>.</p>
 
-<p><code>username</code> <br />
-Your Jira username. <br /></p>
+<p><code>secretFile</code> <br />
+Your <a href="https://developers.google.com/sheets/api/quickstart/go">Google client secret</a> JSON file. <br />
+Values: A string representing a file path to the JSON secret file.</p>
 
 </div>
 
