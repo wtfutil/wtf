@@ -47,12 +47,12 @@ position Defines where in the grid this module&amp;rsquo;s widget will be displa
       
       <guid>https://wtfutil.com/posts/modules/gspreadsheet/</guid>
       <description>Added in v0.0.7.
-Display information
+Display information from cells in a Google Spreadsheet.
 wtf/gspreadsheets/ Required ENV Variables None.
 Keyboard Commands None.
 Configuration gspreadsheets:colors:values:&amp;#34;green&amp;#34;cells:names:-&amp;#34;Cell 1 name&amp;#34;-&amp;#34;Cell 2 name&amp;#34;addresses:-&amp;#34;A1&amp;#34;-&amp;#34;A2&amp;#34;enabled:trueposition:top:0left:0width:1height:1refreshInterval:&amp;#34;300&amp;#34;secretFile:&amp;#34;~/.wtf/gspreadsheets/client_secret.json&amp;#34;sheetId:&amp;#34;id_of_google_spreadsheet&amp;#34; Attributes colors.values The color to display the cell values in. Values: Any X11 color name.
 cells.names cells.addresses enabled Whether or not this module is executed and if its data displayed onscreen. Values: true, false.
-position Where in the grid this module&amp;rsquo;s widget will be displayed. refreshInterval How often, in seconds, this module will update its data.</description>
+position Where in the grid this module&amp;rsquo;s widget will be displayed.</description>
     </item>
     
     <item>

@@ -6,7 +6,7 @@ draft: false
 
 Added in `v0.0.7`.
 
-Display information
+Display information from cells in a Google Spreadsheet.
 
 ```bash
 wtf/gspreadsheets/
