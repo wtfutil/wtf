@@ -122,9 +122,9 @@ Quick Start  Download the stand-alone, compiled binary. Unzip the downloaded fil
       <guid>https://wtfutil.com/posts/installation/</guid>
       <description>There are two ways to install WTF:
 From Source Get this repo and install the dependencies:
-go get -u github.com/senorprogrammer/wtf cd $GOPATH/src/github.com/senorprogrammer/wtf make install make run and that should probably do it.
+go get -u github.com/andrewzolotukhin/wtf cd $GOPATH/src/github.com/andrewzolotukhin/wtf make install make run and that should probably do it.
 As a Binary Grab the latest version from here:
-https://github.com/senorprogrammer/wtf/releases expand it, and cd into the resulting directory. Then run:
+https://github.com/andrewzolotukhin/wtf/releases expand it, and cd into the resulting directory. Then run:
 ./wtf and that should also do it.</description>
     </item>
     

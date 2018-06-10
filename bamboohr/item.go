@@ -4,7 +4,7 @@ import (
 	"fmt"
 	//"time"
 
-	"github.com/senorprogrammer/wtf/wtf"
+	"github.com/andrewzolotukhin/wtf/wtf"
 )
 
 type Item struct {

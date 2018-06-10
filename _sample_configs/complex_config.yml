@@ -108,7 +108,7 @@ wtf:
         width: 3
       refreshInterval: 8
       repositories:
-      - "/Users/chris/go/src/github.com/senorprogrammer/wtf"
+      - "/Users/chris/go/src/github.com/andrewzolotukhin/wtf"
     github:
       enabled: true
       position:
@@ -119,8 +119,8 @@ wtf:
       refreshInterval: 300
       repositories:
         repo-name: "owner id"
-        wtf: "senorprogrammer"
-      username: "senorprogrammer"
+        wtf: "andrewzolotukhin"
+      username: "andrewzolotukhin"
     jira:
       colors:
         rows:
@@ -218,3 +218,17 @@ wtf:
         width: 1
       refreshInterval: 90
       tempUnit: "C"
+    blockfolio:
+      enabled: true
+      displayHoldings: true
+      refreshInterval: 400
+      device_token: "device token here, you can find how to get it here https://github.com/bob6664569/blockfolio-api-client"
+      colors: 
+        name: blue
+        grows: green
+        drop: red
+      position:
+        top: 3
+        left: 1
+        width: 1
+        height: 1
