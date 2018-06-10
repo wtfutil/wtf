@@ -58,8 +58,8 @@ github:
   refreshInterval: 300
   repositories:
     wesker-api: "UmbrellaCorp"
-    wtf: "senorprogrammer"
-  username: "senorprogrammer"
+    wtf: "andrewzolotukhin"
+  username: "andrewzolotukhin"
 ```
 
 ### Attributes

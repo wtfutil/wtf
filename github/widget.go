@@ -1,10 +1,10 @@
 package github
 
 import (
+	"github.com/andrewzolotukhin/wtf/wtf"
 	"github.com/gdamore/tcell"
 	"github.com/olebedev/config"
 	"github.com/rivo/tview"
-	"github.com/senorprogrammer/wtf/wtf"
 )
 
 // Config is a pointer to the global config object

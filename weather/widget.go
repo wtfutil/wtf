@@ -3,11 +3,11 @@ package weather
 import (
 	"os"
 
+	"github.com/andrewzolotukhin/wtf/wtf"
 	owm "github.com/briandowns/openweathermap"
 	"github.com/gdamore/tcell"
 	"github.com/olebedev/config"
 	"github.com/rivo/tview"
-	"github.com/senorprogrammer/wtf/wtf"
 )
 
 // Config is a pointer to the global config object.
