@@ -6,6 +6,10 @@ import (
 	"os"
 	"time"
 
+	"github.com/gdamore/tcell"
+	"github.com/olebedev/config"
+	"github.com/radovskyb/watcher"
+	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/bamboohr"
 	"github.com/senorprogrammer/wtf/bargraph"
 	"github.com/senorprogrammer/wtf/blockfolio"
@@ -34,10 +38,6 @@ import (
 	"github.com/senorprogrammer/wtf/todo"
 	"github.com/senorprogrammer/wtf/weather"
 	"github.com/senorprogrammer/wtf/wtf"
-	"github.com/gdamore/tcell"
-	"github.com/olebedev/config"
-	"github.com/radovskyb/watcher"
-	"github.com/rivo/tview"
 )
 
 /* -------------------- Functions -------------------- */

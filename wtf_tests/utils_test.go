@@ -3,8 +3,8 @@ package wtf_tests
 import (
 	"testing"
 
-	. "github.com/senorprogrammer/wtf/wtf"
 	"github.com/go-test/deep"
+	. "github.com/senorprogrammer/wtf/wtf"
 )
 
 /* -------------------- Exclude() -------------------- */

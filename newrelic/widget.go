@@ -3,8 +3,8 @@ package newrelic
 import (
 	"fmt"
 
-	"github.com/senorprogrammer/wtf/wtf"
 	"github.com/olebedev/config"
+	"github.com/senorprogrammer/wtf/wtf"
 	nr "github.com/yfronto/newrelic"
 )
 

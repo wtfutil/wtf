@@ -6,8 +6,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/senorprogrammer/wtf/wtf"
 	"github.com/olebedev/config"
+	"github.com/senorprogrammer/wtf/wtf"
 	"google.golang.org/api/calendar/v3"
 )
 
