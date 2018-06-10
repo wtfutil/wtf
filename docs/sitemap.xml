@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://wtfutil.com/posts/modules/gspreadsheets/</loc>
+    <lastmod>2018-06-10T18:26:26-04:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://wtfutil.com/posts/modules/cryptocurrencies/bittrex/</loc>
     <lastmod>2018-06-04T20:06:40-07:00</lastmod>
   </url>
@@ -134,7 +139,7 @@
   
   <url>
     <loc>https://wtfutil.com/posts/</loc>
-    <lastmod>2018-06-04T20:06:40-07:00</lastmod>
+    <lastmod>2018-06-10T18:26:26-04:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -145,7 +150,7 @@
   
   <url>
     <loc>https://wtfutil.com/</loc>
-    <lastmod>2018-06-04T20:06:40-07:00</lastmod>
+    <lastmod>2018-06-10T18:26:26-04:00</lastmod>
     <priority>0</priority>
   </url>
   

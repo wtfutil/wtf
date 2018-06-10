@@ -10,8 +10,8 @@
 
 <meta name="generator" content="Hugo 0.38.2" />
 
-<title>Google Calendar | WTF - A Terminal Dashboard</title>
-<meta content="Google Calendar - WTF - A Terminal Dashboard" property="og:title">
+<title>Google Spreadsheets | WTF - A Terminal Dashboard</title>
+<meta content="Google Spreadsheets - WTF - A Terminal Dashboard" property="og:title">
 <meta content=" - " property="og:description">
 <!-- CSS -->
 <link rel="stylesheet" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
@@ -95,13 +95,13 @@
 
         <div class="content container">
             <div class="post">
-  <h1>Google Calendar</h1>
+  <h1>Google Spreadsheets</h1>
   
   <div class="col-sm-12 col-md-12">
     <span class="text-left post-date meta">
       
       
-        May 10, 2018
+        Jun 10, 2018
       
       
       
@@ -113,15 +113,10 @@
   
   
 
-<p>Displays your upcoming Google calendar events.</p>
+<p>Added in <code>v0.0.7</code>.</p>
 
-<p><img src="/imgs/modules/gcal.png" width="320" height="389" alt="gcal screenshot" /></p>
-
-<p><strong>Not:</strong> Setting up access to Google Calendars for Go is a bit unobvious. Check out Google&rsquo;s <a href="https://developers.google.com/calendar/quickstart/go">Go Quickstart</a>
-first and if you have problems, then take a look at this <a href="https://github.com/senorprogrammer/wtf/issues/83#issuecomment-393665229">comment by WesleydeSouza</a> which offers a slightly different approach.</p>
-
-<h2 id="source-code">Source Code</h2>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">wtf/gcal/</code></pre></div>
+<p>Display information</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">wtf/gspreadsheets/</code></pre></div>
 <h2 id="required-env-variables">Required ENV Variables</h2>
 
 <p>None.</p>
@@ -131,80 +126,38 @@ first and if you have problems, then take a look at this <a href="https://github
 <p>None.</p>
 
 <h2 id="configuration">Configuration</h2>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">gcal<span class="p">:</span><span class="w">
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">gspreadsheets<span class="p">:</span><span class="w">
 </span><span class="w">  </span>colors<span class="p">:</span><span class="w">
-</span><span class="w">    </span>title<span class="p">:</span><span class="w"> </span><span class="s2">&#34;red&#34;</span><span class="w">
-</span><span class="w">    </span>description<span class="p">:</span><span class="w"> </span><span class="s2">&#34;lightblue&#34;</span><span class="w">
-</span><span class="w">    </span>highlights<span class="p">:</span><span class="w">
-</span><span class="w">    </span>-<span class="w"> </span><span class="p">[</span><span class="s1">&#39;1on1|1\/11&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;green&#39;</span><span class="p">]</span><span class="w">
-</span><span class="w">    </span>-<span class="w"> </span><span class="p">[</span><span class="s1">&#39;apple|google|aws&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;blue&#39;</span><span class="p">]</span><span class="w">
-</span><span class="w">    </span>-<span class="w"> </span><span class="p">[</span><span class="s1">&#39;interview|meet&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;magenta&#39;</span><span class="p">]</span><span class="w">
-</span><span class="w">    </span>-<span class="w"> </span><span class="p">[</span><span class="s1">&#39;lunch&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;yellow&#39;</span><span class="p">]</span><span class="w">
-</span><span class="w">    </span>past<span class="p">:</span><span class="w"> </span><span class="s2">&#34;gray&#34;</span><span class="w">
-</span><span class="w">  </span>conflictIcon<span class="p">:</span><span class="w"> </span><span class="s2">&#34;🚨&#34;</span><span class="w">
-</span><span class="w">  </span>currentIcon<span class="p">:</span><span class="w"> </span><span class="s2">&#34;💥&#34;</span><span class="w">
-</span><span class="w">  </span>displayResponseStatus<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="w">  </span>email<span class="p">:</span><span class="w"> </span><span class="s2">&#34;chriscummer@me.com&#34;</span><span class="w">
+</span><span class="w">    </span>values<span class="p">:</span><span class="w"> </span><span class="s2">&#34;green&#34;</span><span class="w">
+</span><span class="w">  </span>cells<span class="p">:</span><span class="w">
+</span><span class="w">    </span>names<span class="p">:</span><span class="w">
+</span><span class="w">    </span>-<span class="w"> </span><span class="s2">&#34;Cell 1 name&#34;</span><span class="w">
+</span><span class="w">    </span>-<span class="w"> </span><span class="s2">&#34;Cell 2 name&#34;</span><span class="w">
+</span><span class="w">    </span>addresses<span class="p">:</span><span class="w">
+</span><span class="w">    </span>-<span class="w"> </span><span class="s2">&#34;A1&#34;</span><span class="w">
+</span><span class="w">    </span>-<span class="w"> </span><span class="s2">&#34;A2&#34;</span><span class="w">
 </span><span class="w">  </span>enabled<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="w">  </span>eventCount<span class="p">:</span><span class="w"> </span><span class="m">12</span><span class="w">
 </span><span class="w">  </span>position<span class="p">:</span><span class="w">
 </span><span class="w">    </span>top<span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
 </span><span class="w">    </span>left<span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
-</span><span class="w">    </span>height<span class="p">:</span><span class="w"> </span><span class="m">4</span><span class="w">
 </span><span class="w">    </span>width<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="w">  </span>refreshInterval<span class="p">:</span><span class="w"> </span><span class="m">300</span><span class="w">
-</span><span class="w">  </span>secretFile<span class="p">:</span><span class="w"> </span><span class="s2">&#34;~/.wtf/gcal/client_secret.json&#34;</span><span class="w">
-</span><span class="w">  </span>withLocation<span class="p">:</span><span class="w"> </span><span class="kc">true</span></code></pre></div>
+</span><span class="w">    </span>height<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">  </span>refreshInterval<span class="p">:</span><span class="w"> </span><span class="s2">&#34;300&#34;</span><span class="w">
+</span><span class="w">  </span>secretFile<span class="p">:</span><span class="w"> </span><span class="s2">&#34;~/.wtf/gspreadsheets/client_secret.json&#34;</span><span class="w">
+</span><span class="w">  </span>sheetId<span class="p">:</span><span class="w"> </span><span class="s2">&#34;id_of_google_spreadsheet&#34;</span></code></pre></div>
 <h3 id="attributes">Attributes</h3>
 
-<p><code>colors.title</code> <br />
-The default colour for calendar event titles. <br />
+<p><code>colors.values</code> <br />
+The color to display the cell values in. <br />
 Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11 color</a> name.</p>
 
-<p><code>colors.description</code> <br />
-The default color for calendar event descriptions. <br />
-Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11 color</a> name.</p>
+<p><code>cells.names</code> <br /></p>
 
-<p><code>colors.highlights</code> <br />
-A list of arrays that define a regular expression pattern and a color.
-If a calendar event title matches a regular expression, the title will
-be drawn in that colour. Over-rides the default title colour. <br />
-Values: [a valid regular expression, any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11 color</a> name.]</p>
-
-<p><code>colors.past</code> <br />
-The color for calendar events that have passed. <br />
-Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11 color</a> name.</p>
-
-<p><code>conflictIcon</code> <br />
-The icon displayed beside calendar events that have conflicting times
-(they intersect or overlap in some way). <br />
-Values: Any displayable unicode character.</p>
-
-<p><code>currentIcon</code> <br />
-The icon displayed beside the current calendar event. <br />
-Values: Any displayable unicode character.</p>
-
-<p><code>displayLocation</code> <br />
-Whether or not to display the location of the calendar event. <br />
-Values: <code>true</code>, <code>false</code>.</p>
-
-<p><code>displayResponseStatus</code> <br />
-Whether or not to display your response status to the calendar event.
-<br />
-Values: <code>true</code>, <code>false</code>.</p>
-
-<p><code>email</code> <br />
-The email address associated with your Google account. Necessary for
-determining <code>responseStatus</code>. <br />
-Values: A valid email address string.</p>
+<p><code>cells.addresses</code> <br /></p>
 
 <p><code>enabled</code> <br />
 Whether or not this module is executed and if its data displayed onscreen. <br />
 Values: <code>true</code>, <code>false</code>.</p>
-
-<p><code>eventCount</code> <br />
-The number of calendar events to display. <br />
-Values: A positive integer, <code>0..n</code>.</p>
 
 <p><code>position</code> <br />
 Where in the grid this module&rsquo;s widget will be displayed. <br /></p>
@@ -214,7 +167,7 @@ How often, in seconds, this module will update its data. <br />
 Values: A positive integer, <code>0..n</code>.</p>
 
 <p><code>secretFile</code> <br />
-Your <a href="https://developers.google.com/calendar/quickstart/go">Google client secret</a> JSON file. <br />
+Your <a href="https://developers.google.com/sheets/api/quickstart/go">Google client secret</a> JSON file. <br />
 Values: A string representing a file path to the JSON secret file.</p>
 
 </div>

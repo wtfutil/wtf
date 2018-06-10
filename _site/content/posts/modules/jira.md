@@ -25,6 +25,8 @@ None.
 
 ## Configuration
 
+### Single Jira Project
+
 ```yaml
 jira:
   colors:
@@ -40,7 +42,32 @@ jira:
     left: 1
     height: 1
     width: 2
-  project: "JIRA"
+  project: "ProjectA"
+  refreshInterval: 900
+  username: "chris.cummer"
+```
+
+### Multiple Jira Projects
+
+If you want to monitor multiple Jira projects, use the following
+configuration (note the difference in `project`):
+
+```yaml
+jira:
+  colors:
+    rows:
+      even: "lightblue"
+      odd: "white"
+  domain: "https://umbrellacorp.atlassian.net"
+  email: "chriscummer@me.com"
+  enabled: true
+  jql: "issueType = Story"
+  position:
+    top: 4
+    left: 1
+    height: 1
+    width: 2
+  project: ["ProjectA", "ProjectB"]
   refreshInterval: 900
   username: "chris.cummer"
 ```
