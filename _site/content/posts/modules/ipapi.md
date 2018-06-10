@@ -1,5 +1,5 @@
 ---
-title: "IP API"
+title: "IP-API"
 date: 2018-06-10T19:41:52-04:00
 draft: false
 ---
