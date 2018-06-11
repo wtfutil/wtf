@@ -4,6 +4,8 @@ date: 2018-06-10T19:41:52-04:00
 draft: false
 ---
 
+Added in `v0.0.7`.
+
 Displays your current IP address information, from [IP-APIcom](http://ip-api.com).
 
 **Note:** IP-API.com has a free-plan rate limit of 120 requests per

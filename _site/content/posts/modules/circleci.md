@@ -8,7 +8,7 @@ Added in `v0.0.7`.
 
 Displays build information for your CircleCI account.
 
-<img src="/imgs/modules/circleci.png" width="640" height="156" alt="circleci screenshot" />
+<img src="/imgs/modules/circleci.png" width="609" height="150" alt="circleci screenshot" />
 
 ## Source Code
 

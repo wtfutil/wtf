@@ -17,7 +17,8 @@
       <pubDate>Sun, 10 Jun 2018 19:41:52 -0400</pubDate>
       
       <guid>https://wtfutil.com/posts/modules/ipapi/</guid>
-      <description>Displays your current IP address information, from IP-APIcom.
+      <description>Added in v0.0.7.
+Displays your current IP address information, from IP-APIcom.
 Note: IP-API.com has a free-plan rate limit of 120 requests per minute.
 Source Code wtf/ipapi/ Required ENV Variables None.
 Keyboard Commands None.
