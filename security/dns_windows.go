@@ -7,7 +7,7 @@ import (
 )
 
 
-func DnsServers() string {
+func DnsServers() []string {
 	cmd := exec.Command("powershell.exe", "Get-DnsClientServerAddress | Select-Object –ExpandProperty ServerAddresses")
-	return wtf.ExecuteCommand(cmd)
+	return []string{wtf.ExecuteCommand(cmd)}
 }
