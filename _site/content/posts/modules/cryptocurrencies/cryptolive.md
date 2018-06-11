@@ -1,5 +1,5 @@
 ---
-title: "Cryptolive"
+title: "CryptoLive"
 date: 2018-06-03T20:06:40-07:00
 draft: false
 ---
@@ -8,10 +8,12 @@ Added in `v0.0.5`.
 
 Compare crypto currencies using [CryptoCompare](https://cryptocompare.com).
 
+<img src="/imgs/modules/cryptolive.png" width="320" height="203" alt="cryptolive screenshot" />
+
 ## Source Code
 
 ```bash
-wtf/cryptocurrencies/cryptolive/
+wtf/cryptoexchanges/cryptolive/
 ```
 
 ## Required ENV Vars
@@ -52,7 +54,6 @@ cryptolive:
     left: 2
     height: 1
     width: 2
-  refreshInterval: 30
   updateInterval: 15
 ```
 

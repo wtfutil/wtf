@@ -13,7 +13,6 @@ import (
 // Config is a pointer to the global config object
 var Config *config.Config
 
-var started = false
 var baseURL = "https://min-api.cryptocompare.com/data/price"
 var ok = true
 
@@ -21,18 +20,13 @@ var ok = true
 type Widget struct {
 	wtf.TextWidget
 
-	// time interval for send http request
-	updateInterval int
-
 	*list
 }
 
 // NewWidget Make new instance of widget
 func NewWidget() *Widget {
-	started = false
 	widget := Widget{
-		TextWidget:     wtf.NewTextWidget(" CryptoLive ", "cryptolive", false),
-		updateInterval: Config.UInt("wtf.mods.cryptolive.updateInterval", 10),
+		TextWidget: wtf.NewTextWidget(" CryptoLive ", "cryptolive", false),
 	}
 
 	widget.setList()
@@ -40,42 +34,12 @@ func NewWidget() *Widget {
 	return &widget
 }
 
-func (widget *Widget) setList() {
-	currenciesMap, _ := Config.Map("wtf.mods.cryptolive.currencies")
-
-	widget.list = &list{}
-
-	for currency := range currenciesMap {
-		displayName, _ := Config.String("wtf.mods.cryptolive.currencies." + currency + ".displayName")
-		toList := getToList(currency)
-		widget.list.addItem(currency, displayName, toList)
-	}
-
-}
-
 /* -------------------- Exported Functions -------------------- */
 
 // Refresh & update after interval time
 func (widget *Widget) Refresh() {
-	if widget.Disabled() {
-		return
-	}
-
-	if started == false {
-		// this code should run once
-		go func() {
-			for {
-				widget.updateCurrencies()
-				time.Sleep(time.Duration(widget.updateInterval) * time.Second)
-			}
-		}()
-
-	}
-
-	started = true
-
+	widget.updateCurrencies()
 	widget.UpdateRefreshedAt()
-	widget.View.Clear()
 
 	if !ok {
 		widget.View.SetText(
@@ -83,12 +47,13 @@ func (widget *Widget) Refresh() {
 		)
 		return
 	}
-	display(widget)
+
+	widget.display()
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
-func display(widget *Widget) {
+func (widget *Widget) display() {
 	str := ""
 	var (
 		fromNameColor        = Config.UString("wtf.mods.cryptolive.colors.from.name", "coral")
@@ -122,6 +87,18 @@ func getToList(fromName string) []*toCurrency {
 	return toList
 }
 
+func (widget *Widget) setList() {
+	currenciesMap, _ := Config.Map("wtf.mods.cryptolive.currencies")
+
+	widget.list = &list{}
+
+	for currency := range currenciesMap {
+		displayName, _ := Config.String("wtf.mods.cryptolive.currencies." + currency + ".displayName")
+		toList := getToList(currency)
+		widget.list.addItem(currency, displayName, toList)
+	}
+}
+
 func (widget *Widget) updateCurrencies() {
 	defer func() {
 		recover()
@@ -153,7 +130,7 @@ func (widget *Widget) updateCurrencies() {
 		setPrices(&jsonResponse, fromCurrency)
 	}
 
-	display(widget)
+	widget.display()
 }
 
 func makeRequest(currency *fromCurrency) *http.Request {

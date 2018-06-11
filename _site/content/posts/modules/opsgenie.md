@@ -1,5 +1,5 @@
 ---
-title: "Modules: OpsGenie"
+title: "OpsGenie"
 date: 2018-05-08T20:53:40-07:00
 draft: false
 ---

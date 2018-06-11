@@ -11,14 +11,20 @@ import (
 	"github.com/radovskyb/watcher"
 	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/bamboohr"
+	"github.com/senorprogrammer/wtf/bargraph"
+	"github.com/senorprogrammer/wtf/cfg"
+	"github.com/senorprogrammer/wtf/circleci"
 	"github.com/senorprogrammer/wtf/clocks"
 	"github.com/senorprogrammer/wtf/cmdrunner"
+	"github.com/senorprogrammer/wtf/cryptoexchanges/bittrex"
 	"github.com/senorprogrammer/wtf/cryptoexchanges/cryptolive"
 	"github.com/senorprogrammer/wtf/gcal"
 	"github.com/senorprogrammer/wtf/git"
 	"github.com/senorprogrammer/wtf/github"
+	"github.com/senorprogrammer/wtf/gspreadsheets"
 	"github.com/senorprogrammer/wtf/help"
 	"github.com/senorprogrammer/wtf/ipinfo"
+	"github.com/senorprogrammer/wtf/ipapi"
 	"github.com/senorprogrammer/wtf/jira"
 	"github.com/senorprogrammer/wtf/newrelic"
 	"github.com/senorprogrammer/wtf/opsgenie"
@@ -120,6 +126,8 @@ func watchForConfigChanges(app *tview.Application, configFlag string, grid *tvie
 			select {
 			case <-watch.Event:
 				loadConfig(configFlag)
+				// Disable all widgets to stop scheduler goroutines and rmeove widgets from memory.
+				disableAllWidgets()
 				makeWidgets(app, pages)
 				grid = buildGrid(Widgets)
 				pages.AddPage("grid", grid, true, true)
@@ -154,17 +162,84 @@ var (
 	version = "dev"
 )
 
+func disableAllWidgets() {
+	for _, widget := range Widgets {
+		widget.Disable()
+	}
+}
+
+func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
+	// Always in alphabetical order
+	switch widgetName {
+	case "bamboohr":
+		Widgets = append(Widgets, bamboohr.NewWidget())
+	case "bargraph":
+		Widgets = append(Widgets, bargraph.NewWidget())
+	case "bittrex":
+		Widgets = append(Widgets, bittrex.NewWidget())
+	case "circleci":
+		Widgets = append(Widgets, circleci.NewWidget())
+	case "clocks":
+		Widgets = append(Widgets, clocks.NewWidget())
+	case "cmdrunner":
+		Widgets = append(Widgets, cmdrunner.NewWidget())
+	case "cryptolive":
+		Widgets = append(Widgets, cryptolive.NewWidget())
+	case "gcal":
+		Widgets = append(Widgets, gcal.NewWidget())
+	case "git":
+		Widgets = append(Widgets, git.NewWidget(app, pages))
+	case "github":
+		Widgets = append(Widgets, github.NewWidget(app, pages))
+	case "gspreadsheets":
+		Widgets = append(Widgets, gspreadsheets.NewWidget())
+	case "ipinfo":
+		Widgets = append(Widgets, ipinfo.NewWidget())
+	case "ipapi":
+		Widgets = append(Widgets, ipapi.NewWidget())
+	case "jira":
+		Widgets = append(Widgets, jira.NewWidget())
+	case "newrelic":
+		Widgets = append(Widgets, newrelic.NewWidget())
+	case "opsgenie":
+		Widgets = append(Widgets, opsgenie.NewWidget())
+	case "power":
+		Widgets = append(Widgets, power.NewWidget())
+	case "prettyweather":
+		Widgets = append(Widgets, prettyweather.NewWidget())
+	case "security":
+		Widgets = append(Widgets, security.NewWidget())
+	case "status":
+		Widgets = append(Widgets, status.NewWidget())
+	case "system":
+		Widgets = append(Widgets, system.NewWidget(date, version))
+	case "textfile":
+		Widgets = append(Widgets, textfile.NewWidget(app, pages))
+	case "todo":
+		Widgets = append(Widgets, todo.NewWidget(app, pages))
+	case "weather":
+		Widgets = append(Widgets, weather.NewWidget(app, pages))
+	default:
+	}
+}
+
 func makeWidgets(app *tview.Application, pages *tview.Pages) {
+	Widgets = []wtf.Wtfable{}
+
 	// Always in alphabetical order
 	bamboohr.Config = Config
+	bargraph.Config = Config
+	bittrex.Config = Config
+	circleci.Config = Config
 	clocks.Config = Config
 	cmdrunner.Config = Config
-	wtf.Config = Config
 	cryptolive.Config = Config
 	gcal.Config = Config
 	git.Config = Config
 	github.Config = Config
+	gspreadsheets.Config = Config
 	ipinfo.Config = Config
+	ipapi.Config = Config
 	jira.Config = Config
 	newrelic.Config = Config
 	opsgenie.Config = Config
@@ -178,27 +253,12 @@ func makeWidgets(app *tview.Application, pages *tview.Pages) {
 	weather.Config = Config
 	wtf.Config = Config
 
-	// Always in alphabetical order
-	Widgets = []wtf.Wtfable{
-		bamboohr.NewWidget(),
-		clocks.NewWidget(),
-		cmdrunner.NewWidget(),
-		cryptolive.NewWidget(),
-		gcal.NewWidget(),
-		git.NewWidget(app, pages),
-		github.NewWidget(app, pages),
-		ipinfo.NewWidget(),
-		jira.NewWidget(),
-		newrelic.NewWidget(),
-		opsgenie.NewWidget(),
-		power.NewWidget(),
-		prettyweather.NewWidget(),
-		security.NewWidget(),
-		status.NewWidget(),
-		system.NewWidget(date, version),
-		textfile.NewWidget(app, pages),
-		todo.NewWidget(app, pages),
-		weather.NewWidget(app, pages),
+	mods, _ := Config.Map("wtf.mods")
+	for mod := range mods {
+		if enabled, _ := Config.Bool("wtf.mods." + mod + ".enabled"); enabled {
+			addWidget(app, pages, mod)
+		}
+
 	}
 
 	FocusTracker = wtf.FocusTracker{
@@ -209,7 +269,7 @@ func makeWidgets(app *tview.Application, pages *tview.Pages) {
 }
 
 func loadConfig(configFlag string) {
-	Config = wtf.LoadConfigFile(configFlag)
+	Config = cfg.LoadConfigFile(configFlag)
 }
 
 func main() {
@@ -226,8 +286,8 @@ func main() {
 
 	// Responsible for creating the configuration directory and default
 	// configuration file if they don't already exist
-	wtf.CreateConfigDir()
-	wtf.WriteConfigFile()
+	cfg.CreateConfigDir()
+	cfg.WriteConfigFile()
 
 	loadConfig(cmdFlags.Config)
 	os.Setenv("TERM", Config.UString("wtf.term", os.Getenv("TERM")))
@@ -251,4 +311,6 @@ func main() {
 		fmt.Printf("An error occurred: %v\n", err)
 		os.Exit(1)
 	}
+
+	wtf.Log("running!")
 }

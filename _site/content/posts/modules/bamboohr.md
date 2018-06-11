@@ -1,5 +1,5 @@
 ---
-title: "Modules: Bamboohr"
+title: "BambooHR"
 date: 2018-05-07T20:17:37-07:00
 draft: false
 ---

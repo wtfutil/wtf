@@ -1,5 +1,5 @@
 ---
-title: "Modules: Todo"
+title: "Todo"
 date: 2018-05-10T12:41:50-07:00
 draft:  false
 ---

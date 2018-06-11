@@ -1,4 +1,4 @@
-package wtf
+package cfg
 
 import (
 	"fmt"
@@ -6,10 +6,11 @@ import (
 	"os"
 
 	"github.com/olebedev/config"
+	"github.com/senorprogrammer/wtf/wtf"
 )
 
 func ConfigDir() (string, error) {
-	configDir, err := ExpandHomeDir("~/.wtf/")
+	configDir, err := wtf.ExpandHomeDir("~/.wtf/")
 	if err != nil {
 		return "", err
 	}
@@ -59,7 +60,7 @@ func CreateFile(fileName string) (string, error) {
 
 // LoadConfigFile loads the config.yml file to configure the app
 func LoadConfigFile(filePath string) *config.Config {
-	absPath, _ := ExpandHomeDir(filePath)
+	absPath, _ := wtf.ExpandHomeDir(filePath)
 
 	cfg, err := config.ParseYamlFile(absPath)
 	if err != nil {
@@ -79,7 +80,7 @@ func ReadConfigFile(fileName string) (string, error) {
 
 	filePath := fmt.Sprintf("%s/%s", configDir, fileName)
 
-	fileData, err := ReadFileBytes(filePath)
+	fileData, err := wtf.ReadFileBytes(filePath)
 	if err != nil {
 		return "", err
 	}

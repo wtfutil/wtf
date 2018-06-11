@@ -1,0 +1,78 @@
+# Gopkg.toml example
+#
+# Refer to https://golang.github.io/dep/docs/Gopkg.toml.html
+# for detailed Gopkg.toml documentation.
+#
+# required = ["github.com/user/thing/cmd/thing"]
+# ignored = ["github.com/user/project/pkgX", "bitbucket.org/user/project/pkgA/pkgY"]
+#
+# [[constraint]]
+#   name = "github.com/user/project"
+#   version = "1.0.0"
+#
+# [[constraint]]
+#   name = "github.com/user/project2"
+#   branch = "dev"
+#   source = "github.com/myfork/project2"
+#
+# [[override]]
+#   name = "github.com/x/y"
+#   version = "2.4.0"
+#
+# [prune]
+#   non-go = false
+#   go-tests = true
+#   unused-packages = true
+
+
+[[constraint]]
+  name = "github.com/briandowns/openweathermap"
+  branch = "master"
+
+[[constraint]]
+  name = "github.com/gdamore/tcell"
+  version = "1.0.0"
+
+[[constraint]]
+  name = "github.com/go-test/deep"
+  version = "1.0.1"
+
+[[constraint]]
+  name = "github.com/google/go-github"
+  branch = "master"
+
+[[constraint]]
+  name = "github.com/jessevdk/go-flags"
+  version = "1.4.0"
+
+[[constraint]]
+  branch = "master"
+  name = "github.com/olebedev/config"
+
+[[constraint]]
+  name = "github.com/radovskyb/watcher"
+  version = "1.0.2"
+
+[[constraint]]
+  branch = "master"
+  name = "github.com/rivo/tview"
+
+[[constraint]]
+  branch = "master"
+  name = "github.com/yfronto/newrelic"
+
+[[constraint]]
+  branch = "master"
+  name = "golang.org/x/oauth2"
+
+[[constraint]]
+  branch = "master"
+  name = "google.golang.org/api"
+
+[[constraint]]
+  name = "gopkg.in/yaml.v2"
+  version = "2.2.1"
+
+[prune]
+  go-tests = true
+  unused-packages = true

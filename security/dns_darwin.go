@@ -42,7 +42,8 @@ func dnsLinux() []string {
 }
 
 func dnsMacOS() []string {
-	cmd := exec.Command("networksetup", "-getdnsservers", "Wi-Fi")
+	cmdString := `scutil --dns | head -n 7 | grep -o '[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}'`
+	cmd := exec.Command("sh", "-c", cmdString)
 	out := wtf.ExecuteCommand(cmd)
 
 	lines := strings.Split(out, "\n")

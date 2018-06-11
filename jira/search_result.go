@@ -1,7 +1,5 @@
 package jira
 
-import ()
-
 type SearchResult struct {
 	StartAt    int     `json:"startAt"`
 	MaxResults int     `json:"maxResults"`

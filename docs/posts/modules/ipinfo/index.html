@@ -10,8 +10,8 @@
 
 <meta name="generator" content="Hugo 0.38.2" />
 
-<title>Module: IPInfo | WTF - A Terminal Dashboard</title>
-<meta content="Module: IPInfo - WTF - A Terminal Dashboard" property="og:title">
+<title>IPInfo | WTF - A Terminal Dashboard</title>
+<meta content="IPInfo - WTF - A Terminal Dashboard" property="og:title">
 <meta content=" - " property="og:description">
 <!-- CSS -->
 <link rel="stylesheet" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
@@ -64,18 +64,22 @@
       <ul style="list-style-type: none;">
         <li class="sidebar-list-item-1"><a href="/posts/modules/">Modules</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/bamboohr/">BambooHR</a></li>
+        <li class="sidebar-list-item-2"><a href="/posts/modules/cryptocurrencies/bittrex/">Bittrex</a></li>
+        <li class="sidebar-list-item-2"><a href="/posts/modules/circleci/">CircleCI</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/clocks/">Clocks</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/cryptocurrencies/cryptolive/">CryptoLive</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/cmdrunner/">CmdRunner</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/git/">Git</a></li>
-        <li class="sidebar-list-item-2"><a href="/posts/modules/github/">Github</a></li>
+        <li class="sidebar-list-item-2"><a href="/posts/modules/github/">GitHub</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/gcal/">Google Calendar</a></li>
+        <li class="sidebar-list-item-2"><a href="/posts/modules/gspreadsheet">Google Spreadsheet</a></li>
+        <li class="sidebar-list-item-2"><a href="/posts/modules/ipapi/">IP-API</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/ipinfo/">IPInfo</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/jira/">Jira</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/newrelic/">New Relic</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/opsgenie/">OpsGenie</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/power/">Power</a></li>
-        <li class="sidebar-list-item-2"><a href="/posts/modules/prettyweather/">PrettyWeather <span title="experimental">🔬</span></a></li>
+        <li class="sidebar-list-item-2"><a href="/posts/modules/prettyweather/">PrettyWeather</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/security/">Security</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/textfile/">Text File</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/todo/">Todo</a></li>
@@ -94,7 +98,7 @@
 
         <div class="content container">
             <div class="post">
-  <h1>Module: IPInfo</h1>
+  <h1>IPInfo</h1>
   
   <div class="col-sm-12 col-md-12">
     <span class="text-left post-date meta">
@@ -113,6 +117,8 @@
   
 
 <p>Displays your current IP address information, from ipinfo.io.</p>
+
+<p><strong>Note:</strong> IPInfo.io has a free-plan rate limit of 1000 requests per day.</p>
 
 <p><img src="/imgs/modules/ipinfo.png" width="320" height="199" alt="ipinfo screenshot" /></p>
 
@@ -137,7 +143,7 @@
 </span><span class="w">    </span>left<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
 </span><span class="w">    </span>height<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
 </span><span class="w">    </span>width<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="w">  </span>refreshInterval<span class="p">:</span><span class="w"> </span><span class="m">15</span></code></pre></div>
+</span><span class="w">  </span>refreshInterval<span class="p">:</span><span class="w"> </span><span class="m">150</span></code></pre></div>
 <h3 id="attributes">Attributes</h3>
 
 <p><code>colors.name</code> <br />
