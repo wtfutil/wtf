@@ -196,7 +196,7 @@ func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
 		Widgets = append(Widgets, gspreadsheets.NewWidget())
 	case "ipinfo":
 		Widgets = append(Widgets, ipinfo.NewWidget())
-  case "ipapi":
+  	case "ipapi":
 		Widgets = append(Widgets, ipapi.NewWidget())
 	case "jenkins":
 		Widgets = append(Widgets, jenkins.NewWidget())
@@ -243,7 +243,7 @@ func makeWidgets(app *tview.Application, pages *tview.Pages) {
 	gspreadsheets.Config = Config
 	ipinfo.Config = Config
 	ipapi.Config = Config
-  jenkins.Config = Config
+  	jenkins.Config = Config
 	jira.Config = Config
 	newrelic.Config = Config
 	opsgenie.Config = Config
