@@ -12,12 +12,12 @@ import (
 	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/bamboohr"
 	"github.com/senorprogrammer/wtf/bargraph"
-	"github.com/senorprogrammer/wtf/blockfolio"
 	"github.com/senorprogrammer/wtf/cfg"
 	"github.com/senorprogrammer/wtf/circleci"
 	"github.com/senorprogrammer/wtf/clocks"
 	"github.com/senorprogrammer/wtf/cmdrunner"
 	"github.com/senorprogrammer/wtf/cryptoexchanges/bittrex"
+	"github.com/senorprogrammer/wtf/cryptoexchanges/blockfolio"
 	"github.com/senorprogrammer/wtf/cryptoexchanges/cryptolive"
 	"github.com/senorprogrammer/wtf/gcal"
 	"github.com/senorprogrammer/wtf/git"
@@ -27,7 +27,7 @@ import (
 	"github.com/senorprogrammer/wtf/help"
 	"github.com/senorprogrammer/wtf/ipapi"
 	"github.com/senorprogrammer/wtf/ipinfo"
-  "github.com/senorprogrammer/wtf/jenkins"
+	"github.com/senorprogrammer/wtf/jenkins"
 	"github.com/senorprogrammer/wtf/jira"
 	"github.com/senorprogrammer/wtf/newrelic"
 	"github.com/senorprogrammer/wtf/opsgenie"
@@ -197,8 +197,8 @@ func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
 	case "gitlab":
 		Widgets = append(Widgets, gitlab.NewWidget(app, pages))
 	case "gspreadsheets":
-    Widgets = append(Widgets, gspreadsheets.NewWidget())
-  case "ipapi":
+		Widgets = append(Widgets, gspreadsheets.NewWidget())
+	case "ipapi":
 		Widgets = append(Widgets, ipapi.NewWidget())
 	case "ipinfo":
 		Widgets = append(Widgets, ipinfo.NewWidget())
@@ -250,7 +250,7 @@ func makeWidgets(app *tview.Application, pages *tview.Pages) {
 	gspreadsheets.Config = Config
 	ipapi.Config = Config
 	ipinfo.Config = Config
-  jenkins.Config = Config
+	jenkins.Config = Config
 	jira.Config = Config
 	newrelic.Config = Config
 	opsgenie.Config = Config
