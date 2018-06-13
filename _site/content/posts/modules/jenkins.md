@@ -4,9 +4,12 @@ date: 2018-06-09T20:53:35-07:00
 draft: false
 ---
 
+Added in `v0.0.8`.
+
 Displays jenkins status of given builds in a project or view
 
-<img src="/imgs/modules/jenkins.png" alt="jenkins screenshot" />
+<img src="/imgs/modules/jenkins.png" alt="jenkins screenshot",
+width="320" height="68" alt="jenkins screenshot" />
 
 ## Source Code
 
@@ -27,8 +30,6 @@ None.
 
 ```yaml
 jenkins:
-  user: "username"
-  url: "https://jenkins.domain.com/jenkins/view_url"
   enabled: true
   position:
     top: 2
@@ -36,9 +37,22 @@ jenkins:
     height: 2
     width: 3
   refreshInterval: 300
+  url: "https://jenkins.domain.com/jenkins/view_url"
+  user: "username"
 ```
 
 ### Attributes
+
+`enabled` <br />
+Determines whether or not this module is executed and if its data displayed onscreen. <br />
+Values: `true`, `false`.
+
+`position` <br />
+Defines where in the grid this module's widget will be displayed.
+
+`refreshInterval` <br />
+How often, in seconds, this module will update its data. <br />
+Values: A positive integer, `0..n`.
 
 `user` <br />
 Your Jenkins username. <br />
@@ -47,6 +61,3 @@ Your Jenkins username. <br />
 The url to your Jenkins project or view. <br />
 Values: A valid URI.
 
-`refreshInterval` <br />
-How often, in seconds, this module will update its data. <br />
-Values: A positive integer, `0..n`.

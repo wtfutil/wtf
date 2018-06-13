@@ -57,6 +57,21 @@ position Where in the grid this module&amp;rsquo;s widget will be displayed.</de
     </item>
     
     <item>
+      <title>Modules: Jenkins</title>
+      <link>https://wtfutil.com/posts/modules/jenkins/</link>
+      <pubDate>Sat, 09 Jun 2018 20:53:35 -0700</pubDate>
+      
+      <guid>https://wtfutil.com/posts/modules/jenkins/</guid>
+      <description>Added in v0.0.8.
+Displays jenkins status of given builds in a project or view
+Source Code wtf/jenkins/ Required ENV Variables Key: WTF_JENKINS_API_KEY Value: Your Jenkins API key.
+Keyboard Commands None.
+Configuration jenkins:enabled:trueposition:top:2left:3height:2width:3refreshInterval:300url:&amp;#34;https://jenkins.domain.com/jenkins/view_url&amp;#34;user:&amp;#34;username&amp;#34; Attributes enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.
+position Defines where in the grid this module&amp;rsquo;s widget will be displayed.
+refreshInterval How often, in seconds, this module will update its data.</description>
+    </item>
+    
+    <item>
       <title>Gitlab</title>
       <link>https://wtfutil.com/posts/modules/gitlab/</link>
       <pubDate>Fri, 08 Jun 2018 13:14:11 -0700</pubDate>
