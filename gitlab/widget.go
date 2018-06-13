@@ -66,10 +66,6 @@ func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	if widget.Disabled() {
-		return
-	}
-
 	for _, project := range widget.GitlabProjects {
 		project.Refresh()
 	}
