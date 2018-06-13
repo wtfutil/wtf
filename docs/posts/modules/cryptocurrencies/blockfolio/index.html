@@ -10,8 +10,8 @@
 
 <meta name="generator" content="Hugo 0.38.2" />
 
-<title>Clocks | WTF - A Terminal Dashboard</title>
-<meta content="Clocks - WTF - A Terminal Dashboard" property="og:title">
+<title>Blockfolio | WTF - A Terminal Dashboard</title>
+<meta content="Blockfolio - WTF - A Terminal Dashboard" property="og:title">
 <meta content=" - " property="og:description">
 <!-- CSS -->
 <link rel="stylesheet" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
@@ -101,13 +101,13 @@
 
         <div class="content container">
             <div class="post">
-  <h1>Clocks</h1>
+  <h1>Blockfolio</h1>
   
   <div class="col-sm-12 col-md-12">
     <span class="text-left post-date meta">
       
       
-        May 07, 2018
+        Jun 13, 2018
       
       
       
@@ -119,12 +119,14 @@
   
   
 
-<p>Displays a configurable list of world clocks, the local time, and date.</p>
+<p>Added in <code>v0.0.8</code>.</p>
 
-<p><img src="/imgs/modules/clocks.png" width="320" height="191" alt="clocks screenshot" /></p>
+<p>Display your Blockfolio crypto holdings.</p>
 
-<h2 id="source-code">Source Code</h2>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">wtf/clocks/</code></pre></div>
+<p><img src="/imgs/modules/blockfolio.png" width="320" height="185" alt="blockfolio screenshot" /></p>
+
+<h2 id="source">Source</h2>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">wtf/blockfolio/</code></pre></div>
 <h2 id="required-env-variables">Required ENV Variables</h2>
 
 <p>None.</p>
@@ -134,62 +136,50 @@
 <p>None.</p>
 
 <h2 id="configuration">Configuration</h2>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">clocks<span class="p">:</span><span class="w">
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">blockfolio<span class="p">:</span><span class="w">
 </span><span class="w">  </span>colors<span class="p">:</span><span class="w">
-</span><span class="w">    </span>rows<span class="p">:</span><span class="w">
-</span><span class="w">      </span>even<span class="p">:</span><span class="w"> </span><span class="s2">&#34;lightblue&#34;</span><span class="w">
-</span><span class="w">      </span>odd<span class="p">:</span><span class="w"> </span><span class="s2">&#34;white&#34;</span><span class="w">
+</span><span class="w">    </span>name<span class="p">:</span><span class="w"> </span>blue<span class="w">
+</span><span class="w">    </span>grows<span class="p">:</span><span class="w"> </span>green<span class="w">
+</span><span class="w">    </span>drop<span class="p">:</span><span class="w"> </span>red<span class="w">
+</span><span class="w">  </span>device_token<span class="p">:</span><span class="w"> </span><span class="s2">&#34;device token&#34;</span><span class="w">
+</span><span class="w">  </span>displayHoldings<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span><span class="w">  </span>enabled<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="w">  </span>locations<span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="c"># From https://en.wikipedia.org/wiki/List_of_tz_database_time_zones</span><span class="w">
-</span><span class="w">    </span>Avignon<span class="p">:</span><span class="w"> </span><span class="s2">&#34;Europe/Paris&#34;</span><span class="w">
-</span><span class="w">    </span>Barcelona<span class="p">:</span><span class="w"> </span><span class="s2">&#34;Europe/Madrid&#34;</span><span class="w">
-</span><span class="w">    </span>Dubai<span class="p">:</span><span class="w"> </span><span class="s2">&#34;Asia/Dubai&#34;</span><span class="w">
-</span><span class="w">    </span>UTC<span class="p">:</span><span class="w"> </span><span class="s2">&#34;Etc/UTC&#34;</span><span class="w">
-</span><span class="w">    </span>Vancouver<span class="p">:</span><span class="w"> </span><span class="s2">&#34;America/Vancouver&#34;</span><span class="w">
-</span><span class="w">    </span>Toronto<span class="p">:</span><span class="w"> </span><span class="s2">&#34;America/Toronto&#34;</span><span class="w">
 </span><span class="w">  </span>position<span class="p">:</span><span class="w">
-</span><span class="w">    </span>top<span class="p">:</span><span class="w"> </span><span class="m">4</span><span class="w">
-</span><span class="w">    </span>left<span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
-</span><span class="w">    </span>height<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">    </span>top<span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
+</span><span class="w">    </span>left<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
 </span><span class="w">    </span>width<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="w">  </span>refreshInterval<span class="p">:</span><span class="w"> </span><span class="m">15</span><span class="w">
-</span><span class="w">  </span><span class="c"># Valid options are: alphabetical, chronological</span><span class="w">
-</span><span class="w">  </span>sort<span class="p">:</span><span class="w"> </span><span class="s2">&#34;alphabetical&#34;</span></code></pre></div>
+</span><span class="w">    </span>height<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">  </span>refreshInterval<span class="p">:</span><span class="w"> </span><span class="m">400</span></code></pre></div>
 <h3 id="attributes">Attributes</h3>
 
-<p><code>colors.rows.even</code> <br />
-The foreground color for even-numbered rows. <br />
+<p><code>colors.name</code> <br />
 Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11
 color name</a>.</p>
 
-<p><code>colors.rows.odd</code> <br />
-The foreground color for the odd-numbered rows. <br />
+<p><code>colors.grows</code> <br />
 Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11
 color name</a>.</p>
+
+<p><code>colors.drop</code> <br />
+Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11
+color name</a>.</p>
+
+<p><code>device_token</code> <br />
+Value: See <a href="https://github.com/bob6664569/blockfolio-api-client">this gist</a> for
+details on how to get your Blockfolio API token.</p>
+
+<p><code>displayHoldings</code> <br /></p>
 
 <p><code>enabled</code> <br />
 Determines whether or not this module is executed and if its data displayed onscreen. <br />
 Values: <code>true</code>, <code>false</code>.</p>
 
-<p><code>locations</code> <br />
-Defines the timezones for the world clocks that you want to display.
-<code>key</code> is a unique label that will be displayed in the UI. <code>value</code> is a
-timezone name. <br />
-Values: Any <a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones">TZ database timezone</a>.</p>
-
 <p><code>position</code> <br />
-Defines where in the grid this module&rsquo;s widget will be displayed.</p>
+Defines where in the grid this module&rsquo;s widget will be displayed. <br /></p>
 
 <p><code>refreshInterval</code> <br />
 How often, in seconds, this module will update its data. <br />
 Values: A positive integer, <code>0..n</code>.</p>
-
-<p><code>sort</code> <br />
-Defines the display order of the clocks in the widget. <br />
-Values: <code>alphabetical</code> or <code>chronological</code>. <code>alphabetical</code> will sort in
-acending order by <code>key</code>, <code>chronological</code> will sort in ascending order by
-date/time.</p>
 
 </div>
 

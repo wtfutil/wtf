@@ -16,7 +16,7 @@ Get the last 24 hour summary of cryptocurrencies market using [Bittrex](https://
 wtf/cryptoexchanges/bittrex/
 ```
 
-## Required ENV Vars
+## Required ENV Variables
 
 None.
 
