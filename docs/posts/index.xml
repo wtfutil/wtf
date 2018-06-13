@@ -57,6 +57,21 @@ position Where in the grid this module&amp;rsquo;s widget will be displayed.</de
     </item>
     
     <item>
+      <title>Gitlab</title>
+      <link>https://wtfutil.com/posts/modules/gitlab/</link>
+      <pubDate>Fri, 08 Jun 2018 13:14:11 -0700</pubDate>
+      
+      <guid>https://wtfutil.com/posts/modules/gitlab/</guid>
+      <description>Displays information about your projects hosted on Gitlab:
+Open Approval Requests All open merge requests that are requesting your approval.
+Open Merge Requests All open merge requests created by you.
+Source Code wtf/gitlab/ Required ENV Variables Key: WTF_GITLAB_TOKEN Action: A Gitlab personal access token. Requires at least api access.
+Keyboard Commands Key: / Action: Open/close the widget&amp;rsquo;s help window.
+Key: h Action: Show the previous project.
+Key: l Action: Show the next project.</description>
+    </item>
+    
+    <item>
       <title>Bittrex</title>
       <link>https://wtfutil.com/posts/modules/cryptocurrencies/bittrex/</link>
       <pubDate>Mon, 04 Jun 2018 20:06:40 -0700</pubDate>
