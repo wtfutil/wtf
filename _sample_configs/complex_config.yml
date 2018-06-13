@@ -218,3 +218,17 @@ wtf:
         width: 1
       refreshInterval: 90
       tempUnit: "C"
+    blockfolio:
+      enabled: true
+      displayHoldings: true
+      refreshInterval: 400
+      device_token: "device token here, you can find how to get it here https://github.com/bob6664569/blockfolio-api-client"
+      colors: 
+        name: blue
+        grows: green
+        drop: red
+      position:
+        top: 3
+        left: 1
+        width: 1
+        height: 1

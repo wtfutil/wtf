@@ -8,7 +8,7 @@ import (
 	"github.com/senorprogrammer/wtf/github"
 	"github.com/senorprogrammer/wtf/textfile"
 	"github.com/senorprogrammer/wtf/todo"
-	"github.com/senorprogrammer/wtf/weather"
+	"github.com/senorprogrammer/wtf/weatherservices/weather"
 )
 
 func DisplayModuleInfo(moduleName string) {

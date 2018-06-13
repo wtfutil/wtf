@@ -6,10 +6,27 @@
     <description>Recent content on WTF - A Terminal Dashboard</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 10 Jun 2018 19:41:52 -0400</lastBuildDate>
+    <lastBuildDate>Wed, 13 Jun 2018 09:29:59 -0700</lastBuildDate>
     
 	<atom:link href="https://wtfutil.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Blockfolio</title>
+      <link>https://wtfutil.com/posts/modules/cryptocurrencies/blockfolio/</link>
+      <pubDate>Wed, 13 Jun 2018 09:29:59 -0700</pubDate>
+      
+      <guid>https://wtfutil.com/posts/modules/cryptocurrencies/blockfolio/</guid>
+      <description>Added in v0.0.8.
+Display your Blockfolio crypto holdings.
+Source wtf/blockfolio/ Required ENV Variables None.
+Keyboard Commands None.
+Configuration blockfolio:colors:name:bluegrows:greendrop:reddevice_token:&amp;#34;device token&amp;#34;displayHoldings:trueenabled:trueposition:top:3left:1width:1height:1refreshInterval:400 Attributes colors.name Values: Any X11 color name.
+colors.grows Values: Any X11 color name.
+colors.drop Values: Any X11 color name.
+device_token Value: See this gist for details on how to get your Blockfolio API token.
+displayHoldings enabled Determines whether or not this module is executed and if its data displayed onscreen.</description>
+    </item>
     
     <item>
       <title>IP-API</title>
@@ -57,6 +74,36 @@ position Where in the grid this module&amp;rsquo;s widget will be displayed.</de
     </item>
     
     <item>
+      <title>Modules: Jenkins</title>
+      <link>https://wtfutil.com/posts/modules/jenkins/</link>
+      <pubDate>Sat, 09 Jun 2018 20:53:35 -0700</pubDate>
+      
+      <guid>https://wtfutil.com/posts/modules/jenkins/</guid>
+      <description>Added in v0.0.8.
+Displays jenkins status of given builds in a project or view
+Source Code wtf/jenkins/ Required ENV Variables Key: WTF_JENKINS_API_KEY Value: Your Jenkins API key.
+Keyboard Commands None.
+Configuration jenkins:enabled:trueposition:top:2left:3height:2width:3refreshInterval:300url:&amp;#34;https://jenkins.domain.com/jenkins/view_url&amp;#34;user:&amp;#34;username&amp;#34; Attributes enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.
+position Defines where in the grid this module&amp;rsquo;s widget will be displayed.
+refreshInterval How often, in seconds, this module will update its data.</description>
+    </item>
+    
+    <item>
+      <title>Gitlab</title>
+      <link>https://wtfutil.com/posts/modules/gitlab/</link>
+      <pubDate>Fri, 08 Jun 2018 13:14:11 -0700</pubDate>
+      
+      <guid>https://wtfutil.com/posts/modules/gitlab/</guid>
+      <description>Added in v0.0.8.
+Displays information about your projects hosted on Gitlab:
+Open Approval Requests All open merge requests that are requesting your approval.
+Open Merge Requests All open merge requests created by you.
+Source Code wtf/gitlab/ Required ENV Variables Key: WTF_GITLAB_TOKEN Action: A Gitlab personal access token. Requires at least api access.
+Keyboard Commands Key: / Action: Open/close the widget&amp;rsquo;s help window.
+Key: h Action: Show the previous project.</description>
+    </item>
+    
+    <item>
       <title>Bittrex</title>
       <link>https://wtfutil.com/posts/modules/cryptocurrencies/bittrex/</link>
       <pubDate>Mon, 04 Jun 2018 20:06:40 -0700</pubDate>
@@ -64,7 +111,7 @@ position Where in the grid this module&amp;rsquo;s widget will be displayed.</de
       <guid>https://wtfutil.com/posts/modules/cryptocurrencies/bittrex/</guid>
       <description>Added in v0.0.5.
 Get the last 24 hour summary of cryptocurrencies market using Bittrex.
-Source Code wtf/cryptoexchanges/bittrex/ Required ENV Vars None.
+Source Code wtf/cryptoexchanges/bittrex/ Required ENV Variables None.
 Keyboard Commands None.
 Configuration bittrex:enabled:trueposition:top:1left:2height:3width:1refreshInterval:5summary:BTC:displayName:Bitcoinmarket:-LTC-ETHcolors:base:name:orangedisplayName:redmarket:name:redfield:whitevalue:green Attributes colors.base.name Values: Any X11 color name.
 colors.base.dispayName Values: Any X11 color name.

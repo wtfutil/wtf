@@ -17,25 +17,28 @@ import (
 	"github.com/senorprogrammer/wtf/clocks"
 	"github.com/senorprogrammer/wtf/cmdrunner"
 	"github.com/senorprogrammer/wtf/cryptoexchanges/bittrex"
+	"github.com/senorprogrammer/wtf/cryptoexchanges/blockfolio"
 	"github.com/senorprogrammer/wtf/cryptoexchanges/cryptolive"
 	"github.com/senorprogrammer/wtf/gcal"
 	"github.com/senorprogrammer/wtf/git"
 	"github.com/senorprogrammer/wtf/github"
+	"github.com/senorprogrammer/wtf/gitlab"
 	"github.com/senorprogrammer/wtf/gspreadsheets"
 	"github.com/senorprogrammer/wtf/help"
-	"github.com/senorprogrammer/wtf/ipinfo"
-	"github.com/senorprogrammer/wtf/ipapi"
+	"github.com/senorprogrammer/wtf/ipaddresses/ipapi"
+	"github.com/senorprogrammer/wtf/ipaddresses/ipinfo"
+	"github.com/senorprogrammer/wtf/jenkins"
 	"github.com/senorprogrammer/wtf/jira"
 	"github.com/senorprogrammer/wtf/newrelic"
 	"github.com/senorprogrammer/wtf/opsgenie"
 	"github.com/senorprogrammer/wtf/power"
-	"github.com/senorprogrammer/wtf/prettyweather"
 	"github.com/senorprogrammer/wtf/security"
 	"github.com/senorprogrammer/wtf/status"
 	"github.com/senorprogrammer/wtf/system"
 	"github.com/senorprogrammer/wtf/textfile"
 	"github.com/senorprogrammer/wtf/todo"
-	"github.com/senorprogrammer/wtf/weather"
+	"github.com/senorprogrammer/wtf/weatherservices/prettyweather"
+	"github.com/senorprogrammer/wtf/weatherservices/weather"
 	"github.com/senorprogrammer/wtf/wtf"
 )
 
@@ -191,12 +194,16 @@ func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
 		Widgets = append(Widgets, git.NewWidget(app, pages))
 	case "github":
 		Widgets = append(Widgets, github.NewWidget(app, pages))
+	case "gitlab":
+		Widgets = append(Widgets, gitlab.NewWidget(app, pages))
 	case "gspreadsheets":
 		Widgets = append(Widgets, gspreadsheets.NewWidget())
-	case "ipinfo":
-		Widgets = append(Widgets, ipinfo.NewWidget())
 	case "ipapi":
 		Widgets = append(Widgets, ipapi.NewWidget())
+	case "ipinfo":
+		Widgets = append(Widgets, ipinfo.NewWidget())
+	case "jenkins":
+		Widgets = append(Widgets, jenkins.NewWidget())
 	case "jira":
 		Widgets = append(Widgets, jira.NewWidget())
 	case "newrelic":
@@ -219,6 +226,8 @@ func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
 		Widgets = append(Widgets, todo.NewWidget(app, pages))
 	case "weather":
 		Widgets = append(Widgets, weather.NewWidget(app, pages))
+	case "blockfolio":
+		Widgets = append(Widgets, blockfolio.NewWidget(app, pages))
 	default:
 	}
 }
@@ -237,9 +246,11 @@ func makeWidgets(app *tview.Application, pages *tview.Pages) {
 	gcal.Config = Config
 	git.Config = Config
 	github.Config = Config
+	gitlab.Config = Config
 	gspreadsheets.Config = Config
-	ipinfo.Config = Config
 	ipapi.Config = Config
+	ipinfo.Config = Config
+	jenkins.Config = Config
 	jira.Config = Config
 	newrelic.Config = Config
 	opsgenie.Config = Config
@@ -251,11 +262,12 @@ func makeWidgets(app *tview.Application, pages *tview.Pages) {
 	textfile.Config = Config
 	todo.Config = Config
 	weather.Config = Config
+	blockfolio.Config = Config
 	wtf.Config = Config
 
 	mods, _ := Config.Map("wtf.mods")
 	for mod := range mods {
-		if enabled, _ := Config.Bool("wtf.mods." + mod + ".enabled"); enabled {
+		if enabled := Config.UBool("wtf.mods."+mod+".enabled", false); enabled {
 			addWidget(app, pages, mod)
 		}
 
