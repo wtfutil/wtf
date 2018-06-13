@@ -21,15 +21,11 @@ import (
 	"github.com/senorprogrammer/wtf/gcal"
 	"github.com/senorprogrammer/wtf/git"
 	"github.com/senorprogrammer/wtf/github"
-<<<<<<< HEAD
-=======
 	"github.com/senorprogrammer/wtf/gitlab"
->>>>>>> dlom-gitlab
 	"github.com/senorprogrammer/wtf/gspreadsheets"
 	"github.com/senorprogrammer/wtf/help"
 	"github.com/senorprogrammer/wtf/ipapi"
 	"github.com/senorprogrammer/wtf/ipinfo"
-	"github.com/senorprogrammer/wtf/ipapi"
 	"github.com/senorprogrammer/wtf/jira"
 	"github.com/senorprogrammer/wtf/newrelic"
 	"github.com/senorprogrammer/wtf/opsgenie"
@@ -196,17 +192,10 @@ func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
 		Widgets = append(Widgets, git.NewWidget(app, pages))
 	case "github":
 		Widgets = append(Widgets, github.NewWidget(app, pages))
-<<<<<<< HEAD
-	case "gspreadsheets":
-		Widgets = append(Widgets, gspreadsheets.NewWidget())
-=======
 	case "gitlab":
 		Widgets = append(Widgets, gitlab.NewWidget(app, pages))
 	case "gspreadsheets":
 		Widgets = append(Widgets, gspreadsheets.NewWidget())
-	case "ipapi":
-		Widgets = append(Widgets, ipapi.NewWidget())
->>>>>>> dlom-gitlab
 	case "ipinfo":
 		Widgets = append(Widgets, ipinfo.NewWidget())
 	case "ipapi":
@@ -251,15 +240,10 @@ func makeWidgets(app *tview.Application, pages *tview.Pages) {
 	gcal.Config = Config
 	git.Config = Config
 	github.Config = Config
-<<<<<<< HEAD
-	gspreadsheets.Config = Config
-=======
 	gitlab.Config = Config
 	gspreadsheets.Config = Config
 	ipapi.Config = Config
->>>>>>> dlom-gitlab
 	ipinfo.Config = Config
-	ipapi.Config = Config
 	jira.Config = Config
 	newrelic.Config = Config
 	opsgenie.Config = Config
@@ -275,7 +259,7 @@ func makeWidgets(app *tview.Application, pages *tview.Pages) {
 
 	mods, _ := Config.Map("wtf.mods")
 	for mod := range mods {
-		if enabled, _ := Config.Bool("wtf.mods." + mod + ".enabled"); enabled {
+		if enabled := Config.UBool("wtf.mods."+mod+".enabled", false); enabled {
 			addWidget(app, pages, mod)
 		}
 
