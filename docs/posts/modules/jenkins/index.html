@@ -10,8 +10,8 @@
 
 <meta name="generator" content="Hugo 0.38.2" />
 
-<title>Gitlab | WTF - A Terminal Dashboard</title>
-<meta content="Gitlab - WTF - A Terminal Dashboard" property="og:title">
+<title>Modules: Jenkins | WTF - A Terminal Dashboard</title>
+<meta content="Modules: Jenkins - WTF - A Terminal Dashboard" property="og:title">
 <meta content=" - " property="og:description">
 <!-- CSS -->
 <link rel="stylesheet" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
@@ -100,13 +100,13 @@
 
         <div class="content container">
             <div class="post">
-  <h1>Gitlab</h1>
+  <h1>Modules: Jenkins</h1>
   
   <div class="col-sm-12 col-md-12">
     <span class="text-left post-date meta">
       
       
-        Jun 08, 2018
+        Jun 09, 2018
       
       
       
@@ -120,55 +120,33 @@
 
 <p>Added in <code>v0.0.8</code>.</p>
 
-<p><img src="/imgs/modules/gitlab.png" width="640" height="384" alt="gitlab screenshot" /></p>
+<p>Displays jenkins status of given builds in a project or view</p>
 
-<p>Displays information about your projects hosted on Gitlab:</p>
-
-<h4 id="open-approval-requests">Open Approval Requests</h4>
-
-<p>All open merge requests that are requesting your approval.</p>
-
-<h4 id="open-merge-requests">Open Merge Requests</h4>
-
-<p>All open merge requests created by you.</p>
+<p><img src="/imgs/modules/jenkins.png" alt="jenkins screenshot",
+width="320" height="68" alt="jenkins screenshot" /></p>
 
 <h2 id="source-code">Source Code</h2>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">wtf/gitlab/</code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">wtf/jenkins/</code></pre></div>
 <h2 id="required-env-variables">Required ENV Variables</h2>
 
-<p><span class="caption">Key:</span> <code>WTF_GITLAB_TOKEN</code> <br />
-<span class="caption">Action:</span> A <a href="https://docs.gitlab.com/ce/user/profile/personal_access_tokens.html">Gitlab personal access token</a>. Requires at least <code>api</code> access.</p>
+<p><span class="caption">Key:</span> <code>WTF_JENKINS_API_KEY</code> <br />
+<span class="caption">Value:</span> Your <a href="https://wiki.jenkins.io/display/JENKINS/Remote+access+API">Jenkins API</a> key.</p>
 
 <h2 id="keyboard-commands">Keyboard Commands</h2>
 
-<p><span class="caption">Key:</span> <code>/</code> <br />
-<span class="caption">Action:</span> Open/close the widget&rsquo;s help window.</p>
-
-<p><span class="caption">Key:</span> <code>h</code> <br />
-<span class="caption">Action:</span> Show the previous project.</p>
-
-<p><span class="caption">Key:</span> <code>l</code> <br />
-<span class="caption">Action:</span> Show the next project.</p>
-
-<p><span class="caption">Key:</span> <code>←</code> <br />
-<span class="caption">Action:</span> Show the previous project.</p>
-
-<p><span class="caption">Key:</span> <code>→</code> <br />
-<span class="caption">Action:</span> Show the next project.</p>
+<p>None.</p>
 
 <h2 id="configuration">Configuration</h2>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">gitlab<span class="p">:</span><span class="w">
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">jenkins<span class="p">:</span><span class="w">
 </span><span class="w">  </span>enabled<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span><span class="w">  </span>position<span class="p">:</span><span class="w">
 </span><span class="w">    </span>top<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
 </span><span class="w">    </span>left<span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
 </span><span class="w">    </span>height<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
-</span><span class="w">    </span>width<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span><span class="w">    </span>width<span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
 </span><span class="w">  </span>refreshInterval<span class="p">:</span><span class="w"> </span><span class="m">300</span><span class="w">
-</span><span class="w">  </span>projects<span class="p">:</span><span class="w">
-</span><span class="w">    </span>tasks<span class="p">:</span><span class="w"> </span><span class="s2">&#34;gitlab-org/release&#34;</span><span class="w">
-</span><span class="w">    </span>gitlab-ce<span class="p">:</span><span class="w"> </span><span class="s2">&#34;gitlab-org&#34;</span><span class="w">
-</span><span class="w">  </span>username<span class="p">:</span><span class="w"> </span><span class="s2">&#34;senorprogrammer&#34;</span></code></pre></div>
+</span><span class="w">  </span>url<span class="p">:</span><span class="w"> </span><span class="s2">&#34;https://jenkins.domain.com/jenkins/view_url&#34;</span><span class="w">
+</span><span class="w">  </span>user<span class="p">:</span><span class="w"> </span><span class="s2">&#34;username&#34;</span></code></pre></div>
 <h3 id="attributes">Attributes</h3>
 
 <p><code>enabled</code> <br />
@@ -176,24 +154,18 @@ Determines whether or not this module is executed and if its data displayed onsc
 Values: <code>true</code>, <code>false</code>.</p>
 
 <p><code>position</code> <br />
-Defines where in the grid this module&rsquo;s widget will be displayed. <br /></p>
+Defines where in the grid this module&rsquo;s widget will be displayed.</p>
 
 <p><code>refreshInterval</code> <br />
 How often, in seconds, this module will update its data. <br />
 Values: A positive integer, <code>0..n</code>.</p>
 
-<p><code>domain</code> <br />
-<em>Optional</em>. Your Gitlab corporate domain. <br />
+<p><code>user</code> <br />
+Your Jenkins username. <br /></p>
+
+<p><code>url</code> <br />
+The url to your Jenkins project or view. <br />
 Values: A valid URI.</p>
-
-<p><code>projects</code> <br />
-A list of key/value pairs each describing a Gitlab project to fetch data
-for. <br />
-<span class="caption">Key:</span> The name of the project. <br />
-<span class="caption">Value:</span> The namespace of the project.</p>
-
-<p><code>username</code> <br />
-Your Gitlab username. Used to figure out which requests require your approval</p>
 
 </div>
 
