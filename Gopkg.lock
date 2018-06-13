@@ -90,6 +90,12 @@
 
 [[projects]]
   branch = "master"
+  name = "github.com/xanzy/go-gitlab"
+  packages = ["."]
+  revision = "73e9df58a3194b1256edae4d2e819603f06d428c"
+
+[[projects]]
+  branch = "master"
   name = "github.com/yfronto/newrelic"
   packages = ["."]
   revision = "f7fa0c6f30ac3d86360c73726cfe9dd526a63d21"
@@ -164,6 +170,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "b0e632406212933c5f4d7652db7aa06e63f4ed94d38ceb823e5c51b865c20be0"
+  inputs-digest = "fd122eb7175ffd7db7cb197de13e0b850231ec9269a63a8ca9d117a8aa50d7e5"
   solver-name = "gps-cdcl"
   solver-version = 1

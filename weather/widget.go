@@ -182,6 +182,8 @@ func (widget *Widget) icon(data *owm.CurrentWeatherData) string {
 		icon = "🌫"
 	case "haze":
 		icon = "🌫"
+	case "heavy intensity rain":
+		icon = "💦"
 	case "heavy rain":
 		icon = "💦"
 	case "heavy snow":
