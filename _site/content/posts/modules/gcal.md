@@ -19,11 +19,7 @@ wtf/gcal/
 
 ## Required ENV Variables
 
-<span class="caption">Key:</span> `WTF_GOOGLE_CAL_CLIENT_ID` <br />
-<span class="caption">Value:</span> Your <a href="https://developers.google.com/calendar/auth">Google API</a> client ID.
-
-<span class="caption">Key:</span> `WTF_GOOGLE_CAL_CLIENT_SECRET` <br />
-<span class="caption">Value:</span> Your <a href="https://developers.google.com/calendar/auth">Google API</a> client secret.
+None.
 
 ## Keyboard Commands
 

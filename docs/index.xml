@@ -6,10 +6,70 @@
     <description>Recent content on WTF - A Terminal Dashboard</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 04 Jun 2018 20:06:40 -0700</lastBuildDate>
+    <lastBuildDate>Sun, 10 Jun 2018 19:41:52 -0400</lastBuildDate>
     
 	<atom:link href="https://wtfutil.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>IP-API</title>
+      <link>https://wtfutil.com/posts/modules/ipapi/</link>
+      <pubDate>Sun, 10 Jun 2018 19:41:52 -0400</pubDate>
+      
+      <guid>https://wtfutil.com/posts/modules/ipapi/</guid>
+      <description>Added in v0.0.7.
+Displays your current IP address information, from IP-APIcom.
+Note: IP-API.com has a free-plan rate limit of 120 requests per minute.
+Source Code wtf/ipapi/ Required ENV Variables None.
+Keyboard Commands None.
+Configuration ipinfo:colors:name:redvalue:whiteenabled:trueposition:top:1left:2height:1width:1refreshInterval:150 Attributes colors.name The default colour for the row names. Values: Any X11 color name.
+colors.value The default colour for the row values. Values: Any X11 color name.
+enabled Determines whether or not this module is executed and if its data displayed onscreen.</description>
+    </item>
+    
+    <item>
+      <title>CircleCI</title>
+      <link>https://wtfutil.com/posts/modules/circleci/</link>
+      <pubDate>Sun, 10 Jun 2018 19:26:08 -0400</pubDate>
+      
+      <guid>https://wtfutil.com/posts/modules/circleci/</guid>
+      <description>Added in v0.0.7.
+Displays build information for your CircleCI account.
+Source Code wtf/circleci/ Required ENV Variables Key: WTF_CIRCLE_API_KEY Value: Your CircleCI API token.
+Keyboard Commands None.
+Configuration circleci:enabled:trueposition:top:4left:1height:1width:2refreshInterval:900 Attributes enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.
+position Defines where in the grid this module&amp;rsquo;s widget will be displayed. refreshInterval How often, in seconds, this module will update its data.</description>
+    </item>
+    
+    <item>
+      <title>Google Spreadsheets</title>
+      <link>https://wtfutil.com/posts/modules/gspreadsheet/</link>
+      <pubDate>Sun, 10 Jun 2018 18:26:26 -0400</pubDate>
+      
+      <guid>https://wtfutil.com/posts/modules/gspreadsheet/</guid>
+      <description>Added in v0.0.7.
+Display information from cells in a Google Spreadsheet.
+wtf/gspreadsheets/ Required ENV Variables None.
+Keyboard Commands None.
+Configuration gspreadsheets:colors:values:&amp;#34;green&amp;#34;cells:names:-&amp;#34;Cell 1 name&amp;#34;-&amp;#34;Cell 2 name&amp;#34;addresses:-&amp;#34;A1&amp;#34;-&amp;#34;A2&amp;#34;enabled:trueposition:top:0left:0width:1height:1refreshInterval:&amp;#34;300&amp;#34;secretFile:&amp;#34;~/.wtf/gspreadsheets/client_secret.json&amp;#34;sheetId:&amp;#34;id_of_google_spreadsheet&amp;#34; Attributes colors.values The color to display the cell values in. Values: Any X11 color name.
+cells.names cells.addresses enabled Whether or not this module is executed and if its data displayed onscreen. Values: true, false.
+position Where in the grid this module&amp;rsquo;s widget will be displayed.</description>
+    </item>
+    
+    <item>
+      <title>Gitlab</title>
+      <link>https://wtfutil.com/posts/modules/gitlab/</link>
+      <pubDate>Fri, 08 Jun 2018 13:14:11 -0700</pubDate>
+      
+      <guid>https://wtfutil.com/posts/modules/gitlab/</guid>
+      <description>Displays information about your projects hosted on Gitlab:
+Open Approval Requests All open merge requests that are requesting your approval.
+Open Merge Requests All open merge requests created by you.
+Source Code wtf/gitlab/ Required ENV Variables Key: WTF_GITLAB_TOKEN Action: A Gitlab personal access token. Requires at least api access.
+Keyboard Commands Key: / Action: Open/close the widget&amp;rsquo;s help window.
+Key: h Action: Show the previous project.
+Key: l Action: Show the next project.</description>
+    </item>
     
     <item>
       <title>Bittrex</title>
@@ -174,10 +234,8 @@ Key: j Action: Select the next item in the list.</description>
       <description>Displays all Jira issues assigned to you for the specified project.
 Source Code wtf/jira/ Required ENV Variables Key: WTF_JIRA_API_KEY Value: Your Jira API key.
 Keyboard Commands None.
-Configuration jira:colors:rows:even:&amp;#34;lightblue&amp;#34;odd:&amp;#34;white&amp;#34;domain:&amp;#34;https://umbrellacorp.atlassian.net&amp;#34;email:&amp;#34;chriscummer@me.com&amp;#34;enabled:truejql:&amp;#34;issueType = Story&amp;#34;position:top:4left:1height:1width:2project:&amp;#34;JIRA&amp;#34;refreshInterval:900username:&amp;#34;chris.cummer&amp;#34; Attributes colors.rows.even Define the foreground color for even-numbered rows. Values: Any X11 color name.
-colors.rows.odd Define the foreground color for odd-numbered rows. Values: Any X11 color name.
-domain Your Jira corporate domain. Values: A valid URI.
-email The email address associated with your Jira account.</description>
+Configuration Single Jira Project jira:colors:rows:even:&amp;#34;lightblue&amp;#34;odd:&amp;#34;white&amp;#34;domain:&amp;#34;https://umbrellacorp.atlassian.net&amp;#34;email:&amp;#34;chriscummer@me.com&amp;#34;enabled:truejql:&amp;#34;issueType = Story&amp;#34;position:top:4left:1height:1width:2project:&amp;#34;ProjectA&amp;#34;refreshInterval:900username:&amp;#34;chris.cummer&amp;#34; Multiple Jira Projects If you want to monitor multiple Jira projects, use the following configuration (note the difference in project):
+jira:colors:rows:even:&amp;#34;lightblue&amp;#34;odd:&amp;#34;white&amp;#34;domain:&amp;#34;https://umbrellacorp.atlassian.net&amp;#34;email:&amp;#34;chriscummer@me.com&amp;#34;enabled:truejql:&amp;#34;issueType = Story&amp;#34;position:top:4left:1height:1width:2project:[&amp;#34;ProjectA&amp;#34;,&amp;#34;ProjectB&amp;#34;]refreshInterval:900username:&amp;#34;chris.cummer&amp;#34; Attributes colors.rows.even Define the foreground color for even-numbered rows. Values: Any X11 color name.</description>
     </item>
     
     <item>
@@ -188,9 +246,9 @@ email The email address associated with your Jira account.</description>
       <guid>https://wtfutil.com/posts/modules/gcal/</guid>
       <description>Displays your upcoming Google calendar events.
 Not: Setting up access to Google Calendars for Go is a bit unobvious. Check out Google&amp;rsquo;s Go Quickstart first and if you have problems, then take a look at this comment by WesleydeSouza which offers a slightly different approach.
-Source Code wtf/gcal/ Required ENV Variables Key: WTF_GOOGLE_CAL_CLIENT_ID Value: Your Google API client ID.
-Key: WTF_GOOGLE_CAL_CLIENT_SECRET Value: Your Google API client secret.
-Keyboard Commands None.</description>
+Source Code wtf/gcal/ Required ENV Variables None.
+Keyboard Commands None.
+Configuration gcal:colors:title:&amp;#34;red&amp;#34;description:&amp;#34;lightblue&amp;#34;highlights:-[&amp;#39;1on1|1\/11&amp;#39;,&amp;#39;green&amp;#39;]-[&amp;#39;apple|google|aws&amp;#39;,&amp;#39;blue&amp;#39;]-[&amp;#39;interview|meet&amp;#39;,&amp;#39;magenta&amp;#39;]-[&amp;#39;lunch&amp;#39;,&amp;#39;yellow&amp;#39;]past:&amp;#34;gray&amp;#34;conflictIcon:&amp;#34;🚨&amp;#34;currentIcon:&amp;#34;💥&amp;#34;displayResponseStatus:trueemail:&amp;#34;chriscummer@me.com&amp;#34;enabled:trueeventCount:12position:top:0left:0height:4width:1refreshInterval:300secretFile:&amp;#34;~/.wtf/gcal/client_secret.json&amp;#34;withLocation:true Attributes colors.title The default colour for calendar event titles. Values: Any X11 color name.</description>
     </item>
     
     <item>

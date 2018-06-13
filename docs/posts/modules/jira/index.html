@@ -65,12 +65,16 @@
         <li class="sidebar-list-item-1"><a href="/posts/modules/">Modules</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/bamboohr/">BambooHR</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/cryptocurrencies/bittrex/">Bittrex</a></li>
+        <li class="sidebar-list-item-2"><a href="/posts/modules/circleci/">CircleCI</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/clocks/">Clocks</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/cryptocurrencies/cryptolive/">CryptoLive</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/cmdrunner/">CmdRunner</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/git/">Git</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/github/">GitHub</a></li>
+        <li class="sidebar-list-item-2"><a href="/posts/modules/gitlab/">Gitlab</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/gcal/">Google Calendar</a></li>
+        <li class="sidebar-list-item-2"><a href="/posts/modules/gspreadsheet">Google Spreadsheet</a></li>
+        <li class="sidebar-list-item-2"><a href="/posts/modules/ipapi/">IP-API</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/ipinfo/">IPInfo</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/jira/">Jira</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/newrelic/">New Relic</a></li>
@@ -129,6 +133,8 @@
 <p>None.</p>
 
 <h2 id="configuration">Configuration</h2>
+
+<h3 id="single-jira-project">Single Jira Project</h3>
 <div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">jira<span class="p">:</span><span class="w">
 </span><span class="w">  </span>colors<span class="p">:</span><span class="w">
 </span><span class="w">    </span>rows<span class="p">:</span><span class="w">
@@ -143,7 +149,28 @@
 </span><span class="w">    </span>left<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
 </span><span class="w">    </span>height<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
 </span><span class="w">    </span>width<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
-</span><span class="w">  </span>project<span class="p">:</span><span class="w"> </span><span class="s2">&#34;JIRA&#34;</span><span class="w">
+</span><span class="w">  </span>project<span class="p">:</span><span class="w"> </span><span class="s2">&#34;ProjectA&#34;</span><span class="w">
+</span><span class="w">  </span>refreshInterval<span class="p">:</span><span class="w"> </span><span class="m">900</span><span class="w">
+</span><span class="w">  </span>username<span class="p">:</span><span class="w"> </span><span class="s2">&#34;chris.cummer&#34;</span></code></pre></div>
+<h3 id="multiple-jira-projects">Multiple Jira Projects</h3>
+
+<p>If you want to monitor multiple Jira projects, use the following
+configuration (note the difference in <code>project</code>):</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">jira<span class="p">:</span><span class="w">
+</span><span class="w">  </span>colors<span class="p">:</span><span class="w">
+</span><span class="w">    </span>rows<span class="p">:</span><span class="w">
+</span><span class="w">      </span>even<span class="p">:</span><span class="w"> </span><span class="s2">&#34;lightblue&#34;</span><span class="w">
+</span><span class="w">      </span>odd<span class="p">:</span><span class="w"> </span><span class="s2">&#34;white&#34;</span><span class="w">
+</span><span class="w">  </span>domain<span class="p">:</span><span class="w"> </span><span class="s2">&#34;https://umbrellacorp.atlassian.net&#34;</span><span class="w">
+</span><span class="w">  </span>email<span class="p">:</span><span class="w"> </span><span class="s2">&#34;chriscummer@me.com&#34;</span><span class="w">
+</span><span class="w">  </span>enabled<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span>jql<span class="p">:</span><span class="w"> </span><span class="s2">&#34;issueType = Story&#34;</span><span class="w">
+</span><span class="w">  </span>position<span class="p">:</span><span class="w">
+</span><span class="w">    </span>top<span class="p">:</span><span class="w"> </span><span class="m">4</span><span class="w">
+</span><span class="w">    </span>left<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">    </span>height<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">    </span>width<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span><span class="w">  </span>project<span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;ProjectA&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;ProjectB&#34;</span><span class="p">]</span><span class="w">
 </span><span class="w">  </span>refreshInterval<span class="p">:</span><span class="w"> </span><span class="m">900</span><span class="w">
 </span><span class="w">  </span>username<span class="p">:</span><span class="w"> </span><span class="s2">&#34;chris.cummer&#34;</span></code></pre></div>
 <h3 id="attributes">Attributes</h3>
