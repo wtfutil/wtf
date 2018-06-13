@@ -25,10 +25,6 @@ func NewWidget() *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	if widget.Disabled() {
-		return
-	}
-
 	client := NewClient("https://api.bamboohr.com/api/gateway.php")
 	todayItems := client.Away(
 		"timeOff",

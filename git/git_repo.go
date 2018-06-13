@@ -22,7 +22,7 @@ func NewGitRepo(repoPath string) *GitRepo {
 	repo.Branch = repo.branch()
 	repo.ChangedFiles = repo.changedFiles()
 	repo.Commits = repo.commits()
-	repo.Repository = repo.repository()
+	repo.Repository = strings.TrimSpace(repo.repository())
 
 	return &repo
 }

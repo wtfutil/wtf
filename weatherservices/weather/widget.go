@@ -74,11 +74,9 @@ func (widget *Widget) Fetch(cityIDs []int) []*owm.CurrentWeatherData {
 // Refresh fetches new data from the OpenWeatherMap API and loads the new data into the.
 // widget's view for rendering
 func (widget *Widget) Refresh() {
-	if widget.Disabled() {
-		return
+	if widget.apiKeyValid() {
+		widget.Data = widget.Fetch(wtf.ToInts(Config.UList("wtf.mods.weather.cityids", widget.defaultCityCodes())))
 	}
-
-	widget.Data = widget.Fetch(wtf.ToInts(Config.UList("wtf.mods.weather.cityids", widget.defaultCityCodes())))
 
 	widget.UpdateRefreshedAt()
 	widget.display()
@@ -107,6 +105,18 @@ func (widget *Widget) Prev() {
 }
 
 /* -------------------- Unexported Functions -------------------- */
+
+func (widget *Widget) apiKeyValid() bool {
+	if widget.APIKey == "" {
+		return false
+	}
+
+	if len(widget.APIKey) != 32 {
+		return false
+	}
+
+	return true
+}
 
 func (widget *Widget) currentData() *owm.CurrentWeatherData {
 	if len(widget.Data) == 0 {
@@ -172,6 +182,8 @@ func (widget *Widget) icon(data *owm.CurrentWeatherData) string {
 		icon = "🌫"
 	case "haze":
 		icon = "🌫"
+	case "heavy intensity rain":
+		icon = "💦"
 	case "heavy rain":
 		icon = "💦"
 	case "heavy snow":

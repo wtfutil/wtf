@@ -1,10 +1,9 @@
 <p align="right">
-  
   <img src="https://travis-ci.com/senorprogrammer/wtf.svg?branch=master" />
 </p>
 
 <p align="center">
-<img src="./docs/img/wtf.jpg?raw=true" title="WTF" width="852" height="240" />
+  <img src="./docs/img/wtf.jpg?raw=true" title="WTF" width="852" height="240" />
 </p>
 
 A personal terminal-based dashboard utility, designed for
@@ -42,27 +41,6 @@ documentation. Here's some short-cuts:
 * [Installation](http://wtfutil.com/posts/installation/)
 * [Configuration](http://wtfutil.com/posts/configuration/)
 * [Module Documentation](http://wtfutil.com/posts/modules/)
-
-And a "probably up-to-date" list of currently-implemented modules:
-
-* [BambooHR](http://wtfutil.com/posts/modules/bamboohr/)
-* [World Clocks](http://wtfutil.com/posts/modules/clocks/)
-* [Command Runner](http://wtfutil.com/posts/modules/cmdrunner/)
-* [Google Calendar](http://wtfutil.com/posts/modules/gcal/)
-* [Git](http://wtfutil.com/posts/modules/git/)
-* [GitHub](http://wtfutil.com/posts/modules/github/)
-* [IPInfo](http://wtfutil.com/posts/modules/ipinfo/)
-* [Jira](http://wtfutil.com/posts/modules/jira/)
-* [New Relic](http://wtfutil.com/posts/modules/newrelic/)
-* [OpsGenie](http://wtfutil.com/posts/modules/opsgenie)
-* [Power](http://wtfutil.com/posts/modules/power/)
-* [PrettyWeather](http://wtfutil.com/posts/modules/prettyweather/)*
-* [Security](http://wtfutil.com/posts/modules/security/)
-* [Textfile](http://wtfutil.com/posts/modules/textfile/)
-* [Todo List](http://wtfutil.com/posts/modules/todo/)
-* [Weather](http://wtfutil.com/posts/modules/weather/)
-
-*experimental
 
 ## Contributing
 

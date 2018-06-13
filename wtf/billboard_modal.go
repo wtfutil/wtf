@@ -35,19 +35,19 @@ func NewBillboardModal(text string, closeFunc func()) *tview.Frame {
 	textView.SetBackgroundColor(tview.Styles.ContrastBackgroundColor)
 	textView.SetInputCapture(keyboardIntercept)
 
-	thing := tview.NewFrame(textView)
-	thing.SetRect(offscreen, offscreen, modalWidth, modalHeight)
+	frame := tview.NewFrame(textView)
+	frame.SetRect(offscreen, offscreen, modalWidth, modalHeight)
 
 	drawFunc := func(screen tcell.Screen, x, y, width, height int) (int, int, int, int) {
 		w, h := screen.Size()
-		thing.SetRect((w/2)-(width/2), (h/2)-(height/2), width, height)
+		frame.SetRect((w/2)-(width/2), (h/2)-(height/2), width, height)
 		return x, y, width, height
 	}
 
-	thing.SetBackgroundColor(tview.Styles.ContrastBackgroundColor)
-	thing.SetBorder(true)
-	thing.SetBorders(1, 1, 0, 0, 1, 1)
-	thing.SetDrawFunc(drawFunc)
+	frame.SetBackgroundColor(tview.Styles.ContrastBackgroundColor)
+	frame.SetBorder(true)
+	frame.SetBorders(1, 1, 0, 0, 1, 1)
+	frame.SetDrawFunc(drawFunc)
 
-	return thing
+	return frame
 }

@@ -51,10 +51,6 @@ func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	if widget.Disabled() {
-		return
-	}
-
 	for _, repo := range widget.GithubRepos {
 		repo.Refresh()
 	}

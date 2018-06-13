@@ -25,11 +25,7 @@ func NewWidget() *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	if widget.Disabled() {
-		return
-	}
-
-	searchResult, err := IssuesFor(Config.UString("wtf.mods.jira.username"), Config.UString("wtf.mods.jira.project", ""), Config.UString("wtf.mods.jira.jql", ""))
+	searchResult, err := IssuesFor(Config.UString("wtf.mods.jira.username"), getProjects(), Config.UString("wtf.mods.jira.jql", ""))
 
 	widget.UpdateRefreshedAt()
 
@@ -84,4 +80,22 @@ func (widget *Widget) issueTypeColor(issue *Issue) string {
 	}
 
 	return color
+}
+
+func getProjects() []string {
+	// see if project is set to a single string
+	configPath := "wtf.mods.jira.project"
+	singleProject, err := Config.String(configPath)
+	if err == nil {
+		return []string{singleProject}
+	}
+	// else, assume list
+	projList := Config.UList(configPath)
+	var ret []string
+	for _, proj := range projList {
+		if str, ok := proj.(string); ok {
+			ret = append(ret, str)
+		}
+	}
+	return ret
 }

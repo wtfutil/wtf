@@ -53,6 +53,10 @@ func (widget *TextWidget) BorderColor() string {
 	return Config.UString("wtf.colors.border.normal", "gray")
 }
 
+func (widget *TextWidget) Disable() {
+	widget.enabled = false
+}
+
 func (widget *TextWidget) Disabled() bool {
 	return !widget.Enabled()
 }
