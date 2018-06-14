@@ -2,6 +2,7 @@ package jira
 
 import (
 	"bytes"
+	"crypto/tls"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -60,7 +61,13 @@ func jiraRequest(path string) (*http.Response, error) {
 	}
 	req.SetBasicAuth(Config.UString("wtf.mods.jira.email"), os.Getenv("WTF_JIRA_API_KEY"))
 
-	httpClient := &http.Client{}
+	verifyServerCertificate := Config.UBool("wtf.mods.jira.verifyServerCertificate", true)
+	httpClient := &http.Client{Transport: &http.Transport{
+            TLSClientConfig: &tls.Config{
+                InsecureSkipVerify: !verifyServerCertificate,
+            },
+        },
+    }
 	resp, err := httpClient.Do(req)
 	if err != nil {
 		return nil, err
