@@ -1,7 +1,5 @@
 package todo
 
-import ()
-
 type List struct {
 	Items []*Item
 
@@ -33,6 +31,7 @@ func (list *List) CheckedItems() []*Item {
 
 func (list *List) Delete() {
 	list.Items = append(list.Items[:list.selected], list.Items[list.selected+1:]...)
+	list.Prev()
 }
 
 func (list *List) Demote() {

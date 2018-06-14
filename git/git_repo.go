@@ -22,7 +22,7 @@ func NewGitRepo(repoPath string) *GitRepo {
 	repo.Branch = repo.branch()
 	repo.ChangedFiles = repo.changedFiles()
 	repo.Commits = repo.commits()
-	repo.Repository = repo.repository()
+	repo.Repository = strings.TrimSpace(repo.repository())
 
 	return &repo
 }
@@ -67,6 +67,19 @@ func (repo *GitRepo) repository() string {
 	cmd := exec.Command("git", arg...)
 	str := wtf.ExecuteCommand(cmd)
 
+	return str
+}
+func (repo *GitRepo) pull() string {
+	arg := []string{repo.gitDir(), repo.workTree(), "pull"}
+	cmd := exec.Command("git", arg...)
+	str := wtf.ExecuteCommand(cmd)
+	return str
+}
+
+func (repo *GitRepo) checkout(branch string) string {
+	arg := []string{repo.gitDir(), repo.workTree(), "checkout", branch}
+	cmd := exec.Command("git", arg...)
+	str := wtf.ExecuteCommand(cmd)
 	return str
 }
 

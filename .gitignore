@@ -1,2 +1,23 @@
+### Go ###
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, build with `go test -c`
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# Misc
 .DS_Store
 gcal/client_secret.json
+gspreadsheets/client_secret.json
+#intellij idea
+.idea/
+
+dist/*
+bin/

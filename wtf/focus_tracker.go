@@ -36,6 +36,10 @@ func (tracker *FocusTracker) Next() {
 
 // None removes focus from the currently-focused widget.
 func (tracker *FocusTracker) None() {
+	if tracker.focusState() == NonWidget {
+		return
+	}
+
 	tracker.blur(tracker.Idx)
 }
 

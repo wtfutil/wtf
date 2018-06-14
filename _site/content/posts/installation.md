@@ -11,7 +11,7 @@ There are two ways to install WTF:
 Get this repo and install the dependencies:
 
 ```bash
-go get github.com/senorprogrammer/wtf
+go get -u github.com/senorprogrammer/wtf
 cd $GOPATH/src/github.com/senorprogrammer/wtf
 make install
 make run

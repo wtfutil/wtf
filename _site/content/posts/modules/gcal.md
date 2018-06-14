@@ -1,5 +1,5 @@
 ---
-title: "Modules: Google Calendar"
+title: "Google Calendar"
 date: 2018-05-10T08:25:33-07:00
 draft: false
 ---
@@ -7,6 +7,9 @@ draft: false
 Displays your upcoming Google calendar events.
 
 <img src="/imgs/modules/gcal.png" width="320" height="389" alt="gcal screenshot" />
+
+**Not:** Setting up access to Google Calendars for Go is a bit unobvious. Check out Google's [Go Quickstart](https://developers.google.com/calendar/quickstart/go)
+first and if you have problems, then take a look at this [comment by WesleydeSouza](https://github.com/senorprogrammer/wtf/issues/83#issuecomment-393665229) which offers a slightly different approach.
 
 ## Source Code
 
@@ -16,11 +19,7 @@ wtf/gcal/
 
 ## Required ENV Variables
 
-<span class="caption">Key:</span> `WTF_GOOGLE_CAL_CLIENT_ID` <br />
-<span class="caption">Value:</span> Your <a href="https://developers.google.com/calendar/auth">Google API</a> client ID.
-
-<span class="caption">Key:</span> `WTF_GOOGLE_CAL_CLIENT_SECRET` <br />
-<span class="caption">Value:</span> Your <a href="https://developers.google.com/calendar/auth">Google API</a> client secret.
+None.
 
 ## Keyboard Commands
 

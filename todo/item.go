@@ -1,7 +1,5 @@
 package todo
 
-import ()
-
 type Item struct {
 	Checked bool
 	Text    string

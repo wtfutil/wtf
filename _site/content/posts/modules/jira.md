@@ -1,5 +1,5 @@
 ---
-title: "Modules: Jira"
+title: "Jira"
 date: 2018-05-10T10:44:35-07:00
 draft: false
 ---
@@ -25,6 +25,8 @@ None.
 
 ## Configuration
 
+### Single Jira Project
+
 ```yaml
 jira:
   colors:
@@ -34,12 +36,38 @@ jira:
   domain: "https://umbrellacorp.atlassian.net"
   email: "chriscummer@me.com"
   enabled: true
+  jql: "issueType = Story"
   position:
     top: 4
     left: 1
     height: 1
     width: 2
-  project: "JIRA"
+  project: "ProjectA"
+  refreshInterval: 900
+  username: "chris.cummer"
+```
+
+### Multiple Jira Projects
+
+If you want to monitor multiple Jira projects, use the following
+configuration (note the difference in `project`):
+
+```yaml
+jira:
+  colors:
+    rows:
+      even: "lightblue"
+      odd: "white"
+  domain: "https://umbrellacorp.atlassian.net"
+  email: "chriscummer@me.com"
+  enabled: true
+  jql: "issueType = Story"
+  position:
+    top: 4
+    left: 1
+    height: 1
+    width: 2
+  project: ["ProjectA", "ProjectB"]
   refreshInterval: 900
   username: "chris.cummer"
 ```
@@ -67,6 +95,11 @@ Values: A valid email address string.
 `enabled` <br />
 Determines whether or not this module is executed and if its data displayed onscreen. <br />
 Values: `true`, `false`.
+
+`jql` <br />
+_Optional_ <br />
+Custom JQL to be appended to the search query. <br />
+Values: See <a href="https://confluence.atlassian.com/jiracore/blog/2015/07/search-jira-like-a-boss-with-jql">Search Jira like a boss with JQL</a> for details.
 
 `position` <br />
 Defines where in the grid this module's widget will be displayed. <br />

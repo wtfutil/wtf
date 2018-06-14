@@ -18,7 +18,7 @@ type Widget struct {
 
 func NewWidget() *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(" 🕗 World Clocks ", "clocks", false),
+		TextWidget: wtf.NewTextWidget(" World Clocks ", "clocks", false),
 	}
 
 	widget.clockColl = widget.buildClockCollection(Config.UMap("wtf.mods.clocks.locations"))
@@ -29,12 +29,7 @@ func NewWidget() *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	if widget.Disabled() {
-		return
-	}
-
 	widget.UpdateRefreshedAt()
-	widget.View.Clear()
 	widget.display(widget.clockColl.Sorted())
 }
 

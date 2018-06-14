@@ -16,7 +16,7 @@ type Widget struct {
 
 func NewWidget() *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget("JIRA", "jira", false),
+		TextWidget: wtf.NewTextWidget(" Jira ", "jira", false),
 	}
 
 	return &widget
@@ -25,29 +25,24 @@ func NewWidget() *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	if widget.Disabled() {
-		return
-	}
-
-	searchResult, err := IssuesFor(Config.UString("wtf.mods.jira.username"))
+	searchResult, err := IssuesFor(Config.UString("wtf.mods.jira.username"), getProjects(), Config.UString("wtf.mods.jira.jql", ""))
 
 	widget.UpdateRefreshedAt()
-	widget.View.Clear()
 
 	if err != nil {
 		widget.View.SetWrap(true)
-		widget.View.SetTitle(fmt.Sprintf(" %s ", widget.Name))
+		widget.View.SetTitle(fmt.Sprintf("%s", widget.Name))
 		fmt.Fprintf(widget.View, "%v", err)
 	} else {
 		widget.View.SetWrap(false)
 		widget.View.SetTitle(
 			fmt.Sprintf(
-				" %s: [green]%s[white] ",
+				"%s- [green]%s[white]",
 				widget.Name,
 				Config.UString("wtf.mods.jira.project"),
 			),
 		)
-		fmt.Fprintf(widget.View, "%s", widget.contentFrom(searchResult))
+		widget.View.SetText(fmt.Sprintf("%s", widget.contentFrom(searchResult)))
 	}
 }
 
@@ -85,4 +80,22 @@ func (widget *Widget) issueTypeColor(issue *Issue) string {
 	}
 
 	return color
+}
+
+func getProjects() []string {
+	// see if project is set to a single string
+	configPath := "wtf.mods.jira.project"
+	singleProject, err := Config.String(configPath)
+	if err == nil {
+		return []string{singleProject}
+	}
+	// else, assume list
+	projList := Config.UList(configPath)
+	var ret []string
+	for _, proj := range projList {
+		if str, ok := proj.(string); ok {
+			ret = append(ret, str)
+		}
+	}
+	return ret
 }

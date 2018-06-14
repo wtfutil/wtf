@@ -1,5 +1,5 @@
 ---
-title: "Modules: Clocks"
+title: "Clocks"
 date: 2018-05-07T19:47:31-07:00
 draft: false
 ---

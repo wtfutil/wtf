@@ -17,7 +17,7 @@ type Widget struct {
 
 func NewWidget() *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(" ⏰ OpsGenie ", "opsgenie", false),
+		TextWidget: wtf.NewTextWidget(" OpsGenie ", "opsgenie", false),
 	}
 
 	return &widget
@@ -26,22 +26,17 @@ func NewWidget() *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	if widget.Disabled() {
-		return
-	}
-
 	data, err := Fetch()
 
 	widget.UpdateRefreshedAt()
-	widget.View.SetTitle(" ⏰ On Call ")
-	widget.View.Clear()
+	widget.View.SetTitle(widget.Name)
 
 	if err != nil {
 		widget.View.SetWrap(true)
-		fmt.Fprintf(widget.View, "%s", err)
+		widget.View.SetText(fmt.Sprintf("%s", err))
 	} else {
 		widget.View.SetWrap(false)
-		fmt.Fprintf(widget.View, "%s", widget.contentFrom(data))
+		widget.View.SetText(fmt.Sprintf("%s", widget.contentFrom(data)))
 	}
 }
 

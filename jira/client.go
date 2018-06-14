@@ -7,11 +7,32 @@ import (
 	"io"
 	"io/ioutil"
 	"net/http"
+	"net/url"
 	"os"
+	"strings"
 )
 
-func IssuesFor(username string) (*SearchResult, error) {
-	url := fmt.Sprintf("/rest/api/2/search?jql=assignee=%s", username)
+func IssuesFor(username string, projects []string, jql string) (*SearchResult, error) {
+	query := []string{}
+
+	var projQuery = getProjectQuery(projects)
+	if projQuery != "" {
+		query = append(query, projQuery)
+	}
+
+	if username != "" {
+		query = append(query, buildJql("assignee", username))
+	}
+
+	if jql != "" {
+		query = append(query, jql)
+	}
+
+	v := url.Values{}
+
+	v.Set("jql", strings.Join(query, " AND "))
+
+	url := fmt.Sprintf("/rest/api/2/search?%s", v.Encode())
 
 	resp, err := jiraRequest(url)
 	if err != nil {
@@ -22,6 +43,10 @@ func IssuesFor(username string) (*SearchResult, error) {
 	parseJson(searchResult, resp.Body)
 
 	return searchResult, nil
+}
+
+func buildJql(key string, value string) string {
+	return fmt.Sprintf("%s = \"%s\"", key, value)
 }
 
 /* -------------------- Unexported Functions -------------------- */
@@ -63,4 +88,19 @@ func parseJson(obj interface{}, text io.Reader) {
 			panic(err)
 		}
 	}
+}
+
+func getProjectQuery(projects []string) string {
+	singleEmptyProject := len(projects) == 1 && len(projects[0]) == 0
+	if len(projects) == 0 || singleEmptyProject {
+		return ""
+	} else if len(projects) == 1 {
+		return buildJql("project", projects[0])
+	}
+
+	quoted := make([]string, len(projects))
+	for i := range projects {
+		quoted[i] = fmt.Sprintf("\"%s\"", projects[i])
+	}
+	return fmt.Sprintf("project in (%s)", strings.Join(quoted, ", "))
 }

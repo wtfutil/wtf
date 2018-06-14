@@ -26,10 +26,6 @@ func NewWidget() *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	if widget.Disabled() {
-		return
-	}
-
 	app, appErr := Application()
 	deploys, depErr := Deployments()
 
@@ -39,15 +35,15 @@ func (widget *Widget) Refresh() {
 	}
 
 	widget.UpdateRefreshedAt()
-	widget.View.SetTitle(fmt.Sprintf(" New Relic: [green]%s[white] ", appName))
+	widget.View.SetTitle(fmt.Sprintf("%s- [green]%s[white]", widget.Name, appName))
 	widget.View.Clear()
 
 	if depErr != nil {
 		widget.View.SetWrap(true)
-		fmt.Fprintf(widget.View, "%s", depErr)
+		widget.View.SetText(fmt.Sprintf("%s", depErr))
 	} else {
 		widget.View.SetWrap(false)
-		fmt.Fprintf(widget.View, "%s", widget.contentFrom(deploys))
+		widget.View.SetText(fmt.Sprintf("%s", widget.contentFrom(deploys)))
 	}
 }
 
@@ -70,7 +66,7 @@ func (widget *Widget) contentFrom(deploys []nr.ApplicationDeployment) string {
 
 			var revLen = 8
 			if revLen > len(deploy.Revision) {
-			  revLen = len(deploy.Revision)
+				revLen = len(deploy.Revision)
 			}
 
 			str = str + fmt.Sprintf(
