@@ -45,6 +45,7 @@ jira:
   project: "ProjectA"
   refreshInterval: 900
   username: "chris.cummer"
+  verifyServerCertificate: true
 ```
 
 ### Multiple Jira Projects
