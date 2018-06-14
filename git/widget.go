@@ -23,6 +23,10 @@ const HelpText = `
     arrow right: Next git repository
 `
 
+const offscreen = -1000
+const modalWidth = 80
+const modalHeight = 7
+
 type Widget struct {
 	wtf.TextWidget
 
@@ -49,10 +53,6 @@ func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	if widget.Disabled() {
-		return
-	}
-
 	repoPaths := wtf.ToStrs(Config.UList("wtf.mods.git.repositories"))
 
 	widget.UpdateRefreshedAt()
@@ -135,11 +135,18 @@ func (widget *Widget) modalForm(lbl, text string) *tview.Form {
 	return form
 }
 func (widget *Widget) modalFrame(form *tview.Form) *tview.Frame {
-	_, _, w, h := widget.View.GetInnerRect()
-
 	frame := tview.NewFrame(form).SetBorders(0, 0, 0, 0, 0, 0)
+	frame.SetRect(offscreen, offscreen, modalWidth, modalHeight)
 	frame.SetBorder(true)
-	frame.SetRect(w+20, h+2, 80, 7)
+	frame.SetBorders(1, 1, 0, 0, 1, 1)
+
+	drawFunc := func(screen tcell.Screen, x, y, width, height int) (int, int, int, int) {
+		w, h := screen.Size()
+		frame.SetRect((w/2)-(width/2), (h/2)-(height/2), width, height)
+		return x, y, width, height
+	}
+
+	frame.SetDrawFunc(drawFunc)
 
 	return frame
 }
