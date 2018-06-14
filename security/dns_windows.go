@@ -1,3 +1,5 @@
+// +build windows
+
 package security
 
 import (
@@ -5,7 +7,6 @@ import (
 
 	"github.com/senorprogrammer/wtf/wtf"
 )
-
 
 func DnsServers() []string {
 	cmd := exec.Command("powershell.exe", "Get-DnsClientServerAddress | Select-Object –ExpandProperty ServerAddresses")
