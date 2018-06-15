@@ -54,38 +54,6 @@ var (
 
 /* -------------------- Functions -------------------- */
 
-func addToGrid(grid *tview.Grid, widget wtf.Wtfable) {
-	if widget.Disabled() {
-		return
-	}
-
-	grid.AddItem(
-		widget.TextView(),
-		widget.Top(),
-		widget.Left(),
-		widget.Height(),
-		widget.Width(),
-		0,
-		0,
-		false,
-	)
-}
-
-// Grid stores all the widgets onscreen (like an HTML table)
-func buildGrid(modules []wtf.Wtfable) *tview.Grid {
-	grid := tview.NewGrid()
-	grid.SetColumns(wtf.ToInts(Config.UList("wtf.grid.columns"))...)
-	grid.SetRows(wtf.ToInts(Config.UList("wtf.grid.rows"))...)
-	grid.SetBorder(false)
-
-	for _, module := range modules {
-		addToGrid(grid, module)
-		go wtf.Schedule(module)
-	}
-
-	return grid
-}
-
 func disableAllWidgets() {
 	for _, widget := range Widgets {
 		widget.Disable()
@@ -165,8 +133,8 @@ func watchForConfigChanges(app *tview.Application, configFlag string, grid *tvie
 				disableAllWidgets()
 				makeWidgets(app, pages)
 				initializeFocusTracker(app)
-				grid = buildGrid(Widgets)
-				pages.AddPage("grid", grid, true, true)
+				display := wtf.NewDisplay(Widgets)
+				pages.AddPage("grid", display.Grid, true, true)
 			case err := <-watch.Error:
 				log.Fatalln(err)
 			case <-watch.Closed:
@@ -311,20 +279,18 @@ func main() {
 	makeWidgets(app, pages)
 	initializeFocusTracker(app)
 
-	grid := buildGrid(Widgets)
-	pages.AddPage("grid", grid, true, true)
+	display := wtf.NewDisplay(Widgets)
+	pages.AddPage("grid", display.Grid, true, true)
 	app.SetInputCapture(keyboardIntercept)
-
-	grid.SetBackgroundColor(wtf.ColorFor(Config.UString("wtf.colors.background", "black")))
 
 	// Loop in a routine to redraw the screen
 	go redrawApp(app)
-	go watchForConfigChanges(app, cmdFlags.Config, grid, pages)
+	go watchForConfigChanges(app, cmdFlags.Config, display.Grid, pages)
 
 	if err := app.SetRoot(pages, true).Run(); err != nil {
 		fmt.Printf("An error occurred: %v\n", err)
 		os.Exit(1)
 	}
 
-	wtf.Log("running!")
+	wtf.Log("Running!")
 }
