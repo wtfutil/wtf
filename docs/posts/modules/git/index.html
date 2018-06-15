@@ -163,6 +163,8 @@ commit, and their status.</p>
 <h2 id="configuration">Configuration</h2>
 <div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">git<span class="p">:</span><span class="w">
 </span><span class="w">  </span>commitCount<span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
+</span><span class="w">  </span>commitFormat<span class="p">:</span><span class="w"> </span><span class="s2">&#34;[forestgreen]%h [grey]%cd [white]%s [grey]%an[white]&#34;</span><span class="w">
+</span><span class="w">  </span>dateFormat<span class="p">:</span><span class="w"> </span><span class="s2">&#34;%H:%M %d %b %y&#34;</span><span class="w">
 </span><span class="w">  </span>enabled<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span><span class="w">  </span>position<span class="p">:</span><span class="w">
 </span><span class="w">    </span>top<span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
@@ -178,6 +180,13 @@ commit, and their status.</p>
 <p><code>commitCount</code> <br />
 The number of past commits to display. <br />
 Values: A positive integer, <code>0..n</code>.</p>
+
+<p><code>commitFormat</code> <br />
+<em>Optional</em> The string format for the commit message. <br /></p>
+
+<p><code>dateFormat</code> <br />
+<em>Optional</em> The string format for the date/time in the commit message.
+<br /></p>
 
 <p><code>enabled</code> <br />
 Determines whether or not this module is executed and if its data displayed onscreen. <br />
