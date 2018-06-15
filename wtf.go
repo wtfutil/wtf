@@ -42,6 +42,16 @@ import (
 	"github.com/senorprogrammer/wtf/wtf"
 )
 
+var Config *config.Config
+var FocusTracker wtf.FocusTracker
+var Widgets []wtf.Wtfable
+
+var (
+	commit  = "dev"
+	date    = "dev"
+	version = "dev"
+)
+
 /* -------------------- Functions -------------------- */
 
 func addToGrid(grid *tview.Grid, widget wtf.Wtfable) {
@@ -76,6 +86,20 @@ func buildGrid(modules []wtf.Wtfable) *tview.Grid {
 	return grid
 }
 
+func disableAllWidgets() {
+	for _, widget := range Widgets {
+		widget.Disable()
+	}
+}
+
+func initializeFocusTracker(app *tview.Application) {
+	FocusTracker = wtf.FocusTracker{
+		App:     app,
+		Idx:     -1,
+		Widgets: Widgets,
+	}
+}
+
 func keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	switch event.Key() {
 	case tcell.KeyCtrlR:
@@ -91,6 +115,10 @@ func keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	}
 
 	return event
+}
+
+func loadConfig(configFlag string) {
+	Config = cfg.LoadConfigFile(configFlag)
 }
 
 // redrawApp redraws the rendered views to screen on a defined interval (set in config.yml)
@@ -118,6 +146,10 @@ func refreshAllWidgets() {
 	}
 }
 
+func setTerm() {
+	os.Setenv("TERM", Config.UString("wtf.term", os.Getenv("TERM")))
+}
+
 func watchForConfigChanges(app *tview.Application, configFlag string, grid *tview.Grid, pages *tview.Pages) {
 	watch := watcher.New()
 
@@ -132,6 +164,7 @@ func watchForConfigChanges(app *tview.Application, configFlag string, grid *tvie
 				// Disable all widgets to stop scheduler goroutines and rmeove widgets from memory.
 				disableAllWidgets()
 				makeWidgets(app, pages)
+				initializeFocusTracker(app)
 				grid = buildGrid(Widgets)
 				pages.AddPage("grid", grid, true, true)
 			case err := <-watch.Error:
@@ -153,24 +186,6 @@ func watchForConfigChanges(app *tview.Application, configFlag string, grid *tvie
 	}
 }
 
-/* -------------------- Main -------------------- */
-
-var Config *config.Config
-var FocusTracker wtf.FocusTracker
-var Widgets []wtf.Wtfable
-
-var (
-	commit  = "dev"
-	date    = "dev"
-	version = "dev"
-)
-
-func disableAllWidgets() {
-	for _, widget := range Widgets {
-		widget.Disable()
-	}
-}
-
 func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
 	// Always in alphabetical order
 	switch widgetName {
@@ -180,6 +195,8 @@ func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
 		Widgets = append(Widgets, bargraph.NewWidget())
 	case "bittrex":
 		Widgets = append(Widgets, bittrex.NewWidget())
+	case "blockfolio":
+		Widgets = append(Widgets, blockfolio.NewWidget(app, pages))
 	case "circleci":
 		Widgets = append(Widgets, circleci.NewWidget())
 	case "clocks":
@@ -226,19 +243,16 @@ func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
 		Widgets = append(Widgets, todo.NewWidget(app, pages))
 	case "weather":
 		Widgets = append(Widgets, weather.NewWidget(app, pages))
-	case "blockfolio":
-		Widgets = append(Widgets, blockfolio.NewWidget(app, pages))
 	default:
 	}
 }
 
 func makeWidgets(app *tview.Application, pages *tview.Pages) {
-	Widgets = []wtf.Wtfable{}
-
 	// Always in alphabetical order
 	bamboohr.Config = Config
 	bargraph.Config = Config
 	bittrex.Config = Config
+	blockfolio.Config = Config
 	circleci.Config = Config
 	clocks.Config = Config
 	cmdrunner.Config = Config
@@ -262,7 +276,6 @@ func makeWidgets(app *tview.Application, pages *tview.Pages) {
 	textfile.Config = Config
 	todo.Config = Config
 	weather.Config = Config
-	blockfolio.Config = Config
 	wtf.Config = Config
 
 	mods, _ := Config.Map("wtf.mods")
@@ -272,17 +285,9 @@ func makeWidgets(app *tview.Application, pages *tview.Pages) {
 		}
 
 	}
-
-	FocusTracker = wtf.FocusTracker{
-		App:     app,
-		Idx:     -1,
-		Widgets: Widgets,
-	}
 }
 
-func loadConfig(configFlag string) {
-	Config = cfg.LoadConfigFile(configFlag)
-}
+/* -------------------- Main -------------------- */
 
 func main() {
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
@@ -294,20 +299,17 @@ func main() {
 		help.DisplayModuleInfo(cmdFlags.Module)
 	}
 
-	/* -------------------- end flag parsing and handling -------------------- */
-
-	// Responsible for creating the configuration directory and default
-	// configuration file if they don't already exist
 	cfg.CreateConfigDir()
 	cfg.WriteConfigFile()
 
 	loadConfig(cmdFlags.Config)
-	os.Setenv("TERM", Config.UString("wtf.term", os.Getenv("TERM")))
+	setTerm()
 
 	app := tview.NewApplication()
 	pages := tview.NewPages()
 
 	makeWidgets(app, pages)
+	initializeFocusTracker(app)
 
 	grid := buildGrid(Widgets)
 	pages.AddPage("grid", grid, true, true)
