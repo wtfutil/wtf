@@ -51,12 +51,6 @@ func NewSystemInfo() *SystemInfo {
 			ProductVersion: m["Description"],
 			BuildVersion:   m["Release"],
 		}
-	case "darwin":
-		sysInfo = &SystemInfo{
-			ProductName:    m["ProductName"],
-			ProductVersion: m["ProductVersion"],
-			BuildVersion:   m["BuildVersion"],
-		}
 	default:
 		sysInfo = &SystemInfo{
 			ProductName:    m["ProductName"],
