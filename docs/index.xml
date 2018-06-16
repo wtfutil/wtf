@@ -6,10 +6,24 @@
     <description>Recent content on WTF - A Terminal Dashboard</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 13 Jun 2018 09:29:59 -0700</lastBuildDate>
+    <lastBuildDate>Sat, 16 Jun 2018 14:22:18 -0700</lastBuildDate>
     
 	<atom:link href="https://wtfutil.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Logging</title>
+      <link>https://wtfutil.com/posts/modules/logging/</link>
+      <pubDate>Sat, 16 Jun 2018 14:22:18 -0700</pubDate>
+      
+      <guid>https://wtfutil.com/posts/modules/logging/</guid>
+      <description>Displays the contents of the WTF log file.
+To log to this file in your own modules:
+require &amp;#34;github.com/senorprogrammer/wtf/logging&amp;#34; logging.Log(&amp;#34;This is a log entry&amp;#34;) Source Code wtf/logging/ Required ENV Variables None.
+Keyboard Commands Arrow keys scroll through the log file.
+Configuration textfile:enabled:trueposition:top:5left:4height:2width:1refreshInterval:1 Attributes enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.
+position Defines where in the grid this module&amp;rsquo;s widget will be displayed.</description>
+    </item>
     
     <item>
       <title>Blockfolio</title>

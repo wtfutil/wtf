@@ -10,8 +10,8 @@
 
 <meta name="generator" content="Hugo 0.38.2" />
 
-<title>Overview | WTF - A Terminal Dashboard</title>
-<meta content="Overview - WTF - A Terminal Dashboard" property="og:title">
+<title>Logging | WTF - A Terminal Dashboard</title>
+<meta content="Logging - WTF - A Terminal Dashboard" property="og:title">
 <meta content=" - " property="og:description">
 <!-- CSS -->
 <link rel="stylesheet" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
@@ -102,13 +102,13 @@
 
         <div class="content container">
             <div class="post">
-  <h1>Overview</h1>
+  <h1>Logging</h1>
   
   <div class="col-sm-12 col-md-12">
     <span class="text-left post-date meta">
       
       
-        May 21, 2018
+        Jun 16, 2018
       
       
       
@@ -120,53 +120,42 @@
   
   
 
-<p><span style="font-family: monospace; font-size: 1.6em;">WTF</span> is a personal information dashboard for your terminal, developed for those who spend most of their day in the command line.</p>
+<p>Displays the contents of the WTF log file.</p>
 
-<p>It allows you to monitor services and systems that you otherwise might
-keep browser tabs open for, the kinds of things you don&rsquo;t always need
-visible, but might check in on every now and then.</p>
+<p>To log to this file in your own modules:</p>
+<div class="highlight"><pre class="chroma"><code class="language-golang" data-lang="golang"><span class="nx">require</span> <span class="s">&#34;github.com/senorprogrammer/wtf/logging&#34;</span>
+ <span class="nx">logging</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="s">&#34;This is a log entry&#34;</span><span class="p">)</span></code></pre></div>
+<h2 id="source-code">Source Code</h2>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">wtf/logging/</code></pre></div>
+<h2 id="required-env-variables">Required ENV Variables</h2>
 
-<h2 id="quick-start">Quick Start</h2>
-
-<ol>
-<li><a href="https://github.com/senorprogrammer/wtf/releases">Download</a> the stand-alone, compiled binary.</li>
-<li>Unzip the downloaded file.</li>
-<li>From the command line, <code>cd</code> into the newly-created <code>/wtf</code> directory.</li>
-<li>From the command line, run the app: <code>./wtf</code></li>
-</ol>
-
-<p>This should launch the app in your terminal using the default simple
-configuration. See <a href="/posts/configuration/">Configuration</a> for
-more details.</p>
-
-<h2 id="command-line-options">Command-line Options</h2>
-
-<p><code>--config, -c</code> <br />
-Allows you to define a custom config file to use. See <a href="/posts/configuration/">Configuration</a> for more details.</p>
-
-<p><code>--help, -h</code> <br />
-Shows help information for the command-line arguments that WTF
-takes.</p>
-
-<p><code>--module, -m</code> <br />
-Shows help information for the specific named module, if that module
-supports help text. <br />
-Example: <code>wtf --module=todo</code>.</p>
-
-<p><code>--version, -v</code> <br />
-Shows version info.</p>
+<p>None.</p>
 
 <h2 id="keyboard-commands">Keyboard Commands</h2>
 
-<p><span class="caption">Key:</span> <code>Ctrl-R</code> <br />
-<span class="caption">Action:</span> Force-refresh the data for all modules.</p>
+<p>Arrow keys scroll through the log file.</p>
 
-<p><span class="caption">Key:</span> <code>Esc</code> <br />
-<span class="caption">Action:</span> Unfocus the currently-focused
-widget.</p>
+<h2 id="configuration">Configuration</h2>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">textfile<span class="p">:</span><span class="w">
+</span><span class="w">  </span>enabled<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span>position<span class="p">:</span><span class="w">
+</span><span class="w">    </span>top<span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
+</span><span class="w">    </span>left<span class="p">:</span><span class="w"> </span><span class="m">4</span><span class="w">
+</span><span class="w">    </span>height<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span><span class="w">    </span>width<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">  </span>refreshInterval<span class="p">:</span><span class="w"> </span><span class="m">1</span></code></pre></div>
+<h3 id="attributes">Attributes</h3>
 
-<p><span class="caption">Key:</span> <code>Tab</code> <br />
-<span class="caption">Action:</span> Move between focusable modules (<code>Shift-Tab</code> to move backwards).</p>
+<p><code>enabled</code> <br />
+Determines whether or not this module is executed and if its data displayed onscreen. <br />
+Values: <code>true</code>, <code>false</code>.</p>
+
+<p><code>position</code> <br />
+Defines where in the grid this module&rsquo;s widget will be displayed. <br /></p>
+
+<p><code>refreshInterval</code> <br />
+How often, in seconds, this module will update its data. <br />
+Values: A positive integer, <code>0..n</code>.</p>
 
 </div>
 
