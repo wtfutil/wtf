@@ -54,10 +54,30 @@ func (widget *Widget) Refresh() {
 	widget.UpdateRefreshedAt()
 	widget.View.SetTitle(fmt.Sprintf("%s", widget.Name))
 
-	widget.View.SetText(fmt.Sprintf("%s", widget.tailFile()))
+	logLines := widget.tailFile()
+	widget.View.SetText(fmt.Sprintf("%s", widget.contentFrom(logLines)))
 }
 
 /* -------------------- Unexported Functions -------------------- */
+
+func (widget *Widget) contentFrom(logLines []string) string {
+	str := ""
+
+	for _, line := range logLines {
+		chunks := strings.Split(line, " ")
+
+		if len(chunks) >= 4 {
+			str = str + fmt.Sprintf(
+				"[green]%s[white] [yellow]%s[white] %s\n",
+				chunks[0],
+				chunks[1],
+				strings.Join(chunks[3:], " "),
+			)
+		}
+	}
+
+	return str
+}
 
 func logFileMissing() bool {
 	return logFilePath() == ""
@@ -72,16 +92,16 @@ func logFilePath() string {
 	return filepath.Join(dir, ".wtf", "log.txt")
 }
 
-func (widget *Widget) tailFile() string {
+func (widget *Widget) tailFile() []string {
 	file, err := os.Open(widget.filePath)
 	if err != nil {
-		return ""
+		return []string{}
 	}
 	defer file.Close()
 
 	stat, err := file.Stat()
 	if err != nil {
-		return ""
+		return []string{}
 	}
 
 	bufferSize := maxBufferSize
@@ -94,17 +114,17 @@ func (widget *Widget) tailFile() string {
 	buff := make([]byte, bufferSize)
 	_, err = file.ReadAt(buff, startPos)
 	if err != nil {
-		return ""
+		return []string{}
 	}
 
-	dataArr := strings.Split(string(buff), "\n")
+	logLines := strings.Split(string(buff), "\n")
 
 	// Reverse the array of lines
 	// Offset by two to account for the blank line at the end
-	last := len(dataArr) - 2
-	for i := 0; i < len(dataArr)/2; i++ {
-		dataArr[i], dataArr[last-i] = dataArr[last-i], dataArr[i]
+	last := len(logLines) - 2
+	for i := 0; i < len(logLines)/2; i++ {
+		logLines[i], logLines[last-i] = logLines[last-i], logLines[i]
 	}
 
-	return fmt.Sprintf("%s\n", strings.Join(dataArr, "\n"))
+	return logLines
 }

@@ -64,7 +64,7 @@ func (widget *Widget) contentFrom(deploys []nr.ApplicationDeployment) string {
 				lineColor = "lightblue"
 			}
 
-			var revLen = 8
+			revLen := 8
 			if revLen > len(deploy.Revision) {
 				revLen = len(deploy.Revision)
 			}
