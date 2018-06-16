@@ -22,6 +22,10 @@ func NewFlags() *Flags {
 
 /* -------------------- Exported Functions -------------------- */
 
+func (flags *Flags) ConfigFilePath() string {
+	return flags.Config
+}
+
 func (flags *Flags) HasConfig() bool {
 	return len(flags.Config) > 0
 }
@@ -42,6 +46,8 @@ func (flags *Flags) Parse(version string) {
 		}
 	}
 
+	// If no config file is explicitly passed in as a param,
+	// set the flag to the default config file
 	if !flags.HasConfig() {
 		homeDir, err := wtf.Home()
 		if err != nil {
