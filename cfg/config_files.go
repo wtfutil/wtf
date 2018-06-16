@@ -30,6 +30,25 @@ func CreateConfigDir() {
 	}
 }
 
+// CreateConfigFile creates a simple config file in the config directory if
+// one does not already exist
+func CreateConfigFile() {
+	filePath, err := CreateFile("config.yml")
+	if err != nil {
+		panic(err)
+	}
+
+	// If the file is empty, write to it
+	file, err := os.Stat(filePath)
+
+	if file.Size() == 0 {
+		err = ioutil.WriteFile(filePath, []byte(simpleConfig), 0644)
+		if err != nil {
+			panic(err)
+		}
+	}
+}
+
 // CreateFile creates the named file in the config directory, if it does not already exist.
 // If the file exists it does not recreate it.
 // If successful, eturns the absolute path to the file
@@ -86,25 +105,6 @@ func ReadConfigFile(fileName string) (string, error) {
 	}
 
 	return string(fileData), nil
-}
-
-// WriteConfigFile creates a simple config file in the config directory if
-// one does not already exist
-func WriteConfigFile() {
-	filePath, err := CreateFile("config.yml")
-	if err != nil {
-		panic(err)
-	}
-
-	// If the file is empty, write to it
-	file, err := os.Stat(filePath)
-
-	if file.Size() == 0 {
-		err = ioutil.WriteFile(filePath, []byte(simpleConfig), 0644)
-		if err != nil {
-			panic(err)
-		}
-	}
 }
 
 const simpleConfig = `wtf:

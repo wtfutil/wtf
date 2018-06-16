@@ -86,8 +86,38 @@ func keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	return event
 }
 
-func loadConfig(filePath string) {
+func loadConfigFile(filePath string) {
 	Config = cfg.LoadConfigFile(filePath)
+
+	// Always in alphabetical order
+	bamboohr.Config = Config
+	bargraph.Config = Config
+	bittrex.Config = Config
+	blockfolio.Config = Config
+	circleci.Config = Config
+	clocks.Config = Config
+	cmdrunner.Config = Config
+	cryptolive.Config = Config
+	gcal.Config = Config
+	git.Config = Config
+	github.Config = Config
+	gitlab.Config = Config
+	gspreadsheets.Config = Config
+	ipapi.Config = Config
+	ipinfo.Config = Config
+	jenkins.Config = Config
+	jira.Config = Config
+	newrelic.Config = Config
+	opsgenie.Config = Config
+	power.Config = Config
+	prettyweather.Config = Config
+	security.Config = Config
+	status.Config = Config
+	system.Config = Config
+	textfile.Config = Config
+	todo.Config = Config
+	weather.Config = Config
+	wtf.Config = Config
 }
 
 // redrawApp redraws the rendered views to screen on a defined interval (set in config.yml)
@@ -119,7 +149,7 @@ func setTerm() {
 	os.Setenv("TERM", Config.UString("wtf.term", os.Getenv("TERM")))
 }
 
-func watchForConfigChanges(app *tview.Application, configFlag string, grid *tview.Grid, pages *tview.Pages) {
+func watchForConfigChanges(app *tview.Application, configFilePath string, grid *tview.Grid, pages *tview.Pages) {
 	watch := watcher.New()
 
 	// notify write events.
@@ -129,7 +159,7 @@ func watchForConfigChanges(app *tview.Application, configFlag string, grid *tvie
 		for {
 			select {
 			case <-watch.Event:
-				loadConfig(configFlag)
+				loadConfigFile(configFilePath)
 				// Disable all widgets to stop scheduler goroutines and rmeove widgets from memory.
 				disableAllWidgets()
 				makeWidgets(app, pages)
@@ -145,7 +175,7 @@ func watchForConfigChanges(app *tview.Application, configFlag string, grid *tvie
 	}()
 
 	// Watch config file for changes.
-	if err := watch.Add(configFlag); err != nil {
+	if err := watch.Add(configFilePath); err != nil {
 		log.Fatalln(err)
 	}
 
@@ -217,36 +247,6 @@ func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
 }
 
 func makeWidgets(app *tview.Application, pages *tview.Pages) {
-	// Always in alphabetical order
-	bamboohr.Config = Config
-	bargraph.Config = Config
-	bittrex.Config = Config
-	blockfolio.Config = Config
-	circleci.Config = Config
-	clocks.Config = Config
-	cmdrunner.Config = Config
-	cryptolive.Config = Config
-	gcal.Config = Config
-	git.Config = Config
-	github.Config = Config
-	gitlab.Config = Config
-	gspreadsheets.Config = Config
-	ipapi.Config = Config
-	ipinfo.Config = Config
-	jenkins.Config = Config
-	jira.Config = Config
-	newrelic.Config = Config
-	opsgenie.Config = Config
-	power.Config = Config
-	prettyweather.Config = Config
-	security.Config = Config
-	status.Config = Config
-	system.Config = Config
-	textfile.Config = Config
-	todo.Config = Config
-	weather.Config = Config
-	wtf.Config = Config
-
 	mods, _ := Config.Map("wtf.mods")
 	for mod := range mods {
 		if enabled := Config.UBool("wtf.mods."+mod+".enabled", false); enabled {
@@ -275,9 +275,9 @@ func main() {
 	}
 
 	cfg.CreateConfigDir()
-	cfg.WriteConfigFile()
+	cfg.CreateConfigFile()
+	loadConfigFile(flags.ConfigFilePath())
 
-	loadConfig(flags.Config)
 	setTerm()
 
 	app := tview.NewApplication()
