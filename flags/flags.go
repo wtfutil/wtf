@@ -6,6 +6,7 @@ import (
 	"path/filepath"
 
 	goFlags "github.com/jessevdk/go-flags"
+	"github.com/senorprogrammer/wtf/help"
 	"github.com/senorprogrammer/wtf/wtf"
 )
 
@@ -26,6 +27,18 @@ func (flags *Flags) ConfigFilePath() string {
 	return flags.Config
 }
 
+func (flags *Flags) Display(version string) {
+	if flags.HasModule() {
+		help.Display(flags.Module)
+		os.Exit(0)
+	}
+
+	if flags.HasVersion() {
+		fmt.Println(version)
+		os.Exit(0)
+	}
+}
+
 func (flags *Flags) HasConfig() bool {
 	return len(flags.Config) > 0
 }
@@ -38,7 +51,7 @@ func (flags *Flags) HasVersion() bool {
 	return flags.Version == true
 }
 
-func (flags *Flags) Parse(version string) {
+func (flags *Flags) Parse() {
 	parser := goFlags.NewParser(flags, goFlags.Default)
 	if _, err := parser.Parse(); err != nil {
 		if flagsErr, ok := err.(*goFlags.Error); ok && flagsErr.Type == goFlags.ErrHelp {
