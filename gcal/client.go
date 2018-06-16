@@ -16,8 +16,8 @@ import (
 	"os"
 	"os/user"
 	"path/filepath"
-	"time"
 	"sort"
+	"time"
 
 	"github.com/senorprogrammer/wtf/wtf"
 	"golang.org/x/oauth2"
@@ -30,7 +30,7 @@ import (
 func Fetch() (*calendar.Events, error) {
 	ctx := context.Background()
 
-	secretPath, _ := wtf.ExpandHomeDir(Config.UString("wtf.mods.gcal.secretFile"))
+	secretPath, _ := wtf.ExpandHomeDir(wtf.Config.UString("wtf.mods.gcal.secretFile"))
 
 	b, err := ioutil.ReadFile(secretPath)
 	if err != nil {
@@ -70,7 +70,7 @@ func Fetch() (*calendar.Events, error) {
 	var events calendar.Events
 
 	startTime := fromMidnight().Format(time.RFC3339)
-	eventLimit := int64(Config.UInt("wtf.mods.gcal.eventCount", 10))
+	eventLimit := int64(wtf.Config.UInt("wtf.mods.gcal.eventCount", 10))
 
 	for _, calendarId := range calendarIds {
 		calendarEvents, err := srv.Events.List(calendarId).ShowDeleted(false).TimeMin(startTime).MaxResults(eventLimit).SingleEvents(true).OrderBy("startTime").Do()
@@ -94,10 +94,9 @@ func Fetch() (*calendar.Events, error) {
 	sort.Slice(events.Items, func(i, j int) bool {
 		dateA, _ := timeDateChooser(events.Items[i])
 		dateB, _ := timeDateChooser(events.Items[j])
-	  return dateA.Before(dateB)
+		return dateA.Before(dateB)
 	})
 
-	
 	return &events, err
 }
 

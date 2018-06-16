@@ -88,35 +88,6 @@ func keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 
 func loadConfigFile(filePath string) {
 	Config = cfg.LoadConfigFile(filePath)
-
-	// Always in alphabetical order
-	bamboohr.Config = Config
-	bargraph.Config = Config
-	bittrex.Config = Config
-	blockfolio.Config = Config
-	circleci.Config = Config
-	clocks.Config = Config
-	cmdrunner.Config = Config
-	cryptolive.Config = Config
-	gcal.Config = Config
-	git.Config = Config
-	github.Config = Config
-	gitlab.Config = Config
-	gspreadsheets.Config = Config
-	ipapi.Config = Config
-	ipinfo.Config = Config
-	jenkins.Config = Config
-	jira.Config = Config
-	newrelic.Config = Config
-	opsgenie.Config = Config
-	power.Config = Config
-	prettyweather.Config = Config
-	security.Config = Config
-	status.Config = Config
-	system.Config = Config
-	textfile.Config = Config
-	todo.Config = Config
-	weather.Config = Config
 	wtf.Config = Config
 }
 

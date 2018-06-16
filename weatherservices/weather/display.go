@@ -55,14 +55,14 @@ func (widget *Widget) sunInfo(cityData *owm.CurrentWeatherData) string {
 }
 
 func (widget *Widget) temperatures(cityData *owm.CurrentWeatherData) string {
-	tempUnit := Config.UString("wtf.mods.weather.tempUnit", "C")
+	tempUnit := wtf.Config.UString("wtf.mods.weather.tempUnit", "C")
 
 	str := fmt.Sprintf("%8s: %4.1f° %s\n", "High", cityData.Main.TempMax, tempUnit)
 
 	str = str + fmt.Sprintf(
 		"%8s: [%s]%4.1f° %s[white]\n",
 		"Current",
-		Config.UString("wtf.mods.weather.colors.current", "green"),
+		wtf.Config.UString("wtf.mods.weather.colors.current", "green"),
 		cityData.Main.Temp,
 		tempUnit,
 	)

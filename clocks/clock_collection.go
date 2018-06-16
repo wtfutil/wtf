@@ -3,6 +3,8 @@ package clocks
 import (
 	"sort"
 	"time"
+
+	"github.com/senorprogrammer/wtf/wtf"
 )
 
 type ClockCollection struct {
@@ -10,7 +12,7 @@ type ClockCollection struct {
 }
 
 func (clocks *ClockCollection) Sorted() []Clock {
-	if "chronological" == Config.UString("wtf.mods.clocks.sort", "alphabetical") {
+	if "chronological" == wtf.Config.UString("wtf.mods.clocks.sort", "alphabetical") {
 		clocks.SortedChronologically()
 	} else {
 		clocks.SortedAlphabetically()

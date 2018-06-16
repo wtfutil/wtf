@@ -5,13 +5,9 @@ import (
 	"io/ioutil"
 
 	"github.com/gdamore/tcell"
-	"github.com/olebedev/config"
 	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/wtf"
 )
-
-// Config is a pointer to the global config object
-var Config *config.Config
 
 const HelpText = `
   Keyboard commands for Textfile:
@@ -33,7 +29,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 		TextWidget: wtf.NewTextWidget(" Text File ", "textfile", true),
 
 		app:      app,
-		filePath: Config.UString("wtf.mods.textfile.filePath"),
+		filePath: wtf.Config.UString("wtf.mods.textfile.filePath"),
 		pages:    pages,
 	}
 
