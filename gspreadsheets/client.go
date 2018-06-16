@@ -29,7 +29,7 @@ import (
 func Fetch() ([]*sheets.ValueRange, error) {
 	ctx := context.Background()
 
-	secretPath, _ := wtf.ExpandHomeDir(Config.UString("wtf.mods.gspreadsheets.secretFile"))
+	secretPath, _ := wtf.ExpandHomeDir(wtf.Config.UString("wtf.mods.gspreadsheets.secretFile"))
 
 	b, err := ioutil.ReadFile(secretPath)
 	if err != nil {
@@ -51,8 +51,8 @@ func Fetch() ([]*sheets.ValueRange, error) {
 		return nil, err
 	}
 
-	cells := wtf.ToStrs(Config.UList("wtf.mods.gspreadsheets.cells.addresses"))
-	documentId := Config.UString("wtf.mods.gspreadsheets.sheetId")
+	cells := wtf.ToStrs(wtf.Config.UList("wtf.mods.gspreadsheets.cells.addresses"))
+	documentId := wtf.Config.UString("wtf.mods.gspreadsheets.sheetId")
 	addresses := strings.Join(cells[:], ";")
 
 	responses := make([]*sheets.ValueRange, len(cells))

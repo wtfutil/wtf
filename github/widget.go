@@ -2,13 +2,9 @@ package github
 
 import (
 	"github.com/gdamore/tcell"
-	"github.com/olebedev/config"
 	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/wtf"
 )
-
-// Config is a pointer to the global config object
-var Config *config.Config
 
 const HelpText = `
   Keyboard commands for Github:
@@ -41,7 +37,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 		pages: pages,
 	}
 
-	widget.GithubRepos = widget.buildRepoCollection(Config.UMap("wtf.mods.github.repositories"))
+	widget.GithubRepos = widget.buildRepoCollection(wtf.Config.UMap("wtf.mods.github.repositories"))
 
 	widget.View.SetInputCapture(widget.keyboardIntercept)
 

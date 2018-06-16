@@ -50,12 +50,12 @@ func (repo *GitRepo) changedFiles() []string {
 }
 
 func (repo *GitRepo) commits() []string {
-	numStr := fmt.Sprintf("-n %d", Config.UInt("wtf.mods.git.commitCount", 10))
+	numStr := fmt.Sprintf("-n %d", wtf.Config.UInt("wtf.mods.git.commitCount", 10))
 
-	dateFormat := Config.UString("wtf.mods.git.dateFormat", "%b %d, %Y")
+	dateFormat := wtf.Config.UString("wtf.mods.git.dateFormat", "%b %d, %Y")
 	dateStr := fmt.Sprintf("--date=format:\"%s\"", dateFormat)
 
-	commitFormat := Config.UString("wtf.mods.git.commitFormat", "[forestgreen]%h [white]%s [grey]%an on %cd[white]")
+	commitFormat := wtf.Config.UString("wtf.mods.git.commitFormat", "[forestgreen]%h [white]%s [grey]%an on %cd[white]")
 	commitStr := fmt.Sprintf("--pretty=format:\"%s\"", commitFormat)
 
 	arg := []string{repo.gitDir(), repo.workTree(), "log", dateStr, numStr, commitStr}
