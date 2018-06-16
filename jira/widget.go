@@ -66,20 +66,16 @@ func (widget *Widget) contentFrom(searchResult *SearchResult) string {
 }
 
 func (widget *Widget) issueTypeColor(issue *Issue) string {
-	var color string
-
 	switch issue.IssueFields.IssueType.Name {
 	case "Bug":
-		color = "red"
+		return "red"
 	case "Story":
-		color = "blue"
+		return "blue"
 	case "Task":
-		color = "orange"
+		return "orange"
 	default:
-		color = "white"
+		return "white"
 	}
-
-	return color
 }
 
 func getProjects() []string {
