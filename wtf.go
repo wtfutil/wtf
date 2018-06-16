@@ -19,6 +19,7 @@ import (
 	"github.com/senorprogrammer/wtf/cryptoexchanges/bittrex"
 	"github.com/senorprogrammer/wtf/cryptoexchanges/blockfolio"
 	"github.com/senorprogrammer/wtf/cryptoexchanges/cryptolive"
+	"github.com/senorprogrammer/wtf/flags"
 	"github.com/senorprogrammer/wtf/gcal"
 	"github.com/senorprogrammer/wtf/git"
 	"github.com/senorprogrammer/wtf/github"
@@ -260,17 +261,17 @@ func makeWidgets(app *tview.Application, pages *tview.Pages) {
 func main() {
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
 
-	cmdFlags := wtf.NewCommandFlags()
-	cmdFlags.Parse(version)
+	flags := flags.NewFlags()
+	flags.Parse(version)
 
-	if cmdFlags.HasModule() {
-		help.Display(cmdFlags.Module)
+	if flags.HasModule() {
+		help.Display(flags.Module)
 	}
 
 	cfg.CreateConfigDir()
 	cfg.WriteConfigFile()
 
-	loadConfig(cmdFlags.Config)
+	loadConfig(flags.Config)
 	setTerm()
 
 	app := tview.NewApplication()
@@ -285,7 +286,7 @@ func main() {
 
 	// Loop in a routine to redraw the screen
 	go redrawApp(app)
-	go watchForConfigChanges(app, cmdFlags.Config, display.Grid, pages)
+	go watchForConfigChanges(app, flags.Config, display.Grid, pages)
 
 	if err := app.SetRoot(pages, true).Run(); err != nil {
 		fmt.Printf("An error occurred: %v\n", err)
