@@ -67,16 +67,12 @@ func (widget *Widget) contentFrom(view *View) string {
 }
 
 func (widget *Widget) jobColor(job *Job) string {
-	var color string
-
 	switch job.Color {
 	case "blue":
-		color = "green"
+		return "blue"
 	case "red":
-		color = "red"
+		return "red"
 	default:
-		color = "white"
+		return "white"
 	}
-
-	return color
 }
