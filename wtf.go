@@ -85,8 +85,8 @@ func keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	return event
 }
 
-func loadConfig(configFlag string) {
-	Config = cfg.LoadConfigFile(configFlag)
+func loadConfig(filePath string) {
+	Config = cfg.LoadConfigFile(filePath)
 }
 
 // redrawApp redraws the rendered views to screen on a defined interval (set in config.yml)
@@ -264,7 +264,7 @@ func main() {
 	cmdFlags.Parse(version)
 
 	if cmdFlags.HasModule() {
-		help.DisplayModuleInfo(cmdFlags.Module)
+		help.Display(cmdFlags.Module)
 	}
 
 	cfg.CreateConfigDir()
