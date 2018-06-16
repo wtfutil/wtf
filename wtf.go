@@ -266,6 +266,12 @@ func main() {
 
 	if flags.HasModule() {
 		help.Display(flags.Module)
+		os.Exit(0)
+	}
+
+	if flags.HasVersion() {
+		fmt.Println(version)
+		os.Exit(0)
 	}
 
 	cfg.CreateConfigDir()
@@ -289,7 +295,7 @@ func main() {
 	go watchForConfigChanges(app, flags.Config, display.Grid, pages)
 
 	if err := app.SetRoot(pages, true).Run(); err != nil {
-		fmt.Printf("An error occurred: %v\n", err)
+		fmt.Printf("Error: %v\n", err)
 		os.Exit(1)
 	}
 

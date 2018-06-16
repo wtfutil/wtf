@@ -2,7 +2,6 @@ package help
 
 import (
 	"fmt"
-	"os"
 
 	"github.com/senorprogrammer/wtf/git"
 	"github.com/senorprogrammer/wtf/github"
@@ -17,8 +16,6 @@ func Display(moduleName string) {
 	} else {
 		fmt.Printf("%s\n", helpFor(moduleName))
 	}
-
-	os.Exit(0)
 }
 
 func helpFor(moduleName string) string {
