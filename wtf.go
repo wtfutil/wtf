@@ -25,7 +25,6 @@ import (
 	"github.com/senorprogrammer/wtf/github"
 	"github.com/senorprogrammer/wtf/gitlab"
 	"github.com/senorprogrammer/wtf/gspreadsheets"
-	"github.com/senorprogrammer/wtf/help"
 	"github.com/senorprogrammer/wtf/ipaddresses/ipapi"
 	"github.com/senorprogrammer/wtf/ipaddresses/ipinfo"
 	"github.com/senorprogrammer/wtf/jenkins"
@@ -248,6 +247,7 @@ func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
 
 func makeWidgets(app *tview.Application, pages *tview.Pages) {
 	mods, _ := Config.Map("wtf.mods")
+
 	for mod := range mods {
 		if enabled := Config.UBool("wtf.mods."+mod+".enabled", false); enabled {
 			addWidget(app, pages, mod)
@@ -262,17 +262,8 @@ func main() {
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
 
 	flags := flags.NewFlags()
-	flags.Parse(version)
-
-	if flags.HasModule() {
-		help.Display(flags.Module)
-		os.Exit(0)
-	}
-
-	if flags.HasVersion() {
-		fmt.Println(version)
-		os.Exit(0)
-	}
+	flags.Parse()
+	flags.Display(version)
 
 	cfg.CreateConfigDir()
 	cfg.CreateConfigFile()
