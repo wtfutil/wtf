@@ -133,8 +133,13 @@ func (widget *Widget) eventSummary(event *calendar.Event, conflict bool) string 
 }
 
 func (widget *Widget) eventTimestamp(event *calendar.Event) string {
-	startTime, _ := time.Parse(time.RFC3339, event.Start.DateTime)
-	return startTime.Format(wtf.FriendlyDateTimeFormat)
+	if len(event.Start.Date) > 0 {
+		startTime, _ := time.Parse("2006-01-02", event.Start.Date)
+		return startTime.Format(wtf.FriendlyDateFormat)
+	} else {
+		startTime, _ := time.Parse(time.RFC3339, event.Start.DateTime)
+		return startTime.Format(wtf.FriendlyDateTimeFormat)
+	} 
 }
 
 // eventIsNow returns true if the event is happening now, false if it not
