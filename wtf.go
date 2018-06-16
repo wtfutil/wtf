@@ -29,6 +29,7 @@ import (
 	"github.com/senorprogrammer/wtf/ipaddresses/ipinfo"
 	"github.com/senorprogrammer/wtf/jenkins"
 	"github.com/senorprogrammer/wtf/jira"
+	"github.com/senorprogrammer/wtf/logging"
 	"github.com/senorprogrammer/wtf/newrelic"
 	"github.com/senorprogrammer/wtf/opsgenie"
 	"github.com/senorprogrammer/wtf/power"
@@ -221,6 +222,8 @@ func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
 		Widgets = append(Widgets, jenkins.NewWidget())
 	case "jira":
 		Widgets = append(Widgets, jira.NewWidget())
+	case "logging":
+		Widgets = append(Widgets, logging.NewWidget())
 	case "newrelic":
 		Widgets = append(Widgets, newrelic.NewWidget())
 	case "opsgenie":
@@ -285,10 +288,10 @@ func main() {
 	go redrawApp(app)
 	go watchForConfigChanges(app, flags.Config, display.Grid, pages)
 
+	logging.Log("Running!")
+
 	if err := app.SetRoot(pages, true).Run(); err != nil {
 		fmt.Printf("Error: %v\n", err)
 		os.Exit(1)
 	}
-
-	wtf.Log("Running!")
 }
