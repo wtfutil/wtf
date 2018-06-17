@@ -1,5 +1,5 @@
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors)
 <img src="https://travis-ci.com/senorprogrammer/wtf.svg?branch=master" />
 
 <p align="center">
@@ -57,8 +57,8 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore -->
-| [<img src="https://avatars0.githubusercontent.com/u/6413?v=4" width="64px;"/><br /><sub><b>Chris Cummer</b></sub>](https://twitter.com/senorprogrammer)<br />[💻](https://github.com/senorprogrammer/wtf/commits?author=senorprogrammer "Code") | [<img src="https://avatars1.githubusercontent.com/u/34973359?v=4" width="64px;"/><br /><sub><b>Hossein Mehrabi</b></sub>](https://github.com/jeangovil)<br />[💻](https://github.com/senorprogrammer/wtf/commits?author=jeangovil "Code") | [<img src="https://avatars0.githubusercontent.com/u/11779018?v=4" width="64px;"/><br /><sub><b>FengYa</b></sub>](https://github.com/Fengyalv)<br />[💻](https://github.com/senorprogrammer/wtf/commits?author=Fengyalv "Code") | [<img src="https://avatars2.githubusercontent.com/u/17337753?v=4" width="64px;"/><br /><sub><b>deltax</b></sub>](https://fluxionnetwork.github.io/fluxion/)<br />[💻](https://github.com/senorprogrammer/wtf/commits?author=deltaxflux "Code") | [<img src="https://avatars0.githubusercontent.com/u/1319630?v=4" width="64px;"/><br /><sub><b>Bill Keenan</b></sub>](https://github.com/BillKeenan)<br />[💻](https://github.com/senorprogrammer/wtf/commits?author=BillKeenan "Code") |
-| :---: | :---: | :---: | :---: | :---: |
+| [<img src="https://avatars0.githubusercontent.com/u/6413?v=4" width="64px;"/><br /><sub><b>Chris Cummer</b></sub>](https://twitter.com/senorprogrammer)<br />[💻](https://github.com/senorprogrammer/wtf/commits?author=senorprogrammer "Code") | [<img src="https://avatars1.githubusercontent.com/u/34973359?v=4" width="64px;"/><br /><sub><b>Hossein Mehrabi</b></sub>](https://github.com/jeangovil)<br />[💻](https://github.com/senorprogrammer/wtf/commits?author=jeangovil "Code") | [<img src="https://avatars0.githubusercontent.com/u/11779018?v=4" width="64px;"/><br /><sub><b>FengYa</b></sub>](https://github.com/Fengyalv)<br />[💻](https://github.com/senorprogrammer/wtf/commits?author=Fengyalv "Code") | [<img src="https://avatars2.githubusercontent.com/u/17337753?v=4" width="64px;"/><br /><sub><b>deltax</b></sub>](https://fluxionnetwork.github.io/fluxion/)<br />[💻](https://github.com/senorprogrammer/wtf/commits?author=deltaxflux "Code") | [<img src="https://avatars0.githubusercontent.com/u/1319630?v=4" width="64px;"/><br /><sub><b>Bill Keenan</b></sub>](https://github.com/BillKeenan)<br />[💻](https://github.com/senorprogrammer/wtf/commits?author=BillKeenan "Code") | [<img src="https://avatars2.githubusercontent.com/u/118081?v=4" width="64px;"/><br /><sub><b>June S</b></sub>](http://blog.sapara.com)<br />[💻](https://github.com/senorprogrammer/wtf/commits?author=interlock "Code") |
+| :---: | :---: | :---: | :---: | :---: | :---: |
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification. Contributions of any kind welcome!
