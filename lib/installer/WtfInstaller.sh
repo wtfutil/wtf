@@ -11,7 +11,6 @@
 # ============================================================ #
 
 wtf_installer() {
-    local -r BRANCH=$(git rev-parse --abbrev-ref HEAD)
 
     # set go path
     if [ -z ${GOPATH+x} ];then
@@ -19,21 +18,41 @@ wtf_installer() {
         export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
     fi
 
-    if ! ping -q -w 1 -c 1 8.8.8.8  &> /dev/null; then
-        _dialog_notice "No internet connection found"
+    if [ "$OS" == "Linux" ];then
+        _dialog_notice "Clean old files"
+        go clean
+
+        _dialog_notice "Get latest wtf release"
+
+        # Get wtf
+        go get -u github.com/senorprogrammer/wtf
+        cd $GOPATH/src/github.com/senorprogrammer/wtf
+
+        # Install
+        go install -ldflags="-X main.version=$(git describe --always --abbrev=6) -X main.date=$(date +%FT%T%z)"
+
+    else
+        spinner_start "Clean old files"; sleep 0.1
+        go clean
+        spinner_stop $?
+
+        spinner_start "Get dependencies"; sleep 0.1
+        go get -u github.com/senorprogrammer/wtf
+        spinner_stop $?
+
+        spinner_start "Install wtf"; sleep 0.1
+        go install -ldflags="-X main.version=$(shell git describe --always --abbrev=6) -X main.date=$(shell date +%FT%T%z)"
+        spinner_stop $?
+
+        spinner_start "Build wtf"; sleep 0.1
+        go build -o bin/wtf
+        spinner_stop $?
+
+        if [ ! -f "/bin/wtf" ];then
+            sudo ln -s $GOPATH/bin/wtf /bin/wtf
+        fi
     fi
 
-    # Get wtf
-    go get -u github.com/senorprogrammer/wtf
-    cd $GOPATH/src/github.com/senorprogrammer/wtf
-
-    # get dependencies
-    go get -v ./...
-
-    # Install wtf
-    go install -ldflags="-X main.version=$(git describe --always --abbrev=6)_$BRANCH -X main.date=$(date +%FT%T%z)"
-
-    if [ ! -f "/bin/wtf" ];then
-        sudo ln -s $GOPATH/bin/wtf /bin/wtf
-    fi
+    if hash wtf ;then echo "Installed!";fi 
 }
+

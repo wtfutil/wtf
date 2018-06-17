@@ -41,6 +41,3 @@ _dialog_notice() {
     dialog --title "$1"  --msgbox "$1" 6 60
 }
 
-
-
-
