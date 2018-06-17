@@ -29,7 +29,7 @@ import (
 	"github.com/senorprogrammer/wtf/ipaddresses/ipinfo"
 	"github.com/senorprogrammer/wtf/jenkins"
 	"github.com/senorprogrammer/wtf/jira"
-	"github.com/senorprogrammer/wtf/logging"
+	"github.com/senorprogrammer/wtf/logger"
 	"github.com/senorprogrammer/wtf/newrelic"
 	"github.com/senorprogrammer/wtf/opsgenie"
 	"github.com/senorprogrammer/wtf/power"
@@ -194,7 +194,7 @@ func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
 	case "jira":
 		Widgets = append(Widgets, jira.NewWidget())
 	case "logging":
-		Widgets = append(Widgets, logging.NewWidget())
+		Widgets = append(Widgets, logger.NewWidget())
 	case "newrelic":
 		Widgets = append(Widgets, newrelic.NewWidget())
 	case "opsgenie":
@@ -258,8 +258,6 @@ func main() {
 	// Loop in a routine to redraw the screen
 	go redrawApp(app)
 	go watchForConfigChanges(app, flags.Config, display.Grid, pages)
-
-	logging.Log("Running!")
 
 	if err := app.SetRoot(pages, true).Run(); err != nil {
 		fmt.Printf("Error: %v\n", err)
