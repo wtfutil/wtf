@@ -1,0 +1,22 @@
+{
+  "projectName": "wtf",
+  "projectOwner": "senorprogrammer",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 64,
+  "commit": true,
+  "contributors": [
+    {
+      "login": "senorprogrammer",
+      "name": "Chris Cummer",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/6413?v=4",
+      "profile": "https://twitter.com/senorprogrammer",
+      "contributions": [
+        "code"
+      ]
+    }
+  ]
+}

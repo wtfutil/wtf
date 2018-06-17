@@ -1,6 +1,6 @@
-<p align="right">
-  <img src="https://travis-ci.com/senorprogrammer/wtf.svg?branch=master" />
-</p>
+
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
+<img src="https://travis-ci.com/senorprogrammer/wtf.svg?branch=master" />
 
 <p align="center">
   <img src="./docs/img/wtf.jpg?raw=true" title="WTF" width="852" height="240" />
@@ -46,9 +46,22 @@ documentation. Here's some short-cuts:
 
 Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests.
 
-## Authors
+## Author
 
 * Chris Cummer, [senorprogrammer](https://github.com/senorprogrammer)
+
+
+## Contributors
+
+Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds/all-contributors#emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore -->
+| [<img src="https://avatars0.githubusercontent.com/u/6413?v=4" width="64px;"/><br /><sub><b>Chris Cummer</b></sub>](https://twitter.com/senorprogrammer)<br />[💻](https://github.com/senorprogrammer/wtf/commits?author=senorprogrammer "Code") |
+| :---: |
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification. Contributions of any kind welcome!
 
 ## License
 
@@ -77,4 +90,3 @@ Many thanks to all these developers.
 <p align="center">
 <img src="./docs/img/dude_wtf.png?raw=true" title="Dude WTF" width="251" height="201" />
 </p>
-
