@@ -1,7 +1,5 @@
 
-<img src="https://travis-ci.com/senorprogrammer/wtf.svg?branch=master" />
-<a href="https://gitter.im/wtfutil/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge"><img src="https://badges.gitter.im/wtfutil/Lobby.svg" /></a>
-<a href="#contributors"><img src="https://img.shields.io/badge/all_contributors-27-orange.svg?style=flat-square" /></a>
+<img src="https://travis-ci.com/senorprogrammer/wtf.svg?branch=master" /> <a href="https://gitter.im/wtfutil/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge"><img src="https://badges.gitter.im/wtfutil/Lobby.svg" /></a> <a href="#contributors"><img src="https://img.shields.io/badge/all_contributors-27-orange.svg?style=flat-square" /></a>
 
 
 <p align="center">
