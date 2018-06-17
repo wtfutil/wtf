@@ -1,7 +1,10 @@
-.PHONY: dependencies install run
+.PHONY: contrib_check dependencies install run
 
 build:
 	go build -o bin/wtf
+
+contrib_check:
+	npx all-contributors-cli check
 
 install:
 	go clean
