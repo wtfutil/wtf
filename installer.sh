@@ -11,6 +11,8 @@
 # ============================================================ #
 
 source lang/en.sh
+
+# libs
 source conf/Config.sh
 source lib/OSUtils.sh
 source lib/SpinnerUtils.sh
@@ -18,6 +20,7 @@ source lib/InitUtils.sh
 source lib/DialogUtils.sh
 source lib/PrintUtils.sh
 
+# wtf installer
 source lib/installer/WtfInstaller.sh
 
 # ============================================================ #
@@ -26,7 +29,7 @@ source lib/installer/WtfInstaller.sh
 
 readonly WtfTempPath="/tmp/wtfspace"
 readonly WtfInstallerVersion=1
-readonly WtfInstallerRevision=1
+readonly WtfInstallerRevision=5
 
 ## need quick fux
 Init() {
@@ -34,12 +37,12 @@ Init() {
     if [ "$OS" == "Linux" ];then
         _dialog_title "$WTF_HELLO"
         _dialog_agree "$WTF_AGREE"
-
         _dialog_wait "$WTF_BACKUP"
 
         _init_files
     else
         echo -e "\033[32mWTF gui installer\033[0m \n"
+        # Check if it was successfull
         spinner_start "$WTF_BACKUP"; sleep 0.1
         _init_files
         spinner_stop $?

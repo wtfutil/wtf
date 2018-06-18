@@ -16,3 +16,6 @@ readonly WTF_HELLO="Wtf installer"
 readonly WTF_BACKUP="Initalize all files"
 readonly WTF_OPTION="Unknown type or option"
 
+readonly WTF_CLEAN="Clean old files and remove binaries"
+readonly WTF_RELES="Get the latest wtf release"
+readonly WTF_DEP="Install latest and required dependencies"

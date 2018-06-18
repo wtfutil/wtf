@@ -17,7 +17,7 @@ readonly TEMP_PATH="/tmp/chooses"
 
 # WTF variables
 WTF_GO_DIR="$GOPATH/src/github.com/senorprogrammer/wtf"
-WTF_INSTALL_DIR="/bin/wtf"
+WTF_BIN="/usr/bin/wtf"
 
 # Dialog
 readonly DIALOG="$HOME/.dialogrc"

@@ -12,7 +12,7 @@
 
 _init_files () {
     readonly DATE=$(date +"%m_%d_%Y_%T")
-    dependencies=( "$WTF_GO_DIR" "$WTF_INSTALL_DIR" )
+    dependencies=( "$WTF_GO_DIR" "$WTF_BIN")
 
     if [ ! -d "$HOME/BackupWtf/${DATE}" ];then
         mkdir -p "$HOME/BackupWtf/${DATE}"
@@ -30,5 +30,5 @@ _init_files () {
         fi
     done
 
-    cp misc/.dialogrc $HOME
+    if [ ! -f "$HOME/.dialogrc" ];then cp misc/.dialogrc $HOME;fi
 }
