@@ -54,6 +54,8 @@ None.
 ```yaml
 git:
   commitCount: 5
+  commitFormat: "[forestgreen]%h [grey]%cd [white]%s [grey]%an[white]"
+  dateFormat: "%H:%M %d %b %y"
   enabled: true
   position:
     top: 0
@@ -71,6 +73,13 @@ git:
 `commitCount` <br />
 The number of past commits to display. <br />
 Values: A positive integer, `0..n`.
+
+`commitFormat` <br />
+_Optional_ The string format for the commit message. <br />
+
+`dateFormat` <br />
+_Optional_ The string format for the date/time in the commit message.
+<br />
 
 `enabled` <br />
 Determines whether or not this module is executed and if its data displayed onscreen. <br />

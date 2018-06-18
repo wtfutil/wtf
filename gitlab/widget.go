@@ -4,14 +4,10 @@ import (
 	"os"
 
 	"github.com/gdamore/tcell"
-	"github.com/olebedev/config"
 	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/wtf"
 	glb "github.com/xanzy/go-gitlab"
 )
-
-// Config is a pointer to the global config object
-var Config *config.Config
 
 const HelpText = `
   Keyboard commands for Gitlab:
@@ -39,7 +35,7 @@ type Widget struct {
 
 func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 	apiKey := os.Getenv("WTF_GITLAB_TOKEN")
-	baseURL := Config.UString("wtf.mods.gitlab.domain")
+	baseURL := wtf.Config.UString("wtf.mods.gitlab.domain")
 	gitlab := glb.NewClient(nil, apiKey)
 	if baseURL != "" {
 		gitlab.SetBaseURL(baseURL)
@@ -56,7 +52,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 		Idx: 0,
 	}
 
-	widget.GitlabProjects = widget.buildProjectCollection(Config.UMap("wtf.mods.gitlab.projects"))
+	widget.GitlabProjects = widget.buildProjectCollection(wtf.Config.UMap("wtf.mods.gitlab.projects"))
 
 	widget.View.SetInputCapture(widget.keyboardIntercept)
 

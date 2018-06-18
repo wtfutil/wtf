@@ -1,3 +1,5 @@
+// +build !windows
+
 package security
 
 // http://applehelpwriter.com/2017/05/21/how-to-reveal-hidden-users/

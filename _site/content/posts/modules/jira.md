@@ -45,6 +45,7 @@ jira:
   project: "ProjectA"
   refreshInterval: 900
   username: "chris.cummer"
+  verifyServerCertificate: true
 ```
 
 ### Multiple Jira Projects
@@ -70,6 +71,7 @@ jira:
   project: ["ProjectA", "ProjectB"]
   refreshInterval: 900
   username: "chris.cummer"
+  verifyServerCertificate: true
 ```
 
 ### Attributes
@@ -113,3 +115,8 @@ Values: A positive integer, `0..n`.
 
 `username` <br />
 Your Jira username. <br />
+
+`verifyServerCertificate` <br />
+_Optional_ <br />
+Determines whether or not the server's certificate chain and host name are verified. <br />
+Values: `true`, `false`.

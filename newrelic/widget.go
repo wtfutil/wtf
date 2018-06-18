@@ -3,13 +3,9 @@ package newrelic
 import (
 	"fmt"
 
-	"github.com/olebedev/config"
 	"github.com/senorprogrammer/wtf/wtf"
 	nr "github.com/yfronto/newrelic"
 )
-
-// Config is a pointer to the global config object
-var Config *config.Config
 
 type Widget struct {
 	wtf.TextWidget
@@ -64,7 +60,7 @@ func (widget *Widget) contentFrom(deploys []nr.ApplicationDeployment) string {
 				lineColor = "lightblue"
 			}
 
-			var revLen = 8
+			revLen := 8
 			if revLen > len(deploy.Revision) {
 				revLen = len(deploy.Revision)
 			}
@@ -79,7 +75,7 @@ func (widget *Widget) contentFrom(deploys []nr.ApplicationDeployment) string {
 
 			revisions = append(revisions, deploy.Revision)
 
-			if len(revisions) == Config.UInt("wtf.mods.newrelic.deployCount", 5) {
+			if len(revisions) == wtf.Config.UInt("wtf.mods.newrelic.deployCount", 5) {
 				break
 			}
 		}

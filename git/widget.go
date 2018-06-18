@@ -2,13 +2,9 @@ package git
 
 import (
 	"github.com/gdamore/tcell"
-	"github.com/olebedev/config"
 	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/wtf"
 )
-
-// Config is a pointer to the global config object
-var Config *config.Config
 
 const HelpText = `
   Keyboard commands for Git:
@@ -53,7 +49,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	repoPaths := wtf.ToStrs(Config.UList("wtf.mods.git.repositories"))
+	repoPaths := wtf.ToStrs(wtf.Config.UList("wtf.mods.git.repositories"))
 
 	widget.UpdateRefreshedAt()
 	widget.Data = widget.gitRepos(repoPaths)

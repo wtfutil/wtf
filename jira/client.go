@@ -2,6 +2,7 @@ package jira
 
 import (
 	"bytes"
+	"crypto/tls"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -10,6 +11,8 @@ import (
 	"net/url"
 	"os"
 	"strings"
+
+	"github.com/senorprogrammer/wtf/wtf"
 )
 
 func IssuesFor(username string, projects []string, jql string) (*SearchResult, error) {
@@ -52,15 +55,21 @@ func buildJql(key string, value string) string {
 /* -------------------- Unexported Functions -------------------- */
 
 func jiraRequest(path string) (*http.Response, error) {
-	url := fmt.Sprintf("%s%s", Config.UString("wtf.mods.jira.domain"), path)
+	url := fmt.Sprintf("%s%s", wtf.Config.UString("wtf.mods.jira.domain"), path)
 
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, err
 	}
-	req.SetBasicAuth(Config.UString("wtf.mods.jira.email"), os.Getenv("WTF_JIRA_API_KEY"))
+	req.SetBasicAuth(wtf.Config.UString("wtf.mods.jira.email"), os.Getenv("WTF_JIRA_API_KEY"))
 
-	httpClient := &http.Client{}
+	verifyServerCertificate := wtf.Config.UBool("wtf.mods.jira.verifyServerCertificate", true)
+	httpClient := &http.Client{Transport: &http.Transport{
+		TLSClientConfig: &tls.Config{
+			InsecureSkipVerify: !verifyServerCertificate,
+		},
+	},
+	}
 	resp, err := httpClient.Do(req)
 	if err != nil {
 		return nil, err

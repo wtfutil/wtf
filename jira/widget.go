@@ -3,12 +3,8 @@ package jira
 import (
 	"fmt"
 
-	"github.com/olebedev/config"
 	"github.com/senorprogrammer/wtf/wtf"
 )
-
-// Config is a pointer to the global config object
-var Config *config.Config
 
 type Widget struct {
 	wtf.TextWidget
@@ -25,7 +21,11 @@ func NewWidget() *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	searchResult, err := IssuesFor(Config.UString("wtf.mods.jira.username"), getProjects(), Config.UString("wtf.mods.jira.jql", ""))
+	searchResult, err := IssuesFor(
+		wtf.Config.UString("wtf.mods.jira.username"),
+		getProjects(),
+		wtf.Config.UString("wtf.mods.jira.jql", ""),
+	)
 
 	widget.UpdateRefreshedAt()
 
@@ -39,7 +39,7 @@ func (widget *Widget) Refresh() {
 			fmt.Sprintf(
 				"%s- [green]%s[white]",
 				widget.Name,
-				Config.UString("wtf.mods.jira.project"),
+				wtf.Config.UString("wtf.mods.jira.project"),
 			),
 		)
 		widget.View.SetText(fmt.Sprintf("%s", widget.contentFrom(searchResult)))
@@ -66,31 +66,27 @@ func (widget *Widget) contentFrom(searchResult *SearchResult) string {
 }
 
 func (widget *Widget) issueTypeColor(issue *Issue) string {
-	var color string
-
 	switch issue.IssueFields.IssueType.Name {
 	case "Bug":
-		color = "red"
+		return "red"
 	case "Story":
-		color = "blue"
+		return "blue"
 	case "Task":
-		color = "orange"
+		return "orange"
 	default:
-		color = "white"
+		return "white"
 	}
-
-	return color
 }
 
 func getProjects() []string {
 	// see if project is set to a single string
 	configPath := "wtf.mods.jira.project"
-	singleProject, err := Config.String(configPath)
+	singleProject, err := wtf.Config.String(configPath)
 	if err == nil {
 		return []string{singleProject}
 	}
 	// else, assume list
-	projList := Config.UList(configPath)
+	projList := wtf.Config.UList(configPath)
 	var ret []string
 	for _, proj := range projList {
 		if str, ok := proj.(string); ok {

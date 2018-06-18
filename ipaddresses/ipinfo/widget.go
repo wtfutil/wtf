@@ -8,12 +8,8 @@ import (
 
 	"bytes"
 
-	"github.com/olebedev/config"
 	"github.com/senorprogrammer/wtf/wtf"
 )
-
-// Config is a pointer to the global config object
-var Config *config.Config
 
 type Widget struct {
 	wtf.TextWidget
@@ -82,7 +78,7 @@ func (widget *Widget) ipinfo() {
 
 // read module configs
 func (widget *Widget) config() {
-	nameColor, valueColor := Config.UString("wtf.mods.ipinfo.colors.name", "red"), Config.UString("wtf.mods.ipinfo.colors.value", "white")
+	nameColor, valueColor := wtf.Config.UString("wtf.mods.ipinfo.colors.name", "red"), wtf.Config.UString("wtf.mods.ipinfo.colors.value", "white")
 	widget.colors.name = nameColor
 	widget.colors.value = valueColor
 }
