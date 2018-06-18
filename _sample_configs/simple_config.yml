@@ -1,6 +1,6 @@
 wtf:
   colors:
-    background: gray
+    #background: gray
     border:
       focusable: darkslateblue
       focused: orange

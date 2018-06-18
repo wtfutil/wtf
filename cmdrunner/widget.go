@@ -5,12 +5,8 @@ import (
 	"os/exec"
 	"strings"
 
-	"github.com/olebedev/config"
 	"github.com/senorprogrammer/wtf/wtf"
 )
-
-// Config is a pointer to the global config object
-var Config *config.Config
 
 type Widget struct {
 	wtf.TextWidget
@@ -24,8 +20,8 @@ func NewWidget() *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(" CmdRunner ", "cmdrunner", false),
 
-		args: wtf.ToStrs(Config.UList("wtf.mods.cmdrunner.args")),
-		cmd:  Config.UString("wtf.mods.cmdrunner.cmd"),
+		args: wtf.ToStrs(wtf.Config.UList("wtf.mods.cmdrunner.args")),
+		cmd:  wtf.Config.UString("wtf.mods.cmdrunner.cmd"),
 	}
 
 	widget.View.SetWrap(true)
@@ -37,7 +33,7 @@ func (widget *Widget) Refresh() {
 	widget.UpdateRefreshedAt()
 	widget.execute()
 
-	title := Config.UString("wtf.mods.cmdrunner.title", widget.String())
+	title := wtf.Config.UString("wtf.mods.cmdrunner.title", widget.String())
 	widget.View.SetTitle(fmt.Sprintf("%s", title))
 
 	widget.View.SetText(fmt.Sprintf("%s", widget.result))

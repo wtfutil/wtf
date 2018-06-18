@@ -2,13 +2,9 @@ package jenkins
 
 import (
 	"fmt"
-	"github.com/olebedev/config"
 	"github.com/senorprogrammer/wtf/wtf"
 	"os"
 )
-
-// Config is a pointer to the global config object
-var Config *config.Config
 
 type Widget struct {
 	wtf.TextWidget
@@ -29,8 +25,11 @@ func (widget *Widget) Refresh() {
 		return
 	}
 
-	view, err := Create(Config.UString("wtf.mods.jenkins.url"),
-		Config.UString("wtf.mods.jenkins.user"), os.Getenv("WTF_JENKINS_API_KEY"))
+	view, err := Create(
+		wtf.Config.UString("wtf.mods.jenkins.url"),
+		wtf.Config.UString("wtf.mods.jenkins.user"),
+		os.Getenv("WTF_JENKINS_API_KEY"),
+	)
 
 	widget.UpdateRefreshedAt()
 	widget.View.Clear()
@@ -54,7 +53,7 @@ func (widget *Widget) Refresh() {
 /* -------------------- Unexported Functions -------------------- */
 
 func (widget *Widget) contentFrom(view *View) string {
-	str := fmt.Sprintf(" [red]%s[white]\n", view.Name);
+	str := fmt.Sprintf(" [red]%s[white]\n", view.Name)
 
 	for _, job := range view.Jobs {
 		str = str + fmt.Sprintf(
@@ -68,16 +67,12 @@ func (widget *Widget) contentFrom(view *View) string {
 }
 
 func (widget *Widget) jobColor(job *Job) string {
-	var color string
-
 	switch job.Color {
 	case "blue":
-		color = "green"
+		return "blue"
 	case "red":
-		color = "red"
+		return "red"
 	default:
-		color = "white"
+		return "white"
 	}
-
-	return color
 }

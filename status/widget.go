@@ -3,12 +3,8 @@ package status
 import (
 	"fmt"
 
-	"github.com/olebedev/config"
 	"github.com/senorprogrammer/wtf/wtf"
 )
-
-// Config is a pointer to the global config object
-var Config *config.Config
 
 type Widget struct {
 	wtf.TextWidget
@@ -41,7 +37,7 @@ func (widget *Widget) Refresh() {
 /* -------------------- Unexported Functions -------------------- */
 
 func (widget *Widget) animation() string {
-	icons := []string{"👍", "🤜", "🤙", "🤜", "🤘", "🤜", "✊", "🤜", "👌", "🤜"}
+	icons := []string{"|", "/", "-", "\\", "|"}
 	next := icons[widget.CurrentIcon]
 
 	widget.CurrentIcon = widget.CurrentIcon + 1

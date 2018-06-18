@@ -4,12 +4,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/olebedev/config"
 	"github.com/senorprogrammer/wtf/wtf"
 )
-
-// Config is a pointer to the global config object
-var Config *config.Config
 
 type Widget struct {
 	wtf.TextWidget
@@ -45,7 +41,7 @@ func (widget *Widget) Refresh() {
 func (widget *Widget) contentFrom(onCallResponse *OnCallResponse) string {
 	str := ""
 
-	displayEmpty := Config.UBool("wtf.mods.opsgenie.displayEmpty", true)
+	displayEmpty := wtf.Config.UBool("wtf.mods.opsgenie.displayEmpty", true)
 
 	for _, data := range onCallResponse.OnCallData {
 		if (len(data.Recipients) == 0) && (displayEmpty == false) {

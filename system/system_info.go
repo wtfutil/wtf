@@ -1,3 +1,5 @@
+// +build !windows
+
 package system
 
 import (
@@ -48,12 +50,6 @@ func NewSystemInfo() *SystemInfo {
 			ProductName:    m["Distributor ID"],
 			ProductVersion: m["Description"],
 			BuildVersion:   m["Release"],
-		}
-	case "darwin":
-		sysInfo = &SystemInfo{
-			ProductName:    m["ProductName"],
-			ProductVersion: m["ProductVersion"],
-			BuildVersion:   m["BuildVersion"],
 		}
 	default:
 		sysInfo = &SystemInfo{

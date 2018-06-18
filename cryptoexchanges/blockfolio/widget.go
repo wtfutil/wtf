@@ -7,13 +7,9 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/olebedev/config"
 	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/wtf"
 )
-
-// Config is a pointer to the global config object
-var Config *config.Config
 
 type Widget struct {
 	wtf.TextWidget
@@ -25,7 +21,7 @@ type Widget struct {
 func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 	widget := Widget{
 		TextWidget:   wtf.NewTextWidget(" Blockfolio ", "blockfolio", false),
-		device_token: Config.UString("wtf.mods.blockfolio.device_token"),
+		device_token: wtf.Config.UString("wtf.mods.blockfolio.device_token"),
 	}
 
 	return &widget
@@ -47,10 +43,10 @@ func (widget *Widget) Refresh() {
 /* -------------------- Unexported Functions -------------------- */
 func contentFrom(positions *AllPositionsResponse) string {
 	res := ""
-	colorName := Config.UString("wtf.mods.blockfolio.colors.name")
-	colorGrows := Config.UString("wtf.mods.blockfolio.colors.grows")
-	colorDrop := Config.UString("wtf.mods.blockfolio.colors.drop")
-	displayHoldings := Config.UBool("wtf.mods.blockfolio.displayHoldings")
+	colorName := wtf.Config.UString("wtf.mods.blockfolio.colors.name")
+	colorGrows := wtf.Config.UString("wtf.mods.blockfolio.colors.grows")
+	colorDrop := wtf.Config.UString("wtf.mods.blockfolio.colors.drop")
+	displayHoldings := wtf.Config.UBool("wtf.mods.blockfolio.displayHoldings")
 	var totalFiat float32
 	totalFiat = 0.0
 	for i := 0; i < len(positions.PositionList); i++ {

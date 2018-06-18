@@ -5,15 +5,11 @@ import (
 	"io/ioutil"
 
 	"github.com/gdamore/tcell"
-	"github.com/olebedev/config"
 	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/cfg"
 	"github.com/senorprogrammer/wtf/wtf"
 	"gopkg.in/yaml.v2"
 )
-
-// Config is a pointer to the global config object
-var Config *config.Config
 
 const HelpText = `
  Keyboard commands for Todo:
@@ -52,7 +48,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 		TextWidget: wtf.NewTextWidget(" Todo ", "todo", true),
 
 		app:      app,
-		filePath: Config.UString("wtf.mods.todo.filename"),
+		filePath: wtf.Config.UString("wtf.mods.todo.filename"),
 		list:     &List{selected: -1},
 		pages:    pages,
 	}

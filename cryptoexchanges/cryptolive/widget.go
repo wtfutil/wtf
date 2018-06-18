@@ -6,12 +6,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/olebedev/config"
 	"github.com/senorprogrammer/wtf/wtf"
 )
-
-// Config is a pointer to the global config object
-var Config *config.Config
 
 var baseURL = "https://min-api.cryptocompare.com/data/price"
 var ok = true
@@ -56,10 +52,10 @@ func (widget *Widget) Refresh() {
 func (widget *Widget) display() {
 	str := ""
 	var (
-		fromNameColor        = Config.UString("wtf.mods.cryptolive.colors.from.name", "coral")
-		fromDisplayNameColor = Config.UString("wtf.mods.cryptolive.colors.from.displayName", "grey")
-		toNameColor          = Config.UString("wtf.mods.cryptolive.colors.to.name", "white")
-		toPriceColor         = Config.UString("wtf.mods.cryptolive.colors.to.price", "green")
+		fromNameColor        = wtf.Config.UString("wtf.mods.cryptolive.colors.from.name", "coral")
+		fromDisplayNameColor = wtf.Config.UString("wtf.mods.cryptolive.colors.from.displayName", "grey")
+		toNameColor          = wtf.Config.UString("wtf.mods.cryptolive.colors.to.name", "white")
+		toPriceColor         = wtf.Config.UString("wtf.mods.cryptolive.colors.to.price", "green")
 	)
 	for _, item := range widget.list.items {
 		str += fmt.Sprintf(" [%s]%s[%s] (%s)\n", fromNameColor, item.displayName, fromDisplayNameColor, item.name)
@@ -73,7 +69,7 @@ func (widget *Widget) display() {
 }
 
 func getToList(fromName string) []*toCurrency {
-	toNames, _ := Config.List("wtf.mods.cryptolive.currencies." + fromName + ".to")
+	toNames, _ := wtf.Config.List("wtf.mods.cryptolive.currencies." + fromName + ".to")
 
 	var toList []*toCurrency
 
@@ -88,12 +84,12 @@ func getToList(fromName string) []*toCurrency {
 }
 
 func (widget *Widget) setList() {
-	currenciesMap, _ := Config.Map("wtf.mods.cryptolive.currencies")
+	currenciesMap, _ := wtf.Config.Map("wtf.mods.cryptolive.currencies")
 
 	widget.list = &list{}
 
 	for currency := range currenciesMap {
-		displayName, _ := Config.String("wtf.mods.cryptolive.currencies." + currency + ".displayName")
+		displayName, _ := wtf.Config.String("wtf.mods.cryptolive.currencies." + currency + ".displayName")
 		toList := getToList(currency)
 		widget.list.addItem(currency, displayName, toList)
 	}

@@ -6,10 +6,24 @@
     <description>Recent content on WTF - A Terminal Dashboard</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 13 Jun 2018 09:29:59 -0700</lastBuildDate>
+    <lastBuildDate>Sat, 16 Jun 2018 14:22:18 -0700</lastBuildDate>
     
 	<atom:link href="https://wtfutil.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Logging</title>
+      <link>https://wtfutil.com/posts/modules/logging/</link>
+      <pubDate>Sat, 16 Jun 2018 14:22:18 -0700</pubDate>
+      
+      <guid>https://wtfutil.com/posts/modules/logging/</guid>
+      <description>Displays the contents of the WTF log file.
+To log to this file in your own modules:
+require &amp;#34;github.com/senorprogrammer/wtf/logging&amp;#34; logging.Log(&amp;#34;This is a log entry&amp;#34;) Source Code wtf/logging/ Required ENV Variables None.
+Keyboard Commands Arrow keys scroll through the log file.
+Configuration textfile:enabled:trueposition:top:5left:4height:2width:1refreshInterval:1 Attributes enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.
+position Defines where in the grid this module&amp;rsquo;s widget will be displayed.</description>
+    </item>
     
     <item>
       <title>Blockfolio</title>
@@ -266,8 +280,8 @@ Key: j Action: Select the next item in the list.</description>
       <description>Displays all Jira issues assigned to you for the specified project.
 Source Code wtf/jira/ Required ENV Variables Key: WTF_JIRA_API_KEY Value: Your Jira API key.
 Keyboard Commands None.
-Configuration Single Jira Project jira:colors:rows:even:&amp;#34;lightblue&amp;#34;odd:&amp;#34;white&amp;#34;domain:&amp;#34;https://umbrellacorp.atlassian.net&amp;#34;email:&amp;#34;chriscummer@me.com&amp;#34;enabled:truejql:&amp;#34;issueType = Story&amp;#34;position:top:4left:1height:1width:2project:&amp;#34;ProjectA&amp;#34;refreshInterval:900username:&amp;#34;chris.cummer&amp;#34; Multiple Jira Projects If you want to monitor multiple Jira projects, use the following configuration (note the difference in project):
-jira:colors:rows:even:&amp;#34;lightblue&amp;#34;odd:&amp;#34;white&amp;#34;domain:&amp;#34;https://umbrellacorp.atlassian.net&amp;#34;email:&amp;#34;chriscummer@me.com&amp;#34;enabled:truejql:&amp;#34;issueType = Story&amp;#34;position:top:4left:1height:1width:2project:[&amp;#34;ProjectA&amp;#34;,&amp;#34;ProjectB&amp;#34;]refreshInterval:900username:&amp;#34;chris.cummer&amp;#34; Attributes colors.rows.even Define the foreground color for even-numbered rows. Values: Any X11 color name.</description>
+Configuration Single Jira Project jira:colors:rows:even:&amp;#34;lightblue&amp;#34;odd:&amp;#34;white&amp;#34;domain:&amp;#34;https://umbrellacorp.atlassian.net&amp;#34;email:&amp;#34;chriscummer@me.com&amp;#34;enabled:truejql:&amp;#34;issueType = Story&amp;#34;position:top:4left:1height:1width:2project:&amp;#34;ProjectA&amp;#34;refreshInterval:900username:&amp;#34;chris.cummer&amp;#34;verifyServerCertificate:true Multiple Jira Projects If you want to monitor multiple Jira projects, use the following configuration (note the difference in project):
+jira:colors:rows:even:&amp;#34;lightblue&amp;#34;odd:&amp;#34;white&amp;#34;domain:&amp;#34;https://umbrellacorp.atlassian.net&amp;#34;email:&amp;#34;chriscummer@me.com&amp;#34;enabled:truejql:&amp;#34;issueType = Story&amp;#34;position:top:4left:1height:1width:2project:[&amp;#34;ProjectA&amp;#34;,&amp;#34;ProjectB&amp;#34;]refreshInterval:900username:&amp;#34;chris.cummer&amp;#34;verifyServerCertificate:true Attributes colors.rows.even Define the foreground color for even-numbered rows. Values: Any X11 color name.</description>
     </item>
     
     <item>

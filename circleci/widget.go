@@ -2,12 +2,8 @@ package circleci
 
 import (
 	"fmt"
-	"github.com/olebedev/config"
 	"github.com/senorprogrammer/wtf/wtf"
 )
-
-// Config is a pointer to the global config object
-var Config *config.Config
 
 type Widget struct {
 	wtf.TextWidget
@@ -65,19 +61,15 @@ func (widget *Widget) contentFrom(builds []*Build) string {
 	return str
 }
 
-func buildColor(b *Build) string {
-	var color string
-
-	switch b.Status {
+func buildColor(build *Build) string {
+	switch build.Status {
 	case "failed":
-		color = "red"
+		return "red"
 	case "running":
-		color = "yellow"
+		return "yellow"
 	case "success":
-		color = "green"
+		return "green"
 	default:
-		color = "white"
+		return "white"
 	}
-
-	return color
 }
