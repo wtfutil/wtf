@@ -34,16 +34,22 @@ wtf_installer() {
         go install -ldflags="-X main.version=$(git describe --always --abbrev=6) -X main.date=$(date +%FT%T%z)"
 
     else
-        spinner_start "$WTF_CLEAN"; sleep 0.1
+        spinner_start "$WTF_DEP"; sleep 0.1
+        if [ ! -d "$GOPATH/src/github.com/senorprogrammer/wtf" ];then
+            go get -u github.com/senorprogrammer/wtf
+        else
+            echo "Directory already exists"
+        fi
+        spinner_stop $?
+
+        cd $GOPATH/src/github.com/senorprogrammer/wtf
+
+        spinner_start "$WTF_CLEAN"; sleep 0.1k
         go clean
         spinner_stop $?
 
-        spinner_start "$WTF_DEP"; sleep 0.1
-        go get -u github.com/senorprogrammer/wtf
-        spinner_stop $?
-
         spinner_start "Install wtf"; sleep 0.1
-        go install -ldflags="-X main.version=$(shell git describe --always --abbrev=6) -X main.date=$(shell date +%FT%T%z)"
+        go install -ldflags="-X main.version=$(git describe --always --abbrev=6) -X main.date=$(date +%FT%T%z)"
         spinner_stop $?
 
         spinner_start "Build wtf"; sleep 0.1
