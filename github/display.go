@@ -63,6 +63,10 @@ func (widget *Widget) displayMyReviewRequests(repo *GithubRepo, username string)
 }
 
 func (widget *Widget) displayNotifications() string {
+	if widget.Activity == nil {
+		return ""
+	}
+
 	str := wtf.SigilStr(len(widget.Activity.Notifications), widget.Idx, widget.View) + "\n"
 	for _, notification := range widget.Activity.Notifications {
 		str = str + "(" + notification.Type + ") "

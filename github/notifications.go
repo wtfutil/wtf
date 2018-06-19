@@ -26,7 +26,7 @@ type GithubActivityThread struct {
 	URL *string `json:"html_url,omitempty"`
 }
 
-func NewGithubActivitys(user string) *GithubActivity {
+func NewGithubActivities(user string) *GithubActivity {
 	repo := GithubActivity{
 		apiKey: os.Getenv("WTF_GITHUB_TOKEN"),
 		User:   user,
