@@ -38,6 +38,7 @@ import (
 	"github.com/senorprogrammer/wtf/system"
 	"github.com/senorprogrammer/wtf/textfile"
 	"github.com/senorprogrammer/wtf/todo"
+	"github.com/senorprogrammer/wtf/trello"
 	"github.com/senorprogrammer/wtf/weatherservices/prettyweather"
 	"github.com/senorprogrammer/wtf/weatherservices/weather"
 	"github.com/senorprogrammer/wtf/wtf"
@@ -193,7 +194,7 @@ func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
 		Widgets = append(Widgets, jenkins.NewWidget())
 	case "jira":
 		Widgets = append(Widgets, jira.NewWidget())
-	case "logging":
+	case "logger":
 		Widgets = append(Widgets, logger.NewWidget())
 	case "newrelic":
 		Widgets = append(Widgets, newrelic.NewWidget())
@@ -213,6 +214,8 @@ func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
 		Widgets = append(Widgets, textfile.NewWidget(app, pages))
 	case "todo":
 		Widgets = append(Widgets, todo.NewWidget(app, pages))
+	case "trello":
+		Widgets = append(Widgets, trello.NewWidget())
 	case "weather":
 		Widgets = append(Widgets, weather.NewWidget(app, pages))
 	default:

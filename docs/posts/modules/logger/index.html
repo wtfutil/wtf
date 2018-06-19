@@ -10,8 +10,8 @@
 
 <meta name="generator" content="Hugo 0.38.2" />
 
-<title>Logging | WTF - A Terminal Dashboard</title>
-<meta content="Logging - WTF - A Terminal Dashboard" property="og:title">
+<title>Logger | WTF - A Terminal Dashboard</title>
+<meta content="Logger - WTF - A Terminal Dashboard" property="og:title">
 <meta content=" - " property="og:description">
 <!-- CSS -->
 <link rel="stylesheet" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
@@ -79,7 +79,7 @@
         <li class="sidebar-list-item-2"><a href="/posts/modules/ipinfo/">IPInfo</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/jenkins/">Jenkins</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/jira/">Jira</a></li>
-        <li class="sidebar-list-item-2"><a href="/posts/modules/logging/">Logging</a></li>
+        <li class="sidebar-list-item-2"><a href="/posts/modules/logger/">Logger</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/newrelic/">New Relic</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/opsgenie/">OpsGenie</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/power/">Power</a></li>
@@ -87,6 +87,7 @@
         <li class="sidebar-list-item-2"><a href="/posts/modules/security/">Security</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/textfile/">Text File</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/todo/">Todo</a></li>
+        <li class="sidebar-list-item-2"><a href="/posts/modules/trello/">Trello</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/weather/">Weather</a></li>
       </ul>
     </div>
@@ -102,7 +103,7 @@
 
         <div class="content container">
             <div class="post">
-  <h1>Logging</h1>
+  <h1>Logger</h1>
   
   <div class="col-sm-12 col-md-12">
     <span class="text-left post-date meta">
@@ -123,10 +124,10 @@
 <p>Displays the contents of the WTF log file.</p>
 
 <p>To log to this file in your own modules:</p>
-<div class="highlight"><pre class="chroma"><code class="language-golang" data-lang="golang"><span class="nx">require</span> <span class="s">&#34;github.com/senorprogrammer/wtf/logging&#34;</span>
- <span class="nx">logging</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="s">&#34;This is a log entry&#34;</span><span class="p">)</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-golang" data-lang="golang"><span class="nx">require</span> <span class="s">&#34;github.com/senorprogrammer/wtf/logger&#34;</span>
+ <span class="nx">logger</span><span class="p">.</span><span class="nx">Log</span><span class="p">(</span><span class="s">&#34;This is a log entry&#34;</span><span class="p">)</span></code></pre></div>
 <h2 id="source-code">Source Code</h2>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">wtf/logging/</code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">wtf/logger/</code></pre></div>
 <h2 id="required-env-variables">Required ENV Variables</h2>
 
 <p>None.</p>
@@ -136,7 +137,7 @@
 <p>Arrow keys scroll through the log file.</p>
 
 <h2 id="configuration">Configuration</h2>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">textfile<span class="p">:</span><span class="w">
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">logger<span class="p">:</span><span class="w">
 </span><span class="w">  </span>enabled<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span><span class="w">  </span>position<span class="p">:</span><span class="w">
 </span><span class="w">    </span>top<span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
@@ -148,6 +149,10 @@
 
 <p><code>enabled</code> <br />
 Determines whether or not this module is executed and if its data displayed onscreen. <br />
+<strong>Note:</strong> If you&rsquo;re using logging and logging is <em>disabled</em>, your logs
+will still be written to file, the widget just won&rsquo;t be shown onscreen.
+If you have <code>logger.Log</code> calls in your code, regardless of this setting,
+they will be written out. <br />
 Values: <code>true</code>, <code>false</code>.</p>
 
 <p><code>position</code> <br />
