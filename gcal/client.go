@@ -48,23 +48,7 @@ func Fetch() (*calendar.Events, error) {
 		return nil, err
 	}
 
-	// Get all user calendars with at the least writing access
-	pageToken := ""
-	var calendarIds []string
-	for {
-		calendarList, err := srv.CalendarList.List().ShowHidden(false).MinAccessRole("writer").PageToken(pageToken).Do()
-		for _, calendarListItem := range calendarList.Items {
-			calendarIds = append(calendarIds, calendarListItem.Id)
-		}
-
-		pageToken = calendarList.NextPageToken
-		if err != nil || pageToken == "" {
-			break
-		}
-	}
-	if err != nil {
-		return nil, err
-	}
+	calendarIds, err := getCalendarIdList(srv)
 
 	// Get calendar events
 	var events calendar.Events
@@ -178,4 +162,34 @@ func saveToken(file string, token *oauth2.Token) {
 	defer f.Close()
 
 	json.NewEncoder(f).Encode(token)
+}
+
+func getCalendarIdList(srv *calendar.Service) ([]string, error) {
+	// Return single calendar if settings specify we should
+	if !wtf.Config.UBool("wtf.mods.gcal.multiCalendar", false) {
+		id, err := srv.CalendarList.Get("primary").Do()
+		if err != nil {
+			return nil, err
+		}
+		return []string{id.Id}, nil
+	}
+
+	// Get all user calendars with at the least writing access
+	var calendarIds []string
+	var pageToken string
+	for {
+		calendarList, err := srv.CalendarList.List().ShowHidden(false).MinAccessRole("writer").PageToken(pageToken).Do()
+		if err != nil {
+			return nil, err
+		}
+		for _, calendarListItem := range calendarList.Items {
+			calendarIds = append(calendarIds, calendarListItem.Id)
+		}
+
+		pageToken = calendarList.NextPageToken
+		if pageToken == "" {
+			break
+		}
+	}
+	return calendarIds, nil
 }
