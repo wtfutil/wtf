@@ -44,6 +44,10 @@ logger:
 
 `enabled` <br />
 Determines whether or not this module is executed and if its data displayed onscreen. <br />
+**Note:** If you're using logging and logging is _disabled_, your logs
+will still be written to file, the widget just won't be shown onscreen.
+If you have `logger.Log` calls in your code, regardless of this setting,
+they will be written out. <br />
 Values: `true`, `false`.
 
 `position` <br />

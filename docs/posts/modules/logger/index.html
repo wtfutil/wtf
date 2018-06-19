@@ -148,6 +148,10 @@
 
 <p><code>enabled</code> <br />
 Determines whether or not this module is executed and if its data displayed onscreen. <br />
+<strong>Note:</strong> If you&rsquo;re using logging and logging is <em>disabled</em>, your logs
+will still be written to file, the widget just won&rsquo;t be shown onscreen.
+If you have <code>logger.Log</code> calls in your code, regardless of this setting,
+they will be written out. <br />
 Values: <code>true</code>, <code>false</code>.</p>
 
 <p><code>position</code> <br />
