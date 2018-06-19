@@ -30,5 +30,5 @@ _init_files () {
         fi
     done
 
-    if [ ! -f "$HOME/.dialogrc" ];then cp misc/.dialogrc $HOME;fi
+    if [ ! -f "$HOME/.dialogrc" ] && [ "$OS" == "Linux" ];then cp misc/.dialogrc $HOME;fi
 }
