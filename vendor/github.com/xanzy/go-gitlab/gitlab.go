@@ -680,6 +680,7 @@ func parseID(id interface{}) (string, error) {
 // GitLab API docs:
 // https://docs.gitlab.com/ce/api/README.html#data-validation-and-error-reporting
 type ErrorResponse struct {
+	Body     []byte
 	Response *http.Response
 	Message  string
 }
@@ -700,12 +701,14 @@ func CheckResponse(r *http.Response) error {
 	errorResponse := &ErrorResponse{Response: r}
 	data, err := ioutil.ReadAll(r.Body)
 	if err == nil && data != nil {
+		errorResponse.Body = data
+
 		var raw interface{}
 		if err := json.Unmarshal(data, &raw); err != nil {
 			errorResponse.Message = "failed to parse unknown error format"
+		} else {
+			errorResponse.Message = parseError(raw)
 		}
-
-		errorResponse.Message = parseError(raw)
 	}
 
 	return errorResponse

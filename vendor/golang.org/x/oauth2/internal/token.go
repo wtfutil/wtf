@@ -101,6 +101,7 @@ var brokenAuthHeaderProviders = []string{
 	"https://api.pushbullet.com/",
 	"https://api.soundcloud.com/",
 	"https://api.twitch.tv/",
+	"https://id.twitch.tv/",
 	"https://app.box.com/",
 	"https://connect.stripe.com/",
 	"https://login.mailchimp.com/",
