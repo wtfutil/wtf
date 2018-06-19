@@ -10,8 +10,8 @@
 
 <meta name="generator" content="Hugo 0.38.2" />
 
-<title>Configuration | WTF - A Terminal Dashboard</title>
-<meta content="Configuration - WTF - A Terminal Dashboard" property="og:title">
+<title>Trello | WTF - A Terminal Dashboard</title>
+<meta content="Trello - WTF - A Terminal Dashboard" property="og:title">
 <meta content=" - " property="og:description">
 <!-- CSS -->
 <link rel="stylesheet" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
@@ -103,13 +103,13 @@
 
         <div class="content container">
             <div class="post">
-  <h1>Configuration</h1>
+  <h1>Trello</h1>
   
   <div class="col-sm-12 col-md-12">
     <span class="text-left post-date meta">
       
       
-        Apr 15, 2018
+        May 10, 2018
       
       
       
@@ -121,83 +121,75 @@
   
   
 
-<h2 id="index">Index</h2>
+<p>Displays all Trello cards on specified lists.</p>
 
-<ul>
-<li><a href="#configuration-files">Configuration Files</a></li>
-<li><a href="#environment-env-variables">Environment (ENV) Variables</a></li>
-<li><a href="#grid-layout">Grid Layout</a></li>
-</ul>
+<p><img src="/imgs/modules/trello.png" width="640" height="188" alt="trello screenshot" /></p>
 
-<h2 id="configuration-files">Configuration Files</h2>
+<h2 id="source-code">Source Code</h2>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">wtf/trello/</code></pre></div>
+<h2 id="required-env-variables">Required ENV Variables</h2>
 
-<p>By default WTF looks in a <code>~/.wtf/</code> directory for a YAML file called
-<code>config.yml</code>. If the <code>~/.wtf/</code> directory doesn&rsquo;t exist, WTF will create that directory
-on start-up, and then display instructions for creating a new
-configuration file.</p>
+<p><span class="caption">Key:</span> <code>WTF_TRELLO_APP_KEY</code> <br />
+<span class="caption">Value:</span> Your Trello App Key. <br />
+<span class="caption">Key:</span> <code>WTF_TRELLO_ACCESS_TOKEN</code> <br />
+<span class="caption">Value:</span> Your Trello Access Token. <br /></p>
 
-<p>In other words, WTF expects to have a YAML config file at: <code>~/.wtf/config.yml</code>.</p>
+<p><em>You can get your API key at: trello.com/app-key.</em></p>
 
-<h4 id="example-configuration-files">Example Configuration Files</h4>
+<h2 id="keyboard-commands">Keyboard Commands</h2>
 
-<p>A couple of example config files are provided in the <code>_sample_configs/</code>
-directory of the Git repository.</p>
+<p>None.</p>
 
-<p>To try out WTF quickly, copy
-<code>simple_config.yml</code> into <code>~/.wtf/</code> as <code>config.yml</code> and relaunch WTF. You
-should see the app launch and display the <a href="/posts/modules/security/">Security</a>,
-<a href="/posts/modules/clocks/">Clocks</a> and <a href="/posts/modules/status/">Status</a> widgets onscreen.</p>
+<h2 id="configuration">Configuration</h2>
 
-<h4 id="custom-configuration-files">Custom Configuration Files</h4>
+<h3 id="single-trello-list">Single Trello List</h3>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">trello<span class="p">:</span><span class="w"> 
+</span><span class="w">  </span>board<span class="p">:</span><span class="w"> </span>Main<span class="w">
+</span><span class="w">  </span>enabled<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span>list<span class="p">:</span><span class="w"> </span><span class="s2">&#34;Todo&#34;</span><span class="w">
+</span><span class="w">  </span>position<span class="p">:</span><span class="w"> 
+</span><span class="w">    </span>height<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">    </span>left<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span><span class="w">    </span>top<span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
+</span><span class="w">    </span>width<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">  </span>refreshInterval<span class="p">:</span><span class="w"> </span><span class="m">3600</span><span class="w">
+</span><span class="w">  </span>username<span class="p">:</span><span class="w"> </span>myname</code></pre></div>
+<h3 id="multiple-trello-lists">Multiple Trello Lists</h3>
 
-<p>To try out different configurations (or run multiple instances of WTF),
-you can pass the path to a config file via command line arguments on
-start-up.</p>
+<p>If you want to monitor multiple Trello lists, use the following
+configuration (note the difference in <code>list</code>):</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">trello<span class="p">:</span><span class="w"> 
+</span><span class="w">  </span>board<span class="p">:</span><span class="w"> </span>Main<span class="w">
+</span><span class="w">  </span>enabled<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span>list<span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;Todo&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;Done&#34;</span><span class="p">]</span><span class="w">
+</span><span class="w">  </span>position<span class="p">:</span><span class="w"> 
+</span><span class="w">    </span>height<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">    </span>left<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span><span class="w">    </span>top<span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
+</span><span class="w">    </span>width<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">  </span>refreshInterval<span class="p">:</span><span class="w"> </span><span class="m">3600</span><span class="w">
+</span><span class="w">  </span>username<span class="p">:</span><span class="w"> </span>myname</code></pre></div>
+<h3 id="attributes">Attributes</h3>
 
-<p>To load a custom configuration file (ie: one that&rsquo;s not
-<code>~/.wtf/config.yml</code>), pass in the path to configuration file as a
-parameter on launch:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">    $&gt; wtf --config<span class="o">=</span>path/to/custom/config.yml</code></pre></div>
-<h4 id="configuration-attributes">Configuration Attributes</h4>
+<p><code>board</code> <br />
+The name of the Trello board. <br /></p>
 
-<p>A number of top-level attributes can be set to customize your WTF
-install. See <a href="/posts/configuration/attributes/">Attributes</a> for detials.</p>
+<p><code>enabled</code> <br />
+Determines whether or not this module is executed and if its data displayed onscreen. <br />
+Values: <code>true</code>, <code>false</code>.</p>
 
-<h2 id="environment-env-variables">Environment (ENV) Variables</h2>
+<p><code>list</code> <br />
+The Trello lists to fetch cards from. <br /></p>
 
-<p>Some modules require the presence of environment variables to function
-properly. Usually these are API keys or other sensitive data that one
-wouldn&rsquo;t want to have laying about in the config files.</p>
+<p><code>refreshInterval</code> <br />
+How often, in seconds, this module will update its data. <br />
+Values: A positive integer, <code>0..n</code>.</p>
 
-<p>For modules that require them, the name of the required environment
-variable(s) can be found in that module&rsquo;s &ldquo;Required ENV Variables&rdquo;
-section of the documentation. See <a href="/posts/modules/opsgenie/">OpsGenie</a> for an example.</p>
+<p><code>username</code> <br />
+Your Trello username. <br /></p>
 
-<h2 id="grid-layout">Grid Layout</h2>
-
-<p>WTF uses the <code>Grid</code> layout system from <a href="https://github.com/rivo/tview/blob/master/grid.go">tview</a> to position widgets
-onscreen. It&rsquo;s not immediately obvious how this works, so here&rsquo;s an
-explanation:</p>
-
-<p>Think of your terminal screen as a matrix of letter positions, say <code>100</code> chrs wide and <code>58</code> chrs tall.</p>
-
-<p>Columns breaks up the width of the screen into chunks, each chunk a specified number of characters wide. use</p>
-
-<p><code>[10, 10, 10, 10, 10, 10, 10, 10, 10, 10]</code></p>
-
-<p>Ten columns that are ten characters wide</p>
-
-<p>Rows break up the height of the screen into chunks, each chunk a specified number of characters tall. If we wanted to have five rows:</p>
-
-<p><code>[10, 10, 10, 10, 18]</code></p>
-
-<p>The co-ordinate system starts at top-left and defines how wide and tall a widget is. If we wanted to put a 2-col, 2-row widget in the bottom of the screen, we&rsquo;d position it at:</p>
-
-<pre><code>  top: 4     // top starts in the 4th row
-  left: 9    // left starts in the 9th column
-  height: 2  // span down rows 4 &amp; 5 (18 characters in size, total)
-  width: 2   // span across cols 9 &amp; 10 (20 characters in size, total)
-</code></pre>
+<p><code>position</code> <br />
+Where in the grid this module&rsquo;s widget will be displayed. <br /></p>
 
 </div>
 

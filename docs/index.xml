@@ -284,6 +284,19 @@ jira:colors:rows:even:&amp;#34;lightblue&amp;#34;odd:&amp;#34;white&amp;#34;doma
     </item>
     
     <item>
+      <title>Trello</title>
+      <link>https://wtfutil.com/posts/modules/trello/</link>
+      <pubDate>Thu, 10 May 2018 10:44:35 -0700</pubDate>
+      
+      <guid>https://wtfutil.com/posts/modules/trello/</guid>
+      <description>Displays all Trello cards on specified lists.
+Source Code wtf/trello/ Required ENV Variables Key: WTF_TRELLO_APP_KEY Value: Your Trello App Key. Key: WTF_TRELLO_ACCESS_TOKEN Value: Your Trello Access Token. You can get your API key at: trello.com/app-key.
+Keyboard Commands None.
+Configuration Single Trello List trello:board:Mainenabled:truelist:&amp;#34;Todo&amp;#34;position:height:1left:2top:0width:1refreshInterval:3600username:myname Multiple Trello Lists If you want to monitor multiple Trello lists, use the following configuration (note the difference in list):
+trello:board:Mainenabled:truelist:[&amp;#34;Todo&amp;#34;,&amp;#34;Done&amp;#34;]position:height:1left:2top:0width:1refreshInterval:3600username:myname Attributes board The name of the Trello board.</description>
+    </item>
+    
+    <item>
       <title>Google Calendar</title>
       <link>https://wtfutil.com/posts/modules/gcal/</link>
       <pubDate>Thu, 10 May 2018 08:25:33 -0700</pubDate>
