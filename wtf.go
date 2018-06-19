@@ -193,7 +193,7 @@ func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
 		Widgets = append(Widgets, jenkins.NewWidget())
 	case "jira":
 		Widgets = append(Widgets, jira.NewWidget())
-	case "logging":
+	case "logger":
 		Widgets = append(Widgets, logger.NewWidget())
 	case "newrelic":
 		Widgets = append(Widgets, newrelic.NewWidget())

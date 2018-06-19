@@ -1,5 +1,5 @@
 ---
-title: "Logging"
+title: "Logger"
 date: 2018-06-16T14:22:18-07:00
 draft: false
 ---
@@ -30,7 +30,7 @@ Arrow keys scroll through the log file.
 ## Configuration
 
 ```yaml
-logging:
+logger:
   enabled: true
   position:
     top: 5
