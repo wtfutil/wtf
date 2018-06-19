@@ -278,7 +278,7 @@ func (t *Table) SetBordersColor(color tcell.Color) *Table {
 
 // SetSeparator sets the character used to fill the space between two
 // neighboring cells. This is a space character ' ' per default but you may
-// want to set it to GraphicsVertBar (or any other rune) if the column
+// want to set it to Borders.Vertical (or any other rune) if the column
 // separation should be more visible. If cell borders are activated, this is
 // ignored.
 //
@@ -668,24 +668,24 @@ ColumnLoop:
 				// Draw borders.
 				rowY *= 2
 				for pos := 0; pos < columnWidth && columnX+1+pos < width; pos++ {
-					drawBorder(columnX+pos+1, rowY, GraphicsHoriBar)
+					drawBorder(columnX+pos+1, rowY, Borders.Horizontal)
 				}
-				ch := GraphicsCross
+				ch := Borders.Cross
 				if columnIndex == 0 {
 					if rowY == 0 {
-						ch = GraphicsTopLeftCorner
+						ch = Borders.TopLeft
 					} else {
-						ch = GraphicsLeftT
+						ch = Borders.LeftT
 					}
 				} else if rowY == 0 {
-					ch = GraphicsTopT
+					ch = Borders.TopT
 				}
 				drawBorder(columnX, rowY, ch)
 				rowY++
 				if rowY >= height {
 					break // No space for the text anymore.
 				}
-				drawBorder(columnX, rowY, GraphicsVertBar)
+				drawBorder(columnX, rowY, Borders.Vertical)
 			} else if columnIndex > 0 {
 				// Draw separator.
 				drawBorder(columnX, rowY, t.separator)
@@ -706,18 +706,18 @@ ColumnLoop:
 			_, printed := printWithStyle(screen, cell.Text, x+columnX+1, y+rowY, finalWidth, cell.Align, tcell.StyleDefault.Foreground(cell.Color)|tcell.Style(cell.Attributes))
 			if StringWidth(cell.Text)-printed > 0 && printed > 0 {
 				_, _, style, _ := screen.GetContent(x+columnX+1+finalWidth-1, y+rowY)
-				printWithStyle(screen, string(GraphicsEllipsis), x+columnX+1+finalWidth-1, y+rowY, 1, AlignLeft, style)
+				printWithStyle(screen, string(SemigraphicsHorizontalEllipsis), x+columnX+1+finalWidth-1, y+rowY, 1, AlignLeft, style)
 			}
 		}
 
 		// Draw bottom border.
 		if rowY := 2 * len(rows); t.borders && rowY < height {
 			for pos := 0; pos < columnWidth && columnX+1+pos < width; pos++ {
-				drawBorder(columnX+pos+1, rowY, GraphicsHoriBar)
+				drawBorder(columnX+pos+1, rowY, Borders.Horizontal)
 			}
-			ch := GraphicsBottomT
+			ch := Borders.BottomT
 			if columnIndex == 0 {
-				ch = GraphicsBottomLeftCorner
+				ch = Borders.BottomLeft
 			}
 			drawBorder(columnX, rowY, ch)
 		}
@@ -730,16 +730,16 @@ ColumnLoop:
 		for rowY := range rows {
 			rowY *= 2
 			if rowY+1 < height {
-				drawBorder(columnX, rowY+1, GraphicsVertBar)
+				drawBorder(columnX, rowY+1, Borders.Vertical)
 			}
-			ch := GraphicsRightT
+			ch := Borders.RightT
 			if rowY == 0 {
-				ch = GraphicsTopRightCorner
+				ch = Borders.TopRight
 			}
 			drawBorder(columnX, rowY, ch)
 		}
 		if rowY := 2 * len(rows); rowY < height {
-			drawBorder(columnX, rowY, GraphicsBottomRightCorner)
+			drawBorder(columnX, rowY, Borders.BottomRight)
 		}
 	}
 
