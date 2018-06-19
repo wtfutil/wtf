@@ -12,17 +12,16 @@
     
     
     <item>
-      <title>Logging</title>
-      <link>https://wtfutil.com/posts/modules/logging/</link>
+      <title>Logger</title>
+      <link>https://wtfutil.com/posts/modules/logger/</link>
       <pubDate>Sat, 16 Jun 2018 14:22:18 -0700</pubDate>
       
-      <guid>https://wtfutil.com/posts/modules/logging/</guid>
+      <guid>https://wtfutil.com/posts/modules/logger/</guid>
       <description>Displays the contents of the WTF log file.
 To log to this file in your own modules:
-require &amp;#34;github.com/senorprogrammer/wtf/logging&amp;#34; logging.Log(&amp;#34;This is a log entry&amp;#34;) Source Code wtf/logging/ Required ENV Variables None.
+require &amp;#34;github.com/senorprogrammer/wtf/logger&amp;#34; logger.Log(&amp;#34;This is a log entry&amp;#34;) Source Code wtf/logger/ Required ENV Variables None.
 Keyboard Commands Arrow keys scroll through the log file.
-Configuration textfile:enabled:trueposition:top:5left:4height:2width:1refreshInterval:1 Attributes enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.
-position Defines where in the grid this module&amp;rsquo;s widget will be displayed.</description>
+Configuration logger:enabled:trueposition:top:5left:4height:2width:1refreshInterval:1 Attributes enabled Determines whether or not this module is executed and if its data displayed onscreen. Note: If you&amp;rsquo;re using logging and logging is disabled, your logs will still be written to file, the widget just won&amp;rsquo;t be shown onscreen.</description>
     </item>
     
     <item>

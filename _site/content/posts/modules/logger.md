@@ -1,5 +1,5 @@
 ---
-title: "Logging"
+title: "Logger"
 date: 2018-06-16T14:22:18-07:00
 draft: false
 ---
@@ -9,14 +9,14 @@ Displays the contents of the WTF log file.
 To log to this file in your own modules:
 
 ```golang
-require "github.com/senorprogrammer/wtf/logging"
- logging.Log("This is a log entry")
+require "github.com/senorprogrammer/wtf/logger"
+ logger.Log("This is a log entry")
 ```
 
 ## Source Code
 
 ```bash
-wtf/logging/
+wtf/logger/
 ```
 
 ## Required ENV Variables
@@ -30,7 +30,7 @@ Arrow keys scroll through the log file.
 ## Configuration
 
 ```yaml
-textfile:
+logger:
   enabled: true
   position:
     top: 5
@@ -44,6 +44,10 @@ textfile:
 
 `enabled` <br />
 Determines whether or not this module is executed and if its data displayed onscreen. <br />
+**Note:** If you're using logging and logging is _disabled_, your logs
+will still be written to file, the widget just won't be shown onscreen.
+If you have `logger.Log` calls in your code, regardless of this setting,
+they will be written out. <br />
 Values: `true`, `false`.
 
 `position` <br />
