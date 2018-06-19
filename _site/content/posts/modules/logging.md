@@ -9,14 +9,14 @@ Displays the contents of the WTF log file.
 To log to this file in your own modules:
 
 ```golang
-require "github.com/senorprogrammer/wtf/logging"
- logging.Log("This is a log entry")
+require "github.com/senorprogrammer/wtf/logger"
+ logger.Log("This is a log entry")
 ```
 
 ## Source Code
 
 ```bash
-wtf/logging/
+wtf/logger/
 ```
 
 ## Required ENV Variables
@@ -30,7 +30,7 @@ Arrow keys scroll through the log file.
 ## Configuration
 
 ```yaml
-textfile:
+logging:
   enabled: true
   position:
     top: 5
