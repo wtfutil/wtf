@@ -21,7 +21,7 @@ type Widget struct {
 
 func NewWidget() *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(" Logs ", "logging", true),
+		TextWidget: wtf.NewTextWidget(" Logs ", "logger", true),
 
 		filePath: logFilePath(),
 	}
