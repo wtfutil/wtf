@@ -131,12 +131,12 @@
 
 <h2 id="configuration-files">Configuration Files</h2>
 
-<p>By default WTF looks in a <code>~/.wtf/</code> directory for a YAML file called
-<code>config.yml</code>. If the <code>~/.wtf/</code> directory doesn&rsquo;t exist, WTF will create that directory
+<p>By default WTF looks in a <code>~/.config/wtf/</code> directory for a YAML file called
+<code>config.yml</code>. If the <code>~/.config/wtf/</code> directory doesn&rsquo;t exist, WTF will create that directory
 on start-up, and then display instructions for creating a new
 configuration file.</p>
 
-<p>In other words, WTF expects to have a YAML config file at: <code>~/.wtf/config.yml</code>.</p>
+<p>In other words, WTF expects to have a YAML config file at: <code>~/.config/wtf/config.yml</code>.</p>
 
 <h4 id="example-configuration-files">Example Configuration Files</h4>
 
@@ -144,7 +144,7 @@ configuration file.</p>
 directory of the Git repository.</p>
 
 <p>To try out WTF quickly, copy
-<code>simple_config.yml</code> into <code>~/.wtf/</code> as <code>config.yml</code> and relaunch WTF. You
+<code>simple_config.yml</code> into <code>~/.config/wtf/</code> as <code>config.yml</code> and relaunch WTF. You
 should see the app launch and display the <a href="/posts/modules/security/">Security</a>,
 <a href="/posts/modules/clocks/">Clocks</a> and <a href="/posts/modules/status/">Status</a> widgets onscreen.</p>
 
@@ -155,7 +155,7 @@ you can pass the path to a config file via command line arguments on
 start-up.</p>
 
 <p>To load a custom configuration file (ie: one that&rsquo;s not
-<code>~/.wtf/config.yml</code>), pass in the path to configuration file as a
+<code>~/.config/wtf/config.yml</code>), pass in the path to configuration file as a
 parameter on launch:</p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">    $&gt; wtf --config<span class="o">=</span>path/to/custom/config.yml</code></pre></div>
 <h4 id="configuration-attributes">Configuration Attributes</h4>

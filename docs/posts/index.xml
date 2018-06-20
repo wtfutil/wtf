@@ -81,7 +81,7 @@ position Defines where in the grid this module&amp;rsquo;s widget will be displa
 Display information from cells in a Google Spreadsheet.
 wtf/gspreadsheets/ Required ENV Variables None.
 Keyboard Commands None.
-Configuration gspreadsheets:colors:values:&amp;#34;green&amp;#34;cells:names:-&amp;#34;Cell 1 name&amp;#34;-&amp;#34;Cell 2 name&amp;#34;addresses:-&amp;#34;A1&amp;#34;-&amp;#34;A2&amp;#34;enabled:trueposition:top:0left:0width:1height:1refreshInterval:&amp;#34;300&amp;#34;secretFile:&amp;#34;~/.wtf/gspreadsheets/client_secret.json&amp;#34;sheetId:&amp;#34;id_of_google_spreadsheet&amp;#34; Attributes colors.values The color to display the cell values in. Values: Any X11 color name.
+Configuration gspreadsheets:colors:values:&amp;#34;green&amp;#34;cells:names:-&amp;#34;Cell 1 name&amp;#34;-&amp;#34;Cell 2 name&amp;#34;addresses:-&amp;#34;A1&amp;#34;-&amp;#34;A2&amp;#34;enabled:trueposition:top:0left:0width:1height:1refreshInterval:&amp;#34;300&amp;#34;secretFile:&amp;#34;~/.config/wtf/gspreadsheets/client_secret.json&amp;#34;sheetId:&amp;#34;id_of_google_spreadsheet&amp;#34; Attributes colors.values The color to display the cell values in. Values: Any X11 color name.
 cells.names cells.addresses enabled Whether or not this module is executed and if its data displayed onscreen. Values: true, false.
 position Where in the grid this module&amp;rsquo;s widget will be displayed.</description>
     </item>
@@ -306,7 +306,7 @@ trello:board:Mainenabled:truelist:[&amp;#34;Todo&amp;#34;,&amp;#34;Done&amp;#34;
 Not: Setting up access to Google Calendars for Go is a bit unobvious. Check out Google&amp;rsquo;s Go Quickstart first and if you have problems, then take a look at this comment by WesleydeSouza which offers a slightly different approach.
 Source Code wtf/gcal/ Required ENV Variables None.
 Keyboard Commands None.
-Configuration gcal:colors:title:&amp;#34;red&amp;#34;description:&amp;#34;lightblue&amp;#34;highlights:-[&amp;#39;1on1|1\/11&amp;#39;,&amp;#39;green&amp;#39;]-[&amp;#39;apple|google|aws&amp;#39;,&amp;#39;blue&amp;#39;]-[&amp;#39;interview|meet&amp;#39;,&amp;#39;magenta&amp;#39;]-[&amp;#39;lunch&amp;#39;,&amp;#39;yellow&amp;#39;]past:&amp;#34;gray&amp;#34;conflictIcon:&amp;#34;🚨&amp;#34;currentIcon:&amp;#34;💥&amp;#34;displayResponseStatus:trueemail:&amp;#34;chriscummer@me.com&amp;#34;enabled:trueeventCount:12multiCalendar:trueposition:top:0left:0height:4width:1refreshInterval:300secretFile:&amp;#34;~/.wtf/gcal/client_secret.json&amp;#34;withLocation:true Attributes colors.title The default colour for calendar event titles. Values: Any X11 color name.</description>
+Configuration gcal:colors:title:&amp;#34;red&amp;#34;description:&amp;#34;lightblue&amp;#34;highlights:-[&amp;#39;1on1|1\/11&amp;#39;,&amp;#39;green&amp;#39;]-[&amp;#39;apple|google|aws&amp;#39;,&amp;#39;blue&amp;#39;]-[&amp;#39;interview|meet&amp;#39;,&amp;#39;magenta&amp;#39;]-[&amp;#39;lunch&amp;#39;,&amp;#39;yellow&amp;#39;]past:&amp;#34;gray&amp;#34;conflictIcon:&amp;#34;🚨&amp;#34;currentIcon:&amp;#34;💥&amp;#34;displayResponseStatus:trueemail:&amp;#34;chriscummer@me.com&amp;#34;enabled:trueeventCount:12multiCalendar:trueposition:top:0left:0height:4width:1refreshInterval:300secretFile:&amp;#34;~/.config/wtf/gcal/client_secret.json&amp;#34;withLocation:true Attributes colors.title The default colour for calendar event titles. Values: Any X11 color name.</description>
     </item>
     
     <item>
@@ -462,8 +462,8 @@ Widgets are defined by a required widget.go file in a Module.</description>
       <pubDate>Sun, 15 Apr 2018 21:17:16 -0700</pubDate>
       
       <guid>https://wtfutil.com/posts/configuration/</guid>
-      <description>Index  Configuration Files Environment (ENV) Variables Grid Layout  Configuration Files By default WTF looks in a ~/.wtf/ directory for a YAML file called config.yml. If the ~/.wtf/ directory doesn&amp;rsquo;t exist, WTF will create that directory on start-up, and then display instructions for creating a new configuration file.
-In other words, WTF expects to have a YAML config file at: ~/.wtf/config.yml.
+      <description>Index  Configuration Files Environment (ENV) Variables Grid Layout  Configuration Files By default WTF looks in a ~/.config/wtf/ directory for a YAML file called config.yml. If the ~/.config/wtf/ directory doesn&amp;rsquo;t exist, WTF will create that directory on start-up, and then display instructions for creating a new configuration file.
+In other words, WTF expects to have a YAML config file at: ~/.config/wtf/config.yml.
 Example Configuration Files A couple of example config files are provided in the _sample_configs/ directory of the Git repository.</description>
     </item>
     

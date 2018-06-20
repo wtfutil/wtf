@@ -51,7 +51,7 @@ gcal:
     height: 4
     width: 1
   refreshInterval: 300
-  secretFile: "~/.wtf/gcal/client_secret.json"
+  secretFile: "~/.config/wtf/gcal/client_secret.json"
   withLocation: true
 ```
 

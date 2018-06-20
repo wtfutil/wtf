@@ -205,7 +205,7 @@ const simpleConfig = `wtf:
       refreshInterval: 3600
     textfile:
       enabled: true
-      filePath: "~/.wtf/config.yml"
+      filePath: "~/.config/wtf/config.yml"
       position:
         top: 1
         left: 1
