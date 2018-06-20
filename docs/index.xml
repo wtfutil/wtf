@@ -318,10 +318,10 @@ Configuration gcal:colors:title:&amp;#34;red&amp;#34;description:&amp;#34;lightb
       <description>Displays information about your git repositories hosted on Github:
 Open Review Requests All open code review requests assigned to you.
 Open Pull Requests All open pull requests created by you.
-Source Code wtf/github/ Required ENV Variables Key: WTF_GITHUB_TOKEN Action: Your Github API token.
-Keyboard Commands Key: / Action: Open/close the widget&amp;rsquo;s help window.
-Key: h Action: Show the previous git repository.
-Key: l Action: Show the next git repository.</description>
+Source Code wtf/github/ Github Required ENV Variables Key: WTF_GITHUB_TOKEN Action: Your Github API token.
+GitHub Enterprise Required ENV Variables Key: WTF_GITHUB_TOKEN Action: Your Github API token.
+Key: WTF_GITHUB_BASE_URL Action: Your Github Enterprise API URL.
+Key: WTF_GITHUB_UPLOAD_URL Action: Your Github Enterprise upload URL (often the same as API URL).</description>
     </item>
     
     <item>
