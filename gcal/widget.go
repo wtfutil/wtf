@@ -49,6 +49,10 @@ func (widget *Widget) Disable() {
 /* -------------------- Unexported Functions -------------------- */
 
 func (widget *Widget) display() {
+	if widget.events == nil || len(widget.events.Items) == 0 {
+		return
+	}
+
 	widget.mutex.Lock()
 	defer widget.mutex.Unlock()
 	widget.View.SetText(fmt.Sprintf("%s", widget.contentFrom(widget.events)))
@@ -287,9 +291,7 @@ outer:
 	for {
 		select {
 		case <-tick.C:
-			if widget.events != nil && len(widget.events.Items) > 0 {
-				widget.display()
-			}
+			widget.display()
 		case <-widget.ch:
 			break outer
 		}
