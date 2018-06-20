@@ -243,6 +243,7 @@ func main() {
 	flags.Parse()
 	flags.Display(version)
 
+	cfg.MigrateOldConfig()
 	cfg.CreateConfigDir()
 	cfg.CreateConfigFile()
 	loadConfigFile(flags.ConfigFilePath())

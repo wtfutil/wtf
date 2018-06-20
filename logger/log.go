@@ -89,7 +89,7 @@ func logFilePath() string {
 		return ""
 	}
 
-	return filepath.Join(dir, ".wtf", "log.txt")
+	return filepath.Join(dir, ".config", "wtf", "log.txt")
 }
 
 func (widget *Widget) tailFile() []string {
