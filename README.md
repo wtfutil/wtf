@@ -32,6 +32,8 @@ documentation. Here's some short-cuts:
 
 ## Contributing
 
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests.
+
 ### Adding Dependencies
 
 Dependency management in WTF is handled by [dep](https://github.com/golang/dep). See that page for installation and usage details.
@@ -41,7 +43,6 @@ please be sure to use `dep` to [vendor your dependencies](https://golang.github.
 
 ## Contributors
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests.
 
 Thanks goes to these wonderful people:
 
