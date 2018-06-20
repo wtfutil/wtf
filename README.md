@@ -30,6 +30,15 @@ documentation. Here's some short-cuts:
 * [Configuration](http://wtfutil.com/posts/configuration/)
 * [Module Documentation](http://wtfutil.com/posts/modules/)
 
+## Contributing
+
+### Adding Dependencies
+
+Dependency management in WTF is handled by [dep](https://github.com/golang/dep). See that page for installation and usage details.
+
+If the work you're doing requires the addition of a new dependency,
+please be sure to use `dep` to [vendor your dependencies](https://golang.github.io/dep/docs/daily-dep.html#adding-a-new-dependency).
+
 ## Contributors
 
 Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests.
