@@ -6,10 +6,23 @@
     <description>Recent content on WTF - A Terminal Dashboard</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 13 Jun 2018 09:29:59 -0700</lastBuildDate>
+    <lastBuildDate>Sat, 16 Jun 2018 14:22:18 -0700</lastBuildDate>
     
 	<atom:link href="https://wtfutil.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Logger</title>
+      <link>https://wtfutil.com/posts/modules/logger/</link>
+      <pubDate>Sat, 16 Jun 2018 14:22:18 -0700</pubDate>
+      
+      <guid>https://wtfutil.com/posts/modules/logger/</guid>
+      <description>Displays the contents of the WTF log file.
+To log to this file in your own modules:
+require &amp;#34;github.com/senorprogrammer/wtf/logger&amp;#34; logger.Log(&amp;#34;This is a log entry&amp;#34;) Source Code wtf/logger/ Required ENV Variables None.
+Keyboard Commands Arrow keys scroll through the log file.
+Configuration logger:enabled:trueposition:top:5left:4height:2width:1refreshInterval:1 Attributes enabled Determines whether or not this module is executed and if its data displayed onscreen. Note: If you&amp;rsquo;re using logging and logging is disabled, your logs will still be written to file, the widget just won&amp;rsquo;t be shown onscreen.</description>
+    </item>
     
     <item>
       <title>Blockfolio</title>
@@ -266,8 +279,21 @@ Key: j Action: Select the next item in the list.</description>
       <description>Displays all Jira issues assigned to you for the specified project.
 Source Code wtf/jira/ Required ENV Variables Key: WTF_JIRA_API_KEY Value: Your Jira API key.
 Keyboard Commands None.
-Configuration Single Jira Project jira:colors:rows:even:&amp;#34;lightblue&amp;#34;odd:&amp;#34;white&amp;#34;domain:&amp;#34;https://umbrellacorp.atlassian.net&amp;#34;email:&amp;#34;chriscummer@me.com&amp;#34;enabled:truejql:&amp;#34;issueType = Story&amp;#34;position:top:4left:1height:1width:2project:&amp;#34;ProjectA&amp;#34;refreshInterval:900username:&amp;#34;chris.cummer&amp;#34; Multiple Jira Projects If you want to monitor multiple Jira projects, use the following configuration (note the difference in project):
-jira:colors:rows:even:&amp;#34;lightblue&amp;#34;odd:&amp;#34;white&amp;#34;domain:&amp;#34;https://umbrellacorp.atlassian.net&amp;#34;email:&amp;#34;chriscummer@me.com&amp;#34;enabled:truejql:&amp;#34;issueType = Story&amp;#34;position:top:4left:1height:1width:2project:[&amp;#34;ProjectA&amp;#34;,&amp;#34;ProjectB&amp;#34;]refreshInterval:900username:&amp;#34;chris.cummer&amp;#34; Attributes colors.rows.even Define the foreground color for even-numbered rows. Values: Any X11 color name.</description>
+Configuration Single Jira Project jira:colors:rows:even:&amp;#34;lightblue&amp;#34;odd:&amp;#34;white&amp;#34;domain:&amp;#34;https://umbrellacorp.atlassian.net&amp;#34;email:&amp;#34;chriscummer@me.com&amp;#34;enabled:truejql:&amp;#34;issueType = Story&amp;#34;position:top:4left:1height:1width:2project:&amp;#34;ProjectA&amp;#34;refreshInterval:900username:&amp;#34;chris.cummer&amp;#34;verifyServerCertificate:true Multiple Jira Projects If you want to monitor multiple Jira projects, use the following configuration (note the difference in project):
+jira:colors:rows:even:&amp;#34;lightblue&amp;#34;odd:&amp;#34;white&amp;#34;domain:&amp;#34;https://umbrellacorp.atlassian.net&amp;#34;email:&amp;#34;chriscummer@me.com&amp;#34;enabled:truejql:&amp;#34;issueType = Story&amp;#34;position:top:4left:1height:1width:2project:[&amp;#34;ProjectA&amp;#34;,&amp;#34;ProjectB&amp;#34;]refreshInterval:900username:&amp;#34;chris.cummer&amp;#34;verifyServerCertificate:true Attributes colors.rows.even Define the foreground color for even-numbered rows. Values: Any X11 color name.</description>
+    </item>
+    
+    <item>
+      <title>Trello</title>
+      <link>https://wtfutil.com/posts/modules/trello/</link>
+      <pubDate>Thu, 10 May 2018 10:44:35 -0700</pubDate>
+      
+      <guid>https://wtfutil.com/posts/modules/trello/</guid>
+      <description>Displays all Trello cards on specified lists.
+Source Code wtf/trello/ Required ENV Variables Key: WTF_TRELLO_APP_KEY Value: Your Trello App Key. Key: WTF_TRELLO_ACCESS_TOKEN Value: Your Trello Access Token. You can get your API key at: trello.com/app-key.
+Keyboard Commands None.
+Configuration Single Trello List trello:board:Mainenabled:truelist:&amp;#34;Todo&amp;#34;position:height:1left:2top:0width:1refreshInterval:3600username:myname Multiple Trello Lists If you want to monitor multiple Trello lists, use the following configuration (note the difference in list):
+trello:board:Mainenabled:truelist:[&amp;#34;Todo&amp;#34;,&amp;#34;Done&amp;#34;]position:height:1left:2top:0width:1refreshInterval:3600username:myname Attributes board The name of the Trello board.</description>
     </item>
     
     <item>
@@ -280,7 +306,7 @@ jira:colors:rows:even:&amp;#34;lightblue&amp;#34;odd:&amp;#34;white&amp;#34;doma
 Not: Setting up access to Google Calendars for Go is a bit unobvious. Check out Google&amp;rsquo;s Go Quickstart first and if you have problems, then take a look at this comment by WesleydeSouza which offers a slightly different approach.
 Source Code wtf/gcal/ Required ENV Variables None.
 Keyboard Commands None.
-Configuration gcal:colors:title:&amp;#34;red&amp;#34;description:&amp;#34;lightblue&amp;#34;highlights:-[&amp;#39;1on1|1\/11&amp;#39;,&amp;#39;green&amp;#39;]-[&amp;#39;apple|google|aws&amp;#39;,&amp;#39;blue&amp;#39;]-[&amp;#39;interview|meet&amp;#39;,&amp;#39;magenta&amp;#39;]-[&amp;#39;lunch&amp;#39;,&amp;#39;yellow&amp;#39;]past:&amp;#34;gray&amp;#34;conflictIcon:&amp;#34;🚨&amp;#34;currentIcon:&amp;#34;💥&amp;#34;displayResponseStatus:trueemail:&amp;#34;chriscummer@me.com&amp;#34;enabled:trueeventCount:12position:top:0left:0height:4width:1refreshInterval:300secretFile:&amp;#34;~/.wtf/gcal/client_secret.json&amp;#34;withLocation:true Attributes colors.title The default colour for calendar event titles. Values: Any X11 color name.</description>
+Configuration gcal:colors:title:&amp;#34;red&amp;#34;description:&amp;#34;lightblue&amp;#34;highlights:-[&amp;#39;1on1|1\/11&amp;#39;,&amp;#39;green&amp;#39;]-[&amp;#39;apple|google|aws&amp;#39;,&amp;#39;blue&amp;#39;]-[&amp;#39;interview|meet&amp;#39;,&amp;#39;magenta&amp;#39;]-[&amp;#39;lunch&amp;#39;,&amp;#39;yellow&amp;#39;]past:&amp;#34;gray&amp;#34;conflictIcon:&amp;#34;🚨&amp;#34;currentIcon:&amp;#34;💥&amp;#34;displayResponseStatus:trueemail:&amp;#34;chriscummer@me.com&amp;#34;enabled:trueeventCount:12multiCalendar:trueposition:top:0left:0height:4width:1refreshInterval:300secretFile:&amp;#34;~/.wtf/gcal/client_secret.json&amp;#34;withLocation:true Attributes colors.title The default colour for calendar event titles. Values: Any X11 color name.</description>
     </item>
     
     <item>

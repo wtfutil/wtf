@@ -19,16 +19,17 @@ import (
 	"github.com/senorprogrammer/wtf/cryptoexchanges/bittrex"
 	"github.com/senorprogrammer/wtf/cryptoexchanges/blockfolio"
 	"github.com/senorprogrammer/wtf/cryptoexchanges/cryptolive"
+	"github.com/senorprogrammer/wtf/flags"
 	"github.com/senorprogrammer/wtf/gcal"
 	"github.com/senorprogrammer/wtf/git"
 	"github.com/senorprogrammer/wtf/github"
 	"github.com/senorprogrammer/wtf/gitlab"
 	"github.com/senorprogrammer/wtf/gspreadsheets"
-	"github.com/senorprogrammer/wtf/help"
 	"github.com/senorprogrammer/wtf/ipaddresses/ipapi"
 	"github.com/senorprogrammer/wtf/ipaddresses/ipinfo"
 	"github.com/senorprogrammer/wtf/jenkins"
 	"github.com/senorprogrammer/wtf/jira"
+	"github.com/senorprogrammer/wtf/logger"
 	"github.com/senorprogrammer/wtf/newrelic"
 	"github.com/senorprogrammer/wtf/opsgenie"
 	"github.com/senorprogrammer/wtf/power"
@@ -37,43 +38,36 @@ import (
 	"github.com/senorprogrammer/wtf/system"
 	"github.com/senorprogrammer/wtf/textfile"
 	"github.com/senorprogrammer/wtf/todo"
+	"github.com/senorprogrammer/wtf/trello"
 	"github.com/senorprogrammer/wtf/weatherservices/prettyweather"
 	"github.com/senorprogrammer/wtf/weatherservices/weather"
 	"github.com/senorprogrammer/wtf/wtf"
 )
 
+var Config *config.Config
+var FocusTracker wtf.FocusTracker
+var Widgets []wtf.Wtfable
+
+var (
+	commit  = "dev"
+	date    = "dev"
+	version = "dev"
+)
+
 /* -------------------- Functions -------------------- */
 
-func addToGrid(grid *tview.Grid, widget wtf.Wtfable) {
-	if widget.Disabled() {
-		return
+func disableAllWidgets() {
+	for _, widget := range Widgets {
+		widget.Disable()
 	}
-
-	grid.AddItem(
-		widget.TextView(),
-		widget.Top(),
-		widget.Left(),
-		widget.Height(),
-		widget.Width(),
-		0,
-		0,
-		false,
-	)
 }
 
-// Grid stores all the widgets onscreen (like an HTML table)
-func buildGrid(modules []wtf.Wtfable) *tview.Grid {
-	grid := tview.NewGrid()
-	grid.SetColumns(wtf.ToInts(Config.UList("wtf.grid.columns"))...)
-	grid.SetRows(wtf.ToInts(Config.UList("wtf.grid.rows"))...)
-	grid.SetBorder(false)
-
-	for _, module := range modules {
-		addToGrid(grid, module)
-		go wtf.Schedule(module)
+func initializeFocusTracker(app *tview.Application) {
+	FocusTracker = wtf.FocusTracker{
+		App:     app,
+		Idx:     -1,
+		Widgets: Widgets,
 	}
-
-	return grid
 }
 
 func keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
@@ -91,6 +85,11 @@ func keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	}
 
 	return event
+}
+
+func loadConfigFile(filePath string) {
+	Config = cfg.LoadConfigFile(filePath)
+	wtf.Config = Config
 }
 
 // redrawApp redraws the rendered views to screen on a defined interval (set in config.yml)
@@ -118,7 +117,11 @@ func refreshAllWidgets() {
 	}
 }
 
-func watchForConfigChanges(app *tview.Application, configFlag string, grid *tview.Grid, pages *tview.Pages) {
+func setTerm() {
+	os.Setenv("TERM", Config.UString("wtf.term", os.Getenv("TERM")))
+}
+
+func watchForConfigChanges(app *tview.Application, configFilePath string, grid *tview.Grid, pages *tview.Pages) {
 	watch := watcher.New()
 
 	// notify write events.
@@ -128,12 +131,14 @@ func watchForConfigChanges(app *tview.Application, configFlag string, grid *tvie
 		for {
 			select {
 			case <-watch.Event:
-				loadConfig(configFlag)
+				loadConfigFile(configFilePath)
 				// Disable all widgets to stop scheduler goroutines and rmeove widgets from memory.
 				disableAllWidgets()
+				Widgets = nil
 				makeWidgets(app, pages)
-				grid = buildGrid(Widgets)
-				pages.AddPage("grid", grid, true, true)
+				initializeFocusTracker(app)
+				display := wtf.NewDisplay(Widgets)
+				pages.AddPage("grid", display.Grid, true, true)
 			case err := <-watch.Error:
 				log.Fatalln(err)
 			case <-watch.Closed:
@@ -143,31 +148,13 @@ func watchForConfigChanges(app *tview.Application, configFlag string, grid *tvie
 	}()
 
 	// Watch config file for changes.
-	if err := watch.Add(configFlag); err != nil {
+	if err := watch.Add(configFilePath); err != nil {
 		log.Fatalln(err)
 	}
 
 	// Start the watching process - it'll check for changes every 100ms.
 	if err := watch.Start(time.Millisecond * 100); err != nil {
 		log.Fatalln(err)
-	}
-}
-
-/* -------------------- Main -------------------- */
-
-var Config *config.Config
-var FocusTracker wtf.FocusTracker
-var Widgets []wtf.Wtfable
-
-var (
-	commit  = "dev"
-	date    = "dev"
-	version = "dev"
-)
-
-func disableAllWidgets() {
-	for _, widget := range Widgets {
-		widget.Disable()
 	}
 }
 
@@ -180,6 +167,8 @@ func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
 		Widgets = append(Widgets, bargraph.NewWidget())
 	case "bittrex":
 		Widgets = append(Widgets, bittrex.NewWidget())
+	case "blockfolio":
+		Widgets = append(Widgets, blockfolio.NewWidget(app, pages))
 	case "circleci":
 		Widgets = append(Widgets, circleci.NewWidget())
 	case "clocks":
@@ -206,6 +195,8 @@ func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
 		Widgets = append(Widgets, jenkins.NewWidget())
 	case "jira":
 		Widgets = append(Widgets, jira.NewWidget())
+	case "logger":
+		Widgets = append(Widgets, logger.NewWidget())
 	case "newrelic":
 		Widgets = append(Widgets, newrelic.NewWidget())
 	case "opsgenie":
@@ -224,105 +215,56 @@ func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
 		Widgets = append(Widgets, textfile.NewWidget(app, pages))
 	case "todo":
 		Widgets = append(Widgets, todo.NewWidget(app, pages))
+	case "trello":
+		Widgets = append(Widgets, trello.NewWidget())
 	case "weather":
 		Widgets = append(Widgets, weather.NewWidget(app, pages))
-	case "blockfolio":
-		Widgets = append(Widgets, blockfolio.NewWidget(app, pages))
 	default:
 	}
 }
 
 func makeWidgets(app *tview.Application, pages *tview.Pages) {
-	Widgets = []wtf.Wtfable{}
-
-	// Always in alphabetical order
-	bamboohr.Config = Config
-	bargraph.Config = Config
-	bittrex.Config = Config
-	circleci.Config = Config
-	clocks.Config = Config
-	cmdrunner.Config = Config
-	cryptolive.Config = Config
-	gcal.Config = Config
-	git.Config = Config
-	github.Config = Config
-	gitlab.Config = Config
-	gspreadsheets.Config = Config
-	ipapi.Config = Config
-	ipinfo.Config = Config
-	jenkins.Config = Config
-	jira.Config = Config
-	newrelic.Config = Config
-	opsgenie.Config = Config
-	power.Config = Config
-	prettyweather.Config = Config
-	security.Config = Config
-	status.Config = Config
-	system.Config = Config
-	textfile.Config = Config
-	todo.Config = Config
-	weather.Config = Config
-	blockfolio.Config = Config
-	wtf.Config = Config
-
 	mods, _ := Config.Map("wtf.mods")
+
 	for mod := range mods {
 		if enabled := Config.UBool("wtf.mods."+mod+".enabled", false); enabled {
 			addWidget(app, pages, mod)
 		}
 
 	}
-
-	FocusTracker = wtf.FocusTracker{
-		App:     app,
-		Idx:     -1,
-		Widgets: Widgets,
-	}
 }
 
-func loadConfig(configFlag string) {
-	Config = cfg.LoadConfigFile(configFlag)
-}
+/* -------------------- Main -------------------- */
 
 func main() {
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
 
-	cmdFlags := wtf.NewCommandFlags()
-	cmdFlags.Parse(version)
+	flags := flags.NewFlags()
+	flags.Parse()
+	flags.Display(version)
 
-	if cmdFlags.HasModule() {
-		help.DisplayModuleInfo(cmdFlags.Module)
-	}
-
-	/* -------------------- end flag parsing and handling -------------------- */
-
-	// Responsible for creating the configuration directory and default
-	// configuration file if they don't already exist
 	cfg.CreateConfigDir()
-	cfg.WriteConfigFile()
+	cfg.CreateConfigFile()
+	loadConfigFile(flags.ConfigFilePath())
 
-	loadConfig(cmdFlags.Config)
-	os.Setenv("TERM", Config.UString("wtf.term", os.Getenv("TERM")))
+	setTerm()
 
 	app := tview.NewApplication()
 	pages := tview.NewPages()
 
 	makeWidgets(app, pages)
+	initializeFocusTracker(app)
 
-	grid := buildGrid(Widgets)
-	pages.AddPage("grid", grid, true, true)
+	display := wtf.NewDisplay(Widgets)
+	pages.AddPage("grid", display.Grid, true, true)
 	app.SetInputCapture(keyboardIntercept)
-
-	grid.SetBackgroundColor(wtf.ColorFor(Config.UString("wtf.colors.background", "black")))
 
 	// Loop in a routine to redraw the screen
 	go redrawApp(app)
-	go watchForConfigChanges(app, cmdFlags.Config, grid, pages)
+	go watchForConfigChanges(app, flags.Config, display.Grid, pages)
 
 	if err := app.SetRoot(pages, true).Run(); err != nil {
-		fmt.Printf("An error occurred: %v\n", err)
+		fmt.Printf("Error: %v\n", err)
 		os.Exit(1)
 	}
-
-	wtf.Log("running!")
 }

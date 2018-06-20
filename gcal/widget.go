@@ -4,24 +4,28 @@ import (
 	"fmt"
 	"regexp"
 	"strings"
+	"sync"
 	"time"
 
-	"github.com/olebedev/config"
 	"github.com/senorprogrammer/wtf/wtf"
 	"google.golang.org/api/calendar/v3"
 )
 
-// Config is a pointer to the global config object
-var Config *config.Config
-
 type Widget struct {
 	wtf.TextWidget
+
+	events *calendar.Events
+	ch     chan struct{}
+	mutex  sync.Mutex
 }
 
 func NewWidget() *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(" Calendar ", "gcal", false),
+		ch:         make(chan struct{}),
 	}
+
+	go updateLoop(&widget)
 
 	return &widget
 }
@@ -30,13 +34,29 @@ func NewWidget() *Widget {
 
 func (widget *Widget) Refresh() {
 	events, _ := Fetch()
+	widget.events = events
 
 	widget.UpdateRefreshedAt()
 
-	widget.View.SetText(fmt.Sprintf("%s", widget.contentFrom(events)))
+	widget.display()
+}
+
+func (widget *Widget) Disable() {
+	close(widget.ch)
+	widget.TextWidget.Disable()
 }
 
 /* -------------------- Unexported Functions -------------------- */
+
+func (widget *Widget) display() {
+	if widget.events == nil || len(widget.events.Items) == 0 {
+		return
+	}
+
+	widget.mutex.Lock()
+	defer widget.mutex.Unlock()
+	widget.View.SetText(fmt.Sprintf("%s", widget.contentFrom(widget.events)))
+}
 
 // conflicts returns TRUE if this event conflicts with another, FALSE if it does not
 func (widget *Widget) conflicts(event *calendar.Event, events *calendar.Events) bool {
@@ -105,10 +125,10 @@ func (widget *Widget) dayDivider(event, prevEvent *calendar.Event) string {
 }
 
 func (widget *Widget) descriptionColor(event *calendar.Event) string {
-	color := Config.UString("wtf.mods.gcal.colors.description", "white")
+	color := wtf.Config.UString("wtf.mods.gcal.colors.description", "white")
 
 	if widget.eventIsPast(event) {
-		color = Config.UString("wtf.mods.gcal.colors.past", "gray")
+		color = wtf.Config.UString("wtf.mods.gcal.colors.past", "gray")
 	}
 
 	return color
@@ -120,21 +140,26 @@ func (widget *Widget) eventSummary(event *calendar.Event, conflict bool) string 
 	if widget.eventIsNow(event) {
 		summary = fmt.Sprintf(
 			"%s %s",
-			Config.UString("wtf.mods.gcal.currentIcon", "🔸"),
+			wtf.Config.UString("wtf.mods.gcal.currentIcon", "🔸"),
 			event.Summary,
 		)
 	}
 
 	if conflict {
-		return fmt.Sprintf("%s %s", Config.UString("wtf.mods.gcal.conflictIcon", "🚨"), summary)
+		return fmt.Sprintf("%s %s", wtf.Config.UString("wtf.mods.gcal.conflictIcon", "🚨"), summary)
 	} else {
 		return summary
 	}
 }
 
 func (widget *Widget) eventTimestamp(event *calendar.Event) string {
-	startTime, _ := time.Parse(time.RFC3339, event.Start.DateTime)
-	return startTime.Format(wtf.FriendlyDateTimeFormat)
+	if len(event.Start.Date) > 0 {
+		startTime, _ := time.Parse("2006-01-02", event.Start.Date)
+		return startTime.Format(wtf.FriendlyDateFormat)
+	} else {
+		startTime, _ := time.Parse(time.RFC3339, event.Start.DateTime)
+		return startTime.Format(wtf.FriendlyDateTimeFormat)
+	}
 }
 
 // eventIsNow returns true if the event is happening now, false if it not
@@ -151,9 +176,9 @@ func (widget *Widget) eventIsPast(event *calendar.Event) bool {
 }
 
 func (widget *Widget) titleColor(event *calendar.Event) string {
-	color := Config.UString("wtf.mods.gcal.colors.title", "white")
+	color := wtf.Config.UString("wtf.mods.gcal.colors.title", "white")
 
-	for _, untypedArr := range Config.UList("wtf.mods.gcal.colors.highlights") {
+	for _, untypedArr := range wtf.Config.UList("wtf.mods.gcal.colors.highlights") {
 		highlightElements := wtf.ToStrs(untypedArr.([]interface{}))
 
 		match, _ := regexp.MatchString(
@@ -167,14 +192,14 @@ func (widget *Widget) titleColor(event *calendar.Event) string {
 	}
 
 	if widget.eventIsPast(event) {
-		color = Config.UString("wtf.mods.gcal.colors.past", "gray")
+		color = wtf.Config.UString("wtf.mods.gcal.colors.past", "gray")
 	}
 
 	return color
 }
 
 func (widget *Widget) location(event *calendar.Event) string {
-	if Config.UBool("wtf.mods.gcal.displayLocation", true) == false {
+	if wtf.Config.UBool("wtf.mods.gcal.displayLocation", true) == false {
 		return ""
 	}
 
@@ -190,14 +215,14 @@ func (widget *Widget) location(event *calendar.Event) string {
 }
 
 func (widget *Widget) responseIcon(event *calendar.Event) string {
-	if false == Config.UBool("wtf.mods.gcal.displayResponseStatus", true) {
+	if false == wtf.Config.UBool("wtf.mods.gcal.displayResponseStatus", true) {
 		return ""
 	}
 
 	response := ""
 
 	for _, attendee := range event.Attendees {
-		if attendee.Email == Config.UString("wtf.mods.gcal.email") {
+		if attendee.Email == wtf.Config.UString("wtf.mods.gcal.email") {
 			response = attendee.ResponseStatus
 			break
 		}
@@ -252,4 +277,23 @@ func (widget *Widget) until(event *calendar.Event) string {
 	}
 
 	return "[lightblue]" + untilStr + "[white]"
+}
+
+func updateLoop(widget *Widget) {
+	interval := wtf.Config.UInt("wtf.mods.gcal.textInterval", 30)
+	if interval == 0 {
+		return
+	}
+
+	tick := time.NewTicker(time.Duration(interval) * time.Second)
+	defer tick.Stop()
+outer:
+	for {
+		select {
+		case <-tick.C:
+			widget.display()
+		case <-widget.ch:
+			break outer
+		}
+	}
 }

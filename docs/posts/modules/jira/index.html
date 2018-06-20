@@ -79,6 +79,7 @@
         <li class="sidebar-list-item-2"><a href="/posts/modules/ipinfo/">IPInfo</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/jenkins/">Jenkins</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/jira/">Jira</a></li>
+        <li class="sidebar-list-item-2"><a href="/posts/modules/logger/">Logger</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/newrelic/">New Relic</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/opsgenie/">OpsGenie</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/power/">Power</a></li>
@@ -86,6 +87,7 @@
         <li class="sidebar-list-item-2"><a href="/posts/modules/security/">Security</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/textfile/">Text File</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/todo/">Todo</a></li>
+        <li class="sidebar-list-item-2"><a href="/posts/modules/trello/">Trello</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/weather/">Weather</a></li>
       </ul>
     </div>
@@ -153,7 +155,8 @@
 </span><span class="w">    </span>width<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
 </span><span class="w">  </span>project<span class="p">:</span><span class="w"> </span><span class="s2">&#34;ProjectA&#34;</span><span class="w">
 </span><span class="w">  </span>refreshInterval<span class="p">:</span><span class="w"> </span><span class="m">900</span><span class="w">
-</span><span class="w">  </span>username<span class="p">:</span><span class="w"> </span><span class="s2">&#34;chris.cummer&#34;</span></code></pre></div>
+</span><span class="w">  </span>username<span class="p">:</span><span class="w"> </span><span class="s2">&#34;chris.cummer&#34;</span><span class="w">
+</span><span class="w">  </span>verifyServerCertificate<span class="p">:</span><span class="w"> </span><span class="kc">true</span></code></pre></div>
 <h3 id="multiple-jira-projects">Multiple Jira Projects</h3>
 
 <p>If you want to monitor multiple Jira projects, use the following
@@ -174,7 +177,8 @@ configuration (note the difference in <code>project</code>):</p>
 </span><span class="w">    </span>width<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
 </span><span class="w">  </span>project<span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;ProjectA&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;ProjectB&#34;</span><span class="p">]</span><span class="w">
 </span><span class="w">  </span>refreshInterval<span class="p">:</span><span class="w"> </span><span class="m">900</span><span class="w">
-</span><span class="w">  </span>username<span class="p">:</span><span class="w"> </span><span class="s2">&#34;chris.cummer&#34;</span></code></pre></div>
+</span><span class="w">  </span>username<span class="p">:</span><span class="w"> </span><span class="s2">&#34;chris.cummer&#34;</span><span class="w">
+</span><span class="w">  </span>verifyServerCertificate<span class="p">:</span><span class="w"> </span><span class="kc">true</span></code></pre></div>
 <h3 id="attributes">Attributes</h3>
 
 <p><code>colors.rows.even</code> <br />
@@ -216,6 +220,11 @@ Values: A positive integer, <code>0..n</code>.</p>
 
 <p><code>username</code> <br />
 Your Jira username. <br /></p>
+
+<p><code>verifyServerCertificate</code> <br />
+<em>Optional</em> <br />
+Determines whether or not the server&rsquo;s certificate chain and host name are verified. <br />
+Values: <code>true</code>, <code>false</code>.</p>
 
 </div>
 
