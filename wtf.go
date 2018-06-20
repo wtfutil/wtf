@@ -134,6 +134,7 @@ func watchForConfigChanges(app *tview.Application, configFilePath string, grid *
 				loadConfigFile(configFilePath)
 				// Disable all widgets to stop scheduler goroutines and rmeove widgets from memory.
 				disableAllWidgets()
+				Widgets = nil
 				makeWidgets(app, pages)
 				initializeFocusTracker(app)
 				display := wtf.NewDisplay(Widgets)

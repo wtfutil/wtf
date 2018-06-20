@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"regexp"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/senorprogrammer/wtf/wtf"
@@ -12,12 +13,19 @@ import (
 
 type Widget struct {
 	wtf.TextWidget
+
+	events *calendar.Events
+	ch     chan struct{}
+	mutex  sync.Mutex
 }
 
 func NewWidget() *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(" Calendar ", "gcal", false),
+		ch:         make(chan struct{}),
 	}
+
+	go updateLoop(&widget)
 
 	return &widget
 }
@@ -26,13 +34,29 @@ func NewWidget() *Widget {
 
 func (widget *Widget) Refresh() {
 	events, _ := Fetch()
+	widget.events = events
 
 	widget.UpdateRefreshedAt()
 
-	widget.View.SetText(fmt.Sprintf("%s", widget.contentFrom(events)))
+	widget.display()
+}
+
+func (widget *Widget) Disable() {
+	close(widget.ch)
+	widget.TextWidget.Disable()
 }
 
 /* -------------------- Unexported Functions -------------------- */
+
+func (widget *Widget) display() {
+	if widget.events == nil || len(widget.events.Items) == 0 {
+		return
+	}
+
+	widget.mutex.Lock()
+	defer widget.mutex.Unlock()
+	widget.View.SetText(fmt.Sprintf("%s", widget.contentFrom(widget.events)))
+}
 
 // conflicts returns TRUE if this event conflicts with another, FALSE if it does not
 func (widget *Widget) conflicts(event *calendar.Event, events *calendar.Events) bool {
@@ -135,7 +159,7 @@ func (widget *Widget) eventTimestamp(event *calendar.Event) string {
 	} else {
 		startTime, _ := time.Parse(time.RFC3339, event.Start.DateTime)
 		return startTime.Format(wtf.FriendlyDateTimeFormat)
-	} 
+	}
 }
 
 // eventIsNow returns true if the event is happening now, false if it not
@@ -253,4 +277,23 @@ func (widget *Widget) until(event *calendar.Event) string {
 	}
 
 	return "[lightblue]" + untilStr + "[white]"
+}
+
+func updateLoop(widget *Widget) {
+	interval := wtf.Config.UInt("wtf.mods.gcal.textInterval", 30)
+	if interval == 0 {
+		return
+	}
+
+	tick := time.NewTicker(time.Duration(interval) * time.Second)
+	defer tick.Stop()
+outer:
+	for {
+		select {
+		case <-tick.C:
+			widget.display()
+		case <-widget.ch:
+			break outer
+		}
+	}
 }
