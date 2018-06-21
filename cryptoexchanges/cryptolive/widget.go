@@ -2,6 +2,7 @@ package cryptolive
 
 import (
 	"fmt"
+	"sync"
 
 	"github.com/olebedev/config"
 	"github.com/senorprogrammer/wtf/cryptoexchanges/cryptolive/price"
@@ -40,12 +41,12 @@ func NewWidget() *Widget {
 
 // Refresh & update after interval time
 func (widget *Widget) Refresh() {
-	if widget.Disabled() {
-		return
-	}
+	var wg sync.WaitGroup
 
-	widget.priceWidget.Refresh()
-	widget.toplistWidget.Refresh()
+	wg.Add(2)
+	widget.priceWidget.Refresh(&wg)
+	widget.toplistWidget.Refresh(&wg)
+	wg.Wait()
 
 	widget.UpdateRefreshedAt()
 

@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"sync"
 	"time"
 
 	"github.com/olebedev/config"
@@ -12,8 +13,19 @@ import (
 
 // Config is a pointer to the global config object
 var Config *config.Config
-var started = false
 var baseURL = "https://min-api.cryptocompare.com/data/top/exchanges"
+
+type textColors struct {
+	from struct {
+		name        string
+		displayName string
+	}
+	to struct {
+		name  string
+		field string
+		value string
+	}
+}
 
 // Widget Toplist Widget
 type Widget struct {
@@ -22,15 +34,17 @@ type Widget struct {
 	RefreshInterval int
 
 	list *cList
+
+	colors textColors
 }
 
 // NewWidget Make new toplist widget
 func NewWidget() *Widget {
 	widget := Widget{}
 
-	started = false
 	widget.list = &cList{}
 	widget.setList()
+	widget.config()
 
 	return &widget
 }
@@ -58,27 +72,35 @@ func makeToList(fCurrencyName string, limit int) (list []*tCurrency) {
 	return
 }
 
+func (widget *Widget) config() {
+	// set colors
+	widget.colors.from.name = Config.UString("wtf.mods.cryptolive.colors.top.from.name", "coral")
+	widget.colors.from.displayName = Config.UString("wtf.mods.cryptolive.colors.top.from.displayName", "grey")
+	widget.colors.to.name = Config.UString("wtf.mods.cryptolive.colors.top.to.name", "red")
+	widget.colors.to.field = Config.UString("wtf.mods.cryptolive.colors.top.to.field", "white")
+	widget.colors.to.value = Config.UString("wtf.mods.cryptolive.colors.top.to.value", "value")
+}
+
 /* -------------------- Exported Functions -------------------- */
 
 // Refresh & update after interval time
-func (widget *Widget) Refresh() {
-
-	if !started {
-		go func() {
-			for {
-				widget.updateData()
-				time.Sleep(time.Second * time.Duration(widget.RefreshInterval))
-			}
-		}()
-		started = true
+func (widget *Widget) Refresh(wg *sync.WaitGroup) {
+	if len(widget.list.items) == 0 {
+		return
 	}
 
+	widget.updateData()
+
 	widget.display()
+	wg.Done()
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
 func (widget *Widget) updateData() {
+	defer func() {
+		recover()
+	}()
 
 	client := &http.Client{
 		Timeout: time.Duration(5 * time.Second),

@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"sync"
 	"time"
 
 	"github.com/olebedev/config"
@@ -12,7 +13,6 @@ import (
 // Config is a pointer to the global config object
 var Config *config.Config
 
-var started = false
 var baseURL = "https://min-api.cryptocompare.com/data/price"
 var ok = true
 
@@ -27,7 +27,6 @@ type Widget struct {
 
 // NewWidget Make new instance of widget
 func NewWidget() *Widget {
-	started = false
 	widget := Widget{}
 
 	widget.setList()
@@ -51,26 +50,19 @@ func (widget *Widget) setList() {
 /* -------------------- Exported Functions -------------------- */
 
 // Refresh & update after interval time
-func (widget *Widget) Refresh() {
-
-	if started == false {
-		// this code should run once
-		go func() {
-			for {
-				widget.updateCurrencies()
-				time.Sleep(time.Duration(widget.RefreshInterval) * time.Second)
-			}
-		}()
-
+func (widget *Widget) Refresh(wg *sync.WaitGroup) {
+	if len(widget.list.items) == 0 {
+		return
 	}
 
-	started = true
+	widget.updateCurrencies()
 
 	if !ok {
 		widget.Result = fmt.Sprint("Please check your internet connection!")
 		return
 	}
 	widget.display()
+	wg.Done()
 }
 
 /* -------------------- Unexported Functions -------------------- */
@@ -140,7 +132,6 @@ func (widget *Widget) updateCurrencies() {
 		setPrices(&jsonResponse, fromCurrency)
 	}
 
-	widget.display()
 }
 
 func makeRequest(currency *fromCurrency) *http.Request {
