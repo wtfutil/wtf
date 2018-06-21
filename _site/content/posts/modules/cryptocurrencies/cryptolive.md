@@ -28,33 +28,49 @@ None.
 
 ```yaml
 cryptolive:
-  colors:
+  enabled: true
+  position:
+    top: 5
+    left: 2
+    height: 1
+    width: 2  
+  updateInterval: 15
+  currencies: 
+    BTC:
+      displayName: Bitcoin
+      to: 
+        - USD
+        - EUR
+        - ETH
+        - LTC
+        - DOGE
+    LTC:
+      displayName: Ethereum
+      to: 
+        - USD
+        - EUR
+        - BTC
+  top:
+    BTC:
+      displayName: Bitcoin
+      limit: 5
+      to:
+        - USD
+  colors: 
     from:
       name: coral
       displayName: grey
     to:
       name: white
       price: green
-  currencies:
-    BTC:
-      displayName: Bitcoin
+    top:
+      from:
+        name: grey
+        displayName: coral
       to:
-        - USD
-        - EUR
-        - ETH
-    ETH:
-      displayName: Ethereum
-      to:
-        - USD
-        - EUR
-        - ETH
-  enabled: true
-  position:
-    top: 5
-    left: 2
-    height: 1
-    width: 2
-  updateInterval: 15
+        name: red
+        field: white
+        value: green
 ```
 
 ### Attributes
