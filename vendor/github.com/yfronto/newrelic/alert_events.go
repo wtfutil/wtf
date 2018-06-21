@@ -10,7 +10,7 @@ type AlertEvent struct {
 	EntityID      int    `json:"entity_id,omitempty"`
 	Priority      string `json:"priority,omitempty"`
 	Description   string `json:"description,omitempty"`
-	Timestamp     int    `json:"timestamp,omitempty"`
+	Timestamp     int64  `json:"timestamp,omitempty"`
 	IncidentID    int    `json:"incident_id"`
 }
 
