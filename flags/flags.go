@@ -68,6 +68,6 @@ func (flags *Flags) Parse() {
 			os.Exit(1)
 		}
 
-		flags.Config = filepath.Join(homeDir, ".wtf", "config.yml")
+		flags.Config = filepath.Join(homeDir, ".config", "wtf", "config.yml")
 	}
 }

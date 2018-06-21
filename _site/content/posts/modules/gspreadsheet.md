@@ -40,7 +40,7 @@ gspreadsheets:
     width: 1
     height: 1
   refreshInterval: "300"
-  secretFile: "~/.wtf/gspreadsheets/client_secret.json"
+  secretFile: "~/.config/wtf/gspreadsheets/client_secret.json"
   sheetId: "id_of_google_spreadsheet"
 ```
 

@@ -12,12 +12,12 @@ draft: false
 
 ## Configuration Files
 
-By default WTF looks in a `~/.wtf/` directory for a YAML file called
-`config.yml`. If the `~/.wtf/` directory doesn't exist, WTF will create that directory
+By default WTF looks in a `~/.config/wtf/` directory for a YAML file called
+`config.yml`. If the `~/.config/wtf/` directory doesn't exist, WTF will create that directory
 on start-up, and then display instructions for creating a new
 configuration file.
 
-In other words, WTF expects to have a YAML config file at: `~/.wtf/config.yml`.
+In other words, WTF expects to have a YAML config file at: `~/.config/wtf/config.yml`.
 
 #### Example Configuration Files
 
@@ -25,7 +25,7 @@ A couple of example config files are provided in the `_sample_configs/`
 directory of the Git repository.
 
 To try out WTF quickly, copy
-`simple_config.yml` into `~/.wtf/` as `config.yml` and relaunch WTF. You
+`simple_config.yml` into `~/.config/wtf/` as `config.yml` and relaunch WTF. You
 should see the app launch and display the <a href="/posts/modules/security/">Security</a>,
 <a href="/posts/modules/clocks/">Clocks</a> and <a href="/posts/modules/status/">Status</a> widgets onscreen.
 
@@ -36,7 +36,7 @@ you can pass the path to a config file via command line arguments on
 start-up.
 
 To load a custom configuration file (ie: one that's not
-`~/.wtf/config.yml`), pass in the path to configuration file as a
+`~/.config/wtf/config.yml`), pass in the path to configuration file as a
 parameter on launch:
 
 ```bash

@@ -12,17 +12,16 @@
     
     
     <item>
-      <title>Logging</title>
-      <link>https://wtfutil.com/posts/modules/logging/</link>
+      <title>Logger</title>
+      <link>https://wtfutil.com/posts/modules/logger/</link>
       <pubDate>Sat, 16 Jun 2018 14:22:18 -0700</pubDate>
       
-      <guid>https://wtfutil.com/posts/modules/logging/</guid>
+      <guid>https://wtfutil.com/posts/modules/logger/</guid>
       <description>Displays the contents of the WTF log file.
 To log to this file in your own modules:
-require &amp;#34;github.com/senorprogrammer/wtf/logging&amp;#34; logging.Log(&amp;#34;This is a log entry&amp;#34;) Source Code wtf/logging/ Required ENV Variables None.
+require &amp;#34;github.com/senorprogrammer/wtf/logger&amp;#34; logger.Log(&amp;#34;This is a log entry&amp;#34;) Source Code wtf/logger/ Required ENV Variables None.
 Keyboard Commands Arrow keys scroll through the log file.
-Configuration textfile:enabled:trueposition:top:5left:4height:2width:1refreshInterval:1 Attributes enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.
-position Defines where in the grid this module&amp;rsquo;s widget will be displayed.</description>
+Configuration logger:enabled:trueposition:top:5left:4height:2width:1refreshInterval:1 Attributes enabled Determines whether or not this module is executed and if its data displayed onscreen. Note: If you&amp;rsquo;re using logging and logging is disabled, your logs will still be written to file, the widget just won&amp;rsquo;t be shown onscreen.</description>
     </item>
     
     <item>
@@ -82,7 +81,7 @@ position Defines where in the grid this module&amp;rsquo;s widget will be displa
 Display information from cells in a Google Spreadsheet.
 wtf/gspreadsheets/ Required ENV Variables None.
 Keyboard Commands None.
-Configuration gspreadsheets:colors:values:&amp;#34;green&amp;#34;cells:names:-&amp;#34;Cell 1 name&amp;#34;-&amp;#34;Cell 2 name&amp;#34;addresses:-&amp;#34;A1&amp;#34;-&amp;#34;A2&amp;#34;enabled:trueposition:top:0left:0width:1height:1refreshInterval:&amp;#34;300&amp;#34;secretFile:&amp;#34;~/.wtf/gspreadsheets/client_secret.json&amp;#34;sheetId:&amp;#34;id_of_google_spreadsheet&amp;#34; Attributes colors.values The color to display the cell values in. Values: Any X11 color name.
+Configuration gspreadsheets:colors:values:&amp;#34;green&amp;#34;cells:names:-&amp;#34;Cell 1 name&amp;#34;-&amp;#34;Cell 2 name&amp;#34;addresses:-&amp;#34;A1&amp;#34;-&amp;#34;A2&amp;#34;enabled:trueposition:top:0left:0width:1height:1refreshInterval:&amp;#34;300&amp;#34;secretFile:&amp;#34;~/.config/wtf/gspreadsheets/client_secret.json&amp;#34;sheetId:&amp;#34;id_of_google_spreadsheet&amp;#34; Attributes colors.values The color to display the cell values in. Values: Any X11 color name.
 cells.names cells.addresses enabled Whether or not this module is executed and if its data displayed onscreen. Values: true, false.
 position Where in the grid this module&amp;rsquo;s widget will be displayed.</description>
     </item>
@@ -285,6 +284,19 @@ jira:colors:rows:even:&amp;#34;lightblue&amp;#34;odd:&amp;#34;white&amp;#34;doma
     </item>
     
     <item>
+      <title>Trello</title>
+      <link>https://wtfutil.com/posts/modules/trello/</link>
+      <pubDate>Thu, 10 May 2018 10:44:35 -0700</pubDate>
+      
+      <guid>https://wtfutil.com/posts/modules/trello/</guid>
+      <description>Displays all Trello cards on specified lists.
+Source Code wtf/trello/ Required ENV Variables Key: WTF_TRELLO_APP_KEY Value: Your Trello App Key. Key: WTF_TRELLO_ACCESS_TOKEN Value: Your Trello Access Token. You can get your API key at: trello.com/app-key.
+Keyboard Commands None.
+Configuration Single Trello List trello:board:Mainenabled:truelist:&amp;#34;Todo&amp;#34;position:height:1left:2top:0width:1refreshInterval:3600username:myname Multiple Trello Lists If you want to monitor multiple Trello lists, use the following configuration (note the difference in list):
+trello:board:Mainenabled:truelist:[&amp;#34;Todo&amp;#34;,&amp;#34;Done&amp;#34;]position:height:1left:2top:0width:1refreshInterval:3600username:myname Attributes board The name of the Trello board.</description>
+    </item>
+    
+    <item>
       <title>Google Calendar</title>
       <link>https://wtfutil.com/posts/modules/gcal/</link>
       <pubDate>Thu, 10 May 2018 08:25:33 -0700</pubDate>
@@ -294,7 +306,7 @@ jira:colors:rows:even:&amp;#34;lightblue&amp;#34;odd:&amp;#34;white&amp;#34;doma
 Not: Setting up access to Google Calendars for Go is a bit unobvious. Check out Google&amp;rsquo;s Go Quickstart first and if you have problems, then take a look at this comment by WesleydeSouza which offers a slightly different approach.
 Source Code wtf/gcal/ Required ENV Variables None.
 Keyboard Commands None.
-Configuration gcal:colors:title:&amp;#34;red&amp;#34;description:&amp;#34;lightblue&amp;#34;highlights:-[&amp;#39;1on1|1\/11&amp;#39;,&amp;#39;green&amp;#39;]-[&amp;#39;apple|google|aws&amp;#39;,&amp;#39;blue&amp;#39;]-[&amp;#39;interview|meet&amp;#39;,&amp;#39;magenta&amp;#39;]-[&amp;#39;lunch&amp;#39;,&amp;#39;yellow&amp;#39;]past:&amp;#34;gray&amp;#34;conflictIcon:&amp;#34;🚨&amp;#34;currentIcon:&amp;#34;💥&amp;#34;displayResponseStatus:trueemail:&amp;#34;chriscummer@me.com&amp;#34;enabled:trueeventCount:12position:top:0left:0height:4width:1refreshInterval:300secretFile:&amp;#34;~/.wtf/gcal/client_secret.json&amp;#34;withLocation:true Attributes colors.title The default colour for calendar event titles. Values: Any X11 color name.</description>
+Configuration gcal:colors:title:&amp;#34;red&amp;#34;description:&amp;#34;lightblue&amp;#34;highlights:-[&amp;#39;1on1|1\/11&amp;#39;,&amp;#39;green&amp;#39;]-[&amp;#39;apple|google|aws&amp;#39;,&amp;#39;blue&amp;#39;]-[&amp;#39;interview|meet&amp;#39;,&amp;#39;magenta&amp;#39;]-[&amp;#39;lunch&amp;#39;,&amp;#39;yellow&amp;#39;]past:&amp;#34;gray&amp;#34;conflictIcon:&amp;#34;🚨&amp;#34;currentIcon:&amp;#34;💥&amp;#34;displayResponseStatus:trueemail:&amp;#34;chriscummer@me.com&amp;#34;enabled:trueeventCount:12multiCalendar:trueposition:top:0left:0height:4width:1refreshInterval:300secretFile:&amp;#34;~/.config/wtf/gcal/client_secret.json&amp;#34;withLocation:true Attributes colors.title The default colour for calendar event titles. Values: Any X11 color name.</description>
     </item>
     
     <item>
@@ -306,10 +318,10 @@ Configuration gcal:colors:title:&amp;#34;red&amp;#34;description:&amp;#34;lightb
       <description>Displays information about your git repositories hosted on Github:
 Open Review Requests All open code review requests assigned to you.
 Open Pull Requests All open pull requests created by you.
-Source Code wtf/github/ Required ENV Variables Key: WTF_GITHUB_TOKEN Action: Your Github API token.
-Keyboard Commands Key: / Action: Open/close the widget&amp;rsquo;s help window.
-Key: h Action: Show the previous git repository.
-Key: l Action: Show the next git repository.</description>
+Source Code wtf/github/ Github Required ENV Variables Key: WTF_GITHUB_TOKEN Action: Your Github API token.
+GitHub Enterprise Required ENV Variables Key: WTF_GITHUB_TOKEN Action: Your Github API token.
+Key: WTF_GITHUB_BASE_URL Action: Your Github Enterprise API URL.
+Key: WTF_GITHUB_UPLOAD_URL Action: Your Github Enterprise upload URL (often the same as API URL).</description>
     </item>
     
     <item>
@@ -450,8 +462,8 @@ Widgets are defined by a required widget.go file in a Module.</description>
       <pubDate>Sun, 15 Apr 2018 21:17:16 -0700</pubDate>
       
       <guid>https://wtfutil.com/posts/configuration/</guid>
-      <description>Index  Configuration Files Environment (ENV) Variables Grid Layout  Configuration Files By default WTF looks in a ~/.wtf/ directory for a YAML file called config.yml. If the ~/.wtf/ directory doesn&amp;rsquo;t exist, WTF will create that directory on start-up, and then display instructions for creating a new configuration file.
-In other words, WTF expects to have a YAML config file at: ~/.wtf/config.yml.
+      <description>Index  Configuration Files Environment (ENV) Variables Grid Layout  Configuration Files By default WTF looks in a ~/.config/wtf/ directory for a YAML file called config.yml. If the ~/.config/wtf/ directory doesn&amp;rsquo;t exist, WTF will create that directory on start-up, and then display instructions for creating a new configuration file.
+In other words, WTF expects to have a YAML config file at: ~/.config/wtf/config.yml.
 Example Configuration Files A couple of example config files are provided in the _sample_configs/ directory of the Git repository.</description>
     </item>
     

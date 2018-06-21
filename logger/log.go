@@ -21,7 +21,7 @@ type Widget struct {
 
 func NewWidget() *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(" Logs ", "logging", true),
+		TextWidget: wtf.NewTextWidget(" Logs ", "logger", true),
 
 		filePath: logFilePath(),
 	}
@@ -89,7 +89,7 @@ func logFilePath() string {
 		return ""
 	}
 
-	return filepath.Join(dir, ".wtf", "log.txt")
+	return filepath.Join(dir, ".config", "wtf", "log.txt")
 }
 
 func (widget *Widget) tailFile() []string {
