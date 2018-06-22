@@ -12,6 +12,8 @@ import (
 
 const SimpleDateFormat = "Jan 2"
 const SimpleTimeFormat = "15:04 MST"
+const MinimumTimeFormat = "15:04"
+const FullDateFormat = "Monday, Jan 2"
 const FriendlyDateFormat = "Mon, Jan 2"
 const FriendlyDateTimeFormat = "Mon, Jan 2, 15:04"
 const TimestampFormat = "2006-01-02T15:04:05-0700"

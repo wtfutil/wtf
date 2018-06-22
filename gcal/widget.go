@@ -93,16 +93,27 @@ func (widget *Widget) contentFrom(events *calendar.Events) string {
 	for _, event := range events.Items {
 		conflict := widget.conflicts(event, events)
 
-		str = str + fmt.Sprintf(
-			"%s %s[%s]%s[white]\n %s[%s]%s %s[white]\n\n",
-			widget.dayDivider(event, prevEvent),
-			widget.responseIcon(event),
-			widget.titleColor(event),
-			widget.eventSummary(event, conflict),
-			widget.location(event),
+		dayDivider := widget.dayDivider(event, prevEvent)
+		responseIcon := widget.responseIcon(event)
+		timestamp := fmt.Sprintf("[%s]%s",
 			widget.descriptionColor(event),
-			widget.eventTimestamp(event),
-			widget.until(event),
+			widget.eventTimestamp(event))
+		title := fmt.Sprintf("[%s]%s",
+			widget.titleColor(event),
+			widget.eventSummary(event, conflict))
+		until := widget.until(event)
+
+		lineOne := fmt.Sprintf(
+			"%s %s %s %s %s[white]",
+			dayDivider,
+			responseIcon,
+			timestamp,
+			title,
+			until,
+		)
+		str = str + fmt.Sprintf("%s%s\n\n",
+			lineOne,
+			widget.location(event), // prefixes newline if non-empty
 		)
 
 		prevEvent = event
@@ -112,13 +123,17 @@ func (widget *Widget) contentFrom(events *calendar.Events) string {
 }
 
 func (widget *Widget) dayDivider(event, prevEvent *calendar.Event) string {
+	var prevStartTime time.Time
 	if prevEvent != nil {
-		prevStartTime, _ := time.Parse(time.RFC3339, prevEvent.Start.DateTime)
-		currStartTime, _ := time.Parse(time.RFC3339, event.Start.DateTime)
+		prevStartTime, _ = time.Parse(time.RFC3339, prevEvent.Start.DateTime)
+	}
+	currStartTime, _ := time.Parse(time.RFC3339, event.Start.DateTime)
 
-		if currStartTime.Day() != prevStartTime.Day() {
-			return "\n"
-		}
+	if currStartTime.Day() != prevStartTime.Day() {
+		_, _, width, _ := widget.View.GetInnerRect()
+		return fmt.Sprintf("[%s]", wtf.Config.UString("wtf.mods.gcal.colors.day", "forestgreen")) +
+			wtf.CenterText(currStartTime.Format(wtf.FullDateFormat), width) +
+			"\n"
 	}
 
 	return ""
@@ -158,7 +173,7 @@ func (widget *Widget) eventTimestamp(event *calendar.Event) string {
 		return startTime.Format(wtf.FriendlyDateFormat)
 	} else {
 		startTime, _ := time.Parse(time.RFC3339, event.Start.DateTime)
-		return startTime.Format(wtf.FriendlyDateTimeFormat)
+		return startTime.Format(wtf.MinimumTimeFormat)
 	}
 }
 
@@ -208,7 +223,7 @@ func (widget *Widget) location(event *calendar.Event) string {
 	}
 
 	return fmt.Sprintf(
-		"[%s]%s\n ",
+		"\n [%s]%s",
 		widget.descriptionColor(event),
 		event.Location,
 	)
@@ -232,15 +247,15 @@ func (widget *Widget) responseIcon(event *calendar.Event) string {
 
 	switch response {
 	case "accepted":
-		icon = icon + "✔︎ "
+		icon = icon + "✔︎"
 	case "declined":
-		icon = icon + "✘ "
+		icon = icon + "✘"
 	case "needsAction":
-		icon = icon + "? "
+		icon = icon + "?"
 	case "tentative":
-		icon = icon + "~ "
+		icon = icon + "~"
 	default:
-		icon = icon + ""
+		icon = icon + " "
 	}
 
 	return icon
@@ -268,15 +283,19 @@ func (widget *Widget) until(event *calendar.Event) string {
 
 	untilStr := ""
 
+	var color = "[lightblue]"
 	if days > 0 {
 		untilStr = fmt.Sprintf("%dd", days)
 	} else if hours > 0 {
 		untilStr = fmt.Sprintf("%dh", hours)
 	} else {
 		untilStr = fmt.Sprintf("%dm", mins)
+		if mins < 30 {
+			color = "[red]"
+		}
 	}
 
-	return "[lightblue]" + untilStr + "[white]"
+	return color + untilStr + "[white]"
 }
 
 func updateLoop(widget *Widget) {
