@@ -55,7 +55,7 @@ func (widget *Widget) display() {
 
 	widget.mutex.Lock()
 	defer widget.mutex.Unlock()
-	widget.View.SetText(fmt.Sprintf("%s", widget.contentFrom(widget.events)))
+	widget.View.SetText(widget.contentFrom(widget.events))
 }
 
 // conflicts returns TRUE if this event conflicts with another, FALSE if it does not

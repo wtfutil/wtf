@@ -29,10 +29,11 @@ func (widget *Widget) Refresh() {
 
 	widget.UpdateRefreshedAt()
 
+	var content string
 	if err != nil {
 		widget.View.SetWrap(true)
-		widget.View.SetTitle(fmt.Sprintf("%s", widget.Name))
-		fmt.Fprintf(widget.View, "%v", err)
+		widget.View.SetTitle(widget.Name)
+		content = err.Error()
 	} else {
 		widget.View.SetWrap(false)
 		widget.View.SetTitle(
@@ -42,8 +43,10 @@ func (widget *Widget) Refresh() {
 				wtf.Config.UString("wtf.mods.jira.project"),
 			),
 		)
-		widget.View.SetText(fmt.Sprintf("%s", widget.contentFrom(searchResult)))
+		content = widget.contentFrom(searchResult)
 	}
+
+	widget.View.SetText(content)
 }
 
 /* -------------------- Unexported Functions -------------------- */

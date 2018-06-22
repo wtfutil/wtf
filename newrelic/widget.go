@@ -34,13 +34,16 @@ func (widget *Widget) Refresh() {
 	widget.View.SetTitle(fmt.Sprintf("%s- [green]%s[white]", widget.Name, appName))
 	widget.View.Clear()
 
+	var content string
 	if depErr != nil {
 		widget.View.SetWrap(true)
-		widget.View.SetText(fmt.Sprintf("%s", depErr))
+		content = depErr.Error()
 	} else {
 		widget.View.SetWrap(false)
-		widget.View.SetText(fmt.Sprintf("%s", widget.contentFrom(deploys)))
+		content = widget.contentFrom(deploys)
 	}
+
+	widget.View.SetText(content)
 }
 
 /* -------------------- Unexported Functions -------------------- */

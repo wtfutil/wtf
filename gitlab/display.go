@@ -10,7 +10,7 @@ func (widget *Widget) display() {
 
 	project := widget.currentGitlabProject()
 	if project == nil {
-		fmt.Fprintf(widget.View, "%s", " Gitlab project data is unavailable (1)")
+		widget.View.SetText(" Gitlab project data is unavailable ")
 		return
 	}
 

@@ -61,20 +61,20 @@ func (widget *Widget) ipinfo() {
 	client := &http.Client{}
 	req, err := http.NewRequest("GET", "http://ip-api.com/json", nil)
 	if err != nil {
-		widget.result = fmt.Sprintf("%s", err.Error())
+		widget.result = err.Error()
 		return
 	}
 	req.Header.Set("User-Agent", "curl")
 	response, err := client.Do(req)
 	if err != nil {
-		widget.result = fmt.Sprintf("%s", err.Error())
+		widget.result = err.Error()
 		return
 	}
 	defer response.Body.Close()
 	var info ipinfo
 	err = json.NewDecoder(response.Body).Decode(&info)
 	if err != nil {
-		widget.result = fmt.Sprintf("%s", err.Error())
+		widget.result = err.Error()
 		return
 	}
 

@@ -29,9 +29,9 @@ func (widget *Widget) Refresh() {
 	)
 
 	widget.UpdateRefreshedAt()
-	widget.View.SetTitle(fmt.Sprintf("%s(%d)", widget.Name, len(todayItems)))
+	widget.View.SetTitle(fmt.Sprintf("%s (%d)", widget.Name, len(todayItems)))
 
-	widget.View.SetText(fmt.Sprintf("%s", widget.contentFrom(todayItems)))
+	widget.View.SetText(widget.contentFrom(todayItems))
 }
 
 /* -------------------- Unexported Functions -------------------- */

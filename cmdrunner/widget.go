@@ -34,9 +34,9 @@ func (widget *Widget) Refresh() {
 	widget.execute()
 
 	title := wtf.Config.UString("wtf.mods.cmdrunner.title", widget.String())
-	widget.View.SetTitle(fmt.Sprintf("%s", title))
+	widget.View.SetTitle(title)
 
-	widget.View.SetText(fmt.Sprintf("%s", widget.result))
+	widget.View.SetText(widget.result)
 }
 
 func (widget *Widget) String() string {

@@ -55,9 +55,9 @@ func (widget *Widget) Refresh() {
 	}
 
 	if err != nil {
-		widget.View.SetText(fmt.Sprintf("%s", err))
+		widget.View.SetText(err.Error())
 	} else {
-		widget.View.SetText(fmt.Sprintf("%s", string(fileData)))
+		widget.View.SetText(string(fileData))
 	}
 }
 

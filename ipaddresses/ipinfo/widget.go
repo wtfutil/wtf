@@ -55,13 +55,13 @@ func (widget *Widget) ipinfo() {
 	client := &http.Client{}
 	req, err := http.NewRequest("GET", "https://ipinfo.io/", nil)
 	if err != nil {
-		widget.result = fmt.Sprintf("%s", err.Error())
+		widget.result = err.Error()
 		return
 	}
 	req.Header.Set("User-Agent", "curl")
 	response, err := client.Do(req)
 	if err != nil {
-		widget.result = fmt.Sprintf("%s", err.Error())
+		widget.result = err.Error()
 		return
 	}
 	defer response.Body.Close()
@@ -69,7 +69,7 @@ func (widget *Widget) ipinfo() {
 	var info ipinfo
 	err = json.NewDecoder(response.Body).Decode(&info)
 	if err != nil {
-		widget.result = fmt.Sprintf("%s", err.Error())
+		widget.result = err.Error()
 		return
 	}
 

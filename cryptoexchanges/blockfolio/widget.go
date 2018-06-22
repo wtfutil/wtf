@@ -37,7 +37,8 @@ func (widget *Widget) Refresh() {
 	if err != nil {
 		return
 	}
-	widget.View.SetText(fmt.Sprintf("%s", contentFrom(positions)))
+
+	widget.View.SetText(contentFrom(positions))
 }
 
 /* -------------------- Unexported Functions -------------------- */

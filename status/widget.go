@@ -1,8 +1,6 @@
 package status
 
 import (
-	"fmt"
-
 	"github.com/senorprogrammer/wtf/wtf"
 )
 
@@ -25,13 +23,7 @@ func NewWidget() *Widget {
 
 func (widget *Widget) Refresh() {
 	widget.UpdateRefreshedAt()
-
-	widget.View.SetText(
-		fmt.Sprintf(
-			"\n%s",
-			widget.animation(),
-		),
-	)
+	widget.View.SetText(widget.animation())
 }
 
 /* -------------------- Unexported Functions -------------------- */

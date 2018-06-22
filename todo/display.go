@@ -29,7 +29,7 @@ func (widget *Widget) display() {
 	widget.SetList(&newList)
 
 	widget.View.Clear()
-	widget.View.SetText(fmt.Sprintf("%s", str))
+	widget.View.SetText(str)
 }
 
 func (widget *Widget) formattedItemLine(item *Item, selectedItem *Item, maxLen int) string {

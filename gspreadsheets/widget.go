@@ -26,7 +26,7 @@ func (widget *Widget) Refresh() {
 
 	widget.UpdateRefreshedAt()
 
-	widget.View.SetText(fmt.Sprintf("%s", widget.contentFrom(cells)))
+	widget.View.SetText(widget.contentFrom(cells))
 }
 
 /* -------------------- Unexported Functions -------------------- */
