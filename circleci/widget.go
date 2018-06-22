@@ -72,6 +72,8 @@ func buildColor(build *Build) string {
 		return "yellow"
 	case "success":
 		return "green"
+	case "fixed":
+		return "green"
 	default:
 		return "white"
 	}
