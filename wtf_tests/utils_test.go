@@ -3,8 +3,8 @@ package wtf_tests
 import (
 	"testing"
 
-	. "github.com/senorprogrammer/wtf/wtf"
 	"github.com/go-test/deep"
+	. "github.com/senorprogrammer/wtf/wtf"
 )
 
 /* -------------------- Exclude() -------------------- */
@@ -74,7 +74,7 @@ func TestToInts(t *testing.T) {
 	actual := ToInts(source)
 
 	if diff := deep.Equal(expected, actual); diff != nil {
-		t.Fatalf("Expected %s but got %s", expected, actual)
+		t.Fatalf("Expected %v but got %v", expected, actual)
 	}
 }
 

@@ -29,19 +29,19 @@ func (widget *Widget) display() {
 	widget.SetList(&newList)
 
 	widget.View.Clear()
-	widget.View.SetText(fmt.Sprintf("%s", str))
+	widget.View.SetText(str)
 }
 
 func (widget *Widget) formattedItemLine(item *Item, selectedItem *Item, maxLen int) string {
-	foreColor, backColor := "white", Config.UString("wtf.colors.background", "black")
+	foreColor, backColor := "white", wtf.Config.UString("wtf.colors.background", "black")
 
 	if item.Checked {
-		foreColor = Config.UString("wtf.mods.todo.colors.checked", "white")
+		foreColor = wtf.Config.UString("wtf.mods.todo.colors.checked", "white")
 	}
 
 	if widget.View.HasFocus() && (item == selectedItem) {
-		foreColor = Config.UString("wtf.mods.todo.colors.highlight.fore", "black")
-		backColor = Config.UString("wtf.mods.todo.colors.highlight.back", "white")
+		foreColor = wtf.Config.UString("wtf.mods.todo.colors.highlight.fore", "black")
+		backColor = wtf.Config.UString("wtf.mods.todo.colors.highlight.back", "white")
 	}
 
 	str := fmt.Sprintf(

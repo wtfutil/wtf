@@ -8,14 +8,11 @@ import (
 
 func (widget *Widget) display() {
 	if ok == false {
-		widget.View.SetText(fmt.Sprintf("%s", errorText))
+		widget.View.SetText(errorText)
 		return
 	}
 
-	str := ""
-	str += summaryText(&widget.summaryList, &widget.TextColors)
-
-	widget.View.SetText(fmt.Sprintf("%s", str))
+	widget.View.SetText(summaryText(&widget.summaryList, &widget.TextColors))
 }
 
 func summaryText(list *summaryList, colors *TextColors) string {

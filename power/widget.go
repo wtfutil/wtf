@@ -3,12 +3,8 @@ package power
 import (
 	"fmt"
 
-	"github.com/olebedev/config"
 	"github.com/senorprogrammer/wtf/wtf"
 )
-
-// Config is a pointer to the global config object
-var Config *config.Config
 
 type Widget struct {
 	wtf.TextWidget
@@ -28,17 +24,13 @@ func NewWidget() *Widget {
 }
 
 func (widget *Widget) Refresh() {
-	if widget.Disabled() {
-		return
-	}
-
 	widget.UpdateRefreshedAt()
 	widget.Battery.Refresh()
 
-	str := ""
-	str = str + fmt.Sprintf(" %10s: %s\n", "Source", powerSource())
-	str = str + "\n"
-	str = str + widget.Battery.String()
+	content := ""
+	content = content + fmt.Sprintf(" %10s: %s\n", "Source", powerSource())
+	content = content + "\n"
+	content = content + widget.Battery.String()
 
-	widget.View.SetText(fmt.Sprintf("%s", str))
+	widget.View.SetText(content)
 }

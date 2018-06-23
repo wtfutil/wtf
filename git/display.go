@@ -9,10 +9,9 @@ import (
 )
 
 func (widget *Widget) display() {
-
 	repoData := widget.currentData()
 	if repoData == nil {
-		fmt.Fprintf(widget.View, "%s", " Git repo data is unavailable (1)")
+		widget.View.SetText(" Git repo data is unavailable ")
 		return
 	}
 
@@ -27,7 +26,7 @@ func (widget *Widget) display() {
 	str = str + "\n"
 	str = str + widget.formatCommits(repoData.Commits)
 
-	widget.View.SetText(fmt.Sprintf("%s", str))
+	widget.View.SetText(str)
 }
 
 func (widget *Widget) formatChanges(data []string) string {

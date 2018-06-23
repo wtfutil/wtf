@@ -1,15 +1,13 @@
+// +build !windows
+
 package security
 
 import (
 	"fmt"
 	"strings"
 
-	"github.com/olebedev/config"
 	"github.com/senorprogrammer/wtf/wtf"
 )
-
-// Config is a pointer to the global config object
-var Config *config.Config
 
 type Widget struct {
 	wtf.TextWidget
@@ -26,16 +24,11 @@ func NewWidget() *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	if widget.Disabled() {
-		return
-	}
-
 	data := NewSecurityData()
 	data.Fetch()
 
 	widget.UpdateRefreshedAt()
-
-	widget.View.SetText(fmt.Sprintf("%s", widget.contentFrom(data)))
+	widget.View.SetText(widget.contentFrom(data))
 }
 
 /* -------------------- Unexported Functions -------------------- */

@@ -7,12 +7,8 @@ import (
 
 	"net/http"
 
-	"github.com/olebedev/config"
 	"github.com/senorprogrammer/wtf/wtf"
 )
-
-// Config is a pointer to the global config object
-var Config *config.Config
 
 type TextColors struct {
 	base struct {
@@ -28,7 +24,7 @@ type TextColors struct {
 
 var ok = true
 var errorText = ""
-var started = false
+
 var baseURL = "https://bittrex.com/api/v1.1/public/getmarketsummary"
 
 // Widget define wtf widget to register widget later
@@ -40,13 +36,11 @@ type Widget struct {
 
 // NewWidget Make new instance of widget
 func NewWidget() *Widget {
-
 	widget := Widget{
 		TextWidget:  wtf.NewTextWidget(" Bittrex ", "bittrex", false),
 		summaryList: summaryList{},
 	}
 
-	started = false
 	ok = true
 	errorText = ""
 
@@ -57,17 +51,17 @@ func NewWidget() *Widget {
 }
 
 func (widget *Widget) config() {
-	widget.TextColors.base.name = Config.UString("wtf.mods.bittrex.colors.base.name", "red")
-	widget.TextColors.base.displayName = Config.UString("wtf.mods.bittrex.colors.base.displayName", "grey")
-	widget.TextColors.market.name = Config.UString("wtf.mods.bittrex.colors.market.name", "red")
-	widget.TextColors.market.field = Config.UString("wtf.mods.bittrex.colors.market.field", "coral")
-	widget.TextColors.market.value = Config.UString("wtf.mods.bittrex.colors.market.value", "white")
+	widget.TextColors.base.name = wtf.Config.UString("wtf.mods.bittrex.colors.base.name", "red")
+	widget.TextColors.base.displayName = wtf.Config.UString("wtf.mods.bittrex.colors.base.displayName", "grey")
+	widget.TextColors.market.name = wtf.Config.UString("wtf.mods.bittrex.colors.market.name", "red")
+	widget.TextColors.market.field = wtf.Config.UString("wtf.mods.bittrex.colors.market.field", "coral")
+	widget.TextColors.market.value = wtf.Config.UString("wtf.mods.bittrex.colors.market.value", "white")
 }
 
 func (widget *Widget) setSummaryList() {
-	sCurrencies, _ := Config.Map("wtf.mods.bittrex.summary")
+	sCurrencies, _ := wtf.Config.Map("wtf.mods.bittrex.summary")
 	for baseCurrencyName := range sCurrencies {
-		displayName, _ := Config.String("wtf.mods.bittrex.summary." + baseCurrencyName + ".displayName")
+		displayName, _ := wtf.Config.String("wtf.mods.bittrex.summary." + baseCurrencyName + ".displayName")
 		mCurrencyList := makeSummaryMarketList(baseCurrencyName)
 		widget.summaryList.addSummaryItem(baseCurrencyName, displayName, mCurrencyList)
 	}
@@ -76,7 +70,7 @@ func (widget *Widget) setSummaryList() {
 func makeSummaryMarketList(currencyName string) []*mCurrency {
 	mCurrencyList := []*mCurrency{}
 
-	configMarketList, _ := Config.List("wtf.mods.bittrex.summary." + currencyName + ".market")
+	configMarketList, _ := wtf.Config.List("wtf.mods.bittrex.summary." + currencyName + ".market")
 	for _, mCurrencyName := range configMarketList {
 		mCurrencyList = append(mCurrencyList, makeMarketCurrency(mCurrencyName.(string)))
 	}
@@ -102,24 +96,9 @@ func makeMarketCurrency(name string) *mCurrency {
 
 // Refresh & update after interval time
 func (widget *Widget) Refresh() {
-	if widget.Disabled() {
-		return
-	}
-
-	if started == false {
-		go func() {
-			for {
-				widget.updateSummary()
-				time.Sleep(time.Second * time.Duration(widget.RefreshInterval()))
-			}
-		}()
-		started = true
-	}
-
+	widget.updateSummary()
 	widget.UpdateRefreshedAt()
-
 	widget.display()
-
 }
 
 /* -------------------- Unexported Functions -------------------- */

@@ -3,12 +3,8 @@ package bamboohr
 import (
 	"fmt"
 
-	"github.com/olebedev/config"
 	"github.com/senorprogrammer/wtf/wtf"
 )
-
-// Config is a pointer to the global config object
-var Config *config.Config
 
 type Widget struct {
 	wtf.TextWidget
@@ -25,10 +21,6 @@ func NewWidget() *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	if widget.Disabled() {
-		return
-	}
-
 	client := NewClient("https://api.bamboohr.com/api/gateway.php")
 	todayItems := client.Away(
 		"timeOff",
@@ -37,9 +29,9 @@ func (widget *Widget) Refresh() {
 	)
 
 	widget.UpdateRefreshedAt()
-	widget.View.SetTitle(fmt.Sprintf("%s(%d)", widget.Name, len(todayItems)))
+	widget.View.SetTitle(fmt.Sprintf("%s (%d)", widget.Name, len(todayItems)))
 
-	widget.View.SetText(fmt.Sprintf("%s", widget.contentFrom(todayItems)))
+	widget.View.SetText(widget.contentFrom(todayItems))
 }
 
 /* -------------------- Unexported Functions -------------------- */

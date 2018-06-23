@@ -4,8 +4,6 @@ date: 2018-06-02T05:32:04-07:00
 draft: false
 ---
 
-**🔬 Experimental**
-
 Displays weather information as ASCII art from
 [Wttr.in](http://wttr.in).
 
@@ -38,6 +36,7 @@ None.
         width: 1
       refreshInterval: 300
       unit: "c"
+      view: 0
 ```
 
 ### Attributes
@@ -62,3 +61,7 @@ Values: A positive integer, `0..n`.
 _Optional_. It will use metric if you are out of US and imperial for US.<br />
 The temperature scale in which to display temperature values. <br />
 Values: `F` for Fahrenheit, `C` for Celcius.
+
+`view` <br />
+_Optional_ Wttr.in view configuration. <br />
+Values: See `curl wttr.in/:help` for more details.

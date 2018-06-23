@@ -4,12 +4,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/olebedev/config"
 	"github.com/senorprogrammer/wtf/wtf"
 )
-
-// Config is a pointer to the global config object
-var Config *config.Config
 
 type Widget struct {
 	wtf.TextWidget
@@ -33,10 +29,6 @@ func NewWidget(date, version string) *Widget {
 }
 
 func (widget *Widget) Refresh() {
-	if widget.Disabled() {
-		return
-	}
-
 	widget.UpdateRefreshedAt()
 
 	widget.View.SetText(

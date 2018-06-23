@@ -37,8 +37,20 @@
 
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 
+
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-532RMQJ');</script>
+
+
 	</head>
     <body>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-532RMQJ"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
         <div class="sidebar">
 	<div class="container">
 		<div class="sidebar-about text-center">
@@ -65,21 +77,29 @@
         <li class="sidebar-list-item-1"><a href="/posts/modules/">Modules</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/bamboohr/">BambooHR</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/cryptocurrencies/bittrex/">Bittrex</a></li>
+        <li class="sidebar-list-item-2"><a href="/posts/modules/cryptocurrencies/blockfolio/">Blockfolio</a></li>
+        <li class="sidebar-list-item-2"><a href="/posts/modules/circleci/">CircleCI</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/clocks/">Clocks</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/cryptocurrencies/cryptolive/">CryptoLive</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/cmdrunner/">CmdRunner</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/git/">Git</a></li>
-        <li class="sidebar-list-item-2"><a href="/posts/modules/github/">Github</a></li>
+        <li class="sidebar-list-item-2"><a href="/posts/modules/github/">GitHub</a></li>
+        <li class="sidebar-list-item-2"><a href="/posts/modules/gitlab/">Gitlab</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/gcal/">Google Calendar</a></li>
+        <li class="sidebar-list-item-2"><a href="/posts/modules/gspreadsheet">Google Spreadsheet</a></li>
+        <li class="sidebar-list-item-2"><a href="/posts/modules/ipapi/">IP-API</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/ipinfo/">IPInfo</a></li>
+        <li class="sidebar-list-item-2"><a href="/posts/modules/jenkins/">Jenkins</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/jira/">Jira</a></li>
+        <li class="sidebar-list-item-2"><a href="/posts/modules/logger/">Logger</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/newrelic/">New Relic</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/opsgenie/">OpsGenie</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/power/">Power</a></li>
-        <li class="sidebar-list-item-2"><a href="/posts/modules/prettyweather/">PrettyWeather <span title="experimental">🔬</span></a></li>
+        <li class="sidebar-list-item-2"><a href="/posts/modules/prettyweather/">PrettyWeather</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/security/">Security</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/textfile/">Text File</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/todo/">Todo</a></li>
+        <li class="sidebar-list-item-2"><a href="/posts/modules/trello/">Trello</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/weather/">Weather</a></li>
       </ul>
     </div>
@@ -157,6 +177,8 @@ commit, and their status.</p>
 <h2 id="configuration">Configuration</h2>
 <div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">git<span class="p">:</span><span class="w">
 </span><span class="w">  </span>commitCount<span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
+</span><span class="w">  </span>commitFormat<span class="p">:</span><span class="w"> </span><span class="s2">&#34;[forestgreen]%h [grey]%cd [white]%s [grey]%an[white]&#34;</span><span class="w">
+</span><span class="w">  </span>dateFormat<span class="p">:</span><span class="w"> </span><span class="s2">&#34;%H:%M %d %b %y&#34;</span><span class="w">
 </span><span class="w">  </span>enabled<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span><span class="w">  </span>position<span class="p">:</span><span class="w">
 </span><span class="w">    </span>top<span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
@@ -172,6 +194,13 @@ commit, and their status.</p>
 <p><code>commitCount</code> <br />
 The number of past commits to display. <br />
 Values: A positive integer, <code>0..n</code>.</p>
+
+<p><code>commitFormat</code> <br />
+<em>Optional</em> The string format for the commit message. <br /></p>
+
+<p><code>dateFormat</code> <br />
+<em>Optional</em> The string format for the date/time in the commit message.
+<br /></p>
 
 <p><code>enabled</code> <br />
 Determines whether or not this module is executed and if its data displayed onscreen. <br />
@@ -197,6 +226,6 @@ Values: A list of zero or more local file paths pointing to valid git repositori
             </div>
         </div>
         
-                
+        
     </body>
 </html>

@@ -7,10 +7,9 @@ import (
 )
 
 func (widget *Widget) display() {
-
 	repo := widget.currentGithubRepo()
 	if repo == nil {
-		fmt.Fprintf(widget.View, "%s", " Github repo data is unavailable (1)")
+		widget.View.SetText(" GitHub repo data is unavailable ")
 		return
 	}
 
@@ -21,10 +20,10 @@ func (widget *Widget) display() {
 	str = str + widget.displayStats(repo)
 	str = str + "\n"
 	str = str + " [red]Open Review Requests[white]\n"
-	str = str + widget.displayMyReviewRequests(repo, Config.UString("wtf.mods.github.username"))
+	str = str + widget.displayMyReviewRequests(repo, wtf.Config.UString("wtf.mods.github.username"))
 	str = str + "\n"
 	str = str + " [red]My Pull Requests[white]\n"
-	str = str + widget.displayMyPullRequests(repo, Config.UString("wtf.mods.github.username"))
+	str = str + widget.displayMyPullRequests(repo, wtf.Config.UString("wtf.mods.github.username"))
 
 	widget.View.SetText(str)
 }

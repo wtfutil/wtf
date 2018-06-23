@@ -1,13 +1,11 @@
 ---
-title: "Github"
+title: "GitHub"
 date: 2018-05-09T19:20:20-07:00
 draft: false
 ---
 
-Displays information about git repositories hosted on Github: open
-review requests, and open pull requests.
+Displays information about your git repositories hosted on Github:
 
-<img src="/imgs/modules/github.png" width="640" height="384" alt="github screenshot" />
 
 #### Open Review Requests
 
@@ -17,16 +15,29 @@ All open code review requests assigned to you.
 
 All open pull requests created by you.
 
+<img src="/imgs/modules/github.png" width="640" height="384" alt="github screenshot" />
+
 ## Source Code
 
 ```bash
 wtf/github/
 ```
 
-## Required ENV Variables
+## Github Required ENV Variables
 
 <span class="caption">Key:</span> `WTF_GITHUB_TOKEN` <br />
 <span class="caption">Action:</span> Your <a href="https://developer.github.com/v3/oauth_authorizations/#create-a-new-authorization">Github API</a> token.
+
+## GitHub Enterprise Required ENV Variables
+
+<span class="caption">Key:</span> `WTF_GITHUB_TOKEN` <br />
+<span class="caption">Action:</span> Your <a href="https://developer.github.com/v3/oauth_authorizations/#create-a-new-authorization">Github API</a> token.
+
+<span class="caption">Key:</span> `WTF_GITHUB_BASE_URL` <br />
+<span class="caption">Action:</span> Your <a href="https://developer.github.com/enterprise/2.13/v3/enterprise-admin/">Github Enterprise</a> API URL.
+
+<span class="caption">Key:</span> `WTF_GITHUB_UPLOAD_URL` <br />
+<span class="caption">Action:</span> Your <a href="https://developer.github.com/enterprise/2.13/v3/enterprise-admin/">Github Enterprise</a> upload URL (often the same as API URL).
 
 ## Keyboard Commands
 

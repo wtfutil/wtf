@@ -4,12 +4,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/olebedev/config"
 	"github.com/senorprogrammer/wtf/wtf"
 )
-
-// Config is a pointer to the global config object
-var Config *config.Config
 
 type Widget struct {
 	wtf.TextWidget
@@ -26,22 +22,21 @@ func NewWidget() *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	if widget.Disabled() {
-		return
-	}
-
 	data, err := Fetch()
 
 	widget.UpdateRefreshedAt()
 	widget.View.SetTitle(widget.Name)
 
+	var content string
 	if err != nil {
 		widget.View.SetWrap(true)
-		widget.View.SetText(fmt.Sprintf("%s", err))
+		content = err.Error()
 	} else {
 		widget.View.SetWrap(false)
-		widget.View.SetText(fmt.Sprintf("%s", widget.contentFrom(data)))
+		content = widget.contentFrom(data)
 	}
+
+	widget.View.SetText(content)
 }
 
 /* -------------------- Unexported Functions -------------------- */
@@ -49,7 +44,7 @@ func (widget *Widget) Refresh() {
 func (widget *Widget) contentFrom(onCallResponse *OnCallResponse) string {
 	str := ""
 
-	displayEmpty := Config.UBool("wtf.mods.opsgenie.displayEmpty", true)
+	displayEmpty := wtf.Config.UBool("wtf.mods.opsgenie.displayEmpty", true)
 
 	for _, data := range onCallResponse.OnCallData {
 		if (len(data.Recipients) == 0) && (displayEmpty == false) {

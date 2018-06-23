@@ -9,10 +9,9 @@ Note that we have a code of conduct. Please follow it in all your interactions w
 
 1. Ensure any install or build dependencies are removed before the end of the layer when doing a
    build.
-2. Update the [README.md](README.md) with details of changes to the interface, this includes new environment
+2. Update the static documentation with details of changes to the interface, this includes new environment
    variables, useful file locations and configuration parameters.
-3. Increase the version numbers in any examples files and the [README.md](README.md) to the new version that this
-   Pull Request would represent. The versioning scheme we use is [SemVer](http://semver.org/).
+Documentation lives in the `_site` directory and is a [Hugo](https://gohugo.io) app. See Hugo's documentation for usage.
 
 ## Code of Conduct
 

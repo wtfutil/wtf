@@ -1,14 +1,15 @@
-BRANCH := `git rev-parse --abbrev-ref HEAD`
+.PHONY: contrib_check dependencies install run
 
-.PHONY: dependencies install run
+build:
+	go build -o bin/wtf
 
-dependencies:
-	go get -v ./...
+contrib_check:
+	npx all-contributors-cli check
 
 install:
-	which wtf | xargs rm || true
-	go install -ldflags="-X main.version=$(shell git describe --always --abbrev=6)_$(BRANCH) -X main.date=$(shell date +%FT%T%z)"
+	go clean
+	go install -ldflags="-X main.version=$(shell git describe --always --abbrev=6) -X main.date=$(shell date +%FT%T%z)"
 	which wtf
 
-run:
-	wtf
+run: build
+	bin/wtf

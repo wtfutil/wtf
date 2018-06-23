@@ -3,13 +3,9 @@ package newrelic
 import (
 	"fmt"
 
-	"github.com/olebedev/config"
 	"github.com/senorprogrammer/wtf/wtf"
 	nr "github.com/yfronto/newrelic"
 )
-
-// Config is a pointer to the global config object
-var Config *config.Config
 
 type Widget struct {
 	wtf.TextWidget
@@ -26,10 +22,6 @@ func NewWidget() *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	if widget.Disabled() {
-		return
-	}
-
 	app, appErr := Application()
 	deploys, depErr := Deployments()
 
@@ -42,13 +34,16 @@ func (widget *Widget) Refresh() {
 	widget.View.SetTitle(fmt.Sprintf("%s- [green]%s[white]", widget.Name, appName))
 	widget.View.Clear()
 
+	var content string
 	if depErr != nil {
 		widget.View.SetWrap(true)
-		widget.View.SetText(fmt.Sprintf("%s", depErr))
+		content = depErr.Error()
 	} else {
 		widget.View.SetWrap(false)
-		widget.View.SetText(fmt.Sprintf("%s", widget.contentFrom(deploys)))
+		content = widget.contentFrom(deploys)
 	}
+
+	widget.View.SetText(content)
 }
 
 /* -------------------- Unexported Functions -------------------- */
@@ -68,7 +63,7 @@ func (widget *Widget) contentFrom(deploys []nr.ApplicationDeployment) string {
 				lineColor = "lightblue"
 			}
 
-			var revLen = 8
+			revLen := 8
 			if revLen > len(deploy.Revision) {
 				revLen = len(deploy.Revision)
 			}
@@ -83,7 +78,7 @@ func (widget *Widget) contentFrom(deploys []nr.ApplicationDeployment) string {
 
 			revisions = append(revisions, deploy.Revision)
 
-			if len(revisions) == Config.UInt("wtf.mods.newrelic.deployCount", 5) {
+			if len(revisions) == wtf.Config.UInt("wtf.mods.newrelic.deployCount", 5) {
 				break
 			}
 		}

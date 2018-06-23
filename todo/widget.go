@@ -5,14 +5,11 @@ import (
 	"io/ioutil"
 
 	"github.com/gdamore/tcell"
-	"github.com/olebedev/config"
 	"github.com/rivo/tview"
+	"github.com/senorprogrammer/wtf/cfg"
 	"github.com/senorprogrammer/wtf/wtf"
 	"gopkg.in/yaml.v2"
 )
-
-// Config is a pointer to the global config object
-var Config *config.Config
 
 const HelpText = `
  Keyboard commands for Todo:
@@ -33,6 +30,10 @@ const HelpText = `
    space:  Check the selected item on or off
 `
 
+const offscreen = -1000
+const modalWidth = 80
+const modalHeight = 7
+
 type Widget struct {
 	wtf.TextWidget
 
@@ -47,7 +48,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 		TextWidget: wtf.NewTextWidget(" Todo ", "todo", true),
 
 		app:      app,
-		filePath: Config.UString("wtf.mods.todo.filename"),
+		filePath: wtf.Config.UString("wtf.mods.todo.filename"),
 		list:     &List{selected: -1},
 		pages:    pages,
 	}
@@ -61,10 +62,6 @@ func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	if widget.Disabled() {
-		return
-	}
-
 	widget.UpdateRefreshedAt()
 	widget.load()
 	widget.display()
@@ -99,7 +96,7 @@ func (widget *Widget) editItem() {
 }
 
 func (widget *Widget) init() {
-	_, err := wtf.CreateFile(widget.filePath)
+	_, err := cfg.CreateFile(widget.filePath)
 	if err != nil {
 		panic(err)
 	}
@@ -181,7 +178,7 @@ func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 
 // Loads the todo list from Yaml file
 func (widget *Widget) load() {
-	confDir, _ := wtf.ConfigDir()
+	confDir, _ := cfg.ConfigDir()
 	filePath := fmt.Sprintf("%s/%s", confDir, widget.filePath)
 
 	fileData, _ := wtf.ReadFileBytes(filePath)
@@ -207,7 +204,7 @@ func (widget *Widget) newItem() {
 
 // persist writes the todo list to Yaml file
 func (widget *Widget) persist() {
-	confDir, _ := wtf.ConfigDir()
+	confDir, _ := cfg.ConfigDir()
 	filePath := fmt.Sprintf("%s/%s", confDir, widget.filePath)
 
 	fileData, _ := yaml.Marshal(&widget.list)
@@ -270,11 +267,18 @@ func (widget *Widget) modalForm(lbl, text string) *tview.Form {
 }
 
 func (widget *Widget) modalFrame(form *tview.Form) *tview.Frame {
-	_, _, w, h := widget.View.GetInnerRect()
-
 	frame := tview.NewFrame(form).SetBorders(0, 0, 0, 0, 0, 0)
+	frame.SetRect(offscreen, offscreen, modalWidth, modalHeight)
 	frame.SetBorder(true)
-	frame.SetRect(w+20, h+2, 80, 7)
+	frame.SetBorders(1, 1, 0, 0, 1, 1)
+
+	drawFunc := func(screen tcell.Screen, x, y, width, height int) (int, int, int, int) {
+		w, h := screen.Size()
+		frame.SetRect((w/2)-(width/2), (h/2)-(height/2), width, height)
+		return x, y, width, height
+	}
+
+	frame.SetDrawFunc(drawFunc)
 
 	return frame
 }

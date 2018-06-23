@@ -2,6 +2,7 @@ package jira
 
 import (
 	"bytes"
+	"crypto/tls"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -10,13 +11,16 @@ import (
 	"net/url"
 	"os"
 	"strings"
+
+	"github.com/senorprogrammer/wtf/wtf"
 )
 
-func IssuesFor(username string, project string, jql string) (*SearchResult, error) {
+func IssuesFor(username string, projects []string, jql string) (*SearchResult, error) {
 	query := []string{}
 
-	if project != "" {
-		query = append(query, buildJql("project", project))
+	var projQuery = getProjectQuery(projects)
+	if projQuery != "" {
+		query = append(query, projQuery)
 	}
 
 	if username != "" {
@@ -51,15 +55,21 @@ func buildJql(key string, value string) string {
 /* -------------------- Unexported Functions -------------------- */
 
 func jiraRequest(path string) (*http.Response, error) {
-	url := fmt.Sprintf("%s%s", Config.UString("wtf.mods.jira.domain"), path)
+	url := fmt.Sprintf("%s%s", wtf.Config.UString("wtf.mods.jira.domain"), path)
 
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, err
 	}
-	req.SetBasicAuth(Config.UString("wtf.mods.jira.email"), os.Getenv("WTF_JIRA_API_KEY"))
+	req.SetBasicAuth(wtf.Config.UString("wtf.mods.jira.email"), os.Getenv("WTF_JIRA_API_KEY"))
 
-	httpClient := &http.Client{}
+	verifyServerCertificate := wtf.Config.UBool("wtf.mods.jira.verifyServerCertificate", true)
+	httpClient := &http.Client{Transport: &http.Transport{
+		TLSClientConfig: &tls.Config{
+			InsecureSkipVerify: !verifyServerCertificate,
+		},
+	},
+	}
 	resp, err := httpClient.Do(req)
 	if err != nil {
 		return nil, err
@@ -87,4 +97,19 @@ func parseJson(obj interface{}, text io.Reader) {
 			panic(err)
 		}
 	}
+}
+
+func getProjectQuery(projects []string) string {
+	singleEmptyProject := len(projects) == 1 && len(projects[0]) == 0
+	if len(projects) == 0 || singleEmptyProject {
+		return ""
+	} else if len(projects) == 1 {
+		return buildJql("project", projects[0])
+	}
+
+	quoted := make([]string, len(projects))
+	for i := range projects {
+		quoted[i] = fmt.Sprintf("\"%s\"", projects[i])
+	}
+	return fmt.Sprintf("project in (%s)", strings.Join(quoted, ", "))
 }

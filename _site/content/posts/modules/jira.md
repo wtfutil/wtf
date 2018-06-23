@@ -25,6 +25,8 @@ None.
 
 ## Configuration
 
+### Single Jira Project
+
 ```yaml
 jira:
   colors:
@@ -40,9 +42,36 @@ jira:
     left: 1
     height: 1
     width: 2
-  project: "JIRA"
+  project: "ProjectA"
   refreshInterval: 900
   username: "chris.cummer"
+  verifyServerCertificate: true
+```
+
+### Multiple Jira Projects
+
+If you want to monitor multiple Jira projects, use the following
+configuration (note the difference in `project`):
+
+```yaml
+jira:
+  colors:
+    rows:
+      even: "lightblue"
+      odd: "white"
+  domain: "https://umbrellacorp.atlassian.net"
+  email: "chriscummer@me.com"
+  enabled: true
+  jql: "issueType = Story"
+  position:
+    top: 4
+    left: 1
+    height: 1
+    width: 2
+  project: ["ProjectA", "ProjectB"]
+  refreshInterval: 900
+  username: "chris.cummer"
+  verifyServerCertificate: true
 ```
 
 ### Attributes
@@ -86,3 +115,8 @@ Values: A positive integer, `0..n`.
 
 `username` <br />
 Your Jira username. <br />
+
+`verifyServerCertificate` <br />
+_Optional_ <br />
+Determines whether or not the server's certificate chain and host name are verified. <br />
+Values: `true`, `false`.

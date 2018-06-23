@@ -5,12 +5,8 @@ import (
 	"os/exec"
 	"strings"
 
-	"github.com/olebedev/config"
 	"github.com/senorprogrammer/wtf/wtf"
 )
-
-// Config is a pointer to the global config object
-var Config *config.Config
 
 type Widget struct {
 	wtf.TextWidget
@@ -24,8 +20,8 @@ func NewWidget() *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(" CmdRunner ", "cmdrunner", false),
 
-		args: wtf.ToStrs(Config.UList("wtf.mods.cmdrunner.args")),
-		cmd:  Config.UString("wtf.mods.cmdrunner.cmd"),
+		args: wtf.ToStrs(wtf.Config.UList("wtf.mods.cmdrunner.args")),
+		cmd:  wtf.Config.UString("wtf.mods.cmdrunner.cmd"),
 	}
 
 	widget.View.SetWrap(true)
@@ -34,20 +30,18 @@ func NewWidget() *Widget {
 }
 
 func (widget *Widget) Refresh() {
-	if widget.Disabled() {
-		return
-	}
-
 	widget.UpdateRefreshedAt()
 	widget.execute()
-	widget.View.SetTitle(fmt.Sprintf(" %s ", widget))
 
-	widget.View.SetText(fmt.Sprintf("%s", widget.result))
+	title := wtf.Config.UString("wtf.mods.cmdrunner.title", widget.String())
+	widget.View.SetTitle(title)
+
+	widget.View.SetText(widget.result)
 }
 
 func (widget *Widget) String() string {
 	args := strings.Join(widget.args, " ")
-	return fmt.Sprintf("%s %s", widget.cmd, args)
+	return fmt.Sprintf(" %s %s ", widget.cmd, args)
 }
 
 func (widget *Widget) execute() {

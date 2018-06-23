@@ -2,23 +2,20 @@ package help
 
 import (
 	"fmt"
-	"os"
 
 	"github.com/senorprogrammer/wtf/git"
 	"github.com/senorprogrammer/wtf/github"
 	"github.com/senorprogrammer/wtf/textfile"
 	"github.com/senorprogrammer/wtf/todo"
-	"github.com/senorprogrammer/wtf/weather"
+	"github.com/senorprogrammer/wtf/weatherservices/weather"
 )
 
-func DisplayModuleInfo(moduleName string) {
-	if moduleName != "" {
-		fmt.Printf("%s\n", helpFor(moduleName))
-	} else {
+func Display(moduleName string) {
+	if moduleName == "" {
 		fmt.Println("\n  --module takes a module name as an argument, i.e: '--module=github'")
+	} else {
+		fmt.Printf("%s\n", helpFor(moduleName))
 	}
-
-	os.Exit(0)
 }
 
 func helpFor(moduleName string) string {
