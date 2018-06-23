@@ -3,62 +3,60 @@ package wtf_tests
 import (
 	"testing"
 
-	"github.com/go-test/deep"
 	. "github.com/senorprogrammer/wtf/wtf"
+	. "github.com/stretchr/testify/assert"
 )
+
+/* -------------------- CenterText() -------------------- */
+
+func TestCenterText(t *testing.T) {
+	Equal(t, "cat", CenterText("cat", -9))
+	Equal(t, "cat", CenterText("cat", 0))
+	Equal(t, "   cat   ", CenterText("cat", 9))
+}
+
+/* -------------------- FindMatch() -------------------- */
+
+func TestFindMatch(t *testing.T) {
+	var result [][]string
+
+	expected := [][]string([][]string{[]string{"SSID: 7E5B5C", "7E5B5C"}})
+	result = FindMatch(`s*SSID: (.+)s*`, "SSID: 7E5B5C")
+	Equal(t, expected, result)
+}
 
 /* -------------------- Exclude() -------------------- */
 
 func TestExcludeWhenTrue(t *testing.T) {
-	if Exclude([]string{"cat", "dog", "rat"}, "bat") != true {
-		t.Fatalf("Expected true but got false")
-	}
-}
-
-func TestExcludeWhenFalse(t *testing.T) {
-	if Exclude([]string{"cat", "dog", "rat"}, "dog") != false {
-		t.Fatalf("Expected false but got true")
-	}
+	Equal(t, true, Exclude([]string{"cat", "dog", "rat"}, "bat"))
+	Equal(t, false, Exclude([]string{"cat", "dog", "rat"}, "dog"))
 }
 
 /* -------------------- NameFromEmail() -------------------- */
 
-func TestNameFromEmailWhenEmpty(t *testing.T) {
-	expected := ""
-	actual := NameFromEmail("")
-
-	if expected != actual {
-		t.Fatalf("Expected %s but got %s", expected, actual)
-	}
-}
-
-func TestNameFromEmailWithEmail(t *testing.T) {
-	expected := "Chris Cummer"
-	actual := NameFromEmail("chris.cummer@me.com")
-
-	if expected != actual {
-		t.Fatalf("Expected %s but got %s", expected, actual)
-	}
+func TestNameFromEmail(t *testing.T) {
+	Equal(t, "", NameFromEmail(""))
+	Equal(t, "Chris Cummer", NameFromEmail("chris.cummer@me.com"))
 }
 
 /* -------------------- NamesFromEmails() -------------------- */
 
-func TestNamesFromEmailsWhenEmpty(t *testing.T) {
-	expected := []string{}
-	actual := NamesFromEmails([]string{})
+func TestNamesFromEmails(t *testing.T) {
+	var result []string
 
-	if diff := deep.Equal(expected, actual); diff != nil {
-		t.Fatalf("Expected %s but got %s", expected, actual)
-	}
+	result = NamesFromEmails([]string{})
+	Equal(t, []string{}, result)
+
+	result = NamesFromEmails([]string{"chris.cummer@me.com", "chriscummer@me.com"})
+	Equal(t, []string{"Chris Cummer", "Chriscummer"}, result)
 }
 
-func TestNamesFromEmailsWithEmails(t *testing.T) {
-	expected := []string{"Chris Cummer", "Chriscummer"}
-	actual := NamesFromEmails([]string{"chris.cummer@me.com", "chriscummer@me.com"})
+/* -------------------- PadRow() -------------------- */
 
-	if diff := deep.Equal(expected, actual); diff != nil {
-		t.Fatalf("Expected %s but got %s", expected, actual)
-	}
+func TestPadRow(t *testing.T) {
+	Equal(t, "", PadRow(0, 0))
+	Equal(t, "", PadRow(5, 2))
+	Equal(t, " ", PadRow(1, 2))
 }
 
 /* -------------------- ToInts() -------------------- */
@@ -71,11 +69,7 @@ func TestToInts(t *testing.T) {
 		source[idx] = val
 	}
 
-	actual := ToInts(source)
-
-	if diff := deep.Equal(expected, actual); diff != nil {
-		t.Fatalf("Expected %v but got %v", expected, actual)
-	}
+	Equal(t, expected, ToInts(source))
 }
 
 /* -------------------- ToStrs() -------------------- */
@@ -88,20 +82,5 @@ func TestToStrs(t *testing.T) {
 		source[idx] = val
 	}
 
-	actual := ToStrs(source)
-
-	if diff := deep.Equal(expected, actual); diff != nil {
-		t.Fatalf("Expected %s but got %s", expected, actual)
-	}
-}
-
-/* -------------------- PrettyDate() -------------------- */
-
-func TestPrettyDate(t *testing.T) {
-	expected := "Oct 21, 1999"
-	actual := PrettyDate("1999-10-21")
-
-	if expected != actual {
-		t.Fatalf("Expected %s but got %s", expected, actual)
-	}
+	Equal(t, expected, ToStrs(source))
 }
