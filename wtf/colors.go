@@ -4,7 +4,7 @@ import (
 	"github.com/gdamore/tcell"
 )
 
-var Colors = map[string]tcell.Color{
+var colors = map[string]tcell.Color{
 	"aliceblue":            tcell.ColorAliceBlue,
 	"antiquewhite":         tcell.ColorAntiqueWhite,
 	"aqua":                 tcell.ColorAqua,
@@ -148,8 +148,8 @@ var Colors = map[string]tcell.Color{
 }
 
 func ColorFor(label string) tcell.Color {
-	if _, ok := Colors[label]; ok {
-		return Colors[label]
+	if _, ok := colors[label]; ok {
+		return colors[label]
 	} else {
 		return tcell.ColorGreen
 	}

@@ -6,7 +6,6 @@ import (
 	"os/exec"
 	"regexp"
 	"strings"
-	"time"
 
 	"github.com/rivo/tview"
 )
@@ -18,6 +17,10 @@ const FriendlyDateTimeFormat = "Mon, Jan 2, 15:04"
 const TimestampFormat = "2006-01-02T15:04:05-0700"
 
 func CenterText(str string, width int) string {
+	if width < 0 {
+		width = 0
+	}
+
 	return fmt.Sprintf("%[1]*s", -width, fmt.Sprintf("%[1]*s", (width+len(str))/2, str))
 }
 
@@ -150,35 +153,4 @@ func ToStrs(slice []interface{}) []string {
 	}
 
 	return results
-}
-
-/* -------------------- Date/Time -------------------- */
-
-// DateFormat defines the format we expect to receive dates from BambooHR in
-const DateFormat = "2006-01-02"
-const TimeFormat = "15:04"
-
-func IsToday(date time.Time) bool {
-	now := Now()
-
-	return (date.Year() == now.Year()) &&
-		(date.Month() == now.Month()) &&
-		(date.Day() == now.Day())
-}
-
-func Now() time.Time {
-	return time.Now().Local()
-}
-
-func PrettyDate(dateStr string) string {
-	newTime, _ := time.Parse(DateFormat, dateStr)
-	return fmt.Sprint(newTime.Format("Jan 2, 2006"))
-}
-
-func Tomorrow() time.Time {
-	return Now().AddDate(0, 0, 1)
-}
-
-func UnixTime(unix int64) time.Time {
-	return time.Unix(unix, 0)
 }
