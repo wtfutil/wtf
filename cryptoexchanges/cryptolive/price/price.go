@@ -1,4 +1,4 @@
-package cryptolive
+package price
 
 type list struct {
 	items []*fromCurrency
