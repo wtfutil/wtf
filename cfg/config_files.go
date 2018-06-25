@@ -133,22 +133,6 @@ func LoadConfigFile(filePath string) *config.Config {
 	return cfg
 }
 
-func ReadConfigFile(fileName string) (string, error) {
-	configDir, err := ConfigDir()
-	if err != nil {
-		return "", err
-	}
-
-	filePath := fmt.Sprintf("%s/%s", configDir, fileName)
-
-	fileData, err := wtf.ReadFileBytes(filePath)
-	if err != nil {
-		return "", err
-	}
-
-	return string(fileData), nil
-}
-
 const simpleConfig = `wtf:
   colors:
     border:

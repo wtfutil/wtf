@@ -20,6 +20,12 @@
   revision = "6a9abf92e34f4de62ac671caee3143f10b98892d"
 
 [[projects]]
+  name = "github.com/davecgh/go-spew"
+  packages = ["spew"]
+  revision = "346938d642f2ec3594ed81d874461961cd0faa76"
+  version = "v1.1.0"
+
+[[projects]]
   branch = "master"
   name = "github.com/gdamore/encoding"
   packages = ["."]
@@ -33,12 +39,6 @@
   ]
   revision = "061d51a604c546b48e92253cb65190d76cecf4c6"
   version = "v1.0.0"
-
-[[projects]]
-  name = "github.com/go-test/deep"
-  packages = ["."]
-  revision = "6592d9cc0a499ad2d5f574fde80a2b5c5cc3b4f5"
-  version = "v1.0.1"
 
 [[projects]]
   name = "github.com/golang/protobuf"
@@ -89,6 +89,12 @@
   version = "v0.8.0"
 
 [[projects]]
+  name = "github.com/pmezard/go-difflib"
+  packages = ["difflib"]
+  revision = "792786c7400a136282c1664665ae0a8db921c6c2"
+  version = "v1.0.0"
+
+[[projects]]
   name = "github.com/radovskyb/watcher"
   packages = ["."]
   revision = "6145e1439b9de93806925353403f91d2abbad8a5"
@@ -99,6 +105,12 @@
   name = "github.com/rivo/tview"
   packages = ["."]
   revision = "e643d10b365df4caec5ed32e4c1103e185af9079"
+
+[[projects]]
+  name = "github.com/stretchr/testify"
+  packages = ["assert"]
+  revision = "f35b8ab0b5a2cef36673838d662e249dd9c94686"
+  version = "v1.2.2"
 
 [[projects]]
   branch = "master"
@@ -183,6 +195,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "05d3df164ca80efbb1d5cf00a06e7ffde102690f0fabafb7d4e9860e461832db"
+  inputs-digest = "147a44acfec399fa7d09cafbc213c1c2c222fd6140bc87b35e942d85891995d9"
   solver-name = "gps-cdcl"
   solver-version = 1
