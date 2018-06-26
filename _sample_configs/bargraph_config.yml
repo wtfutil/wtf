@@ -11,11 +11,12 @@ wtf:
   mods:
     bargraph:
       enabled: true
-      graphIcon: "🍎"
+      graphIcon: "👿"
+      graphStars: 25
       position:
-        top: 2
+        top: 3
         left: 0
-        height: 2
+        height: 1
         width: 2
       refreshInterval: 30
       updateInterval: 15
