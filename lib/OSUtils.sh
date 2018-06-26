@@ -8,4 +8,4 @@ case "${unameOut}" in
 		*)          : "Unknown";;
 esac
 
-declare -r OS="$_"
+OS="$_"

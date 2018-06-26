@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 function _spinner() {
-    local on_success=" ok "
-    local on_fail="fail"
+    local on_success="OK"
+    local on_FAIL="FAILED"
     local white="\033[0;37m"
     local green="\033[01;32m"
     local red="\033[01;31m"
@@ -38,8 +38,8 @@ function _spinner() {
             ;;
         stop)
             if [[ -z ${3} ]]; then
-                echo -en "[${red}${on_fail}${nc}]  Spinner is not running."
-                exit 1
+                echo -en "[${red}${on_FAIL}${nc}]  Spinner is not running."
+                exit 3
             fi
 
             kill $3 > /dev/null 2>&1
@@ -48,7 +48,8 @@ function _spinner() {
             if [[ $2 -eq 0 ]]; then
                 echo -en "${green}${on_success}${nc}"
             else
-                echo -en "${red}${on_fail}${nc}"
+                echo -en "${red}${on_FAIL}${nc}]"
+                exit 3
             fi
             echo -e "]"
             ;;

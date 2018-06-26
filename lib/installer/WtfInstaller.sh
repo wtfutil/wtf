@@ -61,6 +61,6 @@ wtf_installer() {
         fi
     fi
 
-    if hash wtf ;then echo "Installed!";fi
+    if hash wtf ;then echo "Installed!"; else "No installation possible"; fi
 }
 

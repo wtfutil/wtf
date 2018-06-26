@@ -38,14 +38,10 @@ Init() {
         _dialog_title "$WTF_HELLO"
         _dialog_agree "$WTF_AGREE"
         _dialog_wait "$WTF_BACKUP"
+        if [ ! -f "$HOME/.dialogrc" ] && [ "$OS" == "Linux" ];then cp misc/.dialogrc $HOME;fi
 
-        _init_files
     else
         echo -e "\033[32mWTF gui installer\033[0m \n"
-        # Check if it was successfull
-        spinner_start "$WTF_BACKUP"; sleep 0.1
-        _init_files
-        spinner_stop $?
     fi
 
 }
