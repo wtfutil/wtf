@@ -87,29 +87,33 @@ There are a few full examples in the examples directory that can be referenced. 
 package main
 
 import (
-    "log"
-    "fmt"
+	"log"
+	"fmt"
+	"os"
 
-    // Shortening the import reference name seems to make it a bit easier
-    owm "github.com/briandowns/openweathermap"
+	// Shortening the import reference name seems to make it a bit easier
+	owm "github.com/briandowns/openweathermap"
 )
 
-func main() {
-    w, err := owm.NewCurrent("F", "ru") // fahrenheit (imperial) with Russian output
-    if err != nil {
-        log.Fatalln(err)
-    }
+var apiKey = os.Getenv("OWM_API_KEY")
 
-    w.CurrentByName("Phoenix")
-    fmt.Println(w)
+func main() {
+	w, err := owm.NewCurrent("F", "ru", apiKey) // fahrenheit (imperial) with Russian output
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	w.CurrentByName("Phoenix")
+	fmt.Println(w)
 }
+
 ```
 
 ### Current Conditions by location name
 
 ```Go
 func main() {
-    w, err := owm.NewCurrent("K", "EN") // (internal - OpenWeatherMap reference for kelvin) with English output
+    w, err := owm.NewCurrent("K", "EN", apiKey) // (internal - OpenWeatherMap reference for kelvin) with English output
     if err != nil {
         log.Fatalln(err)
     }
@@ -123,16 +127,17 @@ func main() {
 
 ```Go
 func main() {
-    w, err := owm.NewForecast("F", "FI")
+    w, err := owm.NewForecast("5", "F", "FI", apiKey) // valid options for first parameter are "5" and "16"
     if err != nil {
         log.Fatalln(err)
     }
 
     w.DailyByCoordinates(
-        &Coordinates{
+        &owm.Coordinates{
                 Longitude: -112.07,
                 Latitude: 33.45,
         },
+        5 // five days forecast
     )
     fmt.Println(w)
 }
@@ -142,7 +147,7 @@ func main() {
 
 ```Go
 func main() {
-    w, err := owm.NewCurrent("C", "PL")
+    w, err := owm.NewCurrent("C", "PL", apiKey)
     if err != nil {
         log.Fatalln(err)
     }
@@ -156,7 +161,7 @@ func main() {
 
 ```Go
 func main() {
-    w, err := owm.NewCurrent("F", "EN")
+    w, err := owm.NewCurrent("F", "EN", apiKey)
     if err != nil {
         log.Fatalln(err)
     }
@@ -171,7 +176,7 @@ func main() {
 ```Go
 func main() {
     client := &http.Client{}
-    w, err := owm.NewCurrent("F", "EN", owm.WithHttpClient(client))
+    w, err := owm.NewCurrent("F", "EN", apiKey, owm.WithHttpClient(client))
     if err != nil {
         log.Fatalln(err)
     }
@@ -182,19 +187,21 @@ func main() {
 
 ```Go
 func main() {
-    uv, err := NewUV()
+    uv, err := owm.NewUV(apiKey)
     if err != nil {
         log.Fatalln(err)
     }
 
-    coord := &Coordinates{
+    coord := &owm.Coordinates{
         Longitude: 53.343497,
         Latitude:  -6.288379,
     }
 
     if err := uv.Current(coord); err != nil {
-        t.Error(err)
+        log.Fatalln(err)
     }
+    
+    fmt.Println(coord)
 }
 ```
 
@@ -202,12 +209,12 @@ func main() {
 
 ```Go
 func main() {
-    uv, err := NewUV()
+    uv, err := owm.NewUV(apiKey)
     if err != nil {
         log.Fatalln(err)
     }
 
-    coord := &Coordinates{
+    coord := &owm.Coordinates{
         Longitude: 54.995656,
         Latitude:  -7.326834,
     }
@@ -225,19 +232,26 @@ func main() {
 
 ```Go
 func main() {
-    uv, err := NewUV()
+    uv, err := owm.NewUV(apiKey)
     if err != nil {
         log.Fatalln(err)
     }
-
-    if err := uv.Current(coords); err != nil {
-        t.Error(err)
+    
+    coord := &owm.Coordinates{
+    	Longitude: 53.343497,
+    	Latitude:  -6.288379,
+    }
+    
+    if err := uv.Current(coord); err != nil {
+    	log.Fatalln(err)
     }
 
     info, err := uv.UVInformation()
     if err != nil {
         log.Fatalln(err)
     }
+    
+    fmt.Println(info)
 }
 ```
 
@@ -245,13 +259,13 @@ func main() {
 
 ```Go
 func main() {
-    pollution, err := NewPollution()
+    pollution, err := owm.NewPollution(apiKey)
     if err != nil {
         log.Fatalln(err)
     }
 
-    params := &PollutionParameters{
-        Location: Coordinates{
+    params := &owm.PollutionParameters{
+        Location: owm.Coordinates{
             Latitude:  0.0,
             Longitude: 10.0,
         },

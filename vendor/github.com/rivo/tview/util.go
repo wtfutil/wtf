@@ -19,90 +19,6 @@ const (
 	AlignRight
 )
 
-// Semigraphical runes.
-const (
-	GraphicsHoriBar             = '\u2500'
-	GraphicsVertBar             = '\u2502'
-	GraphicsTopLeftCorner       = '\u250c'
-	GraphicsTopRightCorner      = '\u2510'
-	GraphicsBottomLeftCorner    = '\u2514'
-	GraphicsBottomRightCorner   = '\u2518'
-	GraphicsLeftT               = '\u251c'
-	GraphicsRightT              = '\u2524'
-	GraphicsTopT                = '\u252c'
-	GraphicsBottomT             = '\u2534'
-	GraphicsCross               = '\u253c'
-	GraphicsDbVertBar           = '\u2550'
-	GraphicsDbHorBar            = '\u2551'
-	GraphicsDbTopLeftCorner     = '\u2554'
-	GraphicsDbTopRightCorner    = '\u2557'
-	GraphicsDbBottomRightCorner = '\u255d'
-	GraphicsDbBottomLeftCorner  = '\u255a'
-	GraphicsEllipsis            = '\u2026'
-)
-
-// joints maps combinations of two graphical runes to the rune that results
-// when joining the two in the same screen cell. The keys of this map are
-// two-rune strings where the value of the first rune is lower than the value
-// of the second rune. Identical runes are not contained.
-var joints = map[string]rune{
-	"\u2500\u2502": GraphicsCross,
-	"\u2500\u250c": GraphicsTopT,
-	"\u2500\u2510": GraphicsTopT,
-	"\u2500\u2514": GraphicsBottomT,
-	"\u2500\u2518": GraphicsBottomT,
-	"\u2500\u251c": GraphicsCross,
-	"\u2500\u2524": GraphicsCross,
-	"\u2500\u252c": GraphicsTopT,
-	"\u2500\u2534": GraphicsBottomT,
-	"\u2500\u253c": GraphicsCross,
-	"\u2502\u250c": GraphicsLeftT,
-	"\u2502\u2510": GraphicsRightT,
-	"\u2502\u2514": GraphicsLeftT,
-	"\u2502\u2518": GraphicsRightT,
-	"\u2502\u251c": GraphicsLeftT,
-	"\u2502\u2524": GraphicsRightT,
-	"\u2502\u252c": GraphicsCross,
-	"\u2502\u2534": GraphicsCross,
-	"\u2502\u253c": GraphicsCross,
-	"\u250c\u2510": GraphicsTopT,
-	"\u250c\u2514": GraphicsLeftT,
-	"\u250c\u2518": GraphicsCross,
-	"\u250c\u251c": GraphicsLeftT,
-	"\u250c\u2524": GraphicsCross,
-	"\u250c\u252c": GraphicsTopT,
-	"\u250c\u2534": GraphicsCross,
-	"\u250c\u253c": GraphicsCross,
-	"\u2510\u2514": GraphicsCross,
-	"\u2510\u2518": GraphicsRightT,
-	"\u2510\u251c": GraphicsCross,
-	"\u2510\u2524": GraphicsRightT,
-	"\u2510\u252c": GraphicsTopT,
-	"\u2510\u2534": GraphicsCross,
-	"\u2510\u253c": GraphicsCross,
-	"\u2514\u2518": GraphicsBottomT,
-	"\u2514\u251c": GraphicsLeftT,
-	"\u2514\u2524": GraphicsCross,
-	"\u2514\u252c": GraphicsCross,
-	"\u2514\u2534": GraphicsBottomT,
-	"\u2514\u253c": GraphicsCross,
-	"\u2518\u251c": GraphicsCross,
-	"\u2518\u2524": GraphicsRightT,
-	"\u2518\u252c": GraphicsCross,
-	"\u2518\u2534": GraphicsBottomT,
-	"\u2518\u253c": GraphicsCross,
-	"\u251c\u2524": GraphicsCross,
-	"\u251c\u252c": GraphicsCross,
-	"\u251c\u2534": GraphicsCross,
-	"\u251c\u253c": GraphicsCross,
-	"\u2524\u252c": GraphicsCross,
-	"\u2524\u2534": GraphicsCross,
-	"\u2524\u253c": GraphicsCross,
-	"\u252c\u2534": GraphicsCross,
-	"\u252c\u253c": GraphicsCross,
-	"\u2534\u253c": GraphicsCross,
-}
-
 // Common regular expressions.
 var (
 	colorPattern     = regexp.MustCompile(`\[([a-zA-Z]+|#[0-9a-zA-Z]{6}|\-)?(:([a-zA-Z]+|#[0-9a-zA-Z]{6}|\-)?(:([lbdru]+|\-)?)?)?\]`)
@@ -419,7 +335,7 @@ func printWithStyle(screen tcell.Screen, text string, x, y, maxWidth, align int,
 		_, background, _ := finalStyle.Decompose()
 		finalStyle = overlayStyle(background, style, foregroundColor, backgroundColor, attributes)
 		var comb []rune
-		if len(runeSequence) > 1 {
+		if len(runeSequence) > 1 && !unicode.IsControl(runeSequence[1]) {
 			// Allocate space for the combining characters only when necessary.
 			comb = make([]rune, len(runeSequence)-1)
 			copy(comb, runeSequence[1:])
@@ -475,7 +391,6 @@ func printWithStyle(screen tcell.Screen, text string, x, y, maxWidth, align int,
 		}
 		runeSequence = append(runeSequence, ch)
 		runeSeqWidth += chWidth
-
 	}
 	if drawnWidth+runeSeqWidth <= maxWidth {
 		flush()
@@ -606,32 +521,6 @@ func WordWrap(text string, width int) (lines []string) {
 	}
 
 	return
-}
-
-// PrintJoinedBorder prints a border graphics rune into the screen at the given
-// position with the given color, joining it with any existing border graphics
-// rune. Background colors are preserved. At this point, only regular single
-// line borders are supported.
-func PrintJoinedBorder(screen tcell.Screen, x, y int, ch rune, color tcell.Color) {
-	previous, _, style, _ := screen.GetContent(x, y)
-	style = style.Foreground(color)
-
-	// What's the resulting rune?
-	var result rune
-	if ch == previous {
-		result = ch
-	} else {
-		if ch < previous {
-			previous, ch = ch, previous
-		}
-		result = joints[string(previous)+string(ch)]
-	}
-	if result == 0 {
-		result = ch
-	}
-
-	// We only print something if we have something.
-	screen.SetContent(x, y, result, nil, style)
 }
 
 // Escape escapes the given text such that color and/or region tags are not

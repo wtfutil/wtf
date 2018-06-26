@@ -236,27 +236,27 @@ func (b *Box) Draw(screen tcell.Screen) {
 		border := background.Foreground(b.borderColor)
 		var vertical, horizontal, topLeft, topRight, bottomLeft, bottomRight rune
 		if b.focus.HasFocus() {
-			vertical = GraphicsDbVertBar
-			horizontal = GraphicsDbHorBar
-			topLeft = GraphicsDbTopLeftCorner
-			topRight = GraphicsDbTopRightCorner
-			bottomLeft = GraphicsDbBottomLeftCorner
-			bottomRight = GraphicsDbBottomRightCorner
+			horizontal = Borders.HorizontalFocus
+			vertical = Borders.VerticalFocus
+			topLeft = Borders.TopLeftFocus
+			topRight = Borders.TopRightFocus
+			bottomLeft = Borders.BottomLeftFocus
+			bottomRight = Borders.BottomRightFocus
 		} else {
-			vertical = GraphicsHoriBar
-			horizontal = GraphicsVertBar
-			topLeft = GraphicsTopLeftCorner
-			topRight = GraphicsTopRightCorner
-			bottomLeft = GraphicsBottomLeftCorner
-			bottomRight = GraphicsBottomRightCorner
+			horizontal = Borders.Horizontal
+			vertical = Borders.Vertical
+			topLeft = Borders.TopLeft
+			topRight = Borders.TopRight
+			bottomLeft = Borders.BottomLeft
+			bottomRight = Borders.BottomRight
 		}
 		for x := b.x + 1; x < b.x+b.width-1; x++ {
-			screen.SetContent(x, b.y, vertical, nil, border)
-			screen.SetContent(x, b.y+b.height-1, vertical, nil, border)
+			screen.SetContent(x, b.y, horizontal, nil, border)
+			screen.SetContent(x, b.y+b.height-1, horizontal, nil, border)
 		}
 		for y := b.y + 1; y < b.y+b.height-1; y++ {
-			screen.SetContent(b.x, y, horizontal, nil, border)
-			screen.SetContent(b.x+b.width-1, y, horizontal, nil, border)
+			screen.SetContent(b.x, y, vertical, nil, border)
+			screen.SetContent(b.x+b.width-1, y, vertical, nil, border)
 		}
 		screen.SetContent(b.x, b.y, topLeft, nil, border)
 		screen.SetContent(b.x+b.width-1, b.y, topRight, nil, border)
@@ -269,7 +269,7 @@ func (b *Box) Draw(screen tcell.Screen) {
 			if StringWidth(b.title)-printed > 0 && printed > 0 {
 				_, _, style, _ := screen.GetContent(b.x+b.width-2, b.y)
 				fg, _, _ := style.Decompose()
-				Print(screen, string(GraphicsEllipsis), b.x+b.width-2, b.y, 1, AlignLeft, fg)
+				Print(screen, string(SemigraphicsHorizontalEllipsis), b.x+b.width-2, b.y, 1, AlignLeft, fg)
 			}
 		}
 	}

@@ -6,11 +6,53 @@ import (
 	"os"
 
 	"github.com/olebedev/config"
+	"github.com/senorprogrammer/wtf/logger"
 	"github.com/senorprogrammer/wtf/wtf"
 )
 
+const CONFIG_DIR_V1 = "~/.wtf/"
+const CONFIG_DIR_V2 = "~/.config/wtf/"
+
+/* -------------------- Config Migration -------------------- */
+
+// MigrateOldConfig copies any existing configuration from the old location
+// to the new, XDG-compatible location
+func MigrateOldConfig() {
+	srcDir, _ := wtf.ExpandHomeDir(CONFIG_DIR_V1)
+	destDir, _ := wtf.ExpandHomeDir(CONFIG_DIR_V2)
+
+	// If the old config directory doesn't exist, do not move
+	if _, err := os.Stat(srcDir); os.IsNotExist(err) {
+		return
+	}
+
+	// If the new config directory already exists, do not move
+	if _, err := os.Stat(destDir); err == nil {
+		return
+	}
+
+	// Time to move
+	err := Copy(srcDir, destDir)
+	if err != nil {
+		panic(err)
+	} else {
+		logger.Log(fmt.Sprintf("Copied old config from %s to %s", srcDir, destDir))
+	}
+
+	// Delete the old directory if the new one exists
+	if _, err := os.Stat(destDir); err == nil {
+		err := os.RemoveAll(srcDir)
+		if err != nil {
+			logger.Log(err.Error())
+		}
+	}
+}
+
+/* -------------------- Config Migration -------------------- */
+
+// ConfigDir returns the absolute path to the configuration directory
 func ConfigDir() (string, error) {
-	configDir, err := wtf.ExpandHomeDir("~/.wtf/")
+	configDir, err := wtf.ExpandHomeDir(CONFIG_DIR_V2)
 	if err != nil {
 		return "", err
 	}
@@ -18,7 +60,7 @@ func ConfigDir() (string, error) {
 	return configDir, nil
 }
 
-// CreateConfigDir creates the .wtf directory in the user's home dir
+// CreateConfigDir creates the wtf/ directory in the user's home dir
 func CreateConfigDir() {
 	configDir, _ := ConfigDir()
 
@@ -163,7 +205,7 @@ const simpleConfig = `wtf:
       refreshInterval: 3600
     textfile:
       enabled: true
-      filePath: "~/.wtf/config.yml"
+      filePath: "~/.config/wtf/config.yml"
       position:
         top: 1
         left: 1

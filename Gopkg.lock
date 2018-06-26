@@ -9,9 +9,15 @@
 
 [[projects]]
   branch = "master"
+  name = "github.com/adlio/trello"
+  packages = ["."]
+  revision = "05dcd358e32866f2353c4f49077346a0eb585436"
+
+[[projects]]
+  branch = "master"
   name = "github.com/briandowns/openweathermap"
   packages = ["."]
-  revision = "2adae1e5d10290d8cd435bd30296fc5e8f754862"
+  revision = "6a9abf92e34f4de62ac671caee3143f10b98892d"
 
 [[projects]]
   branch = "master"
@@ -44,7 +50,7 @@
   branch = "master"
   name = "github.com/google/go-github"
   packages = ["github"]
-  revision = "2ae5df7848328c214a48cec94c7d410cf8526527"
+  revision = "a83ae98ad5d09188c49d6056edb60ec9bdf202bd"
 
 [[projects]]
   branch = "master"
@@ -77,6 +83,12 @@
   revision = "9a10d05a33a8b9e828f20491e21e8927dec35f72"
 
 [[projects]]
+  name = "github.com/pkg/errors"
+  packages = ["."]
+  revision = "645ef00459ed84a119197bfb8d8205042c6df63d"
+  version = "v0.8.0"
+
+[[projects]]
   name = "github.com/radovskyb/watcher"
   packages = ["."]
   revision = "6145e1439b9de93806925353403f91d2abbad8a5"
@@ -86,13 +98,13 @@
   branch = "master"
   name = "github.com/rivo/tview"
   packages = ["."]
-  revision = "71ecf1f4299c6d72b16d20da72405b7e85ac8720"
+  revision = "e643d10b365df4caec5ed32e4c1103e185af9079"
 
 [[projects]]
   branch = "master"
   name = "github.com/xanzy/go-gitlab"
   packages = ["."]
-  revision = "73e9df58a3194b1256edae4d2e819603f06d428c"
+  revision = "1c1cfedc5a8ffe122b1981e8b0822fe22f461643"
 
 [[projects]]
   branch = "master"
@@ -107,7 +119,7 @@
     "context",
     "context/ctxhttp"
   ]
-  revision = "1e491301e022f8f977054da4c2d852decd59571f"
+  revision = "db08ff08e8622530d9ed3a0e8ac279f6d4c02196"
 
 [[projects]]
   branch = "master"
@@ -119,7 +131,7 @@
     "jws",
     "jwt"
   ]
-  revision = "1e0a3fa8ba9a5c9eb35c271780101fdaf1b205d7"
+  revision = "113ce6928c4638e14fd5eba69b9e6ec899d5dd83"
 
 [[projects]]
   name = "golang.org/x/text"
@@ -140,9 +152,10 @@
     "calendar/v3",
     "gensupport",
     "googleapi",
-    "googleapi/internal/uritemplates"
+    "googleapi/internal/uritemplates",
+    "sheets/v4"
   ]
-  revision = "00e3bb8d04691e25ee2fccf98c866bcb7925c3ec"
+  revision = "2eea9ba0a3d94f6ab46508083e299a00bbbc65f6"
 
 [[projects]]
   name = "google.golang.org/appengine"
@@ -158,8 +171,8 @@
     "internal/urlfetch",
     "urlfetch"
   ]
-  revision = "150dc57a1b433e64154302bdc40b6bb8aefa313a"
-  version = "v1.0.0"
+  revision = "b1f26356af11148e710935ed1ac8a7f5702c7612"
+  version = "v1.1.0"
 
 [[projects]]
   name = "gopkg.in/yaml.v2"
@@ -170,6 +183,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "fd122eb7175ffd7db7cb197de13e0b850231ec9269a63a8ca9d117a8aa50d7e5"
+  inputs-digest = "05d3df164ca80efbb1d5cf00a06e7ffde102690f0fabafb7d4e9860e461832db"
   solver-name = "gps-cdcl"
   solver-version = 1
