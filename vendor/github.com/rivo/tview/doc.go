@@ -7,10 +7,12 @@ Widgets
 
 The package implements the following widgets:
 
-  - TextView: Scrollable windows that display multi-colored text. Text may also
+  - TextView: A scrollable window that display multi-colored text. Text may also
     be highlighted.
-  - Table: Scrollable display of tabular data. Table cells, rows, or columns may
-    also be highlighted.
+  - Table: A scrollable display of tabular data. Table cells, rows, or columns
+    may also be highlighted.
+  - TreeView: A scrollable display for hierarchical data. Tree nodes can be
+    highlighted, collapsed, expanded, and more.
   - List: A navigable text list with optional keyboard shortcuts.
   - InputField: One-line input fields to enter text.
   - DropDown: Drop-down selection fields.
@@ -83,7 +85,7 @@ tag is as follows:
 
   [<foreground>:<background>:<flags>]
 
-Each of the three fields can be left blank and trailing fields can be ommitted.
+Each of the three fields can be left blank and trailing fields can be omitted.
 (Empty square brackets "[]", however, are not considered color tags.) Colors
 that are not specified will be left unchanged. A field with just a dash ("-")
 means "reset to default".

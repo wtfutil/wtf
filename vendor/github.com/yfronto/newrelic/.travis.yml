@@ -1,12 +1,18 @@
 language: go
 
-go:
-  - 1.6
-  - 1.7
-  - tip
+ggo:
+  - "1.7"
+  - "1.8"
+  - "1.9"
+  - "1.10.x"
+  - "tip"
 
 env:
   - "PATH=/home/travis/gopath/bin:$PATH"
+  
+install:
+  - go get -v -t .
+
 script:
   - go get -u github.com/golang/lint/golint
   - golint ./...

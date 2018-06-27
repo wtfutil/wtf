@@ -73,6 +73,7 @@ Many thanks to all these developers.
 
 * [calendar](https://google.golang.org/api/calendar/v3)
 * [config](https://github.com/olebedev/config)
+* [go-gerrit](https://github.com/andygrunwald/go-gerrit)
 * [go-github](https://github.com/google/go-github)
 * [goreleaser](https://github.com/goreleaser/goreleaser)
 * [newrelic](https://github.com/yfronto/newrelic)
