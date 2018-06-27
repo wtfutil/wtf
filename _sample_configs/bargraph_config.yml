@@ -11,8 +11,8 @@ wtf:
   mods:
     bargraph:
       enabled: true
-      starChar: "🍎"
-      stars: 20
+      starChar: "👿"
+      stars: 25
       position:
         top: 2
         left: 0
