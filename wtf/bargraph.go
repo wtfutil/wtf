@@ -11,9 +11,10 @@ import (
 
 //BarGraph lets make graphs
 type BarGraph struct {
-	enabled   bool
-	focusable bool
-
+	enabled     bool
+	focusable   bool
+	starChar    string
+	maxStars    int
 	Name        string
 	RefreshedAt time.Time
 	RefreshInt  int
@@ -27,9 +28,10 @@ type BarGraph struct {
 // NewBarGraph initialize your fancy new graph
 func NewBarGraph(name string, configKey string, focusable bool) BarGraph {
 	widget := BarGraph{
-		enabled:   Config.UBool(fmt.Sprintf("wtf.mods.%s.enabled", configKey), false),
-		focusable: focusable,
-
+		enabled:    Config.UBool(fmt.Sprintf("wtf.mods.%s.enabled", configKey), false),
+		focusable:  focusable,
+		starChar:   Config.UString(fmt.Sprintf("wtf.mods.%s.graphIcon", configKey), name),
+		maxStars:   Config.UInt(fmt.Sprintf("wtf.mods.%s.graphStars", configKey), 20),
 		Name:       Config.UString(fmt.Sprintf("wtf.mods.%s.title", configKey), name),
 		RefreshInt: Config.UInt(fmt.Sprintf("wtf.mods.%s.refreshInterval", configKey)),
 	}
@@ -99,8 +101,14 @@ func (widget *BarGraph) addView() {
 
 // BuildBars will build a string of * to represent your data of [time][value]
 // time should be passed as a int64
-func (widget *BarGraph) BuildBars(maxStars int, starChar string, data [][2]int64) {
+func (widget *BarGraph) BuildBars(data [][2]int64) {
 
+	widget.View.SetText(BuildStars(data, widget.maxStars, widget.starChar))
+
+}
+
+//BuildStars build the string to display
+func BuildStars(data [][2]int64, maxStars int, starChar string) string {
 	var buffer bytes.Buffer
 
 	//counter to inintialize min value
@@ -158,8 +166,7 @@ func (widget *BarGraph) BuildBars(maxStars int, starChar string, data [][2]int64
 		buffer.WriteString(fmt.Sprintf("%s -\t [red]%s[white] - (%d)\n", t.Format("Jan 02, 2006"), stars, val))
 	}
 
-	widget.View.SetText(buffer.String())
-
+	return buffer.String()
 }
 
 /* -------------------- Exported Functions -------------------- */
