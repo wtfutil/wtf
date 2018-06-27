@@ -46,6 +46,10 @@
   branch = "master"
 
 [[constraint]]
+  name = "github.com/andygrunwald/go-gerrit"
+  branch = "master"
+
+[[constraint]]
   name = "github.com/jessevdk/go-flags"
   version = "1.4.0"
 

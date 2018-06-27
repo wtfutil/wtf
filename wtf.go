@@ -21,6 +21,7 @@ import (
 	"github.com/senorprogrammer/wtf/cryptoexchanges/cryptolive"
 	"github.com/senorprogrammer/wtf/flags"
 	"github.com/senorprogrammer/wtf/gcal"
+	"github.com/senorprogrammer/wtf/gerrit"
 	"github.com/senorprogrammer/wtf/git"
 	"github.com/senorprogrammer/wtf/github"
 	"github.com/senorprogrammer/wtf/gitlab"
@@ -179,6 +180,8 @@ func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
 		Widgets = append(Widgets, cryptolive.NewWidget())
 	case "gcal":
 		Widgets = append(Widgets, gcal.NewWidget())
+	case "gerrit":
+		Widgets = append(Widgets, gerrit.NewWidget(app, pages))
 	case "git":
 		Widgets = append(Widgets, git.NewWidget(app, pages))
 	case "github":

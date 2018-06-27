@@ -12,6 +12,7 @@ Among these components are:
 - __Input forms__ (include __input/password fields__, __drop-down selections__, __checkboxes__, and __buttons__)
 - Navigable multi-color __text views__
 - Sophisticated navigable __table views__
+- Flexible __tree views__
 - Selectable __lists__
 - __Grid__, __Flexbox__ and __page layouts__
 - Modal __message windows__
@@ -64,6 +65,8 @@ Add your issue here on GitHub. Feel free to get in touch if you have any questio
 
 (There are no corresponding tags in the project. I only keep such a history in this README.)
 
+- v0.17 (2018-06-20)
+  - Added `TreeView`.
 - v0.15 (2018-05-02)
   - `Flex` and `Grid` don't clear their background per default, thus allowing for custom modals. See the [Wiki](https://github.com/rivo/tview/wiki/Modal) for an example.
 - v0.14 (2018-04-13)
