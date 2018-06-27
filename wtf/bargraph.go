@@ -144,7 +144,7 @@ func BuildStars(data [][2]int64, maxStars int, starChar string) string {
 	}
 
 	// each number = how many stars?
-	var starRatio = float64(widget.maxStars) / float64((maxValue - minValue))
+	var starRatio = float64(maxStars) / float64((maxValue - minValue))
 
 	//build the stars
 	for i := range data {
@@ -157,7 +157,7 @@ func BuildStars(data [][2]int64, maxStars int, starChar string) string {
 			starCount = 1
 		}
 		//build the actual string
-		var stars = strings.Repeat(widget.starChar, starCount)
+		var stars = strings.Repeat(starChar, starCount)
 
 		//parse the time
 		var t = time.Unix(int64(data[i][1]/1000), 0)
