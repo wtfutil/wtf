@@ -56,7 +56,7 @@
   branch = "master"
   name = "github.com/google/go-github"
   packages = ["github"]
-  revision = "60d040d2dafa18fa3e86cbf22fbc3208ef9ef1e0"
+  revision = "60f2773bd99aa86164bc80bf370be6ba63b47dea"
 
 [[projects]]
   branch = "master"
@@ -119,10 +119,10 @@
   version = "v1.2.2"
 
 [[projects]]
-  branch = "master"
   name = "github.com/xanzy/go-gitlab"
   packages = ["."]
-  revision = "6ada444068f460636db26ca0dd66cf2aa518fa8f"
+  revision = "79dad8e74fd097eb2e0fd0883f1978213e88107a"
+  version = "v0.10.7"
 
 [[projects]]
   branch = "master"
@@ -137,7 +137,7 @@
     "context",
     "context/ctxhttp"
   ]
-  revision = "e514e69ffb8bc3c76a71ae40de0118d794855992"
+  revision = "039a4258aec0ad3c79b905677cceeab13b296a77"
 
 [[projects]]
   branch = "master"
@@ -173,7 +173,7 @@
     "googleapi/internal/uritemplates",
     "sheets/v4"
   ]
-  revision = "082d671a2a341aa205b22b580fa69747dcc3cdc8"
+  revision = "1d2d9cc0ae74226e8076e2a87e211c8fea38a160"
 
 [[projects]]
   name = "google.golang.org/appengine"
