@@ -22,7 +22,7 @@ Let's start with a simple YAML file config.yml:
 
 We can parse it using ParseYaml(), which will return a *Config instance on
 success:
-
+    
     file, err := ioutil.ReadFile("config.yml")
     if err != nil {
 		panic(err)

@@ -288,7 +288,7 @@ type ChangeInfo struct {
 	Labels             map[string]LabelInfo     `json:"labels,omitempty"`
 	PermittedLabels    map[string][]string      `json:"permitted_labels,omitempty"`
 	RemovableReviewers []AccountInfo            `json:"removable_reviewers,omitempty"`
-	Reviewers          map[string][]AccountInfo `json:"removable_reviewers,omitempty"`
+	Reviewers          map[string][]AccountInfo `json:"reviewers,omitempty"`
 	Messages           []ChangeMessageInfo      `json:"messages,omitempty"`
 	CurrentRevision    string                   `json:"current_revision,omitempty"`
 	Revisions          map[string]RevisionInfo  `json:"revisions,omitempty"`
