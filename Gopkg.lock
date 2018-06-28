@@ -17,7 +17,7 @@
   branch = "master"
   name = "github.com/andygrunwald/go-gerrit"
   packages = ["."]
-  revision = "5632c7fad122548dfabeb3011e98d3b0a08a89d7"
+  revision = "5ea603106b4869cc3f38322ee17d5fc1360ee1e3"
 
 [[projects]]
   branch = "master"
@@ -110,7 +110,7 @@
   branch = "master"
   name = "github.com/rivo/tview"
   packages = ["."]
-  revision = "306abd9cb98c97417ab6c58aa0400b2e5daac88b"
+  revision = "83483397e826c343edb7b8c1f33fb7983dda9fc5"
 
 [[projects]]
   name = "github.com/stretchr/testify"
@@ -119,10 +119,10 @@
   version = "v1.2.2"
 
 [[projects]]
+  branch = "master"
   name = "github.com/xanzy/go-gitlab"
   packages = ["."]
-  revision = "5c6e84fea386746fd31ff46da2253f6b7ed7dce2"
-  version = "v0.10.6"
+  revision = "6ada444068f460636db26ca0dd66cf2aa518fa8f"
 
 [[projects]]
   branch = "master"
@@ -137,7 +137,7 @@
     "context",
     "context/ctxhttp"
   ]
-  revision = "afe8f62b1d6bbd81f31868121a50b06d8188e1f9"
+  revision = "e514e69ffb8bc3c76a71ae40de0118d794855992"
 
 [[projects]]
   branch = "master"
@@ -173,7 +173,7 @@
     "googleapi/internal/uritemplates",
     "sheets/v4"
   ]
-  revision = "3639d6d93f377f39a1de765fa4ef37b3c7ca8bd9"
+  revision = "082d671a2a341aa205b22b580fa69747dcc3cdc8"
 
 [[projects]]
   name = "google.golang.org/appengine"
