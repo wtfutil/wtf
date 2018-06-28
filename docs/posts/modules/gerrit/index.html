@@ -10,8 +10,8 @@
 
 <meta name="generator" content="Hugo 0.38.2" />
 
-<title>Power | WTF - A Terminal Dashboard</title>
-<meta content="Power - WTF - A Terminal Dashboard" property="og:title">
+<title>Gerrit | WTF - A Terminal Dashboard</title>
+<meta content="Gerrit - WTF - A Terminal Dashboard" property="og:title">
 <meta content=" - " property="og:description">
 <!-- CSS -->
 <link rel="stylesheet" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
@@ -116,13 +116,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <div class="content container">
             <div class="post">
-  <h1>Power</h1>
+  <h1>Gerrit</h1>
   
   <div class="col-sm-12 col-md-12">
     <span class="text-left post-date meta">
       
       
-        May 26, 2018
+        Jun 27, 2018
       
       
       
@@ -134,32 +134,55 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   
   
 
-<p>Displays information about the current power source.</p>
+<p><img src="/imgs/modules/gerrit.png" width="640" height="384" alt="gerrit screenshot" /></p>
 
-<p>For battery, also displays the current charge, estimated time remaining,
-and whether it is charging or discharging.</p>
+<p>Displays information about your projects hosted on Gerrit:</p>
 
-<p><img src="/imgs/modules/power.png" width="320" height="129" alt="power screenshot" /></p>
+<h4 id="open-incoming-reviews">Open Incoming Reviews</h4>
+
+<p>All open reviews that are requesting your approval.</p>
+
+<h4 id="my-outgoing-reviews">My Outgoing Reviews</h4>
+
+<p>All open reviews created by you.</p>
 
 <h2 id="source-code">Source Code</h2>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">wtf/power/</code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">wtf/gerrit/</code></pre></div>
 <h2 id="required-env-variables">Required ENV Variables</h2>
 
-<p>None.</p>
+<p><span class="caption">Key:</span> <code>WTF_GERRIT_PASSWORD</code> <br />
+<span class="caption">Action:</span> Your <a href="https://gerrit-review.googlesource.com/Documentation/user-upload.html#http">Gerrit HTTP Password</a>.</p>
 
 <h2 id="keyboard-commands">Keyboard Commands</h2>
 
-<p>None.</p>
+<p><span class="caption">Key:</span> <code>/</code> <br />
+<span class="caption">Action:</span> Open/close the widget&rsquo;s help window.</p>
+
+<p><span class="caption">Key:</span> <code>h</code> <br />
+<span class="caption">Action:</span> Show the previous project.</p>
+
+<p><span class="caption">Key:</span> <code>l</code> <br />
+<span class="caption">Action:</span> Show the next project.</p>
+
+<p><span class="caption">Key:</span> <code>←</code> <br />
+<span class="caption">Action:</span> Show the previous project.</p>
+
+<p><span class="caption">Key:</span> <code>→</code> <br />
+<span class="caption">Action:</span> Show the next project.</p>
 
 <h2 id="configuration">Configuration</h2>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">power<span class="p">:</span><span class="w">
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">gerrit<span class="p">:</span><span class="w">
 </span><span class="w">  </span>enabled<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span><span class="w">  </span>position<span class="p">:</span><span class="w">
-</span><span class="w">    </span>top<span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
-</span><span class="w">    </span>left<span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
+</span><span class="w">    </span>top<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span><span class="w">    </span>left<span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
 </span><span class="w">    </span>height<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
-</span><span class="w">    </span>width<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="w">  </span>refreshInterval<span class="p">:</span><span class="w"> </span><span class="m">15</span></code></pre></div>
+</span><span class="w">    </span>width<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span><span class="w">  </span>refreshInterval<span class="p">:</span><span class="w"> </span><span class="m">300</span><span class="w">
+</span><span class="w">  </span>projects<span class="p">:</span><span class="w">
+</span><span class="w">  </span>-<span class="w"> </span>org/test-project<span class="s2">&#34;
+</span><span class="s2">  - dotfiles
+</span><span class="s2">  username: &#34;</span>myname&#34;</code></pre></div>
 <h3 id="attributes">Attributes</h3>
 
 <p><code>enabled</code> <br />
@@ -172,6 +195,21 @@ Defines where in the grid this module&rsquo;s widget will be displayed. <br /></
 <p><code>refreshInterval</code> <br />
 How often, in seconds, this module will update its data. <br />
 Values: A positive integer, <code>0..n</code>.</p>
+
+<p><code>domain</code> <br />
+<em>Optional</em>. Your Gerrit corporate domain. <br />
+Values: A valid URI.</p>
+
+<p><code>projects</code> <br />
+A list of Gerrit project names to fetch data for. <br /></p>
+
+<p><code>username</code> <br />
+Your Gerrit username. <br /></p>
+
+<p><code>verifyServerCertificate</code> <br />
+<em>Optional</em> <br />
+Determines whether or not the server&rsquo;s certificate chain and host name are verified. <br />
+Values: <code>true</code>, <code>false</code>.</p>
 
 </div>
 
