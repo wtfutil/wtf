@@ -4,14 +4,20 @@
 [[projects]]
   name = "cloud.google.com/go"
   packages = ["compute/metadata"]
-  revision = "0fd7230b2a7505833d5f69b75cbd6c9582401479"
-  version = "v0.23.0"
+  revision = "777200caa7fb8936aed0f12b1fd79af64cc83ec9"
+  version = "v0.24.0"
 
 [[projects]]
   branch = "master"
   name = "github.com/adlio/trello"
   packages = ["."]
-  revision = "05dcd358e32866f2353c4f49077346a0eb585436"
+  revision = "8a458717123e328d9103a3bf075e64bc1ec961f8"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/andygrunwald/go-gerrit"
+  packages = ["."]
+  revision = "5ea603106b4869cc3f38322ee17d5fc1360ee1e3"
 
 [[projects]]
   branch = "master"
@@ -50,7 +56,7 @@
   branch = "master"
   name = "github.com/google/go-github"
   packages = ["github"]
-  revision = "a83ae98ad5d09188c49d6056edb60ec9bdf202bd"
+  revision = "60d040d2dafa18fa3e86cbf22fbc3208ef9ef1e0"
 
 [[projects]]
   branch = "master"
@@ -80,7 +86,7 @@
   branch = "master"
   name = "github.com/olebedev/config"
   packages = ["."]
-  revision = "9a10d05a33a8b9e828f20491e21e8927dec35f72"
+  revision = "ed90d2035b8114c30b9cb65e7d52e10a7148f8c6"
 
 [[projects]]
   name = "github.com/pkg/errors"
@@ -104,7 +110,7 @@
   branch = "master"
   name = "github.com/rivo/tview"
   packages = ["."]
-  revision = "e643d10b365df4caec5ed32e4c1103e185af9079"
+  revision = "83483397e826c343edb7b8c1f33fb7983dda9fc5"
 
 [[projects]]
   name = "github.com/stretchr/testify"
@@ -116,13 +122,13 @@
   branch = "master"
   name = "github.com/xanzy/go-gitlab"
   packages = ["."]
-  revision = "1c1cfedc5a8ffe122b1981e8b0822fe22f461643"
+  revision = "6ada444068f460636db26ca0dd66cf2aa518fa8f"
 
 [[projects]]
   branch = "master"
   name = "github.com/yfronto/newrelic"
   packages = ["."]
-  revision = "f7fa0c6f30ac3d86360c73726cfe9dd526a63d21"
+  revision = "7c9c2852e8f9e69a80bff4f4f1fe4cdd15eeba19"
 
 [[projects]]
   branch = "master"
@@ -131,7 +137,7 @@
     "context",
     "context/ctxhttp"
   ]
-  revision = "db08ff08e8622530d9ed3a0e8ac279f6d4c02196"
+  revision = "e514e69ffb8bc3c76a71ae40de0118d794855992"
 
 [[projects]]
   branch = "master"
@@ -143,7 +149,7 @@
     "jws",
     "jwt"
   ]
-  revision = "113ce6928c4638e14fd5eba69b9e6ec899d5dd83"
+  revision = "ef147856a6ddbb60760db74283d2424e98c87bff"
 
 [[projects]]
   name = "golang.org/x/text"
@@ -167,7 +173,7 @@
     "googleapi/internal/uritemplates",
     "sheets/v4"
   ]
-  revision = "2eea9ba0a3d94f6ab46508083e299a00bbbc65f6"
+  revision = "082d671a2a341aa205b22b580fa69747dcc3cdc8"
 
 [[projects]]
   name = "google.golang.org/appengine"
@@ -195,6 +201,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "147a44acfec399fa7d09cafbc213c1c2c222fd6140bc87b35e942d85891995d9"
+  inputs-digest = "a7a00554f9040d7617458773eafa64b82f9502eace145152cb50eb082800e936"
   solver-name = "gps-cdcl"
   solver-version = 1

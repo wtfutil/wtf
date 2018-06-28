@@ -6,7 +6,7 @@
 Package config provides convenient access methods to configuration stored as
 JSON or YAML.
 
-Let's start with a simple YAML example:
+Let's start with a simple YAML file config.yml:
 
     development:
       database:
@@ -22,6 +22,12 @@ Let's start with a simple YAML example:
 
 We can parse it using ParseYaml(), which will return a *Config instance on
 success:
+    
+    file, err := ioutil.ReadFile("config.yml")
+    if err != nil {
+		panic(err)
+    }
+    yamlString := string(file)
 
     cfg, err := config.ParseYaml(yamlString)
 

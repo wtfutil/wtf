@@ -120,13 +120,12 @@ func overlayStyle(background tcell.Color, defaultStyle tcell.Style, fgColor, bgC
 	defFg, defBg, defAttr := defaultStyle.Decompose()
 	style := defaultStyle.Background(background)
 
-	if fgColor == "-" {
-		style = style.Foreground(defFg)
-	} else if fgColor != "" {
+	style = style.Foreground(defFg)
+	if fgColor != "" {
 		style = style.Foreground(tcell.GetColor(fgColor))
 	}
 
-	if bgColor == "-" {
+	if bgColor == "-" || bgColor == "" && defBg != tcell.ColorDefault {
 		style = style.Background(defBg)
 	} else if bgColor != "" {
 		style = style.Background(tcell.GetColor(bgColor))

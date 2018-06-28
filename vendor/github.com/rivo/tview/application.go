@@ -41,8 +41,8 @@ type Application struct {
 	// was drawn.
 	afterDraw func(screen tcell.Screen)
 
-	// If this value is true, the application has entered suspended mode.
-	suspended bool
+	// Halts the event loop during suspended mode.
+	suspendMutex sync.Mutex
 }
 
 // NewApplication creates and returns a new application.
@@ -103,28 +103,20 @@ func (a *Application) Run() error {
 
 	// Start event loop.
 	for {
-		a.Lock()
+		// Do not poll events during suspend mode
+		a.suspendMutex.Lock()
+		a.RLock()
 		screen := a.screen
-		if a.suspended {
-			a.suspended = false // Clear previous suspended flag.
-		}
-		a.Unlock()
+		a.RUnlock()
 		if screen == nil {
+			a.suspendMutex.Unlock()
 			break
 		}
 
 		// Wait for next event.
 		event := a.screen.PollEvent()
+		a.suspendMutex.Unlock()
 		if event == nil {
-			a.Lock()
-			if a.suspended {
-				// This screen was renewed due to suspended mode.
-				a.suspended = false
-				a.Unlock()
-				continue // Resume.
-			}
-			a.Unlock()
-
 			// The screen was finalized. Exit the loop.
 			break
 		}
@@ -158,9 +150,9 @@ func (a *Application) Run() error {
 				}
 			}
 		case *tcell.EventResize:
-			a.Lock()
+			a.RLock()
 			screen := a.screen
-			a.Unlock()
+			a.RUnlock()
 			screen.Clear()
 			a.Draw()
 		}
@@ -171,8 +163,8 @@ func (a *Application) Run() error {
 
 // Stop stops the application, causing Run() to return.
 func (a *Application) Stop() {
-	a.RLock()
-	defer a.RUnlock()
+	a.Lock()
+	defer a.Unlock()
 	if a.screen == nil {
 		return
 	}
@@ -188,17 +180,18 @@ func (a *Application) Stop() {
 // was called. If false is returned, the application was already suspended,
 // terminal UI mode was not exited, and "f" was not called.
 func (a *Application) Suspend(f func()) bool {
-	a.Lock()
+	a.RLock()
 
-	if a.suspended || a.screen == nil {
-		// Application is already suspended.
-		a.Unlock()
+	if a.screen == nil {
+		// Screen has not yet been initialized.
+		a.RUnlock()
 		return false
 	}
 
 	// Enter suspended mode.
-	a.suspended = true
-	a.Unlock()
+	a.suspendMutex.Lock()
+	defer a.suspendMutex.Unlock()
+	a.RUnlock()
 	a.Stop()
 
 	// Deal with panics during suspended mode. Exit the program.

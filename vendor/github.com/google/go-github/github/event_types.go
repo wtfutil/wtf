@@ -194,6 +194,7 @@ type TeamChange struct {
 type InstallationEvent struct {
 	// The action that was performed. Can be either "created" or "deleted".
 	Action       *string       `json:"action,omitempty"`
+	Repositories []*Repository `json:"repositories,omitempty"`
 	Sender       *User         `json:"sender,omitempty"`
 	Installation *Installation `json:"installation,omitempty"`
 }

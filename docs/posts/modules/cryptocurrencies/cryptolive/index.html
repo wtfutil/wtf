@@ -82,6 +82,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <li class="sidebar-list-item-2"><a href="/posts/modules/clocks/">Clocks</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/cryptocurrencies/cryptolive/">CryptoLive</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/cmdrunner/">CmdRunner</a></li>
+        <li class="sidebar-list-item-2"><a href="/posts/modules/gerrit/">Gerrit</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/git/">Git</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/github/">GitHub</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/gitlab/">Gitlab</a></li>
@@ -151,33 +152,49 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <h2 id="configuration">Configuration</h2>
 <div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">cryptolive<span class="p">:</span><span class="w">
-</span><span class="w">  </span>colors<span class="p">:</span><span class="w">
+</span><span class="w">  </span>enabled<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span>position<span class="p">:</span><span class="w">
+</span><span class="w">    </span>top<span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
+</span><span class="w">    </span>left<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span><span class="w">    </span>height<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">    </span>width<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">  
+</span><span class="w">  </span>updateInterval<span class="p">:</span><span class="w"> </span><span class="m">15</span><span class="w">
+</span><span class="w">  </span>currencies<span class="p">:</span><span class="w"> 
+</span><span class="w">    </span>BTC<span class="p">:</span><span class="w">
+</span><span class="w">      </span>displayName<span class="p">:</span><span class="w"> </span>Bitcoin<span class="w">
+</span><span class="w">      </span>to<span class="p">:</span><span class="w"> 
+</span><span class="w">        </span>-<span class="w"> </span>USD<span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>EUR<span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>ETH<span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>LTC<span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>DOGE<span class="w">
+</span><span class="w">    </span>LTC<span class="p">:</span><span class="w">
+</span><span class="w">      </span>displayName<span class="p">:</span><span class="w"> </span>Ethereum<span class="w">
+</span><span class="w">      </span>to<span class="p">:</span><span class="w"> 
+</span><span class="w">        </span>-<span class="w"> </span>USD<span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>EUR<span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>BTC<span class="w">
+</span><span class="w">  </span>top<span class="p">:</span><span class="w">
+</span><span class="w">    </span>BTC<span class="p">:</span><span class="w">
+</span><span class="w">      </span>displayName<span class="p">:</span><span class="w"> </span>Bitcoin<span class="w">
+</span><span class="w">      </span>limit<span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
+</span><span class="w">      </span>to<span class="p">:</span><span class="w">
+</span><span class="w">        </span>-<span class="w"> </span>USD<span class="w">
+</span><span class="w">  </span>colors<span class="p">:</span><span class="w"> 
 </span><span class="w">    </span>from<span class="p">:</span><span class="w">
 </span><span class="w">      </span>name<span class="p">:</span><span class="w"> </span>coral<span class="w">
 </span><span class="w">      </span>displayName<span class="p">:</span><span class="w"> </span>grey<span class="w">
 </span><span class="w">    </span>to<span class="p">:</span><span class="w">
 </span><span class="w">      </span>name<span class="p">:</span><span class="w"> </span>white<span class="w">
 </span><span class="w">      </span>price<span class="p">:</span><span class="w"> </span>green<span class="w">
-</span><span class="w">  </span>currencies<span class="p">:</span><span class="w">
-</span><span class="w">    </span>BTC<span class="p">:</span><span class="w">
-</span><span class="w">      </span>displayName<span class="p">:</span><span class="w"> </span>Bitcoin<span class="w">
+</span><span class="w">    </span>top<span class="p">:</span><span class="w">
+</span><span class="w">      </span>from<span class="p">:</span><span class="w">
+</span><span class="w">        </span>name<span class="p">:</span><span class="w"> </span>grey<span class="w">
+</span><span class="w">        </span>displayName<span class="p">:</span><span class="w"> </span>coral<span class="w">
 </span><span class="w">      </span>to<span class="p">:</span><span class="w">
-</span><span class="w">        </span>-<span class="w"> </span>USD<span class="w">
-</span><span class="w">        </span>-<span class="w"> </span>EUR<span class="w">
-</span><span class="w">        </span>-<span class="w"> </span>ETH<span class="w">
-</span><span class="w">    </span>ETH<span class="p">:</span><span class="w">
-</span><span class="w">      </span>displayName<span class="p">:</span><span class="w"> </span>Ethereum<span class="w">
-</span><span class="w">      </span>to<span class="p">:</span><span class="w">
-</span><span class="w">        </span>-<span class="w"> </span>USD<span class="w">
-</span><span class="w">        </span>-<span class="w"> </span>EUR<span class="w">
-</span><span class="w">        </span>-<span class="w"> </span>ETH<span class="w">
-</span><span class="w">  </span>enabled<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="w">  </span>position<span class="p">:</span><span class="w">
-</span><span class="w">    </span>top<span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
-</span><span class="w">    </span>left<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
-</span><span class="w">    </span>height<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="w">    </span>width<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
-</span><span class="w">  </span>updateInterval<span class="p">:</span><span class="w"> </span><span class="m">15</span></code></pre></div>
+</span><span class="w">        </span>name<span class="p">:</span><span class="w"> </span>red<span class="w">
+</span><span class="w">        </span>field<span class="p">:</span><span class="w"> </span>white<span class="w">
+</span><span class="w">        </span>value<span class="p">:</span><span class="w"> </span>green</code></pre></div>
 <h3 id="attributes">Attributes</h3>
 
 <p><code>colors.from.name</code> <br />
