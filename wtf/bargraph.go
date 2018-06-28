@@ -103,6 +103,12 @@ func (widget *BarGraph) addView() {
 // time should be passed as a int64
 func (widget *BarGraph) BuildBars(data [][2]int64) {
 
+	widget.View.SetText(BuildStars(data, widget.maxStars, widget.starChar))
+
+}
+
+//BuildStars build the string to display
+func BuildStars(data [][2]int64, maxStars int, starChar string) string {
 	var buffer bytes.Buffer
 
 	//counter to inintialize min value
@@ -138,7 +144,7 @@ func (widget *BarGraph) BuildBars(data [][2]int64) {
 	}
 
 	// each number = how many stars?
-	var starRatio = float64(widget.maxStars) / float64((maxValue - minValue))
+	var starRatio = float64(maxStars) / float64((maxValue - minValue))
 
 	//build the stars
 	for i := range data {
@@ -151,7 +157,7 @@ func (widget *BarGraph) BuildBars(data [][2]int64) {
 			starCount = 1
 		}
 		//build the actual string
-		var stars = strings.Repeat(widget.starChar, starCount)
+		var stars = strings.Repeat(starChar, starCount)
 
 		//parse the time
 		var t = time.Unix(int64(data[i][1]/1000), 0)
@@ -160,8 +166,7 @@ func (widget *BarGraph) BuildBars(data [][2]int64) {
 		buffer.WriteString(fmt.Sprintf("%s -\t [red]%s[white] - (%d)\n", t.Format("Jan 02, 2006"), stars, val))
 	}
 
-	widget.View.SetText(buffer.String())
-
+	return buffer.String()
 }
 
 /* -------------------- Exported Functions -------------------- */
