@@ -6,10 +6,26 @@
     <description>Recent content on WTF - A Terminal Dashboard</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 16 Jun 2018 14:22:18 -0700</lastBuildDate>
+    <lastBuildDate>Wed, 27 Jun 2018 15:55:42 -0700</lastBuildDate>
     
 	<atom:link href="https://wtfutil.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Gerrit</title>
+      <link>https://wtfutil.com/posts/modules/gerrit/</link>
+      <pubDate>Wed, 27 Jun 2018 15:55:42 -0700</pubDate>
+      
+      <guid>https://wtfutil.com/posts/modules/gerrit/</guid>
+      <description>Displays information about your projects hosted on Gerrit:
+Open Incoming Reviews All open reviews that are requesting your approval.
+My Outgoing Reviews All open reviews created by you.
+Source Code wtf/gerrit/ Required ENV Variables Key: WTF_GERRIT_PASSWORD Action: Your Gerrit HTTP Password.
+Keyboard Commands Key: / Action: Open/close the widget&amp;rsquo;s help window.
+Key: h Action: Show the previous project.
+Key: l Action: Show the next project.
+Key: ← Action: Show the previous project.</description>
+    </item>
     
     <item>
       <title>Logger</title>
@@ -144,7 +160,7 @@ summary enabled Determines whether or not this module is executed and if its dat
 Compare crypto currencies using CryptoCompare.
 Source Code wtf/cryptoexchanges/cryptolive/ Required ENV Vars None.
 Keyboard Commands None.
-Configuration cryptolive:colors:from:name:coraldisplayName:greyto:name:whiteprice:greencurrencies:BTC:displayName:Bitcointo:-USD-EUR-ETHETH:displayName:Ethereumto:-USD-EUR-ETHenabled:trueposition:top:5left:2height:1width:2updateInterval:15 Attributes colors.from.name Values: Any X11 color name.
+Configuration cryptolive:enabled:trueposition:top:5left:2height:1width:2updateInterval:15currencies:BTC:displayName:Bitcointo:-USD-EUR-ETH-LTC-DOGELTC:displayName:Ethereumto:-USD-EUR-BTCtop:BTC:displayName:Bitcoinlimit:5to:-USDcolors:from:name:coraldisplayName:greyto:name:whiteprice:greentop:from:name:greydisplayName:coralto:name:redfield:whitevalue:green Attributes colors.from.name Values: Any X11 color name.
 colors.from.dispayName Values: Any X11 color name.
 colors.to.name Values: Any X11 color name.
 colors.to.price Values: Any X11 color name.
