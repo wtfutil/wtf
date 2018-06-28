@@ -50,8 +50,7 @@ func MakeGraph(widget *Widget) {
 
 	}
 
-	icon := wtf.Config.UString("wtf.mods.bargraph.graphIcon", "✭ ")
-	widget.BarGraph.BuildBars(20, icon, stats[:])
+	widget.BarGraph.BuildBars(stats[:])
 
 }
 

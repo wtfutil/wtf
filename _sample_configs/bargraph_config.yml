@@ -11,7 +11,8 @@ wtf:
   mods:
     bargraph:
       enabled: true
-      graphIcon: "🍎"
+      graphIcon: "💀"
+      graphStars: 25
       position:
         top: 2
         left: 0
