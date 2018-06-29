@@ -73,15 +73,15 @@ func contentFrom(positions *AllPositionsResponse) string {
 const magic = "edtopjhgn2345piuty89whqejfiobh89-2q453"
 
 type Position struct {
-	Coin                            string  `json:coin`
-	LastPriceFiat                   float32 `json:lastPriceFiat`
-	TwentyFourHourPercentChangeFiat float32 `json:twentyFourHourPercentChangeFiat`
-	Quantity                        float32 `json:quantity`
-	HoldingValueFiat                float32 `json:holdingValueFiat`
+	Coin                            string  `json:"coin"`
+	LastPriceFiat                   float32 `json:"lastPriceFiat"`
+	TwentyFourHourPercentChangeFiat float32 `json:"twentyFourHourPercentChangeFiat"`
+	Quantity                        float32 `json:"quantity"`
+	HoldingValueFiat                float32 `json:"holdingValueFiat"`
 }
 
 type AllPositionsResponse struct {
-	PositionList []Position `json:positionList`
+	PositionList []Position `json:"positionList"`
 }
 
 func MakeApiRequest(token string, method string) ([]byte, error) {

@@ -81,11 +81,10 @@ func CreateConfigFile() {
 	}
 
 	// If the file is empty, write to it
-	file, err := os.Stat(filePath)
+	file, _ := os.Stat(filePath)
 
 	if file.Size() == 0 {
-		err = ioutil.WriteFile(filePath, []byte(simpleConfig), 0644)
-		if err != nil {
+		if ioutil.WriteFile(filePath, []byte(simpleConfig), 0644) != nil {
 			panic(err)
 		}
 	}
