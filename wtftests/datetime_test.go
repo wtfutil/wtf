@@ -1,4 +1,4 @@
-package wtf_tests
+package wtftests
 
 import (
 	"testing"
