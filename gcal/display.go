@@ -7,96 +7,107 @@ import (
 	"time"
 
 	"github.com/senorprogrammer/wtf/wtf"
-	"google.golang.org/api/calendar/v3"
 )
 
+func (widget *Widget) sortedEvents() ([]*CalEvent, []*CalEvent) {
+	allDayEvents := []*CalEvent{}
+	timedEvents := []*CalEvent{}
+
+	for _, calEvent := range widget.calEvents {
+		if calEvent.AllDay() {
+			allDayEvents = append(allDayEvents, calEvent)
+		} else {
+			timedEvents = append(timedEvents, calEvent)
+		}
+	}
+
+	return allDayEvents, timedEvents
+}
+
 func (widget *Widget) display() {
-	if widget.events == nil || len(widget.events.Items) == 0 {
+	if widget.calEvents == nil || len(widget.calEvents) == 0 {
 		return
 	}
 
 	widget.mutex.Lock()
 	defer widget.mutex.Unlock()
 
-	widget.View.SetText(widget.contentFrom(widget.events))
+	_, timedEvents := widget.sortedEvents()
+	widget.View.SetText(widget.contentFrom(timedEvents))
 }
 
-func (widget *Widget) contentFrom(events *calendar.Events) string {
-	if events == nil {
+func (widget *Widget) contentFrom(calEvents []*CalEvent) string {
+	if (calEvents == nil) || (len(calEvents) == 0) {
 		return ""
 	}
 
-	var prevEvent *calendar.Event
+	var str string
+	var prevEvent *CalEvent
 
-	str := ""
-
-	for _, event := range events.Items {
-		timestamp := fmt.Sprintf("[%s]%s",
-			widget.descriptionColor(event),
-			widget.eventTimestamp(event))
+	for _, calEvent := range calEvents {
+		timestamp := fmt.Sprintf("[%s]%s", widget.descriptionColor(calEvent), calEvent.Timestamp())
 
 		title := fmt.Sprintf("[%s]%s",
-			widget.titleColor(event),
-			widget.eventSummary(event, widget.conflicts(event, events)))
+			widget.titleColor(calEvent),
+			widget.eventSummary(calEvent, calEvent.ConflictsWith(calEvents)),
+		)
 
 		lineOne := fmt.Sprintf(
 			"%s %s %s %s %s[white]",
-			widget.dayDivider(event, prevEvent),
-			widget.responseIcon(event),
+			widget.dayDivider(calEvent, prevEvent),
+			widget.responseIcon(calEvent),
 			timestamp,
 			title,
-			widget.timeUntil(event),
+			widget.timeUntil(calEvent),
 		)
 
 		str = str + fmt.Sprintf("%s%s\n\n",
 			lineOne,
-			widget.location(event), // prefixes newline if non-empty
+			widget.location(calEvent),
 		)
 
-		prevEvent = event
+		prevEvent = calEvent
 	}
 
 	return str
 }
 
-func (widget *Widget) dayDivider(event, prevEvent *calendar.Event) string {
+func (widget *Widget) dayDivider(event, prevEvent *CalEvent) string {
 	var prevStartTime time.Time
 
 	if prevEvent != nil {
-		prevStartTime, _ = time.Parse(time.RFC3339, prevEvent.Start.DateTime)
+		prevStartTime = prevEvent.Start()
 	}
 
-	currStartTime, _ := time.Parse(time.RFC3339, event.Start.DateTime)
+	if event.Start().Day() != prevStartTime.Day() {
+		//_, _, width, _ := widget.View.GetInnerRect()
 
-	if currStartTime.Day() != prevStartTime.Day() {
-		_, _, width, _ := widget.View.GetInnerRect()
-
-		return fmt.Sprintf("[%s]", wtf.Config.UString("wtf.mods.gcal.colors.day", "forestgreen")) +
-			wtf.CenterText(currStartTime.Format(wtf.FullDateFormat), width) +
+		return fmt.Sprintf("[%s::b]",
+			wtf.Config.UString("wtf.mods.gcal.colors.day", "forestgreen")) +
+			//wtf.CenterText(event.Start().Format(wtf.FullDateFormat), width) +
+			event.Start().Format(wtf.FullDateFormat) +
 			"\n"
 	}
 
 	return ""
 }
 
-func (widget *Widget) descriptionColor(event *calendar.Event) string {
-	color := wtf.Config.UString("wtf.mods.gcal.colors.description", "white")
-
-	if widget.eventIsPast(event) {
-		color = wtf.Config.UString("wtf.mods.gcal.colors.past", "gray")
+func (widget *Widget) descriptionColor(calEvent *CalEvent) string {
+	if calEvent.Past() {
+		return wtf.Config.UString("wtf.mods.gcal.colors.past", "gray")
+	} else {
+		return wtf.Config.UString("wtf.mods.gcal.colors.description", "white")
 	}
-
-	return color
 }
 
-func (widget *Widget) eventSummary(event *calendar.Event, conflict bool) string {
-	summary := event.Summary
+func (widget *Widget) eventSummary(calEvent *CalEvent, conflict bool) string {
+	summary := calEvent.event.Summary
 
-	if widget.eventIsNow(event) {
+	if calEvent.Now() {
 		summary = fmt.Sprintf(
 			"%s %s",
 			wtf.Config.UString("wtf.mods.gcal.currentIcon", "🔸"),
-			event.Summary,
+			summary,
 		)
 	}
 
@@ -107,21 +118,10 @@ func (widget *Widget) eventSummary(event *calendar.Event, conflict bool) string 
 	}
 }
 
-func (widget *Widget) eventTimestamp(event *calendar.Event) string {
-	if widget.eventIsAllDay(event) {
-		startTime, _ := time.Parse("2006-01-02", event.Start.Date)
-		return startTime.Format(wtf.FriendlyDateFormat)
-	} else {
-		startTime, _ := time.Parse(time.RFC3339, event.Start.DateTime)
-		return startTime.Format(wtf.MinimumTimeFormat)
-	}
-}
-
-// timeUuntil returns the number of hours or days until the event
+// timeUntil returns the number of hours or days until the event
 // If the event is in the past, returns nil
-func (widget *Widget) timeUntil(event *calendar.Event) string {
-	startTime, _ := time.Parse(time.RFC3339, event.Start.DateTime)
-	duration := time.Until(startTime).Round(time.Minute)
+func (widget *Widget) timeUntil(calEvent *CalEvent) string {
+	duration := time.Until(calEvent.Start()).Round(time.Minute)
 
 	if duration < 0 {
 		return ""
@@ -152,7 +152,7 @@ func (widget *Widget) timeUntil(event *calendar.Event) string {
 	return color + untilStr + "[white]"
 }
 
-func (widget *Widget) titleColor(event *calendar.Event) string {
+func (widget *Widget) titleColor(calEvent *CalEvent) string {
 	color := wtf.Config.UString("wtf.mods.gcal.colors.title", "white")
 
 	for _, untypedArr := range wtf.Config.UList("wtf.mods.gcal.colors.highlights") {
@@ -160,7 +160,7 @@ func (widget *Widget) titleColor(event *calendar.Event) string {
 
 		match, _ := regexp.MatchString(
 			strings.ToLower(highlightElements[0]),
-			strings.ToLower(event.Summary),
+			strings.ToLower(calEvent.event.Summary),
 		)
 
 		if match == true {
@@ -168,51 +168,47 @@ func (widget *Widget) titleColor(event *calendar.Event) string {
 		}
 	}
 
-	if widget.eventIsPast(event) {
+	if calEvent.Past() {
 		color = wtf.Config.UString("wtf.mods.gcal.colors.past", "gray")
 	}
 
 	return color
 }
 
-func (widget *Widget) location(event *calendar.Event) string {
+func (widget *Widget) location(calEvent *CalEvent) string {
 	if wtf.Config.UBool("wtf.mods.gcal.displayLocation", true) == false {
 		return ""
 	}
 
-	if event.Location == "" {
+	if calEvent.event.Location == "" {
 		return ""
 	}
 
 	return fmt.Sprintf(
 		"\n   [%s]%s",
-		widget.descriptionColor(event),
-		event.Location,
+		widget.descriptionColor(calEvent),
+		calEvent.event.Location,
 	)
 }
 
-func (widget *Widget) responseIcon(event *calendar.Event) string {
+func (widget *Widget) responseIcon(calEvent *CalEvent) string {
 	if false == wtf.Config.UBool("wtf.mods.gcal.displayResponseStatus", true) {
 		return ""
 	}
 
-	for _, attendee := range event.Attendees {
-		if attendee.Email == wtf.Config.UString("wtf.mods.gcal.email") {
-			icon := "[gray]"
+	icon := "[gray]"
 
-			switch attendee.ResponseStatus {
-			case "accepted":
-				return icon + "✔︎"
-			case "declined":
-				return icon + "✘"
-			case "needsAction":
-				return icon + "?"
-			case "tentative":
-				return icon + "~"
-			default:
-				return icon + " "
-			}
-		}
+	switch calEvent.ResponseFor(wtf.Config.UString("wtf.mods.gcal.email")) {
+	case "accepted":
+		return icon + "✔︎"
+	case "declined":
+		return icon + "✘"
+	case "needsAction":
+		return icon + "?"
+	case "tentative":
+		return icon + "~"
+	default:
+		return icon + " "
 	}
 
 	return " "

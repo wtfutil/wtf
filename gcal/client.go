@@ -1,6 +1,8 @@
 /*
 * This butt-ugly code is direct from Google itself
 * https://developers.google.com/calendar/quickstart/go
+*
+* With some changes by me to improve things a bit.
  */
 
 package gcal
@@ -27,7 +29,7 @@ import (
 
 /* -------------------- Exported Functions -------------------- */
 
-func Fetch() (*calendar.Events, error) {
+func Fetch() ([]*CalEvent, error) {
 	ctx := context.Background()
 
 	secretPath, _ := wtf.ExpandHomeDir(wtf.Config.UString("wtf.mods.gcal.secretFile"))
@@ -75,13 +77,20 @@ func Fetch() (*calendar.Events, error) {
 			return time.Parse(time.RFC3339, event.Start.DateTime)
 		}
 	}
+
 	sort.Slice(events.Items, func(i, j int) bool {
 		dateA, _ := timeDateChooser(events.Items[i])
 		dateB, _ := timeDateChooser(events.Items[j])
 		return dateA.Before(dateB)
 	})
 
-	return &events, err
+	// Wrap the calendar events in our custom CalEvent
+	calEvents := []*CalEvent{}
+	for _, event := range events.Items {
+		calEvents = append(calEvents, NewCalEvent(event))
+	}
+
+	return calEvents, err
 }
 
 /* -------------------- Unexported Functions -------------------- */
