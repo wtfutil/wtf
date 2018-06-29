@@ -1,11 +1,13 @@
 package weather
 
 import (
+	"fmt"
 	"os"
 
 	owm "github.com/briandowns/openweathermap"
 	"github.com/gdamore/tcell"
 	"github.com/rivo/tview"
+	"github.com/senorprogrammer/wtf/logger"
 	"github.com/senorprogrammer/wtf/wtf"
 )
 
@@ -34,14 +36,20 @@ type Widget struct {
 
 // NewWidget creates and returns a new instance of the weather Widget.
 func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
+	configKey := "weather"
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(" Weather ", "weather", true),
+		TextWidget: wtf.NewTextWidget(" Weather ", configKey, true),
 
 		app:   app,
 		pages: pages,
 
 		APIKey: os.Getenv("WTF_OWM_API_KEY"),
 		Idx:    0,
+	}
+
+	if widget.APIKey == "" {
+		logger.Log("loading weather WTF_OWM_API_KEY key from config")
+		widget.APIKey = wtf.Config.UString(fmt.Sprintf("wtf.mods.%s.WTF_OWM_API_KEY", configKey), "")
 	}
 
 	widget.View.SetInputCapture(widget.keyboardIntercept)

@@ -207,6 +207,7 @@ wtf:
       cityids:
       - 3370352
       - 1283240
+      WTF_OWM_API_KEY: [YOUR API KEY]
       colors:
         current: "lightblue"
       enabled: true
