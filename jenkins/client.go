@@ -23,7 +23,7 @@ func Create(jenkinsURL string, username string, apiKey string) (*View, error) {
 	}
 	jenkinsAPIURL := parsedJenkinsURL.ResolveReference(parsedSuffix)
 
-	req, err := http.NewRequest("GET", jenkinsAPIURL.String(), nil)
+	req, _ := http.NewRequest("GET", jenkinsAPIURL.String(), nil)
 	req.SetBasicAuth(username, apiKey)
 
 	httpClient := &http.Client{}
@@ -44,7 +44,6 @@ func ensureLastSlash(URL string) string {
 }
 
 /* -------------------- Unexported Functions -------------------- */
-
 
 func parseJson(obj interface{}, text io.Reader) {
 	jsonStream, err := ioutil.ReadAll(text)

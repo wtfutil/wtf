@@ -6,5 +6,5 @@ type View struct {
 	Jobs        []Job    `json:"jobs"`
 	Name        string   `json:"name"`
 	Property    []string `json:"property"`
-	url         string   `json:"url"`
+	Url         string   `json:"url"`
 }
