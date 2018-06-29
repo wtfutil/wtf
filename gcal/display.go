@@ -53,18 +53,22 @@ func (widget *Widget) contentFrom(calEvents []*CalEvent) string {
 		)
 
 		lineOne := fmt.Sprintf(
-			"%s %s %s %s %s[white]",
+			"%s %s %s %s[white]\n",
 			widget.dayDivider(calEvent, prevEvent),
 			widget.responseIcon(calEvent),
 			timestamp,
 			title,
+		)
+
+		str = str + fmt.Sprintf("%s   %s%s\n",
+			lineOne,
+			widget.location(calEvent),
 			widget.timeUntil(calEvent),
 		)
 
-		str = str + fmt.Sprintf("%s%s\n\n",
-			lineOne,
-			widget.location(calEvent),
-		)
+		if (widget.location(calEvent) != "") || (widget.timeUntil(calEvent) != "") {
+			str = str + "\n"
+		}
 
 		prevEvent = calEvent
 	}
@@ -80,11 +84,9 @@ func (widget *Widget) dayDivider(event, prevEvent *CalEvent) string {
 	}
 
 	if event.Start().Day() != prevStartTime.Day() {
-		//_, _, width, _ := widget.View.GetInnerRect()
 
 		return fmt.Sprintf("[%s::b]",
 			wtf.Config.UString("wtf.mods.gcal.colors.day", "forestgreen")) +
-			//wtf.CenterText(event.Start().Format(wtf.FullDateFormat), width) +
 			event.Start().Format(wtf.FullDateFormat) +
 			"\n"
 	}
@@ -185,7 +187,7 @@ func (widget *Widget) location(calEvent *CalEvent) string {
 	}
 
 	return fmt.Sprintf(
-		"\n   [%s]%s",
+		"[%s]%s ",
 		widget.descriptionColor(calEvent),
 		calEvent.event.Location,
 	)
