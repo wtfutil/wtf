@@ -4,6 +4,7 @@ import (
 	"sync"
 	"time"
 
+	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/wtf"
 )
 
@@ -13,11 +14,13 @@ type Widget struct {
 	calEvents []*CalEvent
 	ch        chan struct{}
 	mutex     sync.Mutex
+	app       *tview.Application
 }
 
-func NewWidget() *Widget {
+func NewWidget(app *tview.Application) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(" Calendar ", "gcal", false),
+		TextWidget: wtf.NewTextWidget(" Calendar ", "gcal", true),
+		app:        app,
 		ch:         make(chan struct{}),
 	}
 
@@ -34,7 +37,7 @@ func (widget *Widget) Disable() {
 }
 
 func (widget *Widget) Refresh() {
-	calEvents, err := Fetch()
+	calEvents, err := Fetch(CreateCodeInputDialog(" Calendar ", widget))
 	if err != nil {
 		widget.calEvents = []*CalEvent{}
 	} else {
