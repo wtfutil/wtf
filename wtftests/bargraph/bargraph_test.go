@@ -14,10 +14,10 @@ func makeData() [][2]int64 {
 	const lineCount = 2
 	var stats [lineCount][2]int64
 
-	stats[0][1] = 1530122942
+	stats[0][1] = 1530122942000
 	stats[0][0] = 100
 
-	stats[1][1] = 1530132942
+	stats[1][1] = 1531142942000
 	stats[1][0] = 210
 
 	return stats[:]
@@ -29,5 +29,5 @@ func TestOutput(t *testing.T) {
 
 	result := BuildStars(makeData(), 20, "*")
 
-	Equal(t, result, "Jan 18, 1970 -\t [red]*[white] - (100)\nJan 18, 1970 -\t [red]********************[white] - (210)\n")
+	Equal(t, "Jun 27, 2018 -\t [red]*[white] - (100)\nJul 09, 2018 -\t [red]********************[white] - (210)\n", result)
 }
