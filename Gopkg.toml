@@ -85,6 +85,10 @@
   branch = "master"
   name = "github.com/adlio/trello"
 
+[[constraint]]
+  branch = "master"
+  name = "github.com/darkSasori/todoist"
+
 [prune]
   go-tests = true
   unused-packages = true
