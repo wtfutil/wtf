@@ -3,9 +3,10 @@
 package terminfo
 
 func init() {
-	//  simpleterm
+	//  simpleterm 0.4.1
 	AddTerminfo(&Terminfo{
 		Name:            "st",
+		Aliases:         []string{"stterm"},
 		Columns:         80,
 		Lines:           24,
 		Colors:          8,
@@ -18,7 +19,6 @@ func init() {
 		AttrOff:         "\x1b[0m",
 		Underline:       "\x1b[4m",
 		Bold:            "\x1b[1m",
-		Dim:             "\x1b[2m",
 		Blink:           "\x1b[5m",
 		Reverse:         "\x1b[7m",
 		EnterKeypad:     "\x1b[?1h\x1b=",
@@ -26,7 +26,8 @@ func init() {
 		SetFg:           "\x1b[3%p1%dm",
 		SetBg:           "\x1b[4%p1%dm",
 		SetFgBg:         "\x1b[3%p1%d;4%p2%dm",
-		AltChars:        "+C,D-A.B0E``aaffgghFiGjjkkllmmnnooppqqrrssttuuvvwwxxyyzz{{||}}~~",
+		PadChar:         "\x00",
+		AltChars:        "``aaffggiijjkkllmmnnooppqqrrssttuuvvwwxxyyzz{{||}}~~",
 		EnterAcs:        "\x1b(0",
 		ExitAcs:         "\x1b(B",
 		EnableAcs:       "\x1b)0",
@@ -41,7 +42,7 @@ func init() {
 		KeyLeft:         "\x1bOD",
 		KeyInsert:       "\x1b[2~",
 		KeyDelete:       "\x1b[3~",
-		KeyBackspace:    "177",
+		KeyBackspace:    "\u007f",
 		KeyHome:         "\x1b[1~",
 		KeyEnd:          "\x1b[4~",
 		KeyPgUp:         "\x1b[5~",

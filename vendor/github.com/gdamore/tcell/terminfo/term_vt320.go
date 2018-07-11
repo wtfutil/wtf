@@ -33,7 +33,7 @@ func init() {
 		KeyLeft:      "\x1bOD",
 		KeyInsert:    "\x1b[2~",
 		KeyDelete:    "\x1b[3~",
-		KeyBackspace: "177",
+		KeyBackspace: "\u007f",
 		KeyHome:      "\x1b[1~",
 		KeyPgUp:      "\x1b[5~",
 		KeyPgDn:      "\x1b[6~",

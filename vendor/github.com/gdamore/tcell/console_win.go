@@ -17,25 +17,25 @@
 package tcell
 
 import (
+	"errors"
 	"sync"
 	"syscall"
 	"unicode/utf16"
 	"unsafe"
-	"errors"
 )
 
 type cScreen struct {
-	in    syscall.Handle
-	out   syscall.Handle
+	in         syscall.Handle
+	out        syscall.Handle
 	cancelflag syscall.Handle
-	scandone chan struct{}
-	evch  chan Event
-	quit  chan struct{}
-	curx  int
-	cury  int
-	style Style
-	clear bool
-	fini  bool
+	scandone   chan struct{}
+	evch       chan Event
+	quit       chan struct{}
+	curx       int
+	cury       int
+	style      Style
+	clear      bool
+	fini       bool
 
 	w int
 	h int
@@ -117,7 +117,7 @@ var (
 )
 
 const (
-	w32Infinite = ^uintptr(0)
+	w32Infinite    = ^uintptr(0)
 	w32WaitObject0 = uintptr(0)
 )
 
@@ -183,7 +183,7 @@ func (s *cScreen) CharacterSet() string {
 }
 
 func (s *cScreen) EnableMouse() {
-	s.setInMode(modeResizeEn | modeMouseEn)
+	s.setInMode(modeResizeEn | modeMouseEn | modeExtndFlg)
 }
 
 func (s *cScreen) DisableMouse() {
@@ -530,7 +530,7 @@ func (s *cScreen) getConsoleInput() error {
 		uintptr(pWaitObjects),
 		uintptr(0),
 		w32Infinite)
-	// WaitForMultipleObjects returns WAIT_OBJECT_0 + the index. 
+	// WaitForMultipleObjects returns WAIT_OBJECT_0 + the index.
 	switch rv {
 	case w32WaitObject0: // s.cancelFlag
 		return errors.New("cancelled")
@@ -565,8 +565,14 @@ func (s *cScreen) getConsoleInput() error {
 			if krec.ch != 0 {
 				// synthesized key code
 				for krec.repeat > 0 {
-					s.PostEvent(NewEventKey(KeyRune, rune(krec.ch),
-						mod2mask(krec.mod)))
+					// convert shift+tab to backtab
+					if mod2mask(krec.mod) == ModShift && krec.ch == vkTab {
+						s.PostEvent(NewEventKey(KeyBacktab, 0,
+							ModNone))
+					} else {
+						s.PostEvent(NewEventKey(KeyRune, rune(krec.ch),
+							mod2mask(krec.mod)))
+					}
 					krec.repeat--
 				}
 				return nil
@@ -920,6 +926,7 @@ func (s *cScreen) clearScreen(style Style) {
 }
 
 const (
+	modeExtndFlg uint32 = 0x0080
 	modeMouseEn  uint32 = 0x0010
 	modeResizeEn uint32 = 0x0008
 	modeWrapEOL  uint32 = 0x0002
