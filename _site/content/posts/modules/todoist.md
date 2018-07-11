@@ -29,7 +29,7 @@ _You can get your API Token at: todoist.com/prefs/integrations._
 <span class="caption">Action:</span> Show the previous project.
 
 <span class="caption">Key:</span> `←` <br />
-<span class="caption">Action:</span←> Show the previous project.
+<span class="caption">Action:</span> Show the previous project.
 
 <span class="caption">Key:</span> `l` <br />
 <span class="caption">Action:</span> Show the next project.
