@@ -6,10 +6,26 @@
     <description>Recent content in Posts on WTF - A Terminal Dashboard</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 27 Jun 2018 15:55:42 -0700</lastBuildDate>
+    <lastBuildDate>Thu, 05 Jul 2018 22:55:55 -0300</lastBuildDate>
     
 	<atom:link href="https://wtfutil.com/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Todoist</title>
+      <link>https://wtfutil.com/posts/modules/todoist/</link>
+      <pubDate>Thu, 05 Jul 2018 22:55:55 -0300</pubDate>
+      
+      <guid>https://wtfutil.com/posts/modules/todoist/</guid>
+      <description>Added in v0.0.11.
+Displays all items on specified project.
+Source Code wtf/todoist/ Required ENV Variables Key: WTF_TODOIST_TOKEN Value: Your Todoist API Token. You can get your API Token at: todoist.com/prefs/integrations.
+Keyboard Commands Key: h Action: Show the previous project.
+Key: ← Action: Show the previous project.
+Key: l Action: Show the next project.
+Key: → Action: Show the next project.
+Key: j Action: Select the next item in the list.</description>
+    </item>
     
     <item>
       <title>Gerrit</title>
