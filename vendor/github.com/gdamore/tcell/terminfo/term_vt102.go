@@ -10,7 +10,7 @@ func init() {
 		Lines:        24,
 		Bell:         "\a",
 		Clear:        "\x1b[H\x1b[J$<50>",
-		AttrOff:      "\x1b[m\x0017$<2>",
+		AttrOff:      "\x1b[m\x0f$<2>",
 		Underline:    "\x1b[4m$<2>",
 		Bold:         "\x1b[1m$<2>",
 		Blink:        "\x1b[5m$<2>",

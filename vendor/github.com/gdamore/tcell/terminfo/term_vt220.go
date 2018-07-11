@@ -29,6 +29,7 @@ func init() {
 		KeyRight:     "\x1b[C",
 		KeyLeft:      "\x1b[D",
 		KeyInsert:    "\x1b[2~",
+		KeyDelete:    "\x1b[3~",
 		KeyBackspace: "\b",
 		KeyPgUp:      "\x1b[5~",
 		KeyPgDn:      "\x1b[6~",

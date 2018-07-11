@@ -1,4 +1,4 @@
-// +build freebsd netbsd openbsd dragonfly
+// +build darwin
 
 // Copyright 2018 The TCell Authors
 //
@@ -15,6 +15,21 @@
 // limitations under the License.
 
 package tcell
+
+// The Darwin system is *almost* a real BSD system, but it suffers from
+// a brain damaged TTY driver.  This TTY driver does not actually
+// wake up in poll() or similar calls, which means that we cannot reliably
+// shut down the terminal without resorting to obscene custom C code
+// and a dedicated poller thread.
+//
+// So instead, we do a best effort, and simply try to do the close in the
+// background.  Probably this will cause a leak of two goroutines and
+// maybe also the file descriptor, meaning that applications on Darwin
+// can't reinitialize the screen, but that's probably a very rare behavior,
+// and accepting that is the best of some very poor alternative options.
+//
+// Maybe someday Apple will fix there tty driver, but its been broken for
+// a long time (probably forever) so holding one's breath is contraindicated.
 
 import (
 	"os"
@@ -100,9 +115,15 @@ func (t *tScreen) termioFini() {
 		syscall.Syscall6(syscall.SYS_IOCTL, fd, ioc, tios, 0, 0, 0)
 		t.out.Close()
 	}
-	if t.in != nil {
-		t.in.Close()
-	}
+
+	// See above -- we background this call which might help, but
+	// really the tty is probably open.
+
+	go func() {
+		if t.in != nil {
+			t.in.Close()
+		}
+	}()
 }
 
 func (t *tScreen) getWinSize() (int, int, error) {
