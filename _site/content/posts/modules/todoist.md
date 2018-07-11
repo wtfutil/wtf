@@ -4,7 +4,9 @@ date: 2018-07-05T22:55:55-03:00
 draft: false
 ---
 
-Displays all itens on specified project.
+Added in `v0.0.11`.
+
+Displays all items on specified project.
 
 <img src="/imgs/modules/todoist.png" alt="todoist screenshot" />
 

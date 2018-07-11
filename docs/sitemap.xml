@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://wtfutil.com/posts/modules/todoist/</loc>
+    <lastmod>2018-07-05T22:55:55-03:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://wtfutil.com/posts/modules/gerrit/</loc>
     <lastmod>2018-06-27T15:55:42-07:00</lastmod>
   </url>
@@ -179,7 +184,7 @@
   
   <url>
     <loc>https://wtfutil.com/posts/</loc>
-    <lastmod>2018-06-27T15:55:42-07:00</lastmod>
+    <lastmod>2018-07-05T22:55:55-03:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -190,7 +195,7 @@
   
   <url>
     <loc>https://wtfutil.com/</loc>
-    <lastmod>2018-06-27T15:55:42-07:00</lastmod>
+    <lastmod>2018-07-05T22:55:55-03:00</lastmod>
     <priority>0</priority>
   </url>
   
