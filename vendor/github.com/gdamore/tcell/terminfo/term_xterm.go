@@ -3,9 +3,10 @@
 package terminfo
 
 func init() {
-	// xterm terminal emulator (X Window System)
+	// X11 terminal emulator
 	AddTerminfo(&Terminfo{
 		Name:            "xterm",
+		Aliases:         []string{"xterm-debian"},
 		Columns:         80,
 		Lines:           24,
 		Colors:          8,
@@ -18,6 +19,7 @@ func init() {
 		AttrOff:         "\x1b(B\x1b[m",
 		Underline:       "\x1b[4m",
 		Bold:            "\x1b[1m",
+		Dim:             "\x1b[2m",
 		Blink:           "\x1b[5m",
 		Reverse:         "\x1b[7m",
 		EnterKeypad:     "\x1b[?1h\x1b=",
@@ -39,7 +41,7 @@ func init() {
 		KeyLeft:         "\x1bOD",
 		KeyInsert:       "\x1b[2~",
 		KeyDelete:       "\x1b[3~",
-		KeyBackspace:    "\b",
+		KeyBackspace:    "\u007f",
 		KeyHome:         "\x1bOH",
 		KeyEnd:          "\x1bOF",
 		KeyPgUp:         "\x1b[5~",

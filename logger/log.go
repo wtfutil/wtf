@@ -52,10 +52,10 @@ func (widget *Widget) Refresh() {
 	}
 
 	widget.UpdateRefreshedAt()
-	widget.View.SetTitle(fmt.Sprintf("%s", widget.Name))
+	widget.View.SetTitle(widget.Name)
 
 	logLines := widget.tailFile()
-	widget.View.SetText(fmt.Sprintf("%s", widget.contentFrom(logLines)))
+	widget.View.SetText(widget.contentFrom(logLines))
 }
 
 /* -------------------- Unexported Functions -------------------- */

@@ -13,7 +13,7 @@ func init() {
 		Clear:        "\x1b[H\x1b[J",
 		ShowCursor:   "\x1b[?25h",
 		HideCursor:   "\x1b[?25l",
-		AttrOff:      "\x1b[m\x0017",
+		AttrOff:      "\x1b[m\x0f",
 		Underline:    "\x1b[4m",
 		Bold:         "\x1b[1m",
 		Dim:          "\x1b[2m",

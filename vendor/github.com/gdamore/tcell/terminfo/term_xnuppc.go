@@ -9,7 +9,7 @@ func init() {
 		Aliases:      []string{"darwin"},
 		Colors:       8,
 		Clear:        "\x1b[H\x1b[J",
-		AttrOff:      "\x1b[m\x0017",
+		AttrOff:      "\x1b[m",
 		Underline:    "\x1b[4m",
 		Bold:         "\x1b[1m",
 		Reverse:      "\x1b[7m",
@@ -26,6 +26,6 @@ func init() {
 		KeyDown:      "\x1bOB",
 		KeyRight:     "\x1bOC",
 		KeyLeft:      "\x1bOD",
-		KeyBackspace: "177",
+		KeyBackspace: "\u007f",
 	})
 }

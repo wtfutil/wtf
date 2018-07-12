@@ -3,18 +3,24 @@ package jira
 import (
 	"fmt"
 
+	"github.com/gdamore/tcell"
 	"github.com/senorprogrammer/wtf/wtf"
 )
 
 type Widget struct {
 	wtf.TextWidget
+
+	result   *SearchResult
+	selected int
 }
 
 func NewWidget() *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(" Jira ", "jira", false),
+		TextWidget: wtf.NewTextWidget(" Jira ", "jira", true),
 	}
+	widget.unselect()
 
+	widget.View.SetInputCapture(widget.keyboardIntercept)
 	return &widget
 }
 
@@ -30,39 +36,84 @@ func (widget *Widget) Refresh() {
 	widget.UpdateRefreshedAt()
 
 	if err != nil {
+		widget.result = nil
 		widget.View.SetWrap(true)
-		widget.View.SetTitle(fmt.Sprintf("%s", widget.Name))
-		fmt.Fprintf(widget.View, "%v", err)
+		widget.View.SetTitle(widget.Name)
+		widget.View.SetText(err.Error())
 	} else {
-		widget.View.SetWrap(false)
-		widget.View.SetTitle(
-			fmt.Sprintf(
-				"%s- [green]%s[white]",
-				widget.Name,
-				wtf.Config.UString("wtf.mods.jira.project"),
-			),
-		)
-		widget.View.SetText(fmt.Sprintf("%s", widget.contentFrom(searchResult)))
+		widget.result = searchResult
 	}
+
+	widget.display()
 }
 
 /* -------------------- Unexported Functions -------------------- */
+
+func (widget *Widget) display() {
+	if widget.result == nil {
+		return
+	}
+	widget.View.SetWrap(false)
+	widget.View.SetTitle(
+		fmt.Sprintf(
+			"%s- [green]%s[white]",
+			widget.Name,
+			wtf.Config.UString("wtf.mods.jira.project"),
+		),
+	)
+	widget.View.SetText(fmt.Sprintf("%s", widget.contentFrom(widget.result)))
+}
+
+func (widget *Widget) next() {
+	widget.selected++
+	if widget.result != nil && widget.selected >= len(widget.result.Issues) {
+		widget.selected = 0
+	}
+}
+
+func (widget *Widget) prev() {
+	widget.selected--
+	if widget.selected < 0 && widget.result != nil {
+		widget.selected = len(widget.result.Issues) - 1
+	}
+}
+
+func (widget *Widget) openItem() {
+	sel := widget.selected
+	if sel >= 0 && widget.result != nil && sel < len(widget.result.Issues) {
+		issue := &widget.result.Issues[widget.selected]
+		wtf.OpenFile(wtf.Config.UString("wtf.mods.jira.domain") + "/browse/" + issue.Key)
+	}
+}
+
+func (widget *Widget) unselect() {
+	widget.selected = -1
+}
 
 func (widget *Widget) contentFrom(searchResult *SearchResult) string {
 	str := " [red]Assigned Issues[white]\n"
 
 	for idx, issue := range searchResult.Issues {
 		str = str + fmt.Sprintf(
-			" [%s]%-6s[white] [green]%-10s[%s] %s\n",
+			" [%s]%-6s[white] [green]%-10s [%s]%s\n",
 			widget.issueTypeColor(&issue),
 			issue.IssueFields.IssueType.Name,
 			issue.Key,
-			wtf.RowColor("jira", idx),
+			widget.rowColor(idx),
 			issue.IssueFields.Summary,
 		)
 	}
 
 	return str
+}
+
+func (widget *Widget) rowColor(idx int) string {
+	if widget.View.HasFocus() && (idx == widget.selected) {
+		foreColor := wtf.Config.UString("wtf.mods.jira.colors.highlight.fore", "black")
+		backColor := wtf.Config.UString("wtf.mods.jira.colors.highlight.back", "white")
+		return fmt.Sprintf("%s:%s", foreColor, backColor)
+	}
+	return wtf.RowColor("jira", idx)
 }
 
 func (widget *Widget) issueTypeColor(issue *Issue) string {
@@ -94,4 +145,43 @@ func getProjects() []string {
 		}
 	}
 	return ret
+}
+
+func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
+	switch string(event.Rune()) {
+	case "j":
+		// Select the next item down
+		widget.next()
+		widget.display()
+		return nil
+	case "k":
+		// Select the next item up
+		widget.prev()
+		widget.display()
+		return nil
+	}
+
+	switch event.Key() {
+	case tcell.KeyDown:
+		// Select the next item down
+		widget.next()
+		widget.display()
+		return nil
+	case tcell.KeyEnter:
+		widget.openItem()
+		return nil
+	case tcell.KeyEsc:
+		// Unselect the current row
+		widget.unselect()
+		widget.display()
+		return event
+	case tcell.KeyUp:
+		// Select the next item up
+		widget.prev()
+		widget.display()
+		return nil
+	default:
+		// Pass it along
+		return event
+	}
 }

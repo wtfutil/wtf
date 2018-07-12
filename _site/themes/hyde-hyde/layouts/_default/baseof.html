@@ -4,6 +4,10 @@
     {{ block "header" . -}}{{- end }}
 	</head>
     <body {{- if .Site.Params.themeColor }} class="{{ .Site.Params.themeColor }} {{if .Site.Params.layoutReverse}}layout-reverse{{end}}" {{ end }}>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-532RMQJ"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
         {{ partial "sidebar.html" . }}
         <div class="content container">
             {{ block "content" . }}{{ end }}
@@ -14,6 +18,6 @@
         <!-- Google Analytics -->
         {{ if .Site.GoogleAnalytics -}}
             {{ template "_internal/google_analytics_async.html" . }}
-        {{- end }}        
+        {{- end }}
     </body>
 </html>

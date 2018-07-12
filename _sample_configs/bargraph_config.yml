@@ -10,14 +10,9 @@ wtf:
   refreshInterval: 1
   mods:
     bargraph:
-      colors:
-        from:
-          name: coral
-          displayName: grey
-        to:
-          name: white
-          price: green
       enabled: true
+      graphIcon: "💀"
+      graphStars: 25
       position:
         top: 2
         left: 0

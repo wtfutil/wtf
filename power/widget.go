@@ -27,10 +27,10 @@ func (widget *Widget) Refresh() {
 	widget.UpdateRefreshedAt()
 	widget.Battery.Refresh()
 
-	str := ""
-	str = str + fmt.Sprintf(" %10s: %s\n", "Source", powerSource())
-	str = str + "\n"
-	str = str + widget.Battery.String()
+	content := ""
+	content = content + fmt.Sprintf(" %10s: %s\n", "Source", powerSource())
+	content = content + "\n"
+	content = content + widget.Battery.String()
 
-	widget.View.SetText(fmt.Sprintf("%s", str))
+	widget.View.SetText(content)
 }

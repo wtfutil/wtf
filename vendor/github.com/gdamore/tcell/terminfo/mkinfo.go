@@ -1,6 +1,6 @@
 // +build ignore
 
-// Copyright 2017 The TCell Authors
+// Copyright 2018 The TCell Authors
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use file except in compliance with the License.
@@ -22,6 +22,8 @@
 //
 // mkinfo [-init] [-go file.go] [-json file.json] [-quiet] [-nofatal] [<term>...]
 //
+// -all      scan terminfo to determine database entries to use
+// -db       generate database entries (database/*), implied for -all
 // -gzip     specifies output should be compressed (json only)
 // -go       specifies Go output into the named file.  Use - for stdout.
 // -json     specifies JSON output in the named file.  Use - for stdout
@@ -31,8 +33,10 @@
 package main
 
 import (
+	"bufio"
 	"bytes"
 	"compress/gzip"
+	"crypto/sha1"
 	"encoding/json"
 	"errors"
 	"flag"
@@ -40,6 +44,7 @@ import (
 	"io"
 	"os"
 	"os/exec"
+	"path"
 	"regexp"
 	"strconv"
 	"strings"
@@ -74,6 +79,8 @@ const (
 	ESC
 )
 
+var notaddressable = errors.New("terminal not cursor addressable")
+
 func unescape(s string) string {
 	// Various escapes are in \x format.  Control codes are
 	// encoded as ^M (carat followed by ASCII equivalent).
@@ -101,8 +108,13 @@ func unescape(s string) string {
 			switch c {
 			case 'E', 'e':
 				buf.WriteByte(0x1b)
-			case '0':
-				buf.WriteByte(0)
+			case '0', '1', '2', '3', '4', '5', '6', '7':
+				if i+2 < len(s) && s[i+1] >= '0' && s[i+1] <= '7' && s[i+2] >= '0' && s[i+2] <= '7' {
+					buf.WriteByte(((c - '0') * 64) + ((s[i+1] - '0') * 8) + (s[i+2] - '0'))
+					i = i + 2
+				} else if c == '0' {
+					buf.WriteByte(0)
+				}
 			case 'n':
 				buf.WriteByte('\n')
 			case 'r':
@@ -124,6 +136,25 @@ func unescape(s string) string {
 		}
 	}
 	return (buf.String())
+}
+
+func getallterms() ([]string, error) {
+	out := []string{}
+	cmd := exec.Command("toe", "-a")
+	output := &bytes.Buffer{}
+	cmd.Stdout = output
+	err := cmd.Run()
+	if err != nil {
+		return nil, err
+	}
+	lines := strings.Split(output.String(), "\n")
+	for _, l := range lines {
+		fields := strings.Fields(l)
+		if len(fields) > 0 {
+			out = append(out, fields[0])
+		}
+	}
+	return out, nil
 }
 
 func (tc *termcap) setupterm(name string) error {
@@ -178,7 +209,7 @@ func (tc *termcap) setupterm(name string) error {
 		if k := strings.SplitN(val, "=", 2); len(k) == 2 {
 			tc.strs[k[0]] = unescape(k[1])
 		} else if k := strings.SplitN(val, "#", 2); len(k) == 2 {
-			if u, err := strconv.ParseUint(k[1], 10, 0); err != nil {
+			if u, err := strconv.ParseUint(k[1], 0, 0); err != nil {
 				return (err)
 			} else {
 				tc.nums[k[0]] = int(u)
@@ -428,7 +459,7 @@ func getinfo(name string) (*terminfo.Terminfo, string, error) {
 		t.Colors = 0
 	}
 	if t.SetCursor == "" {
-		return nil, "", errors.New("terminal not cursor addressable")
+		return nil, "", notaddressable
 	}
 
 	// For padding, we lookup the pad char.  If that isn't present,
@@ -672,13 +703,135 @@ func dotGoInfo(w io.Writer, t *terminfo.Terminfo, desc string) {
 	fmt.Fprintln(w, "}")
 }
 
+var packname = "terminfo"
+
+func dotGoFile(fname string, term *terminfo.Terminfo, desc string, makeDir bool) error {
+	w := os.Stdout
+	var e error
+	if fname != "-" && fname != "" {
+		if makeDir {
+			dname := path.Dir(fname)
+			_ = os.Mkdir(dname, 0777)
+		}
+		if w, e = os.Create(fname); e != nil {
+			return e
+		}
+	}
+	dotGoHeader(w, packname)
+	dotGoInfo(w, term, desc)
+	dotGoTrailer(w)
+	if w != os.Stdout {
+		w.Close()
+	}
+	cmd := exec.Command("go", "fmt", fname)
+	cmd.Run()
+	return nil
+}
+
+func dotGzFile(fname string, term *terminfo.Terminfo, makeDir bool) error {
+
+	var w io.WriteCloser = os.Stdout
+	var e error
+	if fname != "-" && fname != "" {
+		if makeDir {
+			dname := path.Dir(fname)
+			_ = os.Mkdir(dname, 0777)
+		}
+		if w, e = os.Create(fname); e != nil {
+			return e
+		}
+	}
+
+	w = gzip.NewWriter(w)
+
+	js, e := json.Marshal(term)
+	fmt.Fprintln(w, string(js))
+
+	if w != os.Stdout {
+		w.Close()
+	}
+	return nil
+}
+
+func jsonFile(fname string, term *terminfo.Terminfo, makeDir bool) error {
+	w := os.Stdout
+	var e error
+	if fname != "-" && fname != "" {
+		if makeDir {
+			dname := path.Dir(fname)
+			_ = os.Mkdir(dname, 0777)
+		}
+		if w, e = os.Create(fname); e != nil {
+			return e
+		}
+	}
+
+	js, e := json.Marshal(term)
+	fmt.Fprintln(w, string(js))
+
+	if w != os.Stdout {
+		w.Close()
+	}
+	return nil
+}
+
+func dumpDatabase(terms map[string]*terminfo.Terminfo, descs map[string]string) {
+
+	// Load models .text
+	mfile, e := os.Open("models.txt")
+	models := make(map[string]bool)
+	if e != nil {
+		fmt.Fprintf(os.Stderr, "Failed reading models.txt: %v", e)
+	}
+	scanner := bufio.NewScanner(mfile)
+	for scanner.Scan() {
+		models[scanner.Text()] = true
+	}
+
+	for name, t := range terms {
+
+		// If this is one of our builtin models, generate the GO file
+		if models[name] {
+			desc := descs[name]
+			safename := strings.Replace(name, "-", "_", -1)
+			goname := fmt.Sprintf("term_%s.go", safename)
+			e = dotGoFile(goname, t, desc, true)
+			if e != nil {
+				fmt.Fprintf(os.Stderr, "Failed creating %s: %v", goname, e)
+				os.Exit(1)
+			}
+			continue
+		}
+
+		hash := fmt.Sprintf("%x", sha1.Sum([]byte(name)))
+		fname := fmt.Sprintf("%s.gz", hash[0:8])
+		fname = path.Join("database", hash[0:2], fname)
+		e = dotGzFile(fname, t, true)
+		if e != nil {
+			fmt.Fprintf(os.Stderr, "Failed creating %s: %v", fname, e)
+			os.Exit(1)
+		}
+
+		for _, a := range t.Aliases {
+			hash = fmt.Sprintf("%x", sha1.Sum([]byte(a)))
+			fname = path.Join("database", hash[0:2], hash[0:8])
+			e = jsonFile(fname, &terminfo.Terminfo{Name: t.Name}, true)
+			if e != nil {
+				fmt.Fprintf(os.Stderr, "Failed creating %s: %v", fname, e)
+				os.Exit(1)
+			}
+		}
+	}
+}
+
 func main() {
 	gofile := ""
 	jsonfile := ""
-	packname := "terminfo"
 	nofatal := false
 	quiet := false
 	dogzip := false
+	all := false
+	db := false
 
 	flag.StringVar(&gofile, "go", "", "generate go source in named file")
 	flag.StringVar(&jsonfile, "json", "", "generate json in named file")
@@ -686,11 +839,21 @@ func main() {
 	flag.BoolVar(&nofatal, "nofatal", false, "errors are not fatal")
 	flag.BoolVar(&quiet, "quiet", false, "suppress error messages")
 	flag.BoolVar(&dogzip, "gzip", false, "compress json output")
+	flag.BoolVar(&all, "all", false, "load all terminals from terminfo")
+	flag.BoolVar(&db, "db", false, "generate json db file in place")
 	flag.Parse()
 	var e error
-	js := []byte{}
 
 	args := flag.Args()
+	if all {
+		db = true // implied
+		allterms, e := getallterms()
+		if e != nil {
+			fmt.Fprintf(os.Stderr, "Failed: %v", e)
+			os.Exit(1)
+		}
+		args = append(args, allterms...)
+	}
 	if len(args) == 0 {
 		args = []string{os.Getenv("TERM")}
 	}
@@ -700,6 +863,9 @@ func main() {
 
 	for _, term := range args {
 		if t, desc, e := getinfo(term); e != nil {
+			if all && e == notaddressable {
+				continue
+			}
 			if !quiet {
 				fmt.Fprintf(os.Stderr,
 					"Failed loading %s: %v\n", term, e)
@@ -717,53 +883,33 @@ func main() {
 		// No data.
 		os.Exit(0)
 	}
-	if gofile != "" {
-		w := os.Stdout
-		if gofile != "-" {
-			if w, e = os.Create(gofile); e != nil {
-				fmt.Fprintf(os.Stderr, "Failed: %v", e)
-				os.Exit(1)
-			}
-		}
-		dotGoHeader(w, packname)
+
+	if db {
+		dumpDatabase(tdata, descs)
+	} else if gofile != "" {
 		for term, t := range tdata {
 			if t.Name == term {
-				dotGoInfo(w, t, descs[term])
+				e = dotGoFile(gofile, t, descs[term], false)
+				if e != nil {
+					fmt.Fprintf(os.Stderr, "Failed %s: %v", gofile, e)
+					os.Exit(1)
+				}
 			}
 		}
-		dotGoTrailer(w)
-		if w != os.Stdout {
-			w.Close()
-		}
+
 	} else {
-		o := os.Stdout
-		if jsonfile != "-" && jsonfile != "" {
-			if o, e = os.Create(jsonfile); e != nil {
-				fmt.Fprintf(os.Stderr, "Failed: %v", e)
+		for _, t := range tdata {
+			if dogzip {
+				if e = dotGzFile(jsonfile, t, false); e != nil {
+					fmt.Fprintf(os.Stderr, "Failed %s: %v", gofile, e)
+					os.Exit(1)
+				}
+			} else {
+				if e = jsonFile(jsonfile, t, false); e != nil {
+					fmt.Fprintf(os.Stderr, "Failed %s: %v", gofile, e)
+					os.Exit(1)
+				}
 			}
-		}
-		var w io.WriteCloser
-		w = o
-		if dogzip {
-			w = gzip.NewWriter(o)
-		}
-		for _, term := range args {
-			if t := tdata[term]; t != nil {
-				js, e = json.Marshal(t)
-				fmt.Fprintln(w, string(js))
-			}
-			// arguably if there is more than one term, this
-			// should be a javascript array, but that's not how
-			// we load it.  We marshal objects one at a time from
-			// the file.
-		}
-		if e != nil {
-			fmt.Fprintf(os.Stderr, "Failed: %v", e)
-			os.Exit(1)
-		}
-		w.Close()
-		if w != o {
-			o.Close()
 		}
 	}
 }

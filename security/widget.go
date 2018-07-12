@@ -28,8 +28,7 @@ func (widget *Widget) Refresh() {
 	data.Fetch()
 
 	widget.UpdateRefreshedAt()
-
-	widget.View.SetText(fmt.Sprintf("%s", widget.contentFrom(data)))
+	widget.View.SetText(widget.contentFrom(data))
 }
 
 /* -------------------- Unexported Functions -------------------- */

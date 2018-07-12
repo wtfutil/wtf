@@ -7,10 +7,9 @@ import (
 )
 
 func (widget *Widget) display() {
-
 	repo := widget.currentGithubRepo()
 	if repo == nil {
-		fmt.Fprintf(widget.View, "%s", " Github repo data is unavailable (1)")
+		widget.View.SetText(" GitHub repo data is unavailable ")
 		return
 	}
 

@@ -50,7 +50,7 @@ func MakeGraph(widget *Widget) {
 
 	}
 
-	widget.BarGraph.BuildBars(20, "🌟", stats[:])
+	widget.BarGraph.BuildBars(stats[:])
 
 }
 

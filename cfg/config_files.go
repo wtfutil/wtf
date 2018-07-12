@@ -81,11 +81,10 @@ func CreateConfigFile() {
 	}
 
 	// If the file is empty, write to it
-	file, err := os.Stat(filePath)
+	file, _ := os.Stat(filePath)
 
 	if file.Size() == 0 {
-		err = ioutil.WriteFile(filePath, []byte(simpleConfig), 0644)
-		if err != nil {
+		if ioutil.WriteFile(filePath, []byte(simpleConfig), 0644) != nil {
 			panic(err)
 		}
 	}
@@ -131,22 +130,6 @@ func LoadConfigFile(filePath string) *config.Config {
 	}
 
 	return cfg
-}
-
-func ReadConfigFile(fileName string) (string, error) {
-	configDir, err := ConfigDir()
-	if err != nil {
-		return "", err
-	}
-
-	filePath := fmt.Sprintf("%s/%s", configDir, fileName)
-
-	fileData, err := wtf.ReadFileBytes(filePath)
-	if err != nil {
-		return "", err
-	}
-
-	return string(fileData), nil
 }
 
 const simpleConfig = `wtf:

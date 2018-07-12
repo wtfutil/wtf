@@ -644,7 +644,6 @@ ColumnLoop:
 			}
 			expWidth := toDistribute * expansion / expansionTotal
 			widths[index] += expWidth
-			tableWidth += expWidth
 			toDistribute -= expWidth
 			expansionTotal -= expansion
 		}

@@ -27,13 +27,16 @@ func (widget *Widget) Refresh() {
 	widget.UpdateRefreshedAt()
 	widget.View.SetTitle(widget.Name)
 
+	var content string
 	if err != nil {
 		widget.View.SetWrap(true)
-		widget.View.SetText(fmt.Sprintf("%s", err))
+		content = err.Error()
 	} else {
 		widget.View.SetWrap(false)
-		widget.View.SetText(fmt.Sprintf("%s", widget.contentFrom(data)))
+		content = widget.contentFrom(data)
 	}
+
+	widget.View.SetText(content)
 }
 
 /* -------------------- Unexported Functions -------------------- */

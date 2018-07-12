@@ -32,22 +32,20 @@ func (widget *Widget) Refresh() {
 	)
 
 	widget.UpdateRefreshedAt()
-	widget.View.Clear()
+	//widget.View.Clear()
 
+	var content string
 	if err != nil {
 		widget.View.SetWrap(true)
 		widget.View.SetTitle(fmt.Sprintf(" %s ", widget.Name))
-		fmt.Fprintf(widget.View, "%v", err)
+		content = err.Error()
 	} else {
 		widget.View.SetWrap(false)
-		widget.View.SetTitle(
-			fmt.Sprintf(
-				" %s: [green] ",
-				widget.Name,
-			),
-		)
-		fmt.Fprintf(widget.View, "%s", widget.contentFrom(view))
+		widget.View.SetTitle(fmt.Sprintf(" %s: [green] ", widget.Name))
+		content = widget.contentFrom(view)
 	}
+
+	widget.View.SetText(content)
 }
 
 /* -------------------- Unexported Functions -------------------- */

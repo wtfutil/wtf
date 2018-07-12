@@ -23,5 +23,5 @@ func (widget *Widget) display(clocks []Clock) {
 		)
 	}
 
-	widget.View.SetText(fmt.Sprintf("%s", str))
+	widget.View.SetText(str)
 }

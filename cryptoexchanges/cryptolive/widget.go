@@ -1,31 +1,38 @@
 package cryptolive
 
 import (
-	"encoding/json"
 	"fmt"
-	"net/http"
-	"time"
+	"sync"
 
+	"github.com/olebedev/config"
+	"github.com/senorprogrammer/wtf/cryptoexchanges/cryptolive/price"
+	"github.com/senorprogrammer/wtf/cryptoexchanges/cryptolive/toplist"
 	"github.com/senorprogrammer/wtf/wtf"
 )
 
-var baseURL = "https://min-api.cryptocompare.com/data/price"
-var ok = true
+// Config is a pointer to the global config object
+var Config *config.Config
 
 // Widget define wtf widget to register widget later
 type Widget struct {
 	wtf.TextWidget
-
-	*list
+	priceWidget   *price.Widget
+	toplistWidget *toplist.Widget
 }
 
 // NewWidget Make new instance of widget
 func NewWidget() *Widget {
+	price.Config = Config
+	toplist.Config = Config
+
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(" CryptoLive ", "cryptolive", false),
+		TextWidget:    wtf.NewTextWidget(" CryptoLive ", "cryptolive", false),
+		priceWidget:   price.NewWidget(),
+		toplistWidget: toplist.NewWidget(),
 	}
 
-	widget.setList()
+	widget.priceWidget.RefreshInterval = widget.RefreshInterval()
+	widget.toplistWidget.RefreshInterval = widget.RefreshInterval()
 
 	return &widget
 }
@@ -34,119 +41,23 @@ func NewWidget() *Widget {
 
 // Refresh & update after interval time
 func (widget *Widget) Refresh() {
-	widget.updateCurrencies()
+	var wg sync.WaitGroup
+
+	wg.Add(2)
+	widget.priceWidget.Refresh(&wg)
+	widget.toplistWidget.Refresh(&wg)
+	wg.Wait()
+
 	widget.UpdateRefreshedAt()
 
-	if !ok {
-		widget.View.SetText(
-			fmt.Sprint("Please check your internet connection!"),
-		)
-		return
-	}
-
-	widget.display()
+	display(widget)
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (widget *Widget) display() {
+func display(widget *Widget) {
 	str := ""
-	var (
-		fromNameColor        = wtf.Config.UString("wtf.mods.cryptolive.colors.from.name", "coral")
-		fromDisplayNameColor = wtf.Config.UString("wtf.mods.cryptolive.colors.from.displayName", "grey")
-		toNameColor          = wtf.Config.UString("wtf.mods.cryptolive.colors.to.name", "white")
-		toPriceColor         = wtf.Config.UString("wtf.mods.cryptolive.colors.to.price", "green")
-	)
-	for _, item := range widget.list.items {
-		str += fmt.Sprintf(" [%s]%s[%s] (%s)\n", fromNameColor, item.displayName, fromDisplayNameColor, item.name)
-		for _, toItem := range item.to {
-			str += fmt.Sprintf("\t[%s]%s: [%s]%f\n", toNameColor, toItem.name, toPriceColor, toItem.price)
-		}
-		str += "\n"
-	}
-
+	str += widget.priceWidget.Result
+	str += widget.toplistWidget.Result
 	widget.View.SetText(fmt.Sprintf("\n%s", str))
-}
-
-func getToList(fromName string) []*toCurrency {
-	toNames, _ := wtf.Config.List("wtf.mods.cryptolive.currencies." + fromName + ".to")
-
-	var toList []*toCurrency
-
-	for _, to := range toNames {
-		toList = append(toList, &toCurrency{
-			name:  to.(string),
-			price: 0,
-		})
-	}
-
-	return toList
-}
-
-func (widget *Widget) setList() {
-	currenciesMap, _ := wtf.Config.Map("wtf.mods.cryptolive.currencies")
-
-	widget.list = &list{}
-
-	for currency := range currenciesMap {
-		displayName, _ := wtf.Config.String("wtf.mods.cryptolive.currencies." + currency + ".displayName")
-		toList := getToList(currency)
-		widget.list.addItem(currency, displayName, toList)
-	}
-}
-
-func (widget *Widget) updateCurrencies() {
-	defer func() {
-		recover()
-	}()
-	for _, fromCurrency := range widget.list.items {
-
-		var (
-			client       http.Client
-			jsonResponse cResponse
-		)
-
-		client = http.Client{
-			Timeout: time.Duration(5 * time.Second),
-		}
-
-		request := makeRequest(fromCurrency)
-		response, err := client.Do(request)
-
-		if err != nil {
-			ok = false
-		} else {
-			ok = true
-		}
-
-		defer response.Body.Close()
-
-		_ = json.NewDecoder(response.Body).Decode(&jsonResponse)
-
-		setPrices(&jsonResponse, fromCurrency)
-	}
-
-	widget.display()
-}
-
-func makeRequest(currency *fromCurrency) *http.Request {
-	fsym := currency.name
-	tsyms := ""
-	for _, to := range currency.to {
-		tsyms += fmt.Sprintf("%s,", to.name)
-	}
-
-	url := fmt.Sprintf("%s?fsym=%s&tsyms=%s", baseURL, fsym, tsyms)
-	request, err := http.NewRequest("GET", url, nil)
-
-	if err != nil {
-	}
-
-	return request
-}
-
-func setPrices(response *cResponse, currencry *fromCurrency) {
-	for idx, toCurrency := range currencry.to {
-		currencry.to[idx].price = (*response)[toCurrency.name]
-	}
 }

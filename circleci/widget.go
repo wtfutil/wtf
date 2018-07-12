@@ -30,13 +30,16 @@ func (widget *Widget) Refresh() {
 
 	widget.View.SetTitle(fmt.Sprintf("%s - Builds", widget.Name))
 
+	var content string
 	if err != nil {
 		widget.View.SetWrap(true)
-		fmt.Fprintf(widget.View, "%v", err)
+		content = err.Error()
 	} else {
 		widget.View.SetWrap(false)
-		widget.View.SetText(fmt.Sprintf("%s", widget.contentFrom(builds)))
+		content = widget.contentFrom(builds)
 	}
+
+	widget.View.SetText(content)
 }
 
 /* -------------------- Unexported Functions -------------------- */
@@ -68,6 +71,8 @@ func buildColor(build *Build) string {
 	case "running":
 		return "yellow"
 	case "success":
+		return "green"
+	case "fixed":
 		return "green"
 	default:
 		return "white"
