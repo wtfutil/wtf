@@ -145,7 +145,8 @@ current temperature, sunrise time, and sunset time.</p>
 <h2 id="required-env-variables">Required ENV Variables</h2>
 
 <p><span class="caption">Key:</span> <code>WTF_OWM_API_KEY</code> <br />
-<span class="caption">Action:</span> Your <a href="https://openweathermap.org/appid">OpenWeatherMap API</a> key.</p>
+<span class="caption">Action:</span> Your <a href="https://openweathermap.org/appid">OpenWeatherMap API</a> key. <br />
+<span class="caption">Note:</span> DEPRECATED. See the <code>apiKey</code> config value, below.</p>
 
 <h2 id="keyboard-commands">Keyboard Commands</h2>
 
@@ -166,6 +167,7 @@ current temperature, sunrise time, and sunset time.</p>
 
 <h2 id="configuration">Configuration</h2>
 <div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">weather<span class="p">:</span><span class="w">
+</span><span class="w">  </span>apiKey<span class="p">:</span><span class="w"> </span><span class="s2">&#34;2dfb3e3650a1950adddb6badf5ba1aaa&#34;</span><span class="w">
 </span><span class="w">  </span><span class="c"># From http://openweathermap.org/help/city_list.txt</span><span class="w">
 </span><span class="w">  </span>cityids<span class="p">:</span><span class="w">
 </span><span class="w">  </span>-<span class="w"> </span><span class="m">6173331</span><span class="w">
@@ -184,6 +186,9 @@ current temperature, sunrise time, and sunset time.</p>
 </span><span class="w">  </span>refreshInterval<span class="p">:</span><span class="w"> </span><span class="m">900</span><span class="w">
 </span><span class="w">  </span>tempUnit<span class="p">:</span><span class="w"> </span><span class="s2">&#34;C&#34;</span></code></pre></div>
 <h3 id="attributes">Attributes</h3>
+
+<p><code>apiKey</code> <br />
+Your <a href="https://openweathermap.org/appid">OpenWeatherMap API</a> key.</p>
 
 <p><code>cityids</code> <br />
 A list of the <a

@@ -380,12 +380,11 @@ Key: h Action: Show the previous git repository.</description>
       
       <guid>https://wtfutil.com/posts/modules/weather/</guid>
       <description>Displays a configurable list of current weather report, including current temperature, sunrise time, and sunset time.
-Source Code wtf/weather/ Required ENV Variables Key: WTF_OWM_API_KEY Action: Your OpenWeatherMap API key.
+Source Code wtf/weather/ Required ENV Variables Key: WTF_OWM_API_KEY Action: Your OpenWeatherMap API key. Note: DEPRECATED. See the apiKey config value, below.
 Keyboard Commands Key: / Action: Open/close the widget&amp;rsquo;s help window.
 Key: h Action: Show the previous weather location.
 Key: l Action: Show the next weather location.
-Key: ← Action: Show the previous weather location.
-Key: → Action: Show the next weather location.</description>
+Key: ← Action: Show the previous weather location.</description>
     </item>
     
     <item>
