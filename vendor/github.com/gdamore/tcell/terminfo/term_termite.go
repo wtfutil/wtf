@@ -3,13 +3,12 @@
 package terminfo
 
 func init() {
-	// X11 terminal emulator
+	// VTE-based terminal
 	AddTerminfo(&Terminfo{
-		Name:            "xterm",
-		Aliases:         []string{"xterm-debian"},
+		Name:            "xterm-termite",
 		Columns:         80,
 		Lines:           24,
-		Colors:          8,
+		Colors:          256,
 		Bell:            "\a",
 		Clear:           "\x1b[H\x1b[2J",
 		EnterCA:         "\x1b[?1049h",
@@ -20,14 +19,13 @@ func init() {
 		Underline:       "\x1b[4m",
 		Bold:            "\x1b[1m",
 		Dim:             "\x1b[2m",
-		Blink:           "\x1b[5m",
 		Reverse:         "\x1b[7m",
 		EnterKeypad:     "\x1b[?1h\x1b=",
 		ExitKeypad:      "\x1b[?1l\x1b>",
-		SetFg:           "\x1b[3%p1%dm",
-		SetBg:           "\x1b[4%p1%dm",
-		SetFgBg:         "\x1b[3%p1%d;4%p2%dm",
-		AltChars:        "``aaffggiijjkkllmmnnooppqqrrssttuuvvwwxxyyzz{{||}}~~",
+		SetFg:           "\x1b[%?%p1%{8}%<%t3%p1%d%e%p1%{16}%<%t9%p1%{8}%-%d%e38;5;%p1%d%;m",
+		SetBg:           "\x1b[%?%p1%{8}%<%t4%p1%d%e%p1%{16}%<%t10%p1%{8}%-%d%e48;5;%p1%d%;m",
+		SetFgBg:         "\x1b[%?%p1%{8}%<%t3%p1%d%e%p1%{16}%<%t9%p1%{8}%-%d%e38;5;%p1%d%;;%?%p2%{8}%<%t4%p2%d%e%p2%{16}%<%t10%p2%{8}%-%d%e48;5;%p2%d%;m",
+		AltChars:        "++,,--..00``aaffgghhiijjkkllmmnnooppqqrrssttuuvvwwxxyyzz{{||}}~~",
 		EnterAcs:        "\x1b(0",
 		ExitAcs:         "\x1b(B",
 		Mouse:           "\x1b[M",
@@ -41,7 +39,7 @@ func init() {
 		KeyLeft:         "\x1bOD",
 		KeyInsert:       "\x1b[2~",
 		KeyDelete:       "\x1b[3~",
-		KeyBackspace:    "\u007f",
+		KeyBackspace:    "\xff",
 		KeyHome:         "\x1bOH",
 		KeyEnd:          "\x1bOF",
 		KeyPgUp:         "\x1b[5~",

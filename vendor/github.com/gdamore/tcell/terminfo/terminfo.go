@@ -1,4 +1,4 @@
-// Copyright 2017 The TCell Authors
+// Copyright 2018 The TCell Authors
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use file except in compliance with the License.
@@ -17,12 +17,14 @@ package terminfo
 import (
 	"bytes"
 	"compress/gzip"
+	"crypto/sha1"
 	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
 	"os"
 	"path"
+	"path/filepath"
 	"strconv"
 	"strings"
 	"sync"
@@ -753,9 +755,23 @@ func loadFromFile(fname string, term string) (*Terminfo, error) {
 // LookupTerminfo attempts to find a definition for the named $TERM.
 // It first looks in the builtin database, which should cover just about
 // everyone.  If it can't find one there, then it will attempt to read
-// one from the JSON file located in either $TCELLDB, $HOME/.tcelldb
-// or in this package's source directory as database.json).
+// one from the JSON file located in either $TCELLDB, $HOME/.tcelldb,
+// or as a database file.
+//
+// The database files are named by taking  terminal name, hashing it through
+// sha1, and then a subdirectory of the form database/hash[0:2]/hash[0:8]
+// (with an optional .gz extension).
+//
+// For other local database files, we will look for the database file using
+// the terminal name, so database/term[0:2]/term[0:8], again with optional
+// .gz extension.
 func LookupTerminfo(name string) (*Terminfo, error) {
+	if name == "" {
+		// else on windows: index out of bounds
+		// on the name[0] reference below
+		return nil, ErrTermNotFound
+	}
+
 	dblock.Lock()
 	t := terminfos[name]
 	dblock.Unlock()
@@ -766,38 +782,65 @@ func LookupTerminfo(name string) (*Terminfo, error) {
 		letter := fmt.Sprintf("%02x", name[0])
 		gzfile := path.Join(letter, name+".gz")
 		jsfile := path.Join(letter, name)
+		hash := fmt.Sprintf("%x", sha1.Sum([]byte(name)))
+		gzhfile := path.Join(hash[0:2], hash[0:8]+".gz")
+		jshfile := path.Join(hash[0:2], hash[0:8])
 
 		// Build up the search path.  Old versions of tcell used a
 		// single database file, whereas the new ones locate them
 		// in JSON (optionally compressed) files.
 		//
-		// The search path looks like:
+		// The search path for "xterm" (SHA1 sig e2e28a8e...) looks
+		// like this:
 		//
-		// $TCELLDB/x/xterm.gz
-		// $TCELLDB/x/xterm
+		// $TCELLDB/78/xterm.gz
+		// $TCELLDB/78/xterm
 		// $TCELLDB
-		// $HOME/.tcelldb/x/xterm.gz
-		// $HOME/.tcelldb/x/xterm
+		// $HOME/.tcelldb/e2/e2e28a8e.gz
+		// $HOME/.tcelldb/e2/e2e28a8e
+		// $HOME/.tcelldb/78/xterm.gz
+		// $HOME/.tcelldb/78/xterm
 		// $HOME/.tcelldb
-		// $GOPATH/terminfo/database/x/xterm.gz
-		// $GOPATH/terminfo/database/x/xterm
+		// $GOPATH/terminfo/database/e2/e2e28a8e.gz
+		// $GOPATH/terminfo/database/e2/e2e28a8e
+		// $GOPATH/terminfo/database/78/xterm.gz
+		// $GOPATH/terminfo/database/78/xterm
 		//
+		// Note that the legacy name lookups (78/xterm etc.) are
+		// provided for compatibility.  We do not actually deliver
+		// any files with this style of naming, to avoid collisions
+		// on case insensitive filesystems. (*cough* mac *cough*).
+
+		// If $GOPATH set, honor it, else assume $HOME/go just like
+		// modern golang does.
+		gopath := os.Getenv("GOPATH")
+		if gopath == "" {
+			gopath = path.Join(os.Getenv("HOME"), "go")
+		}
 		if pth := os.Getenv("TCELLDB"); pth != "" {
-			files = append(files, path.Join(pth, gzfile))
-			files = append(files, path.Join(pth, jsfile))
-			files = append(files, pth)
+			files = append(files,
+				path.Join(pth, gzfile),
+				path.Join(pth, jsfile),
+				pth)
 		}
 		if pth := os.Getenv("HOME"); pth != "" {
 			pth = path.Join(pth, ".tcelldb")
-			files = append(files, path.Join(pth, gzfile))
-			files = append(files, path.Join(pth, jsfile))
-			files = append(files, pth)
+			files = append(files,
+				path.Join(pth, gzhfile),
+				path.Join(pth, jshfile),
+				path.Join(pth, gzfile),
+				path.Join(pth, jsfile),
+				pth)
 		}
 
-		for _, pth := range strings.Split(os.Getenv("GOPATH"), string(os.PathListSeparator)) {
-			pth = path.Join(pth, "src", "github.com", "gdamore", "tcell", "terminfo", "database")
-			files = append(files, path.Join(pth, gzfile))
-			files = append(files, path.Join(pth, jsfile))
+		for _, pth := range filepath.SplitList(gopath) {
+			pth = path.Join(pth, "src", "github.com",
+				"gdamore", "tcell", "terminfo", "database")
+			files = append(files,
+				path.Join(pth, gzhfile),
+				path.Join(pth, jshfile),
+				path.Join(pth, gzfile),
+				path.Join(pth, jsfile))
 		}
 
 		for _, fname := range files {

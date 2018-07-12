@@ -15,7 +15,7 @@ func init() {
 		ExitCA:       "\x1bw1",
 		ShowCursor:   "\x1b`1",
 		HideCursor:   "\x1b`0",
-		AttrOff:      "\x1b(\x1bH\x0003\x1bG0\x1bcD",
+		AttrOff:      "\x1b(\x1bH\x03\x1bG0\x1bcD",
 		Underline:    "\x1bG8",
 		Dim:          "\x1bGp",
 		Blink:        "\x1bG2",

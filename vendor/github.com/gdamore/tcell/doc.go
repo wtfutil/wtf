@@ -1,4 +1,4 @@
-// Copyright 2015 The TCell Authors
+// Copyright 2018 The TCell Authors
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use file except in compliance with the License.
@@ -25,7 +25,7 @@
 // of course.  (Windows, XTerm, and iTerm 2 are known to work very well.)
 //
 // If the environment is not Unicode by default, such as an ISO8859 based
-// locale or GB18030, Tcell can convert input and outupt, so that your
+// locale or GB18030, Tcell can convert input and output, so that your
 // terminal can operate in whatever locale is most convenient, while the
 // application program can just assume "everything is UTF-8".  Reasonable
 // defaults are used for updating characters to something suitable for
@@ -33,6 +33,14 @@
 // alternate character set of your terminal, if native conversions are
 // not available.  If no ACS is available, then some ASCII fallbacks will
 // be used.
+//
+// Note that support for non-UTF-8 locales (other than C)  must be enabled
+// by the application using RegisterEncoding() -- we don't have them all
+// enabled by default to avoid bloating the application unneccessarily.
+// (These days UTF-8 is good enough for almost everyone, and nobody should
+// be using legacy locales anymore.)  Also, actual glyphs for various code
+// point will only be displayed if your terminal or emulator (or the font
+// the emulator is using) supports them.
 //
 // A rich set of keycodes is supported, with support for up to 65 function
 // keys, and various other special keys.

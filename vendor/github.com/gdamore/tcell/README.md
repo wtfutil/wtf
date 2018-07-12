@@ -1,4 +1,4 @@
-## tcell
+## tcell <img src=tcell.png align=right>
 
 [![Linux Status](https://img.shields.io/travis/gdamore/tcell.svg?label=linux)](https://travis-ci.org/gdamore/tcell)
 [![Windows Status](https://img.shields.io/appveyor/ci/gdamore/tcell.svg?label=windows)](https://ci.appveyor.com/project/gdamore/tcell)
@@ -8,12 +8,6 @@
 [![Go Report Card](http://goreportcard.com/badge/gdamore/tcell)](http://goreportcard.com/report/gdamore/tcell)
 [![codecov](https://codecov.io/gh/gdamore/tcell/branch/master/graph/badge.svg)](https://codecov.io/gh/gdamore/tcell)
 
-
-> _Tcell is a work in progress (Gamma).
-> Please use with caution; interfaces may change in before final release.
-> That said, our confidence in Tcell's stability is increasing.  If you
-> would like to use it in your own application, it is recommended that
-> you drop a message to garrett@damore.org before commitment._
 
 Package tcell provides a cell based view for text terminals, like xterm.
 It was inspired by termbox, but differs from termbox in some important
@@ -27,32 +21,30 @@ ways.  It also adds substantial functionality beyond termbox.
 * [gomatrix](https://github.com/gdamore/gomatrix) - converted from Termbox
 * [micro](https://github.com/zyedidia/micro/) - lightweight text editor with syntax-highlighting and themes
 * [godu](https://github.com/viktomas/godu) - simple golang utility helping to discover large files/folders.
+* [tview](https://github.com/rivo/tview) - rich interactive widgets for terminal UIs
+* [tui-go](https://github.com/marcusolsson/tui-go) - UI library for terminal apps
+* [gomandelbrot](https://github.com/rgm3/gomandelbrot) - Mandelbrot!
+* [WTF](https://github.com/senorprogrammer/wtf)- Personal information dashboard for your terminal
 
 ## Pure Go Terminfo Database
 
 First, it includes a full parser and expander for terminfo capability strings,
 so that it can avoid hard coding escape strings for formatting.  It also favors
-portability, and includes support for all POSIX systems, at the slight expense
-of needing cgo support for terminal initializations.  (This may be corrected
-when Go provides standard support for terminal handling via termio ioctls on
-all POSIX platforms.)  The database itself, while built using CGO, as well
-as the parser for it, is implemented in Pure Go.
+portability, and includes support for all POSIX systems.
 
-The database is also flexible & extensible, and can modified by either running a
-program to build the database, or hand editing of simple JSON files.
+The database is also flexible & extensible, and can modified by either running
+a program to build the entire database, or an entry for just a single terminal.
 
 ## More Portable
 
-Tcell is portable to a wider variety of systems.  It relies on standard
-POSIX supported function calls (on POSIX platforms) for setting terminal
-modes, which leads to improved support for a broader array of platforms.
-This does come at the cost of requiring your code to be able to use CGO, but
-we believe that the vastly improved portability justifies this
-requirement.  Note that the functions called are part of the standard C
-library, so there shouldn't be any additional external requirements beyond
-that required for every POSIX program.
+Tcell is portable to a wider variety of systems.  Tcell is believed
+to work with all of the systems officially supported by golang with
+the exception of nacl (which lacks any kind of a terminal interface).
+(Plan9 is not supported by Tcell, but it is experimental status only
+in golang.)  For all of these systems *except Solaris/illumos*, Tcell
+is pure Go, with no need for CGO.
 
-## No async IO
+## No Async IO
 
 Tcell is able to operate without requiring SIGIO signals (unlike Termbox),
 or asynchronous I/O, and can instead use standard Go file
@@ -63,7 +55,7 @@ to fewer surprises.
 
 ## Richer Unicode & non-Unicode support
 
-Tcell includes enhanced support for Unicode, include wide characters and
+Tcell includes enhanced support for Unicode, including wide characters and
 combining characters, provided your terminal can support them.  Note that
 Windows terminals generally don't support the full Unicode repertoire.
 
@@ -75,10 +67,10 @@ drawing certain characters.
 
 ## More Function Keys
 
-It also has richer support for a larger number of
-special keys that some terminals can send.
+It also has richer support for a larger number of special keys that some
+terminals can send.
 
-## Better color handling
+## Better Color Handling
 
 Tcell will respect your terminal's color space as specified within your terminfo
 entries, so that for example attempts to emit color sequences on VT100 terminals
@@ -88,22 +80,15 @@ In Windows mode, Tcell supports 16 colors, bold, dim, and reverse,
 instead of just termbox's 8 colors with reverse.  (Note that there is some
 conflation with bold/dim and colors.)
 
-Tcell maps 16 colors down to 8, for Terminals that need it.  (The upper
+Tcell maps 16 colors down to 8, for terminals that need it.  (The upper
 8 colors are just brighter versions of the lower 8.)
 
-## Better mouse support
+## Better Mouse Support
 
 Tcell supports enhanced mouse tracking mode, so your application can receive
 regular mouse motion events, and wheel events, if your terminal supports it.
 
-## Why not just patch termbox-go?
-
-I started this project originally by submitting patches to the author of
-go-termbox, but due to some fundamental differences of opinion, I thought
-it might be simpler just to start from scratch.  At this point, Tcell has
-far exceeded the capabilities of termbox.
-
-## Termbox compatibility 
+## Termbox Compatibility
 
 A compatibility layer for termbox is provided in the compat
 directory.  To use it, try importing "github.com/gdamore/tcell/termbox"
@@ -174,18 +159,18 @@ avoiding repeated sequences or drawing the same cell on refresh updates.
 (Not relevent for Windows users.)
 
 The Terminfo implementation operates with two forms of database.  The first
-is the database.go file, which contains a number of real database entries
+is the built-in go database, which contains a number of real database entries
 that are compiled into the program directly.  This should minimize calling
 out to database file searches.
 
-The second is a JSON file, that contains the same information, which can
-be located either by the $TCELLDB environment file, $HOME/.tcelldb, or is
-located in the Go source directory as database.json.
+The second is in the form of JSON files, that contain the same information,
+which can be located either by the $TCELLDB environment file, $HOME/.tcelldb,
+or is located in the Go source directory as database.json.
 
-These files (both the Go database.go and the database.json) file can be
-generated using the mkinfo.go program.  If you need to regnerate the
-entire set for some reason, run the mkdatabase.sh file.  The generation
-uses the terminfo routines on the system to populate the data files.
+These files (both the Go and the JSON files) can be generated using the
+mkinfo.go program.  If you need to regnerate the entire set for some reason,
+run the mkdatabase.sh file.  The generation uses the infocmp(1) program on
+the system to collect the necessary information.
 
 The mkinfo.go program can also be used to generate specific database entries
 for named terminals, in case your favorite terminal is missing.  (If you
@@ -227,32 +212,27 @@ and examine "physical" screen contents.
 
 ## Platforms
 
-### Systems (Linux, FreeBSD, MacOS, Solaris, etc.)
+### POSIX (Linux, FreeBSD, MacOS, Solaris, etc.)
 
-On POSIX systems, a POSIX termios implementation with /dev/tty is required.
-On a small subset of these platforms (such as Solaris/illumos), we require
-cgo to run, in order to access termios.  (Note that Linux and BSD systems
-do not require CGO for most purposes.)
+For mainstream systems with a suitably well defined system call interface
+to tty settings, everything works using pure Go.
 
-(Note: CGO support is required if you wish to rebuild the terminal database
-from the system's native terminfo binary files.  This is because we use the
-system's native libterminfo to access that binary data.  We probably could
-eliminate that in the future by using a terminfo decompiler such as infocmp.)
+For the remainder (right now means only Solaris/illumos) we use POSIX function
+calls to manage termios, which implies that CGO is required on those platforms.
 
 ### Windows
 
 Windows console mode applications are supported.  Unfortunately mintty
 and other cygwin style applications are not supported.
 
-Modern console applications like ConEmu support all the good features
-(resize, mouse tracking, etc.)
+Modern console applications like ConEmu, as well as the Windows 10
+console itself, support all the good features (resize, mouse tracking, etc.)
 
 I haven't figured out how to cleanly resolve the dichotomy between cygwin
 style termios and the Windows Console API; it seems that perhaps nobody else
 has either.  If anyone has suggestions, let me know!  Really, if you're
 using a Windows application, you should use the native Windows console or a
-fully compatible console implementation.  Hopefully the Windows 10 console
-is more functional in this regard.
+fully compatible console implementation.
 
 ### Plan9 and Native Client (Nacl)
 
@@ -260,3 +240,15 @@ The nacl and plan9 platforms won't work, but compilation stubs are supplied
 for folks that want to include parts of this in software targetting those
 platforms.  The Simulation screen works, but as Tcell doesn't know how to
 allocate a real screen object on those platforms, NewScreen() will fail.
+
+If anyone has wisdom about how to improve support for either of these,
+please let me know.  PRs are especially welcome.
+
+### Commercial Support
+
+This software is absolutely free, but if you want to obtain commercial
+support (giving prioritized access to the developer, etc. on an hourly
+rate), please drop a line to info@staysail.tech
+
+I also welcome donations at Patreon, if you just want to feel good about
+defraying development costs: https://www.patreon.com/gedamore

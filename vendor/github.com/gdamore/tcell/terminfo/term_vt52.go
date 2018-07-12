@@ -11,7 +11,7 @@ func init() {
 		Bell:         "\a",
 		Clear:        "\x1bH\x1bJ",
 		PadChar:      "\x00",
-		AltChars:     ".kffgghhompoqqss",
+		AltChars:     "+h.k0affggolpnqprrss",
 		EnterAcs:     "\x1bF",
 		ExitAcs:      "\x1bG",
 		SetCursor:    "\x1bY%p1%' '%+%c%p2%' '%+%c",

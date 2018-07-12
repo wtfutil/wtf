@@ -44,13 +44,13 @@
   revision = "b23993cbb6353f0e6aa98d0ee318a34728f628b9"
 
 [[projects]]
+  branch = "master"
   name = "github.com/gdamore/tcell"
   packages = [
     ".",
     "terminfo"
   ]
-  revision = "061d51a604c546b48e92253cb65190d76cecf4c6"
-  version = "v1.0.0"
+  revision = "de7e78efa4a71b3f36c7154989c529dbdf9ae623"
 
 [[projects]]
   name = "github.com/golang/protobuf"
@@ -207,6 +207,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "b2141b5945354e95e2f3e8f1f6eb182de11e21f0fe1188862c6dc57983c8cbc4"
+  inputs-digest = "9eaa70ed639c832e3cde26a4270f4c7b9124960952aa76506f702c2c296d5019"
   solver-name = "gps-cdcl"
   solver-version = 1
