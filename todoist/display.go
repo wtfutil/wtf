@@ -8,6 +8,8 @@ import (
 	"github.com/senorprogrammer/wtf/wtf"
 )
 
+const checkWidth = 4
+
 func (w *Widget) display() {
 	if len(w.list) == 0 {
 		return
@@ -17,11 +19,25 @@ func (w *Widget) display() {
 	w.View.SetTitle(fmt.Sprintf("%s- [green]%s[white] ", w.Name, list.Project.Name))
 	str := wtf.SigilStr(len(w.list), w.idx, w.View) + "\n"
 
+	maxLen := w.list[w.idx].LongestLine()
+
 	for index, item := range list.items {
+		foreColor, backColor := "white", wtf.Config.UString("wtf.colors.background", "black")
+
 		if index == list.index {
-			str = str + fmt.Sprintf("[%s]", wtf.Config.UString("wtf.colors.border.focused", "grey"))
+			foreColor = wtf.Config.UString("wtf.colors.highlight.fore", "black")
+			backColor = wtf.Config.UString("wtf.colors.highlight.back", "orange")
 		}
-		str = str + fmt.Sprintf("| | %s[white]\n", tview.Escape(item.Content))
+
+		row := fmt.Sprintf(
+			"[%s:%s]| | %s[white]",
+			foreColor,
+			backColor,
+			tview.Escape(item.Content),
+		)
+
+		row = row + wtf.PadRow((checkWidth+len(item.Content)), (checkWidth+maxLen+1)) + "\n"
+		str = str + row
 	}
 
 	w.View.Clear()

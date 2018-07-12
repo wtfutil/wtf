@@ -62,6 +62,18 @@ func (l *List) loadItems() {
 	l.items = tasks
 }
 
+func (list *List) LongestLine() int {
+	maxLen := 0
+
+	for _, item := range list.items {
+		if len(item.Content) > maxLen {
+			maxLen = len(item.Content)
+		}
+	}
+
+	return maxLen
+}
+
 func (l *List) close() {
 	if err := l.items[l.index].Close(); err != nil {
 		panic(err)
