@@ -180,7 +180,7 @@ func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
 	case "cryptolive":
 		Widgets = append(Widgets, cryptolive.NewWidget())
 	case "gcal":
-		Widgets = append(Widgets, gcal.NewWidget(app))
+		Widgets = append(Widgets, gcal.NewWidget())
 	case "gerrit":
 		Widgets = append(Widgets, gerrit.NewWidget(app, pages))
 	case "git":
