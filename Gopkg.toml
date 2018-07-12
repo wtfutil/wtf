@@ -86,8 +86,8 @@
   branch = "master"
 
 [[constraint]]
-  branch = "master"
   name = "github.com/darkSasori/todoist"
+  branch = "master"
 
 [prune]
   go-tests = true
