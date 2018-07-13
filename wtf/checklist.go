@@ -1,5 +1,7 @@
 package wtf
 
+// Checklist is a module for creating generic checklist implementations
+// See 'Todo' for an implementation example
 type Checklist struct {
 	Selected int
 
@@ -16,6 +18,7 @@ func NewChecklist() Checklist {
 
 /* -------------------- Exported Functions -------------------- */
 
+// Add creates a new item in the checklist
 func (list *Checklist) Add(checked bool, text string) {
 	item := ChecklistItem{
 		Checked: checked,
@@ -25,6 +28,7 @@ func (list *Checklist) Add(checked bool, text string) {
 	list.Items = append([]*ChecklistItem{&item}, list.Items...)
 }
 
+// CheckedItems returns a slice of all the checked items
 func (list *Checklist) CheckedItems() []*ChecklistItem {
 	items := []*ChecklistItem{}
 
@@ -37,11 +41,13 @@ func (list *Checklist) CheckedItems() []*ChecklistItem {
 	return items
 }
 
+// Delete removes the selected item from the checklist
 func (list *Checklist) Delete() {
 	list.Items = append(list.Items[:list.Selected], list.Items[list.Selected+1:]...)
 	list.Prev()
 }
 
+// Demote moves the selected item down in the checklist
 func (list *Checklist) Demote() {
 	if list.IsUnselectable() {
 		return
@@ -56,14 +62,17 @@ func (list *Checklist) Demote() {
 	list.Selected = j
 }
 
+// IsSelectable returns true if the checklist has selectable items, false if it does not
 func (list *Checklist) IsSelectable() bool {
 	return list.Selected >= 0 && list.Selected < len(list.Items)
 }
 
+// IsUnselectable returns true if the checklist has no selectable items, false if it does
 func (list *Checklist) IsUnselectable() bool {
 	return !list.IsSelectable()
 }
 
+// Next selects the next item in the checklist
 func (list *Checklist) Next() {
 	list.Selected = list.Selected + 1
 	if list.Selected >= len(list.Items) {
@@ -71,6 +80,7 @@ func (list *Checklist) Next() {
 	}
 }
 
+// LongestLine returns the length of the longest checklist item's text
 func (list *Checklist) LongestLine() int {
 	maxLen := 0
 
@@ -83,6 +93,7 @@ func (list *Checklist) LongestLine() int {
 	return maxLen
 }
 
+// Prev selects the previous item in the checklist
 func (list *Checklist) Prev() {
 	list.Selected = list.Selected - 1
 	if list.Selected < 0 {
@@ -90,6 +101,7 @@ func (list *Checklist) Prev() {
 	}
 }
 
+// Promote moves the selected item up in the checklist
 func (list *Checklist) Promote() {
 	if list.IsUnselectable() {
 		return
@@ -104,6 +116,7 @@ func (list *Checklist) Promote() {
 	list.Selected = j
 }
 
+// SelectedItem returns the currently-selected checklist item or nil if no item is selected
 func (list *Checklist) SelectedItem() *ChecklistItem {
 	if list.IsUnselectable() {
 		return nil
@@ -130,6 +143,7 @@ func (list *Checklist) Toggle() {
 	list.SelectedItem().Toggle()
 }
 
+// UncheckedItems returns a slice of all the unchecked items
 func (list *Checklist) UncheckedItems() []*ChecklistItem {
 	items := []*ChecklistItem{}
 
@@ -142,10 +156,12 @@ func (list *Checklist) UncheckedItems() []*ChecklistItem {
 	return items
 }
 
+// Unselect removes the current select such that no item is selected
 func (list *Checklist) Unselect() {
 	list.Selected = -1
 }
 
+// Update sets the text of the currently-selected item to the provided text
 func (list *Checklist) Update(text string) {
 	item := list.SelectedItem()
 
