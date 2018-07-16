@@ -10,6 +10,7 @@ type Project struct {
 	todoist.Project
 
 	index int
+	list  wtf.Checklist
 	tasks []todoist.Task
 }
 
@@ -21,7 +22,9 @@ func NewProject(id int) *Project {
 
 	proj := &Project{
 		Project: project,
-		index:   -1,
+
+		index: -1,
+		list:  wtf.NewChecklist(),
 	}
 
 	proj.loadTasks()
