@@ -61,6 +61,7 @@ wtf/github/
 ```yaml
 github:
   enabled: true
+  enableStatus: true
   position:
     top: 2
     left: 3
@@ -77,6 +78,11 @@ github:
 
 `enabled` <br />
 Determines whether or not this module is executed and if its data displayed onscreen. <br />
+Values: `true`, `false`.
+
+`enableStatus` <br />
+Display pull request mergeability status ('dirty', 'clean', 'unstable',
+'blocked').<br />
 Values: `true`, `false`.
 
 `position` <br />

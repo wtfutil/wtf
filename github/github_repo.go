@@ -103,7 +103,33 @@ func (repo *GithubRepo) myPullRequests(username string) []*ghb.PullRequest {
 		}
 	}
 
+	if showStatus() {
+		prs = repo.individualPRs(prs)
+	}
+
 	return prs
+}
+
+// individualPRs takes a list of pull requests (presumably returned from
+// github.PullRequests.List) and fetches them individually to get more detailed
+// status info on each. see: https://developer.github.com/v3/git/#checking-mergeability-of-pull-requests
+func (repo *GithubRepo) individualPRs(prs []*ghb.PullRequest) []*ghb.PullRequest {
+	github, err := repo.githubClient()
+	if err != nil {
+		return prs
+	}
+
+	var ret []*ghb.PullRequest
+	for i := range prs {
+		pr, _, err := github.PullRequests.Get(context.Background(), repo.Owner, repo.Name, prs[i].GetNumber())
+		if err != nil {
+			// worst case, just keep the original one
+			ret = append(ret, prs[i])
+		} else {
+			ret = append(ret, pr)
+		}
+	}
+	return ret
 }
 
 // myReviewRequests returns a list of pull requests for which username has been
