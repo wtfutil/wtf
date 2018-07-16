@@ -224,7 +224,15 @@
       "name": "Lineu Felipe",
       "avatar_url": "https://avatars0.githubusercontent.com/u/889171?v=4",
       "profile": "https://github.com/darkSasori",
+      "contributions": []
+    },
+    {
+      "login": "kvj",
+      "name": "Konstantin",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/159124?v=4",
+      "profile": "https://github.com/kvj",
       "contributions": [
+        "code"
       ]
     }
   ]
