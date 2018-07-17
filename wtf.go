@@ -8,6 +8,7 @@ import (
 
 	"github.com/gdamore/tcell"
 	"github.com/olebedev/config"
+	"github.com/pkg/profile"
 	"github.com/radovskyb/watcher"
 	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/bamboohr"
@@ -252,6 +253,10 @@ func main() {
 	cfg.CreateConfigDir()
 	cfg.CreateConfigFile()
 	loadConfigFile(flags.ConfigFilePath())
+
+	if flags.Profile {
+		defer profile.Start(profile.MemProfile).Stop()
+	}
 
 	setTerm()
 
