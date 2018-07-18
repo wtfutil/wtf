@@ -2,12 +2,15 @@ package jenkins
 
 import (
 	"bytes"
+	"crypto/tls"
 	"encoding/json"
 	"io"
 	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strings"
+
+	"github.com/senorprogrammer/wtf/wtf"
 )
 
 func Create(jenkinsURL string, username string, apiKey string) (*View, error) {
@@ -26,7 +29,13 @@ func Create(jenkinsURL string, username string, apiKey string) (*View, error) {
 	req, _ := http.NewRequest("GET", jenkinsAPIURL.String(), nil)
 	req.SetBasicAuth(username, apiKey)
 
-	httpClient := &http.Client{}
+	verifyServerCertificate := wtf.Config.UBool("wtf.mods.jenkins.verifyServerCertificate", true)
+	httpClient := &http.Client{Transport: &http.Transport{
+		TLSClientConfig: &tls.Config{
+			InsecureSkipVerify: !verifyServerCertificate,
+		},
+	},
+	}
 	resp, err := httpClient.Do(req)
 
 	if err != nil {

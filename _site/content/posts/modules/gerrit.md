@@ -55,10 +55,12 @@ gerrit:
     height: 2
     width: 2
   refreshInterval: 300
+  domain: https://gerrit-review.googlesource.com
   projects:
   - org/test-project"
   - dotfiles
   username: "myname"
+  verifyServerCertificate: false
 ```
 
 ### Attributes
@@ -75,7 +77,7 @@ How often, in seconds, this module will update its data. <br />
 Values: A positive integer, `0..n`.
 
 `domain` <br />
-_Optional_. Your Gerrit corporate domain. <br />
+Your Gerrit corporate domain. <br />
 Values: A valid URI.
 
 `projects` <br />

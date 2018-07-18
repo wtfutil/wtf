@@ -21,7 +21,8 @@ func NewProject(id int) *Project {
 
 	proj := &Project{
 		Project: project,
-		index:   -1,
+
+		index: -1,
 	}
 
 	proj.loadTasks()
