@@ -59,5 +59,5 @@ func (widget *Widget) prettyWeather() {
 	}
 
 	//widget.result = strings.TrimSpace(string(contents))
-	widget.result = strings.TrimSpace(ASCIItoTviewColors(string(contents)))
+	widget.result = strings.TrimSpace(wtf.ASCIItoTviewColors(string(contents)))
 }

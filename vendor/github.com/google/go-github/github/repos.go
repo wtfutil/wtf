@@ -178,7 +178,7 @@ func (s *RepositoriesService) List(ctx context.Context, user string, opt *Reposi
 	}
 
 	// TODO: remove custom Accept headers when APIs fully launch.
-	acceptHeaders := []string{mediaTypeLicensesPreview, mediaTypeCodesOfConductPreview, mediaTypeTopicsPreview}
+	acceptHeaders := []string{mediaTypeCodesOfConductPreview, mediaTypeTopicsPreview}
 	req.Header.Set("Accept", strings.Join(acceptHeaders, ", "))
 
 	var repos []*Repository
@@ -216,7 +216,7 @@ func (s *RepositoriesService) ListByOrg(ctx context.Context, org string, opt *Re
 	}
 
 	// TODO: remove custom Accept headers when APIs fully launch.
-	acceptHeaders := []string{mediaTypeLicensesPreview, mediaTypeCodesOfConductPreview, mediaTypeTopicsPreview}
+	acceptHeaders := []string{mediaTypeCodesOfConductPreview, mediaTypeTopicsPreview}
 	req.Header.Set("Accept", strings.Join(acceptHeaders, ", "))
 
 	var repos []*Repository
@@ -297,7 +297,7 @@ func (s *RepositoriesService) Get(ctx context.Context, owner, repo string) (*Rep
 
 	// TODO: remove custom Accept header when the license support fully launches
 	// https://developer.github.com/v3/licenses/#get-a-repositorys-license
-	acceptHeaders := []string{mediaTypeLicensesPreview, mediaTypeCodesOfConductPreview, mediaTypeTopicsPreview}
+	acceptHeaders := []string{mediaTypeCodesOfConductPreview, mediaTypeTopicsPreview}
 	req.Header.Set("Accept", strings.Join(acceptHeaders, ", "))
 
 	repository := new(Repository)
@@ -340,10 +340,6 @@ func (s *RepositoriesService) GetByID(ctx context.Context, id int64) (*Repositor
 	if err != nil {
 		return nil, nil, err
 	}
-
-	// TODO: remove custom Accept header when the license support fully launches
-	// https://developer.github.com/v3/licenses/#get-a-repositorys-license
-	req.Header.Set("Accept", mediaTypeLicensesPreview)
 
 	repository := new(Repository)
 	resp, err := s.client.Do(ctx, req, repository)
@@ -1018,7 +1014,7 @@ func (s *RepositoriesService) ReplaceAllTopics(ctx context.Context, owner, repo 
 // TransferRequest represents a request to transfer a repository.
 type TransferRequest struct {
 	NewOwner string  `json:"new_owner"`
-	TeamID   []int64 `json:"team_id,omitempty"`
+	TeamID   []int64 `json:"team_ids,omitempty"`
 }
 
 // Transfer transfers a repository from one account or organization to another.
