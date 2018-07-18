@@ -39,6 +39,7 @@ jenkins:
   refreshInterval: 300
   url: "https://jenkins.domain.com/jenkins/view_url"
   user: "username"
+  verifyServerCertificate: true
 ```
 
 ### Attributes
@@ -61,3 +62,7 @@ Your Jenkins username. <br />
 The url to your Jenkins project or view. <br />
 Values: A valid URI.
 
+`verifyServerCertificate` <br />
+_Optional_ <br />
+Determines whether or not the server's certificate chain and host name are verified. <br />
+Values: `true`, `false`.
