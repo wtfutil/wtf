@@ -10,8 +10,8 @@
 
 <meta name="generator" content="Hugo 0.38.2" />
 
-<title>Tags | WTF - A Terminal Dashboard</title>
-<meta content="Tags - WTF - A Terminal Dashboard" property="og:title">
+<title>TravisCI | WTF - A Terminal Dashboard</title>
+<meta content="TravisCI - WTF - A Terminal Dashboard" property="og:title">
 <meta content=" - " property="og:description">
 <!-- CSS -->
 <link rel="stylesheet" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
@@ -34,9 +34,7 @@
 <!-- Icons -->
 <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
 <link rel="shortcut icon" href="/favicon.png">
-<!-- RSS -->
-<link href="https://wtfutil.com/tags/index.xml" rel="alternate" type="application/rss+xml" title="WTF - A Terminal Dashboard" />
-<link href="https://wtfutil.com/tags/index.xml" rel="feed" type="application/rss+xml" title="WTF - A Terminal Dashboard" />
+
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 
 
@@ -119,13 +117,68 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 
         <div class="content container">
-            <h1 class="title">Tags</h1>
-<ul class="posts">
-    
-</ul>
+            <div class="post">
+  <h1>TravisCI</h1>
+  
+  <div class="col-sm-12 col-md-12">
+    <span class="text-left post-date meta">
+      
+      
+        Jul 18, 2018
+      
+      
+      
+      
+      <br/>
+      
+      </span>
+  </div>
+  
+  
+
+<p>Displays build information for your Travis CI account.</p>
+
+<p><img src="/imgs/modules/travisci.png" width="609" height="150" alt="travisci screenshot" /></p>
+
+<h2 id="source-code">Source Code</h2>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">wtf/travisci/</code></pre></div>
+<h2 id="required-env-variables">Required ENV Variables</h2>
+
+<p><span class="caption">Key:</span> <code>WTF_TRAVIS_API_TOKEN</code> <br />
+<span class="caption">Value:</span> Your <a href="https://developer.travis-ci.org/authentication">Travis CI API</a> access token.</p>
+
+<h2 id="keyboard-commands">Keyboard Commands</h2>
+
+<p>None.</p>
+
+<h2 id="configuration">Configuration</h2>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">travisci<span class="p">:</span><span class="w">
+</span><span class="w">  </span>enabled<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span>position<span class="p">:</span><span class="w">
+</span><span class="w">    </span>top<span class="p">:</span><span class="w"> </span><span class="m">4</span><span class="w">
+</span><span class="w">    </span>left<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">    </span>height<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">    </span>width<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span><span class="w">  </span>refreshInterval<span class="p">:</span><span class="w"> </span><span class="m">900</span></code></pre></div>
+<h3 id="attributes">Attributes</h3>
+
+<p><code>enabled</code> <br />
+Determines whether or not this module is executed and if its data displayed onscreen. <br />
+Values: <code>true</code>, <code>false</code>.</p>
+
+<p><code>position</code> <br />
+Defines where in the grid this module&rsquo;s widget will be displayed. <br /></p>
+
+<p><code>refreshInterval</code> <br />
+How often, in seconds, this module will update its data. <br />
+Values: A positive integer, <code>0..n</code>.</p>
+
+</div>
 
             <div class="footer">
                 
+
+
             </div>
         </div>
         
