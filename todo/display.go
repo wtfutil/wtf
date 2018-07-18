@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/rivo/tview"
+	"github.com/senorprogrammer/wtf/checklist"
 	"github.com/senorprogrammer/wtf/wtf"
 )
 
@@ -11,7 +12,7 @@ const checkWidth = 4
 
 func (widget *Widget) display() {
 	str := ""
-	newList := wtf.NewChecklist()
+	newList := checklist.NewChecklist()
 
 	for _, item := range widget.list.UncheckedItems() {
 		str = str + widget.formattedItemLine(item, widget.list.SelectedItem(), widget.list.LongestLine())
@@ -30,7 +31,7 @@ func (widget *Widget) display() {
 	widget.View.SetText(str)
 }
 
-func (widget *Widget) formattedItemLine(item *wtf.ChecklistItem, selectedItem *wtf.ChecklistItem, maxLen int) string {
+func (widget *Widget) formattedItemLine(item *checklist.ChecklistItem, selectedItem *checklist.ChecklistItem, maxLen int) string {
 	foreColor, backColor := "white", wtf.Config.UString("wtf.colors.background", "black")
 
 	if item.Checked {

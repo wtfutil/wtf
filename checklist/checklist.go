@@ -1,4 +1,4 @@
-package wtf
+package checklist
 
 // Checklist is a module for creating generic checklist implementations
 // See 'Todo' for an implementation example

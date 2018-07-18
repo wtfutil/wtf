@@ -7,6 +7,7 @@ import (
 	"github.com/gdamore/tcell"
 	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/cfg"
+	"github.com/senorprogrammer/wtf/checklist"
 	"github.com/senorprogrammer/wtf/wtf"
 	"gopkg.in/yaml.v2"
 )
@@ -39,7 +40,7 @@ type Widget struct {
 
 	app      *tview.Application
 	filePath string
-	list     wtf.Checklist
+	list     checklist.Checklist
 	pages    *tview.Pages
 }
 
@@ -49,7 +50,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 
 		app:      app,
 		filePath: wtf.Config.UString("wtf.mods.todo.filename"),
-		list:     wtf.NewChecklist(),
+		list:     checklist.NewChecklist(),
 		pages:    pages,
 	}
 
@@ -67,7 +68,7 @@ func (widget *Widget) Refresh() {
 	widget.display()
 }
 
-func (widget *Widget) SetList(newList wtf.Checklist) {
+func (widget *Widget) SetList(newList checklist.Checklist) {
 	widget.list = newList
 }
 
