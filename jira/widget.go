@@ -56,7 +56,7 @@ func (widget *Widget) display() {
 	widget.View.SetWrap(false)
 	widget.View.SetTitle(
 		fmt.Sprintf(
-			"%s- [green]%s[white]",
+			"%s- [green]%s[white] ",
 			widget.Name,
 			wtf.Config.UString("wtf.mods.jira.project"),
 		),
@@ -95,7 +95,8 @@ func (widget *Widget) contentFrom(searchResult *SearchResult) string {
 
 	for idx, issue := range searchResult.Issues {
 		str = str + fmt.Sprintf(
-			" [%s]%-6s[white] [green]%-10s [%s]%s\n",
+			"[%s] [%s]%-6s[white] [green]%-10s[white] [%s]%s\n",
+			widget.rowColor(idx),
 			widget.issueTypeColor(&issue),
 			issue.IssueFields.IssueType.Name,
 			issue.Key,
@@ -109,8 +110,9 @@ func (widget *Widget) contentFrom(searchResult *SearchResult) string {
 
 func (widget *Widget) rowColor(idx int) string {
 	if widget.View.HasFocus() && (idx == widget.selected) {
-		foreColor := wtf.Config.UString("wtf.mods.jira.colors.highlight.fore", "black")
-		backColor := wtf.Config.UString("wtf.mods.jira.colors.highlight.back", "white")
+		foreColor := wtf.Config.UString("wtf.colors.highlight.fore", "black")
+		backColor := wtf.Config.UString("wtf.colors.highlight.back", "orange")
+
 		return fmt.Sprintf("%s:%s", foreColor, backColor)
 	}
 	return wtf.RowColor("jira", idx)

@@ -9,15 +9,15 @@ import (
 
 const checkWidth = 4
 
-func (w *Widget) display() {
-	proj := w.CurrentProject()
+func (widget *Widget) display() {
+	proj := widget.CurrentProject()
 
 	if proj == nil {
 		return
 	}
 
-	w.View.SetTitle(fmt.Sprintf("%s- [green]%s[white] ", w.Name, proj.Project.Name))
-	str := wtf.SigilStr(len(w.projects), w.idx, w.View) + "\n"
+	widget.View.SetTitle(fmt.Sprintf("%s- [green]%s[white] ", widget.Name, proj.Project.Name))
+	str := wtf.SigilStr(len(widget.projects), widget.idx, widget.View) + "\n"
 
 	maxLen := proj.LongestLine()
 
@@ -36,9 +36,14 @@ func (w *Widget) display() {
 			tview.Escape(item.Content),
 		)
 
+		_, _, w, _ := widget.View.GetInnerRect()
+		if w > maxLen {
+			maxLen = w
+		}
+
 		str = str + row + wtf.PadRow((checkWidth+len(item.Content)), (checkWidth+maxLen+1)) + "\n"
 	}
 
-	w.View.Clear()
-	w.View.SetText(str)
+	//widget.View.Clear()
+	widget.View.SetText(str)
 }

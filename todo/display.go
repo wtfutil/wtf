@@ -50,5 +50,10 @@ func (widget *Widget) formattedItemLine(item *wtf.ChecklistItem, selectedItem *w
 		tview.Escape(item.Text),
 	)
 
+	_, _, w, _ := widget.View.GetInnerRect()
+	if w > maxLen {
+		maxLen = w
+	}
+
 	return str + wtf.PadRow((checkWidth+len(item.Text)), (checkWidth+maxLen+1)) + "\n"
 }
