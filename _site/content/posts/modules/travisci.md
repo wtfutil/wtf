@@ -4,6 +4,8 @@ date: 2018-07-18T14:36:08-04:00
 draft: false
 ---
 
+Added in `v0.0.12`.
+
 Displays build information for your Travis CI account.
 
 <img src="/imgs/modules/travisci.png" width="609" height="150" alt="travisci screenshot" />
