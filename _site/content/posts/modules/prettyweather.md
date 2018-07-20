@@ -37,6 +37,7 @@ None.
       refreshInterval: 300
       unit: "c"
       view: 0
+      language: "en"
 ```
 
 ### Attributes
@@ -65,3 +66,7 @@ Values: `F` for Fahrenheit, `C` for Celcius.
 `view` <br />
 _Optional_ Wttr.in view configuration. <br />
 Values: See `curl wttr.in/:help` for more details.
+
+`language` <br />
+_Optional_ Wttr.in language configuration. <br />
+Values: See `curl wttr.in/:translation` for more details.
