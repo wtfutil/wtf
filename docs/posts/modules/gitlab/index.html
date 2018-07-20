@@ -10,8 +10,8 @@
 
 <meta name="generator" content="Hugo 0.38.2" />
 
-<title>Gitlab | WTF - A Terminal Dashboard</title>
-<meta content="Gitlab - WTF - A Terminal Dashboard" property="og:title">
+<title>GitLab | WTF - A Terminal Dashboard</title>
+<meta content="GitLab - WTF - A Terminal Dashboard" property="og:title">
 <meta content=" - " property="og:description">
 <!-- CSS -->
 <link rel="stylesheet" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
@@ -85,7 +85,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <li class="sidebar-list-item-2"><a href="/posts/modules/gerrit/">Gerrit</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/git/">Git</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/github/">GitHub</a></li>
-        <li class="sidebar-list-item-2"><a href="/posts/modules/gitlab/">Gitlab</a></li>
+        <li class="sidebar-list-item-2"><a href="/posts/modules/gitlab/">GitLab</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/gcal/">Google Calendar</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/gspreadsheet">Google Spreadsheet</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/ipapi/">IP-API</a></li>
@@ -100,6 +100,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <li class="sidebar-list-item-2"><a href="/posts/modules/security/">Security</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/textfile/">Text File</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/todo/">Todo</a></li>
+        <li class="sidebar-list-item-2"><a href="/posts/modules/todoist/">Todoist</a></li>
+        <li class="sidebar-list-item-2"><a href="/posts/modules/travisci/">Travis CI</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/trello/">Trello</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/weather/">Weather</a></li>
       </ul>
@@ -116,7 +118,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <div class="content container">
             <div class="post">
-  <h1>Gitlab</h1>
+  <h1>GitLab</h1>
   
   <div class="col-sm-12 col-md-12">
     <span class="text-left post-date meta">
@@ -138,7 +140,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <p><img src="/imgs/modules/gitlab.png" width="640" height="384" alt="gitlab screenshot" /></p>
 
-<p>Displays information about your projects hosted on Gitlab:</p>
+<p>Displays information about your projects hosted on GitLab:</p>
 
 <h4 id="open-approval-requests">Open Approval Requests</h4>
 
@@ -153,7 +155,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <h2 id="required-env-variables">Required ENV Variables</h2>
 
 <p><span class="caption">Key:</span> <code>WTF_GITLAB_TOKEN</code> <br />
-<span class="caption">Action:</span> A <a href="https://docs.gitlab.com/ce/user/profile/personal_access_tokens.html">Gitlab personal access token</a>. Requires at least <code>api</code> access.</p>
+<span class="caption">Action:</span> A <a href="https://docs.gitlab.com/ce/user/profile/personal_access_tokens.html">GitLab personal access token</a>. Requires at least <code>api</code> access.</p>
 
 <h2 id="keyboard-commands">Keyboard Commands</h2>
 
@@ -199,17 +201,17 @@ How often, in seconds, this module will update its data. <br />
 Values: A positive integer, <code>0..n</code>.</p>
 
 <p><code>domain</code> <br />
-<em>Optional</em>. Your Gitlab corporate domain. <br />
+<em>Optional</em>. Your GitLab corporate domain. <br />
 Values: A valid URI.</p>
 
 <p><code>projects</code> <br />
-A list of key/value pairs each describing a Gitlab project to fetch data
+A list of key/value pairs each describing a GitLab project to fetch data
 for. <br />
 <span class="caption">Key:</span> The name of the project. <br />
 <span class="caption">Value:</span> The namespace of the project.</p>
 
 <p><code>username</code> <br />
-Your Gitlab username. Used to figure out which requests require your approval</p>
+Your GitLab username. Used to figure out which requests require your approval</p>
 
 </div>
 

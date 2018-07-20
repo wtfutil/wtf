@@ -5,6 +5,7 @@ import (
 	"os/exec"
 	"strings"
 
+	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/wtf"
 )
 
@@ -33,7 +34,7 @@ func (widget *Widget) Refresh() {
 	widget.UpdateRefreshedAt()
 	widget.execute()
 
-	title := wtf.Config.UString("wtf.mods.cmdrunner.title", widget.String())
+	title := tview.TranslateANSI(wtf.Config.UString("wtf.mods.cmdrunner.title", widget.String()))
 	widget.View.SetTitle(title)
 
 	widget.View.SetText(widget.result)
@@ -46,5 +47,5 @@ func (widget *Widget) String() string {
 
 func (widget *Widget) execute() {
 	cmd := exec.Command(widget.cmd, widget.args...)
-	widget.result = wtf.ExecuteCommand(cmd)
+	widget.result = tview.TranslateANSI(wtf.ExecuteCommand(cmd))
 }

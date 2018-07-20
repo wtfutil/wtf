@@ -85,7 +85,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <li class="sidebar-list-item-2"><a href="/posts/modules/gerrit/">Gerrit</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/git/">Git</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/github/">GitHub</a></li>
-        <li class="sidebar-list-item-2"><a href="/posts/modules/gitlab/">Gitlab</a></li>
+        <li class="sidebar-list-item-2"><a href="/posts/modules/gitlab/">GitLab</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/gcal/">Google Calendar</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/gspreadsheet">Google Spreadsheet</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/ipapi/">IP-API</a></li>
@@ -100,6 +100,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <li class="sidebar-list-item-2"><a href="/posts/modules/security/">Security</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/textfile/">Text File</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/todo/">Todo</a></li>
+        <li class="sidebar-list-item-2"><a href="/posts/modules/todoist/">Todoist</a></li>
+        <li class="sidebar-list-item-2"><a href="/posts/modules/travisci/">Travis CI</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/trello/">Trello</a></li>
         <li class="sidebar-list-item-2"><a href="/posts/modules/weather/">Weather</a></li>
       </ul>
@@ -179,10 +181,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </span><span class="w">    </span>height<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
 </span><span class="w">    </span>width<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
 </span><span class="w">  </span>refreshInterval<span class="p">:</span><span class="w"> </span><span class="m">300</span><span class="w">
+</span><span class="w">  </span>domain<span class="p">:</span><span class="w"> </span>https<span class="p">:</span>//gerrit-review.googlesource.com<span class="w">
 </span><span class="w">  </span>projects<span class="p">:</span><span class="w">
 </span><span class="w">  </span>-<span class="w"> </span>org/test-project<span class="s2">&#34;
 </span><span class="s2">  - dotfiles
-</span><span class="s2">  username: &#34;</span>myname&#34;</code></pre></div>
+</span><span class="s2">  username: &#34;</span>myname&#34;<span class="w">
+</span><span class="w">  </span>verifyServerCertificate<span class="p">:</span><span class="w"> </span><span class="kc">false</span></code></pre></div>
 <h3 id="attributes">Attributes</h3>
 
 <p><code>enabled</code> <br />
@@ -197,7 +201,7 @@ How often, in seconds, this module will update its data. <br />
 Values: A positive integer, <code>0..n</code>.</p>
 
 <p><code>domain</code> <br />
-<em>Optional</em>. Your Gerrit corporate domain. <br />
+Your Gerrit corporate domain. <br />
 Values: A valid URI.</p>
 
 <p><code>projects</code> <br />

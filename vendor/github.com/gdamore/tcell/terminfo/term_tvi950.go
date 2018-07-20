@@ -14,7 +14,7 @@ func init() {
 		Underline:    "\x1bG8",
 		Reverse:      "\x1bG4",
 		PadChar:      "\x00",
-		AltChars:     "b\x0011c\x0014d\re\ni\x0013",
+		AltChars:     "b\tc\fd\re\ni\v",
 		EnterAcs:     "\x15",
 		ExitAcs:      "\x18",
 		SetCursor:    "\x1b=%p1%' '%+%c%p2%' '%+%c",

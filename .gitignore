@@ -16,6 +16,8 @@
 .DS_Store
 gcal/client_secret.json
 gspreadsheets/client_secret.json
+profile.pdf
+
 #intellij idea
 .idea/
 

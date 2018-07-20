@@ -17,8 +17,11 @@ wtf/weather/
 
 ## Required ENV Variables
 
+
+
 <span class="caption">Key:</span> `WTF_OWM_API_KEY` <br />
-<span class="caption">Action:</span> Your <a href="https://openweathermap.org/appid">OpenWeatherMap API</a> key.
+<span class="caption">Action:</span> Your <a href="https://openweathermap.org/appid">OpenWeatherMap API</a> key. <br />
+<span class="caption">Note:</span> DEPRECATED. See the `apiKey` config value, below.
 
 ## Keyboard Commands
 
@@ -41,6 +44,7 @@ wtf/weather/
 
 ```yaml
 weather:
+  apiKey: "2dfb3e3650a1950adddb6badf5ba1aaa"
   # From http://openweathermap.org/help/city_list.txt
   cityids:
   - 6173331
@@ -61,6 +65,9 @@ weather:
 ```
 
 ### Attributes
+
+`apiKey` <br />
+Your <a href="https://openweathermap.org/appid">OpenWeatherMap API</a> key.
 
 `cityids` <br />
 A list of the <a

@@ -13,7 +13,7 @@ func init() {
 		Clear:        "\x1b+$<20>",
 		ShowCursor:   "\x1b`1",
 		HideCursor:   "\x1b`0",
-		AttrOff:      "\x1b(\x1bH\x0003",
+		AttrOff:      "\x1b(\x1bH\x03",
 		Dim:          "\x1b`7\x1b)",
 		Reverse:      "\x1b`6\x1b)",
 		PadChar:      "\x00",

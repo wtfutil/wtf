@@ -8,44 +8,44 @@ import (
 	"strings"
 )
 
-// The states of the ANSII escape code parser.
+// The states of the ANSI escape code parser.
 const (
-	ansiiText = iota
-	ansiiEscape
-	ansiiSubstring
-	ansiiControlSequence
+	ansiText = iota
+	ansiEscape
+	ansiSubstring
+	ansiControlSequence
 )
 
-// ansii is a io.Writer which translates ANSII escape codes into tview color
+// ansi is a io.Writer which translates ANSI escape codes into tview color
 // tags.
-type ansii struct {
+type ansi struct {
 	io.Writer
 
 	// Reusable buffers.
 	buffer                        *bytes.Buffer // The entire output text of one Write().
 	csiParameter, csiIntermediate *bytes.Buffer // Partial CSI strings.
 
-	// The current state of the parser. One of the ansii constants.
+	// The current state of the parser. One of the ansi constants.
 	state int
 }
 
-// ANSIIWriter returns an io.Writer which translates any ANSII escape codes
+// ANSIWriter returns an io.Writer which translates any ANSI escape codes
 // written to it into tview color tags. Other escape codes don't have an effect
 // and are simply removed. The translated text is written to the provided
 // writer.
-func ANSIIWriter(writer io.Writer) io.Writer {
-	return &ansii{
+func ANSIWriter(writer io.Writer) io.Writer {
+	return &ansi{
 		Writer:          writer,
 		buffer:          new(bytes.Buffer),
 		csiParameter:    new(bytes.Buffer),
 		csiIntermediate: new(bytes.Buffer),
-		state:           ansiiText,
+		state:           ansiText,
 	}
 }
 
-// Write parses the given text as a string of runes, translates ANSII escape
+// Write parses the given text as a string of runes, translates ANSI escape
 // codes to color tags and writes them to the output writer.
-func (a *ansii) Write(text []byte) (int, error) {
+func (a *ansi) Write(text []byte) (int, error) {
 	defer func() {
 		a.buffer.Reset()
 	}()
@@ -54,23 +54,23 @@ func (a *ansii) Write(text []byte) (int, error) {
 		switch a.state {
 
 		// We just entered an escape sequence.
-		case ansiiEscape:
+		case ansiEscape:
 			switch r {
 			case '[': // Control Sequence Introducer.
 				a.csiParameter.Reset()
 				a.csiIntermediate.Reset()
-				a.state = ansiiControlSequence
+				a.state = ansiControlSequence
 			case 'c': // Reset.
 				fmt.Fprint(a.buffer, "[-:-:-]")
-				a.state = ansiiText
+				a.state = ansiText
 			case 'P', ']', 'X', '^', '_': // Substrings and commands.
-				a.state = ansiiSubstring
+				a.state = ansiSubstring
 			default: // Ignore.
-				a.state = ansiiText
+				a.state = ansiText
 			}
 
 		// CSI Sequences.
-		case ansiiControlSequence:
+		case ansiControlSequence:
 			switch {
 			case r >= 0x30 && r <= 0x3f: // Parameter bytes.
 				if _, err := a.csiParameter.WriteRune(r); err != nil {
@@ -194,22 +194,22 @@ func (a *ansii) Write(text []byte) (int, error) {
 						fmt.Fprintf(a.buffer, "[%s:%s%s]", foreground, background, attributes)
 					}
 				}
-				a.state = ansiiText
+				a.state = ansiText
 			default: // Undefined byte.
-				a.state = ansiiText // Abort CSI.
+				a.state = ansiText // Abort CSI.
 			}
 
 			// We just entered a substring/command sequence.
-		case ansiiSubstring:
+		case ansiSubstring:
 			if r == 27 { // Most likely the end of the substring.
-				a.state = ansiiEscape
+				a.state = ansiEscape
 			} // Ignore all other characters.
 
-			// "ansiiText" and all others.
+			// "ansiText" and all others.
 		default:
 			if r == 27 {
 				// This is the start of an escape sequence.
-				a.state = ansiiEscape
+				a.state = ansiEscape
 			} else {
 				// Just a regular rune. Send to buffer.
 				if _, err := a.buffer.WriteRune(r); err != nil {
@@ -227,11 +227,11 @@ func (a *ansii) Write(text []byte) (int, error) {
 	return len(text), nil
 }
 
-// TranslateANSII replaces ANSII escape sequences found in the provided string
+// TranslateANSI replaces ANSI escape sequences found in the provided string
 // with tview's color tags and returns the resulting string.
-func TranslateANSII(text string) string {
+func TranslateANSI(text string) string {
 	var buffer bytes.Buffer
-	writer := ANSIIWriter(&buffer)
+	writer := ANSIWriter(&buffer)
 	writer.Write([]byte(text))
 	return buffer.String()
 }

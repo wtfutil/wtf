@@ -48,12 +48,13 @@ func (cb *CellBuffer) SetContent(x int, y int,
 	if x >= 0 && y >= 0 && x < cb.w && y < cb.h {
 		c := &cb.cells[(y*cb.w)+x]
 
+		c.currComb = append([]rune{}, combc...)
 		i := 0
-		for i < len(combc) {
-			r := combc[i]
+		for i < len(c.currComb) {
+			r := c.currComb[i]
 			if runewidth.RuneWidth(r) != 0 {
 				// not a combining character, yank it
-				combc = append(combc[:i-1], combc[i+1:]...)
+				c.currComb = append(c.currComb[:i-1], c.currComb[i+1:]...)
 				continue
 			}
 			i++
@@ -63,7 +64,6 @@ func (cb *CellBuffer) SetContent(x int, y int,
 			c.width = runewidth.RuneWidth(mainc)
 		}
 		c.currMain = mainc
-		c.currComb = combc
 		c.currStyle = style
 	}
 }

@@ -31,11 +31,11 @@
 
 [[constraint]]
   name = "github.com/gdamore/tcell"
-  version = "1.0.0"
+  branch = "master"
 
-[[constraint]]
-  name = "github.com/go-test/deep"
-  version = "1.0.1"
+#[[constraint]]
+  #name = "github.com/go-test/deep"
+  #version = "1.0.1"
 
 [[constraint]]
   name = "github.com/google/go-github"
@@ -54,36 +54,40 @@
   version = "1.4.0"
 
 [[constraint]]
-  branch = "master"
   name = "github.com/olebedev/config"
+  branch = "master"
 
 [[constraint]]
   name = "github.com/radovskyb/watcher"
   version = "1.0.2"
 
 [[constraint]]
-  branch = "master"
   name = "github.com/rivo/tview"
+  branch = "master"
 
 [[constraint]]
-  branch = "master"
   name = "github.com/yfronto/newrelic"
+  branch = "master"
 
 [[constraint]]
-  branch = "master"
   name = "golang.org/x/oauth2"
+  branch = "master"
 
 [[constraint]]
-  branch = "master"
   name = "google.golang.org/api"
+  branch = "master"
 
 [[constraint]]
   name = "gopkg.in/yaml.v2"
   version = "2.2.1"
 
 [[constraint]]
-  branch = "master"
   name = "github.com/adlio/trello"
+  branch = "master"
+
+[[constraint]]
+  name = "github.com/darkSasori/todoist"
+  branch = "master"
 
 [prune]
   go-tests = true

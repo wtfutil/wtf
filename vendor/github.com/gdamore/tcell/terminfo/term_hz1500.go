@@ -11,7 +11,7 @@ func init() {
 		Bell:        "\a",
 		Clear:       "~\x1c",
 		PadChar:     "\x00",
-		SetCursor:   "~\x0021%p2%p2%?%{30}%>%t%' '%+%;%'`'%+%c%p1%'`'%+%c",
+		SetCursor:   "~\x11%p2%p2%?%{30}%>%t%' '%+%;%'`'%+%c%p1%'`'%+%c",
 		CursorBack1: "\b",
 		CursorUp1:   "~\f",
 		KeyUp:       "~\f",

@@ -57,6 +57,8 @@ type Installation struct {
 	RepositorySelection *string                  `json:"repository_selection,omitempty"`
 	Events              []string                 `json:"events,omitempty"`
 	Permissions         *InstallationPermissions `json:"permissions,omitempty"`
+	CreatedAt           *time.Time               `json:"created_at,omitempty"`
+	UpdatedAt           *time.Time               `json:"updated_at,omitempty"`
 }
 
 func (i Installation) String() string {
@@ -126,23 +128,7 @@ func (s *AppsService) ListInstallations(ctx context.Context, opt *ListOptions) (
 //
 // GitHub API docs: https://developer.github.com/v3/apps/#get-a-single-installation
 func (s *AppsService) GetInstallation(ctx context.Context, id int64) (*Installation, *Response, error) {
-	u := fmt.Sprintf("app/installations/%v", id)
-
-	req, err := s.client.NewRequest("GET", u, nil)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	// TODO: remove custom Accept header when this API fully launches.
-	req.Header.Set("Accept", mediaTypeIntegrationPreview)
-
-	i := new(Installation)
-	resp, err := s.client.Do(ctx, req, i)
-	if err != nil {
-		return nil, resp, err
-	}
-
-	return i, resp, nil
+	return s.getInstallation(ctx, fmt.Sprintf("app/installations/%v", id))
 }
 
 // ListUserInstallations lists installations that are accessible to the authenticated user.
@@ -194,4 +180,43 @@ func (s *AppsService) CreateInstallationToken(ctx context.Context, id int64) (*I
 	}
 
 	return t, resp, nil
+}
+
+// FindOrganizationInstallation finds the organization's installation information.
+//
+// GitHub API docs: https://developer.github.com/v3/apps/#find-organization-installation
+func (s *AppsService) FindOrganizationInstallation(ctx context.Context, org string) (*Installation, *Response, error) {
+	return s.getInstallation(ctx, fmt.Sprintf("orgs/%v/installation", org))
+}
+
+// FindRepositoryInstallation finds the repository's installation information.
+//
+// GitHub API docs: https://developer.github.com/v3/apps/#find-repository-installation
+func (s *AppsService) FindRepositoryInstallation(ctx context.Context, owner, repo string) (*Installation, *Response, error) {
+	return s.getInstallation(ctx, fmt.Sprintf("repos/%v/%v/installation", owner, repo))
+}
+
+// FindUserInstallation finds the user's installation information.
+//
+// GitHub API docs: https://developer.github.com/v3/apps/#find-repository-installation
+func (s *AppsService) FindUserInstallation(ctx context.Context, user string) (*Installation, *Response, error) {
+	return s.getInstallation(ctx, fmt.Sprintf("users/%v/installation", user))
+}
+
+func (s *AppsService) getInstallation(ctx context.Context, url string) (*Installation, *Response, error) {
+	req, err := s.client.NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	// TODO: remove custom Accept header when this API fully launches.
+	req.Header.Set("Accept", mediaTypeIntegrationPreview)
+
+	i := new(Installation)
+	resp, err := s.client.Do(ctx, req, i)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return i, resp, nil
 }

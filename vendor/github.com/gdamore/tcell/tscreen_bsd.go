@@ -1,6 +1,6 @@
-// +build darwin freebsd netbsd openbsd dragonfly
+// +build freebsd netbsd openbsd dragonfly
 
-// Copyright 2017 The TCell Authors
+// Copyright 2018 The TCell Authors
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use file except in compliance with the License.

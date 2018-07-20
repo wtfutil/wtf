@@ -4,8 +4,8 @@
 [[projects]]
   name = "cloud.google.com/go"
   packages = ["compute/metadata"]
-  revision = "777200caa7fb8936aed0f12b1fd79af64cc83ec9"
-  version = "v0.24.0"
+  revision = "aad3f485ee528456e0768f20397b4d9dd941e755"
+  version = "v0.25.0"
 
 [[projects]]
   branch = "master"
@@ -26,6 +26,12 @@
   revision = "6a9abf92e34f4de62ac671caee3143f10b98892d"
 
 [[projects]]
+  branch = "master"
+  name = "github.com/darkSasori/todoist"
+  packages = ["."]
+  revision = "ec6b38b374ab9c60cc9716d2083ae66eb9383d03"
+
+[[projects]]
   name = "github.com/davecgh/go-spew"
   packages = ["spew"]
   revision = "346938d642f2ec3594ed81d874461961cd0faa76"
@@ -38,13 +44,13 @@
   revision = "b23993cbb6353f0e6aa98d0ee318a34728f628b9"
 
 [[projects]]
+  branch = "master"
   name = "github.com/gdamore/tcell"
   packages = [
     ".",
     "terminfo"
   ]
-  revision = "061d51a604c546b48e92253cb65190d76cecf4c6"
-  version = "v1.0.0"
+  revision = "de7e78efa4a71b3f36c7154989c529dbdf9ae623"
 
 [[projects]]
   name = "github.com/golang/protobuf"
@@ -56,7 +62,7 @@
   branch = "master"
   name = "github.com/google/go-github"
   packages = ["github"]
-  revision = "60d040d2dafa18fa3e86cbf22fbc3208ef9ef1e0"
+  revision = "c0b63e2f9bb198baf328c8abf1ddcbe05ff9427e"
 
 [[projects]]
   branch = "master"
@@ -95,6 +101,12 @@
   version = "v0.8.0"
 
 [[projects]]
+  name = "github.com/pkg/profile"
+  packages = ["."]
+  revision = "5b67d428864e92711fcbd2f8629456121a56d91f"
+  version = "v1.2.1"
+
+[[projects]]
   name = "github.com/pmezard/go-difflib"
   packages = ["difflib"]
   revision = "792786c7400a136282c1664665ae0a8db921c6c2"
@@ -110,7 +122,7 @@
   branch = "master"
   name = "github.com/rivo/tview"
   packages = ["."]
-  revision = "83483397e826c343edb7b8c1f33fb7983dda9fc5"
+  revision = "c33dd0cf8ef840e1c8905c838d5b1ce93050a825"
 
 [[projects]]
   name = "github.com/stretchr/testify"
@@ -122,7 +134,7 @@
   branch = "master"
   name = "github.com/xanzy/go-gitlab"
   packages = ["."]
-  revision = "6ada444068f460636db26ca0dd66cf2aa518fa8f"
+  revision = "fb3ece09ef3e80cfa5c1e52dc75fcfb56c12e026"
 
 [[projects]]
   branch = "master"
@@ -143,7 +155,7 @@
     "context",
     "context/ctxhttp"
   ]
-  revision = "e514e69ffb8bc3c76a71ae40de0118d794855992"
+  revision = "8887df42c721e930089d31b28391090a10a497d7"
 
 [[projects]]
   branch = "master"
@@ -179,7 +191,7 @@
     "googleapi/internal/uritemplates",
     "sheets/v4"
   ]
-  revision = "082d671a2a341aa205b22b580fa69747dcc3cdc8"
+  revision = "efcb5f25ac56eae06c8b5672456c0b7767522685"
 
 [[projects]]
   name = "google.golang.org/appengine"

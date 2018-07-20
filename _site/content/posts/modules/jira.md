@@ -21,7 +21,20 @@ wtf/jira/
 
 ## Keyboard Commands
 
-None.
+<span class="caption">Key:</span> `[return]` <br />
+<span class="caption">Action:</span> Open the selected issue in the browser.
+
+<span class="caption">Key:</span> `j` <br />
+<span class="caption">Action:</span> Select the next item in the list.
+
+<span class="caption">Key:</span> `k` <br />
+<span class="caption">Action:</span> Select the previous item in the list.
+
+<span class="caption">Key:</span> `↓` <br />
+<span class="caption">Action:</span> Select the next item in the list.
+
+<span class="caption">Key:</span> `↑` <br />
+<span class="caption">Action:</span> Select the previous item in the list.
 
 ## Configuration
 

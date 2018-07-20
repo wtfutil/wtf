@@ -203,10 +203,12 @@ wtf:
         width: 1
       refreshInterval: 3600
     weather:
+      apiKey: [YOUR API KEY]
       # From http://openweathermap.org/help/city_list.txt
       cityids:
       - 3370352
       - 1283240
+      WTF_OWM_API_KEY: [YOUR API KEY]
       colors:
         current: "lightblue"
       enabled: true
