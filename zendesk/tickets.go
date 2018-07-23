@@ -93,12 +93,6 @@ func newTickets() ([]string, error) {
 			newTickets = append(newTickets, newTicket)
 		}
 	}
-	if len(newTickets) < 1 {
-		fmt.Println("No unassigned tickets in queue - woop!!")
-	} else {
-		for i := range newTickets {
-			fmt.Println(newTickets[i])
-		}
-	}
+
 	return newTickets, nil
 }
