@@ -2,7 +2,7 @@ package zendesk
 
 import (
 	"encoding/json"
-	"fmt"
+	//"fmt"
 	"log"
 )
 
@@ -73,24 +73,15 @@ func listTickets(pag ...string) (*TicketArray, error) {
 
 }
 
-func newTickets() ([]string, error) {
-	var newTickets []string
+func newTickets() ([]Ticket, error) {
+	newTickets := []Ticket{}
 	tickets, err := listTickets()
 	if err != nil {
 		log.Fatal(err)
 	}
-	for i := range tickets.Tickets {
-		if tickets.Tickets[i].Status == "new" {
-			requester := tickets.Tickets[i].Via
-			req, _ := requester.(map[string]interface{})
-			source := req["source"]
-			fromMap, _ := source.(map[string]interface{})
-			from := fromMap["from"]
-			fromValue, _ := from.(map[string]interface{})
-			name := fromValue["name"]
-
-			newTicket := fmt.Sprintf("%v - %v - %v - %v", tickets.Tickets[i].Id, tickets.Tickets[i].Status, tickets.Tickets[i].Subject, name)
-			newTickets = append(newTickets, newTicket)
+	for _, Ticket := range tickets.Tickets {
+		if Ticket.Status == "new" {
+			newTickets = append(newTickets, Ticket)
 		}
 	}
 
