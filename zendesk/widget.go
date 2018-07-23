@@ -56,6 +56,8 @@ func (widget *Widget) format(ticket Ticket) string {
 	return str
 }
 
+// this is a nasty means of extracting the actual name of the requester from the Via interface of the Ticket.
+// very very open to improvements on this
 func (widget *Widget) parseRequester(ticket Ticket) interface{} {
 	viaMap := ticket.Via
 	via := viaMap.(map[string]interface{})
