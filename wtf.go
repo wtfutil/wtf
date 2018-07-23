@@ -46,6 +46,7 @@ import (
 	"github.com/senorprogrammer/wtf/weatherservices/prettyweather"
 	"github.com/senorprogrammer/wtf/weatherservices/weather"
 	"github.com/senorprogrammer/wtf/wtf"
+	"github.com/senorprogrammer/wtf/zendesk"
 )
 
 var Config *config.Config
@@ -229,6 +230,8 @@ func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
 		Widgets = append(Widgets, trello.NewWidget())
 	case "weather":
 		Widgets = append(Widgets, weather.NewWidget(app, pages))
+	case "zendesk":
+		Widgets = append(Widgets, zendesk.NewWidget())
 	default:
 	}
 }
