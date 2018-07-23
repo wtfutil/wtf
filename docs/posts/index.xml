@@ -6,10 +6,24 @@
     <description>Recent content in Posts on WTF - A Terminal Dashboard</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 05 Jul 2018 22:55:55 -0300</lastBuildDate>
+    <lastBuildDate>Wed, 18 Jul 2018 14:36:08 -0400</lastBuildDate>
     
 	<atom:link href="https://wtfutil.com/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>TravisCI</title>
+      <link>https://wtfutil.com/posts/modules/travisci/</link>
+      <pubDate>Wed, 18 Jul 2018 14:36:08 -0400</pubDate>
+      
+      <guid>https://wtfutil.com/posts/modules/travisci/</guid>
+      <description>Added in v0.0.12.
+Displays build information for your Travis CI account.
+Source Code wtf/travisci/ Required ENV Variables Key: WTF_TRAVIS_API_TOKEN Value: Your Travis CI API access token.
+Keyboard Commands None.
+Configuration travisci:enabled:trueposition:top:4left:1height:1width:2refreshInterval:900 Attributes enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.
+position Defines where in the grid this module&amp;rsquo;s widget will be displayed. refreshInterval How often, in seconds, this module will update its data.</description>
+    </item>
     
     <item>
       <title>Todoist</title>
@@ -128,7 +142,7 @@ position Where in the grid this module&amp;rsquo;s widget will be displayed.</de
 Displays jenkins status of given builds in a project or view
 Source Code wtf/jenkins/ Required ENV Variables Key: WTF_JENKINS_API_KEY Value: Your Jenkins API key.
 Keyboard Commands None.
-Configuration jenkins:enabled:trueposition:top:2left:3height:2width:3refreshInterval:300url:&amp;#34;https://jenkins.domain.com/jenkins/view_url&amp;#34;user:&amp;#34;username&amp;#34; Attributes enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.
+Configuration jenkins:enabled:trueposition:top:2left:3height:2width:3refreshInterval:300url:&amp;#34;https://jenkins.domain.com/jenkins/view_url&amp;#34;user:&amp;#34;username&amp;#34;verifyServerCertificate:true Attributes enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.
 position Defines where in the grid this module&amp;rsquo;s widget will be displayed.
 refreshInterval How often, in seconds, this module will update its data.</description>
     </item>
@@ -193,7 +207,7 @@ position Defines where in the grid this module&amp;rsquo;s widget will be displa
       <description>Displays weather information as ASCII art from Wttr.in.
 Source Code wtf/prettyweather/ Required ENV Variables None.
 Keyboard Commands None.
-Configuration prettyweather:enabled:truecity:&amp;#34;tehran&amp;#34;position:top:3left:5height:1width:1refreshInterval:300unit:&amp;#34;c&amp;#34;view:0 Attributes city Optional. It will grab the current location from your IP address if omitted.
+Configuration prettyweather:enabled:truecity:&amp;#34;tehran&amp;#34;position:top:3left:5height:1width:1refreshInterval:300unit:&amp;#34;c&amp;#34;view:0language:&amp;#34;en&amp;#34; Attributes city Optional. It will grab the current location from your IP address if omitted.
 Values: The name of any city supported by Wttr.in.
 enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.
 position Defines where in the grid this module&amp;rsquo;s widget will be displayed.</description>

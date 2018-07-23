@@ -218,6 +218,25 @@ func (f *Form) AddButton(label string, selected func()) *Form {
 	return f
 }
 
+// RemoveButton removes the button at the specified position, starting with 0
+// for the button that was added first.
+func (f *Form) RemoveButton(index int) *Form {
+	f.buttons = append(f.buttons[:index], f.buttons[index+1:]...)
+	return f
+}
+
+// GetButtonIndex returns the index of the button with the given label, starting
+// with 0 for the button that was added first. If no such label was found, -1
+// is returned.
+func (f *Form) GetButtonIndex(label string) int {
+	for index, button := range f.buttons {
+		if button.GetLabel() == label {
+			return index
+		}
+	}
+	return -1
+}
+
 // Clear removes all input elements from the form, including the buttons if
 // specified.
 func (f *Form) Clear(includeButtons bool) *Form {
@@ -251,6 +270,14 @@ func (f *Form) GetFormItem(index int) FormItem {
 	return f.items[index]
 }
 
+// RemoveFormItem removes the form element at the given position, starting with
+// index 0. Elements are referenced in the order they were added. Buttons are
+// not included.
+func (f *Form) RemoveFormItem(index int) *Form {
+	f.items = append(f.items[:index], f.items[index+1:]...)
+	return f
+}
+
 // GetFormItemByLabel returns the first form element with the given label. If
 // no such element is found, nil is returned. Buttons are not searched and will
 // therefore not be returned.
@@ -261,6 +288,18 @@ func (f *Form) GetFormItemByLabel(label string) FormItem {
 		}
 	}
 	return nil
+}
+
+// GetFormItemIndex returns the index of the first form element with the given
+// label. If no such element is found, -1 is returned. Buttons are not searched
+// and will therefore not be returned.
+func (f *Form) GetFormItemIndex(label string) int {
+	for index, item := range f.items {
+		if item.GetLabel() == label {
+			return index
+		}
+	}
+	return -1
 }
 
 // SetCancelFunc sets a handler which is called when the user hits the Escape

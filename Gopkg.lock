@@ -4,8 +4,8 @@
 [[projects]]
   name = "cloud.google.com/go"
   packages = ["compute/metadata"]
-  revision = "777200caa7fb8936aed0f12b1fd79af64cc83ec9"
-  version = "v0.24.0"
+  revision = "aad3f485ee528456e0768f20397b4d9dd941e755"
+  version = "v0.25.0"
 
 [[projects]]
   branch = "master"
@@ -62,7 +62,7 @@
   branch = "master"
   name = "github.com/google/go-github"
   packages = ["github"]
-  revision = "60f2773bd99aa86164bc80bf370be6ba63b47dea"
+  revision = "c0b63e2f9bb198baf328c8abf1ddcbe05ff9427e"
 
 [[projects]]
   branch = "master"
@@ -101,6 +101,12 @@
   version = "v0.8.0"
 
 [[projects]]
+  name = "github.com/pkg/profile"
+  packages = ["."]
+  revision = "5b67d428864e92711fcbd2f8629456121a56d91f"
+  version = "v1.2.1"
+
+[[projects]]
   name = "github.com/pmezard/go-difflib"
   packages = ["difflib"]
   revision = "792786c7400a136282c1664665ae0a8db921c6c2"
@@ -116,7 +122,7 @@
   branch = "master"
   name = "github.com/rivo/tview"
   packages = ["."]
-  revision = "83483397e826c343edb7b8c1f33fb7983dda9fc5"
+  revision = "c33dd0cf8ef840e1c8905c838d5b1ce93050a825"
 
 [[projects]]
   name = "github.com/stretchr/testify"
@@ -125,10 +131,10 @@
   version = "v1.2.2"
 
 [[projects]]
+  branch = "master"
   name = "github.com/xanzy/go-gitlab"
   packages = ["."]
-  revision = "79dad8e74fd097eb2e0fd0883f1978213e88107a"
-  version = "v0.10.7"
+  revision = "fb3ece09ef3e80cfa5c1e52dc75fcfb56c12e026"
 
 [[projects]]
   branch = "master"
@@ -138,12 +144,18 @@
 
 [[projects]]
   branch = "master"
+  name = "github.com/zyedidia/highlight"
+  packages = ["."]
+  revision = "201131ce5cf5ba174570dcd878d1f2698db5af9f"
+
+[[projects]]
+  branch = "master"
   name = "golang.org/x/net"
   packages = [
     "context",
     "context/ctxhttp"
   ]
-  revision = "039a4258aec0ad3c79b905677cceeab13b296a77"
+  revision = "8887df42c721e930089d31b28391090a10a497d7"
 
 [[projects]]
   branch = "master"
@@ -179,7 +191,7 @@
     "googleapi/internal/uritemplates",
     "sheets/v4"
   ]
-  revision = "1d2d9cc0ae74226e8076e2a87e211c8fea38a160"
+  revision = "efcb5f25ac56eae06c8b5672456c0b7767522685"
 
 [[projects]]
   name = "google.golang.org/appengine"
@@ -207,6 +219,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "9eaa70ed639c832e3cde26a4270f4c7b9124960952aa76506f702c2c296d5019"
+  inputs-digest = "44328d9f71a21b64ed00b346dd77be8af49d0542f393f3e17c52de6125c57e24"
   solver-name = "gps-cdcl"
   solver-version = 1

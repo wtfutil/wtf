@@ -2828,6 +2828,14 @@ func (i *Installation) GetAppID() int64 {
 	return *i.AppID
 }
 
+// GetCreatedAt returns the CreatedAt field if it's non-nil, zero value otherwise.
+func (i *Installation) GetCreatedAt() time.Time {
+	if i == nil || i.CreatedAt == nil {
+		return time.Time{}
+	}
+	return *i.CreatedAt
+}
+
 // GetHTMLURL returns the HTMLURL field if it's non-nil, zero value otherwise.
 func (i *Installation) GetHTMLURL() string {
 	if i == nil || i.HTMLURL == nil {
@@ -2890,6 +2898,14 @@ func (i *Installation) GetTargetType() string {
 		return ""
 	}
 	return *i.TargetType
+}
+
+// GetUpdatedAt returns the UpdatedAt field if it's non-nil, zero value otherwise.
+func (i *Installation) GetUpdatedAt() time.Time {
+	if i == nil || i.UpdatedAt == nil {
+		return time.Time{}
+	}
+	return *i.UpdatedAt
 }
 
 // GetAction returns the Action field if it's non-nil, zero value otherwise.
