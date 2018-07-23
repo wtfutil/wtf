@@ -68,19 +68,6 @@ The inspiration for `WTF` came from Monica Dinculescu's
 Many thanks to <a href="https://lendesk.com">Lendesk</a> for supporting this project by
 providing time to develop it.
 
-The following open-source libraries were used in the creation of `WTF`.
-Many thanks to all these developers.
-
-* [calendar](https://google.golang.org/api/calendar/v3)
-* [config](https://github.com/olebedev/config)
-* [go-gerrit](https://github.com/andygrunwald/go-gerrit)
-* [go-github](https://github.com/google/go-github)
-* [goreleaser](https://github.com/goreleaser/goreleaser)
-* [newrelic](https://github.com/yfronto/newrelic)
-* [openweathermap](https://github.com/briandowns/openweathermap)
-* [tcell](https://github.com/gdamore/tcell)
-* [tview](https://github.com/rivo/tview)
-
 <p align="center">
 <img src="./docs/img/dude_wtf.png?raw=true" title="Dude WTF" width="251" height="201" />
 </p>
