@@ -7,16 +7,16 @@ import (
 	"log"
 	"net/http"
 	"os"
+
+	"github.com/senorprogrammer/wtf/wtf"
 )
 
 type Resource struct {
-	//Headers     http.Header
 	Response interface{}
 	Raw      string
 }
 
 var a = os.Getenv("ZENDESK_API")
-var username = os.Getenv("ZENDESK_USERNAME")
 var subdomain = os.Getenv("ZENDESK_SUBDOMAIN")
 var baseURL = fmt.Sprintf("https://%v.zendesk.com/api/v2", subdomain)
 
@@ -48,6 +48,7 @@ func api(key string, meth string, path string, params string) (*Resource, error)
 
 	req.Header.Add("Content-Type", "application/json")
 
+	username := wtf.Config.UString("wtf.mods.zendesk.username")
 	apiUser := fmt.Sprintf("%v/token", username)
 	req.SetBasicAuth(apiUser, key)
 

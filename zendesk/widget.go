@@ -41,8 +41,6 @@ func (widget *Widget) textContent(items []Ticket) string {
 
 	str := ""
 	for _, data := range items {
-		//str = items[i]
-		//str = fmt.Sprintf(data.Id)
 		str = str + widget.format(data)
 	}
 
