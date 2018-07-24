@@ -76,6 +76,11 @@ func (widget *Widget) openTicket() {
 }
 
 func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
+	switch string(event.Rune()) {
+	case "f":
+		widget.openTicket()
+		return nil
+	}
 	switch event.Key() {
 	case tcell.KeyEnter:
 		widget.openTicket()
