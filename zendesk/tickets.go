@@ -2,7 +2,6 @@ package zendesk
 
 import (
 	"encoding/json"
-	//"fmt"
 	"log"
 )
 
@@ -49,8 +48,6 @@ type Ticket struct {
 	Custom_Fields         interface{} `json:"custom_fields"`
 	Fields                interface{} `json:"fields"`
 }
-
-//var a = os.Getenv("ZENDESK_API")
 
 func listTickets(pag ...string) (*TicketArray, error) {
 
