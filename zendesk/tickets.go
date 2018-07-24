@@ -13,10 +13,6 @@ type TicketArray struct {
 	Tickets       []Ticket
 }
 
-type SingleTicket struct {
-	Ticket *Ticket `json:"ticket"`
-}
-
 type Ticket struct {
 	Id                    uint64      `json:"id"`
 	URL                   string      `json:"url"`

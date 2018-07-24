@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/gdamore/tcell"
+
 	"github.com/senorprogrammer/wtf/wtf"
 )
 
@@ -13,8 +15,10 @@ type Widget struct {
 
 func NewWidget() *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(" Zendesk ", "zendesk", false),
+		TextWidget: wtf.NewTextWidget(" Zendesk ", "zendesk", true),
 	}
+
+	widget.View.SetInputCapture(widget.keyboardIntercept)
 
 	return &widget
 }
@@ -65,4 +69,18 @@ func (widget *Widget) parseRequester(ticket Ticket) interface{} {
 	fromValMap := from.(map[string]interface{})
 	fromName := fromValMap["name"]
 	return fromName
+}
+
+func (widget *Widget) openTicket() {
+	wtf.OpenFile("https://" + subdomain + ".zendesk.com")
+}
+
+func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
+	switch event.Key() {
+	case tcell.KeyEnter:
+		widget.openTicket()
+		return nil
+	default:
+		return event
+	}
 }
