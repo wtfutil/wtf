@@ -26,13 +26,14 @@ func NewWidget() *Widget {
 /* -------------------- Exported Functions -------------------- */
 func (widget *Widget) Refresh() {
 	ticketStatus := wtf.Config.UString("wtf.mods.zendesk.status")
-	tickets, err := newTickets(ticketStatus)
+	tickets, ticketArray, err := newTickets(ticketStatus)
+	ticketArray.Count = len(ticketArray.Tickets)
 	if err != nil {
 		log.Fatal(err)
 	}
 	widget.UpdateRefreshedAt()
 
-	widget.View.SetTitle(fmt.Sprintf("%s (%d)", widget.Name, len(tickets)))
+	widget.View.SetTitle(fmt.Sprintf("%s (%d)", widget.Name, ticketArray.Count))
 	widget.View.SetText(widget.textContent(tickets))
 
 }
