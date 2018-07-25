@@ -11,6 +11,9 @@ import (
 
 type Widget struct {
 	wtf.TextWidget
+
+	result   *TicketArray
+	selected int
 }
 
 func NewWidget() *Widget {
@@ -26,18 +29,24 @@ func NewWidget() *Widget {
 /* -------------------- Exported Functions -------------------- */
 func (widget *Widget) Refresh() {
 	ticketStatus := wtf.Config.UString("wtf.mods.zendesk.status")
-	tickets, err := newTickets(ticketStatus)
+	ticketArray, err := newTickets(ticketStatus)
+	ticketArray.Count = len(ticketArray.Tickets)
 	if err != nil {
 		log.Fatal(err)
+	} else {
+		widget.result = ticketArray
 	}
 	widget.UpdateRefreshedAt()
 
-	widget.View.SetTitle(fmt.Sprintf("%s (%d)", widget.Name, len(tickets)))
-	widget.View.SetText(widget.textContent(tickets))
-
+	widget.display()
 }
 
 /* -------------------- Unexported Functions -------------------- */
+
+func (widget *Widget) display() {
+	widget.View.SetTitle(fmt.Sprintf("%s (%d)", widget.Name, widget.result.Count))
+	widget.View.SetText(widget.textContent(widget.result.Tickets))
+}
 
 func (widget *Widget) textContent(items []Ticket) string {
 	if len(items) == 0 {
@@ -45,17 +54,21 @@ func (widget *Widget) textContent(items []Ticket) string {
 	}
 
 	str := ""
-	for _, data := range items {
-		str = str + widget.format(data)
+	for idx, data := range items {
+		str = str + widget.format(data, idx)
 	}
 
 	return str
 }
 
-func (widget *Widget) format(ticket Ticket) string {
+func (widget *Widget) format(ticket Ticket, idx int) string {
 	var str string
 	requesterName := widget.parseRequester(ticket)
-	str = fmt.Sprintf(" [green]%d - %s\n %s\n\n", ticket.Id, requesterName, ticket.Subject)
+	textColor := wtf.Config.UString("wtf.colors.background", "green")
+	if idx == widget.selected {
+		textColor = wtf.Config.UString("wtf.colors.background", "orange")
+	}
+	str = fmt.Sprintf(" [%s:]%d - %s\n %s\n\n", textColor, ticket.Id, requesterName, ticket.Subject)
 	return str
 }
 
@@ -72,21 +85,71 @@ func (widget *Widget) parseRequester(ticket Ticket) interface{} {
 	return fromName
 }
 
+func (widget *Widget) next() {
+	widget.selected++
+	if widget.result != nil && widget.selected >= len(widget.result.Tickets) {
+		widget.selected = 0
+	}
+}
+
+func (widget *Widget) prev() {
+	widget.selected--
+	if widget.selected < 0 && widget.result != nil {
+		widget.selected = len(widget.result.Tickets) - 1
+	}
+}
+
 func (widget *Widget) openTicket() {
-	wtf.OpenFile("https://" + subdomain + ".zendesk.com")
+	sel := widget.selected
+	if sel >= 0 && widget.result != nil && sel < len(widget.result.Tickets) {
+		issue := &widget.result.Tickets[widget.selected]
+		ticketUrl := fmt.Sprintf("https://%s.zendesk.com/agent/tickets/%d", subdomain, issue.Id)
+		wtf.OpenFile(ticketUrl)
+	}
+}
+
+func (widget *Widget) unselect() {
+	widget.selected = -1
 }
 
 func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	switch string(event.Rune()) {
+	case "j":
+		// Select the next item down
+		widget.next()
+		widget.display()
+		return nil
+	case "k":
+		// Select the next item up
+		widget.prev()
+		widget.display()
+		return nil
+
 	case "f":
 		widget.openTicket()
 		return nil
 	}
 	switch event.Key() {
+	/* case tcell.KeyDown:
+	// Select the next item down
+	widget.next()
+	widget.display()
+	return nil */
 	case tcell.KeyEnter:
 		widget.openTicket()
 		return nil
+	case tcell.KeyEsc:
+		// Unselect the current row
+		widget.unselect()
+		widget.display()
+		return event
+	/* case tcell.KeyUp:
+	// Select the next item up
+	widget.prev()
+	widget.display()
+	return nil */
 	default:
+		// Pass it along
 		return event
 	}
 }
