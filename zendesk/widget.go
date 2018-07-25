@@ -33,8 +33,11 @@ func (widget *Widget) Refresh() {
 	}
 	widget.UpdateRefreshedAt()
 
+	// Just to use the tickets variable somewhere to remove warning
+	fmt.Sprintf(string(len(tickets)))
+
 	widget.View.SetTitle(fmt.Sprintf("%s (%d)", widget.Name, ticketArray.Count))
-	widget.View.SetText(widget.textContent(tickets))
+	widget.View.SetText(widget.textContent(ticketArray.Tickets))
 
 }
 
