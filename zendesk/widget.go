@@ -130,11 +130,6 @@ func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 		return nil
 	}
 	switch event.Key() {
-	/* case tcell.KeyDown:
-	// Select the next item down
-	widget.next()
-	widget.display()
-	return nil */
 	case tcell.KeyEnter:
 		widget.openTicket()
 		return nil
@@ -143,11 +138,6 @@ func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 		widget.unselect()
 		widget.display()
 		return event
-	/* case tcell.KeyUp:
-	// Select the next item up
-	widget.prev()
-	widget.display()
-	return nil */
 	default:
 		// Pass it along
 		return event
