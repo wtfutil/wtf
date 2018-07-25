@@ -25,7 +25,8 @@ func NewWidget() *Widget {
 
 /* -------------------- Exported Functions -------------------- */
 func (widget *Widget) Refresh() {
-	tickets, err := newTickets()
+	ticketStatus := wtf.Config.UString("wtf.mods.zendesk.status")
+	tickets, err := newTickets(ticketStatus)
 	if err != nil {
 		log.Fatal(err)
 	}
