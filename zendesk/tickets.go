@@ -66,8 +66,7 @@ func listTickets(pag ...string) (*TicketArray, error) {
 
 }
 
-func newTickets(ticketStatus string) ([]Ticket, *TicketArray, error) {
-	newTickets := []Ticket{}
+func newTickets(ticketStatus string) (*TicketArray, error) {
 	newTicketArray := &TicketArray{}
 	tickets, err := listTickets()
 	if err != nil {
@@ -75,10 +74,9 @@ func newTickets(ticketStatus string) ([]Ticket, *TicketArray, error) {
 	}
 	for _, Ticket := range tickets.Tickets {
 		if Ticket.Status == ticketStatus && Ticket.Status != "closed" && Ticket.Status != "solved" {
-			newTickets = append(newTickets, Ticket)
 			newTicketArray.Tickets = append(newTicketArray.Tickets, Ticket)
 		}
 	}
 
-	return newTickets, newTicketArray, nil
+	return newTicketArray, nil
 }
