@@ -73,7 +73,7 @@ func newTickets() ([]Ticket, error) {
 		log.Fatal(err)
 	}
 	for _, Ticket := range tickets.Tickets {
-		if Ticket.Status == "new" {
+		if Ticket.Status == "new" && Ticket.Status != "closed" && Ticket.Status != "solved" {
 			newTickets = append(newTickets, Ticket)
 		}
 	}
