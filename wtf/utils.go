@@ -81,7 +81,8 @@ func NamesFromEmails(emails []string) []string {
 // OpenFile opens the file defined in `path` via the operating system
 func OpenFile(path string) {
 	filePath, _ := ExpandHomeDir(path)
-	cmd := exec.Command("open", filePath)
+	openFileUtil := Config.UString("wtf.openFileUtil", "open")
+	cmd := exec.Command(openFileUtil, filePath)
 
 	ExecuteCommand(cmd)
 }

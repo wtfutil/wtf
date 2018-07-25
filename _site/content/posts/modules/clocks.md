@@ -36,9 +36,10 @@ clocks:
     Avignon: "Europe/Paris"
     Barcelona: "Europe/Madrid"
     Dubai: "Asia/Dubai"
+    New York: "America/New York"
+    Toronto: "America/Toronto"
     UTC: "Etc/UTC"
     Vancouver: "America/Vancouver"
-    Toronto: "America/Toronto"
   position:
     top: 4
     left: 0

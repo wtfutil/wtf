@@ -9,6 +9,24 @@ import (
 	"github.com/senorprogrammer/wtf/wtf"
 )
 
+const HelpText = `
+ Keyboard commands for Todoist:
+
+   /: Show/hide this help window
+   c: Close the selected item
+   d: Delete the selected item
+   h: Previous Todoist list
+   j: Select the next item in the list
+   k: Select the previous item in the list
+   l: Next Todoist list
+   r: Refresh the todo list data
+
+   arrow down: Select the next item in the list
+   arrow left: Previous Todoist list
+   arrow right: Next Todoist list
+   arrow up: Select the previous item in the list
+`
+
 type Widget struct {
 	wtf.TextWidget
 
@@ -120,6 +138,9 @@ func (w *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	}
 
 	switch string(event.Rune()) {
+	case "/":
+		w.showHelp()
+		return nil
 	case "r":
 		w.Refresh()
 		return nil
@@ -159,6 +180,18 @@ func loadProjects() []*Project {
 	}
 
 	return projects
+}
+
+func (widget *Widget) showHelp() {
+	closeFunc := func() {
+		widget.pages.RemovePage("help")
+		widget.app.SetFocus(widget.View)
+	}
+
+	modal := wtf.NewBillboardModal(HelpText, closeFunc)
+
+	widget.pages.AddPage("help", modal, false, true)
+	widget.app.SetFocus(modal)
 }
 
 func (w *Widget) vimBindings(event *tcell.EventKey) tcell.Key {

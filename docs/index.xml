@@ -207,7 +207,7 @@ position Defines where in the grid this module&amp;rsquo;s widget will be displa
       <description>Displays weather information as ASCII art from Wttr.in.
 Source Code wtf/prettyweather/ Required ENV Variables None.
 Keyboard Commands None.
-Configuration prettyweather:enabled:truecity:&amp;#34;tehran&amp;#34;position:top:3left:5height:1width:1refreshInterval:300unit:&amp;#34;c&amp;#34;view:0 Attributes city Optional. It will grab the current location from your IP address if omitted.
+Configuration prettyweather:enabled:truecity:&amp;#34;tehran&amp;#34;position:top:3left:5height:1width:1refreshInterval:300unit:&amp;#34;c&amp;#34;view:0language:&amp;#34;en&amp;#34; Attributes city Optional. It will grab the current location from your IP address if omitted.
 Values: The name of any city supported by Wttr.in.
 enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.
 position Defines where in the grid this module&amp;rsquo;s widget will be displayed.</description>
@@ -299,7 +299,7 @@ cmd The terminal command to be run, withouth the arguments. Ie: ping, whoami, cu
       
       <guid>https://wtfutil.com/posts/configuration/attributes/</guid>
       <description>The following top-level attributes are configurable in config.yml. See this example config file for more details.
-wtf:colors:background:&amp;#34;red&amp;#34;border:Focusable:&amp;#34;darkslateblue&amp;#34;focused:&amp;#34;orange&amp;#34;normal:&amp;#34;gray&amp;#34;grid:# How _wide_ the columns are, in terminal characters. In this case we have# six columns, each of which are 35 characters widecolumns:[35,35,35,35,35,35]# How _high_ the rows are, in terminal lines. In this case we have five rows# that support ten line of text, one of three lines, and one of fourrows:[10,10,10,10,10,3,4]# The app redraws itself once a secondrefreshInterval:1term:&amp;#34;xterm-256color&amp;#34; Attributes colors.</description>
+wtf:colors:background:&amp;#34;red&amp;#34;border:Focusable:&amp;#34;darkslateblue&amp;#34;focused:&amp;#34;orange&amp;#34;normal:&amp;#34;gray&amp;#34;grid:# How _wide_ the columns are, in terminal characters. In this case we have# six columns, each of which are 35 characters widecolumns:[35,35,35,35,35,35]# How _high_ the rows are, in terminal lines. In this case we have five rows# that support ten line of text, one of three lines, and one of fourrows:[10,10,10,10,10,3,4]# The app redraws itself once a secondopenFileUtil:openrefreshInterval:1term:&amp;#34;xterm-256color&amp;#34; Attributes colors.</description>
     </item>
     
     <item>
@@ -475,7 +475,7 @@ position Defines where in the grid this module&amp;rsquo;s widget will be displa
       <description>Displays a configurable list of world clocks, the local time, and date.
 Source Code wtf/clocks/ Required ENV Variables None.
 Keyboard Commands None.
-Configuration clocks:colors:rows:even:&amp;#34;lightblue&amp;#34;odd:&amp;#34;white&amp;#34;enabled:truelocations:# From https://en.wikipedia.org/wiki/List_of_tz_database_time_zonesAvignon:&amp;#34;Europe/Paris&amp;#34;Barcelona:&amp;#34;Europe/Madrid&amp;#34;Dubai:&amp;#34;Asia/Dubai&amp;#34;UTC:&amp;#34;Etc/UTC&amp;#34;Vancouver:&amp;#34;America/Vancouver&amp;#34;Toronto:&amp;#34;America/Toronto&amp;#34;position:top:4left:0height:1width:1refreshInterval:15# Valid options are: alphabetical, chronologicalsort:&amp;#34;alphabetical&amp;#34; Attributes colors.rows.even The foreground color for even-numbered rows. Values: Any X11 color name.
+Configuration clocks:colors:rows:even:&amp;#34;lightblue&amp;#34;odd:&amp;#34;white&amp;#34;enabled:truelocations:# From https://en.wikipedia.org/wiki/List_of_tz_database_time_zonesAvignon:&amp;#34;Europe/Paris&amp;#34;Barcelona:&amp;#34;Europe/Madrid&amp;#34;Dubai:&amp;#34;Asia/Dubai&amp;#34;NewYork:&amp;#34;America/New York&amp;#34;Toronto:&amp;#34;America/Toronto&amp;#34;UTC:&amp;#34;Etc/UTC&amp;#34;Vancouver:&amp;#34;America/Vancouver&amp;#34;position:top:4left:0height:1width:1refreshInterval:15# Valid options are: alphabetical, chronologicalsort:&amp;#34;alphabetical&amp;#34; Attributes colors.rows.even The foreground color for even-numbered rows. Values: Any X11 color name.
 colors.rows.odd The foreground color for the odd-numbered rows. Values: Any X11 color name.
 enabled Determines whether or not this module is executed and if its data displayed onscreen.</description>
     </item>

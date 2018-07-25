@@ -24,6 +24,7 @@ wtf:
     # that support ten line of text, one of three lines, and one of four
     rows: [10, 10, 10, 10, 10, 3, 4]
   # The app redraws itself once a second
+  openFileUtil: open
   refreshInterval: 1
   term: "xterm-256color"
 ```
@@ -64,6 +65,9 @@ Grid</a> for details.
 An array that defines the heights of all the rows. <br />
 Values: See <a href="https://github.com/rivo/tview/wiki/Grid">tview's
 Grid</a> for details.
+
+`openFileUtil` <br />
+Command to use to open a file or URL
 
 `refreshInterval` <br />
 How often, in seconds, the UI refreshes itself. <br />
