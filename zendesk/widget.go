@@ -103,22 +103,13 @@ func (widget *Widget) openTicket() {
 	sel := widget.selected
 	if sel >= 0 && widget.result != nil && sel < len(widget.result.Tickets) {
 		issue := &widget.result.Tickets[widget.selected]
-		wtf.OpenFile(issue.URL)
+		ticketUrl := fmt.Sprintf("https://%s.zendesk.com/agent/tickets/%d", subdomain, issue.Id)
+		wtf.OpenFile(ticketUrl)
 	}
 }
 
 func (widget *Widget) unselect() {
 	widget.selected = -1
-}
-
-func (widget *Widget) rowColor(idx int) string {
-	if widget.View.HasFocus() && (idx == widget.selected) {
-		foreColor := wtf.Config.UString("wtf.colors.highlight.fore", "black")
-		backColor := wtf.Config.UString("wtf.colors.highlight.back", "orange")
-
-		return fmt.Sprintf("%s:%s", foreColor, backColor)
-	}
-	return wtf.RowColor("zendesk", idx)
 }
 
 func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
