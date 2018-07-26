@@ -7,6 +7,7 @@ import (
 	"github.com/senorprogrammer/wtf/github"
 	"github.com/senorprogrammer/wtf/textfile"
 	"github.com/senorprogrammer/wtf/todo"
+	"github.com/senorprogrammer/wtf/todoist"
 	"github.com/senorprogrammer/wtf/weatherservices/weather"
 )
 
@@ -28,6 +29,8 @@ func helpFor(moduleName string) string {
 		return textfile.HelpText
 	case "todo":
 		return todo.HelpText
+	case "todoist":
+		return todoist.HelpText
 	case "weather":
 		return weather.HelpText
 	default:
