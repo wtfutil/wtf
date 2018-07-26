@@ -89,9 +89,9 @@ func (widget *BarGraph) UpdateRefreshedAt() {
 func (widget *BarGraph) addView() {
 	view := tview.NewTextView()
 
-	view.SetBackgroundColor(ColorFor(Config.UString("wtf.colors.background", "black")))
+	view.SetBackgroundColor(colorFor(Config.UString("wtf.colors.background", "black")))
 	view.SetBorder(true)
-	view.SetBorderColor(ColorFor(widget.BorderColor()))
+	view.SetBorderColor(colorFor(widget.BorderColor()))
 	view.SetDynamicColors(true)
 	view.SetTitle(widget.Name)
 	view.SetWrap(false)

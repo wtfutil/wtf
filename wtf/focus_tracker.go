@@ -70,7 +70,7 @@ func (tracker *FocusTracker) blur(idx int) {
 	view := widget.TextView()
 	view.Blur()
 
-	view.SetBorderColor(ColorFor(widget.BorderColor()))
+	view.SetBorderColor(colorFor(widget.BorderColor()))
 }
 
 func (tracker *FocusTracker) decrement() {
@@ -90,7 +90,7 @@ func (tracker *FocusTracker) focus(idx int) {
 	view := widget.TextView()
 
 	tracker.App.SetFocus(view)
-	view.SetBorderColor(ColorFor(Config.UString("wtf.colors.border.focused", "gray")))
+	view.SetBorderColor(colorFor(Config.UString("wtf.colors.border.focused", "gray")))
 }
 
 func (tracker *FocusTracker) focusables() []Wtfable {
