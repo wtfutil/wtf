@@ -10,8 +10,8 @@
 
 <meta name="generator" content="Hugo 0.38.2" />
 
-<title>Configuration: Attributes | WTF - A Terminal Dashboard</title>
-<meta content="Configuration: Attributes - WTF - A Terminal Dashboard" property="og:title">
+<title>Zendesk | WTF - A Terminal Dashboard</title>
+<meta content="Zendesk - WTF - A Terminal Dashboard" property="og:title">
 <meta content=" - " property="og:description">
 <!-- CSS -->
 <link rel="stylesheet" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
@@ -119,13 +119,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <div class="content container">
             <div class="post">
-  <h1>Configuration: Attributes</h1>
+  <h1>Zendesk</h1>
   
   <div class="col-sm-12 col-md-12">
     <span class="text-left post-date meta">
       
       
-        May 16, 2018
+        Jul 23, 2018
       
       
       
@@ -137,81 +137,63 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   
   
 
-<p>The following top-level attributes are configurable in <code>config.yml</code>.
-See this <a href="https://github.com/senorprogrammer/wtf/blob/master/_sample_configs/simple_config.yml">example config file</a> for more details.</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">wtf<span class="p">:</span><span class="w">
-</span><span class="w">  </span>colors<span class="p">:</span><span class="w">
-</span><span class="w">    </span>background<span class="p">:</span><span class="w"> </span><span class="s2">&#34;red&#34;</span><span class="w">
-</span><span class="w">    </span>border<span class="p">:</span><span class="w">
-</span><span class="w">      </span>Focusable<span class="p">:</span><span class="w"> </span><span class="s2">&#34;darkslateblue&#34;</span><span class="w">
-</span><span class="w">      </span>focused<span class="p">:</span><span class="w"> </span><span class="s2">&#34;orange&#34;</span><span class="w">
-</span><span class="w">      </span>normal<span class="p">:</span><span class="w"> </span><span class="s2">&#34;gray&#34;</span><span class="w">
-</span><span class="w">  </span>grid<span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="c"># How _wide_ the columns are, in terminal characters. In this case we have</span><span class="w">
-</span><span class="w">    </span><span class="c"># six columns, each of which are 35 characters wide</span><span class="w">
-</span><span class="w">    </span>columns<span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="m">35</span><span class="p">,</span><span class="w"> </span><span class="m">35</span><span class="p">,</span><span class="w"> </span><span class="m">35</span><span class="p">,</span><span class="w"> </span><span class="m">35</span><span class="p">,</span><span class="w"> </span><span class="m">35</span><span class="p">,</span><span class="w"> </span><span class="m">35</span><span class="p">]</span><span class="w">
-</span><span class="w">
-</span><span class="w">    </span><span class="c"># How _high_ the rows are, in terminal lines. In this case we have five rows</span><span class="w">
-</span><span class="w">    </span><span class="c"># that support ten line of text, one of three lines, and one of four</span><span class="w">
-</span><span class="w">    </span>rows<span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="m">10</span><span class="p">,</span><span class="w"> </span><span class="m">10</span><span class="p">,</span><span class="w"> </span><span class="m">10</span><span class="p">,</span><span class="w"> </span><span class="m">10</span><span class="p">,</span><span class="w"> </span><span class="m">10</span><span class="p">,</span><span class="w"> </span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="m">4</span><span class="p">]</span><span class="w">
-</span><span class="w">  </span><span class="c"># The app redraws itself once a second</span><span class="w">
-</span><span class="w">  </span>openFileUtil<span class="p">:</span><span class="w"> </span>open<span class="w">
-</span><span class="w">  </span>refreshInterval<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="w">  </span>term<span class="p">:</span><span class="w"> </span><span class="s2">&#34;xterm-256color&#34;</span></code></pre></div>
+<p>Added in <code>v0.1.0</code>.</p>
+
+<p>Displays tickets in the &ldquo;New&rdquo; status - i.e. have not yet been assigned.</p>
+
+<h2 id="source-code">Source Code</h2>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">wtf/zendesk/</code></pre></div>
+<h2 id="required-env-variables">Required ENV Variables</h2>
+
+<p><span class="caption">Key:</span> <code>ZENDESK_API</code> <br />
+<span class="caption">Value:</span> Your Zendesk API Token</p>
+
+<p><span class="caption">Key:</span> <code>ZENDESK_DOMAIN</code> <br />
+<span class="caption">Value:</span> Your Zendesk subdomain</p>
+
+<h2 id="keyboard-commands">Keyboard Commands</h2>
+
+<p><span class="caption">Key:</span> <code>[return]</code> <br />
+<span class="caption">Action:</span> Open the selected ticket in the browser.</p>
+
+<p><span class="caption">Key:</span> <code>j</code> <br />
+<span class="caption">Action:</span> Select the next item in the list.</p>
+
+<p><span class="caption">Key:</span> <code>k</code> <br />
+<span class="caption">Action:</span> Select the previous item in the list.</p>
+
+<p><span class="caption">Key:</span> <code>↓</code> <br />
+<span class="caption">Action:</span> Scroll down the list.</p>
+
+<p><span class="caption">Key:</span> <code>↑</code> <br />
+<span class="caption">Action:</span> Scroll up the list.</p>
+
+<h2 id="configuration">Configuration</h2>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">zendesk<span class="p">:</span><span class="w">
+</span><span class="w">  </span>enabled<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span>position<span class="p">:</span><span class="w">
+</span><span class="w">    </span>top<span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
+</span><span class="w">    </span>left<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span><span class="w">    </span>height<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">    </span>width<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="w">  </span>status<span class="p">:</span><span class="w"> </span><span class="s2">&#34;new&#34;</span><span class="w">
+</span><span class="w">  </span>username<span class="p">:</span><span class="w"> </span><span class="s2">&#34;your_email@acme.com&#34;</span></code></pre></div>
 <h3 id="attributes">Attributes</h3>
 
-<p><code>colors.background</code> <br />
-The color to draw the background of the app in. Use this to match your
-terminal colors. May be over-written by individual module
-configurations. <br />
-Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11
-color name</a>.</p>
+<p><code>enabled</code> <br />
+Determines whether or not this module is executed and if its data displayed onscreen. <br />
+Values: <code>true</code>, <code>false</code>.</p>
 
-<p><code>colors.border.focusable</code> <br />
-The color in which to draw the border of widgets that can accept
-keyboard focus. <br />
-Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11
-color name</a>.</p>
+<p><code>position</code> <br />
+Defines where in the grid this module&rsquo;s widget will be displayed. <br /></p>
 
-<p><code>colors.border.focused</code> <br />
-The color in which to draw the border of the widget that currently has
-keyboard focus. <br />
-Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11
-color name</a>.</p>
+<p><code>status</code> <br />
+The status of tickets you want to retrieve.
+Values: <code>new</code>, <code>open</code>, <code>pending</code>, <code>hold</code>.</p>
 
-<p><code>colors.border.normal</code> <br />
-The color in which to draw the borders of the widgets that cannot accept
-focus. <br/>
-Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11
-color name</a>.</p>
-
-<p><code>grid.columns</code> <br />
-An array that defines the widths of all the columns. <br />
-Values: See <a href="https://github.com/rivo/tview/wiki/Grid">tview&rsquo;s
-Grid</a> for details.</p>
-
-<p><code>grid.rows</code> <br />
-An array that defines the heights of all the rows. <br />
-Values: See <a href="https://github.com/rivo/tview/wiki/Grid">tview&rsquo;s
-Grid</a> for details.</p>
-
-<p><code>openFileUtil</code> <br />
-Command to use to open a file or URL</p>
-
-<p><code>refreshInterval</code> <br />
-How often, in seconds, the UI refreshes itself. <br />
-<strong>Note:</strong> This implementation is probably wrong and buggy and likely to
-change. <br />
-Values: A positive integer, <code>0..n</code>.</p>
-
-<p><code>term</code> <br />
-<em>Optional</em>. <br />
-Sets a custom value for the terminal type this app runs in. Leave this entry out of the config if you simply want to use your terminal&rsquo;s
-default setting. <br />
-<strong>Note:</strong> If an invalid value is provided for this setting, the app will
- crash with a <code>&quot;terminal entry not found&quot;</code> error. <br />
-Values: Any valid terminal type (ie: vt100, xterm, xterm-256color, ansi,
-etc.).</p>
+<p><code>username</code> <br />
+Your Zendesk username
+Values: A valid Zendesk username (usually an email address).</p>
 
 </div>
 

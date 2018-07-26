@@ -6,10 +6,26 @@
     <description>Recent content in Posts on WTF - A Terminal Dashboard</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 18 Jul 2018 14:36:08 -0400</lastBuildDate>
+    <lastBuildDate>Mon, 23 Jul 2018 18:55:37 -0800</lastBuildDate>
     
 	<atom:link href="https://wtfutil.com/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Zendesk</title>
+      <link>https://wtfutil.com/posts/modules/zendesk/</link>
+      <pubDate>Mon, 23 Jul 2018 18:55:37 -0800</pubDate>
+      
+      <guid>https://wtfutil.com/posts/modules/zendesk/</guid>
+      <description>Added in v0.1.0.
+Displays tickets in the &amp;ldquo;New&amp;rdquo; status - i.e. have not yet been assigned.
+Source Code wtf/zendesk/ Required ENV Variables Key: ZENDESK_API Value: Your Zendesk API Token
+Key: ZENDESK_DOMAIN Value: Your Zendesk subdomain
+Keyboard Commands Key: [return] Action: Open the selected ticket in the browser.
+Key: j Action: Select the next item in the list.
+Key: k Action: Select the previous item in the list.
+Key: ↓ Action: Scroll down the list.</description>
+    </item>
     
     <item>
       <title>TravisCI</title>
