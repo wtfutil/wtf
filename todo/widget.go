@@ -132,7 +132,8 @@ func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 		return nil
 	case "o":
 		// Open the file
-		wtf.OpenFile(widget.filePath)
+		confDir, _ := cfg.ConfigDir()
+		wtf.OpenFile(fmt.Sprintf("%s/%s", confDir, widget.filePath))
 		return nil
 	}
 
