@@ -2,6 +2,7 @@ package todo
 
 import (
 	"fmt"
+	"strconv"
 
 	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/checklist"
@@ -14,14 +15,18 @@ func (widget *Widget) display() {
 	str := ""
 	newList := checklist.NewChecklist()
 
-	for _, item := range widget.list.UncheckedItems() {
-		str = str + widget.formattedItemLine(item, widget.list.SelectedItem(), widget.list.LongestLine())
+  offset := 0
+
+	for idx, item := range widget.list.UncheckedItems() {
+		str = str + widget.formattedItemLine(idx, item, widget.list.SelectedItem(), widget.list.LongestLine())
 		newList.Items = append(newList.Items, item)
 	}
 
-	for _, item := range widget.list.CheckedItems() {
-		str = str + widget.formattedItemLine(item, widget.list.SelectedItem(), widget.list.LongestLine())
+	for idx, item := range widget.list.CheckedItems() {
+		str = str + widget.formattedItemLine(idx + offset, item, widget.list.SelectedItem(), widget.list.LongestLine())
 		newList.Items = append(newList.Items, item)
+
+		offset++
 	}
 
 	newList.SetSelectedByItem(widget.list.SelectedItem())
@@ -29,9 +34,10 @@ func (widget *Widget) display() {
 
 	widget.View.Clear()
 	widget.View.SetText(str)
+	widget.View.Highlight(strconv.Itoa(widget.list.Selected)).ScrollToHighlight()
 }
 
-func (widget *Widget) formattedItemLine(item *checklist.ChecklistItem, selectedItem *checklist.ChecklistItem, maxLen int) string {
+func (widget *Widget) formattedItemLine(idx int, item *checklist.ChecklistItem, selectedItem *checklist.ChecklistItem, maxLen int) string {
 	foreColor, backColor := "white", wtf.Config.UString("wtf.colors.background", "black")
 
 	if item.Checked {
@@ -44,7 +50,8 @@ func (widget *Widget) formattedItemLine(item *checklist.ChecklistItem, selectedI
 	}
 
 	str := fmt.Sprintf(
-		"[%s:%s]|%s| %s[white]",
+		`["%d"][%s:%s]|%s| %s[-][""]`,
+		idx,
 		foreColor,
 		backColor,
 		item.CheckMark(),
