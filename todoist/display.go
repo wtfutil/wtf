@@ -16,7 +16,7 @@ func (widget *Widget) display() {
 		return
 	}
 
-	widget.View.SetTitle(fmt.Sprintf("%s- [green]%s[white] ", widget.Name, proj.Project.Name))
+	widget.View.SetTitle(fmt.Sprintf(" [green]%s[white] ", proj.Project.Name))
 	str := wtf.SigilStr(len(widget.projects), widget.idx, widget.View) + "\n"
 
 	maxLen := proj.LongestLine()
