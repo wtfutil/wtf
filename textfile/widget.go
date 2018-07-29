@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"path/filepath"
 	"strings"
 
 	"github.com/gdamore/tcell"
@@ -49,7 +50,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 
 func (widget *Widget) Refresh() {
 	widget.UpdateRefreshedAt()
-	widget.View.SetTitle(fmt.Sprintf("%s %s", widget.Name, widget.filePath))
+	widget.View.SetTitle(fmt.Sprintf(" %s ", widget.fileName()))
 
 	filePath, _ := wtf.ExpandHomeDir(widget.filePath)
 
@@ -146,6 +147,10 @@ func (widget *Widget) Refresh() {
 }
 
 /* -------------------- Unexported Functions -------------------- */
+
+func (widget *Widget) fileName() string {
+	return filepath.Base(widget.filePath)
+}
 
 func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	switch string(event.Rune()) {

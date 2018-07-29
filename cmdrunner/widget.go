@@ -42,7 +42,12 @@ func (widget *Widget) Refresh() {
 
 func (widget *Widget) String() string {
 	args := strings.Join(widget.args, " ")
-	return fmt.Sprintf(" %s %s ", widget.cmd, args)
+
+	if args != "" {
+		return fmt.Sprintf(" %s %s ", widget.cmd, args)
+	} else {
+		return fmt.Sprintf(" %s ", widget.cmd)
+	}
 }
 
 func (widget *Widget) execute() {
