@@ -42,7 +42,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 	}
 
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(" Gitlab ", "gitlab", true),
+		TextWidget: wtf.NewTextWidget("Gitlab", "gitlab", true),
 
 		app:   app,
 		pages: pages,

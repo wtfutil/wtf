@@ -72,8 +72,16 @@ func (widget *BarGraph) Focusable() bool {
 	return widget.enabled && widget.focusable
 }
 
+func (widget *BarGraph) FocusChar() string {
+	return ""
+}
+
 func (widget *BarGraph) RefreshInterval() int {
 	return widget.RefreshInt
+}
+
+func (widget *BarGraph) SetFocusChar(char string) {
+	return
 }
 
 func (widget *BarGraph) TextView() *tview.TextView {

@@ -10,6 +10,8 @@ type Wtfable interface {
 
 	BorderColor() string
 	Focusable() bool
+	FocusChar() string
+	SetFocusChar(string)
 	TextView() *tview.TextView
 
 	Top() int

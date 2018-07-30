@@ -74,6 +74,8 @@ func initializeFocusTracker(app *tview.Application) {
 		Idx:     -1,
 		Widgets: widgets,
 	}
+
+	focusTracker.AssignHotKeys()
 }
 
 func keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
@@ -86,9 +88,11 @@ func keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 		focusTracker.Prev()
 	case tcell.KeyEsc:
 		focusTracker.None()
-	default:
-		return event
+		//default:
+		//return event
 	}
+
+	focusTracker.FocusOn(string(event.Rune()))
 
 	return event
 }

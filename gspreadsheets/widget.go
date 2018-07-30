@@ -13,7 +13,7 @@ type Widget struct {
 
 func NewWidget() *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(" Google Spreadsheets ", "gspreadsheets", false),
+		TextWidget: wtf.NewTextWidget("Google Spreadsheets", "gspreadsheets", false),
 	}
 
 	return &widget
