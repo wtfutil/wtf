@@ -23,22 +23,6 @@ All open pull requests created by you.
 wtf/github/
 ```
 
-## GitHub Required ENV Variables
-
-<span class="caption">Key:</span> `WTF_GITHUB_TOKEN` <br />
-<span class="caption">Action:</span> Your <a href="https://developer.github.com/v3/oauth_authorizations/#create-a-new-authorization">GitHub API</a> token.
-
-## GitHub Enterprise Required ENV Variables
-
-<span class="caption">Key:</span> `WTF_GITHUB_TOKEN` <br />
-<span class="caption">Action:</span> Your <a href="https://developer.github.com/v3/oauth_authorizations/#create-a-new-authorization">GitHub API</a> token.
-
-<span class="caption">Key:</span> `WTF_GITHUB_BASE_URL` <br />
-<span class="caption">Action:</span> Your <a href="https://developer.github.com/enterprise/2.13/v3/enterprise-admin/">GitHub Enterprise</a> API URL.
-
-<span class="caption">Key:</span> `WTF_GITHUB_UPLOAD_URL` <br />
-<span class="caption">Action:</span> Your <a href="https://developer.github.com/enterprise/2.13/v3/enterprise-admin/">GitHub Enterprise</a> upload URL (often the same as API URL).
-
 ## Keyboard Commands
 
 <span class="caption">Key:</span> `/` <br />
@@ -60,6 +44,8 @@ wtf/github/
 
 ```yaml
 github:
+  apiKey: "3276d7155dd9ee27b8b14f8743a408a9"
+  baseURL: ""
   enabled: true
   enableStatus: true
   position:
@@ -71,13 +57,21 @@ github:
   repositories:
     wesker-api: "UmbrellaCorp"
     wtf: "senorprogrammer"
+  uploadURL: ""
   username: "senorprogrammer"
 ```
 
 ### Attributes
 
+`apiKey` <br />
+Value: Your <a href="https://developer.github.com/v3/oauth_authorizations/#create-a-new-authorization">GitHub API</a> token.
+
+`baseURL` <br />
+_Optional_ <br />
+Value: Your <a href="https://developer.github.com/enterprise/2.13/v3/enterprise-admin/">GitHub Enterprise</a> API URL.
+
 `enabled` <br />
-Determines whether or not this module is executed and if its data displayed onscreen. <br />
+Whether or not this module is executed and if its data displayed onscreen. <br />
 Values: `true`, `false`.
 
 `enableStatus` <br />
@@ -97,6 +91,10 @@ A list of key/value pairs each describing a GitHub repository to fetch data
 for. <br />
 <span class="caption">Key:</span> The name of the repository. <br />
 <span class="caption">Value:</span> The name of the account or organization that owns the repository.
+
+`uploadURL` <br />
+_Optional_ <br />
+Value: Your <a href="https://developer.github.com/enterprise/2.13/v3/enterprise-admin/">GitHub Enterprise</a> upload URL (often the same as API URL).
 
 `username` <br />
 Your GitHub username. Used to figure out which review requests you've

@@ -16,13 +16,6 @@ Displays all items on specified project.
 wtf/todoist/
 ```
 
-## Required ENV Variables
-
-<span class="caption">Key:</span> `WTF_TODOIST_TOKEN` <br />
-<span class="caption">Value:</span> Your Todoist API Token. <br />
-
-_You can get your API Token at: todoist.com/prefs/integrations._
-
 ## Keyboard Commands
 
 <span class="caption">Key:</span> `h` <br />
@@ -62,6 +55,7 @@ _You can get your API Token at: todoist.com/prefs/integrations._
 
 ```yaml
 todoist:
+  apiKey: "3276d7155dd9ee27b8b14f8743a408a9"
   enabled: true
   position:
     top: 0
@@ -74,6 +68,9 @@ todoist:
 ```
 
 ### Attributes
+
+`apiKey` <br />
+Value: Your <a href="https://developer.todoist.com/sync/v7/">Todoist API</a> token.
 
 `enabled` <br />
 Determines whether or not this module is executed and if its data displayed onscreen. <br />

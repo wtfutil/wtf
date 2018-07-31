@@ -144,18 +144,13 @@ and who&rsquo;s currently on call.</p>
 
 <h2 id="source-code">Source Code</h2>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">wtf/opsgenie/</code></pre></div>
-<h2 id="required-env-variables">Required ENV Variables</h2>
-
-<p><span class="caption">Key:</span> <code>WTF_OPS_GENIE_API_KEY</code> <br />
-<span class="caption">Value:</span> Your <a href="https://docs.opsgenie.com/docs/api-integration">OpsGenie
-API</a> token.</p>
-
 <h2 id="keyboard-commands">Keyboard Commands</h2>
 
 <p>None.</p>
 
 <h2 id="configuration">Configuration</h2>
 <div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">opsgenie<span class="p">:</span><span class="w">
+</span><span class="w">  </span>apiKey<span class="p">:</span><span class="w"> </span><span class="s2">&#34;3276d7155dd9ee27b8b14f8743a408a9&#34;</span><span class="w">
 </span><span class="w">  </span>displayEmpty<span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
 </span><span class="w">  </span>enabled<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span><span class="w">  </span>position<span class="p">:</span><span class="w">
@@ -165,6 +160,9 @@ API</a> token.</p>
 </span><span class="w">    </span>width<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
 </span><span class="w">  </span>refreshInterval<span class="p">:</span><span class="w"> </span><span class="m">21600</span></code></pre></div>
 <h3 id="attributes">Attributes</h3>
+
+<p><code>apiKey</code> &lt; br /&gt;
+Value: Your <a href="https://docs.opsgenie.com/docs/api-integration">OpsGenie API</a> token.</p>
 
 <p><code>displayEmpty</code> <br />
 Whether schedules with no assigned person on-call should be displayed. <br />

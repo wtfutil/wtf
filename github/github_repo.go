@@ -6,6 +6,7 @@ import (
 	"os"
 
 	ghb "github.com/google/go-github/github"
+	"github.com/senorprogrammer/wtf/wtf"
 	"golang.org/x/oauth2"
 )
 
@@ -22,13 +23,11 @@ type GithubRepo struct {
 
 func NewGithubRepo(name, owner string) *GithubRepo {
 	repo := GithubRepo{
-		apiKey:    os.Getenv("WTF_GITHUB_TOKEN"),
-		baseURL:   os.Getenv("WTF_GITHUB_BASE_URL"),
-		uploadURL: os.Getenv("WTF_GITHUB_UPLOAD_URL"),
-
 		Name:  name,
 		Owner: owner,
 	}
+
+	repo.loadAPICredentials()
 
 	return &repo
 }
@@ -89,6 +88,23 @@ func (repo *GithubRepo) githubClient() (*ghb.Client, error) {
 	}
 
 	return ghb.NewClient(oauthClient), nil
+}
+
+func (repo *GithubRepo) loadAPICredentials() {
+	repo.apiKey = wtf.Config.UString(
+		"wtf.mods.github.apiKey",
+		os.Getenv("WTF_GITHUB_TOKEN"),
+	)
+
+	repo.baseURL = wtf.Config.UString(
+		"wtf.mods.github.baseURL",
+		os.Getenv("WTF_GITHUB_BASE_URL"),
+	)
+
+	repo.uploadURL = wtf.Config.UString(
+		"wtf.mods.github.uploadURL",
+		os.Getenv("WTF_GITHUB_UPLOAD_URL"),
+	)
 }
 
 // myPullRequests returns a list of pull requests created by username on this repo

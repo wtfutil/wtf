@@ -4,8 +4,6 @@ date: 2018-06-27T15:55:42-07:00
 draft: false
 ---
 
-<img src="/imgs/modules/gerrit.png" width="640" height="384" alt="gerrit screenshot" />
-
 Displays information about your projects hosted on Gerrit:
 
 #### Open Incoming Reviews
@@ -16,16 +14,13 @@ All open reviews that are requesting your approval.
 
 All open reviews created by you.
 
+<img src="/imgs/modules/gerrit.png" width="640" height="167" alt="gerrit screenshot" />
+
 ## Source Code
 
 ```bash
 wtf/gerrit/
 ```
-
-## Required ENV Variables
-
-<span class="caption">Key:</span> `WTF_GERRIT_PASSWORD` <br />
-<span class="caption">Action:</span> Your <a href="https://gerrit-review.googlesource.com/Documentation/user-upload.html#http">Gerrit HTTP Password</a>.
 
 ## Keyboard Commands
 
@@ -59,6 +54,7 @@ gerrit:
   projects:
   - org/test-project"
   - dotfiles
+  password: "mypassword"
   username: "myname"
   verifyServerCertificate: false
 ```
@@ -83,8 +79,11 @@ Values: A valid URI.
 `projects` <br />
 A list of Gerrit project names to fetch data for. <br />
 
+`password` <br />
+Value: Your <a href="https://gerrit-review.googlesource.com/Documentation/user-upload.html#http">Gerrit HTTP Password</a>.
+
 `username` <br />
-Your Gerrit username. <br />
+Your Gerrit username.
 
 `verifyServerCertificate` <br />
 _Optional_ <br />

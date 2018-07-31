@@ -9,6 +9,8 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+
+	"github.com/senorprogrammer/wtf/wtf"
 )
 
 const APIEnvKey = "WTF_CIRCLE_API_KEY"
@@ -59,7 +61,10 @@ func circleRequest(path string) (*http.Response, error) {
 }
 
 func apiKey() string {
-	return os.Getenv(APIEnvKey)
+	return wtf.Config.UString(
+		"wtf.mods.circleci.apiKey",
+		os.Getenv(APIEnvKey),
+	)
 }
 
 func parseJson(obj interface{}, text io.Reader) {

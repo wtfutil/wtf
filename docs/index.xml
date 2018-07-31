@@ -19,12 +19,12 @@
       <guid>https://wtfutil.com/posts/modules/zendesk/</guid>
       <description>Added in v0.1.0.
 Displays tickets in the &amp;ldquo;New&amp;rdquo; status - i.e. have not yet been assigned.
-Source Code wtf/zendesk/ Required ENV Variables Key: ZENDESK_API Value: Your Zendesk API Token
-Key: ZENDESK_DOMAIN Value: Your Zendesk subdomain
-Keyboard Commands Key: [return] Action: Open the selected ticket in the browser.
+Source Code wtf/zendesk/ Keyboard Commands Key: [return] Action: Open the selected ticket in the browser.
 Key: j Action: Select the next item in the list.
 Key: k Action: Select the previous item in the list.
-Key: ↓ Action: Scroll down the list.</description>
+Key: ↓ Action: Scroll down the list.
+Key: ↑ Action: Scroll up the list.
+Configuration zendesk:apiKey:&amp;#34;3276d7155dd9ee27b8b14f8743a408a9&amp;#34;enabled:trueposition:top:0left:2height:1width:1status:&amp;#34;new&amp;#34;subdomain:&amp;#34;your_domain&amp;#34;username:&amp;#34;your_email@acme.com&amp;#34; Attributes apiKey Value: Your Zendesk API token.</description>
     </item>
     
     <item>
@@ -35,10 +35,10 @@ Key: ↓ Action: Scroll down the list.</description>
       <guid>https://wtfutil.com/posts/modules/travisci/</guid>
       <description>Added in v0.0.12.
 Displays build information for your Travis CI account.
-Source Code wtf/travisci/ Required ENV Variables Key: WTF_TRAVIS_API_TOKEN Value: Your Travis CI API access token.
-Keyboard Commands None.
-Configuration travisci:enabled:trueposition:top:4left:1height:1width:2pro:falserefreshInterval:900 Attributes enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.
-position Defines where in the grid this module&amp;rsquo;s widget will be displayed. refreshInterval How often, in seconds, this module will update its data.</description>
+Source Code wtf/travisci/ Keyboard Commands None.
+Configuration travisci:apiKey:&amp;#34;3276d7155dd9ee27b8b14f8743a408a9&amp;#34;enabled:trueposition:top:4left:1height:1width:2pro:falserefreshInterval:900 Attributes apiKey Value: Your Travis CI API access token.
+enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.
+position Defines where in the grid this module&amp;rsquo;s widget will be displayed. refreshInterval How often, in seconds, this module will update its data. Values: A positive integer, 0.</description>
     </item>
     
     <item>
@@ -49,12 +49,13 @@ position Defines where in the grid this module&amp;rsquo;s widget will be displa
       <guid>https://wtfutil.com/posts/modules/todoist/</guid>
       <description>Added in v0.0.11.
 Displays all items on specified project.
-Source Code wtf/todoist/ Required ENV Variables Key: WTF_TODOIST_TOKEN Value: Your Todoist API Token. You can get your API Token at: todoist.com/prefs/integrations.
-Keyboard Commands Key: h Action: Show the previous project.
+Source Code wtf/todoist/ Keyboard Commands Key: h Action: Show the previous project.
 Key: ← Action: Show the previous project.
 Key: l Action: Show the next project.
 Key: → Action: Show the next project.
-Key: j Action: Select the next item in the list.</description>
+Key: j Action: Select the next item in the list.
+Key: ↓ Action: Select the next item in the list.
+Key: k Action: Select the previous item in the list.</description>
     </item>
     
     <item>
@@ -66,11 +67,11 @@ Key: j Action: Select the next item in the list.</description>
       <description>Displays information about your projects hosted on Gerrit:
 Open Incoming Reviews All open reviews that are requesting your approval.
 My Outgoing Reviews All open reviews created by you.
-Source Code wtf/gerrit/ Required ENV Variables Key: WTF_GERRIT_PASSWORD Action: Your Gerrit HTTP Password.
-Keyboard Commands Key: / Action: Open/close the widget&amp;rsquo;s help window.
+Source Code wtf/gerrit/ Keyboard Commands Key: / Action: Open/close the widget&amp;rsquo;s help window.
 Key: h Action: Show the previous project.
 Key: l Action: Show the next project.
-Key: ← Action: Show the previous project.</description>
+Key: ← Action: Show the previous project.
+Key: → Action: Show the next project.</description>
     </item>
     
     <item>
@@ -127,10 +128,10 @@ enabled Determines whether or not this module is executed and if its data displa
       <guid>https://wtfutil.com/posts/modules/circleci/</guid>
       <description>Added in v0.0.7.
 Displays build information for your CircleCI account.
-Source Code wtf/circleci/ Required ENV Variables Key: WTF_CIRCLE_API_KEY Value: Your CircleCI API token.
-Keyboard Commands None.
-Configuration circleci:enabled:trueposition:top:4left:1height:1width:2refreshInterval:900 Attributes enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.
-position Defines where in the grid this module&amp;rsquo;s widget will be displayed. refreshInterval How often, in seconds, this module will update its data.</description>
+Source Code wtf/circleci/ Keyboard Commands None.
+Configuration circleci:apiKey:&amp;#34;3276d7155dd9ee27b8b14f8743a408a9&amp;#34;enabled:trueposition:top:4left:1height:1width:2refreshInterval:900 Attributes apiKey Value: Your CircleCI API token.
+enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.
+position Defines where in the grid this module&amp;rsquo;s widget will be displayed. refreshInterval How often, in seconds, this module will update its data. Values: A positive integer, 0.</description>
     </item>
     
     <item>
@@ -156,9 +157,9 @@ position Where in the grid this module&amp;rsquo;s widget will be displayed.</de
       <guid>https://wtfutil.com/posts/modules/jenkins/</guid>
       <description>Added in v0.0.8.
 Displays jenkins status of given builds in a project or view
-Source Code wtf/jenkins/ Required ENV Variables Key: WTF_JENKINS_API_KEY Value: Your Jenkins API key.
-Keyboard Commands None.
-Configuration jenkins:enabled:trueposition:top:2left:3height:2width:3refreshInterval:300url:&amp;#34;https://jenkins.domain.com/jenkins/view_url&amp;#34;user:&amp;#34;username&amp;#34;verifyServerCertificate:true Attributes enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.
+Source Code wtf/jenkins/ Keyboard Commands None.
+Configuration jenkins:apiKey:&amp;#34;3276d7155dd9ee27b8b14f8743a408a9&amp;#34;enabled:trueposition:top:2left:3height:2width:3refreshInterval:300url:&amp;#34;https://jenkins.domain.com/jenkins/view_url&amp;#34;user:&amp;#34;username&amp;#34;verifyServerCertificate:true Attributes apiKey Value: Your Jenkins API key.
+enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.
 position Defines where in the grid this module&amp;rsquo;s widget will be displayed.
 refreshInterval How often, in seconds, this module will update its data.</description>
     </item>
@@ -173,9 +174,11 @@ refreshInterval How often, in seconds, this module will update its data.</descri
 Displays information about your projects hosted on GitLab:
 Open Approval Requests All open merge requests that are requesting your approval.
 Open Merge Requests All open merge requests created by you.
-Source Code wtf/gitlab/ Required ENV Variables Key: WTF_GITLAB_TOKEN Action: A GitLab personal access token. Requires at least api access.
-Keyboard Commands Key: / Action: Open/close the widget&amp;rsquo;s help window.
-Key: h Action: Show the previous project.</description>
+Source Code wtf/gitlab/ Keyboard Commands Key: / Action: Open/close the widget&amp;rsquo;s help window.
+Key: h Action: Show the previous project.
+Key: l Action: Show the next project.
+Key: ← Action: Show the previous project.
+Key: → Action: Show the next project.</description>
     </item>
     
     <item>
@@ -339,12 +342,12 @@ Key: j Action: Select the next item in the list.</description>
       
       <guid>https://wtfutil.com/posts/modules/jira/</guid>
       <description>Displays all Jira issues assigned to you for the specified project.
-Source Code wtf/jira/ Required ENV Variables Key: WTF_JIRA_API_KEY Value: Your Jira API key.
-Keyboard Commands Key: [return] Action: Open the selected issue in the browser.
+Source Code wtf/jira/ Keyboard Commands Key: [return] Action: Open the selected issue in the browser.
 Key: j Action: Select the next item in the list.
 Key: k Action: Select the previous item in the list.
 Key: ↓ Action: Select the next item in the list.
-Key: ↑ Action: Select the previous item in the list.</description>
+Key: ↑ Action: Select the previous item in the list.
+Configuration Single Jira Project jira:apiKey:&amp;#34;3276d7155dd9ee27b8b14f8743a408a9&amp;#34;colors:rows:even:&amp;#34;lightblue&amp;#34;odd:&amp;#34;white&amp;#34;domain:&amp;#34;https://umbrellacorp.</description>
     </item>
     
     <item>
@@ -354,10 +357,11 @@ Key: ↑ Action: Select the previous item in the list.</description>
       
       <guid>https://wtfutil.com/posts/modules/trello/</guid>
       <description>Displays all Trello cards on specified lists.
-Source Code wtf/trello/ Required ENV Variables Key: WTF_TRELLO_APP_KEY Value: Your Trello App Key. Key: WTF_TRELLO_ACCESS_TOKEN Value: Your Trello Access Token. You can get your API key at: trello.com/app-key.
-Keyboard Commands None.
-Configuration Single Trello List trello:board:Mainenabled:truelist:&amp;#34;Todo&amp;#34;position:height:1left:2top:0width:1refreshInterval:3600username:myname Multiple Trello Lists If you want to monitor multiple Trello lists, use the following configuration (note the difference in list):
-trello:board:Mainenabled:truelist:[&amp;#34;Todo&amp;#34;,&amp;#34;Done&amp;#34;]position:height:1left:2top:0width:1refreshInterval:3600username:myname Attributes board The name of the Trello board.</description>
+Source Code wtf/trello/ Keyboard Commands None.
+Configuration Single Trello List trello:accessToken:&amp;#34;7b8b14f8743a408a93276d7155dd9ee2&amp;#34;apiKey:&amp;#34;3276d7155dd9ee27b8b14f8743a408a9&amp;#34;board:Mainenabled:truelist:&amp;#34;Todo&amp;#34;position:height:1left:2top:0width:1refreshInterval:3600username:myname Multiple Trello Lists If you want to monitor multiple Trello lists, use the following configuration (note the difference in list):
+trello:accessToken:&amp;#34;7b8b14f8743a408a93276d7155dd9ee2&amp;#34;apiKey:&amp;#34;3276d7155dd9ee27b8b14f8743a408a9&amp;#34;board:Mainenabled:truelist:[&amp;#34;Todo&amp;#34;,&amp;#34;Done&amp;#34;]position:height:1left:2top:0width:1refreshInterval:3600username:myname Attributes accessToken Value: Your Trello access token.
+apiKey Value: Your Trello API key.
+board The name of the Trello board. enabled Determines whether or not this module is executed and if its data displayed onscreen.</description>
     </item>
     
     <item>
@@ -382,10 +386,11 @@ Configuration gcal:colors:title:&amp;#34;red&amp;#34;description:&amp;#34;lightb
       <description>Displays information about your git repositories hosted on GitHub:
 Open Review Requests All open code review requests assigned to you.
 Open Pull Requests All open pull requests created by you.
-Source Code wtf/github/ GitHub Required ENV Variables Key: WTF_GITHUB_TOKEN Action: Your GitHub API token.
-GitHub Enterprise Required ENV Variables Key: WTF_GITHUB_TOKEN Action: Your GitHub API token.
-Key: WTF_GITHUB_BASE_URL Action: Your GitHub Enterprise API URL.
-Key: WTF_GITHUB_UPLOAD_URL Action: Your GitHub Enterprise upload URL (often the same as API URL).</description>
+Source Code wtf/github/ Keyboard Commands Key: / Action: Open/close the widget&amp;rsquo;s help window.
+Key: h Action: Show the previous git repository.
+Key: l Action: Show the next git repository.
+Key: ← Action: Show the previous git repository.
+Key: → Action: Show the next git repository.</description>
     </item>
     
     <item>
@@ -438,10 +443,10 @@ filePath The path to the file to be displayed in the widget.</description>
       
       <guid>https://wtfutil.com/posts/modules/newrelic/</guid>
       <description>Connects to the New Relic API and displays the last n deploys of the monitored application: deploy ID, deploy time, and who deployed it.
-Source Code wtf/newrelic/ Required ENV Variables Key: WTF_NEW_RELIC_API_KEY Value: Your New Relic API token.
-Keyboard Commands None.
-Configuration newrelic:applicationId:10549735deployCount:6enabled:trueposition:top:4left:3height:1width:2refreshInterval:900 Attributes applicationId The integer ID of the New Relic application you wish to report on. Values: A positive integer, 0..n.
-deployCount The number of past deploys to display on screen.</description>
+Source Code wtf/newrelic/ Keyboard Commands None.
+Configuration newrelic:apiKey:&amp;#34;3276d7155dd9ee27b8b14f8743a408a9&amp;#34;applicationId:10549735deployCount:6enabled:trueposition:top:4left:3height:1width:2refreshInterval:900 Attributes apiKey Value: Your New Relic API token.
+applicationId The integer ID of the New Relic application you wish to report on. Values: A positive integer, 0..n.
+deployCount The number of past deploys to display on screen. Values: A positive integer, 0.</description>
     </item>
     
     <item>
@@ -451,9 +456,9 @@ deployCount The number of past deploys to display on screen.</description>
       
       <guid>https://wtfutil.com/posts/modules/opsgenie/</guid>
       <description>Connects to the OpsGenie API and displays all your scheduled rotations and who&amp;rsquo;s currently on call.
-Source Code wtf/opsgenie/ Required ENV Variables Key: WTF_OPS_GENIE_API_KEY Value: Your OpsGenie API token.
-Keyboard Commands None.
-Configuration opsgenie:displayEmpty:falseenabled:trueposition:top:2left:1height:2width:1refreshInterval:21600 Attributes displayEmpty Whether schedules with no assigned person on-call should be displayed. Values: true, false.
+Source Code wtf/opsgenie/ Keyboard Commands None.
+Configuration opsgenie:apiKey:&amp;#34;3276d7155dd9ee27b8b14f8743a408a9&amp;#34;displayEmpty:falseenabled:trueposition:top:2left:1height:2width:1refreshInterval:21600 Attributes apiKey &amp;lt; br /&amp;gt; Value: Your OpsGenie API token.
+displayEmpty Whether schedules with no assigned person on-call should be displayed. Values: true, false.
 enabled Whether or not this module is executed and if its data displayed onscreen. Values: true, false.
 position Where in the grid this module&amp;rsquo;s widget will be displayed.</description>
     </item>
@@ -475,11 +480,10 @@ Wifi Network The name of the current network Whether or not the network uses enc
       
       <guid>https://wtfutil.com/posts/modules/bamboohr/</guid>
       <description>Connects to the BambooHR API and displays who will be Away today.
-Source Code wtf/bamboohr/ Required ENV Variables Key: WTF_BAMBOO_HR_TOKEN Value: Your BambooHR API token.
-Key: WTF_BAMBOO_HR_SUBDOMAIN Value: Your BambooHR API subdomain name.
-Keyboard Commands None.
-Configuration bamboohr:enabled:trueposition:top:0left:1height:2width:1refreshInterval:900 Attributes enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.
-position Defines where in the grid this module&amp;rsquo;s widget will be displayed. refreshInterval How often, in seconds, this module will update its data.</description>
+Source Code wtf/bamboohr/ Keyboard Commands None.
+Configuration bamboohr:apiKey:&amp;#34;3276d7155dd9ee27b8b14f8743a408a9&amp;#34;enabled:trueposition:top:0left:1height:2width:1refreshInterval:900subdomain:&amp;#34;testco&amp;#34; Attributes apiKey Value: Your BambooHR API token.
+enabled Whether or not this module is executed and if its data displayed onscreen. Values: true, false.
+position Defines where in the grid this module&amp;rsquo;s widget will be displayed. refreshInterval How often, in seconds, this module will update its data. Values: Any positive integer, 0.</description>
     </item>
     
     <item>
