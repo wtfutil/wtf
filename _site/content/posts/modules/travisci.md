@@ -36,6 +36,7 @@ travisci:
     height: 1
     width: 2
   refreshInterval: 900
+  pro: false
 ```
 
 ### Attributes
@@ -50,3 +51,7 @@ Defines where in the grid this module's widget will be displayed. <br />
 `refreshInterval` <br />
 How often, in seconds, this module will update its data. <br />
 Values: A positive integer, `0..n`.
+
+`pro` <br />
+Determines whether or not this module will use the Pro version of Travis CI.<br />
+Values: `true`, `false`.
