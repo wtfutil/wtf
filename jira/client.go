@@ -57,11 +57,17 @@ func buildJql(key string, value string) string {
 func jiraRequest(path string) (*http.Response, error) {
 	url := fmt.Sprintf("%s%s", wtf.Config.UString("wtf.mods.jira.domain"), path)
 
+	apiKey := wtf.Config.UString(
+		"wtf.mods.jira.apiKey",
+		os.Getenv("WTF_JIRA_API_KEY"),
+	)
+
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, err
 	}
-	req.SetBasicAuth(wtf.Config.UString("wtf.mods.jira.email"), os.Getenv("WTF_JIRA_API_KEY"))
+	//req.SetBasicAuth(wtf.Config.UString("wtf.mods.jira.email"), os.Getenv("WTF_JIRA_API_KEY"))
+	req.SetBasicAuth(wtf.Config.UString("wtf.mods.jira.email"), apiKey)
 
 	verifyServerCertificate := wtf.Config.UBool("wtf.mods.jira.verifyServerCertificate", true)
 	httpClient := &http.Client{Transport: &http.Transport{
