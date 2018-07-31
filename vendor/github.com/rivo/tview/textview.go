@@ -310,6 +310,12 @@ func (t *TextView) ScrollToEnd() *TextView {
 	return t
 }
 
+// GetScrollOffset returns the number of rows and columns that are skipped at
+// the top left corner when the text view has been scrolled.
+func (t *TextView) GetScrollOffset() (row, column int) {
+	return t.lineOffset, t.columnOffset
+}
+
 // Clear removes all text from the buffer.
 func (t *TextView) Clear() *TextView {
 	t.buffer = nil

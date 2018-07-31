@@ -166,16 +166,16 @@ func (a *ansi) Write(text []byte) (int, error) {
 										red := (colorNumber - 16) / 36
 										green := ((colorNumber - 16) / 6) % 6
 										blue := (colorNumber - 16) % 6
-										color = fmt.Sprintf("%02x%02x%02x", 255*red/5, 255*green/5, 255*blue/5)
+										color = fmt.Sprintf("#%02x%02x%02x", 255*red/5, 255*green/5, 255*blue/5)
 									} else if colorNumber <= 255 {
 										grey := 255 * (colorNumber - 232) / 23
-										color = fmt.Sprintf("%02x%02x%02x", grey, grey, grey)
+										color = fmt.Sprintf("#%02x%02x%02x", grey, grey, grey)
 									}
 								} else if fields[index+1] == "2" && len(fields) > index+4 { // 24-bit colors.
 									red, _ := strconv.Atoi(fields[index+2])
 									green, _ := strconv.Atoi(fields[index+3])
 									blue, _ := strconv.Atoi(fields[index+4])
-									color = fmt.Sprintf("%02x%02x%02x", red, green, blue)
+									color = fmt.Sprintf("#%02x%02x%02x", red, green, blue)
 								}
 							}
 							if len(color) > 0 {

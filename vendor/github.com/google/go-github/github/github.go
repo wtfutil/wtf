@@ -96,9 +96,6 @@ const (
 	// https://developer.github.com/changes/2017-07-17-update-topics-on-repositories/
 	mediaTypeTopicsPreview = "application/vnd.github.mercy-preview+json"
 
-	// https://developer.github.com/v3/apps/marketplace/
-	mediaTypeMarketplacePreview = "application/vnd.github.valkyrie-preview+json"
-
 	// https://developer.github.com/changes/2017-08-30-preview-nested-teams/
 	mediaTypeNestedTeamsPreview = "application/vnd.github.hellcat-preview+json"
 
@@ -116,6 +113,9 @@ const (
 
 	// https://developer.github.com/changes/2018-02-07-team-discussions-api/
 	mediaTypeTeamDiscussionsPreview = "application/vnd.github.echo-preview+json"
+
+	// https://developer.github.com/changes/2018-05-07-new-checks-api-public-beta/
+	mediaTypeCheckRunsPreview = "application/vnd.github.antiope-preview+json"
 )
 
 // A Client manages communication with the GitHub API.
@@ -144,6 +144,7 @@ type Client struct {
 	Admin          *AdminService
 	Apps           *AppsService
 	Authorizations *AuthorizationsService
+	Checks         *ChecksService
 	Gists          *GistsService
 	Git            *GitService
 	Gitignores     *GitignoresService
@@ -235,6 +236,7 @@ func NewClient(httpClient *http.Client) *Client {
 	c.Admin = (*AdminService)(&c.common)
 	c.Apps = (*AppsService)(&c.common)
 	c.Authorizations = (*AuthorizationsService)(&c.common)
+	c.Checks = (*ChecksService)(&c.common)
 	c.Gists = (*GistsService)(&c.common)
 	c.Git = (*GitService)(&c.common)
 	c.Gitignores = (*GitignoresService)(&c.common)
