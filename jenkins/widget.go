@@ -28,11 +28,10 @@ func (widget *Widget) Refresh() {
 	view, err := Create(
 		wtf.Config.UString("wtf.mods.jenkins.url"),
 		wtf.Config.UString("wtf.mods.jenkins.user"),
-		os.Getenv("WTF_JENKINS_API_KEY"),
+		widget.apiKey(),
 	)
 
 	widget.UpdateRefreshedAt()
-	//widget.View.Clear()
 
 	var content string
 	if err != nil {
@@ -49,6 +48,13 @@ func (widget *Widget) Refresh() {
 }
 
 /* -------------------- Unexported Functions -------------------- */
+
+func (widget *Widget) apiKey() string {
+	return wtf.Config.UString(
+		"wtf.mods.jenkins.apiKey",
+		os.Getenv("WTF_JENKINS_API_KEY"),
+	)
+}
 
 func (widget *Widget) contentFrom(view *View) string {
 	str := fmt.Sprintf(" [red]%s[white]\n", view.Name)

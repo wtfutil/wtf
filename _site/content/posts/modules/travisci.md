@@ -16,11 +16,6 @@ Displays build information for your Travis CI account.
 wtf/travisci/
 ```
 
-## Required ENV Variables
-
-<span class="caption">Key:</span> `WTF_TRAVIS_API_TOKEN` <br />
-<span class="caption">Value:</span> Your <a href="https://developer.travis-ci.org/authentication">Travis CI API</a> access token.
-
 ## Keyboard Commands
 
 None.
@@ -29,6 +24,7 @@ None.
 
 ```yaml
 travisci:
+  apiKey: "3276d7155dd9ee27b8b14f8743a408a9"
   enabled: true
   position:
     top: 4
@@ -40,6 +36,9 @@ travisci:
 ```
 
 ### Attributes
+
+`apiKey` <br />
+Value: Your <a href="https://developer.travis-ci.org/authentication">Travis CI API</a> access token.
 
 `enabled` <br />
 Determines whether or not this module is executed and if its data displayed onscreen. <br />

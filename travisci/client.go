@@ -72,7 +72,10 @@ func travisRequest(path string) (*http.Response, error) {
 }
 
 func apiToken() string {
-	return os.Getenv(APIEnvToken)
+	return wtf.Config.UString(
+		"wtf.mods.travisci.apiKey",
+		os.Getenv(APIEnvToken),
+	)
 }
 
 func parseJson(obj interface{}, text io.Reader) {
