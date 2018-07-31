@@ -58,7 +58,7 @@ func (widget *TextWidget) ContextualTitle(defaultStr string) string {
 	if widget.FocusChar() == "" {
 		return fmt.Sprintf(" %s ", defaultStr)
 	} else {
-		return fmt.Sprintf(" %s [darkgray](%s)[white] ", defaultStr, widget.FocusChar())
+		return fmt.Sprintf(" %s [darkgray::u]%s[::-][green] ", defaultStr, widget.FocusChar())
 	}
 }
 
