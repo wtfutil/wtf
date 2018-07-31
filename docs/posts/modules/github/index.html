@@ -151,22 +151,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <h2 id="source-code">Source Code</h2>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">wtf/github/</code></pre></div>
-<h2 id="github-required-env-variables">GitHub Required ENV Variables</h2>
-
-<p><span class="caption">Key:</span> <code>WTF_GITHUB_TOKEN</code> <br />
-<span class="caption">Action:</span> Your <a href="https://developer.github.com/v3/oauth_authorizations/#create-a-new-authorization">GitHub API</a> token.</p>
-
-<h2 id="github-enterprise-required-env-variables">GitHub Enterprise Required ENV Variables</h2>
-
-<p><span class="caption">Key:</span> <code>WTF_GITHUB_TOKEN</code> <br />
-<span class="caption">Action:</span> Your <a href="https://developer.github.com/v3/oauth_authorizations/#create-a-new-authorization">GitHub API</a> token.</p>
-
-<p><span class="caption">Key:</span> <code>WTF_GITHUB_BASE_URL</code> <br />
-<span class="caption">Action:</span> Your <a href="https://developer.github.com/enterprise/2.13/v3/enterprise-admin/">GitHub Enterprise</a> API URL.</p>
-
-<p><span class="caption">Key:</span> <code>WTF_GITHUB_UPLOAD_URL</code> <br />
-<span class="caption">Action:</span> Your <a href="https://developer.github.com/enterprise/2.13/v3/enterprise-admin/">GitHub Enterprise</a> upload URL (often the same as API URL).</p>
-
 <h2 id="keyboard-commands">Keyboard Commands</h2>
 
 <p><span class="caption">Key:</span> <code>/</code> <br />
@@ -186,6 +170,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <h2 id="configuration">Configuration</h2>
 <div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">github<span class="p">:</span><span class="w">
+</span><span class="w">  </span>apiKey<span class="p">:</span><span class="w"> </span><span class="s2">&#34;3276d7155dd9ee27b8b14f8743a408a9&#34;</span><span class="w">
+</span><span class="w">  </span>baseURL<span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">
 </span><span class="w">  </span>enabled<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span><span class="w">  </span>enableStatus<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span><span class="w">  </span>position<span class="p">:</span><span class="w">
@@ -197,11 +183,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </span><span class="w">  </span>repositories<span class="p">:</span><span class="w">
 </span><span class="w">    </span>wesker-api<span class="p">:</span><span class="w"> </span><span class="s2">&#34;UmbrellaCorp&#34;</span><span class="w">
 </span><span class="w">    </span>wtf<span class="p">:</span><span class="w"> </span><span class="s2">&#34;senorprogrammer&#34;</span><span class="w">
+</span><span class="w">  </span>uploadURL<span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">
 </span><span class="w">  </span>username<span class="p">:</span><span class="w"> </span><span class="s2">&#34;senorprogrammer&#34;</span></code></pre></div>
 <h3 id="attributes">Attributes</h3>
 
+<p><code>apiKey</code> <br />
+Value: Your <a href="https://developer.github.com/v3/oauth_authorizations/#create-a-new-authorization">GitHub API</a> token.</p>
+
+<p><code>baseURL</code> <br />
+<em>Optional</em> <br />
+Value: Your <a href="https://developer.github.com/enterprise/2.13/v3/enterprise-admin/">GitHub Enterprise</a> API URL.</p>
+
 <p><code>enabled</code> <br />
-Determines whether or not this module is executed and if its data displayed onscreen. <br />
+Whether or not this module is executed and if its data displayed onscreen. <br />
 Values: <code>true</code>, <code>false</code>.</p>
 
 <p><code>enableStatus</code> <br />
@@ -221,6 +215,10 @@ A list of key/value pairs each describing a GitHub repository to fetch data
 for. <br />
 <span class="caption">Key:</span> The name of the repository. <br />
 <span class="caption">Value:</span> The name of the account or organization that owns the repository.</p>
+
+<p><code>uploadURL</code> <br />
+<em>Optional</em> <br />
+Value: Your <a href="https://developer.github.com/enterprise/2.13/v3/enterprise-admin/">GitHub Enterprise</a> upload URL (often the same as API URL).</p>
 
 <p><code>username</code> <br />
 Your GitHub username. Used to figure out which review requests you&rsquo;ve

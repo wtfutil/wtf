@@ -15,12 +15,6 @@ monitored application: deploy ID, deploy time, and who deployed it.
 wtf/newrelic/
 ```
 
-## Required ENV Variables
-
-<span class="caption">Key:</span> `WTF_NEW_RELIC_API_KEY` <br />
-<span class="caption">Value:</span> Your <a href="">New Relic API</a>
-token.
-
 ## Keyboard Commands
 
 None.
@@ -29,6 +23,7 @@ None.
 
 ```yaml
 newrelic:
+  apiKey: "3276d7155dd9ee27b8b14f8743a408a9"
   applicationId: 10549735
   deployCount: 6
   enabled: true
@@ -41,6 +36,9 @@ newrelic:
 ```
 
 ### Attributes
+
+`apiKey` <br />
+Value: Your <a href="https://docs.newrelic.com/docs/apis/getting-started/intro-apis/access-rest-api-keys">New Relic API</a> token.
 
 `applicationId` <br />
 The integer ID of the New Relic application you wish to report on. <br

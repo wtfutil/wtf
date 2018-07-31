@@ -145,13 +145,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <h2 id="source-code">Source Code</h2>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">wtf/todoist/</code></pre></div>
-<h2 id="required-env-variables">Required ENV Variables</h2>
-
-<p><span class="caption">Key:</span> <code>WTF_TODOIST_TOKEN</code> <br />
-<span class="caption">Value:</span> Your Todoist API Token. <br /></p>
-
-<p><em>You can get your API Token at: todoist.com/prefs/integrations.</em></p>
-
 <h2 id="keyboard-commands">Keyboard Commands</h2>
 
 <p><span class="caption">Key:</span> <code>h</code> <br />
@@ -189,6 +182,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <h2 id="configuration">Configuration</h2>
 <div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">todoist<span class="p">:</span><span class="w">
+</span><span class="w">  </span>apiKey<span class="p">:</span><span class="w"> </span><span class="s2">&#34;3276d7155dd9ee27b8b14f8743a408a9&#34;</span><span class="w">
 </span><span class="w">  </span>enabled<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span><span class="w">  </span>position<span class="p">:</span><span class="w">
 </span><span class="w">    </span>top<span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
@@ -199,6 +193,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </span><span class="w">    </span>-<span class="w"> </span><span class="m">122247497</span><span class="w">
 </span><span class="w">  </span>refreshInterval<span class="p">:</span><span class="w"> </span><span class="m">3600</span></code></pre></div>
 <h3 id="attributes">Attributes</h3>
+
+<p><code>apiKey</code> <br />
+Value: Your <a href="https://developer.todoist.com/sync/v7/">Todoist API</a> token.</p>
 
 <p><code>enabled</code> <br />
 Determines whether or not this module is executed and if its data displayed onscreen. <br />

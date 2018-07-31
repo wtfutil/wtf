@@ -49,12 +49,13 @@ position Defines where in the grid this module&amp;rsquo;s widget will be displa
       <guid>https://wtfutil.com/posts/modules/todoist/</guid>
       <description>Added in v0.0.11.
 Displays all items on specified project.
-Source Code wtf/todoist/ Required ENV Variables Key: WTF_TODOIST_TOKEN Value: Your Todoist API Token. You can get your API Token at: todoist.com/prefs/integrations.
-Keyboard Commands Key: h Action: Show the previous project.
+Source Code wtf/todoist/ Keyboard Commands Key: h Action: Show the previous project.
 Key: ← Action: Show the previous project.
 Key: l Action: Show the next project.
 Key: → Action: Show the next project.
-Key: j Action: Select the next item in the list.</description>
+Key: j Action: Select the next item in the list.
+Key: ↓ Action: Select the next item in the list.
+Key: k Action: Select the previous item in the list.</description>
     </item>
     
     <item>
@@ -339,12 +340,12 @@ Key: j Action: Select the next item in the list.</description>
       
       <guid>https://wtfutil.com/posts/modules/jira/</guid>
       <description>Displays all Jira issues assigned to you for the specified project.
-Source Code wtf/jira/ Required ENV Variables Key: WTF_JIRA_API_KEY Value: Your Jira API key.
-Keyboard Commands Key: [return] Action: Open the selected issue in the browser.
+Source Code wtf/jira/ Keyboard Commands Key: [return] Action: Open the selected issue in the browser.
 Key: j Action: Select the next item in the list.
 Key: k Action: Select the previous item in the list.
 Key: ↓ Action: Select the next item in the list.
-Key: ↑ Action: Select the previous item in the list.</description>
+Key: ↑ Action: Select the previous item in the list.
+Configuration Single Jira Project jira:apiKey:&amp;#34;3276d7155dd9ee27b8b14f8743a408a9&amp;#34;colors:rows:even:&amp;#34;lightblue&amp;#34;odd:&amp;#34;white&amp;#34;domain:&amp;#34;https://umbrellacorp.</description>
     </item>
     
     <item>
@@ -382,10 +383,11 @@ Configuration gcal:colors:title:&amp;#34;red&amp;#34;description:&amp;#34;lightb
       <description>Displays information about your git repositories hosted on GitHub:
 Open Review Requests All open code review requests assigned to you.
 Open Pull Requests All open pull requests created by you.
-Source Code wtf/github/ GitHub Required ENV Variables Key: WTF_GITHUB_TOKEN Action: Your GitHub API token.
-GitHub Enterprise Required ENV Variables Key: WTF_GITHUB_TOKEN Action: Your GitHub API token.
-Key: WTF_GITHUB_BASE_URL Action: Your GitHub Enterprise API URL.
-Key: WTF_GITHUB_UPLOAD_URL Action: Your GitHub Enterprise upload URL (often the same as API URL).</description>
+Source Code wtf/github/ Keyboard Commands Key: / Action: Open/close the widget&amp;rsquo;s help window.
+Key: h Action: Show the previous git repository.
+Key: l Action: Show the next git repository.
+Key: ← Action: Show the previous git repository.
+Key: → Action: Show the next git repository.</description>
     </item>
     
     <item>
@@ -438,10 +440,10 @@ filePath The path to the file to be displayed in the widget.</description>
       
       <guid>https://wtfutil.com/posts/modules/newrelic/</guid>
       <description>Connects to the New Relic API and displays the last n deploys of the monitored application: deploy ID, deploy time, and who deployed it.
-Source Code wtf/newrelic/ Required ENV Variables Key: WTF_NEW_RELIC_API_KEY Value: Your New Relic API token.
-Keyboard Commands None.
-Configuration newrelic:applicationId:10549735deployCount:6enabled:trueposition:top:4left:3height:1width:2refreshInterval:900 Attributes applicationId The integer ID of the New Relic application you wish to report on. Values: A positive integer, 0..n.
-deployCount The number of past deploys to display on screen.</description>
+Source Code wtf/newrelic/ Keyboard Commands None.
+Configuration newrelic:apiKey:&amp;#34;3276d7155dd9ee27b8b14f8743a408a9&amp;#34;applicationId:10549735deployCount:6enabled:trueposition:top:4left:3height:1width:2refreshInterval:900 Attributes apiKey Value: Your New Relic API token.
+applicationId The integer ID of the New Relic application you wish to report on. Values: A positive integer, 0..n.
+deployCount The number of past deploys to display on screen. Values: A positive integer, 0.</description>
     </item>
     
     <item>
@@ -451,9 +453,9 @@ deployCount The number of past deploys to display on screen.</description>
       
       <guid>https://wtfutil.com/posts/modules/opsgenie/</guid>
       <description>Connects to the OpsGenie API and displays all your scheduled rotations and who&amp;rsquo;s currently on call.
-Source Code wtf/opsgenie/ Required ENV Variables Key: WTF_OPS_GENIE_API_KEY Value: Your OpsGenie API token.
-Keyboard Commands None.
-Configuration opsgenie:displayEmpty:falseenabled:trueposition:top:2left:1height:2width:1refreshInterval:21600 Attributes displayEmpty Whether schedules with no assigned person on-call should be displayed. Values: true, false.
+Source Code wtf/opsgenie/ Keyboard Commands None.
+Configuration opsgenie:apiKey:&amp;#34;3276d7155dd9ee27b8b14f8743a408a9&amp;#34;displayEmpty:falseenabled:trueposition:top:2left:1height:2width:1refreshInterval:21600 Attributes apiKey &amp;lt; br /&amp;gt; Value: Your OpsGenie API token.
+displayEmpty Whether schedules with no assigned person on-call should be displayed. Values: true, false.
 enabled Whether or not this module is executed and if its data displayed onscreen. Values: true, false.
 position Where in the grid this module&amp;rsquo;s widget will be displayed.</description>
     </item>
@@ -475,11 +477,10 @@ Wifi Network The name of the current network Whether or not the network uses enc
       
       <guid>https://wtfutil.com/posts/modules/bamboohr/</guid>
       <description>Connects to the BambooHR API and displays who will be Away today.
-Source Code wtf/bamboohr/ Required ENV Variables Key: WTF_BAMBOO_HR_TOKEN Value: Your BambooHR API token.
-Key: WTF_BAMBOO_HR_SUBDOMAIN Value: Your BambooHR API subdomain name.
-Keyboard Commands None.
-Configuration bamboohr:enabled:trueposition:top:0left:1height:2width:1refreshInterval:900 Attributes enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.
-position Defines where in the grid this module&amp;rsquo;s widget will be displayed. refreshInterval How often, in seconds, this module will update its data.</description>
+Source Code wtf/bamboohr/ Keyboard Commands None.
+Configuration bamboohr:apiKey:&amp;#34;3276d7155dd9ee27b8b14f8743a408a9&amp;#34;enabled:trueposition:top:0left:1height:2width:1refreshInterval:900subdomain:&amp;#34;testco&amp;#34; Attributes apiKey Value: Your BambooHR API token.
+enabled Whether or not this module is executed and if its data displayed onscreen. Values: true, false.
+position Defines where in the grid this module&amp;rsquo;s widget will be displayed. refreshInterval How often, in seconds, this module will update its data. Values: Any positive integer, 0.</description>
     </item>
     
     <item>
