@@ -33,7 +33,7 @@ func NewGithubRepo(name, owner string) *GithubRepo {
 	return &repo
 }
 
-// Refresh reloads the github data via the Github API
+// Refresh reloads the github data via the GitHub API
 func (repo *GithubRepo) Refresh() {
 	repo.PullRequests, _ = repo.loadPullRequests()
 	repo.RemoteRepo, _ = repo.loadRemoteRepository()
