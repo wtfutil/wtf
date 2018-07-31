@@ -9,12 +9,17 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+
+	"github.com/senorprogrammer/wtf/wtf"
 )
 
 const APIEnvToken = "WTF_TRAVIS_API_TOKEN"
 
 func BuildsFor() (*Builds, error) {
 	builds := &Builds{}
+
+	pro := wtf.Config.UBool("wtf.mods.travisci.pro")
+	travisAPIURL.Host = hosts[pro]
 
 	resp, err := travisRequest("builds")
 	if err != nil {
@@ -29,7 +34,11 @@ func BuildsFor() (*Builds, error) {
 /* -------------------- Unexported Functions -------------------- */
 
 var (
-	travisAPIURL = &url.URL{Scheme: "https", Host: "api.travis-ci.org", Path: "/"}
+	travisAPIURL = &url.URL{Scheme: "https", Path: "/"}
+	hosts        = map[bool]string{
+		false: "api.travis-ci.org",
+		true:  "api.travis-ci.com",
+	}
 )
 
 func travisRequest(path string) (*http.Response, error) {
