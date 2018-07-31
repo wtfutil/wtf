@@ -19,8 +19,6 @@ type Client struct {
 func NewClient(url string) *Client {
 	client := Client{
 		apiBase: url,
-		//apiKey:    os.Getenv("WTF_BAMBOO_HR_TOKEN"),
-		//subdomain: os.Getenv("WTF_BAMBOO_HR_SUBDOMAIN"),
 	}
 
 	client.loadAPICredentials()

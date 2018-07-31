@@ -3,13 +3,14 @@ package gerrit
 import (
 	"crypto/tls"
 	"fmt"
+	"net/http"
+	"os"
+	"regexp"
+
 	glb "github.com/andygrunwald/go-gerrit"
 	"github.com/gdamore/tcell"
 	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/wtf"
-	"net/http"
-	"os"
-	"regexp"
 )
 
 const HelpText = `
@@ -43,7 +44,12 @@ var (
 func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 	baseURL := wtf.Config.UString("wtf.mods.gerrit.domain")
 	username := wtf.Config.UString("wtf.mods.gerrit.username")
-	password := os.Getenv("WTF_GERRIT_PASSWORD")
+
+	password := wtf.Config.UString(
+		"wtf.mods.gerrit.password",
+		os.Getenv("WTF_GERRIT_PASSWORD"),
+	)
+
 	verifyServerCertificate := wtf.Config.UBool("wtf.mods.gerrit.verifyServerCertificate", true)
 
 	httpClient := &http.Client{Transport: &http.Transport{
