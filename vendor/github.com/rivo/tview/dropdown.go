@@ -354,6 +354,7 @@ func (d *DropDown) InputHandler() func(event *tcell.EventKey, setFocus func(p Pr
 
 			// Hand control over to the list.
 			d.open = true
+			optionBefore := d.currentOption
 			d.list.SetSelectedFunc(func(index int, mainText, secondaryText string, shortcut rune) {
 				// An option was selected. Close the list again.
 				d.open = false
@@ -374,6 +375,10 @@ func (d *DropDown) InputHandler() func(event *tcell.EventKey, setFocus func(p Pr
 						d.prefix = string(r[:len(r)-1])
 					}
 					evalPrefix()
+				} else if event.Key() == tcell.KeyEscape {
+					d.open = false
+					d.currentOption = optionBefore
+					setFocus(d)
 				} else {
 					d.prefix = ""
 				}

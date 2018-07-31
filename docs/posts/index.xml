@@ -379,13 +379,13 @@ Configuration gcal:colors:title:&amp;#34;red&amp;#34;description:&amp;#34;lightb
       <pubDate>Wed, 09 May 2018 19:20:20 -0700</pubDate>
       
       <guid>https://wtfutil.com/posts/modules/github/</guid>
-      <description>Displays information about your git repositories hosted on Github:
+      <description>Displays information about your git repositories hosted on GitHub:
 Open Review Requests All open code review requests assigned to you.
 Open Pull Requests All open pull requests created by you.
-Source Code wtf/github/ Github Required ENV Variables Key: WTF_GITHUB_TOKEN Action: Your Github API token.
-GitHub Enterprise Required ENV Variables Key: WTF_GITHUB_TOKEN Action: Your Github API token.
-Key: WTF_GITHUB_BASE_URL Action: Your Github Enterprise API URL.
-Key: WTF_GITHUB_UPLOAD_URL Action: Your Github Enterprise upload URL (often the same as API URL).</description>
+Source Code wtf/github/ GitHub Required ENV Variables Key: WTF_GITHUB_TOKEN Action: Your GitHub API token.
+GitHub Enterprise Required ENV Variables Key: WTF_GITHUB_TOKEN Action: Your GitHub API token.
+Key: WTF_GITHUB_BASE_URL Action: Your GitHub Enterprise API URL.
+Key: WTF_GITHUB_UPLOAD_URL Action: Your GitHub Enterprise upload URL (often the same as API URL).</description>
     </item>
     
     <item>

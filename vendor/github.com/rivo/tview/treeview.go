@@ -266,6 +266,9 @@ type TreeView struct {
 
 	// An optional function which is called when a tree item was selected.
 	selected func(node *TreeNode)
+
+	// The visible nodes, top-down, as set by process().
+	nodes []*TreeNode
 }
 
 // NewTreeView returns a new tree view.
@@ -362,17 +365,14 @@ func (t *TreeView) SetSelectedFunc(handler func(node *TreeNode)) *TreeView {
 	return t
 }
 
-// Draw draws this primitive onto the screen.
-func (t *TreeView) Draw(screen tcell.Screen) {
-	t.Box.Draw(screen)
-	if t.root == nil {
-		return
-	}
-	x, y, width, height := t.GetInnerRect()
+// process builds the visible tree, populates the "nodes" slice, and processes
+// pending selection actions.
+func (t *TreeView) process() {
+	_, _, _, height := t.GetInnerRect()
 
 	// Determine visible nodes and their placement.
 	var graphicsOffset, maxTextX int
-	var nodes []*TreeNode
+	t.nodes = nil
 	selectedIndex := -1
 	topLevelGraphicsX := -1
 	if t.graphics {
@@ -403,7 +403,7 @@ func (t *TreeView) Draw(screen tcell.Screen) {
 			maxTextX = node.textX
 		}
 		if node == t.currentNode && node.selectable {
-			selectedIndex = len(nodes)
+			selectedIndex = len(t.nodes)
 		}
 
 		// Maybe we want to skip this level.
@@ -413,13 +413,13 @@ func (t *TreeView) Draw(screen tcell.Screen) {
 
 		// Add and recurse (if desired).
 		if node.level >= t.topLevel {
-			nodes = append(nodes, node)
+			t.nodes = append(t.nodes, node)
 		}
 		return node.expanded
 	})
 
 	// Post-process positions.
-	for _, node := range nodes {
+	for _, node := range t.nodes {
 		// If text must align, we correct the positions.
 		if t.align && node.level > t.topLevel {
 			node.textX = maxTextX
@@ -441,41 +441,41 @@ func (t *TreeView) Draw(screen tcell.Screen) {
 		case treeUp:
 			for newSelectedIndex > 0 {
 				newSelectedIndex--
-				if nodes[newSelectedIndex].selectable {
+				if t.nodes[newSelectedIndex].selectable {
 					break MovementSwitch
 				}
 			}
 			newSelectedIndex = selectedIndex
 		case treeDown:
-			for newSelectedIndex < len(nodes)-1 {
+			for newSelectedIndex < len(t.nodes)-1 {
 				newSelectedIndex++
-				if nodes[newSelectedIndex].selectable {
+				if t.nodes[newSelectedIndex].selectable {
 					break MovementSwitch
 				}
 			}
 			newSelectedIndex = selectedIndex
 		case treeHome:
-			for newSelectedIndex = 0; newSelectedIndex < len(nodes); newSelectedIndex++ {
-				if nodes[newSelectedIndex].selectable {
+			for newSelectedIndex = 0; newSelectedIndex < len(t.nodes); newSelectedIndex++ {
+				if t.nodes[newSelectedIndex].selectable {
 					break MovementSwitch
 				}
 			}
 			newSelectedIndex = selectedIndex
 		case treeEnd:
-			for newSelectedIndex = len(nodes) - 1; newSelectedIndex >= 0; newSelectedIndex-- {
-				if nodes[newSelectedIndex].selectable {
+			for newSelectedIndex = len(t.nodes) - 1; newSelectedIndex >= 0; newSelectedIndex-- {
+				if t.nodes[newSelectedIndex].selectable {
 					break MovementSwitch
 				}
 			}
 			newSelectedIndex = selectedIndex
 		case treePageUp:
-			if newSelectedIndex+height < len(nodes) {
+			if newSelectedIndex+height < len(t.nodes) {
 				newSelectedIndex += height
 			} else {
-				newSelectedIndex = len(nodes) - 1
+				newSelectedIndex = len(t.nodes) - 1
 			}
-			for ; newSelectedIndex < len(nodes); newSelectedIndex++ {
-				if nodes[newSelectedIndex].selectable {
+			for ; newSelectedIndex < len(t.nodes); newSelectedIndex++ {
+				if t.nodes[newSelectedIndex].selectable {
 					break MovementSwitch
 				}
 			}
@@ -487,13 +487,13 @@ func (t *TreeView) Draw(screen tcell.Screen) {
 				newSelectedIndex = 0
 			}
 			for ; newSelectedIndex >= 0; newSelectedIndex-- {
-				if nodes[newSelectedIndex].selectable {
+				if t.nodes[newSelectedIndex].selectable {
 					break MovementSwitch
 				}
 			}
 			newSelectedIndex = selectedIndex
 		}
-		t.currentNode = nodes[newSelectedIndex]
+		t.currentNode = t.nodes[newSelectedIndex]
 		if newSelectedIndex != selectedIndex {
 			t.movement = treeNone
 			if t.changed != nil {
@@ -512,7 +512,7 @@ func (t *TreeView) Draw(screen tcell.Screen) {
 	} else {
 		// If selection is not visible or selectable, select the first candidate.
 		if t.currentNode != nil {
-			for index, node := range nodes {
+			for index, node := range t.nodes {
 				if node.selectable {
 					selectedIndex = index
 					t.currentNode = node
@@ -524,8 +524,25 @@ func (t *TreeView) Draw(screen tcell.Screen) {
 			t.currentNode = nil
 		}
 	}
+}
+
+// Draw draws this primitive onto the screen.
+func (t *TreeView) Draw(screen tcell.Screen) {
+	t.Box.Draw(screen)
+	if t.root == nil {
+		return
+	}
+
+	// Build the tree if necessary.
+	if t.nodes == nil {
+		t.process()
+	}
+	defer func() {
+		t.nodes = nil // Rebuild during next call to Draw()
+	}()
 
 	// Scroll the tree.
+	x, y, width, height := t.GetInnerRect()
 	switch t.movement {
 	case treeUp:
 		t.offsetY--
@@ -534,7 +551,7 @@ func (t *TreeView) Draw(screen tcell.Screen) {
 	case treeHome:
 		t.offsetY = 0
 	case treeEnd:
-		t.offsetY = len(nodes)
+		t.offsetY = len(t.nodes)
 	case treePageUp:
 		t.offsetY -= height
 	case treePageDown:
@@ -543,8 +560,8 @@ func (t *TreeView) Draw(screen tcell.Screen) {
 	t.movement = treeNone
 
 	// Fix invalid offsets.
-	if t.offsetY >= len(nodes)-height {
-		t.offsetY = len(nodes) - height
+	if t.offsetY >= len(t.nodes)-height {
+		t.offsetY = len(t.nodes) - height
 	}
 	if t.offsetY < 0 {
 		t.offsetY = 0
@@ -553,7 +570,7 @@ func (t *TreeView) Draw(screen tcell.Screen) {
 	// Draw the tree.
 	posY := y
 	lineStyle := tcell.StyleDefault.Foreground(t.graphicsColor)
-	for index, node := range nodes {
+	for index, node := range t.nodes {
 		// Skip invisible parts.
 		if posY >= y+height+1 {
 			break
@@ -585,7 +602,7 @@ func (t *TreeView) Draw(screen tcell.Screen) {
 
 			if node.textX > node.graphicsX && node.graphicsX < width {
 				// Connect to the node above.
-				if posY-1 >= y && nodes[index-1].graphicsX <= node.graphicsX && nodes[index-1].textX > node.graphicsX {
+				if posY-1 >= y && t.nodes[index-1].graphicsX <= node.graphicsX && t.nodes[index-1].textX > node.graphicsX {
 					PrintJoinedSemigraphics(screen, x+node.graphicsX, posY-1, Borders.TopLeft, t.graphicsColor)
 				}
 
@@ -610,7 +627,7 @@ func (t *TreeView) Draw(screen tcell.Screen) {
 			// Text.
 			if node.textX+prefixWidth < width {
 				style := tcell.StyleDefault.Foreground(node.color)
-				if index == selectedIndex {
+				if node == t.currentNode {
 					style = tcell.StyleDefault.Background(node.color).Foreground(t.backgroundColor)
 				}
 				printWithStyle(screen, node.text, x+node.textX+prefixWidth, posY, width-node.textX-prefixWidth, AlignLeft, style)
@@ -661,5 +678,7 @@ func (t *TreeView) InputHandler() func(event *tcell.EventKey, setFocus func(p Pr
 				}
 			}
 		}
+
+		t.process()
 	})
 }

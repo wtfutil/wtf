@@ -42,6 +42,10 @@ func (tracker *FocusTracker) FocusOn(char string) bool {
 		return false
 	}
 
+	if tracker.focusState() == AppBoard {
+		return false
+	}
+
 	hasFocusable := false
 
 	for idx, focusable := range tracker.focusables() {

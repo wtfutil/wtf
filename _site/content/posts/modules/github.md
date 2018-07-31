@@ -4,7 +4,7 @@ date: 2018-05-09T19:20:20-07:00
 draft: false
 ---
 
-Displays information about your git repositories hosted on Github:
+Displays information about your git repositories hosted on GitHub:
 
 
 #### Open Review Requests
@@ -23,21 +23,21 @@ All open pull requests created by you.
 wtf/github/
 ```
 
-## Github Required ENV Variables
+## GitHub Required ENV Variables
 
 <span class="caption">Key:</span> `WTF_GITHUB_TOKEN` <br />
-<span class="caption">Action:</span> Your <a href="https://developer.github.com/v3/oauth_authorizations/#create-a-new-authorization">Github API</a> token.
+<span class="caption">Action:</span> Your <a href="https://developer.github.com/v3/oauth_authorizations/#create-a-new-authorization">GitHub API</a> token.
 
 ## GitHub Enterprise Required ENV Variables
 
 <span class="caption">Key:</span> `WTF_GITHUB_TOKEN` <br />
-<span class="caption">Action:</span> Your <a href="https://developer.github.com/v3/oauth_authorizations/#create-a-new-authorization">Github API</a> token.
+<span class="caption">Action:</span> Your <a href="https://developer.github.com/v3/oauth_authorizations/#create-a-new-authorization">GitHub API</a> token.
 
 <span class="caption">Key:</span> `WTF_GITHUB_BASE_URL` <br />
-<span class="caption">Action:</span> Your <a href="https://developer.github.com/enterprise/2.13/v3/enterprise-admin/">Github Enterprise</a> API URL.
+<span class="caption">Action:</span> Your <a href="https://developer.github.com/enterprise/2.13/v3/enterprise-admin/">GitHub Enterprise</a> API URL.
 
 <span class="caption">Key:</span> `WTF_GITHUB_UPLOAD_URL` <br />
-<span class="caption">Action:</span> Your <a href="https://developer.github.com/enterprise/2.13/v3/enterprise-admin/">Github Enterprise</a> upload URL (often the same as API URL).
+<span class="caption">Action:</span> Your <a href="https://developer.github.com/enterprise/2.13/v3/enterprise-admin/">GitHub Enterprise</a> upload URL (often the same as API URL).
 
 ## Keyboard Commands
 
@@ -93,11 +93,11 @@ How often, in seconds, this module will update its data. <br />
 Values: A positive integer, `0..n`.
 
 `repositories` <br />
-A list of key/value pairs each describing a Github repository to fetch data
+A list of key/value pairs each describing a GitHub repository to fetch data
 for. <br />
 <span class="caption">Key:</span> The name of the repository. <br />
 <span class="caption">Value:</span> The name of the account or organization that owns the repository.
 
 `username` <br />
-Your Github username. Used to figure out which review requests you've
+Your GitHub username. Used to figure out which review requests you've
 been added to.

@@ -28,6 +28,7 @@ var weatherEmoji = map[string]string{
 	"partly cloudy":               "🌤",
 	"scattered clouds":            "🌤",
 	"shower rain":                 "☔️",
+	"smoke":                       "🔥",
 	"snow":                        "❄️",
 	"sunny":                       "☀️",
 	"thunderstorm":                "⛈",

@@ -285,15 +285,26 @@ type ProjectCard struct {
 	CreatedAt  *Timestamp `json:"created_at,omitempty"`
 	UpdatedAt  *Timestamp `json:"updated_at,omitempty"`
 	NodeID     *string    `json:"node_id,omitempty"`
+	Archived   *bool      `json:"archived,omitempty"`
 
 	// The following fields are only populated by Webhook events.
 	ColumnID *int64 `json:"column_id,omitempty"`
 }
 
+// ProjectCardListOptions specifies the optional parameters to the
+// ProjectsService.ListProjectCards method.
+type ProjectCardListOptions struct {
+	// ArchivedState is used to list all, archived, or not_archived project cards.
+	// Defaults to not_archived when you omit this parameter.
+	ArchivedState *string `url:"archived_state,omitempty"`
+
+	ListOptions
+}
+
 // ListProjectCards lists the cards in a column of a GitHub Project.
 //
 // GitHub API docs: https://developer.github.com/v3/projects/cards/#list-project-cards
-func (s *ProjectsService) ListProjectCards(ctx context.Context, columnID int64, opt *ListOptions) ([]*ProjectCard, *Response, error) {
+func (s *ProjectsService) ListProjectCards(ctx context.Context, columnID int64, opt *ProjectCardListOptions) ([]*ProjectCard, *Response, error) {
 	u := fmt.Sprintf("projects/columns/%v/cards", columnID)
 	u, err := addOptions(u, opt)
 	if err != nil {
@@ -352,6 +363,9 @@ type ProjectCardOptions struct {
 	ContentID int64 `json:"content_id,omitempty"`
 	// The type of content to associate with this card. Possible values are: "Issue".
 	ContentType string `json:"content_type,omitempty"`
+	// Use true to archive a project card.
+	// Specify false if you need to restore a previously archived project card.
+	Archived *bool `json:"archived,omitempty"`
 }
 
 // CreateProjectCard creates a card in the specified column of a GitHub Project.

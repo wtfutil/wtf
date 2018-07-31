@@ -55,7 +55,11 @@ func (t Tag) String() string {
 //
 // GitLab API docs:
 // https://docs.gitlab.com/ce/api/tags.html#list-project-repository-tags
-type ListTagsOptions ListOptions
+type ListTagsOptions struct {
+	ListOptions
+	OrderBy *string `url:"order_by,omitempty" json:"order_by,omitempty"`
+	Sort    *string `url:"sort,omitempty" json:"sort,omitempty"`
+}
 
 // ListTags gets a list of tags from a project, sorted by name in reverse
 // alphabetical order.
