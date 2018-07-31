@@ -34,6 +34,9 @@ func (tracker *FocusTracker) AssignHotKeys() {
 }
 
 func (tracker *FocusTracker) FocusOn(char string) {
+	if tracker.focusState() == NonWidget {
+		return
+	}
 	for idx, focusable := range tracker.focusables() {
 		if focusable.FocusChar() == char {
 			tracker.blur(tracker.Idx)
