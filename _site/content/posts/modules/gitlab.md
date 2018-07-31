@@ -24,11 +24,6 @@ All open merge requests created by you.
 wtf/gitlab/
 ```
 
-## Required ENV Variables
-
-<span class="caption">Key:</span> `WTF_GITLAB_TOKEN` <br />
-<span class="caption">Action:</span> A <a href="https://docs.gitlab.com/ce/user/profile/personal_access_tokens.html">GitLab personal access token</a>. Requires at least `api` access.
-
 ## Keyboard Commands
 
 <span class="caption">Key:</span> `/` <br />
@@ -50,6 +45,7 @@ wtf/gitlab/
 
 ```yaml
 gitlab:
+  apiKey: "3276d7155dd9ee27b8b14f8743a408a9"
   enabled: true
   position:
     top: 2
@@ -64,6 +60,9 @@ gitlab:
 ```
 
 ### Attributes
+
+`apiKey` <br />
+Value:  A <a href="https://docs.gitlab.com/ce/user/profile/personal_access_tokens.html">GitLab personal access token</a>. Requires at least `api` access.
 
 `enabled` <br />
 Determines whether or not this module is executed and if its data displayed onscreen. <br />
