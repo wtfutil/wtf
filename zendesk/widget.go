@@ -18,7 +18,7 @@ type Widget struct {
 
 func NewWidget() *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(" Zendesk ", "zendesk", true),
+		TextWidget: wtf.NewTextWidget("Zendesk", "zendesk", true),
 	}
 
 	widget.View.SetInputCapture(widget.keyboardIntercept)

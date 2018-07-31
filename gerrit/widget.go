@@ -68,7 +68,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 	}
 
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(" Gerrit ", "gerrit", true),
+		TextWidget: wtf.NewTextWidget("Gerrit", "gerrit", true),
 
 		app:   app,
 		pages: pages,

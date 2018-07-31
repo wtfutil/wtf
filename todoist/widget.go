@@ -38,7 +38,7 @@ type Widget struct {
 
 func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(" Todoist ", "todoist", true),
+		TextWidget: wtf.NewTextWidget("Todoist", "todoist", true),
 
 		app:   app,
 		pages: pages,

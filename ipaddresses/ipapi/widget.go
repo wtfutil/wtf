@@ -39,7 +39,7 @@ type ipinfo struct {
 // NewWidget constructor
 func NewWidget() *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(" IPInfo ", "ipapi", false),
+		TextWidget: wtf.NewTextWidget("IPInfo", "ipapi", false),
 	}
 
 	widget.View.SetWrap(false)

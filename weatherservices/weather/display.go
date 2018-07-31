@@ -72,5 +72,6 @@ func (widget *Widget) temperatures(cityData *owm.CurrentWeatherData) string {
 }
 
 func (widget *Widget) title(cityData *owm.CurrentWeatherData) string {
-	return fmt.Sprintf(" %s  %s ", widget.emojiFor(cityData), cityData.Name)
+	str := fmt.Sprintf("%s %s", widget.emojiFor(cityData), cityData.Name)
+	return widget.ContextualTitle(str)
 }

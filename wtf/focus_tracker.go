@@ -22,6 +22,28 @@ type FocusTracker struct {
 
 /* -------------------- Exported Functions -------------------- */
 
+// AssignHotKeys assigns an alphabetic keyboard character to each focusable
+// widget so that the widget can be brought into focus by pressing that keyboard key
+func (tracker *FocusTracker) AssignHotKeys() {
+	i := 0
+
+	for _, focusable := range tracker.focusables() {
+		focusable.SetFocusChar(string('a' + i))
+		i++
+	}
+}
+
+func (tracker *FocusTracker) FocusOn(char string) {
+	for idx, focusable := range tracker.focusables() {
+		if focusable.FocusChar() == char {
+			tracker.blur(tracker.Idx)
+			tracker.Idx = idx
+			tracker.focus(tracker.Idx)
+			break
+		}
+	}
+}
+
 // Next sets the focus on the next widget in the widget list. If the current widget is
 // the last widget, sets focus on the first widget.
 func (tracker *FocusTracker) Next() {

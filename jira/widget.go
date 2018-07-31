@@ -16,7 +16,7 @@ type Widget struct {
 
 func NewWidget() *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(" Jira ", "jira", true),
+		TextWidget: wtf.NewTextWidget("Jira", "jira", true),
 	}
 	widget.unselect()
 
@@ -54,13 +54,10 @@ func (widget *Widget) display() {
 		return
 	}
 	widget.View.SetWrap(false)
-	widget.View.SetTitle(
-		fmt.Sprintf(
-			"%s- [green]%s[white] ",
-			widget.Name,
-			wtf.Config.UString("wtf.mods.jira.project"),
-		),
-	)
+
+	str := fmt.Sprintf("%s- [green]%s[white]", widget.Name, wtf.Config.UString("wtf.mods.jira.project"))
+
+	widget.View.SetTitle(widget.ContextualTitle(str))
 	widget.View.SetText(fmt.Sprintf("%s", widget.contentFrom(widget.result)))
 }
 

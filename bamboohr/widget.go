@@ -12,7 +12,7 @@ type Widget struct {
 
 func NewWidget() *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(" BambooHR ", "bamboohr", false),
+		TextWidget: wtf.NewTextWidget("BambooHR", "bamboohr", false),
 	}
 
 	return &widget
@@ -29,7 +29,7 @@ func (widget *Widget) Refresh() {
 	)
 
 	widget.UpdateRefreshedAt()
-	widget.View.SetTitle(fmt.Sprintf("%s (%d) ", widget.Name, len(todayItems)))
+	widget.View.SetTitle(widget.ContextualTitle(widget.Name))
 
 	widget.View.SetText(widget.contentFrom(todayItems))
 }

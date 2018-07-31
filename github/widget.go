@@ -30,7 +30,7 @@ type Widget struct {
 
 func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(" Github ", "github", true),
+		TextWidget: wtf.NewTextWidget("Github", "github", true),
 
 		app:   app,
 		Idx:   0,

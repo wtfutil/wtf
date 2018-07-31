@@ -46,7 +46,7 @@ type Widget struct {
 
 func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(" Todo ", "todo", true),
+		TextWidget: wtf.NewTextWidget("Todo", "todo", true),
 
 		app:      app,
 		filePath: wtf.Config.UString("wtf.mods.todo.filename"),
@@ -68,6 +68,8 @@ func (widget *Widget) Refresh() {
 	widget.UpdateRefreshedAt()
 	widget.load()
 	widget.display()
+
+	widget.View.SetTitle(widget.ContextualTitle(widget.Name))
 }
 
 func (widget *Widget) SetList(newList checklist.Checklist) {

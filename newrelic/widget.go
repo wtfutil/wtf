@@ -13,7 +13,7 @@ type Widget struct {
 
 func NewWidget() *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(" New Relic ", "newrelic", false),
+		TextWidget: wtf.NewTextWidget("New Relic", "newrelic", false),
 	}
 
 	return &widget
