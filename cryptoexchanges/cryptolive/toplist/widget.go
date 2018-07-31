@@ -8,11 +8,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/olebedev/config"
+	"github.com/senorprogrammer/wtf/wtf"
 )
 
-// Config is a pointer to the global config object
-var Config *config.Config
 var baseURL = "https://min-api.cryptocompare.com/data/top/exchanges"
 
 type textColors struct {
@@ -50,17 +48,17 @@ func NewWidget() *Widget {
 }
 
 func (widget *Widget) setList() {
-	currenciesMap, _ := Config.Map("wtf.mods.cryptolive.top")
+	currenciesMap, _ := wtf.Config.Map("wtf.mods.cryptolive.top")
 
 	for fromCurrency := range currenciesMap {
-		displayName := Config.UString("wtf.mods.cryptolive.top."+fromCurrency+".displayName", "")
-		limit := Config.UInt("wtf.mods.cryptolive.top."+fromCurrency+".limit", 1)
+		displayName := wtf.Config.UString("wtf.mods.cryptolive.top."+fromCurrency+".displayName", "")
+		limit := wtf.Config.UInt("wtf.mods.cryptolive.top."+fromCurrency+".limit", 1)
 		widget.list.addItem(fromCurrency, displayName, limit, makeToList(fromCurrency, limit))
 	}
 }
 
 func makeToList(fCurrencyName string, limit int) (list []*tCurrency) {
-	toList, _ := Config.List("wtf.mods.cryptolive.top." + fCurrencyName + ".to")
+	toList, _ := wtf.Config.List("wtf.mods.cryptolive.top." + fCurrencyName + ".to")
 
 	for _, toCurrency := range toList {
 		list = append(list, &tCurrency{
@@ -74,11 +72,11 @@ func makeToList(fCurrencyName string, limit int) (list []*tCurrency) {
 
 func (widget *Widget) config() {
 	// set colors
-	widget.colors.from.name = Config.UString("wtf.mods.cryptolive.colors.top.from.name", "coral")
-	widget.colors.from.displayName = Config.UString("wtf.mods.cryptolive.colors.top.from.displayName", "grey")
-	widget.colors.to.name = Config.UString("wtf.mods.cryptolive.colors.top.to.name", "red")
-	widget.colors.to.field = Config.UString("wtf.mods.cryptolive.colors.top.to.field", "white")
-	widget.colors.to.value = Config.UString("wtf.mods.cryptolive.colors.top.to.value", "value")
+	widget.colors.from.name = wtf.Config.UString("wtf.mods.cryptolive.colors.top.from.name", "coral")
+	widget.colors.from.displayName = wtf.Config.UString("wtf.mods.cryptolive.colors.top.from.displayName", "grey")
+	widget.colors.to.name = wtf.Config.UString("wtf.mods.cryptolive.colors.top.to.name", "red")
+	widget.colors.to.field = wtf.Config.UString("wtf.mods.cryptolive.colors.top.to.field", "white")
+	widget.colors.to.value = wtf.Config.UString("wtf.mods.cryptolive.colors.top.to.value", "value")
 }
 
 /* -------------------- Exported Functions -------------------- */

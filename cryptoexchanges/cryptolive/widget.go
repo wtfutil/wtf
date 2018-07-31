@@ -4,14 +4,10 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/olebedev/config"
 	"github.com/senorprogrammer/wtf/cryptoexchanges/cryptolive/price"
 	"github.com/senorprogrammer/wtf/cryptoexchanges/cryptolive/toplist"
 	"github.com/senorprogrammer/wtf/wtf"
 )
-
-// Config is a pointer to the global config object
-var Config *config.Config
 
 // Widget define wtf widget to register widget later
 type Widget struct {
@@ -22,9 +18,6 @@ type Widget struct {
 
 // NewWidget Make new instance of widget
 func NewWidget() *Widget {
-	price.Config = Config
-	toplist.Config = Config
-
 	widget := Widget{
 		TextWidget:    wtf.NewTextWidget(" CryptoLive ", "cryptolive", false),
 		priceWidget:   price.NewWidget(),
