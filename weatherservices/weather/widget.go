@@ -1,13 +1,11 @@
 package weather
 
 import (
-	//"fmt"
 	"os"
 
 	owm "github.com/briandowns/openweathermap"
 	"github.com/gdamore/tcell"
 	"github.com/rivo/tview"
-	//"github.com/senorprogrammer/wtf/logger"
 	"github.com/senorprogrammer/wtf/wtf"
 )
 
