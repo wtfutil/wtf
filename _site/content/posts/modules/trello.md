@@ -14,15 +14,6 @@ Displays all Trello cards on specified lists.
 wtf/trello/
 ```
 
-## Required ENV Variables
-
-<span class="caption">Key:</span> `WTF_TRELLO_APP_KEY` <br />
-<span class="caption">Value:</span> Your Trello App Key. <br />
-<span class="caption">Key:</span> `WTF_TRELLO_ACCESS_TOKEN` <br />
-<span class="caption">Value:</span> Your Trello Access Token. <br />
-
-_You can get your API key at: trello.com/app-key._
-
 ## Keyboard Commands
 
 None.
@@ -32,11 +23,13 @@ None.
 ### Single Trello List
 
 ```yaml
-trello: 
+trello:
+  accessToken: "7b8b14f8743a408a93276d7155dd9ee2"
+  apiKey: "3276d7155dd9ee27b8b14f8743a408a9"
   board: Main
   enabled: true
   list: "Todo"
-  position: 
+  position:
     height: 1
     left: 2
     top: 0
@@ -51,11 +44,13 @@ If you want to monitor multiple Trello lists, use the following
 configuration (note the difference in `list`):
 
 ```yaml
-trello: 
+trello:
+  accessToken: "7b8b14f8743a408a93276d7155dd9ee2"
+  apiKey: "3276d7155dd9ee27b8b14f8743a408a9"
   board: Main
   enabled: true
   list: ["Todo", "Done"]
-  position: 
+  position:
     height: 1
     left: 2
     top: 0
@@ -65,6 +60,12 @@ trello:
 ```
 
 ### Attributes
+
+`accessToken` <br />
+Value: Your Trello access token.
+
+`apiKey` <br />
+Value: Your Trello API key.
 
 `board` <br />
 The name of the Trello board. <br />
