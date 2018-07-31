@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+
+	"github.com/senorprogrammer/wtf/wtf"
 )
 
 type OnCallResponse struct {
@@ -28,15 +30,21 @@ type Parent struct {
 /* -------------------- Exported Functions -------------------- */
 
 func Fetch() (*OnCallResponse, error) {
-	apiKey := os.Getenv("WTF_OPS_GENIE_API_KEY")
 	scheduleUrl := "https://api.opsgenie.com/v2/schedules/on-calls?flat=true"
 
-	response, err := opsGenieRequest(scheduleUrl, apiKey)
+	response, err := opsGenieRequest(scheduleUrl, apiKey())
 
 	return response, err
 }
 
 /* -------------------- Unexported Functions -------------------- */
+
+func apiKey() string {
+	return wtf.Config.UString(
+		"wtf.mods.opsgenie.apiKey",
+		os.Getenv("WTF_OPS_GENIE_API_KEY"),
+	)
+}
 
 func opsGenieRequest(url string, apiKey string) (*OnCallResponse, error) {
 	req, err := http.NewRequest("GET", url, nil)
