@@ -7,7 +7,7 @@ import (
 )
 
 const HelpText = `
-  Keyboard commands for Github:
+  Keyboard commands for GitHub:
 
     /: Show/hide this help window
     h: Previous git repository
@@ -30,7 +30,7 @@ type Widget struct {
 
 func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget("Github", "github", true),
+		TextWidget: wtf.NewTextWidget("GitHub", "github", true),
 
 		app:   app,
 		Idx:   0,
