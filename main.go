@@ -88,11 +88,11 @@ func keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 		focusTracker.Prev()
 	case tcell.KeyEsc:
 		focusTracker.None()
-		//default:
-		//return event
 	}
 
-	focusTracker.FocusOn(string(event.Rune()))
+	if focusTracker.FocusOn(string(event.Rune())) {
+		return nil
+	}
 
 	return event
 }
