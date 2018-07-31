@@ -1,13 +1,13 @@
 package weather
 
 import (
-	"fmt"
+	//"fmt"
 	"os"
 
 	owm "github.com/briandowns/openweathermap"
 	"github.com/gdamore/tcell"
 	"github.com/rivo/tview"
-	"github.com/senorprogrammer/wtf/logger"
+	//"github.com/senorprogrammer/wtf/logger"
 	"github.com/senorprogrammer/wtf/wtf"
 )
 
@@ -43,14 +43,10 @@ func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 		app:   app,
 		pages: pages,
 
-		APIKey: os.Getenv("WTF_OWM_API_KEY"),
-		Idx:    0,
+		Idx: 0,
 	}
 
-	if widget.APIKey == "" {
-		logger.Log("loading weather API key from config")
-		widget.APIKey = wtf.Config.UString(fmt.Sprintf("wtf.mods.%s.apiKey", configKey), "")
-	}
+	widget.loadAPICredentials()
 
 	widget.View.SetInputCapture(widget.keyboardIntercept)
 
@@ -186,6 +182,15 @@ func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	default:
 		return event
 	}
+}
+
+// loadAPICredentials loads the API authentication credentials for this module
+// First checks to see if they're in the config file. If not, checks the ENV var
+func (widget *Widget) loadAPICredentials() {
+	widget.APIKey = wtf.Config.UString(
+		"wtf.mods.weather.apiKey",
+		os.Getenv("WTF_OWM_API_KEY"),
+	)
 }
 
 func (widget *Widget) showHelp() {
