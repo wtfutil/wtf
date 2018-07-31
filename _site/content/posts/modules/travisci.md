@@ -35,8 +35,8 @@ travisci:
     left: 1
     height: 1
     width: 2
-  refreshInterval: 900
   pro: false
+  refreshInterval: 900
 ```
 
 ### Attributes

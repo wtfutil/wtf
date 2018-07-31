@@ -18,7 +18,7 @@ const APIEnvToken = "WTF_TRAVIS_API_TOKEN"
 func BuildsFor() (*Builds, error) {
 	builds := &Builds{}
 
-	pro := wtf.Config.UBool("wtf.mods.travisci.pro")
+	pro := wtf.Config.UBool("wtf.mods.travisci.pro", false)
 	travisAPIURL.Host = hosts[pro]
 
 	resp, err := travisRequest("builds")

@@ -37,7 +37,7 @@ Key: ↓ Action: Scroll down the list.</description>
 Displays build information for your Travis CI account.
 Source Code wtf/travisci/ Required ENV Variables Key: WTF_TRAVIS_API_TOKEN Value: Your Travis CI API access token.
 Keyboard Commands None.
-Configuration travisci:enabled:trueposition:top:4left:1height:1width:2refreshInterval:900 Attributes enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.
+Configuration travisci:enabled:trueposition:top:4left:1height:1width:2pro:falserefreshInterval:900 Attributes enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.
 position Defines where in the grid this module&amp;rsquo;s widget will be displayed. refreshInterval How often, in seconds, this module will update its data.</description>
     </item>
     
