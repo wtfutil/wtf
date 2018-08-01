@@ -43,6 +43,7 @@ import (
 	"github.com/senorprogrammer/wtf/todoist"
 	"github.com/senorprogrammer/wtf/travisci"
 	"github.com/senorprogrammer/wtf/trello"
+	"github.com/senorprogrammer/wtf/twitter"
 	"github.com/senorprogrammer/wtf/weatherservices/prettyweather"
 	"github.com/senorprogrammer/wtf/weatherservices/weather"
 	"github.com/senorprogrammer/wtf/wtf"
@@ -233,6 +234,8 @@ func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
 		widgets = append(widgets, travisci.NewWidget())
 	case "trello":
 		widgets = append(widgets, trello.NewWidget())
+	case "twitter":
+		widgets = append(widgets, twitter.NewWidget())
 	case "weather":
 		widgets = append(widgets, weather.NewWidget(app, pages))
 	case "zendesk":
