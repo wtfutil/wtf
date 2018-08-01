@@ -34,7 +34,7 @@ func (widget *Widget) Refresh() {
 
 func (widget *Widget) contentFrom(tweets []Tweet) string {
 	if len(tweets) == 0 {
-		return fmt.Sprintf("\n\n\n\n\n\n\n\n%s", wtf.CenterText("[grey]No Tweets[white]", 50))
+		return fmt.Sprintf("\n\n\n%s", wtf.CenterText("[blue]No Tweets[white]", 50))
 	}
 
 	str := ""
