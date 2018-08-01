@@ -44,6 +44,10 @@ func (widget *Widget) contentFrom(calEvents []*CalEvent) string {
 	var str string
 	var prevEvent *CalEvent
 
+	if !wtf.Config.UBool("wtf.mods.gcal.showDeclined", true) {
+		calEvents = removeDeclined(calEvents)
+	}
+
 	for _, calEvent := range calEvents {
 		timestamp := fmt.Sprintf("[%s]%s", widget.descriptionColor(calEvent), calEvent.Timestamp())
 
@@ -222,4 +226,14 @@ func (widget *Widget) responseIcon(calEvent *CalEvent) string {
 	}
 
 	return " "
+}
+
+func removeDeclined(events []*CalEvent) []*CalEvent {
+	var ret []*CalEvent
+	for _, e := range events {
+		if e.ResponseFor(wtf.Config.UString("wtf.mods.gcal.email")) != "declined" {
+			ret = append(ret, e)
+		}
+	}
+	return ret
 }
