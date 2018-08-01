@@ -83,7 +83,15 @@ func (widget *Widget) dayDivider(event, prevEvent *CalEvent) string {
 		prevStartTime = prevEvent.Start()
 	}
 
-	if event.Start().Day() != prevStartTime.Day() {
+	// round times to midnight for comparison
+	toMidnight := func(t time.Time) time.Time {
+		t = t.Local()
+		return time.Date(t.Year(), t.Month(), t.Day(), 0, 0, 0, 0, t.Location())
+	}
+	prevStartDay := toMidnight(prevStartTime)
+	eventStartDay := toMidnight(event.Start())
+
+	if !eventStartDay.Equal(prevStartDay) {
 
 		return fmt.Sprintf("[%s::b]",
 			wtf.Config.UString("wtf.mods.gcal.colors.day", "forestgreen")) +
