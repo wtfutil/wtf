@@ -1,4 +1,4 @@
-package bargraphtests
+package bargraph_test
 
 import (
 	"testing"
