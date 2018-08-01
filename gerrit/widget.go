@@ -183,4 +183,5 @@ func (widget *Widget) showHelp() {
 
 	widget.pages.AddPage("help", modal, false, true)
 	widget.app.SetFocus(modal)
+	widget.app.Draw()
 }
