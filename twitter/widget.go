@@ -15,6 +15,9 @@ func NewWidget() *Widget {
 		TextWidget: wtf.NewTextWidget("Twitter", "twitter", false),
 	}
 
+	widget.View.SetWrap(true)
+	widget.View.SetWordWrap(true)
+
 	return &widget
 }
 
