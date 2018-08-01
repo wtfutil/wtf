@@ -45,7 +45,7 @@ func (client *Client) Tweets() []Tweet {
 
 /* -------------------- Private Functions -------------------- */
 
-// tweets is the private interface for retrieving the list of user sweets
+// tweets is the private interface for retrieving the list of user tweets
 func (client *Client) tweets() (tweets []Tweet, err error) {
 	apiURL := fmt.Sprintf(
 		"%s/statuses/user_timeline.json?screen_name=%s&count=%s",
