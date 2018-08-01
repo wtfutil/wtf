@@ -6,10 +6,25 @@
     <description>Recent content on WTF - A Terminal Dashboard</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 23 Jul 2018 18:55:37 -0800</lastBuildDate>
+    <lastBuildDate>Tue, 31 Jul 2018 20:21:37 -0700</lastBuildDate>
     
 	<atom:link href="https://wtfutil.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Twitter</title>
+      <link>https://wtfutil.com/posts/modules/twitter/</link>
+      <pubDate>Tue, 31 Jul 2018 20:21:37 -0700</pubDate>
+      
+      <guid>https://wtfutil.com/posts/modules/twitter/</guid>
+      <description>Added in v0.1.2.
+Connects to the Twitter API and displays a single user&amp;rsquo;s tweets.
+NOTE: This only works for single-application developer accounts for now.
+Source Code wtf/twitter/ Keyboard Commands None.
+Configuration twitter:bearerToken:&amp;#34;3276d7155dd9ee27b8b14f8743a408a9&amp;#34;enabled:trueposition:top:0left:1height:1width:1refreshInterval:20000 Attributes bearerToken Value: Your Twitter single-application Bearer Token
+enabled Whether or not this module is executed and if its data displayed onscreen. Values: true, false.
+position Defines where in the grid this module&amp;rsquo;s widget will be displayed. refreshInterval How often, in seconds, this module will update its data.</description>
+    </item>
     
     <item>
       <title>Zendesk</title>
@@ -374,7 +389,7 @@ board The name of the Trello board. enabled Determines whether or not this modul
 Not: Setting up access to Google Calendars for Go is a bit unobvious. Check out Google&amp;rsquo;s Go Quickstart first and if you have problems, then take a look at this comment by WesleydeSouza which offers a slightly different approach.
 Source Code wtf/gcal/ Required ENV Variables None.
 Keyboard Commands None.
-Configuration gcal:colors:title:&amp;#34;red&amp;#34;description:&amp;#34;lightblue&amp;#34;highlights:-[&amp;#39;1on1|1\/11&amp;#39;,&amp;#39;green&amp;#39;]-[&amp;#39;apple|google|aws&amp;#39;,&amp;#39;blue&amp;#39;]-[&amp;#39;interview|meet&amp;#39;,&amp;#39;magenta&amp;#39;]-[&amp;#39;lunch&amp;#39;,&amp;#39;yellow&amp;#39;]past:&amp;#34;gray&amp;#34;conflictIcon:&amp;#34;🚨&amp;#34;currentIcon:&amp;#34;💥&amp;#34;displayResponseStatus:trueemail:&amp;#34;chriscummer@me.com&amp;#34;enabled:trueeventCount:12multiCalendar:trueposition:top:0left:0height:4width:1refreshInterval:300secretFile:&amp;#34;~/.config/wtf/gcal/client_secret.json&amp;#34;withLocation:true Attributes colors.title The default colour for calendar event titles. Values: Any X11 color name.</description>
+Configuration gcal:colors:title:&amp;#34;red&amp;#34;description:&amp;#34;lightblue&amp;#34;highlights:-[&amp;#39;1on1|1\/11&amp;#39;,&amp;#39;green&amp;#39;]-[&amp;#39;apple|google|aws&amp;#39;,&amp;#39;blue&amp;#39;]-[&amp;#39;interview|meet&amp;#39;,&amp;#39;magenta&amp;#39;]-[&amp;#39;lunch&amp;#39;,&amp;#39;yellow&amp;#39;]past:&amp;#34;gray&amp;#34;conflictIcon:&amp;#34;🚨&amp;#34;currentIcon:&amp;#34;💥&amp;#34;displayResponseStatus:trueemail:&amp;#34;chriscummer@me.com&amp;#34;enabled:trueeventCount:12multiCalendar:trueposition:top:0left:0height:4width:1refreshInterval:300secretFile:&amp;#34;~/.config/wtf/gcal/client_secret.json&amp;#34;showDeclined:truewithLocation:true Attributes colors.title The default colour for calendar event titles. Values: Any X11 color name.</description>
     </item>
     
     <item>

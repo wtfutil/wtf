@@ -52,6 +52,7 @@ gcal:
     width: 1
   refreshInterval: 300
   secretFile: "~/.config/wtf/gcal/client_secret.json"
+  showDeclined: true
   withLocation: true
 ```
 
@@ -123,5 +124,9 @@ Your <a href="https://developers.google.com/calendar/quickstart/go">Google clien
 Values: A string representing a file path to the JSON secret file.
 
 `showDeclined` <br />
-Whether or not to display events you've declined to attend. <br />
+_Optional_. Whether or not to display events you've declined to attend. <br />
+Values: `true`, or `false`
+
+`withLocation` <br />
+Whether or not to show the location of the appointment. <br />
 Values: `true`, or `false`

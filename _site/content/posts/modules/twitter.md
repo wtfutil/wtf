@@ -4,18 +4,17 @@ date: 2018-07-31T20:21:37-07:00
 draft: false
 ---
 
-Connects to the Twitter API and displays a single user's tweets
-NOTE: This only works for single-application developer accounts for now
+Added in `v0.1.2`.
+
+Connects to the Twitter API and displays a single user's tweets.
+
+NOTE: This only works for single-application developer accounts for now.
 
 ## Source Code
 
 ```bash
 wtf/twitter/
 ```
-## Required ENV Variables
-
-<span class="caption">Key:</span> `WTF_TWITTER_BEARER_TOKEN` <br />
-<span class="caption">Action:</span> Your <a href="https://developer.twitter.com/en/docs/basics/authentication/overview/application-only.html">Twitter single-application Bearer Token</a><br />
 
 ## Keyboard Commands
 
@@ -25,6 +24,7 @@ None.
 
 ```yaml
 twitter:
+  bearerToken: "3276d7155dd9ee27b8b14f8743a408a9"
   enabled: true
   position:
     top: 0
@@ -35,6 +35,9 @@ twitter:
 ```
 
 ### Attributes
+
+`bearerToken` <br />
+Value: Your <a href="https://developer.twitter.com/en/docs/basics/authentication/overview/application-only.html">Twitter single-application Bearer Token</a>
 
 `enabled` <br />
 Whether or not this module is executed and if its data displayed onscreen. <br />
