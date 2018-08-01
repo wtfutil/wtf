@@ -4,19 +4,38 @@ import (
 	"fmt"
 
 	"github.com/gdamore/tcell"
+	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/wtf"
 )
+
+const HelpText = `
+ Keyboard commands for Jira:
+
+   /: Show/hide this help window
+   j: Select the next item in the list
+   k: Select the previous item in the list
+
+   arrow down: Select the next item in the list
+   arrow up:   Select the previous item in the list
+
+   return: Open the selected issue in a browser
+`
 
 type Widget struct {
 	wtf.TextWidget
 
+	app      *tview.Application
+	pages    *tview.Pages
 	result   *SearchResult
 	selected int
 }
 
-func NewWidget() *Widget {
+func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget("Jira", "jira", true),
+
+		app:   app,
+		pages: pages,
 	}
 	widget.unselect()
 
@@ -153,6 +172,8 @@ func getProjects() []string {
 
 func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	switch string(event.Rune()) {
+	case "/":
+		widget.showHelp()
 	case "j":
 		// Select the next item down
 		widget.next()
@@ -188,4 +209,16 @@ func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 		// Pass it along
 		return event
 	}
+}
+
+func (widget *Widget) showHelp() {
+	closeFunc := func() {
+		widget.pages.RemovePage("help")
+		widget.app.SetFocus(widget.View)
+	}
+
+	modal := wtf.NewBillboardModal(HelpText, closeFunc)
+
+	widget.pages.AddPage("help", modal, false, true)
+	widget.app.SetFocus(modal)
 }
