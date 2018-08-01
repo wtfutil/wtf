@@ -44,7 +44,7 @@ func (widget *Widget) contentFrom(calEvents []*CalEvent) string {
 	var str string
 	var prevEvent *CalEvent
 
-	if !wtf.Config.UBool("wtf.mods.gcal.showDeclined", true) {
+	if !wtf.Config.UBool("wtf.mods.gcal.showDeclined", false) {
 		calEvents = removeDeclined(calEvents)
 	}
 

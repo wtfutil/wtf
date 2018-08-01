@@ -122,3 +122,6 @@ Values: A positive integer, `0..n`.
 Your <a href="https://developers.google.com/calendar/quickstart/go">Google client secret</a> JSON file. <br />
 Values: A string representing a file path to the JSON secret file.
 
+`showDeclined` <br />
+Whether or not to display events you've declined to attend. <br />
+Values: `true`, or `false`
