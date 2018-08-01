@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+
+	"github.com/senorprogrammer/wtf/wtf"
 )
 
 /* NOTE: Currently single application ONLY
@@ -22,11 +24,12 @@ type Client struct {
 // NewClient creates and returns a new Twitter client
 func NewClient(url string) *Client {
 	client := Client{
-		apiBase:     url,
-		screenName:  "wtfutil",
-		count:       5,
-		bearerToken: os.Getenv("WTF_TWITTER_BEARER_TOKEN"),
+		apiBase:    url,
+		screenName: "wtfutil",
+		count:      5,
 	}
+
+	client.loadAPICredentials()
 
 	return &client
 }
@@ -61,4 +64,11 @@ func (client *Client) tweets() (tweets []Tweet, err error) {
 	err = json.Unmarshal(data, &tweets)
 
 	return
+}
+
+func (client *Client) loadAPICredentials() {
+	client.bearerToken = wtf.Config.UString(
+		"wtf.mods.twitter.bearerToken",
+		os.Getenv("WTF_TWITTER_BEARER_TOKEN"),
+	)
 }
