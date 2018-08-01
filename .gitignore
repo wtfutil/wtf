@@ -3,6 +3,7 @@
 *.exe
 *.exe~
 *.dll
+ftw*
 *.so
 *.dylib
 

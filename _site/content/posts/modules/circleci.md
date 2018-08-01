@@ -16,12 +16,6 @@ Displays build information for your CircleCI account.
 wtf/circleci/
 ```
 
-## Required ENV Variables
-
-<span class="caption">Key:</span> `WTF_CIRCLE_API_KEY` <br />
-<span class="caption">Value:</span> Your <a href="https://circleci.com/account/api">CircleCI API</a>
-token.
-
 ## Keyboard Commands
 
 None.
@@ -30,6 +24,7 @@ None.
 
 ```yaml
 circleci:
+  apiKey: "3276d7155dd9ee27b8b14f8743a408a9"
   enabled: true
   position:
     top: 4
@@ -40,6 +35,9 @@ circleci:
 ```
 
 ### Attributes
+
+`apiKey` <br />
+Value: Your <a href="https://circleci.com/account/api">CircleCI API</a> token.
 
 `enabled` <br />
 Determines whether or not this module is executed and if its data displayed onscreen. <br />

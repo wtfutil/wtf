@@ -55,7 +55,7 @@ func listTickets(pag ...string) (*TicketArray, error) {
 	} else {
 		path = pag[0]
 	}
-	resource, err := api(a, "GET", path, "")
+	resource, err := api(apiKey(), "GET", path, "")
 	if err != nil {
 		return nil, err
 	}

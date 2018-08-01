@@ -15,12 +15,6 @@ and who's currently on call.
 wtf/opsgenie/
 ```
 
-## Required ENV Variables
-
-<span class="caption">Key:</span> `WTF_OPS_GENIE_API_KEY` <br />
-<span class="caption">Value:</span> Your <a href="https://docs.opsgenie.com/docs/api-integration">OpsGenie
-API</a> token.
-
 ## Keyboard Commands
 
 None.
@@ -29,6 +23,7 @@ None.
 
 ```yaml
 opsgenie:
+  apiKey: "3276d7155dd9ee27b8b14f8743a408a9"
   displayEmpty: false
   enabled: true
   position:
@@ -40,6 +35,9 @@ opsgenie:
 ```
 
 ### Attributes
+
+`apiKey` < br />
+Value: Your <a href="https://docs.opsgenie.com/docs/api-integration">OpsGenie API</a> token.
 
 `displayEmpty` <br />
 Whether schedules with no assigned person on-call should be displayed. <br />

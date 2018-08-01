@@ -137,8 +137,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   
   
 
-<p><img src="/imgs/modules/gerrit.png" width="640" height="384" alt="gerrit screenshot" /></p>
-
 <p>Displays information about your projects hosted on Gerrit:</p>
 
 <h4 id="open-incoming-reviews">Open Incoming Reviews</h4>
@@ -149,13 +147,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <p>All open reviews created by you.</p>
 
+<p><img src="/imgs/modules/gerrit.png" width="640" height="167" alt="gerrit screenshot" /></p>
+
 <h2 id="source-code">Source Code</h2>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">wtf/gerrit/</code></pre></div>
-<h2 id="required-env-variables">Required ENV Variables</h2>
-
-<p><span class="caption">Key:</span> <code>WTF_GERRIT_PASSWORD</code> <br />
-<span class="caption">Action:</span> Your <a href="https://gerrit-review.googlesource.com/Documentation/user-upload.html#http">Gerrit HTTP Password</a>.</p>
-
 <h2 id="keyboard-commands">Keyboard Commands</h2>
 
 <p><span class="caption">Key:</span> <code>/</code> <br />
@@ -186,6 +181,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </span><span class="w">  </span>projects<span class="p">:</span><span class="w">
 </span><span class="w">  </span>-<span class="w"> </span>org/test-project<span class="s2">&#34;
 </span><span class="s2">  - dotfiles
+</span><span class="s2">  password: &#34;</span>mypassword<span class="s2">&#34;
 </span><span class="s2">  username: &#34;</span>myname&#34;<span class="w">
 </span><span class="w">  </span>verifyServerCertificate<span class="p">:</span><span class="w"> </span><span class="kc">false</span></code></pre></div>
 <h3 id="attributes">Attributes</h3>
@@ -208,8 +204,11 @@ Values: A valid URI.</p>
 <p><code>projects</code> <br />
 A list of Gerrit project names to fetch data for. <br /></p>
 
+<p><code>password</code> <br />
+Value: Your <a href="https://gerrit-review.googlesource.com/Documentation/user-upload.html#http">Gerrit HTTP Password</a>.</p>
+
 <p><code>username</code> <br />
-Your Gerrit username. <br /></p>
+Your Gerrit username.</p>
 
 <p><code>verifyServerCertificate</code> <br />
 <em>Optional</em> <br />

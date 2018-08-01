@@ -25,7 +25,7 @@ func (widget *Widget) Refresh() {
 	data, err := Fetch()
 
 	widget.UpdateRefreshedAt()
-	widget.View.SetTitle(widget.Name)
+	widget.View.SetTitle(widget.ContextualTitle(widget.Name))
 
 	var content string
 	if err != nil {

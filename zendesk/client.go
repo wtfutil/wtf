@@ -16,9 +16,19 @@ type Resource struct {
 	Raw      string
 }
 
-var a = os.Getenv("ZENDESK_API")
-var subdomain = os.Getenv("ZENDESK_SUBDOMAIN")
-var baseURL = fmt.Sprintf("https://%v.zendesk.com/api/v2", subdomain)
+func apiKey() string {
+	return wtf.Config.UString(
+		"wtf.mods.zendesk.apiKey",
+		os.Getenv("ZENDESK_API"),
+	)
+}
+
+func subdomain() string {
+	return wtf.Config.UString(
+		"wtf.mods.zendesk.apiKey",
+		os.Getenv("ZENDESK_API"),
+	)
+}
 
 func errHandler(err error) {
 	if err != nil {
@@ -26,20 +36,15 @@ func errHandler(err error) {
 	}
 }
 
-func buildUrl(baseURL string) string {
-	ticketURL := baseURL + "/tickets.json?sort_by=status"
-	return ticketURL
-}
-
 func api(key string, meth string, path string, params string) (*Resource, error) {
-
 	trn := &http.Transport{}
 
 	client := &http.Client{
 		Transport: trn,
 	}
 
-	var URL = buildUrl(baseURL)
+	baseURL := fmt.Sprintf("https://%v.zendesk.com/api/v2", subdomain())
+	URL := baseURL + "/tickets.json?sort_by=status"
 
 	req, err := http.NewRequest(meth, URL, bytes.NewBufferString(params))
 	if err != nil {

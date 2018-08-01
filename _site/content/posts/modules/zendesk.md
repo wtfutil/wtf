@@ -14,14 +14,6 @@ Displays tickets in the "New" status - i.e. have not yet been assigned.
 wtf/zendesk/
 ```
 
-## Required ENV Variables
-
-<span class="caption">Key:</span> `ZENDESK_API` <br />
-<span class="caption">Value:</span> Your Zendesk API Token
-
-<span class="caption">Key:</span> `ZENDESK_DOMAIN` <br />
-<span class="caption">Value:</span> Your Zendesk subdomain
-
 ## Keyboard Commands
 
 <span class="caption">Key:</span> `[return]` <br />
@@ -43,6 +35,7 @@ wtf/zendesk/
 
 ```yaml
 zendesk:
+  apiKey: "3276d7155dd9ee27b8b14f8743a408a9"
   enabled: true
   position:
     top: 0
@@ -50,10 +43,14 @@ zendesk:
     height: 1
     width: 1
   status: "new"
+  subdomain: "your_domain"
   username: "your_email@acme.com"
 ```
 
 ### Attributes
+
+`apiKey` <br />
+Value: Your Zendesk API token.
 
 `enabled` <br />
 Determines whether or not this module is executed and if its data displayed onscreen. <br />
@@ -65,6 +62,9 @@ Defines where in the grid this module's widget will be displayed. <br />
 `status` <br />
 The status of tickets you want to retrieve.
 Values: `new`, `open`, `pending`, `hold`.
+
+`subdomain` <br />
+Value: Your Zendesk subdomain.
 
 `username` <br />
 Your Zendesk username

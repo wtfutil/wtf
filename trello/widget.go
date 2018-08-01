@@ -23,7 +23,10 @@ func NewWidget() *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	client := trello.NewClient(os.Getenv("WTF_TRELLO_APP_KEY"), os.Getenv("WTF_TRELLO_ACCESS_TOKEN"))
+	client := trello.NewClient(
+		widget.apiKey(),
+		widget.accessToken(),
+	)
 
 	// Get the cards
 	searchResult, err := GetCards(client, getLists())
@@ -50,6 +53,21 @@ func (widget *Widget) Refresh() {
 }
 
 /* -------------------- Unexported Functions -------------------- */
+
+func (widget *Widget) accessToken() string {
+	return wtf.Config.UString(
+		"wtf.mods.trello.accessToken",
+		os.Getenv("WTF_TRELLO_ACCESS_TOKEN"),
+	)
+}
+
+func (widget *Widget) apiKey() string {
+	return wtf.Config.UString(
+		"wtf.mods.trello.apiKey",
+		os.Getenv("WTF_TRELLO_APP_KEY"),
+	)
+}
+
 func (widget *Widget) contentFrom(searchResult *SearchResult) string {
 	str := ""
 

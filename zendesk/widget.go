@@ -103,7 +103,7 @@ func (widget *Widget) openTicket() {
 	sel := widget.selected
 	if sel >= 0 && widget.result != nil && sel < len(widget.result.Tickets) {
 		issue := &widget.result.Tickets[widget.selected]
-		ticketUrl := fmt.Sprintf("https://%s.zendesk.com/agent/tickets/%d", subdomain, issue.Id)
+		ticketUrl := fmt.Sprintf("https://%s.zendesk.com/agent/tickets/%d", subdomain(), issue.Id)
 		wtf.OpenFile(ticketUrl)
 	}
 }

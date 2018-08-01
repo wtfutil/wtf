@@ -44,7 +44,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 		pages: pages,
 	}
 
-	todoist.Token = os.Getenv("WTF_TODOIST_TOKEN")
+	widget.loadAPICredentials()
 	widget.projects = loadProjects()
 	widget.View.SetInputCapture(widget.keyboardIntercept)
 
@@ -170,7 +170,13 @@ func (w *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	return event
 }
 
-// TODO: Rename this List to Projects so the internal can be Checklist
+func (widget *Widget) loadAPICredentials() {
+	todoist.Token = wtf.Config.UString(
+		"wtf.mods.todoist.apiKey",
+		os.Getenv("WTF_TODOIST_TOKEN"),
+	)
+}
+
 func loadProjects() []*Project {
 	projects := []*Project{}
 

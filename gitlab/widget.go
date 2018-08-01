@@ -34,9 +34,14 @@ type Widget struct {
 }
 
 func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
-	apiKey := os.Getenv("WTF_GITLAB_TOKEN")
+	apiKey := wtf.Config.UString(
+		"wtf.mods.gitlab.apiKey",
+		os.Getenv("WTF_GITLAB_TOKEN"),
+	)
+
 	baseURL := wtf.Config.UString("wtf.mods.gitlab.domain")
 	gitlab := glb.NewClient(nil, apiKey)
+
 	if baseURL != "" {
 		gitlab.SetBaseURL(baseURL)
 	}
