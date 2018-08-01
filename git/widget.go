@@ -24,6 +24,7 @@ const modalWidth = 80
 const modalHeight = 7
 
 type Widget struct {
+	wtf.HelpfulWidget
 	wtf.TextWidget
 
 	app   *tview.Application
@@ -34,13 +35,15 @@ type Widget struct {
 
 func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget("Git", "git", true),
+		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
+		TextWidget:    wtf.NewTextWidget("Git", "git", true),
 
 		app:   app,
 		Idx:   0,
 		pages: pages,
 	}
 
+	widget.HelpfulWidget.SetView(widget.View)
 	widget.View.SetInputCapture(widget.keyboardIntercept)
 
 	return &widget
@@ -173,7 +176,7 @@ func (widget *Widget) gitRepos(repoPaths []string) []*GitRepo {
 func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	switch string(event.Rune()) {
 	case "/":
-		widget.showHelp()
+		widget.ShowHelp()
 		return nil
 	case "h":
 		widget.Prev()
@@ -199,17 +202,4 @@ func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	default:
 		return event
 	}
-}
-
-func (widget *Widget) showHelp() {
-	closeFunc := func() {
-		widget.pages.RemovePage("help")
-		widget.app.SetFocus(widget.View)
-	}
-
-	modal := wtf.NewBillboardModal(HelpText, closeFunc)
-
-	widget.pages.AddPage("help", modal, false, true)
-	widget.app.SetFocus(modal)
-	widget.app.Draw()
 }

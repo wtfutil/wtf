@@ -22,10 +22,8 @@ const HelpText = `
 
 // Widget is the container for weather data.
 type Widget struct {
+	wtf.HelpfulWidget
 	wtf.TextWidget
-
-	app   *tview.Application
-	pages *tview.Pages
 
 	APIKey string
 	Data   []*owm.CurrentWeatherData
@@ -36,16 +34,15 @@ type Widget struct {
 func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 	configKey := "weather"
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget("Weather", configKey, true),
-
-		app:   app,
-		pages: pages,
+		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
+		TextWidget:    wtf.NewTextWidget("Weather", configKey, true),
 
 		Idx: 0,
 	}
 
 	widget.loadAPICredentials()
 
+	widget.HelpfulWidget.SetView(widget.View)
 	widget.View.SetInputCapture(widget.keyboardIntercept)
 
 	return &widget
@@ -160,7 +157,7 @@ func (widget *Widget) defaultCityCodes() []interface{} {
 func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	switch string(event.Rune()) {
 	case "/":
-		widget.showHelp()
+		widget.ShowHelp()
 		return nil
 	case "h":
 		widget.Prev()
@@ -189,16 +186,4 @@ func (widget *Widget) loadAPICredentials() {
 		"wtf.mods.weather.apiKey",
 		os.Getenv("WTF_OWM_API_KEY"),
 	)
-}
-
-func (widget *Widget) showHelp() {
-	closeFunc := func() {
-		widget.pages.RemovePage("help")
-		widget.app.SetFocus(widget.View)
-	}
-
-	modal := wtf.NewBillboardModal(HelpText, closeFunc)
-
-	widget.pages.AddPage("help", modal, false, true)
-	widget.app.SetFocus(modal)
 }

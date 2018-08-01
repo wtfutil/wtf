@@ -22,25 +22,24 @@ const HelpText = `
 `
 
 type Widget struct {
+	wtf.HelpfulWidget
 	wtf.TextWidget
 
-	app      *tview.Application
 	filePath string
-	pages    *tview.Pages
 }
 
 func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget("TextFile", "textfile", true),
+		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
+		TextWidget:    wtf.NewTextWidget("TextFile", "textfile", true),
 
-		app:      app,
 		filePath: wtf.Config.UString("wtf.mods.textfile.filePath"),
-		pages:    pages,
 	}
+
+	widget.HelpfulWidget.SetView(widget.View)
 
 	widget.View.SetWrap(true)
 	widget.View.SetWordWrap(true)
-
 	widget.View.SetInputCapture(widget.keyboardIntercept)
 
 	return &widget
@@ -155,7 +154,7 @@ func (widget *Widget) fileName() string {
 func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	switch string(event.Rune()) {
 	case "/":
-		widget.showHelp()
+		widget.ShowHelp()
 		return nil
 	case "o":
 		wtf.OpenFile(widget.filePath)
@@ -163,17 +162,4 @@ func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	}
 
 	return event
-}
-
-func (widget *Widget) showHelp() {
-	closeFunc := func() {
-		widget.pages.RemovePage("help")
-		widget.app.SetFocus(widget.View)
-	}
-
-	modal := wtf.NewBillboardModal(HelpText, closeFunc)
-
-	widget.pages.AddPage("help", modal, false, true)
-	widget.app.SetFocus(modal)
-	widget.app.Draw()
 }

@@ -19,10 +19,8 @@ const HelpText = `
 `
 
 type Widget struct {
+	wtf.HelpfulWidget
 	wtf.TextWidget
-
-	app   *tview.Application
-	pages *tview.Pages
 
 	GithubRepos []*GithubRepo
 	Idx         int
@@ -30,15 +28,15 @@ type Widget struct {
 
 func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget("GitHub", "github", true),
+		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
+		TextWidget:    wtf.NewTextWidget("GitHub", "github", true),
 
-		app:   app,
-		Idx:   0,
-		pages: pages,
+		Idx: 0,
 	}
 
 	widget.GithubRepos = widget.buildRepoCollection(wtf.Config.UMap("wtf.mods.github.repositories"))
 
+	widget.HelpfulWidget.SetView(widget.View)
 	widget.View.SetInputCapture(widget.keyboardIntercept)
 
 	return &widget
@@ -101,7 +99,7 @@ func (widget *Widget) currentGithubRepo() *GithubRepo {
 func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	switch string(event.Rune()) {
 	case "/":
-		widget.showHelp()
+		widget.ShowHelp()
 		return nil
 	case "h":
 		widget.Prev()
@@ -124,17 +122,4 @@ func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	default:
 		return event
 	}
-}
-
-func (widget *Widget) showHelp() {
-	closeFunc := func() {
-		widget.pages.RemovePage("help")
-		widget.app.SetFocus(widget.View)
-	}
-
-	modal := wtf.NewBillboardModal(HelpText, closeFunc)
-
-	widget.pages.AddPage("help", modal, false, true)
-	widget.app.SetFocus(modal)
-	widget.app.Draw()
 }

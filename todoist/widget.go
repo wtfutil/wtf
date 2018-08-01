@@ -28,24 +28,23 @@ const HelpText = `
 `
 
 type Widget struct {
+	wtf.HelpfulWidget
 	wtf.TextWidget
 
-	app      *tview.Application
-	pages    *tview.Pages
 	projects []*Project
 	idx      int
 }
 
 func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget("Todoist", "todoist", true),
-
-		app:   app,
-		pages: pages,
+		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
+		TextWidget:    wtf.NewTextWidget("Todoist", "todoist", true),
 	}
 
 	widget.loadAPICredentials()
 	widget.projects = loadProjects()
+
+	widget.HelpfulWidget.SetView(widget.View)
 	widget.View.SetInputCapture(widget.keyboardIntercept)
 
 	return &widget
@@ -139,7 +138,7 @@ func (w *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 
 	switch string(event.Rune()) {
 	case "/":
-		w.showHelp()
+		w.ShowHelp()
 		return nil
 	case "r":
 		w.Refresh()
@@ -186,19 +185,6 @@ func loadProjects() []*Project {
 	}
 
 	return projects
-}
-
-func (widget *Widget) showHelp() {
-	closeFunc := func() {
-		widget.pages.RemovePage("help")
-		widget.app.SetFocus(widget.View)
-	}
-
-	modal := wtf.NewBillboardModal(HelpText, closeFunc)
-
-	widget.pages.AddPage("help", modal, false, true)
-	widget.app.SetFocus(modal)
-	widget.app.Draw()
 }
 
 func (w *Widget) vimBindings(event *tcell.EventKey) tcell.Key {

@@ -22,21 +22,20 @@ const HelpText = `
 `
 
 type Widget struct {
+	wtf.HelpfulWidget
 	wtf.TextWidget
 
-	app      *tview.Application
-	pages    *tview.Pages
 	result   *SearchResult
 	selected int
 }
 
 func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget("Jira", "jira", true),
-
-		app:   app,
-		pages: pages,
+		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
+		TextWidget:    wtf.NewTextWidget("Jira", "jira", true),
 	}
+
+	widget.HelpfulWidget.SetView(widget.View)
 	widget.unselect()
 
 	widget.View.SetInputCapture(widget.keyboardIntercept)
@@ -173,7 +172,7 @@ func getProjects() []string {
 func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	switch string(event.Rune()) {
 	case "/":
-		widget.showHelp()
+		widget.ShowHelp()
 	case "j":
 		// Select the next item down
 		widget.next()
@@ -209,17 +208,4 @@ func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 		// Pass it along
 		return event
 	}
-}
-
-func (widget *Widget) showHelp() {
-	closeFunc := func() {
-		widget.pages.RemovePage("help")
-		widget.app.SetFocus(widget.View)
-	}
-
-	modal := wtf.NewBillboardModal(HelpText, closeFunc)
-
-	widget.pages.AddPage("help", modal, false, true)
-	widget.app.SetFocus(modal)
-	widget.app.Draw()
 }

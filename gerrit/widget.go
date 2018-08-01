@@ -26,10 +26,8 @@ const HelpText = `
 `
 
 type Widget struct {
+	wtf.HelpfulWidget
 	wtf.TextWidget
-
-	app   *tview.Application
-	pages *tview.Pages
 
 	gerrit *glb.Client
 
@@ -74,15 +72,15 @@ func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 	}
 
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget("Gerrit", "gerrit", true),
-
-		app:   app,
-		pages: pages,
+		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
+		TextWidget:    wtf.NewTextWidget("Gerrit", "gerrit", true),
 
 		gerrit: gerrit,
 
 		Idx: 0,
 	}
+
+	widget.HelpfulWidget.SetView(widget.View)
 
 	widget.GerritProjects = widget.buildProjectCollection(wtf.Config.UList("wtf.mods.gerrit.projects"))
 
@@ -148,7 +146,7 @@ func (widget *Widget) currentGerritProject() *GerritProject {
 func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	switch string(event.Rune()) {
 	case "/":
-		widget.showHelp()
+		widget.ShowHelp()
 		return nil
 	case "h":
 		widget.Prev()
@@ -171,17 +169,4 @@ func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	default:
 		return event
 	}
-}
-
-func (widget *Widget) showHelp() {
-	closeFunc := func() {
-		widget.pages.RemovePage("help")
-		widget.app.SetFocus(widget.View)
-	}
-
-	modal := wtf.NewBillboardModal(HelpText, closeFunc)
-
-	widget.pages.AddPage("help", modal, false, true)
-	widget.app.SetFocus(modal)
-	widget.app.Draw()
 }
