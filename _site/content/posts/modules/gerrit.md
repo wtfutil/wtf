@@ -33,54 +33,86 @@ wtf/gerrit/
 <span class="caption">Key:</span> `l` <br />
 <span class="caption">Action:</span> Show the next project.
 
+<span class="caption">Key:</span> `j` <br />
+<span class="caption">Action:</span> Select the next review in the list.
+
+<span class="caption">Key:</span> `k` <br />
+<span class="caption">Action:</span> Select the previous review in the list.
+
+<span class="caption">Key:</span> `r` <br />
+<span class="caption">Action:</span> Refresh the data.
+
 <span class="caption">Key:</span> `←` <br />
 <span class="caption">Action:</span> Show the previous project.
 
 <span class="caption">Key:</span> `→` <br />
 <span class="caption">Action:</span> Show the next project.
 
+<span class="caption">Key:</span> `↓` <br />
+<span class="caption">Action:</span> Select the next review in the list.
+
+<span class="caption">Key:</span> `↑` <br />
+<span class="caption">Action:</span> Select the previous review in the list.
+
+<span class="caption">Key:</span> `[return]` <br />
+<span class="caption">Action:</span> Open the selected review in the browser.
+
 ## Configuration
 
 ```yaml
 gerrit:
+  colors:
+    rows:
+      even: "lightblue"
+      odd: "white"
+  domain: https://gerrit-review.googlesource.com
   enabled: true
+  password: "mypassword"
   position:
     top: 2
     left: 3
     height: 2
     width: 2
-  refreshInterval: 300
-  domain: https://gerrit-review.googlesource.com
   projects:
   - org/test-project"
   - dotfiles
-  password: "mypassword"
+  refreshInterval: 300
   username: "myname"
   verifyServerCertificate: false
 ```
 
 ### Attributes
 
-`enabled` <br />
-Determines whether or not this module is executed and if its data displayed onscreen. <br />
-Values: `true`, `false`.
+`colors.rows.even` <br />
+Define the foreground color for even-numbered rows. <br />
+Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11
+color name</a>.
 
-`position` <br />
-Defines where in the grid this module's widget will be displayed. <br />
-
-`refreshInterval` <br />
-How often, in seconds, this module will update its data. <br />
-Values: A positive integer, `0..n`.
+`colors.rows.odd` <br />
+Define the foreground color for odd-numbered rows. <br />
+Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11
+color name</a>.
 
 `domain` <br />
 Your Gerrit corporate domain. <br />
 Values: A valid URI.
 
-`projects` <br />
-A list of Gerrit project names to fetch data for. <br />
+`enabled` <br />
+Determines whether or not this module is executed and if its data displayed onscreen. <br />
+Values: `true`, `false`.
 
 `password` <br />
 Value: Your <a href="https://gerrit-review.googlesource.com/Documentation/user-upload.html#http">Gerrit HTTP Password</a>.
+
+`position` <br />
+Defines where in the grid this module's widget will be displayed. <br />
+
+`projects` <br />
+A list of Gerrit project names to fetch data for. <br />
+
+`refreshInterval` <br />
+How often, in seconds, this module will update its data. <br />
+Values: A positive integer, `0..n`.
 
 `username` <br />
 Your Gerrit username.
