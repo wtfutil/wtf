@@ -85,8 +85,8 @@ My Outgoing Reviews All open reviews created by you.
 Source Code wtf/gerrit/ Keyboard Commands Key: / Action: Open/close the widget&amp;rsquo;s help window.
 Key: h Action: Show the previous project.
 Key: l Action: Show the next project.
-Key: ← Action: Show the previous project.
-Key: → Action: Show the next project.</description>
+Key: j Action: Select the next review in the list.
+Key: k Action: Select the previous review in the list.</description>
     </item>
     
     <item>

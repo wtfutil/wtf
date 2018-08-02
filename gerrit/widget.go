@@ -17,12 +17,18 @@ const HelpText = `
   Keyboard commands for Gerrit:
 
     /: Show/hide this help window
-    h: Previous project
-    l: Next project
+    h: Show the previous project
+    l: Show the next project
+    j: Select the next review in the list
+    k: Select the previous review in the list
     r: Refresh the data
 
-    arrow left:  Previous project
-    arrow right: Next project
+    arrow left:  Show the previous project
+    arrow right: Show the next project
+    arrow down:  Select the next review in the list
+	arrow up:    Select the previous review in the list
+    
+	return: Open the selected review in a browser
 `
 
 type Widget struct {
@@ -33,6 +39,7 @@ type Widget struct {
 
 	GerritProjects []*GerritProject
 	Idx            int
+	selected       int
 }
 
 var (
@@ -85,6 +92,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 	widget.GerritProjects = widget.buildProjectCollection(wtf.Config.UList("wtf.mods.gerrit.projects"))
 
 	widget.View.SetInputCapture(widget.keyboardIntercept)
+	widget.unselect()
 
 	return &widget
 }
@@ -100,25 +108,65 @@ func (widget *Widget) Refresh() {
 	widget.display()
 }
 
-func (widget *Widget) Next() {
+/* -------------------- Unexported Functions -------------------- */
+
+func (widget *Widget) nextProject() {
 	widget.Idx = widget.Idx + 1
+	widget.unselect()
 	if widget.Idx == len(widget.GerritProjects) {
 		widget.Idx = 0
 	}
 
-	widget.display()
+	widget.unselect()
 }
 
-func (widget *Widget) Prev() {
+func (widget *Widget) prevProject() {
 	widget.Idx = widget.Idx - 1
 	if widget.Idx < 0 {
 		widget.Idx = len(widget.GerritProjects) - 1
 	}
 
+	widget.unselect()
+}
+
+func (widget *Widget) nextReview() {
+	widget.selected++
+	project := widget.GerritProjects[widget.Idx]
+	if widget.selected >= project.ReviewCount {
+		widget.selected = 0
+	}
+
 	widget.display()
 }
 
-/* -------------------- Unexported Functions -------------------- */
+func (widget *Widget) prevReview() {
+	widget.selected--
+	project := widget.GerritProjects[widget.Idx]
+	if widget.selected < 0 {
+		widget.selected = project.ReviewCount - 1
+	}
+
+	widget.display()
+}
+
+func (widget *Widget) openReview() {
+	sel := widget.selected
+	project := widget.GerritProjects[widget.Idx]
+	if sel >= 0 && sel < project.ReviewCount {
+		change := glb.ChangeInfo{}
+		if sel < len(project.IncomingReviews) {
+			change = project.IncomingReviews[sel]
+		} else {
+			change = project.OutgoingReviews[sel-len(project.IncomingReviews)]
+		}
+		wtf.OpenFile(fmt.Sprintf("%s/%s/%d", wtf.Config.UString("wtf.mods.gerrit.domain"), "#/c", change.Number))
+	}
+}
+
+func (widget *Widget) unselect() {
+	widget.selected = -1
+	widget.display()
+}
 
 func (widget *Widget) buildProjectCollection(projectData []interface{}) []*GerritProject {
 	gerritProjects := []*GerritProject{}
@@ -149,10 +197,16 @@ func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 		widget.ShowHelp()
 		return nil
 	case "h":
-		widget.Prev()
+		widget.prevProject()
 		return nil
 	case "l":
-		widget.Next()
+		widget.nextProject()
+		return nil
+	case "j":
+		widget.nextReview()
+		return nil
+	case "k":
+		widget.prevReview()
 		return nil
 	case "r":
 		widget.Refresh()
@@ -161,11 +215,23 @@ func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 
 	switch event.Key() {
 	case tcell.KeyLeft:
-		widget.Prev()
+		widget.prevProject()
 		return nil
 	case tcell.KeyRight:
-		widget.Next()
+		widget.nextProject()
 		return nil
+	case tcell.KeyDown:
+		widget.nextReview()
+		return nil
+	case tcell.KeyUp:
+		widget.prevReview()
+		return nil
+	case tcell.KeyEnter:
+		widget.openReview()
+		return nil
+	case tcell.KeyEsc:
+		widget.unselect()
+		return event
 	default:
 		return event
 	}
