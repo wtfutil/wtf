@@ -46,7 +46,7 @@ parameter on launch:
 #### Configuration Attributes
 
 A number of top-level attributes can be set to customize your WTF
-install. See <a href="/posts/configuration/attributes/">Attributes</a> for detials.
+install. See <a href="/posts/configuration/attributes/">Attributes</a> for details.
 
 ## Environment (ENV) Variables
 
