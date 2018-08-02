@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>/posts/modules/twitter/</loc>
+    <lastmod>2018-07-31T20:21:37-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/modules/zendesk/</loc>
+    <lastmod>2018-07-23T18:55:37-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/modules/travisci/</loc>
+    <lastmod>2018-07-18T14:36:08-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/modules/todoist/</loc>
+    <lastmod>2018-07-05T22:55:55-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/modules/gerrit/</loc>
+    <lastmod>2018-06-27T15:55:42-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/modules/logger/</loc>
+    <lastmod>2018-06-16T14:22:18-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/modules/cryptocurrencies/blockfolio/</loc>
+    <lastmod>2018-06-13T09:29:59-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/modules/ipapi/</loc>
+    <lastmod>2018-06-10T19:41:52-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/modules/circleci/</loc>
+    <lastmod>2018-06-10T19:26:08-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/modules/gspreadsheet/</loc>
+    <lastmod>2018-06-10T18:26:26-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/modules/jenkins/</loc>
+    <lastmod>2018-06-09T20:53:35-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/modules/gitlab/</loc>
+    <lastmod>2018-06-08T13:14:11-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/modules/cryptocurrencies/bittrex/</loc>
+    <lastmod>2018-06-04T20:06:40-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/modules/cryptocurrencies/cryptolive/</loc>
+    <lastmod>2018-06-03T20:06:40-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/modules/prettyweather/</loc>
+    <lastmod>2018-06-02T05:32:04-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/modules/ipinfo/</loc>
+    <lastmod>2018-06-01T23:18:48-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/modules/power/</loc>
+    <lastmod>2018-05-26T19:26:23-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/configuration/iterm2/</loc>
+    <lastmod>2018-05-24T09:57:40-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/overview/</loc>
+    <lastmod>2018-05-21T16:11:58-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/installation/</loc>
+    <lastmod>2018-05-18T09:59:40-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/modules/cmdrunner/</loc>
+    <lastmod>2018-05-17T17:17:10-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/configuration/attributes/</loc>
+    <lastmod>2018-05-16T21:51:23-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/modules/todo/</loc>
+    <lastmod>2018-05-10T12:41:50-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/modules/jira/</loc>
+    <lastmod>2018-05-10T10:44:35-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/modules/trello/</loc>
+    <lastmod>2018-05-10T10:44:35-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/modules/gcal/</loc>
+    <lastmod>2018-05-10T08:25:33-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/modules/github/</loc>
+    <lastmod>2018-05-09T19:20:20-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/modules/git/</loc>
+    <lastmod>2018-05-09T14:20:48-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/modules/weather/</loc>
+    <lastmod>2018-05-09T11:44:13-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/modules/textfile/</loc>
+    <lastmod>2018-05-09T11:13:11-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/modules/newrelic/</loc>
+    <lastmod>2018-05-09T09:01:14-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/modules/opsgenie/</loc>
+    <lastmod>2018-05-08T20:53:40-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/modules/security/</loc>
+    <lastmod>2018-05-08T20:33:28-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/modules/bamboohr/</loc>
+    <lastmod>2018-05-07T20:17:37-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/modules/clocks/</loc>
+    <lastmod>2018-05-07T19:47:31-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/modules/</loc>
+    <lastmod>2018-05-07T18:04:58-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/glossary/</loc>
+    <lastmod>2018-04-17T12:34:51-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/configuration/</loc>
+    <lastmod>2018-04-15T21:17:16-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/posts/</loc>
+    <lastmod>2018-07-31T20:21:37-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/</loc>
+    <lastmod>2018-07-31T20:21:37-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+</urlset>

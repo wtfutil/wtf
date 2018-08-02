@@ -1,0 +1,12 @@
+baseURL = "https://wtfutil.com/"
+languageCode = "en-us"
+pygmentsCodeFences = true
+pygmentsUseClasses = true
+publishDir = "../docs"
+sectionPagesMenu = "main"
+theme = "hyde-hyde"
+title = "WTF - A Terminal Dashboard"
+
+[params]
+  author = "Chris Cummer"
+  authorimage = "/img/wtf.png"

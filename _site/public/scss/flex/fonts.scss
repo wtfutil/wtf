@@ -1,0 +1,38 @@
+@font-face {
+    font-family: 'Novacento Sans Wide';
+    src: url("../fonts/Novecentosanswide-UltraLight-webfont.eot");
+    src: url("../fonts/Novecentosanswide-UltraLight-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/Novecentosanswide-UltraLight-webfont.woff2") format("woff2"), url("../fonts/Novecentosanswide-UltraLight-webfont.woff") format("woff"), url("../fonts/Novecentosanswide-UltraLight-webfont.ttf") format("truetype"), url("../fonts/Novecentosanswide-UltraLight-webfont.svg#novecento_sans_wideultralight") format("svg");
+    font-style: normal;
+    font-weight: 200;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    font-weight: 400;
+    src: local('Roboto Regular'), local('Roboto-Regular'), url('../fonts/Roboto-Regular.ttf') format('truetype')
+}
+
+@font-face {
+    font-family: 'Roboto';
+    font-weight: 500;
+    src: local('Roboto Medium'), local('Roboto-Medium'), url('../fonts/Roboto-Medium.ttf') format('truetype')
+}
+
+@font-face {
+    font-family: 'Roboto';
+    font-style: italic;
+    font-weight: 400;
+    src: local('Roboto Italic'), local('Roboto-Italic'), url('../fonts/Roboto-Italic.ttf') format('truetype')
+}
+
+@font-face {
+    font-family: 'RobotoMono';
+    font-weight: 400;
+    src: local('Roboto Mono Regular'), local('RobotoMono-Regular'), url('../fonts/RobotoMono-Regular.ttf') format('truetype')
+}
+
+@font-face {
+    font-family: 'RobotoMono';
+    font-weight: 500;
+    src: local('Roboto Mono Medium'), local('RobotoMono-Medium'), url('../fonts/RobotoMono-Medium.ttf') format('truetype')
+}

@@ -1,12 +1,62 @@
-baseURL = "https://wtfutil.com/"
+baseURL = "/"
+
 languageCode = "en-us"
+DefaultContentLanguage = "en"
+title = "WTF - the terminal dashboard"
+theme = "docdock"
+# themesdir = "../.."
 pygmentsCodeFences = true
-pygmentsUseClasses = true
-publishDir = "../docs"
-sectionPagesMenu = "main"
-theme = "hyde-hyde"
-title = "WTF - A Terminal Dashboard"
+pygmentsStyle = "monokailight"
+
+defaultContentLanguage = "en"
+defaultContentLanguageInSubdir= false
+enableMissingTranslationPlaceholders = false
+
+
+# [Languages]
+# [Languages.en]
+# title = "Documentation for WTF"
+# weight = 1
+# languageName = "English"
+#
+# [Languages.fr]
+# title = "Documentation du WTF"
+# weight = 2
+# languageName = "Français"
+
+
+
 
 [params]
-  author = "Chris Cummer"
-  authorimage = "/img/wtf.png"
+editURL = "https://github.com/vjeantet/hugo-theme-docdock/edit/master/exampleSite/content/"
+showVisitedLinks = true # default is false
+themeStyle = "flex" # "original" or "flex" # default "flex"
+themeVariant = "" # choose theme variant "green", "gold" , "gray", "blue" (default)
+ordersectionsby = "weight" # ordersectionsby = "title"
+disableHomeIcon = false # default is false
+disableSearch = false # default is false
+disableNavChevron = false # set true to hide next/prev chevron, default is false
+highlightClientSide = false # set true to use highlight.pack.js instead of the default hugo chroma highlighter
+menushortcutsnewtab = false # set true to open shortcuts links to a new tab/window
+enableGitInfo = true
+
+[outputs]
+home = [ "HTML", "RSS", "JSON"]
+
+
+[[menu.shortcuts]]
+pre = "<h3>More</h3>"
+name = "<i class='fa fa-github'></i> <label>WTF on Github</label>"
+identifier = "ds"
+url = "https://github.com/senorprogrammer/wtf"
+weight = 10
+
+[[menu.shortcuts]]
+name = "<i class='fa fa-cloud-download'></i> <label>Download WTF</label>"
+url = "https://github.com/senorprogrammer/wtf/releases"
+weight = 11
+
+[[menu.shortcuts]]
+name = "<i class='fa fa-bullhorn'></i> <label>Credits</label>"
+url = "https://github.com/senorprogrammer/wtf/blob/master/README.md"
+weight = 30

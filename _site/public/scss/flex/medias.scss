@@ -1,0 +1,74 @@
+@media(max-width:1024px) {
+    section {
+        margin-right: 0
+    }
+
+    section>.toc {
+        display: none
+    }
+}
+
+
+@media(max-width:768px) {
+    article {
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column ;
+    }
+
+    article>aside {
+        display: none;
+    }
+	footer {
+        display: none;
+    }
+
+    article > section.page {
+    	margin: 0 0;
+        padding: 1rem;
+    }
+article > section.page #navigation label{
+    display: none;
+}
+
+
+    section {
+        margin: 0;
+        padding: 1rem 2rem
+    }
+
+    header {
+        padding: 0 1rem
+    }
+    header>nav.shortcuts>li a {
+        width: 3.5rem
+    }
+    header>nav.shortcuts>li .fa {
+        margin: 0
+    }
+
+    header>nav.shortcuts>li>a>label {
+        display:none;
+    }
+    header>nav.shortcuts>li>a {
+        max-width: 32px;
+    }
+
+    
+    
+
+    .nav-select {
+        display: block; 
+        margin-left: -10px;
+        margin-right: -10px;
+    }
+    .nav-select select {
+        display: block; 
+    }
+
+    article img{
+        margin-left: -1rem;
+        margin-right: -1rem;   
+    }
+}
