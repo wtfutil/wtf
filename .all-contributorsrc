@@ -294,14 +294,20 @@
       "name": "Eugene",
       "avatar_url": "https://avatars0.githubusercontent.com/u/141402?v=4",
       "profile": "https://github.com/jdevelop",
-      "contributions": [
-      ]
+      "contributions": []
     },
     {
       "login": "Trinergy",
       "name": "Kenny Wu",
       "avatar_url": "https://avatars1.githubusercontent.com/u/12983705?s=460&v=4",
       "profile": "https://github.com/Trinergy",
+      "contributions": []
+    },
+    {
+      "login": "renaco",
+      "name": "Renán Romero",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/538234?v=4",
+      "profile": "http://www.romeroruiz.com",
       "contributions": [
       ]
     }
