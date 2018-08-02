@@ -8,6 +8,7 @@
   ],
   "imageSize": 48,
   "commit": true,
+  "contributorsPerLine": 6,
   "contributors": [
     {
       "login": "senorprogrammer",
