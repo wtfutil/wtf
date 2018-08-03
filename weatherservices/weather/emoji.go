@@ -6,7 +6,7 @@ import (
 
 var weatherEmoji = map[string]string{
 	"default":                     "💥",
-	"broken clouds":               "~",
+	"broken clouds":               "🌤",
 	"clear":                       " ",
 	"clear sky":                   " ",
 	"cloudy":                      "⛅️",
