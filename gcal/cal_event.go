@@ -50,9 +50,9 @@ func (calEvent *CalEvent) Past() bool {
 	if calEvent.AllDay() {
 		// FIXME: This should calculate properly
 		return false
-	} else {
-		return (calEvent.Now() == false) && calEvent.Start().Before(time.Now())
 	}
+
+	return (calEvent.Now() == false) && calEvent.Start().Before(time.Now())
 }
 
 func (calEvent *CalEvent) ResponseFor(email string) string {
@@ -97,8 +97,8 @@ func (calEvent *CalEvent) Timestamp() string {
 	if calEvent.AllDay() {
 		startTime, _ := time.Parse("2006-01-02", calEvent.event.Start.Date)
 		return startTime.Format(wtf.FriendlyDateFormat)
-	} else {
-		startTime, _ := time.Parse(time.RFC3339, calEvent.event.Start.DateTime)
-		return startTime.Format(wtf.MinimumTimeFormat)
 	}
+
+	startTime, _ := time.Parse(time.RFC3339, calEvent.event.Start.DateTime)
+	return startTime.Format(wtf.MinimumTimeFormat)
 }

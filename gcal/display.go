@@ -109,9 +109,9 @@ func (widget *Widget) dayDivider(event, prevEvent *CalEvent) string {
 func (widget *Widget) descriptionColor(calEvent *CalEvent) string {
 	if calEvent.Past() {
 		return wtf.Config.UString("wtf.mods.gcal.colors.past", "gray")
-	} else {
-		return wtf.Config.UString("wtf.mods.gcal.colors.description", "white")
 	}
+
+	return wtf.Config.UString("wtf.mods.gcal.colors.description", "white")
 }
 
 func (widget *Widget) eventSummary(calEvent *CalEvent, conflict bool) string {
@@ -127,9 +127,9 @@ func (widget *Widget) eventSummary(calEvent *CalEvent, conflict bool) string {
 
 	if conflict {
 		return fmt.Sprintf("%s %s", wtf.Config.UString("wtf.mods.gcal.conflictIcon", "🚨"), summary)
-	} else {
-		return summary
 	}
+
+	return summary
 }
 
 // timeUntil returns the number of hours or days until the event

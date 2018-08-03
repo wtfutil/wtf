@@ -119,9 +119,9 @@ func RowColor(module string, idx int) string {
 
 	if idx%2 == 0 {
 		return Config.UString(evenKey, "white")
-	} else {
-		return Config.UString(oddKey, "lightblue")
 	}
+
+	return Config.UString(oddKey, "lightblue")
 }
 
 func SigilStr(len, pos int, view *tview.TextView) string {

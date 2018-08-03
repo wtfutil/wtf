@@ -83,9 +83,9 @@ func wifiNameMacOS() string {
 func matchStr(data [][]string) string {
 	if len(data) <= 1 {
 		return ""
-	} else {
-		return data[1][1]
 	}
+
+	return data[1][1]
 }
 
 //Windows

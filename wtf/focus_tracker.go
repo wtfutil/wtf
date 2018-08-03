@@ -7,9 +7,9 @@ import (
 type FocusState int
 
 const (
-	Widget FocusState = iota
-	AppBoard
-	NeverFocused
+	widgetFocused FocusState = iota
+	appBoardFocused
+	neverFocused
 )
 
 // FocusTracker is used by the app to track which onscreen widget currently has focus,
@@ -42,7 +42,7 @@ func (tracker *FocusTracker) FocusOn(char string) bool {
 		return false
 	}
 
-	if tracker.focusState() == AppBoard {
+	if tracker.focusState() == appBoardFocused {
 		return false
 	}
 
@@ -65,7 +65,7 @@ func (tracker *FocusTracker) FocusOn(char string) bool {
 // Next sets the focus on the next widget in the widget list. If the current widget is
 // the last widget, sets focus on the first widget.
 func (tracker *FocusTracker) Next() {
-	if tracker.focusState() == AppBoard {
+	if tracker.focusState() == appBoardFocused {
 		return
 	}
 
@@ -76,7 +76,7 @@ func (tracker *FocusTracker) Next() {
 
 // None removes focus from the currently-focused widget.
 func (tracker *FocusTracker) None() {
-	if tracker.focusState() == AppBoard {
+	if tracker.focusState() == appBoardFocused {
 		return
 	}
 
@@ -86,7 +86,7 @@ func (tracker *FocusTracker) None() {
 // Prev sets the focus on the previous widget in the widget list. If the current widget is
 // the last widget, sets focus on the last widget.
 func (tracker *FocusTracker) Prev() {
-	if tracker.focusState() == AppBoard {
+	if tracker.focusState() == appBoardFocused {
 		return
 	}
 
@@ -156,16 +156,16 @@ func (tracker *FocusTracker) focusableAt(idx int) Wtfable {
 
 func (tracker *FocusTracker) focusState() FocusState {
 	if tracker.Idx < 0 {
-		return NeverFocused
+		return neverFocused
 	}
 
 	for _, widget := range tracker.Widgets {
 		if widget.TextView() == tracker.App.GetFocus() {
-			return Widget
+			return widgetFocused
 		}
 	}
 
-	return AppBoard
+	return appBoardFocused
 }
 
 func (tracker *FocusTracker) increment() {

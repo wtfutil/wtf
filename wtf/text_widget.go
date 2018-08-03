@@ -57,9 +57,9 @@ func (widget *TextWidget) BorderColor() string {
 func (widget *TextWidget) ContextualTitle(defaultStr string) string {
 	if widget.FocusChar() == "" {
 		return fmt.Sprintf(" %s ", defaultStr)
-	} else {
-		return fmt.Sprintf(" %s [darkgray::u]%s[::-][green] ", defaultStr, widget.FocusChar())
 	}
+
+	return fmt.Sprintf(" %s [darkgray::u]%s[::-][green] ", defaultStr, widget.FocusChar())
 }
 
 func (widget *TextWidget) Disable() {

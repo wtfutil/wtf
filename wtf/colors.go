@@ -425,9 +425,9 @@ func ASCIItoTviewColors(text string) string {
 func colorFor(label string) tcell.Color {
 	if _, ok := colors[label]; ok {
 		return colors[label]
-	} else {
-		return tcell.ColorGreen
 	}
+
+	return tcell.ColorGreen
 }
 
 func replaceWithHexColorString(substring string) string {

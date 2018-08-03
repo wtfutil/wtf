@@ -45,9 +45,9 @@ func (widget *Widget) String() string {
 
 	if args != "" {
 		return fmt.Sprintf(" %s %s ", widget.cmd, args)
-	} else {
-		return fmt.Sprintf(" %s ", widget.cmd)
 	}
+
+	return fmt.Sprintf(" %s ", widget.cmd)
 }
 
 func (widget *Widget) execute() {

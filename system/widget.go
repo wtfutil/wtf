@@ -48,9 +48,10 @@ func (widget *Widget) Refresh() {
 
 func (widget *Widget) prettyDate() string {
 	str, err := time.Parse(wtf.TimestampFormat, widget.Date)
+
 	if err != nil {
 		return err.Error()
-	} else {
-		return str.Format("Jan _2, 15:04")
 	}
+
+	return str.Format("Jan _2, 15:04")
 }

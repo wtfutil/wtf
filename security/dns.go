@@ -52,7 +52,7 @@ func dnsMacOS() []string {
 
 	if len(lines) > 0 {
 		return lines
-	} else {
-		return []string{}
 	}
+
+	return []string{}
 }

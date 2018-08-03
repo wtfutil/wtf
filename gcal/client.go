@@ -73,9 +73,9 @@ func Fetch() ([]*CalEvent, error) {
 	timeDateChooser := func(event *calendar.Event) (time.Time, error) {
 		if len(event.Start.Date) > 0 {
 			return time.Parse("2006-01-02", event.Start.Date)
-		} else {
-			return time.Parse(time.RFC3339, event.Start.DateTime)
 		}
+
+		return time.Parse(time.RFC3339, event.Start.DateTime)
 	}
 
 	sort.Slice(events.Items, func(i, j int) bool {

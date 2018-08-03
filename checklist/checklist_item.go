@@ -15,9 +15,9 @@ type ChecklistItem struct {
 func (item *ChecklistItem) CheckMark() string {
 	if item.Checked {
 		return wtf.Config.UString("wtf.mods.todo.checkedIcon", "x")
-	} else {
-		return " "
 	}
+
+	return " "
 }
 
 // Toggle changes the checked state of the ChecklistItem
