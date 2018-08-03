@@ -12,7 +12,7 @@ func (widget *Widget) display(clocks []Clock) {
 		return
 	}
 
-	str := "\n"
+	str := ""
 	for idx, clock := range clocks {
 		str = str + fmt.Sprintf(
 			" [%s]%-12s %-10s %7s[white]\n",

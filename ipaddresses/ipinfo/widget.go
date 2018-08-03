@@ -78,21 +78,19 @@ func (widget *Widget) ipinfo() {
 
 // read module configs
 func (widget *Widget) config() {
-	nameColor, valueColor := wtf.Config.UString("wtf.mods.ipinfo.colors.name", "red"), wtf.Config.UString("wtf.mods.ipinfo.colors.value", "white")
-	widget.colors.name = nameColor
-	widget.colors.value = valueColor
+	widget.colors.name = wtf.Config.UString("wtf.mods.ipinfo.colors.name", "white")
+	widget.colors.value = wtf.Config.UString("wtf.mods.ipinfo.colors.value", "white")
 }
 
 func (widget *Widget) setResult(info *ipinfo) {
 	resultTemplate, _ := template.New("ipinfo_result").Parse(
-		formatableText("IP Address", "Ip") +
+		formatableText("IP", "Ip") +
 			formatableText("Hostname", "Hostname") +
 			formatableText("City", "City") +
 			formatableText("Region", "Region") +
 			formatableText("Country", "Country") +
-			formatableText("Coordinates", "Coordinates") +
-			formatableText("Postal Code", "PostalCode") +
-			formatableText("Organization", "Organization"),
+			formatableText("Coords", "Coordinates") +
+			formatableText("Org", "Organization"),
 	)
 
 	resultBuffer := new(bytes.Buffer)
@@ -114,5 +112,5 @@ func (widget *Widget) setResult(info *ipinfo) {
 }
 
 func formatableText(key, value string) string {
-	return fmt.Sprintf(" [{{.nameColor}}]%s: [{{.valueColor}}]{{.%s}}\n", key, value)
+	return fmt.Sprintf(" [{{.nameColor}}]%8s: [{{.valueColor}}]{{.%s}}\n", key, value)
 }
