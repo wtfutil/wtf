@@ -1,0 +1,68 @@
+<header>
+  <div class="logo">
+    {{ partial "header.html" . }}
+  </div>
+  <div class="burger"><a href="javascript:void(0);" style="font-size:15px;">&#9776;</a></div>
+  {{- with .Site.Menus.shortcuts}}
+    <nav class="shortcuts">
+        {{- range sort . "Weight"}}
+            <li class="" role="">
+                <a href="{{.URL}}" {{if eq $.Site.Params.menushortcutsnewtab true}}target="_blank"{{end}} rel="noopener">
+                  {{safeHTML .Name}}
+                </a>
+            </li>
+        {{- end}}
+    </nav>
+  {{- end}}
+</header>
+<article>
+  <aside>
+    <ul class="menu">
+      {{- if not .Site.Params.disableHomeIcon}}
+          <li data-nav-id="{{"/" | relLangURL}}" class="dd-item">
+          <a href="{{"/" | relLangURL}}">
+            <i class="fa fa-fw fa-home"></i>
+          </a>
+          </li>
+      {{- end}}
+
+      {{- partial "menu.html" . }}
+
+    </ul>
+    
+    {{- partial "language-selector.html" . }}
+    <section>
+        {{- partial "menu-footer.html" . }}
+    </section>
+  </aside>
+  <section class="page">
+    
+    <div class="nav-select">
+      <center>Navigation : 
+        <select onchange="javascript:location.href = this.value;">
+          {{partial "flex/selectnavigation.html" .}}
+        </select>
+      </center>
+    </div>
+
+    {{- if not .Site.Params.disableSearch}}
+      <div>
+        <div class="searchbox">
+          <input data-search-input id="search-by" type="text" placeholder="{{T "Search-placeholder"}}">
+        </div>
+        <script type="text/javascript" src="{{"js/lunr.min.js" | relURL}}"></script>
+        <script type="text/javascript" src="{{"js/auto-complete.js" | relURL}}"></script>
+        <link href="{{"css/auto-complete.css" | relURL}}" rel="stylesheet">
+        <script type="text/javascript">
+          {{ if .Site.IsMultiLingual }}
+              var baseurl = "{{.Site.BaseURL}}{{.Site.LanguagePrefix}}";
+          {{ else }}
+              var baseurl = "{{.Site.BaseURL}}";
+          {{ end }}
+        </script>
+        <script type="text/javascript" src="{{"js/search.js" | relURL}}"></script>
+      </div>
+    {{- end}}
+    
+
+    {{if not .IsHome}}<h1>{{.Title}}</h1>{{end}}

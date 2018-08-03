@@ -1,0 +1,10 @@
+<div >
+<label class="completed {{.Get "completed"}}">
+{{if eq (.Get "completed") "T"}}
+<input type="checkbox" disabled checked title="résolu le {{(time (.Get "completeddate")).Format "02/01/2006 à 15h04" }}" />
+{{else}}
+<input type="checkbox" disabled/>
+{{end}}
+</label>
+<label >{{.Inner}}</label>
+</div>

@@ -1,0 +1,26 @@
+[Search-placeholder]
+other = "Buscar..."
+
+[Clear-History]
+other = "Limpiar historial"
+
+[Attachments-label]
+other = "Adjuntos"
+
+[title-404]
+other = "Error"
+
+[message-404]
+other = "Woops. Parece que esta página no existe ¯\\_(ツ)_/¯."
+
+[Go-to-homepage]
+other = "Ir a la home"
+
+[Edit-this-page]
+other = "Edita esta página"
+
+[Shortcuts-Title]
+other = "Más"
+
+[Expand-title]
+other = "Expándeme..."

@@ -1,0 +1,10 @@
+<!-- Alert -->
+{{if .Get "title" }}
+	<div class="panel panel-default">
+	{{ with .Get "title" }}<div class="panel-heading">{{htmlUnescape .}}</div>{{end}}
+	<div class="panel-body">{{.Inner}}</div>
+	</div>
+{{else}}
+	<div class="alert alert-default" role="alert">{{.Inner}}</div>
+{{end}}
+<!-- Alert -->

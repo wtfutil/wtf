@@ -1,0 +1,5 @@
+{{range $i, $att :=  .Page.Params.attachments }}
+{{if eq $att.filename ($.Get "name")}}
+<viewppt name="{{$.Site.BaseURL}}{{$.Page.Params.id}}/{{$att.filename}}">{{$.Inner}}</viewppt>
+{{end}}
+{{end}}

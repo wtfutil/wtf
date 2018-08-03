@@ -1,0 +1,7 @@
+{{.Inner}}
+
+{{- range first 10 .Site.Pages }}
+<li>
+{{ .Date.Format "02/01/2006" }} - <a href="{{ .Permalink }}">{{ .Title }}</a>
+</li>
+{{ end }}

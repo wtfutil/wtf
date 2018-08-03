@@ -1,0 +1,23 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+{{ .Hugo.Generator }}
+
+<title>{{ .Title }} :: {{ .Site.Title }}</title>
+<link rel="shortcut icon" href="{{"images/favicon.png" | relURL}}" type="image/x-icon" />
+<link href="{{"css/nucleus.css" | relURL}}" rel="stylesheet">
+<link href="{{"css/font-awesome.min.css" | relURL}}" rel="stylesheet">
+<link href="{{"css/hybrid.css" | relURL}}" rel="stylesheet">
+<link href="{{"css/featherlight.min.css" | relURL}}" rel="stylesheet">
+<link href="{{"css/auto-complete.css" | relURL}}" rel="stylesheet">
+<link href="{{"theme-original/style.css" | relURL}}" rel="stylesheet">
+{{with .Site.Params.themeVariant}}
+  <link href="{{(printf "theme-original/variant-%s.css" .) | relURL}}" rel="stylesheet">
+{{end}}
+<link rel="stylesheet" href="{{"css/bootstrap.min.css" | relURL}}">
+<script src="{{"js/jquery-2.x.min.js" | relURL}}"></script>
+<style type="text/css">
+  :root #header + #content > #left > #rlblock_left {
+    display:none !important;
+  }
+</style>
+{{ partial "custom-head.html" . }}

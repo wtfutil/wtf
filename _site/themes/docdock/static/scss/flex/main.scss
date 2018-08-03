@@ -1,0 +1,164 @@
+/*!
+ * facette-docs - Facette project documentation
+ * Website: http://docs.facette.io/
+ */
+
+* {
+    margin: 0;
+    padding: 0
+}
+
+html,
+body {
+    height: 100%
+}
+
+html {
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+}
+
+body {
+    background-color: #fff;
+    color: #222;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    line-height: 1.5rem
+}
+
+:disabled {
+    pointer-events: none
+}
+
+a {
+    color: inherit
+}
+
+a:focus {
+    outline: 0
+}
+
+
+
+
+
+section ol,
+section ul {
+    padding: 0 1.5rem
+}
+
+section ul {
+    list-style-type: square
+}
+
+section a {
+    color: #2980b9
+}
+
+section strong {
+    font-weight: 500
+}
+
+
+
+
+
+
+
+.nav-select {
+    background: #e5e5e5;
+    display: none;
+}
+
+.searchbox {
+    margin: 0rem 0rem 0rem 0rem;
+    padding: 0rem 0rem;
+    padding-top: 1rem;
+    color: #012a3c;
+    text-align: center;
+}
+
+.searchbox input {
+    border: 1px solid #cccccc;
+    color: #555555;
+    display: inline-block;
+    font-size: 14px;
+    line-height: 20px;
+    padding-bottom: 6px;
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-top: 6px;
+    width: 80%;
+}
+
+.searchbox span {
+    position: absolute;
+    float: right;
+    margin-top: -45px;
+    right: 30px;
+    cursor: pointer;
+}
+
+#sidebar-toggle-span {
+    display: none;
+}
+
+
+#navigation {
+    margin-top: 3rem;
+    border-top: 1px solid #e6e6e6;
+    border-bottom: 1px solid #e6e6e6;
+    padding: 1rem 0rem;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    a {
+        width: 50%;
+        flex: 1;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        padding-right: 0px;
+        align-items: baseline;
+        color: #e5e5e5;
+
+        i {
+            font-size: 4em;
+            margin: auto;
+        }
+        label {
+            margin: auto;
+            flex-grow: 2;
+            self-align: stretch;
+            font-size: 1.3rem;
+        }
+    }
+    a.nav-next {
+        text-align: right;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.burger {
+    display: none;
+}

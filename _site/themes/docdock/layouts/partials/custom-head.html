@@ -1,0 +1,4 @@
+<meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}">
+{{ with .Site.Params.author }}<meta name="author" content="{{ . }}">{{ end }}
+
+<link rel="stylesheet" href="/css/custom.css">

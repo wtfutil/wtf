@@ -1,0 +1,5 @@
+{{range $i, $att :=  .Page.Params.attachments }}
+{{if eq $att.filename ($.Get "filename")}}
+<a class="{{$att.iconclass}}" href="{{$.Site.BaseURL}}{{$.Page.Params.id}}/{{$att.filename}}" title="Dernière modification le {{$att.lastmodifieddate}}" >{{$.Inner}}</a> ({{$att.nicefilesize}})
+{{end}}
+{{end}}

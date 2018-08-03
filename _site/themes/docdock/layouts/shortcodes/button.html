@@ -1,0 +1,6 @@
+<!-- Boutton -->
+{{ with .Get "align" }}<center>{{end}}
+<button class="btn  {{with .Get "theme"}}btn-{{.}}{{else}}btn-primary{{end}}" type="button" {{ with .Get "href" }} onclick="location.href='{{.}}'"{{end}} >{{.Inner}}</button>
+{{ with .Get "align" }}</center>{{end}}
+
+<!-- Boutton -->

@@ -1,0 +1,5 @@
+{{range $i, $att :=  .Page.Params.attachments }}
+{{if eq $att.filename ($.Get "name")}}
+<viewxls name="{{$.Site.BaseURL}}{{$.Page.Params.id}}/{{$att.filename}}">{{$.Inner}}</viewxls>
+{{end}}
+{{end}}

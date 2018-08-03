@@ -1,0 +1,126 @@
+article>aside {
+    background-color: #f9f9f9;
+    bottom: 0;
+    box-sizing: border-box;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    left: 0;
+    padding: 2rem 0rem 1rem 0rem;
+    position: fixed;
+    top: 3.5rem;
+    width: 20rem;
+    overflow-y: auto;
+
+    .menu {
+        line-height: 2rem;
+        list-style-type: none;
+
+        >label {
+            display: block; // margin-top: 1rem;
+            font-family: 'Novacento Sans Wide', 'Helvetica', 'Tahoma', 'Geneva', 'Arial', sans-serif;
+            font-weight: 100;
+            font-size: 130%;
+            margin-left: 1rem;
+        }
+
+        ul {
+            display: none;
+        } // first menu level
+        >.dd-item {
+            margin: 0.5rem 0px 0.5rem 20px;
+        } // menu items
+        .dd-item {
+            padding-left: 1rem;
+            list-style: none;
+            font-size: 13px;
+
+            &.alwaysopen>ul {
+                display: block
+            }
+
+
+            &.parent>ul {
+                display: block
+            }
+
+            &.active {
+
+                >ul {
+                    display: block;
+                }
+
+                >div {
+                    background-color: #eee;
+                    * {
+                        font-weight: bold;
+                        border-bottom: dotted 1px red;
+                    }
+                }
+            }
+
+            &.haschildren>div {
+                margin-left: -20px;
+            }
+
+            div {
+                display: flex;
+                flex-direction: row;
+                
+                * {
+                    line-height: inherit;
+                }
+
+
+                i.read-icon {
+                    display: none;
+                }
+
+                i.category-icon {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    order: 1;
+                    width: 20px;
+                    cursor: pointer;
+                }
+
+                a {
+                    display: flex;
+                    flex: 1;
+                    order: 2;
+                    padding: 0 0rem;
+                    text-decoration: none;
+
+                    &:hover,
+                    &:focus,
+                    &:active {
+                        background-color: #eee;
+                        border-radius: .2rem;
+                        padding: 0 0rem;
+                    }
+                }
+
+                i.category-icon:active,
+                i.category-icon:focus,
+                i.category-icon:hover {
+                    background-color: #eee;
+                    border-radius: .2rem;
+                    padding: 0 0rem;
+                }
+            }
+
+            li {
+                border-left: 1px solid #eee;
+            }
+        }
+    }
+
+    section {
+        margin: 2rem 0rem;
+    }
+}

@@ -1,0 +1,38 @@
+[create-header-md]
+other = "Opprett en _header.md for å tilpasse denne"
+
+[Search-placeholder]
+other = "Søk..."
+
+[Clear-History]
+other = "Fjern historikk"
+
+[Page]
+other = "Side"
+
+[Next-Pages]
+other = "Neste"
+
+[Previous-Pages]
+other = "Forrige"
+
+[pagination-on]
+other = "av"
+
+[Attachments-label]
+other = "Vedlegg"
+
+[title-404]
+other = "Feil"
+
+[message-404]
+other = "Ups... Ser ikke ut som denne siden eksisterer."
+
+[Go-to-homepage]
+other = "Gå til hovedsiden"
+
+[Edit-this-page]
+other = "Editer"
+
+[Expand-title]
+other = "Utvid meg..."

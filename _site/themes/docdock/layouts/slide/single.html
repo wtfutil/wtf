@@ -1,0 +1,38 @@
+	<head><meta charset="utf-8"></head>
+
+	<link rel="stylesheet" href="{{"revealjs/css/reveal.css"|relURL}}">
+	<link rel="stylesheet" href="{{"revealjs/css/theme/"|relURL}}{{.Params.theme}}.css" id="theme">
+	<link rel="stylesheet" href="{{"revealjs/lib/css/zenburn.css"|relURL}}">
+
+	<div class="reveal">
+	<div class="slides">
+	<section data-markdown
+	         data-separator="^---"
+		 data-separator-vertical="^___"
+		 data-separator-notes="^Note:">
+	{{ .RawContent }}
+	</section>
+	</div>
+	</div>
+	<script src="{{"/revealjs/lib/js/head.min.js"|relURL}}"></script>
+	<script src="{{"/revealjs/js/reveal.js"|relURL}}"></script>
+	<script>
+		Reveal.initialize({
+		      	embedded : true,
+
+		        {{ range $key, $value := .Params.revealoptions }}
+		        {{ $key | safeHTML}}:{{$value }},
+		        {{ end }}
+		        // theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+		        // Optional libraries used to extend on reveal.js
+		        dependencies: [
+		          { src: '{{"revealjs/lib/js/classList.js"|relURL}}"', condition: function() { return !document.body.classList; } },
+		          { src: '{{"revealjs/plugin/markdown/marked.js"|relURL}}', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+		          { src: '{{"revealjs/plugin/markdown/markdown.js"|relURL}}', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+		          { src: '{{"revealjs/plugin/highlight/highlight.js"|relURL}}', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+		          { src: '{{"revealjs/plugin/zoom-js/zoom.js"|relURL}}', async: true, condition: function() { return !!document.body.classList; } },
+		          { src: '{{"revealjs/plugin/notes/notes.js"|relURL}}', async: true, condition: function() { return !!document.body.classList; } },
+		          { src: '{{"revealjs/plugin/math/math.js"|relURL}}', async: true}
+		        ]
+		      });
+	</script>

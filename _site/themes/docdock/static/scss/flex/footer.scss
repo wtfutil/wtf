@@ -1,0 +1,45 @@
+footer {
+    color: #aaa;
+    font-size: .95rem;
+    margin: 0 1rem 0 20rem;
+    padding: 1rem 4rem;
+
+    p {
+        margin: 0px;
+    }
+
+
+
+    .footline {
+        /*border-top: 1px solid #e6e6e6;*/
+        margin: 0rem;
+        padding: 0;
+
+        font-size: smaller;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+
+        .tags {
+            order: 1;
+        }
+
+        .tags a:before {
+            content: "#";
+        }
+
+        .author {
+            order: 3;
+        }
+
+        .github-link {
+            order: 4;
+        }
+
+        .date {
+            order: 3;
+        }
+    }
+}
