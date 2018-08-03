@@ -8,7 +8,7 @@ import (
 
 func (widget *Widget) display(clocks []Clock) {
 	if len(clocks) == 0 {
-		fmt.Fprintf(widget.View, "\n%s", " no timezone data available")
+		widget.View.SetText(fmt.Sprintf("\n%s", " no timezone data available"))
 		return
 	}
 

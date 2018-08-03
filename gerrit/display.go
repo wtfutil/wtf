@@ -10,7 +10,7 @@ func (widget *Widget) display() {
 
 	project := widget.currentGerritProject()
 	if project == nil {
-		fmt.Fprintf(widget.View, "%s", " Gerrit project data is unavailable (1)")
+		widget.View.SetText(fmt.Sprintf("%s", " Gerrit project data is unavailable (1)"))
 		return
 	}
 
