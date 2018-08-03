@@ -7,18 +7,16 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/wtf"
 )
 
 type Widget struct {
 	wtf.TextWidget
 
-	app          *tview.Application
 	device_token string
 }
 
-func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
+func NewWidget() *Widget {
 	widget := Widget{
 		TextWidget:   wtf.NewTextWidget(" Blockfolio ", "blockfolio", false),
 		device_token: wtf.Config.UString("wtf.mods.blockfolio.device_token"),

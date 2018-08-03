@@ -180,7 +180,7 @@ func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
 	case "bittrex":
 		widgets = append(widgets, bittrex.NewWidget())
 	case "blockfolio":
-		widgets = append(widgets, blockfolio.NewWidget(app, pages))
+		widgets = append(widgets, blockfolio.NewWidget())
 	case "circleci":
 		widgets = append(widgets, circleci.NewWidget())
 	case "clocks":
