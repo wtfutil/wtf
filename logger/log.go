@@ -36,7 +36,7 @@ func Log(msg string) {
 		return
 	}
 
-	f, err := os.OpenFile(logFilePath(), os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+	f, err := os.OpenFile(logFilePath(), os.O_RDWR|os.O_CREATE|os.O_APPEND, 0600)
 	if err != nil {
 		log.Fatalf("error opening file: %v", err)
 	}

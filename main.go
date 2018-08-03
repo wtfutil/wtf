@@ -130,7 +130,10 @@ func refreshAllWidgets() {
 }
 
 func setTerm() {
-	os.Setenv("TERM", Config.UString("wtf.term", os.Getenv("TERM")))
+	err := os.Setenv("TERM", Config.UString("wtf.term", os.Getenv("TERM")))
+	if err != nil {
+		return
+	}
 }
 
 func watchForConfigChanges(app *tview.Application, configFilePath string, grid *tview.Grid, pages *tview.Pages) {
