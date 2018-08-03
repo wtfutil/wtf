@@ -13,8 +13,6 @@ import (
 	"github.com/senorprogrammer/wtf/wtf"
 )
 
-const APIEnvToken = "WTF_TRAVIS_API_TOKEN"
-
 var TRAVIS_HOSTS = map[bool]string{
 	false: "travis-ci.org",
 	true:  "travis-ci.com",
@@ -75,7 +73,7 @@ func travisRequest(path string) (*http.Response, error) {
 func apiToken() string {
 	return wtf.Config.UString(
 		"wtf.mods.travisci.apiKey",
-		os.Getenv(APIEnvToken),
+		os.Getenv("WTF_TRAVIS_API_TOKEN"),
 	)
 }
 
