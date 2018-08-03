@@ -224,8 +224,6 @@ func (widget *Widget) responseIcon(calEvent *CalEvent) string {
 	default:
 		return icon + " "
 	}
-
-	return " "
 }
 
 func removeDeclined(events []*CalEvent) []*CalEvent {

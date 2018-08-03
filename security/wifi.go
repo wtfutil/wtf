@@ -115,7 +115,6 @@ func parseWlanNetsh(target string) string {
 		switch token {
 		case target:
 			return words[i+1]
-			i++
 		}
 	}
 	return "N/A"
