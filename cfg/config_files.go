@@ -10,16 +10,19 @@ import (
 	"github.com/senorprogrammer/wtf/wtf"
 )
 
-const CONFIG_DIR_V1 = "~/.wtf/"
-const CONFIG_DIR_V2 = "~/.config/wtf/"
+// ConfigDirV1 defines the path to the first version of configuration. Do not use this
+const ConfigDirV1 = "~/.wtf/"
+
+// ConfigDirV2 defines the path to the second version of the configuration. Use this.
+const ConfigDirV2 = "~/.config/wtf/"
 
 /* -------------------- Config Migration -------------------- */
 
 // MigrateOldConfig copies any existing configuration from the old location
 // to the new, XDG-compatible location
 func MigrateOldConfig() {
-	srcDir, _ := wtf.ExpandHomeDir(CONFIG_DIR_V1)
-	destDir, _ := wtf.ExpandHomeDir(CONFIG_DIR_V2)
+	srcDir, _ := wtf.ExpandHomeDir(ConfigDirV1)
+	destDir, _ := wtf.ExpandHomeDir(ConfigDirV2)
 
 	// If the old config directory doesn't exist, do not move
 	if _, err := os.Stat(srcDir); os.IsNotExist(err) {
@@ -52,7 +55,7 @@ func MigrateOldConfig() {
 
 // ConfigDir returns the absolute path to the configuration directory
 func ConfigDir() (string, error) {
-	configDir, err := wtf.ExpandHomeDir(CONFIG_DIR_V2)
+	configDir, err := wtf.ExpandHomeDir(ConfigDirV2)
 	if err != nil {
 		return "", err
 	}

@@ -53,6 +53,7 @@ import (
 var focusTracker wtf.FocusTracker
 var widgets []wtf.Wtfable
 
+// Config parses the config.yml file and makes available the settings within
 var Config *config.Config
 
 var (
