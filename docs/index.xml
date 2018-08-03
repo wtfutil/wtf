@@ -6,10 +6,26 @@
     <description>Recent content on WTF - A Terminal Dashboard</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 31 Jul 2018 20:21:37 -0700</lastBuildDate>
+    <lastBuildDate>Thu, 02 Aug 2018 16:36:08 -0400</lastBuildDate>
     
 	<atom:link href="https://wtfutil.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Hacker News</title>
+      <link>https://wtfutil.com/posts/modules/hackernews/</link>
+      <pubDate>Thu, 02 Aug 2018 16:36:08 -0400</pubDate>
+      
+      <guid>https://wtfutil.com/posts/modules/hackernews/</guid>
+      <description>Added in v0.1.2.
+Displays stories from Hacker News.
+Source Code wtf/hackernews/ Keyboard Commands Key: [return] Action: Open the selected story in the browser.
+Key: j Action: Select the next story in the list.
+Key: k Action: Select the previous story in the list.
+Key: r Action: Refresh the data.
+Key: ↓ Action: Select the next story in the list.
+Key: ↑ Action: Select the previous story in the list.</description>
+    </item>
     
     <item>
       <title>Twitter</title>

@@ -27,6 +27,7 @@ import (
 	"github.com/senorprogrammer/wtf/github"
 	"github.com/senorprogrammer/wtf/gitlab"
 	"github.com/senorprogrammer/wtf/gspreadsheets"
+	"github.com/senorprogrammer/wtf/hackernews"
 	"github.com/senorprogrammer/wtf/ipaddresses/ipapi"
 	"github.com/senorprogrammer/wtf/ipaddresses/ipinfo"
 	"github.com/senorprogrammer/wtf/jenkins"
@@ -201,6 +202,8 @@ func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
 		widgets = append(widgets, gitlab.NewWidget(app, pages))
 	case "gspreadsheets":
 		widgets = append(widgets, gspreadsheets.NewWidget())
+	case "hackernews":
+		widgets = append(widgets, hackernews.NewWidget(app, pages))
 	case "ipapi":
 		widgets = append(widgets, ipapi.NewWidget())
 	case "ipinfo":

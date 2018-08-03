@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://wtfutil.com/posts/modules/hackernews/</loc>
+    <lastmod>2018-08-02T16:36:08-04:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://wtfutil.com/posts/modules/twitter/</loc>
     <lastmod>2018-07-31T20:21:37-07:00</lastmod>
   </url>
@@ -199,7 +204,7 @@
   
   <url>
     <loc>https://wtfutil.com/posts/</loc>
-    <lastmod>2018-07-31T20:21:37-07:00</lastmod>
+    <lastmod>2018-08-02T16:36:08-04:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -210,7 +215,7 @@
   
   <url>
     <loc>https://wtfutil.com/</loc>
-    <lastmod>2018-07-31T20:21:37-07:00</lastmod>
+    <lastmod>2018-08-02T16:36:08-04:00</lastmod>
     <priority>0</priority>
   </url>
   

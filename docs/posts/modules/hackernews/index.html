@@ -10,8 +10,8 @@
 
 <meta name="generator" content="Hugo 0.38.2" />
 
-<title>IPInfo | WTF - A Terminal Dashboard</title>
-<meta content="IPInfo - WTF - A Terminal Dashboard" property="og:title">
+<title>Hacker News | WTF - A Terminal Dashboard</title>
+<meta content="Hacker News - WTF - A Terminal Dashboard" property="og:title">
 <meta content=" - " property="og:description">
 <!-- CSS -->
 <link rel="stylesheet" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
@@ -120,13 +120,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <div class="content container">
             <div class="post">
-  <h1>IPInfo</h1>
+  <h1>Hacker News</h1>
   
   <div class="col-sm-12 col-md-12">
     <span class="text-left post-date meta">
       
       
-        Jun 01, 2018
+        Aug 02, 2018
       
       
       
@@ -138,50 +138,62 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   
   
 
-<p>Displays your current IP address information, from ipinfo.io.</p>
+<p>Added in <code>v0.1.2</code>.</p>
 
-<p><strong>Note:</strong> IPInfo.io has a free-plan rate limit of 1000 requests per day.</p>
+<p>Displays stories from Hacker News.</p>
 
-<p><img src="/imgs/modules/ipinfo.png" width="320" height="199" alt="ipinfo screenshot" /></p>
+<p><img src="/imgs/modules/hackernews.png" width="843" height="201" alt="hackernews screenshot" /></p>
 
 <h2 id="source-code">Source Code</h2>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">wtf/ipinfo/</code></pre></div>
-<h2 id="required-env-variables">Required ENV Variables</h2>
-
-<p>None.</p>
-
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">wtf/hackernews/</code></pre></div>
 <h2 id="keyboard-commands">Keyboard Commands</h2>
 
-<p>None.</p>
+<p><span class="caption">Key:</span> <code>[return]</code> <br />
+<span class="caption">Action:</span> Open the selected story in the browser.</p>
+
+<p><span class="caption">Key:</span> <code>j</code> <br />
+<span class="caption">Action:</span> Select the next story in the list.</p>
+
+<p><span class="caption">Key:</span> <code>k</code> <br />
+<span class="caption">Action:</span> Select the previous story in the list.</p>
+
+<p><span class="caption">Key:</span> <code>r</code> <br />
+<span class="caption">Action:</span> Refresh the data.</p>
+
+<p><span class="caption">Key:</span> <code>↓</code> <br />
+<span class="caption">Action:</span> Select the next story in the list.</p>
+
+<p><span class="caption">Key:</span> <code>↑</code> <br />
+<span class="caption">Action:</span> Select the previous story in the list.</p>
 
 <h2 id="configuration">Configuration</h2>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">ipinfo<span class="p">:</span><span class="w">
-</span><span class="w">  </span>colors<span class="p">:</span><span class="w">
-</span><span class="w">    </span>name<span class="p">:</span><span class="w"> </span>red<span class="w">
-</span><span class="w">    </span>value<span class="p">:</span><span class="w"> </span>white<span class="w">
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">hackernews<span class="p">:</span><span class="w">
 </span><span class="w">  </span>enabled<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span>numberOfStories<span class="p">:</span><span class="w"> </span><span class="m">10</span><span class="w">
 </span><span class="w">  </span>position<span class="p">:</span><span class="w">
-</span><span class="w">    </span>top<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="w">    </span>left<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span><span class="w">    </span>top<span class="p">:</span><span class="w"> </span><span class="m">4</span><span class="w">
+</span><span class="w">    </span>left<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
 </span><span class="w">    </span>height<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="w">    </span>width<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="w">  </span>refreshInterval<span class="p">:</span><span class="w"> </span><span class="m">150</span></code></pre></div>
+</span><span class="w">    </span>width<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span><span class="w">  </span>storyType<span class="p">:</span><span class="w"> </span>top<span class="w">
+</span><span class="w">  </span>refreshInterval<span class="p">:</span><span class="w"> </span><span class="m">900</span></code></pre></div>
 <h3 id="attributes">Attributes</h3>
-
-<p><code>colors.name</code> <br />
-The default colour for the row names. <br />
-Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11 color</a> name.</p>
-
-<p><code>colors.value</code> <br />
-The default colour for the row values. <br />
-Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11 color</a> name.</p>
 
 <p><code>enabled</code> <br />
 Determines whether or not this module is executed and if its data displayed onscreen. <br />
 Values: <code>true</code>, <code>false</code>.</p>
 
+<p><code>numberOfStories</code> <br />
+<em>Optional</em> <br />
+Defines number of stories to be displayed. Default is <code>10</code><br /></p>
+
 <p><code>position</code> <br />
 Defines where in the grid this module&rsquo;s widget will be displayed. <br /></p>
+
+<p><code>storyType</code> <br />
+<em>Optional</em> <br /
+Defines type of stories to be displayed. Default is `top` stories<br />
+Values: <code>new</code>, <code>top</code>, <code>job</code>, <code>ask</code></p>
 
 <p><code>refreshInterval</code> <br />
 How often, in seconds, this module will update its data. <br />
