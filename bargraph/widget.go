@@ -17,9 +17,6 @@ var ok = true
 // Widget define wtf widget to register widget later
 type Widget struct {
 	wtf.BarGraph
-
-	// time interval for send http request
-	updateInterval int
 }
 
 // NewWidget Make new instance of widget
