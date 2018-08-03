@@ -66,10 +66,7 @@ func (widget *Widget) displayStats(project *GerritProject) string {
 
 func (widget *Widget) rowColor(index int) string {
 	if widget.View.HasFocus() && (index == widget.selected) {
-		foreColor := wtf.Config.UString("wtf.colors.highlight.fore", "black")
-		backColor := wtf.Config.UString("wtf.colors.highlight.back", "orange")
-
-		return fmt.Sprintf("%s:%s", foreColor, backColor)
+		return wtf.DefaultFocussedRowColor()
 	}
 	return wtf.RowColor("gerrit", index)
 }

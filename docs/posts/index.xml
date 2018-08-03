@@ -50,10 +50,12 @@ Configuration zendesk:apiKey:&amp;#34;3276d7155dd9ee27b8b14f8743a408a9&amp;#34;e
       <guid>https://wtfutil.com/posts/modules/travisci/</guid>
       <description>Added in v0.0.12.
 Displays build information for your Travis CI account.
-Source Code wtf/travisci/ Keyboard Commands None.
-Configuration travisci:apiKey:&amp;#34;3276d7155dd9ee27b8b14f8743a408a9&amp;#34;enabled:trueposition:top:4left:1height:1width:2pro:falserefreshInterval:900 Attributes apiKey Value: Your Travis CI API access token.
-enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.
-position Defines where in the grid this module&amp;rsquo;s widget will be displayed. refreshInterval How often, in seconds, this module will update its data. Values: A positive integer, 0.</description>
+Source Code wtf/travisci/ Keyboard Commands Key: [return] Action: Open the selected build in the browser.
+Key: j Action: Select the next build in the list.
+Key: k Action: Select the previous build in the list.
+Key: r Action: Refresh the data.
+Key: ↓ Action: Select the next build in the list.
+Key: ↑ Action: Select the previous build in the list.</description>
     </item>
     
     <item>

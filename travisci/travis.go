@@ -5,10 +5,12 @@ type Builds struct {
 }
 
 type Build struct {
+	ID         int        `json:"id"`
 	CreatedBy  Owner      `json:"created_by"`
 	Branch     Branch     `json:"branch"`
 	Number     string     `json:"number"`
 	Repository Repository `json:"repository"`
+	Commit     Commit     `json:"commit"`
 	State      string     `json:"state"`
 }
 
@@ -22,4 +24,9 @@ type Branch struct {
 
 type Repository struct {
 	Name string `json:"name"`
+	Slug string `json:"slug"`
+}
+
+type Commit struct {
+	Message string `json:"message"`
 }

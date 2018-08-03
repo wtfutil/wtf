@@ -130,10 +130,7 @@ func (widget *Widget) contentFrom(searchResult *SearchResult) string {
 
 func (widget *Widget) rowColor(idx int) string {
 	if widget.View.HasFocus() && (idx == widget.selected) {
-		foreColor := wtf.Config.UString("wtf.colors.highlight.fore", "black")
-		backColor := wtf.Config.UString("wtf.colors.highlight.back", "orange")
-
-		return fmt.Sprintf("%s:%s", foreColor, backColor)
+		return wtf.DefaultFocussedRowColor()
 	}
 	return wtf.RowColor("jira", idx)
 }
