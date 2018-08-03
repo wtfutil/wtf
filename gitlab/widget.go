@@ -32,13 +32,8 @@ type Widget struct {
 }
 
 func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
-	apiKey := wtf.Config.UString(
-		"wtf.mods.gitlab.apiKey",
-		os.Getenv("WTF_GITLAB_TOKEN"),
-	)
-
 	baseURL := wtf.Config.UString("wtf.mods.gitlab.domain")
-	gitlab := glb.NewClient(nil, apiKey)
+	gitlab := glb.NewClient(nil, apiKey())
 
 	if baseURL != "" {
 		gitlab.SetBaseURL(baseURL)
@@ -91,6 +86,13 @@ func (widget *Widget) Prev() {
 }
 
 /* -------------------- Unexported Functions -------------------- */
+
+func apiKey() string {
+	return wtf.Config.UString(
+		"wtf.mods.gitlab.apiKey",
+		os.Getenv("WTF_GITLAB_TOKEN"),
+	)
+}
 
 func (widget *Widget) buildProjectCollection(projectData map[string]interface{}) []*GitlabProject {
 	gitlabProjects := []*GitlabProject{}
