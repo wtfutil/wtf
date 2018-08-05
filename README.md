@@ -10,6 +10,8 @@
 A personal terminal-based dashboard utility, designed for
 displaying infrequently-needed, but very important, daily data.
 
+Follow [on Twitter](https://twitter.com/wtfutil) for news and latest updates.
+
 <p align="center">
 <img src="./docs/img/screenshot.jpg" title="screenshot" width="720" height="420" />
 </p>
