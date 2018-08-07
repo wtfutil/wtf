@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"github.com/gdamore/tcell"
 	"github.com/rivo/tview"
-	"github.com/senorprogrammer/wtf/logger"
 	"github.com/senorprogrammer/wtf/wtf"
 	"net/url"
+	"strconv"
 	"strings"
 )
 
@@ -41,6 +41,8 @@ func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 	widget.HelpfulWidget.SetView(widget.View)
 	widget.unselect()
 
+	widget.View.SetScrollable(true)
+	widget.View.SetRegions(true)
 	widget.View.SetInputCapture(widget.keyboardIntercept)
 
 	return &widget
@@ -54,8 +56,9 @@ func (widget *Widget) Refresh() {
 	}
 
 	storyIds, err := GetStories(wtf.Config.UString("wtf.mods.hackernews.storyType", "top"))
-
-	widget.UpdateRefreshedAt()
+	if storyIds == nil {
+		return
+	}
 
 	if err != nil {
 		widget.View.SetWrap(true)
@@ -64,10 +67,8 @@ func (widget *Widget) Refresh() {
 	} else {
 		var stories []Story
 		numberOfStoriesToDisplay := wtf.Config.UInt("wtf.mods.hackernews.numberOfStories", 10)
-		for idx := 0; idx <= numberOfStoriesToDisplay; idx++ {
+		for idx := 0; idx < numberOfStoriesToDisplay; idx++ {
 			story, e := GetStory(storyIds[idx])
-			logger.Log(fmt.Sprintf("stories %s", story.Title))
-
 			if e != nil {
 				panic(e)
 			} else {
@@ -78,6 +79,7 @@ func (widget *Widget) Refresh() {
 		widget.stories = stories
 	}
 
+	widget.UpdateRefreshedAt()
 	widget.display()
 }
 
@@ -90,8 +92,10 @@ func (widget *Widget) display() {
 
 	widget.View.SetWrap(false)
 
-	widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("%s - Stories", widget.Name)))
+	widget.View.Clear()
+	widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("%s - %sstories", widget.Name, wtf.Config.UString("wtf.mods.hackernews.storyType", "top"))))
 	widget.View.SetText(widget.contentFrom(widget.stories))
+	widget.View.Highlight(strconv.Itoa(widget.selected)).ScrollToHighlight()
 }
 
 func (widget *Widget) contentFrom(stories []Story) string {
@@ -99,13 +103,16 @@ func (widget *Widget) contentFrom(stories []Story) string {
 	for idx, story := range stories {
 		u, _ := url.Parse(story.URL)
 		str = str + fmt.Sprintf(
-			"[%s] [yellow]%d. [%s]%s [blue](%s)\n",
+			`["%d"][""][%s] [yellow]%d. [%s]%s [blue](%s)`,
+			idx,
 			widget.rowColor(idx),
 			idx+1,
 			widget.rowColor(idx),
 			story.Title,
 			strings.TrimPrefix(u.Host, "www."),
 		)
+
+		str = str + "\n"
 	}
 
 	return str
