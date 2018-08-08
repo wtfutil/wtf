@@ -121,8 +121,8 @@ func DefaultFocussedRowColor() string {
 }
 
 func RowColor(module string, idx int) string {
-	evenKey := fmt.Sprintf("wtf.mods.%s.colors.row.even", module)
-	oddKey := fmt.Sprintf("wtf.mods.%s.colors.row.odd", module)
+	evenKey := fmt.Sprintf("wtf.mods.%s.colors.rows.even", module)
+	oddKey := fmt.Sprintf("wtf.mods.%s.colors.rows.odd", module)
 
 	if idx%2 == 0 {
 		return Config.UString(evenKey, "white")
