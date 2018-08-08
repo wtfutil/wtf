@@ -28,6 +28,23 @@ Key: ↑ Action: Select the previous story in the list.</description>
     </item>
     
     <item>
+      <title>Gitter</title>
+      <link>https://wtfutil.com/posts/modules/gitter/</link>
+      <pubDate>Thu, 02 Aug 2018 12:36:08 -0400</pubDate>
+      
+      <guid>https://wtfutil.com/posts/modules/gitter/</guid>
+      <description>Added in v0.2.1.
+Displays chat messages from Gitter.
+Source Code wtf/gitter/ Keyboard Commands Key: j Action: Select the next message in the list.
+Key: k Action: Select the previous message in the list.
+Key: r Action: Refresh the data.
+Key: ↓ Action: Select the next message in the list.
+Key: ↑ Action: Select the previous message in the list.
+Configuration gitter:apiToken:&amp;#34;ab345546asdfasb465234fgjgh068f39a35c3e4139ee383f7&amp;#34;enabled:truenumberOfMessages:10position:top:4left:1height:1width:4roomUri:wtfutil/LobbyrefreshInterval:300 Attributes apiToken Value: Your GitterPersonal Access Token.
+enabled Determines whether or not this module is executed and if its data displayed onscreen.</description>
+    </item>
+    
+    <item>
       <title>Twitter</title>
       <link>https://wtfutil.com/posts/modules/twitter/</link>
       <pubDate>Tue, 31 Jul 2018 20:21:37 -0700</pubDate>
