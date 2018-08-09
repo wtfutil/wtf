@@ -10,5 +10,7 @@ about: Something is broken?
 
 
 **OS:** 
+
 **Terminal:**
+
 **WTF version:** 
