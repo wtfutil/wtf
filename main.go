@@ -296,9 +296,10 @@ func main() {
 	pages.AddPage("grid", display.Grid, true, true)
 	app.SetInputCapture(keyboardIntercept)
 
+	configPath, _ := cfg.ConfigDir()
 	// Loop in a routine to redraw the screen
 	go redrawApp(app)
-	go watchForConfigChanges(app, flags.Config, display.Grid, pages)
+	go watchForConfigChanges(app, configPath, display.Grid, pages)
 
 	if err := app.SetRoot(pages, true).Run(); err != nil {
 		fmt.Printf("Error: %v\n", err)

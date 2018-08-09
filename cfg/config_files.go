@@ -100,7 +100,7 @@ func CreateConfigFile() {
 
 // CreateFile creates the named file in the config directory, if it does not already exist.
 // If the file exists it does not recreate it.
-// If successful, returns the absolute path to the file
+// If successful, eturns the absolute path to the file
 // If unsuccessful, returns an error
 func CreateFile(fileName string) (string, error) {
 	configDir, err := ConfigDir()
