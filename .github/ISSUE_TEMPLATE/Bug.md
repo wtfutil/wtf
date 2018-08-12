@@ -8,3 +8,9 @@ about: Something is broken?
 
 #### How did you expect it to behave?
 
+
+#### Operating system 
+
+#### Terminal program & version
+
+#### WTF version
