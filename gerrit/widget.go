@@ -47,6 +47,24 @@ var (
 )
 
 func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
+	widget := Widget{
+		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
+		TextWidget:    wtf.NewTextWidget("Gerrit", "gerrit", true),
+
+		Idx: 0,
+	}
+
+	widget.HelpfulWidget.SetView(widget.View)
+
+	widget.View.SetInputCapture(widget.keyboardIntercept)
+	widget.unselect()
+
+	return &widget
+}
+
+/* -------------------- Exported Functions -------------------- */
+
+func (widget *Widget) Refresh() {
 	baseURL := wtf.Config.UString("wtf.mods.gerrit.domain")
 	username := wtf.Config.UString("wtf.mods.gerrit.username")
 
@@ -72,34 +90,16 @@ func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 		gerritUrl = fmt.Sprintf(
 			"%s://%s:%s@%s", submatch[1], username, password, submatch[2])
 	}
-
 	gerrit, err := glb.NewClient(gerritUrl, httpClient)
 	if err != nil {
-		panic(err)
+		widget.View.SetWrap(true)
+		widget.View.SetTitle(widget.Name)
+		widget.View.SetText(err.Error())
+		return
 	}
-
-	widget := Widget{
-		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
-		TextWidget:    wtf.NewTextWidget("Gerrit", "gerrit", true),
-
-		gerrit: gerrit,
-
-		Idx: 0,
-	}
-
-	widget.HelpfulWidget.SetView(widget.View)
-
+	widget.gerrit = gerrit
 	widget.GerritProjects = widget.buildProjectCollection(wtf.Config.UList("wtf.mods.gerrit.projects"))
 
-	widget.View.SetInputCapture(widget.keyboardIntercept)
-	widget.unselect()
-
-	return &widget
-}
-
-/* -------------------- Exported Functions -------------------- */
-
-func (widget *Widget) Refresh() {
 	for _, project := range widget.GerritProjects {
 		project.Refresh()
 	}

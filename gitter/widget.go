@@ -1,41 +1,37 @@
-package hackernews
+package gitter
 
 import (
 	"fmt"
 	"github.com/gdamore/tcell"
 	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/wtf"
-	"net/url"
 	"strconv"
-	"strings"
 )
 
 const HelpText = `
- Keyboard commands for Hacker News:
+ Keyboard commands for Gitter:
 
    /: Show/hide this help window
-   j: Select the next story in the list
-   k: Select the previous story in the list
+   j: Select the next message in the list
+   k: Select the previous message in the list
    r: Refresh the data
 
-   arrow down: Select the next story in the list
-   arrow up:   Select the previous story in the list
-
-   return: Open the selected story in a browser
+   arrow down: Select the next message in the list
+   arrow up:   Select the previous message in the list
 `
 
 type Widget struct {
 	wtf.HelpfulWidget
 	wtf.TextWidget
 
-	stories  []Story
+	messages []Message
 	selected int
 }
 
 func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 	widget := Widget{
 		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
-		TextWidget:    wtf.NewTextWidget("Hacker News", "hackernews", true),
+		TextWidget:    wtf.NewTextWidget("Gitter", "gitter", true),
 	}
 
 	widget.HelpfulWidget.SetView(widget.View)
@@ -55,61 +51,59 @@ func (widget *Widget) Refresh() {
 		return
 	}
 
-	storyIds, err := GetStories(wtf.Config.UString("wtf.mods.hackernews.storyType", "top"))
-	if storyIds == nil {
+	room, err := GetRoom(wtf.Config.UString("wtf.mods.gitter.roomUri", "wtfutil/Lobby"))
+	if err != nil {
+		widget.View.SetWrap(true)
+		widget.View.SetTitle(widget.Name)
+		widget.View.SetText(err.Error())
 		return
 	}
+
+	if room == nil {
+		return
+	}
+
+	messages, err := GetMessages(room.ID, wtf.Config.UInt("wtf.mods.gitter.numberOfMessages", 10))
+	widget.UpdateRefreshedAt()
 
 	if err != nil {
 		widget.View.SetWrap(true)
 		widget.View.SetTitle(widget.Name)
 		widget.View.SetText(err.Error())
 	} else {
-		var stories []Story
-		numberOfStoriesToDisplay := wtf.Config.UInt("wtf.mods.hackernews.numberOfStories", 10)
-		for idx := 0; idx < numberOfStoriesToDisplay; idx++ {
-			story, e := GetStory(storyIds[idx])
-			if e != nil {
-				panic(e)
-			} else {
-				stories = append(stories, story)
-			}
-		}
-
-		widget.stories = stories
+		widget.messages = messages
 	}
 
-	widget.UpdateRefreshedAt()
 	widget.display()
+	widget.View.ScrollToEnd()
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
 func (widget *Widget) display() {
-	if widget.stories == nil {
+	if widget.messages == nil {
 		return
 	}
 
-	widget.View.SetWrap(false)
-
+	widget.View.SetWrap(true)
 	widget.View.Clear()
-	widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("%s - %sstories", widget.Name, wtf.Config.UString("wtf.mods.hackernews.storyType", "top"))))
-	widget.View.SetText(widget.contentFrom(widget.stories))
+	widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("%s - %s", widget.Name, wtf.Config.UString("wtf.mods.gitter.roomUri", "wtfutil/Lobby"))))
+	widget.View.SetText(widget.contentFrom(widget.messages))
 	widget.View.Highlight(strconv.Itoa(widget.selected)).ScrollToHighlight()
 }
 
-func (widget *Widget) contentFrom(stories []Story) string {
+func (widget *Widget) contentFrom(messages []Message) string {
 	var str string
-	for idx, story := range stories {
-		u, _ := url.Parse(story.URL)
+	for idx, message := range messages {
 		str = str + fmt.Sprintf(
-			`["%d"][""][%s] [yellow]%d. [%s]%s [blue](%s)`,
+			`["%d"][""][%s] [blue]%s [lightslategray]%s: [%s]%s [aqua]%s`,
 			idx,
 			widget.rowColor(idx),
-			idx+1,
+			message.From.DisplayName,
+			message.From.Username,
 			widget.rowColor(idx),
-			story.Title,
-			strings.TrimPrefix(u.Host, "www."),
+			message.Text,
+			message.Sent.Format("Jan 02, 15:04 MST"),
 		)
 
 		str = str + "\n"
@@ -123,12 +117,12 @@ func (widget *Widget) rowColor(idx int) string {
 		return wtf.DefaultFocussedRowColor()
 	}
 
-	return wtf.RowColor("hackernews", idx)
+	return wtf.RowColor("gitter", idx)
 }
 
 func (widget *Widget) next() {
 	widget.selected++
-	if widget.stories != nil && widget.selected >= len(widget.stories) {
+	if widget.messages != nil && widget.selected >= len(widget.messages) {
 		widget.selected = 0
 	}
 
@@ -137,18 +131,18 @@ func (widget *Widget) next() {
 
 func (widget *Widget) prev() {
 	widget.selected--
-	if widget.selected < 0 && widget.stories != nil {
-		widget.selected = len(widget.stories) - 1
+	if widget.selected < 0 && widget.messages != nil {
+		widget.selected = len(widget.messages) - 1
 	}
 
 	widget.display()
 }
 
-func (widget *Widget) openStory() {
+func (widget *Widget) openMessage() {
 	sel := widget.selected
-	if sel >= 0 && widget.stories != nil && sel < len(widget.stories) {
-		story := &widget.stories[widget.selected]
-		wtf.OpenFile(story.URL)
+	if sel >= 0 && widget.messages != nil && sel < len(widget.messages) {
+		message := &widget.messages[widget.selected]
+		wtf.OpenFile(message.Text)
 	}
 }
 
@@ -175,9 +169,6 @@ func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	switch event.Key() {
 	case tcell.KeyDown:
 		widget.next()
-		return nil
-	case tcell.KeyEnter:
-		widget.openStory()
 		return nil
 	case tcell.KeyEsc:
 		widget.unselect()

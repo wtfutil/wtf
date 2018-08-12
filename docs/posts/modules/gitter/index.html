@@ -10,8 +10,8 @@
 
 <meta name="generator" content="Hugo 0.46" />
 
-<title>CircleCI | WTF - A Terminal Dashboard</title>
-<meta content="CircleCI - WTF - A Terminal Dashboard" property="og:title">
+<title>Gitter | WTF - A Terminal Dashboard</title>
+<meta content="Gitter - WTF - A Terminal Dashboard" property="og:title">
 <meta content=" - " property="og:description">
 <!-- CSS -->
 <link rel="stylesheet" href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
@@ -121,13 +121,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <div class="content container">
             <div class="post">
-  <h1>CircleCI</h1>
+  <h1>Gitter</h1>
   
   <div class="col-sm-12 col-md-12">
     <span class="text-left post-date meta">
       
       
-        Jun 10, 2018
+        Aug 02, 2018
       
       
       
@@ -139,39 +139,63 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   
   
 
-<p>Added in <code>v0.0.7</code>.</p>
+<p>Added in <code>v0.2.1</code>.</p>
 
-<p>Displays build information for your CircleCI account.</p>
+<p>Displays chat messages from Gitter.</p>
 
-<p><img src="/imgs/modules/circleci.png" width="609" height="150" alt="circleci screenshot" /></p>
+<p><img src="/imgs/modules/gitter.png" width="847" height="160" alt="gitter screenshot" /></p>
 
 <h2 id="source-code">Source Code</h2>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">wtf/circleci/</code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">wtf/gitter/</code></pre></div>
 <h2 id="keyboard-commands">Keyboard Commands</h2>
 
-<p>None.</p>
+<p><span class="caption">Key:</span> <code>j</code> <br />
+<span class="caption">Action:</span> Select the next message in the list.</p>
+
+<p><span class="caption">Key:</span> <code>k</code> <br />
+<span class="caption">Action:</span> Select the previous message in the list.</p>
+
+<p><span class="caption">Key:</span> <code>r</code> <br />
+<span class="caption">Action:</span> Refresh the data.</p>
+
+<p><span class="caption">Key:</span> <code>↓</code> <br />
+<span class="caption">Action:</span> Select the next message in the list.</p>
+
+<p><span class="caption">Key:</span> <code>↑</code> <br />
+<span class="caption">Action:</span> Select the previous message in the list.</p>
 
 <h2 id="configuration">Configuration</h2>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">circleci<span class="p">:</span><span class="w">
-</span><span class="w">  </span>apiKey<span class="p">:</span><span class="w"> </span><span class="s2">&#34;3276d7155dd9ee27b8b14f8743a408a9&#34;</span><span class="w">
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">gitter<span class="p">:</span><span class="w">
+</span><span class="w">  </span>apiToken<span class="p">:</span><span class="w"> </span><span class="s2">&#34;ab345546asdfasb465234fgjgh068f39a35c3e4139ee383f7&#34;</span><span class="w">
 </span><span class="w">  </span>enabled<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span>numberOfMessages<span class="p">:</span><span class="w"> </span><span class="m">10</span><span class="w">
 </span><span class="w">  </span>position<span class="p">:</span><span class="w">
 </span><span class="w">    </span>top<span class="p">:</span><span class="w"> </span><span class="m">4</span><span class="w">
 </span><span class="w">    </span>left<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
 </span><span class="w">    </span>height<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="w">    </span>width<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
-</span><span class="w">  </span>refreshInterval<span class="p">:</span><span class="w"> </span><span class="m">900</span></code></pre></div>
+</span><span class="w">    </span>width<span class="p">:</span><span class="w"> </span><span class="m">4</span><span class="w">
+</span><span class="w">  </span>roomUri<span class="p">:</span><span class="w"> </span>wtfutil/Lobby<span class="w">
+</span><span class="w">  </span>refreshInterval<span class="p">:</span><span class="w"> </span><span class="m">300</span></code></pre></div>
 <h3 id="attributes">Attributes</h3>
 
-<p><code>apiKey</code> <br />
-Value: Your <a href="https://circleci.com/account/api">CircleCI API</a> token.</p>
+<p><code>apiToken</code> <br />
+Value: Your <a href="https://developer.gitter.im/apps">Gitter</a>Personal Access Token.</p>
 
 <p><code>enabled</code> <br />
 Determines whether or not this module is executed and if its data displayed onscreen. <br />
 Values: <code>true</code>, <code>false</code>.</p>
 
+<p><code>numberOfMessages</code> <br />
+<em>Optional</em> <br />
+Maximum number of <em>(newest)</em> messages to be displayed. Default is <code>10</code><br /></p>
+
 <p><code>position</code> <br />
 Defines where in the grid this module&rsquo;s widget will be displayed. <br /></p>
+
+<p><code>roomUri</code> <br />
+<em>Optional</em> <br /
+URI of the room you would like to see the chat messages from. Default is `wtfutil/Lobby`<br />
+Values: <code>new</code>, <code>top</code>, <code>job</code>, <code>ask</code></p>
 
 <p><code>refreshInterval</code> <br />
 How often, in seconds, this module will update its data. <br />

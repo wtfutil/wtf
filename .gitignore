@@ -19,6 +19,10 @@ gcal/client_secret.json
 gspreadsheets/client_secret.json
 profile.pdf
 
+# All things node
+node_modules/
+package-lock.json
+
 #intellij idea
 .idea/
 

@@ -12,19 +12,19 @@ import (
 )
 
 func GetStories(storyType string) ([]int, error) {
-	var stories []int
+	var storyIds []int
 
 	switch strings.ToLower(storyType) {
 	case "new", "top", "job", "ask":
 		resp, err := apiRequest(storyType + "stories")
 		if err != nil {
-			return stories, err
+			return storyIds, err
 		}
 
-		parseJson(&stories, resp.Body)
+		parseJson(&storyIds, resp.Body)
 	}
 
-	return stories, nil
+	return storyIds, nil
 }
 
 func GetStory(id int) (Story, error) {
