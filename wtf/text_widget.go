@@ -9,6 +9,7 @@ import (
 )
 
 var Config *config.Config
+var ConfigPath string
 
 type TextWidget struct {
 	enabled   bool

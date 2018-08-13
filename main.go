@@ -106,6 +106,10 @@ func loadConfigFile(filePath string) {
 	wtf.Config = Config
 }
 
+func setConfigPath(filePath string) {
+	wtf.ConfigPath = filePath
+}
+
 // redrawApp redraws the rendered views to screen on a defined interval (set in config.yml)
 // Use this because each textView widget can have it's own update interval, and I don't want to
 // manage drawing co-ordination amongst them all. If you need to have a
@@ -277,6 +281,7 @@ func main() {
 	cfg.CreateConfigDir()
 	cfg.CreateConfigFile()
 	loadConfigFile(flags.ConfigFilePath())
+	setConfigPath(flags.ConfigFilePath())
 
 	if flags.Profile {
 		defer profile.Start(profile.MemProfile).Stop()
@@ -294,9 +299,10 @@ func main() {
 	pages.AddPage("grid", display.Grid, true, true)
 	app.SetInputCapture(keyboardIntercept)
 
+	configPath, _ := cfg.ConfigDir()
 	// Loop in a routine to redraw the screen
 	go redrawApp(app)
-	go watchForConfigChanges(app, flags.Config, display.Grid, pages)
+	go watchForConfigChanges(app, configPath, display.Grid, pages)
 
 	if err := app.SetRoot(pages, true).Run(); err != nil {
 		fmt.Printf("Error: %v\n", err)

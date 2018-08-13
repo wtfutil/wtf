@@ -55,7 +55,12 @@ func MigrateOldConfig() {
 
 // ConfigDir returns the absolute path to the configuration directory
 func ConfigDir() (string, error) {
-	configDir, err := wtf.ExpandHomeDir(ConfigDirV2)
+	filePath := ConfigDirV2
+	if len(wtf.ConfigPath) > 0 {
+		filePath = wtf.ConfigPath
+	}
+
+	configDir, err := wtf.ExpandHomeDir(filePath)
 	if err != nil {
 		return "", err
 	}
@@ -95,7 +100,7 @@ func CreateConfigFile() {
 
 // CreateFile creates the named file in the config directory, if it does not already exist.
 // If the file exists it does not recreate it.
-// If successful, eturns the absolute path to the file
+// If successful, returns the absolute path to the file
 // If unsuccessful, returns an error
 func CreateFile(fileName string) (string, error) {
 	configDir, err := ConfigDir()
