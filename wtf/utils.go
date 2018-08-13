@@ -134,7 +134,7 @@ func RowColor(module string, idx int) string {
 func SigilStr(len, pos int, view *tview.TextView) string {
 	sigils := ""
 
-	if len > 0 {
+	if len > 1 {
 		sigils = strings.Repeat(Config.UString("wtf.paging.pageSigil", "*"), pos)
 		sigils = sigils + Config.UString("wtf.paging.selectedSigil", "_")
 		sigils = sigils + strings.Repeat(Config.UString("wtf.paging.pageSigil", "*"), len-1-pos)
