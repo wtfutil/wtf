@@ -11,6 +11,9 @@ Connects to the Twitter API and displays a single user's tweets.
 
 NOTE: This only works for single-application developer accounts for now.
 
+To get your bearer token, please see:
+https://github.com/Trinergy/twitter_bearer_token
+
 ## Source Code
 
 ```bash
