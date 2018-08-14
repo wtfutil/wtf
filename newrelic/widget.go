@@ -72,7 +72,7 @@ func (widget *Widget) contentFrom(deploys []nr.ApplicationDeployment) string {
 				" [green]%s[%s] %s %-.16s[white]\n",
 				deploy.Revision[0:revLen],
 				lineColor,
-				deploy.Timestamp.Format("Jan 02, 15:04 MST"),
+				deploy.Timestamp.Format("Jan 02 15:04 MST"),
 				wtf.NameFromEmail(deploy.User),
 			)
 
