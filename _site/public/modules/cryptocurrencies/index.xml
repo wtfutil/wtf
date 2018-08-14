@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Crypo Currencies on WTF - the terminal dashboard</title>
+    <link>/modules/cryptocurrencies/</link>
+    <description>Recent content in Crypo Currencies on WTF - the terminal dashboard</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 07 May 2018 18:04:58 -0700</lastBuildDate>
+    
+	<atom:link href="/modules/cryptocurrencies/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Bittrex</title>
+      <link>/modules/cryptocurrencies/bittrex/</link>
+      <pubDate>Mon, 04 Jun 2018 20:06:40 -0700</pubDate>
+      
+      <guid>/modules/cryptocurrencies/bittrex/</guid>
+      <description>Added in v0.0.5.
+Get the last 24 hour summary of cryptocurrencies market using Bittrex.
+Source Code wtf/cryptoexchanges/bittrex/ Configuration bittrex: enabled: true position: top: 1 left: 2 height: 3 width: 1 refreshInterval: 5 summary: BTC: displayName: Bitcoin market: - LTC - ETH colors: base: name: orange displayName: red market: name: red field: white value: green Attributes colors.base.name Values: Any X11 color name.
+colors.base.dispayName Values: Any X11 color name.
+colors.market.name Values: Any X11 color name.</description>
+    </item>
+    
+    <item>
+      <title>Blockfolio</title>
+      <link>/modules/cryptocurrencies/blockfolio/</link>
+      <pubDate>Wed, 13 Jun 2018 09:29:59 -0700</pubDate>
+      
+      <guid>/modules/cryptocurrencies/blockfolio/</guid>
+      <description>Added in v0.0.8.
+Display your Blockfolio crypto holdings.
+Source wtf/blockfolio/ Configuration blockfolio: colors: name: blue grows: green drop: red device_token: &amp;#34;device token&amp;#34; displayHoldings: true enabled: true position: top: 3 left: 1 width: 1 height: 1 refreshInterval: 400 Attributes colors.name Values: Any X11 color name.
+colors.grows Values: Any X11 color name.
+colors.drop Values: Any X11 color name.
+device_token Value: See this gist for details on how to get your Blockfolio API token.</description>
+    </item>
+    
+    <item>
+      <title>CryptoLive</title>
+      <link>/modules/cryptocurrencies/cryptolive/</link>
+      <pubDate>Sun, 03 Jun 2018 20:06:40 -0700</pubDate>
+      
+      <guid>/modules/cryptocurrencies/cryptolive/</guid>
+      <description>Added in v0.0.5.
+Compare crypto currencies using CryptoCompare.
+Source Code wtf/cryptoexchanges/cryptolive/ Configuration cryptolive: enabled: true position: top: 5 left: 2 height: 1 width: 2 updateInterval: 15 currencies: BTC: displayName: Bitcoin to: - USD - EUR - ETH - LTC - DOGE LTC: displayName: Ethereum to: - USD - EUR - BTC top: BTC: displayName: Bitcoin limit: 5 to: - USD colors: from: name: coral displayName: grey to: name: white price: green top: from: name: grey displayName: coral to: name: red field: white value: green Attributes colors.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,45 @@
+.caption {
+  color: #111;
+  display: inline-block;
+  font-weight: bold;
+  min-width: 64px;
+  text-align: right;
+}
+
+a.highlight {
+  border-bottom: none !important;
+  padding-left: 6px !important;
+}
+
+code {
+  color: #b97208;
+  display: inline-block;
+  margin: 0 4px !important;
+  padding-left: 0px !important;
+}
+
+h1 {
+  text-align: left !important;
+}
+
+h2 {
+  font-weight: normal;
+}
+
+h3 {
+  font-weight: normal;
+}
+
+img.screenshot {
+  margin: 0 0 0 24px !important;
+  padding: 0 !important ;
+  float: right;
+}
+
+p {
+  line-height: 26px;
+}
+
+pre {
+  outline: 1px solid #cdcdcd;
+}
