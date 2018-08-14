@@ -5,6 +5,8 @@ draft: false
 weight: 0
 ---
 
+<h1><span style="font-family: monospace; font-weight: heavy;">WTF</span></h1>
+
 <img src='/imgs/screenshot.jpg' width="900" height="524" />
 
 <span style="font-family: monospace; font-size: 1.6em;">WTF</span> is a personal information dashboard for your terminal, developed for those who spend most of their day in the command line.

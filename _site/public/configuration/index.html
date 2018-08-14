@@ -142,6 +142,35 @@
           </a><i class="fa fa-circle-thin read-icon"></i>
         </div>
     </li>
+    <li data-nav-id="/modules/cryptocurrencies/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/modules/cryptocurrencies/">Crypo Currencies</a><i class="fa fa-angle-right fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/modules/cryptocurrencies/bittrex/" class="dd-item">
+        <div>
+          <a href="/modules/cryptocurrencies/bittrex/">
+            Bittrex
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/modules/cryptocurrencies/blockfolio/" class="dd-item">
+        <div>
+          <a href="/modules/cryptocurrencies/blockfolio/">
+            Blockfolio
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/modules/cryptocurrencies/cryptolive/" class="dd-item">
+        <div>
+          <a href="/modules/cryptocurrencies/cryptolive/">
+            CryptoLive
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
       <li data-nav-id="/modules/gerrit/" class="dd-item">
         <div>
           <a href="/modules/gerrit/">
@@ -177,12 +206,56 @@
           </a><i class="fa fa-circle-thin read-icon"></i>
         </div>
     </li>
+    <li data-nav-id="/modules/google/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/modules/google/">Google Apps</a><i class="fa fa-angle-right fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/modules/google/gcal/" class="dd-item">
+        <div>
+          <a href="/modules/google/gcal/">
+            Google Calendar
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/modules/google/gspreadsheet/" class="dd-item">
+        <div>
+          <a href="/modules/google/gspreadsheet/">
+            Google Spreadsheets
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
       <li data-nav-id="/modules/hackernews/" class="dd-item">
         <div>
           <a href="/modules/hackernews/">
             Hacker News
           </a><i class="fa fa-circle-thin read-icon"></i>
         </div>
+    </li>
+    <li data-nav-id="/modules/ipaddress/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/modules/ipaddress/">IP Addresses</a><i class="fa fa-angle-right fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/modules/ipaddress/ipapi/" class="dd-item">
+        <div>
+          <a href="/modules/ipaddress/ipapi/">
+            IP-API
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/modules/ipaddress/ipinfo/" class="dd-item">
+        <div>
+          <a href="/modules/ipaddress/ipinfo/">
+            IPInfo
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
     </li>
       <li data-nav-id="/modules/jenkins/" class="dd-item">
         <div>
@@ -275,6 +348,28 @@
           </a><i class="fa fa-circle-thin read-icon"></i>
         </div>
     </li>
+    <li data-nav-id="/modules/weather_services/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/modules/weather_services/">Weather Services</a><i class="fa fa-angle-right fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/modules/weather_services/prettyweather/" class="dd-item">
+        <div>
+          <a href="/modules/weather_services/prettyweather/">
+            Pretty Weather
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/modules/weather_services/weather/" class="dd-item">
+        <div>
+          <a href="/modules/weather_services/weather/">
+            Weather
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
       <li data-nav-id="/modules/zendesk/" class="dd-item">
         <div>
           <a href="/modules/zendesk/">
@@ -339,8 +434,13 @@
 <h2 id="index">Index</h2>
 
 <ul>
-<li><a href="#configuration-files">Configuration Files</a></li>
-<li><a href="#environment-env-variables">Environment (ENV) Variables</a></li>
+<li><a href="#configuration-files">Configuration Files</a>
+
+<ul>
+<li><a href="#example-configuration-files">Example Configuration Files</a></li>
+<li><a href="#custom-configuration-files">Custom Configuration Files</a></li>
+<li><a href="#configuration-attributes">Configuration Attributes</a></li>
+</ul></li>
 <li><a href="#grid-layout">Grid Layout</a></li>
 </ul>
 
@@ -378,16 +478,6 @@ parameter on launch:</p>
 <p>A number of top-level attributes can be set to customize your WTF
 install. See <a href="/posts/configuration/attributes/">Attributes</a> for details.</p>
 
-<h2 id="environment-env-variables">Environment (ENV) Variables</h2>
-
-<p>Some modules require the presence of environment variables to function
-properly. Usually these are API keys or other sensitive data that one
-wouldn&rsquo;t want to have laying about in the config files.</p>
-
-<p>For modules that require them, the name of the required environment
-variable(s) can be found in that module&rsquo;s &ldquo;Required ENV Variables&rdquo;
-section of the documentation. See <a href="/posts/modules/opsgenie/">OpsGenie</a> for an example.</p>
-
 <h2 id="grid-layout">Grid Layout</h2>
 
 <p>WTF uses the <code>Grid</code> layout system from <a href="https://github.com/rivo/tview/blob/master/grid.go">tview</a> to position widgets
@@ -408,10 +498,10 @@ explanation:</p>
 
 <p>The co-ordinate system starts at top-left and defines how wide and tall a widget is. If we wanted to put a 2-col, 2-row widget in the bottom of the screen, we&rsquo;d position it at:</p>
 
-<pre><code>  top: 4     // top starts in the 4th row
-  left: 9    // left starts in the 9th column
+<pre><code>  top:    4  // top starts in the 4th row
+  left:   9  // left starts in the 9th column
   height: 2  // span down rows 4 &amp; 5 (18 characters in size, total)
-  width: 2   // span across cols 9 &amp; 10 (20 characters in size, total)
+  width:  2  // span across cols 9 &amp; 10 (20 characters in size, total)
 </code></pre>
 
 
