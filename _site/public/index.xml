@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>WTF - the terminal dashboard</title>
+    <title>WTF on WTF - the terminal dashboard</title>
     <link>/</link>
-    <description>Recent content on WTF - the terminal dashboard</description>
+    <description>Recent content in WTF on WTF - the terminal dashboard</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 04 Jun 2018 20:06:40 -0700</lastBuildDate>
+    <lastBuildDate>Tue, 14 Aug 2018 01:51:58 -0700</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
@@ -83,6 +83,17 @@ enabled Determines whether or not this module is executed and if its data displa
 By default iTerm2 uses a unicode rendering format that is not comletely compatible with some emoji characters. Instead what you&amp;rsquo;ll see is the emoji over-lapping normal text characters, or drawing outside the bounds of where they should be.
 In iTerm2 open:
 Preferences -&amp;gt; Profiles -&amp;gt; Text and check on the &amp;ldquo;Use Unicode Version 9 Widths&amp;rdquo; checkbox.</description>
+    </item>
+    
+    <item>
+      <title>Google Calendar</title>
+      <link>/modules/google/gcal/</link>
+      <pubDate>Thu, 10 May 2018 08:25:33 -0700</pubDate>
+      
+      <guid>/modules/google/gcal/</guid>
+      <description>Displays your upcoming Google calendar events.
+Not: Setting up access to Google Calendars for Go is a bit unobvious. Check out Google&amp;rsquo;s Go Quickstart first and if you have problems, then take a look at this comment by WesleydeSouza which offers a slightly different approach.
+Source Code wtf/gcal/ Configuration gcal: colors: title: &amp;#34;red&amp;#34; description: &amp;#34;lightblue&amp;#34; highlights: - [&amp;#39;1on1|1\/11&amp;#39;, &amp;#39;green&amp;#39;] - [&amp;#39;apple|google|aws&amp;#39;, &amp;#39;blue&amp;#39;] - [&amp;#39;interview|meet&amp;#39;, &amp;#39;magenta&amp;#39;] - [&amp;#39;lunch&amp;#39;, &amp;#39;yellow&amp;#39;] past: &amp;#34;gray&amp;#34; conflictIcon: &amp;#34;🚨&amp;#34; currentIcon: &amp;#34;💥&amp;#34; displayResponseStatus: true email: &amp;#34;chriscummer@me.</description>
     </item>
     
     <item>
@@ -170,14 +181,15 @@ cmd The terminal command to be run, withouth the arguments. Ie: ping, whoami, cu
     </item>
     
     <item>
-      <title>Google Calendar</title>
-      <link>/modules/gcal/</link>
-      <pubDate>Thu, 10 May 2018 08:25:33 -0700</pubDate>
+      <title>Google Spreadsheets</title>
+      <link>/modules/google/gspreadsheet/</link>
+      <pubDate>Sun, 10 Jun 2018 18:26:26 -0400</pubDate>
       
-      <guid>/modules/gcal/</guid>
-      <description>Displays your upcoming Google calendar events.
-Not: Setting up access to Google Calendars for Go is a bit unobvious. Check out Google&amp;rsquo;s Go Quickstart first and if you have problems, then take a look at this comment by WesleydeSouza which offers a slightly different approach.
-Source Code wtf/gcal/ Configuration gcal: colors: title: &amp;#34;red&amp;#34; description: &amp;#34;lightblue&amp;#34; highlights: - [&amp;#39;1on1|1\/11&amp;#39;, &amp;#39;green&amp;#39;] - [&amp;#39;apple|google|aws&amp;#39;, &amp;#39;blue&amp;#39;] - [&amp;#39;interview|meet&amp;#39;, &amp;#39;magenta&amp;#39;] - [&amp;#39;lunch&amp;#39;, &amp;#39;yellow&amp;#39;] past: &amp;#34;gray&amp;#34; conflictIcon: &amp;#34;🚨&amp;#34; currentIcon: &amp;#34;💥&amp;#34; displayResponseStatus: true email: &amp;#34;chriscummer@me.</description>
+      <guid>/modules/google/gspreadsheet/</guid>
+      <description>Added in v0.0.7.
+Display information from cells in a Google Spreadsheet.
+wtf/gspreadsheets/ Configuration gspreadsheets: colors: values: &amp;#34;green&amp;#34; cells: names: - &amp;#34;Cell 1 name&amp;#34; - &amp;#34;Cell 2 name&amp;#34; addresses: - &amp;#34;A1&amp;#34; - &amp;#34;A2&amp;#34; enabled: true position: top: 0 left: 0 width: 1 height: 1 refreshInterval: &amp;#34;300&amp;#34; secretFile: &amp;#34;~/.config/wtf/gspreadsheets/client_secret.json&amp;#34; sheetId: &amp;#34;id_of_google_spreadsheet&amp;#34; Attributes colors.values The color to display the cell values in. Values: Any X11 color name.
+cells.names cells.addresses enabled Whether or not this module is executed and if its data displayed onscreen.</description>
     </item>
     
     <item>
@@ -244,15 +256,35 @@ Key: → Action: Show the next project.</description>
     </item>
     
     <item>
-      <title>Google Spreadsheets</title>
-      <link>/modules/gspreadsheet/</link>
-      <pubDate>Sun, 10 Jun 2018 18:26:26 -0400</pubDate>
+      <title>Gitter</title>
+      <link>/modules/gitter/</link>
+      <pubDate>Thu, 02 Aug 2018 12:36:08 -0400</pubDate>
       
-      <guid>/modules/gspreadsheet/</guid>
-      <description>Added in v0.0.7.
-Display information from cells in a Google Spreadsheet.
-wtf/gspreadsheets/ Configuration gspreadsheets: colors: values: &amp;#34;green&amp;#34; cells: names: - &amp;#34;Cell 1 name&amp;#34; - &amp;#34;Cell 2 name&amp;#34; addresses: - &amp;#34;A1&amp;#34; - &amp;#34;A2&amp;#34; enabled: true position: top: 0 left: 0 width: 1 height: 1 refreshInterval: &amp;#34;300&amp;#34; secretFile: &amp;#34;~/.config/wtf/gspreadsheets/client_secret.json&amp;#34; sheetId: &amp;#34;id_of_google_spreadsheet&amp;#34; Attributes colors.values The color to display the cell values in. Values: Any X11 color name.
-cells.names cells.addresses enabled Whether or not this module is executed and if its data displayed onscreen.</description>
+      <guid>/modules/gitter/</guid>
+      <description>Added in v0.2.1.
+Displays chat messages from Gitter.
+Source Code wtf/gitter/ Keyboard Commands Key: j Action: Select the next message in the list.
+Key: k Action: Select the previous message in the list.
+Key: r Action: Refresh the data.
+Key: ↓ Action: Select the next message in the list.
+Key: ↑ Action: Select the previous message in the list.
+Configuration gitter: apiToken: &amp;#34;ab345546asdfasb465234fgjgh068f39a35c3e4139ee383f7&amp;#34; enabled: true numberOfMessages: 10 position: top: 4 left: 1 height: 1 width: 4 roomUri: wtfutil/Lobby refreshInterval: 300 Attributes apiToken Value: Your GitterPersonal Access Token.</description>
+    </item>
+    
+    <item>
+      <title>Hacker News</title>
+      <link>/modules/hackernews/</link>
+      <pubDate>Thu, 02 Aug 2018 16:36:08 -0400</pubDate>
+      
+      <guid>/modules/hackernews/</guid>
+      <description>Added in v0.1.2.
+Displays stories from Hacker News.
+Source Code wtf/hackernews/ Keyboard Commands Key: [return] Action: Open the selected story in the browser.
+Key: j Action: Select the next story in the list.
+Key: k Action: Select the previous story in the list.
+Key: r Action: Refresh the data.
+Key: ↓ Action: Select the next story in the list.
+Key: ↑ Action: Select the previous story in the list.</description>
     </item>
     
     <item>
@@ -437,38 +469,6 @@ Key: k Action: Select the previous item in the list.
 Key: ↓ Action: Scroll down the list.
 Key: ↑ Action: Scroll up the list.
 Configuration zendesk: apiKey: &amp;#34;3276d7155dd9ee27b8b14f8743a408a9&amp;#34; enabled: true position: top: 0 left: 2 height: 1 width: 1 status: &amp;#34;new&amp;#34; subdomain: &amp;#34;your_domain&amp;#34; username: &amp;#34;your_email@acme.</description>
-    </item>
-    
-    <item>
-      <title>Hacker News</title>
-      <link>/posts/modules/hackernews/</link>
-      <pubDate>Thu, 02 Aug 2018 16:36:08 -0400</pubDate>
-      
-      <guid>/posts/modules/hackernews/</guid>
-      <description>Added in v0.1.2.
-Displays stories from Hacker News.
-Source Code wtf/hackernews/ Keyboard Commands Key: [return] Action: Open the selected story in the browser.
-Key: j Action: Select the next story in the list.
-Key: k Action: Select the previous story in the list.
-Key: r Action: Refresh the data.
-Key: ↓ Action: Select the next story in the list.
-Key: ↑ Action: Select the previous story in the list.</description>
-    </item>
-    
-    <item>
-      <title>Gitter</title>
-      <link>/posts/modules/gitter/</link>
-      <pubDate>Thu, 02 Aug 2018 12:36:08 -0400</pubDate>
-      
-      <guid>/posts/modules/gitter/</guid>
-      <description>Added in v0.2.1.
-Displays chat messages from Gitter.
-Source Code wtf/gitter/ Keyboard Commands Key: j Action: Select the next message in the list.
-Key: k Action: Select the previous message in the list.
-Key: r Action: Refresh the data.
-Key: ↓ Action: Select the next message in the list.
-Key: ↑ Action: Select the previous message in the list.
-Configuration gitter: apiToken: &amp;#34;ab345546asdfasb465234fgjgh068f39a35c3e4139ee383f7&amp;#34; enabled: true numberOfMessages: 10 position: top: 4 left: 1 height: 1 width: 4 roomUri: wtfutil/Lobby refreshInterval: 300 Attributes apiToken Value: Your GitterPersonal Access Token.</description>
     </item>
     
     <item>

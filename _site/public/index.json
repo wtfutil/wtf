@@ -4,7 +4,7 @@
 	"title": "Getting Started",
 	"tags": [],
 	"description": "",
-	"content": " WTF is a personal information dashboard for your terminal, developed for those who spend most of their day in the command line.\nIt allows you to monitor services and systems that you otherwise might keep browser tabs open for, the kinds of things you don\u0026rsquo;t always need visible, but might check in on every now and then.\nQuick Start  Download the stand-alone, compiled binary. Unzip the downloaded file. From the command line, cd into the newly-created /wtf directory. From the command line, run the app: ./wtf  This should launch the app in your terminal using the default simple configuration. See Configuration for more details.\nCommand-line Options --config, -c Allows you to define a custom config file to use. See Configuration for more details.\n--help, -h Shows help information for the command-line arguments that WTF takes.\n--module, -m Shows help information for the specific named module, if that module supports help text. Example: wtf --module=todo.\n--version, -v Shows version info.\nKeyboard Commands Key: Ctrl-R Action: Force-refresh the data for all modules.\nKey: Esc Action: Unfocus the currently-focused widget.\nKey: Tab Action: Move between focusable modules (Shift-Tab to move backwards).\n"
+	"content": " Quick Start  Download the stand-alone, compiled binary. Unzip the downloaded file. From the command line, cd into the newly-created /wtf directory. From the command line, run the app: ./wtf  This should launch the app in your terminal using the default simple configuration. See Configuration for more details.\nCommand-line Options --config, -c Allows you to define a custom config file to use. See Configuration for more details.\n--help, -h Shows help information for the command-line arguments that WTF takes.\n--module, -m Shows help information for the specific named module, if that module supports help text. Example: wtf --module=todo.\n--version, -v Shows version info.\nKeyboard Commands Key: Ctrl-R Action: Force-refresh the data for all modules.\nKey: Esc Action: Unfocus the currently-focused widget.\nKey: Tab Action: Move between focusable modules (Shift-Tab to move backwards).\n"
 },
 {
 	"uri": "/modules/cryptocurrencies/bittrex/",
@@ -54,6 +54,13 @@
 	"tags": [],
 	"description": "",
 	"content": "Many terminal apps don\u0026rsquo;t properly display multibyte emoji characters properly. This may fix the issue for you in iTerm2, it also may not.\nBy default iTerm2 uses a unicode rendering format that is not comletely compatible with some emoji characters. Instead what you\u0026rsquo;ll see is the emoji over-lapping normal text characters, or drawing outside the bounds of where they should be.\nIn iTerm2 open:\nPreferences -\u0026gt; Profiles -\u0026gt; Text and check on the \u0026ldquo;Use Unicode Version 9 Widths\u0026rdquo; checkbox. Then restart WTF.\n(Note: This issue is not unique to iTerm2. As of this writing it also affects Terminal, and Hyper.)\n"
+},
+{
+	"uri": "/modules/google/gcal/",
+	"title": "Google Calendar",
+	"tags": [],
+	"description": "",
+	"content": " Displays your upcoming Google calendar events.\nNot: Setting up access to Google Calendars for Go is a bit unobvious. Check out Google\u0026rsquo;s Go Quickstart first and if you have problems, then take a look at this comment by WesleydeSouza which offers a slightly different approach.\nSource Code wtf/gcal/ Configuration gcal: colors: title: \u0026#34;red\u0026#34; description: \u0026#34;lightblue\u0026#34; highlights: - [\u0026#39;1on1|1\\/11\u0026#39;, \u0026#39;green\u0026#39;] - [\u0026#39;apple|google|aws\u0026#39;, \u0026#39;blue\u0026#39;] - [\u0026#39;interview|meet\u0026#39;, \u0026#39;magenta\u0026#39;] - [\u0026#39;lunch\u0026#39;, \u0026#39;yellow\u0026#39;] past: \u0026#34;gray\u0026#34; conflictIcon: \u0026#34;🚨\u0026#34; currentIcon: \u0026#34;💥\u0026#34; displayResponseStatus: true email: \u0026#34;chriscummer@me.com\u0026#34; enabled: true eventCount: 12 multiCalendar: true position: top: 0 left: 0 height: 4 width: 1 refreshInterval: 300 secretFile: \u0026#34;~/.config/wtf/gcal/client_secret.json\u0026#34; showDeclined: true withLocation: true Attributes colors.title The default colour for calendar event titles. Values: Any X11 color name.\ncolors.description The default color for calendar event descriptions. Values: Any X11 color name.\ncolors.highlights A list of arrays that define a regular expression pattern and a color. If a calendar event title matches a regular expression, the title will be drawn in that colour. Over-rides the default title colour. Values: [a valid regular expression, any X11 color name.]\ncolors.past The color for calendar events that have passed. Values: Any X11 color name.\nconflictIcon The icon displayed beside calendar events that have conflicting times (they intersect or overlap in some way). Values: Any displayable unicode character.\ncurrentIcon The icon displayed beside the current calendar event. Values: Any displayable unicode character.\ndisplayLocation Whether or not to display the location of the calendar event. Values: true, false.\ndisplayResponseStatus Whether or not to display your response status to the calendar event. Values: true, false.\nemail The email address associated with your Google account. Necessary for determining responseStatus. Values: A valid email address string.\nenabled Whether or not this module is executed and if its data displayed onscreen. Values: true, false.\neventCount The number of calendar events to display. Values: A positive integer, 0..n.\nmultiCalendar Whether or not to display your primary calendar or all calendars you have access to. Values: true, or false\nposition Where in the grid this module\u0026rsquo;s widget will be displayed. refreshInterval How often, in seconds, this module will update its data. Values: A positive integer, 0..n.\nsecretFile Your Google client secret JSON file. Values: A string representing a file path to the JSON secret file.\nshowDeclined Optional. Whether or not to display events you\u0026rsquo;ve declined to attend. Values: true, or false\nwithLocation Whether or not to show the location of the appointment. Values: true, or false\n"
 },
 {
 	"uri": "/modules/bamboohr/",
@@ -112,18 +119,18 @@
 	"content": " Runs a terminal command on a schedule.\nSource Code wtf/cmdrunner/ Configuration cmdrunner: args: [\u0026#34;-g\u0026#34;, \u0026#34;batt\u0026#34;] cmd: \u0026#34;pmset\u0026#34; enabled: true position: top: 6 left: 1 height: 1 width: 3 refreshInterval: 30 Attributes args The arguments to the command, with each item as an element in an array. Example: for curl -I cisco.com, the arguments array would be [\u0026quot;-I\u0026quot;, \u0026quot;cisco.com\u0026quot;].\ncmd The terminal command to be run, withouth the arguments. Ie: ping, whoami, curl. enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.\nposition Defines where in the grid this module\u0026rsquo;s widget will be displayed.\nrefreshInterval How often, in seconds, this module will update its data. Values: A positive integer, 0..n.\n"
 },
 {
+	"uri": "/modules/google/gspreadsheet/",
+	"title": "Google Spreadsheets",
+	"tags": [],
+	"description": "",
+	"content": " Added in v0.0.7.\nDisplay information from cells in a Google Spreadsheet.\nwtf/gspreadsheets/ Configuration gspreadsheets: colors: values: \u0026#34;green\u0026#34; cells: names: - \u0026#34;Cell 1 name\u0026#34; - \u0026#34;Cell 2 name\u0026#34; addresses: - \u0026#34;A1\u0026#34; - \u0026#34;A2\u0026#34; enabled: true position: top: 0 left: 0 width: 1 height: 1 refreshInterval: \u0026#34;300\u0026#34; secretFile: \u0026#34;~/.config/wtf/gspreadsheets/client_secret.json\u0026#34; sheetId: \u0026#34;id_of_google_spreadsheet\u0026#34; Attributes colors.values The color to display the cell values in. Values: Any X11 color name.\ncells.names cells.addresses enabled Whether or not this module is executed and if its data displayed onscreen. Values: true, false.\nposition Where in the grid this module\u0026rsquo;s widget will be displayed. refreshInterval How often, in seconds, this module will update its data. Values: A positive integer, 0..n.\nsecretFile Your Google client secret JSON file. Values: A string representing a file path to the JSON secret file.\n"
+},
+{
 	"uri": "/modules/cryptocurrencies/",
 	"title": "Crypo Currencies",
 	"tags": [],
 	"description": "",
 	"content": "For all modules cryptocurrency-related.\n"
-},
-{
-	"uri": "/modules/gcal/",
-	"title": "Google Calendar",
-	"tags": [],
-	"description": "",
-	"content": " Displays your upcoming Google calendar events.\nNot: Setting up access to Google Calendars for Go is a bit unobvious. Check out Google\u0026rsquo;s Go Quickstart first and if you have problems, then take a look at this comment by WesleydeSouza which offers a slightly different approach.\nSource Code wtf/gcal/ Configuration gcal: colors: title: \u0026#34;red\u0026#34; description: \u0026#34;lightblue\u0026#34; highlights: - [\u0026#39;1on1|1\\/11\u0026#39;, \u0026#39;green\u0026#39;] - [\u0026#39;apple|google|aws\u0026#39;, \u0026#39;blue\u0026#39;] - [\u0026#39;interview|meet\u0026#39;, \u0026#39;magenta\u0026#39;] - [\u0026#39;lunch\u0026#39;, \u0026#39;yellow\u0026#39;] past: \u0026#34;gray\u0026#34; conflictIcon: \u0026#34;🚨\u0026#34; currentIcon: \u0026#34;💥\u0026#34; displayResponseStatus: true email: \u0026#34;chriscummer@me.com\u0026#34; enabled: true eventCount: 12 multiCalendar: true position: top: 0 left: 0 height: 4 width: 1 refreshInterval: 300 secretFile: \u0026#34;~/.config/wtf/gcal/client_secret.json\u0026#34; showDeclined: true withLocation: true Attributes colors.title The default colour for calendar event titles. Values: Any X11 color name.\ncolors.description The default color for calendar event descriptions. Values: Any X11 color name.\ncolors.highlights A list of arrays that define a regular expression pattern and a color. If a calendar event title matches a regular expression, the title will be drawn in that colour. Over-rides the default title colour. Values: [a valid regular expression, any X11 color name.]\ncolors.past The color for calendar events that have passed. Values: Any X11 color name.\nconflictIcon The icon displayed beside calendar events that have conflicting times (they intersect or overlap in some way). Values: Any displayable unicode character.\ncurrentIcon The icon displayed beside the current calendar event. Values: Any displayable unicode character.\ndisplayLocation Whether or not to display the location of the calendar event. Values: true, false.\ndisplayResponseStatus Whether or not to display your response status to the calendar event. Values: true, false.\nemail The email address associated with your Google account. Necessary for determining responseStatus. Values: A valid email address string.\nenabled Whether or not this module is executed and if its data displayed onscreen. Values: true, false.\neventCount The number of calendar events to display. Values: A positive integer, 0..n.\nmultiCalendar Whether or not to display your primary calendar or all calendars you have access to. Values: true, or false\nposition Where in the grid this module\u0026rsquo;s widget will be displayed. refreshInterval How often, in seconds, this module will update its data. Values: A positive integer, 0..n.\nsecretFile Your Google client secret JSON file. Values: A string representing a file path to the JSON secret file.\nshowDeclined Optional. Whether or not to display events you\u0026rsquo;ve declined to attend. Values: true, or false\nwithLocation Whether or not to show the location of the appointment. Values: true, or false\n"
 },
 {
 	"uri": "/modules/gerrit/",
@@ -154,18 +161,32 @@
 	"content": " Added in v0.0.8.\nDisplays information about your projects hosted on GitLab:\nOpen Approval Requests All open merge requests that are requesting your approval.\nOpen Merge Requests All open merge requests created by you.\nSource Code wtf/gitlab/ Keyboard Commands Key: / Action: Open/close the widget\u0026rsquo;s help window.\nKey: h Action: Show the previous project.\nKey: l Action: Show the next project.\nKey: ← Action: Show the previous project.\nKey: → Action: Show the next project.\nConfiguration gitlab: apiKey: \u0026#34;3276d7155dd9ee27b8b14f8743a408a9\u0026#34; enabled: true position: top: 2 left: 3 height: 2 width: 2 refreshInterval: 300 projects: tasks: \u0026#34;gitlab-org/release\u0026#34; gitlab-ce: \u0026#34;gitlab-org\u0026#34; username: \u0026#34;senorprogrammer\u0026#34; Attributes apiKey Value: A GitLab personal access token. Requires at least api access.\nenabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.\nposition Defines where in the grid this module\u0026rsquo;s widget will be displayed. refreshInterval How often, in seconds, this module will update its data. Values: A positive integer, 0..n.\ndomain Optional. Your GitLab corporate domain. Values: A valid URI.\nprojects A list of key/value pairs each describing a GitLab project to fetch data for. Key: The name of the project. Value: The namespace of the project.\nusername Your GitLab username. Used to figure out which requests require your approval\n"
 },
 {
-	"uri": "/modules/gspreadsheet/",
-	"title": "Google Spreadsheets",
+	"uri": "/modules/gitter/",
+	"title": "Gitter",
 	"tags": [],
 	"description": "",
-	"content": " Added in v0.0.7.\nDisplay information from cells in a Google Spreadsheet.\nwtf/gspreadsheets/ Configuration gspreadsheets: colors: values: \u0026#34;green\u0026#34; cells: names: - \u0026#34;Cell 1 name\u0026#34; - \u0026#34;Cell 2 name\u0026#34; addresses: - \u0026#34;A1\u0026#34; - \u0026#34;A2\u0026#34; enabled: true position: top: 0 left: 0 width: 1 height: 1 refreshInterval: \u0026#34;300\u0026#34; secretFile: \u0026#34;~/.config/wtf/gspreadsheets/client_secret.json\u0026#34; sheetId: \u0026#34;id_of_google_spreadsheet\u0026#34; Attributes colors.values The color to display the cell values in. Values: Any X11 color name.\ncells.names cells.addresses enabled Whether or not this module is executed and if its data displayed onscreen. Values: true, false.\nposition Where in the grid this module\u0026rsquo;s widget will be displayed. refreshInterval How often, in seconds, this module will update its data. Values: A positive integer, 0..n.\nsecretFile Your Google client secret JSON file. Values: A string representing a file path to the JSON secret file.\n"
+	"content": " Added in v0.2.1.\nDisplays chat messages from Gitter.\nSource Code wtf/gitter/ Keyboard Commands Key: j Action: Select the next message in the list.\nKey: k Action: Select the previous message in the list.\nKey: r Action: Refresh the data.\nKey: ↓ Action: Select the next message in the list.\nKey: ↑ Action: Select the previous message in the list.\nConfiguration gitter: apiToken: \u0026#34;ab345546asdfasb465234fgjgh068f39a35c3e4139ee383f7\u0026#34; enabled: true numberOfMessages: 10 position: top: 4 left: 1 height: 1 width: 4 roomUri: wtfutil/Lobby refreshInterval: 300 Attributes apiToken Value: Your GitterPersonal Access Token.\nenabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.\nnumberOfMessages Optional Maximum number of (newest) messages to be displayed. Default is 10\nposition Defines where in the grid this module\u0026rsquo;s widget will be displayed. roomUri Optional new, top, job, ask\nrefreshInterval How often, in seconds, this module will update its data. Values: A positive integer, 0..n.\n"
+},
+{
+	"uri": "/modules/google/",
+	"title": "Google Apps",
+	"tags": [],
+	"description": "",
+	"content": "Google Apps.\n Google Calendar   Google Spreadsheets   "
+},
+{
+	"uri": "/modules/hackernews/",
+	"title": "Hacker News",
+	"tags": [],
+	"description": "",
+	"content": " Added in v0.1.2.\nDisplays stories from Hacker News.\nSource Code wtf/hackernews/ Keyboard Commands Key: [return] Action: Open the selected story in the browser.\nKey: j Action: Select the next story in the list.\nKey: k Action: Select the previous story in the list.\nKey: r Action: Refresh the data.\nKey: ↓ Action: Select the next story in the list.\nKey: ↑ Action: Select the previous story in the list.\nConfiguration hackernews: enabled: true numberOfStories: 10 position: top: 4 left: 1 height: 1 width: 2 storyType: top refreshInterval: 900 Attributes enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.\nnumberOfStories Optional Defines number of stories to be displayed. Default is 10\nposition Defines where in the grid this module\u0026rsquo;s widget will be displayed. storyType Optional new, top, job, ask\nrefreshInterval How often, in seconds, this module will update its data. Values: A positive integer, 0..n.\n"
 },
 {
 	"uri": "/modules/ipaddress/",
-	"title": "IP Address",
+	"title": "IP Addresses",
 	"tags": [],
 	"description": "",
-	"content": "For all modules IP address-related.\n"
+	"content": "For all modules IP address-related.\n IP-API   IPInfo   "
 },
 {
 	"uri": "/modules/jenkins/",
@@ -263,7 +284,7 @@
 	"title": "Weather Services",
 	"tags": [],
 	"description": "",
-	"content": "For all modules weather-related.\n"
+	"content": "For all modules weather-related.\n Pretty Weather   Weather   "
 },
 {
 	"uri": "/modules/zendesk/",
@@ -273,18 +294,11 @@
 	"content": " Added in v0.1.0.\nDisplays tickets in the \u0026ldquo;New\u0026rdquo; status - i.e. have not yet been assigned.\nSource Code wtf/zendesk/ Keyboard Commands Key: [return] Action: Open the selected ticket in the browser.\nKey: j Action: Select the next item in the list.\nKey: k Action: Select the previous item in the list.\nKey: ↓ Action: Scroll down the list.\nKey: ↑ Action: Scroll up the list.\nConfiguration zendesk: apiKey: \u0026#34;3276d7155dd9ee27b8b14f8743a408a9\u0026#34; enabled: true position: top: 0 left: 2 height: 1 width: 1 status: \u0026#34;new\u0026#34; subdomain: \u0026#34;your_domain\u0026#34; username: \u0026#34;your_email@acme.com\u0026#34; Attributes apiKey Value: Your Zendesk API token.\nenabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.\nposition Defines where in the grid this module\u0026rsquo;s widget will be displayed. status The status of tickets you want to retrieve. Values: new, open, pending, hold.\nsubdomain Value: Your Zendesk subdomain.\nusername Your Zendesk username Values: A valid Zendesk username (usually an email address).\n"
 },
 {
-	"uri": "/posts/modules/hackernews/",
-	"title": "Hacker News",
+	"uri": "/",
+	"title": "WTF",
 	"tags": [],
 	"description": "",
-	"content": " Added in v0.1.2.\nDisplays stories from Hacker News.\nSource Code wtf/hackernews/ Keyboard Commands Key: [return] Action: Open the selected story in the browser.\nKey: j Action: Select the next story in the list.\nKey: k Action: Select the previous story in the list.\nKey: r Action: Refresh the data.\nKey: ↓ Action: Select the next story in the list.\nKey: ↑ Action: Select the previous story in the list.\nConfiguration hackernews: enabled: true numberOfStories: 10 position: top: 4 left: 1 height: 1 width: 2 storyType: top refreshInterval: 900 Attributes enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.\nnumberOfStories Optional Defines number of stories to be displayed. Default is 10\nposition Defines where in the grid this module\u0026rsquo;s widget will be displayed. storyType Optional new, top, job, ask\nrefreshInterval How often, in seconds, this module will update its data. Values: A positive integer, 0..n.\n"
-},
-{
-	"uri": "/posts/modules/gitter/",
-	"title": "Gitter",
-	"tags": [],
-	"description": "",
-	"content": " Added in v0.2.1.\nDisplays chat messages from Gitter.\nSource Code wtf/gitter/ Keyboard Commands Key: j Action: Select the next message in the list.\nKey: k Action: Select the previous message in the list.\nKey: r Action: Refresh the data.\nKey: ↓ Action: Select the next message in the list.\nKey: ↑ Action: Select the previous message in the list.\nConfiguration gitter: apiToken: \u0026#34;ab345546asdfasb465234fgjgh068f39a35c3e4139ee383f7\u0026#34; enabled: true numberOfMessages: 10 position: top: 4 left: 1 height: 1 width: 4 roomUri: wtfutil/Lobby refreshInterval: 300 Attributes apiToken Value: Your GitterPersonal Access Token.\nenabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.\nnumberOfMessages Optional Maximum number of (newest) messages to be displayed. Default is 10\nposition Defines where in the grid this module\u0026rsquo;s widget will be displayed. roomUri Optional new, top, job, ask\nrefreshInterval How often, in seconds, this module will update its data. Values: A positive integer, 0..n.\n"
+	"content": "WTF is a personal information dashboard for your terminal, developed for those who spend most of their day in the command line.\nIt allows you to monitor systems, services, and important information that you otherwise might keep browser tabs open for, the kinds of things you don\u0026rsquo;t always need visible, but do check in on every now and then.\nKeep an eye on your OpsGenie schedules, Google Calendar, Git and GitHub repositories, and New Relic deployments.\nSee who\u0026rsquo;s away in BambooHR, which Jira tickets are assigned to you, and what time it is in Barcelona.\nIt even has weather. And clocks. And emoji.\n"
 },
 {
 	"uri": "/getting_started/installation/",
@@ -315,22 +329,8 @@
 	"content": ""
 },
 {
-	"uri": "/posts/",
-	"title": "Posts",
-	"tags": [],
-	"description": "",
-	"content": ""
-},
-{
 	"uri": "/tags/",
 	"title": "Tags",
-	"tags": [],
-	"description": "",
-	"content": ""
-},
-{
-	"uri": "/",
-	"title": "WTF - the terminal dashboard",
 	"tags": [],
 	"description": "",
 	"content": ""

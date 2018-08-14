@@ -2,7 +2,7 @@
 title: "Google Spreadsheets"
 date: 2018-06-10T18:26:26-04:00
 draft: false
-weight: 110
+weight: 50
 ---
 
 Added in `v0.0.7`.

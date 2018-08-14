@@ -6,7 +6,7 @@
       <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta name="generator" content="Hugo 0.46" />
-<title>WTF - the terminal dashboard :: WTF - the terminal dashboard</title>
+<title>WTF :: WTF - the terminal dashboard</title>
 <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
 <link href="/css/font-awesome.min.css" rel="stylesheet">
 <link href="/css/nucleus.css" rel="stylesheet">
@@ -170,13 +170,6 @@
     </li>
         </ul>
     </li>
-      <li data-nav-id="/modules/gcal/" class="dd-item">
-        <div>
-          <a href="/modules/gcal/">
-            Google Calendar
-          </a><i class="fa fa-circle-thin read-icon"></i>
-        </div>
-    </li>
       <li data-nav-id="/modules/gerrit/" class="dd-item">
         <div>
           <a href="/modules/gerrit/">
@@ -205,17 +198,46 @@
           </a><i class="fa fa-circle-thin read-icon"></i>
         </div>
     </li>
-      <li data-nav-id="/modules/gspreadsheet/" class="dd-item">
+      <li data-nav-id="/modules/gitter/" class="dd-item">
         <div>
-          <a href="/modules/gspreadsheet/">
+          <a href="/modules/gitter/">
+            Gitter
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+    <li data-nav-id="/modules/google/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/modules/google/">Google Apps</a><i class="fa fa-angle-right fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/modules/google/gcal/" class="dd-item">
+        <div>
+          <a href="/modules/google/gcal/">
+            Google Calendar
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/modules/google/gspreadsheet/" class="dd-item">
+        <div>
+          <a href="/modules/google/gspreadsheet/">
             Google Spreadsheets
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+      <li data-nav-id="/modules/hackernews/" class="dd-item">
+        <div>
+          <a href="/modules/hackernews/">
+            Hacker News
           </a><i class="fa fa-circle-thin read-icon"></i>
         </div>
     </li>
     <li data-nav-id="/modules/ipaddress/" class="dd-item haschildren
         ">
       <div>
-      <a href="/modules/ipaddress/">IP Address</a><i class="fa fa-angle-right fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      <a href="/modules/ipaddress/">IP Addresses</a><i class="fa fa-angle-right fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
       </div>
         <ul>
       <li data-nav-id="/modules/ipaddress/ipapi/" class="dd-item">
@@ -356,28 +378,6 @@
     </li>
         </ul>
     </li>
-    <li data-nav-id="/posts/" class="dd-item haschildren
-        ">
-      <div>
-      <a href="/posts/">Posts</a><i class="fa fa-angle-right fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
-      </div>
-        <ul>
-      <li data-nav-id="/posts/modules/hackernews/" class="dd-item">
-        <div>
-          <a href="/posts/modules/hackernews/">
-            Hacker News
-          </a><i class="fa fa-circle-thin read-icon"></i>
-        </div>
-    </li>
-      <li data-nav-id="/posts/modules/gitter/" class="dd-item">
-        <div>
-          <a href="/posts/modules/gitter/">
-            Gitter
-          </a><i class="fa fa-circle-thin read-icon"></i>
-        </div>
-    </li>
-        </ul>
-    </li>
 
 
 
@@ -398,8 +398,6 @@
    Configuration</option>
     <option value="/modules/" >
    Modules</option>
-    <option value="/posts/" >
-   Posts</option>
 
 
 
@@ -429,18 +427,19 @@
 <span id="sidebar-toggle-span">
 <a href="#" id="sidebar-toggle" data-sidebar-toggle=""><i class="fa fa-bars"></i> navigation</a>
 </span>
-           
-	
-		<h1>Customize your own home page</h1>
-		<p>
-		  The site is working. Don't forget to customize this homepage with your own. You typically have 2 choices :
-		</p>
-		<ul>
-		  <li><b>1. </b> Create an _index.md document in the content folder</li>
-		  <li><b>2. </b> Configure your server to automatically redirect this home page to one of your documentation pages</li>
-		</ul>
-	
-	<p><i class="fa fa-heart fa-4x"></i></p>
+ 
+<p><img src='/imgs/screenshot.jpg' width="900" height="524" /></p>
+
+<p><span style="font-family: monospace; font-size: 1.6em;">WTF</span> is a personal information dashboard for your terminal, developed for those who spend most of their day in the command line.</p>
+
+<p>It allows you to monitor systems, services, and important information that you otherwise might keep browser tabs open for, the kinds of things you don&rsquo;t always need visible, but do check in on every now and then.</p>
+
+<p>Keep an eye on your <strong>OpsGenie</strong> schedules, <strong>Google Calendar</strong>, <strong>Git</strong> and <strong>GitHub</strong> repositories, and <strong>New Relic</strong> deployments.</p>
+
+<p>See who&rsquo;s away in <strong>BambooHR</strong>, which <strong>Jira</strong> tickets are assigned to you, and what time it is in Barcelona.</p>
+
+<p>It even has weather. And clocks. And emoji.</p>
+
 
 
 
@@ -463,12 +462,12 @@
 
   
     <div class="date">
-        <i class='fa fa-calendar'></i> Last update on 04/06/2018
+        <i class='fa fa-calendar'></i> Last update on 14/08/2018
     </div>
     
 
     <div class="github-link">
-      <a href="https://github.com/vjeantet/hugo-theme-docdock/edit/master/exampleSite/content/" target="blank"><i class="fa fa-code-fork"></i>
+      <a href="https://github.com/vjeantet/hugo-theme-docdock/edit/master/exampleSite/content/_index.md" target="blank"><i class="fa fa-code-fork"></i>
         Improve this page</a>
     </div>
   </div>

@@ -6,7 +6,7 @@
       <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta name="generator" content="Hugo 0.46" />
-<title>Jenkins :: WTF - the terminal dashboard</title>
+<title>Google Calendar :: WTF - the terminal dashboard</title>
 <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
 <link href="/css/font-awesome.min.css" rel="stylesheet">
 <link href="/css/nucleus.css" rel="stylesheet">
@@ -25,7 +25,7 @@
 
     
   </head>
-  <body data-url="/modules/jenkins/">
+  <body data-url="/modules/google/gcal/">
     
       <header>
   <div class="logo">
@@ -206,13 +206,14 @@
           </a><i class="fa fa-circle-thin read-icon"></i>
         </div>
     </li>
-    <li data-nav-id="/modules/google/" class="dd-item haschildren
+    <li data-nav-id="/modules/google/" class="dd-item parent haschildren
         ">
       <div>
-      <a href="/modules/google/">Google Apps</a><i class="fa fa-angle-right fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      <a href="/modules/google/">Google Apps</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
       </div>
         <ul>
-      <li data-nav-id="/modules/google/gcal/" class="dd-item">
+      <li data-nav-id="/modules/google/gcal/" class="dd-item active">
         <div>
           <a href="/modules/google/gcal/">
             Google Calendar
@@ -257,7 +258,7 @@
     </li>
         </ul>
     </li>
-      <li data-nav-id="/modules/jenkins/" class="dd-item active">
+      <li data-nav-id="/modules/jenkins/" class="dd-item">
         <div>
           <a href="/modules/jenkins/">
             Jenkins
@@ -413,12 +414,15 @@
       <option value="/modules/gitter/" >- Gitter</option>
     <option value="/modules/google/" >
   - 
-   Google Apps</option>
+   Google Apps</option> 
+      <option value="/modules/google/gcal/"  selected>-- Google Calendar</option>
+      <option value="/modules/google/gspreadsheet/" >-- Google Spreadsheets</option>
+  
       <option value="/modules/hackernews/" >- Hacker News</option>
     <option value="/modules/ipaddress/" >
   - 
    IP Addresses</option>
-      <option value="/modules/jenkins/"  selected>- Jenkins</option>
+      <option value="/modules/jenkins/" >- Jenkins</option>
       <option value="/modules/jira/" >- Jira</option>
       <option value="/modules/logger/" >- Logger</option>
       <option value="/modules/newrelic/" >- New Relic</option>
@@ -458,68 +462,130 @@
       </div>
     
 
-    <h1>Jenkins</h1>
+    <h1>Google Calendar</h1>
     
     
     
     
 
-<p><img class="screenshot" src="/imgs/modules/jenkins.png" alt="jenkins screenshot" width="320" height="68" /></p>
+<p><img class="screenshot" src="/imgs/modules/gcal.png" width="320" height="389" alt="gcal screenshot" /></p>
 
-<p>Added in <code>v0.0.8</code>.</p>
+<p>Displays your upcoming Google calendar events.</p>
 
-<p>Displays jenkins status of given builds in a project or view</p>
+<p><strong>Not:</strong> Setting up access to Google Calendars for Go is a bit unobvious. Check out Google&rsquo;s <a href="https://developers.google.com/calendar/quickstart/go">Go Quickstart</a>
+first and if you have problems, then take a look at this <a href="https://github.com/senorprogrammer/wtf/issues/83#issuecomment-393665229">comment by WesleydeSouza</a> which offers a slightly different approach.</p>
 
 <h2 id="source-code">Source Code</h2>
-<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">wtf/jenkins/</code></pre></div>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">wtf/gcal/</code></pre></div>
 <h2 id="configuration">Configuration</h2>
-<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">jenkins<span style="color:#111">:</span>
-  apiKey<span style="color:#111">:</span> <span style="color:#d88200">&#34;3276d7155dd9ee27b8b14f8743a408a9&#34;</span>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">gcal<span style="color:#111">:</span>
+  colors<span style="color:#111">:</span>
+    title<span style="color:#111">:</span> <span style="color:#d88200">&#34;red&#34;</span>
+    description<span style="color:#111">:</span> <span style="color:#d88200">&#34;lightblue&#34;</span>
+    highlights<span style="color:#111">:</span>
+    - <span style="color:#111">[</span><span style="color:#d88200">&#39;1on1|1\/11&#39;</span><span style="color:#111">,</span> <span style="color:#d88200">&#39;green&#39;</span><span style="color:#111">]</span>
+    - <span style="color:#111">[</span><span style="color:#d88200">&#39;apple|google|aws&#39;</span><span style="color:#111">,</span> <span style="color:#d88200">&#39;blue&#39;</span><span style="color:#111">]</span>
+    - <span style="color:#111">[</span><span style="color:#d88200">&#39;interview|meet&#39;</span><span style="color:#111">,</span> <span style="color:#d88200">&#39;magenta&#39;</span><span style="color:#111">]</span>
+    - <span style="color:#111">[</span><span style="color:#d88200">&#39;lunch&#39;</span><span style="color:#111">,</span> <span style="color:#d88200">&#39;yellow&#39;</span><span style="color:#111">]</span>
+    past<span style="color:#111">:</span> <span style="color:#d88200">&#34;gray&#34;</span>
+  conflictIcon<span style="color:#111">:</span> <span style="color:#d88200">&#34;🚨&#34;</span>
+  currentIcon<span style="color:#111">:</span> <span style="color:#d88200">&#34;💥&#34;</span>
+  displayResponseStatus<span style="color:#111">:</span> <span style="color:#00a8c8">true</span>
+  email<span style="color:#111">:</span> <span style="color:#d88200">&#34;chriscummer@me.com&#34;</span>
   enabled<span style="color:#111">:</span> <span style="color:#00a8c8">true</span>
+  eventCount<span style="color:#111">:</span> <span style="color:#ae81ff">12</span>
+  multiCalendar<span style="color:#111">:</span> <span style="color:#00a8c8">true</span>
   position<span style="color:#111">:</span>
-    top<span style="color:#111">:</span> <span style="color:#ae81ff">2</span>
-    left<span style="color:#111">:</span> <span style="color:#ae81ff">3</span>
-    height<span style="color:#111">:</span> <span style="color:#ae81ff">2</span>
-    width<span style="color:#111">:</span> <span style="color:#ae81ff">3</span>
+    top<span style="color:#111">:</span> <span style="color:#ae81ff">0</span>
+    left<span style="color:#111">:</span> <span style="color:#ae81ff">0</span>
+    height<span style="color:#111">:</span> <span style="color:#ae81ff">4</span>
+    width<span style="color:#111">:</span> <span style="color:#ae81ff">1</span>
   refreshInterval<span style="color:#111">:</span> <span style="color:#ae81ff">300</span>
-  url<span style="color:#111">:</span> <span style="color:#d88200">&#34;https://jenkins.domain.com/jenkins/view_url&#34;</span>
-  user<span style="color:#111">:</span> <span style="color:#d88200">&#34;username&#34;</span>
-  verifyServerCertificate<span style="color:#111">:</span> <span style="color:#00a8c8">true</span></code></pre></div>
+  secretFile<span style="color:#111">:</span> <span style="color:#d88200">&#34;~/.config/wtf/gcal/client_secret.json&#34;</span>
+  showDeclined<span style="color:#111">:</span> <span style="color:#00a8c8">true</span>
+  withLocation<span style="color:#111">:</span> <span style="color:#00a8c8">true</span></code></pre></div>
 <h3 id="attributes">Attributes</h3>
 
-<p><code>apiKey</code> <br />
-Value: Your <a href="https://wiki.jenkins.io/display/JENKINS/Remote+access+API">Jenkins API</a> key.</p>
+<p><code>colors.title</code> <br />
+The default colour for calendar event titles. <br />
+Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11 color</a> name.</p>
 
-<p><code>enabled</code> <br />
-Determines whether or not this module is executed and if its data displayed onscreen. <br />
+<p><code>colors.description</code> <br />
+The default color for calendar event descriptions. <br />
+Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11 color</a> name.</p>
+
+<p><code>colors.highlights</code> <br />
+A list of arrays that define a regular expression pattern and a color.
+If a calendar event title matches a regular expression, the title will
+be drawn in that colour. Over-rides the default title colour. <br />
+Values: [a valid regular expression, any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11 color</a> name.]</p>
+
+<p><code>colors.past</code> <br />
+The color for calendar events that have passed. <br />
+Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11 color</a> name.</p>
+
+<p><code>conflictIcon</code> <br />
+The icon displayed beside calendar events that have conflicting times
+(they intersect or overlap in some way). <br />
+Values: Any displayable unicode character.</p>
+
+<p><code>currentIcon</code> <br />
+The icon displayed beside the current calendar event. <br />
+Values: Any displayable unicode character.</p>
+
+<p><code>displayLocation</code> <br />
+Whether or not to display the location of the calendar event. <br />
 Values: <code>true</code>, <code>false</code>.</p>
 
+<p><code>displayResponseStatus</code> <br />
+Whether or not to display your response status to the calendar event.
+<br />
+Values: <code>true</code>, <code>false</code>.</p>
+
+<p><code>email</code> <br />
+The email address associated with your Google account. Necessary for
+determining <code>responseStatus</code>. <br />
+Values: A valid email address string.</p>
+
+<p><code>enabled</code> <br />
+Whether or not this module is executed and if its data displayed onscreen. <br />
+Values: <code>true</code>, <code>false</code>.</p>
+
+<p><code>eventCount</code> <br />
+The number of calendar events to display. <br />
+Values: A positive integer, <code>0..n</code>.</p>
+
+<p><code>multiCalendar</code> <br />
+Whether or not to display your primary calendar or all calendars you
+have access to. <br />
+Values: <code>true</code>, or <code>false</code></p>
+
 <p><code>position</code> <br />
-Defines where in the grid this module&rsquo;s widget will be displayed.</p>
+Where in the grid this module&rsquo;s widget will be displayed. <br /></p>
 
 <p><code>refreshInterval</code> <br />
 How often, in seconds, this module will update its data. <br />
 Values: A positive integer, <code>0..n</code>.</p>
 
-<p><code>user</code> <br />
-Your Jenkins username. <br /></p>
+<p><code>secretFile</code> <br />
+Your <a href="https://developers.google.com/calendar/quickstart/go">Google client secret</a> JSON file. <br />
+Values: A string representing a file path to the JSON secret file.</p>
 
-<p><code>url</code> <br />
-The url to your Jenkins project or view. <br />
-Values: A valid URI.</p>
+<p><code>showDeclined</code> <br />
+<em>Optional</em>. Whether or not to display events you&rsquo;ve declined to attend. <br />
+Values: <code>true</code>, or <code>false</code></p>
 
-<p><code>verifyServerCertificate</code> <br />
-<em>Optional</em> <br />
-Determines whether or not the server&rsquo;s certificate chain and host name are verified. <br />
-Values: <code>true</code>, <code>false</code>.</p>
+<p><code>withLocation</code> <br />
+Whether or not to show the location of the appointment. <br />
+Values: <code>true</code>, or <code>false</code></p>
 
 
     
     
         <div class="chevrons">
     <div id="navigation">
-<a class="nav nav-prev" href="/modules/ipaddress/ipinfo/" title="IPInfo"> <i class="fa fa-chevron-left"></i><label>IPInfo</label></a>
-    <a class="nav nav-next" href="/modules/jira/" title="Jira" style="margin-right: 0px;"><label>Jira</label><i class="fa fa-chevron-right"></i></a></div>
+<a class="nav nav-prev" href="/modules/google/" title="Google Apps"> <i class="fa fa-chevron-left"></i><label>Google Apps</label></a>
+    <a class="nav nav-next" href="/modules/google/gspreadsheet/" title="Google Spreadsheets" style="margin-right: 0px;"><label>Google Spreadsheets</label><i class="fa fa-chevron-right"></i></a></div>
   </div>
 
   </section>
@@ -534,12 +600,12 @@ Values: <code>true</code>, <code>false</code>.</p>
 
   
     <div class="date">
-        <i class='fa fa-calendar'></i> Last update on 09/06/2018
+        <i class='fa fa-calendar'></i> Last update on 10/05/2018
     </div>
     
 
     <div class="github-link">
-      <a href="https://github.com/vjeantet/hugo-theme-docdock/edit/master/exampleSite/content/modules/jenkins.md" target="blank"><i class="fa fa-code-fork"></i>
+      <a href="https://github.com/vjeantet/hugo-theme-docdock/edit/master/exampleSite/content/modules/google/gcal.md" target="blank"><i class="fa fa-code-fork"></i>
         Improve this page</a>
     </div>
   </div>

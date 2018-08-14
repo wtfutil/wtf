@@ -6,7 +6,7 @@
       <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta name="generator" content="Hugo 0.46" />
-<title>Jenkins :: WTF - the terminal dashboard</title>
+<title>Hacker News :: WTF - the terminal dashboard</title>
 <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
 <link href="/css/font-awesome.min.css" rel="stylesheet">
 <link href="/css/nucleus.css" rel="stylesheet">
@@ -25,7 +25,7 @@
 
     
   </head>
-  <body data-url="/modules/jenkins/">
+  <body data-url="/modules/hackernews/">
     
       <header>
   <div class="logo">
@@ -228,7 +228,7 @@
     </li>
         </ul>
     </li>
-      <li data-nav-id="/modules/hackernews/" class="dd-item">
+      <li data-nav-id="/modules/hackernews/" class="dd-item active">
         <div>
           <a href="/modules/hackernews/">
             Hacker News
@@ -257,7 +257,7 @@
     </li>
         </ul>
     </li>
-      <li data-nav-id="/modules/jenkins/" class="dd-item active">
+      <li data-nav-id="/modules/jenkins/" class="dd-item">
         <div>
           <a href="/modules/jenkins/">
             Jenkins
@@ -414,11 +414,11 @@
     <option value="/modules/google/" >
   - 
    Google Apps</option>
-      <option value="/modules/hackernews/" >- Hacker News</option>
+      <option value="/modules/hackernews/"  selected>- Hacker News</option>
     <option value="/modules/ipaddress/" >
   - 
    IP Addresses</option>
-      <option value="/modules/jenkins/"  selected>- Jenkins</option>
+      <option value="/modules/jenkins/" >- Jenkins</option>
       <option value="/modules/jira/" >- Jira</option>
       <option value="/modules/logger/" >- Logger</option>
       <option value="/modules/newrelic/" >- New Relic</option>
@@ -458,68 +458,80 @@
       </div>
     
 
-    <h1>Jenkins</h1>
+    <h1>Hacker News</h1>
     
     
     
     
 
-<p><img class="screenshot" src="/imgs/modules/jenkins.png" alt="jenkins screenshot" width="320" height="68" /></p>
+<p>Added in <code>v0.1.2</code>.</p>
 
-<p>Added in <code>v0.0.8</code>.</p>
+<p>Displays stories from Hacker News.</p>
 
-<p>Displays jenkins status of given builds in a project or view</p>
+<p><img src="/imgs/modules/hackernews.png" width="843" height="201" alt="hackernews screenshot" /></p>
 
 <h2 id="source-code">Source Code</h2>
-<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">wtf/jenkins/</code></pre></div>
-<h2 id="configuration">Configuration</h2>
-<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">jenkins<span style="color:#111">:</span>
-  apiKey<span style="color:#111">:</span> <span style="color:#d88200">&#34;3276d7155dd9ee27b8b14f8743a408a9&#34;</span>
-  enabled<span style="color:#111">:</span> <span style="color:#00a8c8">true</span>
-  position<span style="color:#111">:</span>
-    top<span style="color:#111">:</span> <span style="color:#ae81ff">2</span>
-    left<span style="color:#111">:</span> <span style="color:#ae81ff">3</span>
-    height<span style="color:#111">:</span> <span style="color:#ae81ff">2</span>
-    width<span style="color:#111">:</span> <span style="color:#ae81ff">3</span>
-  refreshInterval<span style="color:#111">:</span> <span style="color:#ae81ff">300</span>
-  url<span style="color:#111">:</span> <span style="color:#d88200">&#34;https://jenkins.domain.com/jenkins/view_url&#34;</span>
-  user<span style="color:#111">:</span> <span style="color:#d88200">&#34;username&#34;</span>
-  verifyServerCertificate<span style="color:#111">:</span> <span style="color:#00a8c8">true</span></code></pre></div>
-<h3 id="attributes">Attributes</h3>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">wtf/hackernews/</code></pre></div>
+<h2 id="keyboard-commands">Keyboard Commands</h2>
 
-<p><code>apiKey</code> <br />
-Value: Your <a href="https://wiki.jenkins.io/display/JENKINS/Remote+access+API">Jenkins API</a> key.</p>
+<p><span class="caption">Key:</span> <code>[return]</code> <br />
+<span class="caption">Action:</span> Open the selected story in the browser.</p>
+
+<p><span class="caption">Key:</span> <code>j</code> <br />
+<span class="caption">Action:</span> Select the next story in the list.</p>
+
+<p><span class="caption">Key:</span> <code>k</code> <br />
+<span class="caption">Action:</span> Select the previous story in the list.</p>
+
+<p><span class="caption">Key:</span> <code>r</code> <br />
+<span class="caption">Action:</span> Refresh the data.</p>
+
+<p><span class="caption">Key:</span> <code>↓</code> <br />
+<span class="caption">Action:</span> Select the next story in the list.</p>
+
+<p><span class="caption">Key:</span> <code>↑</code> <br />
+<span class="caption">Action:</span> Select the previous story in the list.</p>
+
+<h2 id="configuration">Configuration</h2>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">hackernews<span style="color:#111">:</span>
+  enabled<span style="color:#111">:</span> <span style="color:#00a8c8">true</span>
+  numberOfStories<span style="color:#111">:</span> <span style="color:#ae81ff">10</span>
+  position<span style="color:#111">:</span>
+    top<span style="color:#111">:</span> <span style="color:#ae81ff">4</span>
+    left<span style="color:#111">:</span> <span style="color:#ae81ff">1</span>
+    height<span style="color:#111">:</span> <span style="color:#ae81ff">1</span>
+    width<span style="color:#111">:</span> <span style="color:#ae81ff">2</span>
+  storyType<span style="color:#111">:</span> top
+  refreshInterval<span style="color:#111">:</span> <span style="color:#ae81ff">900</span></code></pre></div>
+<h3 id="attributes">Attributes</h3>
 
 <p><code>enabled</code> <br />
 Determines whether or not this module is executed and if its data displayed onscreen. <br />
 Values: <code>true</code>, <code>false</code>.</p>
 
+<p><code>numberOfStories</code> <br />
+<em>Optional</em> <br />
+Defines number of stories to be displayed. Default is <code>10</code><br /></p>
+
 <p><code>position</code> <br />
-Defines where in the grid this module&rsquo;s widget will be displayed.</p>
+Defines where in the grid this module&rsquo;s widget will be displayed. <br /></p>
+
+<p><code>storyType</code> <br />
+<em>Optional</em> <br /
+Defines type of stories to be displayed. Default is `top` stories<br />
+Values: <code>new</code>, <code>top</code>, <code>job</code>, <code>ask</code></p>
 
 <p><code>refreshInterval</code> <br />
 How often, in seconds, this module will update its data. <br />
 Values: A positive integer, <code>0..n</code>.</p>
-
-<p><code>user</code> <br />
-Your Jenkins username. <br /></p>
-
-<p><code>url</code> <br />
-The url to your Jenkins project or view. <br />
-Values: A valid URI.</p>
-
-<p><code>verifyServerCertificate</code> <br />
-<em>Optional</em> <br />
-Determines whether or not the server&rsquo;s certificate chain and host name are verified. <br />
-Values: <code>true</code>, <code>false</code>.</p>
 
 
     
     
         <div class="chevrons">
     <div id="navigation">
-<a class="nav nav-prev" href="/modules/ipaddress/ipinfo/" title="IPInfo"> <i class="fa fa-chevron-left"></i><label>IPInfo</label></a>
-    <a class="nav nav-next" href="/modules/jira/" title="Jira" style="margin-right: 0px;"><label>Jira</label><i class="fa fa-chevron-right"></i></a></div>
+<a class="nav nav-prev" href="/modules/google/gspreadsheet/" title="Google Spreadsheets"> <i class="fa fa-chevron-left"></i><label>Google Spreadsheets</label></a>
+    <a class="nav nav-next" href="/modules/ipaddress/" title="IP Addresses" style="margin-right: 0px;"><label>IP Addresses</label><i class="fa fa-chevron-right"></i></a></div>
   </div>
 
   </section>
@@ -534,12 +546,12 @@ Values: <code>true</code>, <code>false</code>.</p>
 
   
     <div class="date">
-        <i class='fa fa-calendar'></i> Last update on 09/06/2018
+        <i class='fa fa-calendar'></i> Last update on 02/08/2018
     </div>
     
 
     <div class="github-link">
-      <a href="https://github.com/vjeantet/hugo-theme-docdock/edit/master/exampleSite/content/modules/jenkins.md" target="blank"><i class="fa fa-code-fork"></i>
+      <a href="https://github.com/vjeantet/hugo-theme-docdock/edit/master/exampleSite/content/modules/hackernews.md" target="blank"><i class="fa fa-code-fork"></i>
         Improve this page</a>
     </div>
   </div>

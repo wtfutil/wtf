@@ -5,12 +5,6 @@ draft: false
 weight: 1
 ---
 
-<span style="font-family: monospace; font-size: 1.6em;">WTF</span> is a personal information dashboard for your terminal, developed for those who spend most of their day in the command line.
-
-It allows you to monitor services and systems that you otherwise might
-keep browser tabs open for, the kinds of things you don't always need
-visible, but might check in on every now and then.
-
 ## Quick Start
 
 1. <a href="https://github.com/senorprogrammer/wtf/releases">Download</a> the stand-alone, compiled binary.

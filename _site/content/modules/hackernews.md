@@ -2,6 +2,7 @@
 title: "Hacker News"
 date: 2018-08-02T16:36:08-04:00
 draft: false
+weight: 123
 ---
 
 Added in `v0.1.2`.

@@ -6,6 +6,18 @@
   text-align: right;
 }
 
+#navigation a {
+  color: #666 !important;
+}
+
+#navigation a:hover {
+  color: #333 !important;
+}
+
+#navigation a label {
+  cursor: pointer !important;
+}
+
 a.highlight {
   border-bottom: none !important;
   padding-left: 6px !important;

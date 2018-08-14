@@ -43,6 +43,11 @@
   </url>
   
   <url>
+    <loc>/modules/google/gcal/</loc>
+    <lastmod>2018-05-10T08:25:33-07:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/modules/bamboohr/</loc>
     <lastmod>2018-05-07T20:17:37-07:00</lastmod>
   </url>
@@ -83,13 +88,13 @@
   </url>
   
   <url>
-    <loc>/modules/cryptocurrencies/</loc>
-    <lastmod>2018-05-07T18:04:58-07:00</lastmod>
+    <loc>/modules/google/gspreadsheet/</loc>
+    <lastmod>2018-06-10T18:26:26-04:00</lastmod>
   </url>
   
   <url>
-    <loc>/modules/gcal/</loc>
-    <lastmod>2018-05-10T08:25:33-07:00</lastmod>
+    <loc>/modules/cryptocurrencies/</loc>
+    <lastmod>2018-05-07T18:04:58-07:00</lastmod>
   </url>
   
   <url>
@@ -113,8 +118,18 @@
   </url>
   
   <url>
-    <loc>/modules/gspreadsheet/</loc>
-    <lastmod>2018-06-10T18:26:26-04:00</lastmod>
+    <loc>/modules/gitter/</loc>
+    <lastmod>2018-08-02T12:36:08-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/modules/google/</loc>
+    <lastmod>2018-08-14T01:39:58-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/modules/hackernews/</loc>
+    <lastmod>2018-08-02T16:36:08-04:00</lastmod>
   </url>
   
   <url>
@@ -198,13 +213,8 @@
   </url>
   
   <url>
-    <loc>/posts/modules/hackernews/</loc>
-    <lastmod>2018-08-02T16:36:08-04:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/posts/modules/gitter/</loc>
-    <lastmod>2018-08-02T12:36:08-04:00</lastmod>
+    <loc>/</loc>
+    <lastmod>2018-08-14T01:51:58-07:00</lastmod>
   </url>
   
   <url>
@@ -227,19 +237,7 @@
   </url>
   
   <url>
-    <loc>/posts/</loc>
-    <lastmod>2018-08-02T16:36:08-04:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>/tags/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/</loc>
-    <lastmod>2018-06-04T20:06:40-07:00</lastmod>
     <priority>0</priority>
   </url>
   

@@ -2,7 +2,7 @@
 title: "Google Calendar"
 date: 2018-05-10T08:25:33-07:00
 draft: false
-weight: 60
+weight: 10
 ---
 
 <img class="screenshot" src="/imgs/modules/gcal.png" width="320" height="389" alt="gcal screenshot" />

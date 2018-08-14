@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>IP Address on WTF - the terminal dashboard</title>
+    <title>IP Addresses on WTF - the terminal dashboard</title>
     <link>/modules/ipaddress/</link>
-    <description>Recent content in IP Address on WTF - the terminal dashboard</description>
+    <description>Recent content in IP Addresses on WTF - the terminal dashboard</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 07 May 2018 18:04:58 -0700</lastBuildDate>

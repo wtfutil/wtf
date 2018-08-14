@@ -171,13 +171,6 @@
     </li>
         </ul>
     </li>
-      <li data-nav-id="/modules/gcal/" class="dd-item">
-        <div>
-          <a href="/modules/gcal/">
-            Google Calendar
-          </a><i class="fa fa-circle-thin read-icon"></i>
-        </div>
-    </li>
       <li data-nav-id="/modules/gerrit/" class="dd-item">
         <div>
           <a href="/modules/gerrit/">
@@ -206,17 +199,46 @@
           </a><i class="fa fa-circle-thin read-icon"></i>
         </div>
     </li>
-      <li data-nav-id="/modules/gspreadsheet/" class="dd-item">
+      <li data-nav-id="/modules/gitter/" class="dd-item">
         <div>
-          <a href="/modules/gspreadsheet/">
+          <a href="/modules/gitter/">
+            Gitter
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+    <li data-nav-id="/modules/google/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/modules/google/">Google Apps</a><i class="fa fa-angle-right fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/modules/google/gcal/" class="dd-item">
+        <div>
+          <a href="/modules/google/gcal/">
+            Google Calendar
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/modules/google/gspreadsheet/" class="dd-item">
+        <div>
+          <a href="/modules/google/gspreadsheet/">
             Google Spreadsheets
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+      <li data-nav-id="/modules/hackernews/" class="dd-item">
+        <div>
+          <a href="/modules/hackernews/">
+            Hacker News
           </a><i class="fa fa-circle-thin read-icon"></i>
         </div>
     </li>
     <li data-nav-id="/modules/ipaddress/" class="dd-item parent haschildren
         ">
       <div>
-      <a href="/modules/ipaddress/">IP Address</a>
+      <a href="/modules/ipaddress/">IP Addresses</a>
             <i class="fa fa-angle-down fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
       </div>
         <ul>
@@ -358,28 +380,6 @@
     </li>
         </ul>
     </li>
-    <li data-nav-id="/posts/" class="dd-item haschildren
-        ">
-      <div>
-      <a href="/posts/">Posts</a><i class="fa fa-angle-right fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
-      </div>
-        <ul>
-      <li data-nav-id="/posts/modules/hackernews/" class="dd-item">
-        <div>
-          <a href="/posts/modules/hackernews/">
-            Hacker News
-          </a><i class="fa fa-circle-thin read-icon"></i>
-        </div>
-    </li>
-      <li data-nav-id="/posts/modules/gitter/" class="dd-item">
-        <div>
-          <a href="/posts/modules/gitter/">
-            Gitter
-          </a><i class="fa fa-circle-thin read-icon"></i>
-        </div>
-    </li>
-        </ul>
-    </li>
 
 
 
@@ -407,15 +407,18 @@
     <option value="/modules/cryptocurrencies/" >
   - 
    Crypo Currencies</option>
-      <option value="/modules/gcal/" >- Google Calendar</option>
       <option value="/modules/gerrit/" >- Gerrit</option>
       <option value="/modules/git/" >- Git</option>
       <option value="/modules/github/" >- GitHub</option>
       <option value="/modules/gitlab/" >- GitLab</option>
-      <option value="/modules/gspreadsheet/" >- Google Spreadsheets</option>
+      <option value="/modules/gitter/" >- Gitter</option>
+    <option value="/modules/google/" >
+  - 
+   Google Apps</option>
+      <option value="/modules/hackernews/" >- Hacker News</option>
     <option value="/modules/ipaddress/" >
   - 
-   IP Address</option> 
+   IP Addresses</option> 
       <option value="/modules/ipaddress/ipapi/" >-- IP-API</option>
       <option value="/modules/ipaddress/ipinfo/"  selected>-- IPInfo</option>
   
@@ -437,8 +440,6 @@
    Weather Services</option>
       <option value="/modules/zendesk/" >- Zendesk</option>
   
-    <option value="/posts/" >
-   Posts</option>
 
 
 

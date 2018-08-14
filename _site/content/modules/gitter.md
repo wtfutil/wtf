@@ -2,6 +2,7 @@
 title: "Gitter"
 date: 2018-08-02T12:36:08-04:00
 draft: false
+weight: 110
 ---
 
 Added in `v0.2.1`.
