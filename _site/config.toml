@@ -57,5 +57,5 @@ weight = 11
 
 [[menu.shortcuts]]
 name = "<i class='fa fa-bullhorn'></i> <label>Credits</label>"
-url = "https://github.com/senorprogrammer/wtf/blob/master/README.md"
+url = "https://github.com/senorprogrammer/wtf/blob/master/README.md#contributors"
 weight = 30
