@@ -16,10 +16,6 @@ NOTE: This only works for single-application developer accounts for now.
 wtf/twitter/
 ```
 
-## Keyboard Commands
-
-None.
-
 ## Configuration
 
 ```yaml
