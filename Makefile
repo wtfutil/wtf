@@ -8,7 +8,6 @@ contrib_check:
 
 install:
 	go clean
-make installd
 	go install -ldflags="-s -w -X main.version=$(shell git describe --always --abbrev=6) -X main.date=$(shell date +%FT%T%z)"
 	which wtf
 
