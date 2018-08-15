@@ -1,16 +1,14 @@
-baseURL = "/"
-
-languageCode = "en-us"
-DefaultContentLanguage = "en"
-title = "WTF - the terminal dashboard"
-theme = "docdock"
-# themesdir = "../.."
-pygmentsCodeFences = true
-pygmentsStyle = "monokailight"
-
+baseURL = "https://wtfutil.com/"
 defaultContentLanguage = "en"
 defaultContentLanguageInSubdir= false
 enableMissingTranslationPlaceholders = false
+languageCode = "en-us"
+publishDir = "../docs"
+pygmentsCodeFences = true
+pygmentsUseClasses = true
+pygmentsStyle = "monokailight"
+theme = "docdock"
+title = "WTF - the terminal dashboard"
 
 # [Languages]
 # [Languages.en]

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Crypo Currencies on WTF - the terminal dashboard</title>
+    <link>https://wtfutil.com/modules/cryptocurrencies/</link>
+    <description>Recent content in Crypo Currencies on WTF - the terminal dashboard</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 07 May 2018 18:04:58 -0700</lastBuildDate>
+    
+	<atom:link href="https://wtfutil.com/modules/cryptocurrencies/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Bittrex</title>
+      <link>https://wtfutil.com/modules/cryptocurrencies/bittrex/</link>
+      <pubDate>Mon, 04 Jun 2018 20:06:40 -0700</pubDate>
+      
+      <guid>https://wtfutil.com/modules/cryptocurrencies/bittrex/</guid>
+      <description>Added in v0.0.5.
+Get the last 24 hour summary of cryptocurrencies market using Bittrex.
+Source Code wtf/cryptoexchanges/bittrex/ Configuration bittrex:enabled:trueposition:top:1left:2height:3width:1refreshInterval:5summary:BTC:displayName:Bitcoinmarket:-LTC-ETHcolors:base:name:orangedisplayName:redmarket:name:redfield:whitevalue:green Attributes colors.base.name Values: Any X11 color name.
+colors.base.dispayName Values: Any X11 color name.
+colors.market.name Values: Any X11 color name.
+colors.market.field Values: Any X11 color name.
+colors.market.value Values: Any X11 color name.
+summary enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.</description>
+    </item>
+    
+    <item>
+      <title>Blockfolio</title>
+      <link>https://wtfutil.com/modules/cryptocurrencies/blockfolio/</link>
+      <pubDate>Wed, 13 Jun 2018 09:29:59 -0700</pubDate>
+      
+      <guid>https://wtfutil.com/modules/cryptocurrencies/blockfolio/</guid>
+      <description>Added in v0.0.8.
+Display your Blockfolio crypto holdings.
+Source wtf/blockfolio/ Configuration blockfolio:colors:name:bluegrows:greendrop:reddevice_token:&amp;#34;device token&amp;#34;displayHoldings:trueenabled:trueposition:top:3left:1width:1height:1refreshInterval:400 Attributes colors.name Values: Any X11 color name.
+colors.grows Values: Any X11 color name.
+colors.drop Values: Any X11 color name.
+device_token Value: See this gist for details on how to get your Blockfolio API token.
+displayHoldings enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.
+position Defines where in the grid this module&amp;rsquo;s widget will be displayed.</description>
+    </item>
+    
+    <item>
+      <title>CryptoLive</title>
+      <link>https://wtfutil.com/modules/cryptocurrencies/cryptolive/</link>
+      <pubDate>Sun, 03 Jun 2018 20:06:40 -0700</pubDate>
+      
+      <guid>https://wtfutil.com/modules/cryptocurrencies/cryptolive/</guid>
+      <description>Added in v0.0.5.
+Compare crypto currencies using CryptoCompare.
+Source Code wtf/cryptoexchanges/cryptolive/ Configuration cryptolive:enabled:trueposition:top:5left:2height:1width:2updateInterval:15currencies:BTC:displayName:Bitcointo:-USD-EUR-ETH-LTC-DOGELTC:displayName:Ethereumto:-USD-EUR-BTCtop:BTC:displayName:Bitcoinlimit:5to:-USDcolors:from:name:coraldisplayName:greyto:name:whiteprice:greentop:from:name:greydisplayName:coralto:name:redfield:whitevalue:green Attributes colors.from.name Values: Any X11 color name.
+colors.from.dispayName Values: Any X11 color name.
+colors.to.name Values: Any X11 color name.
+colors.to.price Values: Any X11 color name.
+currencies enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.
+position Defines where in the grid this module&amp;rsquo;s widget will be displayed. refreshInterval How often, in seconds, this module will update its data.</description>
+    </item>
+    
+  </channel>
+</rss>

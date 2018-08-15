@@ -1,90 +1,57 @@
-html, body
-{
-    font-family: 'Fira Sans', sans-serif;
-    font-size: 18px;
-    font-weight: 300;
-    line-height: 1.5;
+.caption {
+  color: #111;
+  display: inline-block;
+  font-weight: bold;
+  min-width: 64px;
+  text-align: right;
 }
 
-.clear {
-  clear: both;
+#navigation a {
+  color: #666 !important;
 }
 
-.img-circle
-{
-    border-radius: 50%;
+#navigation a:hover {
+  color: #333 !important;
 }
 
-.headshot
-{
-    width: 115px;
-    height: 115px;
+#navigation a label {
+  cursor: pointer !important;
 }
 
-.brand
-{
-    font-size: 2.6em;
-
-    margin-bottom: 0;
-}
-
-.text-center
-{
-    text-align: center;
-}
-
-.meta
-{
-    font-size: .8rem;
-    font-weight: 300;
-}
-
-pre
-{
-    padding: 1px;
-
-    tab-size: 2;
-}
-
-
-.hljs {
-    white-space: pre;
-
-    overflow-x: auto; /* no line wrapping */
-}
-
-pre code, li code, td code, code
-{
-    /*border-radius: 4px;*/
-    white-space: pre-wrap;
-    background-color: white;
-    margin: 0 !important;
-    padding: 0;
-    /*padding:1px 4px;*/
-	/*background: #eee;*/
-	/* color: #444; */
-	/*border: 1px solid #d9d9d9;*/
+a.highlight {
+  border-bottom: none !important;
+  padding-left: 6px !important;
 }
 
 code {
-    font-family: 'Roboto Mono', monospace;
-    font-size: 90%;
-}
-.copyright,
-.poweredby
-{
-    font-size: 13px;
-    font-weight: 300;
+  color: #b97208;
+  display: inline-block;
+  margin: 0 4px !important;
+  padding-left: 0px !important;
 }
 
-.center
-{
-    display: block;
-
-    margin-right: auto;
-    margin-left: auto;
+h1 {
+  text-align: left !important;
 }
-/* Changing from font-awesome 4 to 5, the class pull-right was removed */
-.pull-right {
-    float: right;
+
+h2 {
+  font-weight: normal;
+}
+
+h3 {
+  font-weight: normal;
+}
+
+img.screenshot {
+  margin: 0 0 0 24px !important;
+  padding: 0 !important ;
+  float: right;
+}
+
+p {
+  line-height: 26px;
+}
+
+pre {
+  outline: 1px solid #cdcdcd;
 }

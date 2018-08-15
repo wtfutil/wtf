@@ -1,8 +1,8 @@
 baseURL = "https://wtfutil.com/"
 languageCode = "en-us"
+publishDir = "../docs"
 pygmentsCodeFences = true
 pygmentsUseClasses = true
-publishDir = "../docs"
 sectionPagesMenu = "main"
 theme = "hyde-hyde"
 title = "WTF - A Terminal Dashboard"

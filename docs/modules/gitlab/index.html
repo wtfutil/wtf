@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>WTF - the terminal dashboard</title>
+    
+      <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="generator" content="Hugo 0.46" />
+<title>GitLab :: WTF - the terminal dashboard</title>
+<link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
+<link href="/css/font-awesome.min.css" rel="stylesheet">
+<link href="/css/nucleus.css" rel="stylesheet">
+<link href="/theme-flex/style.css" rel="stylesheet">
+
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<script src="/js/jquery-2.x.min.js"></script>
+<script type="text/javascript">
+      var baseurl = "https:\/\/wtfutil.com\/";
+</script>
+<meta name="description" content="">
+
+
+<link rel="stylesheet" href="/css/custom.css">
+
+
+    
+  </head>
+  <body data-url="/modules/gitlab/">
+    
+      <header>
+  <div class="logo">
+    
+	
+  
+    <a class="baselink" href="https://wtfutil.com/">WTF - the terminal dashboard</a>
+  
+
+  </div>
+  <div class="burger"><a href="javascript:void(0);" style="font-size:15px;">&#9776;</a></div>
+    <nav class="shortcuts">
+            <li class="" role="">
+                <a href="https://github.com/senorprogrammer/wtf"  rel="noopener">
+                  <i class='fa fa-github'></i> <label>WTF on Github</label>
+                </a>
+            </li>
+            <li class="" role="">
+                <a href="https://github.com/senorprogrammer/wtf/releases"  rel="noopener">
+                  <i class='fa fa-cloud-download'></i> <label>Download WTF</label>
+                </a>
+            </li>
+            <li class="" role="">
+                <a href="https://github.com/senorprogrammer/wtf/blob/master/README.md#contributors"  rel="noopener">
+                  <i class='fa fa-bullhorn'></i> <label>Credits</label>
+                </a>
+            </li>
+    </nav>
+</header>
+<article>
+  <aside>
+    <ul class="menu">
+          <li data-nav-id="/" class="dd-item">
+          <a href="/">
+            <i class="fa fa-fw fa-home"></i>
+          </a>
+          </li>
+    <li data-nav-id="/getting_started/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/getting_started/">Getting Started</a><i class="fa fa-angle-right fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/getting_started/installation/" class="dd-item">
+        <div>
+          <a href="/getting_started/installation/">
+            Installation
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/getting_started/glossary/" class="dd-item">
+        <div>
+          <a href="/getting_started/glossary/">
+            Glossary
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/configuration/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/configuration/">Configuration</a><i class="fa fa-angle-right fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/configuration/attributes/" class="dd-item">
+        <div>
+          <a href="/configuration/attributes/">
+            Attributes
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/configuration/iterm2/" class="dd-item">
+        <div>
+          <a href="/configuration/iterm2/">
+            iTerm2
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/modules/" class="dd-item parent haschildren
+        ">
+      <div>
+      <a href="/modules/">Modules</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/modules/bamboohr/" class="dd-item">
+        <div>
+          <a href="/modules/bamboohr/">
+            BambooHR
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/modules/circleci/" class="dd-item">
+        <div>
+          <a href="/modules/circleci/">
+            CircleCI
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/modules/clocks/" class="dd-item">
+        <div>
+          <a href="/modules/clocks/">
+            Clocks
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/modules/cmdrunner/" class="dd-item">
+        <div>
+          <a href="/modules/cmdrunner/">
+            CmdRunner
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+    <li data-nav-id="/modules/cryptocurrencies/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/modules/cryptocurrencies/">Crypo Currencies</a><i class="fa fa-angle-right fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/modules/cryptocurrencies/bittrex/" class="dd-item">
+        <div>
+          <a href="/modules/cryptocurrencies/bittrex/">
+            Bittrex
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/modules/cryptocurrencies/blockfolio/" class="dd-item">
+        <div>
+          <a href="/modules/cryptocurrencies/blockfolio/">
+            Blockfolio
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/modules/cryptocurrencies/cryptolive/" class="dd-item">
+        <div>
+          <a href="/modules/cryptocurrencies/cryptolive/">
+            CryptoLive
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+      <li data-nav-id="/modules/gerrit/" class="dd-item">
+        <div>
+          <a href="/modules/gerrit/">
+            Gerrit
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/modules/git/" class="dd-item">
+        <div>
+          <a href="/modules/git/">
+            Git
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/modules/github/" class="dd-item">
+        <div>
+          <a href="/modules/github/">
+            GitHub
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/modules/gitlab/" class="dd-item active">
+        <div>
+          <a href="/modules/gitlab/">
+            GitLab
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/modules/gitter/" class="dd-item">
+        <div>
+          <a href="/modules/gitter/">
+            Gitter
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+    <li data-nav-id="/modules/google/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/modules/google/">Google Apps</a><i class="fa fa-angle-right fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/modules/google/gcal/" class="dd-item">
+        <div>
+          <a href="/modules/google/gcal/">
+            Google Calendar
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/modules/google/gspreadsheet/" class="dd-item">
+        <div>
+          <a href="/modules/google/gspreadsheet/">
+            Google Spreadsheets
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+      <li data-nav-id="/modules/hackernews/" class="dd-item">
+        <div>
+          <a href="/modules/hackernews/">
+            Hacker News
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+    <li data-nav-id="/modules/ipaddress/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/modules/ipaddress/">IP Addresses</a><i class="fa fa-angle-right fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/modules/ipaddress/ipapi/" class="dd-item">
+        <div>
+          <a href="/modules/ipaddress/ipapi/">
+            IP-API
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/modules/ipaddress/ipinfo/" class="dd-item">
+        <div>
+          <a href="/modules/ipaddress/ipinfo/">
+            IPInfo
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+      <li data-nav-id="/modules/jenkins/" class="dd-item">
+        <div>
+          <a href="/modules/jenkins/">
+            Jenkins
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/modules/jira/" class="dd-item">
+        <div>
+          <a href="/modules/jira/">
+            Jira
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/modules/logger/" class="dd-item">
+        <div>
+          <a href="/modules/logger/">
+            Logger
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/modules/newrelic/" class="dd-item">
+        <div>
+          <a href="/modules/newrelic/">
+            New Relic
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/modules/opsgenie/" class="dd-item">
+        <div>
+          <a href="/modules/opsgenie/">
+            OpsGenie
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/modules/power/" class="dd-item">
+        <div>
+          <a href="/modules/power/">
+            Power
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/modules/security/" class="dd-item">
+        <div>
+          <a href="/modules/security/">
+            Security
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/modules/textfile/" class="dd-item">
+        <div>
+          <a href="/modules/textfile/">
+            Textfile
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/modules/todo/" class="dd-item">
+        <div>
+          <a href="/modules/todo/">
+            Todo
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/modules/todoist/" class="dd-item">
+        <div>
+          <a href="/modules/todoist/">
+            Todoist
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/modules/travisci/" class="dd-item">
+        <div>
+          <a href="/modules/travisci/">
+            TravisCI
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/modules/trello/" class="dd-item">
+        <div>
+          <a href="/modules/trello/">
+            Trello
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/modules/twitter/" class="dd-item">
+        <div>
+          <a href="/modules/twitter/">
+            Twitter
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+    <li data-nav-id="/modules/weather_services/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/modules/weather_services/">Weather Services</a><i class="fa fa-angle-right fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/modules/weather_services/prettyweather/" class="dd-item">
+        <div>
+          <a href="/modules/weather_services/prettyweather/">
+            Pretty Weather
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+      <li data-nav-id="/modules/weather_services/weather/" class="dd-item">
+        <div>
+          <a href="/modules/weather_services/weather/">
+            Weather
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+      <li data-nav-id="/modules/zendesk/" class="dd-item">
+        <div>
+          <a href="/modules/zendesk/">
+            Zendesk
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+
+
+
+
+    </ul>
+    <section>
+    </section>
+  </aside>
+  <section class="page">
+    
+    <div class="nav-select">
+      <center>Navigation : 
+        <select onchange="javascript:location.href = this.value;">
+          
+    <option value="/getting_started/" >
+   Getting Started</option>
+    <option value="/configuration/" >
+   Configuration</option>
+    <option value="/modules/" >
+   Modules</option> 
+      <option value="/modules/bamboohr/" >- BambooHR</option>
+      <option value="/modules/circleci/" >- CircleCI</option>
+      <option value="/modules/clocks/" >- Clocks</option>
+      <option value="/modules/cmdrunner/" >- CmdRunner</option>
+    <option value="/modules/cryptocurrencies/" >
+  - 
+   Crypo Currencies</option>
+      <option value="/modules/gerrit/" >- Gerrit</option>
+      <option value="/modules/git/" >- Git</option>
+      <option value="/modules/github/" >- GitHub</option>
+      <option value="/modules/gitlab/"  selected>- GitLab</option>
+      <option value="/modules/gitter/" >- Gitter</option>
+    <option value="/modules/google/" >
+  - 
+   Google Apps</option>
+      <option value="/modules/hackernews/" >- Hacker News</option>
+    <option value="/modules/ipaddress/" >
+  - 
+   IP Addresses</option>
+      <option value="/modules/jenkins/" >- Jenkins</option>
+      <option value="/modules/jira/" >- Jira</option>
+      <option value="/modules/logger/" >- Logger</option>
+      <option value="/modules/newrelic/" >- New Relic</option>
+      <option value="/modules/opsgenie/" >- OpsGenie</option>
+      <option value="/modules/power/" >- Power</option>
+      <option value="/modules/security/" >- Security</option>
+      <option value="/modules/textfile/" >- Textfile</option>
+      <option value="/modules/todo/" >- Todo</option>
+      <option value="/modules/todoist/" >- Todoist</option>
+      <option value="/modules/travisci/" >- TravisCI</option>
+      <option value="/modules/trello/" >- Trello</option>
+      <option value="/modules/twitter/" >- Twitter</option>
+    <option value="/modules/weather_services/" >
+  - 
+   Weather Services</option>
+      <option value="/modules/zendesk/" >- Zendesk</option>
+  
+
+
+
+        </select>
+      </center>
+    </div>
+      <div>
+        <div class="searchbox">
+          <input data-search-input id="search-by" type="text" placeholder="Search...">
+        </div>
+        <script type="text/javascript" src="/js/lunr.min.js"></script>
+        <script type="text/javascript" src="/js/auto-complete.js"></script>
+        <link href="/css/auto-complete.css" rel="stylesheet">
+        <script type="text/javascript">
+          
+              var baseurl = "https:\/\/wtfutil.com\/";
+          
+        </script>
+        <script type="text/javascript" src="/js/search.js"></script>
+      </div>
+    
+
+    <h1>GitLab</h1>
+    
+    
+    
+    
+
+<p><img class="screenshot" src="/imgs/modules/gitlab.png" width="640" height="390" alt="gitlab screenshot" /></p>
+
+<p>Added in <code>v0.0.8</code>.</p>
+
+<p>Displays information about your projects hosted on GitLab:</p>
+
+<h4 id="open-approval-requests">Open Approval Requests</h4>
+
+<p>All open merge requests that are requesting your approval.</p>
+
+<h4 id="open-merge-requests">Open Merge Requests</h4>
+
+<p>All open merge requests created by you.</p>
+
+<h2 id="source-code">Source Code</h2>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">wtf/gitlab/</code></pre></div>
+<h2 id="keyboard-commands">Keyboard Commands</h2>
+
+<p><span class="caption">Key:</span> <code>/</code> <br />
+<span class="caption">Action:</span> Open/close the widget&rsquo;s help window.</p>
+
+<p><span class="caption">Key:</span> <code>h</code> <br />
+<span class="caption">Action:</span> Show the previous project.</p>
+
+<p><span class="caption">Key:</span> <code>l</code> <br />
+<span class="caption">Action:</span> Show the next project.</p>
+
+<p><span class="caption">Key:</span> <code>←</code> <br />
+<span class="caption">Action:</span> Show the previous project.</p>
+
+<p><span class="caption">Key:</span> <code>→</code> <br />
+<span class="caption">Action:</span> Show the next project.</p>
+
+<h2 id="configuration">Configuration</h2>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">gitlab<span class="p">:</span><span class="w">
+</span><span class="w">  </span>apiKey<span class="p">:</span><span class="w"> </span><span class="s2">&#34;3276d7155dd9ee27b8b14f8743a408a9&#34;</span><span class="w">
+</span><span class="w">  </span>enabled<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span>position<span class="p">:</span><span class="w">
+</span><span class="w">    </span>top<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span><span class="w">    </span>left<span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
+</span><span class="w">    </span>height<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span><span class="w">    </span>width<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span><span class="w">  </span>refreshInterval<span class="p">:</span><span class="w"> </span><span class="m">300</span><span class="w">
+</span><span class="w">  </span>projects<span class="p">:</span><span class="w">
+</span><span class="w">    </span>tasks<span class="p">:</span><span class="w"> </span><span class="s2">&#34;gitlab-org/release&#34;</span><span class="w">
+</span><span class="w">    </span>gitlab-ce<span class="p">:</span><span class="w"> </span><span class="s2">&#34;gitlab-org&#34;</span><span class="w">
+</span><span class="w">  </span>username<span class="p">:</span><span class="w"> </span><span class="s2">&#34;senorprogrammer&#34;</span></code></pre></div>
+<h3 id="attributes">Attributes</h3>
+
+<p><code>apiKey</code> <br />
+Value:  A <a href="https://docs.gitlab.com/ce/user/profile/personal_access_tokens.html">GitLab personal access token</a>. Requires at least <code>api</code> access.</p>
+
+<p><code>enabled</code> <br />
+Determines whether or not this module is executed and if its data displayed onscreen. <br />
+Values: <code>true</code>, <code>false</code>.</p>
+
+<p><code>position</code> <br />
+Defines where in the grid this module&rsquo;s widget will be displayed. <br /></p>
+
+<p><code>refreshInterval</code> <br />
+How often, in seconds, this module will update its data. <br />
+Values: A positive integer, <code>0..n</code>.</p>
+
+<p><code>domain</code> <br />
+<em>Optional</em>. Your GitLab corporate domain. <br />
+Values: A valid URI.</p>
+
+<p><code>projects</code> <br />
+A list of key/value pairs each describing a GitLab project to fetch data
+for. <br />
+<span class="caption">Key:</span> The name of the project. <br />
+<span class="caption">Value:</span> The namespace of the project.</p>
+
+<p><code>username</code> <br />
+Your GitLab username. Used to figure out which requests require your approval</p>
+
+
+    
+    
+        <div class="chevrons">
+    <div id="navigation">
+<a class="nav nav-prev" href="/modules/github/" title="GitHub"> <i class="fa fa-chevron-left"></i><label>GitHub</label></a>
+    <a class="nav nav-next" href="/modules/gitter/" title="Gitter" style="margin-right: 0px;"><label>Gitter</label><i class="fa fa-chevron-right"></i></a></div>
+  </div>
+
+  </section>
+</article>
+
+<footer>
+
+<div class="footline">
+    
+
+    
+
+  
+    <div class="date">
+        <i class='fa fa-calendar'></i> Last update on 08/06/2018
+    </div>
+    
+
+    <div class="github-link">
+      <a href="https://github.com/vjeantet/hugo-theme-docdock/edit/master/exampleSite/content/modules/gitlab.md" target="blank"><i class="fa fa-code-fork"></i>
+        Improve this page</a>
+    </div>
+  </div>
+
+
+	<div>
+
+
+  
+    
+  
+
+
+
+	</div>
+</footer>
+
+<script src="/js/clipboard.min.js"></script>
+
+<link href="/css/featherlight.min.css" rel="stylesheet">
+<script src="/js/featherlight.min.js"></script>
+
+
+
+<script src="/theme-flex/script.js"></script>
+
+    
+
+    
+    
+
+    
+  </body>
+</html>

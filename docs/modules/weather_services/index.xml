@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Weather Services on WTF - the terminal dashboard</title>
+    <link>https://wtfutil.com/modules/weather_services/</link>
+    <description>Recent content in Weather Services on WTF - the terminal dashboard</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 07 May 2018 18:04:58 -0700</lastBuildDate>
+    
+	<atom:link href="https://wtfutil.com/modules/weather_services/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Pretty Weather</title>
+      <link>https://wtfutil.com/modules/weather_services/prettyweather/</link>
+      <pubDate>Sat, 02 Jun 2018 05:32:04 -0700</pubDate>
+      
+      <guid>https://wtfutil.com/modules/weather_services/prettyweather/</guid>
+      <description>Displays weather information as ASCII art from Wttr.in.
+Source Code wtf/prettyweather/ Configuration prettyweather:enabled:truecity:&amp;#34;tehran&amp;#34;position:top:3left:5height:1width:1refreshInterval:300unit:&amp;#34;c&amp;#34;view:0language:&amp;#34;en&amp;#34; Attributes city Optional. It will grab the current location from your IP address if omitted.
+Values: The name of any city supported by Wttr.in.
+enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.
+position Defines where in the grid this module&amp;rsquo;s widget will be displayed. refreshInterval How often, in seconds, this module will update its data.</description>
+    </item>
+    
+    <item>
+      <title>Weather</title>
+      <link>https://wtfutil.com/modules/weather_services/weather/</link>
+      <pubDate>Wed, 09 May 2018 11:44:13 -0700</pubDate>
+      
+      <guid>https://wtfutil.com/modules/weather_services/weather/</guid>
+      <description>Displays a configurable list of current weather report, including current temperature, sunrise time, and sunset time.
+Source Code wtf/weather/ Keyboard Commands Key: / Action: Open/close the widget&amp;rsquo;s help window.
+Key: h Action: Show the previous weather location.
+Key: l Action: Show the next weather location.
+Key: ← Action: Show the previous weather location.
+Key: → Action: Show the next weather location.
+Configuration weather:apiKey:&amp;#34;2dfb3e3650a1950adddb6badf5ba1aaa&amp;#34;# From http://openweathermap.org/help/city_list.txtcityids:-6173331-3128760-6167865-6176823colors:current:&amp;#34;lightblue&amp;#34;enabled:truelanguage:&amp;#34;EN&amp;#34;position:top:0left:2height:1width:1refreshInterval:900tempUnit:&amp;#34;C&amp;#34; Attributes apiKey Your OpenWeatherMap API key.</description>
+    </item>
+    
+  </channel>
+</rss>

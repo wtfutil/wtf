@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Configuration on WTF - the terminal dashboard</title>
+    <link>https://wtfutil.com/configuration/</link>
+    <description>Recent content in Configuration on WTF - the terminal dashboard</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 15 Apr 2018 21:17:16 -0700</lastBuildDate>
+    
+	<atom:link href="https://wtfutil.com/configuration/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Attributes</title>
+      <link>https://wtfutil.com/configuration/attributes/</link>
+      <pubDate>Wed, 16 May 2018 21:51:23 -0700</pubDate>
+      
+      <guid>https://wtfutil.com/configuration/attributes/</guid>
+      <description>The following top-level attributes are configurable in config.yml. See this example config file for more details.
+wtf:colors:background:&amp;#34;red&amp;#34;border:focusable:&amp;#34;darkslateblue&amp;#34;focused:&amp;#34;orange&amp;#34;normal:&amp;#34;gray&amp;#34;grid:# How _wide_ the columns are, in terminal characters. In this case we have# six columns, each of which are 35 characters widecolumns:[35,35,35,35,35,35]# How _high_ the rows are, in terminal lines. In this case we have five rows# that support ten line of text, one of three lines, and one of fourrows:[10,10,10,10,10,3,4]openFileUtil:open# the name of the utility to call to open filesrefreshInterval:1# the app refreshes once per secondterm:&amp;#34;xterm-256color&amp;#34; Attributes colors.</description>
+    </item>
+    
+    <item>
+      <title>iTerm2</title>
+      <link>https://wtfutil.com/configuration/iterm2/</link>
+      <pubDate>Thu, 24 May 2018 09:57:40 -0700</pubDate>
+      
+      <guid>https://wtfutil.com/configuration/iterm2/</guid>
+      <description>Many terminal apps don&amp;rsquo;t properly display multibyte emoji characters properly. This may fix the issue for you in iTerm2, it also may not.
+By default iTerm2 uses a unicode rendering format that is not comletely compatible with some emoji characters. Instead what you&amp;rsquo;ll see is the emoji over-lapping normal text characters, or drawing outside the bounds of where they should be.
+In iTerm2 open:
+Preferences -&amp;gt; Profiles -&amp;gt; Text and check on the &amp;ldquo;Use Unicode Version 9 Widths&amp;rdquo; checkbox.</description>
+    </item>
+    
+  </channel>
+</rss>

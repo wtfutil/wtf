@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Getting Started on WTF - the terminal dashboard</title>
+    <link>https://wtfutil.com/getting_started/</link>
+    <description>Recent content in Getting Started on WTF - the terminal dashboard</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 21 May 2018 16:11:58 -0700</lastBuildDate>
+    
+	<atom:link href="https://wtfutil.com/getting_started/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Installation</title>
+      <link>https://wtfutil.com/getting_started/installation/</link>
+      <pubDate>Fri, 18 May 2018 09:59:40 -0700</pubDate>
+      
+      <guid>https://wtfutil.com/getting_started/installation/</guid>
+      <description>As a Binary Grab the latest version from here:
+https://github.com/senorprogrammer/wtf/releases expand it, and cd into the resulting directory. Then run:
+./wtf and that should also do it.
+From Source Download the source code repo and install the dependencies:
+go get -u github.com/senorprogrammer/wtf cd $GOPATH/src/github.com/senorprogrammer/wtf go install -ldflags=&amp;#34;-s -w&amp;#34; make run and that should do it.</description>
+    </item>
+    
+    <item>
+      <title>Glossary</title>
+      <link>https://wtfutil.com/getting_started/glossary/</link>
+      <pubDate>Tue, 17 Apr 2018 12:34:51 -0700</pubDate>
+      
+      <guid>https://wtfutil.com/getting_started/glossary/</guid>
+      <description>Module A discreet unit of data collection and display. A data interface concept. A package inside the app.
+Examples: New Relic, Git, Weather.
+Widget The onscreen representation of a Module. The widget is responsible for being the interface between the app and the data collection.
+Widgets are defined by a required widget.go file in a Module.</description>
+    </item>
+    
+  </channel>
+</rss>

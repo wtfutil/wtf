@@ -1,0 +1,23 @@
+// main: theme.scss
+
+@font-face {
+    font-family: 'Novacento Sans Wide';
+    src: url("../fonts/Novecentosanswide-UltraLight-webfont.eot");
+    src: url("../fonts/Novecentosanswide-UltraLight-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/Novecentosanswide-UltraLight-webfont.woff2") format("woff2"), url("../fonts/Novecentosanswide-UltraLight-webfont.woff") format("woff"), url("../fonts/Novecentosanswide-UltraLight-webfont.ttf") format("truetype"), url("../fonts/Novecentosanswide-UltraLight-webfont.svg#novecento_sans_wideultralight") format("svg");
+    font-style: normal;
+    font-weight: 200;
+}
+
+@font-face{
+    font-family:"Lato";
+    font-style:normal;
+    font-weight:400;
+    src:local("Lato Regular"),local("Lato-Regular"), url(../fonts/Lato-Regular.woff2) format("woff2"), url(../fonts/Lato-Regular.ttf) format("truetype");
+}
+
+@font-face{
+    font-family:"Lato";
+    font-style:normal;
+    font-weight:700;
+    src:local("Lato Bold"),local("Lato-Bold"), url(../fonts/Lato-Bold.woff2) format("woff2"), url(../fonts/Lato-Bold.ttf) format("truetype");
+}

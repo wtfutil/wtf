@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Categories on WTF - A Terminal Dashboard</title>
+    <title>Categories on WTF - the terminal dashboard</title>
     <link>https://wtfutil.com/categories/</link>
-    <description>Recent content in Categories on WTF - A Terminal Dashboard</description>
+    <description>Recent content in Categories on WTF - the terminal dashboard</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     
