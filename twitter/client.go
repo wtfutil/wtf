@@ -25,7 +25,7 @@ type Client struct {
 func NewClient(url string) *Client {
 	client := Client{
 		apiBase:    url,
-		screenName: "senorprogrammer",
+		screenName: wtf.Config.UString("wtf.mods.twitter.screenName", "wtfutil"),
 		count:      5,
 	}
 
