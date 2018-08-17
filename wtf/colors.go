@@ -435,7 +435,6 @@ func replaceWithHexColorString(substring string) string {
 	colorID, err := strconv.Atoi(strings.Trim(
 		strings.Split(substring, ";")[2], "m"))
 	if err != nil {
-		fmt.Println("ERROR", err)
 		return substring
 	}
 
