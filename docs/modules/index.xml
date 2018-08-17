@@ -327,7 +327,7 @@ Connects to the Twitter API and displays a single user&amp;rsquo;s tweets.
 NOTE: This only works for single-application developer accounts for now.
 To make this work, you&amp;rsquo;ll need a couple of things:
  A Twitter developer account A Twitter bearer token.  Once you have your developer account, a relatively painless way to get a bearer token is to use TBT.
-Source Code wtf/twitter/ Configuration twitter:bearerToken:&amp;#34;3276d7155dd9ee27b8b14f8743a408a9&amp;#34;enabled:trueposition:top:0left:1height:1width:1refreshInterval:20000 Attributes bearerToken Value: Your Twitter single-application Bearer Token</description>
+Source Code wtf/twitter/ Configuration twitter:bearerToken:&amp;#34;3276d7155dd9ee27b8b14f8743a408a9&amp;#34;enabled:trueposition:top:0left:1height:1width:1refreshInterval:20000screenName:&amp;#34;wtfutil&amp;#34; Attributes bearerToken Value: Your Twitter single-application Bearer Token</description>
     </item>
     
     <item>

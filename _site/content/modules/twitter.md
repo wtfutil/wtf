@@ -37,6 +37,7 @@ twitter:
     height: 1
     width: 1
   refreshInterval: 20000
+  screenName: "wtfutil"
 ```
 
 ### Attributes
@@ -54,3 +55,7 @@ Defines where in the grid this module's widget will be displayed. <br />
 `refreshInterval` <br />
 How often, in seconds, this module will update its data. <br />
 Values: Any positive integer, `0..n`.
+
+`screenName` <br />
+The screen name of the Twitter user who's tweets you want to follow. <br />
+Values: Any valid Twitter user's screen name.
