@@ -11,8 +11,13 @@ Connects to the Twitter API and displays a single user's tweets.
 
 NOTE: This only works for single-application developer accounts for now.
 
-To get your bearer token, please see:
-https://github.com/Trinergy/twitter_bearer_token
+To make this work, you'll need a couple of things:
+
+1. A [Twitter developer account](https://developer.twitter.com/content/developer-twitter/en.html)
+2. A [Twitter bearer token](https://developer.twitter.com/en/docs/basics/authentication/overview/application-only).
+
+Once you have your developer account, a relatively painless way to get a
+bearer token is to use [TBT](https://github.com/Trinergy/twitter_bearer_token).
 
 ## Source Code
 

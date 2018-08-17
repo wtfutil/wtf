@@ -25,7 +25,7 @@ type Client struct {
 func NewClient(url string) *Client {
 	client := Client{
 		apiBase:    url,
-		screenName: "wtfutil",
+		screenName: "senorprogrammer",
 		count:      5,
 	}
 

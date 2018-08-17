@@ -277,7 +277,7 @@
 	"title": "Twitter",
 	"tags": [],
 	"description": "",
-	"content": " Added in v0.2.0.\nConnects to the Twitter API and displays a single user\u0026rsquo;s tweets.\nNOTE: This only works for single-application developer accounts for now.\nSource Code wtf/twitter/ Configuration twitter:bearerToken:\u0026#34;3276d7155dd9ee27b8b14f8743a408a9\u0026#34;enabled:trueposition:top:0left:1height:1width:1refreshInterval:20000 Attributes bearerToken Value: Your Twitter single-application Bearer Token\nenabled Whether or not this module is executed and if its data displayed onscreen. Values: true, false.\nposition Defines where in the grid this module\u0026rsquo;s widget will be displayed. refreshInterval How often, in seconds, this module will update its data. Values: Any positive integer, 0..n.\n"
+	"content": " Added in v0.2.0.\nConnects to the Twitter API and displays a single user\u0026rsquo;s tweets.\nNOTE: This only works for single-application developer accounts for now.\nTo get your bearer token, please see: https://github.com/Trinergy/twitter_bearer_token\nSource Code wtf/twitter/ Configuration twitter:bearerToken:\u0026#34;3276d7155dd9ee27b8b14f8743a408a9\u0026#34;enabled:trueposition:top:0left:1height:1width:1refreshInterval:20000 Attributes bearerToken Value: Your Twitter single-application Bearer Token\nenabled Whether or not this module is executed and if its data displayed onscreen. Values: true, false.\nposition Defines where in the grid this module\u0026rsquo;s widget will be displayed. refreshInterval How often, in seconds, this module will update its data. Values: Any positive integer, 0..n.\n"
 },
 {
 	"uri": "https://wtfutil.com/modules/weather_services/",

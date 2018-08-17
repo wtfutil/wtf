@@ -475,9 +475,10 @@ board The name of the Trello board. enabled Determines whether or not this modul
       <description>Added in v0.2.0.
 Connects to the Twitter API and displays a single user&amp;rsquo;s tweets.
 NOTE: This only works for single-application developer accounts for now.
+To get your bearer token, please see: https://github.com/Trinergy/twitter_bearer_token
 Source Code wtf/twitter/ Configuration twitter:bearerToken:&amp;#34;3276d7155dd9ee27b8b14f8743a408a9&amp;#34;enabled:trueposition:top:0left:1height:1width:1refreshInterval:20000 Attributes bearerToken Value: Your Twitter single-application Bearer Token
 enabled Whether or not this module is executed and if its data displayed onscreen. Values: true, false.
-position Defines where in the grid this module&amp;rsquo;s widget will be displayed. refreshInterval How often, in seconds, this module will update its data.</description>
+position Defines where in the grid this module&amp;rsquo;s widget will be displayed.</description>
     </item>
     
     <item>
