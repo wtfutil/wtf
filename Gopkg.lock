@@ -74,6 +74,14 @@
   revision = "5f41b7c9d92de5d74bf32f4486375c7547bc8a3c"
 
 [[projects]]
+  digest = "1:2209584c0f7c9b68c23374e659357ab546e1b70eec2761f03280f69a8fd23d77"
+  name = "github.com/cenkalti/backoff"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "2ea60e5f094469f9e65adb9cd103795b73ae743e"
+  version = "v2.0.0"
+
+[[projects]]
   branch = "master"
   digest = "1:710109527a119c813d4fac773712dd92f449ed7c2f7b81f49822f94d290c8f72"
   name = "github.com/danwakefield/fnmatch"
@@ -249,6 +257,14 @@
 
 [[projects]]
   branch = "master"
+  digest = "1:f6f2814b88ad3dd5ca45e1e9a7a0caba1ddb1bfaf1c4173ebd991d854e1669eb"
+  name = "github.com/zorkian/go-datadog-api"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "d7b8b10db6a7eb1c1c2424b10a795a1662e80c9a"
+
+[[projects]]
+  branch = "master"
   digest = "1:d6b719875cf8091fbab38527d81d34e71f4521b9ee9ccfbd4a32cff2ac5af96e"
   name = "golang.org/x/net"
   packages = [
@@ -348,6 +364,7 @@
     "github.com/stretchr/testify/assert",
     "github.com/xanzy/go-gitlab",
     "github.com/yfronto/newrelic",
+    "github.com/zorkian/go-datadog-api",
     "golang.org/x/oauth2",
     "golang.org/x/oauth2/google",
     "google.golang.org/api/calendar/v3",

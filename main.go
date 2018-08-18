@@ -20,6 +20,7 @@ import (
 	"github.com/senorprogrammer/wtf/cryptoexchanges/bittrex"
 	"github.com/senorprogrammer/wtf/cryptoexchanges/blockfolio"
 	"github.com/senorprogrammer/wtf/cryptoexchanges/cryptolive"
+	"github.com/senorprogrammer/wtf/datadog"
 	"github.com/senorprogrammer/wtf/flags"
 	"github.com/senorprogrammer/wtf/gcal"
 	"github.com/senorprogrammer/wtf/gerrit"
@@ -195,6 +196,8 @@ func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
 		widgets = append(widgets, cmdrunner.NewWidget())
 	case "cryptolive":
 		widgets = append(widgets, cryptolive.NewWidget())
+	case "datadog":
+		widgets = append(widgets, datadog.NewWidget())
 	case "gcal":
 		widgets = append(widgets, gcal.NewWidget())
 	case "gerrit":
