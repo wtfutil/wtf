@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.2.1 (unreleased)
+## 0.2.1 (Aug 17, 2018)
 
 ### ⚡️ Added
 
@@ -15,7 +15,7 @@
 * Sigils no longer display when there's only one option - @anandsudhir ([#291](https://github.com/senorprogrammer/wtf/issues/291))
 * Jira module now responds to the "/" key - @senorprogrammer ([#268](https://github.com/senorprogrammer/wtf/issues/268))
 
-## 0.2.0
+## 0.2.0 (Aug 3, 2018)
 
 ### ⚡️ Added
 
