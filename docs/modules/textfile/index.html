@@ -482,6 +482,8 @@
 <div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">textfile<span class="p">:</span><span class="w">
 </span><span class="w">  </span>enabled<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span><span class="w">  </span>filePath<span class="p">:</span><span class="w"> </span><span class="s2">&#34;~/Desktop/notes.md&#34;</span><span class="w">
+</span><span class="w">  </span>format<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span>formatStyle<span class="p">:</span><span class="w"> </span><span class="s2">&#34;dracula&#34;</span><span class="w">
 </span><span class="w">  </span>position<span class="p">:</span><span class="w">
 </span><span class="w">    </span>top<span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
 </span><span class="w">    </span>left<span class="p">:</span><span class="w"> </span><span class="m">4</span><span class="w">
@@ -496,6 +498,17 @@ Values: <code>true</code>, <code>false</code>.</p>
 
 <p><code>filePath</code> <br />
 The path to the file to be displayed in the widget. <br /></p>
+
+<p><code>format</code> <br />
+Whether or not to try and format and syntax highlight the displayedtext. <br />
+Values: <code>true</code>, <code>false</code>. <br />
+Default: <code>false</code>.</p>
+
+<p><code>formatStyle</code> <br />
+The style of syntax highlighting to format the text with. <br />
+Values: See <a href="https://github.com/alecthomas/chroma/tree/master/styles">Chroma styles</a> for all
+valid options. <br />
+Default: <code>vim</code>.</p>
 
 <p><code>position</code> <br />
 Defines where in the grid this module&rsquo;s widget will be displayed. <br /></p>

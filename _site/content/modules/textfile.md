@@ -29,6 +29,8 @@ wtf/textfile/
 textfile:
   enabled: true
   filePath: "~/Desktop/notes.md"
+  format: true
+  formatStyle: "dracula"
   position:
     top: 5
     left: 4
@@ -45,6 +47,17 @@ Values: `true`, `false`.
 
 `filePath` <br />
 The path to the file to be displayed in the widget. <br />
+
+`format` <br />
+Whether or not to try and format and syntax highlight the displayedtext. <br />
+Values: `true`, `false`. <br />
+Default: `false`.
+
+`formatStyle` <br />
+The style of syntax highlighting to format the text with. <br />
+Values: See [Chroma styles](https://github.com/alecthomas/chroma/tree/master/styles) for all
+valid options. <br />
+Default: `vim`.
 
 `position` <br />
 Defines where in the grid this module's widget will be displayed. <br />
