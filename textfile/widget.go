@@ -1,18 +1,14 @@
 package textfile
 
 import (
-	//"bufio"
 	"bytes"
 	"io/ioutil"
 	"os"
 	"path/filepath"
 
-	//"github.com/alecthomas/chroma"
 	"github.com/alecthomas/chroma/formatters"
-	//"github.com/alecthomas/chroma/formatters/html"
 	"github.com/alecthomas/chroma/lexers"
 	"github.com/alecthomas/chroma/styles"
-
 	"github.com/gdamore/tcell"
 	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/wtf"
@@ -55,41 +51,61 @@ func (widget *Widget) Refresh() {
 	widget.UpdateRefreshedAt()
 	widget.View.SetTitle(widget.ContextualTitle(widget.fileName()))
 
-	filePath, _ := wtf.ExpandHomeDir(widget.filePath)
-	file, err := os.Open(filePath)
-
-	if err != nil {
-		widget.View.SetText(err.Error())
+	var text string
+	if wtf.Config.UBool("wtf.mods.textfile.format", false) {
+		text = widget.formattedText()
 	} else {
-		lexer := lexers.Match(filePath)
-		if lexer == nil {
-			lexer = lexers.Fallback
-		}
-
-		style := styles.Get(wtf.Config.UString("wtf.mods.textfile.formatStyle", "vim"))
-		if style == nil {
-			style = styles.Fallback
-		}
-		formatter := formatters.Get("terminal256")
-		if formatter == nil {
-			formatter = formatters.Fallback
-		}
-
-		contents, _ := ioutil.ReadAll(file)
-		iterator, _ := lexer.Tokenise(nil, string(contents))
-
-		var buf bytes.Buffer
-		formatter.Format(&buf, style, iterator)
-
-		formatted := tview.TranslateANSI(buf.String())
-		widget.View.SetText(formatted)
+		text = widget.plainText()
 	}
+
+	widget.View.SetText(text)
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
 func (widget *Widget) fileName() string {
 	return filepath.Base(widget.filePath)
+}
+
+func (widget *Widget) formattedText() string {
+	filePath, _ := wtf.ExpandHomeDir(widget.filePath)
+
+	file, err := os.Open(filePath)
+	if err != nil {
+		return err.Error()
+	}
+
+	lexer := lexers.Match(filePath)
+	if lexer == nil {
+		lexer = lexers.Fallback
+	}
+
+	style := styles.Get(wtf.Config.UString("wtf.mods.textfile.formatStyle", "vim"))
+	if style == nil {
+		style = styles.Fallback
+	}
+	formatter := formatters.Get("terminal256")
+	if formatter == nil {
+		formatter = formatters.Fallback
+	}
+
+	contents, _ := ioutil.ReadAll(file)
+	iterator, _ := lexer.Tokenise(nil, string(contents))
+
+	var buf bytes.Buffer
+	formatter.Format(&buf, style, iterator)
+
+	return tview.TranslateANSI(buf.String())
+}
+
+func (widget *Widget) plainText() string {
+	filePath, _ := wtf.ExpandHomeDir(widget.filePath)
+
+	text, err := ioutil.ReadFile(filePath) // just pass the file name
+	if err != nil {
+		return err.Error()
+	}
+	return string(text)
 }
 
 func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
