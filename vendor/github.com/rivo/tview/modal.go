@@ -40,6 +40,11 @@ func NewModal() *Modal {
 		SetButtonBackgroundColor(Styles.PrimitiveBackgroundColor).
 		SetButtonTextColor(Styles.PrimaryTextColor)
 	m.form.SetBackgroundColor(Styles.ContrastBackgroundColor).SetBorderPadding(0, 0, 0, 0)
+	m.form.SetCancelFunc(func() {
+		if m.done != nil {
+			m.done(-1, "")
+		}
+	})
 	m.frame = NewFrame(m.form).SetBorders(0, 0, 1, 0, 0, 0)
 	m.frame.SetBorder(true).
 		SetBackgroundColor(Styles.ContrastBackgroundColor).

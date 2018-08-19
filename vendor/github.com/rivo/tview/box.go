@@ -32,6 +32,9 @@ type Box struct {
 	// The color of the border.
 	borderColor tcell.Color
 
+	// The style attributes of the border.
+	borderAttributes tcell.AttrMask
+
 	// The title. Only visible if there is a border, too.
 	title string
 
@@ -193,6 +196,15 @@ func (b *Box) SetBorderColor(color tcell.Color) *Box {
 	return b
 }
 
+// SetBorderAttributes sets the border's style attributes. You can combine
+// different attributes using bitmask operations:
+//
+//   box.SetBorderAttributes(tcell.AttrUnderline | tcell.AttrBold)
+func (b *Box) SetBorderAttributes(attr tcell.AttrMask) *Box {
+	b.borderAttributes = attr
+	return b
+}
+
 // SetTitle sets the box's title.
 func (b *Box) SetTitle(title string) *Box {
 	b.title = title
@@ -233,7 +245,7 @@ func (b *Box) Draw(screen tcell.Screen) {
 
 	// Draw border.
 	if b.border && b.width >= 2 && b.height >= 2 {
-		border := background.Foreground(b.borderColor)
+		border := background.Foreground(b.borderColor) | tcell.Style(b.borderAttributes)
 		var vertical, horizontal, topLeft, topRight, bottomLeft, bottomRight rune
 		if b.focus.HasFocus() {
 			horizontal = Borders.HorizontalFocus

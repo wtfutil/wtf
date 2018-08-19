@@ -12,7 +12,7 @@
     "goconst",
     "errcheck",
     "interfacer",
-    "gas",
+    "gosec",
     "unconvert",
     "testify",
     "unparam",

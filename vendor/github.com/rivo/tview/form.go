@@ -26,7 +26,7 @@ type FormItem interface {
 	// required.
 	GetFieldWidth() int
 
-	// SetEnteredFunc sets the handler function for when the user finished
+	// SetFinishedFunc sets the handler function for when the user finished
 	// entering data into the item. The handler may receive events for the
 	// Enter key (we're done), the Escape key (cancel input), the Tab key (move to
 	// next field), and the Backtab key (move to previous field).

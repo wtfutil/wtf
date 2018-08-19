@@ -17,7 +17,7 @@
   "description": "Manipulates events and other calendar data.",
   "discoveryVersion": "v1",
   "documentationLink": "https://developers.google.com/google-apps/calendar/firstapp",
-  "etag": "\"J3WqvAcMk4eQjJXvfSI4Yr8VouA/ITK5FY7POTu4MHcI4-Fs0HUENwM\"",
+  "etag": "\"J3WqvAcMk4eQjJXvfSI4Yr8VouA/UfSqMqLGclhjNS9q0g-j705eXE8\"",
   "icons": {
     "x16": "http://www.google.com/images/icons/product/calendar-16.png",
     "x32": "http://www.google.com/images/icons/product/calendar-32.png"
@@ -342,7 +342,7 @@
     "calendarList": {
       "methods": {
         "delete": {
-          "description": "Deletes an entry on the user's calendar list.",
+          "description": "Removes a calendar from the user's calendar list.",
           "httpMethod": "DELETE",
           "id": "calendar.calendarList.delete",
           "parameterOrder": [
@@ -362,7 +362,7 @@
           ]
         },
         "get": {
-          "description": "Returns an entry on the user's calendar list.",
+          "description": "Returns a calendar from the user's calendar list.",
           "httpMethod": "GET",
           "id": "calendar.calendarList.get",
           "parameterOrder": [
@@ -386,7 +386,7 @@
           ]
         },
         "insert": {
-          "description": "Adds an entry to the user's calendar list.",
+          "description": "Inserts an existing calendar into the user's calendar list.",
           "httpMethod": "POST",
           "id": "calendar.calendarList.insert",
           "parameters": {
@@ -408,7 +408,7 @@
           ]
         },
         "list": {
-          "description": "Returns entries on the user's calendar list.",
+          "description": "Returns the calendars on the user's calendar list.",
           "httpMethod": "GET",
           "id": "calendar.calendarList.list",
           "parameters": {
@@ -468,7 +468,7 @@
           "supportsSubscription": true
         },
         "patch": {
-          "description": "Updates an entry on the user's calendar list. This method supports patch semantics.",
+          "description": "Updates an existing calendar on the user's calendar list. This method supports patch semantics.",
           "httpMethod": "PATCH",
           "id": "calendar.calendarList.patch",
           "parameterOrder": [
@@ -499,7 +499,7 @@
           ]
         },
         "update": {
-          "description": "Updates an entry on the user's calendar list.",
+          "description": "Updates an existing calendar on the user's calendar list.",
           "httpMethod": "PUT",
           "id": "calendar.calendarList.update",
           "parameterOrder": [
@@ -1604,6 +1604,7 @@
       }
     }
   },
+  "revision": "20180814",
   "rootUrl": "https://www.googleapis.com/",
   "schemas": {
     "Acl": {
@@ -1870,23 +1871,11 @@
       "id": "CalendarNotification",
       "properties": {
         "method": {
-          "annotations": {
-            "required": [
-              "calendar.calendarList.insert",
-              "calendar.calendarList.update"
-            ]
-          },
-          "description": "The method used to deliver the notification. Possible values are:  \n- \"email\" - Reminders are sent via email. \n- \"sms\" - Reminders are sent via SMS. This value is read-only and is ignored on inserts and updates. SMS reminders are only available for G Suite customers.",
+          "description": "The method used to deliver the notification. Possible values are:  \n- \"email\" - Reminders are sent via email. \n- \"sms\" - Reminders are sent via SMS. This value is read-only and is ignored on inserts and updates. SMS reminders are only available for G Suite customers.  \nRequired when adding a notification.",
           "type": "string"
         },
         "type": {
-          "annotations": {
-            "required": [
-              "calendar.calendarList.insert",
-              "calendar.calendarList.update"
-            ]
-          },
-          "description": "The type of notification. Possible values are:  \n- \"eventCreation\" - Notification sent when a new event is put on the calendar. \n- \"eventChange\" - Notification sent when an event is changed. \n- \"eventCancellation\" - Notification sent when an event is cancelled. \n- \"eventResponse\" - Notification sent when an event is changed. \n- \"agenda\" - An agenda with the events of the day (sent out in the morning).",
+          "description": "The type of notification. Possible values are:  \n- \"eventCreation\" - Notification sent when a new event is put on the calendar. \n- \"eventChange\" - Notification sent when an event is changed. \n- \"eventCancellation\" - Notification sent when an event is cancelled. \n- \"eventResponse\" - Notification sent when an attendee responds to the event invitation. \n- \"agenda\" - An agenda with the events of the day (sent out in the morning).  \nRequired when adding a notification.",
           "type": "string"
         }
       },
@@ -2222,7 +2211,7 @@
               "type": "string"
             },
             "id": {
-              "description": "The creator's Profile ID, if available. It corresponds to theid field in the People collection of the Google+ API",
+              "description": "The creator's Profile ID, if available. It corresponds to the id field in the People collection of the Google+ API",
               "type": "string"
             },
             "self": {
@@ -2385,7 +2374,7 @@
               "type": "string"
             },
             "id": {
-              "description": "The organizer's Profile ID, if available. It corresponds to theid field in the People collection of the Google+ API",
+              "description": "The organizer's Profile ID, if available. It corresponds to the id field in the People collection of the Google+ API",
               "type": "string"
             },
             "self": {
@@ -2398,7 +2387,7 @@
         },
         "originalStartTime": {
           "$ref": "EventDateTime",
-          "description": "For an instance of a recurring event, this is the time at which this event would start according to the recurrence data in the recurring event identified by recurringEventId. Immutable."
+          "description": "For an instance of a recurring event, this is the time at which this event would start according to the recurrence data in the recurring event identified by recurringEventId. It uniquely identifies the instance within the recurring event series even if the instance was moved to a different time. Immutable."
         },
         "privateCopy": {
           "default": "false",
@@ -2497,14 +2486,7 @@
           "type": "string"
         },
         "fileUrl": {
-          "annotations": {
-            "required": [
-              "calendar.events.import",
-              "calendar.events.insert",
-              "calendar.events.update"
-            ]
-          },
-          "description": "URL link to the attachment.\nFor adding Google Drive file attachments use the same format as in alternateLink property of the Files resource in the Drive API.",
+          "description": "URL link to the attachment.\nFor adding Google Drive file attachments use the same format as in alternateLink property of the Files resource in the Drive API.\nRequired when adding an attachment.",
           "type": "string"
         },
         "iconLink": {
@@ -2540,18 +2522,11 @@
           "type": "string"
         },
         "email": {
-          "annotations": {
-            "required": [
-              "calendar.events.import",
-              "calendar.events.insert",
-              "calendar.events.update"
-            ]
-          },
-          "description": "The attendee's email address, if available. This field must be present when adding an attendee. It must be a valid email address as per RFC5322.",
+          "description": "The attendee's email address, if available. This field must be present when adding an attendee. It must be a valid email address as per RFC5322.\nRequired when adding an attendee.",
           "type": "string"
         },
         "id": {
-          "description": "The attendee's Profile ID, if available. It corresponds to theid field in the People collection of the Google+ API",
+          "description": "The attendee's Profile ID, if available. It corresponds to the id field in the People collection of the Google+ API",
           "type": "string"
         },
         "optional": {
@@ -2604,29 +2579,11 @@
       "id": "EventReminder",
       "properties": {
         "method": {
-          "annotations": {
-            "required": [
-              "calendar.calendarList.insert",
-              "calendar.calendarList.update",
-              "calendar.events.import",
-              "calendar.events.insert",
-              "calendar.events.update"
-            ]
-          },
-          "description": "The method used by this reminder. Possible values are:  \n- \"email\" - Reminders are sent via email. \n- \"sms\" - Reminders are sent via SMS. These are only available for G Suite customers. Requests to set SMS reminders for other account types are ignored. \n- \"popup\" - Reminders are sent via a UI popup.",
+          "description": "The method used by this reminder. Possible values are:  \n- \"email\" - Reminders are sent via email. \n- \"sms\" - Reminders are sent via SMS. These are only available for G Suite customers. Requests to set SMS reminders for other account types are ignored. \n- \"popup\" - Reminders are sent via a UI popup.  \nRequired when adding a reminder.",
           "type": "string"
         },
         "minutes": {
-          "annotations": {
-            "required": [
-              "calendar.calendarList.insert",
-              "calendar.calendarList.update",
-              "calendar.events.import",
-              "calendar.events.insert",
-              "calendar.events.update"
-            ]
-          },
-          "description": "Number of minutes before the start of the event when the reminder should trigger. Valid values are between 0 and 40320 (4 weeks in minutes).",
+          "description": "Number of minutes before the start of the event when the reminder should trigger. Valid values are between 0 and 40320 (4 weeks in minutes).\nRequired when adding a reminder.",
           "format": "int32",
           "type": "integer"
         }
@@ -2735,12 +2692,12 @@
       "id": "FreeBusyRequest",
       "properties": {
         "calendarExpansionMax": {
-          "description": "Maximal number of calendars for which FreeBusy information is to be provided. Optional.",
+          "description": "Maximal number of calendars for which FreeBusy information is to be provided. Optional. Maximum value is 50.",
           "format": "int32",
           "type": "integer"
         },
         "groupExpansionMax": {
-          "description": "Maximal number of calendar identifiers to be provided for a single group. Optional. An error will be returned for a group with more members than this value.",
+          "description": "Maximal number of calendar identifiers to be provided for a single group. Optional. An error is returned for a group with more members than this value. Maximum value is 100.",
           "format": "int32",
           "type": "integer"
         },
@@ -2752,12 +2709,12 @@
           "type": "array"
         },
         "timeMax": {
-          "description": "The end of the interval for the query.",
+          "description": "The end of the interval for the query formatted as per RFC3339.",
           "format": "date-time",
           "type": "string"
         },
         "timeMin": {
-          "description": "The start of the interval for the query.",
+          "description": "The start of the interval for the query formatted as per RFC3339.",
           "format": "date-time",
           "type": "string"
         },

@@ -459,6 +459,32 @@ func (s *CommitsService) SetCommitStatus(pid interface{}, sha string, opt *SetCo
 	return cs, resp, err
 }
 
+// GetMergeRequestsByCommit gets merge request associated with a commit.
+//
+// GitLab API docs:
+// https://docs.gitlab.com/ce/api/commits.html#list-merge-requests-associated-with-a-commit
+func (s *CommitsService) GetMergeRequestsByCommit(pid interface{}, sha string, options ...OptionFunc) ([]*MergeRequest, *Response, error) {
+	project, err := parseID(pid)
+	if err != nil {
+		return nil, nil, err
+	}
+	u := fmt.Sprintf("projects/%s/repository/commits/%s/merge_requests",
+		url.QueryEscape(project), url.QueryEscape(sha))
+
+	req, err := s.client.NewRequest("GET", u, nil, options)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var mrs []*MergeRequest
+	resp, err := s.client.Do(req, &mrs)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return mrs, resp, err
+}
+
 // CherryPickCommitOptions represents the available options for cherry-picking a commit.
 //
 // GitLab API docs: https://docs.gitlab.com/ce/api/commits.html#cherry-pick-a-commit

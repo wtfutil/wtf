@@ -122,15 +122,15 @@ func (s *EventsService) ListCurrentUserContributionEvents(opt *ListContributionE
 	return cs, resp, err
 }
 
-// ListProjectContributionEvents gets a list currently authenticated user's events
+// ListProjectVisibleEvents gets a list of visible events for a particular project
 //
-// GitLab API docs: https://docs.gitlab.com/ce/api/events.html#list-a-project-39-s-visible-events
-func (s *EventsService) ListProjectContributionEvents(pid interface{}, opt *ListContributionEventsOptions, options ...OptionFunc) ([]*ContributionEvent, *Response, error) {
+// GitLab API docs: https://docs.gitlab.com/ee/api/events.html#list-a-project-s-visible-events
+func (s *EventsService) ListProjectVisibleEvents(pid interface{}, opt *ListContributionEventsOptions, options ...OptionFunc) ([]*ContributionEvent, *Response, error) {
 	project, err := parseID(pid)
 	if err != nil {
 		return nil, nil, err
 	}
-	u := fmt.Sprintf("%s/events", url.QueryEscape(project))
+	u := fmt.Sprintf("projects/%s/events", url.QueryEscape(project))
 
 	req, err := s.client.NewRequest("GET", u, opt, options)
 	if err != nil {

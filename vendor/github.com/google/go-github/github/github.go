@@ -48,9 +48,6 @@ const (
 	// https://developer.github.com/changes/2014-12-09-new-attributes-for-stars-api/
 	mediaTypeStarringPreview = "application/vnd.github.v3.star+json"
 
-	// https://developer.github.com/changes/2015-11-11-protected-branches-api/
-	mediaTypeProtectedBranchesPreview = "application/vnd.github.loki-preview+json"
-
 	// https://help.github.com/enterprise/2.4/admin/guides/migrations/exporting-the-github-com-organization-s-repositories/
 	mediaTypeMigrationsPreview = "application/vnd.github.wyandotte-preview+json"
 
@@ -102,11 +99,11 @@ const (
 	// https://developer.github.com/changes/2017-11-09-repository-transfer-api-preview/
 	mediaTypeRepositoryTransferPreview = "application/vnd.github.nightshade-preview+json"
 
-	// https://developer.github.com/changes/2017-12-19-graphql-node-id/
-	mediaTypeGraphQLNodeIDPreview = "application/vnd.github.jean-grey-preview+json"
-
 	// https://developer.github.com/changes/2018-01-25-organization-invitation-api-preview/
 	mediaTypeOrganizationInvitationPreview = "application/vnd.github.dazzler-preview+json"
+
+	// https://developer.github.com/changes/2018-03-16-protected-branches-required-approving-reviews/
+	mediaTypeRequiredApprovingReviewsPreview = "application/vnd.github.luke-cage-preview+json"
 
 	// https://developer.github.com/changes/2018-02-22-label-description-search-preview/
 	mediaTypeLabelDescriptionSearchPreview = "application/vnd.github.symmetra-preview+json"
@@ -114,8 +111,17 @@ const (
 	// https://developer.github.com/changes/2018-02-07-team-discussions-api/
 	mediaTypeTeamDiscussionsPreview = "application/vnd.github.echo-preview+json"
 
+	// https://developer.github.com/changes/2018-03-21-hovercard-api-preview/
+	mediaTypeHovercardPreview = "application/vnd.github.hagar-preview+json"
+
+	// https://developer.github.com/changes/2018-01-10-lock-reason-api-preview/
+	mediaTypeLockReasonPreview = "application/vnd.github.sailor-v-preview+json"
+
 	// https://developer.github.com/changes/2018-05-07-new-checks-api-public-beta/
 	mediaTypeCheckRunsPreview = "application/vnd.github.antiope-preview+json"
+
+	// https://developer.github.com/enterprise/2.13/v3/repos/pre_receive_hooks/
+	mediaTypePreReceiveHooksPreview = "application/vnd.github.eye-scream-preview"
 )
 
 // A Client manages communication with the GitHub API.

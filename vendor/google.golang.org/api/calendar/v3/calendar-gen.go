@@ -572,6 +572,7 @@ type CalendarNotification struct {
 	// - "sms" - Reminders are sent via SMS. This value is read-only and is
 	// ignored on inserts and updates. SMS reminders are only available for
 	// G Suite customers.
+	// Required when adding a notification.
 	Method string `json:"method,omitempty"`
 
 	// Type: The type of notification. Possible values are:
@@ -580,9 +581,11 @@ type CalendarNotification struct {
 	// - "eventChange" - Notification sent when an event is changed.
 	// - "eventCancellation" - Notification sent when an event is cancelled.
 	//
-	// - "eventResponse" - Notification sent when an event is changed.
+	// - "eventResponse" - Notification sent when an attendee responds to
+	// the event invitation.
 	// - "agenda" - An agenda with the events of the day (sent out in the
 	// morning).
+	// Required when adding a notification.
 	Type string `json:"type,omitempty"`
 
 	// ForceSendFields is a list of field names (e.g. "Method") to
@@ -1335,7 +1338,9 @@ type Event struct {
 
 	// OriginalStartTime: For an instance of a recurring event, this is the
 	// time at which this event would start according to the recurrence data
-	// in the recurring event identified by recurringEventId. Immutable.
+	// in the recurring event identified by recurringEventId. It uniquely
+	// identifies the instance within the recurring event series even if the
+	// instance was moved to a different time. Immutable.
 	OriginalStartTime *EventDateTime `json:"originalStartTime,omitempty"`
 
 	// PrivateCopy: Whether this is a private event copy where changes are
@@ -1469,7 +1474,7 @@ type EventCreator struct {
 	// Email: The creator's email address, if available.
 	Email string `json:"email,omitempty"`
 
-	// Id: The creator's Profile ID, if available. It corresponds to theid
+	// Id: The creator's Profile ID, if available. It corresponds to the id
 	// field in the People collection of the Google+ API
 	Id string `json:"id,omitempty"`
 
@@ -1600,8 +1605,8 @@ type EventOrganizer struct {
 	// valid email address as per RFC5322.
 	Email string `json:"email,omitempty"`
 
-	// Id: The organizer's Profile ID, if available. It corresponds to theid
-	// field in the People collection of the Google+ API
+	// Id: The organizer's Profile ID, if available. It corresponds to the
+	// id field in the People collection of the Google+ API
 	Id string `json:"id,omitempty"`
 
 	// Self: Whether the organizer corresponds to the calendar on which this
@@ -1711,7 +1716,9 @@ type EventAttachment struct {
 
 	// FileUrl: URL link to the attachment.
 	// For adding Google Drive file attachments use the same format as in
-	// alternateLink property of the Files resource in the Drive API.
+	// alternateLink property of the Files resource in the Drive
+	// API.
+	// Required when adding an attachment.
 	FileUrl string `json:"fileUrl,omitempty"`
 
 	// IconLink: URL link to the attachment's icon. Read-only.
@@ -1760,9 +1767,10 @@ type EventAttendee struct {
 	// Email: The attendee's email address, if available. This field must be
 	// present when adding an attendee. It must be a valid email address as
 	// per RFC5322.
+	// Required when adding an attendee.
 	Email string `json:"email,omitempty"`
 
-	// Id: The attendee's Profile ID, if available. It corresponds to theid
+	// Id: The attendee's Profile ID, if available. It corresponds to the id
 	// field in the People collection of the Google+ API
 	Id string `json:"id,omitempty"`
 
@@ -1864,11 +1872,13 @@ type EventReminder struct {
 	// Suite customers. Requests to set SMS reminders for other account
 	// types are ignored.
 	// - "popup" - Reminders are sent via a UI popup.
+	// Required when adding a reminder.
 	Method string `json:"method,omitempty"`
 
 	// Minutes: Number of minutes before the start of the event when the
 	// reminder should trigger. Valid values are between 0 and 40320 (4
 	// weeks in minutes).
+	// Required when adding a reminder.
 	Minutes int64 `json:"minutes,omitempty"`
 
 	// ForceSendFields is a list of field names (e.g. "Method") to
@@ -2040,21 +2050,23 @@ func (s *FreeBusyGroup) MarshalJSON() ([]byte, error) {
 
 type FreeBusyRequest struct {
 	// CalendarExpansionMax: Maximal number of calendars for which FreeBusy
-	// information is to be provided. Optional.
+	// information is to be provided. Optional. Maximum value is 50.
 	CalendarExpansionMax int64 `json:"calendarExpansionMax,omitempty"`
 
 	// GroupExpansionMax: Maximal number of calendar identifiers to be
-	// provided for a single group. Optional. An error will be returned for
-	// a group with more members than this value.
+	// provided for a single group. Optional. An error is returned for a
+	// group with more members than this value. Maximum value is 100.
 	GroupExpansionMax int64 `json:"groupExpansionMax,omitempty"`
 
 	// Items: List of calendars and/or groups to query.
 	Items []*FreeBusyRequestItem `json:"items,omitempty"`
 
-	// TimeMax: The end of the interval for the query.
+	// TimeMax: The end of the interval for the query formatted as per
+	// RFC3339.
 	TimeMax string `json:"timeMax,omitempty"`
 
-	// TimeMin: The start of the interval for the query.
+	// TimeMin: The start of the interval for the query formatted as per
+	// RFC3339.
 	TimeMin string `json:"timeMin,omitempty"`
 
 	// TimeZone: Time zone used in the response. Optional. The default is
@@ -3418,7 +3430,7 @@ type CalendarListDeleteCall struct {
 	header_    http.Header
 }
 
-// Delete: Deletes an entry on the user's calendar list.
+// Delete: Removes a calendar from the user's calendar list.
 func (r *CalendarListService) Delete(calendarId string) *CalendarListDeleteCall {
 	c := &CalendarListDeleteCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.calendarId = calendarId
@@ -3481,7 +3493,7 @@ func (c *CalendarListDeleteCall) Do(opts ...googleapi.CallOption) error {
 	}
 	return nil
 	// {
-	//   "description": "Deletes an entry on the user's calendar list.",
+	//   "description": "Removes a calendar from the user's calendar list.",
 	//   "httpMethod": "DELETE",
 	//   "id": "calendar.calendarList.delete",
 	//   "parameterOrder": [
@@ -3514,7 +3526,7 @@ type CalendarListGetCall struct {
 	header_      http.Header
 }
 
-// Get: Returns an entry on the user's calendar list.
+// Get: Returns a calendar from the user's calendar list.
 func (r *CalendarListService) Get(calendarId string) *CalendarListGetCall {
 	c := &CalendarListGetCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.calendarId = calendarId
@@ -3615,7 +3627,7 @@ func (c *CalendarListGetCall) Do(opts ...googleapi.CallOption) (*CalendarListEnt
 	}
 	return ret, nil
 	// {
-	//   "description": "Returns an entry on the user's calendar list.",
+	//   "description": "Returns a calendar from the user's calendar list.",
 	//   "httpMethod": "GET",
 	//   "id": "calendar.calendarList.get",
 	//   "parameterOrder": [
@@ -3651,7 +3663,7 @@ type CalendarListInsertCall struct {
 	header_           http.Header
 }
 
-// Insert: Adds an entry to the user's calendar list.
+// Insert: Inserts an existing calendar into the user's calendar list.
 func (r *CalendarListService) Insert(calendarlistentry *CalendarListEntry) *CalendarListInsertCall {
 	c := &CalendarListInsertCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.calendarlistentry = calendarlistentry
@@ -3751,7 +3763,7 @@ func (c *CalendarListInsertCall) Do(opts ...googleapi.CallOption) (*CalendarList
 	}
 	return ret, nil
 	// {
-	//   "description": "Adds an entry to the user's calendar list.",
+	//   "description": "Inserts an existing calendar into the user's calendar list.",
 	//   "httpMethod": "POST",
 	//   "id": "calendar.calendarList.insert",
 	//   "parameters": {
@@ -3785,7 +3797,7 @@ type CalendarListListCall struct {
 	header_      http.Header
 }
 
-// List: Returns entries on the user's calendar list.
+// List: Returns the calendars on the user's calendar list.
 func (r *CalendarListService) List() *CalendarListListCall {
 	c := &CalendarListListCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	return c
@@ -3947,7 +3959,7 @@ func (c *CalendarListListCall) Do(opts ...googleapi.CallOption) (*CalendarList, 
 	}
 	return ret, nil
 	// {
-	//   "description": "Returns entries on the user's calendar list.",
+	//   "description": "Returns the calendars on the user's calendar list.",
 	//   "httpMethod": "GET",
 	//   "id": "calendar.calendarList.list",
 	//   "parameters": {
@@ -4041,8 +4053,8 @@ type CalendarListPatchCall struct {
 	header_           http.Header
 }
 
-// Patch: Updates an entry on the user's calendar list. This method
-// supports patch semantics.
+// Patch: Updates an existing calendar on the user's calendar list. This
+// method supports patch semantics.
 func (r *CalendarListService) Patch(calendarId string, calendarlistentry *CalendarListEntry) *CalendarListPatchCall {
 	c := &CalendarListPatchCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.calendarId = calendarId
@@ -4146,7 +4158,7 @@ func (c *CalendarListPatchCall) Do(opts ...googleapi.CallOption) (*CalendarListE
 	}
 	return ret, nil
 	// {
-	//   "description": "Updates an entry on the user's calendar list. This method supports patch semantics.",
+	//   "description": "Updates an existing calendar on the user's calendar list. This method supports patch semantics.",
 	//   "httpMethod": "PATCH",
 	//   "id": "calendar.calendarList.patch",
 	//   "parameterOrder": [
@@ -4190,7 +4202,7 @@ type CalendarListUpdateCall struct {
 	header_           http.Header
 }
 
-// Update: Updates an entry on the user's calendar list.
+// Update: Updates an existing calendar on the user's calendar list.
 func (r *CalendarListService) Update(calendarId string, calendarlistentry *CalendarListEntry) *CalendarListUpdateCall {
 	c := &CalendarListUpdateCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.calendarId = calendarId
@@ -4294,7 +4306,7 @@ func (c *CalendarListUpdateCall) Do(opts ...googleapi.CallOption) (*CalendarList
 	}
 	return ret, nil
 	// {
-	//   "description": "Updates an entry on the user's calendar list.",
+	//   "description": "Updates an existing calendar on the user's calendar list.",
 	//   "httpMethod": "PUT",
 	//   "id": "calendar.calendarList.update",
 	//   "parameterOrder": [

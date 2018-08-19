@@ -2,198 +2,306 @@
 
 
 [[projects]]
+  digest = "1:5c3894b2aa4d6bead0ceeea6831b305d62879c871780e7b76296ded1b004bc57"
   name = "cloud.google.com/go"
   packages = ["compute/metadata"]
-  revision = "aad3f485ee528456e0768f20397b4d9dd941e755"
-  version = "v0.25.0"
+  pruneopts = "UT"
+  revision = "64a2037ec6be8a4b0c1d1f706ed35b428b989239"
+  version = "v0.26.0"
 
 [[projects]]
   branch = "master"
+  digest = "1:1164f5eccc8905c03a2c688141c81f06522ed5fd2eb65cb43debeb730a018276"
   name = "github.com/adlio/trello"
   packages = ["."]
+  pruneopts = "UT"
   revision = "8a458717123e328d9103a3bf075e64bc1ec961f8"
 
 [[projects]]
+  digest = "1:9253f97cfbbe049b631877c80badecc69620711b3e335f6cf97a7809681da388"
+  name = "github.com/alecthomas/chroma"
+  packages = [
+    ".",
+    "formatters",
+    "formatters/html",
+    "lexers",
+    "lexers/a",
+    "lexers/b",
+    "lexers/c",
+    "lexers/circular",
+    "lexers/d",
+    "lexers/e",
+    "lexers/f",
+    "lexers/g",
+    "lexers/h",
+    "lexers/i",
+    "lexers/internal",
+    "lexers/j",
+    "lexers/k",
+    "lexers/l",
+    "lexers/m",
+    "lexers/n",
+    "lexers/o",
+    "lexers/p",
+    "lexers/q",
+    "lexers/r",
+    "lexers/s",
+    "lexers/t",
+    "lexers/v",
+    "lexers/w",
+    "lexers/x",
+    "lexers/y",
+    "styles",
+  ]
+  pruneopts = "UT"
+  revision = "5d7fef2ae60b501bbf28d476c3f273b8017d8261"
+  version = "v0.5.0"
+
+[[projects]]
   branch = "master"
+  digest = "1:b5d1ba5dc01e8129b7df5cf95380a66b0e0f122850189b7ec255953b15522f16"
   name = "github.com/andygrunwald/go-gerrit"
   packages = ["."]
-  revision = "5ea603106b4869cc3f38322ee17d5fc1360ee1e3"
+  pruneopts = "UT"
+  revision = "197fe0d2e796b3d985b9cd91be8afd4415692f39"
 
 [[projects]]
   branch = "master"
+  digest = "1:6d7646b01dbbacd8c50be0cbddbcb633619f819e51f47a4114c8d4518ae7ac02"
   name = "github.com/briandowns/openweathermap"
   packages = ["."]
-  revision = "6a9abf92e34f4de62ac671caee3143f10b98892d"
+  pruneopts = "UT"
+  revision = "5f41b7c9d92de5d74bf32f4486375c7547bc8a3c"
 
 [[projects]]
   branch = "master"
+  digest = "1:710109527a119c813d4fac773712dd92f449ed7c2f7b81f49822f94d290c8f72"
+  name = "github.com/danwakefield/fnmatch"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "cbb64ac3d964b81592e64f957ad53df015803288"
+
+[[projects]]
+  branch = "master"
+  digest = "1:e3e85f98942fe3b51b8f9316d8d1dc1925353b26639d456030368ae278bb0475"
   name = "github.com/darkSasori/todoist"
   packages = ["."]
+  pruneopts = "UT"
   revision = "ec6b38b374ab9c60cc9716d2083ae66eb9383d03"
 
 [[projects]]
+  digest = "1:ffe9824d294da03b391f44e1ae8281281b4afc1bdaa9588c9097785e3af10cec"
   name = "github.com/davecgh/go-spew"
   packages = ["spew"]
-  revision = "346938d642f2ec3594ed81d874461961cd0faa76"
-  version = "v1.1.0"
+  pruneopts = "UT"
+  revision = "8991bc29aa16c548c550c7ff78260e27b9ab7c73"
+  version = "v1.1.1"
+
+[[projects]]
+  digest = "1:72dc2b6056e7097f829260e4a2ff08d32fec6017df1982a66e110ab4128486f8"
+  name = "github.com/dlclark/regexp2"
+  packages = [
+    ".",
+    "syntax",
+  ]
+  pruneopts = "UT"
+  revision = "487489b64fb796de2e55f4e8a4ad1e145f80e957"
+  version = "v1.1.6"
 
 [[projects]]
   branch = "master"
+  digest = "1:40d0056c1b1f503c366ba441df92a82b5a2654d6f3747b1689a611eb5c9ce0a2"
   name = "github.com/gdamore/encoding"
   packages = ["."]
+  pruneopts = "UT"
   revision = "b23993cbb6353f0e6aa98d0ee318a34728f628b9"
 
 [[projects]]
+  branch = "master"
+  digest = "1:00b9cce210566117aff926677c005aeaea6c85374e67bdcb72783af237c48f97"
   name = "github.com/gdamore/tcell"
   packages = [
     ".",
-    "terminfo"
+    "terminfo",
   ]
+  pruneopts = "UT"
   revision = "de7e78efa4a71b3f36c7154989c529dbdf9ae623"
-  version = "v1.1.0"
 
 [[projects]]
+  digest = "1:15042ad3498153684d09f393bbaec6b216c8eec6d61f63dff711de7d64ed8861"
   name = "github.com/golang/protobuf"
   packages = ["proto"]
+  pruneopts = "UT"
   revision = "b4deda0973fb4c70b50d226b1af49f3da59f5265"
   version = "v1.1.0"
 
 [[projects]]
   branch = "master"
+  digest = "1:4be3c01ef56542da4f1268c52a8b88bae5309ec3dade7755e250bc933e13ac70"
   name = "github.com/google/go-github"
   packages = ["github"]
-  revision = "77a604e05ff9e668b242334d116bc6d1d0a12d66"
+  pruneopts = "UT"
+  revision = "d7732128a00e8e95e8fe896017da18ee20b2180d"
 
 [[projects]]
   branch = "master"
+  digest = "1:a63cff6b5d8b95638bfe300385d93b2a6d9d687734b863da8e09dc834510a690"
   name = "github.com/google/go-querystring"
   packages = ["query"]
+  pruneopts = "UT"
   revision = "53e6ce116135b80d037921a7fdd5138cf32d7a8a"
 
 [[projects]]
+  digest = "1:a2cff208d4759f6ba1b1cd228587b0a1869f95f22542ec9cd17fff64430113c7"
   name = "github.com/jessevdk/go-flags"
   packages = ["."]
+  pruneopts = "UT"
   revision = "c6ca198ec95c841fdb89fc0de7496fed11ab854e"
   version = "v1.4.0"
 
 [[projects]]
+  digest = "1:c65a16ac77d0b1aefc7009cabb6ac5ad05def02025f5be85f450c03f52cc6f86"
   name = "github.com/lucasb-eyer/go-colorful"
   packages = ["."]
+  pruneopts = "UT"
   revision = "345fbb3dbcdb252d9985ee899a84963c0fa24c82"
   version = "v1.0"
 
 [[projects]]
+  digest = "1:cdb899c199f907ac9fb50495ec71212c95cb5b0e0a8ee0800da0238036091033"
   name = "github.com/mattn/go-runewidth"
   packages = ["."]
-  revision = "9e777a8366cce605130a531d2cd6363d07ad7317"
-  version = "v0.0.2"
+  pruneopts = "UT"
+  revision = "ce7b0b5c7b45a81508558cd1dba6bb1e4ddb51bb"
+  version = "v0.0.3"
 
 [[projects]]
   branch = "master"
+  digest = "1:3a16300d913e1050d4a7ff296106a11b72da05c5dd3475f2ae1feb0830866461"
   name = "github.com/olebedev/config"
   packages = ["."]
+  pruneopts = "UT"
   revision = "ed90d2035b8114c30b9cb65e7d52e10a7148f8c6"
 
 [[projects]]
+  digest = "1:40e195917a951a8bf867cd05de2a46aaf1806c50cf92eebf4c16f78cd196f747"
   name = "github.com/pkg/errors"
   packages = ["."]
+  pruneopts = "UT"
   revision = "645ef00459ed84a119197bfb8d8205042c6df63d"
   version = "v0.8.0"
 
 [[projects]]
+  digest = "1:cfa0d7741863a0e1d30e0ccdd4b48a96a471cdb47892303de8b92c3713af3e77"
   name = "github.com/pkg/profile"
   packages = ["."]
+  pruneopts = "UT"
   revision = "5b67d428864e92711fcbd2f8629456121a56d91f"
   version = "v1.2.1"
 
 [[projects]]
+  digest = "1:0028cb19b2e4c3112225cd871870f2d9cf49b9b4276531f03438a88e94be86fe"
   name = "github.com/pmezard/go-difflib"
   packages = ["difflib"]
+  pruneopts = "UT"
   revision = "792786c7400a136282c1664665ae0a8db921c6c2"
   version = "v1.0.0"
 
 [[projects]]
+  digest = "1:0665976cc6d8c2e60dafca32820b6b7eca70f37ded0bcccc103388e1c0d05c53"
   name = "github.com/radovskyb/watcher"
   packages = ["."]
+  pruneopts = "UT"
   revision = "6145e1439b9de93806925353403f91d2abbad8a5"
   version = "v1.0.2"
 
 [[projects]]
   branch = "master"
+  digest = "1:9deb696e9739b45e91369ffb3876d4e0d2bc45e0d35062fb3c5aa44fa77eff6c"
   name = "github.com/rivo/tview"
   packages = ["."]
-  revision = "6614b16d9037759065eac63d8fb3d8408e63e222"
+  pruneopts = "UT"
+  revision = "21f50f5bc400083b4eb23304887d9cd0fc00d075"
 
 [[projects]]
+  digest = "1:18752d0b95816a1b777505a97f71c7467a8445b8ffb55631a7bf779f6ba4fa83"
   name = "github.com/stretchr/testify"
   packages = ["assert"]
+  pruneopts = "UT"
   revision = "f35b8ab0b5a2cef36673838d662e249dd9c94686"
   version = "v1.2.2"
 
 [[projects]]
+  branch = "master"
+  digest = "1:ca067f3d378064d50a239b1f0d4dcd2dab6356f7643993bdf02c91d6e621c028"
   name = "github.com/xanzy/go-gitlab"
   packages = ["."]
-  revision = "4f616cbce6a5f335461881701f772d8b8e16c2f6"
-  version = "v0.10.8"
+  pruneopts = "UT"
+  revision = "f3bc634ab936f7e4ee5e21334ccfdfeb5601d477"
 
 [[projects]]
   branch = "master"
+  digest = "1:3b19ea715e070a74397f3cfe950f0b555e66a3c23461e553777f52112a81b0e6"
   name = "github.com/yfronto/newrelic"
   packages = ["."]
+  pruneopts = "UT"
   revision = "7c9c2852e8f9e69a80bff4f4f1fe4cdd15eeba19"
 
 [[projects]]
   branch = "master"
-  name = "github.com/zyedidia/highlight"
-  packages = ["."]
-  revision = "201131ce5cf5ba174570dcd878d1f2698db5af9f"
-
-[[projects]]
-  branch = "master"
+  digest = "1:d6b719875cf8091fbab38527d81d34e71f4521b9ee9ccfbd4a32cff2ac5af96e"
   name = "golang.org/x/net"
   packages = [
     "context",
-    "context/ctxhttp"
+    "context/ctxhttp",
   ]
-  revision = "a0f8a16cb08c06df97cbdf9c47f4731ba548c33c"
+  pruneopts = "UT"
+  revision = "aaf60122140d3fcf75376d319f0554393160eb50"
 
 [[projects]]
   branch = "master"
+  digest = "1:bea0314c10bd362ab623af4880d853b5bad3b63d0ab9945c47e461b8d04203ed"
   name = "golang.org/x/oauth2"
   packages = [
     ".",
     "google",
     "internal",
     "jws",
-    "jwt"
+    "jwt",
   ]
+  pruneopts = "UT"
   revision = "3d292e4d0cdc3a0113e6d207bb137145ef1de42f"
 
 [[projects]]
+  digest = "1:37672ad5821719e2df8509c2edd4ba5ae192463237c73c3a2d24ef8b2bc9e36f"
   name = "golang.org/x/text"
   packages = [
     "encoding",
     "encoding/internal/identifier",
     "internal/gen",
     "transform",
-    "unicode/cldr"
+    "unicode/cldr",
   ]
+  pruneopts = "UT"
   revision = "f21a4dfb5e38f5895301dc265a8def02365cc3d0"
   version = "v0.3.0"
 
 [[projects]]
   branch = "master"
+  digest = "1:c8d95fbc783cab4e8986b1bf3dbe5312db7521e4342ac755280cfa78ce0ee792"
   name = "google.golang.org/api"
   packages = [
     "calendar/v3",
     "gensupport",
     "googleapi",
     "googleapi/internal/uritemplates",
-    "sheets/v4"
+    "sheets/v4",
   ]
-  revision = "31ca0e01cd791f07750cb23fc99327721f753290"
+  pruneopts = "UT"
+  revision = "e21acd801f91da814261b938941d193bb036441a"
 
 [[projects]]
+  digest = "1:c8907869850adaa8bd7631887948d0684f3787d0912f1c01ab72581a6c34432e"
   name = "google.golang.org/appengine"
   packages = [
     ".",
@@ -205,20 +313,46 @@
     "internal/modules",
     "internal/remote_api",
     "internal/urlfetch",
-    "urlfetch"
+    "urlfetch",
   ]
+  pruneopts = "UT"
   revision = "b1f26356af11148e710935ed1ac8a7f5702c7612"
   version = "v1.1.0"
 
 [[projects]]
+  digest = "1:342378ac4dcb378a5448dd723f0784ae519383532f5e70ade24132c4c8693202"
   name = "gopkg.in/yaml.v2"
   packages = ["."]
+  pruneopts = "UT"
   revision = "5420a8b6744d3b0345ab293f6fcba19c978f1183"
   version = "v2.2.1"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "b36355370ccdc4bf6659b1412b29f9da474a922e52a2884f80b7205791e0d304"
+  input-imports = [
+    "github.com/adlio/trello",
+    "github.com/alecthomas/chroma/formatters",
+    "github.com/alecthomas/chroma/lexers",
+    "github.com/alecthomas/chroma/styles",
+    "github.com/andygrunwald/go-gerrit",
+    "github.com/briandowns/openweathermap",
+    "github.com/darkSasori/todoist",
+    "github.com/gdamore/tcell",
+    "github.com/google/go-github/github",
+    "github.com/jessevdk/go-flags",
+    "github.com/olebedev/config",
+    "github.com/pkg/profile",
+    "github.com/radovskyb/watcher",
+    "github.com/rivo/tview",
+    "github.com/stretchr/testify/assert",
+    "github.com/xanzy/go-gitlab",
+    "github.com/yfronto/newrelic",
+    "golang.org/x/oauth2",
+    "golang.org/x/oauth2/google",
+    "google.golang.org/api/calendar/v3",
+    "google.golang.org/api/sheets/v4",
+    "gopkg.in/yaml.v2",
+  ]
   solver-name = "gps-cdcl"
   solver-version = 1

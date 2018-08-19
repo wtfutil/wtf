@@ -1,0 +1,5 @@
+sudo: false
+language: go
+after_success:
+  go get github.com/goreleaser/goreleaser && goreleaser
+
