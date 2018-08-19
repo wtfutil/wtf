@@ -1,17 +1,21 @@
 package textfile
 
 import (
+	//"bufio"
 	"bytes"
-	"fmt"
 	"io/ioutil"
 	"os"
 	"path/filepath"
-	"strings"
+
+	//"github.com/alecthomas/chroma"
+	"github.com/alecthomas/chroma/formatters"
+	//"github.com/alecthomas/chroma/formatters/html"
+	"github.com/alecthomas/chroma/lexers"
+	"github.com/alecthomas/chroma/styles"
 
 	"github.com/gdamore/tcell"
 	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/wtf"
-	"github.com/zyedidia/highlight"
 )
 
 const HelpText = `
@@ -52,96 +56,33 @@ func (widget *Widget) Refresh() {
 	widget.View.SetTitle(widget.ContextualTitle(widget.fileName()))
 
 	filePath, _ := wtf.ExpandHomeDir(widget.filePath)
-
-	fileData, err := ioutil.ReadFile(filePath)
-	if err != nil {
-		fileData = []byte{}
-	}
+	file, err := os.Open(filePath)
 
 	if err != nil {
 		widget.View.SetText(err.Error())
 	} else {
-		var (
-			defs   []*highlight.Def
-			buffer bytes.Buffer
-		)
-
-		gopath := os.Getenv("GOPATH")
-		files, err := ioutil.ReadDir(gopath + "/src/github.com/senorprogrammer/wtf/vendor/github.com/zyedidia/highlight/syntax_files")
-		if err != nil {
-			widget.View.SetText(err.Error())
-			return
+		lexer := lexers.Match(filePath)
+		if lexer == nil {
+			lexer = lexers.Fallback
 		}
 
-		// Iterate over available syntax files if any def matches.
-		for _, f := range files {
-			if strings.HasSuffix(f.Name(), ".yaml") {
-				input, _ := ioutil.ReadFile(gopath + "/src/github.com/senorprogrammer/wtf/vendor/github.com/zyedidia/highlight/syntax_files/" + f.Name())
-				d, err := highlight.ParseDef(input)
-				if err != nil {
-					fmt.Println(err)
-					continue
-				}
-				defs = append(defs, d)
-			}
+		style := styles.Get(wtf.Config.UString("wtf.mods.textfile.formatStyle", "vim"))
+		if style == nil {
+			style = styles.Fallback
+		}
+		formatter := formatters.Get("terminal256")
+		if formatter == nil {
+			formatter = formatters.Fallback
 		}
 
-		highlight.ResolveIncludes(defs)
-		// Attempt to detect the filetype.
-		def := highlight.DetectFiletype(defs, filePath, bytes.Split(fileData, []byte("\n"))[0])
-		// If no highlighter found, dont modify.
-		if def == nil {
-			widget.View.SetText(string(fileData))
-			return
-		}
+		contents, _ := ioutil.ReadAll(file)
+		iterator, _ := lexer.Tokenise(nil, string(contents))
 
-		// Add highlight information to the text based on matches.
-		h := highlight.NewHighlighter(def)
-		matches := h.HighlightString(string(fileData))
+		var buf bytes.Buffer
+		formatter.Format(&buf, style, iterator)
 
-		lines := strings.Split(string(fileData), "\n")
-		for lineN, l := range lines {
-			colN := 0
-			for _, c := range l {
-				if group, ok := matches[lineN][colN]; ok {
-					// There are more possible groups available than just these ones
-					if group == highlight.Groups["statement"] {
-						buffer.WriteString("[green]")
-					} else if group == highlight.Groups["identifier"] {
-						buffer.WriteString("[blue]")
-					} else if group == highlight.Groups["preproc"] {
-						buffer.WriteString("[darkred]")
-					} else if group == highlight.Groups["special"] {
-						buffer.WriteString("[red]")
-					} else if group == highlight.Groups["constant.string"] {
-						buffer.WriteString("[cyan]")
-					} else if group == highlight.Groups["constant"] {
-						buffer.WriteString("[lightcyan]")
-					} else if group == highlight.Groups["constant.specialChar"] {
-						buffer.WriteString("[magenta]")
-					} else if group == highlight.Groups["type"] {
-						buffer.WriteString("[yellow]")
-					} else if group == highlight.Groups["constant.number"] {
-						buffer.WriteString("[darkcyan]")
-					} else if group == highlight.Groups["comment"] {
-						buffer.WriteString("[darkgreen]")
-					} else {
-						buffer.WriteString("[default]")
-					}
-				}
-				buffer.WriteString(string(c))
-				colN++
-			}
-			if group, ok := matches[lineN][colN]; ok {
-				if group == highlight.Groups["default"] || group == highlight.Groups[""] {
-					buffer.WriteString("[default]") // Handle default fallback after setting.
-				}
-			}
-
-			buffer.WriteString("\n")
-		}
-
-		widget.View.SetText(buffer.String())
+		formatted := tview.TranslateANSI(buf.String())
+		widget.View.SetText(formatted)
 	}
 }
 
