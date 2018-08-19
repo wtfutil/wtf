@@ -1,1 +1,3 @@
-docs/*  linguist-vendored
+_site/* linguist-vendored
+docs/* linguist-vendored
+vendor/* linguist-vendored
