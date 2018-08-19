@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.2
+#### unreleased
+
+### 🐞 Fixed
+
+* Textfile module syntax highlighting now included in stand-alone binary - @senporprogrammer ([#261](https://github.com/senorprogrammer/wtf/issues/261))
+
 ## 0.2.1 
 #### Aug 17, 2018
 
