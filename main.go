@@ -140,6 +140,7 @@ func setTerm() {
 
 func watchForConfigChanges(app *tview.Application, configFilePath string, grid *tview.Grid, pages *tview.Pages) {
 	watch := watcher.New()
+	absPath, _ := wtf.ExpandHomeDir(configFilePath)
 
 	// notify write events.
 	watch.FilterOps(watcher.Write)
@@ -148,7 +149,7 @@ func watchForConfigChanges(app *tview.Application, configFilePath string, grid *
 		for {
 			select {
 			case <-watch.Event:
-				loadConfigFile(configFilePath)
+				loadConfigFile(absPath)
 				// Disable all widgets to stop scheduler goroutines and rmeove widgets from memory.
 				disableAllWidgets()
 				widgets = nil
@@ -165,7 +166,7 @@ func watchForConfigChanges(app *tview.Application, configFilePath string, grid *
 	}()
 
 	// Watch config file for changes.
-	if err := watch.Add(configFilePath); err != nil {
+	if err := watch.Add(absPath); err != nil {
 		log.Fatalln(err)
 	}
 
