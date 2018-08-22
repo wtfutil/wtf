@@ -60,6 +60,21 @@ cmd The terminal command to be run, withouth the arguments. Ie: ping, whoami, cu
     </item>
     
     <item>
+      <title>Datadog</title>
+      <link>https://wtfutil.com/modules/datadog/</link>
+      <pubDate>Sat, 18 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://wtfutil.com/modules/datadog/</guid>
+      <description>Connects to the Datadog API and displays alerting modules.
+Source Code wtf/datadog/ Configuration datadog:apiKey:&amp;#34;&amp;lt;yourapikey&amp;gt;&amp;#34;applicationKey:&amp;#34;&amp;lt;yourapplicationkey&amp;gt;&amp;#34;enabled:truemonitors:tags:-&amp;#34;team:ops&amp;#34;position:top:4left:3height:1width:2 Attributes apiKey Value: Your Datadog API key.
+applicationKey Value: Your Datadog Application key.
+monitors Configuration for the monitors functionality.
+tags Array of tags you want to query monitors by.
+enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.
+position Defines where in the grid this module&amp;rsquo;s widget will be displayed.</description>
+    </item>
+    
+    <item>
       <title>Gerrit</title>
       <link>https://wtfutil.com/modules/gerrit/</link>
       <pubDate>Wed, 27 Jun 2018 15:55:42 -0700</pubDate>
