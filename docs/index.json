@@ -133,6 +133,13 @@
 	"content": "For all modules cryptocurrency-related.\n"
 },
 {
+	"uri": "https://wtfutil.com/modules/datadog/",
+	"title": "Datadog",
+	"tags": [],
+	"description": "",
+	"content": " Connects to the Datadog API and displays alerting modules.\nSource Code wtf/datadog/ Configuration datadog:apiKey:\u0026#34;\u0026lt;yourapikey\u0026gt;\u0026#34;applicationKey:\u0026#34;\u0026lt;yourapplicationkey\u0026gt;\u0026#34;enabled:truemonitors:tags:-\u0026#34;team:ops\u0026#34;position:top:4left:3height:1width:2 Attributes apiKey Value: Your Datadog API key.\napplicationKey Value: Your Datadog Application key.\nmonitors Configuration for the monitors functionality.\ntags Array of tags you want to query monitors by.\nenabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.\nposition Defines where in the grid this module\u0026rsquo;s widget will be displayed. refreshInterval How often, in seconds, this module will update its data. Values: A positive integer, 0..n.\n"
+},
+{
 	"uri": "https://wtfutil.com/modules/gerrit/",
 	"title": "Gerrit",
 	"tags": [],

@@ -2,12 +2,10 @@
 title: "Datadog"
 date: 2018-08-18T00:00:00Z
 draft: false
-weight: 160
+weight: 60
 ---
 
-<img class="screenshot" src="/imgs/modules/newrelic.png" width="640" height="189" alt="newrelic screenshot" />
-
-Connects to the Datadog API and displays alerting modules
+Connects to the Datadog API and displays alerting modules.
 
 ## Source Code
 
@@ -22,14 +20,14 @@ datadog:
   apiKey: "<yourapikey>"
   applicationKey: "<yourapplicationkey>"
   enabled: true
+  monitors:
+    tags:
+      - "team:ops"
   position:
     top: 4
     left: 3
     height: 1
     width: 2
-  monitors:
-    tags:
-      - "team:ops"
 ```
 
 ### Attributes
@@ -38,7 +36,6 @@ datadog:
 Value: Your <a href="https://docs.datadoghq.com/api/?lang=python#overview">Datadog API</a> key.
 
 `applicationKey` <br />
-The integer ID of the New Relic application you wish to report on. <br/>
 Value: Your <a href="https://docs.datadoghq.com/api/?lang=python#overview">Datadog Application</a> key.
 
 `monitors` <br />

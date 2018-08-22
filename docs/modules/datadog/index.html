@@ -6,7 +6,7 @@
       <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta name="generator" content="Hugo 0.47.1" />
-<title>IPInfo :: WTF - the terminal dashboard</title>
+<title>Datadog :: WTF - the terminal dashboard</title>
 <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
 <link href="/css/font-awesome.min.css" rel="stylesheet">
 <link href="/css/nucleus.css" rel="stylesheet">
@@ -25,7 +25,7 @@
 
     
   </head>
-  <body data-url="/modules/ipaddress/ipinfo/">
+  <body data-url="/modules/datadog/">
     
       <header>
   <div class="logo">
@@ -171,7 +171,7 @@
     </li>
         </ul>
     </li>
-      <li data-nav-id="/modules/datadog/" class="dd-item">
+      <li data-nav-id="/modules/datadog/" class="dd-item active">
         <div>
           <a href="/modules/datadog/">
             Datadog
@@ -242,11 +242,10 @@
           </a><i class="fa fa-circle-thin read-icon"></i>
         </div>
     </li>
-    <li data-nav-id="/modules/ipaddress/" class="dd-item parent haschildren
+    <li data-nav-id="/modules/ipaddress/" class="dd-item haschildren
         ">
       <div>
-      <a href="/modules/ipaddress/">IP Addresses</a>
-            <i class="fa fa-angle-down fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      <a href="/modules/ipaddress/">IP Addresses</a><i class="fa fa-angle-right fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
       </div>
         <ul>
       <li data-nav-id="/modules/ipaddress/ipapi/" class="dd-item">
@@ -256,7 +255,7 @@
           </a><i class="fa fa-circle-thin read-icon"></i>
         </div>
     </li>
-      <li data-nav-id="/modules/ipaddress/ipinfo/" class="dd-item active">
+      <li data-nav-id="/modules/ipaddress/ipinfo/" class="dd-item">
         <div>
           <a href="/modules/ipaddress/ipinfo/">
             IPInfo
@@ -414,7 +413,7 @@
     <option value="/modules/cryptocurrencies/" >
   - 
    Crypo Currencies</option>
-      <option value="/modules/datadog/" >- Datadog</option>
+      <option value="/modules/datadog/"  selected>- Datadog</option>
       <option value="/modules/gerrit/" >- Gerrit</option>
       <option value="/modules/git/" >- Git</option>
       <option value="/modules/github/" >- GitHub</option>
@@ -426,10 +425,7 @@
       <option value="/modules/hackernews/" >- Hacker News</option>
     <option value="/modules/ipaddress/" >
   - 
-   IP Addresses</option> 
-      <option value="/modules/ipaddress/ipapi/" >-- IP-API</option>
-      <option value="/modules/ipaddress/ipinfo/"  selected>-- IPInfo</option>
-  
+   IP Addresses</option>
       <option value="/modules/jenkins/" >- Jenkins</option>
       <option value="/modules/jira/" >- Jira</option>
       <option value="/modules/logger/" >- Logger</option>
@@ -470,41 +466,42 @@
       </div>
     
 
-    <h1>IPInfo</h1>
+    <h1>Datadog</h1>
     
     
     
     
 
-<p><img class="screenshot" src="/imgs/modules/ipinfo.png" width="320" height="199" alt="ipinfo screenshot" /></p>
-
-<p>Displays your current IP address information, from ipinfo.io.</p>
-
-<p><strong>Note:</strong> IPInfo.io has a free-plan rate limit of 1000 requests per day.</p>
+<p>Connects to the Datadog API and displays alerting modules.</p>
 
 <h2 id="source-code">Source Code</h2>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">wtf/ipinfo/</code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">wtf/datadog/</code></pre></div>
 <h2 id="configuration">Configuration</h2>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">ipinfo<span class="p">:</span><span class="w">
-</span><span class="w">  </span>colors<span class="p">:</span><span class="w">
-</span><span class="w">    </span>name<span class="p">:</span><span class="w"> </span>red<span class="w">
-</span><span class="w">    </span>value<span class="p">:</span><span class="w"> </span>white<span class="w">
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">datadog<span class="p">:</span><span class="w">
+</span><span class="w">  </span>apiKey<span class="p">:</span><span class="w"> </span><span class="s2">&#34;&lt;yourapikey&gt;&#34;</span><span class="w">
+</span><span class="w">  </span>applicationKey<span class="p">:</span><span class="w"> </span><span class="s2">&#34;&lt;yourapplicationkey&gt;&#34;</span><span class="w">
 </span><span class="w">  </span>enabled<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span>monitors<span class="p">:</span><span class="w">
+</span><span class="w">    </span>tags<span class="p">:</span><span class="w">
+</span><span class="w">      </span>-<span class="w"> </span><span class="s2">&#34;team:ops&#34;</span><span class="w">
 </span><span class="w">  </span>position<span class="p">:</span><span class="w">
-</span><span class="w">    </span>top<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="w">    </span>left<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span><span class="w">    </span>top<span class="p">:</span><span class="w"> </span><span class="m">4</span><span class="w">
+</span><span class="w">    </span>left<span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
 </span><span class="w">    </span>height<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="w">    </span>width<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="w">  </span>refreshInterval<span class="p">:</span><span class="w"> </span><span class="m">150</span></code></pre></div>
+</span><span class="w">    </span>width<span class="p">:</span><span class="w"> </span><span class="m">2</span></code></pre></div>
 <h3 id="attributes">Attributes</h3>
 
-<p><code>colors.name</code> <br />
-The default colour for the row names. <br />
-Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11 color</a> name.</p>
+<p><code>apiKey</code> <br />
+Value: Your <a href="https://docs.datadoghq.com/api/?lang=python#overview">Datadog API</a> key.</p>
 
-<p><code>colors.value</code> <br />
-The default colour for the row values. <br />
-Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11 color</a> name.</p>
+<p><code>applicationKey</code> <br />
+Value: Your <a href="https://docs.datadoghq.com/api/?lang=python#overview">Datadog Application</a> key.</p>
+
+<p><code>monitors</code> <br />
+Configuration for the monitors functionality.</p>
+
+<p><code>tags</code> <br />
+Array of tags you want to query monitors by.</p>
 
 <p><code>enabled</code> <br />
 Determines whether or not this module is executed and if its data displayed onscreen. <br />
@@ -522,8 +519,8 @@ Values: A positive integer, <code>0..n</code>.</p>
     
         <div class="chevrons">
     <div id="navigation">
-<a class="nav nav-prev" href="/modules/ipaddress/ipapi/" title="IP-API"> <i class="fa fa-chevron-left"></i><label>IP-API</label></a>
-    <a class="nav nav-next" href="/modules/jenkins/" title="Jenkins" style="margin-right: 0px;"><label>Jenkins</label><i class="fa fa-chevron-right"></i></a></div>
+<a class="nav nav-prev" href="/modules/cryptocurrencies/cryptolive/" title="CryptoLive"> <i class="fa fa-chevron-left"></i><label>CryptoLive</label></a>
+    <a class="nav nav-next" href="/modules/gerrit/" title="Gerrit" style="margin-right: 0px;"><label>Gerrit</label><i class="fa fa-chevron-right"></i></a></div>
   </div>
 
   </section>
@@ -538,12 +535,12 @@ Values: A positive integer, <code>0..n</code>.</p>
 
   
     <div class="date">
-        <i class='fa fa-calendar'></i> Last update on 01/06/2018
+        <i class='fa fa-calendar'></i> Last update on 18/08/2018
     </div>
     
 
     <div class="github-link">
-      <a href="https://github.com/vjeantet/hugo-theme-docdock/edit/master/exampleSite/content/modules/ipaddress/ipinfo.md" target="blank"><i class="fa fa-code-fork"></i>
+      <a href="https://github.com/vjeantet/hugo-theme-docdock/edit/master/exampleSite/content/modules/datadog.md" target="blank"><i class="fa fa-code-fork"></i>
         Improve this page</a>
     </div>
   </div>
