@@ -1,9 +1,9 @@
 package wtf
 
 import (
-	"strings"
 	"regexp"
 	"strconv"
+	"strings"
 
 	"github.com/gdamore/tcell"
 )
