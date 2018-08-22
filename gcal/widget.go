@@ -17,7 +17,7 @@ type Widget struct {
 
 func NewWidget() *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget("Calendar", "gcal", false),
+		TextWidget: wtf.NewTextWidget("Calendar", "gcal", true),
 		ch:         make(chan struct{}),
 	}
 
