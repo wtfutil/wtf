@@ -22,10 +22,10 @@ type Client struct {
 }
 
 // NewClient creates and returns a new Twitter client
-func NewClient(url string) *Client {
+func NewClient(screenName, url string) *Client {
 	client := Client{
 		apiBase:    url,
-		screenName: wtf.Config.UString("wtf.mods.twitter.screenName", "wtfutil"),
+		screenName: screenName,
 		count:      5,
 	}
 

@@ -2,8 +2,7 @@ package twitter
 
 import (
 	"fmt"
-
-	"github.com/senorprogrammer/wtf/wtf"
+	"time"
 )
 
 type Tweet struct {
@@ -19,8 +18,10 @@ func (tweet *Tweet) String() string {
 /* -------------------- Exported Functions -------------------- */
 
 func (tweet *Tweet) Username() string {
-	return fmt.Sprint(tweet.User.ScreenName)
+	return tweet.User.ScreenName
 }
-func (tweet *Tweet) PrettyStart() string {
-	return wtf.PrettyDate(tweet.CreatedAt)
+
+func (tweet *Tweet) PrettyCreatedAt() string {
+	newTime, _ := time.Parse(time.RubyDate, tweet.CreatedAt)
+	return fmt.Sprint(newTime.Format("Jan 2, 2006"))
 }
