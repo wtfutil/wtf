@@ -33,6 +33,7 @@ func (widget *Widget) display() {
 	defer widget.mutex.Unlock()
 
 	_, timedEvents := widget.sortedEvents()
+	widget.View.SetTitle(widget.ContextualTitle(widget.Name))
 	widget.View.SetText(widget.contentFrom(timedEvents))
 }
 
