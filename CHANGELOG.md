@@ -6,15 +6,16 @@
 ### ⚡️ Added
 
 * Twitter tweets are now colourized (@senorprogrammer)
-* Google Calendar widget is now focusable (@anandsudhir)
+* Twitter number of tweets to fetch is now customizable via config (@senorprogrammer)
+* Google Calendar: widget is now focusable (@anandsudhir)
 * [DataDog module](https://wtfutil.com/modules/datadog/) added (@Seanstoppable)
 
 ### 🐞 Fixed
 
-* Textfile module syntax highlighting now included in stand-alone binary ([#261](https://github.com/senorprogrammer/wtf/issues/261) by @senporprogrammer)
+* Textfile syntax highlighting now included in stand-alone binary ([#261](https://github.com/senorprogrammer/wtf/issues/261) by @senporprogrammer)
 * Config param now supports relative paths starting with `~` ([#295](https://github.com/senorprogrammer/wtf/issues/295) by @anandsudhir)
 
-## 0.2.1 
+## 0.2.1
 #### Aug 17, 2018
 
 ### ⚡️ Added
@@ -30,7 +31,7 @@
 * Sigils no longer display when there's only one option (([#291](https://github.com/senorprogrammer/wtf/issues/291) by @anandsudhir)
 * Jira module now responds to the "/" key (([#268](https://github.com/senorprogrammer/wtf/issues/268)) by @senorprogrammer)
 
-## 0.2.0 
+## 0.2.0
 #### Aug 3, 2018
 
 ### ⚡️ Added

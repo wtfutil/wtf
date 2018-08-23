@@ -26,7 +26,7 @@ func NewClient(screenName, url string) *Client {
 	client := Client{
 		apiBase:    url,
 		screenName: screenName,
-		count:      5,
+		count:      wtf.Config.UInt("wtf.mods.twitter.count", 5),
 	}
 
 	client.loadAPICredentials()
