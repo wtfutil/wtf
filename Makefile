@@ -1,7 +1,7 @@
 .PHONY: contrib_check dependencies install run size
 
 build:
-	go build -o bin/wtf
+	go build -race -o bin/wtf
 
 contrib_check:
 	npx all-contributors-cli check
