@@ -7,7 +7,7 @@
 
 * Twitter tweets are now colourized (@senorprogrammer)
 * Google Calendar widget is now focusable (@anandsudhir)
-* DataDog module added (@Seanstoppable)
+* [DataDog module](https://wtfutil.com/modules/datadog/) added (@Seanstoppable)
 
 ### 🐞 Fixed
 
