@@ -80,6 +80,10 @@ func (widget *Widget) highlightText(text string) string {
 	linkRegExp := regexp.MustCompile(`http[s:\/.0-9A-Za-z]*`)
 	result = linkRegExp.ReplaceAllString(result, "[lightblue::u]${0}[white::-]")
 
+	// Hash tags
+	hashRegExp := regexp.MustCompile(`#[0-9A-Za-z_]*`)
+	result = hashRegExp.ReplaceAllString(result, "[yellow]${0}[white]")
+
 	return result
 }
 
