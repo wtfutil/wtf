@@ -3,6 +3,12 @@
 ## 0.2.2
 #### unreleased
 
+### ⚡️ Added
+
+* Twitter tweets are now colourized (@senorprogrammer)
+* Google Calendar widget is now focusable (@anandsudhir)
+* DataDog module added (@Seanstoppable)
+
 ### 🐞 Fixed
 
 * Textfile module syntax highlighting now included in stand-alone binary ([#261](https://github.com/senorprogrammer/wtf/issues/261) by @senporprogrammer)
