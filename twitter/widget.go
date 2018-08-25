@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"regexp"
 
+	"github.com/dustin/go-humanize"
 	"github.com/senorprogrammer/wtf/wtf"
 )
 
@@ -93,9 +94,13 @@ func (widget *Widget) format(tweet Tweet) string {
 
 	var attribution string
 	if name == "" {
-		attribution = tweet.PrettyCreatedAt()
+		attribution = humanize.Time(tweet.Created())
 	} else {
-		attribution = fmt.Sprintf("%s, %s", name, tweet.PrettyCreatedAt())
+		attribution = fmt.Sprintf(
+			"%s, %s",
+			name,
+			humanize.Time(tweet.Created()),
+		)
 	}
 
 	return fmt.Sprintf("%s\n[grey]%s[white]\n\n", body, attribution)

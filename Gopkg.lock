@@ -118,6 +118,14 @@
 
 [[projects]]
   branch = "master"
+  digest = "1:6f9339c912bbdda81302633ad7e99a28dfa5a639c864061f1929510a9a64aa74"
+  name = "github.com/dustin/go-humanize"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "9f541cc9db5d55bce703bd99987c9d5cb8eea45e"
+
+[[projects]]
+  branch = "master"
   digest = "1:40d0056c1b1f503c366ba441df92a82b5a2654d6f3747b1689a611eb5c9ce0a2"
   name = "github.com/gdamore/encoding"
   packages = ["."]
@@ -354,6 +362,7 @@
     "github.com/andygrunwald/go-gerrit",
     "github.com/briandowns/openweathermap",
     "github.com/darkSasori/todoist",
+    "github.com/dustin/go-humanize",
     "github.com/gdamore/tcell",
     "github.com/google/go-github/github",
     "github.com/jessevdk/go-flags",

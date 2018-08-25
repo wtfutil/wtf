@@ -21,7 +21,12 @@ func (tweet *Tweet) Username() string {
 	return tweet.User.ScreenName
 }
 
-func (tweet *Tweet) PrettyCreatedAt() string {
+func (tweet *Tweet) Created() time.Time {
 	newTime, _ := time.Parse(time.RubyDate, tweet.CreatedAt)
+	return newTime
+}
+
+func (tweet *Tweet) PrettyCreatedAt() string {
+	newTime := tweet.Created()
 	return fmt.Sprint(newTime.Format("Jan 2, 2006"))
 }
