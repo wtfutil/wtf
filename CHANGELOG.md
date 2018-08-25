@@ -1,7 +1,7 @@
 # Changelog
 
 ## 0.2.2
-#### unreleased
+#### Aug 25, 2018
 
 ### ⚡️ Added
 
