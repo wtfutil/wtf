@@ -328,10 +328,12 @@ Key: ↑ Action: Select the previous story in the list.</description>
       <guid>https://wtfutil.com/modules/jenkins/</guid>
       <description>Added in v0.0.8.
 Displays jenkins status of given builds in a project or view
-Source Code wtf/jenkins/ Configuration jenkins:apiKey:&amp;#34;3276d7155dd9ee27b8b14f8743a408a9&amp;#34;enabled:trueposition:top:2left:3height:2width:3refreshInterval:300url:&amp;#34;https://jenkins.domain.com/jenkins/view_url&amp;#34;user:&amp;#34;username&amp;#34;verifyServerCertificate:true Attributes apiKey Value: Your Jenkins API key.
-enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.
-position Defines where in the grid this module&amp;rsquo;s widget will be displayed.
-refreshInterval How often, in seconds, this module will update its data. Values: A positive integer, 0.</description>
+Source Code wtf/jenkins/ Keyboard Commands Key: [return] Action: Open the selected job in the browser.
+Key: j Action: Select the next job in the list.
+Key: k Action: Select the previous job in the list.
+Key: r Action: Refresh the data.
+Key: ↓ Action: Select the next job in the list.
+Key: ↑ Action: Select the previous job in the list.</description>
     </item>
     
     <item>
