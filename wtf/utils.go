@@ -113,6 +113,13 @@ func RightAlignFormat(view *tview.TextView) string {
 	return fmt.Sprintf("%%%ds", w-1)
 }
 
+func DefaultRowColor() string {
+	foreColor := Config.UString("wtf.colors.foreground", "white")
+	backColor := Config.UString("wtf.colors.background", "black")
+
+	return fmt.Sprintf("%s:%s", foreColor, backColor)
+}
+
 func DefaultFocussedRowColor() string {
 	foreColor := Config.UString("wtf.colors.highlight.fore", "black")
 	backColor := Config.UString("wtf.colors.highlight.back", "orange")
