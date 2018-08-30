@@ -156,6 +156,7 @@ func SigilStr(len, pos int, view *tview.TextView) string {
 
 func ToInts(slice []interface{}) []int {
 	results := []int{}
+
 	for _, val := range slice {
 		results = append(results, val.(int))
 	}
@@ -165,6 +166,7 @@ func ToInts(slice []interface{}) []int {
 
 func ToStrs(slice []interface{}) []string {
 	results := []string{}
+
 	for _, val := range slice {
 		results = append(results, val.(string))
 	}

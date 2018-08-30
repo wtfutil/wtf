@@ -10,10 +10,10 @@ const HelpText = `
   Keyboard commands for Git:
 
     /: Show/hide this help window
+    c: Checkout to branch
     h: Previous git repository
     l: Next git repository
-	p: Pull current git repository
-	c: Checkout to branch
+    p: Pull current git repository
 
     arrow left:  Previous git repository
     arrow right: Next git repository
@@ -51,12 +51,21 @@ func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 
 /* -------------------- Exported Functions -------------------- */
 
-func (widget *Widget) Refresh() {
-	repoPaths := wtf.ToStrs(wtf.Config.UList("wtf.mods.git.repositories"))
+func (widget *Widget) Checkout() {
+	form := widget.modalForm("Branch to checkout:", "")
 
-	widget.UpdateRefreshedAt()
-	widget.Data = widget.gitRepos(repoPaths)
-	widget.display()
+	checkoutFctn := func() {
+		text := form.GetFormItem(0).(*tview.InputField).GetText()
+		repoToCheckout := widget.Data[widget.Idx]
+		repoToCheckout.checkout(text)
+		widget.pages.RemovePage("modal")
+		widget.app.SetFocus(widget.View)
+		widget.display()
+		widget.Refresh()
+	}
+
+	widget.addButtons(form, checkoutFctn)
+	widget.modalFocus(form)
 }
 
 func (widget *Widget) Next() {
@@ -76,38 +85,33 @@ func (widget *Widget) Prev() {
 
 	widget.display()
 }
+
 func (widget *Widget) Pull() {
 	repoToPull := widget.Data[widget.Idx]
 	repoToPull.pull()
 	widget.Refresh()
 
 }
-func (widget *Widget) Checkout() {
-	form := widget.modalForm("Branch to checkout:", "")
 
-	checkoutFctn := func() {
-		text := form.GetFormItem(0).(*tview.InputField).GetText()
-		repoToCheckout := widget.Data[widget.Idx]
-		repoToCheckout.checkout(text)
-		widget.pages.RemovePage("modal")
-		widget.app.SetFocus(widget.View)
-		widget.display()
-		widget.Refresh()
-	}
+func (widget *Widget) Refresh() {
+	repoPaths := wtf.ToStrs(wtf.Config.UList("wtf.mods.git.repositories"))
 
-	widget.addButtons(form, checkoutFctn)
-	widget.modalFocus(form)
-
+	widget.UpdateRefreshedAt()
+	widget.Data = widget.gitRepos(repoPaths)
+	widget.display()
 }
 
 /* -------------------- Unexported Functions -------------------- */
+
 func (widget *Widget) addCheckoutButton(form *tview.Form, fctn func()) {
 	form.AddButton("Checkout", fctn)
 }
+
 func (widget *Widget) addButtons(form *tview.Form, checkoutFctn func()) {
 	widget.addCheckoutButton(form, checkoutFctn)
 	widget.addCancelButton(form)
 }
+
 func (widget *Widget) addCancelButton(form *tview.Form) {
 	cancelFn := func() {
 		widget.pages.RemovePage("modal")
@@ -118,6 +122,7 @@ func (widget *Widget) addCancelButton(form *tview.Form) {
 	form.AddButton("Cancel", cancelFn)
 	form.SetCancelFunc(cancelFn)
 }
+
 func (widget *Widget) modalFocus(form *tview.Form) {
 	frame := widget.modalFrame(form)
 	widget.pages.AddPage("modal", frame, false, true)
@@ -133,6 +138,7 @@ func (widget *Widget) modalForm(lbl, text string) *tview.Form {
 
 	return form
 }
+
 func (widget *Widget) modalFrame(form *tview.Form) *tview.Frame {
 	frame := tview.NewFrame(form).SetBorders(0, 0, 0, 0, 0, 0)
 	frame.SetRect(offscreen, offscreen, modalWidth, modalHeight)

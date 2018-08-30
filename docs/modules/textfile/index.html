@@ -489,7 +489,9 @@
 <h2 id="configuration">Configuration</h2>
 <div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">textfile<span class="p">:</span><span class="w">
 </span><span class="w">  </span>enabled<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="w">  </span>filePath<span class="p">:</span><span class="w"> </span><span class="s2">&#34;~/Desktop/notes.md&#34;</span><span class="w">
+</span><span class="w">  </span>filePaths<span class="p">:</span><span class="w">
+</span><span class="w">  </span>-<span class="w"> </span><span class="s2">&#34;~/Desktop/notes.md&#34;</span><span class="w">
+</span><span class="w">  </span>-<span class="w"> </span><span class="s2">&#34;~/.config/wtf/config.yml&#34;</span><span class="w">
 </span><span class="w">  </span>format<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span><span class="w">  </span>formatStyle<span class="p">:</span><span class="w"> </span><span class="s2">&#34;dracula&#34;</span><span class="w">
 </span><span class="w">  </span>position<span class="p">:</span><span class="w">
@@ -504,8 +506,8 @@
 Determines whether or not this module is executed and if its data displayed onscreen. <br />
 Values: <code>true</code>, <code>false</code>.</p>
 
-<p><code>filePath</code> <br />
-The path to the file to be displayed in the widget. <br /></p>
+<p><code>filePaths</code> <br />
+An array of paths to the files to be displayed in the widget. <br /></p>
 
 <p><code>format</code> <br />
 Whether or not to try and format and syntax highlight the displayedtext. <br />
