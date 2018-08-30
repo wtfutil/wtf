@@ -2,6 +2,7 @@ package twitter
 
 import (
 	"fmt"
+	"html"
 	"regexp"
 
 	"github.com/dustin/go-humanize"
@@ -66,8 +67,11 @@ func (widget *Widget) displayName(tweet Tweet) string {
 	return tweet.User.ScreenName
 }
 
-func (widget *Widget) highlightText(text string) string {
+func (widget *Widget) formatText(text string) string {
 	result := text
+
+	// Convert HTML entities
+	result = html.UnescapeString(result)
 
 	// RT indicator
 	rtRegExp := regexp.MustCompile(`^RT`)
@@ -89,7 +93,7 @@ func (widget *Widget) highlightText(text string) string {
 }
 
 func (widget *Widget) format(tweet Tweet) string {
-	body := widget.highlightText(tweet.Text)
+	body := widget.formatText(tweet.Text)
 	name := widget.displayName(tweet)
 
 	var attribution string
