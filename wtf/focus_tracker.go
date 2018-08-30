@@ -25,7 +25,7 @@ type FocusTracker struct {
 // AssignHotKeys assigns an alphabetic keyboard character to each focusable
 // widget so that the widget can be brought into focus by pressing that keyboard key
 func (tracker *FocusTracker) AssignHotKeys() {
-	if !tracker.withShortcuts() {
+	if !tracker.useNavShortcuts() {
 		return
 	}
 
@@ -38,7 +38,7 @@ func (tracker *FocusTracker) AssignHotKeys() {
 }
 
 func (tracker *FocusTracker) FocusOn(char string) bool {
-	if !tracker.withShortcuts() {
+	if !tracker.useNavShortcuts() {
 		return false
 	}
 
@@ -176,6 +176,6 @@ func (tracker *FocusTracker) increment() {
 	}
 }
 
-func (tracker *FocusTracker) withShortcuts() bool {
+func (tracker *FocusTracker) useNavShortcuts() bool {
 	return Config.UBool("wtf.navigation.shortcuts", true)
 }
