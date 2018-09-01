@@ -28,21 +28,18 @@ const HelpText = `
 
 type Widget struct {
 	wtf.HelpfulWidget
+	wtf.MultiSourceWidget
 	wtf.TextWidget
-
-	filePaths []string
-	idx       int
 }
 
 func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 	widget := Widget{
-		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
-		TextWidget:    wtf.NewTextWidget("TextFile", "textfile", true),
-
-		idx: 0,
+		HelpfulWidget:     wtf.NewHelpfulWidget(app, pages, HelpText),
+		MultiSourceWidget: wtf.NewMultiSourceWidget(),
+		TextWidget:        wtf.NewTextWidget("TextFile", "textfile", true),
 	}
 
-	widget.loadFilePaths()
+	widget.LoadSources("textfile", "fileName", "fileNames")
 
 	widget.HelpfulWidget.SetView(widget.View)
 
@@ -56,18 +53,18 @@ func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Next() {
-	widget.idx = widget.idx + 1
-	if widget.idx == len(widget.filePaths) {
-		widget.idx = 0
+	widget.MultiSourceWidget.Idx = widget.MultiSourceWidget.Idx + 1
+	if widget.Idx == len(widget.Sources) {
+		widget.Idx = 0
 	}
 
 	widget.display()
 }
 
 func (widget *Widget) Prev() {
-	widget.idx = widget.idx - 1
-	if widget.idx < 0 {
-		widget.idx = len(widget.filePaths) - 1
+	widget.Idx = widget.Idx - 1
+	if widget.Idx < 0 {
+		widget.Idx = len(widget.Sources) - 1
 	}
 
 	widget.display()
@@ -81,14 +78,10 @@ func (widget *Widget) Refresh() {
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (widget *Widget) currentFilePath() string {
-	return widget.filePaths[widget.idx]
-}
-
 func (widget *Widget) display() {
 	widget.View.SetTitle(widget.ContextualTitle(widget.fileName()))
 
-	text := wtf.SigilStr(len(widget.filePaths), widget.idx, widget.View) + "\n"
+	text := wtf.SigilStr(len(widget.Sources), widget.Idx, widget.View) + "\n"
 
 	if wtf.Config.UBool("wtf.mods.textfile.format", false) {
 		text = text + widget.formattedText()
@@ -100,11 +93,11 @@ func (widget *Widget) display() {
 }
 
 func (widget *Widget) fileName() string {
-	return filepath.Base(widget.currentFilePath())
+	return filepath.Base(widget.CurrentSource())
 }
 
 func (widget *Widget) formattedText() string {
-	filePath, _ := wtf.ExpandHomeDir(widget.currentFilePath())
+	filePath, _ := wtf.ExpandHomeDir(widget.CurrentSource())
 
 	file, err := os.Open(filePath)
 	if err != nil {
@@ -134,24 +127,8 @@ func (widget *Widget) formattedText() string {
 	return tview.TranslateANSI(buf.String())
 }
 
-// loadFilePaths parses file paths from the config and stores them in an array
-// It is backwards-compatible, supporting both the original, singular filePath and
-// the current plural filePaths
-func (widget *Widget) loadFilePaths() {
-	var emptyArray []interface{}
-
-	filePath := wtf.Config.UString("wtf.mods.textfile.filePath", "")
-	filePaths := wtf.ToStrs(wtf.Config.UList("wtf.mods.textfile.filePaths", emptyArray))
-
-	if filePath != "" {
-		filePaths = append(filePaths, filePath)
-	}
-
-	widget.filePaths = filePaths
-}
-
 func (widget *Widget) plainText() string {
-	filePath, _ := wtf.ExpandHomeDir(widget.currentFilePath())
+	filePath, _ := wtf.ExpandHomeDir(widget.CurrentSource())
 
 	text, err := ioutil.ReadFile(filePath) // just pass the file name
 	if err != nil {
@@ -172,7 +149,7 @@ func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 		widget.Next()
 		return nil
 	case "o":
-		wtf.OpenFile(widget.currentFilePath())
+		wtf.OpenFile(widget.CurrentSource())
 		return nil
 	}
 

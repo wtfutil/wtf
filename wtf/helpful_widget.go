@@ -12,13 +12,11 @@ type HelpfulWidget struct {
 }
 
 func NewHelpfulWidget(app *tview.Application, pages *tview.Pages, helpText string) HelpfulWidget {
-	widget := HelpfulWidget{
+	return HelpfulWidget{
 		app:      app,
 		helpText: helpText,
 		pages:    pages,
 	}
-
-	return widget
 }
 
 func (widget *HelpfulWidget) SetView(view *tview.TextView) {

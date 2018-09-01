@@ -12,17 +12,21 @@ import (
 const apiURL = "https://api.twitter.com/1.1/"
 
 type Widget struct {
+	wtf.MultiSourceWidget
 	wtf.TextWidget
 
-	screenName string
+	idx     int
+	sources []string
 }
 
 func NewWidget() *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget("Twitter", "twitter", false),
 
-		screenName: wtf.Config.UString("wtf.mods.twitter.screenName", "wtfutil"),
+		idx: 0,
 	}
+
+	widget.loadSources()
 
 	widget.View.SetBorderPadding(1, 1, 1, 1)
 	widget.View.SetWrap(true)
@@ -34,7 +38,7 @@ func NewWidget() *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	client := NewClient(widget.screenName, apiURL)
+	client := NewClient(widget.Sources, apiURL)
 	userTweets := client.Tweets()
 
 	widget.UpdateRefreshedAt()
@@ -58,10 +62,14 @@ func (widget *Widget) contentFrom(tweets []Tweet) string {
 	return str
 }
 
+func (widget *Widget) currentSource() string {
+	return widget.sources[widget.idx]
+}
+
 // If the tweet's Username is the same as the account we're watching, no
 // need to display the username
 func (widget *Widget) displayName(tweet Tweet) string {
-	if widget.screenName == tweet.User.ScreenName {
+	if widget.currentSource() == tweet.User.ScreenName {
 		return ""
 	}
 	return tweet.User.ScreenName
@@ -108,4 +116,17 @@ func (widget *Widget) format(tweet Tweet) string {
 	}
 
 	return fmt.Sprintf("%s\n[grey]%s[white]\n\n", body, attribution)
+}
+
+func (widget *Widget) loadSources() {
+	var empty []interface{}
+
+	single := wtf.Config.UString("wtf.mods.twitter.screenName", "")
+	multiple := wtf.ToStrs(wtf.Config.UList("wtf.mods.twitter.screenNames", empty))
+
+	if single != "" {
+		multiple = append(multiple, single)
+	}
+
+	widget.sources = multiple
 }
