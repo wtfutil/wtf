@@ -249,7 +249,7 @@ func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
 	case "trello":
 		widgets = append(widgets, trello.NewWidget())
 	case "twitter":
-		widgets = append(widgets, twitter.NewWidget())
+		widgets = append(widgets, twitter.NewWidget(app, pages))
 	case "weather":
 		widgets = append(widgets, weather.NewWidget(app, pages))
 	case "zendesk":

@@ -16,6 +16,10 @@ func NewMultiSourceWidget() MultiSourceWidget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *MultiSourceWidget) CurrentSource() string {
+	if widget.Idx >= len(widget.Sources) {
+		return ""
+	}
+
 	return widget.Sources[widget.Idx]
 }
 

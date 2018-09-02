@@ -6,70 +6,103 @@ import (
 	"regexp"
 
 	"github.com/dustin/go-humanize"
+	"github.com/gdamore/tcell"
+	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/wtf"
 )
 
-const apiURL = "https://api.twitter.com/1.1/"
+const HelpText = `
+  Keyboard commands for Textfile:
+
+    /: Show/hide this help window
+    h: Previous Twitter name
+    l: Next Twitter name
+
+    arrow left:  Previous Twitter name
+    arrow right: Next Twitter name
+`
 
 type Widget struct {
+	wtf.HelpfulWidget
 	wtf.MultiSourceWidget
 	wtf.TextWidget
 
+	client  *Client
 	idx     int
 	sources []string
 }
 
-func NewWidget() *Widget {
+func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget("Twitter", "twitter", false),
+		HelpfulWidget:     wtf.NewHelpfulWidget(app, pages, HelpText),
+		MultiSourceWidget: wtf.NewMultiSourceWidget(),
+		TextWidget:        wtf.NewTextWidget("Twitter", "twitter", true),
 
 		idx: 0,
 	}
 
-	widget.loadSources()
+	widget.LoadSources("twitter", "screenName", "screenNames")
+	widget.client = NewClient()
 
 	widget.View.SetBorderPadding(1, 1, 1, 1)
 	widget.View.SetWrap(true)
 	widget.View.SetWordWrap(true)
+	widget.View.SetInputCapture(widget.keyboardIntercept)
 
 	return &widget
 }
 
 /* -------------------- Exported Functions -------------------- */
 
+func (widget *Widget) Next() {
+	widget.Idx = widget.Idx + 1
+	if widget.Idx == len(widget.Sources) {
+		widget.Idx = 0
+	}
+
+	widget.display()
+}
+
+func (widget *Widget) Prev() {
+	widget.Idx = widget.Idx - 1
+	if widget.Idx < 0 {
+		widget.Idx = len(widget.Sources) - 1
+	}
+
+	widget.display()
+}
+
 func (widget *Widget) Refresh() {
-	client := NewClient(widget.Sources, apiURL)
-	userTweets := client.Tweets()
-
 	widget.UpdateRefreshedAt()
-	widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("Twitter - [green]@%s[white]", client.screenName)))
-
-	widget.View.SetText(widget.contentFrom(userTweets))
+	widget.display()
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (widget *Widget) contentFrom(tweets []Tweet) string {
+func (widget *Widget) display() {
+	widget.client.screenName = widget.CurrentSource()
+	tweets := widget.client.Tweets()
+
+	widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("Twitter - [green]@%s[white]", widget.CurrentSource())))
+
 	if len(tweets) == 0 {
-		return fmt.Sprintf("\n\n\n%s", wtf.CenterText("[blue]No Tweets[white]", 50))
+		str := fmt.Sprintf("\n\n\n%s", wtf.CenterText("[blue]No Tweets[white]", 50))
+		widget.View.SetText(str)
+		return
 	}
 
-	str := ""
+	str := wtf.SigilStr(len(widget.Sources), widget.Idx, widget.View) + "\n"
 	for _, tweet := range tweets {
 		str = str + widget.format(tweet)
 	}
 
-	return str
-}
-
-func (widget *Widget) currentSource() string {
-	return widget.sources[widget.idx]
+	widget.View.SetText(str)
 }
 
 // If the tweet's Username is the same as the account we're watching, no
 // need to display the username
 func (widget *Widget) displayName(tweet Tweet) string {
-	if widget.currentSource() == tweet.User.ScreenName {
+	if widget.CurrentSource() == tweet.User.ScreenName {
 		return ""
 	}
 	return tweet.User.ScreenName
@@ -118,15 +151,32 @@ func (widget *Widget) format(tweet Tweet) string {
 	return fmt.Sprintf("%s\n[grey]%s[white]\n\n", body, attribution)
 }
 
-func (widget *Widget) loadSources() {
-	var empty []interface{}
-
-	single := wtf.Config.UString("wtf.mods.twitter.screenName", "")
-	multiple := wtf.ToStrs(wtf.Config.UList("wtf.mods.twitter.screenNames", empty))
-
-	if single != "" {
-		multiple = append(multiple, single)
+func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
+	switch string(event.Rune()) {
+	case "/":
+		widget.ShowHelp()
+		return nil
+	case "h":
+		widget.Prev()
+		return nil
+	case "l":
+		widget.Next()
+		return nil
+	case "o":
+		wtf.OpenFile(widget.CurrentSource())
+		return nil
 	}
 
-	widget.sources = multiple
+	switch event.Key() {
+	case tcell.KeyLeft:
+		widget.Prev()
+		return nil
+	case tcell.KeyRight:
+		widget.Next()
+		return nil
+	default:
+		return event
+	}
+
+	return event
 }

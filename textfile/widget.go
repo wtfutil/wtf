@@ -2,6 +2,7 @@ package textfile
 
 import (
 	"bytes"
+	"fmt"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -39,7 +40,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 		TextWidget:        wtf.NewTextWidget("TextFile", "textfile", true),
 	}
 
-	widget.LoadSources("textfile", "fileName", "fileNames")
+	widget.LoadSources("textfile", "filePath", "filePaths")
 
 	widget.HelpfulWidget.SetView(widget.View)
 
@@ -53,7 +54,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Next() {
-	widget.MultiSourceWidget.Idx = widget.MultiSourceWidget.Idx + 1
+	widget.Idx = widget.Idx + 1
 	if widget.Idx == len(widget.Sources) {
 		widget.Idx = 0
 	}
@@ -72,14 +73,14 @@ func (widget *Widget) Prev() {
 
 func (widget *Widget) Refresh() {
 	widget.UpdateRefreshedAt()
-
 	widget.display()
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
 func (widget *Widget) display() {
-	widget.View.SetTitle(widget.ContextualTitle(widget.fileName()))
+	title := fmt.Sprintf("[green]%s[white]", widget.CurrentSource())
+	widget.View.SetTitle(widget.ContextualTitle(title))
 
 	text := wtf.SigilStr(len(widget.Sources), widget.Idx, widget.View) + "\n"
 
@@ -130,7 +131,9 @@ func (widget *Widget) formattedText() string {
 func (widget *Widget) plainText() string {
 	filePath, _ := wtf.ExpandHomeDir(widget.CurrentSource())
 
-	text, err := ioutil.ReadFile(filePath) // just pass the file name
+	fmt.Println(filePath)
+
+	text, err := ioutil.ReadFile(filePath)
 	if err != nil {
 		return err.Error()
 	}
