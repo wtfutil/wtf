@@ -35,13 +35,15 @@ type Widget struct {
 func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 	widget := Widget{
 		HelpfulWidget:     wtf.NewHelpfulWidget(app, pages, HelpText),
-		MultiSourceWidget: wtf.NewMultiSourceWidget(),
+		MultiSourceWidget: wtf.NewMultiSourceWidget("twitter", "screenName", "screenNames"),
 		TextWidget:        wtf.NewTextWidget("Twitter", "twitter", true),
 
 		idx: 0,
 	}
 
-	widget.LoadSources("twitter", "screenName", "screenNames")
+	widget.LoadSources()
+	widget.SetDisplayFunction(widget.display)
+
 	widget.client = NewClient()
 
 	widget.View.SetBorderPadding(1, 1, 1, 1)
@@ -54,24 +56,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 
 /* -------------------- Exported Functions -------------------- */
 
-func (widget *Widget) Next() {
-	widget.Idx = widget.Idx + 1
-	if widget.Idx == len(widget.Sources) {
-		widget.Idx = 0
-	}
-
-	widget.display()
-}
-
-func (widget *Widget) Prev() {
-	widget.Idx = widget.Idx - 1
-	if widget.Idx < 0 {
-		widget.Idx = len(widget.Sources) - 1
-	}
-
-	widget.display()
-}
-
+// Refresh is called on the interval and refreshes the data
 func (widget *Widget) Refresh() {
 	widget.UpdateRefreshedAt()
 	widget.display()
