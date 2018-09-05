@@ -32,13 +32,13 @@ func (tracker *FocusTracker) AssignHotKeys() {
 	i := 1
 
 	for _, focusable := range tracker.focusables() {
-		focusable.SetFocusChar(string('0' + i))
-		i++
-
+		// Don't have nav characters > "9"
 		if i >= 10 {
-			// Don't have nav characters > "9"
 			break
 		}
+
+		focusable.SetFocusChar(string('0' + i))
+		i++
 	}
 }
 
