@@ -1,5 +1,16 @@
 # Changelog
 
+## Unreleased
+
+### ⚡️ Added
+
+* Twitter module now supports subscribing to multiple screen names
+
+### 🐞 Fixed
+
+* Textfile module now watches files for changes ([#276](https://github.com/senorprogrammer/wtf/issues/276) by @senporprogrammer)
+* Nav shortcuts now use numbers rather than letters to allow the use of letters in widget menus
+
 ## 0.2.2
 #### Aug 25, 2018
 
@@ -14,7 +25,6 @@
 
 * Textfile syntax highlighting now included in stand-alone binary ([#261](https://github.com/senorprogrammer/wtf/issues/261) by @senporprogrammer)
 * Config param now supports relative paths starting with `~` ([#295](https://github.com/senorprogrammer/wtf/issues/295) by @anandsudhir)
-* Textfile module now watches files for changes ([#276](https://github.com/senorprogrammer/wtf/issues/276) by @senporprogrammer)
 
 ## 0.2.1
 #### Aug 17, 2018
