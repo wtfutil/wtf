@@ -14,6 +14,7 @@
 
 * Textfile syntax highlighting now included in stand-alone binary ([#261](https://github.com/senorprogrammer/wtf/issues/261) by @senporprogrammer)
 * Config param now supports relative paths starting with `~` ([#295](https://github.com/senorprogrammer/wtf/issues/295) by @anandsudhir)
+* Textfile module now watches files for changes ([#276](https://github.com/senorprogrammer/wtf/issues/276) by @senporprogrammer)
 
 ## 0.2.1
 #### Aug 17, 2018
