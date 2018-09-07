@@ -4,13 +4,16 @@ import (
 	"bytes"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"os"
 	"path/filepath"
+	"time"
 
 	"github.com/alecthomas/chroma/formatters"
 	"github.com/alecthomas/chroma/lexers"
 	"github.com/alecthomas/chroma/styles"
 	"github.com/gdamore/tcell"
+	"github.com/radovskyb/watcher"
 	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/wtf"
 )
@@ -40,6 +43,9 @@ func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 		TextWidget:        wtf.NewTextWidget("TextFile", "textfile", true),
 	}
 
+	// Don't use a timer for this widget, watch for filesystem changes instead
+	widget.RefreshInt = 0
+
 	widget.LoadSources()
 	widget.SetDisplayFunction(widget.display)
 
@@ -49,14 +55,16 @@ func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 	widget.View.SetWordWrap(true)
 	widget.View.SetInputCapture(widget.keyboardIntercept)
 
+	go widget.watchForFileChanges()
+
 	return &widget
 }
 
 /* -------------------- Exported Functions -------------------- */
 
-// Refresh is called on the interval and refreshes the data
+// Refresh is only called once on start-up. Its job is to display the
+// text files that first time. After that, the watcher takes over
 func (widget *Widget) Refresh() {
-	widget.UpdateRefreshedAt()
 	widget.display()
 }
 
@@ -152,4 +160,37 @@ func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	}
 
 	return event
+}
+
+func (widget *Widget) watchForFileChanges() {
+	watch := watcher.New()
+	watch.FilterOps(watcher.Write)
+
+	go func() {
+		for {
+			select {
+			case <-watch.Event:
+				widget.display()
+			case err := <-watch.Error:
+				log.Fatalln(err)
+			case <-watch.Closed:
+				return
+			}
+		}
+	}()
+
+	// Watch each textfile for changes
+	for _, source := range widget.Sources {
+		fullPath, err := wtf.ExpandHomeDir(source)
+		if err == nil {
+			if err := watch.Add(fullPath); err != nil {
+				log.Fatalln(err)
+			}
+		}
+	}
+
+	// Start the watching process - it'll check for changes every 100ms.
+	if err := watch.Start(time.Millisecond * 100); err != nil {
+		log.Fatalln(err)
+	}
 }
