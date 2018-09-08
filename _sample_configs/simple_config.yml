@@ -1,13 +1,13 @@
 wtf:
   colors:
-    #background: gray
+    # background: gray
     border:
       focusable: darkslateblue
       focused: orange
       normal: gray
   grid:
     columns: [40, 40]
-    rows: [13, 13, 4]
+    rows: [13, 13, 4, 10]
   refreshInterval: 1
   mods:
     clocks:
@@ -30,6 +30,26 @@ wtf:
         width: 1
       refreshInterval: 15
       sort: "alphabetical"
+    ipinfo:
+      colors:
+        name: "lightblue"
+        value: "white"
+      enabled: true
+      position:
+        top: 3
+        left: 0
+        height: 1
+        width: 1
+      refreshInterval: 150
+    power:
+      enabled: true
+      position:
+        top: 3
+        left: 1
+        height: 1
+        width: 1
+      refreshInterval: 15
+      title: "⚡️"
     security:
       enabled: true
       position:
@@ -44,7 +64,7 @@ wtf:
         top: 2
         left: 0
         height: 1
-        width: 2
+        width: 1
       refreshInterval: 1
     system:
       enabled: true
@@ -56,10 +76,14 @@ wtf:
       refreshInterval: 3600
     textfile:
       enabled: true
-      filePath: "~/.config/wtf/config.yml"
+      filePaths:
+        - "~/.config/wtf/config.yml"
+        - "~/.config/wtf/log.txt"
+      format: true
+      formatStyle: "vim"
       position:
         top: 1
         left: 1
-        height: 1
+        height: 2
         width: 1
       refreshInterval: 15
