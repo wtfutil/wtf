@@ -113,6 +113,13 @@ func RightAlignFormat(view *tview.TextView) string {
 	return fmt.Sprintf("%%%ds", w-1)
 }
 
+func DefaultRowColor() string {
+	foreColor := Config.UString("wtf.colors.foreground", "white")
+	backColor := Config.UString("wtf.colors.background", "black")
+
+	return fmt.Sprintf("%s:%s", foreColor, backColor)
+}
+
 func DefaultFocussedRowColor() string {
 	foreColor := Config.UString("wtf.colors.highlight.fore", "black")
 	backColor := Config.UString("wtf.colors.highlight.back", "orange")
@@ -149,6 +156,7 @@ func SigilStr(len, pos int, view *tview.TextView) string {
 
 func ToInts(slice []interface{}) []int {
 	results := []int{}
+
 	for _, val := range slice {
 		results = append(results, val.(int))
 	}
@@ -158,6 +166,7 @@ func ToInts(slice []interface{}) []int {
 
 func ToStrs(slice []interface{}) []string {
 	results := []string{}
+
 	for _, val := range slice {
 		results = append(results, val.(string))
 	}

@@ -28,7 +28,9 @@ wtf/textfile/
 ```yaml
 textfile:
   enabled: true
-  filePath: "~/Desktop/notes.md"
+  filePaths:
+  - "~/Desktop/notes.md"
+  - "~/.config/wtf/config.yml"
   format: true
   formatStyle: "dracula"
   position:
@@ -45,8 +47,8 @@ textfile:
 Determines whether or not this module is executed and if its data displayed onscreen. <br />
 Values: `true`, `false`.
 
-`filePath` <br />
-The path to the file to be displayed in the widget. <br />
+`filePaths` <br />
+An array of paths to the files to be displayed in the widget. <br />
 
 `format` <br />
 Whether or not to try and format and syntax highlight the displayedtext. <br />

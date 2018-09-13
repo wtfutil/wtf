@@ -2,18 +2,47 @@ package jenkins
 
 import (
 	"fmt"
+	"github.com/gdamore/tcell"
+	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/wtf"
 	"os"
+	"strconv"
 )
 
+const HelpText = `
+ Keyboard commands for Jenkins:
+
+   /: Show/hide this help window
+   j: Select the next job in the list
+   k: Select the previous job in the list
+   r: Refresh the data
+
+   arrow down: Select the next job in the list
+   arrow up:   Select the previous job in the list
+
+   return: Open the selected job in a browser
+`
+
 type Widget struct {
+	wtf.HelpfulWidget
 	wtf.TextWidget
+
+	view     *View
+	selected int
 }
 
-func NewWidget() *Widget {
+func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget("Jenkins", "jenkins", false),
+		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
+		TextWidget:    wtf.NewTextWidget("Jenkins", "jenkins", true),
 	}
+
+	widget.HelpfulWidget.SetView(widget.View)
+	widget.unselect()
+
+	widget.View.SetScrollable(true)
+	widget.View.SetRegions(true)
+	widget.View.SetInputCapture(widget.keyboardIntercept)
 
 	return &widget
 }
@@ -30,24 +59,33 @@ func (widget *Widget) Refresh() {
 		wtf.Config.UString("wtf.mods.jenkins.user"),
 		widget.apiKey(),
 	)
+	widget.view = view
 
 	widget.UpdateRefreshedAt()
 
-	var content string
 	if err != nil {
 		widget.View.SetWrap(true)
-		widget.View.SetTitle(fmt.Sprintf(" %s ", widget.Name))
-		content = err.Error()
-	} else {
-		widget.View.SetWrap(false)
-		widget.View.SetTitle(fmt.Sprintf(" %s: [green] ", widget.Name))
-		content = widget.contentFrom(view)
+		widget.View.SetTitle(widget.ContextualTitle(widget.Name))
+		widget.View.SetText(err.Error())
 	}
 
-	widget.View.SetText(content)
+	widget.display()
 }
 
 /* -------------------- Unexported Functions -------------------- */
+
+func (widget *Widget) display() {
+	if widget.view == nil {
+		return
+	}
+
+	widget.View.SetWrap(false)
+
+	widget.View.Clear()
+	widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("%s: [red]%s", widget.Name, widget.view.Name)))
+	widget.View.SetText(widget.contentFrom(widget.view))
+	widget.View.Highlight(strconv.Itoa(widget.selected)).ScrollToHighlight()
+}
 
 func (widget *Widget) apiKey() string {
 	return wtf.Config.UString(
@@ -57,17 +95,28 @@ func (widget *Widget) apiKey() string {
 }
 
 func (widget *Widget) contentFrom(view *View) string {
-	str := fmt.Sprintf(" [red]%s[white]\n", view.Name)
-
-	for _, job := range view.Jobs {
+	var str string
+	for idx, job := range view.Jobs {
 		str = str + fmt.Sprintf(
-			" [%s]%-6s[white]\n",
+			`["%d"][""][%s] [%s]%-6s[white]`,
+			idx,
+			widget.rowColor(idx),
 			widget.jobColor(&job),
 			job.Name,
 		)
+
+		str = str + "\n"
 	}
 
 	return str
+}
+
+func (widget *Widget) rowColor(idx int) string {
+	if widget.View.HasFocus() && (idx == widget.selected) {
+		return wtf.DefaultFocussedRowColor()
+	}
+
+	return wtf.DefaultRowColor()
 }
 
 func (widget *Widget) jobColor(job *Job) string {
@@ -78,5 +127,69 @@ func (widget *Widget) jobColor(job *Job) string {
 		return "red"
 	default:
 		return "white"
+	}
+}
+
+func (widget *Widget) next() {
+	widget.selected++
+	if widget.view != nil && widget.selected >= len(widget.view.Jobs) {
+		widget.selected = 0
+	}
+
+	widget.display()
+}
+
+func (widget *Widget) prev() {
+	widget.selected--
+	if widget.selected < 0 && widget.view != nil {
+		widget.selected = len(widget.view.Jobs) - 1
+	}
+
+	widget.display()
+}
+
+func (widget *Widget) openJob() {
+	sel := widget.selected
+	if sel >= 0 && widget.view != nil && sel < len(widget.view.Jobs) {
+		job := &widget.view.Jobs[widget.selected]
+		wtf.OpenFile(job.Url)
+	}
+}
+
+func (widget *Widget) unselect() {
+	widget.selected = -1
+	widget.display()
+}
+
+func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
+	switch string(event.Rune()) {
+	case "/":
+		widget.ShowHelp()
+	case "j":
+		widget.next()
+		return nil
+	case "k":
+		widget.prev()
+		return nil
+	case "r":
+		widget.Refresh()
+		return nil
+	}
+
+	switch event.Key() {
+	case tcell.KeyDown:
+		widget.next()
+		return nil
+	case tcell.KeyEnter:
+		widget.openJob()
+		return nil
+	case tcell.KeyEsc:
+		widget.unselect()
+		return event
+	case tcell.KeyUp:
+		widget.prev()
+		return nil
+	default:
+		return event
 	}
 }
