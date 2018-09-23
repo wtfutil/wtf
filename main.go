@@ -39,6 +39,7 @@ import (
 	"github.com/senorprogrammer/wtf/opsgenie"
 	"github.com/senorprogrammer/wtf/power"
 	"github.com/senorprogrammer/wtf/security"
+	"github.com/senorprogrammer/wtf/spotify"
 	"github.com/senorprogrammer/wtf/status"
 	"github.com/senorprogrammer/wtf/system"
 	"github.com/senorprogrammer/wtf/textfile"
@@ -238,6 +239,8 @@ func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
 		widgets = append(widgets, status.NewWidget())
 	case "system":
 		widgets = append(widgets, system.NewWidget(date, version))
+	case "spotify":
+		widgets = append(widgets, spotify.NewWidget(app, pages))
 	case "textfile":
 		widgets = append(widgets, textfile.NewWidget(app, pages))
 	case "todo":
