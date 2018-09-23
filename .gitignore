@@ -18,6 +18,7 @@ ftw*
 gcal/client_secret.json
 gspreadsheets/client_secret.json
 profile.pdf
+report.*
 
 # All things node
 node_modules/
