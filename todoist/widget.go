@@ -38,7 +38,7 @@ type Widget struct {
 func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 	widget := Widget{
 		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
-		TextWidget:    wtf.NewTextWidget("Todoist", "todoist", true),
+		TextWidget:    wtf.NewTextWidget(app, "Todoist", "todoist", true),
 	}
 
 	widget.loadAPICredentials()

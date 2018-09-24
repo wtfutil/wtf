@@ -17,9 +17,9 @@ type Widget struct {
 	result string
 }
 
-func NewWidget() *Widget {
+func NewWidget(app *tview.Application) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(" CmdRunner ", "cmdrunner", false),
+		TextWidget: wtf.NewTextWidget(app, "CmdRunner", "cmdrunner", false),
 
 		args: wtf.ToStrs(wtf.Config.UList("wtf.mods.cmdrunner.args")),
 		cmd:  wtf.Config.UString("wtf.mods.cmdrunner.cmd"),

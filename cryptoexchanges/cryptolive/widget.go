@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"sync"
 
+	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/cryptoexchanges/cryptolive/price"
 	"github.com/senorprogrammer/wtf/cryptoexchanges/cryptolive/toplist"
 	"github.com/senorprogrammer/wtf/wtf"
@@ -17,9 +18,9 @@ type Widget struct {
 }
 
 // NewWidget Make new instance of widget
-func NewWidget() *Widget {
+func NewWidget(app *tview.Application) *Widget {
 	widget := Widget{
-		TextWidget:    wtf.NewTextWidget(" CryptoLive ", "cryptolive", false),
+		TextWidget:    wtf.NewTextWidget(app, "CryptoLive", "cryptolive", false),
 		priceWidget:   price.NewWidget(),
 		toplistWidget: toplist.NewWidget(),
 	}

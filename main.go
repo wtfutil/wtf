@@ -108,25 +108,6 @@ func loadConfigFile(filePath string) {
 	wtf.Config = Config
 }
 
-// redrawApp redraws the rendered views to screen on a defined interval (set in config.yml)
-// Use this because each textView widget can have it's own update interval, and I don't want to
-// manage drawing co-ordination amongst them all. If you need to have a
-// widget redraw on it's own schedule, use the view's SetChangedFunc() and pass it `app`.
-func redrawApp(app *tview.Application) {
-	tick := time.NewTicker(time.Duration(Config.UInt("wtf.refreshInterval", 2)) * time.Second)
-	quit := make(chan struct{})
-
-	for {
-		select {
-		case <-tick.C:
-			app.Draw()
-		case <-quit:
-			tick.Stop()
-			return
-		}
-	}
-}
-
 func refreshAllWidgets() {
 	for _, widget := range widgets {
 		go widget.Refresh()
@@ -182,25 +163,25 @@ func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
 	// Always in alphabetical order
 	switch widgetName {
 	case "bamboohr":
-		widgets = append(widgets, bamboohr.NewWidget())
+		widgets = append(widgets, bamboohr.NewWidget(app))
 	case "bargraph":
 		widgets = append(widgets, bargraph.NewWidget())
 	case "bittrex":
-		widgets = append(widgets, bittrex.NewWidget())
+		widgets = append(widgets, bittrex.NewWidget(app))
 	case "blockfolio":
-		widgets = append(widgets, blockfolio.NewWidget())
+		widgets = append(widgets, blockfolio.NewWidget(app))
 	case "circleci":
-		widgets = append(widgets, circleci.NewWidget())
+		widgets = append(widgets, circleci.NewWidget(app))
 	case "clocks":
-		widgets = append(widgets, clocks.NewWidget())
+		widgets = append(widgets, clocks.NewWidget(app))
 	case "cmdrunner":
-		widgets = append(widgets, cmdrunner.NewWidget())
+		widgets = append(widgets, cmdrunner.NewWidget(app))
 	case "cryptolive":
-		widgets = append(widgets, cryptolive.NewWidget())
+		widgets = append(widgets, cryptolive.NewWidget(app))
 	case "datadog":
-		widgets = append(widgets, datadog.NewWidget())
+		widgets = append(widgets, datadog.NewWidget(app))
 	case "gcal":
-		widgets = append(widgets, gcal.NewWidget())
+		widgets = append(widgets, gcal.NewWidget(app))
 	case "gerrit":
 		widgets = append(widgets, gerrit.NewWidget(app, pages))
 	case "git":
@@ -212,31 +193,31 @@ func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
 	case "gitter":
 		widgets = append(widgets, gitter.NewWidget(app, pages))
 	case "gspreadsheets":
-		widgets = append(widgets, gspreadsheets.NewWidget())
+		widgets = append(widgets, gspreadsheets.NewWidget(app))
 	case "hackernews":
 		widgets = append(widgets, hackernews.NewWidget(app, pages))
 	case "ipapi":
-		widgets = append(widgets, ipapi.NewWidget())
+		widgets = append(widgets, ipapi.NewWidget(app))
 	case "ipinfo":
-		widgets = append(widgets, ipinfo.NewWidget())
+		widgets = append(widgets, ipinfo.NewWidget(app))
 	case "jenkins":
 		widgets = append(widgets, jenkins.NewWidget(app, pages))
 	case "jira":
 		widgets = append(widgets, jira.NewWidget(app, pages))
 	case "logger":
-		widgets = append(widgets, logger.NewWidget())
+		widgets = append(widgets, logger.NewWidget(app))
 	case "newrelic":
-		widgets = append(widgets, newrelic.NewWidget())
+		widgets = append(widgets, newrelic.NewWidget(app))
 	case "opsgenie":
-		widgets = append(widgets, opsgenie.NewWidget())
+		widgets = append(widgets, opsgenie.NewWidget(app))
 	case "power":
-		widgets = append(widgets, power.NewWidget())
+		widgets = append(widgets, power.NewWidget(app))
 	case "prettyweather":
-		widgets = append(widgets, prettyweather.NewWidget())
+		widgets = append(widgets, prettyweather.NewWidget(app))
 	case "security":
-		widgets = append(widgets, security.NewWidget())
+		widgets = append(widgets, security.NewWidget(app))
 	case "status":
-		widgets = append(widgets, status.NewWidget())
+		widgets = append(widgets, status.NewWidget(app))
 	case "system":
 		widgets = append(widgets, system.NewWidget(date, version))
 	case "spotify":
@@ -250,13 +231,13 @@ func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
 	case "travisci":
 		widgets = append(widgets, travisci.NewWidget(app, pages))
 	case "trello":
-		widgets = append(widgets, trello.NewWidget())
+		widgets = append(widgets, trello.NewWidget(app))
 	case "twitter":
 		widgets = append(widgets, twitter.NewWidget(app, pages))
 	case "weather":
 		widgets = append(widgets, weather.NewWidget(app, pages))
 	case "zendesk":
-		widgets = append(widgets, zendesk.NewWidget())
+		widgets = append(widgets, zendesk.NewWidget(app))
 	default:
 	}
 }
@@ -301,8 +282,6 @@ func main() {
 	pages.AddPage("grid", display.Grid, true, true)
 	app.SetInputCapture(keyboardIntercept)
 
-	// Loop in a routine to redraw the screen
-	go redrawApp(app)
 	go watchForConfigChanges(app, flags.Config, display.Grid, pages)
 
 	if err := app.SetRoot(pages, true).Run(); err != nil {

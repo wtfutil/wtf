@@ -11,7 +11,7 @@ import (
 )
 
 const HelpText = `
-	To control Spotify use: 
+	To control Spotify use:
 		[Spacebar] for Play & Pause
 		[h] for Previous Song
 		[l] for Next Song
@@ -28,7 +28,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 	spotifyClient := spotigopher.NewClient()
 	widget := Widget{
 		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
-		TextWidget:    wtf.NewTextWidget("Spotify", "spotify", true),
+		TextWidget:    wtf.NewTextWidget(app, "Spotify", "spotify", true),
 		SpotifyClient: spotifyClient,
 		Info:          spotigopher.Info{},
 	}

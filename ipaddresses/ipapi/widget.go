@@ -1,14 +1,14 @@
 package ipapi
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"net/http"
 	"strconv"
 	"text/template"
 
-	"bytes"
-
+	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/wtf"
 )
 
@@ -37,9 +37,9 @@ type ipinfo struct {
 }
 
 // NewWidget constructor
-func NewWidget() *Widget {
+func NewWidget(app *tview.Application) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget("IPInfo", "ipapi", false),
+		TextWidget: wtf.NewTextWidget(app, "IPInfo", "ipapi", false),
 	}
 
 	widget.View.SetWrap(false)

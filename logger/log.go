@@ -8,6 +8,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/wtf"
 )
 
@@ -19,9 +20,9 @@ type Widget struct {
 	filePath string
 }
 
-func NewWidget() *Widget {
+func NewWidget(app *tview.Application) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(" Logs ", "logger", true),
+		TextWidget: wtf.NewTextWidget(app, "Logs", "logger", true),
 
 		filePath: logFilePath(),
 	}

@@ -23,7 +23,7 @@ type TextWidget struct {
 	Position
 }
 
-func NewTextWidget(name string, configKey string, focusable bool) TextWidget {
+func NewTextWidget(app *tview.Application, name string, configKey string, focusable bool) TextWidget {
 	widget := TextWidget{
 		enabled:   Config.UBool(fmt.Sprintf("wtf.mods.%s.enabled", configKey), false),
 		focusable: focusable,
@@ -39,7 +39,7 @@ func NewTextWidget(name string, configKey string, focusable bool) TextWidget {
 		Config.UInt(fmt.Sprintf("wtf.mods.%s.position.height", configKey)),
 	)
 
-	widget.addView()
+	widget.addView(app)
 
 	return widget
 }
@@ -96,12 +96,15 @@ func (widget *TextWidget) TextView() *tview.TextView {
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (widget *TextWidget) addView() {
+func (widget *TextWidget) addView(app *tview.Application) {
 	view := tview.NewTextView()
 
 	view.SetBackgroundColor(colorFor(Config.UString("wtf.colors.background", "black")))
 	view.SetBorder(true)
 	view.SetBorderColor(colorFor(widget.BorderColor()))
+	view.SetChangedFunc(func() {
+		app.Draw()
+	})
 	view.SetDynamicColors(true)
 	view.SetTitle(widget.ContextualTitle(widget.Name))
 	view.SetWrap(false)

@@ -27,7 +27,7 @@ const HelpText = `
     arrow right: Show the next project
     arrow down:  Select the next review in the list
 	arrow up:    Select the previous review in the list
-    
+
 	return: Open the selected review in a browser
 `
 
@@ -49,7 +49,7 @@ var (
 func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 	widget := Widget{
 		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
-		TextWidget:    wtf.NewTextWidget("Gerrit", "gerrit", true),
+		TextWidget:    wtf.NewTextWidget(app, "Gerrit", "gerrit", true),
 
 		Idx: 0,
 	}

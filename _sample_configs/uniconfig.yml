@@ -1,0 +1,32 @@
+wtf:
+  grid:
+    columns: [40, 40]
+    rows: [16]
+  refreshInterval: 1
+  mods:
+    clocks:
+      enabled: true
+      locations:
+        Toronto: "America/Toronto"
+        UTC: "Etc/UTC"
+        Vancouver: "America/Vancouver"
+      position:
+        top: 0
+        left: 0
+        height: 1
+        width: 1
+      refreshInterval: 15
+      sort: "chronological"
+    textfile:
+      enabled: true
+      filePaths:
+        - "~/.config/wtf/config.yml"
+        - "~/.config/wtf/log.txt"
+      format: true
+      formatStyle: "vim"
+      position:
+        top: 0
+        left: 1
+        height: 1
+        width: 1
+      refreshInterval: 15

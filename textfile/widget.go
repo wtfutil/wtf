@@ -40,7 +40,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 	widget := Widget{
 		HelpfulWidget:     wtf.NewHelpfulWidget(app, pages, HelpText),
 		MultiSourceWidget: wtf.NewMultiSourceWidget("textfile", "filePath", "filePaths"),
-		TextWidget:        wtf.NewTextWidget("TextFile", "textfile", true),
+		TextWidget:        wtf.NewTextWidget(app, "TextFile", "textfile", true),
 	}
 
 	// Don't use a timer for this widget, watch for filesystem changes instead
@@ -72,7 +72,7 @@ func (widget *Widget) Refresh() {
 
 func (widget *Widget) display() {
 	title := fmt.Sprintf("[green]%s[white]", widget.CurrentSource())
-	widget.View.SetTitle(widget.ContextualTitle(title))
+	title = widget.ContextualTitle(title)
 
 	text := wtf.SigilStr(len(widget.Sources), widget.Idx, widget.View) + "\n"
 
@@ -82,7 +82,10 @@ func (widget *Widget) display() {
 		text = text + widget.plainText()
 	}
 
-	widget.View.SetText(text)
+	//widget.View.Lock()
+	widget.View.SetTitle(title) // <- Writes to TextView's title
+	widget.View.SetText(text)   // <- Writes to TextView's text
+	//widget.View.Unlock()
 }
 
 func (widget *Widget) fileName() string {

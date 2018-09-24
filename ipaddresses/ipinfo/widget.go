@@ -1,13 +1,13 @@
 package ipinfo
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"net/http"
 	"text/template"
 
-	"bytes"
-
+	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/wtf"
 )
 
@@ -30,9 +30,9 @@ type ipinfo struct {
 	Organization string `json:"org"`
 }
 
-func NewWidget() *Widget {
+func NewWidget(app *tview.Application) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget("IPInfo", "ipinfo", false),
+		TextWidget: wtf.NewTextWidget(app, "IPInfo", "ipinfo", false),
 	}
 
 	widget.View.SetWrap(false)

@@ -48,7 +48,7 @@ type Widget struct {
 func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 	widget := Widget{
 		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
-		TextWidget:    wtf.NewTextWidget("Todo", "todo", true),
+		TextWidget:    wtf.NewTextWidget(app, "Todo", "todo", true),
 
 		app:      app,
 		filePath: wtf.Config.UString("wtf.mods.todo.filename"),
