@@ -299,7 +299,7 @@ func main() {
 	app.SetInputCapture(keyboardIntercept)
 
 	// Loop in a routine to redraw the screen
-	go redrawApp(app)
+	//go redrawApp(app)
 	go watchForConfigChanges(app, flags.Config, display.Grid, pages)
 
 	if err := app.SetRoot(pages, true).Run(); err != nil {

@@ -1,0 +1,19 @@
+wtf:
+  grid:
+    columns: [40]
+    rows: [16]
+  refreshInterval: 1
+  mods:
+    textfile:
+      enabled: true
+      filePaths:
+        - "~/.config/wtf/config.yml"
+        - "~/.config/wtf/log.txt"
+      format: true
+      formatStyle: "vim"
+      position:
+        top: 1
+        left: 1
+        height: 2
+        width: 1
+      refreshInterval: 15

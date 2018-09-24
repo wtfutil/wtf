@@ -54,6 +54,9 @@ func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 	widget.View.SetWrap(true)
 	widget.View.SetWordWrap(true)
 	widget.View.SetInputCapture(widget.keyboardIntercept)
+	widget.View.SetChangedFunc(func() {
+		app.Draw()
+	})
 
 	go widget.watchForFileChanges()
 
@@ -72,7 +75,7 @@ func (widget *Widget) Refresh() {
 
 func (widget *Widget) display() {
 	title := fmt.Sprintf("[green]%s[white]", widget.CurrentSource())
-	widget.View.SetTitle(widget.ContextualTitle(title))
+	title = widget.ContextualTitle(title)
 
 	text := wtf.SigilStr(len(widget.Sources), widget.Idx, widget.View) + "\n"
 
@@ -82,6 +85,7 @@ func (widget *Widget) display() {
 		text = text + widget.plainText()
 	}
 
+	widget.View.SetTitle(title)
 	widget.View.SetText(text)
 }
 

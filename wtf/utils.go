@@ -6,6 +6,7 @@ import (
 	"os/exec"
 	"regexp"
 	"strings"
+	//"sync"
 
 	"github.com/rivo/tview"
 )
@@ -24,6 +25,20 @@ func CenterText(str string, width int) string {
 	}
 
 	return fmt.Sprintf("%[1]*s", -width, fmt.Sprintf("%[1]*s", (width+len(str))/2, str))
+}
+
+func DefaultFocussedRowColor() string {
+	foreColor := Config.UString("wtf.colors.highlight.fore", "black")
+	backColor := Config.UString("wtf.colors.highlight.back", "orange")
+
+	return fmt.Sprintf("%s:%s", foreColor, backColor)
+}
+
+func DefaultRowColor() string {
+	foreColor := Config.UString("wtf.colors.foreground", "white")
+	backColor := Config.UString("wtf.colors.background", "black")
+
+	return fmt.Sprintf("%s:%s", foreColor, backColor)
 }
 
 func ExecuteCommand(cmd *exec.Cmd) string {
@@ -109,22 +124,12 @@ func ReadFileBytes(filePath string) ([]byte, error) {
 }
 
 func RightAlignFormat(view *tview.TextView) string {
+	//mutex := &sync.Mutex{}
+	//mutex.Lock()
 	_, _, w, _ := view.GetInnerRect()
+	//mutex.Unlock()
+
 	return fmt.Sprintf("%%%ds", w-1)
-}
-
-func DefaultRowColor() string {
-	foreColor := Config.UString("wtf.colors.foreground", "white")
-	backColor := Config.UString("wtf.colors.background", "black")
-
-	return fmt.Sprintf("%s:%s", foreColor, backColor)
-}
-
-func DefaultFocussedRowColor() string {
-	foreColor := Config.UString("wtf.colors.highlight.fore", "black")
-	backColor := Config.UString("wtf.colors.highlight.back", "orange")
-
-	return fmt.Sprintf("%s:%s", foreColor, backColor)
 }
 
 func RowColor(module string, idx int) string {
