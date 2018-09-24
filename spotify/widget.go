@@ -11,9 +11,11 @@ import (
 )
 
 const HelpText = `
-  Keyboard commands for Textfile:
-	TESTTEST
-	`
+	To control Spotify use: 
+		[Spacebar] for Play & Pause
+		[h] for Previous Song
+		[l] for Next Song
+`
 
 type Widget struct {
 	wtf.HelpfulWidget
