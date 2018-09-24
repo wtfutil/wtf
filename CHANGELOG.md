@@ -4,6 +4,7 @@
 
 ### ⚡️ Added
 
+* Spotify module added (@sticreations)
 * Twitter module now supports subscribing to multiple screen names
 
 ### 🐞 Fixed
