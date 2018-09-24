@@ -5,7 +5,7 @@ import (
 	"log"
 
 	"github.com/gdamore/tcell"
-
+	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/wtf"
 )
 
@@ -16,9 +16,9 @@ type Widget struct {
 	selected int
 }
 
-func NewWidget() *Widget {
+func NewWidget(app *tview.Application) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget("Zendesk", "zendesk", true),
+		TextWidget: wtf.NewTextWidget(app, "Zendesk", "zendesk", true),
 	}
 
 	widget.View.SetInputCapture(widget.keyboardIntercept)

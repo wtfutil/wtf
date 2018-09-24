@@ -36,7 +36,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 	widget := Widget{
 		HelpfulWidget:     wtf.NewHelpfulWidget(app, pages, HelpText),
 		MultiSourceWidget: wtf.NewMultiSourceWidget("twitter", "screenName", "screenNames"),
-		TextWidget:        wtf.NewTextWidget("Twitter", "twitter", true),
+		TextWidget:        wtf.NewTextWidget(app, "Twitter", "twitter", true),
 
 		idx: 0,
 	}

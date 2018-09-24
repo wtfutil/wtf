@@ -33,7 +33,7 @@ type Widget struct {
 func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 	widget := Widget{
 		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
-		TextWidget:    wtf.NewTextWidget("Jira", "jira", true),
+		TextWidget:    wtf.NewTextWidget(app, "Jira", "jira", true),
 	}
 
 	widget.HelpfulWidget.SetView(widget.View)

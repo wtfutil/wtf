@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/wtf"
 )
 
@@ -15,9 +16,9 @@ type Widget struct {
 	Version    string
 }
 
-func NewWidget(date, version string) *Widget {
+func NewWidget(app *tview.Application, date, version string) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget("System", "system", false),
+		TextWidget: wtf.NewTextWidget(app, "System", "system", false),
 
 		Date:    date,
 		Version: version,

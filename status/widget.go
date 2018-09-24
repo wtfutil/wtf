@@ -1,6 +1,7 @@
 package status
 
 import (
+	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/wtf"
 )
 
@@ -10,9 +11,9 @@ type Widget struct {
 	CurrentIcon int
 }
 
-func NewWidget() *Widget {
+func NewWidget(app *tview.Application) *Widget {
 	widget := Widget{
-		TextWidget:  wtf.NewTextWidget("Status", "status", false),
+		TextWidget:  wtf.NewTextWidget(app, "Status", "status", false),
 		CurrentIcon: 0,
 	}
 

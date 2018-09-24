@@ -3,6 +3,7 @@ package newrelic
 import (
 	"fmt"
 
+	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/wtf"
 	nr "github.com/yfronto/newrelic"
 )
@@ -11,9 +12,9 @@ type Widget struct {
 	wtf.TextWidget
 }
 
-func NewWidget() *Widget {
+func NewWidget(app *tview.Application) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget("New Relic", "newrelic", false),
+		TextWidget: wtf.NewTextWidget(app, "New Relic", "newrelic", false),
 	}
 
 	return &widget

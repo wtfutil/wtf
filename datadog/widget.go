@@ -3,6 +3,7 @@ package datadog
 import (
 	"fmt"
 
+	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/wtf"
 	datadog "github.com/zorkian/go-datadog-api"
 )
@@ -11,9 +12,9 @@ type Widget struct {
 	wtf.TextWidget
 }
 
-func NewWidget() *Widget {
+func NewWidget(app *tview.Application) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget("Datadog", "datadog", false),
+		TextWidget: wtf.NewTextWidget(app, "Datadog", "datadog", false),
 	}
 
 	return &widget

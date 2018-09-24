@@ -4,6 +4,7 @@ import (
 	"sync"
 	"time"
 
+	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/wtf"
 )
 
@@ -15,9 +16,9 @@ type Widget struct {
 	mutex     sync.Mutex
 }
 
-func NewWidget() *Widget {
+func NewWidget(app *tview.Application) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget("Calendar", "gcal", true),
+		TextWidget: wtf.NewTextWidget(app, "Calendar", "gcal", true),
 		ch:         make(chan struct{}),
 	}
 

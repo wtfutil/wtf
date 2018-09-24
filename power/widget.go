@@ -3,6 +3,7 @@ package power
 import (
 	"fmt"
 
+	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/wtf"
 )
 
@@ -12,9 +13,9 @@ type Widget struct {
 	Battery *Battery
 }
 
-func NewWidget() *Widget {
+func NewWidget(app *tview.Application) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget("Power", "power", false),
+		TextWidget: wtf.NewTextWidget(app, "Power", "power", false),
 		Battery:    NewBattery(),
 	}
 

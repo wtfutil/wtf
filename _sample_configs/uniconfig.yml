@@ -1,9 +1,22 @@
 wtf:
   grid:
-    columns: [40]
+    columns: [40, 40]
     rows: [16]
   refreshInterval: 1
   mods:
+    clocks:
+      enabled: true
+      locations:
+        Toronto: "America/Toronto"
+        UTC: "Etc/UTC"
+        Vancouver: "America/Vancouver"
+      position:
+        top: 0
+        left: 0
+        height: 1
+        width: 1
+      refreshInterval: 15
+      sort: "chronological"
     textfile:
       enabled: true
       filePaths:
@@ -12,8 +25,8 @@ wtf:
       format: true
       formatStyle: "vim"
       position:
-        top: 1
+        top: 0
         left: 1
-        height: 2
+        height: 1
         width: 1
       refreshInterval: 15

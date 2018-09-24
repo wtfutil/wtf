@@ -22,7 +22,7 @@ type Widget struct {
 // NewWidget Make new instance of widget
 func NewWidget() *Widget {
 	widget := Widget{
-		BarGraph: wtf.NewBarGraph(" Sample Bar Graph", "bargraph", false),
+		BarGraph: wtf.NewBarGraph("Sample Bar Graph", "bargraph", false),
 	}
 
 	widget.View.SetWrap(true)

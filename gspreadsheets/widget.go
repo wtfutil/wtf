@@ -3,6 +3,7 @@ package gspreadsheets
 import (
 	"fmt"
 
+	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/wtf"
 	sheets "google.golang.org/api/sheets/v4"
 )
@@ -11,9 +12,9 @@ type Widget struct {
 	wtf.TextWidget
 }
 
-func NewWidget() *Widget {
+func NewWidget(app *tview.Application) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget("Google Spreadsheets", "gspreadsheets", false),
+		TextWidget: wtf.NewTextWidget(app, "Google Spreadsheets", "gspreadsheets", false),
 	}
 
 	return &widget

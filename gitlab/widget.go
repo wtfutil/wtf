@@ -41,7 +41,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 
 	widget := Widget{
 		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
-		TextWidget:    wtf.NewTextWidget("Gitlab", "gitlab", true),
+		TextWidget:    wtf.NewTextWidget(app, "Gitlab", "gitlab", true),
 
 		gitlab: gitlab,
 

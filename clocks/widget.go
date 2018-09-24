@@ -4,6 +4,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/wtf"
 )
 
@@ -13,9 +14,9 @@ type Widget struct {
 	clockColl ClockCollection
 }
 
-func NewWidget() *Widget {
+func NewWidget(app *tview.Application) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget("World Clocks", "clocks", false),
+		TextWidget: wtf.NewTextWidget(app, "World Clocks", "clocks", false),
 	}
 
 	widget.clockColl = widget.buildClockCollection(wtf.Config.UMap("wtf.mods.clocks.locations"))

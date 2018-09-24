@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/wtf"
 )
 
@@ -11,9 +12,9 @@ type Widget struct {
 	wtf.TextWidget
 }
 
-func NewWidget() *Widget {
+func NewWidget(app *tview.Application) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget("OpsGenie", "opsgenie", false),
+		TextWidget: wtf.NewTextWidget(app, "OpsGenie", "opsgenie", false),
 	}
 
 	return &widget
