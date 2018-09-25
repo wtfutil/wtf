@@ -113,6 +113,9 @@ func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	}
 
 	switch event.Key() {
+	case tcell.KeyEnter:
+		widget.openRepo()
+		return nil
 	case tcell.KeyLeft:
 		widget.Prev()
 		return nil
@@ -121,5 +124,13 @@ func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 		return nil
 	default:
 		return event
+	}
+}
+
+func (widget *Widget) openRepo() {
+	repo := widget.currentGithubRepo()
+
+	if repo != nil {
+		repo.Open()
 	}
 }

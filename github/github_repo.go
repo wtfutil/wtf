@@ -32,6 +32,10 @@ func NewGithubRepo(name, owner string) *GithubRepo {
 	return &repo
 }
 
+func (repo *GithubRepo) Open() {
+	wtf.OpenFile(*repo.RemoteRepo.HTMLURL)
+}
+
 // Refresh reloads the github data via the Github API
 func (repo *GithubRepo) Refresh() {
 	repo.PullRequests, _ = repo.loadPullRequests()

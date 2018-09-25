@@ -219,7 +219,7 @@ func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
 	case "status":
 		widgets = append(widgets, status.NewWidget(app))
 	case "system":
-		widgets = append(widgets, system.NewWidget(date, version))
+		widgets = append(widgets, system.NewWidget(app, date, version))
 	case "spotify":
 		widgets = append(widgets, spotify.NewWidget(app, pages))
 	case "textfile":
