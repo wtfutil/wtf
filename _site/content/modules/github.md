@@ -5,7 +5,7 @@ draft: false
 weight: 90
 ---
 
-<img class="screenshot" src="/imgs/modules/github.png" width="640" height="384" alt="github screenshot" />
+<img class="screenshot" src="/imgs/modules/github.png" width="480" height="288" alt="github screenshot" />
 
 Displays information about your git repositories hosted on GitHub:
 
@@ -39,6 +39,9 @@ wtf/github/
 
 <span class="caption">Key:</span> `→` <br />
 <span class="caption">Action:</span> Show the next git repository.
+
+<span class="caption">Key:</span> `Return` <br />
+<span class="caption">Action:</span> Open the selected repository in a browser.
 
 ## Configuration
 
