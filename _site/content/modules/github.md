@@ -40,6 +40,9 @@ wtf/github/
 <span class="caption">Key:</span> `→` <br />
 <span class="caption">Action:</span> Show the next git repository.
 
+<span class="caption">Key:</span> `Return` <br />
+<span class="caption">Action:</span> Open the selected repository in a browser.
+
 ## Configuration
 
 ```yaml
