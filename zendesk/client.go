@@ -25,8 +25,8 @@ func apiKey() string {
 
 func subdomain() string {
 	return wtf.Config.UString(
-		"wtf.mods.zendesk.apiKey",
-		os.Getenv("ZENDESK_API"),
+		"wtf.mods.zendesk.subdomain",
+		os.Getenv("ZENDESK_SUBDOMAIN"),
 	)
 }
 
