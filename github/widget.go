@@ -16,6 +16,8 @@ const HelpText = `
 
     arrow left:  Previous git repository
     arrow right: Next git repository
+
+    return: Open the selected repository in a browser
 `
 
 type Widget struct {
