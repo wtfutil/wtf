@@ -39,7 +39,7 @@ func NewTextWidget(app *tview.Application, name string, configKey string, focusa
 		Config.UInt(fmt.Sprintf("wtf.mods.%s.position.height", configKey)),
 	)
 
-	widget.addView(app)
+	widget.addView(app, configKey)
 
 	return widget
 }
@@ -96,10 +96,30 @@ func (widget *TextWidget) TextView() *tview.TextView {
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (widget *TextWidget) addView(app *tview.Application) {
+
+func (widget *TextWidget) addView(app *tview.Application, configKey string) {
 	view := tview.NewTextView()
 
-	view.SetBackgroundColor(colorFor(Config.UString("wtf.colors.background", "black")))
+	view.SetBackgroundColor(colorFor(
+		Config.UString(fmt.Sprintf("wtf.mods.%s.colors.background", configKey),
+			Config.UString("wtf.colors.background", "black"),
+		),
+	))
+
+	view.SetTextColor(colorFor(
+		Config.UString(
+			fmt.Sprintf("wtf.mods.%s.colors.text", configKey),
+			Config.UString("wtf.colors.text", "white"),
+		),
+	))
+
+	view.SetTitleColor(colorFor(
+		Config.UString(
+			fmt.Sprintf("wtf.mods.%s.colors.title", configKey),
+			Config.UString("wtf.colors.title", "white"),
+		),
+	))
+
 	view.SetBorder(true)
 	view.SetBorderColor(colorFor(widget.BorderColor()))
 	view.SetChangedFunc(func() {
