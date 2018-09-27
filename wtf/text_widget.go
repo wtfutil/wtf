@@ -113,6 +113,13 @@ func (widget *TextWidget) addView(app *tview.Application, configKey string) {
 		),
 	))
 
+	view.SetTitleColor(colorFor(
+		Config.UString(
+			fmt.Sprintf("wtf.mods.%s.colors.title", configKey),
+			Config.UString("wtf.colors.title", "white"),
+		),
+	))
+
 	view.SetBorder(true)
 	view.SetBorderColor(colorFor(widget.BorderColor()))
 	view.SetChangedFunc(func() {
