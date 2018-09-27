@@ -144,6 +144,14 @@
   revision = "de7e78efa4a71b3f36c7154989c529dbdf9ae623"
 
 [[projects]]
+  digest = "1:57fa4c058c21ce25d0b7272518dd746065117abf6cc706158b0d361202024520"
+  name = "github.com/godbus/dbus"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "a389bdde4dd695d414e47b755e95e72b7826432c"
+  version = "v4.1.0"
+
+[[projects]]
   digest = "1:15042ad3498153684d09f393bbaec6b216c8eec6d61f63dff711de7d64ed8861"
   name = "github.com/golang/protobuf"
   packages = ["proto"]
@@ -238,6 +246,14 @@
   packages = ["."]
   pruneopts = "UT"
   revision = "21f50f5bc400083b4eb23304887d9cd0fc00d075"
+
+[[projects]]
+  branch = "master"
+  digest = "1:de0cf35afb9cad7b20ff8871ae3b64cecc7116bffb583bc7b3c1bb5c37473149"
+  name = "github.com/sticreations/spotigopher"
+  packages = ["spotigopher"]
+  pruneopts = "UT"
+  revision = "995ee350dc1c54259597de65dde7a9e56a4b73af"
 
 [[projects]]
   digest = "1:18752d0b95816a1b777505a97f71c7467a8445b8ffb55631a7bf779f6ba4fa83"
@@ -370,6 +386,7 @@
     "github.com/pkg/profile",
     "github.com/radovskyb/watcher",
     "github.com/rivo/tview",
+    "github.com/sticreations/spotigopher/spotigopher",
     "github.com/stretchr/testify/assert",
     "github.com/xanzy/go-gitlab",
     "github.com/yfronto/newrelic",
