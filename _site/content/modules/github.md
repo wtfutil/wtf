@@ -67,7 +67,7 @@ github:
 ### Attributes
 
 `apiKey` <br />
-Value: Your <a href="https://developer.github.com/v3/oauth_authorizations/#create-a-new-authorization">GitHub API</a> token.
+Value: Your <a href="https://blog.github.com/2013-05-16-personal-api-tokens/">GitHub API</a> token.
 
 `baseURL` <br />
 _Optional_ <br />
