@@ -14,7 +14,7 @@ func NewDisplay(widgets []Wtfable) *Display {
 	}
 
 	display.build(widgets)
-	display.Grid.SetBackgroundColor(colorFor(Config.UString("wtf.colors.background", "black")))
+	display.Grid.SetBackgroundColor(ColorFor(Config.UString("wtf.colors.background", "black")))
 
 	return &display
 }

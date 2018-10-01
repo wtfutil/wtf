@@ -196,7 +196,7 @@ func (widget *Widget) load() {
 }
 
 func (widget *Widget) newItem() {
-	form := widget.modalForm("New:", "")
+	form := widget.modalForm("New Todo:", "")
 
 	saveFctn := func() {
 		text := form.GetFormItem(0).(*tview.InputField).GetText()
@@ -252,12 +252,15 @@ func (widget *Widget) modalFocus(form *tview.Form) {
 	frame := widget.modalFrame(form)
 	widget.pages.AddPage("modal", frame, false, true)
 	widget.app.SetFocus(frame)
+	widget.app.Draw()
 }
 
 func (widget *Widget) modalForm(lbl, text string) *tview.Form {
 	form := tview.NewForm().
-		SetButtonsAlign(tview.AlignCenter).
-		SetButtonTextColor(tview.Styles.PrimaryTextColor)
+		SetFieldBackgroundColor(wtf.ColorFor(wtf.Config.UString("wtf.colors.background", "black")))
+
+	form.SetButtonsAlign(tview.AlignCenter).
+		SetButtonTextColor(wtf.ColorFor(wtf.Config.UString("wtf.colors.text", "white")))
 
 	form.AddInputField(lbl, text, 60, nil, nil)
 

@@ -96,24 +96,23 @@ func (widget *TextWidget) TextView() *tview.TextView {
 
 /* -------------------- Unexported Functions -------------------- */
 
-
 func (widget *TextWidget) addView(app *tview.Application, configKey string) {
 	view := tview.NewTextView()
 
-	view.SetBackgroundColor(colorFor(
+	view.SetBackgroundColor(ColorFor(
 		Config.UString(fmt.Sprintf("wtf.mods.%s.colors.background", configKey),
 			Config.UString("wtf.colors.background", "black"),
 		),
 	))
 
-	view.SetTextColor(colorFor(
+	view.SetTextColor(ColorFor(
 		Config.UString(
 			fmt.Sprintf("wtf.mods.%s.colors.text", configKey),
 			Config.UString("wtf.colors.text", "white"),
 		),
 	))
 
-	view.SetTitleColor(colorFor(
+	view.SetTitleColor(ColorFor(
 		Config.UString(
 			fmt.Sprintf("wtf.mods.%s.colors.title", configKey),
 			Config.UString("wtf.colors.title", "white"),
@@ -121,7 +120,7 @@ func (widget *TextWidget) addView(app *tview.Application, configKey string) {
 	))
 
 	view.SetBorder(true)
-	view.SetBorderColor(colorFor(widget.BorderColor()))
+	view.SetBorderColor(ColorFor(widget.BorderColor()))
 	view.SetChangedFunc(func() {
 		app.Draw()
 	})

@@ -115,7 +115,7 @@ func (tracker *FocusTracker) blur(idx int) {
 	view := widget.TextView()
 	view.Blur()
 
-	view.SetBorderColor(colorFor(widget.BorderColor()))
+	view.SetBorderColor(ColorFor(widget.BorderColor()))
 }
 
 func (tracker *FocusTracker) decrement() {
@@ -133,7 +133,7 @@ func (tracker *FocusTracker) focus(idx int) {
 	}
 
 	view := widget.TextView()
-	view.SetBorderColor(colorFor(Config.UString("wtf.colors.border.focused", "gray")))
+	view.SetBorderColor(ColorFor(Config.UString("wtf.colors.border.focused", "gray")))
 
 	tracker.App.SetFocus(view)
 	tracker.App.Draw()

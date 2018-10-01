@@ -421,15 +421,15 @@ func ASCIItoTviewColors(text string) string {
 				text, replaceWithHexColorString), `[::b]`), `[-]`)
 }
 
-/* -------------------- Unexported Functions -------------------- */
-
-func colorFor(label string) tcell.Color {
+func ColorFor(label string) tcell.Color {
 	if _, ok := colors[label]; ok {
 		return colors[label]
 	}
 
 	return tcell.ColorGreen
 }
+
+/* -------------------- Unexported Functions -------------------- */
 
 func replaceWithHexColorString(substring string) string {
 	colorID, err := strconv.Atoi(strings.Trim(
