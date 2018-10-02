@@ -55,6 +55,10 @@ The foreground color for the odd-numbered rows. <br />
 Values: Any <a href="https://en.wikipedia.org/wiki/X11_color_names">X11
 color name</a>.
 
+`dateFormat` <br />
+The format of the date string for all clocks. <br />
+Values: Any valid Go date layout which is handled by <a href="https://golang.org/pkg/time/#Time.Format">Time.Format</a>. Defaults to Jan 2.
+
 `enabled` <br />
 Determines whether or not this module is executed and if its data displayed onscreen. <br />
 Values: `true`, `false`.
@@ -77,3 +81,7 @@ Defines the display order of the clocks in the widget. <br />
 Values: `alphabetical` or `chronological`. `alphabetical` will sort in
 acending order by `key`, `chronological` will sort in ascending order by
 date/time.
+
+`timeFormat` <br />
+The format of the time string for all clocks. <br />
+Values: Any valid Go time layout which is handled by <a href="https://golang.org/pkg/time/#Time.Format">Time.Format</a>. Defaults to 15:04 MST.
