@@ -41,6 +41,8 @@ func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 		idx: 0,
 	}
 
+	widget.HelpfulWidget.SetView(widget.View)
+
 	widget.LoadSources()
 	widget.SetDisplayFunction(widget.display)
 
