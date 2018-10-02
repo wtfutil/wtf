@@ -2,8 +2,6 @@ package clocks
 
 import (
 	"time"
-
-	"github.com/senorprogrammer/wtf/wtf"
 )
 
 type Clock struct {
@@ -20,8 +18,8 @@ func NewClock(label string, timeLoc *time.Location) Clock {
 	return clock
 }
 
-func (clock *Clock) Date() string {
-	return clock.LocalTime().Format(wtf.SimpleDateFormat)
+func (clock *Clock) Date(dateFormat string) string {
+	return clock.LocalTime().Format(dateFormat)
 }
 
 func (clock *Clock) LocalTime() time.Time {
@@ -32,6 +30,6 @@ func (clock *Clock) ToLocal(t time.Time) time.Time {
 	return t.In(clock.Location)
 }
 
-func (clock *Clock) Time() string {
-	return clock.LocalTime().Format(wtf.SimpleTimeFormat)
+func (clock *Clock) Time(timeFormat string) string {
+	return clock.LocalTime().Format(timeFormat)
 }
