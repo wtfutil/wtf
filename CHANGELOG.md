@@ -5,6 +5,7 @@
 ### ⚡️ Added
 
 * Spotify module added (@sticreations)
+* Clocks module now supports configurable datetime formats (@danrabinowitz)
 * Twitter module now supports subscribing to multiple screen names
 
 ### 🐞 Fixed
