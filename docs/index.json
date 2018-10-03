@@ -249,7 +249,7 @@
 	"title": "Spotify",
 	"tags": [],
 	"description": "",
-	"content": " Control the Spotify client.\nSource Code wtf/spotify/ Keyboard Commands Key: / Action: Open/close the widget\u0026rsquo;s help window.\nKey: space Action:\nKey: h Action:\nKey: l Action:\nConfiguration spotify:enabled:trueposition:top:1left:2height:1width:1refreshInterval:0 Attributes enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.\nposition Defines where in the grid this module\u0026rsquo;s widget will be displayed. refreshInterval How often, in seconds, this module will update its data. Values: A positive integer, 0..n.\n"
+	"content": " Control the Spotify client.\nSource Code wtf/spotify/ Keyboard Commands Key: / Action: Open/close the widget\u0026rsquo;s help window.\nKey: space Action: Play/pause the currently-selected track\nKey: h Action: Play previous song\nKey: l Action: Play next song\nConfiguration spotify:enabled:trueposition:top:1left:2height:1width:1refreshInterval:0 Attributes enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.\nposition Defines where in the grid this module\u0026rsquo;s widget will be displayed. refreshInterval How often, in seconds, this module will update its data. Values: A positive integer, 0..n.\n"
 },
 {
 	"uri": "https://wtfutil.com/modules/textfile/",

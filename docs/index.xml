@@ -418,9 +418,9 @@ Wifi Network The name of the current network Whether or not the network uses enc
       <guid>https://wtfutil.com/modules/spotify/</guid>
       <description>Control the Spotify client.
 Source Code wtf/spotify/ Keyboard Commands Key: / Action: Open/close the widget&amp;rsquo;s help window.
-Key: space Action:
-Key: h Action:
-Key: l Action:
+Key: space Action: Play/pause the currently-selected track
+Key: h Action: Play previous song
+Key: l Action: Play next song
 Configuration spotify:enabled:trueposition:top:1left:2height:1width:1refreshInterval:0 Attributes enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.
 position Defines where in the grid this module&amp;rsquo;s widget will be displayed. refreshInterval How often, in seconds, this module will update its data.</description>
     </item>

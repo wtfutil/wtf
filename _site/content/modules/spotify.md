@@ -19,13 +19,14 @@ wtf/spotify/
 <span class="caption">Action:</span> Open/close the widget's help window.
 
 <span class="caption">Key:</span> `space` <br />
-<span class="caption">Action:</span>
+<span class="caption">Action:</span> Play/pause the currently-selected
+track
 
 <span class="caption">Key:</span> `h` <br />
-<span class="caption">Action:</span>
+<span class="caption">Action:</span> Play previous song
 
 <span class="caption">Key:</span> `l` <br />
-<span class="caption">Action:</span>
+<span class="caption">Action:</span> Play next song
 
 ## Configuration
 
