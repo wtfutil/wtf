@@ -6,7 +6,7 @@
       <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta name="generator" content="Hugo 0.47.1" />
-<title>Security :: WTF - the terminal dashboard</title>
+<title>Spotify :: WTF - the terminal dashboard</title>
 <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
 <link href="/css/font-awesome.min.css" rel="stylesheet">
 <link href="/css/nucleus.css" rel="stylesheet">
@@ -25,7 +25,7 @@
 
     
   </head>
-  <body data-url="/modules/security/">
+  <body data-url="/modules/spotify/">
     
       <header>
   <div class="logo">
@@ -306,14 +306,14 @@
           </a><i class="fa fa-circle-thin read-icon"></i>
         </div>
     </li>
-      <li data-nav-id="/modules/security/" class="dd-item active">
+      <li data-nav-id="/modules/security/" class="dd-item">
         <div>
           <a href="/modules/security/">
             Security
           </a><i class="fa fa-circle-thin read-icon"></i>
         </div>
     </li>
-      <li data-nav-id="/modules/spotify/" class="dd-item">
+      <li data-nav-id="/modules/spotify/" class="dd-item active">
         <div>
           <a href="/modules/spotify/">
             Spotify
@@ -439,8 +439,8 @@
       <option value="/modules/newrelic/" >- New Relic</option>
       <option value="/modules/opsgenie/" >- OpsGenie</option>
       <option value="/modules/power/" >- Power</option>
-      <option value="/modules/security/"  selected>- Security</option>
-      <option value="/modules/spotify/" >- Spotify</option>
+      <option value="/modules/security/" >- Security</option>
+      <option value="/modules/spotify/"  selected>- Spotify</option>
       <option value="/modules/textfile/" >- Textfile</option>
       <option value="/modules/todo/" >- Todo</option>
       <option value="/modules/todoist/" >- Todoist</option>
@@ -474,56 +474,40 @@
       </div>
     
 
-    <h1>Security</h1>
+    <h1>Spotify</h1>
     
     
     
     
 
-<p><img class="screenshot" src="/imgs/modules/security.png" width="320" height="192" alt="security screenshot" /></p>
-
-<p>Displays some general information about the state of the machine&rsquo;s wifi
-connection, firewall, DNS settings, and logged-in users.</p>
-
-<h4 id="wifi-network">Wifi Network</h4>
-
-<ul class="list-ornate">
-  <li>The name of the current network</li>
-  <li>Whether or not the network uses <a href="https://www.howtogeek.com/167783/htg-explains-the-difference-between-wep-wpa-and-wpa2-wireless-encryption-and-why-it-matters/">encryption</a> and if so, what flavour</li>
-</ul>
-
-<h4 id="firewall">Firewall</h4>
-
-<ul class="list-ornate">
-<li>Whether or not the <a href="https://support.apple.com/en-ca/HT201642">firewall</a> is enabled</li>
-<li>Whether or not <a href="https://support.apple.com/en-ca/HT201642">Stealth Mode</a> is enabled</li>
-</ul>
-
-<h4 id="dns">DNS</h4>
-
-<ul class="list-ornate">
-<li>Which <a hre="https://developers.cloudflare.com/1.1.1.1/what-is-1.1.1.1/">DNS resolvers</a> (servers) the machine is configured to use</li>
-</ul>
-
-<h4 id="users">Users</h4>
-
-<ul class="list-ornate">
-<li> Which users are logged into the machine. Note: Does not yet
-show hidden users.</li>
-</ul>
+<p>Control the Spotify client.</p>
 
 <h2 id="source-code">Source Code</h2>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">wtf/security/</code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">wtf/spotify/</code></pre></div>
+<h2 id="keyboard-commands">Keyboard Commands</h2>
+
+<p><span class="caption">Key:</span> <code>/</code> <br />
+<span class="caption">Action:</span> Open/close the widget&rsquo;s help window.</p>
+
+<p><span class="caption">Key:</span> <code>space</code> <br />
+<span class="caption">Action:</span></p>
+
+<p><span class="caption">Key:</span> <code>h</code> <br />
+<span class="caption">Action:</span></p>
+
+<p><span class="caption">Key:</span> <code>l</code> <br />
+<span class="caption">Action:</span></p>
+
 <h2 id="configuration">Configuration</h2>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">security<span class="p">:</span><span class="w">
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">spotify<span class="p">:</span><span class="w">
 </span><span class="w">  </span>enabled<span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span><span class="w">  </span>position<span class="p">:</span><span class="w">
 </span><span class="w">    </span>top<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
 </span><span class="w">    </span>left<span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
 </span><span class="w">    </span>height<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
 </span><span class="w">    </span>width<span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="w">  </span>refreshInterval<span class="p">:</span><span class="w"> </span><span class="m">3600</span></code></pre></div>
-<h3 id="attributes">Attributes</h3>
+</span><span class="w">  </span>refreshInterval<span class="p">:</span><span class="w"> </span><span class="m">0</span></code></pre></div>
+<h2 id="attributes">Attributes</h2>
 
 <p><code>enabled</code> <br />
 Determines whether or not this module is executed and if its data displayed onscreen. <br />
@@ -541,8 +525,8 @@ Values: A positive integer, <code>0..n</code>.</p>
     
         <div class="chevrons">
     <div id="navigation">
-<a class="nav nav-prev" href="/modules/power/" title="Power"> <i class="fa fa-chevron-left"></i><label>Power</label></a>
-    <a class="nav nav-next" href="/modules/spotify/" title="Spotify" style="margin-right: 0px;"><label>Spotify</label><i class="fa fa-chevron-right"></i></a></div>
+<a class="nav nav-prev" href="/modules/security/" title="Security"> <i class="fa fa-chevron-left"></i><label>Security</label></a>
+    <a class="nav nav-next" href="/modules/textfile/" title="Textfile" style="margin-right: 0px;"><label>Textfile</label><i class="fa fa-chevron-right"></i></a></div>
   </div>
 
   </section>
@@ -557,12 +541,12 @@ Values: A positive integer, <code>0..n</code>.</p>
 
   
     <div class="date">
-        <i class='fa fa-calendar'></i> Last update on 08/05/2018
+        <i class='fa fa-calendar'></i> Last update on 02/10/2018
     </div>
     
 
     <div class="github-link">
-      <a href="https://github.com/vjeantet/hugo-theme-docdock/edit/master/exampleSite/content/modules/security.md" target="blank"><i class="fa fa-code-fork"></i>
+      <a href="https://github.com/vjeantet/hugo-theme-docdock/edit/master/exampleSite/content/modules/spotify.md" target="blank"><i class="fa fa-code-fork"></i>
         Improve this page</a>
     </div>
   </div>

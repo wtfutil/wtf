@@ -245,6 +245,13 @@
 	"content": " Displays some general information about the state of the machine\u0026rsquo;s wifi connection, firewall, DNS settings, and logged-in users.\nWifi Network The name of the current network Whether or not the network uses encryption and if so, what flavour  Firewall Whether or not the firewall is enabled Whether or not Stealth Mode is enabled  DNS Which DNS resolvers (servers) the machine is configured to use  Users  Which users are logged into the machine. Note: Does not yet show hidden users.  Source Code wtf/security/ Configuration security:enabled:trueposition:top:1left:2height:1width:1refreshInterval:3600 Attributes enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.\nposition Defines where in the grid this module\u0026rsquo;s widget will be displayed. refreshInterval How often, in seconds, this module will update its data. Values: A positive integer, 0..n.\n"
 },
 {
+	"uri": "https://wtfutil.com/modules/spotify/",
+	"title": "Spotify",
+	"tags": [],
+	"description": "",
+	"content": " Control the Spotify client.\nSource Code wtf/spotify/ Keyboard Commands Key: / Action: Open/close the widget\u0026rsquo;s help window.\nKey: space Action:\nKey: h Action:\nKey: l Action:\nConfiguration spotify:enabled:trueposition:top:1left:2height:1width:1refreshInterval:0 Attributes enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.\nposition Defines where in the grid this module\u0026rsquo;s widget will be displayed. refreshInterval How often, in seconds, this module will update its data. Values: A positive integer, 0..n.\n"
+},
+{
 	"uri": "https://wtfutil.com/modules/textfile/",
 	"title": "Textfile",
 	"tags": [],

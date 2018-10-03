@@ -261,6 +261,21 @@ Wifi Network The name of the current network Whether or not the network uses enc
     </item>
     
     <item>
+      <title>Spotify</title>
+      <link>https://wtfutil.com/modules/spotify/</link>
+      <pubDate>Tue, 02 Oct 2018 17:13:11 -0700</pubDate>
+      
+      <guid>https://wtfutil.com/modules/spotify/</guid>
+      <description>Control the Spotify client.
+Source Code wtf/spotify/ Keyboard Commands Key: / Action: Open/close the widget&amp;rsquo;s help window.
+Key: space Action:
+Key: h Action:
+Key: l Action:
+Configuration spotify:enabled:trueposition:top:1left:2height:1width:1refreshInterval:0 Attributes enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.
+position Defines where in the grid this module&amp;rsquo;s widget will be displayed. refreshInterval How often, in seconds, this module will update its data.</description>
+    </item>
+    
+    <item>
       <title>Textfile</title>
       <link>https://wtfutil.com/modules/textfile/</link>
       <pubDate>Wed, 09 May 2018 11:13:11 -0700</pubDate>
