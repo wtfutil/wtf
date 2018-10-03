@@ -45,7 +45,7 @@ position Defines where in the grid this module&amp;rsquo;s widget will be displa
       <description>Displays a configurable list of world clocks, the local time, and date.
 Source Code wtf/clocks/ Configuration clocks:colors:rows:even:&amp;#34;lightblue&amp;#34;odd:&amp;#34;white&amp;#34;enabled:truelocations:# From https://en.wikipedia.org/wiki/List_of_tz_database_time_zonesAvignon:&amp;#34;Europe/Paris&amp;#34;Barcelona:&amp;#34;Europe/Madrid&amp;#34;Dubai:&amp;#34;Asia/Dubai&amp;#34;NewYork:&amp;#34;America/New York&amp;#34;Toronto:&amp;#34;America/Toronto&amp;#34;UTC:&amp;#34;Etc/UTC&amp;#34;Vancouver:&amp;#34;America/Vancouver&amp;#34;position:top:4left:0height:1width:1refreshInterval:15# Valid options are: alphabetical, chronologicalsort:&amp;#34;alphabetical&amp;#34; Attributes colors.rows.even The foreground color for even-numbered rows. Values: Any X11 color name.
 colors.rows.odd The foreground color for the odd-numbered rows. Values: Any X11 color name.
-enabled Determines whether or not this module is executed and if its data displayed onscreen. Values: true, false.</description>
+dateFormat The format of the date string for all clocks. Values: Any valid Go date layout which is handled by Time.</description>
     </item>
     
     <item>
