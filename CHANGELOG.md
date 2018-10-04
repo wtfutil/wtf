@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+### 🐞 Fixed
+
+* Google Calendar module now displays all-day events ([#306](https://github.com/senorprogrammer/wtf/issues/306) by @@nicholas-eden)
+
 ## 0.3.0
 
 ### ⚡️ Added
