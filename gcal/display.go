@@ -32,9 +32,8 @@ func (widget *Widget) display() {
 	widget.mutex.Lock()
 	defer widget.mutex.Unlock()
 
-	_, timedEvents := widget.sortedEvents()
 	widget.View.SetTitle(widget.ContextualTitle(widget.Name))
-	widget.View.SetText(widget.contentFrom(timedEvents))
+	widget.View.SetText(widget.contentFrom(widget.calEvents))
 }
 
 func (widget *Widget) contentFrom(calEvents []*CalEvent) string {
@@ -51,6 +50,9 @@ func (widget *Widget) contentFrom(calEvents []*CalEvent) string {
 
 	for _, calEvent := range calEvents {
 		timestamp := fmt.Sprintf("[%s]%s", widget.descriptionColor(calEvent), calEvent.Timestamp())
+		if calEvent.AllDay() {
+			timestamp = ""
+		}
 
 		title := fmt.Sprintf("[%s]%s",
 			widget.titleColor(calEvent),

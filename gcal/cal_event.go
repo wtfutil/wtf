@@ -69,33 +69,37 @@ func (calEvent *CalEvent) ResponseFor(email string) string {
 
 func (calEvent *CalEvent) End() time.Time {
 	var calcTime string
+	var end time.Time
 
 	if calEvent.AllDay() {
 		calcTime = calEvent.event.End.Date
+		end, _ = time.ParseInLocation("2006-01-02", calcTime, time.Local)
 	} else {
 		calcTime = calEvent.event.End.DateTime
+		end, _ = time.Parse(time.RFC3339, calcTime)
 	}
 
-	end, _ := time.Parse(time.RFC3339, calcTime)
 	return end
 }
 
 func (calEvent *CalEvent) Start() time.Time {
 	var calcTime string
+	var start time.Time
 
 	if calEvent.AllDay() {
 		calcTime = calEvent.event.Start.Date
+		start, _ = time.ParseInLocation("2006-01-02", calcTime, time.Local)
 	} else {
 		calcTime = calEvent.event.Start.DateTime
+		start, _ = time.Parse(time.RFC3339, calcTime)
 	}
 
-	start, _ := time.Parse(time.RFC3339, calcTime)
 	return start
 }
 
 func (calEvent *CalEvent) Timestamp() string {
 	if calEvent.AllDay() {
-		startTime, _ := time.Parse("2006-01-02", calEvent.event.Start.Date)
+		startTime, _ := time.ParseInLocation("2006-01-02", calEvent.event.Start.Date, time.Local)
 		return startTime.Format(wtf.FriendlyDateFormat)
 	}
 
