@@ -14,12 +14,14 @@ type Widget struct {
 	calEvents []*CalEvent
 	ch        chan struct{}
 	mutex     sync.Mutex
+	app       *tview.Application
 }
 
 func NewWidget(app *tview.Application) *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(app, "Calendar", "gcal", true),
 		ch:         make(chan struct{}),
+		app:        app,
 	}
 
 	go updateLoop(&widget)
@@ -35,18 +37,26 @@ func (widget *Widget) Disable() {
 }
 
 func (widget *Widget) Refresh() {
+	defer widget.UpdateRefreshedAt()
+	if isAuthenticated() {
+		widget.fetchAndDisplayEvents()
+		return
+	}
+	widget.app.Suspend(authenticate)
+	widget.Refresh()
+}
+
+/* -------------------- Unexported Functions -------------------- */
+
+func (widget *Widget) fetchAndDisplayEvents() {
 	calEvents, err := Fetch()
 	if err != nil {
 		widget.calEvents = []*CalEvent{}
 	} else {
 		widget.calEvents = calEvents
 	}
-
-	widget.UpdateRefreshedAt()
 	widget.display()
 }
-
-/* -------------------- Unexported Functions -------------------- */
 
 func updateLoop(widget *Widget) {
 	interval := wtf.Config.UInt("wtf.mods.gcal.textInterval", 30)

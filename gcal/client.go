@@ -14,13 +14,11 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"net/url"
 	"os"
-	"os/user"
-	"path/filepath"
 	"sort"
 	"time"
 
+	"github.com/senorprogrammer/wtf/cfg"
 	"github.com/senorprogrammer/wtf/wtf"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
@@ -115,6 +113,30 @@ func getClient(ctx context.Context, config *oauth2.Config) *http.Client {
 	return config.Client(ctx, tok)
 }
 
+func isAuthenticated() bool {
+	cacheFile, err := tokenCacheFile()
+	if err != nil {
+		log.Fatalf("Unable to get path to cached credential file. %v", err)
+	}
+	_, err = tokenFromFile(cacheFile)
+	return err == nil
+}
+
+func authenticate() {
+	filename := wtf.Config.UString("wtf.mods.gcal.secretFile")
+	secretPath, _ := wtf.ExpandHomeDir(filename)
+
+	b, err := ioutil.ReadFile(secretPath)
+	if err != nil {
+		log.Fatalf("Unable to read secret file. %v", filename)
+	}
+
+	config, err := google.ConfigFromJSON(b, calendar.CalendarReadonlyScope)
+	tok := getTokenFromWeb(config)
+	cacheFile, err := tokenCacheFile()
+	saveToken(cacheFile, tok)
+}
+
 // getTokenFromWeb uses Config to request a Token.
 // It returns the retrieved Token.
 func getTokenFromWeb(config *oauth2.Config) *oauth2.Token {
@@ -137,14 +159,7 @@ func getTokenFromWeb(config *oauth2.Config) *oauth2.Token {
 // tokenCacheFile generates credential file path/filename.
 // It returns the generated credential path/filename.
 func tokenCacheFile() (string, error) {
-	usr, err := user.Current()
-	if err != nil {
-		return "", err
-	}
-	tokenCacheDir := filepath.Join(usr.HomeDir, ".credentials")
-	os.MkdirAll(tokenCacheDir, 0700)
-	return filepath.Join(tokenCacheDir,
-		url.QueryEscape("calendar-go-quickstart.json")), err
+	return cfg.CreateFile("gcal-auth.json")
 }
 
 // tokenFromFile retrieves a Token from a given file path.
