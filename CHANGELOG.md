@@ -4,7 +4,8 @@
 
 ### 🐞 Fixed
 
-* Google Calendar module now displays all-day events ([#306](https://github.com/senorprogrammer/wtf/issues/306) by @@nicholas-eden)
+* Google Calendar module now displays all-day events ([#306](https://github.com/senorprogrammer/wtf/issues/306) by @nicholas-eden)
+* Google Calendar configuration much improved ([#326](https://github.com/senorprogrammer/wtf/issues/326) by @dvdmssmnn)
 
 ## 0.3.0
 
