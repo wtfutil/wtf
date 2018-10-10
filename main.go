@@ -35,6 +35,7 @@ import (
 	"github.com/senorprogrammer/wtf/jenkins"
 	"github.com/senorprogrammer/wtf/jira"
 	"github.com/senorprogrammer/wtf/logger"
+	"github.com/senorprogrammer/wtf/mercurial"
 	"github.com/senorprogrammer/wtf/newrelic"
 	"github.com/senorprogrammer/wtf/opsgenie"
 	"github.com/senorprogrammer/wtf/power"
@@ -206,6 +207,8 @@ func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
 		widgets = append(widgets, jira.NewWidget(app, pages))
 	case "logger":
 		widgets = append(widgets, logger.NewWidget(app))
+	case "mercurial":
+		widgets = append(widgets, mercurial.NewWidget(app, pages))
 	case "newrelic":
 		widgets = append(widgets, newrelic.NewWidget(app))
 	case "opsgenie":
