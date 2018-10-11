@@ -31,7 +31,6 @@ func NewWidget(app *tview.Application) *Widget {
 }
 
 func (widget *Widget) Refresh() {
-	widget.UpdateRefreshedAt()
 	widget.execute()
 
 	title := tview.TranslateANSI(wtf.Config.UString("wtf.mods.cmdrunner.title", widget.String()))

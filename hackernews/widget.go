@@ -79,7 +79,6 @@ func (widget *Widget) Refresh() {
 		widget.stories = stories
 	}
 
-	widget.UpdateRefreshedAt()
 	widget.display()
 }
 

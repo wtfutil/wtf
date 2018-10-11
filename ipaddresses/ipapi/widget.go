@@ -51,7 +51,6 @@ func NewWidget(app *tview.Application) *Widget {
 
 // Refresh refresh the module
 func (widget *Widget) Refresh() {
-	widget.UpdateRefreshedAt()
 	widget.ipinfo()
 	widget.View.SetText(widget.result)
 }

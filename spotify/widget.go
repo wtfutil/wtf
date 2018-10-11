@@ -49,7 +49,6 @@ func (w *Widget) refreshSpotifyInfos() error {
 
 func (w *Widget) Refresh() {
 	w.render()
-	w.UpdateRefreshedAt()
 }
 
 func (w *Widget) render() {

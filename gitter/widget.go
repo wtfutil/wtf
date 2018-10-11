@@ -64,7 +64,6 @@ func (widget *Widget) Refresh() {
 	}
 
 	messages, err := GetMessages(room.ID, wtf.Config.UInt("wtf.mods.gitter.numberOfMessages", 10))
-	widget.UpdateRefreshedAt()
 
 	if err != nil {
 		widget.View.SetWrap(true)

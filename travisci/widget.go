@@ -53,8 +53,6 @@ func (widget *Widget) Refresh() {
 
 	builds, err := BuildsFor()
 
-	widget.UpdateRefreshedAt()
-
 	if err != nil {
 		widget.View.SetWrap(true)
 		widget.View.SetTitle(widget.Name)

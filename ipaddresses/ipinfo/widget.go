@@ -43,7 +43,6 @@ func NewWidget(app *tview.Application) *Widget {
 }
 
 func (widget *Widget) Refresh() {
-	widget.UpdateRefreshedAt()
 	widget.ipinfo()
 	widget.View.Clear()
 

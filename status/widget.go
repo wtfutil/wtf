@@ -23,7 +23,6 @@ func NewWidget(app *tview.Application) *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	widget.UpdateRefreshedAt()
 	widget.View.SetText(widget.animation())
 }
 

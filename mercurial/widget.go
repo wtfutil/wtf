@@ -81,7 +81,6 @@ func (widget *Widget) Pull() {
 func (widget *Widget) Refresh() {
 	repoPaths := wtf.ToStrs(wtf.Config.UList("wtf.mods.mercurial.repositories"))
 
-	widget.UpdateRefreshedAt()
 	widget.Data = widget.mercurialRepos(repoPaths)
 	widget.display()
 }
@@ -141,7 +140,7 @@ func (widget *Widget) modalFrame(form *tview.Form) *tview.Frame {
 	return frame
 }
 
-func (widget *Widget) currentData() *MercurialRepo{
+func (widget *Widget) currentData() *MercurialRepo {
 	if len(widget.Data) == 0 {
 		return nil
 	}
@@ -153,7 +152,7 @@ func (widget *Widget) currentData() *MercurialRepo{
 	return widget.Data[widget.Idx]
 }
 
-func (widget *Widget) mercurialRepos(repoPaths []string) []*MercurialRepo{
+func (widget *Widget) mercurialRepos(repoPaths []string) []*MercurialRepo {
 	repos := []*MercurialRepo{}
 
 	for _, repoPath := range repoPaths {

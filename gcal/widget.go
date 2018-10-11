@@ -37,7 +37,6 @@ func (widget *Widget) Disable() {
 }
 
 func (widget *Widget) Refresh() {
-	defer widget.UpdateRefreshedAt()
 	if isAuthenticated() {
 		widget.fetchAndDisplayEvents()
 		return

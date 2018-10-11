@@ -25,8 +25,6 @@ func NewWidget(app *tview.Application) *Widget {
 func (widget *Widget) Refresh() {
 	cells, _ := Fetch()
 
-	widget.UpdateRefreshedAt()
-
 	widget.View.SetText(widget.contentFrom(cells))
 }
 

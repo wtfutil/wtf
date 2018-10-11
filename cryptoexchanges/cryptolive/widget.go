@@ -42,8 +42,6 @@ func (widget *Widget) Refresh() {
 	widget.toplistWidget.Refresh(&wg)
 	wg.Wait()
 
-	widget.UpdateRefreshedAt()
-
 	display(widget)
 }
 

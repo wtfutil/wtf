@@ -60,7 +60,6 @@ func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 
 // Refresh is called on the interval and refreshes the data
 func (widget *Widget) Refresh() {
-	widget.UpdateRefreshedAt()
 	widget.display()
 }
 

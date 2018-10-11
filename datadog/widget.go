@@ -25,7 +25,6 @@ func NewWidget(app *tview.Application) *Widget {
 func (widget *Widget) Refresh() {
 	monitors, monitorErr := Monitors()
 
-	widget.UpdateRefreshedAt()
 	widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("%s", widget.Name)))
 	widget.View.Clear()
 

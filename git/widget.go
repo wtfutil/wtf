@@ -81,7 +81,6 @@ func (widget *Widget) Pull() {
 func (widget *Widget) Refresh() {
 	repoPaths := wtf.ToStrs(wtf.Config.UList("wtf.mods.git.repositories"))
 
-	widget.UpdateRefreshedAt()
 	widget.Data = widget.gitRepos(repoPaths)
 	widget.display()
 }

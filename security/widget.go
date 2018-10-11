@@ -28,7 +28,6 @@ func (widget *Widget) Refresh() {
 	data := NewSecurityData()
 	data.Fetch()
 
-	widget.UpdateRefreshedAt()
 	widget.View.SetText(widget.contentFrom(data))
 }
 

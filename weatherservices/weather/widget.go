@@ -73,7 +73,6 @@ func (widget *Widget) Refresh() {
 		widget.Data = widget.Fetch(wtf.ToInts(wtf.Config.UList("wtf.mods.weather.cityids", widget.defaultCityCodes())))
 	}
 
-	widget.UpdateRefreshedAt()
 	widget.display()
 }
 

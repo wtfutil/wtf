@@ -11,14 +11,13 @@ import (
 
 //BarGraph lets make graphs
 type BarGraph struct {
-	enabled     bool
-	focusable   bool
-	starChar    string
-	maxStars    int
-	Name        string
-	RefreshedAt time.Time
-	RefreshInt  int
-	View        *tview.TextView
+	enabled    bool
+	focusable  bool
+	starChar   string
+	maxStars   int
+	Name       string
+	RefreshInt int
+	View       *tview.TextView
 
 	Position
 
@@ -89,10 +88,6 @@ func (widget *BarGraph) TextView() *tview.TextView {
 }
 
 /* -------------------- Unexported Functions -------------------- */
-
-func (widget *BarGraph) UpdateRefreshedAt() {
-	widget.RefreshedAt = time.Now()
-}
 
 func (widget *BarGraph) addView() {
 	view := tview.NewTextView()

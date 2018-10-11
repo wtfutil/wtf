@@ -69,7 +69,6 @@ func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	widget.UpdateRefreshedAt()
 	widget.load()
 	widget.display()
 

@@ -27,7 +27,6 @@ func NewWidget(app *tview.Application) *Widget {
 }
 
 func (widget *Widget) Refresh() {
-	widget.UpdateRefreshedAt()
 	widget.prettyWeather()
 
 	widget.View.SetText(widget.result)

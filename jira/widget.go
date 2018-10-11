@@ -54,8 +54,6 @@ func (widget *Widget) Refresh() {
 		wtf.Config.UString("wtf.mods.jira.jql", ""),
 	)
 
-	widget.UpdateRefreshedAt()
-
 	if err != nil {
 		widget.result = nil
 		widget.View.SetWrap(true)

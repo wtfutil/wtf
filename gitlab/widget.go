@@ -63,7 +63,6 @@ func (widget *Widget) Refresh() {
 		project.Refresh()
 	}
 
-	widget.UpdateRefreshedAt()
 	widget.display()
 }
 

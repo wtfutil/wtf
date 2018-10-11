@@ -29,7 +29,6 @@ func NewWidget(app *tview.Application) *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	widget.UpdateRefreshedAt()
 	widget.View.SetTitle(" Blockfolio ")
 
 	positions, err := Fetch(widget.device_token)

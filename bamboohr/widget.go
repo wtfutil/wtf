@@ -29,7 +29,6 @@ func (widget *Widget) Refresh() {
 		wtf.Now().Format(wtf.DateFormat),
 	)
 
-	widget.UpdateRefreshedAt()
 	widget.View.SetTitle(widget.ContextualTitle(widget.Name))
 
 	widget.View.SetText(widget.contentFrom(todayItems))

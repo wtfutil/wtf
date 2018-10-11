@@ -51,7 +51,6 @@ func (widget *Widget) Refresh() {
 		repo.Refresh()
 	}
 
-	widget.UpdateRefreshedAt()
 	widget.display()
 }
 

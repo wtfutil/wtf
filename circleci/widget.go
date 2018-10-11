@@ -28,8 +28,6 @@ func (widget *Widget) Refresh() {
 
 	builds, err := BuildsFor()
 
-	widget.UpdateRefreshedAt()
-
 	widget.View.SetTitle(fmt.Sprintf("%s - Builds", widget.Name))
 
 	var content string

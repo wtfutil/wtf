@@ -87,7 +87,6 @@ func (w *Widget) Refresh() {
 		return
 	}
 
-	w.UpdateRefreshedAt()
 	w.display()
 }
 

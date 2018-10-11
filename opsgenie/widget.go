@@ -25,7 +25,6 @@ func NewWidget(app *tview.Application) *Widget {
 func (widget *Widget) Refresh() {
 	data, err := Fetch()
 
-	widget.UpdateRefreshedAt()
 	widget.View.SetTitle(widget.ContextualTitle(widget.Name))
 
 	var content string

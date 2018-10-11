@@ -2,7 +2,6 @@ package wtf
 
 import (
 	"fmt"
-	"time"
 
 	"github.com/olebedev/config"
 	"github.com/rivo/tview"
@@ -15,10 +14,9 @@ type TextWidget struct {
 	focusable bool
 	focusChar string
 
-	Name        string
-	RefreshedAt time.Time
-	RefreshInt  int
-	View        *tview.TextView
+	Name       string
+	RefreshInt int
+	View       *tview.TextView
 
 	Position
 }
@@ -129,8 +127,4 @@ func (widget *TextWidget) addView(app *tview.Application, configKey string) {
 	view.SetWrap(false)
 
 	widget.View = view
-}
-
-func (widget *TextWidget) UpdateRefreshedAt() {
-	widget.RefreshedAt = time.Now()
 }

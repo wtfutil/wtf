@@ -98,7 +98,6 @@ func makeMarketCurrency(name string) *mCurrency {
 // Refresh & update after interval time
 func (widget *Widget) Refresh() {
 	widget.updateSummary()
-	widget.UpdateRefreshedAt()
 	widget.display()
 }
 

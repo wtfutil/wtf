@@ -36,7 +36,6 @@ func (widget *Widget) Refresh() {
 	} else {
 		widget.result = ticketArray
 	}
-	widget.UpdateRefreshedAt()
 
 	widget.display()
 }

@@ -61,8 +61,6 @@ func (widget *Widget) Refresh() {
 	)
 	widget.view = view
 
-	widget.UpdateRefreshedAt()
-
 	if err != nil {
 		widget.View.SetWrap(true)
 		widget.View.SetTitle(widget.ContextualTitle(widget.Name))

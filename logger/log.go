@@ -52,7 +52,6 @@ func (widget *Widget) Refresh() {
 		return
 	}
 
-	widget.UpdateRefreshedAt()
 	widget.View.SetTitle(widget.Name)
 
 	logLines := widget.tailFile()

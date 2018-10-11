@@ -30,8 +30,6 @@ func NewWidget(app *tview.Application, date, version string) *Widget {
 }
 
 func (widget *Widget) Refresh() {
-	widget.UpdateRefreshedAt()
-
 	widget.View.SetText(
 		fmt.Sprintf(
 			"%8s: %s\n%8s: %s\n\n%8s: %s\n%8s: %s",

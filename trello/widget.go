@@ -31,7 +31,6 @@ func (widget *Widget) Refresh() {
 
 	// Get the cards
 	searchResult, err := GetCards(client, getLists())
-	widget.UpdateRefreshedAt()
 
 	var content string
 	if err != nil {
