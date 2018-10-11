@@ -14,7 +14,7 @@ displaying infrequently-needed, but very important, daily data.
 Follow [on Twitter](https://twitter.com/wtfutil) for news and latest updates.
 
 <p align="center">
-<img src="./docs/img/screenshot.jpg" title="screenshot" width="720" height="420" />
+<img src="./images/screenshot.jpg" title="screenshot" width="720" height="420" />
 </p>
 
 ## Quick Start
@@ -77,5 +77,5 @@ Many thanks to <a href="https://lendesk.com">Lendesk</a> for supporting this pro
 providing time to develop it.
 
 <p align="center">
-<img src="./docs/img/dude_wtf.png?raw=true" title="Dude WTF" width="251" height="201" />
+<img src="./images/dude_wtf.png?raw=true" title="Dude WTF" width="251" height="201" />
 </p>
