@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### ⚡️ Added
+
+* Mecurial module added (@mweb)
+
 ### 🐞 Fixed
 
 * Google Calendar module now displays all-day events ([#306](https://github.com/senorprogrammer/wtf/issues/306) by @nicholas-eden)
