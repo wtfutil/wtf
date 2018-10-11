@@ -1,5 +1,0 @@
-<div class="panel {{with .Get "theme" }}panel-{{.}}{{else}}panel-primary{{end}}">
-	{{ with .Get "header" }}<div class="panel-heading">{{ htmlUnescape . | markdownify}}</div>{{end}}
-	<div class="panel-body">{{.Inner}}</div>
-	{{ with .Get "footer" }}<div class="panel-footer">{{ htmlUnescape . | markdownify}}</div>{{end}}
-</div>
