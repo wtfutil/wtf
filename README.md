@@ -39,7 +39,13 @@ documentation. Here's some short-cuts:
 * [Configuration](http://wtfutil.com/posts/configuration/)
 * [Module Documentation](http://wtfutil.com/posts/modules/)
 
-## Contributing
+### Contributing to the Documentation
+
+Documenation now lives in its own repository here: [https://github.com/wtfutil/wtfdocs](https://github.com/wtfutil/wtfdocs).
+
+Please make all additions and updates to documentation in that repository.
+
+## Contributing to the Source Code
 
 Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests.
 
