@@ -3,7 +3,6 @@
 [![Build Status](https://travis-ci.com/senorprogrammer/wtf.svg?branch=master)](https://travis-ci.com/senorprogrammer/wtf)
 [![Gitter Chat](https://badges.gitter.im/wtfutil/Lobby.svg)](https://gitter.im/wtfutil/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Twitter](https://img.shields.io/badge/follow-on%20twitter-blue.svg)](https://twitter.com/wtfutil)
-[![All Contributors](https://img.shields.io/github/contributors/senorprogrammer/wtf.svg?longCache=true&style=flat-square&colorB=orange&label=all%20contributors)](#contributors)
 [![Go Report Card](https://goreportcard.com/badge/github.com/senorprogrammer/wtf)](https://goreportcard.com/report/github.com/senorprogrammer/wtf)
 
 # WTF
