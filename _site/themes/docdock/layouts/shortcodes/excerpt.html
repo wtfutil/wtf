@@ -1,7 +1,0 @@
-{{with .Get "hidden"}}
-	{{if eq . "false"}}
-		{{$.Inner}}			
-	{{end}}
-{{else}}
-	{{.Inner}}
-{{end}}
