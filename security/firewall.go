@@ -44,7 +44,7 @@ func firewallStateLinux() string { // might be very Ubuntu specific
 	cmd.Stdout = &o
 
 	if err := cmd.Run(); err != nil {
-		panic(err.Error())
+		return "[red]NA[white]
 	}
 
 	if strings.Contains(o.String(), "active") {
