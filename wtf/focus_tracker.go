@@ -29,9 +29,25 @@ func (tracker *FocusTracker) AssignHotKeys() {
 		return
 	}
 
+	usedKeys := make(map[string]bool)
+	focusables := tracker.focusables()
 	i := 1
 
-	for _, focusable := range tracker.focusables() {
+	for _, focusable := range focusables {
+		if focusable.FocusChar() != "" {
+			usedKeys[focusable.FocusChar()] = true
+		}
+	}
+	for _, focusable := range focusables {
+		if focusable.FocusChar() != "" {
+			continue
+		}
+		if _, foundKey := usedKeys[string('0'+i)]; foundKey {
+			for ; foundKey; _, foundKey = usedKeys[string('0'+i)] {
+				i++
+			}
+		}
+
 		// Don't have nav characters > "9"
 		if i >= 10 {
 			break
