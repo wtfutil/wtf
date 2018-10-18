@@ -22,10 +22,16 @@ type TextWidget struct {
 }
 
 func NewTextWidget(app *tview.Application, name string, configKey string, focusable bool) TextWidget {
-	widget := TextWidget{
-		enabled:   Config.UBool(fmt.Sprintf("wtf.mods.%s.enabled", configKey), false),
-		focusable: focusable,
+	focusCharValue := Config.UInt(fmt.Sprintf("wtf.mods.%s.focusChar", configKey), -1)
+	focusChar := string('0' + focusCharValue)
+	if focusCharValue == -1 {
+		focusChar = ""
+	}
 
+	widget := TextWidget{
+		enabled:    Config.UBool(fmt.Sprintf("wtf.mods.%s.enabled", configKey), false),
+		focusable:  focusable,
+		focusChar:  focusChar,
 		Name:       Config.UString(fmt.Sprintf("wtf.mods.%s.title", configKey), name),
 		RefreshInt: Config.UInt(fmt.Sprintf("wtf.mods.%s.refreshInterval", configKey)),
 	}
