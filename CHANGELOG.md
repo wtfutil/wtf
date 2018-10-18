@@ -5,6 +5,8 @@
 ### ⚡️ Added
 
 * Mecurial module added (@mweb)
+* Can now define numeric hotkeys in config (@mweb)
+* Linux firewall support added (@TheRedSpy15)
 
 ### 🐞 Fixed
 

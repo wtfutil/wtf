@@ -4,6 +4,8 @@ import (
 	"os/exec"
 	"runtime"
 	"strings"
+	"bytes"
+	"os/user"
 
 	"github.com/senorprogrammer/wtf/wtf"
 )
@@ -36,8 +38,26 @@ func FirewallStealthState() string {
 
 /* -------------------- Unexported Functions -------------------- */
 
-func firewallStateLinux() string {
-	return "[red]NA[white]"
+func firewallStateLinux() string { // might be very Ubuntu specific
+	user, _ := user.Current()
+
+	if strings.Contains(user.Username, "root") {
+		cmd := exec.Command("ufw", "status")
+
+		var o bytes.Buffer
+		cmd.Stdout = &o
+		if err := cmd.Run(); err != nil {
+			return "[red]NA[white]"
+		}
+
+		if strings.Contains(o.String(), "active") {
+			return "[green]Enabled[white]"
+		} else {
+			return "[red]Disabled[white]"
+		}
+	} else {
+		return "[red]NA[white]"
+	}
 }
 
 func firewallStateMacOS() string {
