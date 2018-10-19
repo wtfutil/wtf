@@ -1,6 +1,7 @@
 language: go
 go:
   - "1.10"
+  - "1.11"
 sudo: false
 before_install:
   # Make sure travis builds work for forks
