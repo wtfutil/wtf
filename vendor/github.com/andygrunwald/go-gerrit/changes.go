@@ -258,11 +258,11 @@ type RobotCommentInput struct {
 	CommentInput
 
 	// The ID of the robot that generated this comment.
-	RobotId string `json:"robot_id"`
+	RobotID string `json:"robot_id"`
 	// An ID of the run of the robot.
-	RobotRunId string `json:"robot_run_id"`
+	RobotRunID string `json:"robot_run_id"`
 	// URL to more information.
-	Url string `json:"url,omitempty"`
+	URL string `json:"url,omitempty"`
 	// Robot specific properties as map that maps arbitrary keys to values.
 	Properties *map[string]*string `json:"properties,omitempty"`
 	// Suggested fixes for this robot comment as a list of FixSuggestionInfo
@@ -277,11 +277,11 @@ type RobotCommentInfo struct {
 	CommentInfo
 
 	// The ID of the robot that generated this comment.
-	RobotId string `json:"robot_id"`
+	RobotID string `json:"robot_id"`
 	// An ID of the run of the robot.
-	RobotRunId string `json:"robot_run_id"`
+	RobotRunID string `json:"robot_run_id"`
 	// URL to more information.
-	Url string `json:"url,omitempty"`
+	URL string `json:"url,omitempty"`
 	// Robot specific properties as map that maps arbitrary keys to values.
 	Properties map[string]string `json:"properties,omitempty"`
 	// Suggested fixes for this robot comment as a list of FixSuggestionInfo
@@ -294,7 +294,7 @@ type RobotCommentInfo struct {
 type FixSuggestionInfo struct {
 	// The UUID of the suggested fix. It will be generated automatically and
 	// hence will be ignored if it’s set for input objects.
-	FixId string `json:"fix_id"`
+	FixID string `json:"fix_id"`
 	// A description of the suggested fix.
 	Description string `json:"description"`
 	// A list of FixReplacementInfo entities indicating how the content of one or
@@ -780,11 +780,17 @@ func (s *ChangesService) change(tail string, changeID string, input interface{})
 
 	v := new(ChangeInfo)
 	resp, err := s.client.Do(req, v)
-	if resp.StatusCode == http.StatusConflict {
-		body, _ := ioutil.ReadAll(resp.Body)
-		err = errors.New(string(body[:]))
+	if err != nil {
+		return nil, resp, err
 	}
-	return v, resp, err
+	if resp.StatusCode == http.StatusConflict {
+		body, err := ioutil.ReadAll(resp.Body)
+		if err != nil {
+			return v, resp, err
+		}
+		return v, resp, errors.New(string(body[:]))
+	}
+	return v, resp, nil
 }
 
 // SubmitChange submits a change.

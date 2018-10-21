@@ -52,8 +52,9 @@ type Board struct {
 		Sky    string `json:"sky,omitempty"`
 		Yellow string `json:"yellow,omitempty"`
 	} `json:"labelNames"`
-	Lists   []*List   `json:"lists"`
-	Actions []*Action `json:"actions"`
+	Lists        []*List      `json:"lists"`
+	Actions      []*Action    `json:"actions"`
+	Organization Organization `json:"organization"`
 }
 
 type BackgroundImage struct {

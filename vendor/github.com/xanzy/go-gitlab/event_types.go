@@ -477,6 +477,7 @@ type MergeEvent struct {
 		WorkInProgress bool   `json:"work_in_progress"`
 		URL            string `json:"url"`
 		Action         string `json:"action"`
+		OldRev         string `json:"oldrev"`
 		Assignee       struct {
 			Name      string `json:"name"`
 			Username  string `json:"username"`
@@ -489,6 +490,24 @@ type MergeEvent struct {
 		Username  string `json:"username"`
 		AvatarURL string `json:"avatar_url"`
 	} `json:"assignee"`
+	Changes struct {
+		AssigneeID struct {
+			Previous int `json:"previous"`
+			Current  int `json:"current"`
+		} `json:"assignee_id"`
+		Description struct {
+			Previous string `json:"previous"`
+			Current  string `json:"current"`
+		} `json:"description"`
+		Labels struct {
+			Previous []Label `json:"previous"`
+			Current  []Label `json:"current"`
+		} `json:"labels"`
+		UpdatedByID struct {
+			Previous int `json:"previous"`
+			Current  int `json:"current"`
+		} `json:"updated_by_id"`
+	} `json:"changes"`
 }
 
 // WikiPageEvent represents a wiki page event.

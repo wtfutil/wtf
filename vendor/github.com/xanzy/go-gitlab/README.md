@@ -26,7 +26,7 @@ to add new and/or missing endpoints. Currently the following services are suppor
 - [x] Project-level Variables
 - [x] Group-level Variables
 - [x] Commits
-- [ ] Custom Attributes
+- [x] Custom Attributes
 - [x] Deployments
 - [x] Deploy Keys
 - [x] Environments
@@ -36,13 +36,13 @@ to add new and/or missing endpoints. Currently the following services are suppor
 - [x] Feature flags
 - [ ] Geo Nodes
 - [x] Gitignores templates
-- [ ] GitLab CI Config templates
+- [x] GitLab CI Config templates
 - [x] Groups
-- [ ] Group Access Requests
+- [x] Group Access Requests
 - [x] Group Members
 - [x] Issues
 - [x] Issue Boards
-- [x] Group Issue Boards 
+- [x] Group Issue Boards
 - [x] Jobs
 - [x] Keys
 - [x] Labels
@@ -50,19 +50,19 @@ to add new and/or missing endpoints. Currently the following services are suppor
 - [x] Merge Requests
 - [x] Merge Request Approvals
 - [x] Project Milestones
-- [ ] Group Milestones
+- [x] Group Milestones
 - [x] Namespaces
 - [x] Notes (comments)
 - [ ] Discussions (threaded comments)
 - [x] Notification settings
-- [ ] Open source license templates
+- [x] Open source license templates
 - [x] Pages Domains
 - [x] Pipelines
 - [x] Pipeline Triggers
 - [x] Pipeline Schedules
 - [x] Projects (including setting Webhooks)
-- [ ] Project Access Requests
-- [ ] Project badges
+- [x] Project Access Requests
+- [x] Project badges
 - [ ] Project import/export
 - [x] Project Members
 - [x] Project Snippets
@@ -70,11 +70,10 @@ to add new and/or missing endpoints. Currently the following services are suppor
 - [x] Repositories
 - [x] Repository Files
 - [x] Runners
-- [ ] Search
+- [x] Search
 - [x] Services
 - [x] Settings
 - [x] Sidekiq metrics
-- [x] Session
 - [x] System Hooks
 - [x] Tags
 - [x] Todos
@@ -150,7 +149,6 @@ func main() {
 		log.Fatal(err)
 	}
 }
-
 ```
 
 For complete usage of go-gitlab, see the full [package docs](https://godoc.org/github.com/xanzy/go-gitlab).

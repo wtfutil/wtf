@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"regexp"
 	"sync"
-	"unicode"
 	"unicode/utf8"
 
 	"github.com/gdamore/tcell"
@@ -549,12 +548,6 @@ func (t *TextView) reindexBuffer(width int) {
 			strippedStr = regionPattern.ReplaceAllString(strippedStr, "")
 		}
 
-		// Find all escape tags in this line. Escape them.
-		if t.dynamicColors || t.regions {
-			escapeIndices = escapePattern.FindAllStringIndex(str, -1)
-			strippedStr = escapePattern.ReplaceAllString(strippedStr, "[$1$2]")
-		}
-
 		// We don't need the original string anymore for now.
 		str = strippedStr
 
@@ -810,8 +803,9 @@ func (t *TextView) Draw(screen tcell.Screen) {
 			colorTags       [][]string
 			escapeIndices   [][]int
 		)
+		strippedText := text
 		if t.dynamicColors {
-			colorTagIndices, colorTags, escapeIndices, _, _ = decomposeString(text)
+			colorTagIndices, colorTags, escapeIndices, strippedText, _ = decomposeString(text)
 		}
 
 		// Get regions.
@@ -822,8 +816,10 @@ func (t *TextView) Draw(screen tcell.Screen) {
 		if t.regions {
 			regionIndices = regionPattern.FindAllStringIndex(text, -1)
 			regions = regionPattern.FindAllStringSubmatch(text, -1)
+			strippedText = regionPattern.ReplaceAllString(strippedText, "")
 			if !t.dynamicColors {
 				escapeIndices = escapePattern.FindAllStringIndex(text, -1)
+				strippedText = string(escapePattern.ReplaceAllString(strippedText, "[$1$2]"))
 			}
 		}
 
@@ -842,11 +838,26 @@ func (t *TextView) Draw(screen tcell.Screen) {
 		}
 
 		// Print the line.
-		var currentTag, currentRegion, currentEscapeTag, skipped, runeSeqWidth int
-		runeSequence := make([]rune, 0, 10)
-		flush := func() {
-			if len(runeSequence) == 0 {
-				return
+		var colorPos, regionPos, escapePos, tagOffset, skipped int
+		iterateString(strippedText, func(main rune, comb []rune, textPos, textWidth, screenPos, screenWidth int) bool {
+			// Get the color.
+			if colorPos < len(colorTags) && textPos+tagOffset >= colorTagIndices[colorPos][0] && textPos+tagOffset < colorTagIndices[colorPos][1] {
+				foregroundColor, backgroundColor, attributes = styleFromTag(foregroundColor, backgroundColor, attributes, colorTags[colorPos])
+				tagOffset += colorTagIndices[colorPos][1] - colorTagIndices[colorPos][0]
+				colorPos++
+			}
+
+			// Get the region.
+			if regionPos < len(regionIndices) && textPos+tagOffset >= regionIndices[regionPos][0] && textPos+tagOffset < regionIndices[regionPos][1] {
+				regionID = regions[regionPos][1]
+				tagOffset += regionIndices[regionPos][1] - regionIndices[regionPos][0]
+				regionPos++
+			}
+
+			// Skip the second-to-last character of an escape tag.
+			if escapePos < len(escapeIndices) && textPos+tagOffset == escapeIndices[escapePos][1]-2 {
+				tagOffset++
+				escapePos++
 			}
 
 			// Mix the existing style with the new style.
@@ -876,87 +887,30 @@ func (t *TextView) Draw(screen tcell.Screen) {
 				style = style.Background(fg).Foreground(bg)
 			}
 
-			// Draw the character.
-			var comb []rune
-			if len(runeSequence) > 1 && !unicode.IsControl(runeSequence[1]) {
-				// Allocate space for the combining characters only when necessary.
-				comb = make([]rune, len(runeSequence)-1)
-				copy(comb, runeSequence[1:])
-			}
-			for offset := 0; offset < runeSeqWidth; offset++ {
-				screen.SetContent(x+posX+offset, y+line-t.lineOffset, runeSequence[0], comb, style)
-			}
-
-			// Advance.
-			posX += runeSeqWidth
-			runeSequence = runeSequence[:0]
-			runeSeqWidth = 0
-		}
-		for pos, ch := range text {
-			// Get the color.
-			if currentTag < len(colorTags) && pos >= colorTagIndices[currentTag][0] && pos < colorTagIndices[currentTag][1] {
-				flush()
-				if pos == colorTagIndices[currentTag][1]-1 {
-					foregroundColor, backgroundColor, attributes = styleFromTag(foregroundColor, backgroundColor, attributes, colorTags[currentTag])
-					currentTag++
-				}
-				continue
-			}
-
-			// Get the region.
-			if currentRegion < len(regionIndices) && pos >= regionIndices[currentRegion][0] && pos < regionIndices[currentRegion][1] {
-				flush()
-				if pos == regionIndices[currentRegion][1]-1 {
-					regionID = regions[currentRegion][1]
-					currentRegion++
-				}
-				continue
-			}
-
-			// Skip the second-to-last character of an escape tag.
-			if currentEscapeTag < len(escapeIndices) && pos >= escapeIndices[currentEscapeTag][0] && pos < escapeIndices[currentEscapeTag][1] {
-				flush()
-				if pos == escapeIndices[currentEscapeTag][1]-1 {
-					currentEscapeTag++
-				} else if pos == escapeIndices[currentEscapeTag][1]-2 {
-					continue
-				}
-			}
-
-			// Determine the width of this rune.
-			chWidth := runewidth.RuneWidth(ch)
-			if chWidth == 0 {
-				// If this is not a modifier, we treat it as a space character.
-				if len(runeSequence) == 0 {
-					ch = ' '
-					chWidth = 1
-				} else {
-					runeSequence = append(runeSequence, ch)
-					continue
-				}
-			}
-
 			// Skip to the right.
 			if !t.wrap && skipped < skip {
-				skipped += chWidth
-				continue
+				skipped += screenWidth
+				return false
 			}
 
 			// Stop at the right border.
-			if posX+runeSeqWidth+chWidth > width {
-				break
+			if posX+screenWidth >= width {
+				return true
 			}
 
-			// Flush the rune sequence.
-			flush()
+			// Draw the character.
+			for offset := screenWidth - 1; offset >= 0; offset-- {
+				if offset == 0 {
+					screen.SetContent(x+posX+offset, y+line-t.lineOffset, main, comb, style)
+				} else {
+					screen.SetContent(x+posX+offset, y+line-t.lineOffset, ' ', nil, style)
+				}
+			}
 
-			// Queue this rune.
-			runeSequence = append(runeSequence, ch)
-			runeSeqWidth += chWidth
-		}
-		if posX+runeSeqWidth <= width {
-			flush()
-		}
+			// Advance.
+			posX += screenWidth
+			return false
+		})
 	}
 
 	// If this view is not scrollable, we'll purge the buffer of lines that have

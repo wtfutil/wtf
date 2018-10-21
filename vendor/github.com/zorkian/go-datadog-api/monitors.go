@@ -57,18 +57,40 @@ type Options struct {
 	Locked            *bool           `json:"locked,omitempty"`
 }
 
+type TriggeringValue struct {
+	FromTs *int `json:"from_ts,omitempty"`
+	ToTs   *int `json:"to_ts,omitempty"`
+	Value  *int `json:"value,omitempty"`
+}
+
+type GroupData struct {
+	LastNoDataTs    *int             `json:"last_nodata_ts,omitempty"`
+	LastNotifiedTs  *int             `json:"last_notified_ts,omitempty"`
+	LastResolvedTs  *int             `json:"last_resolved_ts,omitempty"`
+	LastTriggeredTs *int             `json:"last_triggered_ts,omitempty"`
+	Name            *string          `json:"name,omitempty"`
+	Status          *string          `json:"status,omitempty"`
+	TriggeringValue *TriggeringValue `json:"triggering_value,omitempty"`
+}
+
+type State struct {
+	Groups map[string]GroupData `json:"groups,omitempty"`
+}
+
 // Monitor allows watching a metric or check that you care about,
 // notifying your team when some defined threshold is exceeded
 type Monitor struct {
-	Creator      *Creator `json:"creator,omitempty"`
-	Id           *int     `json:"id,omitempty"`
-	Type         *string  `json:"type,omitempty"`
-	Query        *string  `json:"query,omitempty"`
-	Name         *string  `json:"name,omitempty"`
-	Message      *string  `json:"message,omitempty"`
-	OverallState *string  `json:"overall_state,omitempty"`
-	Tags         []string `json:"tags"`
-	Options      *Options `json:"options,omitempty"`
+	Creator              *Creator `json:"creator,omitempty"`
+	Id                   *int     `json:"id,omitempty"`
+	Type                 *string  `json:"type,omitempty"`
+	Query                *string  `json:"query,omitempty"`
+	Name                 *string  `json:"name,omitempty"`
+	Message              *string  `json:"message,omitempty"`
+	OverallState         *string  `json:"overall_state,omitempty"`
+	OverallStateModified *string  `json:"overall_state_modified,omitempty"`
+	Tags                 []string `json:"tags"`
+	Options              *Options `json:"options,omitempty"`
+	State                State    `json:"state,omitempty"`
 }
 
 // Creator contains the creator of the monitor

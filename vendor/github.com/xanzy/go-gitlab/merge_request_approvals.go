@@ -20,17 +20,18 @@ type MergeRequestApprovalsService struct {
 // GitLab API docs:
 // https://docs.gitlab.com/ee/api/merge_request_approvals.html#merge-request-level-mr-approvals
 type MergeRequestApprovals struct {
-	ID                int        `json:"id"`
-	ProjectID         int        `json:"project_id"`
-	Title             string     `json:"title"`
-	Description       string     `json:"description"`
-	State             string     `json:"state"`
-	CreatedAt         *time.Time `json:"created_at"`
-	UpdatedAt         *time.Time `json:"updated_at"`
-	MergeStatus       string     `json:"merge_status"`
-	ApprovalsRequired int        `json:"approvals_required"`
-	ApprovalsLeft     int        `json:"approvals_left"`
-	ApprovedBy        []struct {
+	ID                   int        `json:"id"`
+	ProjectID            int        `json:"project_id"`
+	Title                string     `json:"title"`
+	Description          string     `json:"description"`
+	State                string     `json:"state"`
+	CreatedAt            *time.Time `json:"created_at"`
+	UpdatedAt            *time.Time `json:"updated_at"`
+	MergeStatus          string     `json:"merge_status"`
+	ApprovalsBeforeMerge int        `json:"approvals_before_merge"`
+	ApprovalsRequired    int        `json:"approvals_required"`
+	ApprovalsLeft        int        `json:"approvals_left"`
+	ApprovedBy           []struct {
 		User struct {
 			ID        int    `json:"id"`
 			Name      string `json:"name"`

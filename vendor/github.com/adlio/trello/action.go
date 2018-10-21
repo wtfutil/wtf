@@ -21,18 +21,27 @@ type Action struct {
 }
 
 type ActionData struct {
-	Text           string    `json:"text,omitempty"`
-	List           *List     `json:"list,omitempty"`
-	Card           *Card     `json:"card,omitempty"`
-	CardSource     *Card     `json:"cardSource,omitempty"`
-	Board          *Board    `json:"board,omitempty"`
-	Old            *Card     `json:"old,omitempty"`
-	ListBefore     *List     `json:"listBefore,omitempty"`
-	ListAfter      *List     `json:"listAfter,omitempty"`
-	DateLastEdited time.Time `json:"dateLastEdited"`
+	Text           string          `json:"text,omitempty"`
+	List           *List           `json:"list,omitempty"`
+	Card           *ActionDataCard `json:"card,omitempty"`
+	CardSource     *ActionDataCard `json:"cardSource,omitempty"`
+	Board          *Board          `json:"board,omitempty"`
+	Old            *ActionDataCard `json:"old,omitempty"`
+	ListBefore     *List           `json:"listBefore,omitempty"`
+	ListAfter      *List           `json:"listAfter,omitempty"`
+	DateLastEdited time.Time       `json:"dateLastEdited"`
 
 	CheckItem *CheckItem `json:"checkItem"`
 	Checklist *Checklist `json:"checklist"`
+}
+
+type ActionDataCard struct {
+	ID        string  `json:"id"`
+	Name      string  `json:"name"`
+	IDShort   int     `json:"idShort"`
+	ShortLink string  `json:"shortLink"`
+	Pos       float64 `json:"pos"`
+	Closed    bool    `json:"closed"`
 }
 
 func (b *Board) GetActions(args Arguments) (actions ActionCollection, err error) {

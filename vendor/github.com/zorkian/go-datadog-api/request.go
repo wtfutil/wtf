@@ -22,6 +22,12 @@ import (
 	"github.com/cenkalti/backoff"
 )
 
+// Response contains common fields that might be present in any API response.
+type Response struct {
+	Status string `json:"status"`
+	Error  string `json:"error"`
+}
+
 // uriForAPI is to be called with something like "/v1/events" and it will give
 // the proper request URI to be posted to.
 func (client *Client) uriForAPI(api string) (string, error) {
@@ -99,14 +105,6 @@ func (client *Client) doJsonRequestUnredacted(method, api string,
 		return fmt.Errorf("API error %s: %s", resp.Status, body)
 	}
 
-	// If they don't care about the body, then we don't care to give them one,
-	// so bail out because we're done.
-	if out == nil {
-		// read the response body so http conn can be reused immediately
-		io.Copy(ioutil.Discard, resp.Body)
-		return nil
-	}
-
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return err
@@ -116,6 +114,27 @@ func (client *Client) doJsonRequestUnredacted(method, api string,
 	// saves us some work in other parts of the code.
 	if len(body) == 0 {
 		body = []byte{'{', '}'}
+	}
+
+	// Try to parse common response fields to check whether there's an error reported in a response.
+	var common *Response
+	err = json.Unmarshal(body, &common)
+	if err != nil {
+		// UnmarshalTypeError errors are ignored, because in some cases API response is an array that cannot be
+		// unmarshalled into a struct.
+		_, ok := err.(*json.UnmarshalTypeError)
+		if !ok {
+			return err
+		}
+	}
+	if common != nil && common.Status == "error" {
+		return fmt.Errorf("API returned error: %s", common.Error)
+	}
+
+	// If they don't care about the body, then we don't care to give them one,
+	// so bail out because we're done.
+	if out == nil {
+		return nil
 	}
 
 	return json.Unmarshal(body, &out)

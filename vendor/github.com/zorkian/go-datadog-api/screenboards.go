@@ -20,32 +20,9 @@ type Screenboard struct {
 	Height            *string            `json:"height,omitempty"`
 	Width             *string            `json:"width,omitempty"`
 	Shared            *bool              `json:"shared,omitempty"`
-	Templated         *bool              `json:"templated,omitempty"`
 	TemplateVariables []TemplateVariable `json:"template_variables,omitempty"`
 	Widgets           []Widget           `json:"widgets"`
 	ReadOnly          *bool              `json:"read_only,omitempty"`
-}
-
-//type Widget struct {
-type Widget struct {
-	Default             *string              `json:"default,omitempty"`
-	Name                *string              `json:"name,omitempty"`
-	Prefix              *string              `json:"prefix,omitempty"`
-	TimeseriesWidget    *TimeseriesWidget    `json:"timeseries,omitempty"`
-	QueryValueWidget    *QueryValueWidget    `json:"query_value,omitempty"`
-	EventStreamWidget   *EventStreamWidget   `json:"event_stream,omitempty"`
-	FreeTextWidget      *FreeTextWidget      `json:"free_text,omitempty"`
-	ToplistWidget       *ToplistWidget       `json:"toplist,omitempty"`
-	ImageWidget         *ImageWidget         `json:"image,omitempty"`
-	ChangeWidget        *ChangeWidget        `json:"change,omitempty"`
-	GraphWidget         *GraphWidget         `json:"graph,omitempty"`
-	EventTimelineWidget *EventTimelineWidget `json:"event_timeline,omitempty"`
-	AlertValueWidget    *AlertValueWidget    `json:"alert_value,omitempty"`
-	AlertGraphWidget    *AlertGraphWidget    `json:"alert_graph,omitempty"`
-	HostMapWidget       *HostMapWidget       `json:"hostmap,omitempty"`
-	CheckStatusWidget   *CheckStatusWidget   `json:"check_status,omitempty"`
-	IFrameWidget        *IFrameWidget        `json:"iframe,omitempty"`
-	NoteWidget          *NoteWidget          `json:"frame,omitempty"`
 }
 
 // ScreenboardLite represents a user created screenboard. This is the mini

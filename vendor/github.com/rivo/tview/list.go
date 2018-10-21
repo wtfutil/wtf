@@ -85,6 +85,19 @@ func (l *List) GetCurrentItem() int {
 	return l.currentItem
 }
 
+// RemoveItem removes the item with the given index (starting at 0) from the
+// list. Does nothing if the index is out of range.
+func (l *List) RemoveItem(index int) *List {
+	if index < 0 || index >= len(l.items) {
+		return l
+	}
+	l.items = append(l.items[:index], l.items[index+1:]...)
+	if l.currentItem >= len(l.items) {
+		l.currentItem = len(l.items) - 1
+	}
+	return l
+}
+
 // SetMainTextColor sets the color of the items' main text.
 func (l *List) SetMainTextColor(color tcell.Color) *List {
 	l.mainTextColor = color
@@ -127,7 +140,7 @@ func (l *List) ShowSecondaryText(show bool) *List {
 //
 // This function is also called when the first item is added or when
 // SetCurrentItem() is called.
-func (l *List) SetChangedFunc(handler func(int, string, string, rune)) *List {
+func (l *List) SetChangedFunc(handler func(index int, mainText string, secondaryText string, shortcut rune)) *List {
 	l.changed = handler
 	return l
 }

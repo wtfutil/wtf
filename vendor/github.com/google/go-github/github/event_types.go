@@ -519,6 +519,7 @@ type PullRequestEvent struct {
 	// the pull request was closed with unmerged commits. If the action is "closed"
 	// and the merged key is true, the pull request was merged.
 	Action      *string      `json:"action,omitempty"`
+	Assignee    *User        `json:"assignee,omitempty"`
 	Number      *int         `json:"number,omitempty"`
 	PullRequest *PullRequest `json:"pull_request,omitempty"`
 
@@ -532,6 +533,10 @@ type PullRequestEvent struct {
 	Sender            *User         `json:"sender,omitempty"`
 	Installation      *Installation `json:"installation,omitempty"`
 	Label             *Label        `json:"label,omitempty"` // Populated in "labeled" event deliveries.
+
+	// The following field is only present when the webhook is triggered on
+	// a repository belonging to an organization.
+	Organization *Organization `json:"organization,omitempty"`
 }
 
 // PullRequestReviewEvent is triggered when a review is submitted on a pull
@@ -703,6 +708,27 @@ type RepositoryEvent struct {
 	Org          *Organization `json:"organization,omitempty"`
 	Sender       *User         `json:"sender,omitempty"`
 	Installation *Installation `json:"installation,omitempty"`
+}
+
+// RepositoryVulnerabilityAlertEvent is triggered when a security alert is created, dismissed, or resolved.
+//
+// GitHub API docs: https://developer.github.com/v3/activity/events/types/#repositoryvulnerabilityalertevent
+type RepositoryVulnerabilityAlertEvent struct {
+	// Action is the action that was performed. This can be: "create", "dismiss", "resolve".
+	Action *string `json:"action,omitempty"`
+
+	//The security alert of the vulnerable dependency.
+	Alert *struct {
+		ID                  *int64     `json:"id,omitempty"`
+		AffectedRange       *string    `json:"affected_range,omitempty"`
+		AffectedPackageName *string    `json:"affected_package_name,omitempty"`
+		ExternalReference   *string    `json:"external_reference,omitempty"`
+		ExternalIdentifier  *string    `json:"external_identifier,omitempty"`
+		FixedIn             *string    `json:"fixed_in,omitempty"`
+		Dismisser           *User      `json:"dismisser,omitempty"`
+		DismissReason       *string    `json:"dismiss_reason,omitempty"`
+		DismissedAt         *Timestamp `json:"dismissed_at,omitempty"`
+	} `json:"alert,omitempty"`
 }
 
 // StatusEvent is triggered when the status of a Git commit changes.

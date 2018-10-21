@@ -59,6 +59,7 @@ type Job struct {
 	Status    string     `json:"status"`
 	Tag       bool       `json:"tag"`
 	User      *User      `json:"user"`
+	WebURL    string     `json:"web_url"`
 }
 
 // ListJobsOptions are options for two list apis
@@ -195,6 +196,40 @@ func (s *JobsService) DownloadArtifactsFile(pid interface{}, refName string, job
 	}
 
 	return artifactsBuf, resp, err
+}
+
+// DownloadSingleArtifactsFile download a file from the artifacts from the
+// given reference name and job provided the job finished successfully.
+// Only a single file is going to be extracted from the archive and streamed
+// to a client.
+//
+// GitLab API docs:
+// https://docs.gitlab.com/ce/api/jobs.html#download-a-single-artifact-file
+func (s *JobsService) DownloadSingleArtifactsFile(pid interface{}, jobID int, artifactPath string, options ...OptionFunc) (io.Reader, *Response, error) {
+	project, err := parseID(pid)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	u := fmt.Sprintf(
+		"projects/%s/jobs/%d/artifacts/%s",
+		url.QueryEscape(project),
+		jobID,
+		artifactPath,
+	)
+
+	req, err := s.client.NewRequest("GET", u, nil, options)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	artifactBuf := new(bytes.Buffer)
+	resp, err := s.client.Do(req, artifactBuf)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return artifactBuf, resp, err
 }
 
 // GetTraceFile gets a trace of a specific job of a project

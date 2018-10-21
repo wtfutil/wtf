@@ -30,6 +30,14 @@ type PipelinesService struct {
 	client *Client
 }
 
+// PipelineVariable represents a pipeline variable.
+//
+// GitLab API docs: https://docs.gitlab.com/ce/api/pipelines.html
+type PipelineVariable struct {
+	Key   string `json:"key"`
+	Value string `json:"value"`
+}
+
 // Pipeline represents a GitLab pipeline.
 //
 // GitLab API docs: https://docs.gitlab.com/ce/api/pipelines.html
@@ -84,6 +92,7 @@ type ListProjectPipelinesOptions struct {
 	Scope      *string          `url:"scope,omitempty" json:"scope,omitempty"`
 	Status     *BuildStateValue `url:"status,omitempty" json:"status,omitempty"`
 	Ref        *string          `url:"ref,omitempty" json:"ref,omitempty"`
+	SHA        *string          `url:"sha,omitempty" json:"sha,omitempty"`
 	YamlErrors *bool            `url:"yaml_errors,omitempty" json:"yaml_errors,omitempty"`
 	Name       *string          `url:"name,omitempty" json:"name,omitempty"`
 	Username   *string          `url:"username,omitempty" json:"username,omitempty"`
@@ -142,7 +151,8 @@ func (s *PipelinesService) GetPipeline(pid interface{}, pipeline int, options ..
 //
 // GitLab API docs: https://docs.gitlab.com/ce/api/pipelines.html#create-a-new-pipeline
 type CreatePipelineOptions struct {
-	Ref *string `url:"ref,omitempty" json:"ref"`
+	Ref       *string             `url:"ref" json:"ref"`
+	Variables []*PipelineVariable `url:"variables,omitempty" json:"variables,omitempty"`
 }
 
 // CreatePipeline creates a new project pipeline.

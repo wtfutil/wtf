@@ -65,6 +65,8 @@ Add your issue here on GitHub. Feel free to get in touch if you have any questio
 
 (There are no corresponding tags in the project. I only keep such a history in this README.)
 
+- v0.18 (2018-10-18)
+  - `InputField` elements can now be navigated freely.
 - v0.17 (2018-06-20)
   - Added `TreeView`.
 - v0.15 (2018-05-02)

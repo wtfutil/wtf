@@ -61,6 +61,25 @@ func (s *PagesDomainsService) ListPagesDomains(pid interface{}, opt *ListPagesDo
 	return pd, resp, err
 }
 
+// ListAllPagesDomains gets a list of all pages domains.
+//
+// GitLab API docs:
+// https://docs.gitlab.com/ce/api/pages_domains.html#list-all-pages-domains
+func (s *PagesDomainsService) ListAllPagesDomains(options ...OptionFunc) ([]*PagesDomain, *Response, error) {
+	req, err := s.client.NewRequest("GET", "pages/domains", nil, options)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var pd []*PagesDomain
+	resp, err := s.client.Do(req, &pd)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return pd, resp, err
+}
+
 // GetPagesDomain get a specific pages domain for a project.
 //
 // GitLab API docs:

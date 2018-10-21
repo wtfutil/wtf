@@ -17,6 +17,7 @@
 package gitlab
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/url"
 )
@@ -42,6 +43,26 @@ type Label struct {
 	OpenMergeRequestsCount int    `json:"open_merge_requests_count"`
 	Subscribed             bool   `json:"subscribed"`
 	Priority               int    `json:"priority"`
+}
+
+// UnmarshalJSON implements the json.Unmarshaler interface.
+func (l *Label) UnmarshalJSON(data []byte) error {
+	type alias Label
+	if err := json.Unmarshal(data, (*alias)(l)); err != nil {
+		return err
+	}
+
+	if l.Name == "" {
+		var raw map[string]interface{}
+		if err := json.Unmarshal(data, &raw); err != nil {
+			return err
+		}
+		if title, ok := raw["title"].(string); ok {
+			l.Name = title
+		}
+	}
+
+	return nil
 }
 
 func (l Label) String() string {

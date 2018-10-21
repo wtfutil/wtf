@@ -52,6 +52,10 @@ func (cb *CellBuffer) SetContent(x int, y int,
 		i := 0
 		for i < len(c.currComb) {
 			r := c.currComb[i]
+			if r == '\u200d' {
+				i += 2
+				continue
+			}
 			if runewidth.RuneWidth(r) != 0 {
 				// not a combining character, yank it
 				c.currComb = append(c.currComb[:i-1], c.currComb[i+1:]...)
@@ -175,12 +179,13 @@ func (cb *CellBuffer) Resize(w, h int) {
 
 // Fill fills the entire cell buffer array with the specified character
 // and style.  Normally choose ' ' to clear the screen.  This API doesn't
-// support combining characters.
+// support combining characters, or characters with a width larger than one.
 func (cb *CellBuffer) Fill(r rune, style Style) {
 	for i := range cb.cells {
 		c := &cb.cells[i]
 		c.currMain = r
 		c.currComb = nil
 		c.currStyle = style
+		c.width = 1
 	}
 }

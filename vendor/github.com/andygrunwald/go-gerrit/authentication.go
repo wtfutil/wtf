@@ -1,7 +1,7 @@
 package gerrit
 
 import (
-	"crypto/md5" // nolint: gas
+	"crypto/md5" // nolint: gosec
 	"crypto/rand"
 	"encoding/base64"
 	"errors"
@@ -117,7 +117,7 @@ func (s *AuthenticationService) digestAuthHeader(response *http.Response) (strin
 	uriHeader := authenticate["uri"]
 
 	// A1
-	h := md5.New() // nolint: gas
+	h := md5.New() // nolint: gosec
 	A1 := fmt.Sprintf("%s:%s:%s", s.name, realmHeader, s.secret)
 	if _, err := io.WriteString(h, A1); err != nil {
 		return "", err
@@ -125,7 +125,7 @@ func (s *AuthenticationService) digestAuthHeader(response *http.Response) (strin
 	HA1 := fmt.Sprintf("%x", h.Sum(nil))
 
 	// A2
-	h = md5.New() // nolint: gas
+	h = md5.New() // nolint: gosec
 	A2 := fmt.Sprintf("%s:%s", response.Request.Method, uriHeader)
 	if _, err := io.WriteString(h, A2); err != nil {
 		return "", err
@@ -141,7 +141,7 @@ func (s *AuthenticationService) digestAuthHeader(response *http.Response) (strin
 		bytes += n
 	}
 	cnonce := base64.StdEncoding.EncodeToString(k)
-	digest := md5.New() // nolint: gas
+	digest := md5.New() // nolint: gosec
 	if _, err := digest.Write([]byte(strings.Join([]string{HA1, nonceHeader, "00000001", cnonce, qopHeader, HA2}, ":"))); err != nil {
 		return "", err
 	}

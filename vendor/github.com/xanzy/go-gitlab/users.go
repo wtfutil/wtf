@@ -32,36 +32,40 @@ type UsersService struct {
 
 // User represents a GitLab user.
 //
-// GitLab API docs: https://docs.gitlab.com/ce/api/users.html
+// GitLab API docs: https://docs.gitlab.com/ee/api/users.html
 type User struct {
-	ID               int             `json:"id"`
-	Username         string          `json:"username"`
-	Email            string          `json:"email"`
-	Name             string          `json:"name"`
-	State            string          `json:"state"`
-	CreatedAt        *time.Time      `json:"created_at"`
-	Bio              string          `json:"bio"`
-	Location         string          `json:"location"`
-	Skype            string          `json:"skype"`
-	Linkedin         string          `json:"linkedin"`
-	Twitter          string          `json:"twitter"`
-	WebsiteURL       string          `json:"website_url"`
-	Organization     string          `json:"organization"`
-	ExternUID        string          `json:"extern_uid"`
-	Provider         string          `json:"provider"`
-	ThemeID          int             `json:"theme_id"`
-	LastActivityOn   *ISOTime        `json:"last_activity_on"`
-	ColorSchemeID    int             `json:"color_scheme_id"`
-	IsAdmin          bool            `json:"is_admin"`
-	AvatarURL        string          `json:"avatar_url"`
-	CanCreateGroup   bool            `json:"can_create_group"`
-	CanCreateProject bool            `json:"can_create_project"`
-	ProjectsLimit    int             `json:"projects_limit"`
-	CurrentSignInAt  *time.Time      `json:"current_sign_in_at"`
-	LastSignInAt     *time.Time      `json:"last_sign_in_at"`
-	TwoFactorEnabled bool            `json:"two_factor_enabled"`
-	Identities       []*UserIdentity `json:"identities"`
-	External         bool            `json:"external"`
+	ID                        int             `json:"id"`
+	Username                  string          `json:"username"`
+	Email                     string          `json:"email"`
+	Name                      string          `json:"name"`
+	State                     string          `json:"state"`
+	CreatedAt                 *time.Time      `json:"created_at"`
+	Bio                       string          `json:"bio"`
+	Location                  string          `json:"location"`
+	PublicEmail               string          `json:"public_email"`
+	Skype                     string          `json:"skype"`
+	Linkedin                  string          `json:"linkedin"`
+	Twitter                   string          `json:"twitter"`
+	WebsiteURL                string          `json:"website_url"`
+	Organization              string          `json:"organization"`
+	ExternUID                 string          `json:"extern_uid"`
+	Provider                  string          `json:"provider"`
+	ThemeID                   int             `json:"theme_id"`
+	LastActivityOn            *ISOTime        `json:"last_activity_on"`
+	ColorSchemeID             int             `json:"color_scheme_id"`
+	IsAdmin                   bool            `json:"is_admin"`
+	AvatarURL                 string          `json:"avatar_url"`
+	CanCreateGroup            bool            `json:"can_create_group"`
+	CanCreateProject          bool            `json:"can_create_project"`
+	ProjectsLimit             int             `json:"projects_limit"`
+	CurrentSignInAt           *time.Time      `json:"current_sign_in_at"`
+	LastSignInAt              *time.Time      `json:"last_sign_in_at"`
+	ConfirmedAt               *time.Time      `json:"confirmed_at"`
+	TwoFactorEnabled          bool            `json:"two_factor_enabled"`
+	Identities                []*UserIdentity `json:"identities"`
+	External                  bool            `json:"external"`
+	PrivateProfile            bool            `json:"private_profile"`
+	SharedRunnersMinutesLimit int             `json:"shared_runners_minutes_limit"`
 }
 
 // UserIdentity represents a user identity.

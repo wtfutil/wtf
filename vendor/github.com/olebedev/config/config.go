@@ -498,7 +498,7 @@ func Set(cfg interface{}, path string, value interface{}) error {
 		default:
 			return fmt.Errorf(
 				"Invalid type at %q: expected []interface{} or map[string]interface{}; got %T",
-				strings.Join(parts[:pos+1], "."), cfg)
+				strings.Join(parts[:pos+1], "."), c)
 		}
 	}
 

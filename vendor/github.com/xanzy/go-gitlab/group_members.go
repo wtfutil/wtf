@@ -44,8 +44,8 @@ type GroupMember struct {
 	ExpiresAt   *ISOTime         `json:"expires_at"`
 }
 
-// ListGroupMembersOptions represents the available ListGroupMembers()
-// options.
+// ListGroupMembersOptions represents the available ListGroupMembers() and
+// ListAllGroupMembers() options.
 //
 // GitLab API docs:
 // https://docs.gitlab.com/ce/api/members.html#list-all-members-of-a-group-or-project
@@ -55,7 +55,7 @@ type ListGroupMembersOptions struct {
 }
 
 // ListGroupMembers get a list of group members viewable by the authenticated
-// user.
+// user. Returns a list including inherited members through ancestor groups.
 //
 // GitLab API docs:
 // https://docs.gitlab.com/ce/api/members.html#list-all-members-of-a-group-or-project
@@ -65,6 +65,32 @@ func (s *GroupsService) ListGroupMembers(gid interface{}, opt *ListGroupMembersO
 		return nil, nil, err
 	}
 	u := fmt.Sprintf("groups/%s/members", url.QueryEscape(group))
+
+	req, err := s.client.NewRequest("GET", u, opt, options)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var gm []*GroupMember
+	resp, err := s.client.Do(req, &gm)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return gm, resp, err
+}
+
+// ListAllGroupMembers get a list of group members viewable by the authenticated
+// user. Returns a list including inherited members through ancestor groups.
+//
+// GitLab API docs:
+// https://docs.gitlab.com/ce/api/members.html#list-all-members-of-a-group-or-project-including-inherited-members
+func (s *GroupsService) ListAllGroupMembers(gid interface{}, opt *ListGroupMembersOptions, options ...OptionFunc) ([]*GroupMember, *Response, error) {
+	group, err := parseID(gid)
+	if err != nil {
+		return nil, nil, err
+	}
+	u := fmt.Sprintf("groups/%s/members/all", url.QueryEscape(group))
 
 	req, err := s.client.NewRequest("GET", u, opt, options)
 	if err != nil {

@@ -66,7 +66,7 @@ func (s *RepositoryFilesService) GetFile(pid interface{}, fileName string, opt *
 	if err != nil {
 		return nil, nil, err
 	}
-	u := fmt.Sprintf("projects/%s/repository/files/%s", url.QueryEscape(project), url.QueryEscape(fileName))
+	u := fmt.Sprintf("projects/%s/repository/files/%s", url.QueryEscape(project), url.PathEscape(fileName))
 
 	req, err := s.client.NewRequest("GET", u, opt, options)
 	if err != nil {
@@ -99,7 +99,7 @@ func (s *RepositoryFilesService) GetRawFile(pid interface{}, fileName string, op
 	if err != nil {
 		return nil, nil, err
 	}
-	u := fmt.Sprintf("projects/%s/repository/files/%s/raw", url.QueryEscape(project), url.QueryEscape(fileName))
+	u := fmt.Sprintf("projects/%s/repository/files/%s/raw", url.QueryEscape(project), url.PathEscape(fileName))
 
 	req, err := s.client.NewRequest("GET", u, opt, options)
 	if err != nil {
@@ -149,7 +149,7 @@ func (s *RepositoryFilesService) CreateFile(pid interface{}, fileName string, op
 	if err != nil {
 		return nil, nil, err
 	}
-	u := fmt.Sprintf("projects/%s/repository/files/%s", url.QueryEscape(project), url.QueryEscape(fileName))
+	u := fmt.Sprintf("projects/%s/repository/files/%s", url.QueryEscape(project), url.PathEscape(fileName))
 
 	req, err := s.client.NewRequest("POST", u, opt, options)
 	if err != nil {
@@ -188,7 +188,7 @@ func (s *RepositoryFilesService) UpdateFile(pid interface{}, fileName string, op
 	if err != nil {
 		return nil, nil, err
 	}
-	u := fmt.Sprintf("projects/%s/repository/files/%s", url.QueryEscape(project), url.QueryEscape(fileName))
+	u := fmt.Sprintf("projects/%s/repository/files/%s", url.QueryEscape(project), url.PathEscape(fileName))
 
 	req, err := s.client.NewRequest("PUT", u, opt, options)
 	if err != nil {
@@ -224,7 +224,7 @@ func (s *RepositoryFilesService) DeleteFile(pid interface{}, fileName string, op
 	if err != nil {
 		return nil, err
 	}
-	u := fmt.Sprintf("projects/%s/repository/files/%s", url.QueryEscape(project), url.QueryEscape(fileName))
+	u := fmt.Sprintf("projects/%s/repository/files/%s", url.QueryEscape(project), url.PathEscape(fileName))
 
 	req, err := s.client.NewRequest("DELETE", u, opt, options)
 	if err != nil {

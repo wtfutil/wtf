@@ -11,10 +11,23 @@ import (
 )
 
 // InputField is a one-line box (three lines if there is a title) where the
-// user can enter text.
+// user can enter text. Use SetAcceptanceFunc() to accept or reject input,
+// SetChangedFunc() to listen for changes, and SetMaskCharacter() to hide input
+// from onlookers (e.g. for password input).
 //
-// Use SetMaskCharacter() to hide input from onlookers (e.g. for password
-// input).
+// The following keys can be used for navigation and editing:
+//
+//   - Left arrow: Move left by one character.
+//   - Right arrow: Move right by one character.
+//   - Home, Ctrl-A, Alt-a: Move to the beginning of the line.
+//   - End, Ctrl-E, Alt-e: Move to the end of the line.
+//   - Alt-left, Alt-b: Move left by one word.
+//   - Alt-right, Alt-f: Move right by one word.
+//   - Backspace: Delete the character before the cursor.
+//   - Delete: Delete the character after the cursor.
+//   - Ctrl-K: Delete from the cursor to the end of the line.
+//   - Ctrl-W: Delete the last word before the cursor.
+//   - Ctrl-U: Delete the entire line.
 //
 // See https://github.com/rivo/tview/wiki/InputField for an example.
 type InputField struct {
@@ -52,6 +65,12 @@ type InputField struct {
 	// A character to mask entered text (useful for password fields). A value of 0
 	// disables masking.
 	maskCharacter rune
+
+	// The cursor position as a byte index into the text string.
+	cursorPos int
+
+	// The number of bytes of the text string skipped ahead while drawing.
+	offset int
 
 	// An optional function which may reject the last character that was entered.
 	accept func(text string, ch rune) bool
@@ -174,7 +193,7 @@ func (i *InputField) SetMaskCharacter(mask rune) *InputField {
 // SetAcceptanceFunc sets a handler which may reject the last character that was
 // entered (by returning false).
 //
-// This package defines a number of variables Prefixed with InputField which may
+// This package defines a number of variables prefixed with InputField which may
 // be used for common input (e.g. numbers, maximum text length).
 func (i *InputField) SetAcceptanceFunc(handler func(textToCheck string, lastChar rune) bool) *InputField {
 	i.accept = handler
@@ -244,54 +263,67 @@ func (i *InputField) Draw(screen tcell.Screen) {
 		screen.SetContent(x+index, y, ' ', nil, fieldStyle)
 	}
 
-	// Draw placeholder text.
+	// Text.
+	var cursorScreenPos int
 	text := i.text
 	if text == "" && i.placeholder != "" {
-		Print(screen, i.placeholder, x, y, fieldWidth, AlignLeft, i.placeholderTextColor)
+		// Draw placeholder text.
+		Print(screen, Escape(i.placeholder), x, y, fieldWidth, AlignLeft, i.placeholderTextColor)
+		i.offset = 0
 	} else {
 		// Draw entered text.
 		if i.maskCharacter > 0 {
 			text = strings.Repeat(string(i.maskCharacter), utf8.RuneCountInString(i.text))
-		} else {
-			text = Escape(text)
 		}
-		fieldWidth-- // We need one cell for the cursor.
-		if fieldWidth < runewidth.StringWidth(text) {
-			Print(screen, text, x, y, fieldWidth, AlignRight, i.fieldTextColor)
+		stringWidth := runewidth.StringWidth(text)
+		if fieldWidth >= stringWidth {
+			// We have enough space for the full text.
+			Print(screen, Escape(text), x, y, fieldWidth, AlignLeft, i.fieldTextColor)
+			i.offset = 0
+			iterateString(text, func(main rune, comb []rune, textPos, textWidth, screenPos, screenWidth int) bool {
+				if textPos >= i.cursorPos {
+					return true
+				}
+				cursorScreenPos += screenWidth
+				return false
+			})
 		} else {
-			Print(screen, text, x, y, fieldWidth, AlignLeft, i.fieldTextColor)
+			// The text doesn't fit. Where is the cursor?
+			if i.cursorPos < 0 {
+				i.cursorPos = 0
+			} else if i.cursorPos > len(text) {
+				i.cursorPos = len(text)
+			}
+			// Shift the text so the cursor is inside the field.
+			var shiftLeft int
+			if i.offset > i.cursorPos {
+				i.offset = i.cursorPos
+			} else if subWidth := runewidth.StringWidth(text[i.offset:i.cursorPos]); subWidth > fieldWidth-1 {
+				shiftLeft = subWidth - fieldWidth + 1
+			}
+			currentOffset := i.offset
+			iterateString(text, func(main rune, comb []rune, textPos, textWidth, screenPos, screenWidth int) bool {
+				if textPos >= currentOffset {
+					if shiftLeft > 0 {
+						i.offset = textPos + textWidth
+						shiftLeft -= screenWidth
+					} else {
+						if textPos+textWidth > i.cursorPos {
+							return true
+						}
+						cursorScreenPos += screenWidth
+					}
+				}
+				return false
+			})
+			Print(screen, Escape(text[i.offset:]), x, y, fieldWidth, AlignLeft, i.fieldTextColor)
 		}
 	}
 
 	// Set cursor.
 	if i.focus.HasFocus() {
-		i.setCursor(screen)
+		screen.ShowCursor(x+cursorScreenPos, y)
 	}
-}
-
-// setCursor sets the cursor position.
-func (i *InputField) setCursor(screen tcell.Screen) {
-	x := i.x
-	y := i.y
-	rightLimit := x + i.width
-	if i.border {
-		x++
-		y++
-		rightLimit -= 2
-	}
-	fieldWidth := runewidth.StringWidth(i.text)
-	if i.fieldWidth > 0 && fieldWidth > i.fieldWidth-1 {
-		fieldWidth = i.fieldWidth - 1
-	}
-	if i.labelWidth > 0 {
-		x += i.labelWidth + fieldWidth
-	} else {
-		x += StringWidth(i.label) + fieldWidth
-	}
-	if x >= rightLimit {
-		x = rightLimit - 1
-	}
-	screen.ShowCursor(x, y)
 }
 
 // InputHandler returns the handler for this primitive.
@@ -305,27 +337,95 @@ func (i *InputField) InputHandler() func(event *tcell.EventKey, setFocus func(p 
 			}
 		}()
 
+		// Movement functions.
+		home := func() { i.cursorPos = 0 }
+		end := func() { i.cursorPos = len(i.text) }
+		moveLeft := func() {
+			iterateStringReverse(i.text[:i.cursorPos], func(main rune, comb []rune, textPos, textWidth, screenPos, screenWidth int) bool {
+				i.cursorPos -= textWidth
+				return true
+			})
+		}
+		moveRight := func() {
+			iterateString(i.text[i.cursorPos:], func(main rune, comb []rune, textPos, textWidth, screenPos, screenWidth int) bool {
+				i.cursorPos += textWidth
+				return true
+			})
+		}
+		moveWordLeft := func() {
+			i.cursorPos = len(regexp.MustCompile(`\S+\s*$`).ReplaceAllString(i.text[:i.cursorPos], ""))
+		}
+		moveWordRight := func() {
+			i.cursorPos = len(i.text) - len(regexp.MustCompile(`^\s*\S+\s*`).ReplaceAllString(i.text[i.cursorPos:], ""))
+		}
+
 		// Process key event.
 		switch key := event.Key(); key {
 		case tcell.KeyRune: // Regular character.
-			newText := i.text + string(event.Rune())
-			if i.accept != nil {
-				if !i.accept(newText, event.Rune()) {
-					break
+			modifiers := event.Modifiers()
+			if modifiers == tcell.ModNone {
+				ch := string(event.Rune())
+				newText := i.text[:i.cursorPos] + ch + i.text[i.cursorPos:]
+				if i.accept != nil {
+					if !i.accept(newText, event.Rune()) {
+						break
+					}
+				}
+				i.text = newText
+				i.cursorPos += len(ch)
+			} else if modifiers&tcell.ModAlt > 0 {
+				// We accept some Alt- key combinations.
+				switch event.Rune() {
+				case 'a': // Home.
+					home()
+				case 'e': // End.
+					end()
+				case 'b': // Move word left.
+					moveWordLeft()
+				case 'f': // Move word right.
+					moveWordRight()
 				}
 			}
-			i.text = newText
 		case tcell.KeyCtrlU: // Delete all.
 			i.text = ""
+			i.cursorPos = 0
+		case tcell.KeyCtrlK: // Delete until the end of the line.
+			i.text = i.text[:i.cursorPos]
 		case tcell.KeyCtrlW: // Delete last word.
-			lastWord := regexp.MustCompile(`\s*\S+\s*$`)
-			i.text = lastWord.ReplaceAllString(i.text, "")
-		case tcell.KeyBackspace, tcell.KeyBackspace2: // Delete last character.
-			if len(i.text) == 0 {
-				break
+			lastWord := regexp.MustCompile(`\S+\s*$`)
+			newText := lastWord.ReplaceAllString(i.text[:i.cursorPos], "") + i.text[i.cursorPos:]
+			i.cursorPos -= len(i.text) - len(newText)
+			i.text = newText
+		case tcell.KeyBackspace, tcell.KeyBackspace2: // Delete character before the cursor.
+			iterateStringReverse(i.text[:i.cursorPos], func(main rune, comb []rune, textPos, textWidth, screenPos, screenWidth int) bool {
+				i.text = i.text[:textPos] + i.text[textPos+textWidth:]
+				i.cursorPos -= textWidth
+				return true
+			})
+			if i.offset >= i.cursorPos {
+				i.offset = 0
 			}
-			runes := []rune(i.text)
-			i.text = string(runes[:len(runes)-1])
+		case tcell.KeyDelete: // Delete character after the cursor.
+			iterateString(i.text[i.cursorPos:], func(main rune, comb []rune, textPos, textWidth, screenPos, screenWidth int) bool {
+				i.text = i.text[:i.cursorPos] + i.text[i.cursorPos+textWidth:]
+				return true
+			})
+		case tcell.KeyLeft:
+			if event.Modifiers()&tcell.ModAlt > 0 {
+				moveWordLeft()
+			} else {
+				moveLeft()
+			}
+		case tcell.KeyRight:
+			if event.Modifiers()&tcell.ModAlt > 0 {
+				moveWordRight()
+			} else {
+				moveRight()
+			}
+		case tcell.KeyHome, tcell.KeyCtrlA:
+			home()
+		case tcell.KeyEnd, tcell.KeyCtrlE:
+			end()
 		case tcell.KeyEnter, tcell.KeyTab, tcell.KeyBacktab, tcell.KeyEscape: // We're done.
 			if i.done != nil {
 				i.done(key)

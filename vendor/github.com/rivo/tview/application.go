@@ -19,6 +19,9 @@ type Application struct {
 	// The application's screen.
 	screen tcell.Screen
 
+	// Indicates whether the application's screen is currently active.
+	running bool
+
 	// The primitive which currently has the keyboard focus.
 	focus Primitive
 
@@ -70,22 +73,53 @@ func (a *Application) GetInputCapture() func(event *tcell.EventKey) *tcell.Event
 	return a.inputCapture
 }
 
+// SetScreen allows you to provide your own tcell.Screen object. For most
+// applications, this is not needed and you should be familiar with
+// tcell.Screen when using this function. Run() will call Init() and Fini() on
+// the provided screen object.
+//
+// This function is typically called before calling Run(). Calling it while an
+// application is running will switch the application to the new screen. Fini()
+// will be called on the old screen and Init() on the new screen (errors
+// returned by Init() will lead to a panic).
+//
+// Note that calling Suspend() will invoke Fini() on your screen object and it
+// will not be restored when suspended mode ends. Instead, a new default screen
+// object will be created.
+func (a *Application) SetScreen(screen tcell.Screen) *Application {
+	a.Lock()
+	defer a.Unlock()
+	if a.running {
+		a.screen.Fini()
+	}
+	a.screen = screen
+	if a.running {
+		if err := a.screen.Init(); err != nil {
+			panic(err)
+		}
+	}
+	return a
+}
+
 // Run starts the application and thus the event loop. This function returns
 // when Stop() was called.
 func (a *Application) Run() error {
 	var err error
 	a.Lock()
 
-	// Make a screen.
-	a.screen, err = tcell.NewScreen()
-	if err != nil {
-		a.Unlock()
-		return err
+	// Make a screen if there is none yet.
+	if a.screen == nil {
+		a.screen, err = tcell.NewScreen()
+		if err != nil {
+			a.Unlock()
+			return err
+		}
 	}
 	if err = a.screen.Init(); err != nil {
 		a.Unlock()
 		return err
 	}
+	a.running = true
 
 	// We catch panics to clean up because they mess up the terminal.
 	defer func() {
@@ -93,6 +127,7 @@ func (a *Application) Run() error {
 			if a.screen != nil {
 				a.screen.Fini()
 			}
+			a.running = false
 			panic(p)
 		}
 	}()
@@ -170,6 +205,7 @@ func (a *Application) Stop() {
 	}
 	a.screen.Fini()
 	a.screen = nil
+	a.running = false
 }
 
 // Suspend temporarily suspends the application by exiting terminal UI mode and
@@ -217,6 +253,7 @@ func (a *Application) Suspend(f func()) bool {
 		a.Unlock()
 		panic(err)
 	}
+	a.running = true
 	a.Unlock()
 	a.Draw()
 

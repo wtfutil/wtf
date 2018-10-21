@@ -182,18 +182,19 @@ func (s Project) String() string {
 // GitLab API docs: https://docs.gitlab.com/ce/api/projects.html#list-projects
 type ListProjectsOptions struct {
 	ListOptions
-	Archived                 *bool            `url:"archived,omitempty" json:"archived,omitempty"`
-	OrderBy                  *string          `url:"order_by,omitempty" json:"order_by,omitempty"`
-	Sort                     *string          `url:"sort,omitempty" json:"sort,omitempty"`
-	Search                   *string          `url:"search,omitempty" json:"search,omitempty"`
-	Simple                   *bool            `url:"simple,omitempty" json:"simple,omitempty"`
-	Owned                    *bool            `url:"owned,omitempty" json:"owned,omitempty"`
-	Membership               *bool            `url:"membership,omitempty" json:"membership,omitempty"`
-	Starred                  *bool            `url:"starred,omitempty" json:"starred,omitempty"`
-	Statistics               *bool            `url:"statistics,omitempty" json:"statistics,omitempty"`
-	Visibility               *VisibilityValue `url:"visibility,omitempty" json:"visibility,omitempty"`
-	WithIssuesEnabled        *bool            `url:"with_issues_enabled,omitempty" json:"with_issues_enabled,omitempty"`
-	WithMergeRequestsEnabled *bool            `url:"with_merge_requests_enabled,omitempty" json:"with_merge_requests_enabled,omitempty"`
+	Archived                 *bool             `url:"archived,omitempty" json:"archived,omitempty"`
+	OrderBy                  *string           `url:"order_by,omitempty" json:"order_by,omitempty"`
+	Sort                     *string           `url:"sort,omitempty" json:"sort,omitempty"`
+	Search                   *string           `url:"search,omitempty" json:"search,omitempty"`
+	Simple                   *bool             `url:"simple,omitempty" json:"simple,omitempty"`
+	Owned                    *bool             `url:"owned,omitempty" json:"owned,omitempty"`
+	Membership               *bool             `url:"membership,omitempty" json:"membership,omitempty"`
+	Starred                  *bool             `url:"starred,omitempty" json:"starred,omitempty"`
+	Statistics               *bool             `url:"statistics,omitempty" json:"statistics,omitempty"`
+	Visibility               *VisibilityValue  `url:"visibility,omitempty" json:"visibility,omitempty"`
+	WithIssuesEnabled        *bool             `url:"with_issues_enabled,omitempty" json:"with_issues_enabled,omitempty"`
+	WithMergeRequestsEnabled *bool             `url:"with_merge_requests_enabled,omitempty" json:"with_merge_requests_enabled,omitempty"`
+	MinAccessLevel           *AccessLevelValue `url:"min_access_level,omitempty" json:"min_access_level,omitempty"`
 }
 
 // ListProjects gets a list of projects accessible by the authenticated user.
@@ -275,6 +276,35 @@ func (s *ProjectsService) ListProjectsUsers(pid interface{}, opt *ListProjectUse
 
 	var p []*ProjectUser
 	resp, err := s.client.Do(req, &p)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return p, resp, err
+}
+
+// ProjectLanguages is a map of strings because the response is arbitrary
+//
+// Gitlab API docs: https://docs.gitlab.com/ce/api/projects.html#languages
+type ProjectLanguages map[string]float32
+
+// GetProjectLanguages gets a list of languages used by the project
+//
+// GitLab API docs:  https://docs.gitlab.com/ce/api/projects.html#languages
+func (s *ProjectsService) GetProjectLanguages(pid interface{}, options ...OptionFunc) (*ProjectLanguages, *Response, error) {
+	project, err := parseID(pid)
+	if err != nil {
+		return nil, nil, err
+	}
+	u := fmt.Sprintf("projects/%s/languages", url.QueryEscape(project))
+
+	req, err := s.client.NewRequest("GET", u, nil, options)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	p := new(ProjectLanguages)
+	resp, err := s.client.Do(req, p)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -371,7 +401,7 @@ func (s *ProjectsService) GetProjectEvents(pid interface{}, opt *GetProjectEvent
 
 // CreateProjectOptions represents the available CreateProjects() options.
 //
-// GitLab API docs: https://docs.gitlab.com/ce/api/projects.html#create-project
+// GitLab API docs: https://docs.gitlab.com/ee/api/projects.html#create-project
 type CreateProjectOptions struct {
 	Name                                      *string           `url:"name,omitempty" json:"name,omitempty"`
 	Path                                      *string           `url:"path,omitempty" json:"path,omitempty"`
@@ -397,6 +427,7 @@ type CreateProjectOptions struct {
 	TagList                                   *[]string         `url:"tag_list,omitempty" json:"tag_list,omitempty"`
 	PrintingMergeRequestLinkEnabled           *bool             `url:"printing_merge_request_link_enabled,omitempty" json:"printing_merge_request_link_enabled,omitempty"`
 	CIConfigPath                              *string           `url:"ci_config_path,omitempty" json:"ci_config_path,omitempty"`
+	ApprovalsBeforeMerge                      *int              `url:"approvals_before_merge" json:"approvals_before_merge"`
 }
 
 // CreateProject creates a new project owned by the authenticated user.

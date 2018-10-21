@@ -176,3 +176,66 @@ func (client *Client) GetIntegrationAWS() (*[]IntegrationAWSAccount, error) {
 func (client *Client) DeleteIntegrationAWS(awsAccount *IntegrationAWSAccountDeleteRequest) error {
 	return client.doJsonRequest("DELETE", "/v1/integration/aws", awsAccount, nil)
 }
+
+/*
+	Google Cloud Platform Integration
+*/
+
+// IntegrationGCP defines the response for listing Datadog-Google CloudPlatform integration.
+type IntegrationGCP struct {
+	ProjectID   *string `json:"project_id"`
+	ClientEmail *string `json:"client_email"`
+	HostFilters *string `json:"host_filters"`
+}
+
+// IntegrationGCPCreateRequest defines the request payload for creating Datadog-Google CloudPlatform integration.
+type IntegrationGCPCreateRequest struct {
+	Type                    *string `json:"type"` // Should be service_account
+	ProjectID               *string `json:"project_id"`
+	PrivateKeyID            *string `json:"private_key_id"`
+	PrivateKey              *string `json:"private_key"`
+	ClientEmail             *string `json:"client_email"`
+	ClientID                *string `json:"client_id"`
+	AuthURI                 *string `json:"auth_uri"`                    // Should be https://accounts.google.com/o/oauth2/auth
+	TokenURI                *string `json:"token_uri"`                   // Should be https://accounts.google.com/o/oauth2/token
+	AuthProviderX509CertURL *string `json:"auth_provider_x509_cert_url"` // Should be https://www.googleapis.com/oauth2/v1/certs
+	ClientX509CertURL       *string `json:"client_x509_cert_url"`        // https://www.googleapis.com/robot/v1/metadata/x509/<CLIENT_EMAIL>
+	HostFilters             *string `json:"host_filters,omitempty"`
+}
+
+// IntegrationGCPUpdateRequest defines the request payload for updating Datadog-Google CloudPlatform integration.
+type IntegrationGCPUpdateRequest struct {
+	ProjectID   *string `json:"project_id"`
+	ClientEmail *string `json:"client_email"`
+	HostFilters *string `json:"host_filters,omitempty"`
+}
+
+// IntegrationGCPDeleteRequest defines the request payload for deleting Datadog-Google CloudPlatform integration.
+type IntegrationGCPDeleteRequest struct {
+	ProjectID   *string `json:"project_id"`
+	ClientEmail *string `json:"client_email"`
+}
+
+// ListIntegrationGCP gets all Google Cloud Platform Integrations.
+func (client *Client) ListIntegrationGCP() ([]*IntegrationGCP, error) {
+	var list []*IntegrationGCP
+	if err := client.doJsonRequest("GET", "/v1/integration/gcp", nil, &list); err != nil {
+		return nil, err
+	}
+	return list, nil
+}
+
+// CreateIntegrationGCP creates a new Google Cloud Platform Integration.
+func (client *Client) CreateIntegrationGCP(cir *IntegrationGCPCreateRequest) error {
+	return client.doJsonRequest("POST", "/v1/integration/gcp", cir, nil)
+}
+
+// UpdateIntegrationGCP updates a Google Cloud Platform Integration.
+func (client *Client) UpdateIntegrationGCP(cir *IntegrationGCPUpdateRequest) error {
+	return client.doJsonRequest("POST", "/v1/integration/gcp/host_filters", cir, nil)
+}
+
+// DeleteIntegrationGCP deletes a Google Cloud Platform Integration.
+func (client *Client) DeleteIntegrationGCP(cir *IntegrationGCPDeleteRequest) error {
+	return client.doJsonRequest("DELETE", "/v1/integration/gcp", cir, nil)
+}

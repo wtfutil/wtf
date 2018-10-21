@@ -29,6 +29,7 @@ type TeamDiscussion struct {
 	Title         *string    `json:"title,omitempty"`
 	UpdatedAt     *Timestamp `json:"updated_at,omitempty"`
 	URL           *string    `json:"url,omitempty"`
+	Reactions     *Reactions `json:"reactions,omitempty"`
 }
 
 func (d TeamDiscussion) String() string {

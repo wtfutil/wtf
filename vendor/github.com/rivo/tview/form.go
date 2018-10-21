@@ -218,11 +218,23 @@ func (f *Form) AddButton(label string, selected func()) *Form {
 	return f
 }
 
+// GetButton returns the button at the specified 0-based index. Note that
+// buttons have been specially prepared for this form and modifying some of
+// their attributes may have unintended side effects.
+func (f *Form) GetButton(index int) *Button {
+	return f.buttons[index]
+}
+
 // RemoveButton removes the button at the specified position, starting with 0
 // for the button that was added first.
 func (f *Form) RemoveButton(index int) *Form {
 	f.buttons = append(f.buttons[:index], f.buttons[index+1:]...)
 	return f
+}
+
+// GetButtonCount returns the number of buttons in this form.
+func (f *Form) GetButtonCount() int {
+	return len(f.buttons)
 }
 
 // GetButtonIndex returns the index of the button with the given label, starting

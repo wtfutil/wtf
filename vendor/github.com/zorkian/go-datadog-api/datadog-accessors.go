@@ -21,7 +21,7 @@ func (a *Alert) GetCreator() int {
 	return *a.Creator
 }
 
-// GetOkCreator returns a tuple with the Creator field if it's non-nil, zero value otherwise
+// GetCreatorOk returns a tuple with the Creator field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (a *Alert) GetCreatorOk() (int, bool) {
 	if a == nil || a.Creator == nil {
@@ -52,7 +52,7 @@ func (a *Alert) GetId() int {
 	return *a.Id
 }
 
-// GetOkId returns a tuple with the Id field if it's non-nil, zero value otherwise
+// GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (a *Alert) GetIdOk() (int, bool) {
 	if a == nil || a.Id == nil {
@@ -83,7 +83,7 @@ func (a *Alert) GetMessage() string {
 	return *a.Message
 }
 
-// GetOkMessage returns a tuple with the Message field if it's non-nil, zero value otherwise
+// GetMessageOk returns a tuple with the Message field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (a *Alert) GetMessageOk() (string, bool) {
 	if a == nil || a.Message == nil {
@@ -114,7 +114,7 @@ func (a *Alert) GetName() string {
 	return *a.Name
 }
 
-// GetOkName returns a tuple with the Name field if it's non-nil, zero value otherwise
+// GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (a *Alert) GetNameOk() (string, bool) {
 	if a == nil || a.Name == nil {
@@ -145,7 +145,7 @@ func (a *Alert) GetNotifyNoData() bool {
 	return *a.NotifyNoData
 }
 
-// GetOkNotifyNoData returns a tuple with the NotifyNoData field if it's non-nil, zero value otherwise
+// GetNotifyNoDataOk returns a tuple with the NotifyNoData field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (a *Alert) GetNotifyNoDataOk() (bool, bool) {
 	if a == nil || a.NotifyNoData == nil {
@@ -176,7 +176,7 @@ func (a *Alert) GetQuery() string {
 	return *a.Query
 }
 
-// GetOkQuery returns a tuple with the Query field if it's non-nil, zero value otherwise
+// GetQueryOk returns a tuple with the Query field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (a *Alert) GetQueryOk() (string, bool) {
 	if a == nil || a.Query == nil {
@@ -207,7 +207,7 @@ func (a *Alert) GetSilenced() bool {
 	return *a.Silenced
 }
 
-// GetOkSilenced returns a tuple with the Silenced field if it's non-nil, zero value otherwise
+// GetSilencedOk returns a tuple with the Silenced field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (a *Alert) GetSilencedOk() (bool, bool) {
 	if a == nil || a.Silenced == nil {
@@ -238,7 +238,7 @@ func (a *Alert) GetState() string {
 	return *a.State
 }
 
-// GetOkState returns a tuple with the State field if it's non-nil, zero value otherwise
+// GetStateOk returns a tuple with the State field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (a *Alert) GetStateOk() (string, bool) {
 	if a == nil || a.State == nil {
@@ -261,1215 +261,6 @@ func (a *Alert) SetState(v string) {
 	a.State = &v
 }
 
-// GetAddTimeframe returns the AddTimeframe field if non-nil, zero value otherwise.
-func (a *AlertGraphWidget) GetAddTimeframe() bool {
-	if a == nil || a.AddTimeframe == nil {
-		return false
-	}
-	return *a.AddTimeframe
-}
-
-// GetOkAddTimeframe returns a tuple with the AddTimeframe field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (a *AlertGraphWidget) GetAddTimeframeOk() (bool, bool) {
-	if a == nil || a.AddTimeframe == nil {
-		return false, false
-	}
-	return *a.AddTimeframe, true
-}
-
-// HasAddTimeframe returns a boolean if a field has been set.
-func (a *AlertGraphWidget) HasAddTimeframe() bool {
-	if a != nil && a.AddTimeframe != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetAddTimeframe allocates a new a.AddTimeframe and returns the pointer to it.
-func (a *AlertGraphWidget) SetAddTimeframe(v bool) {
-	a.AddTimeframe = &v
-}
-
-// GetAlertId returns the AlertId field if non-nil, zero value otherwise.
-func (a *AlertGraphWidget) GetAlertId() int {
-	if a == nil || a.AlertId == nil {
-		return 0
-	}
-	return *a.AlertId
-}
-
-// GetOkAlertId returns a tuple with the AlertId field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (a *AlertGraphWidget) GetAlertIdOk() (int, bool) {
-	if a == nil || a.AlertId == nil {
-		return 0, false
-	}
-	return *a.AlertId, true
-}
-
-// HasAlertId returns a boolean if a field has been set.
-func (a *AlertGraphWidget) HasAlertId() bool {
-	if a != nil && a.AlertId != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetAlertId allocates a new a.AlertId and returns the pointer to it.
-func (a *AlertGraphWidget) SetAlertId(v int) {
-	a.AlertId = &v
-}
-
-// GetHeight returns the Height field if non-nil, zero value otherwise.
-func (a *AlertGraphWidget) GetHeight() int {
-	if a == nil || a.Height == nil {
-		return 0
-	}
-	return *a.Height
-}
-
-// GetOkHeight returns a tuple with the Height field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (a *AlertGraphWidget) GetHeightOk() (int, bool) {
-	if a == nil || a.Height == nil {
-		return 0, false
-	}
-	return *a.Height, true
-}
-
-// HasHeight returns a boolean if a field has been set.
-func (a *AlertGraphWidget) HasHeight() bool {
-	if a != nil && a.Height != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetHeight allocates a new a.Height and returns the pointer to it.
-func (a *AlertGraphWidget) SetHeight(v int) {
-	a.Height = &v
-}
-
-// GetTimeframe returns the Timeframe field if non-nil, zero value otherwise.
-func (a *AlertGraphWidget) GetTimeframe() string {
-	if a == nil || a.Timeframe == nil {
-		return ""
-	}
-	return *a.Timeframe
-}
-
-// GetOkTimeframe returns a tuple with the Timeframe field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (a *AlertGraphWidget) GetTimeframeOk() (string, bool) {
-	if a == nil || a.Timeframe == nil {
-		return "", false
-	}
-	return *a.Timeframe, true
-}
-
-// HasTimeframe returns a boolean if a field has been set.
-func (a *AlertGraphWidget) HasTimeframe() bool {
-	if a != nil && a.Timeframe != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTimeframe allocates a new a.Timeframe and returns the pointer to it.
-func (a *AlertGraphWidget) SetTimeframe(v string) {
-	a.Timeframe = &v
-}
-
-// GetTitle returns the Title field if non-nil, zero value otherwise.
-func (a *AlertGraphWidget) GetTitle() bool {
-	if a == nil || a.Title == nil {
-		return false
-	}
-	return *a.Title
-}
-
-// GetOkTitle returns a tuple with the Title field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (a *AlertGraphWidget) GetTitleOk() (bool, bool) {
-	if a == nil || a.Title == nil {
-		return false, false
-	}
-	return *a.Title, true
-}
-
-// HasTitle returns a boolean if a field has been set.
-func (a *AlertGraphWidget) HasTitle() bool {
-	if a != nil && a.Title != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTitle allocates a new a.Title and returns the pointer to it.
-func (a *AlertGraphWidget) SetTitle(v bool) {
-	a.Title = &v
-}
-
-// GetTitleAlign returns the TitleAlign field if non-nil, zero value otherwise.
-func (a *AlertGraphWidget) GetTitleAlign() string {
-	if a == nil || a.TitleAlign == nil {
-		return ""
-	}
-	return *a.TitleAlign
-}
-
-// GetOkTitleAlign returns a tuple with the TitleAlign field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (a *AlertGraphWidget) GetTitleAlignOk() (string, bool) {
-	if a == nil || a.TitleAlign == nil {
-		return "", false
-	}
-	return *a.TitleAlign, true
-}
-
-// HasTitleAlign returns a boolean if a field has been set.
-func (a *AlertGraphWidget) HasTitleAlign() bool {
-	if a != nil && a.TitleAlign != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTitleAlign allocates a new a.TitleAlign and returns the pointer to it.
-func (a *AlertGraphWidget) SetTitleAlign(v string) {
-	a.TitleAlign = &v
-}
-
-// GetTitleSize returns the TitleSize field if non-nil, zero value otherwise.
-func (a *AlertGraphWidget) GetTitleSize() int {
-	if a == nil || a.TitleSize == nil {
-		return 0
-	}
-	return *a.TitleSize
-}
-
-// GetOkTitleSize returns a tuple with the TitleSize field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (a *AlertGraphWidget) GetTitleSizeOk() (int, bool) {
-	if a == nil || a.TitleSize == nil {
-		return 0, false
-	}
-	return *a.TitleSize, true
-}
-
-// HasTitleSize returns a boolean if a field has been set.
-func (a *AlertGraphWidget) HasTitleSize() bool {
-	if a != nil && a.TitleSize != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTitleSize allocates a new a.TitleSize and returns the pointer to it.
-func (a *AlertGraphWidget) SetTitleSize(v int) {
-	a.TitleSize = &v
-}
-
-// GetTitleText returns the TitleText field if non-nil, zero value otherwise.
-func (a *AlertGraphWidget) GetTitleText() string {
-	if a == nil || a.TitleText == nil {
-		return ""
-	}
-	return *a.TitleText
-}
-
-// GetOkTitleText returns a tuple with the TitleText field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (a *AlertGraphWidget) GetTitleTextOk() (string, bool) {
-	if a == nil || a.TitleText == nil {
-		return "", false
-	}
-	return *a.TitleText, true
-}
-
-// HasTitleText returns a boolean if a field has been set.
-func (a *AlertGraphWidget) HasTitleText() bool {
-	if a != nil && a.TitleText != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTitleText allocates a new a.TitleText and returns the pointer to it.
-func (a *AlertGraphWidget) SetTitleText(v string) {
-	a.TitleText = &v
-}
-
-// GetType returns the Type field if non-nil, zero value otherwise.
-func (a *AlertGraphWidget) GetType() string {
-	if a == nil || a.Type == nil {
-		return ""
-	}
-	return *a.Type
-}
-
-// GetOkType returns a tuple with the Type field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (a *AlertGraphWidget) GetTypeOk() (string, bool) {
-	if a == nil || a.Type == nil {
-		return "", false
-	}
-	return *a.Type, true
-}
-
-// HasType returns a boolean if a field has been set.
-func (a *AlertGraphWidget) HasType() bool {
-	if a != nil && a.Type != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetType allocates a new a.Type and returns the pointer to it.
-func (a *AlertGraphWidget) SetType(v string) {
-	a.Type = &v
-}
-
-// GetVizType returns the VizType field if non-nil, zero value otherwise.
-func (a *AlertGraphWidget) GetVizType() string {
-	if a == nil || a.VizType == nil {
-		return ""
-	}
-	return *a.VizType
-}
-
-// GetOkVizType returns a tuple with the VizType field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (a *AlertGraphWidget) GetVizTypeOk() (string, bool) {
-	if a == nil || a.VizType == nil {
-		return "", false
-	}
-	return *a.VizType, true
-}
-
-// HasVizType returns a boolean if a field has been set.
-func (a *AlertGraphWidget) HasVizType() bool {
-	if a != nil && a.VizType != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetVizType allocates a new a.VizType and returns the pointer to it.
-func (a *AlertGraphWidget) SetVizType(v string) {
-	a.VizType = &v
-}
-
-// GetWidth returns the Width field if non-nil, zero value otherwise.
-func (a *AlertGraphWidget) GetWidth() int {
-	if a == nil || a.Width == nil {
-		return 0
-	}
-	return *a.Width
-}
-
-// GetOkWidth returns a tuple with the Width field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (a *AlertGraphWidget) GetWidthOk() (int, bool) {
-	if a == nil || a.Width == nil {
-		return 0, false
-	}
-	return *a.Width, true
-}
-
-// HasWidth returns a boolean if a field has been set.
-func (a *AlertGraphWidget) HasWidth() bool {
-	if a != nil && a.Width != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetWidth allocates a new a.Width and returns the pointer to it.
-func (a *AlertGraphWidget) SetWidth(v int) {
-	a.Width = &v
-}
-
-// GetX returns the X field if non-nil, zero value otherwise.
-func (a *AlertGraphWidget) GetX() int {
-	if a == nil || a.X == nil {
-		return 0
-	}
-	return *a.X
-}
-
-// GetOkX returns a tuple with the X field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (a *AlertGraphWidget) GetXOk() (int, bool) {
-	if a == nil || a.X == nil {
-		return 0, false
-	}
-	return *a.X, true
-}
-
-// HasX returns a boolean if a field has been set.
-func (a *AlertGraphWidget) HasX() bool {
-	if a != nil && a.X != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetX allocates a new a.X and returns the pointer to it.
-func (a *AlertGraphWidget) SetX(v int) {
-	a.X = &v
-}
-
-// GetY returns the Y field if non-nil, zero value otherwise.
-func (a *AlertGraphWidget) GetY() int {
-	if a == nil || a.Y == nil {
-		return 0
-	}
-	return *a.Y
-}
-
-// GetOkY returns a tuple with the Y field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (a *AlertGraphWidget) GetYOk() (int, bool) {
-	if a == nil || a.Y == nil {
-		return 0, false
-	}
-	return *a.Y, true
-}
-
-// HasY returns a boolean if a field has been set.
-func (a *AlertGraphWidget) HasY() bool {
-	if a != nil && a.Y != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetY allocates a new a.Y and returns the pointer to it.
-func (a *AlertGraphWidget) SetY(v int) {
-	a.Y = &v
-}
-
-// GetAddTimeframe returns the AddTimeframe field if non-nil, zero value otherwise.
-func (a *AlertValueWidget) GetAddTimeframe() bool {
-	if a == nil || a.AddTimeframe == nil {
-		return false
-	}
-	return *a.AddTimeframe
-}
-
-// GetOkAddTimeframe returns a tuple with the AddTimeframe field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (a *AlertValueWidget) GetAddTimeframeOk() (bool, bool) {
-	if a == nil || a.AddTimeframe == nil {
-		return false, false
-	}
-	return *a.AddTimeframe, true
-}
-
-// HasAddTimeframe returns a boolean if a field has been set.
-func (a *AlertValueWidget) HasAddTimeframe() bool {
-	if a != nil && a.AddTimeframe != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetAddTimeframe allocates a new a.AddTimeframe and returns the pointer to it.
-func (a *AlertValueWidget) SetAddTimeframe(v bool) {
-	a.AddTimeframe = &v
-}
-
-// GetAlertId returns the AlertId field if non-nil, zero value otherwise.
-func (a *AlertValueWidget) GetAlertId() int {
-	if a == nil || a.AlertId == nil {
-		return 0
-	}
-	return *a.AlertId
-}
-
-// GetOkAlertId returns a tuple with the AlertId field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (a *AlertValueWidget) GetAlertIdOk() (int, bool) {
-	if a == nil || a.AlertId == nil {
-		return 0, false
-	}
-	return *a.AlertId, true
-}
-
-// HasAlertId returns a boolean if a field has been set.
-func (a *AlertValueWidget) HasAlertId() bool {
-	if a != nil && a.AlertId != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetAlertId allocates a new a.AlertId and returns the pointer to it.
-func (a *AlertValueWidget) SetAlertId(v int) {
-	a.AlertId = &v
-}
-
-// GetHeight returns the Height field if non-nil, zero value otherwise.
-func (a *AlertValueWidget) GetHeight() int {
-	if a == nil || a.Height == nil {
-		return 0
-	}
-	return *a.Height
-}
-
-// GetOkHeight returns a tuple with the Height field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (a *AlertValueWidget) GetHeightOk() (int, bool) {
-	if a == nil || a.Height == nil {
-		return 0, false
-	}
-	return *a.Height, true
-}
-
-// HasHeight returns a boolean if a field has been set.
-func (a *AlertValueWidget) HasHeight() bool {
-	if a != nil && a.Height != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetHeight allocates a new a.Height and returns the pointer to it.
-func (a *AlertValueWidget) SetHeight(v int) {
-	a.Height = &v
-}
-
-// GetPrecision returns the Precision field if non-nil, zero value otherwise.
-func (a *AlertValueWidget) GetPrecision() int {
-	if a == nil || a.Precision == nil {
-		return 0
-	}
-	return *a.Precision
-}
-
-// GetOkPrecision returns a tuple with the Precision field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (a *AlertValueWidget) GetPrecisionOk() (int, bool) {
-	if a == nil || a.Precision == nil {
-		return 0, false
-	}
-	return *a.Precision, true
-}
-
-// HasPrecision returns a boolean if a field has been set.
-func (a *AlertValueWidget) HasPrecision() bool {
-	if a != nil && a.Precision != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetPrecision allocates a new a.Precision and returns the pointer to it.
-func (a *AlertValueWidget) SetPrecision(v int) {
-	a.Precision = &v
-}
-
-// GetTextAlign returns the TextAlign field if non-nil, zero value otherwise.
-func (a *AlertValueWidget) GetTextAlign() string {
-	if a == nil || a.TextAlign == nil {
-		return ""
-	}
-	return *a.TextAlign
-}
-
-// GetOkTextAlign returns a tuple with the TextAlign field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (a *AlertValueWidget) GetTextAlignOk() (string, bool) {
-	if a == nil || a.TextAlign == nil {
-		return "", false
-	}
-	return *a.TextAlign, true
-}
-
-// HasTextAlign returns a boolean if a field has been set.
-func (a *AlertValueWidget) HasTextAlign() bool {
-	if a != nil && a.TextAlign != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTextAlign allocates a new a.TextAlign and returns the pointer to it.
-func (a *AlertValueWidget) SetTextAlign(v string) {
-	a.TextAlign = &v
-}
-
-// GetTextSize returns the TextSize field if non-nil, zero value otherwise.
-func (a *AlertValueWidget) GetTextSize() string {
-	if a == nil || a.TextSize == nil {
-		return ""
-	}
-	return *a.TextSize
-}
-
-// GetOkTextSize returns a tuple with the TextSize field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (a *AlertValueWidget) GetTextSizeOk() (string, bool) {
-	if a == nil || a.TextSize == nil {
-		return "", false
-	}
-	return *a.TextSize, true
-}
-
-// HasTextSize returns a boolean if a field has been set.
-func (a *AlertValueWidget) HasTextSize() bool {
-	if a != nil && a.TextSize != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTextSize allocates a new a.TextSize and returns the pointer to it.
-func (a *AlertValueWidget) SetTextSize(v string) {
-	a.TextSize = &v
-}
-
-// GetTimeframe returns the Timeframe field if non-nil, zero value otherwise.
-func (a *AlertValueWidget) GetTimeframe() string {
-	if a == nil || a.Timeframe == nil {
-		return ""
-	}
-	return *a.Timeframe
-}
-
-// GetOkTimeframe returns a tuple with the Timeframe field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (a *AlertValueWidget) GetTimeframeOk() (string, bool) {
-	if a == nil || a.Timeframe == nil {
-		return "", false
-	}
-	return *a.Timeframe, true
-}
-
-// HasTimeframe returns a boolean if a field has been set.
-func (a *AlertValueWidget) HasTimeframe() bool {
-	if a != nil && a.Timeframe != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTimeframe allocates a new a.Timeframe and returns the pointer to it.
-func (a *AlertValueWidget) SetTimeframe(v string) {
-	a.Timeframe = &v
-}
-
-// GetTitle returns the Title field if non-nil, zero value otherwise.
-func (a *AlertValueWidget) GetTitle() bool {
-	if a == nil || a.Title == nil {
-		return false
-	}
-	return *a.Title
-}
-
-// GetOkTitle returns a tuple with the Title field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (a *AlertValueWidget) GetTitleOk() (bool, bool) {
-	if a == nil || a.Title == nil {
-		return false, false
-	}
-	return *a.Title, true
-}
-
-// HasTitle returns a boolean if a field has been set.
-func (a *AlertValueWidget) HasTitle() bool {
-	if a != nil && a.Title != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTitle allocates a new a.Title and returns the pointer to it.
-func (a *AlertValueWidget) SetTitle(v bool) {
-	a.Title = &v
-}
-
-// GetTitleAlign returns the TitleAlign field if non-nil, zero value otherwise.
-func (a *AlertValueWidget) GetTitleAlign() string {
-	if a == nil || a.TitleAlign == nil {
-		return ""
-	}
-	return *a.TitleAlign
-}
-
-// GetOkTitleAlign returns a tuple with the TitleAlign field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (a *AlertValueWidget) GetTitleAlignOk() (string, bool) {
-	if a == nil || a.TitleAlign == nil {
-		return "", false
-	}
-	return *a.TitleAlign, true
-}
-
-// HasTitleAlign returns a boolean if a field has been set.
-func (a *AlertValueWidget) HasTitleAlign() bool {
-	if a != nil && a.TitleAlign != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTitleAlign allocates a new a.TitleAlign and returns the pointer to it.
-func (a *AlertValueWidget) SetTitleAlign(v string) {
-	a.TitleAlign = &v
-}
-
-// GetTitleSize returns the TitleSize field if non-nil, zero value otherwise.
-func (a *AlertValueWidget) GetTitleSize() int {
-	if a == nil || a.TitleSize == nil {
-		return 0
-	}
-	return *a.TitleSize
-}
-
-// GetOkTitleSize returns a tuple with the TitleSize field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (a *AlertValueWidget) GetTitleSizeOk() (int, bool) {
-	if a == nil || a.TitleSize == nil {
-		return 0, false
-	}
-	return *a.TitleSize, true
-}
-
-// HasTitleSize returns a boolean if a field has been set.
-func (a *AlertValueWidget) HasTitleSize() bool {
-	if a != nil && a.TitleSize != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTitleSize allocates a new a.TitleSize and returns the pointer to it.
-func (a *AlertValueWidget) SetTitleSize(v int) {
-	a.TitleSize = &v
-}
-
-// GetTitleText returns the TitleText field if non-nil, zero value otherwise.
-func (a *AlertValueWidget) GetTitleText() string {
-	if a == nil || a.TitleText == nil {
-		return ""
-	}
-	return *a.TitleText
-}
-
-// GetOkTitleText returns a tuple with the TitleText field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (a *AlertValueWidget) GetTitleTextOk() (string, bool) {
-	if a == nil || a.TitleText == nil {
-		return "", false
-	}
-	return *a.TitleText, true
-}
-
-// HasTitleText returns a boolean if a field has been set.
-func (a *AlertValueWidget) HasTitleText() bool {
-	if a != nil && a.TitleText != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTitleText allocates a new a.TitleText and returns the pointer to it.
-func (a *AlertValueWidget) SetTitleText(v string) {
-	a.TitleText = &v
-}
-
-// GetType returns the Type field if non-nil, zero value otherwise.
-func (a *AlertValueWidget) GetType() string {
-	if a == nil || a.Type == nil {
-		return ""
-	}
-	return *a.Type
-}
-
-// GetOkType returns a tuple with the Type field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (a *AlertValueWidget) GetTypeOk() (string, bool) {
-	if a == nil || a.Type == nil {
-		return "", false
-	}
-	return *a.Type, true
-}
-
-// HasType returns a boolean if a field has been set.
-func (a *AlertValueWidget) HasType() bool {
-	if a != nil && a.Type != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetType allocates a new a.Type and returns the pointer to it.
-func (a *AlertValueWidget) SetType(v string) {
-	a.Type = &v
-}
-
-// GetUnit returns the Unit field if non-nil, zero value otherwise.
-func (a *AlertValueWidget) GetUnit() string {
-	if a == nil || a.Unit == nil {
-		return ""
-	}
-	return *a.Unit
-}
-
-// GetOkUnit returns a tuple with the Unit field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (a *AlertValueWidget) GetUnitOk() (string, bool) {
-	if a == nil || a.Unit == nil {
-		return "", false
-	}
-	return *a.Unit, true
-}
-
-// HasUnit returns a boolean if a field has been set.
-func (a *AlertValueWidget) HasUnit() bool {
-	if a != nil && a.Unit != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetUnit allocates a new a.Unit and returns the pointer to it.
-func (a *AlertValueWidget) SetUnit(v string) {
-	a.Unit = &v
-}
-
-// GetWidth returns the Width field if non-nil, zero value otherwise.
-func (a *AlertValueWidget) GetWidth() int {
-	if a == nil || a.Width == nil {
-		return 0
-	}
-	return *a.Width
-}
-
-// GetOkWidth returns a tuple with the Width field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (a *AlertValueWidget) GetWidthOk() (int, bool) {
-	if a == nil || a.Width == nil {
-		return 0, false
-	}
-	return *a.Width, true
-}
-
-// HasWidth returns a boolean if a field has been set.
-func (a *AlertValueWidget) HasWidth() bool {
-	if a != nil && a.Width != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetWidth allocates a new a.Width and returns the pointer to it.
-func (a *AlertValueWidget) SetWidth(v int) {
-	a.Width = &v
-}
-
-// GetX returns the X field if non-nil, zero value otherwise.
-func (a *AlertValueWidget) GetX() int {
-	if a == nil || a.X == nil {
-		return 0
-	}
-	return *a.X
-}
-
-// GetOkX returns a tuple with the X field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (a *AlertValueWidget) GetXOk() (int, bool) {
-	if a == nil || a.X == nil {
-		return 0, false
-	}
-	return *a.X, true
-}
-
-// HasX returns a boolean if a field has been set.
-func (a *AlertValueWidget) HasX() bool {
-	if a != nil && a.X != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetX allocates a new a.X and returns the pointer to it.
-func (a *AlertValueWidget) SetX(v int) {
-	a.X = &v
-}
-
-// GetY returns the Y field if non-nil, zero value otherwise.
-func (a *AlertValueWidget) GetY() int {
-	if a == nil || a.Y == nil {
-		return 0
-	}
-	return *a.Y
-}
-
-// GetOkY returns a tuple with the Y field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (a *AlertValueWidget) GetYOk() (int, bool) {
-	if a == nil || a.Y == nil {
-		return 0, false
-	}
-	return *a.Y, true
-}
-
-// HasY returns a boolean if a field has been set.
-func (a *AlertValueWidget) HasY() bool {
-	if a != nil && a.Y != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetY allocates a new a.Y and returns the pointer to it.
-func (a *AlertValueWidget) SetY(v int) {
-	a.Y = &v
-}
-
-// GetAggregator returns the Aggregator field if non-nil, zero value otherwise.
-func (c *ChangeWidget) GetAggregator() string {
-	if c == nil || c.Aggregator == nil {
-		return ""
-	}
-	return *c.Aggregator
-}
-
-// GetOkAggregator returns a tuple with the Aggregator field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (c *ChangeWidget) GetAggregatorOk() (string, bool) {
-	if c == nil || c.Aggregator == nil {
-		return "", false
-	}
-	return *c.Aggregator, true
-}
-
-// HasAggregator returns a boolean if a field has been set.
-func (c *ChangeWidget) HasAggregator() bool {
-	if c != nil && c.Aggregator != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetAggregator allocates a new c.Aggregator and returns the pointer to it.
-func (c *ChangeWidget) SetAggregator(v string) {
-	c.Aggregator = &v
-}
-
-// GetHeight returns the Height field if non-nil, zero value otherwise.
-func (c *ChangeWidget) GetHeight() int {
-	if c == nil || c.Height == nil {
-		return 0
-	}
-	return *c.Height
-}
-
-// GetOkHeight returns a tuple with the Height field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (c *ChangeWidget) GetHeightOk() (int, bool) {
-	if c == nil || c.Height == nil {
-		return 0, false
-	}
-	return *c.Height, true
-}
-
-// HasHeight returns a boolean if a field has been set.
-func (c *ChangeWidget) HasHeight() bool {
-	if c != nil && c.Height != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetHeight allocates a new c.Height and returns the pointer to it.
-func (c *ChangeWidget) SetHeight(v int) {
-	c.Height = &v
-}
-
-// GetTileDef returns the TileDef field if non-nil, zero value otherwise.
-func (c *ChangeWidget) GetTileDef() TileDef {
-	if c == nil || c.TileDef == nil {
-		return TileDef{}
-	}
-	return *c.TileDef
-}
-
-// GetOkTileDef returns a tuple with the TileDef field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (c *ChangeWidget) GetTileDefOk() (TileDef, bool) {
-	if c == nil || c.TileDef == nil {
-		return TileDef{}, false
-	}
-	return *c.TileDef, true
-}
-
-// HasTileDef returns a boolean if a field has been set.
-func (c *ChangeWidget) HasTileDef() bool {
-	if c != nil && c.TileDef != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTileDef allocates a new c.TileDef and returns the pointer to it.
-func (c *ChangeWidget) SetTileDef(v TileDef) {
-	c.TileDef = &v
-}
-
-// GetTitle returns the Title field if non-nil, zero value otherwise.
-func (c *ChangeWidget) GetTitle() bool {
-	if c == nil || c.Title == nil {
-		return false
-	}
-	return *c.Title
-}
-
-// GetOkTitle returns a tuple with the Title field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (c *ChangeWidget) GetTitleOk() (bool, bool) {
-	if c == nil || c.Title == nil {
-		return false, false
-	}
-	return *c.Title, true
-}
-
-// HasTitle returns a boolean if a field has been set.
-func (c *ChangeWidget) HasTitle() bool {
-	if c != nil && c.Title != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTitle allocates a new c.Title and returns the pointer to it.
-func (c *ChangeWidget) SetTitle(v bool) {
-	c.Title = &v
-}
-
-// GetTitleAlign returns the TitleAlign field if non-nil, zero value otherwise.
-func (c *ChangeWidget) GetTitleAlign() string {
-	if c == nil || c.TitleAlign == nil {
-		return ""
-	}
-	return *c.TitleAlign
-}
-
-// GetOkTitleAlign returns a tuple with the TitleAlign field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (c *ChangeWidget) GetTitleAlignOk() (string, bool) {
-	if c == nil || c.TitleAlign == nil {
-		return "", false
-	}
-	return *c.TitleAlign, true
-}
-
-// HasTitleAlign returns a boolean if a field has been set.
-func (c *ChangeWidget) HasTitleAlign() bool {
-	if c != nil && c.TitleAlign != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTitleAlign allocates a new c.TitleAlign and returns the pointer to it.
-func (c *ChangeWidget) SetTitleAlign(v string) {
-	c.TitleAlign = &v
-}
-
-// GetTitleSize returns the TitleSize field if non-nil, zero value otherwise.
-func (c *ChangeWidget) GetTitleSize() int {
-	if c == nil || c.TitleSize == nil {
-		return 0
-	}
-	return *c.TitleSize
-}
-
-// GetOkTitleSize returns a tuple with the TitleSize field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (c *ChangeWidget) GetTitleSizeOk() (int, bool) {
-	if c == nil || c.TitleSize == nil {
-		return 0, false
-	}
-	return *c.TitleSize, true
-}
-
-// HasTitleSize returns a boolean if a field has been set.
-func (c *ChangeWidget) HasTitleSize() bool {
-	if c != nil && c.TitleSize != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTitleSize allocates a new c.TitleSize and returns the pointer to it.
-func (c *ChangeWidget) SetTitleSize(v int) {
-	c.TitleSize = &v
-}
-
-// GetTitleText returns the TitleText field if non-nil, zero value otherwise.
-func (c *ChangeWidget) GetTitleText() string {
-	if c == nil || c.TitleText == nil {
-		return ""
-	}
-	return *c.TitleText
-}
-
-// GetOkTitleText returns a tuple with the TitleText field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (c *ChangeWidget) GetTitleTextOk() (string, bool) {
-	if c == nil || c.TitleText == nil {
-		return "", false
-	}
-	return *c.TitleText, true
-}
-
-// HasTitleText returns a boolean if a field has been set.
-func (c *ChangeWidget) HasTitleText() bool {
-	if c != nil && c.TitleText != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTitleText allocates a new c.TitleText and returns the pointer to it.
-func (c *ChangeWidget) SetTitleText(v string) {
-	c.TitleText = &v
-}
-
-// GetWidth returns the Width field if non-nil, zero value otherwise.
-func (c *ChangeWidget) GetWidth() int {
-	if c == nil || c.Width == nil {
-		return 0
-	}
-	return *c.Width
-}
-
-// GetOkWidth returns a tuple with the Width field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (c *ChangeWidget) GetWidthOk() (int, bool) {
-	if c == nil || c.Width == nil {
-		return 0, false
-	}
-	return *c.Width, true
-}
-
-// HasWidth returns a boolean if a field has been set.
-func (c *ChangeWidget) HasWidth() bool {
-	if c != nil && c.Width != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetWidth allocates a new c.Width and returns the pointer to it.
-func (c *ChangeWidget) SetWidth(v int) {
-	c.Width = &v
-}
-
-// GetX returns the X field if non-nil, zero value otherwise.
-func (c *ChangeWidget) GetX() int {
-	if c == nil || c.X == nil {
-		return 0
-	}
-	return *c.X
-}
-
-// GetOkX returns a tuple with the X field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (c *ChangeWidget) GetXOk() (int, bool) {
-	if c == nil || c.X == nil {
-		return 0, false
-	}
-	return *c.X, true
-}
-
-// HasX returns a boolean if a field has been set.
-func (c *ChangeWidget) HasX() bool {
-	if c != nil && c.X != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetX allocates a new c.X and returns the pointer to it.
-func (c *ChangeWidget) SetX(v int) {
-	c.X = &v
-}
-
-// GetY returns the Y field if non-nil, zero value otherwise.
-func (c *ChangeWidget) GetY() int {
-	if c == nil || c.Y == nil {
-		return 0
-	}
-	return *c.Y
-}
-
-// GetOkY returns a tuple with the Y field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (c *ChangeWidget) GetYOk() (int, bool) {
-	if c == nil || c.Y == nil {
-		return 0, false
-	}
-	return *c.Y, true
-}
-
-// HasY returns a boolean if a field has been set.
-func (c *ChangeWidget) HasY() bool {
-	if c != nil && c.Y != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetY allocates a new c.Y and returns the pointer to it.
-func (c *ChangeWidget) SetY(v int) {
-	c.Y = &v
-}
-
 // GetAccount returns the Account field if non-nil, zero value otherwise.
 func (c *ChannelSlackRequest) GetAccount() string {
 	if c == nil || c.Account == nil {
@@ -1478,7 +269,7 @@ func (c *ChannelSlackRequest) GetAccount() string {
 	return *c.Account
 }
 
-// GetOkAccount returns a tuple with the Account field if it's non-nil, zero value otherwise
+// GetAccountOk returns a tuple with the Account field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (c *ChannelSlackRequest) GetAccountOk() (string, bool) {
 	if c == nil || c.Account == nil {
@@ -1509,7 +300,7 @@ func (c *ChannelSlackRequest) GetChannelName() string {
 	return *c.ChannelName
 }
 
-// GetOkChannelName returns a tuple with the ChannelName field if it's non-nil, zero value otherwise
+// GetChannelNameOk returns a tuple with the ChannelName field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (c *ChannelSlackRequest) GetChannelNameOk() (string, bool) {
 	if c == nil || c.ChannelName == nil {
@@ -1540,7 +331,7 @@ func (c *ChannelSlackRequest) GetTransferAllUserComments() bool {
 	return *c.TransferAllUserComments
 }
 
-// GetOkTransferAllUserComments returns a tuple with the TransferAllUserComments field if it's non-nil, zero value otherwise
+// GetTransferAllUserCommentsOk returns a tuple with the TransferAllUserComments field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (c *ChannelSlackRequest) GetTransferAllUserCommentsOk() (bool, bool) {
 	if c == nil || c.TransferAllUserComments == nil {
@@ -1571,7 +362,7 @@ func (c *Check) GetCheck() string {
 	return *c.Check
 }
 
-// GetOkCheck returns a tuple with the Check field if it's non-nil, zero value otherwise
+// GetCheckOk returns a tuple with the Check field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (c *Check) GetCheckOk() (string, bool) {
 	if c == nil || c.Check == nil {
@@ -1602,7 +393,7 @@ func (c *Check) GetHostName() string {
 	return *c.HostName
 }
 
-// GetOkHostName returns a tuple with the HostName field if it's non-nil, zero value otherwise
+// GetHostNameOk returns a tuple with the HostName field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (c *Check) GetHostNameOk() (string, bool) {
 	if c == nil || c.HostName == nil {
@@ -1633,7 +424,7 @@ func (c *Check) GetMessage() string {
 	return *c.Message
 }
 
-// GetOkMessage returns a tuple with the Message field if it's non-nil, zero value otherwise
+// GetMessageOk returns a tuple with the Message field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (c *Check) GetMessageOk() (string, bool) {
 	if c == nil || c.Message == nil {
@@ -1664,7 +455,7 @@ func (c *Check) GetStatus() Status {
 	return *c.Status
 }
 
-// GetOkStatus returns a tuple with the Status field if it's non-nil, zero value otherwise
+// GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (c *Check) GetStatusOk() (Status, bool) {
 	if c == nil || c.Status == nil {
@@ -1695,7 +486,7 @@ func (c *Check) GetTimestamp() string {
 	return *c.Timestamp
 }
 
-// GetOkTimestamp returns a tuple with the Timestamp field if it's non-nil, zero value otherwise
+// GetTimestampOk returns a tuple with the Timestamp field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (c *Check) GetTimestampOk() (string, bool) {
 	if c == nil || c.Timestamp == nil {
@@ -1718,502 +509,6 @@ func (c *Check) SetTimestamp(v string) {
 	c.Timestamp = &v
 }
 
-// GetCheck returns the Check field if non-nil, zero value otherwise.
-func (c *CheckStatusWidget) GetCheck() string {
-	if c == nil || c.Check == nil {
-		return ""
-	}
-	return *c.Check
-}
-
-// GetOkCheck returns a tuple with the Check field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (c *CheckStatusWidget) GetCheckOk() (string, bool) {
-	if c == nil || c.Check == nil {
-		return "", false
-	}
-	return *c.Check, true
-}
-
-// HasCheck returns a boolean if a field has been set.
-func (c *CheckStatusWidget) HasCheck() bool {
-	if c != nil && c.Check != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetCheck allocates a new c.Check and returns the pointer to it.
-func (c *CheckStatusWidget) SetCheck(v string) {
-	c.Check = &v
-}
-
-// GetGroup returns the Group field if non-nil, zero value otherwise.
-func (c *CheckStatusWidget) GetGroup() string {
-	if c == nil || c.Group == nil {
-		return ""
-	}
-	return *c.Group
-}
-
-// GetOkGroup returns a tuple with the Group field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (c *CheckStatusWidget) GetGroupOk() (string, bool) {
-	if c == nil || c.Group == nil {
-		return "", false
-	}
-	return *c.Group, true
-}
-
-// HasGroup returns a boolean if a field has been set.
-func (c *CheckStatusWidget) HasGroup() bool {
-	if c != nil && c.Group != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetGroup allocates a new c.Group and returns the pointer to it.
-func (c *CheckStatusWidget) SetGroup(v string) {
-	c.Group = &v
-}
-
-// GetGrouping returns the Grouping field if non-nil, zero value otherwise.
-func (c *CheckStatusWidget) GetGrouping() string {
-	if c == nil || c.Grouping == nil {
-		return ""
-	}
-	return *c.Grouping
-}
-
-// GetOkGrouping returns a tuple with the Grouping field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (c *CheckStatusWidget) GetGroupingOk() (string, bool) {
-	if c == nil || c.Grouping == nil {
-		return "", false
-	}
-	return *c.Grouping, true
-}
-
-// HasGrouping returns a boolean if a field has been set.
-func (c *CheckStatusWidget) HasGrouping() bool {
-	if c != nil && c.Grouping != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetGrouping allocates a new c.Grouping and returns the pointer to it.
-func (c *CheckStatusWidget) SetGrouping(v string) {
-	c.Grouping = &v
-}
-
-// GetHeight returns the Height field if non-nil, zero value otherwise.
-func (c *CheckStatusWidget) GetHeight() int {
-	if c == nil || c.Height == nil {
-		return 0
-	}
-	return *c.Height
-}
-
-// GetOkHeight returns a tuple with the Height field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (c *CheckStatusWidget) GetHeightOk() (int, bool) {
-	if c == nil || c.Height == nil {
-		return 0, false
-	}
-	return *c.Height, true
-}
-
-// HasHeight returns a boolean if a field has been set.
-func (c *CheckStatusWidget) HasHeight() bool {
-	if c != nil && c.Height != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetHeight allocates a new c.Height and returns the pointer to it.
-func (c *CheckStatusWidget) SetHeight(v int) {
-	c.Height = &v
-}
-
-// GetTags returns the Tags field if non-nil, zero value otherwise.
-func (c *CheckStatusWidget) GetTags() string {
-	if c == nil || c.Tags == nil {
-		return ""
-	}
-	return *c.Tags
-}
-
-// GetOkTags returns a tuple with the Tags field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (c *CheckStatusWidget) GetTagsOk() (string, bool) {
-	if c == nil || c.Tags == nil {
-		return "", false
-	}
-	return *c.Tags, true
-}
-
-// HasTags returns a boolean if a field has been set.
-func (c *CheckStatusWidget) HasTags() bool {
-	if c != nil && c.Tags != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTags allocates a new c.Tags and returns the pointer to it.
-func (c *CheckStatusWidget) SetTags(v string) {
-	c.Tags = &v
-}
-
-// GetTextAlign returns the TextAlign field if non-nil, zero value otherwise.
-func (c *CheckStatusWidget) GetTextAlign() string {
-	if c == nil || c.TextAlign == nil {
-		return ""
-	}
-	return *c.TextAlign
-}
-
-// GetOkTextAlign returns a tuple with the TextAlign field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (c *CheckStatusWidget) GetTextAlignOk() (string, bool) {
-	if c == nil || c.TextAlign == nil {
-		return "", false
-	}
-	return *c.TextAlign, true
-}
-
-// HasTextAlign returns a boolean if a field has been set.
-func (c *CheckStatusWidget) HasTextAlign() bool {
-	if c != nil && c.TextAlign != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTextAlign allocates a new c.TextAlign and returns the pointer to it.
-func (c *CheckStatusWidget) SetTextAlign(v string) {
-	c.TextAlign = &v
-}
-
-// GetTextSize returns the TextSize field if non-nil, zero value otherwise.
-func (c *CheckStatusWidget) GetTextSize() string {
-	if c == nil || c.TextSize == nil {
-		return ""
-	}
-	return *c.TextSize
-}
-
-// GetOkTextSize returns a tuple with the TextSize field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (c *CheckStatusWidget) GetTextSizeOk() (string, bool) {
-	if c == nil || c.TextSize == nil {
-		return "", false
-	}
-	return *c.TextSize, true
-}
-
-// HasTextSize returns a boolean if a field has been set.
-func (c *CheckStatusWidget) HasTextSize() bool {
-	if c != nil && c.TextSize != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTextSize allocates a new c.TextSize and returns the pointer to it.
-func (c *CheckStatusWidget) SetTextSize(v string) {
-	c.TextSize = &v
-}
-
-// GetTimeframe returns the Timeframe field if non-nil, zero value otherwise.
-func (c *CheckStatusWidget) GetTimeframe() string {
-	if c == nil || c.Timeframe == nil {
-		return ""
-	}
-	return *c.Timeframe
-}
-
-// GetOkTimeframe returns a tuple with the Timeframe field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (c *CheckStatusWidget) GetTimeframeOk() (string, bool) {
-	if c == nil || c.Timeframe == nil {
-		return "", false
-	}
-	return *c.Timeframe, true
-}
-
-// HasTimeframe returns a boolean if a field has been set.
-func (c *CheckStatusWidget) HasTimeframe() bool {
-	if c != nil && c.Timeframe != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTimeframe allocates a new c.Timeframe and returns the pointer to it.
-func (c *CheckStatusWidget) SetTimeframe(v string) {
-	c.Timeframe = &v
-}
-
-// GetTitle returns the Title field if non-nil, zero value otherwise.
-func (c *CheckStatusWidget) GetTitle() bool {
-	if c == nil || c.Title == nil {
-		return false
-	}
-	return *c.Title
-}
-
-// GetOkTitle returns a tuple with the Title field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (c *CheckStatusWidget) GetTitleOk() (bool, bool) {
-	if c == nil || c.Title == nil {
-		return false, false
-	}
-	return *c.Title, true
-}
-
-// HasTitle returns a boolean if a field has been set.
-func (c *CheckStatusWidget) HasTitle() bool {
-	if c != nil && c.Title != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTitle allocates a new c.Title and returns the pointer to it.
-func (c *CheckStatusWidget) SetTitle(v bool) {
-	c.Title = &v
-}
-
-// GetTitleAlign returns the TitleAlign field if non-nil, zero value otherwise.
-func (c *CheckStatusWidget) GetTitleAlign() string {
-	if c == nil || c.TitleAlign == nil {
-		return ""
-	}
-	return *c.TitleAlign
-}
-
-// GetOkTitleAlign returns a tuple with the TitleAlign field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (c *CheckStatusWidget) GetTitleAlignOk() (string, bool) {
-	if c == nil || c.TitleAlign == nil {
-		return "", false
-	}
-	return *c.TitleAlign, true
-}
-
-// HasTitleAlign returns a boolean if a field has been set.
-func (c *CheckStatusWidget) HasTitleAlign() bool {
-	if c != nil && c.TitleAlign != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTitleAlign allocates a new c.TitleAlign and returns the pointer to it.
-func (c *CheckStatusWidget) SetTitleAlign(v string) {
-	c.TitleAlign = &v
-}
-
-// GetTitleSize returns the TitleSize field if non-nil, zero value otherwise.
-func (c *CheckStatusWidget) GetTitleSize() int {
-	if c == nil || c.TitleSize == nil {
-		return 0
-	}
-	return *c.TitleSize
-}
-
-// GetOkTitleSize returns a tuple with the TitleSize field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (c *CheckStatusWidget) GetTitleSizeOk() (int, bool) {
-	if c == nil || c.TitleSize == nil {
-		return 0, false
-	}
-	return *c.TitleSize, true
-}
-
-// HasTitleSize returns a boolean if a field has been set.
-func (c *CheckStatusWidget) HasTitleSize() bool {
-	if c != nil && c.TitleSize != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTitleSize allocates a new c.TitleSize and returns the pointer to it.
-func (c *CheckStatusWidget) SetTitleSize(v int) {
-	c.TitleSize = &v
-}
-
-// GetTitleText returns the TitleText field if non-nil, zero value otherwise.
-func (c *CheckStatusWidget) GetTitleText() string {
-	if c == nil || c.TitleText == nil {
-		return ""
-	}
-	return *c.TitleText
-}
-
-// GetOkTitleText returns a tuple with the TitleText field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (c *CheckStatusWidget) GetTitleTextOk() (string, bool) {
-	if c == nil || c.TitleText == nil {
-		return "", false
-	}
-	return *c.TitleText, true
-}
-
-// HasTitleText returns a boolean if a field has been set.
-func (c *CheckStatusWidget) HasTitleText() bool {
-	if c != nil && c.TitleText != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTitleText allocates a new c.TitleText and returns the pointer to it.
-func (c *CheckStatusWidget) SetTitleText(v string) {
-	c.TitleText = &v
-}
-
-// GetType returns the Type field if non-nil, zero value otherwise.
-func (c *CheckStatusWidget) GetType() string {
-	if c == nil || c.Type == nil {
-		return ""
-	}
-	return *c.Type
-}
-
-// GetOkType returns a tuple with the Type field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (c *CheckStatusWidget) GetTypeOk() (string, bool) {
-	if c == nil || c.Type == nil {
-		return "", false
-	}
-	return *c.Type, true
-}
-
-// HasType returns a boolean if a field has been set.
-func (c *CheckStatusWidget) HasType() bool {
-	if c != nil && c.Type != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetType allocates a new c.Type and returns the pointer to it.
-func (c *CheckStatusWidget) SetType(v string) {
-	c.Type = &v
-}
-
-// GetWidth returns the Width field if non-nil, zero value otherwise.
-func (c *CheckStatusWidget) GetWidth() int {
-	if c == nil || c.Width == nil {
-		return 0
-	}
-	return *c.Width
-}
-
-// GetOkWidth returns a tuple with the Width field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (c *CheckStatusWidget) GetWidthOk() (int, bool) {
-	if c == nil || c.Width == nil {
-		return 0, false
-	}
-	return *c.Width, true
-}
-
-// HasWidth returns a boolean if a field has been set.
-func (c *CheckStatusWidget) HasWidth() bool {
-	if c != nil && c.Width != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetWidth allocates a new c.Width and returns the pointer to it.
-func (c *CheckStatusWidget) SetWidth(v int) {
-	c.Width = &v
-}
-
-// GetX returns the X field if non-nil, zero value otherwise.
-func (c *CheckStatusWidget) GetX() int {
-	if c == nil || c.X == nil {
-		return 0
-	}
-	return *c.X
-}
-
-// GetOkX returns a tuple with the X field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (c *CheckStatusWidget) GetXOk() (int, bool) {
-	if c == nil || c.X == nil {
-		return 0, false
-	}
-	return *c.X, true
-}
-
-// HasX returns a boolean if a field has been set.
-func (c *CheckStatusWidget) HasX() bool {
-	if c != nil && c.X != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetX allocates a new c.X and returns the pointer to it.
-func (c *CheckStatusWidget) SetX(v int) {
-	c.X = &v
-}
-
-// GetY returns the Y field if non-nil, zero value otherwise.
-func (c *CheckStatusWidget) GetY() int {
-	if c == nil || c.Y == nil {
-		return 0
-	}
-	return *c.Y
-}
-
-// GetOkY returns a tuple with the Y field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (c *CheckStatusWidget) GetYOk() (int, bool) {
-	if c == nil || c.Y == nil {
-		return 0, false
-	}
-	return *c.Y, true
-}
-
-// HasY returns a boolean if a field has been set.
-func (c *CheckStatusWidget) HasY() bool {
-	if c != nil && c.Y != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetY allocates a new c.Y and returns the pointer to it.
-func (c *CheckStatusWidget) SetY(v int) {
-	c.Y = &v
-}
-
 // GetHandle returns the Handle field if non-nil, zero value otherwise.
 func (c *Comment) GetHandle() string {
 	if c == nil || c.Handle == nil {
@@ -2222,7 +517,7 @@ func (c *Comment) GetHandle() string {
 	return *c.Handle
 }
 
-// GetOkHandle returns a tuple with the Handle field if it's non-nil, zero value otherwise
+// GetHandleOk returns a tuple with the Handle field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (c *Comment) GetHandleOk() (string, bool) {
 	if c == nil || c.Handle == nil {
@@ -2253,7 +548,7 @@ func (c *Comment) GetId() int {
 	return *c.Id
 }
 
-// GetOkId returns a tuple with the Id field if it's non-nil, zero value otherwise
+// GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (c *Comment) GetIdOk() (int, bool) {
 	if c == nil || c.Id == nil {
@@ -2284,7 +579,7 @@ func (c *Comment) GetMessage() string {
 	return *c.Message
 }
 
-// GetOkMessage returns a tuple with the Message field if it's non-nil, zero value otherwise
+// GetMessageOk returns a tuple with the Message field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (c *Comment) GetMessageOk() (string, bool) {
 	if c == nil || c.Message == nil {
@@ -2315,7 +610,7 @@ func (c *Comment) GetRelatedId() int {
 	return *c.RelatedId
 }
 
-// GetOkRelatedId returns a tuple with the RelatedId field if it's non-nil, zero value otherwise
+// GetRelatedIdOk returns a tuple with the RelatedId field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (c *Comment) GetRelatedIdOk() (int, bool) {
 	if c == nil || c.RelatedId == nil {
@@ -2346,7 +641,7 @@ func (c *Comment) GetResource() string {
 	return *c.Resource
 }
 
-// GetOkResource returns a tuple with the Resource field if it's non-nil, zero value otherwise
+// GetResourceOk returns a tuple with the Resource field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (c *Comment) GetResourceOk() (string, bool) {
 	if c == nil || c.Resource == nil {
@@ -2377,7 +672,7 @@ func (c *Comment) GetUrl() string {
 	return *c.Url
 }
 
-// GetOkUrl returns a tuple with the Url field if it's non-nil, zero value otherwise
+// GetUrlOk returns a tuple with the Url field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (c *Comment) GetUrlOk() (string, bool) {
 	if c == nil || c.Url == nil {
@@ -2408,7 +703,7 @@ func (c *ConditionalFormat) GetColor() string {
 	return *c.Color
 }
 
-// GetOkColor returns a tuple with the Color field if it's non-nil, zero value otherwise
+// GetColorOk returns a tuple with the Color field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (c *ConditionalFormat) GetColorOk() (string, bool) {
 	if c == nil || c.Color == nil {
@@ -2439,7 +734,7 @@ func (c *ConditionalFormat) GetComparator() string {
 	return *c.Comparator
 }
 
-// GetOkComparator returns a tuple with the Comparator field if it's non-nil, zero value otherwise
+// GetComparatorOk returns a tuple with the Comparator field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (c *ConditionalFormat) GetComparatorOk() (string, bool) {
 	if c == nil || c.Comparator == nil {
@@ -2462,50 +757,112 @@ func (c *ConditionalFormat) SetComparator(v string) {
 	c.Comparator = &v
 }
 
-// GetInverted returns the Inverted field if non-nil, zero value otherwise.
-func (c *ConditionalFormat) GetInverted() bool {
-	if c == nil || c.Inverted == nil {
-		return false
+// GetImageURL returns the ImageURL field if non-nil, zero value otherwise.
+func (c *ConditionalFormat) GetImageURL() string {
+	if c == nil || c.ImageURL == nil {
+		return ""
 	}
-	return *c.Inverted
+	return *c.ImageURL
 }
 
-// GetOkInverted returns a tuple with the Inverted field if it's non-nil, zero value otherwise
+// GetImageURLOk returns a tuple with the ImageURL field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
-func (c *ConditionalFormat) GetInvertedOk() (bool, bool) {
-	if c == nil || c.Inverted == nil {
-		return false, false
+func (c *ConditionalFormat) GetImageURLOk() (string, bool) {
+	if c == nil || c.ImageURL == nil {
+		return "", false
 	}
-	return *c.Inverted, true
+	return *c.ImageURL, true
 }
 
-// HasInverted returns a boolean if a field has been set.
-func (c *ConditionalFormat) HasInverted() bool {
-	if c != nil && c.Inverted != nil {
+// HasImageURL returns a boolean if a field has been set.
+func (c *ConditionalFormat) HasImageURL() bool {
+	if c != nil && c.ImageURL != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetInverted allocates a new c.Inverted and returns the pointer to it.
-func (c *ConditionalFormat) SetInverted(v bool) {
-	c.Inverted = &v
+// SetImageURL allocates a new c.ImageURL and returns the pointer to it.
+func (c *ConditionalFormat) SetImageURL(v string) {
+	c.ImageURL = &v
+}
+
+// GetInvert returns the Invert field if non-nil, zero value otherwise.
+func (c *ConditionalFormat) GetInvert() bool {
+	if c == nil || c.Invert == nil {
+		return false
+	}
+	return *c.Invert
+}
+
+// GetInvertOk returns a tuple with the Invert field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (c *ConditionalFormat) GetInvertOk() (bool, bool) {
+	if c == nil || c.Invert == nil {
+		return false, false
+	}
+	return *c.Invert, true
+}
+
+// HasInvert returns a boolean if a field has been set.
+func (c *ConditionalFormat) HasInvert() bool {
+	if c != nil && c.Invert != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetInvert allocates a new c.Invert and returns the pointer to it.
+func (c *ConditionalFormat) SetInvert(v bool) {
+	c.Invert = &v
+}
+
+// GetPalette returns the Palette field if non-nil, zero value otherwise.
+func (c *ConditionalFormat) GetPalette() string {
+	if c == nil || c.Palette == nil {
+		return ""
+	}
+	return *c.Palette
+}
+
+// GetPaletteOk returns a tuple with the Palette field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (c *ConditionalFormat) GetPaletteOk() (string, bool) {
+	if c == nil || c.Palette == nil {
+		return "", false
+	}
+	return *c.Palette, true
+}
+
+// HasPalette returns a boolean if a field has been set.
+func (c *ConditionalFormat) HasPalette() bool {
+	if c != nil && c.Palette != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPalette allocates a new c.Palette and returns the pointer to it.
+func (c *ConditionalFormat) SetPalette(v string) {
+	c.Palette = &v
 }
 
 // GetValue returns the Value field if non-nil, zero value otherwise.
-func (c *ConditionalFormat) GetValue() int {
+func (c *ConditionalFormat) GetValue() string {
 	if c == nil || c.Value == nil {
-		return 0
+		return ""
 	}
 	return *c.Value
 }
 
-// GetOkValue returns a tuple with the Value field if it's non-nil, zero value otherwise
+// GetValueOk returns a tuple with the Value field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
-func (c *ConditionalFormat) GetValueOk() (int, bool) {
+func (c *ConditionalFormat) GetValueOk() (string, bool) {
 	if c == nil || c.Value == nil {
-		return 0, false
+		return "", false
 	}
 	return *c.Value, true
 }
@@ -2520,8 +877,287 @@ func (c *ConditionalFormat) HasValue() bool {
 }
 
 // SetValue allocates a new c.Value and returns the pointer to it.
-func (c *ConditionalFormat) SetValue(v int) {
+func (c *ConditionalFormat) SetValue(v string) {
 	c.Value = &v
+}
+
+// GetAccessRole returns the AccessRole field if non-nil, zero value otherwise.
+func (c *CreatedBy) GetAccessRole() string {
+	if c == nil || c.AccessRole == nil {
+		return ""
+	}
+	return *c.AccessRole
+}
+
+// GetAccessRoleOk returns a tuple with the AccessRole field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (c *CreatedBy) GetAccessRoleOk() (string, bool) {
+	if c == nil || c.AccessRole == nil {
+		return "", false
+	}
+	return *c.AccessRole, true
+}
+
+// HasAccessRole returns a boolean if a field has been set.
+func (c *CreatedBy) HasAccessRole() bool {
+	if c != nil && c.AccessRole != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAccessRole allocates a new c.AccessRole and returns the pointer to it.
+func (c *CreatedBy) SetAccessRole(v string) {
+	c.AccessRole = &v
+}
+
+// GetDisabled returns the Disabled field if non-nil, zero value otherwise.
+func (c *CreatedBy) GetDisabled() bool {
+	if c == nil || c.Disabled == nil {
+		return false
+	}
+	return *c.Disabled
+}
+
+// GetDisabledOk returns a tuple with the Disabled field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (c *CreatedBy) GetDisabledOk() (bool, bool) {
+	if c == nil || c.Disabled == nil {
+		return false, false
+	}
+	return *c.Disabled, true
+}
+
+// HasDisabled returns a boolean if a field has been set.
+func (c *CreatedBy) HasDisabled() bool {
+	if c != nil && c.Disabled != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDisabled allocates a new c.Disabled and returns the pointer to it.
+func (c *CreatedBy) SetDisabled(v bool) {
+	c.Disabled = &v
+}
+
+// GetEmail returns the Email field if non-nil, zero value otherwise.
+func (c *CreatedBy) GetEmail() string {
+	if c == nil || c.Email == nil {
+		return ""
+	}
+	return *c.Email
+}
+
+// GetEmailOk returns a tuple with the Email field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (c *CreatedBy) GetEmailOk() (string, bool) {
+	if c == nil || c.Email == nil {
+		return "", false
+	}
+	return *c.Email, true
+}
+
+// HasEmail returns a boolean if a field has been set.
+func (c *CreatedBy) HasEmail() bool {
+	if c != nil && c.Email != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetEmail allocates a new c.Email and returns the pointer to it.
+func (c *CreatedBy) SetEmail(v string) {
+	c.Email = &v
+}
+
+// GetHandle returns the Handle field if non-nil, zero value otherwise.
+func (c *CreatedBy) GetHandle() string {
+	if c == nil || c.Handle == nil {
+		return ""
+	}
+	return *c.Handle
+}
+
+// GetHandleOk returns a tuple with the Handle field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (c *CreatedBy) GetHandleOk() (string, bool) {
+	if c == nil || c.Handle == nil {
+		return "", false
+	}
+	return *c.Handle, true
+}
+
+// HasHandle returns a boolean if a field has been set.
+func (c *CreatedBy) HasHandle() bool {
+	if c != nil && c.Handle != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetHandle allocates a new c.Handle and returns the pointer to it.
+func (c *CreatedBy) SetHandle(v string) {
+	c.Handle = &v
+}
+
+// GetIcon returns the Icon field if non-nil, zero value otherwise.
+func (c *CreatedBy) GetIcon() string {
+	if c == nil || c.Icon == nil {
+		return ""
+	}
+	return *c.Icon
+}
+
+// GetIconOk returns a tuple with the Icon field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (c *CreatedBy) GetIconOk() (string, bool) {
+	if c == nil || c.Icon == nil {
+		return "", false
+	}
+	return *c.Icon, true
+}
+
+// HasIcon returns a boolean if a field has been set.
+func (c *CreatedBy) HasIcon() bool {
+	if c != nil && c.Icon != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetIcon allocates a new c.Icon and returns the pointer to it.
+func (c *CreatedBy) SetIcon(v string) {
+	c.Icon = &v
+}
+
+// GetIsAdmin returns the IsAdmin field if non-nil, zero value otherwise.
+func (c *CreatedBy) GetIsAdmin() bool {
+	if c == nil || c.IsAdmin == nil {
+		return false
+	}
+	return *c.IsAdmin
+}
+
+// GetIsAdminOk returns a tuple with the IsAdmin field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (c *CreatedBy) GetIsAdminOk() (bool, bool) {
+	if c == nil || c.IsAdmin == nil {
+		return false, false
+	}
+	return *c.IsAdmin, true
+}
+
+// HasIsAdmin returns a boolean if a field has been set.
+func (c *CreatedBy) HasIsAdmin() bool {
+	if c != nil && c.IsAdmin != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetIsAdmin allocates a new c.IsAdmin and returns the pointer to it.
+func (c *CreatedBy) SetIsAdmin(v bool) {
+	c.IsAdmin = &v
+}
+
+// GetName returns the Name field if non-nil, zero value otherwise.
+func (c *CreatedBy) GetName() string {
+	if c == nil || c.Name == nil {
+		return ""
+	}
+	return *c.Name
+}
+
+// GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (c *CreatedBy) GetNameOk() (string, bool) {
+	if c == nil || c.Name == nil {
+		return "", false
+	}
+	return *c.Name, true
+}
+
+// HasName returns a boolean if a field has been set.
+func (c *CreatedBy) HasName() bool {
+	if c != nil && c.Name != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetName allocates a new c.Name and returns the pointer to it.
+func (c *CreatedBy) SetName(v string) {
+	c.Name = &v
+}
+
+// GetRole returns the Role field if non-nil, zero value otherwise.
+func (c *CreatedBy) GetRole() string {
+	if c == nil || c.Role == nil {
+		return ""
+	}
+	return *c.Role
+}
+
+// GetRoleOk returns a tuple with the Role field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (c *CreatedBy) GetRoleOk() (string, bool) {
+	if c == nil || c.Role == nil {
+		return "", false
+	}
+	return *c.Role, true
+}
+
+// HasRole returns a boolean if a field has been set.
+func (c *CreatedBy) HasRole() bool {
+	if c != nil && c.Role != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRole allocates a new c.Role and returns the pointer to it.
+func (c *CreatedBy) SetRole(v string) {
+	c.Role = &v
+}
+
+// GetVerified returns the Verified field if non-nil, zero value otherwise.
+func (c *CreatedBy) GetVerified() bool {
+	if c == nil || c.Verified == nil {
+		return false
+	}
+	return *c.Verified
+}
+
+// GetVerifiedOk returns a tuple with the Verified field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (c *CreatedBy) GetVerifiedOk() (bool, bool) {
+	if c == nil || c.Verified == nil {
+		return false, false
+	}
+	return *c.Verified, true
+}
+
+// HasVerified returns a boolean if a field has been set.
+func (c *CreatedBy) HasVerified() bool {
+	if c != nil && c.Verified != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetVerified allocates a new c.Verified and returns the pointer to it.
+func (c *CreatedBy) SetVerified(v bool) {
+	c.Verified = &v
 }
 
 // GetEmail returns the Email field if non-nil, zero value otherwise.
@@ -2532,7 +1168,7 @@ func (c *Creator) GetEmail() string {
 	return *c.Email
 }
 
-// GetOkEmail returns a tuple with the Email field if it's non-nil, zero value otherwise
+// GetEmailOk returns a tuple with the Email field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (c *Creator) GetEmailOk() (string, bool) {
 	if c == nil || c.Email == nil {
@@ -2563,7 +1199,7 @@ func (c *Creator) GetHandle() string {
 	return *c.Handle
 }
 
-// GetOkHandle returns a tuple with the Handle field if it's non-nil, zero value otherwise
+// GetHandleOk returns a tuple with the Handle field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (c *Creator) GetHandleOk() (string, bool) {
 	if c == nil || c.Handle == nil {
@@ -2594,7 +1230,7 @@ func (c *Creator) GetId() int {
 	return *c.Id
 }
 
-// GetOkId returns a tuple with the Id field if it's non-nil, zero value otherwise
+// GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (c *Creator) GetIdOk() (int, bool) {
 	if c == nil || c.Id == nil {
@@ -2625,7 +1261,7 @@ func (c *Creator) GetName() string {
 	return *c.Name
 }
 
-// GetOkName returns a tuple with the Name field if it's non-nil, zero value otherwise
+// GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (c *Creator) GetNameOk() (string, bool) {
 	if c == nil || c.Name == nil {
@@ -2656,7 +1292,7 @@ func (d *Dashboard) GetDescription() string {
 	return *d.Description
 }
 
-// GetOkDescription returns a tuple with the Description field if it's non-nil, zero value otherwise
+// GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (d *Dashboard) GetDescriptionOk() (string, bool) {
 	if d == nil || d.Description == nil {
@@ -2687,7 +1323,7 @@ func (d *Dashboard) GetId() int {
 	return *d.Id
 }
 
-// GetOkId returns a tuple with the Id field if it's non-nil, zero value otherwise
+// GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (d *Dashboard) GetIdOk() (int, bool) {
 	if d == nil || d.Id == nil {
@@ -2718,7 +1354,7 @@ func (d *Dashboard) GetReadOnly() bool {
 	return *d.ReadOnly
 }
 
-// GetOkReadOnly returns a tuple with the ReadOnly field if it's non-nil, zero value otherwise
+// GetReadOnlyOk returns a tuple with the ReadOnly field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (d *Dashboard) GetReadOnlyOk() (bool, bool) {
 	if d == nil || d.ReadOnly == nil {
@@ -2749,7 +1385,7 @@ func (d *Dashboard) GetTitle() string {
 	return *d.Title
 }
 
-// GetOkTitle returns a tuple with the Title field if it's non-nil, zero value otherwise
+// GetTitleOk returns a tuple with the Title field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (d *Dashboard) GetTitleOk() (string, bool) {
 	if d == nil || d.Title == nil {
@@ -2780,7 +1416,7 @@ func (d *DashboardConditionalFormat) GetComparator() string {
 	return *d.Comparator
 }
 
-// GetOkComparator returns a tuple with the Comparator field if it's non-nil, zero value otherwise
+// GetComparatorOk returns a tuple with the Comparator field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (d *DashboardConditionalFormat) GetComparatorOk() (string, bool) {
 	if d == nil || d.Comparator == nil {
@@ -2811,7 +1447,7 @@ func (d *DashboardConditionalFormat) GetCustomBgColor() string {
 	return *d.CustomBgColor
 }
 
-// GetOkCustomBgColor returns a tuple with the CustomBgColor field if it's non-nil, zero value otherwise
+// GetCustomBgColorOk returns a tuple with the CustomBgColor field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (d *DashboardConditionalFormat) GetCustomBgColorOk() (string, bool) {
 	if d == nil || d.CustomBgColor == nil {
@@ -2842,7 +1478,7 @@ func (d *DashboardConditionalFormat) GetCustomFgColor() string {
 	return *d.CustomFgColor
 }
 
-// GetOkCustomFgColor returns a tuple with the CustomFgColor field if it's non-nil, zero value otherwise
+// GetCustomFgColorOk returns a tuple with the CustomFgColor field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (d *DashboardConditionalFormat) GetCustomFgColorOk() (string, bool) {
 	if d == nil || d.CustomFgColor == nil {
@@ -2873,7 +1509,7 @@ func (d *DashboardConditionalFormat) GetCustomImageUrl() string {
 	return *d.CustomImageUrl
 }
 
-// GetOkCustomImageUrl returns a tuple with the CustomImageUrl field if it's non-nil, zero value otherwise
+// GetCustomImageUrlOk returns a tuple with the CustomImageUrl field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (d *DashboardConditionalFormat) GetCustomImageUrlOk() (string, bool) {
 	if d == nil || d.CustomImageUrl == nil {
@@ -2904,7 +1540,7 @@ func (d *DashboardConditionalFormat) GetInverted() bool {
 	return *d.Inverted
 }
 
-// GetOkInverted returns a tuple with the Inverted field if it's non-nil, zero value otherwise
+// GetInvertedOk returns a tuple with the Inverted field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (d *DashboardConditionalFormat) GetInvertedOk() (bool, bool) {
 	if d == nil || d.Inverted == nil {
@@ -2935,7 +1571,7 @@ func (d *DashboardConditionalFormat) GetPalette() string {
 	return *d.Palette
 }
 
-// GetOkPalette returns a tuple with the Palette field if it's non-nil, zero value otherwise
+// GetPaletteOk returns a tuple with the Palette field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (d *DashboardConditionalFormat) GetPaletteOk() (string, bool) {
 	if d == nil || d.Palette == nil {
@@ -2966,7 +1602,7 @@ func (d *DashboardConditionalFormat) GetValue() json.Number {
 	return *d.Value
 }
 
-// GetOkValue returns a tuple with the Value field if it's non-nil, zero value otherwise
+// GetValueOk returns a tuple with the Value field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (d *DashboardConditionalFormat) GetValueOk() (json.Number, bool) {
 	if d == nil || d.Value == nil {
@@ -2997,7 +1633,7 @@ func (d *DashboardList) GetDashboardCount() int {
 	return *d.DashboardCount
 }
 
-// GetOkDashboardCount returns a tuple with the DashboardCount field if it's non-nil, zero value otherwise
+// GetDashboardCountOk returns a tuple with the DashboardCount field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (d *DashboardList) GetDashboardCountOk() (int, bool) {
 	if d == nil || d.DashboardCount == nil {
@@ -3028,7 +1664,7 @@ func (d *DashboardList) GetId() int {
 	return *d.Id
 }
 
-// GetOkId returns a tuple with the Id field if it's non-nil, zero value otherwise
+// GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (d *DashboardList) GetIdOk() (int, bool) {
 	if d == nil || d.Id == nil {
@@ -3059,7 +1695,7 @@ func (d *DashboardList) GetName() string {
 	return *d.Name
 }
 
-// GetOkName returns a tuple with the Name field if it's non-nil, zero value otherwise
+// GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (d *DashboardList) GetNameOk() (string, bool) {
 	if d == nil || d.Name == nil {
@@ -3090,7 +1726,7 @@ func (d *DashboardListItem) GetId() int {
 	return *d.Id
 }
 
-// GetOkId returns a tuple with the Id field if it's non-nil, zero value otherwise
+// GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (d *DashboardListItem) GetIdOk() (int, bool) {
 	if d == nil || d.Id == nil {
@@ -3121,7 +1757,7 @@ func (d *DashboardListItem) GetType() string {
 	return *d.Type
 }
 
-// GetOkType returns a tuple with the Type field if it's non-nil, zero value otherwise
+// GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (d *DashboardListItem) GetTypeOk() (string, bool) {
 	if d == nil || d.Type == nil {
@@ -3144,6 +1780,68 @@ func (d *DashboardListItem) SetType(v string) {
 	d.Type = &v
 }
 
+// GetCreated returns the Created field if non-nil, zero value otherwise.
+func (d *DashboardLite) GetCreated() string {
+	if d == nil || d.Created == nil {
+		return ""
+	}
+	return *d.Created
+}
+
+// GetCreatedOk returns a tuple with the Created field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (d *DashboardLite) GetCreatedOk() (string, bool) {
+	if d == nil || d.Created == nil {
+		return "", false
+	}
+	return *d.Created, true
+}
+
+// HasCreated returns a boolean if a field has been set.
+func (d *DashboardLite) HasCreated() bool {
+	if d != nil && d.Created != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCreated allocates a new d.Created and returns the pointer to it.
+func (d *DashboardLite) SetCreated(v string) {
+	d.Created = &v
+}
+
+// GetCreatedBy returns the CreatedBy field if non-nil, zero value otherwise.
+func (d *DashboardLite) GetCreatedBy() CreatedBy {
+	if d == nil || d.CreatedBy == nil {
+		return CreatedBy{}
+	}
+	return *d.CreatedBy
+}
+
+// GetCreatedByOk returns a tuple with the CreatedBy field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (d *DashboardLite) GetCreatedByOk() (CreatedBy, bool) {
+	if d == nil || d.CreatedBy == nil {
+		return CreatedBy{}, false
+	}
+	return *d.CreatedBy, true
+}
+
+// HasCreatedBy returns a boolean if a field has been set.
+func (d *DashboardLite) HasCreatedBy() bool {
+	if d != nil && d.CreatedBy != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCreatedBy allocates a new d.CreatedBy and returns the pointer to it.
+func (d *DashboardLite) SetCreatedBy(v CreatedBy) {
+	d.CreatedBy = &v
+}
+
 // GetDescription returns the Description field if non-nil, zero value otherwise.
 func (d *DashboardLite) GetDescription() string {
 	if d == nil || d.Description == nil {
@@ -3152,7 +1850,7 @@ func (d *DashboardLite) GetDescription() string {
 	return *d.Description
 }
 
-// GetOkDescription returns a tuple with the Description field if it's non-nil, zero value otherwise
+// GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (d *DashboardLite) GetDescriptionOk() (string, bool) {
 	if d == nil || d.Description == nil {
@@ -3183,7 +1881,7 @@ func (d *DashboardLite) GetId() int {
 	return *d.Id
 }
 
-// GetOkId returns a tuple with the Id field if it's non-nil, zero value otherwise
+// GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (d *DashboardLite) GetIdOk() (int, bool) {
 	if d == nil || d.Id == nil {
@@ -3206,6 +1904,68 @@ func (d *DashboardLite) SetId(v int) {
 	d.Id = &v
 }
 
+// GetModified returns the Modified field if non-nil, zero value otherwise.
+func (d *DashboardLite) GetModified() string {
+	if d == nil || d.Modified == nil {
+		return ""
+	}
+	return *d.Modified
+}
+
+// GetModifiedOk returns a tuple with the Modified field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (d *DashboardLite) GetModifiedOk() (string, bool) {
+	if d == nil || d.Modified == nil {
+		return "", false
+	}
+	return *d.Modified, true
+}
+
+// HasModified returns a boolean if a field has been set.
+func (d *DashboardLite) HasModified() bool {
+	if d != nil && d.Modified != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetModified allocates a new d.Modified and returns the pointer to it.
+func (d *DashboardLite) SetModified(v string) {
+	d.Modified = &v
+}
+
+// GetReadOnly returns the ReadOnly field if non-nil, zero value otherwise.
+func (d *DashboardLite) GetReadOnly() bool {
+	if d == nil || d.ReadOnly == nil {
+		return false
+	}
+	return *d.ReadOnly
+}
+
+// GetReadOnlyOk returns a tuple with the ReadOnly field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (d *DashboardLite) GetReadOnlyOk() (bool, bool) {
+	if d == nil || d.ReadOnly == nil {
+		return false, false
+	}
+	return *d.ReadOnly, true
+}
+
+// HasReadOnly returns a boolean if a field has been set.
+func (d *DashboardLite) HasReadOnly() bool {
+	if d != nil && d.ReadOnly != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetReadOnly allocates a new d.ReadOnly and returns the pointer to it.
+func (d *DashboardLite) SetReadOnly(v bool) {
+	d.ReadOnly = &v
+}
+
 // GetResource returns the Resource field if non-nil, zero value otherwise.
 func (d *DashboardLite) GetResource() string {
 	if d == nil || d.Resource == nil {
@@ -3214,7 +1974,7 @@ func (d *DashboardLite) GetResource() string {
 	return *d.Resource
 }
 
-// GetOkResource returns a tuple with the Resource field if it's non-nil, zero value otherwise
+// GetResourceOk returns a tuple with the Resource field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (d *DashboardLite) GetResourceOk() (string, bool) {
 	if d == nil || d.Resource == nil {
@@ -3245,7 +2005,7 @@ func (d *DashboardLite) GetTitle() string {
 	return *d.Title
 }
 
-// GetOkTitle returns a tuple with the Title field if it's non-nil, zero value otherwise
+// GetTitleOk returns a tuple with the Title field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (d *DashboardLite) GetTitleOk() (string, bool) {
 	if d == nil || d.Title == nil {
@@ -3276,7 +2036,7 @@ func (d *Downtime) GetActive() bool {
 	return *d.Active
 }
 
-// GetOkActive returns a tuple with the Active field if it's non-nil, zero value otherwise
+// GetActiveOk returns a tuple with the Active field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (d *Downtime) GetActiveOk() (bool, bool) {
 	if d == nil || d.Active == nil {
@@ -3307,7 +2067,7 @@ func (d *Downtime) GetCanceled() int {
 	return *d.Canceled
 }
 
-// GetOkCanceled returns a tuple with the Canceled field if it's non-nil, zero value otherwise
+// GetCanceledOk returns a tuple with the Canceled field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (d *Downtime) GetCanceledOk() (int, bool) {
 	if d == nil || d.Canceled == nil {
@@ -3338,7 +2098,7 @@ func (d *Downtime) GetDisabled() bool {
 	return *d.Disabled
 }
 
-// GetOkDisabled returns a tuple with the Disabled field if it's non-nil, zero value otherwise
+// GetDisabledOk returns a tuple with the Disabled field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (d *Downtime) GetDisabledOk() (bool, bool) {
 	if d == nil || d.Disabled == nil {
@@ -3369,7 +2129,7 @@ func (d *Downtime) GetEnd() int {
 	return *d.End
 }
 
-// GetOkEnd returns a tuple with the End field if it's non-nil, zero value otherwise
+// GetEndOk returns a tuple with the End field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (d *Downtime) GetEndOk() (int, bool) {
 	if d == nil || d.End == nil {
@@ -3400,7 +2160,7 @@ func (d *Downtime) GetId() int {
 	return *d.Id
 }
 
-// GetOkId returns a tuple with the Id field if it's non-nil, zero value otherwise
+// GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (d *Downtime) GetIdOk() (int, bool) {
 	if d == nil || d.Id == nil {
@@ -3431,7 +2191,7 @@ func (d *Downtime) GetMessage() string {
 	return *d.Message
 }
 
-// GetOkMessage returns a tuple with the Message field if it's non-nil, zero value otherwise
+// GetMessageOk returns a tuple with the Message field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (d *Downtime) GetMessageOk() (string, bool) {
 	if d == nil || d.Message == nil {
@@ -3462,7 +2222,7 @@ func (d *Downtime) GetMonitorId() int {
 	return *d.MonitorId
 }
 
-// GetOkMonitorId returns a tuple with the MonitorId field if it's non-nil, zero value otherwise
+// GetMonitorIdOk returns a tuple with the MonitorId field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (d *Downtime) GetMonitorIdOk() (int, bool) {
 	if d == nil || d.MonitorId == nil {
@@ -3493,7 +2253,7 @@ func (d *Downtime) GetRecurrence() Recurrence {
 	return *d.Recurrence
 }
 
-// GetOkRecurrence returns a tuple with the Recurrence field if it's non-nil, zero value otherwise
+// GetRecurrenceOk returns a tuple with the Recurrence field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (d *Downtime) GetRecurrenceOk() (Recurrence, bool) {
 	if d == nil || d.Recurrence == nil {
@@ -3524,7 +2284,7 @@ func (d *Downtime) GetStart() int {
 	return *d.Start
 }
 
-// GetOkStart returns a tuple with the Start field if it's non-nil, zero value otherwise
+// GetStartOk returns a tuple with the Start field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (d *Downtime) GetStartOk() (int, bool) {
 	if d == nil || d.Start == nil {
@@ -3555,7 +2315,7 @@ func (e *Event) GetAggregation() string {
 	return *e.Aggregation
 }
 
-// GetOkAggregation returns a tuple with the Aggregation field if it's non-nil, zero value otherwise
+// GetAggregationOk returns a tuple with the Aggregation field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (e *Event) GetAggregationOk() (string, bool) {
 	if e == nil || e.Aggregation == nil {
@@ -3586,7 +2346,7 @@ func (e *Event) GetAlertType() string {
 	return *e.AlertType
 }
 
-// GetOkAlertType returns a tuple with the AlertType field if it's non-nil, zero value otherwise
+// GetAlertTypeOk returns a tuple with the AlertType field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (e *Event) GetAlertTypeOk() (string, bool) {
 	if e == nil || e.AlertType == nil {
@@ -3617,7 +2377,7 @@ func (e *Event) GetEventType() string {
 	return *e.EventType
 }
 
-// GetOkEventType returns a tuple with the EventType field if it's non-nil, zero value otherwise
+// GetEventTypeOk returns a tuple with the EventType field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (e *Event) GetEventTypeOk() (string, bool) {
 	if e == nil || e.EventType == nil {
@@ -3648,7 +2408,7 @@ func (e *Event) GetHost() string {
 	return *e.Host
 }
 
-// GetOkHost returns a tuple with the Host field if it's non-nil, zero value otherwise
+// GetHostOk returns a tuple with the Host field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (e *Event) GetHostOk() (string, bool) {
 	if e == nil || e.Host == nil {
@@ -3679,7 +2439,7 @@ func (e *Event) GetId() int {
 	return *e.Id
 }
 
-// GetOkId returns a tuple with the Id field if it's non-nil, zero value otherwise
+// GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (e *Event) GetIdOk() (int, bool) {
 	if e == nil || e.Id == nil {
@@ -3710,7 +2470,7 @@ func (e *Event) GetPriority() string {
 	return *e.Priority
 }
 
-// GetOkPriority returns a tuple with the Priority field if it's non-nil, zero value otherwise
+// GetPriorityOk returns a tuple with the Priority field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (e *Event) GetPriorityOk() (string, bool) {
 	if e == nil || e.Priority == nil {
@@ -3741,7 +2501,7 @@ func (e *Event) GetResource() string {
 	return *e.Resource
 }
 
-// GetOkResource returns a tuple with the Resource field if it's non-nil, zero value otherwise
+// GetResourceOk returns a tuple with the Resource field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (e *Event) GetResourceOk() (string, bool) {
 	if e == nil || e.Resource == nil {
@@ -3772,7 +2532,7 @@ func (e *Event) GetSourceType() string {
 	return *e.SourceType
 }
 
-// GetOkSourceType returns a tuple with the SourceType field if it's non-nil, zero value otherwise
+// GetSourceTypeOk returns a tuple with the SourceType field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (e *Event) GetSourceTypeOk() (string, bool) {
 	if e == nil || e.SourceType == nil {
@@ -3803,7 +2563,7 @@ func (e *Event) GetText() string {
 	return *e.Text
 }
 
-// GetOkText returns a tuple with the Text field if it's non-nil, zero value otherwise
+// GetTextOk returns a tuple with the Text field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (e *Event) GetTextOk() (string, bool) {
 	if e == nil || e.Text == nil {
@@ -3834,7 +2594,7 @@ func (e *Event) GetTime() int {
 	return *e.Time
 }
 
-// GetOkTime returns a tuple with the Time field if it's non-nil, zero value otherwise
+// GetTimeOk returns a tuple with the Time field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (e *Event) GetTimeOk() (int, bool) {
 	if e == nil || e.Time == nil {
@@ -3865,7 +2625,7 @@ func (e *Event) GetTitle() string {
 	return *e.Title
 }
 
-// GetOkTitle returns a tuple with the Title field if it's non-nil, zero value otherwise
+// GetTitleOk returns a tuple with the Title field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (e *Event) GetTitleOk() (string, bool) {
 	if e == nil || e.Title == nil {
@@ -3896,7 +2656,7 @@ func (e *Event) GetUrl() string {
 	return *e.Url
 }
 
-// GetOkUrl returns a tuple with the Url field if it's non-nil, zero value otherwise
+// GetUrlOk returns a tuple with the Url field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (e *Event) GetUrlOk() (string, bool) {
 	if e == nil || e.Url == nil {
@@ -3919,998 +2679,6 @@ func (e *Event) SetUrl(v string) {
 	e.Url = &v
 }
 
-// GetEventSize returns the EventSize field if non-nil, zero value otherwise.
-func (e *EventStreamWidget) GetEventSize() string {
-	if e == nil || e.EventSize == nil {
-		return ""
-	}
-	return *e.EventSize
-}
-
-// GetOkEventSize returns a tuple with the EventSize field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (e *EventStreamWidget) GetEventSizeOk() (string, bool) {
-	if e == nil || e.EventSize == nil {
-		return "", false
-	}
-	return *e.EventSize, true
-}
-
-// HasEventSize returns a boolean if a field has been set.
-func (e *EventStreamWidget) HasEventSize() bool {
-	if e != nil && e.EventSize != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetEventSize allocates a new e.EventSize and returns the pointer to it.
-func (e *EventStreamWidget) SetEventSize(v string) {
-	e.EventSize = &v
-}
-
-// GetHeight returns the Height field if non-nil, zero value otherwise.
-func (e *EventStreamWidget) GetHeight() int {
-	if e == nil || e.Height == nil {
-		return 0
-	}
-	return *e.Height
-}
-
-// GetOkHeight returns a tuple with the Height field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (e *EventStreamWidget) GetHeightOk() (int, bool) {
-	if e == nil || e.Height == nil {
-		return 0, false
-	}
-	return *e.Height, true
-}
-
-// HasHeight returns a boolean if a field has been set.
-func (e *EventStreamWidget) HasHeight() bool {
-	if e != nil && e.Height != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetHeight allocates a new e.Height and returns the pointer to it.
-func (e *EventStreamWidget) SetHeight(v int) {
-	e.Height = &v
-}
-
-// GetQuery returns the Query field if non-nil, zero value otherwise.
-func (e *EventStreamWidget) GetQuery() string {
-	if e == nil || e.Query == nil {
-		return ""
-	}
-	return *e.Query
-}
-
-// GetOkQuery returns a tuple with the Query field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (e *EventStreamWidget) GetQueryOk() (string, bool) {
-	if e == nil || e.Query == nil {
-		return "", false
-	}
-	return *e.Query, true
-}
-
-// HasQuery returns a boolean if a field has been set.
-func (e *EventStreamWidget) HasQuery() bool {
-	if e != nil && e.Query != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetQuery allocates a new e.Query and returns the pointer to it.
-func (e *EventStreamWidget) SetQuery(v string) {
-	e.Query = &v
-}
-
-// GetTimeframe returns the Timeframe field if non-nil, zero value otherwise.
-func (e *EventStreamWidget) GetTimeframe() string {
-	if e == nil || e.Timeframe == nil {
-		return ""
-	}
-	return *e.Timeframe
-}
-
-// GetOkTimeframe returns a tuple with the Timeframe field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (e *EventStreamWidget) GetTimeframeOk() (string, bool) {
-	if e == nil || e.Timeframe == nil {
-		return "", false
-	}
-	return *e.Timeframe, true
-}
-
-// HasTimeframe returns a boolean if a field has been set.
-func (e *EventStreamWidget) HasTimeframe() bool {
-	if e != nil && e.Timeframe != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTimeframe allocates a new e.Timeframe and returns the pointer to it.
-func (e *EventStreamWidget) SetTimeframe(v string) {
-	e.Timeframe = &v
-}
-
-// GetTitle returns the Title field if non-nil, zero value otherwise.
-func (e *EventStreamWidget) GetTitle() bool {
-	if e == nil || e.Title == nil {
-		return false
-	}
-	return *e.Title
-}
-
-// GetOkTitle returns a tuple with the Title field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (e *EventStreamWidget) GetTitleOk() (bool, bool) {
-	if e == nil || e.Title == nil {
-		return false, false
-	}
-	return *e.Title, true
-}
-
-// HasTitle returns a boolean if a field has been set.
-func (e *EventStreamWidget) HasTitle() bool {
-	if e != nil && e.Title != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTitle allocates a new e.Title and returns the pointer to it.
-func (e *EventStreamWidget) SetTitle(v bool) {
-	e.Title = &v
-}
-
-// GetTitleAlign returns the TitleAlign field if non-nil, zero value otherwise.
-func (e *EventStreamWidget) GetTitleAlign() string {
-	if e == nil || e.TitleAlign == nil {
-		return ""
-	}
-	return *e.TitleAlign
-}
-
-// GetOkTitleAlign returns a tuple with the TitleAlign field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (e *EventStreamWidget) GetTitleAlignOk() (string, bool) {
-	if e == nil || e.TitleAlign == nil {
-		return "", false
-	}
-	return *e.TitleAlign, true
-}
-
-// HasTitleAlign returns a boolean if a field has been set.
-func (e *EventStreamWidget) HasTitleAlign() bool {
-	if e != nil && e.TitleAlign != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTitleAlign allocates a new e.TitleAlign and returns the pointer to it.
-func (e *EventStreamWidget) SetTitleAlign(v string) {
-	e.TitleAlign = &v
-}
-
-// GetTitleSize returns the TitleSize field if non-nil, zero value otherwise.
-func (e *EventStreamWidget) GetTitleSize() TextSize {
-	if e == nil || e.TitleSize == nil {
-		return TextSize{}
-	}
-	return *e.TitleSize
-}
-
-// GetOkTitleSize returns a tuple with the TitleSize field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (e *EventStreamWidget) GetTitleSizeOk() (TextSize, bool) {
-	if e == nil || e.TitleSize == nil {
-		return TextSize{}, false
-	}
-	return *e.TitleSize, true
-}
-
-// HasTitleSize returns a boolean if a field has been set.
-func (e *EventStreamWidget) HasTitleSize() bool {
-	if e != nil && e.TitleSize != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTitleSize allocates a new e.TitleSize and returns the pointer to it.
-func (e *EventStreamWidget) SetTitleSize(v TextSize) {
-	e.TitleSize = &v
-}
-
-// GetTitleText returns the TitleText field if non-nil, zero value otherwise.
-func (e *EventStreamWidget) GetTitleText() string {
-	if e == nil || e.TitleText == nil {
-		return ""
-	}
-	return *e.TitleText
-}
-
-// GetOkTitleText returns a tuple with the TitleText field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (e *EventStreamWidget) GetTitleTextOk() (string, bool) {
-	if e == nil || e.TitleText == nil {
-		return "", false
-	}
-	return *e.TitleText, true
-}
-
-// HasTitleText returns a boolean if a field has been set.
-func (e *EventStreamWidget) HasTitleText() bool {
-	if e != nil && e.TitleText != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTitleText allocates a new e.TitleText and returns the pointer to it.
-func (e *EventStreamWidget) SetTitleText(v string) {
-	e.TitleText = &v
-}
-
-// GetType returns the Type field if non-nil, zero value otherwise.
-func (e *EventStreamWidget) GetType() string {
-	if e == nil || e.Type == nil {
-		return ""
-	}
-	return *e.Type
-}
-
-// GetOkType returns a tuple with the Type field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (e *EventStreamWidget) GetTypeOk() (string, bool) {
-	if e == nil || e.Type == nil {
-		return "", false
-	}
-	return *e.Type, true
-}
-
-// HasType returns a boolean if a field has been set.
-func (e *EventStreamWidget) HasType() bool {
-	if e != nil && e.Type != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetType allocates a new e.Type and returns the pointer to it.
-func (e *EventStreamWidget) SetType(v string) {
-	e.Type = &v
-}
-
-// GetWidth returns the Width field if non-nil, zero value otherwise.
-func (e *EventStreamWidget) GetWidth() int {
-	if e == nil || e.Width == nil {
-		return 0
-	}
-	return *e.Width
-}
-
-// GetOkWidth returns a tuple with the Width field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (e *EventStreamWidget) GetWidthOk() (int, bool) {
-	if e == nil || e.Width == nil {
-		return 0, false
-	}
-	return *e.Width, true
-}
-
-// HasWidth returns a boolean if a field has been set.
-func (e *EventStreamWidget) HasWidth() bool {
-	if e != nil && e.Width != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetWidth allocates a new e.Width and returns the pointer to it.
-func (e *EventStreamWidget) SetWidth(v int) {
-	e.Width = &v
-}
-
-// GetX returns the X field if non-nil, zero value otherwise.
-func (e *EventStreamWidget) GetX() int {
-	if e == nil || e.X == nil {
-		return 0
-	}
-	return *e.X
-}
-
-// GetOkX returns a tuple with the X field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (e *EventStreamWidget) GetXOk() (int, bool) {
-	if e == nil || e.X == nil {
-		return 0, false
-	}
-	return *e.X, true
-}
-
-// HasX returns a boolean if a field has been set.
-func (e *EventStreamWidget) HasX() bool {
-	if e != nil && e.X != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetX allocates a new e.X and returns the pointer to it.
-func (e *EventStreamWidget) SetX(v int) {
-	e.X = &v
-}
-
-// GetY returns the Y field if non-nil, zero value otherwise.
-func (e *EventStreamWidget) GetY() int {
-	if e == nil || e.Y == nil {
-		return 0
-	}
-	return *e.Y
-}
-
-// GetOkY returns a tuple with the Y field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (e *EventStreamWidget) GetYOk() (int, bool) {
-	if e == nil || e.Y == nil {
-		return 0, false
-	}
-	return *e.Y, true
-}
-
-// HasY returns a boolean if a field has been set.
-func (e *EventStreamWidget) HasY() bool {
-	if e != nil && e.Y != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetY allocates a new e.Y and returns the pointer to it.
-func (e *EventStreamWidget) SetY(v int) {
-	e.Y = &v
-}
-
-// GetHeight returns the Height field if non-nil, zero value otherwise.
-func (e *EventTimelineWidget) GetHeight() int {
-	if e == nil || e.Height == nil {
-		return 0
-	}
-	return *e.Height
-}
-
-// GetOkHeight returns a tuple with the Height field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (e *EventTimelineWidget) GetHeightOk() (int, bool) {
-	if e == nil || e.Height == nil {
-		return 0, false
-	}
-	return *e.Height, true
-}
-
-// HasHeight returns a boolean if a field has been set.
-func (e *EventTimelineWidget) HasHeight() bool {
-	if e != nil && e.Height != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetHeight allocates a new e.Height and returns the pointer to it.
-func (e *EventTimelineWidget) SetHeight(v int) {
-	e.Height = &v
-}
-
-// GetQuery returns the Query field if non-nil, zero value otherwise.
-func (e *EventTimelineWidget) GetQuery() string {
-	if e == nil || e.Query == nil {
-		return ""
-	}
-	return *e.Query
-}
-
-// GetOkQuery returns a tuple with the Query field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (e *EventTimelineWidget) GetQueryOk() (string, bool) {
-	if e == nil || e.Query == nil {
-		return "", false
-	}
-	return *e.Query, true
-}
-
-// HasQuery returns a boolean if a field has been set.
-func (e *EventTimelineWidget) HasQuery() bool {
-	if e != nil && e.Query != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetQuery allocates a new e.Query and returns the pointer to it.
-func (e *EventTimelineWidget) SetQuery(v string) {
-	e.Query = &v
-}
-
-// GetTimeframe returns the Timeframe field if non-nil, zero value otherwise.
-func (e *EventTimelineWidget) GetTimeframe() string {
-	if e == nil || e.Timeframe == nil {
-		return ""
-	}
-	return *e.Timeframe
-}
-
-// GetOkTimeframe returns a tuple with the Timeframe field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (e *EventTimelineWidget) GetTimeframeOk() (string, bool) {
-	if e == nil || e.Timeframe == nil {
-		return "", false
-	}
-	return *e.Timeframe, true
-}
-
-// HasTimeframe returns a boolean if a field has been set.
-func (e *EventTimelineWidget) HasTimeframe() bool {
-	if e != nil && e.Timeframe != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTimeframe allocates a new e.Timeframe and returns the pointer to it.
-func (e *EventTimelineWidget) SetTimeframe(v string) {
-	e.Timeframe = &v
-}
-
-// GetTitle returns the Title field if non-nil, zero value otherwise.
-func (e *EventTimelineWidget) GetTitle() bool {
-	if e == nil || e.Title == nil {
-		return false
-	}
-	return *e.Title
-}
-
-// GetOkTitle returns a tuple with the Title field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (e *EventTimelineWidget) GetTitleOk() (bool, bool) {
-	if e == nil || e.Title == nil {
-		return false, false
-	}
-	return *e.Title, true
-}
-
-// HasTitle returns a boolean if a field has been set.
-func (e *EventTimelineWidget) HasTitle() bool {
-	if e != nil && e.Title != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTitle allocates a new e.Title and returns the pointer to it.
-func (e *EventTimelineWidget) SetTitle(v bool) {
-	e.Title = &v
-}
-
-// GetTitleAlign returns the TitleAlign field if non-nil, zero value otherwise.
-func (e *EventTimelineWidget) GetTitleAlign() string {
-	if e == nil || e.TitleAlign == nil {
-		return ""
-	}
-	return *e.TitleAlign
-}
-
-// GetOkTitleAlign returns a tuple with the TitleAlign field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (e *EventTimelineWidget) GetTitleAlignOk() (string, bool) {
-	if e == nil || e.TitleAlign == nil {
-		return "", false
-	}
-	return *e.TitleAlign, true
-}
-
-// HasTitleAlign returns a boolean if a field has been set.
-func (e *EventTimelineWidget) HasTitleAlign() bool {
-	if e != nil && e.TitleAlign != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTitleAlign allocates a new e.TitleAlign and returns the pointer to it.
-func (e *EventTimelineWidget) SetTitleAlign(v string) {
-	e.TitleAlign = &v
-}
-
-// GetTitleSize returns the TitleSize field if non-nil, zero value otherwise.
-func (e *EventTimelineWidget) GetTitleSize() int {
-	if e == nil || e.TitleSize == nil {
-		return 0
-	}
-	return *e.TitleSize
-}
-
-// GetOkTitleSize returns a tuple with the TitleSize field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (e *EventTimelineWidget) GetTitleSizeOk() (int, bool) {
-	if e == nil || e.TitleSize == nil {
-		return 0, false
-	}
-	return *e.TitleSize, true
-}
-
-// HasTitleSize returns a boolean if a field has been set.
-func (e *EventTimelineWidget) HasTitleSize() bool {
-	if e != nil && e.TitleSize != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTitleSize allocates a new e.TitleSize and returns the pointer to it.
-func (e *EventTimelineWidget) SetTitleSize(v int) {
-	e.TitleSize = &v
-}
-
-// GetTitleText returns the TitleText field if non-nil, zero value otherwise.
-func (e *EventTimelineWidget) GetTitleText() string {
-	if e == nil || e.TitleText == nil {
-		return ""
-	}
-	return *e.TitleText
-}
-
-// GetOkTitleText returns a tuple with the TitleText field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (e *EventTimelineWidget) GetTitleTextOk() (string, bool) {
-	if e == nil || e.TitleText == nil {
-		return "", false
-	}
-	return *e.TitleText, true
-}
-
-// HasTitleText returns a boolean if a field has been set.
-func (e *EventTimelineWidget) HasTitleText() bool {
-	if e != nil && e.TitleText != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTitleText allocates a new e.TitleText and returns the pointer to it.
-func (e *EventTimelineWidget) SetTitleText(v string) {
-	e.TitleText = &v
-}
-
-// GetType returns the Type field if non-nil, zero value otherwise.
-func (e *EventTimelineWidget) GetType() string {
-	if e == nil || e.Type == nil {
-		return ""
-	}
-	return *e.Type
-}
-
-// GetOkType returns a tuple with the Type field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (e *EventTimelineWidget) GetTypeOk() (string, bool) {
-	if e == nil || e.Type == nil {
-		return "", false
-	}
-	return *e.Type, true
-}
-
-// HasType returns a boolean if a field has been set.
-func (e *EventTimelineWidget) HasType() bool {
-	if e != nil && e.Type != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetType allocates a new e.Type and returns the pointer to it.
-func (e *EventTimelineWidget) SetType(v string) {
-	e.Type = &v
-}
-
-// GetWidth returns the Width field if non-nil, zero value otherwise.
-func (e *EventTimelineWidget) GetWidth() int {
-	if e == nil || e.Width == nil {
-		return 0
-	}
-	return *e.Width
-}
-
-// GetOkWidth returns a tuple with the Width field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (e *EventTimelineWidget) GetWidthOk() (int, bool) {
-	if e == nil || e.Width == nil {
-		return 0, false
-	}
-	return *e.Width, true
-}
-
-// HasWidth returns a boolean if a field has been set.
-func (e *EventTimelineWidget) HasWidth() bool {
-	if e != nil && e.Width != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetWidth allocates a new e.Width and returns the pointer to it.
-func (e *EventTimelineWidget) SetWidth(v int) {
-	e.Width = &v
-}
-
-// GetX returns the X field if non-nil, zero value otherwise.
-func (e *EventTimelineWidget) GetX() int {
-	if e == nil || e.X == nil {
-		return 0
-	}
-	return *e.X
-}
-
-// GetOkX returns a tuple with the X field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (e *EventTimelineWidget) GetXOk() (int, bool) {
-	if e == nil || e.X == nil {
-		return 0, false
-	}
-	return *e.X, true
-}
-
-// HasX returns a boolean if a field has been set.
-func (e *EventTimelineWidget) HasX() bool {
-	if e != nil && e.X != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetX allocates a new e.X and returns the pointer to it.
-func (e *EventTimelineWidget) SetX(v int) {
-	e.X = &v
-}
-
-// GetY returns the Y field if non-nil, zero value otherwise.
-func (e *EventTimelineWidget) GetY() int {
-	if e == nil || e.Y == nil {
-		return 0
-	}
-	return *e.Y
-}
-
-// GetOkY returns a tuple with the Y field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (e *EventTimelineWidget) GetYOk() (int, bool) {
-	if e == nil || e.Y == nil {
-		return 0, false
-	}
-	return *e.Y, true
-}
-
-// HasY returns a boolean if a field has been set.
-func (e *EventTimelineWidget) HasY() bool {
-	if e != nil && e.Y != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetY allocates a new e.Y and returns the pointer to it.
-func (e *EventTimelineWidget) SetY(v int) {
-	e.Y = &v
-}
-
-// GetColor returns the Color field if non-nil, zero value otherwise.
-func (f *FreeTextWidget) GetColor() string {
-	if f == nil || f.Color == nil {
-		return ""
-	}
-	return *f.Color
-}
-
-// GetOkColor returns a tuple with the Color field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (f *FreeTextWidget) GetColorOk() (string, bool) {
-	if f == nil || f.Color == nil {
-		return "", false
-	}
-	return *f.Color, true
-}
-
-// HasColor returns a boolean if a field has been set.
-func (f *FreeTextWidget) HasColor() bool {
-	if f != nil && f.Color != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetColor allocates a new f.Color and returns the pointer to it.
-func (f *FreeTextWidget) SetColor(v string) {
-	f.Color = &v
-}
-
-// GetFontSize returns the FontSize field if non-nil, zero value otherwise.
-func (f *FreeTextWidget) GetFontSize() string {
-	if f == nil || f.FontSize == nil {
-		return ""
-	}
-	return *f.FontSize
-}
-
-// GetOkFontSize returns a tuple with the FontSize field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (f *FreeTextWidget) GetFontSizeOk() (string, bool) {
-	if f == nil || f.FontSize == nil {
-		return "", false
-	}
-	return *f.FontSize, true
-}
-
-// HasFontSize returns a boolean if a field has been set.
-func (f *FreeTextWidget) HasFontSize() bool {
-	if f != nil && f.FontSize != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetFontSize allocates a new f.FontSize and returns the pointer to it.
-func (f *FreeTextWidget) SetFontSize(v string) {
-	f.FontSize = &v
-}
-
-// GetHeight returns the Height field if non-nil, zero value otherwise.
-func (f *FreeTextWidget) GetHeight() int {
-	if f == nil || f.Height == nil {
-		return 0
-	}
-	return *f.Height
-}
-
-// GetOkHeight returns a tuple with the Height field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (f *FreeTextWidget) GetHeightOk() (int, bool) {
-	if f == nil || f.Height == nil {
-		return 0, false
-	}
-	return *f.Height, true
-}
-
-// HasHeight returns a boolean if a field has been set.
-func (f *FreeTextWidget) HasHeight() bool {
-	if f != nil && f.Height != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetHeight allocates a new f.Height and returns the pointer to it.
-func (f *FreeTextWidget) SetHeight(v int) {
-	f.Height = &v
-}
-
-// GetText returns the Text field if non-nil, zero value otherwise.
-func (f *FreeTextWidget) GetText() string {
-	if f == nil || f.Text == nil {
-		return ""
-	}
-	return *f.Text
-}
-
-// GetOkText returns a tuple with the Text field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (f *FreeTextWidget) GetTextOk() (string, bool) {
-	if f == nil || f.Text == nil {
-		return "", false
-	}
-	return *f.Text, true
-}
-
-// HasText returns a boolean if a field has been set.
-func (f *FreeTextWidget) HasText() bool {
-	if f != nil && f.Text != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetText allocates a new f.Text and returns the pointer to it.
-func (f *FreeTextWidget) SetText(v string) {
-	f.Text = &v
-}
-
-// GetTextAlign returns the TextAlign field if non-nil, zero value otherwise.
-func (f *FreeTextWidget) GetTextAlign() string {
-	if f == nil || f.TextAlign == nil {
-		return ""
-	}
-	return *f.TextAlign
-}
-
-// GetOkTextAlign returns a tuple with the TextAlign field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (f *FreeTextWidget) GetTextAlignOk() (string, bool) {
-	if f == nil || f.TextAlign == nil {
-		return "", false
-	}
-	return *f.TextAlign, true
-}
-
-// HasTextAlign returns a boolean if a field has been set.
-func (f *FreeTextWidget) HasTextAlign() bool {
-	if f != nil && f.TextAlign != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTextAlign allocates a new f.TextAlign and returns the pointer to it.
-func (f *FreeTextWidget) SetTextAlign(v string) {
-	f.TextAlign = &v
-}
-
-// GetType returns the Type field if non-nil, zero value otherwise.
-func (f *FreeTextWidget) GetType() string {
-	if f == nil || f.Type == nil {
-		return ""
-	}
-	return *f.Type
-}
-
-// GetOkType returns a tuple with the Type field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (f *FreeTextWidget) GetTypeOk() (string, bool) {
-	if f == nil || f.Type == nil {
-		return "", false
-	}
-	return *f.Type, true
-}
-
-// HasType returns a boolean if a field has been set.
-func (f *FreeTextWidget) HasType() bool {
-	if f != nil && f.Type != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetType allocates a new f.Type and returns the pointer to it.
-func (f *FreeTextWidget) SetType(v string) {
-	f.Type = &v
-}
-
-// GetWidth returns the Width field if non-nil, zero value otherwise.
-func (f *FreeTextWidget) GetWidth() int {
-	if f == nil || f.Width == nil {
-		return 0
-	}
-	return *f.Width
-}
-
-// GetOkWidth returns a tuple with the Width field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (f *FreeTextWidget) GetWidthOk() (int, bool) {
-	if f == nil || f.Width == nil {
-		return 0, false
-	}
-	return *f.Width, true
-}
-
-// HasWidth returns a boolean if a field has been set.
-func (f *FreeTextWidget) HasWidth() bool {
-	if f != nil && f.Width != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetWidth allocates a new f.Width and returns the pointer to it.
-func (f *FreeTextWidget) SetWidth(v int) {
-	f.Width = &v
-}
-
-// GetX returns the X field if non-nil, zero value otherwise.
-func (f *FreeTextWidget) GetX() int {
-	if f == nil || f.X == nil {
-		return 0
-	}
-	return *f.X
-}
-
-// GetOkX returns a tuple with the X field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (f *FreeTextWidget) GetXOk() (int, bool) {
-	if f == nil || f.X == nil {
-		return 0, false
-	}
-	return *f.X, true
-}
-
-// HasX returns a boolean if a field has been set.
-func (f *FreeTextWidget) HasX() bool {
-	if f != nil && f.X != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetX allocates a new f.X and returns the pointer to it.
-func (f *FreeTextWidget) SetX(v int) {
-	f.X = &v
-}
-
-// GetY returns the Y field if non-nil, zero value otherwise.
-func (f *FreeTextWidget) GetY() int {
-	if f == nil || f.Y == nil {
-		return 0
-	}
-	return *f.Y
-}
-
-// GetOkY returns a tuple with the Y field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (f *FreeTextWidget) GetYOk() (int, bool) {
-	if f == nil || f.Y == nil {
-		return 0, false
-	}
-	return *f.Y, true
-}
-
-// HasY returns a boolean if a field has been set.
-func (f *FreeTextWidget) HasY() bool {
-	if f != nil && f.Y != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetY allocates a new f.Y and returns the pointer to it.
-func (f *FreeTextWidget) SetY(v int) {
-	f.Y = &v
-}
-
 // GetDefinition returns the Definition field if non-nil, zero value otherwise.
 func (g *Graph) GetDefinition() GraphDefinition {
 	if g == nil || g.Definition == nil {
@@ -4919,7 +2687,7 @@ func (g *Graph) GetDefinition() GraphDefinition {
 	return *g.Definition
 }
 
-// GetOkDefinition returns a tuple with the Definition field if it's non-nil, zero value otherwise
+// GetDefinitionOk returns a tuple with the Definition field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (g *Graph) GetDefinitionOk() (GraphDefinition, bool) {
 	if g == nil || g.Definition == nil {
@@ -4950,7 +2718,7 @@ func (g *Graph) GetTitle() string {
 	return *g.Title
 }
 
-// GetOkTitle returns a tuple with the Title field if it's non-nil, zero value otherwise
+// GetTitleOk returns a tuple with the Title field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (g *Graph) GetTitleOk() (string, bool) {
 	if g == nil || g.Title == nil {
@@ -4981,7 +2749,7 @@ func (g *GraphDefinition) GetAutoscale() bool {
 	return *g.Autoscale
 }
 
-// GetOkAutoscale returns a tuple with the Autoscale field if it's non-nil, zero value otherwise
+// GetAutoscaleOk returns a tuple with the Autoscale field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (g *GraphDefinition) GetAutoscaleOk() (bool, bool) {
 	if g == nil || g.Autoscale == nil {
@@ -5012,7 +2780,7 @@ func (g *GraphDefinition) GetCustomUnit() string {
 	return *g.CustomUnit
 }
 
-// GetOkCustomUnit returns a tuple with the CustomUnit field if it's non-nil, zero value otherwise
+// GetCustomUnitOk returns a tuple with the CustomUnit field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (g *GraphDefinition) GetCustomUnitOk() (string, bool) {
 	if g == nil || g.CustomUnit == nil {
@@ -5043,7 +2811,7 @@ func (g *GraphDefinition) GetIncludeNoMetricHosts() bool {
 	return *g.IncludeNoMetricHosts
 }
 
-// GetOkIncludeNoMetricHosts returns a tuple with the IncludeNoMetricHosts field if it's non-nil, zero value otherwise
+// GetIncludeNoMetricHostsOk returns a tuple with the IncludeNoMetricHosts field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (g *GraphDefinition) GetIncludeNoMetricHostsOk() (bool, bool) {
 	if g == nil || g.IncludeNoMetricHosts == nil {
@@ -5074,7 +2842,7 @@ func (g *GraphDefinition) GetIncludeUngroupedHosts() bool {
 	return *g.IncludeUngroupedHosts
 }
 
-// GetOkIncludeUngroupedHosts returns a tuple with the IncludeUngroupedHosts field if it's non-nil, zero value otherwise
+// GetIncludeUngroupedHostsOk returns a tuple with the IncludeUngroupedHosts field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (g *GraphDefinition) GetIncludeUngroupedHostsOk() (bool, bool) {
 	if g == nil || g.IncludeUngroupedHosts == nil {
@@ -5097,17 +2865,48 @@ func (g *GraphDefinition) SetIncludeUngroupedHosts(v bool) {
 	g.IncludeUngroupedHosts = &v
 }
 
+// GetNodeType returns the NodeType field if non-nil, zero value otherwise.
+func (g *GraphDefinition) GetNodeType() string {
+	if g == nil || g.NodeType == nil {
+		return ""
+	}
+	return *g.NodeType
+}
+
+// GetNodeTypeOk returns a tuple with the NodeType field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (g *GraphDefinition) GetNodeTypeOk() (string, bool) {
+	if g == nil || g.NodeType == nil {
+		return "", false
+	}
+	return *g.NodeType, true
+}
+
+// HasNodeType returns a boolean if a field has been set.
+func (g *GraphDefinition) HasNodeType() bool {
+	if g != nil && g.NodeType != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetNodeType allocates a new g.NodeType and returns the pointer to it.
+func (g *GraphDefinition) SetNodeType(v string) {
+	g.NodeType = &v
+}
+
 // GetPrecision returns the Precision field if non-nil, zero value otherwise.
-func (g *GraphDefinition) GetPrecision() string {
+func (g *GraphDefinition) GetPrecision() json.Number {
 	if g == nil || g.Precision == nil {
 		return ""
 	}
 	return *g.Precision
 }
 
-// GetOkPrecision returns a tuple with the Precision field if it's non-nil, zero value otherwise
+// GetPrecisionOk returns a tuple with the Precision field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
-func (g *GraphDefinition) GetPrecisionOk() (string, bool) {
+func (g *GraphDefinition) GetPrecisionOk() (json.Number, bool) {
 	if g == nil || g.Precision == nil {
 		return "", false
 	}
@@ -5124,7 +2923,7 @@ func (g *GraphDefinition) HasPrecision() bool {
 }
 
 // SetPrecision allocates a new g.Precision and returns the pointer to it.
-func (g *GraphDefinition) SetPrecision(v string) {
+func (g *GraphDefinition) SetPrecision(v json.Number) {
 	g.Precision = &v
 }
 
@@ -5136,7 +2935,7 @@ func (g *GraphDefinition) GetStyle() Style {
 	return *g.Style
 }
 
-// GetOkStyle returns a tuple with the Style field if it's non-nil, zero value otherwise
+// GetStyleOk returns a tuple with the Style field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (g *GraphDefinition) GetStyleOk() (Style, bool) {
 	if g == nil || g.Style == nil {
@@ -5167,7 +2966,7 @@ func (g *GraphDefinition) GetTextAlign() string {
 	return *g.TextAlign
 }
 
-// GetOkTextAlign returns a tuple with the TextAlign field if it's non-nil, zero value otherwise
+// GetTextAlignOk returns a tuple with the TextAlign field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (g *GraphDefinition) GetTextAlignOk() (string, bool) {
 	if g == nil || g.TextAlign == nil {
@@ -5198,7 +2997,7 @@ func (g *GraphDefinition) GetViz() string {
 	return *g.Viz
 }
 
-// GetOkViz returns a tuple with the Viz field if it's non-nil, zero value otherwise
+// GetVizOk returns a tuple with the Viz field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (g *GraphDefinition) GetVizOk() (string, bool) {
 	if g == nil || g.Viz == nil {
@@ -5229,7 +3028,7 @@ func (g *GraphDefinitionMarker) GetLabel() string {
 	return *g.Label
 }
 
-// GetOkLabel returns a tuple with the Label field if it's non-nil, zero value otherwise
+// GetLabelOk returns a tuple with the Label field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (g *GraphDefinitionMarker) GetLabelOk() (string, bool) {
 	if g == nil || g.Label == nil {
@@ -5260,7 +3059,7 @@ func (g *GraphDefinitionMarker) GetMax() json.Number {
 	return *g.Max
 }
 
-// GetOkMax returns a tuple with the Max field if it's non-nil, zero value otherwise
+// GetMaxOk returns a tuple with the Max field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (g *GraphDefinitionMarker) GetMaxOk() (json.Number, bool) {
 	if g == nil || g.Max == nil {
@@ -5291,7 +3090,7 @@ func (g *GraphDefinitionMarker) GetMin() json.Number {
 	return *g.Min
 }
 
-// GetOkMin returns a tuple with the Min field if it's non-nil, zero value otherwise
+// GetMinOk returns a tuple with the Min field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (g *GraphDefinitionMarker) GetMinOk() (json.Number, bool) {
 	if g == nil || g.Min == nil {
@@ -5322,7 +3121,7 @@ func (g *GraphDefinitionMarker) GetType() string {
 	return *g.Type
 }
 
-// GetOkType returns a tuple with the Type field if it's non-nil, zero value otherwise
+// GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (g *GraphDefinitionMarker) GetTypeOk() (string, bool) {
 	if g == nil || g.Type == nil {
@@ -5353,7 +3152,7 @@ func (g *GraphDefinitionMarker) GetVal() json.Number {
 	return *g.Val
 }
 
-// GetOkVal returns a tuple with the Val field if it's non-nil, zero value otherwise
+// GetValOk returns a tuple with the Val field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (g *GraphDefinitionMarker) GetValOk() (json.Number, bool) {
 	if g == nil || g.Val == nil {
@@ -5384,7 +3183,7 @@ func (g *GraphDefinitionMarker) GetValue() string {
 	return *g.Value
 }
 
-// GetOkValue returns a tuple with the Value field if it's non-nil, zero value otherwise
+// GetValueOk returns a tuple with the Value field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (g *GraphDefinitionMarker) GetValueOk() (string, bool) {
 	if g == nil || g.Value == nil {
@@ -5415,7 +3214,7 @@ func (g *GraphDefinitionRequest) GetAggregator() string {
 	return *g.Aggregator
 }
 
-// GetOkAggregator returns a tuple with the Aggregator field if it's non-nil, zero value otherwise
+// GetAggregatorOk returns a tuple with the Aggregator field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (g *GraphDefinitionRequest) GetAggregatorOk() (string, bool) {
 	if g == nil || g.Aggregator == nil {
@@ -5446,7 +3245,7 @@ func (g *GraphDefinitionRequest) GetChangeType() string {
 	return *g.ChangeType
 }
 
-// GetOkChangeType returns a tuple with the ChangeType field if it's non-nil, zero value otherwise
+// GetChangeTypeOk returns a tuple with the ChangeType field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (g *GraphDefinitionRequest) GetChangeTypeOk() (string, bool) {
 	if g == nil || g.ChangeType == nil {
@@ -5477,7 +3276,7 @@ func (g *GraphDefinitionRequest) GetCompareTo() string {
 	return *g.CompareTo
 }
 
-// GetOkCompareTo returns a tuple with the CompareTo field if it's non-nil, zero value otherwise
+// GetCompareToOk returns a tuple with the CompareTo field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (g *GraphDefinitionRequest) GetCompareToOk() (string, bool) {
 	if g == nil || g.CompareTo == nil {
@@ -5508,7 +3307,7 @@ func (g *GraphDefinitionRequest) GetExtraCol() string {
 	return *g.ExtraCol
 }
 
-// GetOkExtraCol returns a tuple with the ExtraCol field if it's non-nil, zero value otherwise
+// GetExtraColOk returns a tuple with the ExtraCol field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (g *GraphDefinitionRequest) GetExtraColOk() (string, bool) {
 	if g == nil || g.ExtraCol == nil {
@@ -5539,7 +3338,7 @@ func (g *GraphDefinitionRequest) GetIncreaseGood() bool {
 	return *g.IncreaseGood
 }
 
-// GetOkIncreaseGood returns a tuple with the IncreaseGood field if it's non-nil, zero value otherwise
+// GetIncreaseGoodOk returns a tuple with the IncreaseGood field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (g *GraphDefinitionRequest) GetIncreaseGoodOk() (bool, bool) {
 	if g == nil || g.IncreaseGood == nil {
@@ -5570,7 +3369,7 @@ func (g *GraphDefinitionRequest) GetOrderBy() string {
 	return *g.OrderBy
 }
 
-// GetOkOrderBy returns a tuple with the OrderBy field if it's non-nil, zero value otherwise
+// GetOrderByOk returns a tuple with the OrderBy field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (g *GraphDefinitionRequest) GetOrderByOk() (string, bool) {
 	if g == nil || g.OrderBy == nil {
@@ -5601,7 +3400,7 @@ func (g *GraphDefinitionRequest) GetOrderDirection() string {
 	return *g.OrderDirection
 }
 
-// GetOkOrderDirection returns a tuple with the OrderDirection field if it's non-nil, zero value otherwise
+// GetOrderDirectionOk returns a tuple with the OrderDirection field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (g *GraphDefinitionRequest) GetOrderDirectionOk() (string, bool) {
 	if g == nil || g.OrderDirection == nil {
@@ -5632,7 +3431,7 @@ func (g *GraphDefinitionRequest) GetQuery() string {
 	return *g.Query
 }
 
-// GetOkQuery returns a tuple with the Query field if it's non-nil, zero value otherwise
+// GetQueryOk returns a tuple with the Query field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (g *GraphDefinitionRequest) GetQueryOk() (string, bool) {
 	if g == nil || g.Query == nil {
@@ -5663,7 +3462,7 @@ func (g *GraphDefinitionRequest) GetStacked() bool {
 	return *g.Stacked
 }
 
-// GetOkStacked returns a tuple with the Stacked field if it's non-nil, zero value otherwise
+// GetStackedOk returns a tuple with the Stacked field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (g *GraphDefinitionRequest) GetStackedOk() (bool, bool) {
 	if g == nil || g.Stacked == nil {
@@ -5694,7 +3493,7 @@ func (g *GraphDefinitionRequest) GetStyle() GraphDefinitionRequestStyle {
 	return *g.Style
 }
 
-// GetOkStyle returns a tuple with the Style field if it's non-nil, zero value otherwise
+// GetStyleOk returns a tuple with the Style field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (g *GraphDefinitionRequest) GetStyleOk() (GraphDefinitionRequestStyle, bool) {
 	if g == nil || g.Style == nil {
@@ -5725,7 +3524,7 @@ func (g *GraphDefinitionRequest) GetType() string {
 	return *g.Type
 }
 
-// GetOkType returns a tuple with the Type field if it's non-nil, zero value otherwise
+// GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (g *GraphDefinitionRequest) GetTypeOk() (string, bool) {
 	if g == nil || g.Type == nil {
@@ -5756,7 +3555,7 @@ func (g *GraphDefinitionRequestStyle) GetPalette() string {
 	return *g.Palette
 }
 
-// GetOkPalette returns a tuple with the Palette field if it's non-nil, zero value otherwise
+// GetPaletteOk returns a tuple with the Palette field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (g *GraphDefinitionRequestStyle) GetPaletteOk() (string, bool) {
 	if g == nil || g.Palette == nil {
@@ -5787,7 +3586,7 @@ func (g *GraphDefinitionRequestStyle) GetType() string {
 	return *g.Type
 }
 
-// GetOkType returns a tuple with the Type field if it's non-nil, zero value otherwise
+// GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (g *GraphDefinitionRequestStyle) GetTypeOk() (string, bool) {
 	if g == nil || g.Type == nil {
@@ -5818,7 +3617,7 @@ func (g *GraphDefinitionRequestStyle) GetWidth() string {
 	return *g.Width
 }
 
-// GetOkWidth returns a tuple with the Width field if it's non-nil, zero value otherwise
+// GetWidthOk returns a tuple with the Width field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (g *GraphDefinitionRequestStyle) GetWidthOk() (string, bool) {
 	if g == nil || g.Width == nil {
@@ -5849,7 +3648,7 @@ func (g *GraphEvent) GetQuery() string {
 	return *g.Query
 }
 
-// GetOkQuery returns a tuple with the Query field if it's non-nil, zero value otherwise
+// GetQueryOk returns a tuple with the Query field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (g *GraphEvent) GetQueryOk() (string, bool) {
 	if g == nil || g.Query == nil {
@@ -5872,407 +3671,221 @@ func (g *GraphEvent) SetQuery(v string) {
 	g.Query = &v
 }
 
-// GetHeight returns the Height field if non-nil, zero value otherwise.
-func (g *GraphWidget) GetHeight() int {
-	if g == nil || g.Height == nil {
+// GetLastNoDataTs returns the LastNoDataTs field if non-nil, zero value otherwise.
+func (g *GroupData) GetLastNoDataTs() int {
+	if g == nil || g.LastNoDataTs == nil {
 		return 0
 	}
-	return *g.Height
+	return *g.LastNoDataTs
 }
 
-// GetOkHeight returns a tuple with the Height field if it's non-nil, zero value otherwise
+// GetLastNoDataTsOk returns a tuple with the LastNoDataTs field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
-func (g *GraphWidget) GetHeightOk() (int, bool) {
-	if g == nil || g.Height == nil {
+func (g *GroupData) GetLastNoDataTsOk() (int, bool) {
+	if g == nil || g.LastNoDataTs == nil {
 		return 0, false
 	}
-	return *g.Height, true
+	return *g.LastNoDataTs, true
 }
 
-// HasHeight returns a boolean if a field has been set.
-func (g *GraphWidget) HasHeight() bool {
-	if g != nil && g.Height != nil {
+// HasLastNoDataTs returns a boolean if a field has been set.
+func (g *GroupData) HasLastNoDataTs() bool {
+	if g != nil && g.LastNoDataTs != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetHeight allocates a new g.Height and returns the pointer to it.
-func (g *GraphWidget) SetHeight(v int) {
-	g.Height = &v
+// SetLastNoDataTs allocates a new g.LastNoDataTs and returns the pointer to it.
+func (g *GroupData) SetLastNoDataTs(v int) {
+	g.LastNoDataTs = &v
 }
 
-// GetLegend returns the Legend field if non-nil, zero value otherwise.
-func (g *GraphWidget) GetLegend() bool {
-	if g == nil || g.Legend == nil {
-		return false
-	}
-	return *g.Legend
-}
-
-// GetOkLegend returns a tuple with the Legend field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (g *GraphWidget) GetLegendOk() (bool, bool) {
-	if g == nil || g.Legend == nil {
-		return false, false
-	}
-	return *g.Legend, true
-}
-
-// HasLegend returns a boolean if a field has been set.
-func (g *GraphWidget) HasLegend() bool {
-	if g != nil && g.Legend != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetLegend allocates a new g.Legend and returns the pointer to it.
-func (g *GraphWidget) SetLegend(v bool) {
-	g.Legend = &v
-}
-
-// GetLegendSize returns the LegendSize field if non-nil, zero value otherwise.
-func (g *GraphWidget) GetLegendSize() int {
-	if g == nil || g.LegendSize == nil {
+// GetLastNotifiedTs returns the LastNotifiedTs field if non-nil, zero value otherwise.
+func (g *GroupData) GetLastNotifiedTs() int {
+	if g == nil || g.LastNotifiedTs == nil {
 		return 0
 	}
-	return *g.LegendSize
+	return *g.LastNotifiedTs
 }
 
-// GetOkLegendSize returns a tuple with the LegendSize field if it's non-nil, zero value otherwise
+// GetLastNotifiedTsOk returns a tuple with the LastNotifiedTs field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
-func (g *GraphWidget) GetLegendSizeOk() (int, bool) {
-	if g == nil || g.LegendSize == nil {
+func (g *GroupData) GetLastNotifiedTsOk() (int, bool) {
+	if g == nil || g.LastNotifiedTs == nil {
 		return 0, false
 	}
-	return *g.LegendSize, true
+	return *g.LastNotifiedTs, true
 }
 
-// HasLegendSize returns a boolean if a field has been set.
-func (g *GraphWidget) HasLegendSize() bool {
-	if g != nil && g.LegendSize != nil {
+// HasLastNotifiedTs returns a boolean if a field has been set.
+func (g *GroupData) HasLastNotifiedTs() bool {
+	if g != nil && g.LastNotifiedTs != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetLegendSize allocates a new g.LegendSize and returns the pointer to it.
-func (g *GraphWidget) SetLegendSize(v int) {
-	g.LegendSize = &v
+// SetLastNotifiedTs allocates a new g.LastNotifiedTs and returns the pointer to it.
+func (g *GroupData) SetLastNotifiedTs(v int) {
+	g.LastNotifiedTs = &v
 }
 
-// GetTileDef returns the TileDef field if non-nil, zero value otherwise.
-func (g *GraphWidget) GetTileDef() TileDef {
-	if g == nil || g.TileDef == nil {
-		return TileDef{}
+// GetLastResolvedTs returns the LastResolvedTs field if non-nil, zero value otherwise.
+func (g *GroupData) GetLastResolvedTs() int {
+	if g == nil || g.LastResolvedTs == nil {
+		return 0
 	}
-	return *g.TileDef
+	return *g.LastResolvedTs
 }
 
-// GetOkTileDef returns a tuple with the TileDef field if it's non-nil, zero value otherwise
+// GetLastResolvedTsOk returns a tuple with the LastResolvedTs field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
-func (g *GraphWidget) GetTileDefOk() (TileDef, bool) {
-	if g == nil || g.TileDef == nil {
-		return TileDef{}, false
+func (g *GroupData) GetLastResolvedTsOk() (int, bool) {
+	if g == nil || g.LastResolvedTs == nil {
+		return 0, false
 	}
-	return *g.TileDef, true
+	return *g.LastResolvedTs, true
 }
 
-// HasTileDef returns a boolean if a field has been set.
-func (g *GraphWidget) HasTileDef() bool {
-	if g != nil && g.TileDef != nil {
+// HasLastResolvedTs returns a boolean if a field has been set.
+func (g *GroupData) HasLastResolvedTs() bool {
+	if g != nil && g.LastResolvedTs != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetTileDef allocates a new g.TileDef and returns the pointer to it.
-func (g *GraphWidget) SetTileDef(v TileDef) {
-	g.TileDef = &v
+// SetLastResolvedTs allocates a new g.LastResolvedTs and returns the pointer to it.
+func (g *GroupData) SetLastResolvedTs(v int) {
+	g.LastResolvedTs = &v
 }
 
-// GetTimeframe returns the Timeframe field if non-nil, zero value otherwise.
-func (g *GraphWidget) GetTimeframe() string {
-	if g == nil || g.Timeframe == nil {
+// GetLastTriggeredTs returns the LastTriggeredTs field if non-nil, zero value otherwise.
+func (g *GroupData) GetLastTriggeredTs() int {
+	if g == nil || g.LastTriggeredTs == nil {
+		return 0
+	}
+	return *g.LastTriggeredTs
+}
+
+// GetLastTriggeredTsOk returns a tuple with the LastTriggeredTs field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (g *GroupData) GetLastTriggeredTsOk() (int, bool) {
+	if g == nil || g.LastTriggeredTs == nil {
+		return 0, false
+	}
+	return *g.LastTriggeredTs, true
+}
+
+// HasLastTriggeredTs returns a boolean if a field has been set.
+func (g *GroupData) HasLastTriggeredTs() bool {
+	if g != nil && g.LastTriggeredTs != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetLastTriggeredTs allocates a new g.LastTriggeredTs and returns the pointer to it.
+func (g *GroupData) SetLastTriggeredTs(v int) {
+	g.LastTriggeredTs = &v
+}
+
+// GetName returns the Name field if non-nil, zero value otherwise.
+func (g *GroupData) GetName() string {
+	if g == nil || g.Name == nil {
 		return ""
 	}
-	return *g.Timeframe
+	return *g.Name
 }
 
-// GetOkTimeframe returns a tuple with the Timeframe field if it's non-nil, zero value otherwise
+// GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
-func (g *GraphWidget) GetTimeframeOk() (string, bool) {
-	if g == nil || g.Timeframe == nil {
+func (g *GroupData) GetNameOk() (string, bool) {
+	if g == nil || g.Name == nil {
 		return "", false
 	}
-	return *g.Timeframe, true
+	return *g.Name, true
 }
 
-// HasTimeframe returns a boolean if a field has been set.
-func (g *GraphWidget) HasTimeframe() bool {
-	if g != nil && g.Timeframe != nil {
+// HasName returns a boolean if a field has been set.
+func (g *GroupData) HasName() bool {
+	if g != nil && g.Name != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetTimeframe allocates a new g.Timeframe and returns the pointer to it.
-func (g *GraphWidget) SetTimeframe(v string) {
-	g.Timeframe = &v
+// SetName allocates a new g.Name and returns the pointer to it.
+func (g *GroupData) SetName(v string) {
+	g.Name = &v
 }
 
-// GetTitle returns the Title field if non-nil, zero value otherwise.
-func (g *GraphWidget) GetTitle() bool {
-	if g == nil || g.Title == nil {
-		return false
-	}
-	return *g.Title
-}
-
-// GetOkTitle returns a tuple with the Title field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (g *GraphWidget) GetTitleOk() (bool, bool) {
-	if g == nil || g.Title == nil {
-		return false, false
-	}
-	return *g.Title, true
-}
-
-// HasTitle returns a boolean if a field has been set.
-func (g *GraphWidget) HasTitle() bool {
-	if g != nil && g.Title != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTitle allocates a new g.Title and returns the pointer to it.
-func (g *GraphWidget) SetTitle(v bool) {
-	g.Title = &v
-}
-
-// GetTitleAlign returns the TitleAlign field if non-nil, zero value otherwise.
-func (g *GraphWidget) GetTitleAlign() string {
-	if g == nil || g.TitleAlign == nil {
+// GetStatus returns the Status field if non-nil, zero value otherwise.
+func (g *GroupData) GetStatus() string {
+	if g == nil || g.Status == nil {
 		return ""
 	}
-	return *g.TitleAlign
+	return *g.Status
 }
 
-// GetOkTitleAlign returns a tuple with the TitleAlign field if it's non-nil, zero value otherwise
+// GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
-func (g *GraphWidget) GetTitleAlignOk() (string, bool) {
-	if g == nil || g.TitleAlign == nil {
+func (g *GroupData) GetStatusOk() (string, bool) {
+	if g == nil || g.Status == nil {
 		return "", false
 	}
-	return *g.TitleAlign, true
+	return *g.Status, true
 }
 
-// HasTitleAlign returns a boolean if a field has been set.
-func (g *GraphWidget) HasTitleAlign() bool {
-	if g != nil && g.TitleAlign != nil {
+// HasStatus returns a boolean if a field has been set.
+func (g *GroupData) HasStatus() bool {
+	if g != nil && g.Status != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetTitleAlign allocates a new g.TitleAlign and returns the pointer to it.
-func (g *GraphWidget) SetTitleAlign(v string) {
-	g.TitleAlign = &v
+// SetStatus allocates a new g.Status and returns the pointer to it.
+func (g *GroupData) SetStatus(v string) {
+	g.Status = &v
 }
 
-// GetTitleSize returns the TitleSize field if non-nil, zero value otherwise.
-func (g *GraphWidget) GetTitleSize() int {
-	if g == nil || g.TitleSize == nil {
-		return 0
+// GetTriggeringValue returns the TriggeringValue field if non-nil, zero value otherwise.
+func (g *GroupData) GetTriggeringValue() TriggeringValue {
+	if g == nil || g.TriggeringValue == nil {
+		return TriggeringValue{}
 	}
-	return *g.TitleSize
+	return *g.TriggeringValue
 }
 
-// GetOkTitleSize returns a tuple with the TitleSize field if it's non-nil, zero value otherwise
+// GetTriggeringValueOk returns a tuple with the TriggeringValue field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
-func (g *GraphWidget) GetTitleSizeOk() (int, bool) {
-	if g == nil || g.TitleSize == nil {
-		return 0, false
+func (g *GroupData) GetTriggeringValueOk() (TriggeringValue, bool) {
+	if g == nil || g.TriggeringValue == nil {
+		return TriggeringValue{}, false
 	}
-	return *g.TitleSize, true
+	return *g.TriggeringValue, true
 }
 
-// HasTitleSize returns a boolean if a field has been set.
-func (g *GraphWidget) HasTitleSize() bool {
-	if g != nil && g.TitleSize != nil {
+// HasTriggeringValue returns a boolean if a field has been set.
+func (g *GroupData) HasTriggeringValue() bool {
+	if g != nil && g.TriggeringValue != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetTitleSize allocates a new g.TitleSize and returns the pointer to it.
-func (g *GraphWidget) SetTitleSize(v int) {
-	g.TitleSize = &v
-}
-
-// GetTitleText returns the TitleText field if non-nil, zero value otherwise.
-func (g *GraphWidget) GetTitleText() string {
-	if g == nil || g.TitleText == nil {
-		return ""
-	}
-	return *g.TitleText
-}
-
-// GetOkTitleText returns a tuple with the TitleText field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (g *GraphWidget) GetTitleTextOk() (string, bool) {
-	if g == nil || g.TitleText == nil {
-		return "", false
-	}
-	return *g.TitleText, true
-}
-
-// HasTitleText returns a boolean if a field has been set.
-func (g *GraphWidget) HasTitleText() bool {
-	if g != nil && g.TitleText != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTitleText allocates a new g.TitleText and returns the pointer to it.
-func (g *GraphWidget) SetTitleText(v string) {
-	g.TitleText = &v
-}
-
-// GetType returns the Type field if non-nil, zero value otherwise.
-func (g *GraphWidget) GetType() string {
-	if g == nil || g.Type == nil {
-		return ""
-	}
-	return *g.Type
-}
-
-// GetOkType returns a tuple with the Type field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (g *GraphWidget) GetTypeOk() (string, bool) {
-	if g == nil || g.Type == nil {
-		return "", false
-	}
-	return *g.Type, true
-}
-
-// HasType returns a boolean if a field has been set.
-func (g *GraphWidget) HasType() bool {
-	if g != nil && g.Type != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetType allocates a new g.Type and returns the pointer to it.
-func (g *GraphWidget) SetType(v string) {
-	g.Type = &v
-}
-
-// GetWidth returns the Width field if non-nil, zero value otherwise.
-func (g *GraphWidget) GetWidth() int {
-	if g == nil || g.Width == nil {
-		return 0
-	}
-	return *g.Width
-}
-
-// GetOkWidth returns a tuple with the Width field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (g *GraphWidget) GetWidthOk() (int, bool) {
-	if g == nil || g.Width == nil {
-		return 0, false
-	}
-	return *g.Width, true
-}
-
-// HasWidth returns a boolean if a field has been set.
-func (g *GraphWidget) HasWidth() bool {
-	if g != nil && g.Width != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetWidth allocates a new g.Width and returns the pointer to it.
-func (g *GraphWidget) SetWidth(v int) {
-	g.Width = &v
-}
-
-// GetX returns the X field if non-nil, zero value otherwise.
-func (g *GraphWidget) GetX() int {
-	if g == nil || g.X == nil {
-		return 0
-	}
-	return *g.X
-}
-
-// GetOkX returns a tuple with the X field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (g *GraphWidget) GetXOk() (int, bool) {
-	if g == nil || g.X == nil {
-		return 0, false
-	}
-	return *g.X, true
-}
-
-// HasX returns a boolean if a field has been set.
-func (g *GraphWidget) HasX() bool {
-	if g != nil && g.X != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetX allocates a new g.X and returns the pointer to it.
-func (g *GraphWidget) SetX(v int) {
-	g.X = &v
-}
-
-// GetY returns the Y field if non-nil, zero value otherwise.
-func (g *GraphWidget) GetY() int {
-	if g == nil || g.Y == nil {
-		return 0
-	}
-	return *g.Y
-}
-
-// GetOkY returns a tuple with the Y field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (g *GraphWidget) GetYOk() (int, bool) {
-	if g == nil || g.Y == nil {
-		return 0, false
-	}
-	return *g.Y, true
-}
-
-// HasY returns a boolean if a field has been set.
-func (g *GraphWidget) HasY() bool {
-	if g != nil && g.Y != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetY allocates a new g.Y and returns the pointer to it.
-func (g *GraphWidget) SetY(v int) {
-	g.Y = &v
+// SetTriggeringValue allocates a new g.TriggeringValue and returns the pointer to it.
+func (g *GroupData) SetTriggeringValue(v TriggeringValue) {
+	g.TriggeringValue = &v
 }
 
 // GetEndTime returns the EndTime field if non-nil, zero value otherwise.
@@ -6283,7 +3896,7 @@ func (h *HostActionMute) GetEndTime() string {
 	return *h.EndTime
 }
 
-// GetOkEndTime returns a tuple with the EndTime field if it's non-nil, zero value otherwise
+// GetEndTimeOk returns a tuple with the EndTime field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (h *HostActionMute) GetEndTimeOk() (string, bool) {
 	if h == nil || h.EndTime == nil {
@@ -6314,7 +3927,7 @@ func (h *HostActionMute) GetMessage() string {
 	return *h.Message
 }
 
-// GetOkMessage returns a tuple with the Message field if it's non-nil, zero value otherwise
+// GetMessageOk returns a tuple with the Message field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (h *HostActionMute) GetMessageOk() (string, bool) {
 	if h == nil || h.Message == nil {
@@ -6345,7 +3958,7 @@ func (h *HostActionMute) GetOverride() bool {
 	return *h.Override
 }
 
-// GetOkOverride returns a tuple with the Override field if it's non-nil, zero value otherwise
+// GetOverrideOk returns a tuple with the Override field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (h *HostActionMute) GetOverrideOk() (bool, bool) {
 	if h == nil || h.Override == nil {
@@ -6368,1091 +3981,6 @@ func (h *HostActionMute) SetOverride(v bool) {
 	h.Override = &v
 }
 
-// GetHeight returns the Height field if non-nil, zero value otherwise.
-func (h *HostMapWidget) GetHeight() int {
-	if h == nil || h.Height == nil {
-		return 0
-	}
-	return *h.Height
-}
-
-// GetOkHeight returns a tuple with the Height field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (h *HostMapWidget) GetHeightOk() (int, bool) {
-	if h == nil || h.Height == nil {
-		return 0, false
-	}
-	return *h.Height, true
-}
-
-// HasHeight returns a boolean if a field has been set.
-func (h *HostMapWidget) HasHeight() bool {
-	if h != nil && h.Height != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetHeight allocates a new h.Height and returns the pointer to it.
-func (h *HostMapWidget) SetHeight(v int) {
-	h.Height = &v
-}
-
-// GetLegend returns the Legend field if non-nil, zero value otherwise.
-func (h *HostMapWidget) GetLegend() bool {
-	if h == nil || h.Legend == nil {
-		return false
-	}
-	return *h.Legend
-}
-
-// GetOkLegend returns a tuple with the Legend field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (h *HostMapWidget) GetLegendOk() (bool, bool) {
-	if h == nil || h.Legend == nil {
-		return false, false
-	}
-	return *h.Legend, true
-}
-
-// HasLegend returns a boolean if a field has been set.
-func (h *HostMapWidget) HasLegend() bool {
-	if h != nil && h.Legend != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetLegend allocates a new h.Legend and returns the pointer to it.
-func (h *HostMapWidget) SetLegend(v bool) {
-	h.Legend = &v
-}
-
-// GetLegendSize returns the LegendSize field if non-nil, zero value otherwise.
-func (h *HostMapWidget) GetLegendSize() int {
-	if h == nil || h.LegendSize == nil {
-		return 0
-	}
-	return *h.LegendSize
-}
-
-// GetOkLegendSize returns a tuple with the LegendSize field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (h *HostMapWidget) GetLegendSizeOk() (int, bool) {
-	if h == nil || h.LegendSize == nil {
-		return 0, false
-	}
-	return *h.LegendSize, true
-}
-
-// HasLegendSize returns a boolean if a field has been set.
-func (h *HostMapWidget) HasLegendSize() bool {
-	if h != nil && h.LegendSize != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetLegendSize allocates a new h.LegendSize and returns the pointer to it.
-func (h *HostMapWidget) SetLegendSize(v int) {
-	h.LegendSize = &v
-}
-
-// GetQuery returns the Query field if non-nil, zero value otherwise.
-func (h *HostMapWidget) GetQuery() string {
-	if h == nil || h.Query == nil {
-		return ""
-	}
-	return *h.Query
-}
-
-// GetOkQuery returns a tuple with the Query field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (h *HostMapWidget) GetQueryOk() (string, bool) {
-	if h == nil || h.Query == nil {
-		return "", false
-	}
-	return *h.Query, true
-}
-
-// HasQuery returns a boolean if a field has been set.
-func (h *HostMapWidget) HasQuery() bool {
-	if h != nil && h.Query != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetQuery allocates a new h.Query and returns the pointer to it.
-func (h *HostMapWidget) SetQuery(v string) {
-	h.Query = &v
-}
-
-// GetTileDef returns the TileDef field if non-nil, zero value otherwise.
-func (h *HostMapWidget) GetTileDef() TileDef {
-	if h == nil || h.TileDef == nil {
-		return TileDef{}
-	}
-	return *h.TileDef
-}
-
-// GetOkTileDef returns a tuple with the TileDef field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (h *HostMapWidget) GetTileDefOk() (TileDef, bool) {
-	if h == nil || h.TileDef == nil {
-		return TileDef{}, false
-	}
-	return *h.TileDef, true
-}
-
-// HasTileDef returns a boolean if a field has been set.
-func (h *HostMapWidget) HasTileDef() bool {
-	if h != nil && h.TileDef != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTileDef allocates a new h.TileDef and returns the pointer to it.
-func (h *HostMapWidget) SetTileDef(v TileDef) {
-	h.TileDef = &v
-}
-
-// GetTimeframe returns the Timeframe field if non-nil, zero value otherwise.
-func (h *HostMapWidget) GetTimeframe() string {
-	if h == nil || h.Timeframe == nil {
-		return ""
-	}
-	return *h.Timeframe
-}
-
-// GetOkTimeframe returns a tuple with the Timeframe field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (h *HostMapWidget) GetTimeframeOk() (string, bool) {
-	if h == nil || h.Timeframe == nil {
-		return "", false
-	}
-	return *h.Timeframe, true
-}
-
-// HasTimeframe returns a boolean if a field has been set.
-func (h *HostMapWidget) HasTimeframe() bool {
-	if h != nil && h.Timeframe != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTimeframe allocates a new h.Timeframe and returns the pointer to it.
-func (h *HostMapWidget) SetTimeframe(v string) {
-	h.Timeframe = &v
-}
-
-// GetTitle returns the Title field if non-nil, zero value otherwise.
-func (h *HostMapWidget) GetTitle() bool {
-	if h == nil || h.Title == nil {
-		return false
-	}
-	return *h.Title
-}
-
-// GetOkTitle returns a tuple with the Title field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (h *HostMapWidget) GetTitleOk() (bool, bool) {
-	if h == nil || h.Title == nil {
-		return false, false
-	}
-	return *h.Title, true
-}
-
-// HasTitle returns a boolean if a field has been set.
-func (h *HostMapWidget) HasTitle() bool {
-	if h != nil && h.Title != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTitle allocates a new h.Title and returns the pointer to it.
-func (h *HostMapWidget) SetTitle(v bool) {
-	h.Title = &v
-}
-
-// GetTitleAlign returns the TitleAlign field if non-nil, zero value otherwise.
-func (h *HostMapWidget) GetTitleAlign() string {
-	if h == nil || h.TitleAlign == nil {
-		return ""
-	}
-	return *h.TitleAlign
-}
-
-// GetOkTitleAlign returns a tuple with the TitleAlign field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (h *HostMapWidget) GetTitleAlignOk() (string, bool) {
-	if h == nil || h.TitleAlign == nil {
-		return "", false
-	}
-	return *h.TitleAlign, true
-}
-
-// HasTitleAlign returns a boolean if a field has been set.
-func (h *HostMapWidget) HasTitleAlign() bool {
-	if h != nil && h.TitleAlign != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTitleAlign allocates a new h.TitleAlign and returns the pointer to it.
-func (h *HostMapWidget) SetTitleAlign(v string) {
-	h.TitleAlign = &v
-}
-
-// GetTitleSize returns the TitleSize field if non-nil, zero value otherwise.
-func (h *HostMapWidget) GetTitleSize() int {
-	if h == nil || h.TitleSize == nil {
-		return 0
-	}
-	return *h.TitleSize
-}
-
-// GetOkTitleSize returns a tuple with the TitleSize field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (h *HostMapWidget) GetTitleSizeOk() (int, bool) {
-	if h == nil || h.TitleSize == nil {
-		return 0, false
-	}
-	return *h.TitleSize, true
-}
-
-// HasTitleSize returns a boolean if a field has been set.
-func (h *HostMapWidget) HasTitleSize() bool {
-	if h != nil && h.TitleSize != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTitleSize allocates a new h.TitleSize and returns the pointer to it.
-func (h *HostMapWidget) SetTitleSize(v int) {
-	h.TitleSize = &v
-}
-
-// GetTitleText returns the TitleText field if non-nil, zero value otherwise.
-func (h *HostMapWidget) GetTitleText() string {
-	if h == nil || h.TitleText == nil {
-		return ""
-	}
-	return *h.TitleText
-}
-
-// GetOkTitleText returns a tuple with the TitleText field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (h *HostMapWidget) GetTitleTextOk() (string, bool) {
-	if h == nil || h.TitleText == nil {
-		return "", false
-	}
-	return *h.TitleText, true
-}
-
-// HasTitleText returns a boolean if a field has been set.
-func (h *HostMapWidget) HasTitleText() bool {
-	if h != nil && h.TitleText != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTitleText allocates a new h.TitleText and returns the pointer to it.
-func (h *HostMapWidget) SetTitleText(v string) {
-	h.TitleText = &v
-}
-
-// GetType returns the Type field if non-nil, zero value otherwise.
-func (h *HostMapWidget) GetType() string {
-	if h == nil || h.Type == nil {
-		return ""
-	}
-	return *h.Type
-}
-
-// GetOkType returns a tuple with the Type field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (h *HostMapWidget) GetTypeOk() (string, bool) {
-	if h == nil || h.Type == nil {
-		return "", false
-	}
-	return *h.Type, true
-}
-
-// HasType returns a boolean if a field has been set.
-func (h *HostMapWidget) HasType() bool {
-	if h != nil && h.Type != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetType allocates a new h.Type and returns the pointer to it.
-func (h *HostMapWidget) SetType(v string) {
-	h.Type = &v
-}
-
-// GetWidth returns the Width field if non-nil, zero value otherwise.
-func (h *HostMapWidget) GetWidth() int {
-	if h == nil || h.Width == nil {
-		return 0
-	}
-	return *h.Width
-}
-
-// GetOkWidth returns a tuple with the Width field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (h *HostMapWidget) GetWidthOk() (int, bool) {
-	if h == nil || h.Width == nil {
-		return 0, false
-	}
-	return *h.Width, true
-}
-
-// HasWidth returns a boolean if a field has been set.
-func (h *HostMapWidget) HasWidth() bool {
-	if h != nil && h.Width != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetWidth allocates a new h.Width and returns the pointer to it.
-func (h *HostMapWidget) SetWidth(v int) {
-	h.Width = &v
-}
-
-// GetX returns the X field if non-nil, zero value otherwise.
-func (h *HostMapWidget) GetX() int {
-	if h == nil || h.X == nil {
-		return 0
-	}
-	return *h.X
-}
-
-// GetOkX returns a tuple with the X field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (h *HostMapWidget) GetXOk() (int, bool) {
-	if h == nil || h.X == nil {
-		return 0, false
-	}
-	return *h.X, true
-}
-
-// HasX returns a boolean if a field has been set.
-func (h *HostMapWidget) HasX() bool {
-	if h != nil && h.X != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetX allocates a new h.X and returns the pointer to it.
-func (h *HostMapWidget) SetX(v int) {
-	h.X = &v
-}
-
-// GetY returns the Y field if non-nil, zero value otherwise.
-func (h *HostMapWidget) GetY() int {
-	if h == nil || h.Y == nil {
-		return 0
-	}
-	return *h.Y
-}
-
-// GetOkY returns a tuple with the Y field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (h *HostMapWidget) GetYOk() (int, bool) {
-	if h == nil || h.Y == nil {
-		return 0, false
-	}
-	return *h.Y, true
-}
-
-// HasY returns a boolean if a field has been set.
-func (h *HostMapWidget) HasY() bool {
-	if h != nil && h.Y != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetY allocates a new h.Y and returns the pointer to it.
-func (h *HostMapWidget) SetY(v int) {
-	h.Y = &v
-}
-
-// GetHeight returns the Height field if non-nil, zero value otherwise.
-func (i *IFrameWidget) GetHeight() int {
-	if i == nil || i.Height == nil {
-		return 0
-	}
-	return *i.Height
-}
-
-// GetOkHeight returns a tuple with the Height field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (i *IFrameWidget) GetHeightOk() (int, bool) {
-	if i == nil || i.Height == nil {
-		return 0, false
-	}
-	return *i.Height, true
-}
-
-// HasHeight returns a boolean if a field has been set.
-func (i *IFrameWidget) HasHeight() bool {
-	if i != nil && i.Height != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetHeight allocates a new i.Height and returns the pointer to it.
-func (i *IFrameWidget) SetHeight(v int) {
-	i.Height = &v
-}
-
-// GetTitle returns the Title field if non-nil, zero value otherwise.
-func (i *IFrameWidget) GetTitle() bool {
-	if i == nil || i.Title == nil {
-		return false
-	}
-	return *i.Title
-}
-
-// GetOkTitle returns a tuple with the Title field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (i *IFrameWidget) GetTitleOk() (bool, bool) {
-	if i == nil || i.Title == nil {
-		return false, false
-	}
-	return *i.Title, true
-}
-
-// HasTitle returns a boolean if a field has been set.
-func (i *IFrameWidget) HasTitle() bool {
-	if i != nil && i.Title != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTitle allocates a new i.Title and returns the pointer to it.
-func (i *IFrameWidget) SetTitle(v bool) {
-	i.Title = &v
-}
-
-// GetTitleAlign returns the TitleAlign field if non-nil, zero value otherwise.
-func (i *IFrameWidget) GetTitleAlign() string {
-	if i == nil || i.TitleAlign == nil {
-		return ""
-	}
-	return *i.TitleAlign
-}
-
-// GetOkTitleAlign returns a tuple with the TitleAlign field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (i *IFrameWidget) GetTitleAlignOk() (string, bool) {
-	if i == nil || i.TitleAlign == nil {
-		return "", false
-	}
-	return *i.TitleAlign, true
-}
-
-// HasTitleAlign returns a boolean if a field has been set.
-func (i *IFrameWidget) HasTitleAlign() bool {
-	if i != nil && i.TitleAlign != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTitleAlign allocates a new i.TitleAlign and returns the pointer to it.
-func (i *IFrameWidget) SetTitleAlign(v string) {
-	i.TitleAlign = &v
-}
-
-// GetTitleSize returns the TitleSize field if non-nil, zero value otherwise.
-func (i *IFrameWidget) GetTitleSize() int {
-	if i == nil || i.TitleSize == nil {
-		return 0
-	}
-	return *i.TitleSize
-}
-
-// GetOkTitleSize returns a tuple with the TitleSize field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (i *IFrameWidget) GetTitleSizeOk() (int, bool) {
-	if i == nil || i.TitleSize == nil {
-		return 0, false
-	}
-	return *i.TitleSize, true
-}
-
-// HasTitleSize returns a boolean if a field has been set.
-func (i *IFrameWidget) HasTitleSize() bool {
-	if i != nil && i.TitleSize != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTitleSize allocates a new i.TitleSize and returns the pointer to it.
-func (i *IFrameWidget) SetTitleSize(v int) {
-	i.TitleSize = &v
-}
-
-// GetTitleText returns the TitleText field if non-nil, zero value otherwise.
-func (i *IFrameWidget) GetTitleText() string {
-	if i == nil || i.TitleText == nil {
-		return ""
-	}
-	return *i.TitleText
-}
-
-// GetOkTitleText returns a tuple with the TitleText field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (i *IFrameWidget) GetTitleTextOk() (string, bool) {
-	if i == nil || i.TitleText == nil {
-		return "", false
-	}
-	return *i.TitleText, true
-}
-
-// HasTitleText returns a boolean if a field has been set.
-func (i *IFrameWidget) HasTitleText() bool {
-	if i != nil && i.TitleText != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTitleText allocates a new i.TitleText and returns the pointer to it.
-func (i *IFrameWidget) SetTitleText(v string) {
-	i.TitleText = &v
-}
-
-// GetType returns the Type field if non-nil, zero value otherwise.
-func (i *IFrameWidget) GetType() string {
-	if i == nil || i.Type == nil {
-		return ""
-	}
-	return *i.Type
-}
-
-// GetOkType returns a tuple with the Type field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (i *IFrameWidget) GetTypeOk() (string, bool) {
-	if i == nil || i.Type == nil {
-		return "", false
-	}
-	return *i.Type, true
-}
-
-// HasType returns a boolean if a field has been set.
-func (i *IFrameWidget) HasType() bool {
-	if i != nil && i.Type != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetType allocates a new i.Type and returns the pointer to it.
-func (i *IFrameWidget) SetType(v string) {
-	i.Type = &v
-}
-
-// GetUrl returns the Url field if non-nil, zero value otherwise.
-func (i *IFrameWidget) GetUrl() string {
-	if i == nil || i.Url == nil {
-		return ""
-	}
-	return *i.Url
-}
-
-// GetOkUrl returns a tuple with the Url field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (i *IFrameWidget) GetUrlOk() (string, bool) {
-	if i == nil || i.Url == nil {
-		return "", false
-	}
-	return *i.Url, true
-}
-
-// HasUrl returns a boolean if a field has been set.
-func (i *IFrameWidget) HasUrl() bool {
-	if i != nil && i.Url != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetUrl allocates a new i.Url and returns the pointer to it.
-func (i *IFrameWidget) SetUrl(v string) {
-	i.Url = &v
-}
-
-// GetWidth returns the Width field if non-nil, zero value otherwise.
-func (i *IFrameWidget) GetWidth() int {
-	if i == nil || i.Width == nil {
-		return 0
-	}
-	return *i.Width
-}
-
-// GetOkWidth returns a tuple with the Width field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (i *IFrameWidget) GetWidthOk() (int, bool) {
-	if i == nil || i.Width == nil {
-		return 0, false
-	}
-	return *i.Width, true
-}
-
-// HasWidth returns a boolean if a field has been set.
-func (i *IFrameWidget) HasWidth() bool {
-	if i != nil && i.Width != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetWidth allocates a new i.Width and returns the pointer to it.
-func (i *IFrameWidget) SetWidth(v int) {
-	i.Width = &v
-}
-
-// GetX returns the X field if non-nil, zero value otherwise.
-func (i *IFrameWidget) GetX() int {
-	if i == nil || i.X == nil {
-		return 0
-	}
-	return *i.X
-}
-
-// GetOkX returns a tuple with the X field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (i *IFrameWidget) GetXOk() (int, bool) {
-	if i == nil || i.X == nil {
-		return 0, false
-	}
-	return *i.X, true
-}
-
-// HasX returns a boolean if a field has been set.
-func (i *IFrameWidget) HasX() bool {
-	if i != nil && i.X != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetX allocates a new i.X and returns the pointer to it.
-func (i *IFrameWidget) SetX(v int) {
-	i.X = &v
-}
-
-// GetY returns the Y field if non-nil, zero value otherwise.
-func (i *IFrameWidget) GetY() int {
-	if i == nil || i.Y == nil {
-		return 0
-	}
-	return *i.Y
-}
-
-// GetOkY returns a tuple with the Y field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (i *IFrameWidget) GetYOk() (int, bool) {
-	if i == nil || i.Y == nil {
-		return 0, false
-	}
-	return *i.Y, true
-}
-
-// HasY returns a boolean if a field has been set.
-func (i *IFrameWidget) HasY() bool {
-	if i != nil && i.Y != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetY allocates a new i.Y and returns the pointer to it.
-func (i *IFrameWidget) SetY(v int) {
-	i.Y = &v
-}
-
-// GetHeight returns the Height field if non-nil, zero value otherwise.
-func (i *ImageWidget) GetHeight() int {
-	if i == nil || i.Height == nil {
-		return 0
-	}
-	return *i.Height
-}
-
-// GetOkHeight returns a tuple with the Height field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (i *ImageWidget) GetHeightOk() (int, bool) {
-	if i == nil || i.Height == nil {
-		return 0, false
-	}
-	return *i.Height, true
-}
-
-// HasHeight returns a boolean if a field has been set.
-func (i *ImageWidget) HasHeight() bool {
-	if i != nil && i.Height != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetHeight allocates a new i.Height and returns the pointer to it.
-func (i *ImageWidget) SetHeight(v int) {
-	i.Height = &v
-}
-
-// GetSizing returns the Sizing field if non-nil, zero value otherwise.
-func (i *ImageWidget) GetSizing() string {
-	if i == nil || i.Sizing == nil {
-		return ""
-	}
-	return *i.Sizing
-}
-
-// GetOkSizing returns a tuple with the Sizing field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (i *ImageWidget) GetSizingOk() (string, bool) {
-	if i == nil || i.Sizing == nil {
-		return "", false
-	}
-	return *i.Sizing, true
-}
-
-// HasSizing returns a boolean if a field has been set.
-func (i *ImageWidget) HasSizing() bool {
-	if i != nil && i.Sizing != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetSizing allocates a new i.Sizing and returns the pointer to it.
-func (i *ImageWidget) SetSizing(v string) {
-	i.Sizing = &v
-}
-
-// GetTitle returns the Title field if non-nil, zero value otherwise.
-func (i *ImageWidget) GetTitle() bool {
-	if i == nil || i.Title == nil {
-		return false
-	}
-	return *i.Title
-}
-
-// GetOkTitle returns a tuple with the Title field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (i *ImageWidget) GetTitleOk() (bool, bool) {
-	if i == nil || i.Title == nil {
-		return false, false
-	}
-	return *i.Title, true
-}
-
-// HasTitle returns a boolean if a field has been set.
-func (i *ImageWidget) HasTitle() bool {
-	if i != nil && i.Title != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTitle allocates a new i.Title and returns the pointer to it.
-func (i *ImageWidget) SetTitle(v bool) {
-	i.Title = &v
-}
-
-// GetTitleAlign returns the TitleAlign field if non-nil, zero value otherwise.
-func (i *ImageWidget) GetTitleAlign() string {
-	if i == nil || i.TitleAlign == nil {
-		return ""
-	}
-	return *i.TitleAlign
-}
-
-// GetOkTitleAlign returns a tuple with the TitleAlign field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (i *ImageWidget) GetTitleAlignOk() (string, bool) {
-	if i == nil || i.TitleAlign == nil {
-		return "", false
-	}
-	return *i.TitleAlign, true
-}
-
-// HasTitleAlign returns a boolean if a field has been set.
-func (i *ImageWidget) HasTitleAlign() bool {
-	if i != nil && i.TitleAlign != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTitleAlign allocates a new i.TitleAlign and returns the pointer to it.
-func (i *ImageWidget) SetTitleAlign(v string) {
-	i.TitleAlign = &v
-}
-
-// GetTitleSize returns the TitleSize field if non-nil, zero value otherwise.
-func (i *ImageWidget) GetTitleSize() TextSize {
-	if i == nil || i.TitleSize == nil {
-		return TextSize{}
-	}
-	return *i.TitleSize
-}
-
-// GetOkTitleSize returns a tuple with the TitleSize field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (i *ImageWidget) GetTitleSizeOk() (TextSize, bool) {
-	if i == nil || i.TitleSize == nil {
-		return TextSize{}, false
-	}
-	return *i.TitleSize, true
-}
-
-// HasTitleSize returns a boolean if a field has been set.
-func (i *ImageWidget) HasTitleSize() bool {
-	if i != nil && i.TitleSize != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTitleSize allocates a new i.TitleSize and returns the pointer to it.
-func (i *ImageWidget) SetTitleSize(v TextSize) {
-	i.TitleSize = &v
-}
-
-// GetTitleText returns the TitleText field if non-nil, zero value otherwise.
-func (i *ImageWidget) GetTitleText() string {
-	if i == nil || i.TitleText == nil {
-		return ""
-	}
-	return *i.TitleText
-}
-
-// GetOkTitleText returns a tuple with the TitleText field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (i *ImageWidget) GetTitleTextOk() (string, bool) {
-	if i == nil || i.TitleText == nil {
-		return "", false
-	}
-	return *i.TitleText, true
-}
-
-// HasTitleText returns a boolean if a field has been set.
-func (i *ImageWidget) HasTitleText() bool {
-	if i != nil && i.TitleText != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTitleText allocates a new i.TitleText and returns the pointer to it.
-func (i *ImageWidget) SetTitleText(v string) {
-	i.TitleText = &v
-}
-
-// GetType returns the Type field if non-nil, zero value otherwise.
-func (i *ImageWidget) GetType() string {
-	if i == nil || i.Type == nil {
-		return ""
-	}
-	return *i.Type
-}
-
-// GetOkType returns a tuple with the Type field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (i *ImageWidget) GetTypeOk() (string, bool) {
-	if i == nil || i.Type == nil {
-		return "", false
-	}
-	return *i.Type, true
-}
-
-// HasType returns a boolean if a field has been set.
-func (i *ImageWidget) HasType() bool {
-	if i != nil && i.Type != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetType allocates a new i.Type and returns the pointer to it.
-func (i *ImageWidget) SetType(v string) {
-	i.Type = &v
-}
-
-// GetUrl returns the Url field if non-nil, zero value otherwise.
-func (i *ImageWidget) GetUrl() string {
-	if i == nil || i.Url == nil {
-		return ""
-	}
-	return *i.Url
-}
-
-// GetOkUrl returns a tuple with the Url field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (i *ImageWidget) GetUrlOk() (string, bool) {
-	if i == nil || i.Url == nil {
-		return "", false
-	}
-	return *i.Url, true
-}
-
-// HasUrl returns a boolean if a field has been set.
-func (i *ImageWidget) HasUrl() bool {
-	if i != nil && i.Url != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetUrl allocates a new i.Url and returns the pointer to it.
-func (i *ImageWidget) SetUrl(v string) {
-	i.Url = &v
-}
-
-// GetWidth returns the Width field if non-nil, zero value otherwise.
-func (i *ImageWidget) GetWidth() int {
-	if i == nil || i.Width == nil {
-		return 0
-	}
-	return *i.Width
-}
-
-// GetOkWidth returns a tuple with the Width field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (i *ImageWidget) GetWidthOk() (int, bool) {
-	if i == nil || i.Width == nil {
-		return 0, false
-	}
-	return *i.Width, true
-}
-
-// HasWidth returns a boolean if a field has been set.
-func (i *ImageWidget) HasWidth() bool {
-	if i != nil && i.Width != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetWidth allocates a new i.Width and returns the pointer to it.
-func (i *ImageWidget) SetWidth(v int) {
-	i.Width = &v
-}
-
-// GetX returns the X field if non-nil, zero value otherwise.
-func (i *ImageWidget) GetX() int {
-	if i == nil || i.X == nil {
-		return 0
-	}
-	return *i.X
-}
-
-// GetOkX returns a tuple with the X field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (i *ImageWidget) GetXOk() (int, bool) {
-	if i == nil || i.X == nil {
-		return 0, false
-	}
-	return *i.X, true
-}
-
-// HasX returns a boolean if a field has been set.
-func (i *ImageWidget) HasX() bool {
-	if i != nil && i.X != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetX allocates a new i.X and returns the pointer to it.
-func (i *ImageWidget) SetX(v int) {
-	i.X = &v
-}
-
-// GetY returns the Y field if non-nil, zero value otherwise.
-func (i *ImageWidget) GetY() int {
-	if i == nil || i.Y == nil {
-		return 0
-	}
-	return *i.Y
-}
-
-// GetOkY returns a tuple with the Y field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (i *ImageWidget) GetYOk() (int, bool) {
-	if i == nil || i.Y == nil {
-		return 0, false
-	}
-	return *i.Y, true
-}
-
-// HasY returns a boolean if a field has been set.
-func (i *ImageWidget) HasY() bool {
-	if i != nil && i.Y != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetY allocates a new i.Y and returns the pointer to it.
-func (i *ImageWidget) SetY(v int) {
-	i.Y = &v
-}
-
 // GetAccountID returns the AccountID field if non-nil, zero value otherwise.
 func (i *IntegrationAWSAccount) GetAccountID() string {
 	if i == nil || i.AccountID == nil {
@@ -7461,7 +3989,7 @@ func (i *IntegrationAWSAccount) GetAccountID() string {
 	return *i.AccountID
 }
 
-// GetOkAccountID returns a tuple with the AccountID field if it's non-nil, zero value otherwise
+// GetAccountIDOk returns a tuple with the AccountID field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (i *IntegrationAWSAccount) GetAccountIDOk() (string, bool) {
 	if i == nil || i.AccountID == nil {
@@ -7492,7 +4020,7 @@ func (i *IntegrationAWSAccount) GetRoleName() string {
 	return *i.RoleName
 }
 
-// GetOkRoleName returns a tuple with the RoleName field if it's non-nil, zero value otherwise
+// GetRoleNameOk returns a tuple with the RoleName field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (i *IntegrationAWSAccount) GetRoleNameOk() (string, bool) {
 	if i == nil || i.RoleName == nil {
@@ -7523,7 +4051,7 @@ func (i *IntegrationAWSAccountDeleteRequest) GetAccountID() string {
 	return *i.AccountID
 }
 
-// GetOkAccountID returns a tuple with the AccountID field if it's non-nil, zero value otherwise
+// GetAccountIDOk returns a tuple with the AccountID field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (i *IntegrationAWSAccountDeleteRequest) GetAccountIDOk() (string, bool) {
 	if i == nil || i.AccountID == nil {
@@ -7554,7 +4082,7 @@ func (i *IntegrationAWSAccountDeleteRequest) GetRoleName() string {
 	return *i.RoleName
 }
 
-// GetOkRoleName returns a tuple with the RoleName field if it's non-nil, zero value otherwise
+// GetRoleNameOk returns a tuple with the RoleName field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (i *IntegrationAWSAccountDeleteRequest) GetRoleNameOk() (string, bool) {
 	if i == nil || i.RoleName == nil {
@@ -7577,6 +4105,595 @@ func (i *IntegrationAWSAccountDeleteRequest) SetRoleName(v string) {
 	i.RoleName = &v
 }
 
+// GetClientEmail returns the ClientEmail field if non-nil, zero value otherwise.
+func (i *IntegrationGCP) GetClientEmail() string {
+	if i == nil || i.ClientEmail == nil {
+		return ""
+	}
+	return *i.ClientEmail
+}
+
+// GetClientEmailOk returns a tuple with the ClientEmail field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (i *IntegrationGCP) GetClientEmailOk() (string, bool) {
+	if i == nil || i.ClientEmail == nil {
+		return "", false
+	}
+	return *i.ClientEmail, true
+}
+
+// HasClientEmail returns a boolean if a field has been set.
+func (i *IntegrationGCP) HasClientEmail() bool {
+	if i != nil && i.ClientEmail != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetClientEmail allocates a new i.ClientEmail and returns the pointer to it.
+func (i *IntegrationGCP) SetClientEmail(v string) {
+	i.ClientEmail = &v
+}
+
+// GetHostFilters returns the HostFilters field if non-nil, zero value otherwise.
+func (i *IntegrationGCP) GetHostFilters() string {
+	if i == nil || i.HostFilters == nil {
+		return ""
+	}
+	return *i.HostFilters
+}
+
+// GetHostFiltersOk returns a tuple with the HostFilters field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (i *IntegrationGCP) GetHostFiltersOk() (string, bool) {
+	if i == nil || i.HostFilters == nil {
+		return "", false
+	}
+	return *i.HostFilters, true
+}
+
+// HasHostFilters returns a boolean if a field has been set.
+func (i *IntegrationGCP) HasHostFilters() bool {
+	if i != nil && i.HostFilters != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetHostFilters allocates a new i.HostFilters and returns the pointer to it.
+func (i *IntegrationGCP) SetHostFilters(v string) {
+	i.HostFilters = &v
+}
+
+// GetProjectID returns the ProjectID field if non-nil, zero value otherwise.
+func (i *IntegrationGCP) GetProjectID() string {
+	if i == nil || i.ProjectID == nil {
+		return ""
+	}
+	return *i.ProjectID
+}
+
+// GetProjectIDOk returns a tuple with the ProjectID field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (i *IntegrationGCP) GetProjectIDOk() (string, bool) {
+	if i == nil || i.ProjectID == nil {
+		return "", false
+	}
+	return *i.ProjectID, true
+}
+
+// HasProjectID returns a boolean if a field has been set.
+func (i *IntegrationGCP) HasProjectID() bool {
+	if i != nil && i.ProjectID != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetProjectID allocates a new i.ProjectID and returns the pointer to it.
+func (i *IntegrationGCP) SetProjectID(v string) {
+	i.ProjectID = &v
+}
+
+// GetAuthProviderX509CertURL returns the AuthProviderX509CertURL field if non-nil, zero value otherwise.
+func (i *IntegrationGCPCreateRequest) GetAuthProviderX509CertURL() string {
+	if i == nil || i.AuthProviderX509CertURL == nil {
+		return ""
+	}
+	return *i.AuthProviderX509CertURL
+}
+
+// GetAuthProviderX509CertURLOk returns a tuple with the AuthProviderX509CertURL field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (i *IntegrationGCPCreateRequest) GetAuthProviderX509CertURLOk() (string, bool) {
+	if i == nil || i.AuthProviderX509CertURL == nil {
+		return "", false
+	}
+	return *i.AuthProviderX509CertURL, true
+}
+
+// HasAuthProviderX509CertURL returns a boolean if a field has been set.
+func (i *IntegrationGCPCreateRequest) HasAuthProviderX509CertURL() bool {
+	if i != nil && i.AuthProviderX509CertURL != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAuthProviderX509CertURL allocates a new i.AuthProviderX509CertURL and returns the pointer to it.
+func (i *IntegrationGCPCreateRequest) SetAuthProviderX509CertURL(v string) {
+	i.AuthProviderX509CertURL = &v
+}
+
+// GetAuthURI returns the AuthURI field if non-nil, zero value otherwise.
+func (i *IntegrationGCPCreateRequest) GetAuthURI() string {
+	if i == nil || i.AuthURI == nil {
+		return ""
+	}
+	return *i.AuthURI
+}
+
+// GetAuthURIOk returns a tuple with the AuthURI field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (i *IntegrationGCPCreateRequest) GetAuthURIOk() (string, bool) {
+	if i == nil || i.AuthURI == nil {
+		return "", false
+	}
+	return *i.AuthURI, true
+}
+
+// HasAuthURI returns a boolean if a field has been set.
+func (i *IntegrationGCPCreateRequest) HasAuthURI() bool {
+	if i != nil && i.AuthURI != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAuthURI allocates a new i.AuthURI and returns the pointer to it.
+func (i *IntegrationGCPCreateRequest) SetAuthURI(v string) {
+	i.AuthURI = &v
+}
+
+// GetClientEmail returns the ClientEmail field if non-nil, zero value otherwise.
+func (i *IntegrationGCPCreateRequest) GetClientEmail() string {
+	if i == nil || i.ClientEmail == nil {
+		return ""
+	}
+	return *i.ClientEmail
+}
+
+// GetClientEmailOk returns a tuple with the ClientEmail field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (i *IntegrationGCPCreateRequest) GetClientEmailOk() (string, bool) {
+	if i == nil || i.ClientEmail == nil {
+		return "", false
+	}
+	return *i.ClientEmail, true
+}
+
+// HasClientEmail returns a boolean if a field has been set.
+func (i *IntegrationGCPCreateRequest) HasClientEmail() bool {
+	if i != nil && i.ClientEmail != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetClientEmail allocates a new i.ClientEmail and returns the pointer to it.
+func (i *IntegrationGCPCreateRequest) SetClientEmail(v string) {
+	i.ClientEmail = &v
+}
+
+// GetClientID returns the ClientID field if non-nil, zero value otherwise.
+func (i *IntegrationGCPCreateRequest) GetClientID() string {
+	if i == nil || i.ClientID == nil {
+		return ""
+	}
+	return *i.ClientID
+}
+
+// GetClientIDOk returns a tuple with the ClientID field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (i *IntegrationGCPCreateRequest) GetClientIDOk() (string, bool) {
+	if i == nil || i.ClientID == nil {
+		return "", false
+	}
+	return *i.ClientID, true
+}
+
+// HasClientID returns a boolean if a field has been set.
+func (i *IntegrationGCPCreateRequest) HasClientID() bool {
+	if i != nil && i.ClientID != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetClientID allocates a new i.ClientID and returns the pointer to it.
+func (i *IntegrationGCPCreateRequest) SetClientID(v string) {
+	i.ClientID = &v
+}
+
+// GetClientX509CertURL returns the ClientX509CertURL field if non-nil, zero value otherwise.
+func (i *IntegrationGCPCreateRequest) GetClientX509CertURL() string {
+	if i == nil || i.ClientX509CertURL == nil {
+		return ""
+	}
+	return *i.ClientX509CertURL
+}
+
+// GetClientX509CertURLOk returns a tuple with the ClientX509CertURL field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (i *IntegrationGCPCreateRequest) GetClientX509CertURLOk() (string, bool) {
+	if i == nil || i.ClientX509CertURL == nil {
+		return "", false
+	}
+	return *i.ClientX509CertURL, true
+}
+
+// HasClientX509CertURL returns a boolean if a field has been set.
+func (i *IntegrationGCPCreateRequest) HasClientX509CertURL() bool {
+	if i != nil && i.ClientX509CertURL != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetClientX509CertURL allocates a new i.ClientX509CertURL and returns the pointer to it.
+func (i *IntegrationGCPCreateRequest) SetClientX509CertURL(v string) {
+	i.ClientX509CertURL = &v
+}
+
+// GetHostFilters returns the HostFilters field if non-nil, zero value otherwise.
+func (i *IntegrationGCPCreateRequest) GetHostFilters() string {
+	if i == nil || i.HostFilters == nil {
+		return ""
+	}
+	return *i.HostFilters
+}
+
+// GetHostFiltersOk returns a tuple with the HostFilters field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (i *IntegrationGCPCreateRequest) GetHostFiltersOk() (string, bool) {
+	if i == nil || i.HostFilters == nil {
+		return "", false
+	}
+	return *i.HostFilters, true
+}
+
+// HasHostFilters returns a boolean if a field has been set.
+func (i *IntegrationGCPCreateRequest) HasHostFilters() bool {
+	if i != nil && i.HostFilters != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetHostFilters allocates a new i.HostFilters and returns the pointer to it.
+func (i *IntegrationGCPCreateRequest) SetHostFilters(v string) {
+	i.HostFilters = &v
+}
+
+// GetPrivateKey returns the PrivateKey field if non-nil, zero value otherwise.
+func (i *IntegrationGCPCreateRequest) GetPrivateKey() string {
+	if i == nil || i.PrivateKey == nil {
+		return ""
+	}
+	return *i.PrivateKey
+}
+
+// GetPrivateKeyOk returns a tuple with the PrivateKey field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (i *IntegrationGCPCreateRequest) GetPrivateKeyOk() (string, bool) {
+	if i == nil || i.PrivateKey == nil {
+		return "", false
+	}
+	return *i.PrivateKey, true
+}
+
+// HasPrivateKey returns a boolean if a field has been set.
+func (i *IntegrationGCPCreateRequest) HasPrivateKey() bool {
+	if i != nil && i.PrivateKey != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPrivateKey allocates a new i.PrivateKey and returns the pointer to it.
+func (i *IntegrationGCPCreateRequest) SetPrivateKey(v string) {
+	i.PrivateKey = &v
+}
+
+// GetPrivateKeyID returns the PrivateKeyID field if non-nil, zero value otherwise.
+func (i *IntegrationGCPCreateRequest) GetPrivateKeyID() string {
+	if i == nil || i.PrivateKeyID == nil {
+		return ""
+	}
+	return *i.PrivateKeyID
+}
+
+// GetPrivateKeyIDOk returns a tuple with the PrivateKeyID field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (i *IntegrationGCPCreateRequest) GetPrivateKeyIDOk() (string, bool) {
+	if i == nil || i.PrivateKeyID == nil {
+		return "", false
+	}
+	return *i.PrivateKeyID, true
+}
+
+// HasPrivateKeyID returns a boolean if a field has been set.
+func (i *IntegrationGCPCreateRequest) HasPrivateKeyID() bool {
+	if i != nil && i.PrivateKeyID != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPrivateKeyID allocates a new i.PrivateKeyID and returns the pointer to it.
+func (i *IntegrationGCPCreateRequest) SetPrivateKeyID(v string) {
+	i.PrivateKeyID = &v
+}
+
+// GetProjectID returns the ProjectID field if non-nil, zero value otherwise.
+func (i *IntegrationGCPCreateRequest) GetProjectID() string {
+	if i == nil || i.ProjectID == nil {
+		return ""
+	}
+	return *i.ProjectID
+}
+
+// GetProjectIDOk returns a tuple with the ProjectID field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (i *IntegrationGCPCreateRequest) GetProjectIDOk() (string, bool) {
+	if i == nil || i.ProjectID == nil {
+		return "", false
+	}
+	return *i.ProjectID, true
+}
+
+// HasProjectID returns a boolean if a field has been set.
+func (i *IntegrationGCPCreateRequest) HasProjectID() bool {
+	if i != nil && i.ProjectID != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetProjectID allocates a new i.ProjectID and returns the pointer to it.
+func (i *IntegrationGCPCreateRequest) SetProjectID(v string) {
+	i.ProjectID = &v
+}
+
+// GetTokenURI returns the TokenURI field if non-nil, zero value otherwise.
+func (i *IntegrationGCPCreateRequest) GetTokenURI() string {
+	if i == nil || i.TokenURI == nil {
+		return ""
+	}
+	return *i.TokenURI
+}
+
+// GetTokenURIOk returns a tuple with the TokenURI field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (i *IntegrationGCPCreateRequest) GetTokenURIOk() (string, bool) {
+	if i == nil || i.TokenURI == nil {
+		return "", false
+	}
+	return *i.TokenURI, true
+}
+
+// HasTokenURI returns a boolean if a field has been set.
+func (i *IntegrationGCPCreateRequest) HasTokenURI() bool {
+	if i != nil && i.TokenURI != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTokenURI allocates a new i.TokenURI and returns the pointer to it.
+func (i *IntegrationGCPCreateRequest) SetTokenURI(v string) {
+	i.TokenURI = &v
+}
+
+// GetType returns the Type field if non-nil, zero value otherwise.
+func (i *IntegrationGCPCreateRequest) GetType() string {
+	if i == nil || i.Type == nil {
+		return ""
+	}
+	return *i.Type
+}
+
+// GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (i *IntegrationGCPCreateRequest) GetTypeOk() (string, bool) {
+	if i == nil || i.Type == nil {
+		return "", false
+	}
+	return *i.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (i *IntegrationGCPCreateRequest) HasType() bool {
+	if i != nil && i.Type != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetType allocates a new i.Type and returns the pointer to it.
+func (i *IntegrationGCPCreateRequest) SetType(v string) {
+	i.Type = &v
+}
+
+// GetClientEmail returns the ClientEmail field if non-nil, zero value otherwise.
+func (i *IntegrationGCPDeleteRequest) GetClientEmail() string {
+	if i == nil || i.ClientEmail == nil {
+		return ""
+	}
+	return *i.ClientEmail
+}
+
+// GetClientEmailOk returns a tuple with the ClientEmail field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (i *IntegrationGCPDeleteRequest) GetClientEmailOk() (string, bool) {
+	if i == nil || i.ClientEmail == nil {
+		return "", false
+	}
+	return *i.ClientEmail, true
+}
+
+// HasClientEmail returns a boolean if a field has been set.
+func (i *IntegrationGCPDeleteRequest) HasClientEmail() bool {
+	if i != nil && i.ClientEmail != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetClientEmail allocates a new i.ClientEmail and returns the pointer to it.
+func (i *IntegrationGCPDeleteRequest) SetClientEmail(v string) {
+	i.ClientEmail = &v
+}
+
+// GetProjectID returns the ProjectID field if non-nil, zero value otherwise.
+func (i *IntegrationGCPDeleteRequest) GetProjectID() string {
+	if i == nil || i.ProjectID == nil {
+		return ""
+	}
+	return *i.ProjectID
+}
+
+// GetProjectIDOk returns a tuple with the ProjectID field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (i *IntegrationGCPDeleteRequest) GetProjectIDOk() (string, bool) {
+	if i == nil || i.ProjectID == nil {
+		return "", false
+	}
+	return *i.ProjectID, true
+}
+
+// HasProjectID returns a boolean if a field has been set.
+func (i *IntegrationGCPDeleteRequest) HasProjectID() bool {
+	if i != nil && i.ProjectID != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetProjectID allocates a new i.ProjectID and returns the pointer to it.
+func (i *IntegrationGCPDeleteRequest) SetProjectID(v string) {
+	i.ProjectID = &v
+}
+
+// GetClientEmail returns the ClientEmail field if non-nil, zero value otherwise.
+func (i *IntegrationGCPUpdateRequest) GetClientEmail() string {
+	if i == nil || i.ClientEmail == nil {
+		return ""
+	}
+	return *i.ClientEmail
+}
+
+// GetClientEmailOk returns a tuple with the ClientEmail field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (i *IntegrationGCPUpdateRequest) GetClientEmailOk() (string, bool) {
+	if i == nil || i.ClientEmail == nil {
+		return "", false
+	}
+	return *i.ClientEmail, true
+}
+
+// HasClientEmail returns a boolean if a field has been set.
+func (i *IntegrationGCPUpdateRequest) HasClientEmail() bool {
+	if i != nil && i.ClientEmail != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetClientEmail allocates a new i.ClientEmail and returns the pointer to it.
+func (i *IntegrationGCPUpdateRequest) SetClientEmail(v string) {
+	i.ClientEmail = &v
+}
+
+// GetHostFilters returns the HostFilters field if non-nil, zero value otherwise.
+func (i *IntegrationGCPUpdateRequest) GetHostFilters() string {
+	if i == nil || i.HostFilters == nil {
+		return ""
+	}
+	return *i.HostFilters
+}
+
+// GetHostFiltersOk returns a tuple with the HostFilters field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (i *IntegrationGCPUpdateRequest) GetHostFiltersOk() (string, bool) {
+	if i == nil || i.HostFilters == nil {
+		return "", false
+	}
+	return *i.HostFilters, true
+}
+
+// HasHostFilters returns a boolean if a field has been set.
+func (i *IntegrationGCPUpdateRequest) HasHostFilters() bool {
+	if i != nil && i.HostFilters != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetHostFilters allocates a new i.HostFilters and returns the pointer to it.
+func (i *IntegrationGCPUpdateRequest) SetHostFilters(v string) {
+	i.HostFilters = &v
+}
+
+// GetProjectID returns the ProjectID field if non-nil, zero value otherwise.
+func (i *IntegrationGCPUpdateRequest) GetProjectID() string {
+	if i == nil || i.ProjectID == nil {
+		return ""
+	}
+	return *i.ProjectID
+}
+
+// GetProjectIDOk returns a tuple with the ProjectID field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (i *IntegrationGCPUpdateRequest) GetProjectIDOk() (string, bool) {
+	if i == nil || i.ProjectID == nil {
+		return "", false
+	}
+	return *i.ProjectID, true
+}
+
+// HasProjectID returns a boolean if a field has been set.
+func (i *IntegrationGCPUpdateRequest) HasProjectID() bool {
+	if i != nil && i.ProjectID != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetProjectID allocates a new i.ProjectID and returns the pointer to it.
+func (i *IntegrationGCPUpdateRequest) SetProjectID(v string) {
+	i.ProjectID = &v
+}
+
 // GetAPIToken returns the APIToken field if non-nil, zero value otherwise.
 func (i *integrationPD) GetAPIToken() string {
 	if i == nil || i.APIToken == nil {
@@ -7585,7 +4702,7 @@ func (i *integrationPD) GetAPIToken() string {
 	return *i.APIToken
 }
 
-// GetOkAPIToken returns a tuple with the APIToken field if it's non-nil, zero value otherwise
+// GetAPITokenOk returns a tuple with the APIToken field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (i *integrationPD) GetAPITokenOk() (string, bool) {
 	if i == nil || i.APIToken == nil {
@@ -7616,7 +4733,7 @@ func (i *integrationPD) GetSubdomain() string {
 	return *i.Subdomain
 }
 
-// GetOkSubdomain returns a tuple with the Subdomain field if it's non-nil, zero value otherwise
+// GetSubdomainOk returns a tuple with the Subdomain field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (i *integrationPD) GetSubdomainOk() (string, bool) {
 	if i == nil || i.Subdomain == nil {
@@ -7647,7 +4764,7 @@ func (i *IntegrationPDRequest) GetAPIToken() string {
 	return *i.APIToken
 }
 
-// GetOkAPIToken returns a tuple with the APIToken field if it's non-nil, zero value otherwise
+// GetAPITokenOk returns a tuple with the APIToken field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (i *IntegrationPDRequest) GetAPITokenOk() (string, bool) {
 	if i == nil || i.APIToken == nil {
@@ -7678,7 +4795,7 @@ func (i *IntegrationPDRequest) GetRunCheck() bool {
 	return *i.RunCheck
 }
 
-// GetOkRunCheck returns a tuple with the RunCheck field if it's non-nil, zero value otherwise
+// GetRunCheckOk returns a tuple with the RunCheck field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (i *IntegrationPDRequest) GetRunCheckOk() (bool, bool) {
 	if i == nil || i.RunCheck == nil {
@@ -7709,7 +4826,7 @@ func (i *IntegrationPDRequest) GetSubdomain() string {
 	return *i.Subdomain
 }
 
-// GetOkSubdomain returns a tuple with the Subdomain field if it's non-nil, zero value otherwise
+// GetSubdomainOk returns a tuple with the Subdomain field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (i *IntegrationPDRequest) GetSubdomainOk() (string, bool) {
 	if i == nil || i.Subdomain == nil {
@@ -7740,7 +4857,7 @@ func (i *IntegrationSlackRequest) GetRunCheck() bool {
 	return *i.RunCheck
 }
 
-// GetOkRunCheck returns a tuple with the RunCheck field if it's non-nil, zero value otherwise
+// GetRunCheckOk returns a tuple with the RunCheck field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (i *IntegrationSlackRequest) GetRunCheckOk() (bool, bool) {
 	if i == nil || i.RunCheck == nil {
@@ -7771,7 +4888,7 @@ func (m *Metric) GetHost() string {
 	return *m.Host
 }
 
-// GetOkHost returns a tuple with the Host field if it's non-nil, zero value otherwise
+// GetHostOk returns a tuple with the Host field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (m *Metric) GetHostOk() (string, bool) {
 	if m == nil || m.Host == nil {
@@ -7802,7 +4919,7 @@ func (m *Metric) GetMetric() string {
 	return *m.Metric
 }
 
-// GetOkMetric returns a tuple with the Metric field if it's non-nil, zero value otherwise
+// GetMetricOk returns a tuple with the Metric field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (m *Metric) GetMetricOk() (string, bool) {
 	if m == nil || m.Metric == nil {
@@ -7833,7 +4950,7 @@ func (m *Metric) GetType() string {
 	return *m.Type
 }
 
-// GetOkType returns a tuple with the Type field if it's non-nil, zero value otherwise
+// GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (m *Metric) GetTypeOk() (string, bool) {
 	if m == nil || m.Type == nil {
@@ -7864,7 +4981,7 @@ func (m *Metric) GetUnit() string {
 	return *m.Unit
 }
 
-// GetOkUnit returns a tuple with the Unit field if it's non-nil, zero value otherwise
+// GetUnitOk returns a tuple with the Unit field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (m *Metric) GetUnitOk() (string, bool) {
 	if m == nil || m.Unit == nil {
@@ -7895,7 +5012,7 @@ func (m *MetricMetadata) GetDescription() string {
 	return *m.Description
 }
 
-// GetOkDescription returns a tuple with the Description field if it's non-nil, zero value otherwise
+// GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (m *MetricMetadata) GetDescriptionOk() (string, bool) {
 	if m == nil || m.Description == nil {
@@ -7926,7 +5043,7 @@ func (m *MetricMetadata) GetPerUnit() string {
 	return *m.PerUnit
 }
 
-// GetOkPerUnit returns a tuple with the PerUnit field if it's non-nil, zero value otherwise
+// GetPerUnitOk returns a tuple with the PerUnit field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (m *MetricMetadata) GetPerUnitOk() (string, bool) {
 	if m == nil || m.PerUnit == nil {
@@ -7957,7 +5074,7 @@ func (m *MetricMetadata) GetShortName() string {
 	return *m.ShortName
 }
 
-// GetOkShortName returns a tuple with the ShortName field if it's non-nil, zero value otherwise
+// GetShortNameOk returns a tuple with the ShortName field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (m *MetricMetadata) GetShortNameOk() (string, bool) {
 	if m == nil || m.ShortName == nil {
@@ -7988,7 +5105,7 @@ func (m *MetricMetadata) GetStatsdInterval() int {
 	return *m.StatsdInterval
 }
 
-// GetOkStatsdInterval returns a tuple with the StatsdInterval field if it's non-nil, zero value otherwise
+// GetStatsdIntervalOk returns a tuple with the StatsdInterval field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (m *MetricMetadata) GetStatsdIntervalOk() (int, bool) {
 	if m == nil || m.StatsdInterval == nil {
@@ -8019,7 +5136,7 @@ func (m *MetricMetadata) GetType() string {
 	return *m.Type
 }
 
-// GetOkType returns a tuple with the Type field if it's non-nil, zero value otherwise
+// GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (m *MetricMetadata) GetTypeOk() (string, bool) {
 	if m == nil || m.Type == nil {
@@ -8050,7 +5167,7 @@ func (m *MetricMetadata) GetUnit() string {
 	return *m.Unit
 }
 
-// GetOkUnit returns a tuple with the Unit field if it's non-nil, zero value otherwise
+// GetUnitOk returns a tuple with the Unit field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (m *MetricMetadata) GetUnitOk() (string, bool) {
 	if m == nil || m.Unit == nil {
@@ -8081,7 +5198,7 @@ func (m *Monitor) GetCreator() Creator {
 	return *m.Creator
 }
 
-// GetOkCreator returns a tuple with the Creator field if it's non-nil, zero value otherwise
+// GetCreatorOk returns a tuple with the Creator field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (m *Monitor) GetCreatorOk() (Creator, bool) {
 	if m == nil || m.Creator == nil {
@@ -8112,7 +5229,7 @@ func (m *Monitor) GetId() int {
 	return *m.Id
 }
 
-// GetOkId returns a tuple with the Id field if it's non-nil, zero value otherwise
+// GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (m *Monitor) GetIdOk() (int, bool) {
 	if m == nil || m.Id == nil {
@@ -8143,7 +5260,7 @@ func (m *Monitor) GetMessage() string {
 	return *m.Message
 }
 
-// GetOkMessage returns a tuple with the Message field if it's non-nil, zero value otherwise
+// GetMessageOk returns a tuple with the Message field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (m *Monitor) GetMessageOk() (string, bool) {
 	if m == nil || m.Message == nil {
@@ -8174,7 +5291,7 @@ func (m *Monitor) GetName() string {
 	return *m.Name
 }
 
-// GetOkName returns a tuple with the Name field if it's non-nil, zero value otherwise
+// GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (m *Monitor) GetNameOk() (string, bool) {
 	if m == nil || m.Name == nil {
@@ -8205,7 +5322,7 @@ func (m *Monitor) GetOptions() Options {
 	return *m.Options
 }
 
-// GetOkOptions returns a tuple with the Options field if it's non-nil, zero value otherwise
+// GetOptionsOk returns a tuple with the Options field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (m *Monitor) GetOptionsOk() (Options, bool) {
 	if m == nil || m.Options == nil {
@@ -8236,7 +5353,7 @@ func (m *Monitor) GetOverallState() string {
 	return *m.OverallState
 }
 
-// GetOkOverallState returns a tuple with the OverallState field if it's non-nil, zero value otherwise
+// GetOverallStateOk returns a tuple with the OverallState field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (m *Monitor) GetOverallStateOk() (string, bool) {
 	if m == nil || m.OverallState == nil {
@@ -8259,6 +5376,37 @@ func (m *Monitor) SetOverallState(v string) {
 	m.OverallState = &v
 }
 
+// GetOverallStateModified returns the OverallStateModified field if non-nil, zero value otherwise.
+func (m *Monitor) GetOverallStateModified() string {
+	if m == nil || m.OverallStateModified == nil {
+		return ""
+	}
+	return *m.OverallStateModified
+}
+
+// GetOverallStateModifiedOk returns a tuple with the OverallStateModified field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (m *Monitor) GetOverallStateModifiedOk() (string, bool) {
+	if m == nil || m.OverallStateModified == nil {
+		return "", false
+	}
+	return *m.OverallStateModified, true
+}
+
+// HasOverallStateModified returns a boolean if a field has been set.
+func (m *Monitor) HasOverallStateModified() bool {
+	if m != nil && m.OverallStateModified != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetOverallStateModified allocates a new m.OverallStateModified and returns the pointer to it.
+func (m *Monitor) SetOverallStateModified(v string) {
+	m.OverallStateModified = &v
+}
+
 // GetQuery returns the Query field if non-nil, zero value otherwise.
 func (m *Monitor) GetQuery() string {
 	if m == nil || m.Query == nil {
@@ -8267,7 +5415,7 @@ func (m *Monitor) GetQuery() string {
 	return *m.Query
 }
 
-// GetOkQuery returns a tuple with the Query field if it's non-nil, zero value otherwise
+// GetQueryOk returns a tuple with the Query field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (m *Monitor) GetQueryOk() (string, bool) {
 	if m == nil || m.Query == nil {
@@ -8298,7 +5446,7 @@ func (m *Monitor) GetType() string {
 	return *m.Type
 }
 
-// GetOkType returns a tuple with the Type field if it's non-nil, zero value otherwise
+// GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (m *Monitor) GetTypeOk() (string, bool) {
 	if m == nil || m.Type == nil {
@@ -8321,564 +5469,6 @@ func (m *Monitor) SetType(v string) {
 	m.Type = &v
 }
 
-// GetAutoRefresh returns the AutoRefresh field if non-nil, zero value otherwise.
-func (n *NoteWidget) GetAutoRefresh() bool {
-	if n == nil || n.AutoRefresh == nil {
-		return false
-	}
-	return *n.AutoRefresh
-}
-
-// GetOkAutoRefresh returns a tuple with the AutoRefresh field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (n *NoteWidget) GetAutoRefreshOk() (bool, bool) {
-	if n == nil || n.AutoRefresh == nil {
-		return false, false
-	}
-	return *n.AutoRefresh, true
-}
-
-// HasAutoRefresh returns a boolean if a field has been set.
-func (n *NoteWidget) HasAutoRefresh() bool {
-	if n != nil && n.AutoRefresh != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetAutoRefresh allocates a new n.AutoRefresh and returns the pointer to it.
-func (n *NoteWidget) SetAutoRefresh(v bool) {
-	n.AutoRefresh = &v
-}
-
-// GetColor returns the Color field if non-nil, zero value otherwise.
-func (n *NoteWidget) GetColor() string {
-	if n == nil || n.Color == nil {
-		return ""
-	}
-	return *n.Color
-}
-
-// GetOkColor returns a tuple with the Color field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (n *NoteWidget) GetColorOk() (string, bool) {
-	if n == nil || n.Color == nil {
-		return "", false
-	}
-	return *n.Color, true
-}
-
-// HasColor returns a boolean if a field has been set.
-func (n *NoteWidget) HasColor() bool {
-	if n != nil && n.Color != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetColor allocates a new n.Color and returns the pointer to it.
-func (n *NoteWidget) SetColor(v string) {
-	n.Color = &v
-}
-
-// GetFontSize returns the FontSize field if non-nil, zero value otherwise.
-func (n *NoteWidget) GetFontSize() int {
-	if n == nil || n.FontSize == nil {
-		return 0
-	}
-	return *n.FontSize
-}
-
-// GetOkFontSize returns a tuple with the FontSize field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (n *NoteWidget) GetFontSizeOk() (int, bool) {
-	if n == nil || n.FontSize == nil {
-		return 0, false
-	}
-	return *n.FontSize, true
-}
-
-// HasFontSize returns a boolean if a field has been set.
-func (n *NoteWidget) HasFontSize() bool {
-	if n != nil && n.FontSize != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetFontSize allocates a new n.FontSize and returns the pointer to it.
-func (n *NoteWidget) SetFontSize(v int) {
-	n.FontSize = &v
-}
-
-// GetHeight returns the Height field if non-nil, zero value otherwise.
-func (n *NoteWidget) GetHeight() int {
-	if n == nil || n.Height == nil {
-		return 0
-	}
-	return *n.Height
-}
-
-// GetOkHeight returns a tuple with the Height field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (n *NoteWidget) GetHeightOk() (int, bool) {
-	if n == nil || n.Height == nil {
-		return 0, false
-	}
-	return *n.Height, true
-}
-
-// HasHeight returns a boolean if a field has been set.
-func (n *NoteWidget) HasHeight() bool {
-	if n != nil && n.Height != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetHeight allocates a new n.Height and returns the pointer to it.
-func (n *NoteWidget) SetHeight(v int) {
-	n.Height = &v
-}
-
-// GetHtml returns the Html field if non-nil, zero value otherwise.
-func (n *NoteWidget) GetHtml() string {
-	if n == nil || n.Html == nil {
-		return ""
-	}
-	return *n.Html
-}
-
-// GetOkHtml returns a tuple with the Html field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (n *NoteWidget) GetHtmlOk() (string, bool) {
-	if n == nil || n.Html == nil {
-		return "", false
-	}
-	return *n.Html, true
-}
-
-// HasHtml returns a boolean if a field has been set.
-func (n *NoteWidget) HasHtml() bool {
-	if n != nil && n.Html != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetHtml allocates a new n.Html and returns the pointer to it.
-func (n *NoteWidget) SetHtml(v string) {
-	n.Html = &v
-}
-
-// GetNote returns the Note field if non-nil, zero value otherwise.
-func (n *NoteWidget) GetNote() string {
-	if n == nil || n.Note == nil {
-		return ""
-	}
-	return *n.Note
-}
-
-// GetOkNote returns a tuple with the Note field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (n *NoteWidget) GetNoteOk() (string, bool) {
-	if n == nil || n.Note == nil {
-		return "", false
-	}
-	return *n.Note, true
-}
-
-// HasNote returns a boolean if a field has been set.
-func (n *NoteWidget) HasNote() bool {
-	if n != nil && n.Note != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetNote allocates a new n.Note and returns the pointer to it.
-func (n *NoteWidget) SetNote(v string) {
-	n.Note = &v
-}
-
-// GetRefreshEvery returns the RefreshEvery field if non-nil, zero value otherwise.
-func (n *NoteWidget) GetRefreshEvery() int {
-	if n == nil || n.RefreshEvery == nil {
-		return 0
-	}
-	return *n.RefreshEvery
-}
-
-// GetOkRefreshEvery returns a tuple with the RefreshEvery field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (n *NoteWidget) GetRefreshEveryOk() (int, bool) {
-	if n == nil || n.RefreshEvery == nil {
-		return 0, false
-	}
-	return *n.RefreshEvery, true
-}
-
-// HasRefreshEvery returns a boolean if a field has been set.
-func (n *NoteWidget) HasRefreshEvery() bool {
-	if n != nil && n.RefreshEvery != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetRefreshEvery allocates a new n.RefreshEvery and returns the pointer to it.
-func (n *NoteWidget) SetRefreshEvery(v int) {
-	n.RefreshEvery = &v
-}
-
-// GetTextAlign returns the TextAlign field if non-nil, zero value otherwise.
-func (n *NoteWidget) GetTextAlign() string {
-	if n == nil || n.TextAlign == nil {
-		return ""
-	}
-	return *n.TextAlign
-}
-
-// GetOkTextAlign returns a tuple with the TextAlign field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (n *NoteWidget) GetTextAlignOk() (string, bool) {
-	if n == nil || n.TextAlign == nil {
-		return "", false
-	}
-	return *n.TextAlign, true
-}
-
-// HasTextAlign returns a boolean if a field has been set.
-func (n *NoteWidget) HasTextAlign() bool {
-	if n != nil && n.TextAlign != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTextAlign allocates a new n.TextAlign and returns the pointer to it.
-func (n *NoteWidget) SetTextAlign(v string) {
-	n.TextAlign = &v
-}
-
-// GetTick returns the Tick field if non-nil, zero value otherwise.
-func (n *NoteWidget) GetTick() bool {
-	if n == nil || n.Tick == nil {
-		return false
-	}
-	return *n.Tick
-}
-
-// GetOkTick returns a tuple with the Tick field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (n *NoteWidget) GetTickOk() (bool, bool) {
-	if n == nil || n.Tick == nil {
-		return false, false
-	}
-	return *n.Tick, true
-}
-
-// HasTick returns a boolean if a field has been set.
-func (n *NoteWidget) HasTick() bool {
-	if n != nil && n.Tick != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTick allocates a new n.Tick and returns the pointer to it.
-func (n *NoteWidget) SetTick(v bool) {
-	n.Tick = &v
-}
-
-// GetTickEdge returns the TickEdge field if non-nil, zero value otherwise.
-func (n *NoteWidget) GetTickEdge() string {
-	if n == nil || n.TickEdge == nil {
-		return ""
-	}
-	return *n.TickEdge
-}
-
-// GetOkTickEdge returns a tuple with the TickEdge field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (n *NoteWidget) GetTickEdgeOk() (string, bool) {
-	if n == nil || n.TickEdge == nil {
-		return "", false
-	}
-	return *n.TickEdge, true
-}
-
-// HasTickEdge returns a boolean if a field has been set.
-func (n *NoteWidget) HasTickEdge() bool {
-	if n != nil && n.TickEdge != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTickEdge allocates a new n.TickEdge and returns the pointer to it.
-func (n *NoteWidget) SetTickEdge(v string) {
-	n.TickEdge = &v
-}
-
-// GetTickPos returns the TickPos field if non-nil, zero value otherwise.
-func (n *NoteWidget) GetTickPos() string {
-	if n == nil || n.TickPos == nil {
-		return ""
-	}
-	return *n.TickPos
-}
-
-// GetOkTickPos returns a tuple with the TickPos field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (n *NoteWidget) GetTickPosOk() (string, bool) {
-	if n == nil || n.TickPos == nil {
-		return "", false
-	}
-	return *n.TickPos, true
-}
-
-// HasTickPos returns a boolean if a field has been set.
-func (n *NoteWidget) HasTickPos() bool {
-	if n != nil && n.TickPos != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTickPos allocates a new n.TickPos and returns the pointer to it.
-func (n *NoteWidget) SetTickPos(v string) {
-	n.TickPos = &v
-}
-
-// GetTitle returns the Title field if non-nil, zero value otherwise.
-func (n *NoteWidget) GetTitle() bool {
-	if n == nil || n.Title == nil {
-		return false
-	}
-	return *n.Title
-}
-
-// GetOkTitle returns a tuple with the Title field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (n *NoteWidget) GetTitleOk() (bool, bool) {
-	if n == nil || n.Title == nil {
-		return false, false
-	}
-	return *n.Title, true
-}
-
-// HasTitle returns a boolean if a field has been set.
-func (n *NoteWidget) HasTitle() bool {
-	if n != nil && n.Title != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTitle allocates a new n.Title and returns the pointer to it.
-func (n *NoteWidget) SetTitle(v bool) {
-	n.Title = &v
-}
-
-// GetTitleAlign returns the TitleAlign field if non-nil, zero value otherwise.
-func (n *NoteWidget) GetTitleAlign() string {
-	if n == nil || n.TitleAlign == nil {
-		return ""
-	}
-	return *n.TitleAlign
-}
-
-// GetOkTitleAlign returns a tuple with the TitleAlign field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (n *NoteWidget) GetTitleAlignOk() (string, bool) {
-	if n == nil || n.TitleAlign == nil {
-		return "", false
-	}
-	return *n.TitleAlign, true
-}
-
-// HasTitleAlign returns a boolean if a field has been set.
-func (n *NoteWidget) HasTitleAlign() bool {
-	if n != nil && n.TitleAlign != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTitleAlign allocates a new n.TitleAlign and returns the pointer to it.
-func (n *NoteWidget) SetTitleAlign(v string) {
-	n.TitleAlign = &v
-}
-
-// GetTitleSize returns the TitleSize field if non-nil, zero value otherwise.
-func (n *NoteWidget) GetTitleSize() int {
-	if n == nil || n.TitleSize == nil {
-		return 0
-	}
-	return *n.TitleSize
-}
-
-// GetOkTitleSize returns a tuple with the TitleSize field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (n *NoteWidget) GetTitleSizeOk() (int, bool) {
-	if n == nil || n.TitleSize == nil {
-		return 0, false
-	}
-	return *n.TitleSize, true
-}
-
-// HasTitleSize returns a boolean if a field has been set.
-func (n *NoteWidget) HasTitleSize() bool {
-	if n != nil && n.TitleSize != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTitleSize allocates a new n.TitleSize and returns the pointer to it.
-func (n *NoteWidget) SetTitleSize(v int) {
-	n.TitleSize = &v
-}
-
-// GetTitleText returns the TitleText field if non-nil, zero value otherwise.
-func (n *NoteWidget) GetTitleText() string {
-	if n == nil || n.TitleText == nil {
-		return ""
-	}
-	return *n.TitleText
-}
-
-// GetOkTitleText returns a tuple with the TitleText field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (n *NoteWidget) GetTitleTextOk() (string, bool) {
-	if n == nil || n.TitleText == nil {
-		return "", false
-	}
-	return *n.TitleText, true
-}
-
-// HasTitleText returns a boolean if a field has been set.
-func (n *NoteWidget) HasTitleText() bool {
-	if n != nil && n.TitleText != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTitleText allocates a new n.TitleText and returns the pointer to it.
-func (n *NoteWidget) SetTitleText(v string) {
-	n.TitleText = &v
-}
-
-// GetWidth returns the Width field if non-nil, zero value otherwise.
-func (n *NoteWidget) GetWidth() int {
-	if n == nil || n.Width == nil {
-		return 0
-	}
-	return *n.Width
-}
-
-// GetOkWidth returns a tuple with the Width field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (n *NoteWidget) GetWidthOk() (int, bool) {
-	if n == nil || n.Width == nil {
-		return 0, false
-	}
-	return *n.Width, true
-}
-
-// HasWidth returns a boolean if a field has been set.
-func (n *NoteWidget) HasWidth() bool {
-	if n != nil && n.Width != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetWidth allocates a new n.Width and returns the pointer to it.
-func (n *NoteWidget) SetWidth(v int) {
-	n.Width = &v
-}
-
-// GetX returns the X field if non-nil, zero value otherwise.
-func (n *NoteWidget) GetX() int {
-	if n == nil || n.X == nil {
-		return 0
-	}
-	return *n.X
-}
-
-// GetOkX returns a tuple with the X field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (n *NoteWidget) GetXOk() (int, bool) {
-	if n == nil || n.X == nil {
-		return 0, false
-	}
-	return *n.X, true
-}
-
-// HasX returns a boolean if a field has been set.
-func (n *NoteWidget) HasX() bool {
-	if n != nil && n.X != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetX allocates a new n.X and returns the pointer to it.
-func (n *NoteWidget) SetX(v int) {
-	n.X = &v
-}
-
-// GetY returns the Y field if non-nil, zero value otherwise.
-func (n *NoteWidget) GetY() int {
-	if n == nil || n.Y == nil {
-		return 0
-	}
-	return *n.Y
-}
-
-// GetOkY returns a tuple with the Y field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (n *NoteWidget) GetYOk() (int, bool) {
-	if n == nil || n.Y == nil {
-		return 0, false
-	}
-	return *n.Y, true
-}
-
-// HasY returns a boolean if a field has been set.
-func (n *NoteWidget) HasY() bool {
-	if n != nil && n.Y != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetY allocates a new n.Y and returns the pointer to it.
-func (n *NoteWidget) SetY(v int) {
-	n.Y = &v
-}
-
 // GetEscalationMessage returns the EscalationMessage field if non-nil, zero value otherwise.
 func (o *Options) GetEscalationMessage() string {
 	if o == nil || o.EscalationMessage == nil {
@@ -8887,7 +5477,7 @@ func (o *Options) GetEscalationMessage() string {
 	return *o.EscalationMessage
 }
 
-// GetOkEscalationMessage returns a tuple with the EscalationMessage field if it's non-nil, zero value otherwise
+// GetEscalationMessageOk returns a tuple with the EscalationMessage field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (o *Options) GetEscalationMessageOk() (string, bool) {
 	if o == nil || o.EscalationMessage == nil {
@@ -8918,7 +5508,7 @@ func (o *Options) GetEvaluationDelay() int {
 	return *o.EvaluationDelay
 }
 
-// GetOkEvaluationDelay returns a tuple with the EvaluationDelay field if it's non-nil, zero value otherwise
+// GetEvaluationDelayOk returns a tuple with the EvaluationDelay field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (o *Options) GetEvaluationDelayOk() (int, bool) {
 	if o == nil || o.EvaluationDelay == nil {
@@ -8949,7 +5539,7 @@ func (o *Options) GetIncludeTags() bool {
 	return *o.IncludeTags
 }
 
-// GetOkIncludeTags returns a tuple with the IncludeTags field if it's non-nil, zero value otherwise
+// GetIncludeTagsOk returns a tuple with the IncludeTags field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (o *Options) GetIncludeTagsOk() (bool, bool) {
 	if o == nil || o.IncludeTags == nil {
@@ -8980,7 +5570,7 @@ func (o *Options) GetLocked() bool {
 	return *o.Locked
 }
 
-// GetOkLocked returns a tuple with the Locked field if it's non-nil, zero value otherwise
+// GetLockedOk returns a tuple with the Locked field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (o *Options) GetLockedOk() (bool, bool) {
 	if o == nil || o.Locked == nil {
@@ -9011,7 +5601,7 @@ func (o *Options) GetNewHostDelay() int {
 	return *o.NewHostDelay
 }
 
-// GetOkNewHostDelay returns a tuple with the NewHostDelay field if it's non-nil, zero value otherwise
+// GetNewHostDelayOk returns a tuple with the NewHostDelay field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (o *Options) GetNewHostDelayOk() (int, bool) {
 	if o == nil || o.NewHostDelay == nil {
@@ -9042,7 +5632,7 @@ func (o *Options) GetNotifyAudit() bool {
 	return *o.NotifyAudit
 }
 
-// GetOkNotifyAudit returns a tuple with the NotifyAudit field if it's non-nil, zero value otherwise
+// GetNotifyAuditOk returns a tuple with the NotifyAudit field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (o *Options) GetNotifyAuditOk() (bool, bool) {
 	if o == nil || o.NotifyAudit == nil {
@@ -9073,7 +5663,7 @@ func (o *Options) GetNotifyNoData() bool {
 	return *o.NotifyNoData
 }
 
-// GetOkNotifyNoData returns a tuple with the NotifyNoData field if it's non-nil, zero value otherwise
+// GetNotifyNoDataOk returns a tuple with the NotifyNoData field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (o *Options) GetNotifyNoDataOk() (bool, bool) {
 	if o == nil || o.NotifyNoData == nil {
@@ -9104,7 +5694,7 @@ func (o *Options) GetRenotifyInterval() int {
 	return *o.RenotifyInterval
 }
 
-// GetOkRenotifyInterval returns a tuple with the RenotifyInterval field if it's non-nil, zero value otherwise
+// GetRenotifyIntervalOk returns a tuple with the RenotifyInterval field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (o *Options) GetRenotifyIntervalOk() (int, bool) {
 	if o == nil || o.RenotifyInterval == nil {
@@ -9135,7 +5725,7 @@ func (o *Options) GetRequireFullWindow() bool {
 	return *o.RequireFullWindow
 }
 
-// GetOkRequireFullWindow returns a tuple with the RequireFullWindow field if it's non-nil, zero value otherwise
+// GetRequireFullWindowOk returns a tuple with the RequireFullWindow field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (o *Options) GetRequireFullWindowOk() (bool, bool) {
 	if o == nil || o.RequireFullWindow == nil {
@@ -9166,7 +5756,7 @@ func (o *Options) GetThresholds() ThresholdCount {
 	return *o.Thresholds
 }
 
-// GetOkThresholds returns a tuple with the Thresholds field if it's non-nil, zero value otherwise
+// GetThresholdsOk returns a tuple with the Thresholds field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (o *Options) GetThresholdsOk() (ThresholdCount, bool) {
 	if o == nil || o.Thresholds == nil {
@@ -9197,7 +5787,7 @@ func (o *Options) GetTimeoutH() int {
 	return *o.TimeoutH
 }
 
-// GetOkTimeoutH returns a tuple with the TimeoutH field if it's non-nil, zero value otherwise
+// GetTimeoutHOk returns a tuple with the TimeoutH field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (o *Options) GetTimeoutHOk() (int, bool) {
 	if o == nil || o.TimeoutH == nil {
@@ -9220,686 +5810,128 @@ func (o *Options) SetTimeoutH(v int) {
 	o.TimeoutH = &v
 }
 
-// GetAggregator returns the Aggregator field if non-nil, zero value otherwise.
-func (q *QueryValueWidget) GetAggregator() string {
-	if q == nil || q.Aggregator == nil {
+// GetCount returns the Count field if non-nil, zero value otherwise.
+func (p *Params) GetCount() string {
+	if p == nil || p.Count == nil {
 		return ""
 	}
-	return *q.Aggregator
+	return *p.Count
 }
 
-// GetOkAggregator returns a tuple with the Aggregator field if it's non-nil, zero value otherwise
+// GetCountOk returns a tuple with the Count field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
-func (q *QueryValueWidget) GetAggregatorOk() (string, bool) {
-	if q == nil || q.Aggregator == nil {
+func (p *Params) GetCountOk() (string, bool) {
+	if p == nil || p.Count == nil {
 		return "", false
 	}
-	return *q.Aggregator, true
+	return *p.Count, true
 }
 
-// HasAggregator returns a boolean if a field has been set.
-func (q *QueryValueWidget) HasAggregator() bool {
-	if q != nil && q.Aggregator != nil {
+// HasCount returns a boolean if a field has been set.
+func (p *Params) HasCount() bool {
+	if p != nil && p.Count != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetAggregator allocates a new q.Aggregator and returns the pointer to it.
-func (q *QueryValueWidget) SetAggregator(v string) {
-	q.Aggregator = &v
+// SetCount allocates a new p.Count and returns the pointer to it.
+func (p *Params) SetCount(v string) {
+	p.Count = &v
 }
 
-// GetCalcFunc returns the CalcFunc field if non-nil, zero value otherwise.
-func (q *QueryValueWidget) GetCalcFunc() string {
-	if q == nil || q.CalcFunc == nil {
+// GetSort returns the Sort field if non-nil, zero value otherwise.
+func (p *Params) GetSort() string {
+	if p == nil || p.Sort == nil {
 		return ""
 	}
-	return *q.CalcFunc
+	return *p.Sort
 }
 
-// GetOkCalcFunc returns a tuple with the CalcFunc field if it's non-nil, zero value otherwise
+// GetSortOk returns a tuple with the Sort field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
-func (q *QueryValueWidget) GetCalcFuncOk() (string, bool) {
-	if q == nil || q.CalcFunc == nil {
+func (p *Params) GetSortOk() (string, bool) {
+	if p == nil || p.Sort == nil {
 		return "", false
 	}
-	return *q.CalcFunc, true
+	return *p.Sort, true
 }
 
-// HasCalcFunc returns a boolean if a field has been set.
-func (q *QueryValueWidget) HasCalcFunc() bool {
-	if q != nil && q.CalcFunc != nil {
+// HasSort returns a boolean if a field has been set.
+func (p *Params) HasSort() bool {
+	if p != nil && p.Sort != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetCalcFunc allocates a new q.CalcFunc and returns the pointer to it.
-func (q *QueryValueWidget) SetCalcFunc(v string) {
-	q.CalcFunc = &v
+// SetSort allocates a new p.Sort and returns the pointer to it.
+func (p *Params) SetSort(v string) {
+	p.Sort = &v
 }
 
-// GetHeight returns the Height field if non-nil, zero value otherwise.
-func (q *QueryValueWidget) GetHeight() int {
-	if q == nil || q.Height == nil {
-		return 0
-	}
-	return *q.Height
-}
-
-// GetOkHeight returns a tuple with the Height field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (q *QueryValueWidget) GetHeightOk() (int, bool) {
-	if q == nil || q.Height == nil {
-		return 0, false
-	}
-	return *q.Height, true
-}
-
-// HasHeight returns a boolean if a field has been set.
-func (q *QueryValueWidget) HasHeight() bool {
-	if q != nil && q.Height != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetHeight allocates a new q.Height and returns the pointer to it.
-func (q *QueryValueWidget) SetHeight(v int) {
-	q.Height = &v
-}
-
-// GetIsValidQuery returns the IsValidQuery field if non-nil, zero value otherwise.
-func (q *QueryValueWidget) GetIsValidQuery() bool {
-	if q == nil || q.IsValidQuery == nil {
-		return false
-	}
-	return *q.IsValidQuery
-}
-
-// GetOkIsValidQuery returns a tuple with the IsValidQuery field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (q *QueryValueWidget) GetIsValidQueryOk() (bool, bool) {
-	if q == nil || q.IsValidQuery == nil {
-		return false, false
-	}
-	return *q.IsValidQuery, true
-}
-
-// HasIsValidQuery returns a boolean if a field has been set.
-func (q *QueryValueWidget) HasIsValidQuery() bool {
-	if q != nil && q.IsValidQuery != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetIsValidQuery allocates a new q.IsValidQuery and returns the pointer to it.
-func (q *QueryValueWidget) SetIsValidQuery(v bool) {
-	q.IsValidQuery = &v
-}
-
-// GetMetric returns the Metric field if non-nil, zero value otherwise.
-func (q *QueryValueWidget) GetMetric() string {
-	if q == nil || q.Metric == nil {
+// GetStart returns the Start field if non-nil, zero value otherwise.
+func (p *Params) GetStart() string {
+	if p == nil || p.Start == nil {
 		return ""
 	}
-	return *q.Metric
+	return *p.Start
 }
 
-// GetOkMetric returns a tuple with the Metric field if it's non-nil, zero value otherwise
+// GetStartOk returns a tuple with the Start field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
-func (q *QueryValueWidget) GetMetricOk() (string, bool) {
-	if q == nil || q.Metric == nil {
+func (p *Params) GetStartOk() (string, bool) {
+	if p == nil || p.Start == nil {
 		return "", false
 	}
-	return *q.Metric, true
+	return *p.Start, true
 }
 
-// HasMetric returns a boolean if a field has been set.
-func (q *QueryValueWidget) HasMetric() bool {
-	if q != nil && q.Metric != nil {
+// HasStart returns a boolean if a field has been set.
+func (p *Params) HasStart() bool {
+	if p != nil && p.Start != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetMetric allocates a new q.Metric and returns the pointer to it.
-func (q *QueryValueWidget) SetMetric(v string) {
-	q.Metric = &v
+// SetStart allocates a new p.Start and returns the pointer to it.
+func (p *Params) SetStart(v string) {
+	p.Start = &v
 }
 
-// GetMetricType returns the MetricType field if non-nil, zero value otherwise.
-func (q *QueryValueWidget) GetMetricType() string {
-	if q == nil || q.MetricType == nil {
+// GetText returns the Text field if non-nil, zero value otherwise.
+func (p *Params) GetText() string {
+	if p == nil || p.Text == nil {
 		return ""
 	}
-	return *q.MetricType
+	return *p.Text
 }
 
-// GetOkMetricType returns a tuple with the MetricType field if it's non-nil, zero value otherwise
+// GetTextOk returns a tuple with the Text field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
-func (q *QueryValueWidget) GetMetricTypeOk() (string, bool) {
-	if q == nil || q.MetricType == nil {
+func (p *Params) GetTextOk() (string, bool) {
+	if p == nil || p.Text == nil {
 		return "", false
 	}
-	return *q.MetricType, true
+	return *p.Text, true
 }
 
-// HasMetricType returns a boolean if a field has been set.
-func (q *QueryValueWidget) HasMetricType() bool {
-	if q != nil && q.MetricType != nil {
+// HasText returns a boolean if a field has been set.
+func (p *Params) HasText() bool {
+	if p != nil && p.Text != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetMetricType allocates a new q.MetricType and returns the pointer to it.
-func (q *QueryValueWidget) SetMetricType(v string) {
-	q.MetricType = &v
-}
-
-// GetPrecision returns the Precision field if non-nil, zero value otherwise.
-func (q *QueryValueWidget) GetPrecision() int {
-	if q == nil || q.Precision == nil {
-		return 0
-	}
-	return *q.Precision
-}
-
-// GetOkPrecision returns a tuple with the Precision field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (q *QueryValueWidget) GetPrecisionOk() (int, bool) {
-	if q == nil || q.Precision == nil {
-		return 0, false
-	}
-	return *q.Precision, true
-}
-
-// HasPrecision returns a boolean if a field has been set.
-func (q *QueryValueWidget) HasPrecision() bool {
-	if q != nil && q.Precision != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetPrecision allocates a new q.Precision and returns the pointer to it.
-func (q *QueryValueWidget) SetPrecision(v int) {
-	q.Precision = &v
-}
-
-// GetQuery returns the Query field if non-nil, zero value otherwise.
-func (q *QueryValueWidget) GetQuery() string {
-	if q == nil || q.Query == nil {
-		return ""
-	}
-	return *q.Query
-}
-
-// GetOkQuery returns a tuple with the Query field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (q *QueryValueWidget) GetQueryOk() (string, bool) {
-	if q == nil || q.Query == nil {
-		return "", false
-	}
-	return *q.Query, true
-}
-
-// HasQuery returns a boolean if a field has been set.
-func (q *QueryValueWidget) HasQuery() bool {
-	if q != nil && q.Query != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetQuery allocates a new q.Query and returns the pointer to it.
-func (q *QueryValueWidget) SetQuery(v string) {
-	q.Query = &v
-}
-
-// GetResultCalcFunc returns the ResultCalcFunc field if non-nil, zero value otherwise.
-func (q *QueryValueWidget) GetResultCalcFunc() string {
-	if q == nil || q.ResultCalcFunc == nil {
-		return ""
-	}
-	return *q.ResultCalcFunc
-}
-
-// GetOkResultCalcFunc returns a tuple with the ResultCalcFunc field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (q *QueryValueWidget) GetResultCalcFuncOk() (string, bool) {
-	if q == nil || q.ResultCalcFunc == nil {
-		return "", false
-	}
-	return *q.ResultCalcFunc, true
-}
-
-// HasResultCalcFunc returns a boolean if a field has been set.
-func (q *QueryValueWidget) HasResultCalcFunc() bool {
-	if q != nil && q.ResultCalcFunc != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetResultCalcFunc allocates a new q.ResultCalcFunc and returns the pointer to it.
-func (q *QueryValueWidget) SetResultCalcFunc(v string) {
-	q.ResultCalcFunc = &v
-}
-
-// GetTextAlign returns the TextAlign field if non-nil, zero value otherwise.
-func (q *QueryValueWidget) GetTextAlign() string {
-	if q == nil || q.TextAlign == nil {
-		return ""
-	}
-	return *q.TextAlign
-}
-
-// GetOkTextAlign returns a tuple with the TextAlign field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (q *QueryValueWidget) GetTextAlignOk() (string, bool) {
-	if q == nil || q.TextAlign == nil {
-		return "", false
-	}
-	return *q.TextAlign, true
-}
-
-// HasTextAlign returns a boolean if a field has been set.
-func (q *QueryValueWidget) HasTextAlign() bool {
-	if q != nil && q.TextAlign != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTextAlign allocates a new q.TextAlign and returns the pointer to it.
-func (q *QueryValueWidget) SetTextAlign(v string) {
-	q.TextAlign = &v
-}
-
-// GetTextSize returns the TextSize field if non-nil, zero value otherwise.
-func (q *QueryValueWidget) GetTextSize() TextSize {
-	if q == nil || q.TextSize == nil {
-		return TextSize{}
-	}
-	return *q.TextSize
-}
-
-// GetOkTextSize returns a tuple with the TextSize field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (q *QueryValueWidget) GetTextSizeOk() (TextSize, bool) {
-	if q == nil || q.TextSize == nil {
-		return TextSize{}, false
-	}
-	return *q.TextSize, true
-}
-
-// HasTextSize returns a boolean if a field has been set.
-func (q *QueryValueWidget) HasTextSize() bool {
-	if q != nil && q.TextSize != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTextSize allocates a new q.TextSize and returns the pointer to it.
-func (q *QueryValueWidget) SetTextSize(v TextSize) {
-	q.TextSize = &v
-}
-
-// GetTimeframe returns the Timeframe field if non-nil, zero value otherwise.
-func (q *QueryValueWidget) GetTimeframe() string {
-	if q == nil || q.Timeframe == nil {
-		return ""
-	}
-	return *q.Timeframe
-}
-
-// GetOkTimeframe returns a tuple with the Timeframe field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (q *QueryValueWidget) GetTimeframeOk() (string, bool) {
-	if q == nil || q.Timeframe == nil {
-		return "", false
-	}
-	return *q.Timeframe, true
-}
-
-// HasTimeframe returns a boolean if a field has been set.
-func (q *QueryValueWidget) HasTimeframe() bool {
-	if q != nil && q.Timeframe != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTimeframe allocates a new q.Timeframe and returns the pointer to it.
-func (q *QueryValueWidget) SetTimeframe(v string) {
-	q.Timeframe = &v
-}
-
-// GetTimeframeAggregator returns the TimeframeAggregator field if non-nil, zero value otherwise.
-func (q *QueryValueWidget) GetTimeframeAggregator() string {
-	if q == nil || q.TimeframeAggregator == nil {
-		return ""
-	}
-	return *q.TimeframeAggregator
-}
-
-// GetOkTimeframeAggregator returns a tuple with the TimeframeAggregator field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (q *QueryValueWidget) GetTimeframeAggregatorOk() (string, bool) {
-	if q == nil || q.TimeframeAggregator == nil {
-		return "", false
-	}
-	return *q.TimeframeAggregator, true
-}
-
-// HasTimeframeAggregator returns a boolean if a field has been set.
-func (q *QueryValueWidget) HasTimeframeAggregator() bool {
-	if q != nil && q.TimeframeAggregator != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTimeframeAggregator allocates a new q.TimeframeAggregator and returns the pointer to it.
-func (q *QueryValueWidget) SetTimeframeAggregator(v string) {
-	q.TimeframeAggregator = &v
-}
-
-// GetTitle returns the Title field if non-nil, zero value otherwise.
-func (q *QueryValueWidget) GetTitle() bool {
-	if q == nil || q.Title == nil {
-		return false
-	}
-	return *q.Title
-}
-
-// GetOkTitle returns a tuple with the Title field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (q *QueryValueWidget) GetTitleOk() (bool, bool) {
-	if q == nil || q.Title == nil {
-		return false, false
-	}
-	return *q.Title, true
-}
-
-// HasTitle returns a boolean if a field has been set.
-func (q *QueryValueWidget) HasTitle() bool {
-	if q != nil && q.Title != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTitle allocates a new q.Title and returns the pointer to it.
-func (q *QueryValueWidget) SetTitle(v bool) {
-	q.Title = &v
-}
-
-// GetTitleAlign returns the TitleAlign field if non-nil, zero value otherwise.
-func (q *QueryValueWidget) GetTitleAlign() string {
-	if q == nil || q.TitleAlign == nil {
-		return ""
-	}
-	return *q.TitleAlign
-}
-
-// GetOkTitleAlign returns a tuple with the TitleAlign field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (q *QueryValueWidget) GetTitleAlignOk() (string, bool) {
-	if q == nil || q.TitleAlign == nil {
-		return "", false
-	}
-	return *q.TitleAlign, true
-}
-
-// HasTitleAlign returns a boolean if a field has been set.
-func (q *QueryValueWidget) HasTitleAlign() bool {
-	if q != nil && q.TitleAlign != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTitleAlign allocates a new q.TitleAlign and returns the pointer to it.
-func (q *QueryValueWidget) SetTitleAlign(v string) {
-	q.TitleAlign = &v
-}
-
-// GetTitleSize returns the TitleSize field if non-nil, zero value otherwise.
-func (q *QueryValueWidget) GetTitleSize() TextSize {
-	if q == nil || q.TitleSize == nil {
-		return TextSize{}
-	}
-	return *q.TitleSize
-}
-
-// GetOkTitleSize returns a tuple with the TitleSize field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (q *QueryValueWidget) GetTitleSizeOk() (TextSize, bool) {
-	if q == nil || q.TitleSize == nil {
-		return TextSize{}, false
-	}
-	return *q.TitleSize, true
-}
-
-// HasTitleSize returns a boolean if a field has been set.
-func (q *QueryValueWidget) HasTitleSize() bool {
-	if q != nil && q.TitleSize != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTitleSize allocates a new q.TitleSize and returns the pointer to it.
-func (q *QueryValueWidget) SetTitleSize(v TextSize) {
-	q.TitleSize = &v
-}
-
-// GetTitleText returns the TitleText field if non-nil, zero value otherwise.
-func (q *QueryValueWidget) GetTitleText() string {
-	if q == nil || q.TitleText == nil {
-		return ""
-	}
-	return *q.TitleText
-}
-
-// GetOkTitleText returns a tuple with the TitleText field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (q *QueryValueWidget) GetTitleTextOk() (string, bool) {
-	if q == nil || q.TitleText == nil {
-		return "", false
-	}
-	return *q.TitleText, true
-}
-
-// HasTitleText returns a boolean if a field has been set.
-func (q *QueryValueWidget) HasTitleText() bool {
-	if q != nil && q.TitleText != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTitleText allocates a new q.TitleText and returns the pointer to it.
-func (q *QueryValueWidget) SetTitleText(v string) {
-	q.TitleText = &v
-}
-
-// GetType returns the Type field if non-nil, zero value otherwise.
-func (q *QueryValueWidget) GetType() string {
-	if q == nil || q.Type == nil {
-		return ""
-	}
-	return *q.Type
-}
-
-// GetOkType returns a tuple with the Type field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (q *QueryValueWidget) GetTypeOk() (string, bool) {
-	if q == nil || q.Type == nil {
-		return "", false
-	}
-	return *q.Type, true
-}
-
-// HasType returns a boolean if a field has been set.
-func (q *QueryValueWidget) HasType() bool {
-	if q != nil && q.Type != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetType allocates a new q.Type and returns the pointer to it.
-func (q *QueryValueWidget) SetType(v string) {
-	q.Type = &v
-}
-
-// GetUnit returns the Unit field if non-nil, zero value otherwise.
-func (q *QueryValueWidget) GetUnit() string {
-	if q == nil || q.Unit == nil {
-		return ""
-	}
-	return *q.Unit
-}
-
-// GetOkUnit returns a tuple with the Unit field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (q *QueryValueWidget) GetUnitOk() (string, bool) {
-	if q == nil || q.Unit == nil {
-		return "", false
-	}
-	return *q.Unit, true
-}
-
-// HasUnit returns a boolean if a field has been set.
-func (q *QueryValueWidget) HasUnit() bool {
-	if q != nil && q.Unit != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetUnit allocates a new q.Unit and returns the pointer to it.
-func (q *QueryValueWidget) SetUnit(v string) {
-	q.Unit = &v
-}
-
-// GetWidth returns the Width field if non-nil, zero value otherwise.
-func (q *QueryValueWidget) GetWidth() int {
-	if q == nil || q.Width == nil {
-		return 0
-	}
-	return *q.Width
-}
-
-// GetOkWidth returns a tuple with the Width field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (q *QueryValueWidget) GetWidthOk() (int, bool) {
-	if q == nil || q.Width == nil {
-		return 0, false
-	}
-	return *q.Width, true
-}
-
-// HasWidth returns a boolean if a field has been set.
-func (q *QueryValueWidget) HasWidth() bool {
-	if q != nil && q.Width != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetWidth allocates a new q.Width and returns the pointer to it.
-func (q *QueryValueWidget) SetWidth(v int) {
-	q.Width = &v
-}
-
-// GetX returns the X field if non-nil, zero value otherwise.
-func (q *QueryValueWidget) GetX() int {
-	if q == nil || q.X == nil {
-		return 0
-	}
-	return *q.X
-}
-
-// GetOkX returns a tuple with the X field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (q *QueryValueWidget) GetXOk() (int, bool) {
-	if q == nil || q.X == nil {
-		return 0, false
-	}
-	return *q.X, true
-}
-
-// HasX returns a boolean if a field has been set.
-func (q *QueryValueWidget) HasX() bool {
-	if q != nil && q.X != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetX allocates a new q.X and returns the pointer to it.
-func (q *QueryValueWidget) SetX(v int) {
-	q.X = &v
-}
-
-// GetY returns the Y field if non-nil, zero value otherwise.
-func (q *QueryValueWidget) GetY() int {
-	if q == nil || q.Y == nil {
-		return 0
-	}
-	return *q.Y
-}
-
-// GetOkY returns a tuple with the Y field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (q *QueryValueWidget) GetYOk() (int, bool) {
-	if q == nil || q.Y == nil {
-		return 0, false
-	}
-	return *q.Y, true
-}
-
-// HasY returns a boolean if a field has been set.
-func (q *QueryValueWidget) HasY() bool {
-	if q != nil && q.Y != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetY allocates a new q.Y and returns the pointer to it.
-func (q *QueryValueWidget) SetY(v int) {
-	q.Y = &v
+// SetText allocates a new p.Text and returns the pointer to it.
+func (p *Params) SetText(v string) {
+	p.Text = &v
 }
 
 // GetPeriod returns the Period field if non-nil, zero value otherwise.
@@ -9910,7 +5942,7 @@ func (r *Recurrence) GetPeriod() int {
 	return *r.Period
 }
 
-// GetOkPeriod returns a tuple with the Period field if it's non-nil, zero value otherwise
+// GetPeriodOk returns a tuple with the Period field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (r *Recurrence) GetPeriodOk() (int, bool) {
 	if r == nil || r.Period == nil {
@@ -9941,7 +5973,7 @@ func (r *Recurrence) GetType() string {
 	return *r.Type
 }
 
-// GetOkType returns a tuple with the Type field if it's non-nil, zero value otherwise
+// GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (r *Recurrence) GetTypeOk() (string, bool) {
 	if r == nil || r.Type == nil {
@@ -9972,7 +6004,7 @@ func (r *Recurrence) GetUntilDate() int {
 	return *r.UntilDate
 }
 
-// GetOkUntilDate returns a tuple with the UntilDate field if it's non-nil, zero value otherwise
+// GetUntilDateOk returns a tuple with the UntilDate field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (r *Recurrence) GetUntilDateOk() (int, bool) {
 	if r == nil || r.UntilDate == nil {
@@ -10003,7 +6035,7 @@ func (r *Recurrence) GetUntilOccurrences() int {
 	return *r.UntilOccurrences
 }
 
-// GetOkUntilOccurrences returns a tuple with the UntilOccurrences field if it's non-nil, zero value otherwise
+// GetUntilOccurrencesOk returns a tuple with the UntilOccurrences field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (r *Recurrence) GetUntilOccurrencesOk() (int, bool) {
 	if r == nil || r.UntilOccurrences == nil {
@@ -10034,7 +6066,7 @@ func (r *reqComment) GetComment() Comment {
 	return *r.Comment
 }
 
-// GetOkComment returns a tuple with the Comment field if it's non-nil, zero value otherwise
+// GetCommentOk returns a tuple with the Comment field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (r *reqComment) GetCommentOk() (Comment, bool) {
 	if r == nil || r.Comment == nil {
@@ -10065,7 +6097,7 @@ func (r *reqGetDashboard) GetDashboard() Dashboard {
 	return *r.Dashboard
 }
 
-// GetOkDashboard returns a tuple with the Dashboard field if it's non-nil, zero value otherwise
+// GetDashboardOk returns a tuple with the Dashboard field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (r *reqGetDashboard) GetDashboardOk() (Dashboard, bool) {
 	if r == nil || r.Dashboard == nil {
@@ -10096,7 +6128,7 @@ func (r *reqGetDashboard) GetResource() string {
 	return *r.Resource
 }
 
-// GetOkResource returns a tuple with the Resource field if it's non-nil, zero value otherwise
+// GetResourceOk returns a tuple with the Resource field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (r *reqGetDashboard) GetResourceOk() (string, bool) {
 	if r == nil || r.Resource == nil {
@@ -10127,7 +6159,7 @@ func (r *reqGetDashboard) GetUrl() string {
 	return *r.Url
 }
 
-// GetOkUrl returns a tuple with the Url field if it's non-nil, zero value otherwise
+// GetUrlOk returns a tuple with the Url field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (r *reqGetDashboard) GetUrlOk() (string, bool) {
 	if r == nil || r.Url == nil {
@@ -10158,7 +6190,7 @@ func (r *reqGetEvent) GetEvent() Event {
 	return *r.Event
 }
 
-// GetOkEvent returns a tuple with the Event field if it's non-nil, zero value otherwise
+// GetEventOk returns a tuple with the Event field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (r *reqGetEvent) GetEventOk() (Event, bool) {
 	if r == nil || r.Event == nil {
@@ -10189,7 +6221,7 @@ func (r *reqGetTags) GetTags() TagMap {
 	return *r.Tags
 }
 
-// GetOkTags returns a tuple with the Tags field if it's non-nil, zero value otherwise
+// GetTagsOk returns a tuple with the Tags field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (r *reqGetTags) GetTagsOk() (TagMap, bool) {
 	if r == nil || r.Tags == nil {
@@ -10212,6 +6244,99 @@ func (r *reqGetTags) SetTags(v TagMap) {
 	r.Tags = &v
 }
 
+// GetColor returns the Color field if non-nil, zero value otherwise.
+func (r *Rule) GetColor() string {
+	if r == nil || r.Color == nil {
+		return ""
+	}
+	return *r.Color
+}
+
+// GetColorOk returns a tuple with the Color field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (r *Rule) GetColorOk() (string, bool) {
+	if r == nil || r.Color == nil {
+		return "", false
+	}
+	return *r.Color, true
+}
+
+// HasColor returns a boolean if a field has been set.
+func (r *Rule) HasColor() bool {
+	if r != nil && r.Color != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetColor allocates a new r.Color and returns the pointer to it.
+func (r *Rule) SetColor(v string) {
+	r.Color = &v
+}
+
+// GetThreshold returns the Threshold field if non-nil, zero value otherwise.
+func (r *Rule) GetThreshold() json.Number {
+	if r == nil || r.Threshold == nil {
+		return ""
+	}
+	return *r.Threshold
+}
+
+// GetThresholdOk returns a tuple with the Threshold field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (r *Rule) GetThresholdOk() (json.Number, bool) {
+	if r == nil || r.Threshold == nil {
+		return "", false
+	}
+	return *r.Threshold, true
+}
+
+// HasThreshold returns a boolean if a field has been set.
+func (r *Rule) HasThreshold() bool {
+	if r != nil && r.Threshold != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetThreshold allocates a new r.Threshold and returns the pointer to it.
+func (r *Rule) SetThreshold(v json.Number) {
+	r.Threshold = &v
+}
+
+// GetTimeframe returns the Timeframe field if non-nil, zero value otherwise.
+func (r *Rule) GetTimeframe() string {
+	if r == nil || r.Timeframe == nil {
+		return ""
+	}
+	return *r.Timeframe
+}
+
+// GetTimeframeOk returns a tuple with the Timeframe field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (r *Rule) GetTimeframeOk() (string, bool) {
+	if r == nil || r.Timeframe == nil {
+		return "", false
+	}
+	return *r.Timeframe, true
+}
+
+// HasTimeframe returns a boolean if a field has been set.
+func (r *Rule) HasTimeframe() bool {
+	if r != nil && r.Timeframe != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTimeframe allocates a new r.Timeframe and returns the pointer to it.
+func (r *Rule) SetTimeframe(v string) {
+	r.Timeframe = &v
+}
+
 // GetHeight returns the Height field if non-nil, zero value otherwise.
 func (s *Screenboard) GetHeight() string {
 	if s == nil || s.Height == nil {
@@ -10220,7 +6345,7 @@ func (s *Screenboard) GetHeight() string {
 	return *s.Height
 }
 
-// GetOkHeight returns a tuple with the Height field if it's non-nil, zero value otherwise
+// GetHeightOk returns a tuple with the Height field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (s *Screenboard) GetHeightOk() (string, bool) {
 	if s == nil || s.Height == nil {
@@ -10251,7 +6376,7 @@ func (s *Screenboard) GetId() int {
 	return *s.Id
 }
 
-// GetOkId returns a tuple with the Id field if it's non-nil, zero value otherwise
+// GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (s *Screenboard) GetIdOk() (int, bool) {
 	if s == nil || s.Id == nil {
@@ -10282,7 +6407,7 @@ func (s *Screenboard) GetReadOnly() bool {
 	return *s.ReadOnly
 }
 
-// GetOkReadOnly returns a tuple with the ReadOnly field if it's non-nil, zero value otherwise
+// GetReadOnlyOk returns a tuple with the ReadOnly field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (s *Screenboard) GetReadOnlyOk() (bool, bool) {
 	if s == nil || s.ReadOnly == nil {
@@ -10313,7 +6438,7 @@ func (s *Screenboard) GetShared() bool {
 	return *s.Shared
 }
 
-// GetOkShared returns a tuple with the Shared field if it's non-nil, zero value otherwise
+// GetSharedOk returns a tuple with the Shared field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (s *Screenboard) GetSharedOk() (bool, bool) {
 	if s == nil || s.Shared == nil {
@@ -10336,37 +6461,6 @@ func (s *Screenboard) SetShared(v bool) {
 	s.Shared = &v
 }
 
-// GetTemplated returns the Templated field if non-nil, zero value otherwise.
-func (s *Screenboard) GetTemplated() bool {
-	if s == nil || s.Templated == nil {
-		return false
-	}
-	return *s.Templated
-}
-
-// GetOkTemplated returns a tuple with the Templated field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (s *Screenboard) GetTemplatedOk() (bool, bool) {
-	if s == nil || s.Templated == nil {
-		return false, false
-	}
-	return *s.Templated, true
-}
-
-// HasTemplated returns a boolean if a field has been set.
-func (s *Screenboard) HasTemplated() bool {
-	if s != nil && s.Templated != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTemplated allocates a new s.Templated and returns the pointer to it.
-func (s *Screenboard) SetTemplated(v bool) {
-	s.Templated = &v
-}
-
 // GetTitle returns the Title field if non-nil, zero value otherwise.
 func (s *Screenboard) GetTitle() string {
 	if s == nil || s.Title == nil {
@@ -10375,7 +6469,7 @@ func (s *Screenboard) GetTitle() string {
 	return *s.Title
 }
 
-// GetOkTitle returns a tuple with the Title field if it's non-nil, zero value otherwise
+// GetTitleOk returns a tuple with the Title field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (s *Screenboard) GetTitleOk() (string, bool) {
 	if s == nil || s.Title == nil {
@@ -10406,7 +6500,7 @@ func (s *Screenboard) GetWidth() string {
 	return *s.Width
 }
 
-// GetOkWidth returns a tuple with the Width field if it's non-nil, zero value otherwise
+// GetWidthOk returns a tuple with the Width field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (s *Screenboard) GetWidthOk() (string, bool) {
 	if s == nil || s.Width == nil {
@@ -10437,7 +6531,7 @@ func (s *ScreenboardLite) GetId() int {
 	return *s.Id
 }
 
-// GetOkId returns a tuple with the Id field if it's non-nil, zero value otherwise
+// GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (s *ScreenboardLite) GetIdOk() (int, bool) {
 	if s == nil || s.Id == nil {
@@ -10468,7 +6562,7 @@ func (s *ScreenboardLite) GetResource() string {
 	return *s.Resource
 }
 
-// GetOkResource returns a tuple with the Resource field if it's non-nil, zero value otherwise
+// GetResourceOk returns a tuple with the Resource field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (s *ScreenboardLite) GetResourceOk() (string, bool) {
 	if s == nil || s.Resource == nil {
@@ -10499,7 +6593,7 @@ func (s *ScreenboardLite) GetTitle() string {
 	return *s.Title
 }
 
-// GetOkTitle returns a tuple with the Title field if it's non-nil, zero value otherwise
+// GetTitleOk returns a tuple with the Title field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (s *ScreenboardLite) GetTitleOk() (string, bool) {
 	if s == nil || s.Title == nil {
@@ -10522,6 +6616,37 @@ func (s *ScreenboardLite) SetTitle(v string) {
 	s.Title = &v
 }
 
+// GetId returns the Id field if non-nil, zero value otherwise.
+func (s *ScreenboardMonitor) GetId() int {
+	if s == nil || s.Id == nil {
+		return 0
+	}
+	return *s.Id
+}
+
+// GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (s *ScreenboardMonitor) GetIdOk() (int, bool) {
+	if s == nil || s.Id == nil {
+		return 0, false
+	}
+	return *s.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (s *ScreenboardMonitor) HasId() bool {
+	if s != nil && s.Id != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetId allocates a new s.Id and returns the pointer to it.
+func (s *ScreenboardMonitor) SetId(v int) {
+	s.Id = &v
+}
+
 // GetAggr returns the Aggr field if non-nil, zero value otherwise.
 func (s *Series) GetAggr() string {
 	if s == nil || s.Aggr == nil {
@@ -10530,7 +6655,7 @@ func (s *Series) GetAggr() string {
 	return *s.Aggr
 }
 
-// GetOkAggr returns a tuple with the Aggr field if it's non-nil, zero value otherwise
+// GetAggrOk returns a tuple with the Aggr field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (s *Series) GetAggrOk() (string, bool) {
 	if s == nil || s.Aggr == nil {
@@ -10561,7 +6686,7 @@ func (s *Series) GetDisplayName() string {
 	return *s.DisplayName
 }
 
-// GetOkDisplayName returns a tuple with the DisplayName field if it's non-nil, zero value otherwise
+// GetDisplayNameOk returns a tuple with the DisplayName field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (s *Series) GetDisplayNameOk() (string, bool) {
 	if s == nil || s.DisplayName == nil {
@@ -10592,7 +6717,7 @@ func (s *Series) GetEnd() float64 {
 	return *s.End
 }
 
-// GetOkEnd returns a tuple with the End field if it's non-nil, zero value otherwise
+// GetEndOk returns a tuple with the End field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (s *Series) GetEndOk() (float64, bool) {
 	if s == nil || s.End == nil {
@@ -10623,7 +6748,7 @@ func (s *Series) GetExpression() string {
 	return *s.Expression
 }
 
-// GetOkExpression returns a tuple with the Expression field if it's non-nil, zero value otherwise
+// GetExpressionOk returns a tuple with the Expression field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (s *Series) GetExpressionOk() (string, bool) {
 	if s == nil || s.Expression == nil {
@@ -10654,7 +6779,7 @@ func (s *Series) GetInterval() int {
 	return *s.Interval
 }
 
-// GetOkInterval returns a tuple with the Interval field if it's non-nil, zero value otherwise
+// GetIntervalOk returns a tuple with the Interval field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (s *Series) GetIntervalOk() (int, bool) {
 	if s == nil || s.Interval == nil {
@@ -10685,7 +6810,7 @@ func (s *Series) GetLength() int {
 	return *s.Length
 }
 
-// GetOkLength returns a tuple with the Length field if it's non-nil, zero value otherwise
+// GetLengthOk returns a tuple with the Length field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (s *Series) GetLengthOk() (int, bool) {
 	if s == nil || s.Length == nil {
@@ -10716,7 +6841,7 @@ func (s *Series) GetMetric() string {
 	return *s.Metric
 }
 
-// GetOkMetric returns a tuple with the Metric field if it's non-nil, zero value otherwise
+// GetMetricOk returns a tuple with the Metric field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (s *Series) GetMetricOk() (string, bool) {
 	if s == nil || s.Metric == nil {
@@ -10747,7 +6872,7 @@ func (s *Series) GetScope() string {
 	return *s.Scope
 }
 
-// GetOkScope returns a tuple with the Scope field if it's non-nil, zero value otherwise
+// GetScopeOk returns a tuple with the Scope field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (s *Series) GetScopeOk() (string, bool) {
 	if s == nil || s.Scope == nil {
@@ -10778,7 +6903,7 @@ func (s *Series) GetStart() float64 {
 	return *s.Start
 }
 
-// GetOkStart returns a tuple with the Start field if it's non-nil, zero value otherwise
+// GetStartOk returns a tuple with the Start field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (s *Series) GetStartOk() (float64, bool) {
 	if s == nil || s.Start == nil {
@@ -10809,7 +6934,7 @@ func (s *Series) GetUnits() UnitPair {
 	return *s.Units
 }
 
-// GetOkUnits returns a tuple with the Units field if it's non-nil, zero value otherwise
+// GetUnitsOk returns a tuple with the Units field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (s *Series) GetUnitsOk() (UnitPair, bool) {
 	if s == nil || s.Units == nil {
@@ -10840,7 +6965,7 @@ func (s *ServiceHookSlackRequest) GetAccount() string {
 	return *s.Account
 }
 
-// GetOkAccount returns a tuple with the Account field if it's non-nil, zero value otherwise
+// GetAccountOk returns a tuple with the Account field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (s *ServiceHookSlackRequest) GetAccountOk() (string, bool) {
 	if s == nil || s.Account == nil {
@@ -10871,7 +6996,7 @@ func (s *ServiceHookSlackRequest) GetUrl() string {
 	return *s.Url
 }
 
-// GetOkUrl returns a tuple with the Url field if it's non-nil, zero value otherwise
+// GetUrlOk returns a tuple with the Url field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (s *ServiceHookSlackRequest) GetUrlOk() (string, bool) {
 	if s == nil || s.Url == nil {
@@ -10902,7 +7027,7 @@ func (s *servicePD) GetServiceKey() string {
 	return *s.ServiceKey
 }
 
-// GetOkServiceKey returns a tuple with the ServiceKey field if it's non-nil, zero value otherwise
+// GetServiceKeyOk returns a tuple with the ServiceKey field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (s *servicePD) GetServiceKeyOk() (string, bool) {
 	if s == nil || s.ServiceKey == nil {
@@ -10933,7 +7058,7 @@ func (s *servicePD) GetServiceName() string {
 	return *s.ServiceName
 }
 
-// GetOkServiceName returns a tuple with the ServiceName field if it's non-nil, zero value otherwise
+// GetServiceNameOk returns a tuple with the ServiceName field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (s *servicePD) GetServiceNameOk() (string, bool) {
 	if s == nil || s.ServiceName == nil {
@@ -10964,7 +7089,7 @@ func (s *ServicePDRequest) GetServiceKey() string {
 	return *s.ServiceKey
 }
 
-// GetOkServiceKey returns a tuple with the ServiceKey field if it's non-nil, zero value otherwise
+// GetServiceKeyOk returns a tuple with the ServiceKey field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (s *ServicePDRequest) GetServiceKeyOk() (string, bool) {
 	if s == nil || s.ServiceKey == nil {
@@ -10995,7 +7120,7 @@ func (s *ServicePDRequest) GetServiceName() string {
 	return *s.ServiceName
 }
 
-// GetOkServiceName returns a tuple with the ServiceName field if it's non-nil, zero value otherwise
+// GetServiceNameOk returns a tuple with the ServiceName field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (s *ServicePDRequest) GetServiceNameOk() (string, bool) {
 	if s == nil || s.ServiceName == nil {
@@ -11018,6 +7143,68 @@ func (s *ServicePDRequest) SetServiceName(v string) {
 	s.ServiceName = &v
 }
 
+// GetFillMax returns the FillMax field if non-nil, zero value otherwise.
+func (s *Style) GetFillMax() json.Number {
+	if s == nil || s.FillMax == nil {
+		return ""
+	}
+	return *s.FillMax
+}
+
+// GetFillMaxOk returns a tuple with the FillMax field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (s *Style) GetFillMaxOk() (json.Number, bool) {
+	if s == nil || s.FillMax == nil {
+		return "", false
+	}
+	return *s.FillMax, true
+}
+
+// HasFillMax returns a boolean if a field has been set.
+func (s *Style) HasFillMax() bool {
+	if s != nil && s.FillMax != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetFillMax allocates a new s.FillMax and returns the pointer to it.
+func (s *Style) SetFillMax(v json.Number) {
+	s.FillMax = &v
+}
+
+// GetFillMin returns the FillMin field if non-nil, zero value otherwise.
+func (s *Style) GetFillMin() json.Number {
+	if s == nil || s.FillMin == nil {
+		return ""
+	}
+	return *s.FillMin
+}
+
+// GetFillMinOk returns a tuple with the FillMin field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (s *Style) GetFillMinOk() (json.Number, bool) {
+	if s == nil || s.FillMin == nil {
+		return "", false
+	}
+	return *s.FillMin, true
+}
+
+// HasFillMin returns a boolean if a field has been set.
+func (s *Style) HasFillMin() bool {
+	if s != nil && s.FillMin != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetFillMin allocates a new s.FillMin and returns the pointer to it.
+func (s *Style) SetFillMin(v json.Number) {
+	s.FillMin = &v
+}
+
 // GetPalette returns the Palette field if non-nil, zero value otherwise.
 func (s *Style) GetPalette() string {
 	if s == nil || s.Palette == nil {
@@ -11026,7 +7213,7 @@ func (s *Style) GetPalette() string {
 	return *s.Palette
 }
 
-// GetOkPalette returns a tuple with the Palette field if it's non-nil, zero value otherwise
+// GetPaletteOk returns a tuple with the Palette field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (s *Style) GetPaletteOk() (string, bool) {
 	if s == nil || s.Palette == nil {
@@ -11057,7 +7244,7 @@ func (s *Style) GetPaletteFlip() bool {
 	return *s.PaletteFlip
 }
 
-// GetOkPaletteFlip returns a tuple with the PaletteFlip field if it's non-nil, zero value otherwise
+// GetPaletteFlipOk returns a tuple with the PaletteFlip field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (s *Style) GetPaletteFlipOk() (bool, bool) {
 	if s == nil || s.PaletteFlip == nil {
@@ -11088,7 +7275,7 @@ func (t *TemplateVariable) GetDefault() string {
 	return *t.Default
 }
 
-// GetOkDefault returns a tuple with the Default field if it's non-nil, zero value otherwise
+// GetDefaultOk returns a tuple with the Default field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (t *TemplateVariable) GetDefaultOk() (string, bool) {
 	if t == nil || t.Default == nil {
@@ -11119,7 +7306,7 @@ func (t *TemplateVariable) GetName() string {
 	return *t.Name
 }
 
-// GetOkName returns a tuple with the Name field if it's non-nil, zero value otherwise
+// GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (t *TemplateVariable) GetNameOk() (string, bool) {
 	if t == nil || t.Name == nil {
@@ -11150,7 +7337,7 @@ func (t *TemplateVariable) GetPrefix() string {
 	return *t.Prefix
 }
 
-// GetOkPrefix returns a tuple with the Prefix field if it's non-nil, zero value otherwise
+// GetPrefixOk returns a tuple with the Prefix field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (t *TemplateVariable) GetPrefixOk() (string, bool) {
 	if t == nil || t.Prefix == nil {
@@ -11173,68 +7360,6 @@ func (t *TemplateVariable) SetPrefix(v string) {
 	t.Prefix = &v
 }
 
-// GetAuto returns the Auto field if non-nil, zero value otherwise.
-func (t *TextSize) GetAuto() bool {
-	if t == nil || t.Auto == nil {
-		return false
-	}
-	return *t.Auto
-}
-
-// GetOkAuto returns a tuple with the Auto field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (t *TextSize) GetAutoOk() (bool, bool) {
-	if t == nil || t.Auto == nil {
-		return false, false
-	}
-	return *t.Auto, true
-}
-
-// HasAuto returns a boolean if a field has been set.
-func (t *TextSize) HasAuto() bool {
-	if t != nil && t.Auto != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetAuto allocates a new t.Auto and returns the pointer to it.
-func (t *TextSize) SetAuto(v bool) {
-	t.Auto = &v
-}
-
-// GetSize returns the Size field if non-nil, zero value otherwise.
-func (t *TextSize) GetSize() int {
-	if t == nil || t.Size == nil {
-		return 0
-	}
-	return *t.Size
-}
-
-// GetOkSize returns a tuple with the Size field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (t *TextSize) GetSizeOk() (int, bool) {
-	if t == nil || t.Size == nil {
-		return 0, false
-	}
-	return *t.Size, true
-}
-
-// HasSize returns a boolean if a field has been set.
-func (t *TextSize) HasSize() bool {
-	if t != nil && t.Size != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetSize allocates a new t.Size and returns the pointer to it.
-func (t *TextSize) SetSize(v int) {
-	t.Size = &v
-}
-
 // GetCritical returns the Critical field if non-nil, zero value otherwise.
 func (t *ThresholdCount) GetCritical() json.Number {
 	if t == nil || t.Critical == nil {
@@ -11243,7 +7368,7 @@ func (t *ThresholdCount) GetCritical() json.Number {
 	return *t.Critical
 }
 
-// GetOkCritical returns a tuple with the Critical field if it's non-nil, zero value otherwise
+// GetCriticalOk returns a tuple with the Critical field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (t *ThresholdCount) GetCriticalOk() (json.Number, bool) {
 	if t == nil || t.Critical == nil {
@@ -11274,7 +7399,7 @@ func (t *ThresholdCount) GetCriticalRecovery() json.Number {
 	return *t.CriticalRecovery
 }
 
-// GetOkCriticalRecovery returns a tuple with the CriticalRecovery field if it's non-nil, zero value otherwise
+// GetCriticalRecoveryOk returns a tuple with the CriticalRecovery field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (t *ThresholdCount) GetCriticalRecoveryOk() (json.Number, bool) {
 	if t == nil || t.CriticalRecovery == nil {
@@ -11336,7 +7461,7 @@ func (t *ThresholdCount) GetUnknown() json.Number {
 	return *t.Unknown
 }
 
-// GetOkUnknown returns a tuple with the Unknown field if it's non-nil, zero value otherwise
+// GetUnknownOk returns a tuple with the Unknown field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (t *ThresholdCount) GetUnknownOk() (json.Number, bool) {
 	if t == nil || t.Unknown == nil {
@@ -11367,7 +7492,7 @@ func (t *ThresholdCount) GetWarning() json.Number {
 	return *t.Warning
 }
 
-// GetOkWarning returns a tuple with the Warning field if it's non-nil, zero value otherwise
+// GetWarningOk returns a tuple with the Warning field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (t *ThresholdCount) GetWarningOk() (json.Number, bool) {
 	if t == nil || t.Warning == nil {
@@ -11398,7 +7523,7 @@ func (t *ThresholdCount) GetWarningRecovery() json.Number {
 	return *t.WarningRecovery
 }
 
-// GetOkWarningRecovery returns a tuple with the WarningRecovery field if it's non-nil, zero value otherwise
+// GetWarningRecoveryOk returns a tuple with the WarningRecovery field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (t *ThresholdCount) GetWarningRecoveryOk() (json.Number, bool) {
 	if t == nil || t.WarningRecovery == nil {
@@ -11421,6 +7546,254 @@ func (t *ThresholdCount) SetWarningRecovery(v json.Number) {
 	t.WarningRecovery = &v
 }
 
+// GetAutoscale returns the Autoscale field if non-nil, zero value otherwise.
+func (t *TileDef) GetAutoscale() bool {
+	if t == nil || t.Autoscale == nil {
+		return false
+	}
+	return *t.Autoscale
+}
+
+// GetAutoscaleOk returns a tuple with the Autoscale field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (t *TileDef) GetAutoscaleOk() (bool, bool) {
+	if t == nil || t.Autoscale == nil {
+		return false, false
+	}
+	return *t.Autoscale, true
+}
+
+// HasAutoscale returns a boolean if a field has been set.
+func (t *TileDef) HasAutoscale() bool {
+	if t != nil && t.Autoscale != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAutoscale allocates a new t.Autoscale and returns the pointer to it.
+func (t *TileDef) SetAutoscale(v bool) {
+	t.Autoscale = &v
+}
+
+// GetCustomUnit returns the CustomUnit field if non-nil, zero value otherwise.
+func (t *TileDef) GetCustomUnit() string {
+	if t == nil || t.CustomUnit == nil {
+		return ""
+	}
+	return *t.CustomUnit
+}
+
+// GetCustomUnitOk returns a tuple with the CustomUnit field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (t *TileDef) GetCustomUnitOk() (string, bool) {
+	if t == nil || t.CustomUnit == nil {
+		return "", false
+	}
+	return *t.CustomUnit, true
+}
+
+// HasCustomUnit returns a boolean if a field has been set.
+func (t *TileDef) HasCustomUnit() bool {
+	if t != nil && t.CustomUnit != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCustomUnit allocates a new t.CustomUnit and returns the pointer to it.
+func (t *TileDef) SetCustomUnit(v string) {
+	t.CustomUnit = &v
+}
+
+// GetNodeType returns the NodeType field if non-nil, zero value otherwise.
+func (t *TileDef) GetNodeType() string {
+	if t == nil || t.NodeType == nil {
+		return ""
+	}
+	return *t.NodeType
+}
+
+// GetNodeTypeOk returns a tuple with the NodeType field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (t *TileDef) GetNodeTypeOk() (string, bool) {
+	if t == nil || t.NodeType == nil {
+		return "", false
+	}
+	return *t.NodeType, true
+}
+
+// HasNodeType returns a boolean if a field has been set.
+func (t *TileDef) HasNodeType() bool {
+	if t != nil && t.NodeType != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetNodeType allocates a new t.NodeType and returns the pointer to it.
+func (t *TileDef) SetNodeType(v string) {
+	t.NodeType = &v
+}
+
+// GetNoGroupHosts returns the NoGroupHosts field if non-nil, zero value otherwise.
+func (t *TileDef) GetNoGroupHosts() bool {
+	if t == nil || t.NoGroupHosts == nil {
+		return false
+	}
+	return *t.NoGroupHosts
+}
+
+// GetNoGroupHostsOk returns a tuple with the NoGroupHosts field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (t *TileDef) GetNoGroupHostsOk() (bool, bool) {
+	if t == nil || t.NoGroupHosts == nil {
+		return false, false
+	}
+	return *t.NoGroupHosts, true
+}
+
+// HasNoGroupHosts returns a boolean if a field has been set.
+func (t *TileDef) HasNoGroupHosts() bool {
+	if t != nil && t.NoGroupHosts != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetNoGroupHosts allocates a new t.NoGroupHosts and returns the pointer to it.
+func (t *TileDef) SetNoGroupHosts(v bool) {
+	t.NoGroupHosts = &v
+}
+
+// GetNoMetricHosts returns the NoMetricHosts field if non-nil, zero value otherwise.
+func (t *TileDef) GetNoMetricHosts() bool {
+	if t == nil || t.NoMetricHosts == nil {
+		return false
+	}
+	return *t.NoMetricHosts
+}
+
+// GetNoMetricHostsOk returns a tuple with the NoMetricHosts field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (t *TileDef) GetNoMetricHostsOk() (bool, bool) {
+	if t == nil || t.NoMetricHosts == nil {
+		return false, false
+	}
+	return *t.NoMetricHosts, true
+}
+
+// HasNoMetricHosts returns a boolean if a field has been set.
+func (t *TileDef) HasNoMetricHosts() bool {
+	if t != nil && t.NoMetricHosts != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetNoMetricHosts allocates a new t.NoMetricHosts and returns the pointer to it.
+func (t *TileDef) SetNoMetricHosts(v bool) {
+	t.NoMetricHosts = &v
+}
+
+// GetPrecision returns the Precision field if non-nil, zero value otherwise.
+func (t *TileDef) GetPrecision() json.Number {
+	if t == nil || t.Precision == nil {
+		return ""
+	}
+	return *t.Precision
+}
+
+// GetPrecisionOk returns a tuple with the Precision field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (t *TileDef) GetPrecisionOk() (json.Number, bool) {
+	if t == nil || t.Precision == nil {
+		return "", false
+	}
+	return *t.Precision, true
+}
+
+// HasPrecision returns a boolean if a field has been set.
+func (t *TileDef) HasPrecision() bool {
+	if t != nil && t.Precision != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPrecision allocates a new t.Precision and returns the pointer to it.
+func (t *TileDef) SetPrecision(v json.Number) {
+	t.Precision = &v
+}
+
+// GetStyle returns the Style field if non-nil, zero value otherwise.
+func (t *TileDef) GetStyle() TileDefStyle {
+	if t == nil || t.Style == nil {
+		return TileDefStyle{}
+	}
+	return *t.Style
+}
+
+// GetStyleOk returns a tuple with the Style field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (t *TileDef) GetStyleOk() (TileDefStyle, bool) {
+	if t == nil || t.Style == nil {
+		return TileDefStyle{}, false
+	}
+	return *t.Style, true
+}
+
+// HasStyle returns a boolean if a field has been set.
+func (t *TileDef) HasStyle() bool {
+	if t != nil && t.Style != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetStyle allocates a new t.Style and returns the pointer to it.
+func (t *TileDef) SetStyle(v TileDefStyle) {
+	t.Style = &v
+}
+
+// GetTextAlign returns the TextAlign field if non-nil, zero value otherwise.
+func (t *TileDef) GetTextAlign() string {
+	if t == nil || t.TextAlign == nil {
+		return ""
+	}
+	return *t.TextAlign
+}
+
+// GetTextAlignOk returns a tuple with the TextAlign field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (t *TileDef) GetTextAlignOk() (string, bool) {
+	if t == nil || t.TextAlign == nil {
+		return "", false
+	}
+	return *t.TextAlign, true
+}
+
+// HasTextAlign returns a boolean if a field has been set.
+func (t *TileDef) HasTextAlign() bool {
+	if t != nil && t.TextAlign != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTextAlign allocates a new t.TextAlign and returns the pointer to it.
+func (t *TileDef) SetTextAlign(v string) {
+	t.TextAlign = &v
+}
+
 // GetViz returns the Viz field if non-nil, zero value otherwise.
 func (t *TileDef) GetViz() string {
 	if t == nil || t.Viz == nil {
@@ -11429,7 +7802,7 @@ func (t *TileDef) GetViz() string {
 	return *t.Viz
 }
 
-// GetOkViz returns a tuple with the Viz field if it's non-nil, zero value otherwise
+// GetVizOk returns a tuple with the Viz field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (t *TileDef) GetVizOk() (string, bool) {
 	if t == nil || t.Viz == nil {
@@ -11460,7 +7833,7 @@ func (t *TileDefEvent) GetQuery() string {
 	return *t.Query
 }
 
-// GetOkQuery returns a tuple with the Query field if it's non-nil, zero value otherwise
+// GetQueryOk returns a tuple with the Query field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (t *TileDefEvent) GetQueryOk() (string, bool) {
 	if t == nil || t.Query == nil {
@@ -11484,16 +7857,16 @@ func (t *TileDefEvent) SetQuery(v string) {
 }
 
 // GetLabel returns the Label field if non-nil, zero value otherwise.
-func (t *TimeseriesMarker) GetLabel() string {
+func (t *TileDefMarker) GetLabel() string {
 	if t == nil || t.Label == nil {
 		return ""
 	}
 	return *t.Label
 }
 
-// GetOkLabel returns a tuple with the Label field if it's non-nil, zero value otherwise
+// GetLabelOk returns a tuple with the Label field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
-func (t *TimeseriesMarker) GetLabelOk() (string, bool) {
+func (t *TileDefMarker) GetLabelOk() (string, bool) {
 	if t == nil || t.Label == nil {
 		return "", false
 	}
@@ -11501,7 +7874,7 @@ func (t *TimeseriesMarker) GetLabelOk() (string, bool) {
 }
 
 // HasLabel returns a boolean if a field has been set.
-func (t *TimeseriesMarker) HasLabel() bool {
+func (t *TileDefMarker) HasLabel() bool {
 	if t != nil && t.Label != nil {
 		return true
 	}
@@ -11510,21 +7883,21 @@ func (t *TimeseriesMarker) HasLabel() bool {
 }
 
 // SetLabel allocates a new t.Label and returns the pointer to it.
-func (t *TimeseriesMarker) SetLabel(v string) {
+func (t *TileDefMarker) SetLabel(v string) {
 	t.Label = &v
 }
 
 // GetType returns the Type field if non-nil, zero value otherwise.
-func (t *TimeseriesMarker) GetType() string {
+func (t *TileDefMarker) GetType() string {
 	if t == nil || t.Type == nil {
 		return ""
 	}
 	return *t.Type
 }
 
-// GetOkType returns a tuple with the Type field if it's non-nil, zero value otherwise
+// GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
-func (t *TimeseriesMarker) GetTypeOk() (string, bool) {
+func (t *TileDefMarker) GetTypeOk() (string, bool) {
 	if t == nil || t.Type == nil {
 		return "", false
 	}
@@ -11532,7 +7905,7 @@ func (t *TimeseriesMarker) GetTypeOk() (string, bool) {
 }
 
 // HasType returns a boolean if a field has been set.
-func (t *TimeseriesMarker) HasType() bool {
+func (t *TileDefMarker) HasType() bool {
 	if t != nil && t.Type != nil {
 		return true
 	}
@@ -11541,21 +7914,21 @@ func (t *TimeseriesMarker) HasType() bool {
 }
 
 // SetType allocates a new t.Type and returns the pointer to it.
-func (t *TimeseriesMarker) SetType(v string) {
+func (t *TileDefMarker) SetType(v string) {
 	t.Type = &v
 }
 
 // GetValue returns the Value field if non-nil, zero value otherwise.
-func (t *TimeseriesMarker) GetValue() string {
+func (t *TileDefMarker) GetValue() string {
 	if t == nil || t.Value == nil {
 		return ""
 	}
 	return *t.Value
 }
 
-// GetOkValue returns a tuple with the Value field if it's non-nil, zero value otherwise
+// GetValueOk returns a tuple with the Value field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
-func (t *TimeseriesMarker) GetValueOk() (string, bool) {
+func (t *TileDefMarker) GetValueOk() (string, bool) {
 	if t == nil || t.Value == nil {
 		return "", false
 	}
@@ -11563,7 +7936,7 @@ func (t *TimeseriesMarker) GetValueOk() (string, bool) {
 }
 
 // HasValue returns a boolean if a field has been set.
-func (t *TimeseriesMarker) HasValue() bool {
+func (t *TileDefMarker) HasValue() bool {
 	if t != nil && t.Value != nil {
 		return true
 	}
@@ -11572,21 +7945,300 @@ func (t *TimeseriesMarker) HasValue() bool {
 }
 
 // SetValue allocates a new t.Value and returns the pointer to it.
-func (t *TimeseriesMarker) SetValue(v string) {
+func (t *TileDefMarker) SetValue(v string) {
 	t.Value = &v
 }
 
+// GetAggregator returns the Aggregator field if non-nil, zero value otherwise.
+func (t *TileDefRequest) GetAggregator() string {
+	if t == nil || t.Aggregator == nil {
+		return ""
+	}
+	return *t.Aggregator
+}
+
+// GetAggregatorOk returns a tuple with the Aggregator field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (t *TileDefRequest) GetAggregatorOk() (string, bool) {
+	if t == nil || t.Aggregator == nil {
+		return "", false
+	}
+	return *t.Aggregator, true
+}
+
+// HasAggregator returns a boolean if a field has been set.
+func (t *TileDefRequest) HasAggregator() bool {
+	if t != nil && t.Aggregator != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAggregator allocates a new t.Aggregator and returns the pointer to it.
+func (t *TileDefRequest) SetAggregator(v string) {
+	t.Aggregator = &v
+}
+
+// GetChangeType returns the ChangeType field if non-nil, zero value otherwise.
+func (t *TileDefRequest) GetChangeType() string {
+	if t == nil || t.ChangeType == nil {
+		return ""
+	}
+	return *t.ChangeType
+}
+
+// GetChangeTypeOk returns a tuple with the ChangeType field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (t *TileDefRequest) GetChangeTypeOk() (string, bool) {
+	if t == nil || t.ChangeType == nil {
+		return "", false
+	}
+	return *t.ChangeType, true
+}
+
+// HasChangeType returns a boolean if a field has been set.
+func (t *TileDefRequest) HasChangeType() bool {
+	if t != nil && t.ChangeType != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetChangeType allocates a new t.ChangeType and returns the pointer to it.
+func (t *TileDefRequest) SetChangeType(v string) {
+	t.ChangeType = &v
+}
+
+// GetCompareTo returns the CompareTo field if non-nil, zero value otherwise.
+func (t *TileDefRequest) GetCompareTo() string {
+	if t == nil || t.CompareTo == nil {
+		return ""
+	}
+	return *t.CompareTo
+}
+
+// GetCompareToOk returns a tuple with the CompareTo field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (t *TileDefRequest) GetCompareToOk() (string, bool) {
+	if t == nil || t.CompareTo == nil {
+		return "", false
+	}
+	return *t.CompareTo, true
+}
+
+// HasCompareTo returns a boolean if a field has been set.
+func (t *TileDefRequest) HasCompareTo() bool {
+	if t != nil && t.CompareTo != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCompareTo allocates a new t.CompareTo and returns the pointer to it.
+func (t *TileDefRequest) SetCompareTo(v string) {
+	t.CompareTo = &v
+}
+
+// GetExtraCol returns the ExtraCol field if non-nil, zero value otherwise.
+func (t *TileDefRequest) GetExtraCol() string {
+	if t == nil || t.ExtraCol == nil {
+		return ""
+	}
+	return *t.ExtraCol
+}
+
+// GetExtraColOk returns a tuple with the ExtraCol field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (t *TileDefRequest) GetExtraColOk() (string, bool) {
+	if t == nil || t.ExtraCol == nil {
+		return "", false
+	}
+	return *t.ExtraCol, true
+}
+
+// HasExtraCol returns a boolean if a field has been set.
+func (t *TileDefRequest) HasExtraCol() bool {
+	if t != nil && t.ExtraCol != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetExtraCol allocates a new t.ExtraCol and returns the pointer to it.
+func (t *TileDefRequest) SetExtraCol(v string) {
+	t.ExtraCol = &v
+}
+
+// GetIncreaseGood returns the IncreaseGood field if non-nil, zero value otherwise.
+func (t *TileDefRequest) GetIncreaseGood() bool {
+	if t == nil || t.IncreaseGood == nil {
+		return false
+	}
+	return *t.IncreaseGood
+}
+
+// GetIncreaseGoodOk returns a tuple with the IncreaseGood field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (t *TileDefRequest) GetIncreaseGoodOk() (bool, bool) {
+	if t == nil || t.IncreaseGood == nil {
+		return false, false
+	}
+	return *t.IncreaseGood, true
+}
+
+// HasIncreaseGood returns a boolean if a field has been set.
+func (t *TileDefRequest) HasIncreaseGood() bool {
+	if t != nil && t.IncreaseGood != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetIncreaseGood allocates a new t.IncreaseGood and returns the pointer to it.
+func (t *TileDefRequest) SetIncreaseGood(v bool) {
+	t.IncreaseGood = &v
+}
+
+// GetLimit returns the Limit field if non-nil, zero value otherwise.
+func (t *TileDefRequest) GetLimit() int {
+	if t == nil || t.Limit == nil {
+		return 0
+	}
+	return *t.Limit
+}
+
+// GetLimitOk returns a tuple with the Limit field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (t *TileDefRequest) GetLimitOk() (int, bool) {
+	if t == nil || t.Limit == nil {
+		return 0, false
+	}
+	return *t.Limit, true
+}
+
+// HasLimit returns a boolean if a field has been set.
+func (t *TileDefRequest) HasLimit() bool {
+	if t != nil && t.Limit != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetLimit allocates a new t.Limit and returns the pointer to it.
+func (t *TileDefRequest) SetLimit(v int) {
+	t.Limit = &v
+}
+
+// GetMetric returns the Metric field if non-nil, zero value otherwise.
+func (t *TileDefRequest) GetMetric() string {
+	if t == nil || t.Metric == nil {
+		return ""
+	}
+	return *t.Metric
+}
+
+// GetMetricOk returns a tuple with the Metric field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (t *TileDefRequest) GetMetricOk() (string, bool) {
+	if t == nil || t.Metric == nil {
+		return "", false
+	}
+	return *t.Metric, true
+}
+
+// HasMetric returns a boolean if a field has been set.
+func (t *TileDefRequest) HasMetric() bool {
+	if t != nil && t.Metric != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMetric allocates a new t.Metric and returns the pointer to it.
+func (t *TileDefRequest) SetMetric(v string) {
+	t.Metric = &v
+}
+
+// GetOrderBy returns the OrderBy field if non-nil, zero value otherwise.
+func (t *TileDefRequest) GetOrderBy() string {
+	if t == nil || t.OrderBy == nil {
+		return ""
+	}
+	return *t.OrderBy
+}
+
+// GetOrderByOk returns a tuple with the OrderBy field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (t *TileDefRequest) GetOrderByOk() (string, bool) {
+	if t == nil || t.OrderBy == nil {
+		return "", false
+	}
+	return *t.OrderBy, true
+}
+
+// HasOrderBy returns a boolean if a field has been set.
+func (t *TileDefRequest) HasOrderBy() bool {
+	if t != nil && t.OrderBy != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetOrderBy allocates a new t.OrderBy and returns the pointer to it.
+func (t *TileDefRequest) SetOrderBy(v string) {
+	t.OrderBy = &v
+}
+
+// GetOrderDir returns the OrderDir field if non-nil, zero value otherwise.
+func (t *TileDefRequest) GetOrderDir() string {
+	if t == nil || t.OrderDir == nil {
+		return ""
+	}
+	return *t.OrderDir
+}
+
+// GetOrderDirOk returns a tuple with the OrderDir field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (t *TileDefRequest) GetOrderDirOk() (string, bool) {
+	if t == nil || t.OrderDir == nil {
+		return "", false
+	}
+	return *t.OrderDir, true
+}
+
+// HasOrderDir returns a boolean if a field has been set.
+func (t *TileDefRequest) HasOrderDir() bool {
+	if t != nil && t.OrderDir != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetOrderDir allocates a new t.OrderDir and returns the pointer to it.
+func (t *TileDefRequest) SetOrderDir(v string) {
+	t.OrderDir = &v
+}
+
 // GetQuery returns the Query field if non-nil, zero value otherwise.
-func (t *TimeseriesRequest) GetQuery() string {
+func (t *TileDefRequest) GetQuery() string {
 	if t == nil || t.Query == nil {
 		return ""
 	}
 	return *t.Query
 }
 
-// GetOkQuery returns a tuple with the Query field if it's non-nil, zero value otherwise
+// GetQueryOk returns a tuple with the Query field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
-func (t *TimeseriesRequest) GetQueryOk() (string, bool) {
+func (t *TileDefRequest) GetQueryOk() (string, bool) {
 	if t == nil || t.Query == nil {
 		return "", false
 	}
@@ -11594,7 +8246,7 @@ func (t *TimeseriesRequest) GetQueryOk() (string, bool) {
 }
 
 // HasQuery returns a boolean if a field has been set.
-func (t *TimeseriesRequest) HasQuery() bool {
+func (t *TileDefRequest) HasQuery() bool {
 	if t != nil && t.Query != nil {
 		return true
 	}
@@ -11603,29 +8255,60 @@ func (t *TimeseriesRequest) HasQuery() bool {
 }
 
 // SetQuery allocates a new t.Query and returns the pointer to it.
-func (t *TimeseriesRequest) SetQuery(v string) {
+func (t *TileDefRequest) SetQuery(v string) {
 	t.Query = &v
 }
 
+// GetQueryType returns the QueryType field if non-nil, zero value otherwise.
+func (t *TileDefRequest) GetQueryType() string {
+	if t == nil || t.QueryType == nil {
+		return ""
+	}
+	return *t.QueryType
+}
+
+// GetQueryTypeOk returns a tuple with the QueryType field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (t *TileDefRequest) GetQueryTypeOk() (string, bool) {
+	if t == nil || t.QueryType == nil {
+		return "", false
+	}
+	return *t.QueryType, true
+}
+
+// HasQueryType returns a boolean if a field has been set.
+func (t *TileDefRequest) HasQueryType() bool {
+	if t != nil && t.QueryType != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetQueryType allocates a new t.QueryType and returns the pointer to it.
+func (t *TileDefRequest) SetQueryType(v string) {
+	t.QueryType = &v
+}
+
 // GetStyle returns the Style field if non-nil, zero value otherwise.
-func (t *TimeseriesRequest) GetStyle() TimeseriesRequestStyle {
+func (t *TileDefRequest) GetStyle() TileDefRequestStyle {
 	if t == nil || t.Style == nil {
-		return TimeseriesRequestStyle{}
+		return TileDefRequestStyle{}
 	}
 	return *t.Style
 }
 
-// GetOkStyle returns a tuple with the Style field if it's non-nil, zero value otherwise
+// GetStyleOk returns a tuple with the Style field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
-func (t *TimeseriesRequest) GetStyleOk() (TimeseriesRequestStyle, bool) {
+func (t *TileDefRequest) GetStyleOk() (TileDefRequestStyle, bool) {
 	if t == nil || t.Style == nil {
-		return TimeseriesRequestStyle{}, false
+		return TileDefRequestStyle{}, false
 	}
 	return *t.Style, true
 }
 
 // HasStyle returns a boolean if a field has been set.
-func (t *TimeseriesRequest) HasStyle() bool {
+func (t *TileDefRequest) HasStyle() bool {
 	if t != nil && t.Style != nil {
 		return true
 	}
@@ -11634,21 +8317,52 @@ func (t *TimeseriesRequest) HasStyle() bool {
 }
 
 // SetStyle allocates a new t.Style and returns the pointer to it.
-func (t *TimeseriesRequest) SetStyle(v TimeseriesRequestStyle) {
+func (t *TileDefRequest) SetStyle(v TileDefRequestStyle) {
 	t.Style = &v
 }
 
+// GetTextFilter returns the TextFilter field if non-nil, zero value otherwise.
+func (t *TileDefRequest) GetTextFilter() string {
+	if t == nil || t.TextFilter == nil {
+		return ""
+	}
+	return *t.TextFilter
+}
+
+// GetTextFilterOk returns a tuple with the TextFilter field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (t *TileDefRequest) GetTextFilterOk() (string, bool) {
+	if t == nil || t.TextFilter == nil {
+		return "", false
+	}
+	return *t.TextFilter, true
+}
+
+// HasTextFilter returns a boolean if a field has been set.
+func (t *TileDefRequest) HasTextFilter() bool {
+	if t != nil && t.TextFilter != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTextFilter allocates a new t.TextFilter and returns the pointer to it.
+func (t *TileDefRequest) SetTextFilter(v string) {
+	t.TextFilter = &v
+}
+
 // GetType returns the Type field if non-nil, zero value otherwise.
-func (t *TimeseriesRequest) GetType() string {
+func (t *TileDefRequest) GetType() string {
 	if t == nil || t.Type == nil {
 		return ""
 	}
 	return *t.Type
 }
 
-// GetOkType returns a tuple with the Type field if it's non-nil, zero value otherwise
+// GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
-func (t *TimeseriesRequest) GetTypeOk() (string, bool) {
+func (t *TileDefRequest) GetTypeOk() (string, bool) {
 	if t == nil || t.Type == nil {
 		return "", false
 	}
@@ -11656,7 +8370,7 @@ func (t *TimeseriesRequest) GetTypeOk() (string, bool) {
 }
 
 // HasType returns a boolean if a field has been set.
-func (t *TimeseriesRequest) HasType() bool {
+func (t *TileDefRequest) HasType() bool {
 	if t != nil && t.Type != nil {
 		return true
 	}
@@ -11665,21 +8379,21 @@ func (t *TimeseriesRequest) HasType() bool {
 }
 
 // SetType allocates a new t.Type and returns the pointer to it.
-func (t *TimeseriesRequest) SetType(v string) {
+func (t *TileDefRequest) SetType(v string) {
 	t.Type = &v
 }
 
 // GetPalette returns the Palette field if non-nil, zero value otherwise.
-func (t *TimeseriesRequestStyle) GetPalette() string {
+func (t *TileDefRequestStyle) GetPalette() string {
 	if t == nil || t.Palette == nil {
 		return ""
 	}
 	return *t.Palette
 }
 
-// GetOkPalette returns a tuple with the Palette field if it's non-nil, zero value otherwise
+// GetPaletteOk returns a tuple with the Palette field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
-func (t *TimeseriesRequestStyle) GetPaletteOk() (string, bool) {
+func (t *TileDefRequestStyle) GetPaletteOk() (string, bool) {
 	if t == nil || t.Palette == nil {
 		return "", false
 	}
@@ -11687,7 +8401,7 @@ func (t *TimeseriesRequestStyle) GetPaletteOk() (string, bool) {
 }
 
 // HasPalette returns a boolean if a field has been set.
-func (t *TimeseriesRequestStyle) HasPalette() bool {
+func (t *TileDefRequestStyle) HasPalette() bool {
 	if t != nil && t.Palette != nil {
 		return true
 	}
@@ -11696,269 +8410,21 @@ func (t *TimeseriesRequestStyle) HasPalette() bool {
 }
 
 // SetPalette allocates a new t.Palette and returns the pointer to it.
-func (t *TimeseriesRequestStyle) SetPalette(v string) {
+func (t *TileDefRequestStyle) SetPalette(v string) {
 	t.Palette = &v
 }
 
-// GetHeight returns the Height field if non-nil, zero value otherwise.
-func (t *TimeseriesWidget) GetHeight() int {
-	if t == nil || t.Height == nil {
-		return 0
-	}
-	return *t.Height
-}
-
-// GetOkHeight returns a tuple with the Height field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (t *TimeseriesWidget) GetHeightOk() (int, bool) {
-	if t == nil || t.Height == nil {
-		return 0, false
-	}
-	return *t.Height, true
-}
-
-// HasHeight returns a boolean if a field has been set.
-func (t *TimeseriesWidget) HasHeight() bool {
-	if t != nil && t.Height != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetHeight allocates a new t.Height and returns the pointer to it.
-func (t *TimeseriesWidget) SetHeight(v int) {
-	t.Height = &v
-}
-
-// GetLegend returns the Legend field if non-nil, zero value otherwise.
-func (t *TimeseriesWidget) GetLegend() bool {
-	if t == nil || t.Legend == nil {
-		return false
-	}
-	return *t.Legend
-}
-
-// GetOkLegend returns a tuple with the Legend field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (t *TimeseriesWidget) GetLegendOk() (bool, bool) {
-	if t == nil || t.Legend == nil {
-		return false, false
-	}
-	return *t.Legend, true
-}
-
-// HasLegend returns a boolean if a field has been set.
-func (t *TimeseriesWidget) HasLegend() bool {
-	if t != nil && t.Legend != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetLegend allocates a new t.Legend and returns the pointer to it.
-func (t *TimeseriesWidget) SetLegend(v bool) {
-	t.Legend = &v
-}
-
-// GetTileDef returns the TileDef field if non-nil, zero value otherwise.
-func (t *TimeseriesWidget) GetTileDef() TileDef {
-	if t == nil || t.TileDef == nil {
-		return TileDef{}
-	}
-	return *t.TileDef
-}
-
-// GetOkTileDef returns a tuple with the TileDef field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (t *TimeseriesWidget) GetTileDefOk() (TileDef, bool) {
-	if t == nil || t.TileDef == nil {
-		return TileDef{}, false
-	}
-	return *t.TileDef, true
-}
-
-// HasTileDef returns a boolean if a field has been set.
-func (t *TimeseriesWidget) HasTileDef() bool {
-	if t != nil && t.TileDef != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTileDef allocates a new t.TileDef and returns the pointer to it.
-func (t *TimeseriesWidget) SetTileDef(v TileDef) {
-	t.TileDef = &v
-}
-
-// GetTimeframe returns the Timeframe field if non-nil, zero value otherwise.
-func (t *TimeseriesWidget) GetTimeframe() string {
-	if t == nil || t.Timeframe == nil {
-		return ""
-	}
-	return *t.Timeframe
-}
-
-// GetOkTimeframe returns a tuple with the Timeframe field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (t *TimeseriesWidget) GetTimeframeOk() (string, bool) {
-	if t == nil || t.Timeframe == nil {
-		return "", false
-	}
-	return *t.Timeframe, true
-}
-
-// HasTimeframe returns a boolean if a field has been set.
-func (t *TimeseriesWidget) HasTimeframe() bool {
-	if t != nil && t.Timeframe != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTimeframe allocates a new t.Timeframe and returns the pointer to it.
-func (t *TimeseriesWidget) SetTimeframe(v string) {
-	t.Timeframe = &v
-}
-
-// GetTitle returns the Title field if non-nil, zero value otherwise.
-func (t *TimeseriesWidget) GetTitle() bool {
-	if t == nil || t.Title == nil {
-		return false
-	}
-	return *t.Title
-}
-
-// GetOkTitle returns a tuple with the Title field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (t *TimeseriesWidget) GetTitleOk() (bool, bool) {
-	if t == nil || t.Title == nil {
-		return false, false
-	}
-	return *t.Title, true
-}
-
-// HasTitle returns a boolean if a field has been set.
-func (t *TimeseriesWidget) HasTitle() bool {
-	if t != nil && t.Title != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTitle allocates a new t.Title and returns the pointer to it.
-func (t *TimeseriesWidget) SetTitle(v bool) {
-	t.Title = &v
-}
-
-// GetTitleAlign returns the TitleAlign field if non-nil, zero value otherwise.
-func (t *TimeseriesWidget) GetTitleAlign() string {
-	if t == nil || t.TitleAlign == nil {
-		return ""
-	}
-	return *t.TitleAlign
-}
-
-// GetOkTitleAlign returns a tuple with the TitleAlign field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (t *TimeseriesWidget) GetTitleAlignOk() (string, bool) {
-	if t == nil || t.TitleAlign == nil {
-		return "", false
-	}
-	return *t.TitleAlign, true
-}
-
-// HasTitleAlign returns a boolean if a field has been set.
-func (t *TimeseriesWidget) HasTitleAlign() bool {
-	if t != nil && t.TitleAlign != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTitleAlign allocates a new t.TitleAlign and returns the pointer to it.
-func (t *TimeseriesWidget) SetTitleAlign(v string) {
-	t.TitleAlign = &v
-}
-
-// GetTitleSize returns the TitleSize field if non-nil, zero value otherwise.
-func (t *TimeseriesWidget) GetTitleSize() TextSize {
-	if t == nil || t.TitleSize == nil {
-		return TextSize{}
-	}
-	return *t.TitleSize
-}
-
-// GetOkTitleSize returns a tuple with the TitleSize field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (t *TimeseriesWidget) GetTitleSizeOk() (TextSize, bool) {
-	if t == nil || t.TitleSize == nil {
-		return TextSize{}, false
-	}
-	return *t.TitleSize, true
-}
-
-// HasTitleSize returns a boolean if a field has been set.
-func (t *TimeseriesWidget) HasTitleSize() bool {
-	if t != nil && t.TitleSize != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTitleSize allocates a new t.TitleSize and returns the pointer to it.
-func (t *TimeseriesWidget) SetTitleSize(v TextSize) {
-	t.TitleSize = &v
-}
-
-// GetTitleText returns the TitleText field if non-nil, zero value otherwise.
-func (t *TimeseriesWidget) GetTitleText() string {
-	if t == nil || t.TitleText == nil {
-		return ""
-	}
-	return *t.TitleText
-}
-
-// GetOkTitleText returns a tuple with the TitleText field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (t *TimeseriesWidget) GetTitleTextOk() (string, bool) {
-	if t == nil || t.TitleText == nil {
-		return "", false
-	}
-	return *t.TitleText, true
-}
-
-// HasTitleText returns a boolean if a field has been set.
-func (t *TimeseriesWidget) HasTitleText() bool {
-	if t != nil && t.TitleText != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTitleText allocates a new t.TitleText and returns the pointer to it.
-func (t *TimeseriesWidget) SetTitleText(v string) {
-	t.TitleText = &v
-}
-
 // GetType returns the Type field if non-nil, zero value otherwise.
-func (t *TimeseriesWidget) GetType() string {
+func (t *TileDefRequestStyle) GetType() string {
 	if t == nil || t.Type == nil {
 		return ""
 	}
 	return *t.Type
 }
 
-// GetOkType returns a tuple with the Type field if it's non-nil, zero value otherwise
+// GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
-func (t *TimeseriesWidget) GetTypeOk() (string, bool) {
+func (t *TileDefRequestStyle) GetTypeOk() (string, bool) {
 	if t == nil || t.Type == nil {
 		return "", false
 	}
@@ -11966,7 +8432,7 @@ func (t *TimeseriesWidget) GetTypeOk() (string, bool) {
 }
 
 // HasType returns a boolean if a field has been set.
-func (t *TimeseriesWidget) HasType() bool {
+func (t *TileDefRequestStyle) HasType() bool {
 	if t != nil && t.Type != nil {
 		return true
 	}
@@ -11975,29 +8441,29 @@ func (t *TimeseriesWidget) HasType() bool {
 }
 
 // SetType allocates a new t.Type and returns the pointer to it.
-func (t *TimeseriesWidget) SetType(v string) {
+func (t *TileDefRequestStyle) SetType(v string) {
 	t.Type = &v
 }
 
 // GetWidth returns the Width field if non-nil, zero value otherwise.
-func (t *TimeseriesWidget) GetWidth() int {
+func (t *TileDefRequestStyle) GetWidth() string {
 	if t == nil || t.Width == nil {
-		return 0
+		return ""
 	}
 	return *t.Width
 }
 
-// GetOkWidth returns a tuple with the Width field if it's non-nil, zero value otherwise
+// GetWidthOk returns a tuple with the Width field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
-func (t *TimeseriesWidget) GetWidthOk() (int, bool) {
+func (t *TileDefRequestStyle) GetWidthOk() (string, bool) {
 	if t == nil || t.Width == nil {
-		return 0, false
+		return "", false
 	}
 	return *t.Width, true
 }
 
 // HasWidth returns a boolean if a field has been set.
-func (t *TimeseriesWidget) HasWidth() bool {
+func (t *TileDefRequestStyle) HasWidth() bool {
 	if t != nil && t.Width != nil {
 		return true
 	}
@@ -12006,473 +8472,256 @@ func (t *TimeseriesWidget) HasWidth() bool {
 }
 
 // SetWidth allocates a new t.Width and returns the pointer to it.
-func (t *TimeseriesWidget) SetWidth(v int) {
+func (t *TileDefRequestStyle) SetWidth(v string) {
 	t.Width = &v
 }
 
-// GetX returns the X field if non-nil, zero value otherwise.
-func (t *TimeseriesWidget) GetX() int {
-	if t == nil || t.X == nil {
-		return 0
-	}
-	return *t.X
-}
-
-// GetOkX returns a tuple with the X field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (t *TimeseriesWidget) GetXOk() (int, bool) {
-	if t == nil || t.X == nil {
-		return 0, false
-	}
-	return *t.X, true
-}
-
-// HasX returns a boolean if a field has been set.
-func (t *TimeseriesWidget) HasX() bool {
-	if t != nil && t.X != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetX allocates a new t.X and returns the pointer to it.
-func (t *TimeseriesWidget) SetX(v int) {
-	t.X = &v
-}
-
-// GetY returns the Y field if non-nil, zero value otherwise.
-func (t *TimeseriesWidget) GetY() int {
-	if t == nil || t.Y == nil {
-		return 0
-	}
-	return *t.Y
-}
-
-// GetOkY returns a tuple with the Y field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (t *TimeseriesWidget) GetYOk() (int, bool) {
-	if t == nil || t.Y == nil {
-		return 0, false
-	}
-	return *t.Y, true
-}
-
-// HasY returns a boolean if a field has been set.
-func (t *TimeseriesWidget) HasY() bool {
-	if t != nil && t.Y != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetY allocates a new t.Y and returns the pointer to it.
-func (t *TimeseriesWidget) SetY(v int) {
-	t.Y = &v
-}
-
-// GetHeight returns the Height field if non-nil, zero value otherwise.
-func (t *ToplistWidget) GetHeight() int {
-	if t == nil || t.Height == nil {
-		return 0
-	}
-	return *t.Height
-}
-
-// GetOkHeight returns a tuple with the Height field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (t *ToplistWidget) GetHeightOk() (int, bool) {
-	if t == nil || t.Height == nil {
-		return 0, false
-	}
-	return *t.Height, true
-}
-
-// HasHeight returns a boolean if a field has been set.
-func (t *ToplistWidget) HasHeight() bool {
-	if t != nil && t.Height != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetHeight allocates a new t.Height and returns the pointer to it.
-func (t *ToplistWidget) SetHeight(v int) {
-	t.Height = &v
-}
-
-// GetLegend returns the Legend field if non-nil, zero value otherwise.
-func (t *ToplistWidget) GetLegend() bool {
-	if t == nil || t.Legend == nil {
-		return false
-	}
-	return *t.Legend
-}
-
-// GetOkLegend returns a tuple with the Legend field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (t *ToplistWidget) GetLegendOk() (bool, bool) {
-	if t == nil || t.Legend == nil {
-		return false, false
-	}
-	return *t.Legend, true
-}
-
-// HasLegend returns a boolean if a field has been set.
-func (t *ToplistWidget) HasLegend() bool {
-	if t != nil && t.Legend != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetLegend allocates a new t.Legend and returns the pointer to it.
-func (t *ToplistWidget) SetLegend(v bool) {
-	t.Legend = &v
-}
-
-// GetLegendSize returns the LegendSize field if non-nil, zero value otherwise.
-func (t *ToplistWidget) GetLegendSize() int {
-	if t == nil || t.LegendSize == nil {
-		return 0
-	}
-	return *t.LegendSize
-}
-
-// GetOkLegendSize returns a tuple with the LegendSize field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (t *ToplistWidget) GetLegendSizeOk() (int, bool) {
-	if t == nil || t.LegendSize == nil {
-		return 0, false
-	}
-	return *t.LegendSize, true
-}
-
-// HasLegendSize returns a boolean if a field has been set.
-func (t *ToplistWidget) HasLegendSize() bool {
-	if t != nil && t.LegendSize != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetLegendSize allocates a new t.LegendSize and returns the pointer to it.
-func (t *ToplistWidget) SetLegendSize(v int) {
-	t.LegendSize = &v
-}
-
-// GetTileDef returns the TileDef field if non-nil, zero value otherwise.
-func (t *ToplistWidget) GetTileDef() TileDef {
-	if t == nil || t.TileDef == nil {
-		return TileDef{}
-	}
-	return *t.TileDef
-}
-
-// GetOkTileDef returns a tuple with the TileDef field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (t *ToplistWidget) GetTileDefOk() (TileDef, bool) {
-	if t == nil || t.TileDef == nil {
-		return TileDef{}, false
-	}
-	return *t.TileDef, true
-}
-
-// HasTileDef returns a boolean if a field has been set.
-func (t *ToplistWidget) HasTileDef() bool {
-	if t != nil && t.TileDef != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTileDef allocates a new t.TileDef and returns the pointer to it.
-func (t *ToplistWidget) SetTileDef(v TileDef) {
-	t.TileDef = &v
-}
-
-// GetTimeframe returns the Timeframe field if non-nil, zero value otherwise.
-func (t *ToplistWidget) GetTimeframe() string {
-	if t == nil || t.Timeframe == nil {
+// GetFillMax returns the FillMax field if non-nil, zero value otherwise.
+func (t *TileDefStyle) GetFillMax() string {
+	if t == nil || t.FillMax == nil {
 		return ""
 	}
-	return *t.Timeframe
+	return *t.FillMax
 }
 
-// GetOkTimeframe returns a tuple with the Timeframe field if it's non-nil, zero value otherwise
+// GetFillMaxOk returns a tuple with the FillMax field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
-func (t *ToplistWidget) GetTimeframeOk() (string, bool) {
-	if t == nil || t.Timeframe == nil {
+func (t *TileDefStyle) GetFillMaxOk() (string, bool) {
+	if t == nil || t.FillMax == nil {
 		return "", false
 	}
-	return *t.Timeframe, true
+	return *t.FillMax, true
 }
 
-// HasTimeframe returns a boolean if a field has been set.
-func (t *ToplistWidget) HasTimeframe() bool {
-	if t != nil && t.Timeframe != nil {
+// HasFillMax returns a boolean if a field has been set.
+func (t *TileDefStyle) HasFillMax() bool {
+	if t != nil && t.FillMax != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetTimeframe allocates a new t.Timeframe and returns the pointer to it.
-func (t *ToplistWidget) SetTimeframe(v string) {
-	t.Timeframe = &v
+// SetFillMax allocates a new t.FillMax and returns the pointer to it.
+func (t *TileDefStyle) SetFillMax(v string) {
+	t.FillMax = &v
 }
 
-// GetTitle returns the Title field if non-nil, zero value otherwise.
-func (t *ToplistWidget) GetTitle() bool {
-	if t == nil || t.Title == nil {
-		return false
-	}
-	return *t.Title
-}
-
-// GetOkTitle returns a tuple with the Title field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (t *ToplistWidget) GetTitleOk() (bool, bool) {
-	if t == nil || t.Title == nil {
-		return false, false
-	}
-	return *t.Title, true
-}
-
-// HasTitle returns a boolean if a field has been set.
-func (t *ToplistWidget) HasTitle() bool {
-	if t != nil && t.Title != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTitle allocates a new t.Title and returns the pointer to it.
-func (t *ToplistWidget) SetTitle(v bool) {
-	t.Title = &v
-}
-
-// GetTitleAlign returns the TitleAlign field if non-nil, zero value otherwise.
-func (t *ToplistWidget) GetTitleAlign() string {
-	if t == nil || t.TitleAlign == nil {
+// GetFillMin returns the FillMin field if non-nil, zero value otherwise.
+func (t *TileDefStyle) GetFillMin() string {
+	if t == nil || t.FillMin == nil {
 		return ""
 	}
-	return *t.TitleAlign
+	return *t.FillMin
 }
 
-// GetOkTitleAlign returns a tuple with the TitleAlign field if it's non-nil, zero value otherwise
+// GetFillMinOk returns a tuple with the FillMin field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
-func (t *ToplistWidget) GetTitleAlignOk() (string, bool) {
-	if t == nil || t.TitleAlign == nil {
+func (t *TileDefStyle) GetFillMinOk() (string, bool) {
+	if t == nil || t.FillMin == nil {
 		return "", false
 	}
-	return *t.TitleAlign, true
+	return *t.FillMin, true
 }
 
-// HasTitleAlign returns a boolean if a field has been set.
-func (t *ToplistWidget) HasTitleAlign() bool {
-	if t != nil && t.TitleAlign != nil {
+// HasFillMin returns a boolean if a field has been set.
+func (t *TileDefStyle) HasFillMin() bool {
+	if t != nil && t.FillMin != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetTitleAlign allocates a new t.TitleAlign and returns the pointer to it.
-func (t *ToplistWidget) SetTitleAlign(v string) {
-	t.TitleAlign = &v
+// SetFillMin allocates a new t.FillMin and returns the pointer to it.
+func (t *TileDefStyle) SetFillMin(v string) {
+	t.FillMin = &v
 }
 
-// GetTitleSize returns the TitleSize field if non-nil, zero value otherwise.
-func (t *ToplistWidget) GetTitleSize() TextSize {
-	if t == nil || t.TitleSize == nil {
-		return TextSize{}
-	}
-	return *t.TitleSize
-}
-
-// GetOkTitleSize returns a tuple with the TitleSize field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (t *ToplistWidget) GetTitleSizeOk() (TextSize, bool) {
-	if t == nil || t.TitleSize == nil {
-		return TextSize{}, false
-	}
-	return *t.TitleSize, true
-}
-
-// HasTitleSize returns a boolean if a field has been set.
-func (t *ToplistWidget) HasTitleSize() bool {
-	if t != nil && t.TitleSize != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTitleSize allocates a new t.TitleSize and returns the pointer to it.
-func (t *ToplistWidget) SetTitleSize(v TextSize) {
-	t.TitleSize = &v
-}
-
-// GetTitleText returns the TitleText field if non-nil, zero value otherwise.
-func (t *ToplistWidget) GetTitleText() string {
-	if t == nil || t.TitleText == nil {
+// GetPalette returns the Palette field if non-nil, zero value otherwise.
+func (t *TileDefStyle) GetPalette() string {
+	if t == nil || t.Palette == nil {
 		return ""
 	}
-	return *t.TitleText
+	return *t.Palette
 }
 
-// GetOkTitleText returns a tuple with the TitleText field if it's non-nil, zero value otherwise
+// GetPaletteOk returns a tuple with the Palette field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
-func (t *ToplistWidget) GetTitleTextOk() (string, bool) {
-	if t == nil || t.TitleText == nil {
+func (t *TileDefStyle) GetPaletteOk() (string, bool) {
+	if t == nil || t.Palette == nil {
 		return "", false
 	}
-	return *t.TitleText, true
+	return *t.Palette, true
 }
 
-// HasTitleText returns a boolean if a field has been set.
-func (t *ToplistWidget) HasTitleText() bool {
-	if t != nil && t.TitleText != nil {
+// HasPalette returns a boolean if a field has been set.
+func (t *TileDefStyle) HasPalette() bool {
+	if t != nil && t.Palette != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetTitleText allocates a new t.TitleText and returns the pointer to it.
-func (t *ToplistWidget) SetTitleText(v string) {
-	t.TitleText = &v
+// SetPalette allocates a new t.Palette and returns the pointer to it.
+func (t *TileDefStyle) SetPalette(v string) {
+	t.Palette = &v
 }
 
-// GetType returns the Type field if non-nil, zero value otherwise.
-func (t *ToplistWidget) GetType() string {
-	if t == nil || t.Type == nil {
+// GetPaletteFlip returns the PaletteFlip field if non-nil, zero value otherwise.
+func (t *TileDefStyle) GetPaletteFlip() string {
+	if t == nil || t.PaletteFlip == nil {
 		return ""
 	}
-	return *t.Type
+	return *t.PaletteFlip
 }
 
-// GetOkType returns a tuple with the Type field if it's non-nil, zero value otherwise
+// GetPaletteFlipOk returns a tuple with the PaletteFlip field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
-func (t *ToplistWidget) GetTypeOk() (string, bool) {
-	if t == nil || t.Type == nil {
+func (t *TileDefStyle) GetPaletteFlipOk() (string, bool) {
+	if t == nil || t.PaletteFlip == nil {
 		return "", false
 	}
-	return *t.Type, true
+	return *t.PaletteFlip, true
 }
 
-// HasType returns a boolean if a field has been set.
-func (t *ToplistWidget) HasType() bool {
-	if t != nil && t.Type != nil {
+// HasPaletteFlip returns a boolean if a field has been set.
+func (t *TileDefStyle) HasPaletteFlip() bool {
+	if t != nil && t.PaletteFlip != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetType allocates a new t.Type and returns the pointer to it.
-func (t *ToplistWidget) SetType(v string) {
-	t.Type = &v
+// SetPaletteFlip allocates a new t.PaletteFlip and returns the pointer to it.
+func (t *TileDefStyle) SetPaletteFlip(v string) {
+	t.PaletteFlip = &v
 }
 
-// GetWidth returns the Width field if non-nil, zero value otherwise.
-func (t *ToplistWidget) GetWidth() int {
-	if t == nil || t.Width == nil {
+// GetLiveSpan returns the LiveSpan field if non-nil, zero value otherwise.
+func (t *Time) GetLiveSpan() string {
+	if t == nil || t.LiveSpan == nil {
+		return ""
+	}
+	return *t.LiveSpan
+}
+
+// GetLiveSpanOk returns a tuple with the LiveSpan field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (t *Time) GetLiveSpanOk() (string, bool) {
+	if t == nil || t.LiveSpan == nil {
+		return "", false
+	}
+	return *t.LiveSpan, true
+}
+
+// HasLiveSpan returns a boolean if a field has been set.
+func (t *Time) HasLiveSpan() bool {
+	if t != nil && t.LiveSpan != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetLiveSpan allocates a new t.LiveSpan and returns the pointer to it.
+func (t *Time) SetLiveSpan(v string) {
+	t.LiveSpan = &v
+}
+
+// GetFromTs returns the FromTs field if non-nil, zero value otherwise.
+func (t *TriggeringValue) GetFromTs() int {
+	if t == nil || t.FromTs == nil {
 		return 0
 	}
-	return *t.Width
+	return *t.FromTs
 }
 
-// GetOkWidth returns a tuple with the Width field if it's non-nil, zero value otherwise
+// GetFromTsOk returns a tuple with the FromTs field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
-func (t *ToplistWidget) GetWidthOk() (int, bool) {
-	if t == nil || t.Width == nil {
+func (t *TriggeringValue) GetFromTsOk() (int, bool) {
+	if t == nil || t.FromTs == nil {
 		return 0, false
 	}
-	return *t.Width, true
+	return *t.FromTs, true
 }
 
-// HasWidth returns a boolean if a field has been set.
-func (t *ToplistWidget) HasWidth() bool {
-	if t != nil && t.Width != nil {
+// HasFromTs returns a boolean if a field has been set.
+func (t *TriggeringValue) HasFromTs() bool {
+	if t != nil && t.FromTs != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetWidth allocates a new t.Width and returns the pointer to it.
-func (t *ToplistWidget) SetWidth(v int) {
-	t.Width = &v
+// SetFromTs allocates a new t.FromTs and returns the pointer to it.
+func (t *TriggeringValue) SetFromTs(v int) {
+	t.FromTs = &v
 }
 
-// GetX returns the X field if non-nil, zero value otherwise.
-func (t *ToplistWidget) GetX() int {
-	if t == nil || t.X == nil {
+// GetToTs returns the ToTs field if non-nil, zero value otherwise.
+func (t *TriggeringValue) GetToTs() int {
+	if t == nil || t.ToTs == nil {
 		return 0
 	}
-	return *t.X
+	return *t.ToTs
 }
 
-// GetOkX returns a tuple with the X field if it's non-nil, zero value otherwise
+// GetToTsOk returns a tuple with the ToTs field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
-func (t *ToplistWidget) GetXOk() (int, bool) {
-	if t == nil || t.X == nil {
+func (t *TriggeringValue) GetToTsOk() (int, bool) {
+	if t == nil || t.ToTs == nil {
 		return 0, false
 	}
-	return *t.X, true
+	return *t.ToTs, true
 }
 
-// HasX returns a boolean if a field has been set.
-func (t *ToplistWidget) HasX() bool {
-	if t != nil && t.X != nil {
+// HasToTs returns a boolean if a field has been set.
+func (t *TriggeringValue) HasToTs() bool {
+	if t != nil && t.ToTs != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetX allocates a new t.X and returns the pointer to it.
-func (t *ToplistWidget) SetX(v int) {
-	t.X = &v
+// SetToTs allocates a new t.ToTs and returns the pointer to it.
+func (t *TriggeringValue) SetToTs(v int) {
+	t.ToTs = &v
 }
 
-// GetY returns the Y field if non-nil, zero value otherwise.
-func (t *ToplistWidget) GetY() int {
-	if t == nil || t.Y == nil {
+// GetValue returns the Value field if non-nil, zero value otherwise.
+func (t *TriggeringValue) GetValue() int {
+	if t == nil || t.Value == nil {
 		return 0
 	}
-	return *t.Y
+	return *t.Value
 }
 
-// GetOkY returns a tuple with the Y field if it's non-nil, zero value otherwise
+// GetValueOk returns a tuple with the Value field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
-func (t *ToplistWidget) GetYOk() (int, bool) {
-	if t == nil || t.Y == nil {
+func (t *TriggeringValue) GetValueOk() (int, bool) {
+	if t == nil || t.Value == nil {
 		return 0, false
 	}
-	return *t.Y, true
+	return *t.Value, true
 }
 
-// HasY returns a boolean if a field has been set.
-func (t *ToplistWidget) HasY() bool {
-	if t != nil && t.Y != nil {
+// HasValue returns a boolean if a field has been set.
+func (t *TriggeringValue) HasValue() bool {
+	if t != nil && t.Value != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetY allocates a new t.Y and returns the pointer to it.
-func (t *ToplistWidget) SetY(v int) {
-	t.Y = &v
+// SetValue allocates a new t.Value and returns the pointer to it.
+func (t *TriggeringValue) SetValue(v int) {
+	t.Value = &v
 }
 
 // GetAccessRole returns the AccessRole field if non-nil, zero value otherwise.
@@ -12483,7 +8732,7 @@ func (u *User) GetAccessRole() string {
 	return *u.AccessRole
 }
 
-// GetOkAccessRole returns a tuple with the AccessRole field if it's non-nil, zero value otherwise
+// GetAccessRoleOk returns a tuple with the AccessRole field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (u *User) GetAccessRoleOk() (string, bool) {
 	if u == nil || u.AccessRole == nil {
@@ -12514,7 +8763,7 @@ func (u *User) GetDisabled() bool {
 	return *u.Disabled
 }
 
-// GetOkDisabled returns a tuple with the Disabled field if it's non-nil, zero value otherwise
+// GetDisabledOk returns a tuple with the Disabled field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (u *User) GetDisabledOk() (bool, bool) {
 	if u == nil || u.Disabled == nil {
@@ -12545,7 +8794,7 @@ func (u *User) GetEmail() string {
 	return *u.Email
 }
 
-// GetOkEmail returns a tuple with the Email field if it's non-nil, zero value otherwise
+// GetEmailOk returns a tuple with the Email field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (u *User) GetEmailOk() (string, bool) {
 	if u == nil || u.Email == nil {
@@ -12576,7 +8825,7 @@ func (u *User) GetHandle() string {
 	return *u.Handle
 }
 
-// GetOkHandle returns a tuple with the Handle field if it's non-nil, zero value otherwise
+// GetHandleOk returns a tuple with the Handle field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (u *User) GetHandleOk() (string, bool) {
 	if u == nil || u.Handle == nil {
@@ -12607,7 +8856,7 @@ func (u *User) GetIsAdmin() bool {
 	return *u.IsAdmin
 }
 
-// GetOkIsAdmin returns a tuple with the IsAdmin field if it's non-nil, zero value otherwise
+// GetIsAdminOk returns a tuple with the IsAdmin field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (u *User) GetIsAdminOk() (bool, bool) {
 	if u == nil || u.IsAdmin == nil {
@@ -12638,7 +8887,7 @@ func (u *User) GetName() string {
 	return *u.Name
 }
 
-// GetOkName returns a tuple with the Name field if it's non-nil, zero value otherwise
+// GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (u *User) GetNameOk() (string, bool) {
 	if u == nil || u.Name == nil {
@@ -12669,7 +8918,7 @@ func (u *User) GetRole() string {
 	return *u.Role
 }
 
-// GetOkRole returns a tuple with the Role field if it's non-nil, zero value otherwise
+// GetRoleOk returns a tuple with the Role field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (u *User) GetRoleOk() (string, bool) {
 	if u == nil || u.Role == nil {
@@ -12700,7 +8949,7 @@ func (u *User) GetVerified() bool {
 	return *u.Verified
 }
 
-// GetOkVerified returns a tuple with the Verified field if it's non-nil, zero value otherwise
+// GetVerifiedOk returns a tuple with the Verified field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (u *User) GetVerifiedOk() (bool, bool) {
 	if u == nil || u.Verified == nil {
@@ -12723,562 +8972,1802 @@ func (u *User) SetVerified(v bool) {
 	u.Verified = &v
 }
 
-// GetAlertGraphWidget returns the AlertGraphWidget field if non-nil, zero value otherwise.
-func (w *Widget) GetAlertGraphWidget() AlertGraphWidget {
-	if w == nil || w.AlertGraphWidget == nil {
-		return AlertGraphWidget{}
+// GetAlertID returns the AlertID field if non-nil, zero value otherwise.
+func (w *Widget) GetAlertID() int {
+	if w == nil || w.AlertID == nil {
+		return 0
 	}
-	return *w.AlertGraphWidget
+	return *w.AlertID
 }
 
-// GetOkAlertGraphWidget returns a tuple with the AlertGraphWidget field if it's non-nil, zero value otherwise
+// GetAlertIDOk returns a tuple with the AlertID field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
-func (w *Widget) GetAlertGraphWidgetOk() (AlertGraphWidget, bool) {
-	if w == nil || w.AlertGraphWidget == nil {
-		return AlertGraphWidget{}, false
+func (w *Widget) GetAlertIDOk() (int, bool) {
+	if w == nil || w.AlertID == nil {
+		return 0, false
 	}
-	return *w.AlertGraphWidget, true
+	return *w.AlertID, true
 }
 
-// HasAlertGraphWidget returns a boolean if a field has been set.
-func (w *Widget) HasAlertGraphWidget() bool {
-	if w != nil && w.AlertGraphWidget != nil {
+// HasAlertID returns a boolean if a field has been set.
+func (w *Widget) HasAlertID() bool {
+	if w != nil && w.AlertID != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetAlertGraphWidget allocates a new w.AlertGraphWidget and returns the pointer to it.
-func (w *Widget) SetAlertGraphWidget(v AlertGraphWidget) {
-	w.AlertGraphWidget = &v
+// SetAlertID allocates a new w.AlertID and returns the pointer to it.
+func (w *Widget) SetAlertID(v int) {
+	w.AlertID = &v
 }
 
-// GetAlertValueWidget returns the AlertValueWidget field if non-nil, zero value otherwise.
-func (w *Widget) GetAlertValueWidget() AlertValueWidget {
-	if w == nil || w.AlertValueWidget == nil {
-		return AlertValueWidget{}
+// GetAutoRefresh returns the AutoRefresh field if non-nil, zero value otherwise.
+func (w *Widget) GetAutoRefresh() bool {
+	if w == nil || w.AutoRefresh == nil {
+		return false
 	}
-	return *w.AlertValueWidget
+	return *w.AutoRefresh
 }
 
-// GetOkAlertValueWidget returns a tuple with the AlertValueWidget field if it's non-nil, zero value otherwise
+// GetAutoRefreshOk returns a tuple with the AutoRefresh field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
-func (w *Widget) GetAlertValueWidgetOk() (AlertValueWidget, bool) {
-	if w == nil || w.AlertValueWidget == nil {
-		return AlertValueWidget{}, false
+func (w *Widget) GetAutoRefreshOk() (bool, bool) {
+	if w == nil || w.AutoRefresh == nil {
+		return false, false
 	}
-	return *w.AlertValueWidget, true
+	return *w.AutoRefresh, true
 }
 
-// HasAlertValueWidget returns a boolean if a field has been set.
-func (w *Widget) HasAlertValueWidget() bool {
-	if w != nil && w.AlertValueWidget != nil {
+// HasAutoRefresh returns a boolean if a field has been set.
+func (w *Widget) HasAutoRefresh() bool {
+	if w != nil && w.AutoRefresh != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetAlertValueWidget allocates a new w.AlertValueWidget and returns the pointer to it.
-func (w *Widget) SetAlertValueWidget(v AlertValueWidget) {
-	w.AlertValueWidget = &v
+// SetAutoRefresh allocates a new w.AutoRefresh and returns the pointer to it.
+func (w *Widget) SetAutoRefresh(v bool) {
+	w.AutoRefresh = &v
 }
 
-// GetChangeWidget returns the ChangeWidget field if non-nil, zero value otherwise.
-func (w *Widget) GetChangeWidget() ChangeWidget {
-	if w == nil || w.ChangeWidget == nil {
-		return ChangeWidget{}
-	}
-	return *w.ChangeWidget
-}
-
-// GetOkChangeWidget returns a tuple with the ChangeWidget field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (w *Widget) GetChangeWidgetOk() (ChangeWidget, bool) {
-	if w == nil || w.ChangeWidget == nil {
-		return ChangeWidget{}, false
-	}
-	return *w.ChangeWidget, true
-}
-
-// HasChangeWidget returns a boolean if a field has been set.
-func (w *Widget) HasChangeWidget() bool {
-	if w != nil && w.ChangeWidget != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetChangeWidget allocates a new w.ChangeWidget and returns the pointer to it.
-func (w *Widget) SetChangeWidget(v ChangeWidget) {
-	w.ChangeWidget = &v
-}
-
-// GetCheckStatusWidget returns the CheckStatusWidget field if non-nil, zero value otherwise.
-func (w *Widget) GetCheckStatusWidget() CheckStatusWidget {
-	if w == nil || w.CheckStatusWidget == nil {
-		return CheckStatusWidget{}
-	}
-	return *w.CheckStatusWidget
-}
-
-// GetOkCheckStatusWidget returns a tuple with the CheckStatusWidget field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (w *Widget) GetCheckStatusWidgetOk() (CheckStatusWidget, bool) {
-	if w == nil || w.CheckStatusWidget == nil {
-		return CheckStatusWidget{}, false
-	}
-	return *w.CheckStatusWidget, true
-}
-
-// HasCheckStatusWidget returns a boolean if a field has been set.
-func (w *Widget) HasCheckStatusWidget() bool {
-	if w != nil && w.CheckStatusWidget != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetCheckStatusWidget allocates a new w.CheckStatusWidget and returns the pointer to it.
-func (w *Widget) SetCheckStatusWidget(v CheckStatusWidget) {
-	w.CheckStatusWidget = &v
-}
-
-// GetDefault returns the Default field if non-nil, zero value otherwise.
-func (w *Widget) GetDefault() string {
-	if w == nil || w.Default == nil {
+// GetBgcolor returns the Bgcolor field if non-nil, zero value otherwise.
+func (w *Widget) GetBgcolor() string {
+	if w == nil || w.Bgcolor == nil {
 		return ""
 	}
-	return *w.Default
+	return *w.Bgcolor
 }
 
-// GetOkDefault returns a tuple with the Default field if it's non-nil, zero value otherwise
+// GetBgcolorOk returns a tuple with the Bgcolor field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
-func (w *Widget) GetDefaultOk() (string, bool) {
-	if w == nil || w.Default == nil {
+func (w *Widget) GetBgcolorOk() (string, bool) {
+	if w == nil || w.Bgcolor == nil {
 		return "", false
 	}
-	return *w.Default, true
+	return *w.Bgcolor, true
 }
 
-// HasDefault returns a boolean if a field has been set.
-func (w *Widget) HasDefault() bool {
-	if w != nil && w.Default != nil {
+// HasBgcolor returns a boolean if a field has been set.
+func (w *Widget) HasBgcolor() bool {
+	if w != nil && w.Bgcolor != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetDefault allocates a new w.Default and returns the pointer to it.
-func (w *Widget) SetDefault(v string) {
-	w.Default = &v
+// SetBgcolor allocates a new w.Bgcolor and returns the pointer to it.
+func (w *Widget) SetBgcolor(v string) {
+	w.Bgcolor = &v
 }
 
-// GetEventStreamWidget returns the EventStreamWidget field if non-nil, zero value otherwise.
-func (w *Widget) GetEventStreamWidget() EventStreamWidget {
-	if w == nil || w.EventStreamWidget == nil {
-		return EventStreamWidget{}
-	}
-	return *w.EventStreamWidget
-}
-
-// GetOkEventStreamWidget returns a tuple with the EventStreamWidget field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (w *Widget) GetEventStreamWidgetOk() (EventStreamWidget, bool) {
-	if w == nil || w.EventStreamWidget == nil {
-		return EventStreamWidget{}, false
-	}
-	return *w.EventStreamWidget, true
-}
-
-// HasEventStreamWidget returns a boolean if a field has been set.
-func (w *Widget) HasEventStreamWidget() bool {
-	if w != nil && w.EventStreamWidget != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetEventStreamWidget allocates a new w.EventStreamWidget and returns the pointer to it.
-func (w *Widget) SetEventStreamWidget(v EventStreamWidget) {
-	w.EventStreamWidget = &v
-}
-
-// GetEventTimelineWidget returns the EventTimelineWidget field if non-nil, zero value otherwise.
-func (w *Widget) GetEventTimelineWidget() EventTimelineWidget {
-	if w == nil || w.EventTimelineWidget == nil {
-		return EventTimelineWidget{}
-	}
-	return *w.EventTimelineWidget
-}
-
-// GetOkEventTimelineWidget returns a tuple with the EventTimelineWidget field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (w *Widget) GetEventTimelineWidgetOk() (EventTimelineWidget, bool) {
-	if w == nil || w.EventTimelineWidget == nil {
-		return EventTimelineWidget{}, false
-	}
-	return *w.EventTimelineWidget, true
-}
-
-// HasEventTimelineWidget returns a boolean if a field has been set.
-func (w *Widget) HasEventTimelineWidget() bool {
-	if w != nil && w.EventTimelineWidget != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetEventTimelineWidget allocates a new w.EventTimelineWidget and returns the pointer to it.
-func (w *Widget) SetEventTimelineWidget(v EventTimelineWidget) {
-	w.EventTimelineWidget = &v
-}
-
-// GetFreeTextWidget returns the FreeTextWidget field if non-nil, zero value otherwise.
-func (w *Widget) GetFreeTextWidget() FreeTextWidget {
-	if w == nil || w.FreeTextWidget == nil {
-		return FreeTextWidget{}
-	}
-	return *w.FreeTextWidget
-}
-
-// GetOkFreeTextWidget returns a tuple with the FreeTextWidget field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (w *Widget) GetFreeTextWidgetOk() (FreeTextWidget, bool) {
-	if w == nil || w.FreeTextWidget == nil {
-		return FreeTextWidget{}, false
-	}
-	return *w.FreeTextWidget, true
-}
-
-// HasFreeTextWidget returns a boolean if a field has been set.
-func (w *Widget) HasFreeTextWidget() bool {
-	if w != nil && w.FreeTextWidget != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetFreeTextWidget allocates a new w.FreeTextWidget and returns the pointer to it.
-func (w *Widget) SetFreeTextWidget(v FreeTextWidget) {
-	w.FreeTextWidget = &v
-}
-
-// GetGraphWidget returns the GraphWidget field if non-nil, zero value otherwise.
-func (w *Widget) GetGraphWidget() GraphWidget {
-	if w == nil || w.GraphWidget == nil {
-		return GraphWidget{}
-	}
-	return *w.GraphWidget
-}
-
-// GetOkGraphWidget returns a tuple with the GraphWidget field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (w *Widget) GetGraphWidgetOk() (GraphWidget, bool) {
-	if w == nil || w.GraphWidget == nil {
-		return GraphWidget{}, false
-	}
-	return *w.GraphWidget, true
-}
-
-// HasGraphWidget returns a boolean if a field has been set.
-func (w *Widget) HasGraphWidget() bool {
-	if w != nil && w.GraphWidget != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetGraphWidget allocates a new w.GraphWidget and returns the pointer to it.
-func (w *Widget) SetGraphWidget(v GraphWidget) {
-	w.GraphWidget = &v
-}
-
-// GetHostMapWidget returns the HostMapWidget field if non-nil, zero value otherwise.
-func (w *Widget) GetHostMapWidget() HostMapWidget {
-	if w == nil || w.HostMapWidget == nil {
-		return HostMapWidget{}
-	}
-	return *w.HostMapWidget
-}
-
-// GetOkHostMapWidget returns a tuple with the HostMapWidget field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (w *Widget) GetHostMapWidgetOk() (HostMapWidget, bool) {
-	if w == nil || w.HostMapWidget == nil {
-		return HostMapWidget{}, false
-	}
-	return *w.HostMapWidget, true
-}
-
-// HasHostMapWidget returns a boolean if a field has been set.
-func (w *Widget) HasHostMapWidget() bool {
-	if w != nil && w.HostMapWidget != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetHostMapWidget allocates a new w.HostMapWidget and returns the pointer to it.
-func (w *Widget) SetHostMapWidget(v HostMapWidget) {
-	w.HostMapWidget = &v
-}
-
-// GetIFrameWidget returns the IFrameWidget field if non-nil, zero value otherwise.
-func (w *Widget) GetIFrameWidget() IFrameWidget {
-	if w == nil || w.IFrameWidget == nil {
-		return IFrameWidget{}
-	}
-	return *w.IFrameWidget
-}
-
-// GetOkIFrameWidget returns a tuple with the IFrameWidget field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (w *Widget) GetIFrameWidgetOk() (IFrameWidget, bool) {
-	if w == nil || w.IFrameWidget == nil {
-		return IFrameWidget{}, false
-	}
-	return *w.IFrameWidget, true
-}
-
-// HasIFrameWidget returns a boolean if a field has been set.
-func (w *Widget) HasIFrameWidget() bool {
-	if w != nil && w.IFrameWidget != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetIFrameWidget allocates a new w.IFrameWidget and returns the pointer to it.
-func (w *Widget) SetIFrameWidget(v IFrameWidget) {
-	w.IFrameWidget = &v
-}
-
-// GetImageWidget returns the ImageWidget field if non-nil, zero value otherwise.
-func (w *Widget) GetImageWidget() ImageWidget {
-	if w == nil || w.ImageWidget == nil {
-		return ImageWidget{}
-	}
-	return *w.ImageWidget
-}
-
-// GetOkImageWidget returns a tuple with the ImageWidget field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (w *Widget) GetImageWidgetOk() (ImageWidget, bool) {
-	if w == nil || w.ImageWidget == nil {
-		return ImageWidget{}, false
-	}
-	return *w.ImageWidget, true
-}
-
-// HasImageWidget returns a boolean if a field has been set.
-func (w *Widget) HasImageWidget() bool {
-	if w != nil && w.ImageWidget != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetImageWidget allocates a new w.ImageWidget and returns the pointer to it.
-func (w *Widget) SetImageWidget(v ImageWidget) {
-	w.ImageWidget = &v
-}
-
-// GetName returns the Name field if non-nil, zero value otherwise.
-func (w *Widget) GetName() string {
-	if w == nil || w.Name == nil {
+// GetCheck returns the Check field if non-nil, zero value otherwise.
+func (w *Widget) GetCheck() string {
+	if w == nil || w.Check == nil {
 		return ""
 	}
-	return *w.Name
+	return *w.Check
 }
 
-// GetOkName returns a tuple with the Name field if it's non-nil, zero value otherwise
+// GetCheckOk returns a tuple with the Check field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
-func (w *Widget) GetNameOk() (string, bool) {
-	if w == nil || w.Name == nil {
+func (w *Widget) GetCheckOk() (string, bool) {
+	if w == nil || w.Check == nil {
 		return "", false
 	}
-	return *w.Name, true
+	return *w.Check, true
 }
 
-// HasName returns a boolean if a field has been set.
-func (w *Widget) HasName() bool {
-	if w != nil && w.Name != nil {
+// HasCheck returns a boolean if a field has been set.
+func (w *Widget) HasCheck() bool {
+	if w != nil && w.Check != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetName allocates a new w.Name and returns the pointer to it.
-func (w *Widget) SetName(v string) {
-	w.Name = &v
+// SetCheck allocates a new w.Check and returns the pointer to it.
+func (w *Widget) SetCheck(v string) {
+	w.Check = &v
 }
 
-// GetNoteWidget returns the NoteWidget field if non-nil, zero value otherwise.
-func (w *Widget) GetNoteWidget() NoteWidget {
-	if w == nil || w.NoteWidget == nil {
-		return NoteWidget{}
-	}
-	return *w.NoteWidget
-}
-
-// GetOkNoteWidget returns a tuple with the NoteWidget field if it's non-nil, zero value otherwise
-// and a boolean to check if the value has been set.
-func (w *Widget) GetNoteWidgetOk() (NoteWidget, bool) {
-	if w == nil || w.NoteWidget == nil {
-		return NoteWidget{}, false
-	}
-	return *w.NoteWidget, true
-}
-
-// HasNoteWidget returns a boolean if a field has been set.
-func (w *Widget) HasNoteWidget() bool {
-	if w != nil && w.NoteWidget != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetNoteWidget allocates a new w.NoteWidget and returns the pointer to it.
-func (w *Widget) SetNoteWidget(v NoteWidget) {
-	w.NoteWidget = &v
-}
-
-// GetPrefix returns the Prefix field if non-nil, zero value otherwise.
-func (w *Widget) GetPrefix() string {
-	if w == nil || w.Prefix == nil {
+// GetColor returns the Color field if non-nil, zero value otherwise.
+func (w *Widget) GetColor() string {
+	if w == nil || w.Color == nil {
 		return ""
 	}
-	return *w.Prefix
+	return *w.Color
 }
 
-// GetOkPrefix returns a tuple with the Prefix field if it's non-nil, zero value otherwise
+// GetColorOk returns a tuple with the Color field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
-func (w *Widget) GetPrefixOk() (string, bool) {
-	if w == nil || w.Prefix == nil {
+func (w *Widget) GetColorOk() (string, bool) {
+	if w == nil || w.Color == nil {
 		return "", false
 	}
-	return *w.Prefix, true
+	return *w.Color, true
 }
 
-// HasPrefix returns a boolean if a field has been set.
-func (w *Widget) HasPrefix() bool {
-	if w != nil && w.Prefix != nil {
+// HasColor returns a boolean if a field has been set.
+func (w *Widget) HasColor() bool {
+	if w != nil && w.Color != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetPrefix allocates a new w.Prefix and returns the pointer to it.
-func (w *Widget) SetPrefix(v string) {
-	w.Prefix = &v
+// SetColor allocates a new w.Color and returns the pointer to it.
+func (w *Widget) SetColor(v string) {
+	w.Color = &v
 }
 
-// GetQueryValueWidget returns the QueryValueWidget field if non-nil, zero value otherwise.
-func (w *Widget) GetQueryValueWidget() QueryValueWidget {
-	if w == nil || w.QueryValueWidget == nil {
-		return QueryValueWidget{}
+// GetColorPreference returns the ColorPreference field if non-nil, zero value otherwise.
+func (w *Widget) GetColorPreference() string {
+	if w == nil || w.ColorPreference == nil {
+		return ""
 	}
-	return *w.QueryValueWidget
+	return *w.ColorPreference
 }
 
-// GetOkQueryValueWidget returns a tuple with the QueryValueWidget field if it's non-nil, zero value otherwise
+// GetColorPreferenceOk returns a tuple with the ColorPreference field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
-func (w *Widget) GetQueryValueWidgetOk() (QueryValueWidget, bool) {
-	if w == nil || w.QueryValueWidget == nil {
-		return QueryValueWidget{}, false
+func (w *Widget) GetColorPreferenceOk() (string, bool) {
+	if w == nil || w.ColorPreference == nil {
+		return "", false
 	}
-	return *w.QueryValueWidget, true
+	return *w.ColorPreference, true
 }
 
-// HasQueryValueWidget returns a boolean if a field has been set.
-func (w *Widget) HasQueryValueWidget() bool {
-	if w != nil && w.QueryValueWidget != nil {
+// HasColorPreference returns a boolean if a field has been set.
+func (w *Widget) HasColorPreference() bool {
+	if w != nil && w.ColorPreference != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetQueryValueWidget allocates a new w.QueryValueWidget and returns the pointer to it.
-func (w *Widget) SetQueryValueWidget(v QueryValueWidget) {
-	w.QueryValueWidget = &v
+// SetColorPreference allocates a new w.ColorPreference and returns the pointer to it.
+func (w *Widget) SetColorPreference(v string) {
+	w.ColorPreference = &v
 }
 
-// GetTimeseriesWidget returns the TimeseriesWidget field if non-nil, zero value otherwise.
-func (w *Widget) GetTimeseriesWidget() TimeseriesWidget {
-	if w == nil || w.TimeseriesWidget == nil {
-		return TimeseriesWidget{}
+// GetColumns returns the Columns field if non-nil, zero value otherwise.
+func (w *Widget) GetColumns() string {
+	if w == nil || w.Columns == nil {
+		return ""
 	}
-	return *w.TimeseriesWidget
+	return *w.Columns
 }
 
-// GetOkTimeseriesWidget returns a tuple with the TimeseriesWidget field if it's non-nil, zero value otherwise
+// GetColumnsOk returns a tuple with the Columns field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
-func (w *Widget) GetTimeseriesWidgetOk() (TimeseriesWidget, bool) {
-	if w == nil || w.TimeseriesWidget == nil {
-		return TimeseriesWidget{}, false
+func (w *Widget) GetColumnsOk() (string, bool) {
+	if w == nil || w.Columns == nil {
+		return "", false
 	}
-	return *w.TimeseriesWidget, true
+	return *w.Columns, true
 }
 
-// HasTimeseriesWidget returns a boolean if a field has been set.
-func (w *Widget) HasTimeseriesWidget() bool {
-	if w != nil && w.TimeseriesWidget != nil {
+// HasColumns returns a boolean if a field has been set.
+func (w *Widget) HasColumns() bool {
+	if w != nil && w.Columns != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetTimeseriesWidget allocates a new w.TimeseriesWidget and returns the pointer to it.
-func (w *Widget) SetTimeseriesWidget(v TimeseriesWidget) {
-	w.TimeseriesWidget = &v
+// SetColumns allocates a new w.Columns and returns the pointer to it.
+func (w *Widget) SetColumns(v string) {
+	w.Columns = &v
 }
 
-// GetToplistWidget returns the ToplistWidget field if non-nil, zero value otherwise.
-func (w *Widget) GetToplistWidget() ToplistWidget {
-	if w == nil || w.ToplistWidget == nil {
-		return ToplistWidget{}
+// GetDisplayFormat returns the DisplayFormat field if non-nil, zero value otherwise.
+func (w *Widget) GetDisplayFormat() string {
+	if w == nil || w.DisplayFormat == nil {
+		return ""
 	}
-	return *w.ToplistWidget
+	return *w.DisplayFormat
 }
 
-// GetOkToplistWidget returns a tuple with the ToplistWidget field if it's non-nil, zero value otherwise
+// GetDisplayFormatOk returns a tuple with the DisplayFormat field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
-func (w *Widget) GetToplistWidgetOk() (ToplistWidget, bool) {
-	if w == nil || w.ToplistWidget == nil {
-		return ToplistWidget{}, false
+func (w *Widget) GetDisplayFormatOk() (string, bool) {
+	if w == nil || w.DisplayFormat == nil {
+		return "", false
 	}
-	return *w.ToplistWidget, true
+	return *w.DisplayFormat, true
 }
 
-// HasToplistWidget returns a boolean if a field has been set.
-func (w *Widget) HasToplistWidget() bool {
-	if w != nil && w.ToplistWidget != nil {
+// HasDisplayFormat returns a boolean if a field has been set.
+func (w *Widget) HasDisplayFormat() bool {
+	if w != nil && w.DisplayFormat != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetToplistWidget allocates a new w.ToplistWidget and returns the pointer to it.
-func (w *Widget) SetToplistWidget(v ToplistWidget) {
-	w.ToplistWidget = &v
+// SetDisplayFormat allocates a new w.DisplayFormat and returns the pointer to it.
+func (w *Widget) SetDisplayFormat(v string) {
+	w.DisplayFormat = &v
+}
+
+// GetEnv returns the Env field if non-nil, zero value otherwise.
+func (w *Widget) GetEnv() string {
+	if w == nil || w.Env == nil {
+		return ""
+	}
+	return *w.Env
+}
+
+// GetEnvOk returns a tuple with the Env field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (w *Widget) GetEnvOk() (string, bool) {
+	if w == nil || w.Env == nil {
+		return "", false
+	}
+	return *w.Env, true
+}
+
+// HasEnv returns a boolean if a field has been set.
+func (w *Widget) HasEnv() bool {
+	if w != nil && w.Env != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetEnv allocates a new w.Env and returns the pointer to it.
+func (w *Widget) SetEnv(v string) {
+	w.Env = &v
+}
+
+// GetEventSize returns the EventSize field if non-nil, zero value otherwise.
+func (w *Widget) GetEventSize() string {
+	if w == nil || w.EventSize == nil {
+		return ""
+	}
+	return *w.EventSize
+}
+
+// GetEventSizeOk returns a tuple with the EventSize field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (w *Widget) GetEventSizeOk() (string, bool) {
+	if w == nil || w.EventSize == nil {
+		return "", false
+	}
+	return *w.EventSize, true
+}
+
+// HasEventSize returns a boolean if a field has been set.
+func (w *Widget) HasEventSize() bool {
+	if w != nil && w.EventSize != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetEventSize allocates a new w.EventSize and returns the pointer to it.
+func (w *Widget) SetEventSize(v string) {
+	w.EventSize = &v
+}
+
+// GetFontSize returns the FontSize field if non-nil, zero value otherwise.
+func (w *Widget) GetFontSize() string {
+	if w == nil || w.FontSize == nil {
+		return ""
+	}
+	return *w.FontSize
+}
+
+// GetFontSizeOk returns a tuple with the FontSize field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (w *Widget) GetFontSizeOk() (string, bool) {
+	if w == nil || w.FontSize == nil {
+		return "", false
+	}
+	return *w.FontSize, true
+}
+
+// HasFontSize returns a boolean if a field has been set.
+func (w *Widget) HasFontSize() bool {
+	if w != nil && w.FontSize != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetFontSize allocates a new w.FontSize and returns the pointer to it.
+func (w *Widget) SetFontSize(v string) {
+	w.FontSize = &v
+}
+
+// GetGroup returns the Group field if non-nil, zero value otherwise.
+func (w *Widget) GetGroup() string {
+	if w == nil || w.Group == nil {
+		return ""
+	}
+	return *w.Group
+}
+
+// GetGroupOk returns a tuple with the Group field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (w *Widget) GetGroupOk() (string, bool) {
+	if w == nil || w.Group == nil {
+		return "", false
+	}
+	return *w.Group, true
+}
+
+// HasGroup returns a boolean if a field has been set.
+func (w *Widget) HasGroup() bool {
+	if w != nil && w.Group != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetGroup allocates a new w.Group and returns the pointer to it.
+func (w *Widget) SetGroup(v string) {
+	w.Group = &v
+}
+
+// GetGrouping returns the Grouping field if non-nil, zero value otherwise.
+func (w *Widget) GetGrouping() string {
+	if w == nil || w.Grouping == nil {
+		return ""
+	}
+	return *w.Grouping
+}
+
+// GetGroupingOk returns a tuple with the Grouping field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (w *Widget) GetGroupingOk() (string, bool) {
+	if w == nil || w.Grouping == nil {
+		return "", false
+	}
+	return *w.Grouping, true
+}
+
+// HasGrouping returns a boolean if a field has been set.
+func (w *Widget) HasGrouping() bool {
+	if w != nil && w.Grouping != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetGrouping allocates a new w.Grouping and returns the pointer to it.
+func (w *Widget) SetGrouping(v string) {
+	w.Grouping = &v
+}
+
+// GetHeight returns the Height field if non-nil, zero value otherwise.
+func (w *Widget) GetHeight() int {
+	if w == nil || w.Height == nil {
+		return 0
+	}
+	return *w.Height
+}
+
+// GetHeightOk returns a tuple with the Height field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (w *Widget) GetHeightOk() (int, bool) {
+	if w == nil || w.Height == nil {
+		return 0, false
+	}
+	return *w.Height, true
+}
+
+// HasHeight returns a boolean if a field has been set.
+func (w *Widget) HasHeight() bool {
+	if w != nil && w.Height != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetHeight allocates a new w.Height and returns the pointer to it.
+func (w *Widget) SetHeight(v int) {
+	w.Height = &v
+}
+
+// GetHideZeroCounts returns the HideZeroCounts field if non-nil, zero value otherwise.
+func (w *Widget) GetHideZeroCounts() bool {
+	if w == nil || w.HideZeroCounts == nil {
+		return false
+	}
+	return *w.HideZeroCounts
+}
+
+// GetHideZeroCountsOk returns a tuple with the HideZeroCounts field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (w *Widget) GetHideZeroCountsOk() (bool, bool) {
+	if w == nil || w.HideZeroCounts == nil {
+		return false, false
+	}
+	return *w.HideZeroCounts, true
+}
+
+// HasHideZeroCounts returns a boolean if a field has been set.
+func (w *Widget) HasHideZeroCounts() bool {
+	if w != nil && w.HideZeroCounts != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetHideZeroCounts allocates a new w.HideZeroCounts and returns the pointer to it.
+func (w *Widget) SetHideZeroCounts(v bool) {
+	w.HideZeroCounts = &v
+}
+
+// GetHTML returns the HTML field if non-nil, zero value otherwise.
+func (w *Widget) GetHTML() string {
+	if w == nil || w.HTML == nil {
+		return ""
+	}
+	return *w.HTML
+}
+
+// GetHTMLOk returns a tuple with the HTML field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (w *Widget) GetHTMLOk() (string, bool) {
+	if w == nil || w.HTML == nil {
+		return "", false
+	}
+	return *w.HTML, true
+}
+
+// HasHTML returns a boolean if a field has been set.
+func (w *Widget) HasHTML() bool {
+	if w != nil && w.HTML != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetHTML allocates a new w.HTML and returns the pointer to it.
+func (w *Widget) SetHTML(v string) {
+	w.HTML = &v
+}
+
+// GetLayoutVersion returns the LayoutVersion field if non-nil, zero value otherwise.
+func (w *Widget) GetLayoutVersion() string {
+	if w == nil || w.LayoutVersion == nil {
+		return ""
+	}
+	return *w.LayoutVersion
+}
+
+// GetLayoutVersionOk returns a tuple with the LayoutVersion field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (w *Widget) GetLayoutVersionOk() (string, bool) {
+	if w == nil || w.LayoutVersion == nil {
+		return "", false
+	}
+	return *w.LayoutVersion, true
+}
+
+// HasLayoutVersion returns a boolean if a field has been set.
+func (w *Widget) HasLayoutVersion() bool {
+	if w != nil && w.LayoutVersion != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetLayoutVersion allocates a new w.LayoutVersion and returns the pointer to it.
+func (w *Widget) SetLayoutVersion(v string) {
+	w.LayoutVersion = &v
+}
+
+// GetLegend returns the Legend field if non-nil, zero value otherwise.
+func (w *Widget) GetLegend() bool {
+	if w == nil || w.Legend == nil {
+		return false
+	}
+	return *w.Legend
+}
+
+// GetLegendOk returns a tuple with the Legend field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (w *Widget) GetLegendOk() (bool, bool) {
+	if w == nil || w.Legend == nil {
+		return false, false
+	}
+	return *w.Legend, true
+}
+
+// HasLegend returns a boolean if a field has been set.
+func (w *Widget) HasLegend() bool {
+	if w != nil && w.Legend != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetLegend allocates a new w.Legend and returns the pointer to it.
+func (w *Widget) SetLegend(v bool) {
+	w.Legend = &v
+}
+
+// GetLegendSize returns the LegendSize field if non-nil, zero value otherwise.
+func (w *Widget) GetLegendSize() string {
+	if w == nil || w.LegendSize == nil {
+		return ""
+	}
+	return *w.LegendSize
+}
+
+// GetLegendSizeOk returns a tuple with the LegendSize field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (w *Widget) GetLegendSizeOk() (string, bool) {
+	if w == nil || w.LegendSize == nil {
+		return "", false
+	}
+	return *w.LegendSize, true
+}
+
+// HasLegendSize returns a boolean if a field has been set.
+func (w *Widget) HasLegendSize() bool {
+	if w != nil && w.LegendSize != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetLegendSize allocates a new w.LegendSize and returns the pointer to it.
+func (w *Widget) SetLegendSize(v string) {
+	w.LegendSize = &v
+}
+
+// GetLogset returns the Logset field if non-nil, zero value otherwise.
+func (w *Widget) GetLogset() string {
+	if w == nil || w.Logset == nil {
+		return ""
+	}
+	return *w.Logset
+}
+
+// GetLogsetOk returns a tuple with the Logset field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (w *Widget) GetLogsetOk() (string, bool) {
+	if w == nil || w.Logset == nil {
+		return "", false
+	}
+	return *w.Logset, true
+}
+
+// HasLogset returns a boolean if a field has been set.
+func (w *Widget) HasLogset() bool {
+	if w != nil && w.Logset != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetLogset allocates a new w.Logset and returns the pointer to it.
+func (w *Widget) SetLogset(v string) {
+	w.Logset = &v
+}
+
+// GetManageStatusShowTitle returns the ManageStatusShowTitle field if non-nil, zero value otherwise.
+func (w *Widget) GetManageStatusShowTitle() bool {
+	if w == nil || w.ManageStatusShowTitle == nil {
+		return false
+	}
+	return *w.ManageStatusShowTitle
+}
+
+// GetManageStatusShowTitleOk returns a tuple with the ManageStatusShowTitle field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (w *Widget) GetManageStatusShowTitleOk() (bool, bool) {
+	if w == nil || w.ManageStatusShowTitle == nil {
+		return false, false
+	}
+	return *w.ManageStatusShowTitle, true
+}
+
+// HasManageStatusShowTitle returns a boolean if a field has been set.
+func (w *Widget) HasManageStatusShowTitle() bool {
+	if w != nil && w.ManageStatusShowTitle != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetManageStatusShowTitle allocates a new w.ManageStatusShowTitle and returns the pointer to it.
+func (w *Widget) SetManageStatusShowTitle(v bool) {
+	w.ManageStatusShowTitle = &v
+}
+
+// GetManageStatusTitleAlign returns the ManageStatusTitleAlign field if non-nil, zero value otherwise.
+func (w *Widget) GetManageStatusTitleAlign() string {
+	if w == nil || w.ManageStatusTitleAlign == nil {
+		return ""
+	}
+	return *w.ManageStatusTitleAlign
+}
+
+// GetManageStatusTitleAlignOk returns a tuple with the ManageStatusTitleAlign field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (w *Widget) GetManageStatusTitleAlignOk() (string, bool) {
+	if w == nil || w.ManageStatusTitleAlign == nil {
+		return "", false
+	}
+	return *w.ManageStatusTitleAlign, true
+}
+
+// HasManageStatusTitleAlign returns a boolean if a field has been set.
+func (w *Widget) HasManageStatusTitleAlign() bool {
+	if w != nil && w.ManageStatusTitleAlign != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetManageStatusTitleAlign allocates a new w.ManageStatusTitleAlign and returns the pointer to it.
+func (w *Widget) SetManageStatusTitleAlign(v string) {
+	w.ManageStatusTitleAlign = &v
+}
+
+// GetManageStatusTitleSize returns the ManageStatusTitleSize field if non-nil, zero value otherwise.
+func (w *Widget) GetManageStatusTitleSize() string {
+	if w == nil || w.ManageStatusTitleSize == nil {
+		return ""
+	}
+	return *w.ManageStatusTitleSize
+}
+
+// GetManageStatusTitleSizeOk returns a tuple with the ManageStatusTitleSize field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (w *Widget) GetManageStatusTitleSizeOk() (string, bool) {
+	if w == nil || w.ManageStatusTitleSize == nil {
+		return "", false
+	}
+	return *w.ManageStatusTitleSize, true
+}
+
+// HasManageStatusTitleSize returns a boolean if a field has been set.
+func (w *Widget) HasManageStatusTitleSize() bool {
+	if w != nil && w.ManageStatusTitleSize != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetManageStatusTitleSize allocates a new w.ManageStatusTitleSize and returns the pointer to it.
+func (w *Widget) SetManageStatusTitleSize(v string) {
+	w.ManageStatusTitleSize = &v
+}
+
+// GetManageStatusTitleText returns the ManageStatusTitleText field if non-nil, zero value otherwise.
+func (w *Widget) GetManageStatusTitleText() string {
+	if w == nil || w.ManageStatusTitleText == nil {
+		return ""
+	}
+	return *w.ManageStatusTitleText
+}
+
+// GetManageStatusTitleTextOk returns a tuple with the ManageStatusTitleText field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (w *Widget) GetManageStatusTitleTextOk() (string, bool) {
+	if w == nil || w.ManageStatusTitleText == nil {
+		return "", false
+	}
+	return *w.ManageStatusTitleText, true
+}
+
+// HasManageStatusTitleText returns a boolean if a field has been set.
+func (w *Widget) HasManageStatusTitleText() bool {
+	if w != nil && w.ManageStatusTitleText != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetManageStatusTitleText allocates a new w.ManageStatusTitleText and returns the pointer to it.
+func (w *Widget) SetManageStatusTitleText(v string) {
+	w.ManageStatusTitleText = &v
+}
+
+// GetMargin returns the Margin field if non-nil, zero value otherwise.
+func (w *Widget) GetMargin() string {
+	if w == nil || w.Margin == nil {
+		return ""
+	}
+	return *w.Margin
+}
+
+// GetMarginOk returns a tuple with the Margin field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (w *Widget) GetMarginOk() (string, bool) {
+	if w == nil || w.Margin == nil {
+		return "", false
+	}
+	return *w.Margin, true
+}
+
+// HasMargin returns a boolean if a field has been set.
+func (w *Widget) HasMargin() bool {
+	if w != nil && w.Margin != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMargin allocates a new w.Margin and returns the pointer to it.
+func (w *Widget) SetMargin(v string) {
+	w.Margin = &v
+}
+
+// GetMonitor returns the Monitor field if non-nil, zero value otherwise.
+func (w *Widget) GetMonitor() ScreenboardMonitor {
+	if w == nil || w.Monitor == nil {
+		return ScreenboardMonitor{}
+	}
+	return *w.Monitor
+}
+
+// GetMonitorOk returns a tuple with the Monitor field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (w *Widget) GetMonitorOk() (ScreenboardMonitor, bool) {
+	if w == nil || w.Monitor == nil {
+		return ScreenboardMonitor{}, false
+	}
+	return *w.Monitor, true
+}
+
+// HasMonitor returns a boolean if a field has been set.
+func (w *Widget) HasMonitor() bool {
+	if w != nil && w.Monitor != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMonitor allocates a new w.Monitor and returns the pointer to it.
+func (w *Widget) SetMonitor(v ScreenboardMonitor) {
+	w.Monitor = &v
+}
+
+// GetMustShowBreakdown returns the MustShowBreakdown field if non-nil, zero value otherwise.
+func (w *Widget) GetMustShowBreakdown() bool {
+	if w == nil || w.MustShowBreakdown == nil {
+		return false
+	}
+	return *w.MustShowBreakdown
+}
+
+// GetMustShowBreakdownOk returns a tuple with the MustShowBreakdown field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (w *Widget) GetMustShowBreakdownOk() (bool, bool) {
+	if w == nil || w.MustShowBreakdown == nil {
+		return false, false
+	}
+	return *w.MustShowBreakdown, true
+}
+
+// HasMustShowBreakdown returns a boolean if a field has been set.
+func (w *Widget) HasMustShowBreakdown() bool {
+	if w != nil && w.MustShowBreakdown != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMustShowBreakdown allocates a new w.MustShowBreakdown and returns the pointer to it.
+func (w *Widget) SetMustShowBreakdown(v bool) {
+	w.MustShowBreakdown = &v
+}
+
+// GetMustShowDistribution returns the MustShowDistribution field if non-nil, zero value otherwise.
+func (w *Widget) GetMustShowDistribution() bool {
+	if w == nil || w.MustShowDistribution == nil {
+		return false
+	}
+	return *w.MustShowDistribution
+}
+
+// GetMustShowDistributionOk returns a tuple with the MustShowDistribution field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (w *Widget) GetMustShowDistributionOk() (bool, bool) {
+	if w == nil || w.MustShowDistribution == nil {
+		return false, false
+	}
+	return *w.MustShowDistribution, true
+}
+
+// HasMustShowDistribution returns a boolean if a field has been set.
+func (w *Widget) HasMustShowDistribution() bool {
+	if w != nil && w.MustShowDistribution != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMustShowDistribution allocates a new w.MustShowDistribution and returns the pointer to it.
+func (w *Widget) SetMustShowDistribution(v bool) {
+	w.MustShowDistribution = &v
+}
+
+// GetMustShowErrors returns the MustShowErrors field if non-nil, zero value otherwise.
+func (w *Widget) GetMustShowErrors() bool {
+	if w == nil || w.MustShowErrors == nil {
+		return false
+	}
+	return *w.MustShowErrors
+}
+
+// GetMustShowErrorsOk returns a tuple with the MustShowErrors field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (w *Widget) GetMustShowErrorsOk() (bool, bool) {
+	if w == nil || w.MustShowErrors == nil {
+		return false, false
+	}
+	return *w.MustShowErrors, true
+}
+
+// HasMustShowErrors returns a boolean if a field has been set.
+func (w *Widget) HasMustShowErrors() bool {
+	if w != nil && w.MustShowErrors != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMustShowErrors allocates a new w.MustShowErrors and returns the pointer to it.
+func (w *Widget) SetMustShowErrors(v bool) {
+	w.MustShowErrors = &v
+}
+
+// GetMustShowHits returns the MustShowHits field if non-nil, zero value otherwise.
+func (w *Widget) GetMustShowHits() bool {
+	if w == nil || w.MustShowHits == nil {
+		return false
+	}
+	return *w.MustShowHits
+}
+
+// GetMustShowHitsOk returns a tuple with the MustShowHits field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (w *Widget) GetMustShowHitsOk() (bool, bool) {
+	if w == nil || w.MustShowHits == nil {
+		return false, false
+	}
+	return *w.MustShowHits, true
+}
+
+// HasMustShowHits returns a boolean if a field has been set.
+func (w *Widget) HasMustShowHits() bool {
+	if w != nil && w.MustShowHits != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMustShowHits allocates a new w.MustShowHits and returns the pointer to it.
+func (w *Widget) SetMustShowHits(v bool) {
+	w.MustShowHits = &v
+}
+
+// GetMustShowLatency returns the MustShowLatency field if non-nil, zero value otherwise.
+func (w *Widget) GetMustShowLatency() bool {
+	if w == nil || w.MustShowLatency == nil {
+		return false
+	}
+	return *w.MustShowLatency
+}
+
+// GetMustShowLatencyOk returns a tuple with the MustShowLatency field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (w *Widget) GetMustShowLatencyOk() (bool, bool) {
+	if w == nil || w.MustShowLatency == nil {
+		return false, false
+	}
+	return *w.MustShowLatency, true
+}
+
+// HasMustShowLatency returns a boolean if a field has been set.
+func (w *Widget) HasMustShowLatency() bool {
+	if w != nil && w.MustShowLatency != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMustShowLatency allocates a new w.MustShowLatency and returns the pointer to it.
+func (w *Widget) SetMustShowLatency(v bool) {
+	w.MustShowLatency = &v
+}
+
+// GetMustShowResourceList returns the MustShowResourceList field if non-nil, zero value otherwise.
+func (w *Widget) GetMustShowResourceList() bool {
+	if w == nil || w.MustShowResourceList == nil {
+		return false
+	}
+	return *w.MustShowResourceList
+}
+
+// GetMustShowResourceListOk returns a tuple with the MustShowResourceList field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (w *Widget) GetMustShowResourceListOk() (bool, bool) {
+	if w == nil || w.MustShowResourceList == nil {
+		return false, false
+	}
+	return *w.MustShowResourceList, true
+}
+
+// HasMustShowResourceList returns a boolean if a field has been set.
+func (w *Widget) HasMustShowResourceList() bool {
+	if w != nil && w.MustShowResourceList != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMustShowResourceList allocates a new w.MustShowResourceList and returns the pointer to it.
+func (w *Widget) SetMustShowResourceList(v bool) {
+	w.MustShowResourceList = &v
+}
+
+// GetParams returns the Params field if non-nil, zero value otherwise.
+func (w *Widget) GetParams() Params {
+	if w == nil || w.Params == nil {
+		return Params{}
+	}
+	return *w.Params
+}
+
+// GetParamsOk returns a tuple with the Params field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (w *Widget) GetParamsOk() (Params, bool) {
+	if w == nil || w.Params == nil {
+		return Params{}, false
+	}
+	return *w.Params, true
+}
+
+// HasParams returns a boolean if a field has been set.
+func (w *Widget) HasParams() bool {
+	if w != nil && w.Params != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetParams allocates a new w.Params and returns the pointer to it.
+func (w *Widget) SetParams(v Params) {
+	w.Params = &v
+}
+
+// GetPrecision returns the Precision field if non-nil, zero value otherwise.
+func (w *Widget) GetPrecision() string {
+	if w == nil || w.Precision == nil {
+		return ""
+	}
+	return *w.Precision
+}
+
+// GetPrecisionOk returns a tuple with the Precision field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (w *Widget) GetPrecisionOk() (string, bool) {
+	if w == nil || w.Precision == nil {
+		return "", false
+	}
+	return *w.Precision, true
+}
+
+// HasPrecision returns a boolean if a field has been set.
+func (w *Widget) HasPrecision() bool {
+	if w != nil && w.Precision != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPrecision allocates a new w.Precision and returns the pointer to it.
+func (w *Widget) SetPrecision(v string) {
+	w.Precision = &v
+}
+
+// GetQuery returns the Query field if non-nil, zero value otherwise.
+func (w *Widget) GetQuery() string {
+	if w == nil || w.Query == nil {
+		return ""
+	}
+	return *w.Query
+}
+
+// GetQueryOk returns a tuple with the Query field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (w *Widget) GetQueryOk() (string, bool) {
+	if w == nil || w.Query == nil {
+		return "", false
+	}
+	return *w.Query, true
+}
+
+// HasQuery returns a boolean if a field has been set.
+func (w *Widget) HasQuery() bool {
+	if w != nil && w.Query != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetQuery allocates a new w.Query and returns the pointer to it.
+func (w *Widget) SetQuery(v string) {
+	w.Query = &v
+}
+
+// GetServiceName returns the ServiceName field if non-nil, zero value otherwise.
+func (w *Widget) GetServiceName() string {
+	if w == nil || w.ServiceName == nil {
+		return ""
+	}
+	return *w.ServiceName
+}
+
+// GetServiceNameOk returns a tuple with the ServiceName field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (w *Widget) GetServiceNameOk() (string, bool) {
+	if w == nil || w.ServiceName == nil {
+		return "", false
+	}
+	return *w.ServiceName, true
+}
+
+// HasServiceName returns a boolean if a field has been set.
+func (w *Widget) HasServiceName() bool {
+	if w != nil && w.ServiceName != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetServiceName allocates a new w.ServiceName and returns the pointer to it.
+func (w *Widget) SetServiceName(v string) {
+	w.ServiceName = &v
+}
+
+// GetServiceService returns the ServiceService field if non-nil, zero value otherwise.
+func (w *Widget) GetServiceService() string {
+	if w == nil || w.ServiceService == nil {
+		return ""
+	}
+	return *w.ServiceService
+}
+
+// GetServiceServiceOk returns a tuple with the ServiceService field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (w *Widget) GetServiceServiceOk() (string, bool) {
+	if w == nil || w.ServiceService == nil {
+		return "", false
+	}
+	return *w.ServiceService, true
+}
+
+// HasServiceService returns a boolean if a field has been set.
+func (w *Widget) HasServiceService() bool {
+	if w != nil && w.ServiceService != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetServiceService allocates a new w.ServiceService and returns the pointer to it.
+func (w *Widget) SetServiceService(v string) {
+	w.ServiceService = &v
+}
+
+// GetSizeVersion returns the SizeVersion field if non-nil, zero value otherwise.
+func (w *Widget) GetSizeVersion() string {
+	if w == nil || w.SizeVersion == nil {
+		return ""
+	}
+	return *w.SizeVersion
+}
+
+// GetSizeVersionOk returns a tuple with the SizeVersion field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (w *Widget) GetSizeVersionOk() (string, bool) {
+	if w == nil || w.SizeVersion == nil {
+		return "", false
+	}
+	return *w.SizeVersion, true
+}
+
+// HasSizeVersion returns a boolean if a field has been set.
+func (w *Widget) HasSizeVersion() bool {
+	if w != nil && w.SizeVersion != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSizeVersion allocates a new w.SizeVersion and returns the pointer to it.
+func (w *Widget) SetSizeVersion(v string) {
+	w.SizeVersion = &v
+}
+
+// GetSizing returns the Sizing field if non-nil, zero value otherwise.
+func (w *Widget) GetSizing() string {
+	if w == nil || w.Sizing == nil {
+		return ""
+	}
+	return *w.Sizing
+}
+
+// GetSizingOk returns a tuple with the Sizing field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (w *Widget) GetSizingOk() (string, bool) {
+	if w == nil || w.Sizing == nil {
+		return "", false
+	}
+	return *w.Sizing, true
+}
+
+// HasSizing returns a boolean if a field has been set.
+func (w *Widget) HasSizing() bool {
+	if w != nil && w.Sizing != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSizing allocates a new w.Sizing and returns the pointer to it.
+func (w *Widget) SetSizing(v string) {
+	w.Sizing = &v
+}
+
+// GetText returns the Text field if non-nil, zero value otherwise.
+func (w *Widget) GetText() string {
+	if w == nil || w.Text == nil {
+		return ""
+	}
+	return *w.Text
+}
+
+// GetTextOk returns a tuple with the Text field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (w *Widget) GetTextOk() (string, bool) {
+	if w == nil || w.Text == nil {
+		return "", false
+	}
+	return *w.Text, true
+}
+
+// HasText returns a boolean if a field has been set.
+func (w *Widget) HasText() bool {
+	if w != nil && w.Text != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetText allocates a new w.Text and returns the pointer to it.
+func (w *Widget) SetText(v string) {
+	w.Text = &v
+}
+
+// GetTextAlign returns the TextAlign field if non-nil, zero value otherwise.
+func (w *Widget) GetTextAlign() string {
+	if w == nil || w.TextAlign == nil {
+		return ""
+	}
+	return *w.TextAlign
+}
+
+// GetTextAlignOk returns a tuple with the TextAlign field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (w *Widget) GetTextAlignOk() (string, bool) {
+	if w == nil || w.TextAlign == nil {
+		return "", false
+	}
+	return *w.TextAlign, true
+}
+
+// HasTextAlign returns a boolean if a field has been set.
+func (w *Widget) HasTextAlign() bool {
+	if w != nil && w.TextAlign != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTextAlign allocates a new w.TextAlign and returns the pointer to it.
+func (w *Widget) SetTextAlign(v string) {
+	w.TextAlign = &v
+}
+
+// GetTextSize returns the TextSize field if non-nil, zero value otherwise.
+func (w *Widget) GetTextSize() string {
+	if w == nil || w.TextSize == nil {
+		return ""
+	}
+	return *w.TextSize
+}
+
+// GetTextSizeOk returns a tuple with the TextSize field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (w *Widget) GetTextSizeOk() (string, bool) {
+	if w == nil || w.TextSize == nil {
+		return "", false
+	}
+	return *w.TextSize, true
+}
+
+// HasTextSize returns a boolean if a field has been set.
+func (w *Widget) HasTextSize() bool {
+	if w != nil && w.TextSize != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTextSize allocates a new w.TextSize and returns the pointer to it.
+func (w *Widget) SetTextSize(v string) {
+	w.TextSize = &v
+}
+
+// GetTick returns the Tick field if non-nil, zero value otherwise.
+func (w *Widget) GetTick() bool {
+	if w == nil || w.Tick == nil {
+		return false
+	}
+	return *w.Tick
+}
+
+// GetTickOk returns a tuple with the Tick field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (w *Widget) GetTickOk() (bool, bool) {
+	if w == nil || w.Tick == nil {
+		return false, false
+	}
+	return *w.Tick, true
+}
+
+// HasTick returns a boolean if a field has been set.
+func (w *Widget) HasTick() bool {
+	if w != nil && w.Tick != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTick allocates a new w.Tick and returns the pointer to it.
+func (w *Widget) SetTick(v bool) {
+	w.Tick = &v
+}
+
+// GetTickEdge returns the TickEdge field if non-nil, zero value otherwise.
+func (w *Widget) GetTickEdge() string {
+	if w == nil || w.TickEdge == nil {
+		return ""
+	}
+	return *w.TickEdge
+}
+
+// GetTickEdgeOk returns a tuple with the TickEdge field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (w *Widget) GetTickEdgeOk() (string, bool) {
+	if w == nil || w.TickEdge == nil {
+		return "", false
+	}
+	return *w.TickEdge, true
+}
+
+// HasTickEdge returns a boolean if a field has been set.
+func (w *Widget) HasTickEdge() bool {
+	if w != nil && w.TickEdge != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTickEdge allocates a new w.TickEdge and returns the pointer to it.
+func (w *Widget) SetTickEdge(v string) {
+	w.TickEdge = &v
+}
+
+// GetTickPos returns the TickPos field if non-nil, zero value otherwise.
+func (w *Widget) GetTickPos() string {
+	if w == nil || w.TickPos == nil {
+		return ""
+	}
+	return *w.TickPos
+}
+
+// GetTickPosOk returns a tuple with the TickPos field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (w *Widget) GetTickPosOk() (string, bool) {
+	if w == nil || w.TickPos == nil {
+		return "", false
+	}
+	return *w.TickPos, true
+}
+
+// HasTickPos returns a boolean if a field has been set.
+func (w *Widget) HasTickPos() bool {
+	if w != nil && w.TickPos != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTickPos allocates a new w.TickPos and returns the pointer to it.
+func (w *Widget) SetTickPos(v string) {
+	w.TickPos = &v
+}
+
+// GetTileDef returns the TileDef field if non-nil, zero value otherwise.
+func (w *Widget) GetTileDef() TileDef {
+	if w == nil || w.TileDef == nil {
+		return TileDef{}
+	}
+	return *w.TileDef
+}
+
+// GetTileDefOk returns a tuple with the TileDef field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (w *Widget) GetTileDefOk() (TileDef, bool) {
+	if w == nil || w.TileDef == nil {
+		return TileDef{}, false
+	}
+	return *w.TileDef, true
+}
+
+// HasTileDef returns a boolean if a field has been set.
+func (w *Widget) HasTileDef() bool {
+	if w != nil && w.TileDef != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTileDef allocates a new w.TileDef and returns the pointer to it.
+func (w *Widget) SetTileDef(v TileDef) {
+	w.TileDef = &v
+}
+
+// GetTime returns the Time field if non-nil, zero value otherwise.
+func (w *Widget) GetTime() Time {
+	if w == nil || w.Time == nil {
+		return Time{}
+	}
+	return *w.Time
+}
+
+// GetTimeOk returns a tuple with the Time field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (w *Widget) GetTimeOk() (Time, bool) {
+	if w == nil || w.Time == nil {
+		return Time{}, false
+	}
+	return *w.Time, true
+}
+
+// HasTime returns a boolean if a field has been set.
+func (w *Widget) HasTime() bool {
+	if w != nil && w.Time != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTime allocates a new w.Time and returns the pointer to it.
+func (w *Widget) SetTime(v Time) {
+	w.Time = &v
+}
+
+// GetTitle returns the Title field if non-nil, zero value otherwise.
+func (w *Widget) GetTitle() bool {
+	if w == nil || w.Title == nil {
+		return false
+	}
+	return *w.Title
+}
+
+// GetTitleOk returns a tuple with the Title field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (w *Widget) GetTitleOk() (bool, bool) {
+	if w == nil || w.Title == nil {
+		return false, false
+	}
+	return *w.Title, true
+}
+
+// HasTitle returns a boolean if a field has been set.
+func (w *Widget) HasTitle() bool {
+	if w != nil && w.Title != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTitle allocates a new w.Title and returns the pointer to it.
+func (w *Widget) SetTitle(v bool) {
+	w.Title = &v
+}
+
+// GetTitleAlign returns the TitleAlign field if non-nil, zero value otherwise.
+func (w *Widget) GetTitleAlign() string {
+	if w == nil || w.TitleAlign == nil {
+		return ""
+	}
+	return *w.TitleAlign
+}
+
+// GetTitleAlignOk returns a tuple with the TitleAlign field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (w *Widget) GetTitleAlignOk() (string, bool) {
+	if w == nil || w.TitleAlign == nil {
+		return "", false
+	}
+	return *w.TitleAlign, true
+}
+
+// HasTitleAlign returns a boolean if a field has been set.
+func (w *Widget) HasTitleAlign() bool {
+	if w != nil && w.TitleAlign != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTitleAlign allocates a new w.TitleAlign and returns the pointer to it.
+func (w *Widget) SetTitleAlign(v string) {
+	w.TitleAlign = &v
+}
+
+// GetTitleSize returns the TitleSize field if non-nil, zero value otherwise.
+func (w *Widget) GetTitleSize() int {
+	if w == nil || w.TitleSize == nil {
+		return 0
+	}
+	return *w.TitleSize
+}
+
+// GetTitleSizeOk returns a tuple with the TitleSize field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (w *Widget) GetTitleSizeOk() (int, bool) {
+	if w == nil || w.TitleSize == nil {
+		return 0, false
+	}
+	return *w.TitleSize, true
+}
+
+// HasTitleSize returns a boolean if a field has been set.
+func (w *Widget) HasTitleSize() bool {
+	if w != nil && w.TitleSize != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTitleSize allocates a new w.TitleSize and returns the pointer to it.
+func (w *Widget) SetTitleSize(v int) {
+	w.TitleSize = &v
+}
+
+// GetTitleText returns the TitleText field if non-nil, zero value otherwise.
+func (w *Widget) GetTitleText() string {
+	if w == nil || w.TitleText == nil {
+		return ""
+	}
+	return *w.TitleText
+}
+
+// GetTitleTextOk returns a tuple with the TitleText field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (w *Widget) GetTitleTextOk() (string, bool) {
+	if w == nil || w.TitleText == nil {
+		return "", false
+	}
+	return *w.TitleText, true
+}
+
+// HasTitleText returns a boolean if a field has been set.
+func (w *Widget) HasTitleText() bool {
+	if w != nil && w.TitleText != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTitleText allocates a new w.TitleText and returns the pointer to it.
+func (w *Widget) SetTitleText(v string) {
+	w.TitleText = &v
+}
+
+// GetType returns the Type field if non-nil, zero value otherwise.
+func (w *Widget) GetType() string {
+	if w == nil || w.Type == nil {
+		return ""
+	}
+	return *w.Type
+}
+
+// GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (w *Widget) GetTypeOk() (string, bool) {
+	if w == nil || w.Type == nil {
+		return "", false
+	}
+	return *w.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (w *Widget) HasType() bool {
+	if w != nil && w.Type != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetType allocates a new w.Type and returns the pointer to it.
+func (w *Widget) SetType(v string) {
+	w.Type = &v
+}
+
+// GetUnit returns the Unit field if non-nil, zero value otherwise.
+func (w *Widget) GetUnit() string {
+	if w == nil || w.Unit == nil {
+		return ""
+	}
+	return *w.Unit
+}
+
+// GetUnitOk returns a tuple with the Unit field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (w *Widget) GetUnitOk() (string, bool) {
+	if w == nil || w.Unit == nil {
+		return "", false
+	}
+	return *w.Unit, true
+}
+
+// HasUnit returns a boolean if a field has been set.
+func (w *Widget) HasUnit() bool {
+	if w != nil && w.Unit != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetUnit allocates a new w.Unit and returns the pointer to it.
+func (w *Widget) SetUnit(v string) {
+	w.Unit = &v
+}
+
+// GetURL returns the URL field if non-nil, zero value otherwise.
+func (w *Widget) GetURL() string {
+	if w == nil || w.URL == nil {
+		return ""
+	}
+	return *w.URL
+}
+
+// GetURLOk returns a tuple with the URL field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (w *Widget) GetURLOk() (string, bool) {
+	if w == nil || w.URL == nil {
+		return "", false
+	}
+	return *w.URL, true
+}
+
+// HasURL returns a boolean if a field has been set.
+func (w *Widget) HasURL() bool {
+	if w != nil && w.URL != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetURL allocates a new w.URL and returns the pointer to it.
+func (w *Widget) SetURL(v string) {
+	w.URL = &v
+}
+
+// GetVizType returns the VizType field if non-nil, zero value otherwise.
+func (w *Widget) GetVizType() string {
+	if w == nil || w.VizType == nil {
+		return ""
+	}
+	return *w.VizType
+}
+
+// GetVizTypeOk returns a tuple with the VizType field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (w *Widget) GetVizTypeOk() (string, bool) {
+	if w == nil || w.VizType == nil {
+		return "", false
+	}
+	return *w.VizType, true
+}
+
+// HasVizType returns a boolean if a field has been set.
+func (w *Widget) HasVizType() bool {
+	if w != nil && w.VizType != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetVizType allocates a new w.VizType and returns the pointer to it.
+func (w *Widget) SetVizType(v string) {
+	w.VizType = &v
+}
+
+// GetWidth returns the Width field if non-nil, zero value otherwise.
+func (w *Widget) GetWidth() int {
+	if w == nil || w.Width == nil {
+		return 0
+	}
+	return *w.Width
+}
+
+// GetWidthOk returns a tuple with the Width field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (w *Widget) GetWidthOk() (int, bool) {
+	if w == nil || w.Width == nil {
+		return 0, false
+	}
+	return *w.Width, true
+}
+
+// HasWidth returns a boolean if a field has been set.
+func (w *Widget) HasWidth() bool {
+	if w != nil && w.Width != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetWidth allocates a new w.Width and returns the pointer to it.
+func (w *Widget) SetWidth(v int) {
+	w.Width = &v
+}
+
+// GetX returns the X field if non-nil, zero value otherwise.
+func (w *Widget) GetX() int {
+	if w == nil || w.X == nil {
+		return 0
+	}
+	return *w.X
+}
+
+// GetXOk returns a tuple with the X field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (w *Widget) GetXOk() (int, bool) {
+	if w == nil || w.X == nil {
+		return 0, false
+	}
+	return *w.X, true
+}
+
+// HasX returns a boolean if a field has been set.
+func (w *Widget) HasX() bool {
+	if w != nil && w.X != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetX allocates a new w.X and returns the pointer to it.
+func (w *Widget) SetX(v int) {
+	w.X = &v
+}
+
+// GetY returns the Y field if non-nil, zero value otherwise.
+func (w *Widget) GetY() int {
+	if w == nil || w.Y == nil {
+		return 0
+	}
+	return *w.Y
+}
+
+// GetYOk returns a tuple with the Y field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (w *Widget) GetYOk() (int, bool) {
+	if w == nil || w.Y == nil {
+		return 0, false
+	}
+	return *w.Y, true
+}
+
+// HasY returns a boolean if a field has been set.
+func (w *Widget) HasY() bool {
+	if w != nil && w.Y != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetY allocates a new w.Y and returns the pointer to it.
+func (w *Widget) SetY(v int) {
+	w.Y = &v
 }
 
 // GetMax returns the Max field if non-nil, zero value otherwise.
@@ -13289,7 +10778,7 @@ func (y *Yaxis) GetMax() float64 {
 	return *y.Max
 }
 
-// GetOkMax returns a tuple with the Max field if it's non-nil, zero value otherwise
+// GetMaxOk returns a tuple with the Max field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (y *Yaxis) GetMaxOk() (float64, bool) {
 	if y == nil || y.Max == nil {
@@ -13320,7 +10809,7 @@ func (y *Yaxis) GetMin() float64 {
 	return *y.Min
 }
 
-// GetOkMin returns a tuple with the Min field if it's non-nil, zero value otherwise
+// GetMinOk returns a tuple with the Min field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (y *Yaxis) GetMinOk() (float64, bool) {
 	if y == nil || y.Min == nil {
@@ -13351,7 +10840,7 @@ func (y *Yaxis) GetScale() string {
 	return *y.Scale
 }
 
-// GetOkScale returns a tuple with the Scale field if it's non-nil, zero value otherwise
+// GetScaleOk returns a tuple with the Scale field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
 func (y *Yaxis) GetScaleOk() (string, bool) {
 	if y == nil || y.Scale == nil {

@@ -29,8 +29,8 @@ type ProjectMembersService struct {
 	client *Client
 }
 
-// ListProjectMembersOptions represents the available ListProjectMembers()
-// options.
+// ListProjectMembersOptions represents the available ListProjectMembers() and
+// ListAllProjectMembers() options.
 //
 // GitLab API docs:
 // https://docs.gitlab.com/ce/api/members.html#list-all-members-of-a-group-or-project
@@ -39,7 +39,9 @@ type ListProjectMembersOptions struct {
 	Query *string `url:"query,omitempty" json:"query,omitempty"`
 }
 
-// ListProjectMembers gets a list of a project's team members.
+// ListProjectMembers gets a list of a project's team members viewable by the
+// authenticated user. Returns only direct members and not inherited members
+// through ancestors groups.
 //
 // GitLab API docs:
 // https://docs.gitlab.com/ce/api/members.html#list-all-members-of-a-group-or-project
@@ -49,6 +51,33 @@ func (s *ProjectMembersService) ListProjectMembers(pid interface{}, opt *ListPro
 		return nil, nil, err
 	}
 	u := fmt.Sprintf("projects/%s/members", url.QueryEscape(project))
+
+	req, err := s.client.NewRequest("GET", u, opt, options)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var pm []*ProjectMember
+	resp, err := s.client.Do(req, &pm)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return pm, resp, err
+}
+
+// ListAllProjectMembers gets a list of a project's team members viewable by the
+// authenticated user. Returns a list including inherited members through
+// ancestor groups.
+//
+// GitLab API docs:
+// https://docs.gitlab.com/ce/api/members.html#list-all-members-of-a-group-or-project-including-inherited-members
+func (s *ProjectMembersService) ListAllProjectMembers(pid interface{}, opt *ListProjectMembersOptions, options ...OptionFunc) ([]*ProjectMember, *Response, error) {
+	project, err := parseID(pid)
+	if err != nil {
+		return nil, nil, err
+	}
+	u := fmt.Sprintf("projects/%s/members/all", url.QueryEscape(project))
 
 	req, err := s.client.NewRequest("GET", u, opt, options)
 	if err != nil {

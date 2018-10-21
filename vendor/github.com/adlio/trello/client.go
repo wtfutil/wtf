@@ -234,6 +234,6 @@ func (c *Client) Delete(path string, args Arguments, target interface{}) error {
 
 func (c *Client) log(format string, args ...interface{}) {
 	if c.Logger != nil {
-		c.Logger.Debugf(format, args)
+		c.Logger.Debugf(format, args...)
 	}
 }

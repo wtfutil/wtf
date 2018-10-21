@@ -1,9 +1,9 @@
 language: go
 
 go:
-  - 1.8.x
   - 1.9.x
   - 1.10.x
+  - 1.11.x
   - master
 
 stages:
@@ -14,7 +14,7 @@ jobs:
   include:
     - stage: lint
       script:
-        - go get github.com/golang/lint/golint
+        - go get golang.org/x/lint/golint
         - golint -set_exit_status
         - go vet -v
     - stage: test

@@ -124,9 +124,9 @@ func (c *Checkbox) SetChangedFunc(handler func(checked bool)) *Checkbox {
 	return c
 }
 
-// SetDoneFunc sets a handler which is called when the user is done entering
-// text. The callback function is provided with the key that was pressed, which
-// is one of the following:
+// SetDoneFunc sets a handler which is called when the user is done using the
+// checkbox. The callback function is provided with the key that was pressed,
+// which is one of the following:
 //
 //   - KeyEscape: Abort text input.
 //   - KeyTab: Move to the next field.
