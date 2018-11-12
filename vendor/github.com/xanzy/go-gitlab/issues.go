@@ -42,30 +42,30 @@ type Issue struct {
 	ProjectID int        `json:"project_id"`
 	Milestone *Milestone `json:"milestone"`
 	Author    struct {
-		ID        int        `json:"id"`
-		Username  string     `json:"username"`
-		Email     string     `json:"email"`
-		Name      string     `json:"name"`
-		State     string     `json:"state"`
-		CreatedAt *time.Time `json:"created_at"`
+		ID        int    `json:"id"`
+		State     string `json:"state"`
+		WebURL    string `json:"web_url"`
+		Name      string `json:"name"`
+		AvatarURL string `json:"avatar_url"`
+		Username  string `json:"username"`
 	} `json:"author"`
 	Description string `json:"description"`
 	State       string `json:"state"`
 	Assignees   []struct {
-		ID        int        `json:"id"`
-		Username  string     `json:"username"`
-		Email     string     `json:"email"`
-		Name      string     `json:"name"`
-		State     string     `json:"state"`
-		CreatedAt *time.Time `json:"created_at"`
+		ID        int    `json:"id"`
+		State     string `json:"state"`
+		WebURL    string `json:"web_url"`
+		Name      string `json:"name"`
+		AvatarURL string `json:"avatar_url"`
+		Username  string `json:"username"`
 	} `json:"assignees"`
 	Assignee struct {
 		ID        int    `json:"id"`
-		Name      string `json:"name"`
-		Username  string `json:"username"`
 		State     string `json:"state"`
-		AvatarURL string `json:"avatar_url"`
 		WebURL    string `json:"web_url"`
+		Name      string `json:"name"`
+		AvatarURL string `json:"avatar_url"`
+		Username  string `json:"username"`
 	} `json:"assignee"`
 	Upvotes          int        `json:"upvotes"`
 	Downvotes        int        `json:"downvotes"`

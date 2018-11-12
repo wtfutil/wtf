@@ -1026,3 +1026,149 @@ func (s *ProjectsService) ListProjectForks(pid interface{}, opt *ListProjectsOpt
 
 	return forks, resp, err
 }
+
+// ProjectPushRules represents a project push rule.
+//
+// GitLab API docs:
+// https://docs.gitlab.com/ee/api/projects.html#push-rules
+type ProjectPushRules struct {
+	ID                 int        `json:"id"`
+	ProjectID          int        `json:"project_id"`
+	CommitMessageRegex string     `json:"commit_message_regex"`
+	BranchNameRegex    string     `json:"branch_name_regex"`
+	DenyDeleteTag      bool       `json:"deny_delete_tag"`
+	CreatedAt          *time.Time `json:"created_at"`
+	MemberCheck        bool       `json:"member_check"`
+	PreventSecrets     bool       `json:"prevent_secrets"`
+	AuthorEmailRegex   string     `json:"author_email_regex"`
+	FileNameRegex      string     `json:"file_name_regex"`
+	MaxFileSize        int        `json:"max_file_size"`
+}
+
+// GetProjectPushRules gets the push rules of a project.
+//
+// GitLab API docs:
+// https://docs.gitlab.com/ee/api/projects.html#get-project-push-rules
+func (s *ProjectsService) GetProjectPushRules(pid interface{}, options ...OptionFunc) (*ProjectPushRules, *Response, error) {
+	project, err := parseID(pid)
+	if err != nil {
+		return nil, nil, err
+	}
+	u := fmt.Sprintf("projects/%s/push_rule", url.QueryEscape(project))
+
+	req, err := s.client.NewRequest("GET", u, nil, options)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	ppr := new(ProjectPushRules)
+	resp, err := s.client.Do(req, ppr)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return ppr, resp, err
+}
+
+// AddProjectPushRuleOptions represents the available AddProjectPushRule()
+// options.
+//
+// GitLab API docs:
+// https://docs.gitlab.com/ee/api/projects.html#add-project-push-rule
+type AddProjectPushRuleOptions struct {
+	DenyDeleteTag      *bool   `url:"deny_delete_tag,omitempty" json:"deny_delete_tag,omitempty"`
+	MemberCheck        *bool   `url:"member_check,omitempty" json:"member_check,omitempty"`
+	PreventSecrets     *bool   `url:"prevent_secrets,omitempty" json:"prevent_secrets,omitempty"`
+	CommitMessageRegex *string `url:"commit_message_regex,omitempty" json:"commit_message_regex,omitempty"`
+	BranchNameRegex    *string `url:"branch_name_regex,omitempty" json:"branch_name_regex,omitempty"`
+	AuthorEmailRegex   *string `url:"author_email_regex,omitempty" json:"author_email_regex,omitempty"`
+	FileNameRegex      *string `url:"file_name_regex,omitempty" json:"file_name_regex,omitempty"`
+	MaxFileSize        *int    `url:"max_file_size,omitempty" json:"max_file_size,omitempty"`
+}
+
+// AddProjectPushRule adds a push rule to a specified project.
+//
+// GitLab API docs:
+// https://docs.gitlab.com/ee/api/projects.html#add-project-push-rule
+func (s *ProjectsService) AddProjectPushRule(pid interface{}, opt *AddProjectPushRuleOptions, options ...OptionFunc) (*ProjectPushRules, *Response, error) {
+	project, err := parseID(pid)
+	if err != nil {
+		return nil, nil, err
+	}
+	u := fmt.Sprintf("projects/%s/push_rule", url.QueryEscape(project))
+
+	req, err := s.client.NewRequest("POST", u, opt, options)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	ppr := new(ProjectPushRules)
+	resp, err := s.client.Do(req, ppr)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return ppr, resp, err
+}
+
+// EditProjectPushRuleOptions represents the available EditProjectPushRule()
+// options.
+//
+// GitLab API docs:
+// https://docs.gitlab.com/ee/api/projects.html#edit-project-push-rule
+type EditProjectPushRuleOptions struct {
+	AuthorEmailRegex   *string `url:"author_email_regex,omitempty" json:"author_email_regex,omitempty"`
+	BranchNameRegex    *string `url:"branch_name_regex,omitempty" json:"branch_name_regex,omitempty"`
+	CommitMessageRegex *string `url:"commit_message_regex,omitempty" json:"commit_message_regex,omitempty"`
+	FileNameRegex      *string `url:"file_name_regex,omitempty" json:"file_name_regex,omitempty"`
+	DenyDeleteTag      *bool   `url:"deny_delete_tag,omitempty" json:"deny_delete_tag,omitempty"`
+	MemberCheck        *bool   `url:"member_check,omitempty" json:"member_check,omitempty"`
+	PreventSecrets     *bool   `url:"prevent_secrets,omitempty" json:"prevent_secrets,omitempty"`
+	MaxFileSize        *int    `url:"max_file_size,omitempty" json:"max_file_size,omitempty"`
+}
+
+// EditProjectPushRule edits a push rule for a specified project.
+//
+// GitLab API docs:
+// https://docs.gitlab.com/ee/api/projects.html#edit-project-push-rule
+func (s *ProjectsService) EditProjectPushRule(pid interface{}, opt *EditProjectPushRuleOptions, options ...OptionFunc) (*ProjectPushRules, *Response, error) {
+	project, err := parseID(pid)
+	if err != nil {
+		return nil, nil, err
+	}
+	u := fmt.Sprintf("projects/%s/push_rule", url.QueryEscape(project))
+
+	req, err := s.client.NewRequest("PUT", u, opt, options)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	ppr := new(ProjectPushRules)
+	resp, err := s.client.Do(req, ppr)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return ppr, resp, err
+}
+
+// DeleteProjectPushRule removes a push rule from a project. This is an
+// idempotent method and can be called multiple times. Either the push rule is
+// available or not.
+//
+// GitLab API docs:
+// https://docs.gitlab.com/ee/api/projects.html#delete-project-push-rule
+func (s *ProjectsService) DeleteProjectPushRule(pid interface{}, options ...OptionFunc) (*Response, error) {
+	project, err := parseID(pid)
+	if err != nil {
+		return nil, err
+	}
+	u := fmt.Sprintf("projects/%s/push_rule", url.QueryEscape(project))
+
+	req, err := s.client.NewRequest("DELETE", u, nil, options)
+	if err != nil {
+		return nil, err
+	}
+
+	return s.client.Do(req, nil)
+}

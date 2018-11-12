@@ -42,6 +42,7 @@ var Go = internal.Register(MustNewLexer(
 			{"(`)([^`]*)(`)", ByGroups(LiteralString, Using(TypeRemappingLexer(GoTextTemplate, TypeMapping{{Other, LiteralString, nil}})), LiteralString), nil},
 			{`"(\\\\|\\"|[^"])*"`, LiteralString, nil},
 			{`(<<=|>>=|<<|>>|<=|>=|&\^=|&\^|\+=|-=|\*=|/=|%=|&=|\|=|&&|\|\||<-|\+\+|--|==|!=|:=|\.\.\.|[+\-*/%&])`, Operator, nil},
+			{`([a-zA-Z_]\w*)(\s*)(\()`, ByGroups(NameFunction, UsingSelf("root"), Punctuation), nil},
 			{`[|^<>=!()\[\]{}.,;:]`, Punctuation, nil},
 			{`[^\W\d]\w*`, NameOther, nil},
 		},

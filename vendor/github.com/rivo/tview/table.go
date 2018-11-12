@@ -389,7 +389,7 @@ func (t *Table) SetDoneFunc(handler func(key tcell.Key)) *Table {
 }
 
 // SetCell sets the content of a cell the specified position. It is ok to
-// directly instantiate a TableCell object. If the cell has contain, at least
+// directly instantiate a TableCell object. If the cell has content, at least
 // the Text and Color fields should be set.
 //
 // Note that setting cells in previously unknown rows and columns will
@@ -422,13 +422,38 @@ func (t *Table) SetCellSimple(row, column int, text string) *Table {
 }
 
 // GetCell returns the contents of the cell at the specified position. A valid
-// TableCell object is always returns but it will be uninitialized if the cell
+// TableCell object is always returned but it will be uninitialized if the cell
 // was not previously set.
 func (t *Table) GetCell(row, column int) *TableCell {
 	if row >= len(t.cells) || column >= len(t.cells[row]) {
 		return &TableCell{}
 	}
 	return t.cells[row][column]
+}
+
+// RemoveRow removes the row at the given position from the table. If there is
+// no such row, this has no effect.
+func (t *Table) RemoveRow(row int) *Table {
+	if row < 0 || row >= len(t.cells) {
+		return t
+	}
+
+	t.cells = append(t.cells[:row], t.cells[row+1:]...)
+
+	return t
+}
+
+// RemoveColumn removes the column at the given position from the table. If
+// there is no such column, this has no effect.
+func (t *Table) RemoveColumn(column int) *Table {
+	for row := range t.cells {
+		if column < 0 || column >= len(t.cells[row]) {
+			continue
+		}
+		t.cells[row] = append(t.cells[row][:column], t.cells[row][column+1:]...)
+	}
+
+	return t
 }
 
 // GetRowCount returns the number of rows in the table.

@@ -90,8 +90,8 @@ type Widget struct {
 	TitleSize  *int    `json:"title_size,omitempty"`
 	Height     *int    `json:"height,omitempty"`
 	Width      *int    `json:"width,omitempty"`
-	X          *int    `json:"y,omitempty"`
-	Y          *int    `json:"x,omitempty"`
+	X          *int    `json:"x,omitempty"`
+	Y          *int    `json:"y,omitempty"`
 
 	// For Timeseries, TopList, EventTimeline, EvenStream, AlertGraph, CheckStatus, ServiceSummary, LogStream widgets
 	Time *Time `json:"time,omitempty"`

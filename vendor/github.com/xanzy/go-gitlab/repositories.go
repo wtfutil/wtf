@@ -230,8 +230,7 @@ func (c Contributor) String() string {
 	return Stringify(c)
 }
 
-// ListContributorsOptions represents the available ListContributorsOptions()
-// options.
+// ListContributorsOptions represents the available ListContributors() options.
 //
 // GitLab API docs: https://docs.gitlab.com/ce/api/repositories.html#contributors
 type ListContributorsOptions ListOptions
@@ -253,6 +252,40 @@ func (s *RepositoriesService) Contributors(pid interface{}, opt *ListContributor
 
 	var c []*Contributor
 	resp, err := s.client.Do(req, &c)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return c, resp, err
+}
+
+// MergeBaseOptions represents the available MergeBase() options.
+//
+// GitLab API docs:
+// https://docs.gitlab.com/ce/api/repositories.html#merge-base
+type MergeBaseOptions struct {
+	Ref []string `url:"refs[],omitempty" json:"refs,omitempty"`
+}
+
+// MergeBase gets the common ancestor for 2 refs (commit SHAs, branch
+// names or tags).
+//
+// GitLab API docs:
+// https://docs.gitlab.com/ce/api/repositories.html#merge-base
+func (s *RepositoriesService) MergeBase(pid interface{}, opt *MergeBaseOptions, options ...OptionFunc) (*Commit, *Response, error) {
+	project, err := parseID(pid)
+	if err != nil {
+		return nil, nil, err
+	}
+	u := fmt.Sprintf("projects/%s/repository/merge_base", url.QueryEscape(project))
+
+	req, err := s.client.NewRequest("GET", u, opt, options)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	c := new(Commit)
+	resp, err := s.client.Do(req, c)
 	if err != nil {
 		return nil, resp, err
 	}
