@@ -11,6 +11,14 @@
 
 [[projects]]
   branch = "master"
+  digest = "1:d1a104572273cfb58e801812704dca4fe2eab80f3b0144592a722a76c280c598"
+  name = "code.cloudfoundry.org/bytefmt"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "2aa6f33b730c79971cfc3c742f279195b0abc627"
+
+[[projects]]
+  branch = "master"
   digest = "1:636ac9f696c988f0038afd43592f7a0fff29038588ab1064ba8ba3476bb41091"
   name = "github.com/adlio/trello"
   packages = ["."]
@@ -72,6 +80,14 @@
   packages = ["."]
   pruneopts = "UT"
   revision = "5f41b7c9d92de5d74bf32f4486375c7547bc8a3c"
+
+[[projects]]
+  branch = "master"
+  digest = "1:080689a7cb710dc8f694005f8e5b3aab861d01e885eaf53fae54431c4635bfe6"
+  name = "github.com/c9s/goprocinfo"
+  packages = ["linux"]
+  pruneopts = "UT"
+  revision = "0010a05ce49fde7f50669bc7ecda7d41dd6ab824"
 
 [[projects]]
   digest = "1:2209584c0f7c9b68c23374e659357ab546e1b70eec2761f03280f69a8fd23d77"
@@ -379,12 +395,14 @@
   analyzer-name = "dep"
   analyzer-version = 1
   input-imports = [
+    "code.cloudfoundry.org/bytefmt",
     "github.com/adlio/trello",
     "github.com/alecthomas/chroma/formatters",
     "github.com/alecthomas/chroma/lexers",
     "github.com/alecthomas/chroma/styles",
     "github.com/andygrunwald/go-gerrit",
     "github.com/briandowns/openweathermap",
+    "github.com/c9s/goprocinfo/linux",
     "github.com/darkSasori/todoist",
     "github.com/dustin/go-humanize",
     "github.com/gdamore/tcell",

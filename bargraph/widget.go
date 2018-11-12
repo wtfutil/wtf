@@ -5,6 +5,7 @@ This is a demo bargraph that just populates some random date/val data
 */
 
 import (
+	"github.com/rivo/tview"
 	"math/rand"
 	"time"
 
@@ -20,9 +21,9 @@ type Widget struct {
 }
 
 // NewWidget Make new instance of widget
-func NewWidget() *Widget {
+func NewWidget(app *tview.Application) *Widget {
 	widget := Widget{
-		BarGraph: wtf.NewBarGraph("Sample Bar Graph", "bargraph", false),
+		BarGraph: wtf.NewBarGraph(app, "Sample Bar Graph", "bargraph", false),
 	}
 
 	widget.View.SetWrap(true)
@@ -37,14 +38,19 @@ func NewWidget() *Widget {
 func MakeGraph(widget *Widget) {
 
 	//this could come from config
-	const lineCount = 20
-	var stats [lineCount][2]int64
+	const lineCount = 8
+	var stats [lineCount]wtf.Bar
 
-	for i := lineCount - 1; i >= 0; i-- {
+	barTime := time.Now()
+	for i := 0; i < lineCount; i++ {
+		barTime = barTime.Add(time.Duration(rand.Intn(10 * int(time.Minute))))
 
-		stats[i][1] = time.Now().AddDate(0, 0, i*-1).Unix() * 1000
-		stats[i][0] = int64(rand.Intn(120-5) + 5)
+		bar := wtf.Bar{
+			Label:   barTime.Format("15:04"),
+			Percent: rand.Intn(100-5) + 5,
+		}
 
+		stats[i] = bar
 	}
 
 	widget.BarGraph.BuildBars(stats[:])
