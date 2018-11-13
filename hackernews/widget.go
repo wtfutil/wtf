@@ -2,12 +2,13 @@ package hackernews
 
 import (
 	"fmt"
-	"github.com/gdamore/tcell"
-	"github.com/rivo/tview"
-	"github.com/senorprogrammer/wtf/wtf"
 	"net/url"
 	"strconv"
 	"strings"
+
+	"github.com/gdamore/tcell"
+	"github.com/rivo/tview"
+	"github.com/senorprogrammer/wtf/wtf"
 )
 
 const HelpText = `
@@ -22,6 +23,7 @@ const HelpText = `
    arrow up:   Select the previous story in the list
 
    return: Open the selected story in a browser
+   c: Open the comments of the article
 `
 
 type Widget struct {
@@ -151,6 +153,14 @@ func (widget *Widget) openStory() {
 	}
 }
 
+func (widget *Widget) openComments() {
+	sel := widget.selected
+	if sel >= 0 && widget.stories != nil && sel < len(widget.stories) {
+		story := &widget.stories[widget.selected]
+		wtf.OpenFile(fmt.Sprintf("https://news.ycombinator.com/item?id=%d", story.ID))
+	}
+}
+
 func (widget *Widget) unselect() {
 	widget.selected = -1
 	widget.display()
@@ -168,6 +178,9 @@ func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 		return nil
 	case "r":
 		widget.Refresh()
+		return nil
+	case "c":
+		widget.openComments()
 		return nil
 	}
 
