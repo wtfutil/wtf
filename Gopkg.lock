@@ -6,8 +6,8 @@
   name = "cloud.google.com/go"
   packages = ["compute/metadata"]
   pruneopts = "UT"
-  revision = "1fd54cf41e6e0e178ffe3c52b0e2260281f603e3"
-  version = "v0.32.0"
+  revision = "dfffe386c33fb24c34ee501e5723df5b97b98514"
+  version = "v0.30.0"
 
 [[projects]]
   branch = "master"
@@ -18,7 +18,7 @@
   revision = "e4cc07c871d0ee17c5579131fc1c786efbb5fe2a"
 
 [[projects]]
-  digest = "1:26777bf96d1c96d9be38c7c9795196b088c91c597ec5dae5bf6c02dc3c3520e9"
+  digest = "1:9253f97cfbbe049b631877c80badecc69620711b3e335f6cf97a7809681da388"
   name = "github.com/alecthomas/chroma"
   packages = [
     ".",
@@ -54,16 +54,16 @@
     "styles",
   ]
   pruneopts = "UT"
-  revision = "5a473179cfe450c6d80407452c241428de387f6b"
-  version = "v0.6.0"
+  revision = "5d7fef2ae60b501bbf28d476c3f273b8017d8261"
+  version = "v0.5.0"
 
 [[projects]]
   branch = "master"
-  digest = "1:e36f3589964f8aa50b1a446c5e239c75f9f58abc3154d6317e17dbc5426b336f"
+  digest = "1:579829cc9bf515e2f9e39f91df03b9333c311402bac5a4935dc8ef81e3a57160"
   name = "github.com/andygrunwald/go-gerrit"
   packages = ["."]
   pruneopts = "UT"
-  revision = "43cfd7a94eb4c4005ddfaa44afec1f41fc49c07d"
+  revision = "30ce279197661497040ec81c4b64539562eb2d4b"
 
 [[projects]]
   branch = "master"
@@ -134,22 +134,22 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:f769a2e5907124c30242e05687ace7a2d433257746fb0c4d6f35e3edf9ef11df"
+  digest = "1:490cf9d7deec1b0dcac6cc8b17f307c48c4821bc2140d46e48175a83acbfe40d"
   name = "github.com/gdamore/tcell"
   packages = [
     ".",
     "terminfo",
   ]
   pruneopts = "UT"
-  revision = "017915a4d77dabd7af10ab539e618a735d4b9c0a"
+  revision = "493f3b46b3c20880afc8e04ceeb1c6d5aa3363d7"
 
 [[projects]]
-  digest = "1:dae52e85e2f3d0a734799e74ec0711d3ddd673b21a9e83be6c899af64c3a98f6"
+  digest = "1:57fa4c058c21ce25d0b7272518dd746065117abf6cc706158b0d361202024520"
   name = "github.com/godbus/dbus"
   packages = ["."]
   pruneopts = "UT"
-  revision = "66d97aec3384421e393c2a76b770a1b5c31d07a8"
-  version = "v5.0"
+  revision = "a389bdde4dd695d414e47b755e95e72b7826432c"
+  version = "v4.1.0"
 
 [[projects]]
   digest = "1:97df918963298c287643883209a2c3f642e6593379f97ab400c2a2e219ab647d"
@@ -161,11 +161,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:d226d0f3f08498c5965527df6b78d9e3a89a60057a4743c2a3ab4b349f9382f9"
+  digest = "1:8c90219e8a1f5f7cad019b77697aaae2b236db5a1a46ae688e5ede406e109182"
   name = "github.com/google/go-github"
   packages = ["github"]
   pruneopts = "UT"
-  revision = "99760a16213d6fdde13f4e477438f876b6c9c6eb"
+  revision = "68a79fc6a32bab9406083545e667a65ba67b0a3e"
 
 [[projects]]
   digest = "1:a63cff6b5d8b95638bfe300385d93b2a6d9d687734b863da8e09dc834510a690"
@@ -241,11 +241,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:da25b5c66f6ae8790c5da9a8750457a3d82ce873d72e10a5f8cb5525d1a7ea8c"
+  digest = "1:00d9f4017b55d590139b77fbd851aef56f179479fc40a4afdedaf187e828f99d"
   name = "github.com/rivo/tview"
   packages = ["."]
   pruneopts = "UT"
-  revision = "8cf347b745d04cc4dc106c22368b37b8018d33b7"
+  revision = "a7c1880d62d37422830f0a15823b51301ca9f354"
 
 [[projects]]
   branch = "master"
@@ -265,11 +265,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:544fdb64daa40fbd603be86318d443047408dc1b5d3c4c08f44ec56a66e9e7e0"
+  digest = "1:afc7e1c726a88e6cd5689cca19fbc86128dffe86fd37e3e0841767f3a951182e"
   name = "github.com/xanzy/go-gitlab"
   packages = ["."]
   pruneopts = "UT"
-  revision = "3f3acb6af00137585629f7ebcc93e8f9f9cd07aa"
+  revision = "1444249c1b2a8e4cdb5a76dc9c8d02d1133180be"
 
 [[projects]]
   branch = "master"
@@ -289,11 +289,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:9161fc348532a8eb2b05bbc126c02f6d3cbdeaa9074e04a5ce8cef65145654ed"
+  digest = "1:02a2f8f0718f239866000d2d1bca016d14f0f6de37615c315f34da17dc630259"
   name = "github.com/zorkian/go-datadog-api"
   packages = ["."]
   pruneopts = "UT"
-  revision = "456ae6c2a362f4edc4661d535e5827cb4582375f"
+  revision = "dc324c09cf05eef3e3a82bde06ae0c4dd349a767"
 
 [[projects]]
   branch = "master"
@@ -304,11 +304,11 @@
     "context/ctxhttp",
   ]
   pruneopts = "UT"
-  revision = "03003ca0c849e57b6ea29a4bab8d3cb6e4d568fe"
+  revision = "04a2e542c03f1d053ab3e4d6e5abcd4b66e2be8e"
 
 [[projects]]
   branch = "master"
-  digest = "1:d71cf3891adad6f2d608396a8da36e90ac46cd51e34d5a75a31385d2682b43ce"
+  digest = "1:faa25cb78cf9c8cec9345d4ed07322cdef6a8c968b3d0a6b6c3609067c7386eb"
   name = "golang.org/x/oauth2"
   packages = [
     ".",
@@ -318,7 +318,7 @@
     "jwt",
   ]
   pruneopts = "UT"
-  revision = "f42d05182288abf10faef86d16c0d07b8d40ea2d"
+  revision = "9dcd33a902f40452422c2367fefcb95b54f9f8f8"
 
 [[projects]]
   digest = "1:37672ad5821719e2df8509c2edd4ba5ae192463237c73c3a2d24ef8b2bc9e36f"
@@ -336,7 +336,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:41dda3c734540a7ce6dea54f6c870306dd2676c60abef2333ac1692f2a14371d"
+  digest = "1:a1d58b7c9eeceeac201a6f6b10092cd2a5985791a45843c838151ee3f751d3c3"
   name = "google.golang.org/api"
   packages = [
     "calendar/v3",
@@ -346,10 +346,10 @@
     "sheets/v4",
   ]
   pruneopts = "UT"
-  revision = "cfbc873f6b93790282bed8e31e7f7df417caee1b"
+  revision = "a2651947f503a1793446d4058bb073a6fdf99e53"
 
 [[projects]]
-  digest = "1:d2a8db567a76203e3b41c1f632d86485ffd57f8e650a0d1b19d240671c2fddd7"
+  digest = "1:193950893ea275f89ed92e5da11ed8fa1436872f755a9ea5d4afa83dc9d9c3a8"
   name = "google.golang.org/appengine"
   packages = [
     ".",
@@ -364,8 +364,8 @@
     "urlfetch",
   ]
   pruneopts = "UT"
-  revision = "4a4468ece617fc8205e99368fa2200e9d1fad421"
-  version = "v1.3.0"
+  revision = "ae0ab99deb4dc413a2b4bd6c8bdd0eb67f1e4d06"
+  version = "v1.2.0"
 
 [[projects]]
   digest = "1:342378ac4dcb378a5448dd723f0784ae519383532f5e70ade24132c4c8693202"

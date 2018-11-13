@@ -170,8 +170,11 @@ func (conn *Conn) handleCall(msg *Message) {
 			reply.Body[i] = ret[i]
 		}
 		reply.Headers[FieldSignature] = MakeVariant(SignatureOf(reply.Body...))
-
-		conn.sendMessage(reply)
+		conn.outLck.RLock()
+		if !conn.closed {
+			conn.out <- reply
+		}
+		conn.outLck.RUnlock()
 	}
 }
 
@@ -204,14 +207,12 @@ func (conn *Conn) Emit(path ObjectPath, name string, values ...interface{}) erro
 	if len(values) > 0 {
 		msg.Headers[FieldSignature] = MakeVariant(SignatureOf(values...))
 	}
-
-	var closed bool
-	conn.sendMessageAndIfClosed(msg, func() {
-		closed = true
-	})
-	if closed {
+	conn.outLck.RLock()
+	defer conn.outLck.RUnlock()
+	if conn.closed {
 		return ErrClosed
 	}
+	conn.out <- msg
 	return nil
 }
 

@@ -12,10 +12,6 @@ import (
 	netcontext "golang.org/x/net/context"
 )
 
-func init() {
-	appengineStandard = true
-}
-
 func DefaultVersionHostname(ctx netcontext.Context) string {
 	c := fromContext(ctx)
 	if c == nil {

@@ -11,18 +11,18 @@ package calendar // import "google.golang.org/api/calendar/v3"
 
 import (
 	"bytes"
-	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
+	context "golang.org/x/net/context"
+	ctxhttp "golang.org/x/net/context/ctxhttp"
+	gensupport "google.golang.org/api/gensupport"
+	googleapi "google.golang.org/api/googleapi"
 	"io"
 	"net/http"
 	"net/url"
 	"strconv"
 	"strings"
-
-	gensupport "google.golang.org/api/gensupport"
-	googleapi "google.golang.org/api/googleapi"
 )
 
 // Always reference these packages, just in case the auto-generated code
@@ -38,6 +38,7 @@ var _ = googleapi.Version
 var _ = errors.New
 var _ = strings.Replace
 var _ = context.Canceled
+var _ = ctxhttp.Do
 
 const apiId = "calendar:v3"
 const apiName = "calendar"
@@ -46,8 +47,7 @@ const basePath = "https://www.googleapis.com/calendar/v3/"
 
 // OAuth2 scopes used by this API.
 const (
-	// See, edit, share, and permanently delete all the calendars you can
-	// access using Google Calendar
+	// Manage your calendars
 	CalendarScope = "https://www.googleapis.com/auth/calendar"
 
 	// View and edit events on all your calendars

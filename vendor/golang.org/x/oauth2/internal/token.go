@@ -5,7 +5,6 @@
 package internal
 
 import (
-	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -18,6 +17,7 @@ import (
 	"strings"
 	"time"
 
+	"golang.org/x/net/context"
 	"golang.org/x/net/context/ctxhttp"
 )
 
