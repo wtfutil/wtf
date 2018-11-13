@@ -25,9 +25,6 @@ func WithClasses() Option { return func(f *Formatter) { f.Classes = true } }
 // TabWidth sets the number of characters for a tab. Defaults to 8.
 func TabWidth(width int) Option { return func(f *Formatter) { f.tabWidth = width } }
 
-// PreventSurroundingPre prevents the surrounding pre tags around the generated code
-func PreventSurroundingPre() Option { return func(f *Formatter) { f.preventSurroundingPre = true } }
-
 // WithLineNumbers formats output with line numbers.
 func WithLineNumbers() Option {
 	return func(f *Formatter) {
@@ -73,15 +70,14 @@ func New(options ...Option) *Formatter {
 
 // Formatter that generates HTML.
 type Formatter struct {
-	standalone            bool
-	prefix                string
-	Classes               bool // Exported field to detect when classes are being used
-	preventSurroundingPre bool
-	tabWidth              int
-	lineNumbers           bool
-	lineNumbersInTable    bool
-	highlightRanges       highlightRanges
-	baseLineNumber        int
+	standalone         bool
+	prefix             string
+	Classes            bool // Exported field to detect when classes are being used
+	tabWidth           int
+	lineNumbers        bool
+	lineNumbersInTable bool
+	highlightRanges    highlightRanges
+	baseLineNumber     int
 }
 
 type highlightRanges [][2]int
@@ -162,9 +158,7 @@ func (f *Formatter) writeHTML(w io.Writer, style *chroma.Style, tokens []*chroma
 		fmt.Fprintf(w, "<div%s>\n", f.styleAttr(css, chroma.Background))
 		fmt.Fprintf(w, "<table%s><tr>", f.styleAttr(css, chroma.LineTable))
 		fmt.Fprintf(w, "<td%s>\n", f.styleAttr(css, chroma.LineTableTD))
-		if !f.preventSurroundingPre {
-			fmt.Fprintf(w, "<pre%s>", f.styleAttr(css, chroma.Background))
-		}
+		fmt.Fprintf(w, "<pre%s>", f.styleAttr(css, chroma.Background))
 		for index := range lines {
 			line := f.baseLineNumber + index
 			highlight, next := f.shouldHighlight(highlightIndex, line)
@@ -181,16 +175,11 @@ func (f *Formatter) writeHTML(w io.Writer, style *chroma.Style, tokens []*chroma
 				fmt.Fprintf(w, "</span>")
 			}
 		}
-		if !f.preventSurroundingPre {
-			fmt.Fprint(w, "</pre>")
-		}
-		fmt.Fprint(w, "</td>\n")
+		fmt.Fprint(w, "</pre></td>\n")
 		fmt.Fprintf(w, "<td%s>\n", f.styleAttr(css, chroma.LineTableTD))
 	}
 
-	if !f.preventSurroundingPre {
-		fmt.Fprintf(w, "<pre%s>", f.styleAttr(css, chroma.Background))
-	}
+	fmt.Fprintf(w, "<pre%s>", f.styleAttr(css, chroma.Background))
 	highlightIndex = 0
 	for index, tokens := range lines {
 		// 1-based line number.
@@ -220,9 +209,7 @@ func (f *Formatter) writeHTML(w io.Writer, style *chroma.Style, tokens []*chroma
 		}
 	}
 
-	if !f.preventSurroundingPre {
-		fmt.Fprint(w, "</pre>")
-	}
+	fmt.Fprint(w, "</pre>")
 
 	if wrapInTable {
 		fmt.Fprint(w, "</td></tr></table>\n")
