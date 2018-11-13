@@ -1,25 +1,34 @@
 package tview
 
 import (
-	"fmt"
-	"os"
 	"sync"
 
 	"github.com/gdamore/tcell"
 )
+
+// The size of the event/update/redraw channels.
+const queueSize = 100
 
 // Application represents the top node of an application.
 //
 // It is not strictly required to use this class as none of the other classes
 // depend on it. However, it provides useful tools to set up an application and
 // plays nicely with all widgets.
+//
+// The following command displays a primitive p on the screen until Ctrl-C is
+// pressed:
+//
+//   if err := tview.NewApplication().SetRoot(p, true).Run(); err != nil {
+//       panic(err)
+//   }
 type Application struct {
 	sync.RWMutex
 
 	// The application's screen.
 	screen tcell.Screen
 
-	// Indicates whether the application's screen is currently active.
+	// Indicates whether the application's screen is currently active. This is
+	// false during suspended mode.
 	running bool
 
 	// The primitive which currently has the keyboard focus.
@@ -44,13 +53,23 @@ type Application struct {
 	// was drawn.
 	afterDraw func(screen tcell.Screen)
 
-	// Halts the event loop during suspended mode.
-	suspendMutex sync.Mutex
+	// Used to send screen events from separate goroutine to main event loop
+	events chan tcell.Event
+
+	// Functions queued from goroutines, used to serialize updates to primitives.
+	updates chan func()
+
+	// A channel which signals the end of the suspended mode.
+	suspendToken chan struct{}
 }
 
 // NewApplication creates and returns a new application.
 func NewApplication() *Application {
-	return &Application{}
+	return &Application{
+		events:       make(chan tcell.Event, queueSize),
+		updates:      make(chan func(), queueSize),
+		suspendToken: make(chan struct{}, 1),
+	}
 }
 
 // SetInputCapture sets a function which captures all key events before they are
@@ -134,64 +153,104 @@ func (a *Application) Run() error {
 
 	// Draw the screen for the first time.
 	a.Unlock()
-	a.Draw()
+	a.draw()
+
+	// Separate loop to wait for screen events.
+	var wg sync.WaitGroup
+	wg.Add(1)
+	a.suspendToken <- struct{}{} // We need this to get started.
+	go func() {
+		defer wg.Done()
+		for range a.suspendToken {
+			for {
+				a.RLock()
+				screen := a.screen
+				a.RUnlock()
+				if screen == nil {
+					// We have no screen. We might need to stop.
+					break
+				}
+
+				// Wait for next event and queue it.
+				event := screen.PollEvent()
+				if event != nil {
+					// Regular event. Queue.
+					a.QueueEvent(event)
+					continue
+				}
+
+				// A screen was finalized (event is nil).
+				a.RLock()
+				running := a.running
+				a.RUnlock()
+				if running {
+					// The application was stopped. End the event loop.
+					a.QueueEvent(nil)
+					return
+				}
+
+				// We're in suspended mode (running is false). Pause and wait for new
+				// token.
+				break
+			}
+		}
+	}()
 
 	// Start event loop.
+EventLoop:
 	for {
-		// Do not poll events during suspend mode
-		a.suspendMutex.Lock()
-		a.RLock()
-		screen := a.screen
-		a.RUnlock()
-		if screen == nil {
-			a.suspendMutex.Unlock()
-			break
-		}
+		select {
+		case event := <-a.events:
+			if event == nil {
+				break EventLoop
+			}
 
-		// Wait for next event.
-		event := a.screen.PollEvent()
-		a.suspendMutex.Unlock()
-		if event == nil {
-			// The screen was finalized. Exit the loop.
-			break
-		}
+			switch event := event.(type) {
+			case *tcell.EventKey:
+				a.RLock()
+				p := a.focus
+				inputCapture := a.inputCapture
+				a.RUnlock()
 
-		switch event := event.(type) {
-		case *tcell.EventKey:
-			a.RLock()
-			p := a.focus
-			a.RUnlock()
-
-			// Intercept keys.
-			if a.inputCapture != nil {
-				event = a.inputCapture(event)
-				if event == nil {
-					break // Don't forward event.
+				// Intercept keys.
+				if inputCapture != nil {
+					event = inputCapture(event)
+					if event == nil {
+						continue // Don't forward event.
+					}
 				}
-			}
 
-			// Ctrl-C closes the application.
-			if event.Key() == tcell.KeyCtrlC {
-				a.Stop()
-			}
-
-			// Pass other key events to the currently focused primitive.
-			if p != nil {
-				if handler := p.InputHandler(); handler != nil {
-					handler(event, func(p Primitive) {
-						a.SetFocus(p)
-					})
-					a.Draw()
+				// Ctrl-C closes the application.
+				if event.Key() == tcell.KeyCtrlC {
+					a.Stop()
 				}
+
+				// Pass other key events to the currently focused primitive.
+				if p != nil {
+					if handler := p.InputHandler(); handler != nil {
+						handler(event, func(p Primitive) {
+							a.SetFocus(p)
+						})
+						a.draw()
+					}
+				}
+			case *tcell.EventResize:
+				a.RLock()
+				screen := a.screen
+				a.RUnlock()
+				screen.Clear()
+				a.draw()
 			}
-		case *tcell.EventResize:
-			a.RLock()
-			screen := a.screen
-			a.RUnlock()
-			screen.Clear()
-			a.Draw()
+
+		// If we have updates, now is the time to execute them.
+		case updater := <-a.updates:
+			updater()
 		}
 	}
+
+	a.running = false
+	close(a.suspendToken)
+	wg.Wait()
 
 	return nil
 }
@@ -200,12 +259,13 @@ func (a *Application) Run() error {
 func (a *Application) Stop() {
 	a.Lock()
 	defer a.Unlock()
-	if a.screen == nil {
+	screen := a.screen
+	if screen == nil {
 		return
 	}
-	a.screen.Fini()
 	a.screen = nil
-	a.running = false
+	screen.Fini()
+	// a.running is still true, the main loop will clean up.
 }
 
 // Suspend temporarily suspends the application by exiting terminal UI mode and
@@ -216,32 +276,26 @@ func (a *Application) Stop() {
 // was called. If false is returned, the application was already suspended,
 // terminal UI mode was not exited, and "f" was not called.
 func (a *Application) Suspend(f func()) bool {
-	a.RLock()
+	a.Lock()
 
-	if a.screen == nil {
+	screen := a.screen
+	if screen == nil {
 		// Screen has not yet been initialized.
-		a.RUnlock()
+		a.Unlock()
 		return false
 	}
 
-	// Enter suspended mode.
-	a.suspendMutex.Lock()
-	defer a.suspendMutex.Unlock()
-	a.RUnlock()
-	a.Stop()
-
-	// Deal with panics during suspended mode. Exit the program.
-	defer func() {
-		if p := recover(); p != nil {
-			fmt.Println(p)
-			os.Exit(1)
-		}
-	}()
+	// Enter suspended mode. Make a new screen here already so our event loop can
+	// continue.
+	a.screen = nil
+	a.running = false
+	screen.Fini()
+	a.Unlock()
 
 	// Wait for "f" to return.
 	f()
 
-	// Make a new screen and redraw.
+	// Initialize our new screen and draw the contents.
 	a.Lock()
 	var err error
 	a.screen, err = tcell.NewScreen()
@@ -255,15 +309,26 @@ func (a *Application) Suspend(f func()) bool {
 	}
 	a.running = true
 	a.Unlock()
-	a.Draw()
+	a.draw()
+	a.suspendToken <- struct{}{}
+	// One key event will get lost, see https://github.com/gdamore/tcell/issues/194
 
 	// Continue application loop.
 	return true
 }
 
-// Draw refreshes the screen. It calls the Draw() function of the application's
-// root primitive and then syncs the screen buffer.
+// Draw refreshes the screen (during the next update cycle). It calls the Draw()
+// function of the application's root primitive and then syncs the screen
+// buffer.
 func (a *Application) Draw() *Application {
+	a.QueueUpdate(func() {
+		a.draw()
+	})
+	return a
+}
+
+// draw actually does what Draw() promises to do.
+func (a *Application) draw() *Application {
 	a.Lock()
 	defer a.Unlock()
 
@@ -403,4 +468,36 @@ func (a *Application) GetFocus() Primitive {
 	a.RLock()
 	defer a.RUnlock()
 	return a.focus
+}
+
+// QueueUpdate is used to synchronize access to primitives from non-main
+// goroutines. The provided function will be executed as part of the event loop
+// and thus will not cause race conditions with other such update functions or
+// the Draw() function.
+//
+// Note that Draw() is not implicitly called after the execution of f as that
+// may not be desirable. You can call Draw() from f if the screen should be
+// refreshed after each update. Alternatively, use QueueUpdateDraw() to follow
+// up with an immediate refresh of the screen.
+func (a *Application) QueueUpdate(f func()) *Application {
+	a.updates <- f
+	return a
+}
+
+// QueueUpdateDraw works like QueueUpdate() except it refreshes the screen
+// immediately after executing f.
+func (a *Application) QueueUpdateDraw(f func()) *Application {
+	a.QueueUpdate(func() {
+		f()
+		a.draw()
+	})
+	return a
+}
+
+// QueueEvent sends an event to the Application event loop.
+//
+// It is not recommended for event to be nil.
+func (a *Application) QueueEvent(event tcell.Event) *Application {
+	a.events <- event
+	return a
 }

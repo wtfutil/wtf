@@ -25,6 +25,11 @@ type ThresholdCount struct {
 	WarningRecovery  *json.Number `json:"warning_recovery,omitempty"`
 }
 
+type ThresholdWindows struct {
+	RecoveryWindow *string `json:"recovery_window,omitempty"`
+	TriggerWindow  *string `json:"trigger_window,omitempty"`
+}
+
 type NoDataTimeframe int
 
 func (tf *NoDataTimeframe) UnmarshalJSON(data []byte) error {
@@ -42,19 +47,20 @@ func (tf *NoDataTimeframe) UnmarshalJSON(data []byte) error {
 }
 
 type Options struct {
-	NoDataTimeframe   NoDataTimeframe `json:"no_data_timeframe,omitempty"`
-	NotifyAudit       *bool           `json:"notify_audit,omitempty"`
-	NotifyNoData      *bool           `json:"notify_no_data,omitempty"`
-	RenotifyInterval  *int            `json:"renotify_interval,omitempty"`
-	NewHostDelay      *int            `json:"new_host_delay,omitempty"`
-	EvaluationDelay   *int            `json:"evaluation_delay,omitempty"`
-	Silenced          map[string]int  `json:"silenced,omitempty"`
-	TimeoutH          *int            `json:"timeout_h,omitempty"`
-	EscalationMessage *string         `json:"escalation_message,omitempty"`
-	Thresholds        *ThresholdCount `json:"thresholds,omitempty"`
-	IncludeTags       *bool           `json:"include_tags,omitempty"`
-	RequireFullWindow *bool           `json:"require_full_window,omitempty"`
-	Locked            *bool           `json:"locked,omitempty"`
+	NoDataTimeframe   NoDataTimeframe   `json:"no_data_timeframe,omitempty"`
+	NotifyAudit       *bool             `json:"notify_audit,omitempty"`
+	NotifyNoData      *bool             `json:"notify_no_data,omitempty"`
+	RenotifyInterval  *int              `json:"renotify_interval,omitempty"`
+	NewHostDelay      *int              `json:"new_host_delay,omitempty"`
+	EvaluationDelay   *int              `json:"evaluation_delay,omitempty"`
+	Silenced          map[string]int    `json:"silenced,omitempty"`
+	TimeoutH          *int              `json:"timeout_h,omitempty"`
+	EscalationMessage *string           `json:"escalation_message,omitempty"`
+	Thresholds        *ThresholdCount   `json:"thresholds,omitempty"`
+	ThresholdWindows  *ThresholdWindows `json:"threshold_windows,omitempty"`
+	IncludeTags       *bool             `json:"include_tags,omitempty"`
+	RequireFullWindow *bool             `json:"require_full_window,omitempty"`
+	Locked            *bool             `json:"locked,omitempty"`
 }
 
 type TriggeringValue struct {

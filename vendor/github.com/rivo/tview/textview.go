@@ -31,7 +31,7 @@ type textViewIndex struct {
 // TextView is a box which displays text. It implements the io.Writer interface
 // so you can stream text to it. This does not trigger a redraw automatically
 // but if a handler is installed via SetChangedFunc(), you can cause it to be
-// redrawn.
+// redrawn. (See SetChangedFunc() for more details.)
 //
 // Navigation
 //
@@ -260,8 +260,20 @@ func (t *TextView) SetRegions(regions bool) *TextView {
 }
 
 // SetChangedFunc sets a handler function which is called when the text of the
-// text view has changed. This is typically used to cause the application to
-// redraw the screen.
+// text view has changed. This is useful when text is written to this io.Writer
+// in a separate goroutine. This does not automatically cause the screen to be
+// refreshed so you may want to use the "changed" handler to redraw the screen.
+//
+// Note that to avoid race conditions or deadlocks, there are a few rules you
+// should follow:
+//
+//   - You can call Application.Draw() from this handler.
+//   - You can call TextView.HasFocus() from this handler.
+//   - During the execution of this handler, access to any other variables from
+//     this primitive or any other primitive should be queued using
+//     Application.QueueUpdate().
+//
+// See package description for details on dealing with concurrency.
 func (t *TextView) SetChangedFunc(handler func()) *TextView {
 	t.changed = handler
 	return t
@@ -441,13 +453,33 @@ func (t *TextView) GetRegionText(regionID string) string {
 	return escapePattern.ReplaceAllString(buffer.String(), `[$1$2]`)
 }
 
+// Focus is called when this primitive receives focus.
+func (t *TextView) Focus(delegate func(p Primitive)) {
+	// Implemented here with locking because this is used by layout primitives.
+	t.Lock()
+	defer t.Unlock()
+	t.hasFocus = true
+}
+
+// HasFocus returns whether or not this primitive has focus.
+func (t *TextView) HasFocus() bool {
+	// Implemented here with locking because this may be used in the "changed"
+	// callback.
+	t.Lock()
+	defer t.Unlock()
+	return t.hasFocus
+}
+
 // Write lets us implement the io.Writer interface. Tab characters will be
 // replaced with TabSize space characters. A "\n" or "\r\n" will be interpreted
 // as a new line.
 func (t *TextView) Write(p []byte) (n int, err error) {
 	// Notify at the end.
-	if t.changed != nil {
-		defer t.changed()
+	t.Lock()
+	changed := t.changed
+	t.Unlock()
+	if changed != nil {
+		defer changed() // Deadlocks may occur if we lock here.
 	}
 
 	t.Lock()
@@ -840,18 +872,21 @@ func (t *TextView) Draw(screen tcell.Screen) {
 		// Print the line.
 		var colorPos, regionPos, escapePos, tagOffset, skipped int
 		iterateString(strippedText, func(main rune, comb []rune, textPos, textWidth, screenPos, screenWidth int) bool {
-			// Get the color.
-			if colorPos < len(colorTags) && textPos+tagOffset >= colorTagIndices[colorPos][0] && textPos+tagOffset < colorTagIndices[colorPos][1] {
-				foregroundColor, backgroundColor, attributes = styleFromTag(foregroundColor, backgroundColor, attributes, colorTags[colorPos])
-				tagOffset += colorTagIndices[colorPos][1] - colorTagIndices[colorPos][0]
-				colorPos++
-			}
-
-			// Get the region.
-			if regionPos < len(regionIndices) && textPos+tagOffset >= regionIndices[regionPos][0] && textPos+tagOffset < regionIndices[regionPos][1] {
-				regionID = regions[regionPos][1]
-				tagOffset += regionIndices[regionPos][1] - regionIndices[regionPos][0]
-				regionPos++
+			// Process tags.
+			for {
+				if colorPos < len(colorTags) && textPos+tagOffset >= colorTagIndices[colorPos][0] && textPos+tagOffset < colorTagIndices[colorPos][1] {
+					// Get the color.
+					foregroundColor, backgroundColor, attributes = styleFromTag(foregroundColor, backgroundColor, attributes, colorTags[colorPos])
+					tagOffset += colorTagIndices[colorPos][1] - colorTagIndices[colorPos][0]
+					colorPos++
+				} else if regionPos < len(regionIndices) && textPos+tagOffset >= regionIndices[regionPos][0] && textPos+tagOffset < regionIndices[regionPos][1] {
+					// Get the region.
+					regionID = regions[regionPos][1]
+					tagOffset += regionIndices[regionPos][1] - regionIndices[regionPos][0]
+					regionPos++
+				} else {
+					break
+				}
 			}
 
 			// Skip the second-to-last character of an escape tag.
@@ -894,7 +929,7 @@ func (t *TextView) Draw(screen tcell.Screen) {
 			}
 
 			// Stop at the right border.
-			if posX+screenWidth >= width {
+			if posX+screenWidth > width {
 				return true
 			}
 

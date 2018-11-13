@@ -303,6 +303,7 @@ type Client struct {
 	Keys                  *KeysService
 	Boards                *IssueBoardsService
 	Labels                *LabelsService
+	License               *LicenseService
 	LicenseTemplates      *LicenseTemplatesService
 	MergeRequests         *MergeRequestsService
 	MergeRequestApprovals *MergeRequestApprovalsService
@@ -442,6 +443,7 @@ func newClient(httpClient *http.Client) *Client {
 	c.Keys = &KeysService{client: c}
 	c.Boards = &IssueBoardsService{client: c}
 	c.Labels = &LabelsService{client: c}
+	c.License = &LicenseService{client: c}
 	c.LicenseTemplates = &LicenseTemplatesService{client: c}
 	c.MergeRequests = &MergeRequestsService{client: c, timeStats: timeStats}
 	c.MergeRequestApprovals = &MergeRequestApprovalsService{client: c}

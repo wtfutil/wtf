@@ -29,7 +29,32 @@ translators for Pygments lexers and styles.
 
 ## Supported languages
 
-ABNF, ANTLR, APL, ActionScript, ActionScript 3, Ada, Angular2, ApacheConf, AppleScript, Awk, BNF, Ballerina, Base Makefile, Bash, Batchfile, BlitzBasic, Brainfuck, C, C#, C++, CFEngine3, CMake, COBOL, CSS, Cap'n Proto, Ceylon, ChaiScript, Cheetah, Clojure, CoffeeScript, Common Lisp, Coq, Crystal, Cython, DTD, Dart, Diff, Django/Jinja, Docker, EBNF, Elixir, Elm, EmacsLisp, Erlang, FSharp, Factor, Fish, Forth, Fortran, GAS, GDScript, GLSL, Genshi, Genshi HTML, Genshi Text, Gnuplot, Go, Go HTML Template, Go Text Template, Groovy, HTML, HTTP, Handlebars, Haskell, Haxe, Hexdump, Hy, INI, Idris, Io, JSON, JSX, Java, JavaScript, Julia, Kotlin, LLVM, Lighttpd configuration file, Lua, Mako, Mason, Mathematica, MiniZinc, Modula-2, MorrowindScript, MySQL, Myghty, NASM, Newspeak, Nginx configuration file, Nim, Nix, OCaml, Objective-C, Octave, Org Mode, PHP, PL/pgSQL, POVRay, PacmanConf, Perl, Pig, PkgConfig, PostScript, PostgreSQL SQL dialect, PowerShell, Prolog, Protocol Buffer, Puppet, Python, Python 3, QBasic, R, Racket, Ragel, Rexx, Ruby, Rust, SCSS, SPARQL, SQL, Sass, Scala, Scheme, Scilab, Smalltalk, Smarty, Snobol, Solidity, SquidConf, Swift, TASM, TOML, Tcl, Tcsh, TeX, Termcap, Terminfo, Terraform, Thrift, Transact-SQL, Turtle, Twig, TypeScript, TypoScript, TypoScriptCssData, TypoScriptHtmlData, VHDL, VimL, WDTE, XML, Xorg, YAML, cfstatement, markdown, reStructuredText, reg, systemverilog, verilog
+Prefix | Language
+:----: | --------
+A | ABNF, ActionScript, ActionScript 3, Ada, Angular2, ANTLR, ApacheConf, APL, AppleScript, Awk
+B | Ballerina, Base Makefile, Bash, Batchfile, BlitzBasic, BNF, Brainfuck
+C | C, C#, C++, Cassandra CQL, CFEngine3, cfstatement/ColdFusion, CMake, COBOL, CSS, Cap'n Proto, Ceylon, ChaiScript, Cheetah, Clojure, CoffeeScript, Common Lisp, Coq, Crystal, Cython
+D | Dart, Diff, Django/Jinja, Docker, DTD
+E | EBNF, Elixir, Elm, EmacsLisp, Erlang
+F | Factor, Fish, Forth, Fortran, FSharp
+G | GAS, GDScript, GLSL, Genshi, Genshi HTML, Genshi Text, Gnuplot, Go, Go HTML Template, Go Text Template, Groovy
+H | Handlebars, Haskell, Haxe, Hexdump, HTML, HTTP, Hy 
+I | Idris, INI, Io
+J | Java, JavaScript, JSON, Jsx, Julia, Jungle
+K | Kotlin
+L | Lighttpd configuration file, LLVM, Lua
+M | Mako, Markdown, Mason, Mathematica, MiniZinc, Modula-2, MonkeyC, MorrowindScript, Myghty, MySQL
+N | NASM, Newspeak, Nginx configuration file, Nim, Nix
+O | Objective-C, OCaml, Octave, OpenSCAD, Org Mode
+P | PacmanConf, Perl, PHP, Pig, PkgConfig, Plaintext, PL/pgSQL, PostgreSQL SQL dialect, PostScript, POVRay, PowerShell, Prolog, Protocol Buffer, Puppet, Python, Python 3
+Q | QBasic
+R | R, Racket, Ragel, reg, reStructuredText, Rexx, Ruby, Rust
+S | Sass, Scala, Scheme, Scilab, SCSS, Smalltalk, Smarty, Snobol, Solidity, SPARQL, SQL, SquidConf, Swift, systemd, Systemverilog
+T | TASM, Tcl, Tcsh, Termcap, Terminfo, Terraform, TeX, Thrift, TOML, TradingView, Transact-SQL, Turtle, Twig, TypeScript, TypoScript, TypoScriptCssData, TypoScriptHtmlData
+V | verilog, VHDL, VimL
+W | WDTE
+X | XML, Xorg
+Y | YAML
 
 _I will attempt to keep this section up to date, but an authoritative list can be
 displayed with `chroma --list`._

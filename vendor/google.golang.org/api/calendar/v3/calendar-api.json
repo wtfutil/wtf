@@ -3,7 +3,7 @@
     "oauth2": {
       "scopes": {
         "https://www.googleapis.com/auth/calendar": {
-          "description": "Manage your calendars"
+          "description": "See, edit, share, and permanently delete all the calendars you can access using Google Calendar"
         },
         "https://www.googleapis.com/auth/calendar.events": {
           "description": "View and edit events on all your calendars"
@@ -26,7 +26,7 @@
   "description": "Manipulates events and other calendar data.",
   "discoveryVersion": "v1",
   "documentationLink": "https://developers.google.com/google-apps/calendar/firstapp",
-  "etag": "\"J3WqvAcMk4eQjJXvfSI4Yr8VouA/HcEmuhTEJ15i1AnuK6mgjI8kmMs\"",
+  "etag": "\"J3WqvAcMk4eQjJXvfSI4Yr8VouA/7shFmGJYOQm8lYcU7swGRcnQGuU\"",
   "icons": {
     "x16": "http://www.google.com/images/icons/product/calendar-16.png",
     "x32": "http://www.google.com/images/icons/product/calendar-32.png"
@@ -1724,7 +1724,7 @@
       }
     }
   },
-  "revision": "20181002",
+  "revision": "20181023",
   "rootUrl": "https://www.googleapis.com/",
   "schemas": {
     "Acl": {

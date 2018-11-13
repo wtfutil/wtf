@@ -77,7 +77,7 @@ func (m MergeRequestApprovals) String() string {
 // GitLab API docs:
 // https://docs.gitlab.com/ee/api/merge_request_approvals.html#approve-merge-request
 type ApproveMergeRequestOptions struct {
-	Sha *string `url:"sha,omitempty" json:"sha,omitempty"`
+	SHA *string `url:"sha,omitempty" json:"sha,omitempty"`
 }
 
 // ApproveMergeRequest approves a merge request on GitLab. If a non-empty sha
@@ -92,7 +92,7 @@ func (s *MergeRequestApprovalsService) ApproveMergeRequest(pid interface{}, mr i
 	}
 	u := fmt.Sprintf("projects/%s/merge_requests/%d/approve", url.QueryEscape(project), mr)
 
-	req, err := s.client.NewRequest("GET", u, opt, options)
+	req, err := s.client.NewRequest("POST", u, opt, options)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -117,7 +117,7 @@ func (s *MergeRequestApprovalsService) UnapproveMergeRequest(pid interface{}, mr
 	}
 	u := fmt.Sprintf("projects/%s/merge_requests/%d/unapprove", url.QueryEscape(project), mr)
 
-	req, err := s.client.NewRequest("GET", u, nil, options)
+	req, err := s.client.NewRequest("POST", u, nil, options)
 	if err != nil {
 		return nil, err
 	}

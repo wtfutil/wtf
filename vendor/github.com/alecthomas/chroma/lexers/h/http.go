@@ -85,6 +85,7 @@ func (d *httpBodyContentTyper) Tokenise(options *TokeniseOptions, text string) (
 				}
 			case token.Type == Literal && isContentType:
 				{
+					isContentType = false
 					contentType = strings.TrimSpace(token.Value)
 					pos := strings.Index(contentType, ";")
 					if pos > 0 {

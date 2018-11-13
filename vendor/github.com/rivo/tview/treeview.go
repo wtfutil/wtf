@@ -569,7 +569,7 @@ func (t *TreeView) Draw(screen tcell.Screen) {
 
 	// Draw the tree.
 	posY := y
-	lineStyle := tcell.StyleDefault.Foreground(t.graphicsColor)
+	lineStyle := tcell.StyleDefault.Background(t.backgroundColor).Foreground(t.graphicsColor)
 	for index, node := range t.nodes {
 		// Skip invisible parts.
 		if posY >= y+height+1 {

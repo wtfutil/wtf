@@ -46,7 +46,7 @@ to add new and/or missing endpoints. Currently the following services are suppor
 - [x] Jobs
 - [x] Keys
 - [x] Labels
-- [ ] License
+- [x] License
 - [x] Merge Requests
 - [x] Merge Request Approvals
 - [x] Project Milestones
