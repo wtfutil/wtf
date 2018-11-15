@@ -4,6 +4,10 @@ import (
 	"github.com/gdamore/tcell"
 	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/wtf"
+	"io/ioutil"
+	"log"
+	"sort"
+	"strings"
 )
 
 const HelpText = `
@@ -28,9 +32,9 @@ type Widget struct {
 	wtf.MultiSourceWidget
 	wtf.TextWidget
 
-	app   *tview.Application
-	Data  []*GitRepo
-	pages *tview.Pages
+	app      *tview.Application
+	GitRepos []*GitRepo
+	pages    *tview.Pages
 }
 
 func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
@@ -59,7 +63,7 @@ func (widget *Widget) Checkout() {
 
 	checkoutFctn := func() {
 		text := form.GetFormItem(0).(*tview.InputField).GetText()
-		repoToCheckout := widget.Data[widget.Idx]
+		repoToCheckout := widget.GitRepos[widget.Idx]
 		repoToCheckout.checkout(text)
 		widget.pages.RemovePage("modal")
 		widget.app.SetFocus(widget.View)
@@ -72,7 +76,7 @@ func (widget *Widget) Checkout() {
 }
 
 func (widget *Widget) Pull() {
-	repoToPull := widget.Data[widget.Idx]
+	repoToPull := widget.GitRepos[widget.Idx]
 	repoToPull.pull()
 	widget.Refresh()
 
@@ -81,7 +85,10 @@ func (widget *Widget) Pull() {
 func (widget *Widget) Refresh() {
 	repoPaths := wtf.ToStrs(wtf.Config.UList("wtf.mods.git.repositories"))
 
-	widget.Data = widget.gitRepos(repoPaths)
+	widget.GitRepos = widget.gitRepos(repoPaths)
+	sort.Slice(widget.GitRepos, func(i, j int) bool {
+		return widget.GitRepos[i].Path < widget.GitRepos[j].Path
+	})
 	widget.display()
 }
 
@@ -141,26 +148,82 @@ func (widget *Widget) modalFrame(form *tview.Form) *tview.Frame {
 }
 
 func (widget *Widget) currentData() *GitRepo {
-	if len(widget.Data) == 0 {
+	if len(widget.GitRepos) == 0 {
 		return nil
 	}
 
-	if widget.Idx < 0 || widget.Idx >= len(widget.Data) {
+	if widget.Idx < 0 || widget.Idx >= len(widget.GitRepos) {
 		return nil
 	}
 
-	return widget.Data[widget.Idx]
+	return widget.GitRepos[widget.Idx]
 }
 
 func (widget *Widget) gitRepos(repoPaths []string) []*GitRepo {
 	repos := []*GitRepo{}
 
 	for _, repoPath := range repoPaths {
-		repo := NewGitRepo(repoPath)
-		repos = append(repos, repo)
+		if strings.HasSuffix(repoPath, "/") {
+			repos = append(repos, findGitRepositories(make([]*GitRepo, 0), repoPath)...)
+
+		} else {
+			repo := NewGitRepo(repoPath)
+			repos = append(repos, repo)
+		}
 	}
 
 	return repos
+}
+
+func findGitRepositories(repositories []*GitRepo, directory string) []*GitRepo {
+	directory = strings.TrimSuffix(directory, "/")
+
+	files, err := ioutil.ReadDir(directory)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	var path string
+
+	for _, file := range files {
+		if file.IsDir() {
+			path = directory + "/" + file.Name()
+			if file.Name() == ".git" {
+				path = strings.TrimSuffix(path, "/.git")
+				repo := NewGitRepo(path)
+				repositories = append(repositories, repo)
+				continue
+			}
+			if file.Name() == "vendor" || file.Name() == "node_modules" {
+				continue
+			}
+			repositories = findGitRepositories(repositories, path)
+		}
+	}
+
+	return repositories
+}
+
+func (widget *Widget) Next() {
+	widget.Idx = widget.Idx + 1
+	if widget.Idx == len(widget.GitRepos) {
+		widget.Idx = 0
+	}
+
+	if widget.DisplayFunction != nil {
+		widget.DisplayFunction()
+	}
+}
+
+func (widget *Widget) Prev() {
+	widget.Idx = widget.Idx - 1
+	if widget.Idx < 0 {
+		widget.Idx = len(widget.GitRepos) - 1
+	}
+
+	if widget.DisplayFunction != nil {
+		widget.DisplayFunction()
+	}
 }
 
 func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
