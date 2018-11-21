@@ -365,8 +365,21 @@
       "name": "Matei Alexandru Gardus",
       "avatar_url": "https://avatars0.githubusercontent.com/u/11583824?v=4",
       "profile": "http://stormfirefox1.github.io",
-      "contributions": [
-      ]
+      "contributions": []
+    },
+    {
+      "login": "Seanstoppable",
+      "name": "Sean Smith",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/1523955?v=4",
+      "profile": "https://github.com/Seanstoppable",
+      "contributions": []
+    },
+    {
+      "login": "kaskavalci",
+      "name": "Halil Kaskavalci",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/1646238?v=4",
+      "profile": "http://kaskavalci.com",
+      "contributions": []
     }
   ]
 }
