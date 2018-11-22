@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"github.com/senorprogrammer/wtf/resourceusage"
 	"log"
 	"os"
 	"time"
@@ -40,6 +39,7 @@ import (
 	"github.com/senorprogrammer/wtf/newrelic"
 	"github.com/senorprogrammer/wtf/opsgenie"
 	"github.com/senorprogrammer/wtf/power"
+	"github.com/senorprogrammer/wtf/resourceusage"
 	"github.com/senorprogrammer/wtf/security"
 	"github.com/senorprogrammer/wtf/spotify"
 	"github.com/senorprogrammer/wtf/spotifyweb"
