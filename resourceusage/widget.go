@@ -3,14 +3,15 @@ package resourceusage
 import (
 	"code.cloudfoundry.org/bytefmt"
 	"fmt"
-	"github.com/c9s/goprocinfo/linux"
 	"github.com/rivo/tview"
 	"github.com/senorprogrammer/wtf/wtf"
+	"github.com/shirou/gopsutil/cpu"
+	"github.com/shirou/gopsutil/mem"
 )
 
 var started = false
 var ok = true
-var prevStats []linux.CPUStat
+var prevStats []cpu.TimesStat
 
 // Widget define wtf widget to register widget later
 type Widget struct {
@@ -20,7 +21,7 @@ type Widget struct {
 // NewWidget Make new instance of widget
 func NewWidget(app *tview.Application) *Widget {
 	widget := Widget{
-		BarGraph: wtf.NewBarGraph(app,  "Resource Usage", "resourceusage", false),
+		BarGraph: wtf.NewBarGraph(app, "Resource Usage", "resourceusage", false),
 	}
 
 	widget.View.SetWrap(true)
@@ -34,14 +35,14 @@ func NewWidget(app *tview.Application) *Widget {
 // MakeGraph - Load the dead drop stats
 func MakeGraph(widget *Widget) {
 
-	cpuStat, err := linux.ReadStat("/proc/stat")
+	cpuStats, err := cpu.Times(true)
 	if err != nil {
 		return
 	}
 
-	var stats = make([]wtf.Bar, len(cpuStat.CPUStats)+2)
+	var stats = make([]wtf.Bar, len(cpuStats)+2)
 
-	for i, stat := range cpuStat.CPUStats {
+	for i, stat := range cpuStats {
 		prevStat := stat
 		if len(prevStats) > i {
 			prevStat = prevStats[i]
@@ -50,11 +51,11 @@ func MakeGraph(widget *Widget) {
 		}
 
 		// based on htop algorithm described here: https://stackoverflow.com/a/23376195/1516085
-		prevIdle := prevStat.Idle + prevStat.IOWait
-		idle := stat.Idle + stat.IOWait
+		prevIdle := prevStat.Idle + prevStat.Iowait
+		idle := stat.Idle + stat.Iowait
 
-		prevNonIdle := prevStat.User + prevStat.Nice + prevStat.System + prevStat.IRQ + prevStat.SoftIRQ + prevStat.Steal
-		nonIdle := stat.User + stat.Nice + stat.System + stat.IRQ + stat.SoftIRQ + stat.Steal
+		prevNonIdle := prevStat.User + prevStat.Nice + prevStat.System + prevStat.Irq + prevStat.Softirq + prevStat.Steal
+		nonIdle := stat.User + stat.Nice + stat.System + stat.Irq + stat.Softirq + stat.Steal
 
 		prevTotal := prevIdle + prevNonIdle
 		total := idle + nonIdle
@@ -78,17 +79,16 @@ func MakeGraph(widget *Widget) {
 		prevStats[i] = stat
 	}
 
-	memInfo, err := linux.ReadMemInfo("/proc/meminfo")
+	//memInfo, err := linux.ReadMemInfo("/proc/meminfo")
+	memInfo, err := mem.VirtualMemory()
 	if err != nil {
 		return
 	}
 
-	memIndex := len(cpuStat.CPUStats)
-	memUsed := memInfo.MemTotal - memInfo.MemAvailable
-	memPercent := float64(memUsed) / float64(memInfo.MemTotal)
+	memIndex := len(cpuStats)
 
-	usedMemLabel := bytefmt.ByteSize(memUsed * bytefmt.KILOBYTE)
-	totalMemLabel := bytefmt.ByteSize(memInfo.MemTotal * bytefmt.KILOBYTE)
+	usedMemLabel := bytefmt.ByteSize(memInfo.Used)
+	totalMemLabel := bytefmt.ByteSize(memInfo.Total)
 
 	if usedMemLabel[len(usedMemLabel)-1] == totalMemLabel[len(totalMemLabel)-1] {
 		usedMemLabel = usedMemLabel[:len(usedMemLabel)-1]
@@ -96,16 +96,16 @@ func MakeGraph(widget *Widget) {
 
 	stats[memIndex] = wtf.Bar{
 		Label:      "Mem",
-		Percent:    int(memPercent * 100),
+		Percent:    int(memInfo.UsedPercent),
 		ValueLabel: fmt.Sprintf("%s/%s", usedMemLabel, totalMemLabel),
 	}
 
-	swapIndex := len(cpuStat.CPUStats) + 1
+	swapIndex := len(cpuStats) + 1
 	swapUsed := memInfo.SwapTotal - memInfo.SwapFree
 	swapPercent := float64(swapUsed) / float64(memInfo.SwapTotal)
 
-	usedSwapLabel := bytefmt.ByteSize(swapUsed * bytefmt.KILOBYTE)
-	totalSwapLabel := bytefmt.ByteSize(memInfo.SwapTotal * bytefmt.KILOBYTE)
+	usedSwapLabel := bytefmt.ByteSize(swapUsed)
+	totalSwapLabel := bytefmt.ByteSize(memInfo.SwapTotal)
 
 	if usedSwapLabel[len(usedSwapLabel)-1] == totalMemLabel[len(totalSwapLabel)-1] {
 		usedSwapLabel = usedSwapLabel[:len(usedSwapLabel)-1]
