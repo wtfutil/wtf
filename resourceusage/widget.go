@@ -7,6 +7,7 @@ import (
 	"github.com/senorprogrammer/wtf/wtf"
 	"github.com/shirou/gopsutil/cpu"
 	"github.com/shirou/gopsutil/mem"
+	"math"
 	"time"
 )
 
@@ -43,6 +44,10 @@ func MakeGraph(widget *Widget) {
 	var stats = make([]wtf.Bar, len(cpuStats)+2)
 
 	for i, stat := range cpuStats {
+		// Stats sometimes jump outside the 0-100 range, possibly due to timing
+		stat = math.Min(100, stat)
+		stat = math.Max(0, stat)
+
 		bar := wtf.Bar{
 			Label:      fmt.Sprint(i),
 			Percent:    int(stat),
