@@ -7,11 +7,11 @@ import (
 	"github.com/senorprogrammer/wtf/wtf"
 	"github.com/shirou/gopsutil/cpu"
 	"github.com/shirou/gopsutil/mem"
+	"time"
 )
 
 var started = false
 var ok = true
-var prevStats []cpu.TimesStat
 
 // Widget define wtf widget to register widget later
 type Widget struct {
@@ -35,7 +35,7 @@ func NewWidget(app *tview.Application) *Widget {
 // MakeGraph - Load the dead drop stats
 func MakeGraph(widget *Widget) {
 
-	cpuStats, err := cpu.Times(true)
+	cpuStats, err := cpu.Percent(time.Duration(0), true)
 	if err != nil {
 		return
 	}
@@ -43,43 +43,15 @@ func MakeGraph(widget *Widget) {
 	var stats = make([]wtf.Bar, len(cpuStats)+2)
 
 	for i, stat := range cpuStats {
-		prevStat := stat
-		if len(prevStats) > i {
-			prevStat = prevStats[i]
-		} else {
-			prevStats = append(prevStats, stat)
-		}
-
-		// based on htop algorithm described here: https://stackoverflow.com/a/23376195/1516085
-		prevIdle := prevStat.Idle + prevStat.Iowait
-		idle := stat.Idle + stat.Iowait
-
-		prevNonIdle := prevStat.User + prevStat.Nice + prevStat.System + prevStat.Irq + prevStat.Softirq + prevStat.Steal
-		nonIdle := stat.User + stat.Nice + stat.System + stat.Irq + stat.Softirq + stat.Steal
-
-		prevTotal := prevIdle + prevNonIdle
-		total := idle + nonIdle
-
-		// differentiate: actual value minus the previous one
-		difference := total - prevTotal
-		idled := idle - prevIdle
-
-		percentage := float64(0)
-		if difference > 0 {
-			percentage = float64(difference-idled) / float64(difference)
-		}
-
 		bar := wtf.Bar{
 			Label:      fmt.Sprint(i),
-			Percent:    int(percentage * 100),
-			ValueLabel: fmt.Sprintf("%d%%", int(percentage*100)),
+			Percent:    int(stat),
+			ValueLabel: fmt.Sprintf("%d%%", int(stat)),
 		}
 
 		stats[i] = bar
-		prevStats[i] = stat
 	}
 
-	//memInfo, err := linux.ReadMemInfo("/proc/meminfo")
 	memInfo, err := mem.VirtualMemory()
 	if err != nil {
 		return
