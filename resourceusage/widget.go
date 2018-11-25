@@ -79,7 +79,10 @@ func MakeGraph(widget *Widget) {
 
 	swapIndex := len(cpuStats) + 1
 	swapUsed := memInfo.SwapTotal - memInfo.SwapFree
-	swapPercent := float64(swapUsed) / float64(memInfo.SwapTotal)
+	var swapPercent float64
+	if memInfo.SwapTotal > 0 {
+		swapPercent = float64(swapUsed) / float64(memInfo.SwapTotal)
+	}
 
 	usedSwapLabel := bytefmt.ByteSize(swapUsed)
 	totalSwapLabel := bytefmt.ByteSize(memInfo.SwapTotal)
