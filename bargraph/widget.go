@@ -43,7 +43,7 @@ func MakeGraph(widget *Widget) {
 
 	barTime := time.Now()
 	for i := 0; i < lineCount; i++ {
-		barTime = barTime.Add(time.Duration(rand.Intn(10 * int(time.Minute))))
+		barTime = barTime.Add(time.Duration(time.Minute))
 
 		bar := wtf.Bar{
 			Label:   barTime.Format("15:04"),
