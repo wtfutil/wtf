@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### ⚡️ Added
+
+* Resource Usage module added (@nicholas-eden)
+
 ## 0.4.0
 
 ### ⚡️ Added
