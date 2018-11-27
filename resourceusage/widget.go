@@ -25,8 +25,8 @@ func NewWidget(app *tview.Application) *Widget {
 		BarGraph: wtf.NewBarGraph(app, "Resource Usage", "resourceusage", false),
 	}
 
-	widget.View.SetWrap(true)
-	widget.View.SetWordWrap(true)
+	widget.View.SetWrap(false)
+	widget.View.SetWordWrap(false)
 
 	return &widget
 }
