@@ -4,16 +4,16 @@
 
 ### ⚡️ Added
 
-* Resource Usage module added (@nicholas-eden)
+* Resource Usage module added ([@nicholas-eden](https://github.com/nicholas-eden))
 
 ## 0.4.0
 
 ### ⚡️ Added
 
-* Mecurial module added (@mweb)
-* Can now define numeric hotkeys in config (@mweb)
-* Linux firewall support added (@TheRedSpy15)
-* Spotify Web module added (@StormFireFox1)
+* Mecurial module added ([@mweb](https://github.com/mweb))
+* Can now define numeric hotkeys in config ([@mweb](https://github.com/mweb))
+* Linux firewall support added ([@TheRedSpy15](https://github.com/TheRedSpy15))
+* Spotify Web module added ([@StormFireFox1](https://github.com/StormFireFox1))
 
 ### 🐞 Fixed
 
