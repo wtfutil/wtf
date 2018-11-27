@@ -3,10 +3,8 @@ package wtf
 import (
 	"bytes"
 	"fmt"
-	"strings"
-	"time"
-
 	"github.com/rivo/tview"
+	"strings"
 )
 
 //BarGraph lets make graphs
@@ -21,18 +19,23 @@ type BarGraph struct {
 
 	Position
 
-	Data [][2]int64
+}
+
+type Bar struct {
+	Label      string
+	Percent    int
+	ValueLabel string
 }
 
 // NewBarGraph initialize your fancy new graph
-func NewBarGraph(name string, configKey string, focusable bool) BarGraph {
+func NewBarGraph(app *tview.Application, name string, configKey string, focusable bool) BarGraph {
 	widget := BarGraph{
 		enabled:    Config.UBool(fmt.Sprintf("wtf.mods.%s.enabled", configKey), false),
 		focusable:  focusable,
-		starChar:   Config.UString(fmt.Sprintf("wtf.mods.%s.graphIcon", configKey), name),
+		starChar:   Config.UString(fmt.Sprintf("wtf.mods.%s.graphIcon", configKey), "|"),
 		maxStars:   Config.UInt(fmt.Sprintf("wtf.mods.%s.graphStars", configKey), 20),
 		Name:       Config.UString(fmt.Sprintf("wtf.mods.%s.title", configKey), name),
-		RefreshInt: Config.UInt(fmt.Sprintf("wtf.mods.%s.refreshInterval", configKey)),
+		RefreshInt: Config.UInt(fmt.Sprintf("wtf.mods.%s.refreshInterval", configKey), 1),
 	}
 
 	widget.Position = NewPosition(
@@ -42,7 +45,7 @@ func NewBarGraph(name string, configKey string, focusable bool) BarGraph {
 		Config.UInt(fmt.Sprintf("wtf.mods.%s.position.height", configKey)),
 	)
 
-	widget.addView()
+	widget.addView(app, configKey)
 
 	return widget
 }
@@ -89,7 +92,7 @@ func (widget *BarGraph) TextView() *tview.TextView {
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (widget *BarGraph) addView() {
+func (widget *BarGraph) addView(app *tview.Application, configKey string) {
 	view := tview.NewTextView()
 
 	view.SetBackgroundColor(ColorFor(Config.UString("wtf.colors.background", "black")))
@@ -97,6 +100,12 @@ func (widget *BarGraph) addView() {
 	view.SetBorderColor(ColorFor(widget.BorderColor()))
 	view.SetDynamicColors(true)
 	view.SetTitle(widget.Name)
+	view.SetTitleColor(ColorFor(
+		Config.UString(
+			fmt.Sprintf("wtf.mods.%s.colors.title", configKey),
+			Config.UString("wtf.colors.title", "white"),
+		),
+	))
 	view.SetWrap(false)
 
 	widget.View = view
@@ -104,69 +113,53 @@ func (widget *BarGraph) addView() {
 
 // BuildBars will build a string of * to represent your data of [time][value]
 // time should be passed as a int64
-func (widget *BarGraph) BuildBars(data [][2]int64) {
+func (widget *BarGraph) BuildBars(data []Bar) {
 
 	widget.View.SetText(BuildStars(data, widget.maxStars, widget.starChar))
 
 }
 
 //BuildStars build the string to display
-func BuildStars(data [][2]int64, maxStars int, starChar string) string {
+func BuildStars(data []Bar, maxStars int, starChar string) string {
 	var buffer bytes.Buffer
 
-	//counter to inintialize min value
-	var count int
-
-	//store the max value from the array
-	var maxValue int
-
-	//store the min value from the array
-	var minValue int
+	// the number of characters in the longest label
+	var longestLabel int
 
 	//just getting min and max values
-	for i := range data {
+	for _, bar := range data {
 
-		var val = int(data[i][0])
-
-		//initialize the min value
-		if count == 0 {
-			minValue = val
-		}
-		count++
-
-		//update max value
-		if val > maxValue {
-			maxValue = val
-		}
-
-		//update minValue
-		if val < minValue {
-			minValue = val
+		if len(bar.Label) > longestLabel {
+			longestLabel = len(bar.Label)
 		}
 
 	}
 
 	// each number = how many stars?
-	var starRatio = float64(maxStars) / float64((maxValue - minValue))
+	var starRatio = float64(maxStars) / 100
 
 	//build the stars
-	for i := range data {
-		var val = int(data[i][0])
+	for _, bar := range data {
 
 		//how many stars for this one?
-		var starCount = int(float64((val - minValue)) * starRatio)
+		var starCount = int(float64(bar.Percent) * starRatio)
 
-		if starCount == 0 {
-			starCount = 1
+		label := bar.ValueLabel
+		if len(label) == 0 {
+			label = fmt.Sprint(bar.Percent)
 		}
-		//build the actual string
-		var stars = strings.Repeat(starChar, starCount)
-
-		//parse the time
-		var t = time.Unix(int64(data[i][1]/1000), 0)
 
 		//write the line
-		buffer.WriteString(fmt.Sprintf("%s -\t [red]%s[white] - (%d)\n", t.Format("Jan 02, 2006"), stars, val))
+		buffer.WriteString(
+			fmt.Sprintf(
+				"%s%s[[red]%s[white]%s] %s\n",
+				bar.Label,
+				strings.Repeat(" ", longestLabel - len(bar.Label)),
+				strings.Repeat(starChar, starCount),
+				strings.Repeat(" ", maxStars - starCount),
+				label,
+				),
+		)
 	}
 
 	return buffer.String()

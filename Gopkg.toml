@@ -97,3 +97,11 @@
 [[constraint]]
   branch = "master"
   name = "github.com/zorkian/go-datadog-api"
+
+[[constraint]]
+  branch = "master"
+  name = "code.cloudfoundry.org/bytefmt"
+
+[[constraint]]
+  name = "github.com/shirou/gopsutil"
+  version = "2.18.10"

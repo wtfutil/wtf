@@ -39,6 +39,7 @@ import (
 	"github.com/senorprogrammer/wtf/newrelic"
 	"github.com/senorprogrammer/wtf/opsgenie"
 	"github.com/senorprogrammer/wtf/power"
+	"github.com/senorprogrammer/wtf/resourceusage"
 	"github.com/senorprogrammer/wtf/security"
 	"github.com/senorprogrammer/wtf/spotify"
 	"github.com/senorprogrammer/wtf/spotifyweb"
@@ -167,7 +168,7 @@ func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
 	case "bamboohr":
 		widgets = append(widgets, bamboohr.NewWidget(app))
 	case "bargraph":
-		widgets = append(widgets, bargraph.NewWidget())
+		widgets = append(widgets, bargraph.NewWidget(app))
 	case "bittrex":
 		widgets = append(widgets, bittrex.NewWidget(app))
 	case "blockfolio":
@@ -178,6 +179,8 @@ func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
 		widgets = append(widgets, clocks.NewWidget(app))
 	case "cmdrunner":
 		widgets = append(widgets, cmdrunner.NewWidget(app))
+	case "resourceusage":
+		widgets = append(widgets, resourceusage.NewWidget(app))
 	case "cryptolive":
 		widgets = append(widgets, cryptolive.NewWidget(app))
 	case "datadog":

@@ -11,6 +11,22 @@
 
 [[projects]]
   branch = "master"
+  digest = "1:d1a104572273cfb58e801812704dca4fe2eab80f3b0144592a722a76c280c598"
+  name = "code.cloudfoundry.org/bytefmt"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "2aa6f33b730c79971cfc3c742f279195b0abc627"
+
+[[projects]]
+  digest = "1:e92f5581902c345eb4ceffdcd4a854fb8f73cf436d47d837d1ec98ef1fe0a214"
+  name = "github.com/StackExchange/wmi"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "5d049714c4a64225c3c79a7cf7d02f7fb5b96338"
+  version = "1.0.0"
+
+[[projects]]
+  branch = "master"
   digest = "1:636ac9f696c988f0038afd43592f7a0fff29038588ab1064ba8ba3476bb41091"
   name = "github.com/adlio/trello"
   packages = ["."]
@@ -144,6 +160,17 @@
   revision = "493f3b46b3c20880afc8e04ceeb1c6d5aa3363d7"
 
 [[projects]]
+  digest = "1:64a5a67c69b70c2420e607a8545d674a23778ed9c3e80607bfd17b77c6c87f6a"
+  name = "github.com/go-ole/go-ole"
+  packages = [
+    ".",
+    "oleutil",
+  ]
+  pruneopts = "UT"
+  revision = "a41e3c4b706f6ae8dfbff342b06e40fa4d2d0506"
+  version = "v1.2.1"
+
+[[projects]]
   digest = "1:57fa4c058c21ce25d0b7272518dd746065117abf6cc706158b0d361202024520"
   name = "github.com/godbus/dbus"
   packages = ["."]
@@ -248,6 +275,18 @@
   revision = "a7c1880d62d37422830f0a15823b51301ca9f354"
 
 [[projects]]
+  digest = "1:266b1517f99511a50e97cf782c496eae4226ff94e884ef7e1ed53f423795b310"
+  name = "github.com/shirou/gopsutil"
+  packages = [
+    "cpu",
+    "internal/common",
+    "mem",
+  ]
+  pruneopts = "UT"
+  revision = "3ec50d2876a36047b2ca39f955ba88fb7a455e92"
+  version = "v2.18.10"
+
+[[projects]]
   branch = "master"
   digest = "1:93ff598337cb35c40079a1ba766729c20eb1756e37f5740eac4c8e943f59664d"
   name = "github.com/sticreations/spotigopher"
@@ -321,6 +360,17 @@
   revision = "9dcd33a902f40452422c2367fefcb95b54f9f8f8"
 
 [[projects]]
+  branch = "master"
+  digest = "1:f343f077a5b0bc3a3788b3a04e24dd417e3e25b2acb529c413e212d2c42416ef"
+  name = "golang.org/x/sys"
+  packages = [
+    "unix",
+    "windows",
+  ]
+  pruneopts = "UT"
+  revision = "62eef0e2fa9b2c385f7b2778e763486da6880d37"
+
+[[projects]]
   digest = "1:37672ad5821719e2df8509c2edd4ba5ae192463237c73c3a2d24ef8b2bc9e36f"
   name = "golang.org/x/text"
   packages = [
@@ -379,6 +429,7 @@
   analyzer-name = "dep"
   analyzer-version = 1
   input-imports = [
+    "code.cloudfoundry.org/bytefmt",
     "github.com/adlio/trello",
     "github.com/alecthomas/chroma/formatters",
     "github.com/alecthomas/chroma/lexers",
@@ -394,6 +445,8 @@
     "github.com/pkg/profile",
     "github.com/radovskyb/watcher",
     "github.com/rivo/tview",
+    "github.com/shirou/gopsutil/cpu",
+    "github.com/shirou/gopsutil/mem",
     "github.com/sticreations/spotigopher/spotigopher",
     "github.com/stretchr/testify/assert",
     "github.com/xanzy/go-gitlab",
