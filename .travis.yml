@@ -5,9 +5,9 @@ go:
 sudo: false
 before_install:
   # Make sure travis builds work for forks
-  - mkdir -p $TRAVIS_BUILD_DIR $GOPATH/src/github.com/senorprogrammer
-  - test ! -d $GOPATH/src/github.com/senorprogrammer/wtf && mv $TRAVIS_BUILD_DIR $GOPATH/src/github.com/senorprogrammer/wtf || true
-  - export TRAVIS_BUILD_DIR=$HOME/gopath/src/github.com/senorprogrammer/wtf
-  - cd $HOME/gopath/src/github.com/senorprogrammer/wtf
+  - mkdir -p $TRAVIS_BUILD_DIR $GOPATH/src/github.com/wtfutil
+  - test ! -d $GOPATH/src/github.com/wtfutil/wtf && mv $TRAVIS_BUILD_DIR $GOPATH/src/github.com/wtfutil/wtf || true
+  - export TRAVIS_BUILD_DIR=$HOME/gopath/src/github.com/wtfutil/wtf
+  - cd $HOME/gopath/src/github.com/wtfutil/wtf
 
-script: go get ./... && go get github.com/go-test/deep && go test -v github.com/senorprogrammer/wtf/wtf_tests/...
+script: go get ./... && go get github.com/go-test/deep && go test -v github.com/wtfutil/wtf/wtf_tests/...

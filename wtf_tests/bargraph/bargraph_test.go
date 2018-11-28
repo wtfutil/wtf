@@ -3,8 +3,8 @@ package bargraph_test
 import (
 	"testing"
 
-	. "github.com/senorprogrammer/wtf/wtf"
 	. "github.com/stretchr/testify/assert"
+	. "github.com/wtfutil/wtf/wtf"
 )
 
 // MakeData - Create sample data
@@ -15,12 +15,12 @@ func makeData() []Bar {
 	var stats [lineCount]Bar
 
 	stats[0] = Bar{
-		Label: "Jun 27, 2018",
+		Label:   "Jun 27, 2018",
 		Percent: 20,
 	}
 
 	stats[1] = Bar{
-		Label: "Jul 09, 2018",
+		Label:   "Jul 09, 2018",
 		Percent: 80,
 	}
 
@@ -35,6 +35,6 @@ func TestOutput(t *testing.T) {
 
 	Equal(t,
 		"Jun 27, 2018[[red]****[white]                ] 20\nJul 09, 2018[[red]****************[white]    ] 80\n",
-	result,
+		result,
 	)
 }

@@ -24,7 +24,7 @@ ways.  It also adds substantial functionality beyond termbox.
 * [tview](https://github.com/rivo/tview) - rich interactive widgets for terminal UIs
 * [tui-go](https://github.com/marcusolsson/tui-go) - UI library for terminal apps
 * [gomandelbrot](https://github.com/rgm3/gomandelbrot) - Mandelbrot!
-* [WTF](https://github.com/senorprogrammer/wtf)- Personal information dashboard for your terminal
+* [WTF](https://github.com/wtfutil/wtf)- Personal information dashboard for your terminal
 * [browsh](https://github.com/browsh-org/browsh) - A fully-modern text-based browser, rendering to TTY and browsers ([video](https://www.youtube.com/watch?v=HZq86XfBoRo))
 
 ## Pure Go Terminfo Database

@@ -6,7 +6,7 @@ import (
 	owm "github.com/briandowns/openweathermap"
 	"github.com/gdamore/tcell"
 	"github.com/rivo/tview"
-	"github.com/senorprogrammer/wtf/wtf"
+	"github.com/wtfutil/wtf/wtf"
 )
 
 const HelpText = `

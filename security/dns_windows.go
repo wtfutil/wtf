@@ -5,7 +5,7 @@ package security
 import (
 	"os/exec"
 
-	"github.com/senorprogrammer/wtf/wtf"
+	"github.com/wtfutil/wtf/wtf"
 )
 
 func DnsServers() []string {

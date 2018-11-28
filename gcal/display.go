@@ -6,7 +6,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/senorprogrammer/wtf/wtf"
+	"github.com/wtfutil/wtf/wtf"
 )
 
 func (widget *Widget) sortedEvents() ([]*CalEvent, []*CalEvent) {

@@ -5,8 +5,8 @@ import (
 	"strconv"
 
 	"github.com/rivo/tview"
-	"github.com/senorprogrammer/wtf/checklist"
-	"github.com/senorprogrammer/wtf/wtf"
+	"github.com/wtfutil/wtf/checklist"
+	"github.com/wtfutil/wtf/wtf"
 )
 
 const checkWidth = 4
@@ -15,7 +15,7 @@ func (widget *Widget) display() {
 	str := ""
 	newList := checklist.NewChecklist()
 
-  offset := 0
+	offset := 0
 
 	for idx, item := range widget.list.UncheckedItems() {
 		str = str + widget.formattedItemLine(idx, item, widget.list.SelectedItem(), widget.list.LongestLine())
@@ -24,7 +24,7 @@ func (widget *Widget) display() {
 	}
 
 	for idx, item := range widget.list.CheckedItems() {
-		str = str + widget.formattedItemLine(idx + offset, item, widget.list.SelectedItem(), widget.list.LongestLine())
+		str = str + widget.formattedItemLine(idx+offset, item, widget.list.SelectedItem(), widget.list.LongestLine())
 		newList.Items = append(newList.Items, item)
 	}
 

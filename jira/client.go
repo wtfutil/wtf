@@ -12,7 +12,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/senorprogrammer/wtf/wtf"
+	"github.com/wtfutil/wtf/wtf"
 )
 
 func IssuesFor(username string, projects []string, jql string) (*SearchResult, error) {

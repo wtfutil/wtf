@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/rivo/tview"
-	"github.com/senorprogrammer/wtf/wtf"
+	"github.com/wtfutil/wtf/wtf"
 	datadog "github.com/zorkian/go-datadog-api"
 )
 

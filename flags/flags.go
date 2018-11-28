@@ -6,8 +6,8 @@ import (
 	"path/filepath"
 
 	goFlags "github.com/jessevdk/go-flags"
-	"github.com/senorprogrammer/wtf/help"
-	"github.com/senorprogrammer/wtf/wtf"
+	"github.com/wtfutil/wtf/help"
+	"github.com/wtfutil/wtf/wtf"
 )
 
 type Flags struct {

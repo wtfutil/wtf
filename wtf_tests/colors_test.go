@@ -3,8 +3,8 @@ package wtf_tests
 import (
 	"testing"
 
-	. "github.com/senorprogrammer/wtf/wtf"
 	. "github.com/stretchr/testify/assert"
+	. "github.com/wtfutil/wtf/wtf"
 )
 
 func TestASCIItoTviewColors(t *testing.T) {

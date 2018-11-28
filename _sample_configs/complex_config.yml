@@ -108,7 +108,7 @@ wtf:
         width: 3
       refreshInterval: 8
       repositories:
-      - "/Users/chris/go/src/github.com/senorprogrammer/wtf"
+      - "/Users/chris/go/src/github.com/wtfutil/wtf"
     github:
       enabled: true
       position:
@@ -119,8 +119,8 @@ wtf:
       refreshInterval: 300
       repositories:
         repo-name: "owner id"
-        wtf: "senorprogrammer"
-      username: "senorprogrammer"
+        wtf: "wtfutil"
+      username: "wtfutil"
     jira:
       colors:
         rows:

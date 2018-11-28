@@ -2,7 +2,7 @@ package gerrit
 
 import (
 	glb "github.com/andygrunwald/go-gerrit"
-	"github.com/senorprogrammer/wtf/wtf"
+	"github.com/wtfutil/wtf/wtf"
 )
 
 type GerritProject struct {

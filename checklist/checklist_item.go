@@ -1,7 +1,7 @@
 package checklist
 
 import (
-	"github.com/senorprogrammer/wtf/wtf"
+	"github.com/wtfutil/wtf/wtf"
 )
 
 // ChecklistItem is a module for creating generic checklist implementations

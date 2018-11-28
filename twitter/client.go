@@ -6,7 +6,7 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/senorprogrammer/wtf/wtf"
+	"github.com/wtfutil/wtf/wtf"
 )
 
 /* NOTE: Currently single application ONLY

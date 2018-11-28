@@ -6,7 +6,7 @@ import (
 	"os"
 
 	ghb "github.com/google/go-github/github"
-	"github.com/senorprogrammer/wtf/wtf"
+	"github.com/wtfutil/wtf/wtf"
 	"golang.org/x/oauth2"
 )
 

@@ -4,9 +4,9 @@ import (
 	"testing"
 
 	"github.com/olebedev/config"
-	. "github.com/senorprogrammer/wtf/checklist"
-	"github.com/senorprogrammer/wtf/wtf"
 	. "github.com/stretchr/testify/assert"
+	. "github.com/wtfutil/wtf/checklist"
+	"github.com/wtfutil/wtf/wtf"
 )
 
 /* -------------------- CheckMark -------------------- */

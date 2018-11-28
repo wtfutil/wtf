@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/google/go-github/github"
-	"github.com/senorprogrammer/wtf/wtf"
+	"github.com/wtfutil/wtf/wtf"
 )
 
 func (widget *Widget) display() {

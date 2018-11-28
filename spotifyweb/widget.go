@@ -9,8 +9,8 @@ import (
 
 	"github.com/gdamore/tcell"
 	"github.com/rivo/tview"
-	"github.com/senorprogrammer/wtf/logger"
-	"github.com/senorprogrammer/wtf/wtf"
+	"github.com/wtfutil/wtf/logger"
+	"github.com/wtfutil/wtf/wtf"
 	"github.com/zmb3/spotify"
 )
 

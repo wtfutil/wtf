@@ -4,9 +4,9 @@ import (
 	"code.cloudfoundry.org/bytefmt"
 	"fmt"
 	"github.com/rivo/tview"
-	"github.com/senorprogrammer/wtf/wtf"
 	"github.com/shirou/gopsutil/cpu"
 	"github.com/shirou/gopsutil/mem"
+	"github.com/wtfutil/wtf/wtf"
 	"math"
 	"time"
 )

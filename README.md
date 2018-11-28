@@ -1,9 +1,9 @@
 
 [![All Contributors](https://img.shields.io/badge/all_contributors-53-orange.svg?style=flat-square)](#contributors)
-[![Build Status](https://travis-ci.com/senorprogrammer/wtf.svg?branch=master)](https://travis-ci.com/senorprogrammer/wtf)
+[![Build Status](https://travis-ci.com/wtfutil/wtf.svg?branch=master)](https://travis-ci.com/wtfutil/wtf)
 [![Gitter Chat](https://badges.gitter.im/wtfutil/Lobby.svg)](https://gitter.im/wtfutil/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Twitter](https://img.shields.io/badge/follow-on%20twitter-blue.svg)](https://twitter.com/wtfutil)
-[![Go Report Card](https://goreportcard.com/badge/github.com/senorprogrammer/wtf)](https://goreportcard.com/report/github.com/senorprogrammer/wtf)
+[![Go Report Card](https://goreportcard.com/badge/github.com/wtfutil/wtf)](https://goreportcard.com/report/github.com/wtfutil/wtf)
 
 # WTF
 
@@ -18,11 +18,11 @@ Follow [on Twitter](https://twitter.com/wtfutil) for news and latest updates.
 
 ## Quick Start
 
-[Download and run the latest binary](https://github.com/senorprogrammer/wtf/releases) or install from source:
+[Download and run the latest binary](https://github.com/wtfutil/wtf/releases) or install from source:
 
 ```bash
-go get -u github.com/senorprogrammer/wtf
-cd $GOPATH/src/github.com/senorprogrammer/wtf
+go get -u github.com/wtfutil/wtf
+cd $GOPATH/src/github.com/wtfutil/wtf
 make install
 make run
 ```

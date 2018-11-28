@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/adlio/trello"
-	"github.com/senorprogrammer/wtf/wtf"
+	"github.com/wtfutil/wtf/wtf"
 )
 
 func GetCards(client *trello.Client, lists map[string]string) (*SearchResult, error) {

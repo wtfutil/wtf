@@ -6,9 +6,9 @@ import (
 
 	"github.com/gdamore/tcell"
 	"github.com/rivo/tview"
-	"github.com/senorprogrammer/wtf/cfg"
-	"github.com/senorprogrammer/wtf/checklist"
-	"github.com/senorprogrammer/wtf/wtf"
+	"github.com/wtfutil/wtf/cfg"
+	"github.com/wtfutil/wtf/checklist"
+	"github.com/wtfutil/wtf/wtf"
 	"gopkg.in/yaml.v2"
 )
 

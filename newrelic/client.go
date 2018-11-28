@@ -3,7 +3,7 @@ package newrelic
 import (
 	"os"
 
-	"github.com/senorprogrammer/wtf/wtf"
+	"github.com/wtfutil/wtf/wtf"
 	nr "github.com/yfronto/newrelic"
 )
 

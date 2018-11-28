@@ -10,7 +10,7 @@ import (
 	"net/url"
 	"os"
 
-	"github.com/senorprogrammer/wtf/wtf"
+	"github.com/wtfutil/wtf/wtf"
 )
 
 const APIEnvKey = "WTF_CIRCLE_API_KEY"

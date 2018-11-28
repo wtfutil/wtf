@@ -9,7 +9,7 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/senorprogrammer/wtf/wtf"
+	"github.com/wtfutil/wtf/wtf"
 )
 
 var started = false

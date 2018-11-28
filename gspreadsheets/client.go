@@ -18,7 +18,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/senorprogrammer/wtf/wtf"
+	"github.com/wtfutil/wtf/wtf"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
 	sheets "google.golang.org/api/sheets/v4"

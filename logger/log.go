@@ -9,7 +9,7 @@ import (
 	"strings"
 
 	"github.com/rivo/tview"
-	"github.com/senorprogrammer/wtf/wtf"
+	"github.com/wtfutil/wtf/wtf"
 )
 
 const maxBufferSize int64 = 1024

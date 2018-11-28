@@ -3,12 +3,12 @@ package help
 import (
 	"fmt"
 
-	"github.com/senorprogrammer/wtf/git"
-	"github.com/senorprogrammer/wtf/github"
-	"github.com/senorprogrammer/wtf/textfile"
-	"github.com/senorprogrammer/wtf/todo"
-	"github.com/senorprogrammer/wtf/todoist"
-	"github.com/senorprogrammer/wtf/weatherservices/weather"
+	"github.com/wtfutil/wtf/git"
+	"github.com/wtfutil/wtf/github"
+	"github.com/wtfutil/wtf/textfile"
+	"github.com/wtfutil/wtf/todo"
+	"github.com/wtfutil/wtf/todoist"
+	"github.com/wtfutil/wtf/weatherservices/weather"
 )
 
 func Display(moduleName string) {
