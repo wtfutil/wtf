@@ -16,6 +16,7 @@ var weatherEmoji = map[string]string{
 	"heavy intensity rain":        "💦",
 	"heavy rain":                  "💦",
 	"heavy snow":                  "⛄️",
+	"light intensity drizzle":     "🌧",
 	"light intensity shower rain": "☔️",
 	"light rain":                  "🌦",
 	"light shower snow":           "🌦⛄️",
