@@ -10,7 +10,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/senorprogrammer/wtf/wtf"
+	"github.com/wtfutil/wtf/wtf"
 )
 
 func Create(jenkinsURL string, username string, apiKey string) (*View, error) {

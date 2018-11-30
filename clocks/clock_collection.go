@@ -4,7 +4,7 @@ import (
 	"sort"
 	"time"
 
-	"github.com/senorprogrammer/wtf/wtf"
+	"github.com/wtfutil/wtf/wtf"
 )
 
 type ClockCollection struct {

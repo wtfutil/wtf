@@ -7,7 +7,7 @@ import (
 	"path"
 	"strings"
 
-	"github.com/senorprogrammer/wtf/wtf"
+	"github.com/wtfutil/wtf/wtf"
 )
 
 type MercurialRepo struct {

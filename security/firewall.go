@@ -1,13 +1,13 @@
 package security
 
 import (
+	"bytes"
 	"os/exec"
+	"os/user"
 	"runtime"
 	"strings"
-	"bytes"
-	"os/user"
 
-	"github.com/senorprogrammer/wtf/wtf"
+	"github.com/wtfutil/wtf/wtf"
 )
 
 const osxFirewallCmd = "/usr/libexec/ApplicationFirewall/socketfilterfw"

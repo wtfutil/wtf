@@ -4,8 +4,8 @@ import (
 	"testing"
 	"time"
 
-	. "github.com/senorprogrammer/wtf/wtf"
 	. "github.com/stretchr/testify/assert"
+	. "github.com/wtfutil/wtf/wtf"
 )
 
 func TestIsToday(t *testing.T) {

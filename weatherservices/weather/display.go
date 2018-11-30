@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	owm "github.com/briandowns/openweathermap"
-	"github.com/senorprogrammer/wtf/wtf"
+	"github.com/wtfutil/wtf/wtf"
 )
 
 func (widget *Widget) display() {

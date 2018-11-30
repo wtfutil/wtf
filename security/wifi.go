@@ -5,7 +5,7 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/senorprogrammer/wtf/wtf"
+	"github.com/wtfutil/wtf/wtf"
 )
 
 // https://github.com/yelinaung/wifi-name/blob/master/wifi-name.go

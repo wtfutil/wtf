@@ -9,7 +9,7 @@ import (
 	"text/template"
 
 	"github.com/rivo/tview"
-	"github.com/senorprogrammer/wtf/wtf"
+	"github.com/wtfutil/wtf/wtf"
 )
 
 // Widget widget struct

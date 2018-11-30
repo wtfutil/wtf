@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/senorprogrammer/wtf/wtf"
+	"github.com/wtfutil/wtf/wtf"
 )
 
 // A Client represents the data required to connect to the BambooHR API

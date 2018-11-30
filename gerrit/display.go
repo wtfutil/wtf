@@ -3,7 +3,7 @@ package gerrit
 import (
 	"fmt"
 
-	"github.com/senorprogrammer/wtf/wtf"
+	"github.com/wtfutil/wtf/wtf"
 )
 
 func (widget *Widget) display() {

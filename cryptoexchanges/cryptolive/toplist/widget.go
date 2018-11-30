@@ -8,7 +8,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/senorprogrammer/wtf/wtf"
+	"github.com/wtfutil/wtf/wtf"
 )
 
 var baseURL = "https://min-api.cryptocompare.com/data/top/exchanges"

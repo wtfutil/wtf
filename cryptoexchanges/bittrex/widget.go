@@ -8,7 +8,7 @@ import (
 	"net/http"
 
 	"github.com/rivo/tview"
-	"github.com/senorprogrammer/wtf/wtf"
+	"github.com/wtfutil/wtf/wtf"
 )
 
 type TextColors struct {

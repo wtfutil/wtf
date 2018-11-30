@@ -7,7 +7,7 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/senorprogrammer/wtf/wtf"
+	"github.com/wtfutil/wtf/wtf"
 )
 
 type SystemInfo struct {

@@ -3,7 +3,7 @@ package gcal
 import (
 	"time"
 
-	"github.com/senorprogrammer/wtf/wtf"
+	"github.com/wtfutil/wtf/wtf"
 	"google.golang.org/api/calendar/v3"
 )
 

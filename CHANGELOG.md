@@ -18,8 +18,8 @@
 
 ### 🐞 Fixed
 
-* Google Calendar module now displays all-day events ([#306](https://github.com/senorprogrammer/wtf/issues/306) by [@nicholas-eden](https://github.com/nicholas-eden))
-* Google Calendar configuration much improved ([#326](https://github.com/senorprogrammer/wtf/issues/326) by [@dvdmssmnn](https://github.com/dvdmssmnn))
+* Google Calendar module now displays all-day events ([#306](https://github.com/wtfutil/wtf/issues/306) by [@nicholas-eden](https://github.com/nicholas-eden))
+* Google Calendar configuration much improved ([#326](https://github.com/wtfutil/wtf/issues/326) by [@dvdmssmnn](https://github.com/dvdmssmnn))
 
 ## 0.3.0
 
@@ -31,7 +31,7 @@
 
 ### 🐞 Fixed
 
-* Textfile module now watches files for changes ([#276](https://github.com/senorprogrammer/wtf/issues/276) by @senporprogrammer)
+* Textfile module now watches files for changes ([#276](https://github.com/wtfutil/wtf/issues/276) by @senporprogrammer)
 * Nav shortcuts now use numbers rather than letters to allow the use of letters in widget menus
 * Twitter widget no longer crashes app when closing the help modal
 
@@ -47,8 +47,8 @@
 
 ### 🐞 Fixed
 
-* Textfile syntax highlighting now included in stand-alone binary ([#261](https://github.com/senorprogrammer/wtf/issues/261) by @senporprogrammer)
-* Config param now supports relative paths starting with `~` ([#295](https://github.com/senorprogrammer/wtf/issues/295) by @anandsudhir)
+* Textfile syntax highlighting now included in stand-alone binary ([#261](https://github.com/wtfutil/wtf/issues/261) by @senporprogrammer)
+* Config param now supports relative paths starting with `~` ([#295](https://github.com/wtfutil/wtf/issues/295) by @anandsudhir)
 
 ## 0.2.1
 #### Aug 17, 2018
@@ -61,10 +61,10 @@
 
 * Twitter screen name now configurable in configuration file (@senorprogrammer)
 * Gerrit module no longer dies if it can't connect to the server (@anandsudhir)
-* Pretty Weather properly displays colours again (([#298](https://github.com/senorprogrammer/wtf/issues/298) by @bertl4398)
-* Clocks row colour configuration fixed (([#282](https://github.com/senorprogrammer/wtf/issues/282) by @anandsudhir)
-* Sigils no longer display when there's only one option (([#291](https://github.com/senorprogrammer/wtf/issues/291) by @anandsudhir)
-* Jira module now responds to the "/" key (([#268](https://github.com/senorprogrammer/wtf/issues/268)) by @senorprogrammer)
+* Pretty Weather properly displays colours again (([#298](https://github.com/wtfutil/wtf/issues/298) by @bertl4398)
+* Clocks row colour configuration fixed (([#282](https://github.com/wtfutil/wtf/issues/282) by @anandsudhir)
+* Sigils no longer display when there's only one option (([#291](https://github.com/wtfutil/wtf/issues/291) by @anandsudhir)
+* Jira module now responds to the "/" key (([#268](https://github.com/wtfutil/wtf/issues/268)) by @senorprogrammer)
 
 ## 0.2.0
 #### Aug 3, 2018

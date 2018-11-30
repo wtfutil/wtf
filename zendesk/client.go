@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/senorprogrammer/wtf/wtf"
+	"github.com/wtfutil/wtf/wtf"
 )
 
 type Resource struct {
