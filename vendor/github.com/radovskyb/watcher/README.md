@@ -15,7 +15,8 @@ Events contain the `os.FileInfo` of the file or directory that the event is base
 [Watcher Command](#command)  
 
 # Update
-Event.Path for Rename and Move events is now returned in the format of `fromPath -> toPath`
+- Added new file filter hooks (Including a built in regexp filtering hook) [Dec 12, 2018]
+- Event.Path for Rename and Move events is now returned in the format of `fromPath -> toPath`
 
 #### Chmod event is not supported under windows.
 
@@ -67,6 +68,11 @@ func main() {
 
 	// Only notify rename and move events.
 	w.FilterOps(watcher.Rename, watcher.Move)
+
+	// Only files that match the regular expression during file listings
+	// will be watched.
+	r := regexp.MustCompile("^abc$")
+	w.AddFilterHook(watcher.RegexFilterHook(r, false))
 
 	go func() {
 		for {
@@ -128,6 +134,8 @@ Usage of watcher:
     	command to run when an event occurs
   -dotfiles
     	watch dot files (default true)
+  -ignore string
+        comma separated list of paths to ignore
   -interval string
     	watcher poll interval (default "100ms")
   -keepalive

@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strings"
 	"sync"
 	"time"
@@ -24,6 +25,10 @@ var (
 	// ErrWatchedFileDeleted is an error that occurs when a file or folder that was
 	// being watched has been deleted.
 	ErrWatchedFileDeleted = errors.New("error: watched file or folder deleted")
+
+	// ErrSkip is less of an error, but more of a way for path hooks to skip a file or
+	// directory.
+	ErrSkip = errors.New("error: skipping file")
 )
 
 // An Op is a type that is used to describe what type
@@ -69,16 +74,43 @@ type Event struct {
 // String returns a string depending on what type of event occurred and the
 // file name associated with the event.
 func (e Event) String() string {
-	if e.FileInfo != nil {
-		pathType := "FILE"
-		if e.IsDir() {
-			pathType = "DIRECTORY"
-		}
-		return fmt.Sprintf("%s %q %s [%s]", pathType, e.Name(), e.Op, e.Path)
+	if e.FileInfo == nil {
+		return "???"
 	}
-	return "???"
+
+	pathType := "FILE"
+	if e.IsDir() {
+		pathType = "DIRECTORY"
+	}
+	return fmt.Sprintf("%s %q %s [%s]", pathType, e.Name(), e.Op, e.Path)
 }
 
+// FilterFileHookFunc is a function that is called to filter files during listings.
+// If a file is ok to be listed, nil is returned otherwise ErrSkip is returned.
+type FilterFileHookFunc func(info os.FileInfo, fullPath string) error
+
+// RegexFilterHook is a function that accepts or rejects a file
+// for listing based on whether it's filename or full path matches
+// a regular expression.
+func RegexFilterHook(r *regexp.Regexp, useFullPath bool) FilterFileHookFunc {
+	return func(info os.FileInfo, fullPath string) error {
+		str := info.Name()
+
+		if useFullPath {
+			str = fullPath
+		}
+
+		// Match
+		if r.MatchString(str) {
+			return nil
+		}
+
+		// No match.
+		return ErrSkip
+	}
+}
+
+// Watcher describes a process that watches files for changes.
 type Watcher struct {
 	Event  chan Event
 	Error  chan error
@@ -88,6 +120,7 @@ type Watcher struct {
 
 	// mu protects the following.
 	mu           *sync.Mutex
+	ffh          []FilterFileHookFunc
 	running      bool
 	names        map[string]bool        // bool for recursive or not.
 	files        map[string]os.FileInfo // map of files.
@@ -125,6 +158,13 @@ func (w *Watcher) SetMaxEvents(delta int) {
 	w.mu.Unlock()
 }
 
+// AddFilterHook
+func (w *Watcher) AddFilterHook(f FilterFileHookFunc) {
+	w.mu.Lock()
+	w.ffh = append(w.ffh, f)
+	w.mu.Unlock()
+}
+
 // IgnoreHiddenFiles sets the watcher to ignore any file or directory
 // that starts with a dot.
 func (w *Watcher) IgnoreHiddenFiles(ignore bool) {
@@ -157,7 +197,13 @@ func (w *Watcher) Add(name string) (err error) {
 	// If name is on the ignored list or if hidden files are
 	// ignored and name is a hidden file or directory, simply return.
 	_, ignored := w.ignored[name]
-	if ignored || (w.ignoreHidden && strings.HasPrefix(name, ".")) {
+
+	isHidden, err := isHiddenFile(name)
+	if err != nil {
+		return err
+	}
+
+	if ignored || (w.ignoreHidden && isHidden) {
 		return nil
 	}
 
@@ -200,18 +246,36 @@ func (w *Watcher) list(name string) (map[string]os.FileInfo, error) {
 	// Add all of the files in the directory to the file list as long
 	// as they aren't on the ignored list or are hidden files if ignoreHidden
 	// is set to true.
+outer:
 	for _, fInfo := range fInfoList {
 		path := filepath.Join(name, fInfo.Name())
 		_, ignored := w.ignored[path]
-		if ignored || (w.ignoreHidden && strings.HasPrefix(fInfo.Name(), ".")) {
+
+		isHidden, err := isHiddenFile(path)
+		if err != nil {
+			return nil, err
+		}
+
+		if ignored || (w.ignoreHidden && isHidden) {
 			continue
 		}
+
+		for _, f := range w.ffh {
+			err := f(fInfo, path)
+			if err == ErrSkip {
+				continue outer
+			}
+			if err != nil {
+				return nil, err
+			}
+		}
+
 		fileList[path] = fInfo
 	}
 	return fileList, nil
 }
 
-// Add adds either a single file or directory recursively to the file list.
+// AddRecursive adds either a single file or directory recursively to the file list.
 func (w *Watcher) AddRecursive(name string) (err error) {
 	w.mu.Lock()
 	defer w.mu.Unlock()
@@ -242,10 +306,27 @@ func (w *Watcher) listRecursive(name string) (map[string]os.FileInfo, error) {
 		if err != nil {
 			return err
 		}
+
+		for _, f := range w.ffh {
+			err := f(info, path)
+			if err == ErrSkip {
+				return nil
+			}
+			if err != nil {
+				return err
+			}
+		}
+
 		// If path is ignored and it's a directory, skip the directory. If it's
 		// ignored and it's a single file, skip the file.
 		_, ignored := w.ignored[path]
-		if ignored || (w.ignoreHidden && strings.HasPrefix(info.Name(), ".")) {
+
+		isHidden, err := isHiddenFile(path)
+		if err != nil {
+			return err
+		}
+
+		if ignored || (w.ignoreHidden && isHidden) {
 			if info.IsDir() {
 				return filepath.SkipDir
 			}
@@ -292,7 +373,7 @@ func (w *Watcher) Remove(name string) (err error) {
 	return nil
 }
 
-// Remove removes either a single file or a directory recursively from
+// RemoveRecursive removes either a single file or a directory recursively from
 // the file's list.
 func (w *Watcher) RemoveRecursive(name string) (err error) {
 	w.mu.Lock()
@@ -346,11 +427,17 @@ func (w *Watcher) Ignore(paths ...string) (err error) {
 	return nil
 }
 
+// WatchedFiles returns a map of files added to a Watcher.
 func (w *Watcher) WatchedFiles() map[string]os.FileInfo {
 	w.mu.Lock()
 	defer w.mu.Unlock()
 
-	return w.files
+	files := make(map[string]os.FileInfo)
+	for k, v := range w.files {
+		files[k] = v
+	}
+
+	return files
 }
 
 // fileInfo is an implementation of os.FileInfo that can be used
@@ -560,7 +647,7 @@ func (w *Watcher) pollEvents(files map[string]os.FileInfo, evt chan Event,
 	// Check for renames and moves.
 	for path1, info1 := range removes {
 		for path2, info2 := range creates {
-			if SameFile(info1, info2) {
+			if sameFile(info1, info2) {
 				e := Event{
 					Op:       Move,
 					Path:     fmt.Sprintf("%s -> %s", path1, path2),
@@ -606,6 +693,7 @@ func (w *Watcher) Wait() {
 	w.wg.Wait()
 }
 
+// Close stops a Watcher and unlocks its mutex, then sends a close signal.
 func (w *Watcher) Close() {
 	w.mu.Lock()
 	if !w.running {

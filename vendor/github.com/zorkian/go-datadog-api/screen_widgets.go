@@ -2,6 +2,31 @@ package datadog
 
 import "encoding/json"
 
+type PrecisionT string
+
+// UnmarshalJSON is a Custom Unmarshal for PrecisionT. The Datadog API can
+// return 1 (int), "1" (number, but a string type) or something like "100%" or
+// "*" (string).
+func (p *PrecisionT) UnmarshalJSON(data []byte) error {
+	var err error
+	var precisionNum json.Number
+	if err = json.Unmarshal(data, &precisionNum); err == nil {
+		*p = PrecisionT(precisionNum)
+		return nil
+	}
+
+	var precisionStr string
+	if err = json.Unmarshal(data, &precisionStr); err == nil {
+		*p = PrecisionT(precisionStr)
+		return nil
+	}
+
+	var p0 PrecisionT
+	*p = p0
+
+	return err
+}
+
 type TileDef struct {
 	Events     []TileDefEvent   `json:"events,omitempty"`
 	Markers    []TileDefMarker  `json:"markers,omitempty"`
@@ -9,7 +34,7 @@ type TileDef struct {
 	Viz        *string          `json:"viz,omitempty"`
 	CustomUnit *string          `json:"custom_unit,omitempty"`
 	Autoscale  *bool            `json:"autoscale,omitempty"`
-	Precision  *json.Number     `json:"precision,omitempty"`
+	Precision  *PrecisionT      `json:"precision,omitempty"`
 	TextAlign  *string          `json:"text_align,omitempty"`
 
 	// For hostmap
@@ -71,10 +96,10 @@ type TileDefRequestStyle struct {
 }
 
 type TileDefStyle struct {
-	Palette     *string `json:"palette,omitempty"`
-	PaletteFlip *string `json:"paletteFlip,omitempty"`
-	FillMin     *string `json:"fillMin,omitempty"`
-	FillMax     *string `json:"fillMax,omitempty"`
+	Palette     *string      `json:"palette,omitempty"`
+	PaletteFlip *string      `json:"paletteFlip,omitempty"`
+	FillMin     *json.Number `json:"fillMin,omitempty"`
+	FillMax     *json.Number `json:"fillMax,omitempty"`
 }
 
 type Time struct {
@@ -90,8 +115,8 @@ type Widget struct {
 	TitleSize  *int    `json:"title_size,omitempty"`
 	Height     *int    `json:"height,omitempty"`
 	Width      *int    `json:"width,omitempty"`
-	X          *int    `json:"y,omitempty"`
-	Y          *int    `json:"x,omitempty"`
+	X          *int    `json:"x,omitempty"`
+	Y          *int    `json:"y,omitempty"`
 
 	// For Timeseries, TopList, EventTimeline, EvenStream, AlertGraph, CheckStatus, ServiceSummary, LogStream widgets
 	Time *Time `json:"time,omitempty"`
@@ -104,9 +129,9 @@ type Widget struct {
 	Color *string `json:"color,omitempty"`
 
 	// For AlertValue widget
-	TextSize  *string `json:"text_size,omitempty"`
-	Unit      *string `json:"unit,omitempty"`
-	Precision *string `json:"precision,omitempty"`
+	TextSize  *string     `json:"text_size,omitempty"`
+	Unit      *string     `json:"unit,omitempty"`
+	Precision *PrecisionT `json:"precision,omitempty"`
 
 	// AlertGraph widget
 	VizType *string `json:"viz_type,omitempty"`

@@ -24,6 +24,7 @@ type CheckRun struct {
 	ExternalID   *string         `json:"external_id,omitempty"`
 	URL          *string         `json:"url,omitempty"`
 	HTMLURL      *string         `json:"html_url,omitempty"`
+	DetailsURL   *string         `json:"details_url,omitempty"`
 	Status       *string         `json:"status,omitempty"`
 	Conclusion   *string         `json:"conclusion,omitempty"`
 	StartedAt    *Timestamp      `json:"started_at,omitempty"`
@@ -133,16 +134,24 @@ func (s *ChecksService) GetCheckSuite(ctx context.Context, owner, repo string, c
 
 // CreateCheckRunOptions sets up parameters needed to create a CheckRun.
 type CreateCheckRunOptions struct {
-	Name        string          `json:"name"`                   // The name of the check (e.g., "code-coverage"). (Required.)
-	HeadBranch  string          `json:"head_branch"`            // The name of the branch to perform a check against. (Required.)
-	HeadSHA     string          `json:"head_sha"`               // The SHA of the commit. (Required.)
-	DetailsURL  *string         `json:"details_url,omitempty"`  // The URL of the integrator's site that has the full details of the check. (Optional.)
-	ExternalID  *string         `json:"external_id,omitempty"`  // A reference for the run on the integrator's system. (Optional.)
-	Status      *string         `json:"status,omitempty"`       // The current status. Can be one of "queued", "in_progress", or "completed". Default: "queued". (Optional.)
-	Conclusion  *string         `json:"conclusion,omitempty"`   // Can be one of "success", "failure", "neutral", "cancelled", "timed_out", or "action_required". (Optional. Required if you provide a status of "completed".)
-	StartedAt   *Timestamp      `json:"started_at,omitempty"`   // The time that the check run began. (Optional.)
-	CompletedAt *Timestamp      `json:"completed_at,omitempty"` // The time the check completed. (Optional. Required if you provide conclusion.)
-	Output      *CheckRunOutput `json:"output,omitempty"`       // Provide descriptive details about the run. (Optional)
+	Name        string            `json:"name"`                   // The name of the check (e.g., "code-coverage"). (Required.)
+	HeadBranch  string            `json:"head_branch"`            // The name of the branch to perform a check against. (Required.)
+	HeadSHA     string            `json:"head_sha"`               // The SHA of the commit. (Required.)
+	DetailsURL  *string           `json:"details_url,omitempty"`  // The URL of the integrator's site that has the full details of the check. (Optional.)
+	ExternalID  *string           `json:"external_id,omitempty"`  // A reference for the run on the integrator's system. (Optional.)
+	Status      *string           `json:"status,omitempty"`       // The current status. Can be one of "queued", "in_progress", or "completed". Default: "queued". (Optional.)
+	Conclusion  *string           `json:"conclusion,omitempty"`   // Can be one of "success", "failure", "neutral", "cancelled", "timed_out", or "action_required". (Optional. Required if you provide a status of "completed".)
+	StartedAt   *Timestamp        `json:"started_at,omitempty"`   // The time that the check run began. (Optional.)
+	CompletedAt *Timestamp        `json:"completed_at,omitempty"` // The time the check completed. (Optional. Required if you provide conclusion.)
+	Output      *CheckRunOutput   `json:"output,omitempty"`       // Provide descriptive details about the run. (Optional)
+	Actions     []*CheckRunAction `json:"actions,omitempty"`      // Possible further actions the integrator can perform, which a user may trigger. (Optional.)
+}
+
+// CheckRunAction exposes further actions the integrator can perform, which a user may trigger.
+type CheckRunAction struct {
+	Label       string `json:"label"`       // The text to be displayed on a button in the web UI. The maximum size is 20 characters. (Required.)
+	Description string `json:"description"` // A short explanation of what this action would do. The maximum size is 40 characters. (Required.)
+	Identifier  string `json:"identifier"`  // A reference for the action on the integrator's system. The maximum size is 20 characters. (Required.)
 }
 
 // CreateCheckRun creates a check run for repository.
@@ -168,15 +177,16 @@ func (s *ChecksService) CreateCheckRun(ctx context.Context, owner, repo string, 
 
 // UpdateCheckRunOptions sets up parameters needed to update a CheckRun.
 type UpdateCheckRunOptions struct {
-	Name        string          `json:"name"`                   // The name of the check (e.g., "code-coverage"). (Required.)
-	HeadBranch  *string         `json:"head_branch,omitempty"`  // The name of the branch to perform a check against. (Optional.)
-	HeadSHA     *string         `json:"head_sha,omitempty"`     // The SHA of the commit. (Optional.)
-	DetailsURL  *string         `json:"details_url,omitempty"`  // The URL of the integrator's site that has the full details of the check. (Optional.)
-	ExternalID  *string         `json:"external_id,omitempty"`  // A reference for the run on the integrator's system. (Optional.)
-	Status      *string         `json:"status,omitempty"`       // The current status. Can be one of "queued", "in_progress", or "completed". Default: "queued". (Optional.)
-	Conclusion  *string         `json:"conclusion,omitempty"`   // Can be one of "success", "failure", "neutral", "cancelled", "timed_out", or "action_required". (Optional. Required if you provide a status of "completed".)
-	CompletedAt *Timestamp      `json:"completed_at,omitempty"` // The time the check completed. (Optional. Required if you provide conclusion.)
-	Output      *CheckRunOutput `json:"output,omitempty"`       // Provide descriptive details about the run. (Optional)
+	Name        string            `json:"name"`                   // The name of the check (e.g., "code-coverage"). (Required.)
+	HeadBranch  *string           `json:"head_branch,omitempty"`  // The name of the branch to perform a check against. (Optional.)
+	HeadSHA     *string           `json:"head_sha,omitempty"`     // The SHA of the commit. (Optional.)
+	DetailsURL  *string           `json:"details_url,omitempty"`  // The URL of the integrator's site that has the full details of the check. (Optional.)
+	ExternalID  *string           `json:"external_id,omitempty"`  // A reference for the run on the integrator's system. (Optional.)
+	Status      *string           `json:"status,omitempty"`       // The current status. Can be one of "queued", "in_progress", or "completed". Default: "queued". (Optional.)
+	Conclusion  *string           `json:"conclusion,omitempty"`   // Can be one of "success", "failure", "neutral", "cancelled", "timed_out", or "action_required". (Optional. Required if you provide a status of "completed".)
+	CompletedAt *Timestamp        `json:"completed_at,omitempty"` // The time the check completed. (Optional. Required if you provide conclusion.)
+	Output      *CheckRunOutput   `json:"output,omitempty"`       // Provide descriptive details about the run. (Optional)
+	Actions     []*CheckRunAction `json:"actions,omitempty"`      // Possible further actions the integrator can perform, which a user may trigger. (Optional.)
 }
 
 // UpdateCheckRun updates a check run for a specific commit in a repository.

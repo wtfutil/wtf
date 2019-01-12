@@ -84,7 +84,7 @@ type CreateEnvironmentOptions struct {
 	ExternalURL *string `url:"external_url,omitempty" json:"external_url,omitempty"`
 }
 
-// CreateEnvironment adds a environment to a project. This is an idempotent
+// CreateEnvironment adds an environment to a project. This is an idempotent
 // method and can be called multiple times with the same parameters. Createing
 // an environment that is already a environment does not affect the
 // existing environmentship.
@@ -146,7 +146,7 @@ func (s *EnvironmentsService) EditEnvironment(pid interface{}, environment int, 
 	return env, resp, err
 }
 
-// DeleteEnvironment removes a environment from a project team.
+// DeleteEnvironment removes an environment from a project team.
 //
 // GitLab API docs:
 // https://docs.gitlab.com/ce/api/environments.html#remove-a-environment-from-a-group-or-project
@@ -158,6 +158,25 @@ func (s *EnvironmentsService) DeleteEnvironment(pid interface{}, environment int
 	u := fmt.Sprintf("projects/%s/environments/%d", url.QueryEscape(project), environment)
 
 	req, err := s.client.NewRequest("DELETE", u, nil, options)
+	if err != nil {
+		return nil, err
+	}
+
+	return s.client.Do(req, nil)
+}
+
+// StopEnvironment stop an environment from a project team.
+//
+// GitLab API docs:
+// https://docs.gitlab.com/ce/api/environments.html#stop-an-environment
+func (s *EnvironmentsService) StopEnvironment(pid interface{}, environmentID int, options ...OptionFunc) (*Response, error) {
+	project, err := parseID(pid)
+	if err != nil {
+		return nil, err
+	}
+	u := fmt.Sprintf("projects/%s/environments/%d/stop", url.QueryEscape(project), environmentID)
+
+	req, err := s.client.NewRequest("POST", u, nil, options)
 	if err != nil {
 		return nil, err
 	}

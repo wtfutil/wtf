@@ -216,7 +216,7 @@ func (c *indexedTTYFormatter) Format(w io.Writer, style *chroma.Style, it chroma
 		}
 	}()
 	theme := styleToEscapeSequence(c.table, style)
-	for token := it(); token != nil; token = it() {
+	for token := it(); token != chroma.EOF; token = it() {
 		// TODO: Cache token lookups?
 		clr, ok := theme[token.Type]
 		if !ok {

@@ -74,12 +74,12 @@ type Project struct {
 	ForksCount                                int               `json:"forks_count"`
 	StarCount                                 int               `json:"star_count"`
 	RunnersToken                              string            `json:"runners_token"`
-	PublicJobs                                bool              `json:"public_jobs"`
+	PublicBuilds                              bool              `json:"public_builds"`
 	OnlyAllowMergeIfPipelineSucceeds          bool              `json:"only_allow_merge_if_pipeline_succeeds"`
 	OnlyAllowMergeIfAllDiscussionsAreResolved bool              `json:"only_allow_merge_if_all_discussions_are_resolved"`
 	LFSEnabled                                bool              `json:"lfs_enabled"`
 	RequestAccessEnabled                      bool              `json:"request_access_enabled"`
-	MergeMethod                               string            `json:"merge_method"`
+	MergeMethod                               MergeMethodValue  `json:"merge_method"`
 	ForkedFromProject                         *ForkParent       `json:"forked_from_project"`
 	SharedWithGroups                          []struct {
 		GroupID          int    `json:"group_id"`
@@ -418,7 +418,7 @@ type CreateProjectOptions struct {
 	SharedRunnersEnabled                      *bool             `url:"shared_runners_enabled,omitempty" json:"shared_runners_enabled,omitempty"`
 	Visibility                                *VisibilityValue  `url:"visibility,omitempty" json:"visibility,omitempty"`
 	ImportURL                                 *string           `url:"import_url,omitempty" json:"import_url,omitempty"`
-	PublicJobs                                *bool             `url:"public_jobs,omitempty" json:"public_jobs,omitempty"`
+	PublicBuilds                              *bool             `url:"public_builds,omitempty" json:"public_builds,omitempty"`
 	OnlyAllowMergeIfPipelineSucceeds          *bool             `url:"only_allow_merge_if_pipeline_succeeds,omitempty" json:"only_allow_merge_if_pipeline_succeeds,omitempty"`
 	OnlyAllowMergeIfAllDiscussionsAreResolved *bool             `url:"only_allow_merge_if_all_discussions_are_resolved,omitempty" json:"only_allow_merge_if_all_discussions_are_resolved,omitempty"`
 	MergeMethod                               *MergeMethodValue `url:"merge_method,omitempty" json:"merge_method,omitempty"`
@@ -1025,4 +1025,258 @@ func (s *ProjectsService) ListProjectForks(pid interface{}, opt *ListProjectsOpt
 	}
 
 	return forks, resp, err
+}
+
+// ProjectPushRules represents a project push rule.
+//
+// GitLab API docs:
+// https://docs.gitlab.com/ee/api/projects.html#push-rules
+type ProjectPushRules struct {
+	ID                 int        `json:"id"`
+	ProjectID          int        `json:"project_id"`
+	CommitMessageRegex string     `json:"commit_message_regex"`
+	BranchNameRegex    string     `json:"branch_name_regex"`
+	DenyDeleteTag      bool       `json:"deny_delete_tag"`
+	CreatedAt          *time.Time `json:"created_at"`
+	MemberCheck        bool       `json:"member_check"`
+	PreventSecrets     bool       `json:"prevent_secrets"`
+	AuthorEmailRegex   string     `json:"author_email_regex"`
+	FileNameRegex      string     `json:"file_name_regex"`
+	MaxFileSize        int        `json:"max_file_size"`
+}
+
+// GetProjectPushRules gets the push rules of a project.
+//
+// GitLab API docs:
+// https://docs.gitlab.com/ee/api/projects.html#get-project-push-rules
+func (s *ProjectsService) GetProjectPushRules(pid interface{}, options ...OptionFunc) (*ProjectPushRules, *Response, error) {
+	project, err := parseID(pid)
+	if err != nil {
+		return nil, nil, err
+	}
+	u := fmt.Sprintf("projects/%s/push_rule", url.QueryEscape(project))
+
+	req, err := s.client.NewRequest("GET", u, nil, options)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	ppr := new(ProjectPushRules)
+	resp, err := s.client.Do(req, ppr)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return ppr, resp, err
+}
+
+// AddProjectPushRuleOptions represents the available AddProjectPushRule()
+// options.
+//
+// GitLab API docs:
+// https://docs.gitlab.com/ee/api/projects.html#add-project-push-rule
+type AddProjectPushRuleOptions struct {
+	DenyDeleteTag      *bool   `url:"deny_delete_tag,omitempty" json:"deny_delete_tag,omitempty"`
+	MemberCheck        *bool   `url:"member_check,omitempty" json:"member_check,omitempty"`
+	PreventSecrets     *bool   `url:"prevent_secrets,omitempty" json:"prevent_secrets,omitempty"`
+	CommitMessageRegex *string `url:"commit_message_regex,omitempty" json:"commit_message_regex,omitempty"`
+	BranchNameRegex    *string `url:"branch_name_regex,omitempty" json:"branch_name_regex,omitempty"`
+	AuthorEmailRegex   *string `url:"author_email_regex,omitempty" json:"author_email_regex,omitempty"`
+	FileNameRegex      *string `url:"file_name_regex,omitempty" json:"file_name_regex,omitempty"`
+	MaxFileSize        *int    `url:"max_file_size,omitempty" json:"max_file_size,omitempty"`
+}
+
+// AddProjectPushRule adds a push rule to a specified project.
+//
+// GitLab API docs:
+// https://docs.gitlab.com/ee/api/projects.html#add-project-push-rule
+func (s *ProjectsService) AddProjectPushRule(pid interface{}, opt *AddProjectPushRuleOptions, options ...OptionFunc) (*ProjectPushRules, *Response, error) {
+	project, err := parseID(pid)
+	if err != nil {
+		return nil, nil, err
+	}
+	u := fmt.Sprintf("projects/%s/push_rule", url.QueryEscape(project))
+
+	req, err := s.client.NewRequest("POST", u, opt, options)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	ppr := new(ProjectPushRules)
+	resp, err := s.client.Do(req, ppr)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return ppr, resp, err
+}
+
+// EditProjectPushRuleOptions represents the available EditProjectPushRule()
+// options.
+//
+// GitLab API docs:
+// https://docs.gitlab.com/ee/api/projects.html#edit-project-push-rule
+type EditProjectPushRuleOptions struct {
+	AuthorEmailRegex   *string `url:"author_email_regex,omitempty" json:"author_email_regex,omitempty"`
+	BranchNameRegex    *string `url:"branch_name_regex,omitempty" json:"branch_name_regex,omitempty"`
+	CommitMessageRegex *string `url:"commit_message_regex,omitempty" json:"commit_message_regex,omitempty"`
+	FileNameRegex      *string `url:"file_name_regex,omitempty" json:"file_name_regex,omitempty"`
+	DenyDeleteTag      *bool   `url:"deny_delete_tag,omitempty" json:"deny_delete_tag,omitempty"`
+	MemberCheck        *bool   `url:"member_check,omitempty" json:"member_check,omitempty"`
+	PreventSecrets     *bool   `url:"prevent_secrets,omitempty" json:"prevent_secrets,omitempty"`
+	MaxFileSize        *int    `url:"max_file_size,omitempty" json:"max_file_size,omitempty"`
+}
+
+// EditProjectPushRule edits a push rule for a specified project.
+//
+// GitLab API docs:
+// https://docs.gitlab.com/ee/api/projects.html#edit-project-push-rule
+func (s *ProjectsService) EditProjectPushRule(pid interface{}, opt *EditProjectPushRuleOptions, options ...OptionFunc) (*ProjectPushRules, *Response, error) {
+	project, err := parseID(pid)
+	if err != nil {
+		return nil, nil, err
+	}
+	u := fmt.Sprintf("projects/%s/push_rule", url.QueryEscape(project))
+
+	req, err := s.client.NewRequest("PUT", u, opt, options)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	ppr := new(ProjectPushRules)
+	resp, err := s.client.Do(req, ppr)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return ppr, resp, err
+}
+
+// DeleteProjectPushRule removes a push rule from a project. This is an
+// idempotent method and can be called multiple times. Either the push rule is
+// available or not.
+//
+// GitLab API docs:
+// https://docs.gitlab.com/ee/api/projects.html#delete-project-push-rule
+func (s *ProjectsService) DeleteProjectPushRule(pid interface{}, options ...OptionFunc) (*Response, error) {
+	project, err := parseID(pid)
+	if err != nil {
+		return nil, err
+	}
+	u := fmt.Sprintf("projects/%s/push_rule", url.QueryEscape(project))
+
+	req, err := s.client.NewRequest("DELETE", u, nil, options)
+	if err != nil {
+		return nil, err
+	}
+
+	return s.client.Do(req, nil)
+}
+
+// ProjectApprovals represents GitLab project level merge request approvals.
+//
+// GitLab API docs:
+// https://docs.gitlab.com/ee/api/merge_request_approvals.html#project-level-mr-approvals
+type ProjectApprovals struct {
+	Approvers                                 []*MergeRequestApproverUser  `json:"approvers"`
+	ApproverGroups                            []*MergeRequestApproverGroup `json:"approver_groups"`
+	ApprovalsBeforeMerge                      int                          `json:"approvals_before_merge"`
+	ResetApprovalsOnPush                      bool                         `json:"reset_approvals_on_push"`
+	DisableOverridingApproversPerMergeRequest bool                         `json:"disable_overriding_approvers_per_merge_request"`
+}
+
+// GetApprovalConfiguration get the approval configuration for a project.
+//
+// GitLab API docs:
+// https://docs.gitlab.com/ee/api/merge_request_approvals.html#get-configuration
+func (s *ProjectsService) GetApprovalConfiguration(pid interface{}, options ...OptionFunc) (*ProjectApprovals, *Response, error) {
+	project, err := parseID(pid)
+	if err != nil {
+		return nil, nil, err
+	}
+	u := fmt.Sprintf("projects/%s/approvals", url.QueryEscape(project))
+
+	req, err := s.client.NewRequest("GET", u, nil, options)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	pa := new(ProjectApprovals)
+	resp, err := s.client.Do(req, pa)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return pa, resp, err
+}
+
+// ChangeApprovalConfigurationOptions represents the available
+// ApprovalConfiguration() options.
+//
+// GitLab API docs:
+// https://docs.gitlab.com/ee/api/merge_request_approvals.html#change-configuration
+type ChangeApprovalConfigurationOptions struct {
+	ApprovalsBeforeMerge                      *int  `url:"approvals_before_merge,omitempty" json:"approvals_before_merge,omitempty"`
+	ResetApprovalsOnPush                      *bool `url:"reset_approvals_on_push,omitempty" json:"reset_approvals_on_push,omitempty"`
+	DisableOverridingApproversPerMergeRequest *bool `url:"disable_overriding_approvers_per_merge_request,omitempty" json:"disable_overriding_approvers_per_merge_request,omitempty"`
+}
+
+// ChangeApprovalConfiguration updates the approval configuration for a project.
+//
+// GitLab API docs:
+// https://docs.gitlab.com/ee/api/merge_request_approvals.html#change-configuration
+func (s *ProjectsService) ChangeApprovalConfiguration(pid interface{}, opt *ChangeApprovalConfigurationOptions, options ...OptionFunc) (*ProjectApprovals, *Response, error) {
+	project, err := parseID(pid)
+	if err != nil {
+		return nil, nil, err
+	}
+	u := fmt.Sprintf("projects/%s/approvals", url.QueryEscape(project))
+
+	req, err := s.client.NewRequest("POST", u, opt, options)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	pa := new(ProjectApprovals)
+	resp, err := s.client.Do(req, pa)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return pa, resp, err
+}
+
+// ChangeAllowedApproversOptions represents the available ChangeAllowedApprovers()
+// options.
+//
+// GitLab API docs:
+// https://docs.gitlab.com/ee/api/merge_request_approvals.html#change-allowed-approvers
+type ChangeAllowedApproversOptions struct {
+	ApproverIDs      []*int `url:"approver_ids,omitempty" json:"approver_ids,omitempty"`
+	ApproverGroupIDs []*int `url:"approver_group_ids,omitempty" json:"approver_group_ids,omitempty"`
+}
+
+// ChangeAllowedApprovers updates the list of approvers and approver groups.
+//
+// GitLab API docs:
+// https://docs.gitlab.com/ee/api/merge_request_approvals.html#change-allowed-approvers
+func (s *ProjectsService) ChangeAllowedApprovers(pid interface{}, opt *ChangeAllowedApproversOptions, options ...OptionFunc) (*ProjectApprovals, *Response, error) {
+	project, err := parseID(pid)
+	if err != nil {
+		return nil, nil, err
+	}
+	u := fmt.Sprintf("projects/%s/approvers", url.QueryEscape(project))
+
+	req, err := s.client.NewRequest("POST", u, opt, options)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	pa := new(ProjectApprovals)
+	resp, err := s.client.Do(req, pa)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return pa, resp, err
 }

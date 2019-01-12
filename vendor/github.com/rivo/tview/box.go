@@ -106,7 +106,11 @@ func (b *Box) GetInnerRect() (int, int, int, int) {
 		height - b.paddingTop - b.paddingBottom
 }
 
-// SetRect sets a new position of the primitive.
+// SetRect sets a new position of the primitive. Note that this has no effect
+// if this primitive is part of a layout (e.g. Flex, Grid) or if it was added
+// like this:
+//
+//   application.SetRoot(b, true)
 func (b *Box) SetRect(x, y, width, height int) {
 	b.x = x
 	b.y = y
@@ -162,6 +166,13 @@ func (b *Box) InputHandler() func(event *tcell.EventKey, setFocus func(p Primiti
 // be called.
 //
 // Providing a nil handler will remove a previously existing handler.
+//
+// Note that this function will not have an effect on primitives composed of
+// other primitives, such as Form, Flex, or Grid. Key events are only captured
+// by the primitives that have focus (e.g. InputField) and only one primitive
+// can have focus at a time. Composing primitives such as Form pass the focus on
+// to their contained primitives and thus never receive any key events
+// themselves. Therefore, they cannot intercept key events.
 func (b *Box) SetInputCapture(capture func(event *tcell.EventKey) *tcell.EventKey) *Box {
 	b.inputCapture = capture
 	return b

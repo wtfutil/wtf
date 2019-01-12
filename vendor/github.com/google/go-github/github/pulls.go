@@ -107,7 +107,7 @@ type PullRequestBranch struct {
 // PullRequestsService.List method.
 type PullRequestListOptions struct {
 	// State filters pull requests based on their state. Possible values are:
-	// open, closed. Default is "open".
+	// open, closed, all. Default is "open".
 	State string `url:"state,omitempty"`
 
 	// Head filters pull requests by head user and branch name in the format of:
@@ -302,9 +302,6 @@ func (s *PullRequestsService) ListCommits(ctx context.Context, owner string, rep
 	if err != nil {
 		return nil, nil, err
 	}
-
-	// TODO: remove custom Accept header when this API fully launches.
-	req.Header.Set("Accept", mediaTypeGitSigningPreview)
 
 	var commits []*RepositoryCommit
 	resp, err := s.client.Do(ctx, req, &commits)

@@ -46,8 +46,14 @@ type Job struct {
 	FinishedAt *time.Time `json:"finished_at"`
 	ID         int        `json:"id"`
 	Name       string     `json:"name"`
-	Ref        string     `json:"ref"`
-	Runner     struct {
+	Pipeline   struct {
+		ID     int    `json:"id"`
+		Ref    string `json:"ref"`
+		Sha    string `json:"sha"`
+		Status string `json:"status"`
+	} `json:"pipeline"`
+	Ref    string `json:"ref"`
+	Runner struct {
 		ID          int    `json:"id"`
 		Description string `json:"description"`
 		Active      bool   `json:"active"`
@@ -172,19 +178,28 @@ func (s *JobsService) GetJobArtifacts(pid interface{}, jobID int, options ...Opt
 	return artifactsBuf, resp, err
 }
 
+// DownloadArtifactsFileOptions represents the available DownloadArtifactsFile()
+// options.
+//
+// GitLab API docs:
+// https://docs.gitlab.com/ce/api/jobs.html#download-the-artifacts-file
+type DownloadArtifactsFileOptions struct {
+	Job *string `url:"job" json:"job"`
+}
+
 // DownloadArtifactsFile download the artifacts file from the given
 // reference name and job provided the job finished successfully.
 //
 // GitLab API docs:
 // https://docs.gitlab.com/ce/api/jobs.html#download-the-artifacts-file
-func (s *JobsService) DownloadArtifactsFile(pid interface{}, refName string, job string, options ...OptionFunc) (io.Reader, *Response, error) {
+func (s *JobsService) DownloadArtifactsFile(pid interface{}, refName string, opt *DownloadArtifactsFileOptions, options ...OptionFunc) (io.Reader, *Response, error) {
 	project, err := parseID(pid)
 	if err != nil {
 		return nil, nil, err
 	}
-	u := fmt.Sprintf("projects/%s/jobs/artifacts/%s/download?job=%s", url.QueryEscape(project), refName, job)
+	u := fmt.Sprintf("projects/%s/jobs/artifacts/%s/download", url.QueryEscape(project), refName)
 
-	req, err := s.client.NewRequest("GET", u, nil, options)
+	req, err := s.client.NewRequest("GET", u, opt, options)
 	if err != nil {
 		return nil, nil, err
 	}

@@ -393,7 +393,7 @@ type JiraServiceProperties struct {
 	ProjectKey            *string `url:"project_key,omitempty" json:"project_key,omitempty" `
 	Username              *string `url:"username,omitempty" json:"username,omitempty" `
 	Password              *string `url:"password,omitempty" json:"password,omitempty" `
-	JiraIssueTransitionID *string `url:"jira_issue_transition_id,omitempty" json:"jira_issue_transition_id,omitempty"`
+	JiraIssueTransitionID *int    `url:"jira_issue_transition_id,omitempty" json:"jira_issue_transition_id,omitempty"`
 }
 
 // GetJiraService gets Jira service settings for a project.

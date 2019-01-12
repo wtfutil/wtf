@@ -303,6 +303,7 @@ type Client struct {
 	Keys                  *KeysService
 	Boards                *IssueBoardsService
 	Labels                *LabelsService
+	License               *LicenseService
 	LicenseTemplates      *LicenseTemplatesService
 	MergeRequests         *MergeRequestsService
 	MergeRequestApprovals *MergeRequestApprovalsService
@@ -320,6 +321,7 @@ type Client struct {
 	ProjectSnippets       *ProjectSnippetsService
 	ProjectVariables      *ProjectVariablesService
 	ProtectedBranches     *ProtectedBranchesService
+	ProtectedTags         *ProtectedTagsService
 	Repositories          *RepositoriesService
 	RepositoryFiles       *RepositoryFilesService
 	Runners               *RunnersService
@@ -442,6 +444,7 @@ func newClient(httpClient *http.Client) *Client {
 	c.Keys = &KeysService{client: c}
 	c.Boards = &IssueBoardsService{client: c}
 	c.Labels = &LabelsService{client: c}
+	c.License = &LicenseService{client: c}
 	c.LicenseTemplates = &LicenseTemplatesService{client: c}
 	c.MergeRequests = &MergeRequestsService{client: c, timeStats: timeStats}
 	c.MergeRequestApprovals = &MergeRequestApprovalsService{client: c}
@@ -459,6 +462,7 @@ func newClient(httpClient *http.Client) *Client {
 	c.ProjectSnippets = &ProjectSnippetsService{client: c}
 	c.ProjectVariables = &ProjectVariablesService{client: c}
 	c.ProtectedBranches = &ProtectedBranchesService{client: c}
+	c.ProtectedTags = &ProtectedTagsService{client: c}
 	c.Repositories = &RepositoriesService{client: c}
 	c.RepositoryFiles = &RepositoryFilesService{client: c}
 	c.Runners = &RunnersService{client: c}
@@ -560,6 +564,9 @@ func (c *Client) NewRequest(method, path string, opt interface{}, options []Opti
 
 		u.RawQuery = ""
 		req.Body = ioutil.NopCloser(bodyReader)
+		req.GetBody = func() (io.ReadCloser, error) {
+			return ioutil.NopCloser(bodyReader), nil
+		}
 		req.ContentLength = int64(bodyReader.Len())
 		req.Header.Set("Content-Type", "application/json")
 	}

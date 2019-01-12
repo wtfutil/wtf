@@ -238,7 +238,11 @@ func (s *NotesService) DeleteIssueNote(pid interface{}, issue, note int, options
 //
 // GitLab API docs:
 // https://docs.gitlab.com/ce/api/notes.html#list-all-snippet-notes
-type ListSnippetNotesOptions ListOptions
+type ListSnippetNotesOptions struct {
+	ListOptions
+	OrderBy *string `url:"order_by,omitempty" json:"order_by,omitempty"`
+	Sort    *string `url:"sort,omitempty" json:"sort,omitempty"`
+}
 
 // ListSnippetNotes gets a list of all notes for a single snippet. Snippet
 // notes are comments users can post to a snippet.
@@ -382,7 +386,11 @@ func (s *NotesService) DeleteSnippetNote(pid interface{}, snippet, note int, opt
 //
 // GitLab API docs:
 // https://docs.gitlab.com/ce/api/notes.html#list-all-merge-request-notes
-type ListMergeRequestNotesOptions ListOptions
+type ListMergeRequestNotesOptions struct {
+	ListOptions
+	OrderBy *string `url:"order_by,omitempty" json:"order_by,omitempty"`
+	Sort    *string `url:"sort,omitempty" json:"sort,omitempty"`
+}
 
 // ListMergeRequestNotes gets a list of all notes for a single merge request.
 //

@@ -11,7 +11,7 @@ import (
 var (
 	// NoOp formatter.
 	NoOp = Register("noop", chroma.FormatterFunc(func(w io.Writer, s *chroma.Style, iterator chroma.Iterator) error {
-		for t := iterator(); t != nil; t = iterator() {
+		for t := iterator(); t != chroma.EOF; t = iterator() {
 			if _, err := io.WriteString(w, t.Value); err != nil {
 				return err
 			}

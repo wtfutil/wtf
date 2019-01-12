@@ -19,7 +19,6 @@ package gitlab
 import (
 	"fmt"
 	"net/url"
-	"time"
 )
 
 // GroupMembersService handles communication with the group members
@@ -36,12 +35,12 @@ type GroupMembersService struct {
 type GroupMember struct {
 	ID          int              `json:"id"`
 	Username    string           `json:"username"`
-	Email       string           `json:"email"`
 	Name        string           `json:"name"`
 	State       string           `json:"state"`
-	CreatedAt   *time.Time       `json:"created_at"`
-	AccessLevel AccessLevelValue `json:"access_level"`
+	AvatarURL   string           `json:"avatar_url"`
+	WebURL      string           `json:"web_url"`
 	ExpiresAt   *ISOTime         `json:"expires_at"`
+	AccessLevel AccessLevelValue `json:"access_level"`
 }
 
 // ListGroupMembersOptions represents the available ListGroupMembers() and

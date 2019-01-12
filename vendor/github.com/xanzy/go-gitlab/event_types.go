@@ -29,7 +29,7 @@ type PushEvent struct {
 	Before      string `json:"before"`
 	After       string `json:"after"`
 	Ref         string `json:"ref"`
-	CheckoutSha string `json:"checkout_sha"`
+	CheckoutSHA string `json:"checkout_sha"`
 	UserID      int    `json:"user_id"`
 	UserName    string `json:"user_name"`
 	UserEmail   string `json:"user_email"`
@@ -77,7 +77,7 @@ type TagEvent struct {
 	Before      string `json:"before"`
 	After       string `json:"after"`
 	Ref         string `json:"ref"`
-	CheckoutSha string `json:"checkout_sha"`
+	CheckoutSHA string `json:"checkout_sha"`
 	UserID      int    `json:"user_id"`
 	UserName    string `json:"user_name"`
 	UserAvatar  string `json:"user_avatar"`
@@ -290,12 +290,12 @@ type MergeCommentEvent struct {
 		} `json:"merge_params"`
 		MergeWhenPipelineSucceeds bool        `json:"merge_when_pipeline_succeeds"`
 		MergeUserID               int         `json:"merge_user_id"`
-		MergeCommitSha            string      `json:"merge_commit_sha"`
+		MergeCommitSHA            string      `json:"merge_commit_sha"`
 		DeletedAt                 string      `json:"deleted_at"`
-		InProgressMergeCommitSha  string      `json:"in_progress_merge_commit_sha"`
+		InProgressMergeCommitSHA  string      `json:"in_progress_merge_commit_sha"`
 		LockVersion               int         `json:"lock_version"`
 		ApprovalsBeforeMerge      string      `json:"approvals_before_merge"`
-		RebaseCommitSha           string      `json:"rebase_commit_sha"`
+		RebaseCommitSHA           string      `json:"rebase_commit_sha"`
 		TimeEstimate              int         `json:"time_estimate"`
 		Squash                    bool        `json:"squash"`
 		LastEditedAt              string      `json:"last_edited_at"`
@@ -413,6 +413,7 @@ type MergeEvent struct {
 	ObjectKind string `json:"object_kind"`
 	User       *User  `json:"user"`
 	Project    struct {
+		ID                int             `json:"id"`
 		Name              string          `json:"name"`
 		Description       string          `json:"description"`
 		AvatarURL         string          `json:"avatar_url"`
@@ -455,11 +456,11 @@ type MergeEvent struct {
 		} `json:"merge_params"`
 		MergeWhenBuildSucceeds   bool        `json:"merge_when_build_succeeds"`
 		MergeUserID              int         `json:"merge_user_id"`
-		MergeCommitSha           string      `json:"merge_commit_sha"`
+		MergeCommitSHA           string      `json:"merge_commit_sha"`
 		DeletedAt                string      `json:"deleted_at"`
 		ApprovalsBeforeMerge     string      `json:"approvals_before_merge"`
-		RebaseCommitSha          string      `json:"rebase_commit_sha"`
-		InProgressMergeCommitSha string      `json:"in_progress_merge_commit_sha"`
+		RebaseCommitSHA          string      `json:"rebase_commit_sha"`
+		InProgressMergeCommitSHA string      `json:"in_progress_merge_commit_sha"`
 		LockVersion              int         `json:"lock_version"`
 		TimeEstimate             int         `json:"time_estimate"`
 		Source                   *Repository `json:"source"`
@@ -561,8 +562,8 @@ type PipelineEvent struct {
 		ID         int      `json:"id"`
 		Ref        string   `json:"ref"`
 		Tag        bool     `json:"tag"`
-		Sha        string   `json:"sha"`
-		BeforeSha  string   `json:"before_sha"`
+		SHA        string   `json:"sha"`
+		BeforeSHA  string   `json:"before_sha"`
 		Status     string   `json:"status"`
 		Stages     []string `json:"stages"`
 		CreatedAt  string   `json:"created_at"`
@@ -575,6 +576,7 @@ type PipelineEvent struct {
 		AvatarURL string `json:"avatar_url"`
 	} `json:"user"`
 	Project struct {
+		ID                int             `json:"id"`
 		Name              string          `json:"name"`
 		Description       string          `json:"description"`
 		AvatarURL         string          `json:"avatar_url"`
@@ -636,8 +638,8 @@ type BuildEvent struct {
 	ObjectKind        string  `json:"object_kind"`
 	Ref               string  `json:"ref"`
 	Tag               bool    `json:"tag"`
-	BeforeSha         string  `json:"before_sha"`
-	Sha               string  `json:"sha"`
+	BeforeSHA         string  `json:"before_sha"`
+	SHA               string  `json:"sha"`
 	BuildID           int     `json:"build_id"`
 	BuildName         string  `json:"build_name"`
 	BuildStage        string  `json:"build_stage"`
@@ -655,7 +657,7 @@ type BuildEvent struct {
 	} `json:"user"`
 	Commit struct {
 		ID          int    `json:"id"`
-		Sha         string `json:"sha"`
+		SHA         string `json:"sha"`
 		Message     string `json:"message"`
 		AuthorName  string `json:"author_name"`
 		AuthorEmail string `json:"author_email"`

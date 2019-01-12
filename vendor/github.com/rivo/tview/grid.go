@@ -307,6 +307,7 @@ func (g *Grid) InputHandler() func(event *tcell.EventKey, setFocus func(p Primit
 func (g *Grid) Draw(screen tcell.Screen) {
 	g.Box.Draw(screen)
 	x, y, width, height := g.GetInnerRect()
+	screenWidth, screenHeight := screen.Size()
 
 	// Make a list of items which apply.
 	items := make(map[Primitive]*gridItem)
@@ -555,10 +556,10 @@ func (g *Grid) Draw(screen tcell.Screen) {
 		}
 		item.x -= offsetX
 		item.y -= offsetY
-		if item.x+item.w > width {
+		if item.x+item.w > x+width {
 			item.w = width - item.x
 		}
-		if item.y+item.h > height {
+		if item.y+item.h > y+height {
 			item.h = height - item.y
 		}
 		if item.x < 0 {
@@ -573,7 +574,7 @@ func (g *Grid) Draw(screen tcell.Screen) {
 			item.visible = false
 			continue
 		}
-		primitive.SetRect(x+item.x, y+item.y, item.w, item.h)
+		primitive.SetRect(item.x, item.y, item.w, item.h)
 
 		// Draw primitive.
 		if item == focus {
@@ -585,46 +586,46 @@ func (g *Grid) Draw(screen tcell.Screen) {
 		// Draw border around primitive.
 		if g.borders {
 			for bx := item.x; bx < item.x+item.w; bx++ { // Top/bottom lines.
-				if bx < 0 || bx >= width {
+				if bx < 0 || bx >= screenWidth {
 					continue
 				}
 				by := item.y - 1
-				if by >= 0 && by < height {
-					PrintJoinedSemigraphics(screen, x+bx, y+by, Borders.Horizontal, g.bordersColor)
+				if by >= 0 && by < screenHeight {
+					PrintJoinedSemigraphics(screen, bx, by, Borders.Horizontal, g.bordersColor)
 				}
 				by = item.y + item.h
-				if by >= 0 && by < height {
-					PrintJoinedSemigraphics(screen, x+bx, y+by, Borders.Horizontal, g.bordersColor)
+				if by >= 0 && by < screenHeight {
+					PrintJoinedSemigraphics(screen, bx, by, Borders.Horizontal, g.bordersColor)
 				}
 			}
 			for by := item.y; by < item.y+item.h; by++ { // Left/right lines.
-				if by < 0 || by >= height {
+				if by < 0 || by >= screenHeight {
 					continue
 				}
 				bx := item.x - 1
-				if bx >= 0 && bx < width {
-					PrintJoinedSemigraphics(screen, x+bx, y+by, Borders.Vertical, g.bordersColor)
+				if bx >= 0 && bx < screenWidth {
+					PrintJoinedSemigraphics(screen, bx, by, Borders.Vertical, g.bordersColor)
 				}
 				bx = item.x + item.w
-				if bx >= 0 && bx < width {
-					PrintJoinedSemigraphics(screen, x+bx, y+by, Borders.Vertical, g.bordersColor)
+				if bx >= 0 && bx < screenWidth {
+					PrintJoinedSemigraphics(screen, bx, by, Borders.Vertical, g.bordersColor)
 				}
 			}
 			bx, by := item.x-1, item.y-1 // Top-left corner.
-			if bx >= 0 && bx < width && by >= 0 && by < height {
-				PrintJoinedSemigraphics(screen, x+bx, y+by, Borders.TopLeft, g.bordersColor)
+			if bx >= 0 && bx < screenWidth && by >= 0 && by < screenHeight {
+				PrintJoinedSemigraphics(screen, bx, by, Borders.TopLeft, g.bordersColor)
 			}
 			bx, by = item.x+item.w, item.y-1 // Top-right corner.
-			if bx >= 0 && bx < width && by >= 0 && by < height {
-				PrintJoinedSemigraphics(screen, x+bx, y+by, Borders.TopRight, g.bordersColor)
+			if bx >= 0 && bx < screenWidth && by >= 0 && by < screenHeight {
+				PrintJoinedSemigraphics(screen, bx, by, Borders.TopRight, g.bordersColor)
 			}
 			bx, by = item.x-1, item.y+item.h // Bottom-left corner.
-			if bx >= 0 && bx < width && by >= 0 && by < height {
-				PrintJoinedSemigraphics(screen, x+bx, y+by, Borders.BottomLeft, g.bordersColor)
+			if bx >= 0 && bx < screenWidth && by >= 0 && by < screenHeight {
+				PrintJoinedSemigraphics(screen, bx, by, Borders.BottomLeft, g.bordersColor)
 			}
 			bx, by = item.x+item.w, item.y+item.h // Bottom-right corner.
-			if bx >= 0 && bx < width && by >= 0 && by < height {
-				PrintJoinedSemigraphics(screen, x+bx, y+by, Borders.BottomRight, g.bordersColor)
+			if bx >= 0 && bx < screenWidth && by >= 0 && by < screenHeight {
+				PrintJoinedSemigraphics(screen, bx, by, Borders.BottomRight, g.bordersColor)
 			}
 		}
 	}

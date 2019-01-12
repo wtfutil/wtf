@@ -48,16 +48,17 @@ func (c CommitStats) String() string {
 
 // CommitFile represents a file modified in a commit.
 type CommitFile struct {
-	SHA         *string `json:"sha,omitempty"`
-	Filename    *string `json:"filename,omitempty"`
-	Additions   *int    `json:"additions,omitempty"`
-	Deletions   *int    `json:"deletions,omitempty"`
-	Changes     *int    `json:"changes,omitempty"`
-	Status      *string `json:"status,omitempty"`
-	Patch       *string `json:"patch,omitempty"`
-	BlobURL     *string `json:"blob_url,omitempty"`
-	RawURL      *string `json:"raw_url,omitempty"`
-	ContentsURL *string `json:"contents_url,omitempty"`
+	SHA              *string `json:"sha,omitempty"`
+	Filename         *string `json:"filename,omitempty"`
+	Additions        *int    `json:"additions,omitempty"`
+	Deletions        *int    `json:"deletions,omitempty"`
+	Changes          *int    `json:"changes,omitempty"`
+	Status           *string `json:"status,omitempty"`
+	Patch            *string `json:"patch,omitempty"`
+	BlobURL          *string `json:"blob_url,omitempty"`
+	RawURL           *string `json:"raw_url,omitempty"`
+	ContentsURL      *string `json:"contents_url,omitempty"`
+	PreviousFilename *string `json:"previous_filename,omitempty"`
 }
 
 func (c CommitFile) String() string {
@@ -127,9 +128,6 @@ func (s *RepositoriesService) ListCommits(ctx context.Context, owner, repo strin
 		return nil, nil, err
 	}
 
-	// TODO: remove custom Accept header when this API fully launches.
-	req.Header.Set("Accept", mediaTypeGitSigningPreview)
-
 	var commits []*RepositoryCommit
 	resp, err := s.client.Do(ctx, req, &commits)
 	if err != nil {
@@ -150,9 +148,6 @@ func (s *RepositoriesService) GetCommit(ctx context.Context, owner, repo, sha st
 	if err != nil {
 		return nil, nil, err
 	}
-
-	// TODO: remove custom Accept header when this API fully launches.
-	req.Header.Set("Accept", mediaTypeGitSigningPreview)
 
 	commit := new(RepositoryCommit)
 	resp, err := s.client.Do(ctx, req, commit)

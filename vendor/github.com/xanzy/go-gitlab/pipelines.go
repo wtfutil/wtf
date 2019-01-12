@@ -45,8 +45,8 @@ type Pipeline struct {
 	ID         int    `json:"id"`
 	Status     string `json:"status"`
 	Ref        string `json:"ref"`
-	Sha        string `json:"sha"`
-	BeforeSha  string `json:"before_sha"`
+	SHA        string `json:"sha"`
+	BeforeSHA  string `json:"before_sha"`
 	Tag        bool   `json:"tag"`
 	YamlErrors string `json:"yaml_errors"`
 	User       struct {
@@ -77,7 +77,7 @@ type PipelineList []struct {
 	ID     int    `json:"id"`
 	Status string `json:"status"`
 	Ref    string `json:"ref"`
-	Sha    string `json:"sha"`
+	SHA    string `json:"sha"`
 }
 
 func (i PipelineList) String() string {

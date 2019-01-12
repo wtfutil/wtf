@@ -47,7 +47,7 @@ type PipelineSchedule struct {
 	Owner        *User      `json:"owner"`
 	LastPipeline struct {
 		ID     int    `json:"id"`
-		Sha    string `json:"sha"`
+		SHA    string `json:"sha"`
 		Ref    string `json:"ref"`
 		Status string `json:"status"`
 	} `json:"last_pipeline"`

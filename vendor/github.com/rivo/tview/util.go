@@ -51,6 +51,9 @@ var (
 
 // Package initialization.
 func init() {
+	// We'll use zero width joiners.
+	runewidth.ZeroWidthJoiner = true
+
 	// Initialize the predefined input field handlers.
 	InputFieldInteger = func(text string, ch rune) bool {
 		if text == "-" {
@@ -513,7 +516,7 @@ func iterateString(text string, callback func(main rune, comb []rune, textPos, t
 	}
 
 	for index, r := range text {
-		if unicode.In(r, unicode.Lm, unicode.M) || r == '\u200d' {
+		if unicode.In(r, unicode.M) || r == '\u200d' {
 			lastZeroWidthJoiner = r == '\u200d'
 		} else {
 			// We have a rune that's not a modifier. It could be the beginning of a

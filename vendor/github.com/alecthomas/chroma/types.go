@@ -12,7 +12,7 @@ import (
 // It is also an Emitter, emitting a single token of itself
 type TokenType int
 
-func (t *TokenType) MarshalJSON() ([]byte, error) { return json.Marshal(t.String()) }
+func (t TokenType) MarshalJSON() ([]byte, error) { return json.Marshal(t.String()) }
 func (t *TokenType) UnmarshalJSON(data []byte) error {
 	key := ""
 	err := json.Unmarshal(data, &key)
@@ -54,6 +54,8 @@ const (
 	Other
 	// No highlighting.
 	None
+	// Used as an EOF marker / nil token
+	EOFType TokenType = 0
 )
 
 // Keywords.
@@ -341,5 +343,5 @@ func (t TokenType) InSubCategory(other TokenType) bool {
 }
 
 func (t TokenType) Emit(groups []string, lexer Lexer) Iterator {
-	return Literator(&Token{Type: t, Value: groups[0]})
+	return Literator(Token{Type: t, Value: groups[0]})
 }

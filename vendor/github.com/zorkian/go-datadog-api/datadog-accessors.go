@@ -4,7 +4,7 @@
  *
  * Please see the included LICENSE file for licensing information.
  *
- * Copyright 2018 by authors and contributors.
+ * Copyright 2019 by authors and contributors.
 */
 
 package datadog
@@ -2897,7 +2897,7 @@ func (g *GraphDefinition) SetNodeType(v string) {
 }
 
 // GetPrecision returns the Precision field if non-nil, zero value otherwise.
-func (g *GraphDefinition) GetPrecision() json.Number {
+func (g *GraphDefinition) GetPrecision() PrecisionT {
 	if g == nil || g.Precision == nil {
 		return ""
 	}
@@ -2906,7 +2906,7 @@ func (g *GraphDefinition) GetPrecision() json.Number {
 
 // GetPrecisionOk returns a tuple with the Precision field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
-func (g *GraphDefinition) GetPrecisionOk() (json.Number, bool) {
+func (g *GraphDefinition) GetPrecisionOk() (PrecisionT, bool) {
 	if g == nil || g.Precision == nil {
 		return "", false
 	}
@@ -2923,7 +2923,7 @@ func (g *GraphDefinition) HasPrecision() bool {
 }
 
 // SetPrecision allocates a new g.Precision and returns the pointer to it.
-func (g *GraphDefinition) SetPrecision(v json.Number) {
+func (g *GraphDefinition) SetPrecision(v PrecisionT) {
 	g.Precision = &v
 }
 
@@ -5469,6 +5469,37 @@ func (m *Monitor) SetType(v string) {
 	m.Type = &v
 }
 
+// GetEnableLogsSample returns the EnableLogsSample field if non-nil, zero value otherwise.
+func (o *Options) GetEnableLogsSample() bool {
+	if o == nil || o.EnableLogsSample == nil {
+		return false
+	}
+	return *o.EnableLogsSample
+}
+
+// GetEnableLogsSampleOk returns a tuple with the EnableLogsSample field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (o *Options) GetEnableLogsSampleOk() (bool, bool) {
+	if o == nil || o.EnableLogsSample == nil {
+		return false, false
+	}
+	return *o.EnableLogsSample, true
+}
+
+// HasEnableLogsSample returns a boolean if a field has been set.
+func (o *Options) HasEnableLogsSample() bool {
+	if o != nil && o.EnableLogsSample != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetEnableLogsSample allocates a new o.EnableLogsSample and returns the pointer to it.
+func (o *Options) SetEnableLogsSample(v bool) {
+	o.EnableLogsSample = &v
+}
+
 // GetEscalationMessage returns the EscalationMessage field if non-nil, zero value otherwise.
 func (o *Options) GetEscalationMessage() string {
 	if o == nil || o.EscalationMessage == nil {
@@ -5777,6 +5808,37 @@ func (o *Options) HasThresholds() bool {
 // SetThresholds allocates a new o.Thresholds and returns the pointer to it.
 func (o *Options) SetThresholds(v ThresholdCount) {
 	o.Thresholds = &v
+}
+
+// GetThresholdWindows returns the ThresholdWindows field if non-nil, zero value otherwise.
+func (o *Options) GetThresholdWindows() ThresholdWindows {
+	if o == nil || o.ThresholdWindows == nil {
+		return ThresholdWindows{}
+	}
+	return *o.ThresholdWindows
+}
+
+// GetThresholdWindowsOk returns a tuple with the ThresholdWindows field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (o *Options) GetThresholdWindowsOk() (ThresholdWindows, bool) {
+	if o == nil || o.ThresholdWindows == nil {
+		return ThresholdWindows{}, false
+	}
+	return *o.ThresholdWindows, true
+}
+
+// HasThresholdWindows returns a boolean if a field has been set.
+func (o *Options) HasThresholdWindows() bool {
+	if o != nil && o.ThresholdWindows != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetThresholdWindows allocates a new o.ThresholdWindows and returns the pointer to it.
+func (o *Options) SetThresholdWindows(v ThresholdWindows) {
+	o.ThresholdWindows = &v
 }
 
 // GetTimeoutH returns the TimeoutH field if non-nil, zero value otherwise.
@@ -6338,18 +6400,18 @@ func (r *Rule) SetTimeframe(v string) {
 }
 
 // GetHeight returns the Height field if non-nil, zero value otherwise.
-func (s *Screenboard) GetHeight() string {
+func (s *Screenboard) GetHeight() int {
 	if s == nil || s.Height == nil {
-		return ""
+		return 0
 	}
 	return *s.Height
 }
 
 // GetHeightOk returns a tuple with the Height field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
-func (s *Screenboard) GetHeightOk() (string, bool) {
+func (s *Screenboard) GetHeightOk() (int, bool) {
 	if s == nil || s.Height == nil {
-		return "", false
+		return 0, false
 	}
 	return *s.Height, true
 }
@@ -6364,7 +6426,7 @@ func (s *Screenboard) HasHeight() bool {
 }
 
 // SetHeight allocates a new s.Height and returns the pointer to it.
-func (s *Screenboard) SetHeight(v string) {
+func (s *Screenboard) SetHeight(v int) {
 	s.Height = &v
 }
 
@@ -6493,18 +6555,18 @@ func (s *Screenboard) SetTitle(v string) {
 }
 
 // GetWidth returns the Width field if non-nil, zero value otherwise.
-func (s *Screenboard) GetWidth() string {
+func (s *Screenboard) GetWidth() int {
 	if s == nil || s.Width == nil {
-		return ""
+		return 0
 	}
 	return *s.Width
 }
 
 // GetWidthOk returns a tuple with the Width field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
-func (s *Screenboard) GetWidthOk() (string, bool) {
+func (s *Screenboard) GetWidthOk() (int, bool) {
 	if s == nil || s.Width == nil {
-		return "", false
+		return 0, false
 	}
 	return *s.Width, true
 }
@@ -6519,7 +6581,7 @@ func (s *Screenboard) HasWidth() bool {
 }
 
 // SetWidth allocates a new s.Width and returns the pointer to it.
-func (s *Screenboard) SetWidth(v string) {
+func (s *Screenboard) SetWidth(v int) {
 	s.Width = &v
 }
 
@@ -7546,6 +7608,68 @@ func (t *ThresholdCount) SetWarningRecovery(v json.Number) {
 	t.WarningRecovery = &v
 }
 
+// GetRecoveryWindow returns the RecoveryWindow field if non-nil, zero value otherwise.
+func (t *ThresholdWindows) GetRecoveryWindow() string {
+	if t == nil || t.RecoveryWindow == nil {
+		return ""
+	}
+	return *t.RecoveryWindow
+}
+
+// GetRecoveryWindowOk returns a tuple with the RecoveryWindow field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (t *ThresholdWindows) GetRecoveryWindowOk() (string, bool) {
+	if t == nil || t.RecoveryWindow == nil {
+		return "", false
+	}
+	return *t.RecoveryWindow, true
+}
+
+// HasRecoveryWindow returns a boolean if a field has been set.
+func (t *ThresholdWindows) HasRecoveryWindow() bool {
+	if t != nil && t.RecoveryWindow != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRecoveryWindow allocates a new t.RecoveryWindow and returns the pointer to it.
+func (t *ThresholdWindows) SetRecoveryWindow(v string) {
+	t.RecoveryWindow = &v
+}
+
+// GetTriggerWindow returns the TriggerWindow field if non-nil, zero value otherwise.
+func (t *ThresholdWindows) GetTriggerWindow() string {
+	if t == nil || t.TriggerWindow == nil {
+		return ""
+	}
+	return *t.TriggerWindow
+}
+
+// GetTriggerWindowOk returns a tuple with the TriggerWindow field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (t *ThresholdWindows) GetTriggerWindowOk() (string, bool) {
+	if t == nil || t.TriggerWindow == nil {
+		return "", false
+	}
+	return *t.TriggerWindow, true
+}
+
+// HasTriggerWindow returns a boolean if a field has been set.
+func (t *ThresholdWindows) HasTriggerWindow() bool {
+	if t != nil && t.TriggerWindow != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTriggerWindow allocates a new t.TriggerWindow and returns the pointer to it.
+func (t *ThresholdWindows) SetTriggerWindow(v string) {
+	t.TriggerWindow = &v
+}
+
 // GetAutoscale returns the Autoscale field if non-nil, zero value otherwise.
 func (t *TileDef) GetAutoscale() bool {
 	if t == nil || t.Autoscale == nil {
@@ -7702,7 +7826,7 @@ func (t *TileDef) SetNoMetricHosts(v bool) {
 }
 
 // GetPrecision returns the Precision field if non-nil, zero value otherwise.
-func (t *TileDef) GetPrecision() json.Number {
+func (t *TileDef) GetPrecision() PrecisionT {
 	if t == nil || t.Precision == nil {
 		return ""
 	}
@@ -7711,7 +7835,7 @@ func (t *TileDef) GetPrecision() json.Number {
 
 // GetPrecisionOk returns a tuple with the Precision field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
-func (t *TileDef) GetPrecisionOk() (json.Number, bool) {
+func (t *TileDef) GetPrecisionOk() (PrecisionT, bool) {
 	if t == nil || t.Precision == nil {
 		return "", false
 	}
@@ -7728,7 +7852,7 @@ func (t *TileDef) HasPrecision() bool {
 }
 
 // SetPrecision allocates a new t.Precision and returns the pointer to it.
-func (t *TileDef) SetPrecision(v json.Number) {
+func (t *TileDef) SetPrecision(v PrecisionT) {
 	t.Precision = &v
 }
 
@@ -8477,7 +8601,7 @@ func (t *TileDefRequestStyle) SetWidth(v string) {
 }
 
 // GetFillMax returns the FillMax field if non-nil, zero value otherwise.
-func (t *TileDefStyle) GetFillMax() string {
+func (t *TileDefStyle) GetFillMax() json.Number {
 	if t == nil || t.FillMax == nil {
 		return ""
 	}
@@ -8486,7 +8610,7 @@ func (t *TileDefStyle) GetFillMax() string {
 
 // GetFillMaxOk returns a tuple with the FillMax field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
-func (t *TileDefStyle) GetFillMaxOk() (string, bool) {
+func (t *TileDefStyle) GetFillMaxOk() (json.Number, bool) {
 	if t == nil || t.FillMax == nil {
 		return "", false
 	}
@@ -8503,12 +8627,12 @@ func (t *TileDefStyle) HasFillMax() bool {
 }
 
 // SetFillMax allocates a new t.FillMax and returns the pointer to it.
-func (t *TileDefStyle) SetFillMax(v string) {
+func (t *TileDefStyle) SetFillMax(v json.Number) {
 	t.FillMax = &v
 }
 
 // GetFillMin returns the FillMin field if non-nil, zero value otherwise.
-func (t *TileDefStyle) GetFillMin() string {
+func (t *TileDefStyle) GetFillMin() json.Number {
 	if t == nil || t.FillMin == nil {
 		return ""
 	}
@@ -8517,7 +8641,7 @@ func (t *TileDefStyle) GetFillMin() string {
 
 // GetFillMinOk returns a tuple with the FillMin field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
-func (t *TileDefStyle) GetFillMinOk() (string, bool) {
+func (t *TileDefStyle) GetFillMinOk() (json.Number, bool) {
 	if t == nil || t.FillMin == nil {
 		return "", false
 	}
@@ -8534,7 +8658,7 @@ func (t *TileDefStyle) HasFillMin() bool {
 }
 
 // SetFillMin allocates a new t.FillMin and returns the pointer to it.
-func (t *TileDefStyle) SetFillMin(v string) {
+func (t *TileDefStyle) SetFillMin(v json.Number) {
 	t.FillMin = &v
 }
 
@@ -9996,7 +10120,7 @@ func (w *Widget) SetParams(v Params) {
 }
 
 // GetPrecision returns the Precision field if non-nil, zero value otherwise.
-func (w *Widget) GetPrecision() string {
+func (w *Widget) GetPrecision() PrecisionT {
 	if w == nil || w.Precision == nil {
 		return ""
 	}
@@ -10005,7 +10129,7 @@ func (w *Widget) GetPrecision() string {
 
 // GetPrecisionOk returns a tuple with the Precision field if it's non-nil, zero value otherwise
 // and a boolean to check if the value has been set.
-func (w *Widget) GetPrecisionOk() (string, bool) {
+func (w *Widget) GetPrecisionOk() (PrecisionT, bool) {
 	if w == nil || w.Precision == nil {
 		return "", false
 	}
@@ -10022,7 +10146,7 @@ func (w *Widget) HasPrecision() bool {
 }
 
 // SetPrecision allocates a new w.Precision and returns the pointer to it.
-func (w *Widget) SetPrecision(v string) {
+func (w *Widget) SetPrecision(v PrecisionT) {
 	w.Precision = &v
 }
 
@@ -10768,6 +10892,68 @@ func (w *Widget) HasY() bool {
 // SetY allocates a new w.Y and returns the pointer to it.
 func (w *Widget) SetY(v int) {
 	w.Y = &v
+}
+
+// GetIncludeUnits returns the IncludeUnits field if non-nil, zero value otherwise.
+func (y *Yaxis) GetIncludeUnits() bool {
+	if y == nil || y.IncludeUnits == nil {
+		return false
+	}
+	return *y.IncludeUnits
+}
+
+// GetIncludeUnitsOk returns a tuple with the IncludeUnits field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (y *Yaxis) GetIncludeUnitsOk() (bool, bool) {
+	if y == nil || y.IncludeUnits == nil {
+		return false, false
+	}
+	return *y.IncludeUnits, true
+}
+
+// HasIncludeUnits returns a boolean if a field has been set.
+func (y *Yaxis) HasIncludeUnits() bool {
+	if y != nil && y.IncludeUnits != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetIncludeUnits allocates a new y.IncludeUnits and returns the pointer to it.
+func (y *Yaxis) SetIncludeUnits(v bool) {
+	y.IncludeUnits = &v
+}
+
+// GetIncludeZero returns the IncludeZero field if non-nil, zero value otherwise.
+func (y *Yaxis) GetIncludeZero() bool {
+	if y == nil || y.IncludeZero == nil {
+		return false
+	}
+	return *y.IncludeZero
+}
+
+// GetIncludeZeroOk returns a tuple with the IncludeZero field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (y *Yaxis) GetIncludeZeroOk() (bool, bool) {
+	if y == nil || y.IncludeZero == nil {
+		return false, false
+	}
+	return *y.IncludeZero, true
+}
+
+// HasIncludeZero returns a boolean if a field has been set.
+func (y *Yaxis) HasIncludeZero() bool {
+	if y != nil && y.IncludeZero != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetIncludeZero allocates a new y.IncludeZero and returns the pointer to it.
+func (y *Yaxis) SetIncludeZero(v bool) {
+	y.IncludeZero = &v
 }
 
 // GetMax returns the Max field if non-nil, zero value otherwise.

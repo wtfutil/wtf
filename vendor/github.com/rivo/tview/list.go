@@ -44,6 +44,9 @@ type List struct {
 	// The background color for selected items.
 	selectedBackgroundColor tcell.Color
 
+	// If true, the selection is only shown when the list has focus.
+	selectedFocusOnly bool
+
 	// An optional function which is called when the user has navigated to a list
 	// item.
 	changed func(index int, mainText, secondaryText string, shortcut rune)
@@ -125,6 +128,14 @@ func (l *List) SetSelectedTextColor(color tcell.Color) *List {
 // SetSelectedBackgroundColor sets the background color of selected items.
 func (l *List) SetSelectedBackgroundColor(color tcell.Color) *List {
 	l.selectedBackgroundColor = color
+	return l
+}
+
+// SetSelectedFocusOnly sets a flag which determines when the currently selected
+// list item is highlighted. If set to true, selected items are only highlighted
+// when the list has focus. If set to false, they are always highlighted.
+func (l *List) SetSelectedFocusOnly(focusOnly bool) *List {
+	l.selectedFocusOnly = focusOnly
 	return l
 }
 
@@ -263,7 +274,7 @@ func (l *List) Draw(screen tcell.Screen) {
 		Print(screen, item.MainText, x, y, width, AlignLeft, l.mainTextColor)
 
 		// Background color of selected text.
-		if index == l.currentItem {
+		if index == l.currentItem && (!l.selectedFocusOnly || l.HasFocus()) {
 			textWidth := StringWidth(item.MainText)
 			for bx := 0; bx < textWidth && bx < width; bx++ {
 				m, c, style, _ := screen.GetContent(x+bx, y)

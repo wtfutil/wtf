@@ -12,7 +12,7 @@ import (
 var JSON = Register("json", chroma.FormatterFunc(func(w io.Writer, s *chroma.Style, it chroma.Iterator) error {
 	fmt.Fprintln(w, "[")
 	i := 0
-	for t := it(); t != nil; t = it() {
+	for t := it(); t != chroma.EOF; t = it() {
 		if i > 0 {
 			fmt.Fprintln(w, ",")
 		}

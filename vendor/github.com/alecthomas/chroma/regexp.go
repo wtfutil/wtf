@@ -140,13 +140,13 @@ func Words(prefix, suffix string, words ...string) string {
 }
 
 // Tokenise text using lexer, returning tokens as a slice.
-func Tokenise(lexer Lexer, options *TokeniseOptions, text string) ([]*Token, error) {
-	out := []*Token{}
+func Tokenise(lexer Lexer, options *TokeniseOptions, text string) ([]Token, error) {
+	var out []Token
 	it, err := lexer.Tokenise(options, text)
 	if err != nil {
 		return nil, err
 	}
-	for t := it(); t != nil; t = it() {
+	for t := it(); t != EOF; t = it() {
 		out = append(out, t)
 	}
 	return out, nil
@@ -246,13 +246,13 @@ func (l *LexerState) Get(key interface{}) interface{} {
 	return l.MutatorContext[key]
 }
 
-func (l *LexerState) Iterator() *Token {
+func (l *LexerState) Iterator() Token {
 	for l.Pos < len(l.Text) && len(l.Stack) > 0 {
 		// Exhaust the iterator stack, if any.
 		for len(l.iteratorStack) > 0 {
 			n := len(l.iteratorStack) - 1
 			t := l.iteratorStack[n]()
-			if t == nil {
+			if t == EOF {
 				l.iteratorStack = l.iteratorStack[:n]
 				continue
 			}
@@ -271,7 +271,7 @@ func (l *LexerState) Iterator() *Token {
 		// No match.
 		if groups == nil {
 			l.Pos++
-			return &Token{Error, string(l.Text[l.Pos-1 : l.Pos])}
+			return Token{Error, string(l.Text[l.Pos-1 : l.Pos])}
 		}
 		l.Rule = ruleIndex
 		l.Groups = groups
@@ -290,7 +290,7 @@ func (l *LexerState) Iterator() *Token {
 	for len(l.iteratorStack) > 0 {
 		n := len(l.iteratorStack) - 1
 		t := l.iteratorStack[n]()
-		if t == nil {
+		if t == EOF {
 			l.iteratorStack = l.iteratorStack[:n]
 			continue
 		}
@@ -301,9 +301,9 @@ func (l *LexerState) Iterator() *Token {
 	if l.Pos != len(l.Text) && len(l.Stack) == 0 {
 		value := string(l.Text[l.Pos:])
 		l.Pos = len(l.Text)
-		return &Token{Type: Error, Value: value}
+		return Token{Type: Error, Value: value}
 	}
-	return nil
+	return EOF
 }
 
 type RegexLexer struct {

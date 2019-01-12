@@ -111,6 +111,13 @@ type MergeRequest struct {
 		SHA    string `json:"sha"`
 		Status string `json:"status"`
 	} `json:"pipeline"`
+	DiffRefs struct {
+		BaseSha  string `json:"base_sha"`
+		HeadSha  string `json:"head_sha"`
+		StartSha string `json:"start_sha"`
+	} `json:"diff_refs"`
+	DivergedCommitsCount int  `json:"diverged_commits_count"`
+	RebaseInProgress     bool `json:"rebase_in_progress"`
 }
 
 func (m MergeRequest) String() string {
@@ -289,18 +296,29 @@ func (s *MergeRequestsService) ListProjectMergeRequests(pid interface{}, opt *Li
 	return m, resp, err
 }
 
+// GetMergeRequestsOptions represents the available GetMergeRequests()
+// options.
+//
+// GitLab API docs:
+// https://docs.gitlab.com/ce/api/merge_requests.html#get-single-mr
+type GetMergeRequestsOptions struct {
+	RenderHTML                  *bool `url:"render_html,omitempty" json:"render_html,omitempty"`
+	IncludeDivergedCommitsCount *bool `url:"include_diverged_commits_count,omitempty" json:"include_diverged_commits_count,omitempty"`
+	IncludeRebaseInProgress     *bool `url:"include_rebase_in_progress,omitempty" json:"include_rebase_in_progress,omitempty"`
+}
+
 // GetMergeRequest shows information about a single merge request.
 //
 // GitLab API docs:
 // https://docs.gitlab.com/ce/api/merge_requests.html#get-single-mr
-func (s *MergeRequestsService) GetMergeRequest(pid interface{}, mergeRequest int, options ...OptionFunc) (*MergeRequest, *Response, error) {
+func (s *MergeRequestsService) GetMergeRequest(pid interface{}, mergeRequest int, opt *GetMergeRequestsOptions, options ...OptionFunc) (*MergeRequest, *Response, error) {
 	project, err := parseID(pid)
 	if err != nil {
 		return nil, nil, err
 	}
 	u := fmt.Sprintf("projects/%s/merge_requests/%d", url.QueryEscape(project), mergeRequest)
 
-	req, err := s.client.NewRequest("GET", u, nil, options)
+	req, err := s.client.NewRequest("GET", u, opt, options)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -571,7 +589,7 @@ type AcceptMergeRequestOptions struct {
 	MergeCommitMessage        *string `url:"merge_commit_message,omitempty" json:"merge_commit_message,omitempty"`
 	ShouldRemoveSourceBranch  *bool   `url:"should_remove_source_branch,omitempty" json:"should_remove_source_branch,omitempty"`
 	MergeWhenPipelineSucceeds *bool   `url:"merge_when_pipeline_succeeds,omitempty" json:"merge_when_pipeline_succeeds,omitempty"`
-	Sha                       *string `url:"sha,omitempty" json:"sha,omitempty"`
+	SHA                       *string `url:"sha,omitempty" json:"sha,omitempty"`
 }
 
 // AcceptMergeRequest merges changes submitted with MR using this API. If merge
@@ -629,6 +647,27 @@ func (s *MergeRequestsService) CancelMergeWhenPipelineSucceeds(pid interface{}, 
 	}
 
 	return m, resp, err
+}
+
+// RebaseMergeRequest automatically rebases the source_branch of the merge
+// request against its target_branch. If you don’t have permissions to push
+// to the merge request’s source branch, you’ll get a 403 Forbidden response.
+//
+// GitLab API docs:
+// https://docs.gitlab.com/ce/api/merge_requests.html#rebase-a-merge-request
+func (s *MergeRequestsService) RebaseMergeRequest(pid interface{}, mergeRequest int, options ...OptionFunc) (*Response, error) {
+	project, err := parseID(pid)
+	if err != nil {
+		return nil, err
+	}
+	u := fmt.Sprintf("projects/%s/merge_requests/%d/rebase", url.QueryEscape(project), mergeRequest)
+
+	req, err := s.client.NewRequest("PUT", u, nil, options)
+	if err != nil {
+		return nil, err
+	}
+
+	return s.client.Do(req, nil)
 }
 
 // GetMergeRequestDiffVersionsOptions represents the available

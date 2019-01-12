@@ -61,7 +61,7 @@ var Restructuredtext = internal.Register(MustNewLexer(
 
 func rstCodeBlock(groups []string, lexer Lexer) Iterator {
 	iterators := []Iterator{}
-	tokens := []*Token{
+	tokens := []Token{
 		{Punctuation, groups[1]},
 		{Text, groups[2]},
 		{OperatorWord, groups[3]},
@@ -73,7 +73,7 @@ func rstCodeBlock(groups []string, lexer Lexer) Iterator {
 	code := strings.Join(groups[8:], "")
 	lexer = internal.Get(groups[6])
 	if lexer == nil {
-		tokens = append(tokens, &Token{String, code})
+		tokens = append(tokens, Token{String, code})
 		iterators = append(iterators, Literator(tokens...))
 	} else {
 		sub, err := lexer.Tokenise(nil, code)

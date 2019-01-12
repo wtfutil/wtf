@@ -1360,6 +1360,13 @@ func Mount(source string, target string, fstype string, flags uintptr, data stri
 	return mount(source, target, fstype, flags, datap)
 }
 
+func Sendfile(outfd int, infd int, offset *int64, count int) (written int, err error) {
+	if raceenabled {
+		raceReleaseMerge(unsafe.Pointer(&ioSync))
+	}
+	return sendfile(outfd, infd, offset, count)
+}
+
 // Sendto
 // Recvfrom
 // Socketpair
@@ -1503,15 +1510,12 @@ func Munmap(b []byte) (err error) {
 // Vmsplice splices user pages from a slice of Iovecs into a pipe specified by fd,
 // using the specified flags.
 func Vmsplice(fd int, iovs []Iovec, flags int) (int, error) {
-	n, _, errno := Syscall6(
-		SYS_VMSPLICE,
-		uintptr(fd),
-		uintptr(unsafe.Pointer(&iovs[0])),
-		uintptr(len(iovs)),
-		uintptr(flags),
-		0,
-		0,
-	)
+	var p unsafe.Pointer
+	if len(iovs) > 0 {
+		p = unsafe.Pointer(&iovs[0])
+	}
+
+	n, _, errno := Syscall6(SYS_VMSPLICE, uintptr(fd), uintptr(p), uintptr(len(iovs)), uintptr(flags), 0, 0)
 	if errno != 0 {
 		return 0, syscall.Errno(errno)
 	}

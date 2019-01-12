@@ -11,7 +11,7 @@ import (
 var TTY16m = Register("terminal16m", chroma.FormatterFunc(trueColourFormatter))
 
 func trueColourFormatter(w io.Writer, style *chroma.Style, it chroma.Iterator) error {
-	for token := it(); token != nil; token = it() {
+	for token := it(); token != chroma.EOF; token = it() {
 		entry := style.Get(token.Type)
 		if !entry.IsZero() {
 			out := ""

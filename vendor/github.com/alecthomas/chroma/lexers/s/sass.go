@@ -15,13 +15,13 @@ var Sass = internal.Register(MustNewLexer(
 		CaseInsensitive: true,
 	},
 	Rules{
+		// "root": {
+		// },
 		"root": {
 			{`[ \t]*\n`, Text, nil},
-			// { `[ \t]*`, ?? <function _indentation at 0x10fcaf1e0> ??, nil },
-		},
-		"content": {
-			// { `//[^\n]*`, ?? <function _starts_block.<locals>.callback at 0x10fcaf378> ??, Push("root") },
-			// { `/\*[^\n]*`, ?? <function _starts_block.<locals>.callback at 0x10fcaf400> ??, Push("root") },
+			// { `[ \t]*`, ?? <function _indentation at 0x106932e18> ??, nil },
+			// { `//[^\n]*`, ?? <function _starts_block.<locals>.callback at 0x106936048> ??, Push("root") },
+			// { `/\*[^\n]*`, ?? <function _starts_block.<locals>.callback at 0x1069360d0> ??, Push("root") },
 			{`@import`, Keyword, Push("import")},
 			{`@for`, Keyword, Push("for")},
 			{`@(debug|warn|if|while)`, Keyword, Push("value")},
@@ -112,9 +112,9 @@ var Sass = internal.Register(MustNewLexer(
 			{`"`, LiteralStringDouble, Pop(1)},
 		},
 		"string-single": {
-			{`(\\.|#(?=[^\n{])|[^\n'#])+`, LiteralStringDouble, nil},
+			{`(\\.|#(?=[^\n{])|[^\n'#])+`, LiteralStringSingle, nil},
 			{`#\{`, LiteralStringInterpol, Push("interpolation")},
-			{`'`, LiteralStringDouble, Pop(1)},
+			{`'`, LiteralStringSingle, Pop(1)},
 		},
 		"string-url": {
 			{`(\\#|#(?=[^\n{])|[^\n#)])+`, LiteralStringOther, nil},

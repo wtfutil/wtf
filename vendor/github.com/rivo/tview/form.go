@@ -507,8 +507,10 @@ func (f *Form) Draw(screen tcell.Screen) {
 // Focus is called by the application when the primitive receives focus.
 func (f *Form) Focus(delegate func(p Primitive)) {
 	if len(f.items)+len(f.buttons) == 0 {
+		f.hasFocus = true
 		return
 	}
+	f.hasFocus = false
 
 	// Hand on the focus to one of our child elements.
 	if f.focusedElement < 0 || f.focusedElement >= len(f.items)+len(f.buttons) {
@@ -550,6 +552,9 @@ func (f *Form) Focus(delegate func(p Primitive)) {
 
 // HasFocus returns whether or not this primitive has focus.
 func (f *Form) HasFocus() bool {
+	if f.hasFocus {
+		return true
+	}
 	for _, item := range f.items {
 		if item.GetFocusable().HasFocus() {
 			return true

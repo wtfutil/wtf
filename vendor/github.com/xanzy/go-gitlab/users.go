@@ -769,3 +769,81 @@ func (s *UsersService) GetUserActivities(opt *GetUserActivitiesOptions, options 
 
 	return t, resp, err
 }
+
+// UserStatus represents the current status of a user
+//
+// GitLab API docs:
+// https://docs.gitlab.com/ce/api/users.html#user-status
+type UserStatus struct {
+	Emoji       string `json:"emoji"`
+	Message     string `json:"message"`
+	MessageHTML string `json:"message_html"`
+}
+
+// CurrentUserStatus retrieves the user status
+//
+// GitLab API docs:
+// https://docs.gitlab.com/ce/api/users.html#user-status
+func (s *UsersService) CurrentUserStatus(options ...OptionFunc) (*UserStatus, *Response, error) {
+	req, err := s.client.NewRequest("GET", "user/status", nil, options)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	status := new(UserStatus)
+	resp, err := s.client.Do(req, status)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return status, resp, err
+}
+
+// GetUserStatus retrieves a user's status
+//
+// GitLab API docs:
+// https://docs.gitlab.com/ce/api/users.html#get-the-status-of-a-user
+func (s *UsersService) GetUserStatus(user int, options ...OptionFunc) (*UserStatus, *Response, error) {
+	u := fmt.Sprintf("users/%d/status", user)
+
+	req, err := s.client.NewRequest("GET", u, nil, options)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	status := new(UserStatus)
+	resp, err := s.client.Do(req, status)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return status, resp, err
+}
+
+// UserStatusOptions represents the options required to set the status
+//
+// GitLab API docs:
+// https://docs.gitlab.com/ce/api/users.html#set-user-status
+type UserStatusOptions struct {
+	Emoji   *string `url:"emoji,omitempty" json:"emoji,omitempty"`
+	Message *string `url:"message,omitempty" json:"message,omitempty"`
+}
+
+// SetUserStatus sets the user's status
+//
+// GitLab API docs:
+// https://docs.gitlab.com/ce/api/users.html#set-user-status
+func (s *UsersService) SetUserStatus(opt *UserStatusOptions, options ...OptionFunc) (*UserStatus, *Response, error) {
+	req, err := s.client.NewRequest("PUT", "user/status", opt, options)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	status := new(UserStatus)
+	resp, err := s.client.Do(req, status)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return status, resp, err
+}

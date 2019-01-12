@@ -122,7 +122,7 @@ func Default(mutators ...Mutator) Rule {
 }
 
 // Stringify returns the raw string for a set of tokens.
-func Stringify(tokens ...*Token) string {
+func Stringify(tokens ...Token) string {
 	out := []string{}
 	for _, t := range tokens {
 		out = append(out, t.Value)

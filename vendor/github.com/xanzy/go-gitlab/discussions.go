@@ -154,7 +154,7 @@ type AddIssueDiscussionNoteOptions struct {
 //
 // GitLab API docs:
 // https://docs.gitlab.com/ce/api/discussions.html#add-note-to-existing-issue-discussion
-func (s *DiscussionsService) AddIssueDiscussionNote(pid interface{}, issue int, discussion string, opt *AddIssueDiscussionNoteOptions, options ...OptionFunc) (*Discussion, *Response, error) {
+func (s *DiscussionsService) AddIssueDiscussionNote(pid interface{}, issue int, discussion string, opt *AddIssueDiscussionNoteOptions, options ...OptionFunc) (*Note, *Response, error) {
 	project, err := parseID(pid)
 	if err != nil {
 		return nil, nil, err
@@ -170,13 +170,13 @@ func (s *DiscussionsService) AddIssueDiscussionNote(pid interface{}, issue int, 
 		return nil, nil, err
 	}
 
-	d := new(Discussion)
-	resp, err := s.client.Do(req, d)
+	n := new(Note)
+	resp, err := s.client.Do(req, n)
 	if err != nil {
 		return nil, resp, err
 	}
 
-	return d, resp, err
+	return n, resp, err
 }
 
 // UpdateIssueDiscussionNoteOptions represents the available
@@ -193,7 +193,7 @@ type UpdateIssueDiscussionNoteOptions struct {
 //
 // GitLab API docs:
 // https://docs.gitlab.com/ce/api/discussions.html#modify-existing-issue-discussion-note
-func (s *DiscussionsService) UpdateIssueDiscussionNote(pid interface{}, issue int, discussion string, note int, opt *UpdateIssueDiscussionNoteOptions, options ...OptionFunc) (*Discussion, *Response, error) {
+func (s *DiscussionsService) UpdateIssueDiscussionNote(pid interface{}, issue int, discussion string, note int, opt *UpdateIssueDiscussionNoteOptions, options ...OptionFunc) (*Note, *Response, error) {
 	project, err := parseID(pid)
 	if err != nil {
 		return nil, nil, err
@@ -210,13 +210,13 @@ func (s *DiscussionsService) UpdateIssueDiscussionNote(pid interface{}, issue in
 		return nil, nil, err
 	}
 
-	d := new(Discussion)
-	resp, err := s.client.Do(req, d)
+	n := new(Note)
+	resp, err := s.client.Do(req, n)
 	if err != nil {
 		return nil, resp, err
 	}
 
-	return d, resp, err
+	return n, resp, err
 }
 
 // DeleteIssueDiscussionNote deletes an existing discussion of an issue.
@@ -356,7 +356,7 @@ type AddSnippetDiscussionNoteOptions struct {
 //
 // GitLab API docs:
 // https://docs.gitlab.com/ce/api/discussions.html#add-note-to-existing-snippet-discussion
-func (s *DiscussionsService) AddSnippetDiscussionNote(pid interface{}, snippet int, discussion string, opt *AddSnippetDiscussionNoteOptions, options ...OptionFunc) (*Discussion, *Response, error) {
+func (s *DiscussionsService) AddSnippetDiscussionNote(pid interface{}, snippet int, discussion string, opt *AddSnippetDiscussionNoteOptions, options ...OptionFunc) (*Note, *Response, error) {
 	project, err := parseID(pid)
 	if err != nil {
 		return nil, nil, err
@@ -372,13 +372,13 @@ func (s *DiscussionsService) AddSnippetDiscussionNote(pid interface{}, snippet i
 		return nil, nil, err
 	}
 
-	d := new(Discussion)
-	resp, err := s.client.Do(req, d)
+	n := new(Note)
+	resp, err := s.client.Do(req, n)
 	if err != nil {
 		return nil, resp, err
 	}
 
-	return d, resp, err
+	return n, resp, err
 }
 
 // UpdateSnippetDiscussionNoteOptions represents the available
@@ -395,7 +395,7 @@ type UpdateSnippetDiscussionNoteOptions struct {
 //
 // GitLab API docs:
 // https://docs.gitlab.com/ce/api/discussions.html#modify-existing-snippet-discussion-note
-func (s *DiscussionsService) UpdateSnippetDiscussionNote(pid interface{}, snippet int, discussion string, note int, opt *UpdateSnippetDiscussionNoteOptions, options ...OptionFunc) (*Discussion, *Response, error) {
+func (s *DiscussionsService) UpdateSnippetDiscussionNote(pid interface{}, snippet int, discussion string, note int, opt *UpdateSnippetDiscussionNoteOptions, options ...OptionFunc) (*Note, *Response, error) {
 	project, err := parseID(pid)
 	if err != nil {
 		return nil, nil, err
@@ -412,13 +412,13 @@ func (s *DiscussionsService) UpdateSnippetDiscussionNote(pid interface{}, snippe
 		return nil, nil, err
 	}
 
-	d := new(Discussion)
-	resp, err := s.client.Do(req, d)
+	n := new(Note)
+	resp, err := s.client.Do(req, n)
 	if err != nil {
 		return nil, resp, err
 	}
 
-	return d, resp, err
+	return n, resp, err
 }
 
 // DeleteSnippetDiscussionNote deletes an existing discussion of a snippet.
@@ -563,7 +563,7 @@ type AddEpicDiscussionNoteOptions struct {
 //
 // GitLab API docs:
 // https://docs.gitlab.com/ee/api/discussions.html#add-note-to-existing-epic-discussion
-func (s *DiscussionsService) AddEpicDiscussionNote(gid interface{}, epic int, discussion string, opt *AddEpicDiscussionNoteOptions, options ...OptionFunc) (*Discussion, *Response, error) {
+func (s *DiscussionsService) AddEpicDiscussionNote(gid interface{}, epic int, discussion string, opt *AddEpicDiscussionNoteOptions, options ...OptionFunc) (*Note, *Response, error) {
 	group, err := parseID(gid)
 	if err != nil {
 		return nil, nil, err
@@ -579,13 +579,13 @@ func (s *DiscussionsService) AddEpicDiscussionNote(gid interface{}, epic int, di
 		return nil, nil, err
 	}
 
-	d := new(Discussion)
-	resp, err := s.client.Do(req, d)
+	n := new(Note)
+	resp, err := s.client.Do(req, n)
 	if err != nil {
 		return nil, resp, err
 	}
 
-	return d, resp, err
+	return n, resp, err
 }
 
 // UpdateEpicDiscussionNoteOptions represents the available UpdateEpicDiscussion()
@@ -602,7 +602,7 @@ type UpdateEpicDiscussionNoteOptions struct {
 //
 // GitLab API docs:
 // https://docs.gitlab.com/ee/api/discussions.html#modify-existing-epic-discussion-note
-func (s *DiscussionsService) UpdateEpicDiscussionNote(gid interface{}, epic int, discussion string, note int, opt *UpdateEpicDiscussionNoteOptions, options ...OptionFunc) (*Discussion, *Response, error) {
+func (s *DiscussionsService) UpdateEpicDiscussionNote(gid interface{}, epic int, discussion string, note int, opt *UpdateEpicDiscussionNoteOptions, options ...OptionFunc) (*Note, *Response, error) {
 	group, err := parseID(gid)
 	if err != nil {
 		return nil, nil, err
@@ -619,13 +619,13 @@ func (s *DiscussionsService) UpdateEpicDiscussionNote(gid interface{}, epic int,
 		return nil, nil, err
 	}
 
-	d := new(Discussion)
-	resp, err := s.client.Do(req, d)
+	n := new(Note)
+	resp, err := s.client.Do(req, n)
 	if err != nil {
 		return nil, resp, err
 	}
 
-	return d, resp, err
+	return n, resp, err
 }
 
 // DeleteEpicDiscussionNote deletes an existing discussion of a epic.
@@ -812,7 +812,7 @@ type AddMergeRequestDiscussionNoteOptions struct {
 //
 // GitLab API docs:
 // https://docs.gitlab.com/ce/api/discussions.html#add-note-to-existing-merge-request-discussion
-func (s *DiscussionsService) AddMergeRequestDiscussionNote(pid interface{}, mergeRequest int, discussion string, opt *AddMergeRequestDiscussionNoteOptions, options ...OptionFunc) (*Discussion, *Response, error) {
+func (s *DiscussionsService) AddMergeRequestDiscussionNote(pid interface{}, mergeRequest int, discussion string, opt *AddMergeRequestDiscussionNoteOptions, options ...OptionFunc) (*Note, *Response, error) {
 	project, err := parseID(pid)
 	if err != nil {
 		return nil, nil, err
@@ -828,13 +828,13 @@ func (s *DiscussionsService) AddMergeRequestDiscussionNote(pid interface{}, merg
 		return nil, nil, err
 	}
 
-	d := new(Discussion)
-	resp, err := s.client.Do(req, d)
+	n := new(Note)
+	resp, err := s.client.Do(req, n)
 	if err != nil {
 		return nil, resp, err
 	}
 
-	return d, resp, err
+	return n, resp, err
 }
 
 // UpdateMergeRequestDiscussionNoteOptions represents the available
@@ -845,6 +845,7 @@ func (s *DiscussionsService) AddMergeRequestDiscussionNote(pid interface{}, merg
 type UpdateMergeRequestDiscussionNoteOptions struct {
 	Body      *string    `url:"body,omitempty" json:"body,omitempty"`
 	CreatedAt *time.Time `url:"created_at,omitempty" json:"created_at,omitempty"`
+	Resolved  *bool      `url:"resolved,omitempty" json:"resolved,omitempty"`
 }
 
 // UpdateMergeRequestDiscussionNote modifies existing discussion of a merge
@@ -852,7 +853,7 @@ type UpdateMergeRequestDiscussionNoteOptions struct {
 //
 // GitLab API docs:
 // https://docs.gitlab.com/ce/api/discussions.html#modify-existing-merge-request-discussion-note
-func (s *DiscussionsService) UpdateMergeRequestDiscussionNote(pid interface{}, mergeRequest int, discussion string, note int, opt *UpdateMergeRequestDiscussionNoteOptions, options ...OptionFunc) (*Discussion, *Response, error) {
+func (s *DiscussionsService) UpdateMergeRequestDiscussionNote(pid interface{}, mergeRequest int, discussion string, note int, opt *UpdateMergeRequestDiscussionNoteOptions, options ...OptionFunc) (*Note, *Response, error) {
 	project, err := parseID(pid)
 	if err != nil {
 		return nil, nil, err
@@ -869,13 +870,13 @@ func (s *DiscussionsService) UpdateMergeRequestDiscussionNote(pid interface{}, m
 		return nil, nil, err
 	}
 
-	d := new(Discussion)
-	resp, err := s.client.Do(req, d)
+	n := new(Note)
+	resp, err := s.client.Do(req, n)
 	if err != nil {
 		return nil, resp, err
 	}
 
-	return d, resp, err
+	return n, resp, err
 }
 
 // DeleteMergeRequestDiscussionNote deletes an existing discussion of a merge
@@ -1022,7 +1023,7 @@ type AddCommitDiscussionNoteOptions struct {
 //
 // GitLab API docs:
 // https://docs.gitlab.com/ce/api/discussions.html#add-note-to-existing-commit-discussion
-func (s *DiscussionsService) AddCommitDiscussionNote(pid interface{}, commit string, discussion string, opt *AddCommitDiscussionNoteOptions, options ...OptionFunc) (*Discussion, *Response, error) {
+func (s *DiscussionsService) AddCommitDiscussionNote(pid interface{}, commit string, discussion string, opt *AddCommitDiscussionNoteOptions, options ...OptionFunc) (*Note, *Response, error) {
 	project, err := parseID(pid)
 	if err != nil {
 		return nil, nil, err
@@ -1038,13 +1039,13 @@ func (s *DiscussionsService) AddCommitDiscussionNote(pid interface{}, commit str
 		return nil, nil, err
 	}
 
-	d := new(Discussion)
-	resp, err := s.client.Do(req, d)
+	n := new(Note)
+	resp, err := s.client.Do(req, n)
 	if err != nil {
 		return nil, resp, err
 	}
 
-	return d, resp, err
+	return n, resp, err
 }
 
 // UpdateCommitDiscussionNoteOptions represents the available
@@ -1061,7 +1062,7 @@ type UpdateCommitDiscussionNoteOptions struct {
 //
 // GitLab API docs:
 // https://docs.gitlab.com/ce/api/discussions.html#modify-existing-commit-discussion-note
-func (s *DiscussionsService) UpdateCommitDiscussionNote(pid interface{}, commit string, discussion string, note int, opt *UpdateCommitDiscussionNoteOptions, options ...OptionFunc) (*Discussion, *Response, error) {
+func (s *DiscussionsService) UpdateCommitDiscussionNote(pid interface{}, commit string, discussion string, note int, opt *UpdateCommitDiscussionNoteOptions, options ...OptionFunc) (*Note, *Response, error) {
 	project, err := parseID(pid)
 	if err != nil {
 		return nil, nil, err
@@ -1078,13 +1079,13 @@ func (s *DiscussionsService) UpdateCommitDiscussionNote(pid interface{}, commit 
 		return nil, nil, err
 	}
 
-	d := new(Discussion)
-	resp, err := s.client.Do(req, d)
+	n := new(Note)
+	resp, err := s.client.Do(req, n)
 	if err != nil {
 		return nil, resp, err
 	}
 
-	return d, resp, err
+	return n, resp, err
 }
 
 // DeleteCommitDiscussionNote deletes an existing discussion of an commit.
