@@ -1,4 +1,4 @@
-.PHONY: contrib_check dependencies install run size
+.PHONY: contrib_check dependencies install run size test
 
 # detect GOPATH if not set
 ifndef $(GOPATH)
@@ -36,3 +36,6 @@ run: build
 
 size:
 	loc --exclude vendor/ _sample_configs/ _site/ docs/ Makefile *.md *.toml
+
+test: build
+	go test ./...
