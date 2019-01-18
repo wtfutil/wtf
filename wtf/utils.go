@@ -7,6 +7,7 @@ import (
 	"regexp"
 	"strings"
 	//"sync"
+	"runtime"
 
 	"github.com/rivo/tview"
 )
@@ -95,11 +96,22 @@ func NamesFromEmails(emails []string) []string {
 
 // OpenFile opens the file defined in `path` via the operating system
 func OpenFile(path string) {
-	filePath, _ := ExpandHomeDir(path)
-	openFileUtil := Config.UString("wtf.openFileUtil", "open")
-	cmd := exec.Command(openFileUtil, filePath)
-
-	ExecuteCommand(cmd)
+	if (strings.HasPrefix(path,"http://"))||(strings.HasPrefix(path,"https://")) {
+		switch runtime.GOOS {
+			case "linux":	
+				exec.Command("xdg-open", path).Start()
+			case "windows":
+				exec.Command("rundll32", "url.dll,FileProtocolHandler", path).Start()
+			case "darwin":
+				exec.Command("open", path).Start()
+			default:
+		}
+	}else {
+		filePath, _ := ExpandHomeDir(path)
+		openFileUtil := Config.UString("wtf.openFileUtil", "open")
+		cmd := exec.Command(openFileUtil, filePath)
+		ExecuteCommand(cmd)
+	}
 }
 
 // PadRow returns a padding for a row to make it the full width of the containing widget.
