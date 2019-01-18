@@ -7,6 +7,8 @@ import (
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/wtf"
 	"strconv"
+	"os/exec"
+	"runtime"
 )
 
 const HelpText = `
@@ -100,7 +102,16 @@ func (widget *Widget) openItem() {
 	sel := widget.selected
 	if sel >= 0 && widget.result != nil && sel < len(widget.result.Issues) {
 		issue := &widget.result.Issues[widget.selected]
-		wtf.OpenFile(wtf.Config.UString("wtf.mods.jira.domain") + "/browse/" + issue.Key)
+		switch runtime.GOOS {
+			case "linux":	
+				exec.Command("xdg-open", wtf.Config.UString("wtf.mods.jira.domain") + "/browse/" + issue.Key).Start()
+			case "windows":
+				exec.Command("rundll32", "url.dll,FileProtocolHandler", url).Start()
+			case "darwin":
+				exec.Command("open", url).Start()
+			default:
+		}
+		
 	}
 }
 
