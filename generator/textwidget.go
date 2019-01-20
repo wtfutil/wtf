@@ -5,7 +5,7 @@
 // using the textwidget.tpl template.
 // The TextWidget generator needs one environment variable, called WTF_WIDGET_NAME, which will
 // be the name of the TextWidget it generates. If the variable hasn't been set, the generator
-// will use "NewWiNewTextWidgetdget". On Linux and macOS the command can be run as
+// will use "NewTextWidget". On Linux and macOS the command can be run as
 // 'WTF_WIDGET_NAME=MyNewWidget go generate text'.
 package main
 
