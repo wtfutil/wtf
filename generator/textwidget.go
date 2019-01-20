@@ -10,6 +10,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 	"strings"
 	"text/template"
@@ -40,7 +41,15 @@ func main() {
 		"Title": strings.Title,
 	}).ParseFiles("generator/textwidget.tpl")
 
-	out, _ := os.Create("generator/test.go")
+	err := os.Mkdir(strings.ToLower(widgetName), os.ModePerm)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+
+	out, err := os.Create(fmt.Sprintf("%s/widget.go", strings.ToLower(widgetName)))
+	if err != nil {
+		fmt.Println(err.Error())
+	}
 	defer out.Close()
 
 	tpl.Execute(out, data)
