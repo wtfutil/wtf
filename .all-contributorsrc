@@ -1,6 +1,6 @@
 {
   "projectName": "wtf",
-  "projectOwner": "senorprogrammer",
+  "projectOwner": "wtfutil",
   "repoType": "github",
   "repoHost": "https://github.com",
   "files": [
@@ -8,7 +8,6 @@
   ],
   "imageSize": 48,
   "commit": true,
-  "contributorsPerLine": 6,
   "contributors": [
     {
       "login": "senorprogrammer",
@@ -380,6 +379,14 @@
       "avatar_url": "https://avatars1.githubusercontent.com/u/1646238?v=4",
       "profile": "http://kaskavalci.com",
       "contributions": []
+    },
+    {
+      "login": "jdenoy",
+      "name": "Johan Denoyer",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/246715?v=4",
+      "profile": "http://www.johandenoyer.fr",
+      "contributions": []
     }
-  ]
+  ],
+  "contributorsPerLine": 7
 }
