@@ -75,6 +75,7 @@ func jiraRequest(path string) (*http.Response, error) {
 		TLSClientConfig: &tls.Config{
 			InsecureSkipVerify: !verifyServerCertificate,
 		},
+		Proxy: http.ProxyFromEnvironment,
 	},
 	}
 	resp, err := httpClient.Do(req)

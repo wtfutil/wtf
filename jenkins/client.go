@@ -34,6 +34,7 @@ func Create(jenkinsURL string, username string, apiKey string) (*View, error) {
 		TLSClientConfig: &tls.Config{
 			InsecureSkipVerify: !verifyServerCertificate,
 		},
+		Proxy: http.ProxyFromEnvironment,
 	},
 	}
 	resp, err := httpClient.Do(req)

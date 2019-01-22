@@ -79,6 +79,7 @@ func (widget *Widget) Refresh() {
 		TLSClientConfig: &tls.Config{
 			InsecureSkipVerify: !verifyServerCertificate,
 		},
+		Proxy: http.ProxyFromEnvironment,
 	},
 	}
 
