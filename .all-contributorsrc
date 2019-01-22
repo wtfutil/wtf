@@ -386,6 +386,14 @@
       "avatar_url": "https://avatars2.githubusercontent.com/u/246715?v=4",
       "profile": "http://www.johandenoyer.fr",
       "contributions": []
+    },
+    {
+      "login": "skymeyer",
+      "name": "Jelle Vink",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/593516?v=4",
+      "profile": "https://skymeyer.be",
+      "contributions": [
+      ]
     }
   ],
   "contributorsPerLine": 7
