@@ -6,6 +6,7 @@
 
 * Resource Usage module added ([@nicholas-eden](https://github.com/nicholas-eden))
 * Recursive repo search in Git module ([#126](https://github.com/wtfutil/wtf/issues/126) by [@anandsudhir](http://github.com/anandsudhir)) 
+* HTTP/HTTPS handling in OpenFile() util function by [@jdenoy](https://github.com/jdenoy)
 
 ## 0.4.0
 
