@@ -50,10 +50,10 @@ func firewallStateLinux() string { // might be very Ubuntu specific
 			return "[red]NA[white]"
 		}
 
-		if strings.Contains(o.String(), "active") {
-			return "[green]Enabled[white]"
-		} else {
+		if strings.Contains(o.String(), "inactive") {
 			return "[red]Disabled[white]"
+		} else {
+			return "[green]Enabled[white]"
 		}
 	} else {
 		return "[red]NA[white]"
