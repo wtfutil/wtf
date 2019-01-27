@@ -1,5 +1,10 @@
 package main
 
+// Generators
+// To generate the skeelton for a new TextWidget use 'WTF_WIDGET_NAME=bla go generate text'
+//go:generate -command text go run generator/textwidget.go
+//go:generate text
+
 import (
 	"fmt"
 	"log"
