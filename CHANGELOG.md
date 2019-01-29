@@ -9,6 +9,7 @@
 * HTTP/HTTPS handling in OpenFile() util function by [@jdenoy](https://github.com/jdenoy)
 * Honor system http proxies when using non-default transport by [@skymeyer](https://github.com/skymeyer)
 * VictorOps module added by [ImDevinC](https://github.com/ImDevinC)
+* Module templates added by [retgits](https://github.com/retgits)
 
 ## 0.4.0
 
