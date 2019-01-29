@@ -399,7 +399,15 @@
       "name": "Devin Collins",
       "avatar_url": "https://avatars1.githubusercontent.com/u/3997333?v=4",
       "profile": "http://imdevinc.com",
+      "contributions": []
+    },
+    {
+      "login": "linenoise",
+      "name": "Danne Stayskal",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/18333?v=4",
+      "profile": "http://danne.stayskal.com/",
       "contributions": [
+        "code"
       ]
     }
   ],
