@@ -43,10 +43,10 @@ func WifiName() string {
 /* -------------------- Unexported Functions -------------------- */
 
 func wifiEncryptionLinux() string {
-	cmd := exec.Command("nmcli", "-t", "-f", "active,security", "dev", "wifi")
+	cmd := exec.Command("nmcli", "-t", "-f", "in-use,security", "dev", "wifi")
 	out := wtf.ExecuteCommand(cmd)
 
-	name := wtf.FindMatch(`yes:(.+)`, out)
+	name := wtf.FindMatch(`\*:(.+)`, out)
 
 	if len(name) > 0 {
 		return name[0][1]
@@ -66,9 +66,9 @@ func wifiInfo() string {
 }
 
 func wifiNameLinux() string {
-	cmd := exec.Command("nmcli", "-t", "-f", "active,ssid", "dev", "wifi")
+	cmd := exec.Command("nmcli", "-t", "-f", "in-use,ssid", "dev", "wifi")
 	out := wtf.ExecuteCommand(cmd)
-	name := wtf.FindMatch(`yes:(.+)`, out)
+	name := wtf.FindMatch(`\*:(.+)`, out)
 	if len(name) > 0 {
 		return name[0][1]
 	}
