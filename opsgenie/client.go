@@ -10,10 +10,10 @@ import (
 )
 
 type OnCallResponse struct {
-	OnCallData []OnCallData `json:"data"`
-	Message    string       `json:"message"`
-	RequestID  string       `json:"requestId"`
-	Took       float32      `json:"took"`
+	OnCallData OnCallData `json:"data"`
+	Message    string     `json:"message"`
+	RequestID  string     `json:"requestId"`
+	Took       float32    `json:"took"`
 }
 
 type OnCallData struct {
@@ -29,12 +29,17 @@ type Parent struct {
 
 /* -------------------- Exported Functions -------------------- */
 
-func Fetch() (*OnCallResponse, error) {
-	scheduleUrl := "https://api.opsgenie.com/v2/schedules/on-calls?flat=true"
-
-	response, err := opsGenieRequest(scheduleUrl, apiKey())
-
-	return response, err
+func Fetch(scheduleIdentifierType string, schedules []string) ([]*OnCallResponse, error) {
+	agregatedResponses := []*OnCallResponse{}
+	for _, sched := range schedules {
+		scheduleUrl := fmt.Sprintf("https://api.opsgenie.com/v2/schedules/%s/on-calls?scheduleIdentifierType=%s&flat=true", sched, scheduleIdentifierType)
+		response, err := opsGenieRequest(scheduleUrl, apiKey())
+		agregatedResponses = append(agregatedResponses, response)
+		if err != nil {
+			return nil, err
+		}
+	}
+	return agregatedResponses, nil
 }
 
 /* -------------------- Unexported Functions -------------------- */
