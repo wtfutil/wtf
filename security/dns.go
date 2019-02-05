@@ -1,5 +1,3 @@
-// +build !windows
-
 package security
 
 import (
@@ -18,6 +16,8 @@ func DnsServers() []string {
 		return dnsLinux()
 	case "darwin":
 		return dnsMacOS()
+	case "windows":
+		return dnsWindows()
 	default:
 		return []string{runtime.GOOS}
 	}
@@ -55,4 +55,11 @@ func dnsMacOS() []string {
 	}
 
 	return []string{}
+}
+
+func dnsWindows() []string {
+
+	cmd := exec.Command("powershell.exe", "-NoProfile", "Get-DnsClientServerAddress | Select-Object –ExpandProperty ServerAddresses")
+
+	return []string{wtf.ExecuteCommand(cmd)}
 }

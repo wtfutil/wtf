@@ -1,5 +1,3 @@
-// +build !windows
-
 package security
 
 // http://applehelpwriter.com/2017/05/21/how-to-reveal-hidden-users/
@@ -20,6 +18,8 @@ func LoggedInUsers() []string {
 		return loggedInUsersLinux()
 	case "darwin":
 		return loggedInUsersMacOs()
+	case "windows":
+		return loggedInUsersWindows()
 	default:
 		return []string{}
 	}
@@ -66,12 +66,10 @@ func loggedInUsersLinux() []string {
 					clean = false
 				}
 			}
-
 			if clean {
 				cleaned = append(cleaned, col[0])
 			}
 		}
-
 	}
 
 	return cleaned
@@ -82,4 +80,21 @@ func loggedInUsersMacOs() []string {
 	users := wtf.ExecuteCommand(cmd)
 
 	return cleanUsers(strings.Split(users, "\n"))
+}
+
+func loggedInUsersWindows() []string {
+    // We can use either one:
+    // 		(Get-WMIObject -class Win32_ComputerSystem | select username).username
+    // 		[System.Security.Principal.WindowsIdentity]::GetCurrent().Name
+    // The original was: 
+    //		cmd := exec.Command("powershell.exe", "(query user) -replace '\\s{2,}', ','") 	
+    // But that didn't work!
+	// The real powershell command reads:
+	// 	 powershell.exe -NoProfile -Command "& { [System.Security.Principal.WindowsIdentity]::GetCurrent().Name }"
+    // But we here have to write it as: 
+    cmd := exec.Command("powershell.exe", "-NoProfile", "-Command", "& { [System.Security.Principal.WindowsIdentity]::GetCurrent().Name }")
+    // ToDo:  Make list for multi-user systems
+
+    users := wtf.ExecuteCommand(cmd)
+    return cleanUsers(strings.Split(users, "\n"))
 }
