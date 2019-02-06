@@ -4,6 +4,9 @@
 
 ### ⚡️ Added
 
+* Jira widget navigable via up/down arrow keys, by [@jdenoy](https://github.com/jdenoy)
+* Windows security module improved, by [@E3V3A](https://github.com/E3V3A)
+
 ## 0.5.0
 
 ### ⚡️ Added
