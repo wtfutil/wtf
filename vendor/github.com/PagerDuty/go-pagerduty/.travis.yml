@@ -1,0 +1,24 @@
+language: go
+
+addons:
+  apt:
+    packages:
+    # needed for the nfpm pipe:
+    - rpm
+
+# needed for the docker pipe
+# services:
+# - docker
+
+# calls goreleaser
+deploy:
+  skip_cleanup: true
+  provider: script
+  script: make deploy
+  on:
+    tags: true
+  notifications:
+    email: false
+  on:
+    tags: true
+    condition: $TRAVIS_OS_NAME = linux
