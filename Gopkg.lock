@@ -18,6 +18,14 @@
   revision = "2aa6f33b730c79971cfc3c742f279195b0abc627"
 
 [[projects]]
+  digest = "1:3bb331d3045ee55402a226f6ab0f005cbc09527df714278c3925d4700db79260"
+  name = "github.com/PagerDuty/go-pagerduty"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "b4a4067bdbde86de1d3fdf15c3c01e76bee9127c"
+  version = "1.0.4"
+
+[[projects]]
   digest = "1:e92f5581902c345eb4ceffdcd4a854fb8f73cf436d47d837d1ec98ef1fe0a214"
   name = "github.com/StackExchange/wmi"
   packages = ["."]
@@ -430,6 +438,7 @@
   analyzer-version = 1
   input-imports = [
     "code.cloudfoundry.org/bytefmt",
+    "github.com/PagerDuty/go-pagerduty",
     "github.com/adlio/trello",
     "github.com/alecthomas/chroma/formatters",
     "github.com/alecthomas/chroma/lexers",

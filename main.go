@@ -43,6 +43,7 @@ import (
 	"github.com/wtfutil/wtf/mercurial"
 	"github.com/wtfutil/wtf/newrelic"
 	"github.com/wtfutil/wtf/opsgenie"
+	"github.com/wtfutil/wtf/pagerduty"
 	"github.com/wtfutil/wtf/power"
 	"github.com/wtfutil/wtf/resourceusage"
 	"github.com/wtfutil/wtf/security"
@@ -223,6 +224,8 @@ func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
 		widgets = append(widgets, newrelic.NewWidget(app))
 	case "opsgenie":
 		widgets = append(widgets, opsgenie.NewWidget(app))
+	case "pagerduty":
+		widgets = append(widgets, pagerduty.NewWidget(app))
 	case "power":
 		widgets = append(widgets, power.NewWidget(app))
 	case "prettyweather":
@@ -256,6 +259,7 @@ func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
 	case "zendesk":
 		widgets = append(widgets, zendesk.NewWidget(app))
 	default:
+		panic(widgetName)
 	}
 }
 
