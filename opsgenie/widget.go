@@ -23,8 +23,10 @@ func NewWidget(app *tview.Application) *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	data, err := Fetch()
-
+	data, err := Fetch(
+		wtf.Config.UString("wtf.mods.opsgenie.scheduleIdentifierType"),
+		getSchedules(),
+	)
 	widget.View.SetTitle(widget.ContextualTitle(widget.Name))
 
 	var content string
@@ -41,24 +43,42 @@ func (widget *Widget) Refresh() {
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (widget *Widget) contentFrom(onCallResponse *OnCallResponse) string {
+func getSchedules() []string {
+	// see if schedule is set to a single string
+	configPath := "wtf.mods.opsgenie.schedule"
+	singleSchedule, err := wtf.Config.String(configPath)
+	if err == nil {
+		return []string{singleSchedule}
+	}
+	// else, assume list
+	scheduleList := wtf.Config.UList(configPath)
+	var ret []string
+	for _, schedule := range scheduleList {
+		if str, ok := schedule.(string); ok {
+			ret = append(ret, str)
+		}
+	}
+	return ret
+}
+
+func (widget *Widget) contentFrom(onCallResponses []*OnCallResponse) string {
 	str := ""
 
 	displayEmpty := wtf.Config.UBool("wtf.mods.opsgenie.displayEmpty", true)
 
-	for _, data := range onCallResponse.OnCallData {
-		if (len(data.Recipients) == 0) && (displayEmpty == false) {
+	for _, data := range onCallResponses {
+		if (len(data.OnCallData.Recipients) == 0) && (displayEmpty == false) {
 			continue
 		}
 
 		var msg string
-		if len(data.Recipients) == 0 {
+		if len(data.OnCallData.Recipients) == 0 {
 			msg = " [gray]no one[white]\n\n"
 		} else {
-			msg = fmt.Sprintf(" %s\n\n", strings.Join(wtf.NamesFromEmails(data.Recipients), ", "))
+			msg = fmt.Sprintf(" %s\n\n", strings.Join(wtf.NamesFromEmails(data.OnCallData.Recipients), ", "))
 		}
 
-		str = str + widget.cleanScheduleName(data.Parent.Name)
+		str = str + widget.cleanScheduleName(data.OnCallData.Parent.Name)
 		str = str + msg
 	}
 
