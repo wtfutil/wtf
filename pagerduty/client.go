@@ -37,6 +37,34 @@ func GetOnCalls() ([]pagerduty.OnCall, error) {
 	return results, nil
 }
 
+// GetIncidents returns a list of people currently on call
+func GetIncidents() ([]pagerduty.Incident, error) {
+	client := pagerduty.NewClient(apiKey())
+
+	var results []pagerduty.Incident
+
+	var queryOpts pagerduty.ListIncidentsOptions
+	queryOpts.DateRange = "all"
+	queryOpts.Statuses = []string{"triggered", "acknowledged"}
+
+	items, err := client.ListIncidents(queryOpts)
+	if err != nil {
+		return nil, err
+	}
+	results = append(results, items.Incidents...)
+
+	for items.APIListObject.More == true {
+		queryOpts.APIListObject.Offset = items.APIListObject.Offset
+		items, err = client.ListIncidents(queryOpts)
+		if err != nil {
+			return nil, err
+		}
+		results = append(results, items.Incidents...)
+	}
+
+	return results, nil
+}
+
 func apiKey() string {
 	return wtf.Config.UString(
 		"wtf.mods.pagerduty.apiKey",
