@@ -259,7 +259,6 @@ func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
 	case "zendesk":
 		widgets = append(widgets, zendesk.NewWidget(app))
 	default:
-		panic(widgetName)
 	}
 }
 
