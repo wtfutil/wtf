@@ -14,33 +14,38 @@ type TextWidget struct {
 	focusable bool
 	focusChar string
 
-	Name       string
-	RefreshInt int
-	View       *tview.TextView
+	Name          string
+	Configuration *config.Config
+	RefreshInt    int
+	View          *tview.TextView
 
 	Position
 }
 
 func NewTextWidget(app *tview.Application, name string, configKey string, focusable bool) TextWidget {
-	focusCharValue := Config.UInt(fmt.Sprintf("wtf.mods.%s.focusChar", configKey), -1)
+	// Ignoring error, because.... why wouldn't we have a config?
+	config, _ := Config.Get(fmt.Sprintf("wtf.mods.%s", configKey))
+
+	focusCharValue := config.UInt("focusChar", -1)
 	focusChar := string('0' + focusCharValue)
 	if focusCharValue == -1 {
 		focusChar = ""
 	}
 
 	widget := TextWidget{
-		enabled:    Config.UBool(fmt.Sprintf("wtf.mods.%s.enabled", configKey), false),
-		focusable:  focusable,
-		focusChar:  focusChar,
-		Name:       Config.UString(fmt.Sprintf("wtf.mods.%s.title", configKey), name),
-		RefreshInt: Config.UInt(fmt.Sprintf("wtf.mods.%s.refreshInterval", configKey)),
+		enabled:       config.UBool("enabled", false),
+		focusable:     focusable,
+		focusChar:     focusChar,
+		Name:          config.UString("title"),
+		Configuration: config,
+		RefreshInt:    config.UInt("refreshInterval"),
 	}
 
 	widget.Position = NewPosition(
-		Config.UInt(fmt.Sprintf("wtf.mods.%s.position.top", configKey)),
-		Config.UInt(fmt.Sprintf("wtf.mods.%s.position.left", configKey)),
-		Config.UInt(fmt.Sprintf("wtf.mods.%s.position.width", configKey)),
-		Config.UInt(fmt.Sprintf("wtf.mods.%s.position.height", configKey)),
+		config.UInt("position.top"),
+		config.UInt("position.left"),
+		config.UInt("position.width"),
+		config.UInt("position.height"),
 	)
 
 	widget.addView(app, configKey)
@@ -104,21 +109,21 @@ func (widget *TextWidget) addView(app *tview.Application, configKey string) {
 	view := tview.NewTextView()
 
 	view.SetBackgroundColor(ColorFor(
-		Config.UString(fmt.Sprintf("wtf.mods.%s.colors.background", configKey),
+		widget.Configuration.UString("colors.background",
 			Config.UString("wtf.colors.background", "black"),
 		),
 	))
 
 	view.SetTextColor(ColorFor(
-		Config.UString(
-			fmt.Sprintf("wtf.mods.%s.colors.text", configKey),
+		widget.Configuration.UString(
+			"colors.text",
 			Config.UString("wtf.colors.text", "white"),
 		),
 	))
 
 	view.SetTitleColor(ColorFor(
-		Config.UString(
-			fmt.Sprintf("wtf.mods.%s.colors.title", configKey),
+		widget.Configuration.UString(
+			"colors.title",
 			Config.UString("wtf.colors.title", "white"),
 		),
 	))

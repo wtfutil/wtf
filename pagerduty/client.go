@@ -1,16 +1,24 @@
 package pagerduty
 
 import (
-	"os"
 	"time"
 
 	"github.com/PagerDuty/go-pagerduty"
-	"github.com/wtfutil/wtf/wtf"
 )
 
+type PagerDutyClient struct {
+	Client *pagerduty.Client
+}
+
+func NewPDClient(apiKey string) *PagerDutyClient {
+	return &PagerDutyClient{
+		Client: pagerduty.NewClient(apiKey),
+	}
+}
+
 // GetOnCalls returns a list of people currently on call
-func GetOnCalls() ([]pagerduty.OnCall, error) {
-	client := pagerduty.NewClient(apiKey())
+func (pd *PagerDutyClient) GetOnCalls() ([]pagerduty.OnCall, error) {
+	client := pd.Client
 
 	var results []pagerduty.OnCall
 
@@ -38,8 +46,8 @@ func GetOnCalls() ([]pagerduty.OnCall, error) {
 }
 
 // GetIncidents returns a list of people currently on call
-func GetIncidents() ([]pagerduty.Incident, error) {
-	client := pagerduty.NewClient(apiKey())
+func (pd *PagerDutyClient) GetIncidents() ([]pagerduty.Incident, error) {
+	client := pd.Client
 
 	var results []pagerduty.Incident
 
@@ -63,11 +71,4 @@ func GetIncidents() ([]pagerduty.Incident, error) {
 	}
 
 	return results, nil
-}
-
-func apiKey() string {
-	return wtf.Config.UString(
-		"wtf.mods.pagerduty.apiKey",
-		os.Getenv("WTF_PAGERDUTY_API_KEY"),
-	)
 }

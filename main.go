@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/gdamore/tcell"
@@ -170,8 +171,10 @@ func watchForConfigChanges(app *tview.Application, configFilePath string, grid *
 }
 
 func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
+	widgetParts := strings.Split(widgetName, "|")
+	widgetType := widgetParts[0]
 	// Always in alphabetical order
-	switch widgetName {
+	switch widgetType {
 	case "bamboohr":
 		widgets = append(widgets, bamboohr.NewWidget(app))
 	case "bargraph":
@@ -225,7 +228,7 @@ func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
 	case "opsgenie":
 		widgets = append(widgets, opsgenie.NewWidget(app))
 	case "pagerduty":
-		widgets = append(widgets, pagerduty.NewWidget(app))
+		widgets = append(widgets, pagerduty.NewWidget(app, widgetName))
 	case "power":
 		widgets = append(widgets, power.NewWidget(app))
 	case "prettyweather":

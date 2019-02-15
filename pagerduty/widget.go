@@ -2,6 +2,7 @@ package pagerduty
 
 import (
 	"fmt"
+	"os"
 	"sort"
 
 	"github.com/PagerDuty/go-pagerduty"
@@ -13,9 +14,9 @@ type Widget struct {
 	wtf.TextWidget
 }
 
-func NewWidget(app *tview.Application) *Widget {
+func NewWidget(app *tview.Application, name string) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(app, "PagerDuty", "pagerduty", false),
+		TextWidget: wtf.NewTextWidget(app, name, name, false),
 	}
 
 	return &widget
@@ -27,15 +28,18 @@ func (widget *Widget) Refresh() {
 	var onCalls []pagerduty.OnCall
 	var incidents []pagerduty.Incident
 
+	apiKey := widget.Configuration.UString("apiKey", os.Getenv("WTF_PAGERDUTY_API_KEY"))
+	client := NewPDClient(apiKey)
+
 	var err1 error
 	var err2 error
 
-	if wtf.Config.UBool("wtf.mods.pagerduty.showSchedules", true) {
-		onCalls, err1 = GetOnCalls()
+	if widget.Configuration.UBool("showSchedules", true) {
+		onCalls, err1 = client.GetOnCalls()
 	}
 
-	if wtf.Config.UBool("wtf.mods.pagerduty.showIncidents") {
-		incidents, err2 = GetIncidents()
+	if widget.Configuration.UBool("showIncidents") {
+		incidents, err2 = client.GetIncidents()
 	}
 
 	widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("%s", widget.Name)))
@@ -75,7 +79,7 @@ func (widget *Widget) contentFrom(onCalls []pagerduty.OnCall, incidents []pagerd
 
 	tree := make(map[string][]pagerduty.OnCall)
 
-	filtering := wtf.Config.UList("wtf.mods.pagerduty.escalationFilter")
+	filtering := widget.Configuration.UList("escalationFilter")
 	filter := make(map[string]bool)
 	for _, item := range filtering {
 		filter[item.(string)] = true
