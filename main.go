@@ -57,6 +57,7 @@ import (
 	"github.com/wtfutil/wtf/travisci"
 	"github.com/wtfutil/wtf/trello"
 	"github.com/wtfutil/wtf/twitter"
+	"github.com/wtfutil/wtf/unknown"
 	"github.com/wtfutil/wtf/victorops"
 	"github.com/wtfutil/wtf/weatherservices/prettyweather"
 	"github.com/wtfutil/wtf/weatherservices/weather"
@@ -259,6 +260,7 @@ func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
 	case "zendesk":
 		widgets = append(widgets, zendesk.NewWidget(app))
 	default:
+		widgets = append(widgets, unknown.NewWidget(app, widgetName))
 	}
 }
 
