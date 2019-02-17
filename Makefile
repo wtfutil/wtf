@@ -23,9 +23,9 @@ contrib_check:
 	npx all-contributors-cli check
 
 install:
-	go clean
-	go install -ldflags="-s -w -X main.version=$(shell git describe --always --abbrev=6) -X main.date=$(shell date +%FT%T%z)"
-	which wtf
+	@go clean
+	@go install -ldflags="-s -w -X main.version=$(shell git describe --always --abbrev=6) -X main.date=$(shell date +%FT%T%z)"
+	@which wtf || echo "Could not find wtf in PATH" && exit 0
 
 lint:
 	structcheck ./...
