@@ -3,9 +3,6 @@ package bamboohr
 import (
 	"encoding/xml"
 	"fmt"
-	"os"
-
-	"github.com/wtfutil/wtf/wtf"
 )
 
 // A Client represents the data required to connect to the BambooHR API
@@ -16,12 +13,12 @@ type Client struct {
 }
 
 // NewClient creates and returns a new BambooHR client
-func NewClient(url string) *Client {
+func NewClient(url string, apiKey string, subdomain string) *Client {
 	client := Client{
-		apiBase: url,
+		apiBase:   url,
+		apiKey:    apiKey,
+		subdomain: subdomain,
 	}
-
-	client.loadAPICredentials()
 
 	return &client
 }
@@ -61,16 +58,4 @@ func (client *Client) away(startDate, endDate string) (cal Calendar, err error) 
 	err = xml.Unmarshal(data, &cal)
 
 	return
-}
-
-func (client *Client) loadAPICredentials() {
-	client.apiKey = wtf.Config.UString(
-		"wtf.mods.bamboohr.apiKey",
-		os.Getenv("WTF_BAMBOO_HR_TOKEN"),
-	)
-
-	client.subdomain = wtf.Config.UString(
-		"wtf.mods.bamboohr.subdomain",
-		os.Getenv("WTF_BAMBOO_HR_SUBDOMAIN"),
-	)
 }
