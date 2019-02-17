@@ -46,6 +46,7 @@ import (
 	"github.com/wtfutil/wtf/pagerduty"
 	"github.com/wtfutil/wtf/power"
 	"github.com/wtfutil/wtf/resourceusage"
+	"github.com/wtfutil/wtf/rollbar"
 	"github.com/wtfutil/wtf/security"
 	"github.com/wtfutil/wtf/spotify"
 	"github.com/wtfutil/wtf/spotifyweb"
@@ -249,6 +250,8 @@ func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
 		widgets = append(widgets, todoist.NewWidget(app, pages))
 	case "travisci":
 		widgets = append(widgets, travisci.NewWidget(app, pages))
+	case "rollbar":
+		widgets = append(widgets, rollbar.NewWidget(app, pages))
 	case "trello":
 		widgets = append(widgets, trello.NewWidget(app))
 	case "twitter":
