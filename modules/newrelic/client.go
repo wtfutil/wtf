@@ -1,16 +1,25 @@
 package newrelic
 
 import (
-	"os"
-
-	"github.com/wtfutil/wtf/wtf"
 	nr "github.com/yfronto/newrelic"
 )
 
-func Application() (*nr.Application, error) {
-	client := nr.NewClient(apiKey())
+type Client struct {
+	applicationId int
+	nrClient      *nr.Client
+}
 
-	application, err := client.GetApplication(wtf.Config.UInt("wtf.mods.newrelic.applicationId"))
+func NewClient(apiKey string, applicationId int) *Client {
+	return &Client{
+		applicationId: applicationId,
+		nrClient:      nr.NewClient(apiKey),
+	}
+
+}
+
+func (client *Client) Application() (*nr.Application, error) {
+
+	application, err := client.nrClient.GetApplication(client.applicationId)
 	if err != nil {
 		return nil, err
 	}
@@ -18,21 +27,13 @@ func Application() (*nr.Application, error) {
 	return application, nil
 }
 
-func Deployments() ([]nr.ApplicationDeployment, error) {
-	client := nr.NewClient(apiKey())
+func (client *Client) Deployments() ([]nr.ApplicationDeployment, error) {
 
 	opts := &nr.ApplicationDeploymentOptions{Page: 1}
-	deployments, err := client.GetApplicationDeployments(wtf.Config.UInt("wtf.mods.newrelic.applicationId"), opts)
+	deployments, err := client.nrClient.GetApplicationDeployments(client.applicationId, opts)
 	if err != nil {
 		return nil, err
 	}
 
 	return deployments, nil
-}
-
-func apiKey() string {
-	return wtf.Config.UString(
-		"wtf.mods.newrelic.apiKey",
-		os.Getenv("WTF_NEW_RELIC_API_KEY"),
-	)
 }

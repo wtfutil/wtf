@@ -2,6 +2,7 @@ package newrelic
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/wtf"
@@ -10,11 +11,13 @@ import (
 
 type Widget struct {
 	wtf.TextWidget
+	client *Client
 }
 
 func NewWidget(app *tview.Application) *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(app, "New Relic", "newrelic", false),
+		client:     NewClient(apiKey(), wtf.Config.UInt("wtf.mods.newrelic.applicationId")),
 	}
 
 	return &widget
@@ -23,8 +26,8 @@ func NewWidget(app *tview.Application) *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	app, appErr := Application()
-	deploys, depErr := Deployments()
+	app, appErr := widget.client.Application()
+	deploys, depErr := widget.client.Deployments()
 
 	appName := "error"
 	if appErr == nil {
@@ -85,4 +88,11 @@ func (widget *Widget) contentFrom(deploys []nr.ApplicationDeployment) string {
 	}
 
 	return str
+}
+
+func apiKey() string {
+	return wtf.Config.UString(
+		"wtf.mods.newrelic.apiKey",
+		os.Getenv("WTF_NEW_RELIC_API_KEY"),
+	)
 }
