@@ -2,6 +2,7 @@ package circleci
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/wtf"
@@ -9,11 +10,20 @@ import (
 
 type Widget struct {
 	wtf.TextWidget
+	*Client
 }
 
+const apiEnvKey = "WTF_CIRCLE_API_KEY"
+
 func NewWidget(app *tview.Application) *Widget {
+	apiKey := wtf.Config.UString(
+		"wtf.mods.circleci.apiKey",
+		os.Getenv(apiEnvKey),
+	)
+
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(app, "CircleCI", "circleci", false),
+		Client:     NewClient(apiKey),
 	}
 
 	return &widget
@@ -26,7 +36,7 @@ func (widget *Widget) Refresh() {
 		return
 	}
 
-	builds, err := BuildsFor()
+	builds, err := widget.Client.BuildsFor()
 
 	widget.View.SetTitle(fmt.Sprintf("%s - Builds", widget.Name))
 
