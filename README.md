@@ -47,7 +47,11 @@ Please make all additions and updates to documentation in that repository.
 
 ## Contributing to the Source Code
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests.
+First, please read [Talk, then code](https://dave.cheney.net/2019/02/18/talk-then-code) by Dave Cheney. It's great advice and will often save a lot of time and effort. 
+
+Next, please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests.
+
+Then open your issue, propose your approach, and join the rest of the awesome people who've contributed their time and effort towards WTF. Without you it wouldn't be possible.
 
 ### Adding Dependencies
 
