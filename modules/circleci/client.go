@@ -8,17 +8,24 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"os"
-
-	"github.com/wtfutil/wtf/wtf"
 )
 
-const APIEnvKey = "WTF_CIRCLE_API_KEY"
+type Client struct {
+	apiKey string
+}
 
-func BuildsFor() ([]*Build, error) {
+func NewClient(apiKey string) *Client {
+	client := Client{
+		apiKey: apiKey,
+	}
+
+	return &client
+}
+
+func (client *Client) BuildsFor() ([]*Build, error) {
 	builds := []*Build{}
 
-	resp, err := circleRequest("recent-builds")
+	resp, err := client.circleRequest("recent-builds")
 	if err != nil {
 		return builds, err
 	}
@@ -34,9 +41,9 @@ var (
 	circleAPIURL = &url.URL{Scheme: "https", Host: "circleci.com", Path: "/api/v1/"}
 )
 
-func circleRequest(path string) (*http.Response, error) {
+func (client *Client) circleRequest(path string) (*http.Response, error) {
 	params := url.Values{}
-	params.Add("circle-token", apiKey())
+	params.Add("circle-token", client.apiKey)
 
 	url := circleAPIURL.ResolveReference(&url.URL{Path: path, RawQuery: params.Encode()})
 
@@ -58,13 +65,6 @@ func circleRequest(path string) (*http.Response, error) {
 	}
 
 	return resp, nil
-}
-
-func apiKey() string {
-	return wtf.Config.UString(
-		"wtf.mods.circleci.apiKey",
-		os.Getenv(APIEnvKey),
-	)
 }
 
 func parseJson(obj interface{}, text io.Reader) {
