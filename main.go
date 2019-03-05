@@ -63,6 +63,7 @@ import (
 	"github.com/wtfutil/wtf/modules/weatherservices/prettyweather"
 	"github.com/wtfutil/wtf/modules/weatherservices/weather"
 	"github.com/wtfutil/wtf/modules/zendesk"
+	"github.com/wtfutil/wtf/modules/nbascore"
 	"github.com/wtfutil/wtf/wtf"
 )
 
@@ -232,6 +233,8 @@ func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
 		widgets = append(widgets, power.NewWidget(app))
 	case "prettyweather":
 		widgets = append(widgets, prettyweather.NewWidget(app))
+	case "nbascore":
+		widgets = append(widgets, nbascore.NewWidget(app, pages))
 	case "security":
 		widgets = append(widgets, security.NewWidget(app))
 	case "status":
