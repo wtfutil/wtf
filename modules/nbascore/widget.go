@@ -108,18 +108,20 @@ func (widget *Widget) nbascore() {
 		}
 		vNum, _ := strconv.Atoi(vScore)
 		hNum, _ := strconv.Atoi(hScore)
+        hColor := ""
 		if quarter != 0 { // Compare the score
 			if vNum > hNum {
 				vTeam = "[orange]" + vTeam
 			} else if hNum > vNum {
-				hScore = "[orange]" + hScore
+				// hScore = "[orange]" + hScore
+                hColor = "[orange]" // For correct padding
 				hTeam = hTeam + "[white]"
 			} else {
 				vTeam = "[orange]" + vTeam
 				hTeam = hTeam + "[white]"
 			}
 		}
-		allGame += fmt.Sprintf("%5s%v %s %3s [white]vs %-3s %s\n", "Q", quarter, vTeam, vScore, hScore, hTeam) // Format the score and store in allgame
+		allGame += fmt.Sprintf("%5s%v %s %3s [white]vs %s%-3s %s\n", "Q", quarter, vTeam, vScore, hColor, hScore, hTeam) // Format the score and store in allgame
 	}
 	widget.View.SetText(allGame)
 
