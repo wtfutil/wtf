@@ -36,7 +36,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 		TextWidget:    wtf.NewTextWidget(app, "NBA Score", "nbascore", true),
 	}
 	widget.HelpfulWidget.SetView(widget.View)
-	widget.TextWidget.RefreshInt = 5
+	widget.TextWidget.RefreshInt = 15
 	widget.View.SetInputCapture(widget.keyboardIntercept)
 	widget.View.SetScrollable(true)
 	return &widget
@@ -67,7 +67,7 @@ func (widget *Widget) nbascore() {
 	if response.StatusCode != 200 {
 		widget.result = err.Error()
 		return
-	}    // Get data from data.nba.net and check if successful
+	} // Get data from data.nba.net and check if successful
 
 	contents, err := ioutil.ReadAll(response.Body)
 	if err != nil {
@@ -108,16 +108,17 @@ func (widget *Widget) nbascore() {
 		}
 		vNum, _ := strconv.Atoi(vScore)
 		hNum, _ := strconv.Atoi(hScore)
-        hColor := ""
+		hColor := ""
 		if quarter != 0 { // Compare the score
 			if vNum > hNum {
 				vTeam = "[orange]" + vTeam
 			} else if hNum > vNum {
 				// hScore = "[orange]" + hScore
-                hColor = "[orange]" // For correct padding
+				hColor = "[orange]" // For correct padding
 				hTeam = hTeam + "[white]"
 			} else {
 				vTeam = "[orange]" + vTeam
+				hColor = "[orange]"
 				hTeam = hTeam + "[white]"
 			}
 		}

@@ -41,6 +41,7 @@ import (
 	"github.com/wtfutil/wtf/modules/jenkins"
 	"github.com/wtfutil/wtf/modules/jira"
 	"github.com/wtfutil/wtf/modules/mercurial"
+	"github.com/wtfutil/wtf/modules/nbascore"
 	"github.com/wtfutil/wtf/modules/newrelic"
 	"github.com/wtfutil/wtf/modules/opsgenie"
 	"github.com/wtfutil/wtf/modules/pagerduty"
@@ -63,7 +64,6 @@ import (
 	"github.com/wtfutil/wtf/modules/weatherservices/prettyweather"
 	"github.com/wtfutil/wtf/modules/weatherservices/weather"
 	"github.com/wtfutil/wtf/modules/zendesk"
-	"github.com/wtfutil/wtf/modules/nbascore"
 	"github.com/wtfutil/wtf/wtf"
 )
 
