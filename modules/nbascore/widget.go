@@ -81,6 +81,7 @@ func (widget *Widget) nbascore() {
 	for _, game := range result["games"].([]interface{}) {
 		vTeam, hTeam, vScore, hScore := "", "", "", ""
 		quarter := 0.
+		activate := false
 		for keyGame, team := range game.(map[string]interface{}) { // assertion
 			if keyGame == "vTeam" || keyGame == "hTeam" {
 				for keyTeam, stat := range team.(map[string]interface{}) {
@@ -104,6 +105,8 @@ func (widget *Widget) nbascore() {
 						quarter = stat.(float64)
 					}
 				}
+			} else if keyGame == "isGameActivated" {
+				activate = team.(bool)
 			}
 		}
 		vNum, _ := strconv.Atoi(vScore)
@@ -122,7 +125,11 @@ func (widget *Widget) nbascore() {
 				hTeam = hTeam + "[white]"
 			}
 		}
-		allGame += fmt.Sprintf("%5s%v %s %3s [white]vs %s%-3s %s\n", "Q", quarter, vTeam, vScore, hColor, hScore, hTeam) // Format the score and store in allgame
+		qColor := "[white]"
+		if activate == true {
+			qColor = "[sandybrown]"
+		}
+		allGame += fmt.Sprintf("%s%5s%v[white] %s %3s [white]vs %s%-3s %s\n", qColor, "Q", quarter, vTeam, vScore, hColor, hScore, hTeam) // Format the score and store in allgame
 	}
 	widget.View.SetText(allGame)
 
