@@ -14,9 +14,9 @@ import (
 
 const HelpText = `
  Keyboard commands for NBA Score:
-   h: Go to previous day 
-   l: Go to next day 
-   c: Go back to current day 
+   h: Go to previous day
+   l: Go to next day
+   c: Go back to current day
 `
 
 type Widget struct {
@@ -35,15 +35,19 @@ func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
 		TextWidget:    wtf.NewTextWidget(app, "NBA Score", "nbascore", true),
 	}
+
 	widget.HelpfulWidget.SetView(widget.View)
 	widget.TextWidget.RefreshInt = 15
 	widget.View.SetInputCapture(widget.keyboardIntercept)
 	widget.View.SetScrollable(true)
+
 	return &widget
 }
 
 func (widget *Widget) Refresh() {
 	widget.nbascore()
+
+	widget.View.SetTitle(widget.ContextualTitle(widget.Name))
 }
 
 func (widget *Widget) nbascore() {

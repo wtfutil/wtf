@@ -223,6 +223,8 @@ func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
 		widgets = append(widgets, logger.NewWidget(app))
 	case "mercurial":
 		widgets = append(widgets, mercurial.NewWidget(app, pages))
+	case "nbascore":
+		widgets = append(widgets, nbascore.NewWidget(app, pages))
 	case "newrelic":
 		widgets = append(widgets, newrelic.NewWidget(app))
 	case "opsgenie":
@@ -233,8 +235,6 @@ func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
 		widgets = append(widgets, power.NewWidget(app))
 	case "prettyweather":
 		widgets = append(widgets, prettyweather.NewWidget(app))
-	case "nbascore":
-		widgets = append(widgets, nbascore.NewWidget(app, pages))
 	case "security":
 		widgets = append(widgets, security.NewWidget(app))
 	case "status":
