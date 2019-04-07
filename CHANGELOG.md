@@ -7,7 +7,7 @@
 * Jira widget navigable via up/down arrow keys, by [@jdenoy](https://github.com/jdenoy)
 * Windows security module improved, by [@E3V3A](https://github.com/E3V3A)
 * Function modules moved into the `/modules` directory, by [@Seanstoppable](https://github.com/Seanstoppable)
-* NBS Score module added by [@FriedCosey](https://github.com/FriedCosey)
+* NBA Score module added by [@FriedCosey](https://github.com/FriedCosey)
 
 ## 0.5.0
 
