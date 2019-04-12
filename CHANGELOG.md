@@ -9,6 +9,10 @@
 * Function modules moved into the `/modules` directory, by [@Seanstoppable](https://github.com/Seanstoppable)
 * NBA Score module added by [@FriedCosey](https://github.com/FriedCosey)
 
+### 🐞 Fixed
+
+* Now displays an error on start-up if a widget has mis-configured `position` attributes ([#389](https://github.com/wtfutil/wtf/issues/389) by @senporprogrammer)
+
 ## 0.5.0
 
 ### ⚡️ Added
