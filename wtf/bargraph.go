@@ -18,7 +18,6 @@ type BarGraph struct {
 	View       *tview.TextView
 
 	Position
-
 }
 
 type Bar struct {
@@ -76,6 +75,12 @@ func (widget *BarGraph) Focusable() bool {
 
 func (widget *BarGraph) FocusChar() string {
 	return ""
+}
+
+// IsPositionable returns TRUE if the widget has valid position parameters, FALSE if it has
+// invalid position parameters (ie: cannot be placed onscreen)
+func (widget *BarGraph) IsPositionable() bool {
+	return widget.Position.IsValid()
 }
 
 func (widget *BarGraph) RefreshInterval() int {
@@ -154,11 +159,11 @@ func BuildStars(data []Bar, maxStars int, starChar string) string {
 			fmt.Sprintf(
 				"%s%s[[red]%s[white]%s] %s\n",
 				bar.Label,
-				strings.Repeat(" ", longestLabel - len(bar.Label)),
+				strings.Repeat(" ", longestLabel-len(bar.Label)),
 				strings.Repeat(starChar, starCount),
-				strings.Repeat(" ", maxStars - starCount),
+				strings.Repeat(" ", maxStars-starCount),
 				label,
-				),
+			),
 		)
 	}
 

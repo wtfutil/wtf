@@ -86,6 +86,12 @@ func (widget *TextWidget) FocusChar() string {
 	return widget.focusChar
 }
 
+// IsPositionable returns TRUE if the widget has valid position parameters, FALSE if it has
+// invalid position parameters (ie: cannot be placed onscreen)
+func (widget *TextWidget) IsPositionable() bool {
+	return widget.Position.IsValid()
+}
+
 func (widget *TextWidget) RefreshInterval() int {
 	return widget.RefreshInt
 }
