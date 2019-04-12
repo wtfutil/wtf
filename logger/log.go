@@ -52,7 +52,7 @@ func (widget *Widget) Refresh() {
 		return
 	}
 
-	widget.View.SetTitle(widget.Name)
+	widget.View.SetTitle(widget.Name())
 
 	logLines := widget.tailFile()
 	widget.View.SetText(widget.contentFrom(logLines))

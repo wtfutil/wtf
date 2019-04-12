@@ -151,6 +151,8 @@ func watchForConfigChanges(app *tview.Application, configFilePath string, grid *
 				loadConfigFile(absPath)
 
 				widgets := makeWidgets(app, pages)
+				validateWidgets(widgets)
+
 				initializeFocusTracker(app, widgets)
 
 				display := wtf.NewDisplay(widgets)
@@ -284,10 +286,7 @@ func makeWidgets(app *tview.Application, pages *tview.Pages) []wtf.Wtfable {
 	for mod := range mods {
 		if enabled := Config.UBool("wtf.mods."+mod+".enabled", false); enabled {
 			widget := makeWidget(app, pages, mod)
-
-			if widget.IsPositionable() {
-				widgets = append(widgets, widget)
-			}
+			widgets = append(widgets, widget)
 		}
 	}
 
@@ -296,6 +295,16 @@ func makeWidgets(app *tview.Application, pages *tview.Pages) []wtf.Wtfable {
 	runningWidgets = widgets
 
 	return widgets
+}
+
+// Check that all the loaded widgets are valid for display
+func validateWidgets(widgets []wtf.Wtfable) {
+	for _, widget := range widgets {
+		if widget.Enabled() && !widget.IsPositionable() {
+			errStr := fmt.Sprintf("Widget config has invalid values: %s", widget.Key())
+			log.Fatalln(errStr)
+		}
+	}
 }
 
 /* -------------------- Main -------------------- */
@@ -322,6 +331,8 @@ func main() {
 	pages := tview.NewPages()
 
 	widgets := makeWidgets(app, pages)
+	validateWidgets(widgets)
+
 	initializeFocusTracker(app, widgets)
 
 	display := wtf.NewDisplay(widgets)

@@ -14,7 +14,7 @@ func (widget *Widget) display() {
 		return
 	}
 
-	widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("%s- %s", widget.Name, widget.title(project))))
+	widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("%s- %s", widget.Name(), widget.title(project))))
 
 	str := wtf.SigilStr(len(widget.GerritProjects), widget.Idx, widget.View) + "\n"
 	str = str + " [red]Stats[white]\n"

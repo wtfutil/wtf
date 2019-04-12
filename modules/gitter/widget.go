@@ -54,7 +54,7 @@ func (widget *Widget) Refresh() {
 	room, err := GetRoom(wtf.Config.UString("wtf.mods.gitter.roomUri", "wtfutil/Lobby"))
 	if err != nil {
 		widget.View.SetWrap(true)
-		widget.View.SetTitle(widget.Name)
+		widget.View.SetTitle(widget.Name())
 		widget.View.SetText(err.Error())
 		return
 	}
@@ -67,7 +67,7 @@ func (widget *Widget) Refresh() {
 
 	if err != nil {
 		widget.View.SetWrap(true)
-		widget.View.SetTitle(widget.Name)
+		widget.View.SetTitle(widget.Name())
 		widget.View.SetText(err.Error())
 	} else {
 		widget.messages = messages
@@ -86,7 +86,7 @@ func (widget *Widget) display() {
 
 	widget.View.SetWrap(true)
 	widget.View.Clear()
-	widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("%s - %s", widget.Name, wtf.Config.UString("wtf.mods.gitter.roomUri", "wtfutil/Lobby"))))
+	widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("%s - %s", widget.Name(), wtf.Config.UString("wtf.mods.gitter.roomUri", "wtfutil/Lobby"))))
 	widget.View.SetText(widget.contentFrom(widget.messages))
 	widget.View.Highlight(strconv.Itoa(widget.selected)).ScrollToHighlight()
 }

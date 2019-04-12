@@ -27,7 +27,7 @@ func (widget *Widget) Refresh() {
 		wtf.Config.UString("wtf.mods.opsgenie.scheduleIdentifierType"),
 		getSchedules(),
 	)
-	widget.View.SetTitle(widget.ContextualTitle(widget.Name))
+	widget.View.SetTitle(widget.ContextualTitle(widget.Name()))
 
 	var content string
 	if err != nil {

@@ -9,11 +9,13 @@ import (
 
 //BarGraph lets make graphs
 type BarGraph struct {
-	enabled    bool
-	focusable  bool
-	starChar   string
-	maxStars   int
-	Name       string
+	enabled   bool
+	focusable bool
+	key       string
+	maxStars  int
+	name      string
+	starChar  string
+
 	RefreshInt int
 	View       *tview.TextView
 
@@ -31,9 +33,10 @@ func NewBarGraph(app *tview.Application, name string, configKey string, focusabl
 	widget := BarGraph{
 		enabled:    Config.UBool(fmt.Sprintf("wtf.mods.%s.enabled", configKey), false),
 		focusable:  focusable,
-		starChar:   Config.UString(fmt.Sprintf("wtf.mods.%s.graphIcon", configKey), "|"),
+		key:        configKey,
 		maxStars:   Config.UInt(fmt.Sprintf("wtf.mods.%s.graphStars", configKey), 20),
-		Name:       Config.UString(fmt.Sprintf("wtf.mods.%s.title", configKey), name),
+		name:       Config.UString(fmt.Sprintf("wtf.mods.%s.title", configKey), name),
+		starChar:   Config.UString(fmt.Sprintf("wtf.mods.%s.graphIcon", configKey), "|"),
 		RefreshInt: Config.UInt(fmt.Sprintf("wtf.mods.%s.refreshInterval", configKey), 1),
 	}
 
@@ -83,6 +86,14 @@ func (widget *BarGraph) IsPositionable() bool {
 	return widget.Position.IsValid()
 }
 
+func (widget *BarGraph) Key() string {
+	return widget.key
+}
+
+func (widget *BarGraph) Name() string {
+	return widget.name
+}
+
 func (widget *BarGraph) RefreshInterval() int {
 	return widget.RefreshInt
 }
@@ -104,7 +115,7 @@ func (widget *BarGraph) addView(app *tview.Application, configKey string) {
 	view.SetBorder(true)
 	view.SetBorderColor(ColorFor(widget.BorderColor()))
 	view.SetDynamicColors(true)
-	view.SetTitle(widget.Name)
+	view.SetTitle(widget.Name())
 	view.SetTitleColor(ColorFor(
 		Config.UString(
 			fmt.Sprintf("wtf.mods.%s.colors.title", configKey),

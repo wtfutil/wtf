@@ -34,7 +34,7 @@ func (widget *Widget) Refresh() {
 		appName = app.Name
 	}
 
-	widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("%s - [green]%s[white]", widget.Name, appName)))
+	widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("%s - [green]%s[white]", widget.Name(), appName)))
 	widget.View.Clear()
 
 	var content string

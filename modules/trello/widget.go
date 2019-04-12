@@ -35,14 +35,14 @@ func (widget *Widget) Refresh() {
 	var content string
 	if err != nil {
 		widget.View.SetWrap(true)
-		widget.View.SetTitle(widget.Name)
+		widget.View.SetTitle(widget.Name())
 		content = err.Error()
 	} else {
 		widget.View.SetWrap(false)
 		widget.View.SetTitle(
 			fmt.Sprintf(
 				"[white]%s: [green]%s ",
-				widget.Name,
+				widget.Name(),
 				wtf.Config.UString("wtf.mods.trello.board"),
 			),
 		)

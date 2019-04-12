@@ -38,7 +38,7 @@ func (widget *Widget) Refresh() {
 		incidents, err2 = GetIncidents()
 	}
 
-	widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("%s", widget.Name)))
+	widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("%s", widget.Name())))
 	widget.View.Clear()
 
 	var content string

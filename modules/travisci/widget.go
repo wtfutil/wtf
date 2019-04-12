@@ -55,7 +55,7 @@ func (widget *Widget) Refresh() {
 
 	if err != nil {
 		widget.View.SetWrap(true)
-		widget.View.SetTitle(widget.Name)
+		widget.View.SetTitle(widget.Name())
 		widget.View.SetText(err.Error())
 	} else {
 		widget.builds = builds
@@ -73,7 +73,7 @@ func (widget *Widget) display() {
 
 	widget.View.SetWrap(false)
 
-	widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("%s - Builds", widget.Name)))
+	widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("%s - Builds", widget.Name())))
 	widget.View.SetText(widget.contentFrom(widget.builds))
 }
 
