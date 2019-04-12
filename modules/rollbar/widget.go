@@ -55,7 +55,7 @@ func (widget *Widget) Refresh() {
 
 	if err != nil {
 		widget.View.SetWrap(true)
-		widget.View.SetTitle(widget.Name)
+		widget.View.SetTitle(widget.Name())
 		widget.View.SetText(err.Error())
 	} else {
 		widget.items = &items.Results
@@ -73,7 +73,7 @@ func (widget *Widget) display() {
 
 	widget.View.SetWrap(false)
 	projectName := wtf.Config.UString("wtf.mods.rollbar.projectName", "Items")
-	widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("%s - %s", widget.Name, projectName)))
+	widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("%s - %s", widget.Name(), projectName)))
 	widget.View.SetText(widget.contentFrom(widget.items))
 }
 

@@ -63,7 +63,7 @@ func (widget *Widget) Refresh() {
 
 	if err != nil {
 		widget.View.SetWrap(true)
-		widget.View.SetTitle(widget.ContextualTitle(widget.Name))
+		widget.View.SetTitle(widget.ContextualTitle(widget.Name()))
 		widget.View.SetText(err.Error())
 	}
 
@@ -80,7 +80,7 @@ func (widget *Widget) display() {
 	widget.View.SetWrap(false)
 
 	widget.View.Clear()
-	widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("%s: [red]%s", widget.Name, widget.view.Name)))
+	widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("%s: [red]%s", widget.Name(), widget.view.Name)))
 	widget.View.SetText(widget.contentFrom(widget.view))
 	widget.View.Highlight(strconv.Itoa(widget.selected)).ScrollToHighlight()
 }

@@ -68,7 +68,7 @@ import (
 )
 
 var focusTracker wtf.FocusTracker
-var widgets []wtf.Wtfable
+var runningWidgets []wtf.Wtfable
 
 // Config parses the config.yml file and makes available the settings within
 var Config *config.Config
@@ -81,13 +81,13 @@ var (
 
 /* -------------------- Functions -------------------- */
 
-func disableAllWidgets() {
+func disableAllWidgets(widgets []wtf.Wtfable) {
 	for _, widget := range widgets {
 		widget.Disable()
 	}
 }
 
-func initializeFocusTracker(app *tview.Application) {
+func initializeFocusTracker(app *tview.Application, widgets []wtf.Wtfable) {
 	focusTracker = wtf.FocusTracker{
 		App:     app,
 		Idx:     -1,
@@ -100,7 +100,7 @@ func initializeFocusTracker(app *tview.Application) {
 func keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	switch event.Key() {
 	case tcell.KeyCtrlR:
-		refreshAllWidgets()
+		refreshAllWidgets(runningWidgets)
 	case tcell.KeyTab:
 		focusTracker.Next()
 	case tcell.KeyBacktab:
@@ -121,7 +121,7 @@ func loadConfigFile(filePath string) {
 	wtf.Config = Config
 }
 
-func refreshAllWidgets() {
+func refreshAllWidgets(widgets []wtf.Wtfable) {
 	for _, widget := range widgets {
 		go widget.Refresh()
 	}
@@ -138,19 +138,23 @@ func watchForConfigChanges(app *tview.Application, configFilePath string, grid *
 	watch := watcher.New()
 	absPath, _ := wtf.ExpandHomeDir(configFilePath)
 
-	// notify write events.
+	// Notify write events
 	watch.FilterOps(watcher.Write)
 
 	go func() {
 		for {
 			select {
 			case <-watch.Event:
-				loadConfigFile(absPath)
 				// Disable all widgets to stop scheduler goroutines and rmeove widgets from memory.
-				disableAllWidgets()
-				widgets = nil
-				makeWidgets(app, pages)
-				initializeFocusTracker(app)
+				disableAllWidgets(runningWidgets)
+
+				loadConfigFile(absPath)
+
+				widgets := makeWidgets(app, pages)
+				validateWidgets(widgets)
+
+				initializeFocusTracker(app, widgets)
+
 				display := wtf.NewDisplay(widgets)
 				pages.AddPage("grid", display.Grid, true, true)
 			case err := <-watch.Error:
@@ -172,110 +176,133 @@ func watchForConfigChanges(app *tview.Application, configFilePath string, grid *
 	}
 }
 
-func addWidget(app *tview.Application, pages *tview.Pages, widgetName string) {
+func makeWidget(app *tview.Application, pages *tview.Pages, widgetName string) wtf.Wtfable {
+	var widget wtf.Wtfable
+
 	// Always in alphabetical order
 	switch widgetName {
 	case "bamboohr":
-		widgets = append(widgets, bamboohr.NewWidget(app))
+		widget = bamboohr.NewWidget(app)
 	case "bargraph":
-		widgets = append(widgets, bargraph.NewWidget(app))
+		widget = bargraph.NewWidget(app)
 	case "bittrex":
-		widgets = append(widgets, bittrex.NewWidget(app))
+		widget = bittrex.NewWidget(app)
 	case "blockfolio":
-		widgets = append(widgets, blockfolio.NewWidget(app))
+		widget = blockfolio.NewWidget(app)
 	case "circleci":
-		widgets = append(widgets, circleci.NewWidget(app))
+		widget = circleci.NewWidget(app)
 	case "clocks":
-		widgets = append(widgets, clocks.NewWidget(app))
+		widget = clocks.NewWidget(app)
 	case "cmdrunner":
-		widgets = append(widgets, cmdrunner.NewWidget(app))
-	case "resourceusage":
-		widgets = append(widgets, resourceusage.NewWidget(app))
+		widget = cmdrunner.NewWidget(app)
 	case "cryptolive":
-		widgets = append(widgets, cryptolive.NewWidget(app))
+		widget = cryptolive.NewWidget(app)
 	case "datadog":
-		widgets = append(widgets, datadog.NewWidget(app))
+		widget = datadog.NewWidget(app)
 	case "gcal":
-		widgets = append(widgets, gcal.NewWidget(app))
+		widget = gcal.NewWidget(app)
 	case "gerrit":
-		widgets = append(widgets, gerrit.NewWidget(app, pages))
+		widget = gerrit.NewWidget(app, pages)
 	case "git":
-		widgets = append(widgets, git.NewWidget(app, pages))
+		widget = git.NewWidget(app, pages)
 	case "github":
-		widgets = append(widgets, github.NewWidget(app, pages))
+		widget = github.NewWidget(app, pages)
 	case "gitlab":
-		widgets = append(widgets, gitlab.NewWidget(app, pages))
+		widget = gitlab.NewWidget(app, pages)
 	case "gitter":
-		widgets = append(widgets, gitter.NewWidget(app, pages))
+		widget = gitter.NewWidget(app, pages)
 	case "gspreadsheets":
-		widgets = append(widgets, gspreadsheets.NewWidget(app))
+		widget = gspreadsheets.NewWidget(app)
 	case "hackernews":
-		widgets = append(widgets, hackernews.NewWidget(app, pages))
+		widget = hackernews.NewWidget(app, pages)
 	case "ipapi":
-		widgets = append(widgets, ipapi.NewWidget(app))
+		widget = ipapi.NewWidget(app)
 	case "ipinfo":
-		widgets = append(widgets, ipinfo.NewWidget(app))
+		widget = ipinfo.NewWidget(app)
 	case "jenkins":
-		widgets = append(widgets, jenkins.NewWidget(app, pages))
+		widget = jenkins.NewWidget(app, pages)
 	case "jira":
-		widgets = append(widgets, jira.NewWidget(app, pages))
+		widget = jira.NewWidget(app, pages)
 	case "logger":
-		widgets = append(widgets, logger.NewWidget(app))
+		widget = logger.NewWidget(app)
 	case "mercurial":
-		widgets = append(widgets, mercurial.NewWidget(app, pages))
+		widget = mercurial.NewWidget(app, pages)
 	case "nbascore":
-		widgets = append(widgets, nbascore.NewWidget(app, pages))
+		widget = nbascore.NewWidget(app, pages)
 	case "newrelic":
-		widgets = append(widgets, newrelic.NewWidget(app))
+		widget = newrelic.NewWidget(app)
 	case "opsgenie":
-		widgets = append(widgets, opsgenie.NewWidget(app))
+		widget = opsgenie.NewWidget(app)
 	case "pagerduty":
-		widgets = append(widgets, pagerduty.NewWidget(app))
+		widget = pagerduty.NewWidget(app)
 	case "power":
-		widgets = append(widgets, power.NewWidget(app))
+		widget = power.NewWidget(app)
 	case "prettyweather":
-		widgets = append(widgets, prettyweather.NewWidget(app))
+		widget = prettyweather.NewWidget(app)
+	case "resourceusage":
+		widget = resourceusage.NewWidget(app)
 	case "security":
-		widgets = append(widgets, security.NewWidget(app))
+		widget = security.NewWidget(app)
 	case "status":
-		widgets = append(widgets, status.NewWidget(app))
+		widget = status.NewWidget(app)
 	case "system":
-		widgets = append(widgets, system.NewWidget(app, date, version))
+		widget = system.NewWidget(app, date, version)
 	case "spotify":
-		widgets = append(widgets, spotify.NewWidget(app, pages))
+		widget = spotify.NewWidget(app, pages)
 	case "spotifyweb":
-		widgets = append(widgets, spotifyweb.NewWidget(app, pages))
+		widget = spotifyweb.NewWidget(app, pages)
 	case "textfile":
-		widgets = append(widgets, textfile.NewWidget(app, pages))
+		widget = textfile.NewWidget(app, pages)
 	case "todo":
-		widgets = append(widgets, todo.NewWidget(app, pages))
+		widget = todo.NewWidget(app, pages)
 	case "todoist":
-		widgets = append(widgets, todoist.NewWidget(app, pages))
+		widget = todoist.NewWidget(app, pages)
 	case "travisci":
-		widgets = append(widgets, travisci.NewWidget(app, pages))
+		widget = travisci.NewWidget(app, pages)
 	case "rollbar":
-		widgets = append(widgets, rollbar.NewWidget(app, pages))
+		widget = rollbar.NewWidget(app, pages)
 	case "trello":
-		widgets = append(widgets, trello.NewWidget(app))
+		widget = trello.NewWidget(app)
 	case "twitter":
-		widgets = append(widgets, twitter.NewWidget(app, pages))
+		widget = twitter.NewWidget(app, pages)
 	case "victorops":
-		widgets = append(widgets, victorops.NewWidget(app))
+		widget = victorops.NewWidget(app)
 	case "weather":
-		widgets = append(widgets, weather.NewWidget(app, pages))
+		widget = weather.NewWidget(app, pages)
 	case "zendesk":
-		widgets = append(widgets, zendesk.NewWidget(app))
+		widget = zendesk.NewWidget(app)
 	default:
-		widgets = append(widgets, unknown.NewWidget(app, widgetName))
+		widget = unknown.NewWidget(app, widgetName)
 	}
+
+	return widget
 }
 
-func makeWidgets(app *tview.Application, pages *tview.Pages) {
+func makeWidgets(app *tview.Application, pages *tview.Pages) []wtf.Wtfable {
+	widgets := []wtf.Wtfable{}
+
 	mods, _ := Config.Map("wtf.mods")
 
 	for mod := range mods {
 		if enabled := Config.UBool("wtf.mods."+mod+".enabled", false); enabled {
-			addWidget(app, pages, mod)
+			widget := makeWidget(app, pages, mod)
+			widgets = append(widgets, widget)
+		}
+	}
+
+	// This is a hack to allow refreshAllWidgets and disableAllWidgets to work
+	// Need to implement a non-global way to track these
+	runningWidgets = widgets
+
+	return widgets
+}
+
+// Check that all the loaded widgets are valid for display
+func validateWidgets(widgets []wtf.Wtfable) {
+	for _, widget := range widgets {
+		if widget.Enabled() && !widget.IsPositionable() {
+			errStr := fmt.Sprintf("Widget config has invalid values: %s", widget.Key())
+			log.Fatalln(errStr)
 		}
 	}
 }
@@ -303,11 +330,14 @@ func main() {
 	app := tview.NewApplication()
 	pages := tview.NewPages()
 
-	makeWidgets(app, pages)
-	initializeFocusTracker(app)
+	widgets := makeWidgets(app, pages)
+	validateWidgets(widgets)
+
+	initializeFocusTracker(app, widgets)
 
 	display := wtf.NewDisplay(widgets)
 	pages.AddPage("grid", display.Grid, true, true)
+
 	app.SetInputCapture(keyboardIntercept)
 
 	go watchForConfigChanges(app, flags.Config, display.Grid, pages)

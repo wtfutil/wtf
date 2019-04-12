@@ -13,8 +13,9 @@ type TextWidget struct {
 	enabled   bool
 	focusable bool
 	focusChar string
+	key       string
+	name      string
 
-	Name       string
 	RefreshInt int
 	View       *tview.TextView
 
@@ -32,7 +33,8 @@ func NewTextWidget(app *tview.Application, name string, configKey string, focusa
 		enabled:    Config.UBool(fmt.Sprintf("wtf.mods.%s.enabled", configKey), false),
 		focusable:  focusable,
 		focusChar:  focusChar,
-		Name:       Config.UString(fmt.Sprintf("wtf.mods.%s.title", configKey), name),
+		key:        configKey,
+		name:       Config.UString(fmt.Sprintf("wtf.mods.%s.title", configKey), name),
 		RefreshInt: Config.UInt(fmt.Sprintf("wtf.mods.%s.refreshInterval", configKey)),
 	}
 
@@ -86,6 +88,20 @@ func (widget *TextWidget) FocusChar() string {
 	return widget.focusChar
 }
 
+// IsPositionable returns TRUE if the widget has valid position parameters, FALSE if it has
+// invalid position parameters (ie: cannot be placed onscreen)
+func (widget *TextWidget) IsPositionable() bool {
+	return widget.Position.IsValid()
+}
+
+func (widget *TextWidget) Key() string {
+	return widget.key
+}
+
+func (widget *TextWidget) Name() string {
+	return widget.name
+}
+
 func (widget *TextWidget) RefreshInterval() int {
 	return widget.RefreshInt
 }
@@ -129,7 +145,7 @@ func (widget *TextWidget) addView(app *tview.Application, configKey string) {
 		app.Draw()
 	})
 	view.SetDynamicColors(true)
-	view.SetTitle(widget.ContextualTitle(widget.Name))
+	view.SetTitle(widget.ContextualTitle(widget.name))
 	view.SetWrap(false)
 
 	widget.View = view

@@ -57,7 +57,7 @@ func (widget *Widget) Refresh() {
 	if err != nil {
 		widget.result = nil
 		widget.View.SetWrap(true)
-		widget.View.SetTitle(widget.Name)
+		widget.View.SetTitle(widget.Name())
 		widget.View.SetText(err.Error())
 	} else {
 		widget.result = searchResult
@@ -74,7 +74,7 @@ func (widget *Widget) display() {
 	}
 	widget.View.SetWrap(false)
 
-	str := fmt.Sprintf("%s- [green]%s[white]", widget.Name, wtf.Config.UString("wtf.mods.jira.project"))
+	str := fmt.Sprintf("%s- [green]%s[white]", widget.Name(), wtf.Config.UString("wtf.mods.jira.project"))
 
 	widget.View.Clear()
 	widget.View.SetTitle(widget.ContextualTitle(str))

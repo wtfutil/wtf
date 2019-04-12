@@ -26,6 +26,10 @@ func (display *Display) add(widget Wtfable) {
 		return
 	}
 
+	if !widget.IsPositionable() {
+		return
+	}
+
 	display.Grid.AddItem(
 		widget.TextView(),
 		widget.Top(),

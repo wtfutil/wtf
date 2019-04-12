@@ -38,7 +38,7 @@ func (widget *Widget) Refresh() {
 
 	builds, err := widget.Client.BuildsFor()
 
-	widget.View.SetTitle(fmt.Sprintf("%s - Builds", widget.Name))
+	widget.View.SetTitle(fmt.Sprintf("%s - Builds", widget.Name()))
 
 	var content string
 	if err != nil {

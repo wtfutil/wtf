@@ -32,7 +32,7 @@ func (widget *Widget) display() {
 	widget.mutex.Lock()
 	defer widget.mutex.Unlock()
 
-	widget.View.SetTitle(widget.ContextualTitle(widget.Name))
+	widget.View.SetTitle(widget.ContextualTitle(widget.Name()))
 	widget.View.SetText(widget.contentFrom(widget.calEvents))
 }
 

@@ -47,7 +47,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 func (widget *Widget) Refresh() {
 	widget.nbascore()
 
-	widget.View.SetTitle(widget.ContextualTitle(widget.Name))
+	widget.View.SetTitle(widget.ContextualTitle(widget.Name()))
 }
 
 func (widget *Widget) nbascore() {

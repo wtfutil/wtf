@@ -94,7 +94,7 @@ func (widget *Widget) Refresh() {
 	gerrit, err := glb.NewClient(gerritUrl, httpClient)
 	if err != nil {
 		widget.View.SetWrap(true)
-		widget.View.SetTitle(widget.Name)
+		widget.View.SetTitle(widget.Name())
 		widget.View.SetText(err.Error())
 		return
 	}

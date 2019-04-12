@@ -72,7 +72,7 @@ func (widget *Widget) Refresh() {
 	widget.load()
 	widget.display()
 
-	widget.View.SetTitle(widget.ContextualTitle(widget.Name))
+	widget.View.SetTitle(widget.ContextualTitle(widget.Name()))
 }
 
 func (widget *Widget) SetList(newList checklist.Checklist) {
