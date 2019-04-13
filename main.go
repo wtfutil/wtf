@@ -182,7 +182,8 @@ func makeWidget(app *tview.Application, pages *tview.Pages, widgetName string) w
 	// Always in alphabetical order
 	switch widgetName {
 	case "bamboohr":
-		widget = bamboohr.NewWidget(app)
+		cfg := bamboohr.NewSettingsFromYAML(wtf.Config)
+		widget = bamboohr.NewWidget(app, cfg)
 	case "bargraph":
 		widget = bargraph.NewWidget(app)
 	case "bittrex":

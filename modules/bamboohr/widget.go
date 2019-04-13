@@ -2,19 +2,25 @@ package bamboohr
 
 import (
 	"fmt"
-	"os"
+	// "os"
 
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/wtf"
 )
 
+const APIURI = "https://api.bamboohr.com/api/gateway.php"
+
 type Widget struct {
 	wtf.TextWidget
+
+	settings *Settings
 }
 
-func NewWidget(app *tview.Application) *Widget {
+func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(app, "BambooHR", "bamboohr", false),
+
+		settings: settings,
 	}
 
 	return &widget
@@ -23,17 +29,12 @@ func NewWidget(app *tview.Application) *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	apiKey := wtf.Config.UString(
-		"wtf.mods.bamboohr.apiKey",
-		os.Getenv("WTF_BAMBOO_HR_TOKEN"),
+	client := NewClient(
+		APIURI,
+		widget.settings.APIKey,
+		widget.settings.Subdomain,
 	)
 
-	subdomain := wtf.Config.UString(
-		"wtf.mods.bamboohr.subdomain",
-		os.Getenv("WTF_BAMBOO_HR_SUBDOMAIN"),
-	)
-
-	client := NewClient("https://api.bamboohr.com/api/gateway.php", apiKey, subdomain)
 	todayItems := client.Away(
 		"timeOff",
 		wtf.Now().Format(wtf.DateFormat),
