@@ -6,17 +6,17 @@ import (
 )
 
 type Settings struct {
-	Common *cfg.Common
+	common *cfg.Common
 
-	FilePath string
+	filePath string
 }
 
 func NewSettingsFromYAML(ymlConfig *config.Config) *Settings {
 	localConfig, _ := ymlConfig.Get("wtf.mods.todo")
 
 	settings := Settings{
-		Common:   cfg.NewCommonSettingsFromYAML(ymlConfig),
-		FilePath: localConfig.UString("filename"),
+		common:   cfg.NewCommonSettingsFromYAML(ymlConfig),
+		filePath: localConfig.UString("filename"),
 	}
 
 	return &settings

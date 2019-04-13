@@ -53,7 +53,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 
 		app:      app,
 		settings: settings,
-		filePath: settings.FilePath,
+		filePath: settings.filePath,
 		list:     checklist.NewChecklist(),
 		pages:    pages,
 	}
@@ -257,8 +257,8 @@ func (widget *Widget) modalFocus(form *tview.Form) {
 }
 
 func (widget *Widget) modalForm(lbl, text string) *tview.Form {
-	form := tview.NewForm().SetFieldBackgroundColor(wtf.ColorFor(widget.settings.Common.Colors.Background))
-	form.SetButtonsAlign(tview.AlignCenter).SetButtonTextColor(wtf.ColorFor(widget.settings.Common.Colors.Text))
+	form := tview.NewForm().SetFieldBackgroundColor(wtf.ColorFor(widget.settings.common.Colors.Background))
+	form.SetButtonsAlign(tview.AlignCenter).SetButtonTextColor(wtf.ColorFor(widget.settings.common.Colors.Text))
 
 	form.AddInputField(lbl, text, 60, nil, nil)
 

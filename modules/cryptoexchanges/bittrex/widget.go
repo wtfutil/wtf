@@ -11,56 +11,38 @@ import (
 	"github.com/wtfutil/wtf/wtf"
 )
 
-type TextColors struct {
-	base struct {
-		name        string
-		displayName string
-	}
-	market struct {
-		name  string
-		field string
-		value string
-	}
-}
-
 var ok = true
 var errorText = ""
 
-var baseURL = "https://bittrex.com/api/v1.1/public/getmarketsummary"
+const baseURL = "https://bittrex.com/api/v1.1/public/getmarketsummary"
 
 // Widget define wtf widget to register widget later
 type Widget struct {
 	wtf.TextWidget
+
+	settings *Settings
 	summaryList
-	TextColors
 }
 
 // NewWidget Make new instance of widget
-func NewWidget(app *tview.Application) *Widget {
+func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget:  wtf.NewTextWidget(app, "Bittrex", "bittrex", false),
+		TextWidget: wtf.NewTextWidget(app, "Bittrex", "bittrex", false),
+
+		settings:    settings,
 		summaryList: summaryList{},
 	}
 
 	ok = true
 	errorText = ""
 
-	widget.config()
 	widget.setSummaryList()
 
 	return &widget
 }
 
-func (widget *Widget) config() {
-	widget.TextColors.base.name = wtf.Config.UString("wtf.mods.bittrex.colors.base.name", "red")
-	widget.TextColors.base.displayName = wtf.Config.UString("wtf.mods.bittrex.colors.base.displayName", "grey")
-	widget.TextColors.market.name = wtf.Config.UString("wtf.mods.bittrex.colors.market.name", "red")
-	widget.TextColors.market.field = wtf.Config.UString("wtf.mods.bittrex.colors.market.field", "coral")
-	widget.TextColors.market.value = wtf.Config.UString("wtf.mods.bittrex.colors.market.value", "white")
-}
-
 func (widget *Widget) setSummaryList() {
-	sCurrencies, _ := wtf.Config.Map("wtf.mods.bittrex.summary")
+	sCurrencies := widget.settings.summary
 	for baseCurrencyName := range sCurrencies {
 		displayName, _ := wtf.Config.String("wtf.mods.bittrex.summary." + baseCurrencyName + ".displayName")
 		mCurrencyList := makeSummaryMarketList(baseCurrencyName)

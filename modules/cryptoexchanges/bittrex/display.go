@@ -12,14 +12,21 @@ func (widget *Widget) display() {
 		return
 	}
 
-	widget.View.SetText(summaryText(&widget.summaryList, &widget.TextColors))
+	summaryText := widget.summaryText(&widget.summaryList)
+	widget.View.SetText(summaryText)
 }
 
-func summaryText(list *summaryList, colors *TextColors) string {
+func (widget *Widget) summaryText(list *summaryList) string {
 	str := ""
 
 	for _, baseCurrency := range list.items {
-		str += fmt.Sprintf(" [%s]%s[%s] (%s)\n\n", colors.base.displayName, baseCurrency.displayName, colors.base.name, baseCurrency.name)
+		str += fmt.Sprintf(
+			" [%s]%s[%s] (%s)\n\n",
+			widget.settings.colors.base.displayName,
+			baseCurrency.displayName,
+			widget.settings.colors.base.name,
+			baseCurrency.name,
+		)
 
 		resultTemplate := template.New("bittrex")
 
@@ -38,9 +45,9 @@ func summaryText(list *summaryList, colors *TextColors) string {
 			)
 
 			strTemplate.Execute(writer, map[string]string{
-				"nameColor":      colors.market.name,
-				"fieldColor":     colors.market.field,
-				"valueColor":     colors.market.value,
+				"nameColor":      widget.settings.colors.market.name,
+				"fieldColor":     widget.settings.colors.market.field,
+				"valueColor":     widget.settings.colors.market.value,
 				"mName":          marketCurrency.name,
 				"High":           marketCurrency.High,
 				"Low":            marketCurrency.Low,
