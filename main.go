@@ -191,7 +191,8 @@ func makeWidget(app *tview.Application, pages *tview.Pages, widgetName string) w
 	case "blockfolio":
 		widget = blockfolio.NewWidget(app)
 	case "circleci":
-		widget = circleci.NewWidget(app)
+		cfg := circleci.NewSettingsFromYAML(wtf.Config)
+		widget = circleci.NewWidget(app, cfg)
 	case "clocks":
 		widget = clocks.NewWidget(app)
 	case "cmdrunner":
