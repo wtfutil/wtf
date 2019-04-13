@@ -254,7 +254,8 @@ func makeWidget(app *tview.Application, pages *tview.Pages, widgetName string) w
 	case "textfile":
 		widget = textfile.NewWidget(app, pages)
 	case "todo":
-		widget = todo.NewWidget(app, pages)
+		cfg := todo.NewSettingsFromYAML(wtf.Config)
+		widget = todo.NewWidget(app, pages, cfg)
 	case "todoist":
 		widget = todoist.NewWidget(app, pages)
 	case "travisci":

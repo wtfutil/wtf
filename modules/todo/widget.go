@@ -40,18 +40,20 @@ type Widget struct {
 	wtf.TextWidget
 
 	app      *tview.Application
+	settings *Settings
 	filePath string
 	list     checklist.Checklist
 	pages    *tview.Pages
 }
 
-func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
+func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
 		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
 		TextWidget:    wtf.NewTextWidget(app, "Todo", "todo", true),
 
 		app:      app,
-		filePath: wtf.Config.UString("wtf.mods.todo.filename"),
+		settings: settings,
+		filePath: settings.FilePath,
 		list:     checklist.NewChecklist(),
 		pages:    pages,
 	}
@@ -255,11 +257,8 @@ func (widget *Widget) modalFocus(form *tview.Form) {
 }
 
 func (widget *Widget) modalForm(lbl, text string) *tview.Form {
-	form := tview.NewForm().
-		SetFieldBackgroundColor(wtf.ColorFor(wtf.Config.UString("wtf.colors.background", "black")))
-
-	form.SetButtonsAlign(tview.AlignCenter).
-		SetButtonTextColor(wtf.ColorFor(wtf.Config.UString("wtf.colors.text", "white")))
+	form := tview.NewForm().SetFieldBackgroundColor(wtf.ColorFor(widget.settings.Common.Colors.Background))
+	form.SetButtonsAlign(tview.AlignCenter).SetButtonTextColor(wtf.ColorFor(widget.settings.Common.Colors.Text))
 
 	form.AddInputField(lbl, text, 60, nil, nil)
 

@@ -96,17 +96,17 @@ func NamesFromEmails(emails []string) []string {
 
 // OpenFile opens the file defined in `path` via the operating system
 func OpenFile(path string) {
-	if (strings.HasPrefix(path,"http://"))||(strings.HasPrefix(path,"https://")) {
+	if (strings.HasPrefix(path, "http://")) || (strings.HasPrefix(path, "https://")) {
 		switch runtime.GOOS {
-			case "linux":	
-				exec.Command("xdg-open", path).Start()
-			case "windows":
-				exec.Command("rundll32", "url.dll,FileProtocolHandler", path).Start()
-			case "darwin":
-				exec.Command("open", path).Start()
-			default:
+		case "linux":
+			exec.Command("xdg-open", path).Start()
+		case "windows":
+			exec.Command("rundll32", "url.dll,FileProtocolHandler", path).Start()
+		case "darwin":
+			exec.Command("open", path).Start()
+		default:
 		}
-	}else {
+	} else {
 		filePath, _ := ExpandHomeDir(path)
 		openFileUtil := Config.UString("wtf.openFileUtil", "open")
 		cmd := exec.Command(openFileUtil, filePath)
