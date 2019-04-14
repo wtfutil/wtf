@@ -16,7 +16,7 @@ type Settings struct {
 }
 
 func NewSettingsFromYAML(ymlConfig *config.Config) *Settings {
-	localConfig, _ := ymlConfig.Get("wtf.mods.todo")
+	localConfig, _ := ymlConfig.Get("wtf.mods.datadog")
 
 	settings := Settings{
 		common:         cfg.NewCommonSettingsFromYAML(ymlConfig),
