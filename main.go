@@ -205,7 +205,8 @@ func makeWidget(app *tview.Application, pages *tview.Pages, widgetName string) w
 		cfg := cryptolive.NewSettingsFromYAML(wtf.Config)
 		widget = cryptolive.NewWidget(app, cfg)
 	case "datadog":
-		widget = datadog.NewWidget(app)
+		cfg := datadog.NewSettingsFromYAML(wtf.Config)
+		widget = datadog.NewWidget(app, cfg)
 	case "gcal":
 		widget = gcal.NewWidget(app)
 	case "gerrit":
