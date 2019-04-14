@@ -12,17 +12,19 @@ import (
 type Widget struct {
 	wtf.TextWidget
 
-	args   []string
-	cmd    string
-	result string
+	args     []string
+	cmd      string
+	result   string
+	settings *Settings
 }
 
-func NewWidget(app *tview.Application) *Widget {
+func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(app, "CmdRunner", "cmdrunner", false),
 
-		args: wtf.ToStrs(wtf.Config.UList("wtf.mods.cmdrunner.args")),
-		cmd:  wtf.Config.UString("wtf.mods.cmdrunner.cmd"),
+		args:     settings.args,
+		cmd:      settings.cmd,
+		settings: settings,
 	}
 
 	widget.View.SetWrap(true)
