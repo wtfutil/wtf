@@ -27,10 +27,10 @@ import (
 
 /* -------------------- Exported Functions -------------------- */
 
-func Fetch() ([]*CalEvent, error) {
+func (widget *Widget) Fetch() ([]*CalEvent, error) {
 	ctx := context.Background()
 
-	secretPath, _ := wtf.ExpandHomeDir(wtf.Config.UString("wtf.mods.gcal.secretFile"))
+	secretPath, _ := wtf.ExpandHomeDir(widget.settings.secretFile)
 
 	b, err := ioutil.ReadFile(secretPath)
 	if err != nil {
@@ -48,13 +48,13 @@ func Fetch() ([]*CalEvent, error) {
 		return nil, err
 	}
 
-	calendarIds, err := getCalendarIdList(srv)
+	calendarIds, err := widget.getCalendarIdList(srv)
 
 	// Get calendar events
 	var events calendar.Events
 
 	startTime := fromMidnight().Format(time.RFC3339)
-	eventLimit := int64(wtf.Config.UInt("wtf.mods.gcal.eventCount", 10))
+	eventLimit := int64(widget.settings.eventCount)
 
 	for _, calendarId := range calendarIds {
 		calendarEvents, err := srv.Events.List(calendarId).ShowDeleted(false).TimeMin(startTime).MaxResults(eventLimit).SingleEvents(true).OrderBy("startTime").Do()
@@ -122,13 +122,12 @@ func isAuthenticated() bool {
 	return err == nil
 }
 
-func authenticate() {
-	filename := wtf.Config.UString("wtf.mods.gcal.secretFile")
-	secretPath, _ := wtf.ExpandHomeDir(filename)
+func (widget *Widget) authenticate() {
+	secretPath, _ := wtf.ExpandHomeDir(widget.settings.secretFile)
 
 	b, err := ioutil.ReadFile(secretPath)
 	if err != nil {
-		log.Fatalf("Unable to read secret file. %v", filename)
+		log.Fatalf("Unable to read secret file. %v", widget.settings.secretFile)
 	}
 
 	config, err := google.ConfigFromJSON(b, calendar.CalendarReadonlyScope)
@@ -188,9 +187,9 @@ func saveToken(file string, token *oauth2.Token) {
 	json.NewEncoder(f).Encode(token)
 }
 
-func getCalendarIdList(srv *calendar.Service) ([]string, error) {
+func (widget *Widget) getCalendarIdList(srv *calendar.Service) ([]string, error) {
 	// Return single calendar if settings specify we should
-	if !wtf.Config.UBool("wtf.mods.gcal.multiCalendar", false) {
+	if !widget.settings.multiCalendar {
 		id, err := srv.CalendarList.Get("primary").Do()
 		if err != nil {
 			return nil, err

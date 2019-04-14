@@ -11,17 +11,20 @@ import (
 type Widget struct {
 	wtf.TextWidget
 
+	app       *tview.Application
 	calEvents []*CalEvent
 	ch        chan struct{}
 	mutex     sync.Mutex
-	app       *tview.Application
+	settings  *Settings
 }
 
-func NewWidget(app *tview.Application) *Widget {
+func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(app, "Calendar", "gcal", true),
-		ch:         make(chan struct{}),
-		app:        app,
+
+		app:      app,
+		ch:       make(chan struct{}),
+		settings: settings,
 	}
 
 	go updateLoop(&widget)
@@ -41,14 +44,14 @@ func (widget *Widget) Refresh() {
 		widget.fetchAndDisplayEvents()
 		return
 	}
-	widget.app.Suspend(authenticate)
+	widget.app.Suspend(widget.authenticate)
 	widget.Refresh()
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
 func (widget *Widget) fetchAndDisplayEvents() {
-	calEvents, err := Fetch()
+	calEvents, err := widget.Fetch()
 	if err != nil {
 		widget.calEvents = []*CalEvent{}
 	} else {
@@ -58,12 +61,11 @@ func (widget *Widget) fetchAndDisplayEvents() {
 }
 
 func updateLoop(widget *Widget) {
-	interval := wtf.Config.UInt("wtf.mods.gcal.textInterval", 30)
-	if interval == 0 {
+	if widget.settings.textInterval == 0 {
 		return
 	}
 
-	tick := time.NewTicker(time.Duration(interval) * time.Second)
+	tick := time.NewTicker(time.Duration(widget.settings.textInterval) * time.Second)
 	defer tick.Stop()
 outer:
 	for {

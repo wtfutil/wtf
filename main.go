@@ -208,7 +208,8 @@ func makeWidget(app *tview.Application, pages *tview.Pages, widgetName string) w
 		cfg := datadog.NewSettingsFromYAML(wtf.Config)
 		widget = datadog.NewWidget(app, cfg)
 	case "gcal":
-		widget = gcal.NewWidget(app)
+		cfg := gcal.NewSettingsFromYAML(wtf.Config)
+		widget = gcal.NewWidget(app, cfg)
 	case "gerrit":
 		widget = gerrit.NewWidget(app, pages)
 	case "git":
