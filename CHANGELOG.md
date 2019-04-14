@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 0.6.0
+
 ### ⚡️ Added
 
 * Jira widget navigable via up/down arrow keys, by [@jdenoy](https://github.com/jdenoy)
