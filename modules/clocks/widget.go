@@ -14,17 +14,19 @@ type Widget struct {
 	clockColl  ClockCollection
 	dateFormat string
 	timeFormat string
+	settings   *Settings
 }
 
-func NewWidget(app *tview.Application) *Widget {
+func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(app, "World Clocks", "clocks", false),
+
+		settings:   settings,
+		dateFormat: settings.dateFormat,
+		timeFormat: settings.timeFormat,
 	}
 
-	widget.clockColl = widget.buildClockCollection(wtf.Config.UMap("wtf.mods.clocks.locations"))
-
-	widget.dateFormat = wtf.Config.UString("wtf.mods.clocks.dateFormat", wtf.SimpleDateFormat)
-	widget.timeFormat = wtf.Config.UString("wtf.mods.clocks.timeFormat", wtf.SimpleTimeFormat)
+	widget.clockColl = widget.buildClockCollection(settings.locations)
 
 	return &widget
 }

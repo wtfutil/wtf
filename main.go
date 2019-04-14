@@ -196,7 +196,8 @@ func makeWidget(app *tview.Application, pages *tview.Pages, widgetName string) w
 		cfg := circleci.NewSettingsFromYAML(wtf.Config)
 		widget = circleci.NewWidget(app, cfg)
 	case "clocks":
-		widget = clocks.NewWidget(app)
+		cfg := clocks.NewSettingsFromYAML(wtf.Config)
+		widget = clocks.NewWidget(app, cfg)
 	case "cmdrunner":
 		widget = cmdrunner.NewWidget(app)
 	case "cryptolive":
