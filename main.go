@@ -190,7 +190,8 @@ func makeWidget(app *tview.Application, pages *tview.Pages, widgetName string) w
 		cfg := bittrex.NewSettingsFromYAML(wtf.Config)
 		widget = bittrex.NewWidget(app, cfg)
 	case "blockfolio":
-		widget = blockfolio.NewWidget(app)
+		cfg := blockfolio.NewSettingsFromYAML(wtf.Config)
+		widget = blockfolio.NewWidget(app, cfg)
 	case "circleci":
 		cfg := circleci.NewSettingsFromYAML(wtf.Config)
 		widget = circleci.NewWidget(app, cfg)
