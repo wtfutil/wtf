@@ -13,16 +13,20 @@ import (
 // Widget define wtf widget to register widget later
 type Widget struct {
 	wtf.TextWidget
+
 	priceWidget   *price.Widget
 	toplistWidget *toplist.Widget
+	settings      *Settings
 }
 
 // NewWidget Make new instance of widget
-func NewWidget(app *tview.Application) *Widget {
+func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget:    wtf.NewTextWidget(app, "CryptoLive", "cryptolive", false),
-		priceWidget:   price.NewWidget(),
-		toplistWidget: toplist.NewWidget(),
+		TextWidget: wtf.NewTextWidget(app, "CryptoLive", "cryptolive", false),
+
+		priceWidget:   price.NewWidget(settings.priceSettings),
+		toplistWidget: toplist.NewWidget(settings.toplistSettings),
+		settings:      settings,
 	}
 
 	widget.priceWidget.RefreshInterval = widget.RefreshInterval()
