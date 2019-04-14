@@ -214,7 +214,8 @@ func makeWidget(app *tview.Application, pages *tview.Pages, widgetName string) w
 		cfg := gerrit.NewSettingsFromYAML(wtf.Config)
 		widget = gerrit.NewWidget(app, pages, cfg)
 	case "git":
-		widget = git.NewWidget(app, pages)
+		cfg := git.NewSettingsFromYAML(wtf.Config)
+		widget = git.NewWidget(app, pages, cfg)
 	case "github":
 		widget = github.NewWidget(app, pages)
 	case "gitlab":

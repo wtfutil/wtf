@@ -32,19 +32,22 @@ type Widget struct {
 	wtf.MultiSourceWidget
 	wtf.TextWidget
 
-	app      *tview.Application
 	GitRepos []*GitRepo
+
+	app      *tview.Application
 	pages    *tview.Pages
+	settings *Settings
 }
 
-func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
+func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
 		HelpfulWidget:     wtf.NewHelpfulWidget(app, pages, HelpText),
 		MultiSourceWidget: wtf.NewMultiSourceWidget("git", "repository", "repositories"),
 		TextWidget:        wtf.NewTextWidget(app, "Git", "git", true),
 
-		app:   app,
-		pages: pages,
+		app:      app,
+		pages:    pages,
+		settings: settings,
 	}
 
 	widget.LoadSources()
@@ -83,7 +86,7 @@ func (widget *Widget) Pull() {
 }
 
 func (widget *Widget) Refresh() {
-	repoPaths := wtf.ToStrs(wtf.Config.UList("wtf.mods.git.repositories"))
+	repoPaths := wtf.ToStrs(widget.settings.repositories)
 
 	widget.GitRepos = widget.gitRepos(repoPaths)
 	sort.Slice(widget.GitRepos, func(i, j int) bool {
@@ -164,10 +167,16 @@ func (widget *Widget) gitRepos(repoPaths []string) []*GitRepo {
 
 	for _, repoPath := range repoPaths {
 		if strings.HasSuffix(repoPath, "/") {
-			repos = append(repos, findGitRepositories(make([]*GitRepo, 0), repoPath)...)
+			repos = append(repos, widget.findGitRepositories(make([]*GitRepo, 0), repoPath)...)
 
 		} else {
-			repo := NewGitRepo(repoPath)
+			repo := NewGitRepo(
+				repoPath,
+				widget.settings.commitCount,
+				widget.settings.commitFormat,
+				widget.settings.dateFormat,
+			)
+
 			repos = append(repos, repo)
 		}
 	}
@@ -175,7 +184,7 @@ func (widget *Widget) gitRepos(repoPaths []string) []*GitRepo {
 	return repos
 }
 
-func findGitRepositories(repositories []*GitRepo, directory string) []*GitRepo {
+func (widget *Widget) findGitRepositories(repositories []*GitRepo, directory string) []*GitRepo {
 	directory = strings.TrimSuffix(directory, "/")
 
 	files, err := ioutil.ReadDir(directory)
@@ -188,16 +197,24 @@ func findGitRepositories(repositories []*GitRepo, directory string) []*GitRepo {
 	for _, file := range files {
 		if file.IsDir() {
 			path = directory + "/" + file.Name()
+
 			if file.Name() == ".git" {
 				path = strings.TrimSuffix(path, "/.git")
-				repo := NewGitRepo(path)
+
+				repo := NewGitRepo(
+					path,
+					widget.settings.commitCount,
+					widget.settings.commitFormat,
+					widget.settings.dateFormat,
+				)
+
 				repositories = append(repositories, repo)
 				continue
 			}
 			if file.Name() == "vendor" || file.Name() == "node_modules" {
 				continue
 			}
-			repositories = findGitRepositories(repositories, path)
+			repositories = widget.findGitRepositories(repositories, path)
 		}
 	}
 

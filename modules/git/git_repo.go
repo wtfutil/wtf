@@ -16,12 +16,12 @@ type GitRepo struct {
 	Path         string
 }
 
-func NewGitRepo(repoPath string) *GitRepo {
+func NewGitRepo(repoPath string, commitCount int, commitFormat, dateFormat string) *GitRepo {
 	repo := GitRepo{Path: repoPath}
 
 	repo.Branch = repo.branch()
 	repo.ChangedFiles = repo.changedFiles()
-	repo.Commits = repo.commits()
+	repo.Commits = repo.commits(commitCount, commitFormat, dateFormat)
 	repo.Repository = strings.TrimSpace(repo.repository())
 
 	return &repo
@@ -49,13 +49,9 @@ func (repo *GitRepo) changedFiles() []string {
 	return data
 }
 
-func (repo *GitRepo) commits() []string {
-	numStr := fmt.Sprintf("-n %d", wtf.Config.UInt("wtf.mods.git.commitCount", 10))
-
-	dateFormat := wtf.Config.UString("wtf.mods.git.dateFormat", "%b %d, %Y")
+func (repo *GitRepo) commits(commitCount int, commitFormat, dateFormat string) []string {
 	dateStr := fmt.Sprintf("--date=format:\"%s\"", dateFormat)
-
-	commitFormat := wtf.Config.UString("wtf.mods.git.commitFormat", "[forestgreen]%h [white]%s [grey]%an on %cd[white]")
+	numStr := fmt.Sprintf("-n %d", commitCount)
 	commitStr := fmt.Sprintf("--pretty=format:\"%s\"", commitFormat)
 
 	arg := []string{repo.gitDir(), repo.workTree(), "log", dateStr, numStr, commitStr}
