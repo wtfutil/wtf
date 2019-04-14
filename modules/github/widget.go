@@ -26,17 +26,19 @@ type Widget struct {
 
 	GithubRepos []*GithubRepo
 	Idx         int
+	settings    *Settings
 }
 
-func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
+func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
 		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
 		TextWidget:    wtf.NewTextWidget(app, "GitHub", "github", true),
 
-		Idx: 0,
+		Idx:      0,
+		settings: settings,
 	}
 
-	widget.GithubRepos = widget.buildRepoCollection(wtf.Config.UMap("wtf.mods.github.repositories"))
+	widget.GithubRepos = widget.buildRepoCollection(widget.settings.repositories)
 
 	widget.HelpfulWidget.SetView(widget.View)
 	widget.View.SetInputCapture(widget.keyboardIntercept)
@@ -78,7 +80,14 @@ func (widget *Widget) buildRepoCollection(repoData map[string]interface{}) []*Gi
 	githubRepos := []*GithubRepo{}
 
 	for name, owner := range repoData {
-		repo := NewGithubRepo(name, owner.(string))
+		repo := NewGithubRepo(
+			name,
+			owner.(string),
+			widget.settings.apiKey,
+			widget.settings.baseURL,
+			widget.settings.uploadURL,
+		)
+
 		githubRepos = append(githubRepos, repo)
 	}
 

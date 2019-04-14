@@ -182,42 +182,43 @@ func makeWidget(app *tview.Application, pages *tview.Pages, widgetName string) w
 	// Always in alphabetical order
 	switch widgetName {
 	case "bamboohr":
-		cfg := bamboohr.NewSettingsFromYAML(wtf.Config)
-		widget = bamboohr.NewWidget(app, cfg)
+		settings := bamboohr.NewSettingsFromYAML(wtf.Config)
+		widget = bamboohr.NewWidget(app, settings)
 	case "bargraph":
 		widget = bargraph.NewWidget(app)
 	case "bittrex":
-		cfg := bittrex.NewSettingsFromYAML(wtf.Config)
-		widget = bittrex.NewWidget(app, cfg)
+		settings := bittrex.NewSettingsFromYAML(wtf.Config)
+		widget = bittrex.NewWidget(app, settings)
 	case "blockfolio":
-		cfg := blockfolio.NewSettingsFromYAML(wtf.Config)
-		widget = blockfolio.NewWidget(app, cfg)
+		settings := blockfolio.NewSettingsFromYAML(wtf.Config)
+		widget = blockfolio.NewWidget(app, settings)
 	case "circleci":
-		cfg := circleci.NewSettingsFromYAML(wtf.Config)
-		widget = circleci.NewWidget(app, cfg)
+		settings := circleci.NewSettingsFromYAML(wtf.Config)
+		widget = circleci.NewWidget(app, settings)
 	case "clocks":
-		cfg := clocks.NewSettingsFromYAML(wtf.Config)
-		widget = clocks.NewWidget(app, cfg)
+		settings := clocks.NewSettingsFromYAML(wtf.Config)
+		widget = clocks.NewWidget(app, settings)
 	case "cmdrunner":
-		cfg := cmdrunner.NewSettingsFromYAML(wtf.Config)
-		widget = cmdrunner.NewWidget(app, cfg)
+		settings := cmdrunner.NewSettingsFromYAML(wtf.Config)
+		widget = cmdrunner.NewWidget(app, settings)
 	case "cryptolive":
-		cfg := cryptolive.NewSettingsFromYAML(wtf.Config)
-		widget = cryptolive.NewWidget(app, cfg)
+		settings := cryptolive.NewSettingsFromYAML(wtf.Config)
+		widget = cryptolive.NewWidget(app, settings)
 	case "datadog":
-		cfg := datadog.NewSettingsFromYAML(wtf.Config)
-		widget = datadog.NewWidget(app, cfg)
+		settings := datadog.NewSettingsFromYAML(wtf.Config)
+		widget = datadog.NewWidget(app, settings)
 	case "gcal":
-		cfg := gcal.NewSettingsFromYAML(wtf.Config)
-		widget = gcal.NewWidget(app, cfg)
+		settings := gcal.NewSettingsFromYAML(wtf.Config)
+		widget = gcal.NewWidget(app, settings)
 	case "gerrit":
-		cfg := gerrit.NewSettingsFromYAML(wtf.Config)
-		widget = gerrit.NewWidget(app, pages, cfg)
+		settings := gerrit.NewSettingsFromYAML(wtf.Config)
+		widget = gerrit.NewWidget(app, pages, settings)
 	case "git":
-		cfg := git.NewSettingsFromYAML(wtf.Config)
-		widget = git.NewWidget(app, pages, cfg)
+		settings := git.NewSettingsFromYAML(wtf.Config)
+		widget = git.NewWidget(app, pages, settings)
 	case "github":
-		widget = github.NewWidget(app, pages)
+		settings := github.NewSettingsFromYAML(wtf.Config)
+		widget = github.NewWidget(app, pages, settings)
 	case "gitlab":
 		widget = gitlab.NewWidget(app, pages)
 	case "gitter":

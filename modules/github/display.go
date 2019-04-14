@@ -21,16 +21,16 @@ func (widget *Widget) display() {
 	str = str + widget.displayStats(repo)
 	str = str + "\n"
 	str = str + " [red]Open Review Requests[white]\n"
-	str = str + widget.displayMyReviewRequests(repo, wtf.Config.UString("wtf.mods.github.username"))
+	str = str + widget.displayMyReviewRequests(repo, widget.settings.username)
 	str = str + "\n"
 	str = str + " [red]My Pull Requests[white]\n"
-	str = str + widget.displayMyPullRequests(repo, wtf.Config.UString("wtf.mods.github.username"))
+	str = str + widget.displayMyPullRequests(repo, widget.settings.username)
 
 	widget.View.SetText(str)
 }
 
 func (widget *Widget) displayMyPullRequests(repo *GithubRepo, username string) string {
-	prs := repo.myPullRequests(username)
+	prs := repo.myPullRequests(username, widget.settings.enableStatus)
 
 	if len(prs) == 0 {
 		return " [grey]none[white]\n"
@@ -38,7 +38,7 @@ func (widget *Widget) displayMyPullRequests(repo *GithubRepo, username string) s
 
 	str := ""
 	for _, pr := range prs {
-		str = str + fmt.Sprintf(" %s[green]%4d[white] %s\n", mergeString(pr), *pr.Number, *pr.Title)
+		str = str + fmt.Sprintf(" %s[green]%4d[white] %s\n", widget.mergeString(pr), *pr.Number, *pr.Title)
 	}
 
 	return str
@@ -74,10 +74,6 @@ func (widget *Widget) title(repo *GithubRepo) string {
 	return fmt.Sprintf("[green]%s - %s[white]", repo.Owner, repo.Name)
 }
 
-func showStatus() bool {
-	return wtf.Config.UBool("wtf.mods.github.enableStatus", false)
-}
-
 var mergeIcons = map[string]string{
 	"dirty":    "[red]![white] ",
 	"clean":    "[green]✔[white] ",
@@ -85,8 +81,8 @@ var mergeIcons = map[string]string{
 	"blocked":  "[red]✖[white] ",
 }
 
-func mergeString(pr *github.PullRequest) string {
-	if !showStatus() {
+func (widget *Widget) mergeString(pr *github.PullRequest) string {
+	if !widget.settings.enableStatus {
 		return ""
 	}
 	if str, ok := mergeIcons[pr.GetMergeableState()]; ok {
