@@ -15,10 +15,9 @@ import (
 // Widget widget struct
 type Widget struct {
 	wtf.TextWidget
-	result string
-	colors struct {
-		name, value string
-	}
+
+	result   string
+	settings *Settings
 }
 
 type ipinfo struct {
@@ -37,14 +36,14 @@ type ipinfo struct {
 }
 
 // NewWidget constructor
-func NewWidget(app *tview.Application) *Widget {
+func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(app, "IPInfo", "ipapi", false),
+
+		settings: settings,
 	}
 
 	widget.View.SetWrap(false)
-
-	widget.config()
 
 	return &widget
 }
@@ -80,13 +79,6 @@ func (widget *Widget) ipinfo() {
 	widget.setResult(&info)
 }
 
-// read module configs
-func (widget *Widget) config() {
-	nameColor, valueColor := wtf.Config.UString("wtf.mods.ipinfo.colors.name", "red"), wtf.Config.UString("wtf.mods.ipinfo.colors.value", "white")
-	widget.colors.name = nameColor
-	widget.colors.value = valueColor
-}
-
 func (widget *Widget) setResult(info *ipinfo) {
 	resultTemplate, _ := template.New("ipinfo_result").Parse(
 		formatableText("IP Address", "Ip") +
@@ -104,8 +96,8 @@ func (widget *Widget) setResult(info *ipinfo) {
 	resultBuffer := new(bytes.Buffer)
 
 	resultTemplate.Execute(resultBuffer, map[string]string{
-		"nameColor":    widget.colors.name,
-		"valueColor":   widget.colors.value,
+		"nameColor":    widget.settings.colors.name,
+		"valueColor":   widget.settings.colors.value,
 		"Ip":           info.Query,
 		"ISP":          info.ISP,
 		"AS":           info.AS,

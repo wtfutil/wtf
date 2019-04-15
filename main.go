@@ -232,7 +232,8 @@ func makeWidget(app *tview.Application, pages *tview.Pages, widgetName string) w
 		settings := hackernews.NewSettingsFromYAML(wtf.Config)
 		widget = hackernews.NewWidget(app, pages, settings)
 	case "ipapi":
-		widget = ipapi.NewWidget(app)
+		settings := ipapi.NewSettingsFromYAML(wtf.Config)
+		widget = ipapi.NewWidget(app, settings)
 	case "ipinfo":
 		widget = ipinfo.NewWidget(app)
 	case "jenkins":
