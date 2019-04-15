@@ -28,12 +28,15 @@ type Widget struct {
 
 	result   *SearchResult
 	selected int
+	settings *Settings
 }
 
-func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
+func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
 		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
 		TextWidget:    wtf.NewTextWidget(app, "Jira", "jira", true),
+
+		settings: settings,
 	}
 
 	widget.HelpfulWidget.SetView(widget.View)
@@ -48,10 +51,10 @@ func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	searchResult, err := IssuesFor(
-		wtf.Config.UString("wtf.mods.jira.username"),
-		getProjects(),
-		wtf.Config.UString("wtf.mods.jira.jql", ""),
+	searchResult, err := widget.IssuesFor(
+		widget.settings.username,
+		widget.settings.projects,
+		widget.settings.jql,
 	)
 
 	if err != nil {
@@ -74,7 +77,7 @@ func (widget *Widget) display() {
 	}
 	widget.View.SetWrap(false)
 
-	str := fmt.Sprintf("%s- [green]%s[white]", widget.Name(), wtf.Config.UString("wtf.mods.jira.project"))
+	str := fmt.Sprintf("%s- [green]%s[white]", widget.Name(), widget.settings.projects)
 
 	widget.View.Clear()
 	widget.View.SetTitle(widget.ContextualTitle(str))
@@ -100,7 +103,7 @@ func (widget *Widget) openItem() {
 	sel := widget.selected
 	if sel >= 0 && widget.result != nil && sel < len(widget.result.Issues) {
 		issue := &widget.result.Issues[widget.selected]
-		wtf.OpenFile(wtf.Config.UString("wtf.mods.jira.domain") + "/browse/" + issue.Key)
+		wtf.OpenFile(widget.settings.domain + "/browse/" + issue.Key)
 	}
 }
 
@@ -137,7 +140,12 @@ func (widget *Widget) rowColor(idx int) string {
 	if widget.View.HasFocus() && (idx == widget.selected) {
 		return wtf.DefaultFocussedRowColor()
 	}
-	return wtf.RowColor("jira", idx)
+
+	if idx%2 == 0 {
+		return widget.settings.colors.rows.even
+	}
+
+	return widget.settings.colors.rows.odd
 }
 
 func (widget *Widget) issueTypeColor(issue *Issue) string {
@@ -151,24 +159,6 @@ func (widget *Widget) issueTypeColor(issue *Issue) string {
 	default:
 		return "white"
 	}
-}
-
-func getProjects() []string {
-	// see if project is set to a single string
-	configPath := "wtf.mods.jira.project"
-	singleProject, err := wtf.Config.String(configPath)
-	if err == nil {
-		return []string{singleProject}
-	}
-	// else, assume list
-	projList := wtf.Config.UList(configPath)
-	var ret []string
-	for _, proj := range projList {
-		if str, ok := proj.(string); ok {
-			ret = append(ret, str)
-		}
-	}
-	return ret
 }
 
 func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {

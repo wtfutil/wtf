@@ -136,10 +136,7 @@ func ReadFileBytes(filePath string) ([]byte, error) {
 }
 
 func RightAlignFormat(view *tview.TextView) string {
-	//mutex := &sync.Mutex{}
-	//mutex.Lock()
 	_, _, w, _ := view.GetInnerRect()
-	//mutex.Unlock()
 
 	return fmt.Sprintf("%%%ds", w-1)
 }

@@ -241,7 +241,8 @@ func makeWidget(app *tview.Application, pages *tview.Pages, widgetName string) w
 		settings := jenkins.NewSettingsFromYAML(wtf.Config)
 		widget = jenkins.NewWidget(app, pages, settings)
 	case "jira":
-		widget = jira.NewWidget(app, pages)
+		settings := jira.NewSettingsFromYAML(wtf.Config)
+		widget = jira.NewWidget(app, pages, settings)
 	case "logger":
 		widget = logger.NewWidget(app)
 	case "mercurial":
