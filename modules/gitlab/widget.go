@@ -1,8 +1,6 @@
 package gitlab
 
 import (
-	"os"
-
 	"github.com/gdamore/tcell"
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/wtf"
@@ -25,15 +23,15 @@ type Widget struct {
 	wtf.HelpfulWidget
 	wtf.TextWidget
 
-	gitlab *glb.Client
-
 	GitlabProjects []*GitlabProject
 	Idx            int
+	gitlab         *glb.Client
+	settings       *Settings
 }
 
-func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
-	baseURL := wtf.Config.UString("wtf.mods.gitlab.domain")
-	gitlab := glb.NewClient(nil, apiKey())
+func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
+	baseURL := settings.domain
+	gitlab := glb.NewClient(nil, settings.apiKey)
 
 	if baseURL != "" {
 		gitlab.SetBaseURL(baseURL)
@@ -43,12 +41,12 @@ func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
 		TextWidget:    wtf.NewTextWidget(app, "Gitlab", "gitlab", true),
 
-		gitlab: gitlab,
-
-		Idx: 0,
+		Idx:      0,
+		gitlab:   gitlab,
+		settings: settings,
 	}
 
-	widget.GitlabProjects = widget.buildProjectCollection(wtf.Config.UMap("wtf.mods.gitlab.projects"))
+	widget.GitlabProjects = widget.buildProjectCollection(settings.projects)
 
 	widget.HelpfulWidget.SetView(widget.View)
 	widget.View.SetInputCapture(widget.keyboardIntercept)
@@ -85,13 +83,6 @@ func (widget *Widget) Prev() {
 }
 
 /* -------------------- Unexported Functions -------------------- */
-
-func apiKey() string {
-	return wtf.Config.UString(
-		"wtf.mods.gitlab.apiKey",
-		os.Getenv("WTF_GITLAB_TOKEN"),
-	)
-}
 
 func (widget *Widget) buildProjectCollection(projectData map[string]interface{}) []*GitlabProject {
 	gitlabProjects := []*GitlabProject{}
