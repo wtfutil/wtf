@@ -10,11 +10,15 @@ import (
 
 type Widget struct {
 	wtf.TextWidget
+
+	settings *Settings
 }
 
-func NewWidget(app *tview.Application) *Widget {
+func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(app, "Google Spreadsheets", "gspreadsheets", false),
+
+		settings: settings,
 	}
 
 	return &widget
@@ -23,7 +27,7 @@ func NewWidget(app *tview.Application) *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	cells, _ := Fetch()
+	cells, _ := widget.Fetch()
 
 	widget.View.SetText(widget.contentFrom(cells))
 }
@@ -35,12 +39,11 @@ func (widget *Widget) contentFrom(valueRanges []*sheets.ValueRange) string {
 		return "error 1"
 	}
 
-	valuesColor := wtf.Config.UString("wtf.mods.gspreadsheets.colors.values", "green")
 	res := ""
 
-	cells := wtf.ToStrs(wtf.Config.UList("wtf.mods.gspreadsheets.cells.names"))
+	cells := wtf.ToStrs(widget.settings.cellNames)
 	for i := 0; i < len(valueRanges); i++ {
-		res = res + fmt.Sprintf("%s\t[%s]%s\n", cells[i], valuesColor, valueRanges[i].Values[0][0])
+		res = res + fmt.Sprintf("%s\t[%s]%s\n", cells[i], widget.settings.colors.values, valueRanges[i].Values[0][0])
 	}
 
 	return res
