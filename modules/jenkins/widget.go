@@ -120,7 +120,12 @@ func (widget *Widget) rowColor(idx int) string {
 func (widget *Widget) jobColor(job *Job) string {
 	switch job.Color {
 	case "blue":
-		return "blue"
+		// Override color if greenBalls boolean param provided in config
+		if wtf.Config.UString("wtf.mods.jenkins.greenBalls") == "true" {
+			return "green"
+		} else {
+			return "blue"
+		}
 	case "red":
 		return "red"
 	default:
