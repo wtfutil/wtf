@@ -238,7 +238,8 @@ func makeWidget(app *tview.Application, pages *tview.Pages, widgetName string) w
 		settings := ipinfo.NewSettingsFromYAML(wtf.Config)
 		widget = ipinfo.NewWidget(app, settings)
 	case "jenkins":
-		widget = jenkins.NewWidget(app, pages)
+		settings := jenkins.NewSettingsFromYAML(wtf.Config)
+		widget = jenkins.NewWidget(app, pages, settings)
 	case "jira":
 		widget = jira.NewWidget(app, pages)
 	case "logger":

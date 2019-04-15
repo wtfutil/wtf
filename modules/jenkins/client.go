@@ -9,11 +9,9 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
-
-	"github.com/wtfutil/wtf/wtf"
 )
 
-func Create(jenkinsURL string, username string, apiKey string) (*View, error) {
+func (widget *Widget) Create(jenkinsURL string, username string, apiKey string) (*View, error) {
 	const apiSuffix = "api/json?pretty=true"
 	parsedSuffix, err := url.Parse(apiSuffix)
 	if err != nil {
@@ -29,10 +27,9 @@ func Create(jenkinsURL string, username string, apiKey string) (*View, error) {
 	req, _ := http.NewRequest("GET", jenkinsAPIURL.String(), nil)
 	req.SetBasicAuth(username, apiKey)
 
-	verifyServerCertificate := wtf.Config.UBool("wtf.mods.jenkins.verifyServerCertificate", true)
 	httpClient := &http.Client{Transport: &http.Transport{
 		TLSClientConfig: &tls.Config{
-			InsecureSkipVerify: !verifyServerCertificate,
+			InsecureSkipVerify: !widget.settings.verifyServerCertificate,
 		},
 		Proxy: http.ProxyFromEnvironment,
 	},
