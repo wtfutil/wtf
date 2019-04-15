@@ -26,12 +26,15 @@ type Widget struct {
 
 	messages []Message
 	selected int
+	settings *Settings
 }
 
-func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
+func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
 		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
 		TextWidget:    wtf.NewTextWidget(app, "Gitter", "gitter", true),
+
+		settings: settings,
 	}
 
 	widget.HelpfulWidget.SetView(widget.View)
@@ -51,7 +54,7 @@ func (widget *Widget) Refresh() {
 		return
 	}
 
-	room, err := GetRoom(wtf.Config.UString("wtf.mods.gitter.roomUri", "wtfutil/Lobby"))
+	room, err := GetRoom(widget.settings.roomURI, widget.settings.apiToken)
 	if err != nil {
 		widget.View.SetWrap(true)
 		widget.View.SetTitle(widget.Name())
@@ -63,7 +66,7 @@ func (widget *Widget) Refresh() {
 		return
 	}
 
-	messages, err := GetMessages(room.ID, wtf.Config.UInt("wtf.mods.gitter.numberOfMessages", 10))
+	messages, err := GetMessages(room.ID, widget.settings.numberOfMessages, widget.settings.apiToken)
 
 	if err != nil {
 		widget.View.SetWrap(true)
@@ -86,7 +89,7 @@ func (widget *Widget) display() {
 
 	widget.View.SetWrap(true)
 	widget.View.Clear()
-	widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("%s - %s", widget.Name(), wtf.Config.UString("wtf.mods.gitter.roomUri", "wtfutil/Lobby"))))
+	widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("%s - %s", widget.Name(), widget.settings.roomURI)))
 	widget.View.SetText(widget.contentFrom(widget.messages))
 	widget.View.Highlight(strconv.Itoa(widget.selected)).ScrollToHighlight()
 }

@@ -223,7 +223,8 @@ func makeWidget(app *tview.Application, pages *tview.Pages, widgetName string) w
 		settings := gitlab.NewSettingsFromYAML(wtf.Config)
 		widget = gitlab.NewWidget(app, pages, settings)
 	case "gitter":
-		widget = gitter.NewWidget(app, pages)
+		settings := gitter.NewSettingsFromYAML(wtf.Config)
+		widget = gitter.NewWidget(app, pages, settings)
 	case "gspreadsheets":
 		widget = gspreadsheets.NewWidget(app)
 	case "hackernews":
