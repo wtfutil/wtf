@@ -229,7 +229,8 @@ func makeWidget(app *tview.Application, pages *tview.Pages, widgetName string) w
 		settings := gspreadsheets.NewSettingsFromYAML(wtf.Config)
 		widget = gspreadsheets.NewWidget(app, settings)
 	case "hackernews":
-		widget = hackernews.NewWidget(app, pages)
+		settings := hackernews.NewSettingsFromYAML(wtf.Config)
+		widget = hackernews.NewWidget(app, pages, settings)
 	case "ipapi":
 		widget = ipapi.NewWidget(app)
 	case "ipinfo":

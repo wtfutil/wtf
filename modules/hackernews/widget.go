@@ -32,12 +32,15 @@ type Widget struct {
 
 	stories  []Story
 	selected int
+	settings *Settings
 }
 
-func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
+func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
 		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
 		TextWidget:    wtf.NewTextWidget(app, "Hacker News", "hackernews", true),
+
+		settings: settings,
 	}
 
 	widget.HelpfulWidget.SetView(widget.View)
@@ -57,7 +60,7 @@ func (widget *Widget) Refresh() {
 		return
 	}
 
-	storyIds, err := GetStories(wtf.Config.UString("wtf.mods.hackernews.storyType", "top"))
+	storyIds, err := GetStories(widget.settings.storyType)
 	if storyIds == nil {
 		return
 	}
@@ -68,8 +71,7 @@ func (widget *Widget) Refresh() {
 		widget.View.SetText(err.Error())
 	} else {
 		var stories []Story
-		numberOfStoriesToDisplay := wtf.Config.UInt("wtf.mods.hackernews.numberOfStories", 10)
-		for idx := 0; idx < numberOfStoriesToDisplay; idx++ {
+		for idx := 0; idx < widget.settings.numberOfStories; idx++ {
 			story, e := GetStory(storyIds[idx])
 			if e != nil {
 				panic(e)
@@ -94,7 +96,7 @@ func (widget *Widget) display() {
 	widget.View.SetWrap(false)
 
 	widget.View.Clear()
-	widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("%s - %sstories", widget.Name(), wtf.Config.UString("wtf.mods.hackernews.storyType", "top"))))
+	widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("%s - %sstories", widget.Name(), widget.settings.storyType)))
 	widget.View.SetText(widget.contentFrom(widget.stories))
 	widget.View.Highlight(strconv.Itoa(widget.selected)).ScrollToHighlight()
 }
