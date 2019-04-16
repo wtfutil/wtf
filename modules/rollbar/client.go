@@ -12,10 +12,9 @@ import (
 	"github.com/wtfutil/wtf/wtf"
 )
 
-func CurrentActiveItems() (*ActiveItems, error) {
+func CurrentActiveItems(accessToken string) (*ActiveItems, error) {
 	items := &ActiveItems{}
 
-	accessToken := wtf.Config.UString("wtf.mods.rollbar.accessToken", "")
 	rollbarAPIURL.Host = "api.rollbar.com"
 	rollbarAPIURL.Path = "/api/1/items"
 	resp, err := rollbarItemRequest(accessToken)

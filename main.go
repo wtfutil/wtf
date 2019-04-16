@@ -271,7 +271,8 @@ func makeWidget(app *tview.Application, pages *tview.Pages, widgetName string) w
 		settings := resourceusage.NewSettingsFromYAML(wtf.Config)
 		widget = resourceusage.NewWidget(app, settings)
 	case "rollbar":
-		widget = rollbar.NewWidget(app, pages)
+		settings := rollbar.NewSettingsFromYAML(wtf.Config)
+		widget = rollbar.NewWidget(app, pages, settings)
 	case "security":
 		settings := security.NewSettingsFromYAML(wtf.Config)
 		widget = security.NewWidget(app, settings)

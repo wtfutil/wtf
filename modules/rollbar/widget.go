@@ -29,13 +29,17 @@ type Widget struct {
 
 	items    *Result
 	selected int
+	settings *Settings
 }
 
-func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
+func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
 		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
 		TextWidget:    wtf.NewTextWidget(app, "Rollbar", "rollbar", true),
+
+		settings: settings,
 	}
+
 	widget.HelpfulWidget.SetView(widget.View)
 	widget.unselect()
 
@@ -51,7 +55,7 @@ func (widget *Widget) Refresh() {
 		return
 	}
 
-	items, err := CurrentActiveItems()
+	items, err := CurrentActiveItems(widget.settings.accessToken)
 
 	if err != nil {
 		widget.View.SetWrap(true)
@@ -72,16 +76,14 @@ func (widget *Widget) display() {
 	}
 
 	widget.View.SetWrap(false)
-	projectName := wtf.Config.UString("wtf.mods.rollbar.projectName", "Items")
-	widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("%s - %s", widget.Name(), projectName)))
+	widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("%s - %s", widget.Name(), widget.settings.projectName)))
 	widget.View.SetText(widget.contentFrom(widget.items))
 }
 
 func (widget *Widget) contentFrom(result *Result) string {
 	var str string
-	count := wtf.Config.UInt("wtf.mods.rollbar.count", 10)
-	if len(result.Items) > count {
-		result.Items = result.Items[:count]
+	if len(result.Items) > widget.settings.count {
+		result.Items = result.Items[:widget.settings.count]
 	}
 	for idx, item := range result.Items {
 
@@ -151,12 +153,18 @@ func (widget *Widget) prev() {
 }
 
 func (widget *Widget) openBuild() {
-	sel := widget.selected
-	projectOwner := wtf.Config.UString("wtf.mods.rollbar.projectOwner", "")
-	projectName := wtf.Config.UString("wtf.mods.rollbar.projectName", "")
-	if sel >= 0 && widget.items != nil && sel < len(widget.items.Items) {
+	if widget.selected >= 0 && widget.items != nil && widget.selected < len(widget.items.Items) {
 		item := &widget.items.Items[widget.selected]
-		wtf.OpenFile(fmt.Sprintf("https://rollbar.com/%s/%s/%s/%d", projectOwner, projectName, "items", item.ID))
+
+		wtf.OpenFile(
+			fmt.Sprintf(
+				"https://rollbar.com/%s/%s/%s/%d",
+				widget.settings.projectOwner,
+				widget.settings.projectName,
+				"items",
+				item.ID,
+			),
+		)
 	}
 }
 
