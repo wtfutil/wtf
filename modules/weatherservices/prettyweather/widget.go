@@ -11,16 +11,16 @@ import (
 
 type Widget struct {
 	wtf.TextWidget
+
 	result   string
-	unit     string
-	city     string
-	view     string
-	language string
+	settings *Settings
 }
 
-func NewWidget(app *tview.Application) *Widget {
+func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(app, "Pretty Weather", "prettyweather", false),
+
+		settings: settings,
 	}
 
 	return &widget
@@ -35,17 +35,18 @@ func (widget *Widget) Refresh() {
 //this method reads the config and calls wttr.in for pretty weather
 func (widget *Widget) prettyWeather() {
 	client := &http.Client{}
-	widget.unit = wtf.Config.UString("wtf.mods.prettyweather.unit", "m")
-	widget.city = wtf.Config.UString("wtf.mods.prettyweather.city", "")
-	widget.view = wtf.Config.UString("wtf.mods.prettyweather.view", "0")
-	widget.language = wtf.Config.UString("wtf.mods.prettyweather.language", "en")
-	req, err := http.NewRequest("GET", "https://wttr.in/"+widget.city+"?"+widget.view+"?"+widget.unit, nil)
+
+	city := widget.settings.city
+	unit := widget.settings.unit
+	view := widget.settings.view
+
+	req, err := http.NewRequest("GET", "https://wttr.in/"+city+"?"+view+"?"+unit, nil)
 	if err != nil {
 		widget.result = err.Error()
 		return
 	}
 
-	req.Header.Set("Accept-Language", widget.language)
+	req.Header.Set("Accept-Language", widget.settings.language)
 	req.Header.Set("User-Agent", "curl")
 	response, err := client.Do(req)
 	if err != nil {
@@ -61,6 +62,5 @@ func (widget *Widget) prettyWeather() {
 		return
 	}
 
-	//widget.result = strings.TrimSpace(string(contents))
 	widget.result = strings.TrimSpace(wtf.ASCIItoTviewColors(string(contents)))
 }

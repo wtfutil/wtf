@@ -265,7 +265,8 @@ func makeWidget(app *tview.Application, pages *tview.Pages, widgetName string) w
 		settings := power.NewSettingsFromYAML(wtf.Config)
 		widget = power.NewWidget(app, settings)
 	case "prettyweather":
-		widget = prettyweather.NewWidget(app)
+		settings := prettyweather.NewSettingsFromYAML(wtf.Config)
+		widget = prettyweather.NewWidget(app, settings)
 	case "resourceusage":
 		widget = resourceusage.NewWidget(app)
 	case "security":
