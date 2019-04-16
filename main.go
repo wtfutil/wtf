@@ -244,7 +244,8 @@ func makeWidget(app *tview.Application, pages *tview.Pages, widgetName string) w
 		settings := jira.NewSettingsFromYAML(wtf.Config)
 		widget = jira.NewWidget(app, pages, settings)
 	case "logger":
-		widget = logger.NewWidget(app)
+		settings := logger.NewSettingsFromYAML(wtf.Config)
+		widget = logger.NewWidget(app, settings)
 	case "mercurial":
 		widget = mercurial.NewWidget(app, pages)
 	case "nbascore":

@@ -2,7 +2,6 @@ package logger
 
 import (
 	"fmt"
-	//"io/ioutil"
 	"log"
 	"os"
 	"path/filepath"
@@ -18,13 +17,15 @@ type Widget struct {
 	wtf.TextWidget
 
 	filePath string
+	settings *Settings
 }
 
-func NewWidget(app *tview.Application) *Widget {
+func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(app, "Logs", "logger", true),
 
 		filePath: logFilePath(),
+		settings: settings,
 	}
 
 	return &widget

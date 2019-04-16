@@ -6,7 +6,7 @@ import (
 	"os"
 
 	"github.com/olebedev/config"
-	"github.com/wtfutil/wtf/logger"
+	// "github.com/wtfutil/wtf/logger"
 	"github.com/wtfutil/wtf/wtf"
 )
 
@@ -38,15 +38,13 @@ func MigrateOldConfig() {
 	err := Copy(srcDir, destDir)
 	if err != nil {
 		panic(err)
-	} else {
-		logger.Log(fmt.Sprintf("Copied old config from %s to %s", srcDir, destDir))
 	}
 
 	// Delete the old directory if the new one exists
 	if _, err := os.Stat(destDir); err == nil {
 		err := os.RemoveAll(srcDir)
 		if err != nil {
-			logger.Log(err.Error())
+			fmt.Println(err)
 		}
 	}
 }
