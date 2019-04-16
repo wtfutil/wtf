@@ -268,7 +268,8 @@ func makeWidget(app *tview.Application, pages *tview.Pages, widgetName string) w
 		settings := prettyweather.NewSettingsFromYAML(wtf.Config)
 		widget = prettyweather.NewWidget(app, settings)
 	case "resourceusage":
-		widget = resourceusage.NewWidget(app)
+		settings := resourceusage.NewSettingsFromYAML(wtf.Config)
+		widget = resourceusage.NewWidget(app, settings)
 	case "security":
 		widget = security.NewWidget(app)
 	case "status":
