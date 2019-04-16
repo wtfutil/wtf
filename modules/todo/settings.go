@@ -15,7 +15,8 @@ func NewSettingsFromYAML(ymlConfig *config.Config) *Settings {
 	localConfig, _ := ymlConfig.Get("wtf.mods.todo")
 
 	settings := Settings{
-		common:   cfg.NewCommonSettingsFromYAML(ymlConfig),
+		common: cfg.NewCommonSettingsFromYAML(ymlConfig),
+
 		filePath: localConfig.UString("filename"),
 	}
 

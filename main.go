@@ -253,7 +253,8 @@ func makeWidget(app *tview.Application, pages *tview.Pages, widgetName string) w
 		settings := nbascore.NewSettingsFromYAML(wtf.Config)
 		widget = nbascore.NewWidget(app, pages, settings)
 	case "newrelic":
-		widget = newrelic.NewWidget(app)
+		settings := newrelic.NewSettingsFromYAML(wtf.Config)
+		widget = newrelic.NewWidget(app, settings)
 	case "opsgenie":
 		widget = opsgenie.NewWidget(app)
 	case "pagerduty":
