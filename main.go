@@ -286,7 +286,8 @@ func makeWidget(app *tview.Application, pages *tview.Pages, widgetName string) w
 		settings := status.NewSettingsFromYAML(wtf.Config)
 		widget = status.NewWidget(app, settings)
 	case "system":
-		widget = system.NewWidget(app, date, version)
+		settings := system.NewSettingsFromYAML(wtf.Config)
+		widget = system.NewWidget(app, date, version, settings)
 	case "textfile":
 		widget = textfile.NewWidget(app, pages)
 	case "todo":
