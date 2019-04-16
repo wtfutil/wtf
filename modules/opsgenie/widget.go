@@ -10,11 +10,15 @@ import (
 
 type Widget struct {
 	wtf.TextWidget
+
+	settings *Settings
 }
 
-func NewWidget(app *tview.Application) *Widget {
+func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(app, "OpsGenie", "opsgenie", false),
+
+		settings: settings,
 	}
 
 	return &widget
@@ -23,10 +27,11 @@ func NewWidget(app *tview.Application) *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	data, err := Fetch(
-		wtf.Config.UString("wtf.mods.opsgenie.scheduleIdentifierType"),
-		getSchedules(),
+	data, err := widget.Fetch(
+		widget.settings.scheduleIdentifierType,
+		widget.settings.schedule,
 	)
+
 	widget.View.SetTitle(widget.ContextualTitle(widget.Name()))
 
 	var content string
@@ -43,31 +48,11 @@ func (widget *Widget) Refresh() {
 
 /* -------------------- Unexported Functions -------------------- */
 
-func getSchedules() []string {
-	// see if schedule is set to a single string
-	configPath := "wtf.mods.opsgenie.schedule"
-	singleSchedule, err := wtf.Config.String(configPath)
-	if err == nil {
-		return []string{singleSchedule}
-	}
-	// else, assume list
-	scheduleList := wtf.Config.UList(configPath)
-	var ret []string
-	for _, schedule := range scheduleList {
-		if str, ok := schedule.(string); ok {
-			ret = append(ret, str)
-		}
-	}
-	return ret
-}
-
 func (widget *Widget) contentFrom(onCallResponses []*OnCallResponse) string {
 	str := ""
 
-	displayEmpty := wtf.Config.UBool("wtf.mods.opsgenie.displayEmpty", true)
-
 	for _, data := range onCallResponses {
-		if (len(data.OnCallData.Recipients) == 0) && (displayEmpty == false) {
+		if (len(data.OnCallData.Recipients) == 0) && (widget.settings.displayEmpty == false) {
 			continue
 		}
 
