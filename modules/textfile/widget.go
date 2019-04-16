@@ -34,13 +34,17 @@ type Widget struct {
 	wtf.HelpfulWidget
 	wtf.MultiSourceWidget
 	wtf.TextWidget
+
+	settings *Settings
 }
 
-func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
+func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
 		HelpfulWidget:     wtf.NewHelpfulWidget(app, pages, HelpText),
 		MultiSourceWidget: wtf.NewMultiSourceWidget("textfile", "filePath", "filePaths"),
 		TextWidget:        wtf.NewTextWidget(app, "TextFile", "textfile", true),
+
+		settings: settings,
 	}
 
 	// Don't use a timer for this widget, watch for filesystem changes instead
@@ -76,16 +80,14 @@ func (widget *Widget) display() {
 
 	text := wtf.SigilStr(len(widget.Sources), widget.Idx, widget.View) + "\n"
 
-	if wtf.Config.UBool("wtf.mods.textfile.format", false) {
+	if widget.settings.format {
 		text = text + widget.formattedText()
 	} else {
 		text = text + widget.plainText()
 	}
 
-	//widget.View.Lock()
 	widget.View.SetTitle(title) // <- Writes to TextView's title
 	widget.View.SetText(text)   // <- Writes to TextView's text
-	//widget.View.Unlock()
 }
 
 func (widget *Widget) fileName() string {
@@ -105,7 +107,7 @@ func (widget *Widget) formattedText() string {
 		lexer = lexers.Fallback
 	}
 
-	style := styles.Get(wtf.Config.UString("wtf.mods.textfile.formatStyle", "vim"))
+	style := styles.Get(widget.settings.formatStyle)
 	if style == nil {
 		style = styles.Fallback
 	}
