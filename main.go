@@ -259,7 +259,8 @@ func makeWidget(app *tview.Application, pages *tview.Pages, widgetName string) w
 		settings := opsgenie.NewSettingsFromYAML(wtf.Config)
 		widget = opsgenie.NewWidget(app, settings)
 	case "pagerduty":
-		widget = pagerduty.NewWidget(app)
+		settings := pagerduty.NewSettingsFromYAML(wtf.Config)
+		widget = pagerduty.NewWidget(app, settings)
 	case "power":
 		settings := power.NewSettingsFromYAML(wtf.Config)
 		widget = power.NewWidget(app, settings)
