@@ -283,7 +283,8 @@ func makeWidget(app *tview.Application, pages *tview.Pages, widgetName string) w
 		settings := spotifyweb.NewSettingsFromYAML(wtf.Config)
 		widget = spotifyweb.NewWidget(app, pages, settings)
 	case "status":
-		widget = status.NewWidget(app)
+		settings := status.NewSettingsFromYAML(wtf.Config)
+		widget = status.NewWidget(app, settings)
 	case "system":
 		widget = system.NewWidget(app, date, version)
 	case "textfile":
