@@ -270,8 +270,11 @@ func makeWidget(app *tview.Application, pages *tview.Pages, widgetName string) w
 	case "resourceusage":
 		settings := resourceusage.NewSettingsFromYAML(wtf.Config)
 		widget = resourceusage.NewWidget(app, settings)
+	case "rollbar":
+		widget = rollbar.NewWidget(app, pages)
 	case "security":
-		widget = security.NewWidget(app)
+		settings := security.NewSettingsFromYAML(wtf.Config)
+		widget = security.NewWidget(app, settings)
 	case "status":
 		widget = status.NewWidget(app)
 	case "system":
@@ -289,8 +292,6 @@ func makeWidget(app *tview.Application, pages *tview.Pages, widgetName string) w
 		widget = todoist.NewWidget(app, pages)
 	case "travisci":
 		widget = travisci.NewWidget(app, pages)
-	case "rollbar":
-		widget = rollbar.NewWidget(app, pages)
 	case "trello":
 		widget = trello.NewWidget(app)
 	case "twitter":

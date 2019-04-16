@@ -10,11 +10,15 @@ import (
 
 type Widget struct {
 	wtf.TextWidget
+
+	settings *Settings
 }
 
-func NewWidget(app *tview.Application) *Widget {
+func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(app, "Security", "security", false),
+
+		settings: settings,
 	}
 
 	return &widget
@@ -48,12 +52,10 @@ func (widget *Widget) contentFrom(data *SecurityData) string {
 	str = str + "\n"
 
 	str = str + " [red]Users[white]\n"
-	str = str + fmt.Sprintf("  %s", strings.Join(data.LoggedInUsers, "\n "))
-	str = str + "\n"
+	str = str + fmt.Sprintf("  %s", strings.Join(data.LoggedInUsers, "\n  "))
+	str = str + "\n\n"
 
 	str = str + " [red]DNS[white]\n"
-	//str = str + fmt.Sprintf(" %8s: [%s]%-3s[white]   %-16s\n", "Enabled", widget.labelColor(data.FirewallEnabled), data.FirewallEnabled, data.DnsAt(0))
-	//str = str + fmt.Sprintf(" %8s: [%s]%-3s[white]   %-16s\n", "Stealth", widget.labelColor(data.FirewallStealth), data.FirewallStealth, data.DnsAt(1))
 	str = str + fmt.Sprintf("  %12s\n", data.DnsAt(0))
 	str = str + fmt.Sprintf("  %12s\n", data.DnsAt(1))
 	str = str + "\n"
