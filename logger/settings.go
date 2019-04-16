@@ -7,8 +7,6 @@ import (
 
 type Settings struct {
 	common *cfg.Common
-
-	filePath string
 }
 
 func NewSettingsFromYAML(ymlConfig *config.Config) *Settings {

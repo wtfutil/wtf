@@ -6,7 +6,6 @@ import (
 	"os"
 
 	"github.com/olebedev/config"
-	// "github.com/wtfutil/wtf/logger"
 	"github.com/wtfutil/wtf/wtf"
 )
 

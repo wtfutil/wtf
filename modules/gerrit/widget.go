@@ -4,7 +4,6 @@ import (
 	"crypto/tls"
 	"fmt"
 	"net/http"
-	// "os"
 	"regexp"
 
 	glb "github.com/andygrunwald/go-gerrit"
