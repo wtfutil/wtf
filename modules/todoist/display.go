@@ -46,6 +46,5 @@ func (widget *Widget) display() {
 		str = str + row + wtf.PadRow((checkWidth+len(item.Content)), (checkWidth+maxLen+1)) + "\n"
 	}
 
-	//widget.View.Clear()
 	widget.View.SetText(str)
 }

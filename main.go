@@ -292,10 +292,11 @@ func makeWidget(app *tview.Application, pages *tview.Pages, widgetName string) w
 		settings := textfile.NewSettingsFromYAML(wtf.Config)
 		widget = textfile.NewWidget(app, pages, settings)
 	case "todo":
-		cfg := todo.NewSettingsFromYAML(wtf.Config)
-		widget = todo.NewWidget(app, pages, cfg)
+		settings := todo.NewSettingsFromYAML(wtf.Config)
+		widget = todo.NewWidget(app, pages, settings)
 	case "todoist":
-		widget = todoist.NewWidget(app, pages)
+		settings := todoist.NewSettingsFromYAML(wtf.Config)
+		widget = todoist.NewWidget(app, pages, settings)
 	case "travisci":
 		widget = travisci.NewWidget(app, pages)
 	case "trello":

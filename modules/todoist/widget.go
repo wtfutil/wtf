@@ -1,8 +1,6 @@
 package todoist
 
 import (
-	"os"
-
 	"github.com/darkSasori/todoist"
 	"github.com/gdamore/tcell"
 	"github.com/rivo/tview"
@@ -31,18 +29,21 @@ type Widget struct {
 	wtf.HelpfulWidget
 	wtf.TextWidget
 
-	projects []*Project
 	idx      int
+	projects []*Project
+	settings *Settings
 }
 
-func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
+func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
 		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
 		TextWidget:    wtf.NewTextWidget(app, "Todoist", "todoist", true),
+
+		settings: settings,
 	}
 
 	widget.loadAPICredentials()
-	widget.projects = loadProjects()
+	widget.loadProjects()
 
 	widget.HelpfulWidget.SetView(widget.View)
 	widget.View.SetInputCapture(widget.keyboardIntercept)
@@ -169,21 +170,18 @@ func (w *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 }
 
 func (widget *Widget) loadAPICredentials() {
-	todoist.Token = wtf.Config.UString(
-		"wtf.mods.todoist.apiKey",
-		os.Getenv("WTF_TODOIST_TOKEN"),
-	)
+	todoist.Token = widget.settings.apiKey
 }
 
-func loadProjects() []*Project {
+func (widget *Widget) loadProjects() {
 	projects := []*Project{}
 
-	for _, id := range wtf.Config.UList("wtf.mods.todoist.projects") {
+	for _, id := range widget.settings.projects {
 		proj := NewProject(id.(int))
 		projects = append(projects, proj)
 	}
 
-	return projects
+	widget.projects = projects
 }
 
 func (w *Widget) vimBindings(event *tcell.EventKey) tcell.Key {
