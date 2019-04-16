@@ -250,7 +250,8 @@ func makeWidget(app *tview.Application, pages *tview.Pages, widgetName string) w
 		settings := mercurial.NewSettingsFromYAML(wtf.Config)
 		widget = mercurial.NewWidget(app, pages, settings)
 	case "nbascore":
-		widget = nbascore.NewWidget(app, pages)
+		settings := nbascore.NewSettingsFromYAML(wtf.Config)
+		widget = nbascore.NewWidget(app, pages, settings)
 	case "newrelic":
 		widget = newrelic.NewWidget(app)
 	case "opsgenie":
