@@ -10,13 +10,16 @@ import (
 type Widget struct {
 	wtf.TextWidget
 
-	Battery *Battery
+	Battery  *Battery
+	settings *Settings
 }
 
-func NewWidget(app *tview.Application) *Widget {
+func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(app, "Power", "power", false),
-		Battery:    NewBattery(),
+
+		Battery:  NewBattery(),
+		settings: settings,
 	}
 
 	widget.View.SetWrap(true)
