@@ -4,34 +4,20 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"os"
 	"strings"
 
 	"github.com/wtfutil/wtf/logger"
-	"github.com/wtfutil/wtf/wtf"
 )
 
 // Fetch gets the current oncall users
-func Fetch() ([]OnCallTeam, error) {
+func Fetch(apiID, apiKey string) ([]OnCallTeam, error) {
 	scheduleURL := "https://api.victorops.com/api-public/v1/oncall/current"
-	response, err := victorOpsRequest(scheduleURL, apiID(), apiKey())
+	response, err := victorOpsRequest(scheduleURL, apiID, apiKey)
+
 	return response, err
 }
 
 /* ---------------- Unexported Functions ---------------- */
-func apiID() string {
-	return wtf.Config.UString(
-		"wtf.mods.victorops.apiID",
-		os.Getenv("WTF_VICTOROPS_API_ID"),
-	)
-}
-
-func apiKey() string {
-	return wtf.Config.UString(
-		"wtf.mods.victorops.apiKey",
-		os.Getenv("WTF_VICTOROPS_API_KEY"),
-	)
-}
 
 func victorOpsRequest(url string, apiID string, apiKey string) ([]OnCallTeam, error) {
 	req, err := http.NewRequest("GET", url, nil)

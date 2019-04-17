@@ -307,7 +307,8 @@ func makeWidget(app *tview.Application, pages *tview.Pages, widgetName string) w
 		settings := twitter.NewSettingsFromYAML(wtf.Config)
 		widget = twitter.NewWidget(app, pages, settings)
 	case "victorops":
-		widget = victorops.NewWidget(app)
+		settings := victorops.NewSettingsFromYAML(wtf.Config)
+		widget = victorops.NewWidget(app, settings)
 	case "weather":
 		widget = weather.NewWidget(app, pages)
 	case "zendesk":
