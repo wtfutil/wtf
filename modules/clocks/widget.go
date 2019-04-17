@@ -34,7 +34,7 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	widget.display(widget.clockColl.Sorted(), widget.dateFormat, widget.timeFormat)
+	widget.display(widget.clockColl.Sorted(widget.settings.sort), widget.dateFormat, widget.timeFormat)
 }
 
 /* -------------------- Unexported Functions -------------------- */

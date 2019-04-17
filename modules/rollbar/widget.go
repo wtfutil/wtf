@@ -55,7 +55,11 @@ func (widget *Widget) Refresh() {
 		return
 	}
 
-	items, err := CurrentActiveItems(widget.settings.accessToken)
+	items, err := CurrentActiveItems(
+		widget.settings.accessToken,
+		widget.settings.assignedToName,
+		widget.settings.activeOnly,
+	)
 
 	if err != nil {
 		widget.View.SetWrap(true)

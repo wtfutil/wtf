@@ -19,7 +19,7 @@ func NewSettingsFromYAML(ymlConfig *config.Config) *Settings {
 	settings := Settings{
 		common: cfg.NewCommonSettingsFromYAML(ymlConfig),
 
-		args: wtf.ToStrs(wtf.Config.UList("args")),
+		args: wtf.ToStrs(localConfig.UList("args")),
 		cmd:  localConfig.UString("cmd"),
 	}
 

@@ -150,7 +150,7 @@ func (widget *Widget) openBuild() {
 	sel := widget.selected
 	if sel >= 0 && widget.builds != nil && sel < len(widget.builds.Builds) {
 		build := &widget.builds.Builds[widget.selected]
-		travisHost := TRAVIS_HOSTS[wtf.Config.UBool("wtf.mods.travisci.pro", false)]
+		travisHost := TRAVIS_HOSTS[widget.settings.pro]
 		wtf.OpenFile(fmt.Sprintf("https://%s/%s/%s/%d", travisHost, build.Repository.Slug, "builds", build.ID))
 	}
 }

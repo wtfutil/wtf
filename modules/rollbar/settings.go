@@ -23,7 +23,7 @@ func NewSettingsFromYAML(ymlConfig *config.Config) *Settings {
 		common: cfg.NewCommonSettingsFromYAML(ymlConfig),
 
 		accessToken:    localConfig.UString("accessToken"),
-		activeOnly:     localConfig.UBool("activeOnly"),
+		activeOnly:     localConfig.UBool("activeOnly", false),
 		assignedToName: localConfig.UString("assignedToName"),
 		count:          localConfig.UInt("count", 10),
 		projectName:    localConfig.UString("projectName", "Items"),
