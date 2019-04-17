@@ -298,7 +298,8 @@ func makeWidget(app *tview.Application, pages *tview.Pages, widgetName string) w
 		settings := todoist.NewSettingsFromYAML(wtf.Config)
 		widget = todoist.NewWidget(app, pages, settings)
 	case "travisci":
-		widget = travisci.NewWidget(app, pages)
+		settings := travisci.NewSettingsFromYAML(wtf.Config)
+		widget = travisci.NewWidget(app, pages, settings)
 	case "trello":
 		widget = trello.NewWidget(app)
 	case "twitter":

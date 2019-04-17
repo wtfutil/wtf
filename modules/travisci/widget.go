@@ -28,12 +28,15 @@ type Widget struct {
 
 	builds   *Builds
 	selected int
+	settings *Settings
 }
 
-func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
+func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
 		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
 		TextWidget:    wtf.NewTextWidget(app, "TravisCI", "travisci", true),
+
+		settings: settings,
 	}
 
 	widget.HelpfulWidget.SetView(widget.View)
@@ -51,7 +54,7 @@ func (widget *Widget) Refresh() {
 		return
 	}
 
-	builds, err := BuildsFor()
+	builds, err := BuildsFor(widget.settings.apiKey, widget.settings.pro)
 
 	if err != nil {
 		widget.View.SetWrap(true)

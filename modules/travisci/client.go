@@ -8,9 +8,6 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"os"
-
-	"github.com/wtfutil/wtf/wtf"
 )
 
 var TRAVIS_HOSTS = map[bool]string{
@@ -18,13 +15,12 @@ var TRAVIS_HOSTS = map[bool]string{
 	true:  "travis-ci.com",
 }
 
-func BuildsFor() (*Builds, error) {
+func BuildsFor(apiKey string, pro bool) (*Builds, error) {
 	builds := &Builds{}
 
-	pro := wtf.Config.UBool("wtf.mods.travisci.pro", false)
 	travisAPIURL.Host = "api." + TRAVIS_HOSTS[pro]
 
-	resp, err := travisRequest("builds")
+	resp, err := travisRequest(apiKey, "builds")
 	if err != nil {
 		return builds, err
 	}
@@ -40,7 +36,7 @@ var (
 	travisAPIURL = &url.URL{Scheme: "https", Path: "/"}
 )
 
-func travisRequest(path string) (*http.Response, error) {
+func travisRequest(apiKey string, path string) (*http.Response, error) {
 	params := url.Values{}
 	params.Add("limit", "10")
 
@@ -51,7 +47,7 @@ func travisRequest(path string) (*http.Response, error) {
 	req.Header.Add("Content-Type", "application/json")
 	req.Header.Add("Travis-API-Version", "3")
 
-	bearer := fmt.Sprintf("token %s", apiToken())
+	bearer := fmt.Sprintf("token %s", apiKey)
 	req.Header.Add("Authorization", bearer)
 	if err != nil {
 		return nil, err
@@ -68,13 +64,6 @@ func travisRequest(path string) (*http.Response, error) {
 	}
 
 	return resp, nil
-}
-
-func apiToken() string {
-	return wtf.Config.UString(
-		"wtf.mods.travisci.apiKey",
-		os.Getenv("WTF_TRAVIS_API_TOKEN"),
-	)
 }
 
 func parseJson(obj interface{}, text io.Reader) {
