@@ -4,11 +4,10 @@ import (
 	"fmt"
 
 	"github.com/adlio/trello"
-	"github.com/wtfutil/wtf/wtf"
 )
 
-func GetCards(client *trello.Client, lists map[string]string) (*SearchResult, error) {
-	boardID, err := getBoardID(client)
+func GetCards(client *trello.Client, username string, boardName string, lists map[string]string) (*SearchResult, error) {
+	boardID, err := getBoardID(client, username, boardName)
 	if err != nil {
 		return nil, err
 	}
@@ -43,8 +42,8 @@ func GetCards(client *trello.Client, lists map[string]string) (*SearchResult, er
 	return searchResult, nil
 }
 
-func getBoardID(client *trello.Client) (string, error) {
-	member, err := client.GetMember(wtf.Config.UString("wtf.mods.trello.username"), trello.Defaults())
+func getBoardID(client *trello.Client, username, boardName string) (string, error) {
+	member, err := client.GetMember(username, trello.Defaults())
 	if err != nil {
 		return "", err
 	}
@@ -55,12 +54,12 @@ func getBoardID(client *trello.Client) (string, error) {
 	}
 
 	for _, board := range boards {
-		if board.Name == wtf.Config.UString("wtf.mods.trello.board") {
+		if board.Name == boardName {
 			return board.ID, nil
 		}
 	}
 
-	return "", fmt.Errorf("could not find board with name %s", wtf.Config.UString("wtf.mods.trello.board"))
+	return "", fmt.Errorf("could not find board with name %s", boardName)
 }
 
 func getListIDs(client *trello.Client, boardID string, lists map[string]string) (map[string]string, error) {

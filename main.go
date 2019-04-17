@@ -301,7 +301,8 @@ func makeWidget(app *tview.Application, pages *tview.Pages, widgetName string) w
 		settings := travisci.NewSettingsFromYAML(wtf.Config)
 		widget = travisci.NewWidget(app, pages, settings)
 	case "trello":
-		widget = trello.NewWidget(app)
+		settings := trello.NewSettingsFromYAML(wtf.Config)
+		widget = trello.NewWidget(app, settings)
 	case "twitter":
 		widget = twitter.NewWidget(app, pages)
 	case "victorops":

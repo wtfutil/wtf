@@ -2,7 +2,6 @@ package trello
 
 import (
 	"fmt"
-	"os"
 
 	"github.com/adlio/trello"
 	"github.com/rivo/tview"
@@ -11,11 +10,15 @@ import (
 
 type Widget struct {
 	wtf.TextWidget
+
+	settings *Settings
 }
 
-func NewWidget(app *tview.Application) *Widget {
+func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(app, "Trello", "trello", false),
+
+		settings: settings,
 	}
 
 	return &widget
@@ -25,12 +28,17 @@ func NewWidget(app *tview.Application) *Widget {
 
 func (widget *Widget) Refresh() {
 	client := trello.NewClient(
-		widget.apiKey(),
-		widget.accessToken(),
+		widget.settings.apiKey,
+		widget.settings.accessToken,
 	)
 
 	// Get the cards
-	searchResult, err := GetCards(client, getLists())
+	searchResult, err := GetCards(
+		client,
+		widget.settings.username,
+		widget.settings.board,
+		widget.settings.list,
+	)
 
 	var content string
 	if err != nil {
@@ -43,7 +51,7 @@ func (widget *Widget) Refresh() {
 			fmt.Sprintf(
 				"[white]%s: [green]%s ",
 				widget.Name(),
-				wtf.Config.UString("wtf.mods.trello.board"),
+				widget.settings.board,
 			),
 		)
 		content = widget.contentFrom(searchResult)
@@ -53,20 +61,6 @@ func (widget *Widget) Refresh() {
 }
 
 /* -------------------- Unexported Functions -------------------- */
-
-func (widget *Widget) accessToken() string {
-	return wtf.Config.UString(
-		"wtf.mods.trello.accessToken",
-		os.Getenv("WTF_TRELLO_ACCESS_TOKEN"),
-	)
-}
-
-func (widget *Widget) apiKey() string {
-	return wtf.Config.UString(
-		"wtf.mods.trello.apiKey",
-		os.Getenv("WTF_TRELLO_APP_KEY"),
-	)
-}
 
 func (widget *Widget) contentFrom(searchResult *SearchResult) string {
 	str := ""
@@ -80,23 +74,4 @@ func (widget *Widget) contentFrom(searchResult *SearchResult) string {
 	}
 
 	return str
-}
-
-func getLists() map[string]string {
-	list := make(map[string]string)
-	// see if project is set to a single string
-	configPath := "wtf.mods.trello.list"
-	singleList, err := wtf.Config.String(configPath)
-	if err == nil {
-		list[singleList] = ""
-		return list
-	}
-	// else, assume list
-	multiList := wtf.Config.UList(configPath)
-	for _, proj := range multiList {
-		if str, ok := proj.(string); ok {
-			list[str] = ""
-		}
-	}
-	return list
 }
