@@ -316,7 +316,8 @@ func makeWidget(app *tview.Application, pages *tview.Pages, widgetName string) w
 		settings := zendesk.NewSettingsFromYAML(wtf.Config)
 		widget = zendesk.NewWidget(app, settings)
 	default:
-		widget = unknown.NewWidget(app, widgetName)
+		settings := unknown.NewSettingsFromYAML(wtf.Config)
+		widget = unknown.NewWidget(app, widgetName, settings)
 	}
 
 	return widget
