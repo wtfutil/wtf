@@ -95,15 +95,19 @@ func (widget *Widget) apiKey() string {
 func (widget *Widget) contentFrom(view *View) string {
 	var str string
 	for idx, job := range view.Jobs {
-		str = str + fmt.Sprintf(
-			`["%d"][""][%s] [%s]%-6s[white]`,
-			idx,
-			widget.rowColor(idx),
-			widget.jobColor(&job),
-			job.Name,
-		)
+		regex := wtf.Config.UString("wtf.mods.jenkins.jobNameRegex", ".*")
+		var validID = regexp.MustCompile(regex)
+		if validID.MatchString(job.Name) {
+			str = str + fmt.Sprintf(
+				`["%d"][""][%s] [%s]%-6s[white]`,
+				idx,
+				widget.rowColor(idx),
+				widget.jobColor(&job),
+				job.Name,
+			)
 
-		str = str + "\n"
+			str = str + "\n"
+		}
 	}
 
 	return str
