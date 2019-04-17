@@ -2,6 +2,7 @@ package jenkins
 
 import (
 	"fmt"
+	"regexp"
 	"github.com/gdamore/tcell"
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/wtf"
