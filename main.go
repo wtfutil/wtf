@@ -310,7 +310,8 @@ func makeWidget(app *tview.Application, pages *tview.Pages, widgetName string) w
 		settings := victorops.NewSettingsFromYAML(wtf.Config)
 		widget = victorops.NewWidget(app, settings)
 	case "weather":
-		widget = weather.NewWidget(app, pages)
+		settings := weather.NewSettingsFromYAML(wtf.Config)
+		widget = weather.NewWidget(app, pages, settings)
 	case "zendesk":
 		widget = zendesk.NewWidget(app)
 	default:

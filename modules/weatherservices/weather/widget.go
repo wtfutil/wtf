@@ -1,8 +1,6 @@
 package weather
 
 import (
-	"os"
-
 	owm "github.com/briandowns/openweathermap"
 	"github.com/gdamore/tcell"
 	"github.com/rivo/tview"
@@ -25,22 +23,24 @@ type Widget struct {
 	wtf.HelpfulWidget
 	wtf.TextWidget
 
-	APIKey string
-	Data   []*owm.CurrentWeatherData
-	Idx    int
+	// APIKey   string
+	Data     []*owm.CurrentWeatherData
+	Idx      int
+	settings *Settings
 }
 
 // NewWidget creates and returns a new instance of the weather Widget.
-func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
-	configKey := "weather"
+func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
 		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
-		TextWidget:    wtf.NewTextWidget(app, "Weather", configKey, true),
+		TextWidget:    wtf.NewTextWidget(app, "Weather", "weather", true),
 
-		Idx: 0,
+		Idx:      0,
+		settings: settings,
 	}
 
-	widget.loadAPICredentials()
+	// widget.loadAPICredentials()
+	// widget.APIKey
 
 	widget.HelpfulWidget.SetView(widget.View)
 	widget.View.SetInputCapture(widget.keyboardIntercept)
@@ -57,7 +57,7 @@ func (widget *Widget) Fetch(cityIDs []int) []*owm.CurrentWeatherData {
 	data := []*owm.CurrentWeatherData{}
 
 	for _, cityID := range cityIDs {
-		result, err := widget.currentWeather(widget.APIKey, cityID)
+		result, err := widget.currentWeather(cityID)
 		if err == nil {
 			data = append(data, result)
 		}
@@ -70,7 +70,7 @@ func (widget *Widget) Fetch(cityIDs []int) []*owm.CurrentWeatherData {
 // widget's view for rendering
 func (widget *Widget) Refresh() {
 	if widget.apiKeyValid() {
-		widget.Data = widget.Fetch(wtf.ToInts(wtf.Config.UList("wtf.mods.weather.cityids", widget.defaultCityCodes())))
+		widget.Data = widget.Fetch(wtf.ToInts(widget.settings.cityIDs))
 	}
 
 	widget.display()
@@ -101,11 +101,11 @@ func (widget *Widget) Prev() {
 /* -------------------- Unexported Functions -------------------- */
 
 func (widget *Widget) apiKeyValid() bool {
-	if widget.APIKey == "" {
+	if widget.settings.apiKey == "" {
 		return false
 	}
 
-	if len(widget.APIKey) != 32 {
+	if len(widget.settings.apiKey) != 32 {
 		return false
 	}
 
@@ -124,11 +124,11 @@ func (widget *Widget) currentData() *owm.CurrentWeatherData {
 	return widget.Data[widget.Idx]
 }
 
-func (widget *Widget) currentWeather(apiKey string, cityCode int) (*owm.CurrentWeatherData, error) {
+func (widget *Widget) currentWeather(cityCode int) (*owm.CurrentWeatherData, error) {
 	weather, err := owm.NewCurrent(
-		wtf.Config.UString("wtf.mods.weather.tempUnit", "C"),
-		wtf.Config.UString("wtf.mods.weather.language", "EN"),
-		apiKey,
+		widget.settings.tempUnit,
+		widget.settings.language,
+		widget.settings.apiKey,
 	)
 	if err != nil {
 		return nil, err
@@ -140,17 +140,6 @@ func (widget *Widget) currentWeather(apiKey string, cityCode int) (*owm.CurrentW
 	}
 
 	return weather, nil
-}
-
-func (widget *Widget) defaultCityCodes() []interface{} {
-	defaultArr := []int{3370352}
-
-	var defaults = make([]interface{}, len(defaultArr))
-	for i, d := range defaultArr {
-		defaults[i] = d
-	}
-
-	return defaults
 }
 
 func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
@@ -176,13 +165,4 @@ func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	default:
 		return event
 	}
-}
-
-// loadAPICredentials loads the API authentication credentials for this module
-// First checks to see if they're in the config file. If not, checks the ENV var
-func (widget *Widget) loadAPICredentials() {
-	widget.APIKey = wtf.Config.UString(
-		"wtf.mods.weather.apiKey",
-		os.Getenv("WTF_OWM_API_KEY"),
-	)
 }
