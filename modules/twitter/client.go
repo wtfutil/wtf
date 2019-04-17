@@ -3,10 +3,7 @@ package twitter
 import (
 	"encoding/json"
 	"fmt"
-	"os"
 	"strconv"
-
-	"github.com/wtfutil/wtf/wtf"
 )
 
 /* NOTE: Currently single application ONLY
@@ -22,14 +19,13 @@ type Client struct {
 }
 
 // NewClient creates and returns a new Twitter client
-func NewClient() *Client {
+func NewClient(settings *Settings) *Client {
 	client := Client{
-		apiBase:    "https://api.twitter.com/1.1/",
-		count:      wtf.Config.UInt("wtf.mods.twitter.count", 5),
-		screenName: "",
+		apiBase:     "https://api.twitter.com/1.1/",
+		count:       settings.count,
+		screenName:  "",
+		bearerToken: settings.bearerToken,
 	}
-
-	client.loadAPICredentials()
 
 	return &client
 }
@@ -64,11 +60,4 @@ func (client *Client) tweets() (tweets []Tweet, err error) {
 	err = json.Unmarshal(data, &tweets)
 
 	return
-}
-
-func (client *Client) loadAPICredentials() {
-	client.bearerToken = wtf.Config.UString(
-		"wtf.mods.twitter.bearerToken",
-		os.Getenv("WTF_TWITTER_BEARER_TOKEN"),
-	)
 }

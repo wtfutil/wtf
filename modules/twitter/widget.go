@@ -27,18 +27,20 @@ type Widget struct {
 	wtf.MultiSourceWidget
 	wtf.TextWidget
 
-	client  *Client
-	idx     int
-	sources []string
+	client   *Client
+	idx      int
+	settings *Settings
+	sources  []string
 }
 
-func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
+func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
 		HelpfulWidget:     wtf.NewHelpfulWidget(app, pages, HelpText),
 		MultiSourceWidget: wtf.NewMultiSourceWidget("twitter", "screenName", "screenNames"),
 		TextWidget:        wtf.NewTextWidget(app, "Twitter", "twitter", true),
 
-		idx: 0,
+		idx:      0,
+		settings: settings,
 	}
 
 	widget.HelpfulWidget.SetView(widget.View)
@@ -46,7 +48,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 	widget.LoadSources()
 	widget.SetDisplayFunction(widget.display)
 
-	widget.client = NewClient()
+	widget.client = NewClient(settings)
 
 	widget.View.SetBorderPadding(1, 1, 1, 1)
 	widget.View.SetWrap(true)
@@ -163,6 +165,4 @@ func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	default:
 		return event
 	}
-
-	return event
 }
