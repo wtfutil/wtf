@@ -313,7 +313,8 @@ func makeWidget(app *tview.Application, pages *tview.Pages, widgetName string) w
 		settings := weather.NewSettingsFromYAML(wtf.Config)
 		widget = weather.NewWidget(app, pages, settings)
 	case "zendesk":
-		widget = zendesk.NewWidget(app)
+		settings := zendesk.NewSettingsFromYAML(wtf.Config)
+		widget = zendesk.NewWidget(app, settings)
 	default:
 		widget = unknown.NewWidget(app, widgetName)
 	}

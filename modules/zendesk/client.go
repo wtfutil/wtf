@@ -6,28 +6,11 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"os"
-
-	"github.com/wtfutil/wtf/wtf"
 )
 
 type Resource struct {
 	Response interface{}
 	Raw      string
-}
-
-func apiKey() string {
-	return wtf.Config.UString(
-		"wtf.mods.zendesk.apiKey",
-		os.Getenv("ZENDESK_API"),
-	)
-}
-
-func subdomain() string {
-	return wtf.Config.UString(
-		"wtf.mods.zendesk.subdomain",
-		os.Getenv("ZENDESK_SUBDOMAIN"),
-	)
 }
 
 func errHandler(err error) {
@@ -36,14 +19,14 @@ func errHandler(err error) {
 	}
 }
 
-func api(key string, meth string, path string, params string) (*Resource, error) {
+func (widget *Widget) api(meth string, path string, params string) (*Resource, error) {
 	trn := &http.Transport{}
 
 	client := &http.Client{
 		Transport: trn,
 	}
 
-	baseURL := fmt.Sprintf("https://%v.zendesk.com/api/v2", subdomain())
+	baseURL := fmt.Sprintf("https://%v.zendesk.com/api/v2", widget.settings.subdomain)
 	URL := baseURL + "/tickets.json?sort_by=status"
 
 	req, err := http.NewRequest(meth, URL, bytes.NewBufferString(params))
@@ -53,9 +36,8 @@ func api(key string, meth string, path string, params string) (*Resource, error)
 
 	req.Header.Add("Content-Type", "application/json")
 
-	username := wtf.Config.UString("wtf.mods.zendesk.username")
-	apiUser := fmt.Sprintf("%v/token", username)
-	req.SetBasicAuth(apiUser, key)
+	apiUser := fmt.Sprintf("%v/token", widget.settings.username)
+	req.SetBasicAuth(apiUser, widget.settings.apiKey)
 
 	resp, err := client.Do(req)
 	if err != nil {
@@ -70,5 +52,4 @@ func api(key string, meth string, path string, params string) (*Resource, error)
 	}
 
 	return &Resource{Response: &resp, Raw: string(data)}, nil
-
 }

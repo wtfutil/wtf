@@ -14,11 +14,14 @@ type Widget struct {
 
 	result   *TicketArray
 	selected int
+	settings *Settings
 }
 
-func NewWidget(app *tview.Application) *Widget {
+func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(app, "Zendesk", "zendesk", true),
+
+		settings: settings,
 	}
 
 	widget.View.SetInputCapture(widget.keyboardIntercept)
@@ -28,8 +31,7 @@ func NewWidget(app *tview.Application) *Widget {
 
 /* -------------------- Exported Functions -------------------- */
 func (widget *Widget) Refresh() {
-	ticketStatus := wtf.Config.UString("wtf.mods.zendesk.status")
-	ticketArray, err := newTickets(ticketStatus)
+	ticketArray, err := widget.newTickets()
 	ticketArray.Count = len(ticketArray.Tickets)
 	if err != nil {
 		log.Fatal(err)
@@ -102,7 +104,7 @@ func (widget *Widget) openTicket() {
 	sel := widget.selected
 	if sel >= 0 && widget.result != nil && sel < len(widget.result.Tickets) {
 		issue := &widget.result.Tickets[widget.selected]
-		ticketUrl := fmt.Sprintf("https://%s.zendesk.com/agent/tickets/%d", subdomain(), issue.Id)
+		ticketUrl := fmt.Sprintf("https://%s.zendesk.com/agent/tickets/%d", widget.settings.subdomain, issue.Id)
 		wtf.OpenFile(ticketUrl)
 	}
 }
