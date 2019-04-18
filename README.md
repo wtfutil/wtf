@@ -10,7 +10,17 @@
 A personal terminal-based dashboard utility, designed for
 displaying infrequently-needed, but very important, daily data.
 
-Follow [on Twitter](https://twitter.com/wtfutil) for news and latest updates.
+### Twitter
+
+Follow [on Twitter](https://twitter.com/wtfutil) for news and latest updates. 
+
+### Slack
+
+If you’re a member of the Gophers Slack community (https://invite.slack.golangbridge.org) there’s now a WTFUtil channel you should join for all your WTF questions, dev conversations, etc.
+
+Find #wtfutil on https://gophers.slack.com/messages/buffalo/ and join us.
+
+## Screenshot
 
 <p align="center">
 <img src="./images/screenshot.jpg" title="screenshot" width="720" height="420" />
