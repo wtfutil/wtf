@@ -18,7 +18,7 @@ Follow [on Twitter](https://twitter.com/wtfutil) for news and latest updates.
 
 If you’re a member of the Gophers Slack community (https://invite.slack.golangbridge.org) there’s now a WTFUtil channel you should join for all your WTF questions, dev conversations, etc.
 
-Find #wtfutil on https://gophers.slack.com/messages/buffalo/ and join us.
+Find #wtfutil on https://gophers.slack.com/ and join us.
 
 ## Screenshot
 
