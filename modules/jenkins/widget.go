@@ -7,6 +7,7 @@ import (
 	"github.com/gdamore/tcell"
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/wtf"
+	"regexp"
 )
 
 const HelpText = `
@@ -91,15 +92,19 @@ func (widget *Widget) display() {
 func (widget *Widget) contentFrom(view *View) string {
 	var str string
 	for idx, job := range view.Jobs {
-		str = str + fmt.Sprintf(
-			`["%d"][""][%s] [%s]%-6s[white]`,
-			idx,
-			widget.rowColor(idx),
-			widget.jobColor(&job),
-			job.Name,
-		)
+		var validID = regexp.MustCompile(widget.settings.jobNameRegex)
 
-		str = str + "\n"
+		if validID.MatchString(job.Name) {
+			str = str + fmt.Sprintf(
+				`["%d"][""][%s] [%s]%-6s[white]`,
+				idx,
+				widget.rowColor(idx),
+				widget.jobColor(&job),
+				job.Name,
+			)
+
+			str = str + "\n"
+		}
 	}
 
 	return str
