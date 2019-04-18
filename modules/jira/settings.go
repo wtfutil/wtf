@@ -7,6 +7,8 @@ import (
 	"github.com/wtfutil/wtf/cfg"
 )
 
+const configKey = "jira"
+
 type colors struct {
 	rows struct {
 		even string
@@ -27,11 +29,11 @@ type Settings struct {
 	verifyServerCertificate bool
 }
 
-func NewSettingsFromYAML(ymlConfig *config.Config) *Settings {
-	localConfig, _ := ymlConfig.Get("wtf.mods.jira")
+func NewSettingsFromYAML(name string, ymlConfig *config.Config) *Settings {
+	localConfig, _ := ymlConfig.Get("wtf.mods." + configKey)
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromYAML(ymlConfig),
+		common: cfg.NewCommonSettingsFromYAML(name, configKey, ymlConfig),
 
 		apiKey:                  localConfig.UString("apiKey", os.Getenv("WTF_JIRA_API_KEY")),
 		domain:                  localConfig.UString("domain"),

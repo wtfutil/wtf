@@ -6,6 +6,8 @@ import (
 	"github.com/wtfutil/wtf/wtf"
 )
 
+const configKey = "clocks"
+
 type colors struct {
 	rows struct {
 		even string
@@ -23,11 +25,11 @@ type Settings struct {
 	sort       string
 }
 
-func NewSettingsFromYAML(ymlConfig *config.Config) *Settings {
-	localConfig, _ := ymlConfig.Get("wtf.mods.clocks")
+func NewSettingsFromYAML(name string, ymlConfig *config.Config) *Settings {
+	localConfig, _ := ymlConfig.Get("wtf.mods." + configKey)
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromYAML(ymlConfig),
+		common: cfg.NewCommonSettingsFromYAML(name, configKey, ymlConfig),
 
 		dateFormat: localConfig.UString("dateFormat", wtf.SimpleDateFormat),
 		timeFormat: localConfig.UString("timeFormat", wtf.SimpleTimeFormat),

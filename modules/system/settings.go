@@ -5,13 +5,15 @@ import (
 	"github.com/wtfutil/wtf/cfg"
 )
 
+const configKey = "system"
+
 type Settings struct {
 	common *cfg.Common
 }
 
-func NewSettingsFromYAML(ymlConfig *config.Config) *Settings {
+func NewSettingsFromYAML(name string, ymlConfig *config.Config) *Settings {
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromYAML(ymlConfig),
+		common: cfg.NewCommonSettingsFromYAML(name, configKey, ymlConfig),
 	}
 
 	return &settings

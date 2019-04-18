@@ -5,6 +5,8 @@ import (
 	"github.com/wtfutil/wtf/cfg"
 )
 
+const configKey = "bittrex"
+
 type colors struct {
 	base struct {
 		name        string
@@ -24,11 +26,11 @@ type Settings struct {
 	summary map[string]interface{}
 }
 
-func NewSettingsFromYAML(ymlConfig *config.Config) *Settings {
-	localConfig, _ := ymlConfig.Get("wtf.mods.bittrex")
+func NewSettingsFromYAML(name string, ymlConfig *config.Config) *Settings {
+	localConfig, _ := ymlConfig.Get("wtf.mods." + configKey)
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromYAML(ymlConfig),
+		common: cfg.NewCommonSettingsFromYAML(name, configKey, ymlConfig),
 	}
 
 	settings.colors.base.name = localConfig.UString("colors.base.name")

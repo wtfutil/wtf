@@ -93,7 +93,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 
 	widget := Widget{
 		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
-		TextWidget:    wtf.NewTextWidget(app, "SpotifyWeb", "spotifyweb", true),
+		TextWidget:    wtf.NewTextWidget(app, settings.common.Name, settings.common.ConfigKey, true),
 
 		Info:        Info{},
 		client:      client,

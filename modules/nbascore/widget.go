@@ -33,7 +33,7 @@ var offset = 0
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
 		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
-		TextWidget:    wtf.NewTextWidget(app, "NBA Score", "nbascore", true),
+		TextWidget:    wtf.NewTextWidget(app, settings.common.Name, settings.common.ConfigKey, true),
 
 		settings: settings,
 	}

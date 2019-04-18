@@ -7,20 +7,23 @@ import (
 	"github.com/wtfutil/wtf/cfg"
 )
 
-type Settings struct {
-	Common *cfg.Common
+const configKey = "bamboohr"
 
-	APIKey    string
-	Subdomain string
+type Settings struct {
+	common *cfg.Common
+
+	apiKey    string
+	subdomain string
 }
 
-func NewSettingsFromYAML(ymlConfig *config.Config) *Settings {
-	localConfig, _ := ymlConfig.Get("wtf.mods.bamboohr")
+func NewSettingsFromYAML(name string, ymlConfig *config.Config) *Settings {
+	localConfig, _ := ymlConfig.Get("wtf.mods." + configKey)
 
 	settings := Settings{
-		Common:    cfg.NewCommonSettingsFromYAML(ymlConfig),
-		APIKey:    localConfig.UString("apiKey", os.Getenv("WTF_BAMBOO_HR_TOKEN")),
-		Subdomain: localConfig.UString("subdomain", os.Getenv("WTF_BAMBOO_HR_SUBDOMAIN")),
+		common: cfg.NewCommonSettingsFromYAML(name, configKey, ymlConfig),
+
+		apiKey:    localConfig.UString("apiKey", os.Getenv("WTF_BAMBOO_HR_TOKEN")),
+		subdomain: localConfig.UString("subdomain", os.Getenv("WTF_BAMBOO_HR_SUBDOMAIN")),
 	}
 
 	return &settings

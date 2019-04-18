@@ -7,17 +7,20 @@ import (
 	"github.com/wtfutil/wtf/cfg"
 )
 
+const configKey = "circleci"
+
 type Settings struct {
-	Common *cfg.Common
+	common *cfg.Common
 
 	apiKey string
 }
 
-func NewSettingsFromYAML(ymlConfig *config.Config) *Settings {
-	localConfig, _ := ymlConfig.Get("wtf.mods.circleci")
+func NewSettingsFromYAML(name string, ymlConfig *config.Config) *Settings {
+	localConfig, _ := ymlConfig.Get("wtf.mods." + configKey)
 
 	settings := Settings{
-		Common: cfg.NewCommonSettingsFromYAML(ymlConfig),
+		common: cfg.NewCommonSettingsFromYAML(name, configKey, ymlConfig),
+
 		apiKey: localConfig.UString("apiKey", os.Getenv("WTF_CIRCLE_API_KEY")),
 	}
 

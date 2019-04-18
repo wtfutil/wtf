@@ -7,6 +7,8 @@ import (
 	"github.com/wtfutil/wtf/cfg"
 )
 
+const configKey = "trello"
+
 type Settings struct {
 	common *cfg.Common
 
@@ -17,11 +19,11 @@ type Settings struct {
 	username    string
 }
 
-func NewSettingsFromYAML(ymlConfig *config.Config) *Settings {
-	localConfig, _ := ymlConfig.Get("wtf.mods.trello")
+func NewSettingsFromYAML(name string, ymlConfig *config.Config) *Settings {
+	localConfig, _ := ymlConfig.Get("wtf.mods." + configKey)
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromYAML(ymlConfig),
+		common: cfg.NewCommonSettingsFromYAML(name, configKey, ymlConfig),
 
 		accessToken: localConfig.UString("accessToken", os.Getenv("WTF_TRELLO_ACCESS_TOKEN")),
 		apiKey:      localConfig.UString("apiKey", os.Getenv("WTF_TRELLO_APP_KEY")),

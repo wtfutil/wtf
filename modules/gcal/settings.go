@@ -5,6 +5,8 @@ import (
 	"github.com/wtfutil/wtf/cfg"
 )
 
+const configKey = "gcal"
+
 type colors struct {
 	day         string
 	description string
@@ -30,11 +32,11 @@ type Settings struct {
 	withLocation          bool
 }
 
-func NewSettingsFromYAML(ymlConfig *config.Config) *Settings {
-	localConfig, _ := ymlConfig.Get("wtf.mods.gcal")
+func NewSettingsFromYAML(name string, ymlConfig *config.Config) *Settings {
+	localConfig, _ := ymlConfig.Get("wtf.mods." + configKey)
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromYAML(ymlConfig),
+		common: cfg.NewCommonSettingsFromYAML(name, configKey, ymlConfig),
 
 		conflictIcon:          localConfig.UString("conflictIcon", "🚨"),
 		currentIcon:           localConfig.UString("currentIcon", "🔸"),

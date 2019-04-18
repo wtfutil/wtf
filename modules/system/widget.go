@@ -19,7 +19,7 @@ type Widget struct {
 
 func NewWidget(app *tview.Application, date, version string, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(app, "System", "system", false),
+		TextWidget: wtf.NewTextWidget(app, settings.common.Name, settings.common.ConfigKey, false),
 
 		Date:     date,
 		settings: settings,

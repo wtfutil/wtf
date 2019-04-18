@@ -15,6 +15,11 @@ type Colors struct {
 	Text            string
 }
 
+type Module struct {
+	ConfigKey string
+	Name      string
+}
+
 type Position struct {
 	Height int
 	Left   int
@@ -24,6 +29,7 @@ type Position struct {
 
 type Common struct {
 	Colors
+	Module
 	Position
 
 	Enabled         bool
@@ -31,7 +37,7 @@ type Common struct {
 	Title           string
 }
 
-func NewCommonSettingsFromYAML(ymlConfig *config.Config) *Common {
+func NewCommonSettingsFromYAML(name, configKey string, ymlConfig *config.Config) *Common {
 	common := Common{
 		Colors: Colors{
 			Background:      ymlConfig.UString("wtf.colors.background", "black"),
@@ -43,6 +49,12 @@ func NewCommonSettingsFromYAML(ymlConfig *config.Config) *Common {
 			HighlightBack:   ymlConfig.UString("wtf.colors.highlight.back"),
 			Text:            ymlConfig.UString("wtf.colors.text", "white"),
 		},
+
+		Module: Module{
+			ConfigKey: configKey,
+			Name:      name,
+		},
+
 		Position: Position{},
 	}
 

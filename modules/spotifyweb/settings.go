@@ -7,6 +7,8 @@ import (
 	"github.com/wtfutil/wtf/cfg"
 )
 
+const configKey = "spotifyweb"
+
 type Settings struct {
 	common *cfg.Common
 
@@ -15,11 +17,11 @@ type Settings struct {
 	secretKey    string
 }
 
-func NewSettingsFromYAML(ymlConfig *config.Config) *Settings {
-	localConfig, _ := ymlConfig.Get("wtf.mods.spotifyweb")
+func NewSettingsFromYAML(name string, ymlConfig *config.Config) *Settings {
+	localConfig, _ := ymlConfig.Get("wtf.mods." + configKey)
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromYAML(ymlConfig),
+		common: cfg.NewCommonSettingsFromYAML(name, configKey, ymlConfig),
 
 		callbackPort: localConfig.UString("callbackPort", "8080"),
 		clientID:     localConfig.UString("clientID", os.Getenv("SPOTIFY_ID")),

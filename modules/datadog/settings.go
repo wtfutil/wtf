@@ -7,6 +7,8 @@ import (
 	"github.com/wtfutil/wtf/cfg"
 )
 
+const configKey = "datadog"
+
 type Settings struct {
 	common *cfg.Common
 
@@ -15,11 +17,12 @@ type Settings struct {
 	tags           []interface{}
 }
 
-func NewSettingsFromYAML(ymlConfig *config.Config) *Settings {
-	localConfig, _ := ymlConfig.Get("wtf.mods.datadog")
+func NewSettingsFromYAML(name string, ymlConfig *config.Config) *Settings {
+	localConfig, _ := ymlConfig.Get("wtf.mods." + configKey)
 
 	settings := Settings{
-		common:         cfg.NewCommonSettingsFromYAML(ymlConfig),
+		common: cfg.NewCommonSettingsFromYAML(name, configKey, ymlConfig),
+
 		apiKey:         localConfig.UString("apiKey", os.Getenv("WTF_DATADOG_API_KEY")),
 		applicationKey: localConfig.UString("applicationKey", os.Getenv("WTF_DATADOG_APPLICATION_KEY")),
 		tags:           localConfig.UList("monitors.tags"),

@@ -14,6 +14,8 @@ type colors struct {
 	}
 }
 
+const configKey = "gerrit"
+
 type Settings struct {
 	colors
 	common *cfg.Common
@@ -25,11 +27,11 @@ type Settings struct {
 	verifyServerCertificate bool
 }
 
-func NewSettingsFromYAML(ymlConfig *config.Config) *Settings {
-	localConfig, _ := ymlConfig.Get("wtf.mods.gerrit")
+func NewSettingsFromYAML(name string, ymlConfig *config.Config) *Settings {
+	localConfig, _ := ymlConfig.Get("wtf.mods." + configKey)
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromYAML(ymlConfig),
+		common: cfg.NewCommonSettingsFromYAML(name, configKey, ymlConfig),
 
 		domain:                  localConfig.UString("domain", ""),
 		password:                localConfig.UString("password", os.Getenv("WTF_GERRIT_PASSWORD")),

@@ -5,6 +5,8 @@ import (
 	"github.com/wtfutil/wtf/cfg"
 )
 
+const configKey = "gspreadsheets"
+
 type colors struct {
 	values string
 }
@@ -19,11 +21,11 @@ type Settings struct {
 	sheetID       string
 }
 
-func NewSettingsFromYAML(ymlConfig *config.Config) *Settings {
-	localConfig, _ := ymlConfig.Get("wtf.mods.gspreadsheets")
+func NewSettingsFromYAML(name string, ymlConfig *config.Config) *Settings {
+	localConfig, _ := ymlConfig.Get("wtf.mods." + configKey)
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromYAML(ymlConfig),
+		common: cfg.NewCommonSettingsFromYAML(name, configKey, ymlConfig),
 
 		cellNames:  localConfig.UList("cells.names"),
 		secretFile: localConfig.UString("secretFile"),

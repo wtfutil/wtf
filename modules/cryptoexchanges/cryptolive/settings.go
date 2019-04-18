@@ -7,6 +7,8 @@ import (
 	"github.com/wtfutil/wtf/modules/cryptoexchanges/cryptolive/toplist"
 )
 
+const configKey = "cryptolive"
+
 type colors struct {
 	from struct {
 		name        string
@@ -31,7 +33,8 @@ type colors struct {
 
 type Settings struct {
 	colors
-	common     *cfg.Common
+	common *cfg.Common
+
 	currencies map[string]interface{}
 	top        map[string]interface{}
 
@@ -39,19 +42,20 @@ type Settings struct {
 	toplistSettings *toplist.Settings
 }
 
-func NewSettingsFromYAML(ymlConfig *config.Config) *Settings {
-	localConfig, _ := ymlConfig.Get("wtf.mods.cryptolive")
+func NewSettingsFromYAML(name string, ymlConfig *config.Config) *Settings {
+	localConfig, _ := ymlConfig.Get("wtf.mods." + configKey)
 
 	currencies, _ := localConfig.Map("currencies")
 	top, _ := localConfig.Map("top")
 
 	settings := Settings{
-		common:     cfg.NewCommonSettingsFromYAML(ymlConfig),
+		common: cfg.NewCommonSettingsFromYAML(name, configKey, ymlConfig),
+
 		currencies: currencies,
 		top:        top,
 
-		priceSettings:   price.NewSettingsFromYAML(ymlConfig),
-		toplistSettings: toplist.NewSettingsFromYAML(ymlConfig),
+		priceSettings:   price.NewSettingsFromYAML(name, ymlConfig),
+		toplistSettings: toplist.NewSettingsFromYAML(name, ymlConfig),
 	}
 
 	settings.colors.from.name = localConfig.UString("colors.from.name")

@@ -7,6 +7,8 @@ import (
 	"github.com/wtfutil/wtf/cfg"
 )
 
+const configKey = "twitter"
+
 type Settings struct {
 	common *cfg.Common
 
@@ -15,11 +17,11 @@ type Settings struct {
 	screenNames []interface{}
 }
 
-func NewSettingsFromYAML(ymlConfig *config.Config) *Settings {
-	localConfig, _ := ymlConfig.Get("wtf.mods.twitter")
+func NewSettingsFromYAML(name string, ymlConfig *config.Config) *Settings {
+	localConfig, _ := ymlConfig.Get("wtf.mods." + configKey)
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromYAML(ymlConfig),
+		common: cfg.NewCommonSettingsFromYAML(name, configKey, ymlConfig),
 
 		bearerToken: localConfig.UString("bearerToken", os.Getenv("WTF_TWITTER_BEARER_TOKEN")),
 		count:       localConfig.UInt("count", 5),

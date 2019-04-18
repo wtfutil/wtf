@@ -30,7 +30,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	spotifyClient := spotigopher.NewClient()
 	widget := Widget{
 		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
-		TextWidget:    wtf.NewTextWidget(app, "Spotify", "spotify", true),
+		TextWidget:    wtf.NewTextWidget(app, settings.common.Name, settings.common.ConfigKey, true),
 
 		Info:          spotigopher.Info{},
 		SpotifyClient: spotifyClient,

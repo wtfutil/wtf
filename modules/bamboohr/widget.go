@@ -17,7 +17,7 @@ type Widget struct {
 
 func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(app, "BambooHR", "bamboohr", false),
+		TextWidget: wtf.NewTextWidget(app, settings.common.Name, settings.common.ConfigKey, false),
 
 		settings: settings,
 	}
@@ -30,8 +30,8 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 func (widget *Widget) Refresh() {
 	client := NewClient(
 		APIURI,
-		widget.settings.APIKey,
-		widget.settings.Subdomain,
+		widget.settings.apiKey,
+		widget.settings.subdomain,
 	)
 
 	todayItems := client.Away(

@@ -5,17 +5,19 @@ import (
 	"github.com/wtfutil/wtf/cfg"
 )
 
+const configKey = "todo"
+
 type Settings struct {
 	common *cfg.Common
 
 	filePath string
 }
 
-func NewSettingsFromYAML(ymlConfig *config.Config) *Settings {
-	localConfig, _ := ymlConfig.Get("wtf.mods.todo")
+func NewSettingsFromYAML(name string, ymlConfig *config.Config) *Settings {
+	localConfig, _ := ymlConfig.Get("wtf.mods." + configKey)
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromYAML(ymlConfig),
+		common: cfg.NewCommonSettingsFromYAML(name, configKey, ymlConfig),
 
 		filePath: localConfig.UString("filename"),
 	}

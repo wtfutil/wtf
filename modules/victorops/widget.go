@@ -27,7 +27,7 @@ type Widget struct {
 // NewWidget creates a new widget
 func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(app, "VictorOps - OnCall", "victorops", true),
+		TextWidget: wtf.NewTextWidget(app, settings.common.Name, settings.common.ConfigKey, true),
 	}
 
 	widget.View.SetScrollable(true)

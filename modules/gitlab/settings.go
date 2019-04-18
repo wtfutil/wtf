@@ -7,6 +7,8 @@ import (
 	"github.com/wtfutil/wtf/cfg"
 )
 
+const configKey = "gitlab"
+
 type Settings struct {
 	common *cfg.Common
 
@@ -16,11 +18,11 @@ type Settings struct {
 	username string
 }
 
-func NewSettingsFromYAML(ymlConfig *config.Config) *Settings {
-	localConfig, _ := ymlConfig.Get("wtf.mods.gitlab")
+func NewSettingsFromYAML(name string, ymlConfig *config.Config) *Settings {
+	localConfig, _ := ymlConfig.Get("wtf.mods." + configKey)
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromYAML(ymlConfig),
+		common: cfg.NewCommonSettingsFromYAML(name, configKey, ymlConfig),
 
 		apiKey:   localConfig.UString("apiKey", os.Getenv("WTF_GITLAB_TOKEN")),
 		domain:   localConfig.UString("domain"),

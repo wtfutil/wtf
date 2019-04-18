@@ -5,6 +5,8 @@ import (
 	"github.com/wtfutil/wtf/cfg"
 )
 
+const configKey = "rollbar"
+
 type Settings struct {
 	common *cfg.Common
 
@@ -16,11 +18,11 @@ type Settings struct {
 	projectOwner   string
 }
 
-func NewSettingsFromYAML(ymlConfig *config.Config) *Settings {
-	localConfig, _ := ymlConfig.Get("wtf.mods.rollbar")
+func NewSettingsFromYAML(name string, ymlConfig *config.Config) *Settings {
+	localConfig, _ := ymlConfig.Get("wtf.mods." + configKey)
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromYAML(ymlConfig),
+		common: cfg.NewCommonSettingsFromYAML(name, configKey, ymlConfig),
 
 		accessToken:    localConfig.UString("accessToken"),
 		activeOnly:     localConfig.UBool("activeOnly", false),

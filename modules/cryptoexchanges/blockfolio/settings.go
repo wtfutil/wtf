@@ -5,6 +5,8 @@ import (
 	"github.com/wtfutil/wtf/cfg"
 )
 
+const configKey = "blockfolio"
+
 type colors struct {
 	name  string
 	grows string
@@ -19,11 +21,11 @@ type Settings struct {
 	displayHoldings bool
 }
 
-func NewSettingsFromYAML(ymlConfig *config.Config) *Settings {
-	localConfig, _ := ymlConfig.Get("wtf.mods.blockfolio")
+func NewSettingsFromYAML(name string, ymlConfig *config.Config) *Settings {
+	localConfig, _ := ymlConfig.Get("wtf.mods." + configKey)
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromYAML(ymlConfig),
+		common: cfg.NewCommonSettingsFromYAML(name, configKey, ymlConfig),
 
 		deviceToken:     localConfig.UString("device_token"),
 		displayHoldings: localConfig.UBool("displayHoldings", true),

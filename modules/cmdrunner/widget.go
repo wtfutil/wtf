@@ -20,7 +20,7 @@ type Widget struct {
 
 func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(app, "CmdRunner", "cmdrunner", false),
+		TextWidget: wtf.NewTextWidget(app, settings.common.Name, settings.common.ConfigKey, false),
 
 		args:     settings.args,
 		cmd:      settings.cmd,

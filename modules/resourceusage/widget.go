@@ -24,7 +24,7 @@ type Widget struct {
 // NewWidget Make new instance of widget
 func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
-		BarGraph: wtf.NewBarGraph(app, "Resource Usage", "resourceusage", false),
+		BarGraph: wtf.NewBarGraph(app, settings.common.Name, settings.common.ConfigKey, false),
 
 		settings: settings,
 	}

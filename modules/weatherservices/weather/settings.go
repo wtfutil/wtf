@@ -7,6 +7,8 @@ import (
 	"github.com/wtfutil/wtf/cfg"
 )
 
+const configKey = "weather"
+
 type colors struct {
 	current string
 }
@@ -21,11 +23,11 @@ type Settings struct {
 	tempUnit string
 }
 
-func NewSettingsFromYAML(ymlConfig *config.Config) *Settings {
-	localConfig, _ := ymlConfig.Get("wtf.mods.weather")
+func NewSettingsFromYAML(name string, ymlConfig *config.Config) *Settings {
+	localConfig, _ := ymlConfig.Get("wtf.mods." + configKey)
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromYAML(ymlConfig),
+		common: cfg.NewCommonSettingsFromYAML(name, configKey, ymlConfig),
 
 		apiKey:   localConfig.UString("apiKey", os.Getenv("WTF_OWM_API_KEY")),
 		cityIDs:  localConfig.UList("cityids"),

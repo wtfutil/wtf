@@ -7,6 +7,8 @@ import (
 	"github.com/wtfutil/wtf/cfg"
 )
 
+const configKey = "victorops"
+
 type Settings struct {
 	common *cfg.Common
 
@@ -15,11 +17,11 @@ type Settings struct {
 	team   string
 }
 
-func NewSettingsFromYAML(ymlConfig *config.Config) *Settings {
-	localConfig, _ := ymlConfig.Get("wtf.mods.victorops")
+func NewSettingsFromYAML(name string, ymlConfig *config.Config) *Settings {
+	localConfig, _ := ymlConfig.Get("wtf.mods." + configKey)
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromYAML(ymlConfig),
+		common: cfg.NewCommonSettingsFromYAML(name, configKey, ymlConfig),
 
 		apiID:  localConfig.UString("apiID", os.Getenv("WTF_VICTOROPS_API_ID")),
 		apiKey: localConfig.UString("apiKey", os.Getenv("WTF_VICTOROPS_API_KEY")),

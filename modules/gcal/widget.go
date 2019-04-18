@@ -20,7 +20,7 @@ type Widget struct {
 
 func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(app, "Calendar", "gcal", true),
+		TextWidget: wtf.NewTextWidget(app, settings.common.Name, settings.common.ConfigKey, true),
 
 		app:      app,
 		ch:       make(chan struct{}),

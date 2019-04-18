@@ -7,6 +7,8 @@ import (
 	"github.com/wtfutil/wtf/cfg"
 )
 
+const configKey = "opsgenie"
+
 type Settings struct {
 	common *cfg.Common
 
@@ -16,11 +18,11 @@ type Settings struct {
 	scheduleIdentifierType string
 }
 
-func NewSettingsFromYAML(ymlConfig *config.Config) *Settings {
-	localConfig, _ := ymlConfig.Get("wtf.mods.opsgenie")
+func NewSettingsFromYAML(name string, ymlConfig *config.Config) *Settings {
+	localConfig, _ := ymlConfig.Get("wtf.mods." + configKey)
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromYAML(ymlConfig),
+		common: cfg.NewCommonSettingsFromYAML(name, configKey, ymlConfig),
 
 		apiKey:                 localConfig.UString("apiKey", os.Getenv("WTF_OPS_GENIE_API_KEY")),
 		displayEmpty:           localConfig.UBool("displayEmpty", true),

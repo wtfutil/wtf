@@ -5,6 +5,8 @@ import (
 	"github.com/wtfutil/wtf/cfg"
 )
 
+const configKey = "toplist"
+
 type colors struct {
 	from struct {
 		name        string
@@ -34,14 +36,14 @@ type Settings struct {
 	top        map[string]interface{}
 }
 
-func NewSettingsFromYAML(ymlConfig *config.Config) *Settings {
-	localConfig, _ := ymlConfig.Get("wtf.mods.cryptolive")
+func NewSettingsFromYAML(name string, ymlConfig *config.Config) *Settings {
+	localConfig, _ := ymlConfig.Get("wtf.mods." + configKey)
 
 	currencies, _ := localConfig.Map("currencies")
 	top, _ := localConfig.Map("top")
 
 	settings := Settings{
-		common:     cfg.NewCommonSettingsFromYAML(ymlConfig),
+		common:     cfg.NewCommonSettingsFromYAML(name, configKey, ymlConfig),
 		currencies: currencies,
 		top:        top,
 	}
