@@ -84,7 +84,7 @@ func NewCommonSettingsFromYAML(name, configKey string, ymlConfig *config.Config)
 		Enabled:         ymlConfig.UBool(modulePath+".enabled", false),
 		FocusChar:       ymlConfig.UInt(modulePath+".focusChar", -1),
 		RefreshInterval: ymlConfig.UInt(modulePath+".refreshInterval", 300),
-		Title:           ymlConfig.UString(modulePath+".title", ""),
+		Title:           ymlConfig.UString(modulePath+".title", name),
 	}
 
 	return &common
