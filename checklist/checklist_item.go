@@ -24,6 +24,8 @@ func NewChecklistItem(checked bool, text string, checkedIcon, uncheckedIcon stri
 
 // CheckMark returns the string used to indicate a ChecklistItem is checked or unchecked
 func (item *ChecklistItem) CheckMark() string {
+	item.ensureItemIcons()
+
 	if item.Checked {
 		return item.CheckedIcon
 	}
@@ -35,4 +37,16 @@ func (item *ChecklistItem) CheckMark() string {
 // If checked, it is unchecked. If unchecked, it is checked
 func (item *ChecklistItem) Toggle() {
 	item.Checked = !item.Checked
+}
+
+/* -------------------- Unexported Functions -------------------- */
+
+func (item *ChecklistItem) ensureItemIcons() {
+	if item.CheckedIcon == "" {
+		item.CheckedIcon = "x"
+	}
+
+	if item.UncheckedIcon == "" {
+		item.UncheckedIcon = " "
+	}
 }
