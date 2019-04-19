@@ -35,8 +35,12 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 func (widget *Widget) Refresh() {
 	widget.execute()
 
-	title := tview.TranslateANSI(wtf.Config.UString("wtf.mods.cmdrunner.title", widget.String()))
-	widget.View.SetTitle(title)
+	title := widget.settings.common.Title
+	if title == "" {
+		title = widget.String()
+	}
+
+	widget.View.SetTitle(tview.TranslateANSI(title))
 
 	widget.View.SetText(widget.result)
 }
