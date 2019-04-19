@@ -193,7 +193,10 @@ func (widget *Widget) load() {
 	filePath := fmt.Sprintf("%s/%s", confDir, widget.filePath)
 
 	fileData, _ := wtf.ReadFileBytes(filePath)
+
 	yaml.Unmarshal(fileData, &widget.list)
+
+	widget.setItemChecks()
 }
 
 func (widget *Widget) newItem() {
@@ -224,6 +227,15 @@ func (widget *Widget) persist() {
 
 	if err != nil {
 		panic(err)
+	}
+}
+
+// setItemChecks rolls through the checklist and ensures that all checklist
+// items have the correct checked/unchecked icon per the user's preferences
+func (widget *Widget) setItemChecks() {
+	for _, item := range widget.list.Items {
+		item.CheckedIcon = widget.settings.common.CheckedIcon
+		item.UncheckedIcon = widget.settings.common.UncheckedIcon
 	}
 }
 
