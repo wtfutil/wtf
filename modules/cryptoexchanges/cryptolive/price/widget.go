@@ -6,8 +6,6 @@ import (
 	"net/http"
 	"sync"
 	"time"
-
-	"github.com/wtfutil/wtf/wtf"
 )
 
 var baseURL = "https://min-api.cryptocompare.com/data/price"
@@ -37,12 +35,10 @@ func NewWidget(settings *Settings) *Widget {
 func (widget *Widget) setList() {
 	widget.list = &list{}
 
-	for currency := range widget.settings.currencies {
-		displayName, _ := wtf.Config.String("wtf.mods.cryptolive.currencies." + currency + ".displayName")
-		toList := getToList(currency)
-		widget.list.addItem(currency, displayName, toList)
+	for symbol, currency := range widget.settings.currencies {
+		toList := widget.getToList(symbol)
+		widget.list.addItem(symbol, currency.displayName, toList)
 	}
-
 }
 
 /* -------------------- Exported Functions -------------------- */
@@ -91,12 +87,10 @@ func (widget *Widget) display() {
 	widget.Result = fmt.Sprintf("\n%s", str)
 }
 
-func getToList(fromName string) []*toCurrency {
-	toNames, _ := wtf.Config.List("wtf.mods.cryptolive.currencies." + fromName + ".to")
-
+func (widget *Widget) getToList(symbol string) []*toCurrency {
 	var toList []*toCurrency
 
-	for _, to := range toNames {
+	for _, to := range widget.settings.currencies[symbol].to {
 		toList = append(toList, &toCurrency{
 			name:  to.(string),
 			price: 0,

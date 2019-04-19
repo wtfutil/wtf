@@ -57,7 +57,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config) *Settings {
 			market:      coercedVal["market"].([]interface{}),
 		}
 
-		settings.currencies[key] = currency
+		settings.summary.currencies[key] = currency
 	}
 
 	return &settings

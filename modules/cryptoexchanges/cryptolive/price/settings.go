@@ -5,7 +5,7 @@ import (
 	"github.com/wtfutil/wtf/cfg"
 )
 
-const configKey = "price"
+const configKey = "cryptolive"
 
 type colors struct {
 	from struct {
@@ -29,23 +29,22 @@ type colors struct {
 	}
 }
 
+type currency struct {
+	displayName string
+	to          []interface{}
+}
+
 type Settings struct {
 	colors
 	common     *cfg.Common
-	currencies map[string]interface{}
-	top        map[string]interface{}
+	currencies map[string]*currency
 }
 
 func NewSettingsFromYAML(name string, ymlConfig *config.Config) *Settings {
 	localConfig, _ := ymlConfig.Get("wtf.mods." + configKey)
 
-	currencies, _ := localConfig.Map("currencies")
-	top, _ := localConfig.Map("top")
-
 	settings := Settings{
-		common:     cfg.NewCommonSettingsFromYAML(name, configKey, ymlConfig),
-		currencies: currencies,
-		top:        top,
+		common: cfg.NewCommonSettingsFromYAML(name, configKey, ymlConfig),
 	}
 
 	settings.colors.from.name = localConfig.UString("colors.from.name")
@@ -60,6 +59,19 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config) *Settings {
 	settings.colors.top.to.name = localConfig.UString("colors.top.to.name")
 	settings.colors.top.to.field = localConfig.UString("colors.top.to.field")
 	settings.colors.top.to.value = localConfig.UString("colors.top.to.value")
+
+	settings.currencies = make(map[string]*currency)
+
+	for key, val := range localConfig.UMap("currencies") {
+		coercedVal := val.(map[string]interface{})
+
+		currency := &currency{
+			displayName: coercedVal["displayName"].(string),
+			to:          coercedVal["to"].([]interface{}),
+		}
+
+		settings.currencies[key] = currency
+	}
 
 	return &settings
 }
