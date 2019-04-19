@@ -42,20 +42,17 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 }
 
 func (widget *Widget) setSummaryList() {
-	sCurrencies := widget.settings.summary
-	for baseCurrencyName := range sCurrencies {
-		displayName, _ := wtf.Config.String("wtf.mods.bittrex.summary." + baseCurrencyName + ".displayName")
-		mCurrencyList := makeSummaryMarketList(baseCurrencyName)
-		widget.summaryList.addSummaryItem(baseCurrencyName, displayName, mCurrencyList)
+	for symbol, currency := range widget.settings.summary.currencies {
+		mCurrencyList := widget.makeSummaryMarketList(symbol, currency.market)
+		widget.summaryList.addSummaryItem(symbol, currency.displayName, mCurrencyList)
 	}
 }
 
-func makeSummaryMarketList(currencyName string) []*mCurrency {
+func (widget *Widget) makeSummaryMarketList(currencySymbol string, market []interface{}) []*mCurrency {
 	mCurrencyList := []*mCurrency{}
 
-	configMarketList, _ := wtf.Config.List("wtf.mods.bittrex.summary." + currencyName + ".market")
-	for _, mCurrencyName := range configMarketList {
-		mCurrencyList = append(mCurrencyList, makeMarketCurrency(mCurrencyName.(string)))
+	for _, marketSymbol := range market {
+		mCurrencyList = append(mCurrencyList, makeMarketCurrency(marketSymbol.(string)))
 	}
 
 	return mCurrencyList

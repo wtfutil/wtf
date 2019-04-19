@@ -165,6 +165,18 @@ func SigilStr(len, pos int, view *tview.TextView) string {
 	return sigils
 }
 
+/* -------------------- Map Conversion -------------------- */
+
+func MapToStrs(aMap map[string]interface{}) map[string]string {
+	results := make(map[string]string)
+
+	for key, val := range aMap {
+		results[key] = val.(string)
+	}
+
+	return results
+}
+
 /* -------------------- Slice Conversion -------------------- */
 
 func ToInts(slice []interface{}) []int {

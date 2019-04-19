@@ -19,11 +19,19 @@ type colors struct {
 	}
 }
 
+type currency struct {
+	displayName string
+	market      []interface{}
+}
+
+type summary struct {
+	currencies map[string]*currency
+}
+
 type Settings struct {
 	colors
 	common *cfg.Common
-
-	summary map[string]interface{}
+	summary
 }
 
 func NewSettingsFromYAML(name string, ymlConfig *config.Config) *Settings {
@@ -40,8 +48,17 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config) *Settings {
 	settings.colors.market.field = localConfig.UString("colors.market.field")
 	settings.colors.market.value = localConfig.UString("colors.market.value")
 
-	summaryMap, _ := ymlConfig.Map("summary")
-	settings.summary = summaryMap
+	settings.summary.currencies = make(map[string]*currency)
+	for key, val := range localConfig.UMap("summary") {
+		coercedVal := val.(map[string]interface{})
+
+		currency := &currency{
+			displayName: coercedVal["displayName"].(string),
+			market:      coercedVal["market"].([]interface{}),
+		}
+
+		settings.currencies[key] = currency
+	}
 
 	return &settings
 }
