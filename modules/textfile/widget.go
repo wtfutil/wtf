@@ -42,19 +42,17 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	widget := Widget{
 		HelpfulWidget:     wtf.NewHelpfulWidget(app, pages, HelpText),
 		MultiSourceWidget: wtf.NewMultiSourceWidget(settings.common.ConfigKey, "filePath", "filePaths"),
-		TextWidget:        wtf.NewTextWidget(app, settings.common.Name, settings.common.ConfigKey, true),
+		TextWidget:        wtf.NewTextWidget(app, settings.common, true),
 
 		settings: settings,
 	}
 
 	// Don't use a timer for this widget, watch for filesystem changes instead
-	widget.RefreshInt = 0
-
-	widget.LoadSources()
-	widget.SetDisplayFunction(widget.display)
+	widget.settings.common.RefreshInterval = 0
 
 	widget.HelpfulWidget.SetView(widget.View)
-
+	widget.LoadSources()
+	widget.SetDisplayFunction(widget.display)
 	widget.View.SetWrap(true)
 	widget.View.SetWordWrap(true)
 	widget.View.SetInputCapture(widget.keyboardIntercept)

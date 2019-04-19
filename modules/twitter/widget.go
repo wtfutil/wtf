@@ -37,7 +37,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	widget := Widget{
 		HelpfulWidget:     wtf.NewHelpfulWidget(app, pages, HelpText),
 		MultiSourceWidget: wtf.NewMultiSourceWidget(settings.common.ConfigKey, "screenName", "screenNames"),
-		TextWidget:        wtf.NewTextWidget(app, settings.common.Name, settings.common.ConfigKey, true),
+		TextWidget:        wtf.NewTextWidget(app, settings.common, true),
 
 		idx:      0,
 		settings: settings,

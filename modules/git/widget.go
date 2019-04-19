@@ -42,8 +42,8 @@ type Widget struct {
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
 		HelpfulWidget:     wtf.NewHelpfulWidget(app, pages, HelpText),
-		MultiSourceWidget: wtf.NewMultiSourceWidget("git", "repository", "repositories"),
-		TextWidget:        wtf.NewTextWidget(app, settings.common.Name, settings.common.ConfigKey, true),
+		MultiSourceWidget: wtf.NewMultiSourceWidget(settings.common.ConfigKey, "repository", "repositories"),
+		TextWidget:        wtf.NewTextWidget(app, settings.common, true),
 
 		app:      app,
 		pages:    pages,

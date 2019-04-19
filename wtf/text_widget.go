@@ -5,44 +5,49 @@ import (
 
 	"github.com/olebedev/config"
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/cfg"
 )
 
 var Config *config.Config
 
 type TextWidget struct {
-	enabled   bool
-	focusable bool
-	focusChar string
-	key       string
-	name      string
+	enabled         bool
+	focusable       bool
+	focusChar       string
+	key             string
+	name            string
+	refreshInterval int
 
-	RefreshInt int
-	View       *tview.TextView
+	View *tview.TextView
 
+	CommonSettings *cfg.Common
 	Position
 }
 
-func NewTextWidget(app *tview.Application, name string, configKey string, focusable bool) TextWidget {
-	focusCharValue := Config.UInt(fmt.Sprintf("wtf.mods.%s.focusChar", configKey), -1)
-	focusChar := string('0' + focusCharValue)
-	if focusCharValue == -1 {
+func NewTextWidget(app *tview.Application, commonSettings *cfg.Common, focusable bool) TextWidget {
+	configKey := commonSettings.ConfigKey
+
+	focusChar := string('0' + commonSettings.FocusChar)
+	if commonSettings.FocusChar == -1 {
 		focusChar = ""
 	}
 
 	widget := TextWidget{
-		enabled:    Config.UBool(fmt.Sprintf("wtf.mods.%s.enabled", configKey), false),
-		focusable:  focusable,
-		focusChar:  focusChar,
-		key:        configKey,
-		name:       Config.UString(fmt.Sprintf("wtf.mods.%s.title", configKey), name),
-		RefreshInt: Config.UInt(fmt.Sprintf("wtf.mods.%s.refreshInterval", configKey)),
+		CommonSettings: commonSettings,
+
+		enabled:         commonSettings.Enabled,
+		focusable:       focusable,
+		focusChar:       focusChar,
+		key:             commonSettings.ConfigKey,
+		name:            commonSettings.Name,
+		refreshInterval: commonSettings.RefreshInterval,
 	}
 
 	widget.Position = NewPosition(
-		Config.UInt(fmt.Sprintf("wtf.mods.%s.position.top", configKey)),
-		Config.UInt(fmt.Sprintf("wtf.mods.%s.position.left", configKey)),
-		Config.UInt(fmt.Sprintf("wtf.mods.%s.position.width", configKey)),
-		Config.UInt(fmt.Sprintf("wtf.mods.%s.position.height", configKey)),
+		commonSettings.Position.Top,
+		commonSettings.Position.Left,
+		commonSettings.Position.Width,
+		commonSettings.Position.Height,
 	)
 
 	widget.addView(app, configKey)
@@ -54,10 +59,10 @@ func NewTextWidget(app *tview.Application, name string, configKey string, focusa
 
 func (widget *TextWidget) BorderColor() string {
 	if widget.Focusable() {
-		return Config.UString("wtf.colors.border.focusable", "red")
+		return widget.CommonSettings.Colors.BorderFocusable
 	}
 
-	return Config.UString("wtf.colors.border.normal", "gray")
+	return widget.CommonSettings.Colors.BorderNormal
 }
 
 func (widget *TextWidget) ContextualTitle(defaultStr string) string {
@@ -103,7 +108,7 @@ func (widget *TextWidget) Name() string {
 }
 
 func (widget *TextWidget) RefreshInterval() int {
-	return widget.RefreshInt
+	return widget.refreshInterval
 }
 
 func (widget *TextWidget) SetFocusChar(char string) {
@@ -119,34 +124,19 @@ func (widget *TextWidget) TextView() *tview.TextView {
 func (widget *TextWidget) addView(app *tview.Application, configKey string) {
 	view := tview.NewTextView()
 
-	view.SetBackgroundColor(ColorFor(
-		Config.UString(fmt.Sprintf("wtf.mods.%s.colors.background", configKey),
-			Config.UString("wtf.colors.background", "black"),
-		),
-	))
-
-	view.SetTextColor(ColorFor(
-		Config.UString(
-			fmt.Sprintf("wtf.mods.%s.colors.text", configKey),
-			Config.UString("wtf.colors.text", "white"),
-		),
-	))
-
-	view.SetTitleColor(ColorFor(
-		Config.UString(
-			fmt.Sprintf("wtf.mods.%s.colors.title", configKey),
-			Config.UString("wtf.colors.title", "white"),
-		),
-	))
+	view.SetBackgroundColor(ColorFor(widget.CommonSettings.Colors.Background))
+	view.SetBorderColor(ColorFor(widget.BorderColor()))
+	view.SetTextColor(ColorFor(widget.CommonSettings.Colors.Text))
+	view.SetTitleColor(ColorFor(widget.CommonSettings.Colors.Title))
 
 	view.SetBorder(true)
-	view.SetBorderColor(ColorFor(widget.BorderColor()))
-	view.SetChangedFunc(func() {
-		app.Draw()
-	})
 	view.SetDynamicColors(true)
 	view.SetTitle(widget.ContextualTitle(widget.name))
 	view.SetWrap(false)
+
+	view.SetChangedFunc(func() {
+		app.Draw()
+	})
 
 	widget.View = view
 }

@@ -5,9 +5,8 @@ import (
 	"io/ioutil"
 	"os/exec"
 	"regexp"
-	"strings"
-	//"sync"
 	"runtime"
+	"strings"
 
 	"github.com/rivo/tview"
 )

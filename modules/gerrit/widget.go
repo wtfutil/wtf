@@ -49,7 +49,7 @@ var (
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
 		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
-		TextWidget:    wtf.NewTextWidget(app, settings.common.Name, settings.common.ConfigKey, true),
+		TextWidget:    wtf.NewTextWidget(app, settings.common, true),
 
 		Idx:      0,
 		settings: settings,

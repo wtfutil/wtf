@@ -13,6 +13,7 @@ type Colors struct {
 	HighlightFore   string
 	HighlightBack   string
 	Text            string
+	Title           string
 }
 
 type Module struct {
@@ -33,21 +34,27 @@ type Common struct {
 	Position
 
 	Enabled         bool
+	FocusChar       int
 	RefreshInterval int
 	Title           string
 }
 
 func NewCommonSettingsFromYAML(name, configKey string, ymlConfig *config.Config) *Common {
+	colorsPath := "wtf.colors"
+	modulePath := "wtf.mods." + configKey
+	positionPath := "wtf.mods." + configKey + ".position"
+
 	common := Common{
 		Colors: Colors{
-			Background:      ymlConfig.UString("wtf.colors.background", "black"),
-			BorderFocusable: ymlConfig.UString("wtf.colors.border.focusable"),
-			BorderFocused:   ymlConfig.UString("wtf.colors.border.focused"),
-			BorderNormal:    ymlConfig.UString("wtf.colors.border.normal"),
-			Checked:         ymlConfig.UString("wtf.colors.checked"),
-			HighlightFore:   ymlConfig.UString("wtf.colors.highlight.fore"),
-			HighlightBack:   ymlConfig.UString("wtf.colors.highlight.back"),
-			Text:            ymlConfig.UString("wtf.colors.text", "white"),
+			Background:      ymlConfig.UString(modulePath+".colors.background", ymlConfig.UString(colorsPath+".background", "black")),
+			BorderFocusable: ymlConfig.UString(colorsPath+".border.focusable", "red"),
+			BorderFocused:   ymlConfig.UString(colorsPath+".border.focused", "orange"),
+			BorderNormal:    ymlConfig.UString(colorsPath+".border.normal", "gray"),
+			Checked:         ymlConfig.UString(colorsPath+".checked", "gray"),
+			HighlightFore:   ymlConfig.UString(colorsPath+".highlight.fore", "black"),
+			HighlightBack:   ymlConfig.UString(colorsPath+".highlight.back", "green"),
+			Text:            ymlConfig.UString(modulePath+".colors.text", ymlConfig.UString(colorsPath+".text", "white")),
+			Title:           ymlConfig.UString(modulePath+".colors.title", ymlConfig.UString(colorsPath+".title", "white")),
 		},
 
 		Module: Module{
@@ -55,7 +62,17 @@ func NewCommonSettingsFromYAML(name, configKey string, ymlConfig *config.Config)
 			Name:      name,
 		},
 
-		Position: Position{},
+		Position: Position{
+			Height: ymlConfig.UInt(positionPath + ".height"),
+			Left:   ymlConfig.UInt(positionPath + ".left"),
+			Top:    ymlConfig.UInt(positionPath + ".top"),
+			Width:  ymlConfig.UInt(positionPath + ".width"),
+		},
+
+		Enabled:         ymlConfig.UBool(modulePath+".enabled", false),
+		FocusChar:       ymlConfig.UInt(modulePath+".focusChar", -1),
+		RefreshInterval: ymlConfig.UInt(modulePath+".refreshInterval", 300),
+		Title:           ymlConfig.UString(modulePath+".title", name),
 	}
 
 	return &common

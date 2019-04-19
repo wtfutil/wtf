@@ -27,7 +27,7 @@ type Widget struct {
 // NewWidget Make new instance of widget
 func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(app, settings.common.Name, settings.common.ConfigKey, false),
+		TextWidget: wtf.NewTextWidget(app, settings.common, false),
 
 		settings:    settings,
 		summaryList: summaryList{},

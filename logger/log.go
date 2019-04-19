@@ -22,7 +22,7 @@ type Widget struct {
 
 func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(app, "Logs", "logger", true),
+		TextWidget: wtf.NewTextWidget(app, settings.common, true),
 
 		filePath: logFilePath(),
 		settings: settings,
