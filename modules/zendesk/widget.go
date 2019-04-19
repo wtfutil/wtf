@@ -63,13 +63,13 @@ func (widget *Widget) textContent(items []Ticket) string {
 }
 
 func (widget *Widget) format(ticket Ticket, idx int) string {
-	var str string
-	requesterName := widget.parseRequester(ticket)
-	textColor := wtf.Config.UString("wtf.colors.background", "green")
+	textColor := widget.settings.common.Colors.Background
 	if idx == widget.selected {
-		textColor = wtf.Config.UString("wtf.colors.background", "orange")
+		textColor = widget.settings.common.Colors.BorderFocused
 	}
-	str = fmt.Sprintf(" [%s:]%d - %s\n %s\n\n", textColor, ticket.Id, requesterName, ticket.Subject)
+
+	requesterName := widget.parseRequester(ticket)
+	str := fmt.Sprintf(" [%s:]%d - %s\n %s\n\n", textColor, ticket.Id, requesterName, ticket.Subject)
 	return str
 }
 

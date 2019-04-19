@@ -54,7 +54,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 		app:      app,
 		settings: settings,
 		filePath: settings.filePath,
-		list:     checklist.NewChecklist(),
+		list:     checklist.NewChecklist(settings.common.Sigils.CheckedIcon, settings.common.Sigils.UncheckedIcon),
 		pages:    pages,
 	}
 

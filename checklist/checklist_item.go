@@ -1,23 +1,34 @@
 package checklist
 
-import (
-	"github.com/wtfutil/wtf/wtf"
-)
+import ()
 
 // ChecklistItem is a module for creating generic checklist implementations
 // See 'Todo' for an implementation example
 type ChecklistItem struct {
-	Checked bool
-	Text    string
+	Checked       bool
+	CheckedIcon   string
+	Text          string
+	UncheckedIcon string
+}
+
+func NewChecklistItem(checked bool, text string, checkedIcon, uncheckedIcon string) *ChecklistItem {
+	item := &ChecklistItem{
+		Checked:       checked,
+		CheckedIcon:   checkedIcon,
+		Text:          text,
+		UncheckedIcon: uncheckedIcon,
+	}
+
+	return item
 }
 
 // CheckMark returns the string used to indicate a ChecklistItem is checked or unchecked
 func (item *ChecklistItem) CheckMark() string {
 	if item.Checked {
-		return wtf.Config.UString("wtf.mods.todo.checkedIcon", "x")
+		return item.CheckedIcon
 	}
 
-	return " "
+	return item.UncheckedIcon
 }
 
 // Toggle changes the checked state of the ChecklistItem

@@ -115,6 +115,10 @@ func (widget *TextWidget) SetFocusChar(char string) {
 	widget.focusChar = char
 }
 
+func (widget *TextWidget) String() string {
+	return widget.name
+}
+
 func (widget *TextWidget) TextView() *tview.TextView {
 	return widget.View
 }

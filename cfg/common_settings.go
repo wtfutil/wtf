@@ -28,10 +28,16 @@ type Position struct {
 	Width  int
 }
 
+type Sigils struct {
+	CheckedIcon   string
+	UncheckedIcon string
+}
+
 type Common struct {
 	Colors
 	Module
 	Position
+	Sigils
 
 	Enabled         bool
 	FocusChar       int
@@ -43,6 +49,7 @@ func NewCommonSettingsFromYAML(name, configKey string, ymlConfig *config.Config)
 	colorsPath := "wtf.colors"
 	modulePath := "wtf.mods." + configKey
 	positionPath := "wtf.mods." + configKey + ".position"
+	sigilsPath := "wtf.sigils"
 
 	common := Common{
 		Colors: Colors{
@@ -50,7 +57,7 @@ func NewCommonSettingsFromYAML(name, configKey string, ymlConfig *config.Config)
 			BorderFocusable: ymlConfig.UString(colorsPath+".border.focusable", "red"),
 			BorderFocused:   ymlConfig.UString(colorsPath+".border.focused", "orange"),
 			BorderNormal:    ymlConfig.UString(colorsPath+".border.normal", "gray"),
-			Checked:         ymlConfig.UString(colorsPath+".checked", "gray"),
+			Checked:         ymlConfig.UString(colorsPath+".checked", "white"),
 			HighlightFore:   ymlConfig.UString(colorsPath+".highlight.fore", "black"),
 			HighlightBack:   ymlConfig.UString(colorsPath+".highlight.back", "green"),
 			Text:            ymlConfig.UString(modulePath+".colors.text", ymlConfig.UString(colorsPath+".text", "white")),
@@ -67,6 +74,11 @@ func NewCommonSettingsFromYAML(name, configKey string, ymlConfig *config.Config)
 			Left:   ymlConfig.UInt(positionPath + ".left"),
 			Top:    ymlConfig.UInt(positionPath + ".top"),
 			Width:  ymlConfig.UInt(positionPath + ".width"),
+		},
+
+		Sigils: Sigils{
+			CheckedIcon:   ymlConfig.UString(sigilsPath+".checkedIcon", "x"),
+			UncheckedIcon: ymlConfig.UString(sigilsPath+".uncheckedIcon", " "),
 		},
 
 		Enabled:         ymlConfig.UBool(modulePath+".enabled", false),
