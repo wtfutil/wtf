@@ -74,6 +74,8 @@ type tScreen struct {
 	cells     CellBuffer
 	in        *os.File
 	out       *os.File
+	buffering bool // true if we are collecting writes to buf instead of sending directly to out
+	buf       bytes.Buffer
 	curstyle  Style
 	style     Style
 	evch      chan Event
@@ -614,7 +616,7 @@ func (t *tScreen) drawCell(x, y int) int {
 		width = 1
 		str = " "
 	}
-	io.WriteString(t.out, str)
+	t.writeString(str)
 	t.cx += width
 	t.cells.SetDirty(x, y, false)
 	if width > 1 {
@@ -649,8 +651,26 @@ func (t *tScreen) showCursor() {
 	t.cy = y
 }
 
+// writeString sends a string to the terminal. The string is sent as-is and
+// this function does not expand inline padding indications (of the form
+// $<[delay]> where [delay] is msec). In order to have these expanded, use
+// TPuts. If the screen is "buffering", the string is collected in a buffer,
+// with the intention that the entire buffer be sent to the terminal in one
+// write operation at some point later.
+func (t *tScreen) writeString(s string) {
+	if t.buffering {
+		io.WriteString(&t.buf, s)
+	} else {
+		io.WriteString(t.out, s)
+	}
+}
+
 func (t *tScreen) TPuts(s string) {
-	t.ti.TPuts(t.out, s, t.baud)
+	if t.buffering {
+		t.ti.TPuts(&t.buf, s, t.baud)
+	} else {
+		t.ti.TPuts(t.out, s, t.baud)
+	}
 }
 
 func (t *tScreen) Show() {
@@ -686,6 +706,12 @@ func (t *tScreen) draw() {
 	t.cx = -1
 	t.cy = -1
 
+	t.buf.Reset()
+	t.buffering = true
+	defer func() {
+		t.buffering = false
+	}()
+
 	// hide the cursor while we move stuff around
 	t.hideCursor()
 
@@ -710,6 +736,8 @@ func (t *tScreen) draw() {
 
 	// restore the cursor
 	t.showCursor()
+
+	t.buf.WriteTo(t.out)
 }
 
 func (t *tScreen) EnableMouse() {

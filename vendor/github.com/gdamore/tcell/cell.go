@@ -1,4 +1,4 @@
-// Copyright 2015 The TCell Authors
+// Copyright 2019 The TCell Authors
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use file except in compliance with the License.
@@ -15,7 +15,7 @@
 package tcell
 
 import (
-	"github.com/mattn/go-runewidth"
+	runewidth "github.com/mattn/go-runewidth"
 )
 
 type cell struct {
@@ -49,20 +49,6 @@ func (cb *CellBuffer) SetContent(x int, y int,
 		c := &cb.cells[(y*cb.w)+x]
 
 		c.currComb = append([]rune{}, combc...)
-		i := 0
-		for i < len(c.currComb) {
-			r := c.currComb[i]
-			if r == '\u200d' {
-				i += 2
-				continue
-			}
-			if runewidth.RuneWidth(r) != 0 {
-				// not a combining character, yank it
-				c.currComb = append(c.currComb[:i-1], c.currComb[i+1:]...)
-				continue
-			}
-			i++
-		}
 
 		if c.currMain != mainc {
 			c.width = runewidth.RuneWidth(mainc)

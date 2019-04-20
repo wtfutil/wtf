@@ -158,14 +158,14 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:937011a37a09b93be68052dfb3195fcfbff33b9472b37401b54027e9954906fb"
+  digest = "1:5caa7f0f760a7b380cfa4102a44b6aef61bd68506f62f49880cc59d5c1ee72fd"
   name = "github.com/gdamore/tcell"
   packages = [
     ".",
     "terminfo",
   ]
   pruneopts = "UT"
-  revision = "aaadc574a6ed8dc3abe56036ca130dcee1ee6b6e"
+  revision = "dcf1bb30770eb1158b67005e1e472de6d74f055d"
 
 [[projects]]
   digest = "1:c96d16a4451e48e2c44b2c3531fd8ec9248d822637f1911a88959ca0bcae4a64"

@@ -1,4 +1,4 @@
-// Copyright 2016 The TCell Authors
+// Copyright 2019 The TCell Authors
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use file except in compliance with the License.
@@ -198,14 +198,11 @@ type Screen interface {
 // NewScreen returns a default Screen suitable for the user's terminal
 // environment.
 func NewScreen() (Screen, error) {
-	// First we attempt to obtain a terminfo screen.  This should work
-	// in most places if $TERM is set.
-	if s, e := NewTerminfoScreen(); s != nil {
+	// Windows is happier if we try for a console screen first.
+	if s, _ := NewConsoleScreen(); s != nil {
 		return s, nil
-
-	} else if s, _ := NewConsoleScreen(); s != nil {
+	} else if s, e := NewTerminfoScreen(); s != nil {
 		return s, nil
-
 	} else {
 		return nil, e
 	}

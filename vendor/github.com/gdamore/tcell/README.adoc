@@ -266,5 +266,5 @@ mailto:info@staysail.tech[Staysail Systems, Inc.] offers direct support, and cus
 
 ^.^|
 image:logos/patreon.png[100,100]
-a|I also welcome donations at https://www.patron.com/gedamore/[Patreon], if you just want to make a contribution.
+a|I also welcome donations at https://www.patreon.com/gedamore/[Patreon], if you just want to make a contribution.
 |===
