@@ -35,12 +35,8 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 func (widget *Widget) Refresh() {
 	widget.execute()
 
-	title := widget.settings.common.Title
-	if title == "" {
-		title = widget.String()
-	}
-
-	widget.View.SetTitle(tview.TranslateANSI(title))
+	widget.CommonSettings.Title = widget.String()
+	widget.View.SetTitle(tview.TranslateANSI(widget.CommonSettings.Title))
 
 	widget.View.SetText(widget.result)
 }
