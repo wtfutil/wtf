@@ -28,19 +28,21 @@ type Widget struct {
 	wtf.MultiSourceWidget
 	wtf.TextWidget
 
-	app   *tview.Application
-	Data  []*MercurialRepo
-	pages *tview.Pages
+	app      *tview.Application
+	Data     []*MercurialRepo
+	pages    *tview.Pages
+	settings *Settings
 }
 
-func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
+func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
 		HelpfulWidget:     wtf.NewHelpfulWidget(app, pages, HelpText),
-		MultiSourceWidget: wtf.NewMultiSourceWidget("mercurial", "repository", "repositories"),
-		TextWidget:        wtf.NewTextWidget(app, "Mercurial", "mercurial", true),
+		MultiSourceWidget: wtf.NewMultiSourceWidget(settings.common.ConfigKey, "repository", "repositories"),
+		TextWidget:        wtf.NewTextWidget(app, settings.common, true),
 
-		app:   app,
-		pages: pages,
+		app:      app,
+		pages:    pages,
+		settings: settings,
 	}
 
 	widget.LoadSources()
@@ -79,7 +81,7 @@ func (widget *Widget) Pull() {
 }
 
 func (widget *Widget) Refresh() {
-	repoPaths := wtf.ToStrs(wtf.Config.UList("wtf.mods.mercurial.repositories"))
+	repoPaths := wtf.ToStrs(widget.settings.repositories)
 
 	widget.Data = widget.mercurialRepos(repoPaths)
 	widget.display()
@@ -156,7 +158,7 @@ func (widget *Widget) mercurialRepos(repoPaths []string) []*MercurialRepo {
 	repos := []*MercurialRepo{}
 
 	for _, repoPath := range repoPaths {
-		repo := NewMercurialRepo(repoPath)
+		repo := NewMercurialRepo(repoPath, widget.settings.commitCount, widget.settings.commitFormat)
 		repos = append(repos, repo)
 	}
 

@@ -32,7 +32,7 @@ func (widget *Widget) display() {
 	widget.mutex.Lock()
 	defer widget.mutex.Unlock()
 
-	widget.View.SetTitle(widget.ContextualTitle(widget.Name()))
+	widget.View.SetTitle(widget.ContextualTitle(widget.settings.common.Title))
 	widget.View.SetText(widget.contentFrom(widget.calEvents))
 }
 
@@ -44,8 +44,8 @@ func (widget *Widget) contentFrom(calEvents []*CalEvent) string {
 	var str string
 	var prevEvent *CalEvent
 
-	if !wtf.Config.UBool("wtf.mods.gcal.showDeclined", false) {
-		calEvents = removeDeclined(calEvents)
+	if !widget.settings.showDeclined {
+		calEvents = widget.removeDeclined(calEvents)
 	}
 
 	for _, calEvent := range calEvents {
@@ -101,7 +101,7 @@ func (widget *Widget) dayDivider(event, prevEvent *CalEvent) string {
 	if !eventStartDay.Equal(prevStartDay) {
 
 		return fmt.Sprintf("[%s::b]",
-			wtf.Config.UString("wtf.mods.gcal.colors.day", "forestgreen")) +
+			widget.settings.colors.day) +
 			event.Start().Format(wtf.FullDateFormat) +
 			"\n"
 	}
@@ -111,10 +111,10 @@ func (widget *Widget) dayDivider(event, prevEvent *CalEvent) string {
 
 func (widget *Widget) descriptionColor(calEvent *CalEvent) string {
 	if calEvent.Past() {
-		return wtf.Config.UString("wtf.mods.gcal.colors.past", "gray")
+		return widget.settings.colors.past
 	}
 
-	return wtf.Config.UString("wtf.mods.gcal.colors.description", "white")
+	return widget.settings.colors.description
 }
 
 func (widget *Widget) eventSummary(calEvent *CalEvent, conflict bool) string {
@@ -123,13 +123,13 @@ func (widget *Widget) eventSummary(calEvent *CalEvent, conflict bool) string {
 	if calEvent.Now() {
 		summary = fmt.Sprintf(
 			"%s %s",
-			wtf.Config.UString("wtf.mods.gcal.currentIcon", "🔸"),
+			widget.settings.currentIcon,
 			summary,
 		)
 	}
 
 	if conflict {
-		return fmt.Sprintf("%s %s", wtf.Config.UString("wtf.mods.gcal.conflictIcon", "🚨"), summary)
+		return fmt.Sprintf("%s %s", widget.settings.conflictIcon, summary)
 	}
 
 	return summary
@@ -170,9 +170,9 @@ func (widget *Widget) timeUntil(calEvent *CalEvent) string {
 }
 
 func (widget *Widget) titleColor(calEvent *CalEvent) string {
-	color := wtf.Config.UString("wtf.mods.gcal.colors.title", "white")
+	color := widget.settings.colors.title
 
-	for _, untypedArr := range wtf.Config.UList("wtf.mods.gcal.colors.highlights") {
+	for _, untypedArr := range widget.settings.highlights {
 		highlightElements := wtf.ToStrs(untypedArr.([]interface{}))
 
 		match, _ := regexp.MatchString(
@@ -186,14 +186,14 @@ func (widget *Widget) titleColor(calEvent *CalEvent) string {
 	}
 
 	if calEvent.Past() {
-		color = wtf.Config.UString("wtf.mods.gcal.colors.past", "gray")
+		color = widget.settings.colors.past
 	}
 
 	return color
 }
 
 func (widget *Widget) location(calEvent *CalEvent) string {
-	if wtf.Config.UBool("wtf.mods.gcal.displayLocation", true) == false {
+	if widget.settings.withLocation == false {
 		return ""
 	}
 
@@ -209,13 +209,13 @@ func (widget *Widget) location(calEvent *CalEvent) string {
 }
 
 func (widget *Widget) responseIcon(calEvent *CalEvent) string {
-	if false == wtf.Config.UBool("wtf.mods.gcal.displayResponseStatus", true) {
+	if widget.settings.displayResponseStatus == false {
 		return ""
 	}
 
 	icon := "[gray]"
 
-	switch calEvent.ResponseFor(wtf.Config.UString("wtf.mods.gcal.email")) {
+	switch calEvent.ResponseFor(widget.settings.email) {
 	case "accepted":
 		return icon + "✔︎"
 	case "declined":
@@ -229,10 +229,10 @@ func (widget *Widget) responseIcon(calEvent *CalEvent) string {
 	}
 }
 
-func removeDeclined(events []*CalEvent) []*CalEvent {
+func (widget *Widget) removeDeclined(events []*CalEvent) []*CalEvent {
 	var ret []*CalEvent
 	for _, e := range events {
-		if e.ResponseFor(wtf.Config.UString("wtf.mods.gcal.email")) != "declined" {
+		if e.ResponseFor(widget.settings.email) != "declined" {
 			ret = append(ret, e)
 		}
 	}

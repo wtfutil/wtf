@@ -4,9 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"os"
-
-	"github.com/wtfutil/wtf/wtf"
 )
 
 type OnCallResponse struct {
@@ -29,11 +26,12 @@ type Parent struct {
 
 /* -------------------- Exported Functions -------------------- */
 
-func Fetch(scheduleIdentifierType string, schedules []string) ([]*OnCallResponse, error) {
+func (widget *Widget) Fetch(scheduleIdentifierType string, schedules []string) ([]*OnCallResponse, error) {
 	agregatedResponses := []*OnCallResponse{}
+
 	for _, sched := range schedules {
 		scheduleUrl := fmt.Sprintf("https://api.opsgenie.com/v2/schedules/%s/on-calls?scheduleIdentifierType=%s&flat=true", sched, scheduleIdentifierType)
-		response, err := opsGenieRequest(scheduleUrl, apiKey())
+		response, err := opsGenieRequest(scheduleUrl, widget.settings.apiKey)
 		agregatedResponses = append(agregatedResponses, response)
 		if err != nil {
 			return nil, err
@@ -43,13 +41,6 @@ func Fetch(scheduleIdentifierType string, schedules []string) ([]*OnCallResponse
 }
 
 /* -------------------- Unexported Functions -------------------- */
-
-func apiKey() string {
-	return wtf.Config.UString(
-		"wtf.mods.opsgenie.apiKey",
-		os.Getenv("WTF_OPS_GENIE_API_KEY"),
-	)
-}
 
 func opsGenieRequest(url string, apiKey string) (*OnCallResponse, error) {
 	req, err := http.NewRequest("GET", url, nil)

@@ -7,23 +7,9 @@ import (
 	"os"
 	"sync"
 	"time"
-
-	"github.com/wtfutil/wtf/wtf"
 )
 
 var baseURL = "https://min-api.cryptocompare.com/data/top/exchanges"
-
-type textColors struct {
-	from struct {
-		name        string
-		displayName string
-	}
-	to struct {
-		name  string
-		field string
-		value string
-	}
-}
 
 // Widget Toplist Widget
 type Widget struct {
@@ -31,52 +17,38 @@ type Widget struct {
 
 	RefreshInterval int
 
-	list *cList
-
-	colors textColors
+	list     *cList
+	settings *Settings
 }
 
 // NewWidget Make new toplist widget
-func NewWidget() *Widget {
-	widget := Widget{}
+func NewWidget(settings *Settings) *Widget {
+	widget := Widget{
+		settings: settings,
+	}
 
 	widget.list = &cList{}
 	widget.setList()
-	widget.config()
 
 	return &widget
 }
 
 func (widget *Widget) setList() {
-	currenciesMap, _ := wtf.Config.Map("wtf.mods.cryptolive.top")
-
-	for fromCurrency := range currenciesMap {
-		displayName := wtf.Config.UString("wtf.mods.cryptolive.top."+fromCurrency+".displayName", "")
-		limit := wtf.Config.UInt("wtf.mods.cryptolive.top."+fromCurrency+".limit", 1)
-		widget.list.addItem(fromCurrency, displayName, limit, makeToList(fromCurrency, limit))
+	for symbol, currency := range widget.settings.top {
+		toList := widget.makeToList(symbol, currency.limit)
+		widget.list.addItem(symbol, currency.displayName, currency.limit, toList)
 	}
 }
 
-func makeToList(fCurrencyName string, limit int) (list []*tCurrency) {
-	toList, _ := wtf.Config.List("wtf.mods.cryptolive.top." + fCurrencyName + ".to")
-
-	for _, toCurrency := range toList {
+func (widget *Widget) makeToList(symbol string, limit int) (list []*tCurrency) {
+	for _, to := range widget.settings.top[symbol].to {
 		list = append(list, &tCurrency{
-			name: toCurrency.(string),
+			name: to.(string),
 			info: make([]tInfo, limit),
 		})
 	}
 
 	return
-}
-
-func (widget *Widget) config() {
-	// set colors
-	widget.colors.from.name = wtf.Config.UString("wtf.mods.cryptolive.colors.top.from.name", "coral")
-	widget.colors.from.displayName = wtf.Config.UString("wtf.mods.cryptolive.colors.top.from.displayName", "grey")
-	widget.colors.to.name = wtf.Config.UString("wtf.mods.cryptolive.colors.top.to.name", "red")
-	widget.colors.to.field = wtf.Config.UString("wtf.mods.cryptolive.colors.top.to.field", "white")
-	widget.colors.to.value = wtf.Config.UString("wtf.mods.cryptolive.colors.top.to.value", "value")
 }
 
 /* -------------------- Exported Functions -------------------- */

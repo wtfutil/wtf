@@ -15,12 +15,15 @@ type Widget struct {
 	wtf.TextWidget
 
 	device_token string
+	settings     *Settings
 }
 
-func NewWidget(app *tview.Application) *Widget {
+func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget:   wtf.NewTextWidget(app, "Blockfolio", "blockfolio", false),
-		device_token: wtf.Config.UString("wtf.mods.blockfolio.device_token"),
+		TextWidget: wtf.NewTextWidget(app, settings.common, false),
+
+		device_token: settings.deviceToken,
+		settings:     settings,
 	}
 
 	return &widget
@@ -36,31 +39,50 @@ func (widget *Widget) Refresh() {
 		return
 	}
 
-	widget.View.SetText(contentFrom(positions))
+	content := widget.contentFrom(positions)
+	widget.View.SetText(content)
 }
 
 /* -------------------- Unexported Functions -------------------- */
-func contentFrom(positions *AllPositionsResponse) string {
+func (widget *Widget) contentFrom(positions *AllPositionsResponse) string {
 	res := ""
-	colorName := wtf.Config.UString("wtf.mods.blockfolio.colors.name")
-	colorGrows := wtf.Config.UString("wtf.mods.blockfolio.colors.grows")
-	colorDrop := wtf.Config.UString("wtf.mods.blockfolio.colors.drop")
-	displayHoldings := wtf.Config.UBool("wtf.mods.blockfolio.displayHoldings")
-	var totalFiat float32
-	totalFiat = 0.0
+	totalFiat := float32(0.0)
+
 	for i := 0; i < len(positions.PositionList); i++ {
-		colorForChange := colorGrows
+		colorForChange := widget.settings.colors.grows
+
 		if positions.PositionList[i].TwentyFourHourPercentChangeFiat <= 0 {
-			colorForChange = colorDrop
+			colorForChange = widget.settings.colors.drop
 		}
+
 		totalFiat += positions.PositionList[i].HoldingValueFiat
-		if displayHoldings {
-			res = res + fmt.Sprintf("[%s]%-6s - %5.2f ([%s]%.3fk [%s]%.2f%s)\n", colorName, positions.PositionList[i].Coin, positions.PositionList[i].Quantity, colorForChange, positions.PositionList[i].HoldingValueFiat/1000, colorForChange, positions.PositionList[i].TwentyFourHourPercentChangeFiat, "%")
+
+		if widget.settings.displayHoldings {
+			res = res + fmt.Sprintf(
+				"[%s]%-6s - %5.2f ([%s]%.3fk [%s]%.2f%s)\n",
+				widget.settings.colors.name,
+				positions.PositionList[i].Coin,
+				positions.PositionList[i].Quantity,
+				colorForChange,
+				positions.PositionList[i].HoldingValueFiat/1000,
+				colorForChange,
+				positions.PositionList[i].TwentyFourHourPercentChangeFiat,
+				"%",
+			)
 		} else {
-			res = res + fmt.Sprintf("[%s]%-6s - %5.2f ([%s]%.2f%s)\n", colorName, positions.PositionList[i].Coin, positions.PositionList[i].Quantity, colorForChange, positions.PositionList[i].TwentyFourHourPercentChangeFiat, "%")
+			res = res + fmt.Sprintf(
+				"[%s]%-6s - %5.2f ([%s]%.2f%s)\n",
+				widget.settings.colors.name,
+				positions.PositionList[i].Coin,
+				positions.PositionList[i].Quantity,
+				colorForChange,
+				positions.PositionList[i].TwentyFourHourPercentChangeFiat,
+				"%",
+			)
 		}
 	}
-	if displayHoldings {
+
+	if widget.settings.displayHoldings {
 		res = res + fmt.Sprintf("\n[%s]Total value: $%.3fk", "green", totalFiat/1000)
 	}
 

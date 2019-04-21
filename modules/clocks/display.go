@@ -2,8 +2,6 @@ package clocks
 
 import (
 	"fmt"
-
-	"github.com/wtfutil/wtf/wtf"
 )
 
 func (widget *Widget) display(clocks []Clock, dateFormat string, timeFormat string) {
@@ -14,9 +12,15 @@ func (widget *Widget) display(clocks []Clock, dateFormat string, timeFormat stri
 
 	str := ""
 	for idx, clock := range clocks {
+		rowColor := widget.settings.colors.rows.odd
+
+		if idx%2 == 0 {
+			rowColor = widget.settings.colors.rows.even
+		}
+
 		str = str + fmt.Sprintf(
 			" [%s]%-12s %-10s %7s[white]\n",
-			wtf.RowColor("clocks", idx),
+			rowColor,
 			clock.Label,
 			clock.Time(timeFormat),
 			clock.Date(dateFormat),

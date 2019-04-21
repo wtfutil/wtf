@@ -2,7 +2,6 @@ package gerrit
 
 import (
 	glb "github.com/andygrunwald/go-gerrit"
-	"github.com/wtfutil/wtf/wtf"
 )
 
 type GerritProject struct {
@@ -25,8 +24,7 @@ func NewGerritProject(path string, gerrit *glb.Client) *GerritProject {
 }
 
 // Refresh reloads the gerrit data via the Gerrit API
-func (project *GerritProject) Refresh() {
-	username := wtf.Config.UString("wtf.mods.gerrit.username")
+func (project *GerritProject) Refresh(username string) {
 	project.Changes, _ = project.loadChanges()
 
 	project.ReviewCount = project.countReviews(project.Changes)

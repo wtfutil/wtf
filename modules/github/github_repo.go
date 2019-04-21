@@ -3,7 +3,6 @@ package github
 import (
 	"context"
 	"net/http"
-	"os"
 
 	ghb "github.com/google/go-github/github"
 	"github.com/wtfutil/wtf/wtf"
@@ -21,13 +20,15 @@ type GithubRepo struct {
 	RemoteRepo   *ghb.Repository
 }
 
-func NewGithubRepo(name, owner string) *GithubRepo {
+func NewGithubRepo(name, owner, apiKey, baseURL, uploadURL string) *GithubRepo {
 	repo := GithubRepo{
 		Name:  name,
 		Owner: owner,
-	}
 
-	repo.loadAPICredentials()
+		apiKey:    apiKey,
+		baseURL:   baseURL,
+		uploadURL: uploadURL,
+	}
 
 	return &repo
 }
@@ -94,25 +95,8 @@ func (repo *GithubRepo) githubClient() (*ghb.Client, error) {
 	return ghb.NewClient(oauthClient), nil
 }
 
-func (repo *GithubRepo) loadAPICredentials() {
-	repo.apiKey = wtf.Config.UString(
-		"wtf.mods.github.apiKey",
-		os.Getenv("WTF_GITHUB_TOKEN"),
-	)
-
-	repo.baseURL = wtf.Config.UString(
-		"wtf.mods.github.baseURL",
-		os.Getenv("WTF_GITHUB_BASE_URL"),
-	)
-
-	repo.uploadURL = wtf.Config.UString(
-		"wtf.mods.github.uploadURL",
-		os.Getenv("WTF_GITHUB_UPLOAD_URL"),
-	)
-}
-
 // myPullRequests returns a list of pull requests created by username on this repo
-func (repo *GithubRepo) myPullRequests(username string) []*ghb.PullRequest {
+func (repo *GithubRepo) myPullRequests(username string, showStatus bool) []*ghb.PullRequest {
 	prs := []*ghb.PullRequest{}
 
 	for _, pr := range repo.PullRequests {
@@ -123,7 +107,7 @@ func (repo *GithubRepo) myPullRequests(username string) []*ghb.PullRequest {
 		}
 	}
 
-	if showStatus() {
+	if showStatus {
 		prs = repo.individualPRs(prs)
 	}
 

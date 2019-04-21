@@ -45,7 +45,7 @@ type Ticket struct {
 	Fields                interface{} `json:"fields"`
 }
 
-func listTickets(pag ...string) (*TicketArray, error) {
+func (widget *Widget) listTickets(pag ...string) (*TicketArray, error) {
 
 	TicketStruct := &TicketArray{}
 
@@ -55,7 +55,7 @@ func listTickets(pag ...string) (*TicketArray, error) {
 	} else {
 		path = pag[0]
 	}
-	resource, err := api(apiKey(), "GET", path, "")
+	resource, err := widget.api("GET", path, "")
 	if err != nil {
 		return nil, err
 	}
@@ -66,14 +66,14 @@ func listTickets(pag ...string) (*TicketArray, error) {
 
 }
 
-func newTickets(ticketStatus string) (*TicketArray, error) {
+func (widget *Widget) newTickets() (*TicketArray, error) {
 	newTicketArray := &TicketArray{}
-	tickets, err := listTickets()
+	tickets, err := widget.listTickets(widget.settings.apiKey)
 	if err != nil {
 		log.Fatal(err)
 	}
 	for _, Ticket := range tickets.Tickets {
-		if Ticket.Status == ticketStatus && Ticket.Status != "closed" && Ticket.Status != "solved" {
+		if Ticket.Status == widget.settings.status && Ticket.Status != "closed" && Ticket.Status != "solved" {
 			newTicketArray.Tickets = append(newTicketArray.Tickets, Ticket)
 		}
 	}

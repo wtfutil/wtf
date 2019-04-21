@@ -24,11 +24,11 @@ func (widget *Widget) display() {
 	maxLen := proj.LongestLine()
 
 	for index, item := range proj.tasks {
-		foreColor, backColor := "white", wtf.Config.UString("wtf.colors.background", "black")
+		foreColor, backColor := widget.settings.common.Colors.Text, widget.settings.common.Colors.Background
 
 		if index == proj.index {
-			foreColor = wtf.Config.UString("wtf.colors.highlight.fore", "black")
-			backColor = wtf.Config.UString("wtf.colors.highlight.back", "orange")
+			foreColor = widget.settings.common.Colors.HighlightFore
+			backColor = widget.settings.common.Colors.HighlightBack
 		}
 
 		row := fmt.Sprintf(
@@ -46,6 +46,5 @@ func (widget *Widget) display() {
 		str = str + row + wtf.PadRow((checkWidth+len(item.Content)), (checkWidth+maxLen+1)) + "\n"
 	}
 
-	//widget.View.Clear()
 	widget.View.SetText(str)
 }

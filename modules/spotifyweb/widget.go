@@ -4,7 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
-	"os"
 	"time"
 
 	"github.com/gdamore/tcell"
@@ -47,10 +46,12 @@ type Info struct {
 type Widget struct {
 	wtf.HelpfulWidget
 	wtf.TextWidget
+
 	Info
-	clientChan  chan *spotify.Client
 	client      *spotify.Client
+	clientChan  chan *spotify.Client
 	playerState *spotify.PlayerState
+	settings    *Settings
 }
 
 var (
@@ -79,27 +80,12 @@ func authHandler(w http.ResponseWriter, r *http.Request) {
 	tempClientChan <- &client
 }
 
-func clientID() string {
-	return wtf.Config.UString(
-		"wtf.mods.spotifyweb.clientID",
-		os.Getenv("SPOTIFY_ID"),
-	)
-}
-
-func secretKey() string {
-	return wtf.Config.UString(
-		"wtf.mods.spotifyweb.secretKey",
-		os.Getenv("SPOTIFY_SECRET"),
-	)
-}
-
 // NewWidget creates a new widget for WTF
-func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
-	callbackPort = wtf.Config.UString("wtf.mods.spotifyweb.callbackPort", "8080")
-	redirectURI = "http://localhost:" + callbackPort + "/callback"
+func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
+	redirectURI = "http://localhost:" + settings.callbackPort + "/callback"
 
 	auth = spotify.NewAuthenticator(redirectURI, spotify.ScopeUserReadCurrentlyPlaying, spotify.ScopeUserReadPlaybackState, spotify.ScopeUserModifyPlaybackState)
-	auth.SetAuthInfo(clientID(), secretKey())
+	auth.SetAuthInfo(settings.clientID, settings.secretKey)
 	authURL = auth.AuthURL(state)
 
 	var client *spotify.Client
@@ -107,11 +93,13 @@ func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 
 	widget := Widget{
 		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
-		TextWidget:    wtf.NewTextWidget(app, "SpotifyWeb", "spotifyweb", true),
-		Info:          Info{},
-		clientChan:    tempClientChan,
-		client:        client,
-		playerState:   playerState,
+		TextWidget:    wtf.NewTextWidget(app, settings.common, true),
+
+		Info:        Info{},
+		client:      client,
+		clientChan:  tempClientChan,
+		playerState: playerState,
+		settings:    settings,
 	}
 
 	http.HandleFunc("/callback", authHandler)
@@ -147,8 +135,9 @@ func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 	// If inconvenient, I'll remove this option and save the URL in a file or some other method.
 	wtf.OpenFile(`"` + authURL + `"`)
 
+	widget.settings.common.RefreshInterval = 5
+
 	widget.HelpfulWidget.SetView(widget.View)
-	widget.TextWidget.RefreshInt = 5
 	widget.View.SetInputCapture(widget.captureInput)
 	widget.View.SetWrap(true)
 	widget.View.SetWordWrap(true)

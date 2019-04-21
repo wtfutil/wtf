@@ -5,9 +5,8 @@ import (
 	"io/ioutil"
 	"os/exec"
 	"regexp"
-	"strings"
-	//"sync"
 	"runtime"
+	"strings"
 
 	"github.com/rivo/tview"
 )
@@ -96,17 +95,17 @@ func NamesFromEmails(emails []string) []string {
 
 // OpenFile opens the file defined in `path` via the operating system
 func OpenFile(path string) {
-	if (strings.HasPrefix(path,"http://"))||(strings.HasPrefix(path,"https://")) {
+	if (strings.HasPrefix(path, "http://")) || (strings.HasPrefix(path, "https://")) {
 		switch runtime.GOOS {
-			case "linux":	
-				exec.Command("xdg-open", path).Start()
-			case "windows":
-				exec.Command("rundll32", "url.dll,FileProtocolHandler", path).Start()
-			case "darwin":
-				exec.Command("open", path).Start()
-			default:
+		case "linux":
+			exec.Command("xdg-open", path).Start()
+		case "windows":
+			exec.Command("rundll32", "url.dll,FileProtocolHandler", path).Start()
+		case "darwin":
+			exec.Command("open", path).Start()
+		default:
 		}
-	}else {
+	} else {
 		filePath, _ := ExpandHomeDir(path)
 		openFileUtil := Config.UString("wtf.openFileUtil", "open")
 		cmd := exec.Command(openFileUtil, filePath)
@@ -136,10 +135,7 @@ func ReadFileBytes(filePath string) ([]byte, error) {
 }
 
 func RightAlignFormat(view *tview.TextView) string {
-	//mutex := &sync.Mutex{}
-	//mutex.Lock()
 	_, _, w, _ := view.GetInnerRect()
-	//mutex.Unlock()
 
 	return fmt.Sprintf("%%%ds", w-1)
 }
@@ -167,6 +163,18 @@ func SigilStr(len, pos int, view *tview.TextView) string {
 	}
 
 	return sigils
+}
+
+/* -------------------- Map Conversion -------------------- */
+
+func MapToStrs(aMap map[string]interface{}) map[string]string {
+	results := make(map[string]string)
+
+	for key, val := range aMap {
+		results[key] = val.(string)
+	}
+
+	return results
 }
 
 /* -------------------- Slice Conversion -------------------- */

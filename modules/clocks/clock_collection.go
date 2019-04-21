@@ -3,16 +3,14 @@ package clocks
 import (
 	"sort"
 	"time"
-
-	"github.com/wtfutil/wtf/wtf"
 )
 
 type ClockCollection struct {
 	Clocks []Clock
 }
 
-func (clocks *ClockCollection) Sorted() []Clock {
-	if "chronological" == wtf.Config.UString("wtf.mods.clocks.sort", "alphabetical") {
+func (clocks *ClockCollection) Sorted(sortOrder string) []Clock {
+	if sortOrder == "chronological" {
 		clocks.SortedChronologically()
 	} else {
 		clocks.SortedAlphabetically()

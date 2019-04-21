@@ -16,12 +16,16 @@ const HelpText = `
 type Widget struct {
 	wtf.HelpfulWidget
 	wtf.TextWidget
+
+	settings *Settings
 }
 
-func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
+func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
 		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
 		TextWidget:    wtf.NewTextWidget(app, "{{(Title .Name)}}", "{{(Lower .Name)}}", true),
+
+		settings: settings,
 	}
 
 	widget.HelpfulWidget.SetView(widget.View)

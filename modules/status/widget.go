@@ -9,12 +9,15 @@ type Widget struct {
 	wtf.TextWidget
 
 	CurrentIcon int
+	settings    *Settings
 }
 
-func NewWidget(app *tview.Application) *Widget {
+func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget:  wtf.NewTextWidget(app, "Status", "status", false),
+		TextWidget: wtf.NewTextWidget(app, settings.common, false),
+
 		CurrentIcon: 0,
+		settings:    settings,
 	}
 
 	return &widget

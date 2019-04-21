@@ -11,11 +11,15 @@ import (
 
 type Widget struct {
 	wtf.TextWidget
+
+	settings *Settings
 }
 
-func NewWidget(app *tview.Application) *Widget {
+func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(app, "PagerDuty", "pagerduty", false),
+		TextWidget: wtf.NewTextWidget(app, settings.common, false),
+
+		settings: settings,
 	}
 
 	return &widget
@@ -30,12 +34,12 @@ func (widget *Widget) Refresh() {
 	var err1 error
 	var err2 error
 
-	if wtf.Config.UBool("wtf.mods.pagerduty.showSchedules", true) {
-		onCalls, err1 = GetOnCalls()
+	if widget.settings.showSchedules {
+		onCalls, err1 = GetOnCalls(widget.settings.apiKey)
 	}
 
-	if wtf.Config.UBool("wtf.mods.pagerduty.showIncidents") {
-		incidents, err2 = GetIncidents()
+	if widget.settings.showIncidents {
+		incidents, err2 = GetIncidents(widget.settings.apiKey)
 	}
 
 	widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("%s", widget.Name())))
@@ -75,15 +79,14 @@ func (widget *Widget) contentFrom(onCalls []pagerduty.OnCall, incidents []pagerd
 
 	tree := make(map[string][]pagerduty.OnCall)
 
-	filtering := wtf.Config.UList("wtf.mods.pagerduty.escalationFilter")
 	filter := make(map[string]bool)
-	for _, item := range filtering {
+	for _, item := range widget.settings.escalationFilter {
 		filter[item.(string)] = true
 	}
 
 	for _, onCall := range onCalls {
 		key := onCall.EscalationPolicy.Summary
-		if len(filtering) == 0 || filter[key] {
+		if len(widget.settings.escalationFilter) == 0 || filter[key] {
 			tree[key] = append(tree[key], onCall)
 		}
 	}

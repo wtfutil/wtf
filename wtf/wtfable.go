@@ -9,15 +9,15 @@ type Wtfable interface {
 	Scheduler
 
 	BorderColor() string
-	Focusable() bool
 	FocusChar() string
+	Focusable() bool
 	Key() string
 	Name() string
 	SetFocusChar(string)
 	TextView() *tview.TextView
 
-	Top() int
-	Left() int
-	Width() int
 	Height() int
+	Left() int
+	Top() int
+	Width() int
 }

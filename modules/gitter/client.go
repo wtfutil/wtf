@@ -5,18 +5,16 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/wtfutil/wtf/logger"
-	"github.com/wtfutil/wtf/wtf"
 	"io"
 	"io/ioutil"
 	"net/http"
-	"os"
 	"strconv"
 )
 
-func GetMessages(roomId string, numberOfMessages int) ([]Message, error) {
+func GetMessages(roomId string, numberOfMessages int, apiToken string) ([]Message, error) {
 	var messages []Message
 
-	resp, err := apiRequest("rooms/" + roomId + "/chatMessages?limit=" + strconv.Itoa(numberOfMessages))
+	resp, err := apiRequest("rooms/"+roomId+"/chatMessages?limit="+strconv.Itoa(numberOfMessages), apiToken)
 	if err != nil {
 		return nil, err
 	}
@@ -26,10 +24,10 @@ func GetMessages(roomId string, numberOfMessages int) ([]Message, error) {
 	return messages, nil
 }
 
-func GetRoom(roomUri string) (*Room, error) {
+func GetRoom(roomUri, apiToken string) (*Room, error) {
 	var rooms Rooms
 
-	resp, err := apiRequest("rooms?q=" + roomUri)
+	resp, err := apiRequest("rooms?q="+roomUri, apiToken)
 	if err != nil {
 		return nil, err
 	}
@@ -52,9 +50,9 @@ var (
 	apiBaseURL = "https://api.gitter.im/v1/"
 )
 
-func apiRequest(path string) (*http.Response, error) {
+func apiRequest(path, apiToken string) (*http.Response, error) {
 	req, err := http.NewRequest("GET", apiBaseURL+path, nil)
-	bearer := fmt.Sprintf("Bearer %s", apiToken())
+	bearer := fmt.Sprintf("Bearer %s", apiToken)
 	req.Header.Add("Authorization", bearer)
 
 	httpClient := &http.Client{}
@@ -85,11 +83,4 @@ func parseJson(obj interface{}, text io.Reader) {
 			panic(err)
 		}
 	}
-}
-
-func apiToken() string {
-	return wtf.Config.UString(
-		"wtf.mods.gitter.apiToken",
-		os.Getenv("WTF_GITTER_API_TOKEN"),
-	)
 }
