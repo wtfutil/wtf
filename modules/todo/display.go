@@ -14,8 +14,8 @@ const checkWidth = 4
 func (widget *Widget) display() {
 	str := ""
 	newList := checklist.NewChecklist(
-		widget.settings.common.Sigils.CheckedIcon,
-		widget.settings.common.Sigils.UncheckedIcon,
+		widget.settings.common.Sigils.Checkbox.Checked,
+		widget.settings.common.Sigils.Checkbox.Unchecked,
 	)
 
 	offset := 0

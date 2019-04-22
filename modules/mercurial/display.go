@@ -4,8 +4,6 @@ import (
 	"fmt"
 	"strings"
 	"unicode/utf8"
-
-	"github.com/wtfutil/wtf/wtf"
 )
 
 func (widget *Widget) display() {
@@ -18,7 +16,8 @@ func (widget *Widget) display() {
 	title := fmt.Sprintf("%s - [green]%s[white]", widget.Name(), repoData.Repository)
 	widget.View.SetTitle(widget.ContextualTitle(title))
 
-	str := wtf.SigilStr(len(widget.Data), widget.Idx, widget.View) + "\n"
+	_, _, width, _ := widget.View.GetRect()
+	str := widget.settings.common.SigilStr(len(widget.Data), widget.Idx, width) + "\n"
 	str = str + " [red]Branch:Bookmark[white]\n"
 	str = str + fmt.Sprintf(" %s:%s\n", repoData.Branch, repoData.Bookmark)
 	str = str + "\n"

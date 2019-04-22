@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"github.com/google/go-github/github"
-	"github.com/wtfutil/wtf/wtf"
 )
 
 func (widget *Widget) display() {
@@ -16,7 +15,8 @@ func (widget *Widget) display() {
 
 	widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("%s - %s", widget.Name(), widget.title(repo))))
 
-	str := wtf.SigilStr(len(widget.GithubRepos), widget.Idx, widget.View) + "\n"
+	_, _, width, _ := widget.View.GetRect()
+	str := widget.settings.common.SigilStr(len(widget.GithubRepos), widget.Idx, width) + "\n"
 	str = str + " [red]Stats[white]\n"
 	str = str + widget.displayStats(repo)
 	str = str + "\n"

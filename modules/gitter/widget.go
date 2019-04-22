@@ -116,10 +116,10 @@ func (widget *Widget) contentFrom(messages []Message) string {
 
 func (widget *Widget) rowColor(idx int) string {
 	if widget.View.HasFocus() && (idx == widget.selected) {
-		return wtf.DefaultFocussedRowColor()
+		widget.settings.common.DefaultFocussedRowColor()
 	}
 
-	return wtf.RowColor("gitter", idx)
+	return widget.settings.common.RowColor(idx)
 }
 
 func (widget *Widget) next() {

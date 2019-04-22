@@ -23,7 +23,7 @@ type Widget struct {
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
 		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
-		TextWidget:    wtf.NewTextWidget(app, "{{(Title .Name)}}", "{{(Lower .Name)}}", true),
+		TextWidget:    wtf.NewTextWidget(app, settings.common, false),
 
 		settings: settings,
 	}

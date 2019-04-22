@@ -102,9 +102,10 @@ func (widget *Widget) contentFrom(builds *Builds) string {
 
 func (widget *Widget) rowColor(idx int) string {
 	if widget.View.HasFocus() && (idx == widget.selected) {
-		return wtf.DefaultFocussedRowColor()
+		widget.settings.common.DefaultFocussedRowColor()
 	}
-	return "White"
+
+	return widget.settings.common.RowColor(idx)
 }
 
 func buildColor(build *Build) string {
