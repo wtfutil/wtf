@@ -1,13 +1,14 @@
 package cfg
 
 import (
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"os"
+	"os/user"
+	"path/filepath"
 
 	"github.com/olebedev/config"
-	"github.com/wtfutil/wtf/logger"
-	"github.com/wtfutil/wtf/wtf"
 )
 
 // ConfigDirV1 defines the path to the first version of configuration. Do not use this
@@ -21,8 +22,8 @@ const ConfigDirV2 = "~/.config/wtf/"
 // MigrateOldConfig copies any existing configuration from the old location
 // to the new, XDG-compatible location
 func MigrateOldConfig() {
-	srcDir, _ := wtf.ExpandHomeDir(ConfigDirV1)
-	destDir, _ := wtf.ExpandHomeDir(ConfigDirV2)
+	srcDir, _ := expandHomeDir(ConfigDirV1)
+	destDir, _ := expandHomeDir(ConfigDirV2)
 
 	// If the old config directory doesn't exist, do not move
 	if _, err := os.Stat(srcDir); os.IsNotExist(err) {
@@ -38,15 +39,13 @@ func MigrateOldConfig() {
 	err := Copy(srcDir, destDir)
 	if err != nil {
 		panic(err)
-	} else {
-		logger.Log(fmt.Sprintf("Copied old config from %s to %s", srcDir, destDir))
 	}
 
 	// Delete the old directory if the new one exists
 	if _, err := os.Stat(destDir); err == nil {
 		err := os.RemoveAll(srcDir)
 		if err != nil {
-			logger.Log(err.Error())
+			fmt.Println(err)
 		}
 	}
 }
@@ -55,7 +54,7 @@ func MigrateOldConfig() {
 
 // ConfigDir returns the absolute path to the configuration directory
 func ConfigDir() (string, error) {
-	configDir, err := wtf.ExpandHomeDir(ConfigDirV2)
+	configDir, err := expandHomeDir(ConfigDirV2)
 	if err != nil {
 		return "", err
 	}
@@ -123,7 +122,7 @@ func CreateFile(fileName string) (string, error) {
 
 // LoadConfigFile loads the config.yml file to configure the app
 func LoadConfigFile(filePath string) *config.Config {
-	absPath, _ := wtf.ExpandHomeDir(filePath)
+	absPath, _ := expandHomeDir(filePath)
 
 	cfg, err := config.ParseYamlFile(absPath)
 	if err != nil {
@@ -199,3 +198,43 @@ const simpleConfig = `wtf:
         width: 1
       refreshInterval: 30
 `
+
+/* -------------------- Unexported Functions -------------------- */
+
+// Expand expands the path to include the home directory if the path
+// is prefixed with `~`. If it isn't prefixed with `~`, the path is
+// returned as-is.
+func expandHomeDir(path string) (string, error) {
+	if len(path) == 0 {
+		return path, nil
+	}
+
+	if path[0] != '~' {
+		return path, nil
+	}
+
+	if len(path) > 1 && path[1] != '/' && path[1] != '\\' {
+		return "", errors.New("cannot expand user-specific home dir")
+	}
+
+	dir, err := home()
+	if err != nil {
+		return "", err
+	}
+
+	return filepath.Join(dir, path[1:]), nil
+}
+
+// Dir returns the home directory for the executing user.
+// An error is returned if a home directory cannot be detected.
+func home() (string, error) {
+	currentUser, err := user.Current()
+	if err != nil {
+		return "", err
+	}
+	if currentUser.HomeDir == "" {
+		return "", errors.New("cannot find user-specific home dir")
+	}
+
+	return currentUser.HomeDir, nil
+}

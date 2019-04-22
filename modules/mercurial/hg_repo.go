@@ -19,13 +19,13 @@ type MercurialRepo struct {
 	Path         string
 }
 
-func NewMercurialRepo(repoPath string) *MercurialRepo {
+func NewMercurialRepo(repoPath string, commitCount int, commitFormat string) *MercurialRepo {
 	repo := MercurialRepo{Path: repoPath}
 
 	repo.Branch = strings.TrimSpace(repo.branch())
 	repo.Bookmark = strings.TrimSpace(repo.bookmark())
 	repo.ChangedFiles = repo.changedFiles()
-	repo.Commits = repo.commits()
+	repo.Commits = repo.commits(commitCount, commitFormat)
 	repo.Repository = strings.TrimSpace(repo.Path)
 
 	return &repo
@@ -61,10 +61,8 @@ func (repo *MercurialRepo) changedFiles() []string {
 	return data
 }
 
-func (repo *MercurialRepo) commits() []string {
-	numStr := fmt.Sprintf("-l %d", wtf.Config.UInt("wtf.mods.mercurial.commitCount", 10))
-
-	commitFormat := wtf.Config.UString("wtf.mods.mercurial.commitFormat", "[forestgreen]{rev}:{phase} [white]{desc|firstline|strip} [grey]{author|person} {date|age}[white]")
+func (repo *MercurialRepo) commits(commitCount int, commitFormat string) []string {
+	numStr := fmt.Sprintf("-l %d", commitCount)
 	commitStr := fmt.Sprintf("--template=\"%s\n\"", commitFormat)
 
 	arg := []string{"log", repo.repoPath(), numStr, commitStr}

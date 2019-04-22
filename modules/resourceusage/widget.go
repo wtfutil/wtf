@@ -17,12 +17,16 @@ var ok = true
 // Widget define wtf widget to register widget later
 type Widget struct {
 	wtf.BarGraph
+
+	settings *Settings
 }
 
 // NewWidget Make new instance of widget
-func NewWidget(app *tview.Application) *Widget {
+func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
-		BarGraph: wtf.NewBarGraph(app, "Resource Usage", "resourceusage", false),
+		BarGraph: wtf.NewBarGraph(app, settings.common.Name, settings.common.ConfigKey, false),
+
+		settings: settings,
 	}
 
 	widget.View.SetWrap(false)

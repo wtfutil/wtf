@@ -14,11 +14,14 @@ type Widget struct {
 
 	result   *TicketArray
 	selected int
+	settings *Settings
 }
 
-func NewWidget(app *tview.Application) *Widget {
+func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(app, "Zendesk", "zendesk", true),
+		TextWidget: wtf.NewTextWidget(app, settings.common, true),
+
+		settings: settings,
 	}
 
 	widget.View.SetInputCapture(widget.keyboardIntercept)
@@ -28,8 +31,7 @@ func NewWidget(app *tview.Application) *Widget {
 
 /* -------------------- Exported Functions -------------------- */
 func (widget *Widget) Refresh() {
-	ticketStatus := wtf.Config.UString("wtf.mods.zendesk.status")
-	ticketArray, err := newTickets(ticketStatus)
+	ticketArray, err := widget.newTickets()
 	ticketArray.Count = len(ticketArray.Tickets)
 	if err != nil {
 		log.Fatal(err)
@@ -61,13 +63,13 @@ func (widget *Widget) textContent(items []Ticket) string {
 }
 
 func (widget *Widget) format(ticket Ticket, idx int) string {
-	var str string
-	requesterName := widget.parseRequester(ticket)
-	textColor := wtf.Config.UString("wtf.colors.background", "green")
+	textColor := widget.settings.common.Colors.Background
 	if idx == widget.selected {
-		textColor = wtf.Config.UString("wtf.colors.background", "orange")
+		textColor = widget.settings.common.Colors.BorderFocused
 	}
-	str = fmt.Sprintf(" [%s:]%d - %s\n %s\n\n", textColor, ticket.Id, requesterName, ticket.Subject)
+
+	requesterName := widget.parseRequester(ticket)
+	str := fmt.Sprintf(" [%s:]%d - %s\n %s\n\n", textColor, ticket.Id, requesterName, ticket.Subject)
 	return str
 }
 
@@ -102,7 +104,7 @@ func (widget *Widget) openTicket() {
 	sel := widget.selected
 	if sel >= 0 && widget.result != nil && sel < len(widget.result.Tickets) {
 		issue := &widget.result.Tickets[widget.selected]
-		ticketUrl := fmt.Sprintf("https://%s.zendesk.com/agent/tickets/%d", subdomain(), issue.Id)
+		ticketUrl := fmt.Sprintf("https://%s.zendesk.com/agent/tickets/%d", widget.settings.subdomain, issue.Id)
 		wtf.OpenFile(ticketUrl)
 	}
 }

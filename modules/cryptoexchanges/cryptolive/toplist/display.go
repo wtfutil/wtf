@@ -7,49 +7,54 @@ func (widget *Widget) display() {
 	for _, fromCurrency := range widget.list.items {
 		str += fmt.Sprintf(
 			"[%s]%s [%s](%s)\n",
-			widget.colors.from.displayName,
+			widget.settings.colors.from.displayName,
 			fromCurrency.displayName,
-			widget.colors.from.name,
+			widget.settings.colors.from.name,
 			fromCurrency.name,
 		)
-		str += makeToListText(fromCurrency.to, widget.colors)
+		str += widget.makeToListText(fromCurrency.to)
 	}
 
 	widget.Result = str
 }
 
-func makeToListText(toList []*tCurrency, colors textColors) string {
+func (widget *Widget) makeToListText(toList []*tCurrency) string {
 	str := ""
 	for _, toCurrency := range toList {
-		str += makeToText(toCurrency, colors)
+		str += widget.makeToText(toCurrency)
 	}
 
 	return str
 }
 
-func makeToText(toCurrency *tCurrency, colors textColors) string {
+func (widget *Widget) makeToText(toCurrency *tCurrency) string {
 	str := ""
-	str += fmt.Sprintf("  [%s]%s\n", colors.to.name, toCurrency.name)
+	str += fmt.Sprintf(
+		"  [%s]%s\n",
+		widget.settings.colors.to.name,
+		toCurrency.name,
+	)
+
 	for _, info := range toCurrency.info {
-		str += makeInfoText(info, colors)
+		str += widget.makeInfoText(info)
 		str += "\n\n"
 	}
 	return str
 }
 
-func makeInfoText(info tInfo, colors textColors) string {
+func (widget *Widget) makeInfoText(info tInfo) string {
 	return fmt.Sprintf(
 		"    [%s]Exchange: [%s]%s\n",
-		colors.to.field,
-		colors.to.value,
+		widget.settings.colors.top.to.field,
+		widget.settings.colors.top.to.value,
 		info.exchange,
 	) +
 		fmt.Sprintf(
 			"    [%s]Volume(24h): [%s]%f-[%s]%f",
-			colors.to.field,
-			colors.to.value,
+			widget.settings.colors.top.to.field,
+			widget.settings.colors.top.to.value,
 			info.volume24h,
-			colors.to.value,
+			widget.settings.colors.top.to.value,
 			info.volume24hTo,
 		)
 }

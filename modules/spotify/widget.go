@@ -20,20 +20,26 @@ const HelpText = `
 type Widget struct {
 	wtf.HelpfulWidget
 	wtf.TextWidget
-	spotigopher.SpotifyClient
+
+	settings *Settings
 	spotigopher.Info
+	spotigopher.SpotifyClient
 }
 
-func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
+func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	spotifyClient := spotigopher.NewClient()
 	widget := Widget{
 		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
-		TextWidget:    wtf.NewTextWidget(app, "Spotify", "spotify", true),
-		SpotifyClient: spotifyClient,
+		TextWidget:    wtf.NewTextWidget(app, settings.common, true),
+
 		Info:          spotigopher.Info{},
+		SpotifyClient: spotifyClient,
+		settings:      settings,
 	}
+
+	widget.settings.common.RefreshInterval = 5
+
 	widget.HelpfulWidget.SetView(widget.View)
-	widget.TextWidget.RefreshInt = 5
 	widget.View.SetInputCapture(widget.captureInput)
 	widget.View.SetWrap(true)
 	widget.View.SetWordWrap(true)

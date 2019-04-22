@@ -13,8 +13,7 @@ func Request(bearerToken string, apiURL string) ([]byte, error) {
 	}
 
 	// Expected authorization format for single-application twitter dev accounts
-	req.Header.Add("Authorization",
-		fmt.Sprintf("Bearer %s", bearerToken))
+	req.Header.Add("Authorization", fmt.Sprintf("Bearer %s", bearerToken))
 
 	client := &http.Client{}
 	resp, err := client.Do(req)

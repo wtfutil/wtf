@@ -22,22 +22,23 @@ const HelpText = `
 type Widget struct {
 	wtf.HelpfulWidget
 	wtf.TextWidget
-	app      *tview.Application
-	pages    *tview.Pages
+
 	language string
 	result   string
+	settings *Settings
 }
 
 var offset = 0
 
-func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
+func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
 		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
-		TextWidget:    wtf.NewTextWidget(app, "NBA Score", "nbascore", true),
+		TextWidget:    wtf.NewTextWidget(app, settings.common, true),
+
+		settings: settings,
 	}
 
 	widget.HelpfulWidget.SetView(widget.View)
-	widget.TextWidget.RefreshInt = 15
 	widget.View.SetInputCapture(widget.keyboardIntercept)
 	widget.View.SetScrollable(true)
 

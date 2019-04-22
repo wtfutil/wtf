@@ -40,19 +40,21 @@ type Widget struct {
 	wtf.TextWidget
 
 	app      *tview.Application
+	settings *Settings
 	filePath string
 	list     checklist.Checklist
 	pages    *tview.Pages
 }
 
-func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
+func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
 		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
-		TextWidget:    wtf.NewTextWidget(app, "Todo", "todo", true),
+		TextWidget:    wtf.NewTextWidget(app, settings.common, true),
 
 		app:      app,
-		filePath: wtf.Config.UString("wtf.mods.todo.filename"),
-		list:     checklist.NewChecklist(),
+		settings: settings,
+		filePath: settings.filePath,
+		list:     checklist.NewChecklist(settings.common.Sigils.CheckedIcon, settings.common.Sigils.UncheckedIcon),
 		pages:    pages,
 	}
 
@@ -191,7 +193,10 @@ func (widget *Widget) load() {
 	filePath := fmt.Sprintf("%s/%s", confDir, widget.filePath)
 
 	fileData, _ := wtf.ReadFileBytes(filePath)
+
 	yaml.Unmarshal(fileData, &widget.list)
+
+	widget.setItemChecks()
 }
 
 func (widget *Widget) newItem() {
@@ -225,6 +230,15 @@ func (widget *Widget) persist() {
 	}
 }
 
+// setItemChecks rolls through the checklist and ensures that all checklist
+// items have the correct checked/unchecked icon per the user's preferences
+func (widget *Widget) setItemChecks() {
+	for _, item := range widget.list.Items {
+		item.CheckedIcon = widget.settings.common.CheckedIcon
+		item.UncheckedIcon = widget.settings.common.UncheckedIcon
+	}
+}
+
 /* -------------------- Modal Form -------------------- */
 
 func (widget *Widget) addButtons(form *tview.Form, saveFctn func()) {
@@ -255,11 +269,8 @@ func (widget *Widget) modalFocus(form *tview.Form) {
 }
 
 func (widget *Widget) modalForm(lbl, text string) *tview.Form {
-	form := tview.NewForm().
-		SetFieldBackgroundColor(wtf.ColorFor(wtf.Config.UString("wtf.colors.background", "black")))
-
-	form.SetButtonsAlign(tview.AlignCenter).
-		SetButtonTextColor(wtf.ColorFor(wtf.Config.UString("wtf.colors.text", "white")))
+	form := tview.NewForm().SetFieldBackgroundColor(wtf.ColorFor(widget.settings.common.Colors.Background))
+	form.SetButtonsAlign(tview.AlignCenter).SetButtonTextColor(wtf.ColorFor(widget.settings.common.Colors.Text))
 
 	form.AddInputField(lbl, text, 60, nil, nil)
 

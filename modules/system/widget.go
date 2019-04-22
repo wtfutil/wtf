@@ -11,17 +11,19 @@ import (
 type Widget struct {
 	wtf.TextWidget
 
-	systemInfo *SystemInfo
 	Date       string
 	Version    string
+	settings   *Settings
+	systemInfo *SystemInfo
 }
 
-func NewWidget(app *tview.Application, date, version string) *Widget {
+func NewWidget(app *tview.Application, date, version string, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(app, "System", "system", false),
+		TextWidget: wtf.NewTextWidget(app, settings.common, false),
 
-		Date:    date,
-		Version: version,
+		Date:     date,
+		settings: settings,
+		Version:  version,
 	}
 
 	widget.systemInfo = NewSystemInfo()

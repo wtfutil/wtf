@@ -1,16 +1,14 @@
 package pagerduty
 
 import (
-	"os"
 	"time"
 
 	"github.com/PagerDuty/go-pagerduty"
-	"github.com/wtfutil/wtf/wtf"
 )
 
 // GetOnCalls returns a list of people currently on call
-func GetOnCalls() ([]pagerduty.OnCall, error) {
-	client := pagerduty.NewClient(apiKey())
+func GetOnCalls(apiKey string) ([]pagerduty.OnCall, error) {
+	client := pagerduty.NewClient(apiKey)
 
 	var results []pagerduty.OnCall
 
@@ -38,8 +36,8 @@ func GetOnCalls() ([]pagerduty.OnCall, error) {
 }
 
 // GetIncidents returns a list of people currently on call
-func GetIncidents() ([]pagerduty.Incident, error) {
-	client := pagerduty.NewClient(apiKey())
+func GetIncidents(apiKey string) ([]pagerduty.Incident, error) {
+	client := pagerduty.NewClient(apiKey)
 
 	var results []pagerduty.Incident
 
@@ -63,11 +61,4 @@ func GetIncidents() ([]pagerduty.Incident, error) {
 	}
 
 	return results, nil
-}
-
-func apiKey() string {
-	return wtf.Config.UString(
-		"wtf.mods.pagerduty.apiKey",
-		os.Getenv("WTF_PAGERDUTY_API_KEY"),
-	)
 }

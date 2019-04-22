@@ -2,12 +2,12 @@ package jenkins
 
 import (
 	"fmt"
-	"regexp"
+	"strconv"
+
 	"github.com/gdamore/tcell"
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/wtf"
-	"os"
-	"strconv"
+	"regexp"
 )
 
 const HelpText = `
@@ -28,14 +28,17 @@ type Widget struct {
 	wtf.HelpfulWidget
 	wtf.TextWidget
 
-	view     *View
 	selected int
+	settings *Settings
+	view     *View
 }
 
-func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
+func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
 		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
-		TextWidget:    wtf.NewTextWidget(app, "Jenkins", "jenkins", true),
+		TextWidget:    wtf.NewTextWidget(app, settings.common, true),
+
+		settings: settings,
 	}
 
 	widget.HelpfulWidget.SetView(widget.View)
@@ -55,10 +58,10 @@ func (widget *Widget) Refresh() {
 		return
 	}
 
-	view, err := Create(
-		wtf.Config.UString("wtf.mods.jenkins.url"),
-		wtf.Config.UString("wtf.mods.jenkins.user"),
-		widget.apiKey(),
+	view, err := widget.Create(
+		widget.settings.url,
+		widget.settings.user,
+		widget.settings.apiKey,
 	)
 	widget.view = view
 
@@ -86,18 +89,11 @@ func (widget *Widget) display() {
 	widget.View.Highlight(strconv.Itoa(widget.selected)).ScrollToHighlight()
 }
 
-func (widget *Widget) apiKey() string {
-	return wtf.Config.UString(
-		"wtf.mods.jenkins.apiKey",
-		os.Getenv("WTF_JENKINS_API_KEY"),
-	)
-}
-
 func (widget *Widget) contentFrom(view *View) string {
 	var str string
 	for idx, job := range view.Jobs {
-		regex := wtf.Config.UString("wtf.mods.jenkins.jobNameRegex", ".*")
-		var validID = regexp.MustCompile(regex)
+		var validID = regexp.MustCompile(widget.settings.jobNameRegex)
+
 		if validID.MatchString(job.Name) {
 			str = str + fmt.Sprintf(
 				`["%d"][""][%s] [%s]%-6s[white]`,
@@ -126,12 +122,7 @@ func (widget *Widget) jobColor(job *Job) string {
 	switch job.Color {
 	case "blue":
 		// Override color if successBallColor boolean param provided in config
-		ballColor := wtf.Config.UString("wtf.mods.jenkins.successBallColor", "blue")
-		if ballColor != "blue" {
-			return ballColor
-		} else {
-			return "blue"
-		}
+		return widget.settings.successBallColor
 	case "red":
 		return "red"
 	default:

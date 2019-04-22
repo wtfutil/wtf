@@ -21,10 +21,10 @@ func (widget *Widget) display() {
 	str = str + widget.displayStats(project)
 	str = str + "\n"
 	str = str + " [red]Open Incoming Reviews[white]\n"
-	str = str + widget.displayMyIncomingReviews(project, wtf.Config.UString("wtf.mods.gerrit.username"))
+	str = str + widget.displayMyIncomingReviews(project, widget.settings.username)
 	str = str + "\n"
 	str = str + " [red]My Outgoing Reviews[white]\n"
-	str = str + widget.displayMyOutgoingReviews(project, wtf.Config.UString("wtf.mods.gerrit.username"))
+	str = str + widget.displayMyOutgoingReviews(project, widget.settings.username)
 
 	widget.View.SetText(str)
 }

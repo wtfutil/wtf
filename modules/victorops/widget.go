@@ -19,13 +19,15 @@ const HelpText = `
 // Widget contains text info
 type Widget struct {
 	wtf.TextWidget
-	teams []OnCallTeam
+
+	teams    []OnCallTeam
+	settings *Settings
 }
 
 // NewWidget creates a new widget
-func NewWidget(app *tview.Application) *Widget {
+func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(app, "VictorOps - OnCall", "victorops", true),
+		TextWidget: wtf.NewTextWidget(app, settings.common, true),
 	}
 
 	widget.View.SetScrollable(true)
@@ -40,7 +42,7 @@ func (widget *Widget) Refresh() {
 		return
 	}
 
-	teams, err := Fetch()
+	teams, err := Fetch(widget.settings.apiID, widget.settings.apiKey)
 	widget.View.SetTitle(widget.ContextualTitle(widget.Name()))
 
 	if err != nil {
@@ -64,10 +66,10 @@ func (widget *Widget) display() {
 }
 
 func (widget *Widget) contentFrom(teams []OnCallTeam) string {
-	teamToDisplay := wtf.Config.UString("wtf.mods.victorops.team")
 	var str string
+
 	for _, team := range teams {
-		if len(teamToDisplay) > 0 && teamToDisplay != team.Slug {
+		if len(widget.settings.team) > 0 && widget.settings.team != team.Slug {
 			continue
 		}
 

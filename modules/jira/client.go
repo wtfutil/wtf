@@ -9,13 +9,10 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"os"
 	"strings"
-
-	"github.com/wtfutil/wtf/wtf"
 )
 
-func IssuesFor(username string, projects []string, jql string) (*SearchResult, error) {
+func (widget *Widget) IssuesFor(username string, projects []string, jql string) (*SearchResult, error) {
 	query := []string{}
 
 	var projQuery = getProjectQuery(projects)
@@ -37,7 +34,7 @@ func IssuesFor(username string, projects []string, jql string) (*SearchResult, e
 
 	url := fmt.Sprintf("/rest/api/2/search?%s", v.Encode())
 
-	resp, err := jiraRequest(url)
+	resp, err := widget.jiraRequest(url)
 	if err != nil {
 		return &SearchResult{}, err
 	}
@@ -54,26 +51,18 @@ func buildJql(key string, value string) string {
 
 /* -------------------- Unexported Functions -------------------- */
 
-func apiKey() string {
-	return wtf.Config.UString(
-		"wtf.mods.jira.apiKey",
-		os.Getenv("WTF_JIRA_API_KEY"),
-	)
-}
-
-func jiraRequest(path string) (*http.Response, error) {
-	url := fmt.Sprintf("%s%s", wtf.Config.UString("wtf.mods.jira.domain"), path)
+func (widget *Widget) jiraRequest(path string) (*http.Response, error) {
+	url := fmt.Sprintf("%s%s", widget.settings.domain, path)
 
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, err
 	}
-	req.SetBasicAuth(wtf.Config.UString("wtf.mods.jira.email"), apiKey())
+	req.SetBasicAuth(widget.settings.email, widget.settings.apiKey)
 
-	verifyServerCertificate := wtf.Config.UBool("wtf.mods.jira.verifyServerCertificate", true)
 	httpClient := &http.Client{Transport: &http.Transport{
 		TLSClientConfig: &tls.Config{
-			InsecureSkipVerify: !verifyServerCertificate,
+			InsecureSkipVerify: !widget.settings.verifyServerCertificate,
 		},
 		Proxy: http.ProxyFromEnvironment,
 	},

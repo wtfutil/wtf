@@ -2,7 +2,6 @@ package circleci
 
 import (
 	"fmt"
-	"os"
 
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/wtf"
@@ -11,19 +10,16 @@ import (
 type Widget struct {
 	wtf.TextWidget
 	*Client
+
+	settings *Settings
 }
 
-const apiEnvKey = "WTF_CIRCLE_API_KEY"
-
-func NewWidget(app *tview.Application) *Widget {
-	apiKey := wtf.Config.UString(
-		"wtf.mods.circleci.apiKey",
-		os.Getenv(apiEnvKey),
-	)
-
+func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(app, "CircleCI", "circleci", false),
-		Client:     NewClient(apiKey),
+		TextWidget: wtf.NewTextWidget(app, settings.common, false),
+		Client:     NewClient(settings.apiKey),
+
+		settings: settings,
 	}
 
 	return &widget

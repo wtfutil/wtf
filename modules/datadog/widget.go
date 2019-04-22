@@ -10,11 +10,15 @@ import (
 
 type Widget struct {
 	wtf.TextWidget
+
+	settings *Settings
 }
 
-func NewWidget(app *tview.Application) *Widget {
+func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(app, "Datadog", "datadog", false),
+		TextWidget: wtf.NewTextWidget(app, settings.common, false),
+
+		settings: settings,
 	}
 
 	return &widget
@@ -23,7 +27,7 @@ func NewWidget(app *tview.Application) *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	monitors, monitorErr := Monitors()
+	monitors, monitorErr := widget.Monitors()
 
 	widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("%s", widget.Name())))
 	widget.View.Clear()

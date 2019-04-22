@@ -26,10 +26,10 @@ import (
 
 /* -------------------- Exported Functions -------------------- */
 
-func Fetch() ([]*sheets.ValueRange, error) {
+func (widget *Widget) Fetch() ([]*sheets.ValueRange, error) {
 	ctx := context.Background()
 
-	secretPath, _ := wtf.ExpandHomeDir(wtf.Config.UString("wtf.mods.gspreadsheets.secretFile"))
+	secretPath, _ := wtf.ExpandHomeDir(widget.settings.secretFile)
 
 	b, err := ioutil.ReadFile(secretPath)
 	if err != nil {
@@ -51,14 +51,13 @@ func Fetch() ([]*sheets.ValueRange, error) {
 		return nil, err
 	}
 
-	cells := wtf.ToStrs(wtf.Config.UList("wtf.mods.gspreadsheets.cells.addresses"))
-	documentId := wtf.Config.UString("wtf.mods.gspreadsheets.sheetId")
+	cells := wtf.ToStrs(widget.settings.cellAddresses)
 	addresses := strings.Join(cells[:], ";")
 
 	responses := make([]*sheets.ValueRange, len(cells))
 
 	for i := 0; i < len(cells); i++ {
-		resp, err := srv.Spreadsheets.Values.Get(documentId, cells[i]).Do()
+		resp, err := srv.Spreadsheets.Values.Get(widget.settings.sheetID, cells[i]).Do()
 		if err != nil {
 			log.Fatalf("Error fetching cells %s", addresses)
 			return nil, err

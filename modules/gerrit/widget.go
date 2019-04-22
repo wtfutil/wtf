@@ -4,7 +4,6 @@ import (
 	"crypto/tls"
 	"fmt"
 	"net/http"
-	"os"
 	"regexp"
 
 	glb "github.com/andygrunwald/go-gerrit"
@@ -40,18 +39,20 @@ type Widget struct {
 	GerritProjects []*GerritProject
 	Idx            int
 	selected       int
+	settings       *Settings
 }
 
 var (
 	GerritURLPattern = regexp.MustCompile(`^(http|https)://(.*)$`)
 )
 
-func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
+func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
 		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
-		TextWidget:    wtf.NewTextWidget(app, "Gerrit", "gerrit", true),
+		TextWidget:    wtf.NewTextWidget(app, settings.common, true),
 
-		Idx: 0,
+		Idx:      0,
+		settings: settings,
 	}
 
 	widget.HelpfulWidget.SetView(widget.View)
@@ -65,31 +66,27 @@ func NewWidget(app *tview.Application, pages *tview.Pages) *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	baseURL := wtf.Config.UString("wtf.mods.gerrit.domain")
-	username := wtf.Config.UString("wtf.mods.gerrit.username")
-
-	password := wtf.Config.UString(
-		"wtf.mods.gerrit.password",
-		os.Getenv("WTF_GERRIT_PASSWORD"),
-	)
-
-	verifyServerCertificate := wtf.Config.UBool("wtf.mods.gerrit.verifyServerCertificate", true)
-
-	httpClient := &http.Client{Transport: &http.Transport{
-		TLSClientConfig: &tls.Config{
-			InsecureSkipVerify: !verifyServerCertificate,
+	httpClient := &http.Client{
+		Transport: &http.Transport{
+			TLSClientConfig: &tls.Config{
+				InsecureSkipVerify: !widget.settings.verifyServerCertificate,
+			},
+			Proxy: http.ProxyFromEnvironment,
 		},
-		Proxy: http.ProxyFromEnvironment,
-	},
 	}
 
-	gerritUrl := baseURL
-	submatches := GerritURLPattern.FindAllStringSubmatch(baseURL, -1)
+	gerritUrl := widget.settings.domain
+	submatches := GerritURLPattern.FindAllStringSubmatch(widget.settings.domain, -1)
 
 	if len(submatches) > 0 && len(submatches[0]) > 2 {
 		submatch := submatches[0]
 		gerritUrl = fmt.Sprintf(
-			"%s://%s:%s@%s", submatch[1], username, password, submatch[2])
+			"%s://%s:%s@%s",
+			submatch[1],
+			widget.settings.username,
+			widget.settings.password,
+			submatch[2],
+		)
 	}
 	gerrit, err := glb.NewClient(gerritUrl, httpClient)
 	if err != nil {
@@ -99,10 +96,10 @@ func (widget *Widget) Refresh() {
 		return
 	}
 	widget.gerrit = gerrit
-	widget.GerritProjects = widget.buildProjectCollection(wtf.Config.UList("wtf.mods.gerrit.projects"))
+	widget.GerritProjects = widget.buildProjectCollection(widget.settings.projects)
 
 	for _, project := range widget.GerritProjects {
-		project.Refresh()
+		project.Refresh(widget.settings.username)
 	}
 
 	widget.display()
@@ -159,7 +156,7 @@ func (widget *Widget) openReview() {
 		} else {
 			change = project.OutgoingReviews[sel-len(project.IncomingReviews)]
 		}
-		wtf.OpenFile(fmt.Sprintf("%s/%s/%d", wtf.Config.UString("wtf.mods.gerrit.domain"), "#/c", change.Number))
+		wtf.OpenFile(fmt.Sprintf("%s/%s/%d", widget.settings.domain, "#/c", change.Number))
 	}
 }
 

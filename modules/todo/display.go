@@ -13,7 +13,10 @@ const checkWidth = 4
 
 func (widget *Widget) display() {
 	str := ""
-	newList := checklist.NewChecklist()
+	newList := checklist.NewChecklist(
+		widget.settings.common.Sigils.CheckedIcon,
+		widget.settings.common.Sigils.UncheckedIcon,
+	)
 
 	offset := 0
 
@@ -33,19 +36,19 @@ func (widget *Widget) display() {
 
 	widget.View.Clear()
 	widget.View.SetText(str)
-	widget.View.Highlight(strconv.Itoa(widget.list.Selected)).ScrollToHighlight()
+	widget.View.Highlight(strconv.Itoa(widget.list.Selected())).ScrollToHighlight()
 }
 
 func (widget *Widget) formattedItemLine(idx int, item *checklist.ChecklistItem, selectedItem *checklist.ChecklistItem, maxLen int) string {
-	foreColor, backColor := "white", wtf.Config.UString("wtf.colors.background", "black")
+	foreColor, backColor := widget.settings.common.Colors.Text, widget.settings.common.Colors.Background
 
 	if item.Checked {
-		foreColor = wtf.Config.UString("wtf.colors.checked", "white")
+		foreColor = widget.settings.common.Colors.Checked
 	}
 
 	if widget.View.HasFocus() && (item == selectedItem) {
-		foreColor = wtf.Config.UString("wtf.colors.highlight.fore", "black")
-		backColor = wtf.Config.UString("wtf.colors.highlight.back", "orange")
+		foreColor = widget.settings.common.Colors.HighlightFore
+		backColor = widget.settings.common.Colors.HighlightBack
 	}
 
 	str := fmt.Sprintf(
