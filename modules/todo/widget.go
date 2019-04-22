@@ -54,7 +54,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 		app:      app,
 		settings: settings,
 		filePath: settings.filePath,
-		list:     checklist.NewChecklist(settings.common.Sigils.CheckedIcon, settings.common.Sigils.UncheckedIcon),
+		list:     checklist.NewChecklist(settings.common.Sigils.Checkbox.Checked, settings.common.Sigils.Checkbox.Unchecked),
 		pages:    pages,
 	}
 
@@ -234,8 +234,8 @@ func (widget *Widget) persist() {
 // items have the correct checked/unchecked icon per the user's preferences
 func (widget *Widget) setItemChecks() {
 	for _, item := range widget.list.Items {
-		item.CheckedIcon = widget.settings.common.CheckedIcon
-		item.UncheckedIcon = widget.settings.common.UncheckedIcon
+		item.CheckedIcon = widget.settings.common.Checkbox.Checked
+		item.UncheckedIcon = widget.settings.common.Checkbox.Unchecked
 	}
 }
 

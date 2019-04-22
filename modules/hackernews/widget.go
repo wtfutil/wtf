@@ -123,10 +123,10 @@ func (widget *Widget) contentFrom(stories []Story) string {
 
 func (widget *Widget) rowColor(idx int) string {
 	if widget.View.HasFocus() && (idx == widget.selected) {
-		return wtf.DefaultFocussedRowColor()
+		widget.settings.common.DefaultFocussedRowColor()
 	}
 
-	return wtf.RowColor("hackernews", idx)
+	return widget.settings.common.RowColor(idx)
 }
 
 func (widget *Widget) next() {

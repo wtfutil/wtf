@@ -19,7 +19,8 @@ func (widget *Widget) display() {
 	title := fmt.Sprintf("[green]%s[white]", proj.Project.Name)
 	widget.View.SetTitle(widget.ContextualTitle(title))
 
-	str := wtf.SigilStr(len(widget.projects), widget.idx, widget.View) + "\n"
+	_, _, width, _ := widget.View.GetRect()
+	str := widget.settings.common.SigilStr(len(widget.projects), widget.idx, width) + "\n"
 
 	maxLen := proj.LongestLine()
 

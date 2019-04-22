@@ -2,8 +2,6 @@ package gerrit
 
 import (
 	"fmt"
-
-	"github.com/wtfutil/wtf/wtf"
 )
 
 func (widget *Widget) display() {
@@ -16,7 +14,8 @@ func (widget *Widget) display() {
 
 	widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("%s- %s", widget.Name(), widget.title(project))))
 
-	str := wtf.SigilStr(len(widget.GerritProjects), widget.Idx, widget.View) + "\n"
+	_, _, width, _ := widget.View.GetRect()
+	str := widget.settings.common.SigilStr(len(widget.GerritProjects), widget.Idx, width) + "\n"
 	str = str + " [red]Stats[white]\n"
 	str = str + widget.displayStats(project)
 	str = str + "\n"
@@ -64,11 +63,12 @@ func (widget *Widget) displayStats(project *GerritProject) string {
 	return str
 }
 
-func (widget *Widget) rowColor(index int) string {
-	if widget.View.HasFocus() && (index == widget.selected) {
-		return wtf.DefaultFocussedRowColor()
+func (widget *Widget) rowColor(idx int) string {
+	if widget.View.HasFocus() && (idx == widget.selected) {
+		widget.settings.common.DefaultFocussedRowColor()
 	}
-	return wtf.RowColor("gerrit", index)
+
+	return widget.settings.common.RowColor(idx)
 }
 
 func (widget *Widget) title(project *GerritProject) string {

@@ -76,7 +76,8 @@ func (widget *Widget) display() {
 	title := fmt.Sprintf("[green]%s[white]", widget.CurrentSource())
 	title = widget.ContextualTitle(title)
 
-	text := wtf.SigilStr(len(widget.Sources), widget.Idx, widget.View) + "\n"
+	_, _, width, _ := widget.View.GetRect()
+	text := widget.settings.common.SigilStr(len(widget.Sources), widget.Idx, width) + "\n"
 
 	if widget.settings.format {
 		text = text + widget.formattedText()

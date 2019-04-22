@@ -138,14 +138,10 @@ func (widget *Widget) contentFrom(searchResult *SearchResult) string {
 
 func (widget *Widget) rowColor(idx int) string {
 	if widget.View.HasFocus() && (idx == widget.selected) {
-		return wtf.DefaultFocussedRowColor()
+		widget.settings.common.DefaultFocussedRowColor()
 	}
 
-	if idx%2 == 0 {
-		return widget.settings.colors.rows.even
-	}
-
-	return widget.settings.colors.rows.odd
+	return widget.settings.common.RowColor(idx)
 }
 
 func (widget *Widget) issueTypeColor(issue *Issue) string {

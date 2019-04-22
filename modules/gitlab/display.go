@@ -2,8 +2,6 @@ package gitlab
 
 import (
 	"fmt"
-
-	"github.com/wtfutil/wtf/wtf"
 )
 
 func (widget *Widget) display() {
@@ -16,7 +14,8 @@ func (widget *Widget) display() {
 
 	widget.View.SetTitle(fmt.Sprintf("%s- %s", widget.Name(), widget.title(project)))
 
-	str := wtf.SigilStr(len(widget.GitlabProjects), widget.Idx, widget.View) + "\n"
+	_, _, width, _ := widget.View.GetRect()
+	str := widget.settings.common.SigilStr(len(widget.GitlabProjects), widget.Idx, width) + "\n"
 	str = str + " [red]Stats[white]\n"
 	str = str + widget.displayStats(project)
 	str = str + "\n"
