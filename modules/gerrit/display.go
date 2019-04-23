@@ -65,7 +65,7 @@ func (widget *Widget) displayStats(project *GerritProject) string {
 
 func (widget *Widget) rowColor(idx int) string {
 	if widget.View.HasFocus() && (idx == widget.selected) {
-		widget.settings.common.DefaultFocussedRowColor()
+		return widget.settings.common.DefaultFocussedRowColor()
 	}
 
 	return widget.settings.common.RowColor(idx)

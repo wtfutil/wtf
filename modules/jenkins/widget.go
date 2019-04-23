@@ -112,7 +112,7 @@ func (widget *Widget) contentFrom(view *View) string {
 
 func (widget *Widget) rowColor(idx int) string {
 	if widget.View.HasFocus() && (idx == widget.selected) {
-		widget.settings.common.DefaultFocussedRowColor()
+		return widget.settings.common.DefaultFocussedRowColor()
 	}
 
 	return widget.settings.common.RowColor(idx)

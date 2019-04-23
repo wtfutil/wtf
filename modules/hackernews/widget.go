@@ -74,7 +74,7 @@ func (widget *Widget) Refresh() {
 		for idx := 0; idx < widget.settings.numberOfStories; idx++ {
 			story, e := GetStory(storyIds[idx])
 			if e != nil {
-				panic(e)
+				// panic(e)
 			} else {
 				stories = append(stories, story)
 			}
@@ -123,7 +123,7 @@ func (widget *Widget) contentFrom(stories []Story) string {
 
 func (widget *Widget) rowColor(idx int) string {
 	if widget.View.HasFocus() && (idx == widget.selected) {
-		widget.settings.common.DefaultFocussedRowColor()
+		return widget.settings.common.DefaultFocussedRowColor()
 	}
 
 	return widget.settings.common.RowColor(idx)
