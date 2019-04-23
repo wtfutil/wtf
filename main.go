@@ -176,6 +176,16 @@ func watchForConfigChanges(app *tview.Application, refreshChan chan<- string, co
 	}
 }
 
+func watchForRefreshUpdates(app *tview.Application, refreshChan <-chan string) {
+	for {
+		select {
+		case <-refreshChan:
+			app.Draw()
+		default:
+		}
+	}
+}
+
 func makeWidget(app *tview.Application, refreshChan chan<- string, pages *tview.Pages, widgetName string) wtf.Wtfable {
 	var widget wtf.Wtfable
 
@@ -362,7 +372,7 @@ func main() {
 
 	setTerm()
 
-	refreshChan := make(chan string)
+	refreshChan := make(chan string, 2)
 
 	app := tview.NewApplication()
 	pages := tview.NewPages()
@@ -382,14 +392,7 @@ func main() {
 	app.SetInputCapture(keyboardIntercept)
 
 	go watchForConfigChanges(app, refreshChan, flags.Config, display.Grid, pages)
-
-	go func() {
-		select {
-		case <-refreshChan:
-			app.Draw()
-		default:
-		}
-	}()
+	go watchForRefreshUpdates(app, refreshChan)
 
 	if err := app.SetRoot(pages, true).Run(); err != nil {
 		fmt.Printf("Error: %v\n", err)

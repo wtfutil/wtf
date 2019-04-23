@@ -16,6 +16,7 @@ type TextWidget struct {
 	focusChar       string
 	key             string
 	name            string
+	refreshChan     chan<- string
 	refreshInterval int
 
 	View *tview.TextView
@@ -33,6 +34,7 @@ func NewTextWidget(refreshChan chan<- string, commonSettings *cfg.Common, focusa
 		focusChar:       commonSettings.FocusChar(),
 		key:             commonSettings.ConfigKey,
 		name:            commonSettings.Name,
+		refreshChan:     refreshChan,
 		refreshInterval: commonSettings.RefreshInterval,
 	}
 
@@ -46,7 +48,7 @@ func NewTextWidget(refreshChan chan<- string, commonSettings *cfg.Common, focusa
 	widget.View = widget.buildView()
 
 	widget.View.SetChangedFunc(func() {
-		refreshChan <- widget.key
+		widget.refreshChan <- widget.key
 	})
 
 	return widget
