@@ -342,16 +342,6 @@ func makeWidgets(app *tview.Application, pages *tview.Pages) []wtf.Wtfable {
 	return widgets
 }
 
-// // Check that all the loaded widgets are valid for display
-// func validateWidgets(widgets []wtf.Wtfable) {
-// 	for _, widget := range widgets {
-// 		if widget.Enabled() && !widget.IsPositionable() {
-// 			errStr := fmt.Sprintf("Widget config has invalid values: %s", widget.Key())
-// 			log.Fatalln(errStr)
-// 		}
-// 	}
-// }
-
 /* -------------------- Main -------------------- */
 
 func main() {
