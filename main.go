@@ -134,7 +134,7 @@ func setTerm() {
 	}
 }
 
-func watchForConfigChanges(app *tview.Application, configFilePath string, grid *tview.Grid, pages *tview.Pages) {
+func watchForConfigChanges(app *tview.Application, refreshChan chan<- string, configFilePath string, grid *tview.Grid, pages *tview.Pages) {
 	watch := watcher.New()
 	absPath, _ := wtf.ExpandHomeDir(configFilePath)
 
@@ -150,7 +150,7 @@ func watchForConfigChanges(app *tview.Application, configFilePath string, grid *
 
 				loadConfigFile(absPath)
 
-				widgets := makeWidgets(app, pages)
+				widgets := makeWidgets(app, refreshChan, pages)
 				wtf.ValidateWidgets(widgets)
 
 				initializeFocusTracker(app, widgets)
@@ -176,161 +176,161 @@ func watchForConfigChanges(app *tview.Application, configFilePath string, grid *
 	}
 }
 
-func makeWidget(app *tview.Application, pages *tview.Pages, widgetName string) wtf.Wtfable {
+func makeWidget(app *tview.Application, refreshChan chan<- string, pages *tview.Pages, widgetName string) wtf.Wtfable {
 	var widget wtf.Wtfable
 
 	// Always in alphabetical order
 	switch widgetName {
 	case "bamboohr":
 		settings := bamboohr.NewSettingsFromYAML("BambooHR", wtf.Config)
-		widget = bamboohr.NewWidget(app, settings)
+		widget = bamboohr.NewWidget(refreshChan, settings)
 	case "bargraph":
 		widget = bargraph.NewWidget(app)
 	case "bittrex":
 		settings := bittrex.NewSettingsFromYAML("Bittrex", wtf.Config)
-		widget = bittrex.NewWidget(app, settings)
+		widget = bittrex.NewWidget(refreshChan, settings)
 	case "blockfolio":
 		settings := blockfolio.NewSettingsFromYAML("Blockfolio", wtf.Config)
-		widget = blockfolio.NewWidget(app, settings)
+		widget = blockfolio.NewWidget(refreshChan, settings)
 	case "circleci":
 		settings := circleci.NewSettingsFromYAML("CircleCI", wtf.Config)
-		widget = circleci.NewWidget(app, settings)
+		widget = circleci.NewWidget(refreshChan, settings)
 	case "clocks":
 		settings := clocks.NewSettingsFromYAML("Clocks", wtf.Config)
-		widget = clocks.NewWidget(app, settings)
+		widget = clocks.NewWidget(refreshChan, settings)
 	case "cmdrunner":
 		settings := cmdrunner.NewSettingsFromYAML("CmdRunner", wtf.Config)
-		widget = cmdrunner.NewWidget(app, settings)
+		widget = cmdrunner.NewWidget(refreshChan, settings)
 	case "cryptolive":
 		settings := cryptolive.NewSettingsFromYAML("CryptoLive", wtf.Config)
-		widget = cryptolive.NewWidget(app, settings)
+		widget = cryptolive.NewWidget(refreshChan, settings)
 	case "datadog":
 		settings := datadog.NewSettingsFromYAML("DataDog", wtf.Config)
-		widget = datadog.NewWidget(app, settings)
+		widget = datadog.NewWidget(refreshChan, settings)
 	case "gcal":
 		settings := gcal.NewSettingsFromYAML("Calendar", wtf.Config)
-		widget = gcal.NewWidget(app, settings)
+		widget = gcal.NewWidget(app, refreshChan, settings)
 	case "gerrit":
 		settings := gerrit.NewSettingsFromYAML("Gerrit", wtf.Config)
-		widget = gerrit.NewWidget(app, pages, settings)
+		widget = gerrit.NewWidget(app, refreshChan, pages, settings)
 	case "git":
 		settings := git.NewSettingsFromYAML("Git", wtf.Config)
-		widget = git.NewWidget(app, pages, settings)
+		widget = git.NewWidget(app, refreshChan, pages, settings)
 	case "github":
 		settings := github.NewSettingsFromYAML("GitHub", wtf.Config)
-		widget = github.NewWidget(app, pages, settings)
+		widget = github.NewWidget(app, refreshChan, pages, settings)
 	case "gitlab":
 		settings := gitlab.NewSettingsFromYAML("GitLab", wtf.Config)
-		widget = gitlab.NewWidget(app, pages, settings)
+		widget = gitlab.NewWidget(app, refreshChan, pages, settings)
 	case "gitter":
 		settings := gitter.NewSettingsFromYAML("Gitter", wtf.Config)
-		widget = gitter.NewWidget(app, pages, settings)
+		widget = gitter.NewWidget(app, refreshChan, pages, settings)
 	case "gspreadsheets":
 		settings := gspreadsheets.NewSettingsFromYAML("Google Spreadsheets", wtf.Config)
-		widget = gspreadsheets.NewWidget(app, settings)
+		widget = gspreadsheets.NewWidget(refreshChan, settings)
 	case "hackernews":
 		settings := hackernews.NewSettingsFromYAML("HackerNews", wtf.Config)
-		widget = hackernews.NewWidget(app, pages, settings)
+		widget = hackernews.NewWidget(app, refreshChan, pages, settings)
 	case "ipapi":
 		settings := ipapi.NewSettingsFromYAML("IPAPI", wtf.Config)
-		widget = ipapi.NewWidget(app, settings)
+		widget = ipapi.NewWidget(refreshChan, settings)
 	case "ipinfo":
 		settings := ipinfo.NewSettingsFromYAML("IPInfo", wtf.Config)
-		widget = ipinfo.NewWidget(app, settings)
+		widget = ipinfo.NewWidget(refreshChan, settings)
 	case "jenkins":
 		settings := jenkins.NewSettingsFromYAML("Jenkins", wtf.Config)
-		widget = jenkins.NewWidget(app, pages, settings)
+		widget = jenkins.NewWidget(app, refreshChan, pages, settings)
 	case "jira":
 		settings := jira.NewSettingsFromYAML("Jira", wtf.Config)
-		widget = jira.NewWidget(app, pages, settings)
+		widget = jira.NewWidget(app, refreshChan, pages, settings)
 	case "logger":
 		settings := logger.NewSettingsFromYAML("Log", wtf.Config)
-		widget = logger.NewWidget(app, settings)
+		widget = logger.NewWidget(refreshChan, settings)
 	case "mercurial":
 		settings := mercurial.NewSettingsFromYAML("Mercurial", wtf.Config)
-		widget = mercurial.NewWidget(app, pages, settings)
+		widget = mercurial.NewWidget(app, refreshChan, pages, settings)
 	case "nbascore":
 		settings := nbascore.NewSettingsFromYAML("NBA Score", wtf.Config)
-		widget = nbascore.NewWidget(app, pages, settings)
+		widget = nbascore.NewWidget(app, refreshChan, pages, settings)
 	case "newrelic":
 		settings := newrelic.NewSettingsFromYAML("NewRelic", wtf.Config)
-		widget = newrelic.NewWidget(app, settings)
+		widget = newrelic.NewWidget(refreshChan, settings)
 	case "opsgenie":
 		settings := opsgenie.NewSettingsFromYAML("OpsGenie", wtf.Config)
-		widget = opsgenie.NewWidget(app, settings)
+		widget = opsgenie.NewWidget(refreshChan, settings)
 	case "pagerduty":
 		settings := pagerduty.NewSettingsFromYAML("PagerDuty", wtf.Config)
-		widget = pagerduty.NewWidget(app, settings)
+		widget = pagerduty.NewWidget(refreshChan, settings)
 	case "power":
 		settings := power.NewSettingsFromYAML("Power", wtf.Config)
-		widget = power.NewWidget(app, settings)
+		widget = power.NewWidget(refreshChan, settings)
 	case "prettyweather":
 		settings := prettyweather.NewSettingsFromYAML("Pretty Weather", wtf.Config)
-		widget = prettyweather.NewWidget(app, settings)
+		widget = prettyweather.NewWidget(refreshChan, settings)
 	case "resourceusage":
 		settings := resourceusage.NewSettingsFromYAML("Resource Usage", wtf.Config)
 		widget = resourceusage.NewWidget(app, settings)
 	case "rollbar":
 		settings := rollbar.NewSettingsFromYAML("Rollbar", wtf.Config)
-		widget = rollbar.NewWidget(app, pages, settings)
+		widget = rollbar.NewWidget(app, refreshChan, pages, settings)
 	case "security":
 		settings := security.NewSettingsFromYAML("Security", wtf.Config)
-		widget = security.NewWidget(app, settings)
+		widget = security.NewWidget(refreshChan, settings)
 	case "spotify":
 		settings := spotify.NewSettingsFromYAML("Spotify", wtf.Config)
-		widget = spotify.NewWidget(app, pages, settings)
+		widget = spotify.NewWidget(app, refreshChan, pages, settings)
 	case "spotifyweb":
 		settings := spotifyweb.NewSettingsFromYAML("Spotify Web", wtf.Config)
-		widget = spotifyweb.NewWidget(app, pages, settings)
+		widget = spotifyweb.NewWidget(app, refreshChan, pages, settings)
 	case "status":
 		settings := status.NewSettingsFromYAML("Status", wtf.Config)
-		widget = status.NewWidget(app, settings)
+		widget = status.NewWidget(refreshChan, settings)
 	case "system":
 		settings := system.NewSettingsFromYAML("System", wtf.Config)
-		widget = system.NewWidget(app, date, version, settings)
+		widget = system.NewWidget(refreshChan, date, version, settings)
 	case "textfile":
 		settings := textfile.NewSettingsFromYAML("Textfile", wtf.Config)
-		widget = textfile.NewWidget(app, pages, settings)
+		widget = textfile.NewWidget(app, refreshChan, pages, settings)
 	case "todo":
 		settings := todo.NewSettingsFromYAML("Todo", wtf.Config)
-		widget = todo.NewWidget(app, pages, settings)
+		widget = todo.NewWidget(app, refreshChan, pages, settings)
 	case "todoist":
 		settings := todoist.NewSettingsFromYAML("Todoist", wtf.Config)
-		widget = todoist.NewWidget(app, pages, settings)
+		widget = todoist.NewWidget(app, refreshChan, pages, settings)
 	case "travisci":
 		settings := travisci.NewSettingsFromYAML("TravisCI", wtf.Config)
-		widget = travisci.NewWidget(app, pages, settings)
+		widget = travisci.NewWidget(app, refreshChan, pages, settings)
 	case "trello":
 		settings := trello.NewSettingsFromYAML("Trello", wtf.Config)
-		widget = trello.NewWidget(app, settings)
+		widget = trello.NewWidget(refreshChan, settings)
 	case "twitter":
 		settings := twitter.NewSettingsFromYAML("Twitter", wtf.Config)
-		widget = twitter.NewWidget(app, pages, settings)
+		widget = twitter.NewWidget(app, refreshChan, pages, settings)
 	case "victorops":
 		settings := victorops.NewSettingsFromYAML("VictorOps - OnCall", wtf.Config)
-		widget = victorops.NewWidget(app, settings)
+		widget = victorops.NewWidget(refreshChan, settings)
 	case "weather":
 		settings := weather.NewSettingsFromYAML("Weather", wtf.Config)
-		widget = weather.NewWidget(app, pages, settings)
+		widget = weather.NewWidget(app, refreshChan, pages, settings)
 	case "zendesk":
 		settings := zendesk.NewSettingsFromYAML("Zendesk", wtf.Config)
-		widget = zendesk.NewWidget(app, settings)
+		widget = zendesk.NewWidget(refreshChan, settings)
 	default:
 		settings := unknown.NewSettingsFromYAML(widgetName, wtf.Config)
-		widget = unknown.NewWidget(app, widgetName, settings)
+		widget = unknown.NewWidget(refreshChan, widgetName, settings)
 	}
 
 	return widget
 }
 
-func makeWidgets(app *tview.Application, pages *tview.Pages) []wtf.Wtfable {
+func makeWidgets(app *tview.Application, refreshChan chan<- string, pages *tview.Pages) []wtf.Wtfable {
 	widgets := []wtf.Wtfable{}
 
 	mods, _ := Config.Map("wtf.mods")
 
 	for mod := range mods {
 		if enabled := Config.UBool("wtf.mods."+mod+".enabled", false); enabled {
-			widget := makeWidget(app, pages, mod)
+			widget := makeWidget(app, refreshChan, pages, mod)
 			widgets = append(widgets, widget)
 		}
 	}
@@ -362,10 +362,12 @@ func main() {
 
 	setTerm()
 
+	refreshChan := make(chan string)
+
 	app := tview.NewApplication()
 	pages := tview.NewPages()
 
-	widgets := makeWidgets(app, pages)
+	widgets := makeWidgets(app, refreshChan, pages)
 	wtf.ValidateWidgets(widgets)
 
 	initializeFocusTracker(app, widgets)
@@ -373,9 +375,21 @@ func main() {
 	display := wtf.NewDisplay(widgets)
 	pages.AddPage("grid", display.Grid, true, true)
 
+	for _, widget := range widgets {
+		go wtf.Schedule(widget)
+	}
+
 	app.SetInputCapture(keyboardIntercept)
 
-	go watchForConfigChanges(app, flags.Config, display.Grid, pages)
+	go watchForConfigChanges(app, refreshChan, flags.Config, display.Grid, pages)
+
+	go func() {
+		select {
+		case <-refreshChan:
+			app.Draw()
+		default:
+		}
+	}()
 
 	if err := app.SetRoot(pages, true).Run(); err != nil {
 		fmt.Printf("Error: %v\n", err)

@@ -33,11 +33,11 @@ type Widget struct {
 	sources  []string
 }
 
-func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
+func NewWidget(app *tview.Application, refreshChan chan<- string, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
 		HelpfulWidget:     wtf.NewHelpfulWidget(app, pages, HelpText),
 		MultiSourceWidget: wtf.NewMultiSourceWidget(settings.common.ConfigKey, "screenName", "screenNames"),
-		TextWidget:        wtf.NewTextWidget(app, settings.common, true),
+		TextWidget:        wtf.NewTextWidget(refreshChan, settings.common, true),
 
 		idx:      0,
 		settings: settings,

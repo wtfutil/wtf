@@ -49,7 +49,6 @@ func (display *Display) build(widgets []Wtfable) *tview.Grid {
 
 	for _, widget := range widgets {
 		display.add(widget)
-		go Schedule(widget)
 	}
 
 	return display.Grid

@@ -8,7 +8,6 @@ import (
 	"strconv"
 	"text/template"
 
-	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/wtf"
 )
 
@@ -36,9 +35,9 @@ type ipinfo struct {
 }
 
 // NewWidget constructor
-func NewWidget(app *tview.Application, settings *Settings) *Widget {
+func NewWidget(refreshChan chan<- string, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(app, settings.common, false),
+		TextWidget: wtf.NewTextWidget(refreshChan, settings.common, false),
 
 		settings: settings,
 	}

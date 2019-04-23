@@ -46,10 +46,10 @@ type Widget struct {
 	pages    *tview.Pages
 }
 
-func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
+func NewWidget(app *tview.Application, refreshChan chan<- string, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
 		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
-		TextWidget:    wtf.NewTextWidget(app, settings.common, true),
+		TextWidget:    wtf.NewTextWidget(refreshChan, settings.common, true),
 
 		app:      app,
 		settings: settings,

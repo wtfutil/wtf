@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/modules/cryptoexchanges/cryptolive/price"
 	"github.com/wtfutil/wtf/modules/cryptoexchanges/cryptolive/toplist"
 	"github.com/wtfutil/wtf/wtf"
@@ -20,9 +19,9 @@ type Widget struct {
 }
 
 // NewWidget Make new instance of widget
-func NewWidget(app *tview.Application, settings *Settings) *Widget {
+func NewWidget(refreshChan chan<- string, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(app, settings.common, false),
+		TextWidget: wtf.NewTextWidget(refreshChan, settings.common, false),
 
 		priceWidget:   price.NewWidget(settings.priceSettings),
 		toplistWidget: toplist.NewWidget(settings.toplistSettings),

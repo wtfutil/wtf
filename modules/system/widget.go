@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/wtf"
 )
 
@@ -17,9 +16,9 @@ type Widget struct {
 	systemInfo *SystemInfo
 }
 
-func NewWidget(app *tview.Application, date, version string, settings *Settings) *Widget {
+func NewWidget(refreshChan chan<- string, date, version string, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(app, settings.common, false),
+		TextWidget: wtf.NewTextWidget(refreshChan, settings.common, false),
 
 		Date:     date,
 		settings: settings,

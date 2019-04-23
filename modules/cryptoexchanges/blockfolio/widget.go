@@ -7,7 +7,6 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/wtf"
 )
 
@@ -18,9 +17,9 @@ type Widget struct {
 	settings     *Settings
 }
 
-func NewWidget(app *tview.Application, settings *Settings) *Widget {
+func NewWidget(refreshChan chan<- string, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(app, settings.common, false),
+		TextWidget: wtf.NewTextWidget(refreshChan, settings.common, false),
 
 		device_token: settings.deviceToken,
 		settings:     settings,

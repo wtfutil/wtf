@@ -26,11 +26,11 @@ type Widget struct {
 	spotigopher.SpotifyClient
 }
 
-func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
+func NewWidget(app *tview.Application, refreshChan chan<- string, pages *tview.Pages, settings *Settings) *Widget {
 	spotifyClient := spotigopher.NewClient()
 	widget := Widget{
 		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
-		TextWidget:    wtf.NewTextWidget(app, settings.common, true),
+		TextWidget:    wtf.NewTextWidget(refreshChan, settings.common, true),
 
 		Info:          spotigopher.Info{},
 		SpotifyClient: spotifyClient,

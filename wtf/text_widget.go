@@ -24,7 +24,7 @@ type TextWidget struct {
 	Position
 }
 
-func NewTextWidget(app *tview.Application, commonSettings *cfg.Common, focusable bool) TextWidget {
+func NewTextWidget(refreshChan chan<- string, commonSettings *cfg.Common, focusable bool) TextWidget {
 	widget := TextWidget{
 		CommonSettings: commonSettings,
 
@@ -46,7 +46,7 @@ func NewTextWidget(app *tview.Application, commonSettings *cfg.Common, focusable
 	widget.View = widget.buildView()
 
 	widget.View.SetChangedFunc(func() {
-		app.Draw()
+		refreshChan <- widget.key
 	})
 
 	return widget

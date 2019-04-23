@@ -4,7 +4,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/wtf"
 )
 
@@ -17,9 +16,9 @@ type Widget struct {
 	settings   *Settings
 }
 
-func NewWidget(app *tview.Application, settings *Settings) *Widget {
+func NewWidget(refreshChan chan<- string, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(app, settings.common, false),
+		TextWidget: wtf.NewTextWidget(refreshChan, settings.common, false),
 
 		settings:   settings,
 		dateFormat: settings.dateFormat,
@@ -34,7 +33,8 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	widget.display(widget.clockColl.Sorted(widget.settings.sort), widget.dateFormat, widget.timeFormat)
+	sortedClocks := widget.clockColl.Sorted(widget.settings.sort)
+	widget.display(sortedClocks, widget.dateFormat, widget.timeFormat)
 }
 
 /* -------------------- Unexported Functions -------------------- */
