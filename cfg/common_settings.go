@@ -55,9 +55,10 @@ type Common struct {
 	Sigils
 
 	Enabled         bool
-	FocusChar       int
 	RefreshInterval int
 	Title           string
+
+	focusChar int
 }
 
 func NewCommonSettingsFromYAML(name, configKey string, ymlConfig *config.Config) *Common {
@@ -93,9 +94,10 @@ func NewCommonSettingsFromYAML(name, configKey string, ymlConfig *config.Config)
 		},
 
 		Enabled:         ymlConfig.UBool(modulePath+".enabled", false),
-		FocusChar:       ymlConfig.UInt(modulePath+".focusChar", -1),
 		RefreshInterval: ymlConfig.UInt(modulePath+".refreshInterval", 300),
 		Title:           ymlConfig.UString(modulePath+".title", name),
+
+		focusChar: ymlConfig.UInt(modulePath+".focusChar", -1),
 	}
 
 	common.Colors.Rows.Even = ymlConfig.UString(modulePath+".colors.rows.even", ymlConfig.UString(colorsPath+".rows.even", "white"))
@@ -116,6 +118,15 @@ func (common *Common) DefaultFocussedRowColor() string {
 
 func (common *Common) DefaultRowColor() string {
 	return fmt.Sprintf("%s:%s", common.Colors.Foreground, common.Colors.Background)
+}
+
+func (common *Common) FocusChar() string {
+	focusChar := string('0' + common.focusChar)
+	if common.focusChar == -1 {
+		focusChar = ""
+	}
+
+	return focusChar
 }
 
 func (common *Common) RowColor(idx int) string {

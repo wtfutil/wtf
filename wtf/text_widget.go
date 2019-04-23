@@ -25,19 +25,12 @@ type TextWidget struct {
 }
 
 func NewTextWidget(app *tview.Application, commonSettings *cfg.Common, focusable bool) TextWidget {
-	configKey := commonSettings.ConfigKey
-
-	focusChar := string('0' + commonSettings.FocusChar)
-	if commonSettings.FocusChar == -1 {
-		focusChar = ""
-	}
-
 	widget := TextWidget{
 		CommonSettings: commonSettings,
 
 		enabled:         commonSettings.Enabled,
 		focusable:       focusable,
-		focusChar:       focusChar,
+		focusChar:       commonSettings.FocusChar(),
 		key:             commonSettings.ConfigKey,
 		name:            commonSettings.Name,
 		refreshInterval: commonSettings.RefreshInterval,
@@ -50,7 +43,11 @@ func NewTextWidget(app *tview.Application, commonSettings *cfg.Common, focusable
 		commonSettings.Position.Height,
 	)
 
-	widget.addView(app, configKey)
+	widget.View = widget.buildView()
+
+	widget.View.SetChangedFunc(func() {
+		app.Draw()
+	})
 
 	return widget
 }
@@ -125,7 +122,7 @@ func (widget *TextWidget) TextView() *tview.TextView {
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (widget *TextWidget) addView(app *tview.Application, configKey string) {
+func (widget *TextWidget) buildView() *tview.TextView {
 	view := tview.NewTextView()
 
 	view.SetBackgroundColor(ColorFor(widget.CommonSettings.Colors.Background))
@@ -138,9 +135,5 @@ func (widget *TextWidget) addView(app *tview.Application, configKey string) {
 	view.SetTitle(widget.ContextualTitle(widget.CommonSettings.Title))
 	view.SetWrap(false)
 
-	view.SetChangedFunc(func() {
-		app.Draw()
-	})
-
-	widget.View = view
+	return view
 }
