@@ -19,7 +19,6 @@ import (
 	"github.com/wtfutil/wtf/cfg"
 	"github.com/wtfutil/wtf/flags"
 	"github.com/wtfutil/wtf/maker"
-
 	"github.com/wtfutil/wtf/wtf"
 )
 
@@ -91,7 +90,7 @@ func watchForConfigChanges(app *tview.Application, configFilePath string, grid *
 		for {
 			select {
 			case <-watch.Event:
-				// Disable all widgets to stop scheduler goroutines and rmeove widgets from memory.
+				// Disable all widgets to stop scheduler goroutines and remove widgets from memory
 				disableAllWidgets(runningWidgets)
 
 				loadConfigFile(absPath)
