@@ -20,43 +20,19 @@ type FocusTracker struct {
 	Widgets []Wtfable
 }
 
-/* -------------------- Exported Functions -------------------- */
-
-// AssignHotKeys assigns an alphabetic keyboard character to each focusable
-// widget so that the widget can be brought into focus by pressing that keyboard key
-func (tracker *FocusTracker) AssignHotKeys() {
-	if !tracker.useNavShortcuts() {
-		return
+func NewFocusTracker(app *tview.Application, widgets []Wtfable) FocusTracker {
+	focusTracker := FocusTracker{
+		App:     app,
+		Idx:     -1,
+		Widgets: widgets,
 	}
 
-	usedKeys := make(map[string]bool)
-	focusables := tracker.focusables()
-	i := 1
+	focusTracker.assignHotKeys()
 
-	for _, focusable := range focusables {
-		if focusable.FocusChar() != "" {
-			usedKeys[focusable.FocusChar()] = true
-		}
-	}
-	for _, focusable := range focusables {
-		if focusable.FocusChar() != "" {
-			continue
-		}
-		if _, foundKey := usedKeys[string('0'+i)]; foundKey {
-			for ; foundKey; _, foundKey = usedKeys[string('0'+i)] {
-				i++
-			}
-		}
-
-		// Don't have nav characters > "9"
-		if i >= 10 {
-			break
-		}
-
-		focusable.SetFocusChar(string('0' + i))
-		i++
-	}
+	return focusTracker
 }
+
+/* -------------------- Exported Functions -------------------- */
 
 func (tracker *FocusTracker) FocusOn(char string) bool {
 	if !tracker.useNavShortcuts() {
@@ -121,6 +97,42 @@ func (tracker *FocusTracker) Refocus() {
 }
 
 /* -------------------- Unexported Functions -------------------- */
+
+// AssignHotKeys assigns an alphabetic keyboard character to each focusable
+// widget so that the widget can be brought into focus by pressing that keyboard key
+func (tracker *FocusTracker) assignHotKeys() {
+	if !tracker.useNavShortcuts() {
+		return
+	}
+
+	usedKeys := make(map[string]bool)
+	focusables := tracker.focusables()
+	i := 1
+
+	for _, focusable := range focusables {
+		if focusable.FocusChar() != "" {
+			usedKeys[focusable.FocusChar()] = true
+		}
+	}
+	for _, focusable := range focusables {
+		if focusable.FocusChar() != "" {
+			continue
+		}
+		if _, foundKey := usedKeys[string('0'+i)]; foundKey {
+			for ; foundKey; _, foundKey = usedKeys[string('0'+i)] {
+				i++
+			}
+		}
+
+		// Don't have nav characters > "9"
+		if i >= 10 {
+			break
+		}
+
+		focusable.SetFocusChar(string('0' + i))
+		i++
+	}
+}
 
 func (tracker *FocusTracker) blur(idx int) {
 	widget := tracker.focusableAt(idx)

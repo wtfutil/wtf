@@ -3,8 +3,9 @@ package wtf
 import (
 	"bytes"
 	"fmt"
-	"github.com/rivo/tview"
 	"strings"
+
+	"github.com/rivo/tview"
 )
 
 //BarGraph lets make graphs
