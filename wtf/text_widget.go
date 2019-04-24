@@ -45,10 +45,6 @@ func NewTextWidget(app *tview.Application, commonSettings *cfg.Common, focusable
 
 	widget.View = widget.addView()
 
-	widget.View.SetChangedFunc(func() {
-		app.Draw()
-	})
-
 	return widget
 }
 

@@ -265,7 +265,6 @@ func (widget *Widget) modalFocus(form *tview.Form) {
 	frame := widget.modalFrame(form)
 	widget.pages.AddPage("modal", frame, false, true)
 	widget.app.SetFocus(frame)
-	widget.app.Draw()
 }
 
 func (widget *Widget) modalForm(lbl, text string) *tview.Form {

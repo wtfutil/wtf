@@ -342,6 +342,30 @@ func makeWidgets(app *tview.Application, pages *tview.Pages) []wtf.Wtfable {
 	return widgets
 }
 
+func enableAppRefresh(app *tview.Application) {
+	defaultInterval := 100
+
+	refreshInterval := Config.UInt("wtf.refreshInterval", defaultInterval)
+	if refreshInterval < defaultInterval {
+		refreshInterval = defaultInterval
+	}
+
+	interval := time.Duration(refreshInterval) * time.Millisecond
+
+	tick := time.NewTicker(interval)
+	quit := make(chan struct{})
+
+	for {
+		select {
+		case <-tick.C:
+			app.Draw()
+		case <-quit:
+			tick.Stop()
+			return
+		}
+	}
+}
+
 /* -------------------- Main -------------------- */
 
 func main() {
@@ -376,6 +400,7 @@ func main() {
 	app.SetInputCapture(keyboardIntercept)
 
 	go watchForConfigChanges(app, flags.Config, display.Grid, pages)
+	go enableAppRefresh(app)
 
 	if err := app.SetRoot(pages, true).Run(); err != nil {
 		fmt.Printf("Error: %v\n", err)

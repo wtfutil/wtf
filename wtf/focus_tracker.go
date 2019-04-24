@@ -150,9 +150,7 @@ func (tracker *FocusTracker) focus(idx int) {
 
 	view := widget.TextView()
 	view.SetBorderColor(ColorFor(Config.UString("wtf.colors.border.focused", "gray")))
-
 	tracker.App.SetFocus(view)
-	tracker.App.Draw()
 }
 
 func (tracker *FocusTracker) focusables() []Wtfable {
