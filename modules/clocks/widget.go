@@ -11,6 +11,7 @@ import (
 type Widget struct {
 	wtf.TextWidget
 
+	app        *tview.Application
 	clockColl  ClockCollection
 	dateFormat string
 	timeFormat string
@@ -21,6 +22,7 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(app, settings.common, false),
 
+		app:        app,
 		settings:   settings,
 		dateFormat: settings.dateFormat,
 		timeFormat: settings.timeFormat,
@@ -34,7 +36,10 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	widget.display(widget.clockColl.Sorted(widget.settings.sort), widget.dateFormat, widget.timeFormat)
+	widget.app.QueueUpdateDraw(func() {
+		sortedClocks := widget.clockColl.Sorted(widget.settings.sort)
+		widget.display(sortedClocks, widget.dateFormat, widget.timeFormat)
+	})
 }
 
 /* -------------------- Unexported Functions -------------------- */

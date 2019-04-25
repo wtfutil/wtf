@@ -9,7 +9,9 @@ type Widget struct {
 	wtf.TextWidget
 
 	CurrentIcon int
-	settings    *Settings
+
+	app      *tview.Application
+	settings *Settings
 }
 
 func NewWidget(app *tview.Application, settings *Settings) *Widget {
@@ -17,7 +19,9 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 		TextWidget: wtf.NewTextWidget(app, settings.common, false),
 
 		CurrentIcon: 0,
-		settings:    settings,
+
+		app:      app,
+		settings: settings,
 	}
 
 	return &widget
@@ -26,7 +30,9 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	widget.View.SetText(widget.animation())
+	widget.app.QueueUpdateDraw(func() {
+		widget.View.SetText(widget.animation())
+	})
 }
 
 /* -------------------- Unexported Functions -------------------- */

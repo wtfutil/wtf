@@ -72,9 +72,12 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 
 func (widget *Widget) Refresh() {
 	widget.load()
-	widget.display()
 
-	widget.View.SetTitle(widget.ContextualTitle(widget.Name()))
+	widget.app.QueueUpdateDraw(func() {
+		widget.display()
+		widget.View.SetTitle(widget.ContextualTitle(widget.Name()))
+	})
+
 }
 
 func (widget *Widget) SetList(newList checklist.Checklist) {
@@ -265,6 +268,7 @@ func (widget *Widget) modalFocus(form *tview.Form) {
 	frame := widget.modalFrame(form)
 	widget.pages.AddPage("modal", frame, false, true)
 	widget.app.SetFocus(frame)
+	widget.app.Draw()
 }
 
 func (widget *Widget) modalForm(lbl, text string) *tview.Form {

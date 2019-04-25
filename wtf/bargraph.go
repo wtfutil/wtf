@@ -48,7 +48,10 @@ func NewBarGraph(app *tview.Application, name string, configKey string, focusabl
 		Config.UInt(fmt.Sprintf("wtf.mods.%s.position.height", configKey)),
 	)
 
-	widget.addView(app, configKey)
+	widget.View = widget.addView(configKey)
+	widget.View.SetChangedFunc(func() {
+		app.Draw()
+	})
 
 	return widget
 }
@@ -109,7 +112,7 @@ func (widget *BarGraph) TextView() *tview.TextView {
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (widget *BarGraph) addView(app *tview.Application, configKey string) {
+func (widget *BarGraph) addView(configKey string) *tview.TextView {
 	view := tview.NewTextView()
 
 	view.SetBackgroundColor(ColorFor(Config.UString("wtf.colors.background", "black")))
@@ -125,15 +128,13 @@ func (widget *BarGraph) addView(app *tview.Application, configKey string) {
 	))
 	view.SetWrap(false)
 
-	widget.View = view
+	return view
 }
 
 // BuildBars will build a string of * to represent your data of [time][value]
 // time should be passed as a int64
 func (widget *BarGraph) BuildBars(data []Bar) {
-
 	widget.View.SetText(BuildStars(data, widget.maxStars, widget.starChar))
-
 }
 
 //BuildStars build the string to display
