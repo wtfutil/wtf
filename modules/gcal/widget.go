@@ -44,6 +44,7 @@ func (widget *Widget) Refresh() {
 		widget.fetchAndDisplayEvents()
 		return
 	}
+
 	widget.app.Suspend(widget.authenticate)
 	widget.Refresh()
 }
@@ -57,7 +58,10 @@ func (widget *Widget) fetchAndDisplayEvents() {
 	} else {
 		widget.calEvents = calEvents
 	}
-	widget.display()
+
+	widget.app.QueueUpdateDraw(func() {
+		widget.display()
+	})
 }
 
 func updateLoop(widget *Widget) {

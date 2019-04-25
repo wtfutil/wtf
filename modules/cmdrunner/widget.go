@@ -12,6 +12,7 @@ import (
 type Widget struct {
 	wtf.TextWidget
 
+	app      *tview.Application
 	args     []string
 	cmd      string
 	result   string
@@ -22,6 +23,7 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(app, settings.common, false),
 
+		app:      app,
 		args:     settings.args,
 		cmd:      settings.cmd,
 		settings: settings,
@@ -36,9 +38,11 @@ func (widget *Widget) Refresh() {
 	widget.execute()
 
 	widget.CommonSettings.Title = widget.String()
-	widget.View.SetTitle(tview.TranslateANSI(widget.CommonSettings.Title))
 
-	widget.View.SetText(widget.result)
+	widget.app.QueueUpdateDraw(func() {
+		widget.View.SetTitle(tview.TranslateANSI(widget.CommonSettings.Title))
+		widget.View.SetText(widget.result)
+	})
 }
 
 func (widget *Widget) String() string {

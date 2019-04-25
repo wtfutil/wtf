@@ -24,8 +24,10 @@ type Widget struct {
 	wtf.TextWidget
 
 	// APIKey   string
-	Data     []*owm.CurrentWeatherData
-	Idx      int
+	Data []*owm.CurrentWeatherData
+	Idx  int
+
+	app      *tview.Application
 	settings *Settings
 }
 
@@ -35,12 +37,11 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
 		TextWidget:    wtf.NewTextWidget(app, settings.common, true),
 
-		Idx:      0,
+		Idx: 0,
+
+		app:      app,
 		settings: settings,
 	}
-
-	// widget.loadAPICredentials()
-	// widget.APIKey
 
 	widget.HelpfulWidget.SetView(widget.View)
 	widget.View.SetInputCapture(widget.keyboardIntercept)
@@ -73,7 +74,9 @@ func (widget *Widget) Refresh() {
 		widget.Data = widget.Fetch(wtf.ToInts(widget.settings.cityIDs))
 	}
 
-	widget.display()
+	widget.app.QueueUpdateDraw(func() {
+		widget.display()
+	})
 }
 
 // Next displays data for the next city data in the list. If the current city is the last

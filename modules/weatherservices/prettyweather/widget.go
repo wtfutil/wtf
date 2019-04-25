@@ -12,6 +12,7 @@ import (
 type Widget struct {
 	wtf.TextWidget
 
+	app      *tview.Application
 	result   string
 	settings *Settings
 }
@@ -20,6 +21,7 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(app, settings.common, false),
 
+		app:      app,
 		settings: settings,
 	}
 
@@ -29,7 +31,9 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 func (widget *Widget) Refresh() {
 	widget.prettyWeather()
 
-	widget.View.SetText(widget.result)
+	widget.app.QueueUpdateDraw(func() {
+		widget.View.SetText(widget.result)
+	})
 }
 
 //this method reads the config and calls wttr.in for pretty weather

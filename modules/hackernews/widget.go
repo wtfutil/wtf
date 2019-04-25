@@ -30,6 +30,7 @@ type Widget struct {
 	wtf.HelpfulWidget
 	wtf.TextWidget
 
+	app      *tview.Application
 	stories  []Story
 	selected int
 	settings *Settings
@@ -40,6 +41,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
 		TextWidget:    wtf.NewTextWidget(app, settings.common, true),
 
+		app:      app,
 		settings: settings,
 	}
 
@@ -83,7 +85,9 @@ func (widget *Widget) Refresh() {
 		widget.stories = stories
 	}
 
-	widget.display()
+	widget.app.QueueUpdateDraw(func() {
+		widget.display()
+	})
 }
 
 /* -------------------- Unexported Functions -------------------- */

@@ -35,6 +35,7 @@ type Widget struct {
 	wtf.MultiSourceWidget
 	wtf.TextWidget
 
+	app      *tview.Application
 	settings *Settings
 }
 
@@ -44,6 +45,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 		MultiSourceWidget: wtf.NewMultiSourceWidget(settings.common.ConfigKey, "filePath", "filePaths"),
 		TextWidget:        wtf.NewTextWidget(app, settings.common, true),
 
+		app:      app,
 		settings: settings,
 	}
 
@@ -67,7 +69,9 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 // Refresh is only called once on start-up. Its job is to display the
 // text files that first time. After that, the watcher takes over
 func (widget *Widget) Refresh() {
-	widget.display()
+	widget.app.QueueUpdateDraw(func() {
+		widget.display()
+	})
 }
 
 /* -------------------- Unexported Functions -------------------- */

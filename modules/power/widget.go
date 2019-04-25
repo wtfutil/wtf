@@ -10,7 +10,9 @@ import (
 type Widget struct {
 	wtf.TextWidget
 
-	Battery  *Battery
+	Battery *Battery
+
+	app      *tview.Application
 	settings *Settings
 }
 
@@ -18,7 +20,9 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(app, settings.common, false),
 
-		Battery:  NewBattery(),
+		Battery: NewBattery(),
+
+		app:      app,
 		settings: settings,
 	}
 
@@ -35,5 +39,7 @@ func (widget *Widget) Refresh() {
 	content = content + "\n"
 	content = content + widget.Battery.String()
 
-	widget.View.SetText(content)
+	widget.app.QueueUpdateDraw(func() {
+		widget.View.SetText(content)
+	})
 }

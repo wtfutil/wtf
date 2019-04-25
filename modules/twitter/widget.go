@@ -27,6 +27,7 @@ type Widget struct {
 	wtf.MultiSourceWidget
 	wtf.TextWidget
 
+	app      *tview.Application
 	client   *Client
 	idx      int
 	settings *Settings
@@ -39,6 +40,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 		MultiSourceWidget: wtf.NewMultiSourceWidget(settings.common.ConfigKey, "screenName", "screenNames"),
 		TextWidget:        wtf.NewTextWidget(app, settings.common, true),
 
+		app:      app,
 		idx:      0,
 		settings: settings,
 	}
@@ -62,7 +64,9 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 
 // Refresh is called on the interval and refreshes the data
 func (widget *Widget) Refresh() {
-	widget.display()
+	widget.app.QueueUpdateDraw(func() {
+		widget.display()
+	})
 }
 
 /* -------------------- Unexported Functions -------------------- */

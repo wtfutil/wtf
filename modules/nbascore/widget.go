@@ -23,6 +23,7 @@ type Widget struct {
 	wtf.HelpfulWidget
 	wtf.TextWidget
 
+	app      *tview.Application
 	language string
 	result   string
 	settings *Settings
@@ -35,6 +36,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
 		TextWidget:    wtf.NewTextWidget(app, settings.common, true),
 
+		app:      app,
 		settings: settings,
 	}
 
@@ -46,9 +48,10 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 }
 
 func (widget *Widget) Refresh() {
-	widget.nbascore()
-
-	widget.View.SetTitle(widget.ContextualTitle(widget.Name()))
+	widget.app.QueueUpdateDraw(func() {
+		widget.nbascore()
+		widget.View.SetTitle(widget.ContextualTitle(widget.Name()))
+	})
 }
 
 func (widget *Widget) nbascore() {

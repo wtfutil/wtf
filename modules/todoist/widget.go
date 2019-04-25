@@ -29,6 +29,7 @@ type Widget struct {
 	wtf.HelpfulWidget
 	wtf.TextWidget
 
+	app      *tview.Application
 	idx      int
 	projects []*Project
 	settings *Settings
@@ -39,6 +40,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
 		TextWidget:    wtf.NewTextWidget(app, settings.common, true),
 
+		app:      app,
 		settings: settings,
 	}
 
@@ -88,7 +90,9 @@ func (w *Widget) Refresh() {
 		return
 	}
 
-	w.display()
+	w.app.QueueUpdateDraw(func() {
+		w.display()
+	})
 }
 
 /* -------------------- Keyboard Movement -------------------- */

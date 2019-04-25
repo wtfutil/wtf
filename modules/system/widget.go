@@ -11,8 +11,10 @@ import (
 type Widget struct {
 	wtf.TextWidget
 
-	Date       string
-	Version    string
+	Date    string
+	Version string
+
+	app        *tview.App
 	settings   *Settings
 	systemInfo *SystemInfo
 }
@@ -21,7 +23,9 @@ func NewWidget(app *tview.Application, date, version string, settings *Settings)
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(app, settings.common, false),
 
-		Date:     date,
+		Date: date,
+
+		app:      app,
 		settings: settings,
 		Version:  version,
 	}
@@ -32,19 +36,21 @@ func NewWidget(app *tview.Application, date, version string, settings *Settings)
 }
 
 func (widget *Widget) Refresh() {
-	widget.View.SetText(
-		fmt.Sprintf(
-			"%8s: %s\n%8s: %s\n\n%8s: %s\n%8s: %s",
-			"Built",
-			widget.prettyDate(),
-			"Vers",
-			widget.Version,
-			"OS",
-			widget.systemInfo.ProductVersion,
-			"Build",
-			widget.systemInfo.BuildVersion,
-		),
-	)
+	widget.app.QueueUpdateDraw(func() {
+		widget.View.SetText(
+			fmt.Sprintf(
+				"%8s: %s\n%8s: %s\n\n%8s: %s\n%8s: %s",
+				"Built",
+				widget.prettyDate(),
+				"Vers",
+				widget.Version,
+				"OS",
+				widget.systemInfo.ProductVersion,
+				"Build",
+				widget.systemInfo.BuildVersion,
+			),
+		)
+	})
 }
 
 func (widget *Widget) prettyDate() string {

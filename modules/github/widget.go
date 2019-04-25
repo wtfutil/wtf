@@ -26,7 +26,9 @@ type Widget struct {
 
 	GithubRepos []*GithubRepo
 	Idx         int
-	settings    *Settings
+
+	app      *tview.Application
+	settings *Settings
 }
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
@@ -34,7 +36,9 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
 		TextWidget:    wtf.NewTextWidget(app, settings.common, true),
 
-		Idx:      0,
+		Idx: 0,
+
+		app:      app,
 		settings: settings,
 	}
 
@@ -53,7 +57,9 @@ func (widget *Widget) Refresh() {
 		repo.Refresh()
 	}
 
-	widget.display()
+	widget.app.QueueUpdateDraw(func() {
+		widget.display()
+	})
 }
 
 func (widget *Widget) Next() {

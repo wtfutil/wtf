@@ -92,7 +92,10 @@ func (widget *Widget) Refresh() {
 	sort.Slice(widget.GitRepos, func(i, j int) bool {
 		return widget.GitRepos[i].Path < widget.GitRepos[j].Path
 	})
-	widget.display()
+
+	widget.app.QueueUpdateDraw(func() {
+		widget.display()
+	})
 }
 
 /* -------------------- Unexported Functions -------------------- */
