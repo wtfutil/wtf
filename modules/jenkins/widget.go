@@ -28,6 +28,7 @@ type Widget struct {
 	wtf.HelpfulWidget
 	wtf.TextWidget
 
+	app      *tview.Application
 	selected int
 	settings *Settings
 	view     *View
@@ -38,6 +39,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
 		TextWidget:    wtf.NewTextWidget(app, settings.common, true),
 
+		app:      app,
 		settings: settings,
 	}
 
@@ -67,11 +69,16 @@ func (widget *Widget) Refresh() {
 
 	if err != nil {
 		widget.View.SetWrap(true)
-		widget.View.SetTitle(widget.ContextualTitle(widget.Name()))
-		widget.View.SetText(err.Error())
+
+		widget.app.QueueUpdateDraw(func() {
+			widget.View.SetTitle(widget.ContextualTitle(widget.Name()))
+			widget.View.SetText(err.Error())
+		})
 	}
 
-	widget.display()
+	widget.app.QueueUpdateDraw(func() {
+		widget.display()
+	})
 }
 
 /* -------------------- Unexported Functions -------------------- */

@@ -12,6 +12,7 @@ import (
 type Widget struct {
 	wtf.TextWidget
 
+	app      *tview.Application
 	result   *TicketArray
 	selected int
 	settings *Settings
@@ -21,6 +22,7 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(app, settings.common, true),
 
+		app:      app,
 		settings: settings,
 	}
 
@@ -39,7 +41,9 @@ func (widget *Widget) Refresh() {
 		widget.result = ticketArray
 	}
 
-	widget.display()
+	widget.app.QueueUpdateDraw(func() {
+		widget.display()
+	})
 }
 
 /* -------------------- Unexported Functions -------------------- */

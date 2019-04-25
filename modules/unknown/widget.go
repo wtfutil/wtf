@@ -10,6 +10,7 @@ import (
 type Widget struct {
 	wtf.TextWidget
 
+	app      *tview.Application
 	settings *Settings
 }
 
@@ -17,6 +18,7 @@ func NewWidget(app *tview.Application, name string, settings *Settings) *Widget 
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(app, settings.common, false),
 
+		app:      app,
 		settings: settings,
 	}
 
@@ -26,9 +28,11 @@ func NewWidget(app *tview.Application, name string, settings *Settings) *Widget 
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("%s", widget.Name())))
-	widget.View.Clear()
+	widget.app.QueueUpdateDraw(func() {
+		widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("%s", widget.Name())))
+		widget.View.Clear()
 
-	content := fmt.Sprintf("Widget %s does not exist", widget.Name())
-	widget.View.SetText(content)
+		content := fmt.Sprintf("Widget %s does not exist", widget.Name())
+		widget.View.SetText(content)
+	})
 }

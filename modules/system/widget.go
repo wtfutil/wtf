@@ -14,7 +14,7 @@ type Widget struct {
 	Date    string
 	Version string
 
-	app        *tview.App
+	app        *tview.Application
 	settings   *Settings
 	systemInfo *SystemInfo
 }

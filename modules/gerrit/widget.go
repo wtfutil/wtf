@@ -38,8 +38,10 @@ type Widget struct {
 
 	GerritProjects []*GerritProject
 	Idx            int
-	selected       int
-	settings       *Settings
+
+	app      *tview.Application
+	selected int
+	settings *Settings
 }
 
 var (
@@ -51,7 +53,9 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
 		TextWidget:    wtf.NewTextWidget(app, settings.common, true),
 
-		Idx:      0,
+		Idx: 0,
+
+		app:      app,
 		settings: settings,
 	}
 
@@ -91,8 +95,11 @@ func (widget *Widget) Refresh() {
 	gerrit, err := glb.NewClient(gerritUrl, httpClient)
 	if err != nil {
 		widget.View.SetWrap(true)
-		widget.View.SetTitle(widget.Name())
-		widget.View.SetText(err.Error())
+
+		widget.app.QueueUpdateDraw(func() {
+			widget.View.SetTitle(widget.Name())
+			widget.View.SetText(err.Error())
+		})
 		return
 	}
 	widget.gerrit = gerrit
@@ -102,7 +109,10 @@ func (widget *Widget) Refresh() {
 		project.Refresh(widget.settings.username)
 	}
 
-	widget.display()
+	widget.app.QueueUpdateDraw(func() {
+		widget.View.SetTitle(widget.Name())
+		widget.display()
+	})
 }
 
 /* -------------------- Unexported Functions -------------------- */

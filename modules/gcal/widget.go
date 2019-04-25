@@ -41,7 +41,9 @@ func (widget *Widget) Disable() {
 
 func (widget *Widget) Refresh() {
 	if isAuthenticated() {
-		widget.fetchAndDisplayEvents()
+		widget.app.QueueUpdateDraw(func() {
+			widget.fetchAndDisplayEvents()
+		})
 		return
 	}
 
@@ -75,7 +77,9 @@ outer:
 	for {
 		select {
 		case <-tick.C:
-			widget.display()
+			widget.app.QueueUpdateDraw(func() {
+				widget.display()
+			})
 		case <-widget.ch:
 			break outer
 		}

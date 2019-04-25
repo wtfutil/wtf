@@ -11,6 +11,7 @@ import (
 type Widget struct {
 	wtf.TextWidget
 
+	app      *tview.Application
 	settings *Settings
 }
 
@@ -18,6 +19,7 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(app, settings.common, false),
 
+		app:      app,
 		settings: settings,
 	}
 
@@ -40,24 +42,27 @@ func (widget *Widget) Refresh() {
 		widget.settings.list,
 	)
 
+	var title string
 	var content string
+
 	if err != nil {
 		widget.View.SetWrap(true)
-		widget.View.SetTitle(widget.Name())
+		title = widget.Name()
 		content = err.Error()
 	} else {
 		widget.View.SetWrap(false)
-		widget.View.SetTitle(
-			fmt.Sprintf(
-				"[white]%s: [green]%s ",
-				widget.Name(),
-				widget.settings.board,
-			),
+		title = fmt.Sprintf(
+			"[white]%s: [green]%s ",
+			widget.Name(),
+			widget.settings.board,
 		)
 		content = widget.contentFrom(searchResult)
 	}
 
-	widget.View.SetText(content)
+	widget.app.QueueUpdateDraw(func() {
+		widget.View.SetTitle(title)
+		widget.View.SetText(content)
+	})
 }
 
 /* -------------------- Unexported Functions -------------------- */

@@ -15,10 +15,10 @@ type Widget struct {
 	app      *tview.Application
 	args     []string
 	cmd      string
-	result   string
 	settings *Settings
 }
 
+// NewWidget creates a new instance of the widget
 func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(app, settings.common, false),
@@ -34,17 +34,20 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	return &widget
 }
 
+// Refresh executes the command and updates the view with the results
 func (widget *Widget) Refresh() {
-	widget.execute()
+	result := widget.execute()
 
-	widget.CommonSettings.Title = widget.String()
+	ansiTitle := tview.TranslateANSI(widget.String())
+	ansiResult := tview.TranslateANSI(result)
 
 	widget.app.QueueUpdateDraw(func() {
-		widget.View.SetTitle(tview.TranslateANSI(widget.CommonSettings.Title))
-		widget.View.SetText(widget.result)
+		widget.View.SetTitle(ansiTitle)
+		widget.View.SetText(ansiResult)
 	})
 }
 
+// String returns the string representation of the widget
 func (widget *Widget) String() string {
 	args := strings.Join(widget.args, " ")
 
@@ -55,7 +58,9 @@ func (widget *Widget) String() string {
 	return fmt.Sprintf(" %s ", widget.cmd)
 }
 
-func (widget *Widget) execute() {
+/* -------------------- Unexported Functions -------------------- */
+
+func (widget *Widget) execute() string {
 	cmd := exec.Command(widget.cmd, widget.args...)
-	widget.result = tview.TranslateANSI(wtf.ExecuteCommand(cmd))
+	return wtf.ExecuteCommand(cmd)
 }

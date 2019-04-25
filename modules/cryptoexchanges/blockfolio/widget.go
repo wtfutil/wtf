@@ -14,6 +14,7 @@ import (
 type Widget struct {
 	wtf.TextWidget
 
+	app          *tview.Application
 	device_token string
 	settings     *Settings
 }
@@ -22,6 +23,7 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(app, settings.common, false),
 
+		app:          app,
 		device_token: settings.deviceToken,
 		settings:     settings,
 	}
@@ -32,15 +34,17 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	widget.View.SetTitle(" Blockfolio ")
-
 	positions, err := Fetch(widget.device_token)
 	if err != nil {
 		return
 	}
 
 	content := widget.contentFrom(positions)
-	widget.View.SetText(content)
+
+	widget.app.QueueUpdateDraw(func() {
+		widget.View.SetTitle(" Blockfolio ")
+		widget.View.SetText(content)
+	})
 }
 
 /* -------------------- Unexported Functions -------------------- */

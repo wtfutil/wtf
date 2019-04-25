@@ -18,6 +18,7 @@ var ok = true
 type Widget struct {
 	wtf.BarGraph
 
+	app      *tview.Application
 	settings *Settings
 }
 
@@ -26,6 +27,7 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
 		BarGraph: wtf.NewBarGraph(app, settings.common.Name, settings.common.ConfigKey, false),
 
+		app:      app,
 		settings: settings,
 	}
 
@@ -39,7 +41,6 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 
 // MakeGraph - Load the dead drop stats
 func MakeGraph(widget *Widget) {
-
 	cpuStats, err := cpu.Percent(time.Duration(0), true)
 	if err != nil {
 		return
@@ -114,8 +115,9 @@ func (widget *Widget) Refresh() {
 
 	widget.View.Clear()
 
-	display(widget)
-
+	widget.app.QueueUpdateDraw(func() {
+		display(widget)
+	})
 }
 
 /* -------------------- Unexported Functions -------------------- */

@@ -20,6 +20,7 @@ const HelpText = `
 type Widget struct {
 	wtf.TextWidget
 
+	app      *tview.Application
 	teams    []OnCallTeam
 	settings *Settings
 }
@@ -47,12 +48,17 @@ func (widget *Widget) Refresh() {
 
 	if err != nil {
 		widget.View.SetWrap(true)
-		widget.View.SetText(err.Error())
+
+		widget.app.QueueUpdateDraw(func() {
+			widget.View.SetText(err.Error())
+		})
 	} else {
 		widget.teams = teams
 	}
 
-	widget.display()
+	widget.app.QueueUpdateDraw(func() {
+		widget.display()
+	})
 }
 
 func (widget *Widget) display() {

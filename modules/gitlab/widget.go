@@ -25,8 +25,10 @@ type Widget struct {
 
 	GitlabProjects []*GitlabProject
 	Idx            int
-	gitlab         *glb.Client
-	settings       *Settings
+
+	app      *tview.Application
+	gitlab   *glb.Client
+	settings *Settings
 }
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
@@ -41,7 +43,9 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
 		TextWidget:    wtf.NewTextWidget(app, settings.common, true),
 
-		Idx:      0,
+		Idx: 0,
+
+		app:      app,
 		gitlab:   gitlab,
 		settings: settings,
 	}
@@ -61,7 +65,9 @@ func (widget *Widget) Refresh() {
 		project.Refresh()
 	}
 
-	widget.display()
+	widget.app.QueueUpdateDraw(func() {
+		widget.display()
+	})
 }
 
 func (widget *Widget) Next() {

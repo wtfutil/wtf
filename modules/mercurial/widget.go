@@ -65,7 +65,11 @@ func (widget *Widget) Checkout() {
 		repoToCheckout.checkout(text)
 		widget.pages.RemovePage("modal")
 		widget.app.SetFocus(widget.View)
-		widget.display()
+
+		widget.app.QueueUpdateDraw(func() {
+			widget.display()
+		})
+
 		widget.Refresh()
 	}
 
@@ -84,7 +88,10 @@ func (widget *Widget) Refresh() {
 	repoPaths := wtf.ToStrs(widget.settings.repositories)
 
 	widget.Data = widget.mercurialRepos(repoPaths)
-	widget.display()
+
+	widget.app.QueueUpdateDraw(func() {
+		widget.display()
+	})
 }
 
 /* -------------------- Unexported Functions -------------------- */

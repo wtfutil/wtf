@@ -20,6 +20,7 @@ const baseURL = "https://bittrex.com/api/v1.1/public/getmarketsummary"
 type Widget struct {
 	wtf.TextWidget
 
+	app      *tview.Application
 	settings *Settings
 	summaryList
 }
@@ -29,6 +30,7 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(app, settings.common, false),
 
+		app:         app,
 		settings:    settings,
 		summaryList: summaryList{},
 	}
@@ -77,7 +79,10 @@ func makeMarketCurrency(name string) *mCurrency {
 // Refresh & update after interval time
 func (widget *Widget) Refresh() {
 	widget.updateSummary()
-	widget.display()
+
+	widget.app.QueueUpdateDraw(func() {
+		widget.display()
+	})
 }
 
 /* -------------------- Unexported Functions -------------------- */
@@ -137,7 +142,9 @@ func (widget *Widget) updateSummary() {
 		}
 	}
 
-	widget.display()
+	widget.app.QueueUpdateDraw(func() {
+		widget.display()
+	})
 }
 
 func makeRequest(baseName, marketName string) *http.Request {

@@ -17,6 +17,7 @@ type Widget struct {
 	wtf.HelpfulWidget
 	wtf.TextWidget
 
+    app *tview.Application
 	settings *Settings
 }
 
@@ -25,6 +26,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
 		TextWidget:    wtf.NewTextWidget(app, settings.common, false),
 
+        app: app,
 		settings: settings,
 	}
 
@@ -43,7 +45,9 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 func (widget *Widget) Refresh() {
 
 	// The last call should always be to the display function
-	widget.display()
+	widget.app.QueueUpdateDraw(func() {
+	    widget.display()
+	})
 }
 
 /* -------------------- Unexported Functions -------------------- */

@@ -14,6 +14,7 @@ import (
 type Widget struct {
 	wtf.TextWidget
 
+	app           *tview.Application
 	priceWidget   *price.Widget
 	toplistWidget *toplist.Widget
 	settings      *Settings
@@ -24,6 +25,7 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(app, settings.common, false),
 
+		app:           app,
 		priceWidget:   price.NewWidget(settings.priceSettings),
 		toplistWidget: toplist.NewWidget(settings.toplistSettings),
 		settings:      settings,
@@ -46,14 +48,17 @@ func (widget *Widget) Refresh() {
 	widget.toplistWidget.Refresh(&wg)
 	wg.Wait()
 
-	display(widget)
+	widget.app.QueueUpdateDraw(func() {
+		widget.display()
+	})
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
-func display(widget *Widget) {
+func (widget *Widget) display() {
 	str := ""
 	str += widget.priceWidget.Result
 	str += widget.toplistWidget.Result
+
 	widget.View.SetText(fmt.Sprintf("\n%s", str))
 }

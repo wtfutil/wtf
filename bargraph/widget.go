@@ -18,12 +18,16 @@ var ok = true
 // Widget define wtf widget to register widget later
 type Widget struct {
 	wtf.BarGraph
+
+	app *tview.Application
 }
 
 // NewWidget Make new instance of widget
 func NewWidget(app *tview.Application) *Widget {
 	widget := Widget{
 		BarGraph: wtf.NewBarGraph(app, "Sample Bar Graph", "bargraph", false),
+
+		app: app,
 	}
 
 	widget.View.SetWrap(true)
@@ -66,7 +70,9 @@ func (widget *Widget) Refresh() {
 
 	widget.View.Clear()
 
-	display(widget)
+	widget.app.QueueUpdateDraw(func() {
+		display(widget)
+	})
 
 }
 

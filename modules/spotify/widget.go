@@ -21,6 +21,7 @@ type Widget struct {
 	wtf.HelpfulWidget
 	wtf.TextWidget
 
+	app      *tview.Application
 	settings *Settings
 	spotigopher.Info
 	spotigopher.SpotifyClient
@@ -34,7 +35,9 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 
 		Info:          spotigopher.Info{},
 		SpotifyClient: spotifyClient,
-		settings:      settings,
+
+		app:      app,
+		settings: settings,
 	}
 
 	widget.settings.common.RefreshInterval = 5
@@ -54,7 +57,9 @@ func (w *Widget) refreshSpotifyInfos() error {
 }
 
 func (w *Widget) Refresh() {
-	w.render()
+	w.app.QueueUpdateDraw(func() {
+		w.render()
+	})
 }
 
 func (w *Widget) render() {
