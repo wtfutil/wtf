@@ -16,6 +16,7 @@ const maxBufferSize int64 = 1024
 type Widget struct {
 	wtf.TextWidget
 
+	app      *tview.Application
 	filePath string
 	settings *Settings
 }
@@ -24,6 +25,7 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(app, settings.common, true),
 
+		app:      app,
 		filePath: logFilePath(),
 		settings: settings,
 	}
@@ -48,15 +50,18 @@ func Log(msg string) {
 	log.Println(msg)
 }
 
+// Refresh updates the onscreen contents of the widget
 func (widget *Widget) Refresh() {
 	if logFileMissing() {
 		return
 	}
 
-	widget.View.SetTitle(widget.Name())
-
 	logLines := widget.tailFile()
-	widget.View.SetText(widget.contentFrom(logLines))
+
+	widget.app.QueueUpdateDraw(func() {
+		widget.View.SetTitle(widget.Name())
+		widget.View.SetText(widget.contentFrom(logLines))
+	})
 }
 
 /* -------------------- Unexported Functions -------------------- */

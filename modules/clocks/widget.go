@@ -35,6 +35,7 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 
 /* -------------------- Exported Functions -------------------- */
 
+// Refresh updates the onscreen contents of the widget
 func (widget *Widget) Refresh() {
 	widget.app.QueueUpdateDraw(func() {
 		sortedClocks := widget.clockColl.Sorted(widget.settings.sort)
