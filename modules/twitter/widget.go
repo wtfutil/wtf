@@ -85,7 +85,7 @@ func (widget *Widget) display() {
 	}
 
 	_, _, width, _ := widget.View.GetRect()
-	str := widget.settings.common.SigilStr(len(widget.Sources), widget.Idx, width) + "\n"
+	str := widget.settings.common.SigilStr(len(widget.Sources), widget.Idx, width-2) + "\n"
 	for _, tweet := range tweets {
 		str = str + widget.format(tweet)
 	}
