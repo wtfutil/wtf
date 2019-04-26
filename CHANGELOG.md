@@ -5,6 +5,7 @@
 ### 🐞 Fixed
 
 * Multi-page sigils off-by-one error fixed, [#413](https://github.com/wtfutil/wtf/issues/413)
+* Many points of potential and probably race conditions improved to not have race conditions. Stability should be much greater now
 
 ## 0.7.1
 
