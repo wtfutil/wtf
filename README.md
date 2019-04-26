@@ -37,7 +37,7 @@ make install
 make run
 ```
 
-**Note:** WTF is _only_ compatible with Go versions **1.9.2** or later. It currently _does not_ compile with `gccgo`.
+**Note:** WTF is _only_ compatible with Go versions **1.11.0** or later (due to the use of Go modules). It currently _does not_ compile with `gccgo`.
 
 ## Documentation
 
@@ -50,7 +50,7 @@ documentation. Here's some short-cuts:
 
 ### Contributing to the Documentation
 
-Documenation now lives in its own repository here: [https://github.com/wtfutil/wtfdocs](https://github.com/wtfutil/wtfdocs).
+Documentation now lives in its own repository here: [https://github.com/wtfutil/wtfdocs](https://github.com/wtfutil/wtfdocs).
 
 Please make all additions and updates to documentation in that repository.
 
@@ -64,10 +64,7 @@ Then open your issue, propose your approach, and join the rest of the awesome pe
 
 ### Adding Dependencies
 
-Dependency management in WTF is handled by [dep](https://github.com/golang/dep). See that page for installation and usage details.
-
-If the work you're doing requires the addition of a new dependency,
-please be sure to use `dep` to [vendor your dependencies](https://golang.github.io/dep/docs/daily-dep.html#adding-a-new-dependency).
+Dependency management in WTF is handled by [Go modules](https://github.com/golang/go/wiki/Modules). Please check out that page for more details on how Go modules work.
 
 ## Contributors
 
