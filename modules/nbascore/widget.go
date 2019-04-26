@@ -85,7 +85,7 @@ func (widget *Widget) nbascore() {
 	result := map[string]interface{}{}
 	json.Unmarshal(contents, &result)
 	allGame := "" // store result in allgame
-	allGame += (" " + "[red]" + (cur.Format(wtf.FriendlyDateFormat) + "\n") + "[white]")
+	allGame += (" " + "[red]" + (cur.Format(wtf.FriendlyDateFormat) + "\n\n") + "[white]")
 	for _, game := range result["games"].([]interface{}) {
 		vTeam, hTeam, vScore, hScore := "", "", "", ""
 		quarter := 0.
