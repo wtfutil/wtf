@@ -44,9 +44,9 @@ make run
 See [https://wtfutil.com](https://wtfutil.com) for the definitive
 documentation. Here's some short-cuts:
 
-* [Installation](http://wtfutil.com/posts/installation/)
-* [Configuration](http://wtfutil.com/posts/configuration/)
-* [Module Documentation](http://wtfutil.com/posts/modules/)
+* [Installation](https://wtfutil.com/getting_started/installation/)
+* [Configuration](https://wtfutil.com/configuration/)
+* [Module Documentation](https://wtfutil.com/modules/)
 
 ### Contributing to the Documentation
 
