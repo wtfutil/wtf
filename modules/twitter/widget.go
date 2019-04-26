@@ -12,11 +12,12 @@ import (
 )
 
 const HelpText = `
-  Keyboard commands for Textfile:
+  Keyboard commands for Twitter:
 
     /: Show/hide this help window
     h: Previous Twitter name
     l: Next Twitter name
+    o: Open the Twitter handle in a browser
 
     arrow left:  Previous Twitter name
     arrow right: Next Twitter name
@@ -84,7 +85,7 @@ func (widget *Widget) display() {
 	}
 
 	_, _, width, _ := widget.View.GetRect()
-	str := widget.settings.common.SigilStr(len(widget.Sources), widget.Idx, width) + "\n"
+	str := widget.settings.common.SigilStr(len(widget.Sources), widget.Idx, width-2) + "\n"
 	for _, tweet := range tweets {
 		str = str + widget.format(tweet)
 	}
@@ -156,7 +157,7 @@ func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 		widget.Next()
 		return nil
 	case "o":
-		wtf.OpenFile(widget.CurrentSource())
+		wtf.OpenFile(widget.currentSourceURI())
 		return nil
 	}
 
@@ -170,4 +171,9 @@ func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	default:
 		return event
 	}
+}
+
+func (widget *Widget) currentSourceURI() string {
+	src := "https://twitter.com/" + widget.CurrentSource()
+	return src
 }
