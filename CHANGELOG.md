@@ -10,6 +10,10 @@
 
 * Multi-page sigils off-by-one error fixed, [#413](https://github.com/wtfutil/wtf/issues/413)
 * Many points of potential and probably race conditions improved to not have race conditions. Stability should be much greater now
+* In the Twitter module, the following have been fixed:
+  * Help text says "Twitter" instead of "TextFile"
+  * Keyboard-command "o" opens the current Twitter handle in the browser
+  * Keyboard-command "o" is documented in the help text
 
 ## 0.7.1
 
