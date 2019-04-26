@@ -138,7 +138,8 @@ func (common *Common) RowColor(idx int) string {
 }
 
 func (common *Common) RightAlignFormat(width int) string {
-	return fmt.Sprintf("%%%ds", width-1)
+	borderOffset := 2
+	return fmt.Sprintf("%%%ds", width-borderOffset)
 }
 
 func (common *Common) SigilStr(len, pos int, width int) string {
