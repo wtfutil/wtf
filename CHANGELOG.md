@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+### 🐞 Fixed
+
+* Multi-page sigils off-by-one error fixed, [#413](https://github.com/wtfutil/wtf/issues/413)
+
+## 0.7.1
+
+### 🐞 Fixed
+
+* HackerNews row selections are visible again, [#411](https://github.com/wtfutil/wtf/issues/411)
+
 ## 0.7.0
 
 ### ⚡️ Added
