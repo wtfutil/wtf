@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### ⚡️ Added
+
+* NBA Scores now navigable via arrow keys, [#415](https://github.com/wtfutil/wtf/issues/415)
+
 ### 🐞 Fixed
 
 * Multi-page sigils off-by-one error fixed, [#413](https://github.com/wtfutil/wtf/issues/413)
