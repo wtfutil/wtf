@@ -85,7 +85,7 @@ func (widget *Widget) nbascore() {
 	result := map[string]interface{}{}
 	json.Unmarshal(contents, &result)
 	allGame := "" // store result in allgame
-	allGame += (" " + "[red]" + (cur.Format("20060102") + "\n") + "[white]")
+	allGame += (" " + "[red]" + (cur.Format(wtf.FriendlyDateFormat) + "\n") + "[white]")
 	for _, game := range result["games"].([]interface{}) {
 		vTeam, hTeam, vScore, hScore := "", "", "", ""
 		quarter := 0.
@@ -161,5 +161,17 @@ func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 		widget.ShowHelp()
 		return nil
 	}
-	return nil
+
+	switch event.Key() {
+	case tcell.KeyLeft:
+		offset--
+		widget.Refresh()
+		return nil
+	case tcell.KeyRight:
+		offset++
+		widget.Refresh()
+		return nil
+	default:
+		return event
+	}
 }
