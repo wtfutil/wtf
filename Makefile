@@ -16,6 +16,10 @@ ifndef $(GOPATH)
 		endif
 endif
 
+# Set go modules to on and use GoCenter for immutable modules
+GO111MODULE=on
+GOPROXY=https://gocenter.io
+
 build:
 	go build -o bin/wtf
 
@@ -35,7 +39,7 @@ run: build
 	bin/wtf
 
 size:
-	loc --exclude vendor/ _sample_configs/ _site/ docs/ Makefile *.md *.toml
+	loc --exclude _sample_configs/ _site/ docs/ Makefile *.md
 
 test: build
 	go test ./...

@@ -1,7 +1,7 @@
 language: go
 go:
-  - "1.10.x"
   - "1.11.x"
+  - "1.12.x"
 sudo: false
 before_install:
   # Make sure travis builds work for forks
@@ -9,5 +9,6 @@ before_install:
   - test ! -d $GOPATH/src/github.com/wtfutil/wtf && mv $TRAVIS_BUILD_DIR $GOPATH/src/github.com/wtfutil/wtf || true
   - export TRAVIS_BUILD_DIR=$HOME/gopath/src/github.com/wtfutil/wtf
   - cd $HOME/gopath/src/github.com/wtfutil/wtf
+  - export GOPROXY="https://gocenter.io" && export GO111MODULE=on
 
 script: go get ./... && go get github.com/go-test/deep && go test -v github.com/wtfutil/wtf/wtf_tests/...
