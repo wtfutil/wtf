@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+## 0.8.0
+
+### ⚡️ Added
+
+* Dependencies are now managed and installed using Go modules. See README.md for details, [#406](https://github.com/wtfutil/wtf/issues/406) by [@retgits](https://github.com/retgits) 
+
+## 0.7.2
+
 ### ⚡️ Added
 
 * NBA Scores now navigable via arrow keys, [#415](https://github.com/wtfutil/wtf/issues/415)
