@@ -17,8 +17,8 @@ ifndef $(GOPATH)
 endif
 
 # Set go modules to on and use GoCenter for immutable modules
-GO111MODULE=on
-GOPROXY=https://gocenter.io
+export GO111MODULE = on
+export GOPROXY = https://gocenter.io
 
 build:
 	go build -o bin/wtf
