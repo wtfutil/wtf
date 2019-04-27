@@ -64,10 +64,6 @@ func refreshAllWidgets(widgets []wtf.Wtfable) {
 }
 
 func setTerm() {
-	err := os.Setenv("TERM", cfg.Config.UString("wtf.term", os.Getenv("TERM")))
-	if err != nil {
-		return
-	}
 }
 
 func watchForConfigChanges(app *tview.Application, configFilePath string, grid *tview.Grid, pages *tview.Pages) {
@@ -131,7 +127,10 @@ func main() {
 		defer profile.Start(profile.MemProfile).Stop()
 	}
 
-	setTerm()
+	err := os.Setenv("TERM", config.UString("wtf.term", os.Getenv("TERM")))
+	if err != nil {
+		return
+	}
 
 	app := tview.NewApplication()
 	pages := tview.NewPages()
