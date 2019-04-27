@@ -18,16 +18,15 @@ type Settings struct {
 	username  string
 }
 
-func NewSettingsFromYAML(name string, ymlConfig *config.Config) *Settings {
-	localConfig, _ := ymlConfig.Get("wtf.mods." + configKey)
+func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromYAML(name, configKey, ymlConfig),
+		common: cfg.NewCommonSettingsFromModule(name, ymlConfig, globalConfig),
 
-		apiKey:    localConfig.UString("apiKey", os.Getenv("ZENDESK_API")),
-		status:    localConfig.UString("status"),
-		subdomain: localConfig.UString("subdomain", os.Getenv("ZENDESK_SUBDOMAIN")),
-		username:  localConfig.UString("username"),
+		apiKey:    ymlConfig.UString("apiKey", os.Getenv("ZENDESK_API")),
+		status:    ymlConfig.UString("status"),
+		subdomain: ymlConfig.UString("subdomain", os.Getenv("ZENDESK_SUBDOMAIN")),
+		username:  ymlConfig.UString("username"),
 	}
 
 	return &settings

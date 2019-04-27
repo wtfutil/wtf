@@ -29,24 +29,23 @@ type Settings struct {
 	verifyServerCertificate bool
 }
 
-func NewSettingsFromYAML(name string, ymlConfig *config.Config) *Settings {
-	localConfig, _ := ymlConfig.Get("wtf.mods." + configKey)
+func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromYAML(name, configKey, ymlConfig),
+		common: cfg.NewCommonSettingsFromModule(name, ymlConfig, globalConfig),
 
-		apiKey:                  localConfig.UString("apiKey", os.Getenv("WTF_JIRA_API_KEY")),
-		domain:                  localConfig.UString("domain"),
-		email:                   localConfig.UString("email"),
-		jql:                     localConfig.UString("jql"),
-		username:                localConfig.UString("username"),
-		verifyServerCertificate: localConfig.UBool("verifyServerCertificate", true),
+		apiKey:                  ymlConfig.UString("apiKey", os.Getenv("WTF_JIRA_API_KEY")),
+		domain:                  ymlConfig.UString("domain"),
+		email:                   ymlConfig.UString("email"),
+		jql:                     ymlConfig.UString("jql"),
+		username:                ymlConfig.UString("username"),
+		verifyServerCertificate: ymlConfig.UBool("verifyServerCertificate", true),
 	}
 
-	settings.colors.rows.even = localConfig.UString("colors.even", "lightblue")
-	settings.colors.rows.odd = localConfig.UString("colors.odd", "white")
+	settings.colors.rows.even = ymlConfig.UString("colors.even", "lightblue")
+	settings.colors.rows.odd = ymlConfig.UString("colors.odd", "white")
 
-	settings.projects = settings.arrayifyProjects(localConfig)
+	settings.projects = settings.arrayifyProjects(ymlConfig, globalConfig)
 
 	return &settings
 }
@@ -54,18 +53,18 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config) *Settings {
 /* -------------------- Unexported functions -------------------- */
 
 // arrayifyProjects figures out if we're dealing with a single project or an array of projects
-func (settings *Settings) arrayifyProjects(localConfig *config.Config) []string {
+func (settings *Settings) arrayifyProjects(ymlConfig *config.Config, globalConfig *config.Config) []string {
 	projects := []string{}
 
 	// Single project
-	project, err := localConfig.String("project")
+	project, err := ymlConfig.String("project")
 	if err == nil {
 		projects = append(projects, project)
 		return projects
 	}
 
 	// Array of projects
-	projectList := localConfig.UList("project")
+	projectList := ymlConfig.UList("project")
 	for _, projectName := range projectList {
 		if project, ok := projectName.(string); ok {
 			projects = append(projects, project)

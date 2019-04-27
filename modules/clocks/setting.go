@@ -25,20 +25,19 @@ type Settings struct {
 	sort       string
 }
 
-func NewSettingsFromYAML(name string, ymlConfig *config.Config) *Settings {
-	localConfig, _ := ymlConfig.Get("wtf.mods." + configKey)
+func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromYAML(name, configKey, ymlConfig),
+		common: cfg.NewCommonSettingsFromModule(name, ymlConfig, globalConfig),
 
-		dateFormat: localConfig.UString("dateFormat", wtf.SimpleDateFormat),
-		timeFormat: localConfig.UString("timeFormat", wtf.SimpleTimeFormat),
-		locations:  localConfig.UMap("locations"),
-		sort:       localConfig.UString("sort"),
+		dateFormat: ymlConfig.UString("dateFormat", wtf.SimpleDateFormat),
+		timeFormat: ymlConfig.UString("timeFormat", wtf.SimpleTimeFormat),
+		locations:  ymlConfig.UMap("locations"),
+		sort:       ymlConfig.UString("sort"),
 	}
 
-	settings.colors.rows.even = localConfig.UString("colors.rows.even", "white")
-	settings.colors.rows.odd = localConfig.UString("colors.rows.odd", "blue")
+	settings.colors.rows.even = ymlConfig.UString("colors.rows.even", "white")
+	settings.colors.rows.odd = ymlConfig.UString("colors.rows.odd", "blue")
 
 	return &settings
 }

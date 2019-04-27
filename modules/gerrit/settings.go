@@ -27,21 +27,20 @@ type Settings struct {
 	verifyServerCertificate bool
 }
 
-func NewSettingsFromYAML(name string, ymlConfig *config.Config) *Settings {
-	localConfig, _ := ymlConfig.Get("wtf.mods." + configKey)
+func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromYAML(name, configKey, ymlConfig),
+		common: cfg.NewCommonSettingsFromModule(name, ymlConfig, globalConfig),
 
-		domain:                  localConfig.UString("domain", ""),
-		password:                localConfig.UString("password", os.Getenv("WTF_GERRIT_PASSWORD")),
-		projects:                localConfig.UList("projects"),
-		username:                localConfig.UString("username", ""),
-		verifyServerCertificate: localConfig.UBool("verifyServerCertificate", true),
+		domain:                  ymlConfig.UString("domain", ""),
+		password:                ymlConfig.UString("password", os.Getenv("WTF_GERRIT_PASSWORD")),
+		projects:                ymlConfig.UList("projects"),
+		username:                ymlConfig.UString("username", ""),
+		verifyServerCertificate: ymlConfig.UBool("verifyServerCertificate", true),
 	}
 
-	settings.colors.rows.even = localConfig.UString("colors.rows.even", "white")
-	settings.colors.rows.odd = localConfig.UString("colors.rows.odd", "blue")
+	settings.colors.rows.even = ymlConfig.UString("colors.rows.even", "white")
+	settings.colors.rows.odd = ymlConfig.UString("colors.rows.odd", "blue")
 
 	return &settings
 }

@@ -13,13 +13,12 @@ type Settings struct {
 	filePath string
 }
 
-func NewSettingsFromYAML(name string, ymlConfig *config.Config) *Settings {
-	localConfig, _ := ymlConfig.Get("wtf.mods." + configKey)
+func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromYAML(name, configKey, ymlConfig),
+		common: cfg.NewCommonSettingsFromModule(name, ymlConfig, globalConfig),
 
-		filePath: localConfig.UString("filename"),
+		filePath: ymlConfig.UString("filename"),
 	}
 
 	return &settings

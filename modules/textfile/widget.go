@@ -42,7 +42,7 @@ type Widget struct {
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
 		HelpfulWidget:     wtf.NewHelpfulWidget(app, pages, HelpText),
-		MultiSourceWidget: wtf.NewMultiSourceWidget(settings.common.ConfigKey, "filePath", "filePaths"),
+		MultiSourceWidget: wtf.NewMultiSourceWidget(settings.common.Name, "filePath", "filePaths"),
 		TextWidget:        wtf.NewTextWidget(app, settings.common, true),
 
 		app:      app,

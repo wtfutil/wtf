@@ -20,18 +20,17 @@ type Settings struct {
 	username     string
 }
 
-func NewSettingsFromYAML(name string, ymlConfig *config.Config) *Settings {
-	localConfig, _ := ymlConfig.Get("wtf.mods." + configKey)
+func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromYAML(name, configKey, ymlConfig),
+		common: cfg.NewCommonSettingsFromModule(name, ymlConfig, globalConfig),
 
-		apiKey:       localConfig.UString("apiKey", os.Getenv("WTF_GITHUB_TOKEN")),
-		baseURL:      localConfig.UString("baseURL", os.Getenv("WTF_GITHUB_BASE_URL")),
-		enableStatus: localConfig.UBool("enableStatus", false),
-		repositories: localConfig.UMap("repositories"),
-		uploadURL:    localConfig.UString("uploadURL", os.Getenv("WTF_GITHUB_UPLOAD_URL")),
-		username:     localConfig.UString("username"),
+		apiKey:       ymlConfig.UString("apiKey", os.Getenv("WTF_GITHUB_TOKEN")),
+		baseURL:      ymlConfig.UString("baseURL", os.Getenv("WTF_GITHUB_BASE_URL")),
+		enableStatus: ymlConfig.UBool("enableStatus", false),
+		repositories: ymlConfig.UMap("repositories"),
+		uploadURL:    ymlConfig.UString("uploadURL", os.Getenv("WTF_GITHUB_UPLOAD_URL")),
+		username:     ymlConfig.UString("username"),
 	}
 
 	return &settings

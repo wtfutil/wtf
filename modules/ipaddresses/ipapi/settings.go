@@ -17,15 +17,14 @@ type Settings struct {
 	common *cfg.Common
 }
 
-func NewSettingsFromYAML(name string, ymlConfig *config.Config) *Settings {
-	localConfig, _ := ymlConfig.Get("wtf.mods." + configKey)
+func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromYAML(name, configKey, ymlConfig),
+		common: cfg.NewCommonSettingsFromModule(name, ymlConfig, globalConfig),
 	}
 
-	settings.colors.name = localConfig.UString("colors.name", "red")
-	settings.colors.value = localConfig.UString("colors.value", "white")
+	settings.colors.name = ymlConfig.UString("colors.name", "red")
+	settings.colors.value = ymlConfig.UString("colors.value", "white")
 
 	return &settings
 }

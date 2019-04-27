@@ -14,7 +14,6 @@ type TextWidget struct {
 	enabled         bool
 	focusable       bool
 	focusChar       string
-	key             string
 	name            string
 	refreshInterval int
 
@@ -31,7 +30,6 @@ func NewTextWidget(app *tview.Application, commonSettings *cfg.Common, focusable
 		enabled:         commonSettings.Enabled,
 		focusable:       focusable,
 		focusChar:       commonSettings.FocusChar(),
-		key:             commonSettings.ConfigKey,
 		name:            commonSettings.Name,
 		refreshInterval: commonSettings.RefreshInterval,
 	}
@@ -90,10 +88,6 @@ func (widget *TextWidget) FocusChar() string {
 // invalid position parameters (ie: cannot be placed onscreen)
 func (widget *TextWidget) IsPositionable() bool {
 	return widget.Position.IsValid()
-}
-
-func (widget *TextWidget) Key() string {
-	return widget.key
 }
 
 func (widget *TextWidget) Name() string {

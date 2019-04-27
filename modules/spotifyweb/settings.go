@@ -17,15 +17,14 @@ type Settings struct {
 	secretKey    string
 }
 
-func NewSettingsFromYAML(name string, ymlConfig *config.Config) *Settings {
-	localConfig, _ := ymlConfig.Get("wtf.mods." + configKey)
+func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromYAML(name, configKey, ymlConfig),
+		common: cfg.NewCommonSettingsFromModule(name, ymlConfig, globalConfig),
 
-		callbackPort: localConfig.UString("callbackPort", "8080"),
-		clientID:     localConfig.UString("clientID", os.Getenv("SPOTIFY_ID")),
-		secretKey:    localConfig.UString("secretKey", os.Getenv("SPOTIFY_SECRET")),
+		callbackPort: ymlConfig.UString("callbackPort", "8080"),
+		clientID:     ymlConfig.UString("clientID", os.Getenv("SPOTIFY_ID")),
+		secretKey:    ymlConfig.UString("secretKey", os.Getenv("SPOTIFY_SECRET")),
 	}
 
 	return &settings

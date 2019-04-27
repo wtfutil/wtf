@@ -38,7 +38,7 @@ type Widget struct {
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
 		HelpfulWidget:     wtf.NewHelpfulWidget(app, pages, HelpText),
-		MultiSourceWidget: wtf.NewMultiSourceWidget(settings.common.ConfigKey, "screenName", "screenNames"),
+		MultiSourceWidget: wtf.NewMultiSourceWidget(settings.common.Name, "screenName", "screenNames"),
 		TextWidget:        wtf.NewTextWidget(app, settings.common, true),
 
 		app:      app,

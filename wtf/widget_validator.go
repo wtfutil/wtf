@@ -12,7 +12,7 @@ func ValidateWidgets(widgets []Wtfable) (bool, error) {
 
 	for _, widget := range widgets {
 		if widget.Enabled() && !widget.IsPositionable() {
-			errStr := fmt.Sprintf("Widget config has invalid values: %s", widget.Key())
+			errStr := fmt.Sprintf("Widget config has invalid values: %s", widget.Name())
 			log.Fatalln(errStr)
 		}
 	}

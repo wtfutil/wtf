@@ -20,18 +20,17 @@ type Settings struct {
 	verifyServerCertificate bool
 }
 
-func NewSettingsFromYAML(name string, ymlConfig *config.Config) *Settings {
-	localConfig, _ := ymlConfig.Get("wtf.mods." + configKey)
+func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromYAML(name, configKey, ymlConfig),
+		common: cfg.NewCommonSettingsFromModule(name, ymlConfig, globalConfig),
 
-		apiKey:                  localConfig.UString("apiKey", os.Getenv("WTF_JENKINS_API_KEY")),
-		jobNameRegex:            localConfig.UString("jobNameRegex", ".*"),
-		successBallColor:        localConfig.UString("successBallColor", "blue"),
-		url:                     localConfig.UString("url"),
-		user:                    localConfig.UString("user"),
-		verifyServerCertificate: localConfig.UBool("verifyServerCertificate", true),
+		apiKey:                  ymlConfig.UString("apiKey", os.Getenv("WTF_JENKINS_API_KEY")),
+		jobNameRegex:            ymlConfig.UString("jobNameRegex", ".*"),
+		successBallColor:        ymlConfig.UString("successBallColor", "blue"),
+		url:                     ymlConfig.UString("url"),
+		user:                    ymlConfig.UString("user"),
+		verifyServerCertificate: ymlConfig.UBool("verifyServerCertificate", true),
 	}
 
 	return &settings
