@@ -86,9 +86,9 @@ func watchForConfigChanges(app *tview.Application, configFilePath string, grid *
 				wtf.ValidateWidgets(widgets)
 				runningWidgets = widgets
 
-				focusTracker = wtf.NewFocusTracker(app, widgets)
+				focusTracker = wtf.NewFocusTracker(app, widgets, config)
 
-				display := wtf.NewDisplay(widgets)
+				display := wtf.NewDisplay(widgets, config)
 				pages.AddPage("grid", display.Grid, true, true)
 			case err := <-watch.Error:
 				log.Fatalln(err)
@@ -132,6 +132,8 @@ func main() {
 		return
 	}
 
+	wtf.OpenFileUtil = config.UString("wtf.openFileUtil", "open")
+
 	app := tview.NewApplication()
 	pages := tview.NewPages()
 
@@ -139,9 +141,9 @@ func main() {
 	wtf.ValidateWidgets(widgets)
 	runningWidgets = widgets
 
-	focusTracker = wtf.NewFocusTracker(app, widgets)
+	focusTracker = wtf.NewFocusTracker(app, widgets, config)
 
-	display := wtf.NewDisplay(widgets)
+	display := wtf.NewDisplay(widgets, config)
 	pages.AddPage("grid", display.Grid, true, true)
 
 	app.SetInputCapture(keyboardIntercept)

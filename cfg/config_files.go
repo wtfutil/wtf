@@ -17,8 +17,6 @@ const ConfigDirV1 = "~/.wtf/"
 // ConfigDirV2 defines the path to the second version of the configuration. Use this.
 const ConfigDirV2 = "~/.config/wtf/"
 
-var Config *config.Config
-
 /* -------------------- Config Migration -------------------- */
 
 // MigrateOldConfig copies any existing configuration from the old location
@@ -132,7 +130,6 @@ func LoadConfigFile(filePath string) *config.Config {
 		fmt.Printf(" %s\n", err.Error())
 		os.Exit(1)
 	}
-	Config = cfg
 
 	return cfg
 }
