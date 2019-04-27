@@ -28,9 +28,26 @@ Find #wtfutil on https://gophers.slack.com/ and join us.
 
 ## Quick Start
 
-[Download and run the latest binary](https://github.com/wtfutil/wtf/releases) or install from source:
+[Download and run the latest binary](https://github.com/wtfutil/wtf/releases) or install from source.
+
+If you want to run the build command from within your `$GOPATH`:
 
 ```bash
+# Set the Go proxy variable to GoCenter
+export GOPROXY="https://gocenter.io"
+# Enable Go modules
+export GO111MODULE=on
+go get -u github.com/wtfutil/wtf
+cd $GOPATH/src/github.com/wtfutil/wtf
+make install
+make run
+```
+
+If you want to run the build command from a folder that is not in your `$GOPATH`:
+
+```bash
+# Set the Go proxy variable to GoCenter
+export GOPROXY="https://gocenter.io"
 go get -u github.com/wtfutil/wtf
 cd $GOPATH/src/github.com/wtfutil/wtf
 make install
