@@ -3,12 +3,9 @@ package wtf
 import (
 	"fmt"
 
-	"github.com/olebedev/config"
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/cfg"
 )
-
-var Config *config.Config
 
 type TextWidget struct {
 	enabled         bool

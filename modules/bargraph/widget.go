@@ -23,9 +23,9 @@ type Widget struct {
 }
 
 // NewWidget Make new instance of widget
-func NewWidget(app *tview.Application) *Widget {
+func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
-		BarGraph: wtf.NewBarGraph(app, "Sample Bar Graph", "bargraph", false),
+		BarGraph: wtf.NewBarGraph(app, "Sample Bar Graph", settings.common, false),
 
 		app: app,
 	}

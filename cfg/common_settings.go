@@ -56,6 +56,7 @@ type Common struct {
 	Enabled         bool
 	RefreshInterval int
 	Title           string
+	Config          *config.Config
 
 	focusChar int
 }
@@ -93,6 +94,7 @@ func NewCommonSettingsFromModule(name string, moduleConfig *config.Config, globa
 		Enabled:         moduleConfig.UBool("enabled", false),
 		RefreshInterval: moduleConfig.UInt("refreshInterval", 300),
 		Title:           moduleConfig.UString("title", name),
+		Config:          moduleConfig,
 
 		focusChar: moduleConfig.UInt("focusChar", -1),
 	}

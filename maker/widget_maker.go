@@ -3,9 +3,9 @@ package maker
 import (
 	"github.com/olebedev/config"
 	"github.com/rivo/tview"
-	"github.com/wtfutil/wtf/bargraph"
 	"github.com/wtfutil/wtf/logger"
 	"github.com/wtfutil/wtf/modules/bamboohr"
+	"github.com/wtfutil/wtf/modules/bargraph"
 	"github.com/wtfutil/wtf/modules/circleci"
 	"github.com/wtfutil/wtf/modules/clocks"
 	"github.com/wtfutil/wtf/modules/cmdrunner"
@@ -67,7 +67,8 @@ func MakeWidget(
 		settings := bamboohr.NewSettingsFromYAML("BambooHR", moduleConfig, globalConfig)
 		widget = bamboohr.NewWidget(app, settings)
 	case "bargraph":
-		widget = bargraph.NewWidget(app)
+		settings := bargraph.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
+		widget = bargraph.NewWidget(app, settings)
 	case "bittrex":
 		settings := bittrex.NewSettingsFromYAML("Bittrex", moduleConfig, globalConfig)
 		widget = bittrex.NewWidget(app, settings)

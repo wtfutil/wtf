@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/cfg"
 )
 
 //BarGraph lets make graphs
@@ -19,6 +20,7 @@ type BarGraph struct {
 
 	RefreshInt int
 	View       *tview.TextView
+	settings   *cfg.Common
 
 	Position
 }
@@ -30,25 +32,25 @@ type Bar struct {
 }
 
 // NewBarGraph initialize your fancy new graph
-func NewBarGraph(app *tview.Application, name string, configKey string, focusable bool) BarGraph {
+func NewBarGraph(app *tview.Application, name string, settings *cfg.Common, focusable bool) BarGraph {
 	widget := BarGraph{
-		enabled:    Config.UBool(fmt.Sprintf("wtf.mods.%s.enabled", configKey), false),
+		enabled:    settings.Enabled,
 		focusable:  focusable,
-		key:        configKey,
-		maxStars:   Config.UInt(fmt.Sprintf("wtf.mods.%s.graphStars", configKey), 20),
-		name:       Config.UString(fmt.Sprintf("wtf.mods.%s.title", configKey), name),
-		starChar:   Config.UString(fmt.Sprintf("wtf.mods.%s.graphIcon", configKey), "|"),
-		RefreshInt: Config.UInt(fmt.Sprintf("wtf.mods.%s.refreshInterval", configKey), 1),
+		maxStars:   settings.Config.UInt("graphStars", 20),
+		name:       settings.Title,
+		starChar:   settings.Config.UString("graphIcon", "|"),
+		RefreshInt: settings.RefreshInterval,
+		settings:   settings,
 	}
 
 	widget.Position = NewPosition(
-		Config.UInt(fmt.Sprintf("wtf.mods.%s.position.top", configKey)),
-		Config.UInt(fmt.Sprintf("wtf.mods.%s.position.left", configKey)),
-		Config.UInt(fmt.Sprintf("wtf.mods.%s.position.width", configKey)),
-		Config.UInt(fmt.Sprintf("wtf.mods.%s.position.height", configKey)),
+		settings.Position.Top,
+		settings.Position.Left,
+		settings.Position.Width,
+		settings.Position.Height,
 	)
 
-	widget.View = widget.addView(configKey)
+	widget.View = widget.addView()
 	widget.View.SetChangedFunc(func() {
 		app.Draw()
 	})
@@ -58,10 +60,10 @@ func NewBarGraph(app *tview.Application, name string, configKey string, focusabl
 
 func (widget *BarGraph) BorderColor() string {
 	if widget.Focusable() {
-		return Config.UString("wtf.colors.border.focusable", "red")
+		return widget.settings.Colors.BorderFocusable
 	}
 
-	return Config.UString("wtf.colors.border.normal", "gray")
+	return widget.settings.Colors.BorderNormal
 }
 
 func (widget *BarGraph) Disable() {
@@ -112,20 +114,15 @@ func (widget *BarGraph) TextView() *tview.TextView {
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (widget *BarGraph) addView(configKey string) *tview.TextView {
+func (widget *BarGraph) addView() *tview.TextView {
 	view := tview.NewTextView()
 
-	view.SetBackgroundColor(ColorFor(Config.UString("wtf.colors.background", "black")))
+	view.SetBackgroundColor(ColorFor(widget.settings.Colors.Background))
 	view.SetBorder(true)
 	view.SetBorderColor(ColorFor(widget.BorderColor()))
 	view.SetDynamicColors(true)
 	view.SetTitle(widget.Name())
-	view.SetTitleColor(ColorFor(
-		Config.UString(
-			fmt.Sprintf("wtf.mods.%s.colors.title", configKey),
-			Config.UString("wtf.colors.title", "white"),
-		),
-	))
+	view.SetTitleColor(ColorFor(widget.settings.Colors.Title))
 	view.SetWrap(false)
 
 	return view

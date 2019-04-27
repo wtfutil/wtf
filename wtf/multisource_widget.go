@@ -2,6 +2,8 @@ package wtf
 
 import (
 	"fmt"
+
+	"github.com/wtfutil/wtf/cfg"
 )
 
 type MultiSourceWidget struct {
@@ -38,8 +40,8 @@ func (widget *MultiSourceWidget) LoadSources() {
 	s := fmt.Sprintf("wtf.mods.%s.%s", widget.module, widget.singular)
 	p := fmt.Sprintf("wtf.mods.%s.%s", widget.module, widget.plural)
 
-	single := Config.UString(s, "")
-	multiple := Config.UList(p, empty)
+	single := cfg.Config.UString(s, "")
+	multiple := cfg.Config.UList(p, empty)
 
 	asStrs := ToStrs(multiple)
 

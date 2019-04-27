@@ -2,6 +2,7 @@ package wtf
 
 import (
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/cfg"
 )
 
 type FocusState int
@@ -161,7 +162,7 @@ func (tracker *FocusTracker) focus(idx int) {
 	}
 
 	view := widget.TextView()
-	view.SetBorderColor(ColorFor(Config.UString("wtf.colors.border.focused", "gray")))
+	view.SetBorderColor(ColorFor(cfg.Config.UString("wtf.colors.border.focused", "gray")))
 	tracker.App.SetFocus(view)
 }
 
@@ -208,5 +209,5 @@ func (tracker *FocusTracker) increment() {
 }
 
 func (tracker *FocusTracker) useNavShortcuts() bool {
-	return Config.UBool("wtf.navigation.shortcuts", true)
+	return cfg.Config.UBool("wtf.navigation.shortcuts", true)
 }
