@@ -15,13 +15,13 @@ type Settings struct {
 	cmd  string
 }
 
-func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
+func NewSettingsFromYAML(name string, moduleConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, ymlConfig, globalConfig),
+		common: cfg.NewCommonSettingsFromModule(name, moduleConfig, globalConfig),
 
-		args: wtf.ToStrs(ymlConfig.UList("args")),
-		cmd:  ymlConfig.UString("cmd"),
+		args: wtf.ToStrs(moduleConfig.UList("args")),
+		cmd:  moduleConfig.UString("cmd"),
 	}
 
 	return &settings
