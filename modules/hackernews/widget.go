@@ -69,7 +69,6 @@ func (widget *Widget) Refresh() {
 
 	if err != nil {
 		widget.View.SetWrap(true)
-		widget.View.SetTitle(widget.Name())
 		widget.View.SetText(err.Error())
 	} else {
 		var stories []Story
@@ -100,7 +99,7 @@ func (widget *Widget) display() {
 	widget.View.SetWrap(false)
 
 	widget.View.Clear()
-	widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("%s - %sstories", widget.Name(), widget.settings.storyType)))
+	widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("%s - %sstories", widget.CommonSettings.Title, widget.settings.storyType)))
 	widget.View.SetText(widget.contentFrom(widget.stories))
 	widget.View.Highlight(strconv.Itoa(widget.selected)).ScrollToHighlight()
 }

@@ -46,7 +46,7 @@ func (widget *Widget) Refresh() {
 	}
 
 	widget.app.QueueUpdateDraw(func() {
-		widget.View.SetTitle(fmt.Sprintf("%s - Builds", widget.Name()))
+		widget.View.SetTitle(fmt.Sprintf("%s - Builds", widget.CommonSettings.Title))
 		widget.View.SetText(content)
 	})
 }

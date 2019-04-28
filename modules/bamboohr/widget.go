@@ -43,7 +43,6 @@ func (widget *Widget) Refresh() {
 	)
 
 	widget.app.QueueUpdateDraw(func() {
-		widget.View.SetTitle(widget.ContextualTitle(widget.Name()))
 		widget.View.SetText(widget.contentFrom(todayItems))
 	})
 }

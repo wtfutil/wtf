@@ -49,7 +49,7 @@ func (widget *Widget) Refresh() {
 /* -------------------- Unexported Functions -------------------- */
 
 func (widget *Widget) display() {
-	widget.View.SetTitle(fmt.Sprintf("%s (%d)", widget.Name(), widget.result.Count))
+	widget.View.SetTitle(fmt.Sprintf("%s (%d)", widget.CommonSettings.Title, widget.result.Count))
 	widget.View.SetText(widget.textContent(widget.result.Tickets))
 }
 

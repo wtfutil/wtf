@@ -13,7 +13,7 @@ func (widget *Widget) display() {
 		return
 	}
 
-	title := fmt.Sprintf("%s - [green]%s[white]", widget.Name(), repoData.Repository)
+	title := fmt.Sprintf("%s - [green]%s[white]", widget.CommonSettings.Title, repoData.Repository)
 	widget.View.SetTitle(widget.ContextualTitle(title))
 
 	_, _, width, _ := widget.View.GetRect()

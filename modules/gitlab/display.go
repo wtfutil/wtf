@@ -12,7 +12,7 @@ func (widget *Widget) display() {
 		return
 	}
 
-	widget.View.SetTitle(fmt.Sprintf("%s- %s", widget.Name(), widget.title(project)))
+	widget.View.SetTitle(fmt.Sprintf("%s- %s", widget.CommonSettings.Title, widget.title(project)))
 
 	_, _, width, _ := widget.View.GetRect()
 	str := widget.settings.common.SigilStr(len(widget.GitlabProjects), widget.Idx, width) + "\n"
