@@ -16,16 +16,15 @@ type Settings struct {
 	language string
 }
 
-func NewSettingsFromYAML(name string, ymlConfig *config.Config) *Settings {
-	localConfig, _ := ymlConfig.Get("wtf.mods." + configKey)
+func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromYAML(name, configKey, ymlConfig),
+		common: cfg.NewCommonSettingsFromModule(name, ymlConfig, globalConfig),
 
-		city:     localConfig.UString("city", "Barcelona"),
-		language: localConfig.UString("language", "en"),
-		unit:     localConfig.UString("unit", "m"),
-		view:     localConfig.UString("view", "0"),
+		city:     ymlConfig.UString("city", "Barcelona"),
+		language: ymlConfig.UString("language", "en"),
+		unit:     ymlConfig.UString("unit", "m"),
+		view:     ymlConfig.UString("view", "0"),
 	}
 
 	return &settings

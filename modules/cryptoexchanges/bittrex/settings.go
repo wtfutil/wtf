@@ -34,22 +34,21 @@ type Settings struct {
 	summary
 }
 
-func NewSettingsFromYAML(name string, ymlConfig *config.Config) *Settings {
-	localConfig, _ := ymlConfig.Get("wtf.mods." + configKey)
+func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromYAML(name, configKey, ymlConfig),
+		common: cfg.NewCommonSettingsFromModule(name, ymlConfig, globalConfig),
 	}
 
-	settings.colors.base.name = localConfig.UString("colors.base.name")
-	settings.colors.base.displayName = localConfig.UString("colors.base.displayName")
+	settings.colors.base.name = ymlConfig.UString("colors.base.name")
+	settings.colors.base.displayName = ymlConfig.UString("colors.base.displayName")
 
-	settings.colors.market.name = localConfig.UString("colors.market.name")
-	settings.colors.market.field = localConfig.UString("colors.market.field")
-	settings.colors.market.value = localConfig.UString("colors.market.value")
+	settings.colors.market.name = ymlConfig.UString("colors.market.name")
+	settings.colors.market.field = ymlConfig.UString("colors.market.field")
+	settings.colors.market.value = ymlConfig.UString("colors.market.value")
 
 	settings.summary.currencies = make(map[string]*currency)
-	for key, val := range localConfig.UMap("summary") {
+	for key, val := range ymlConfig.UMap("summary") {
 		coercedVal := val.(map[string]interface{})
 
 		currency := &currency{

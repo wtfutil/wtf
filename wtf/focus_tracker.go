@@ -1,6 +1,7 @@
 package wtf
 
 import (
+	"github.com/olebedev/config"
 	"github.com/rivo/tview"
 )
 
@@ -18,13 +19,15 @@ type FocusTracker struct {
 	App     *tview.Application
 	Idx     int
 	Widgets []Wtfable
+	config  *config.Config
 }
 
-func NewFocusTracker(app *tview.Application, widgets []Wtfable) FocusTracker {
+func NewFocusTracker(app *tview.Application, widgets []Wtfable, config *config.Config) FocusTracker {
 	focusTracker := FocusTracker{
 		App:     app,
 		Idx:     -1,
 		Widgets: widgets,
+		config:  config,
 	}
 
 	focusTracker.assignHotKeys()
@@ -161,7 +164,7 @@ func (tracker *FocusTracker) focus(idx int) {
 	}
 
 	view := widget.TextView()
-	view.SetBorderColor(ColorFor(Config.UString("wtf.colors.border.focused", "gray")))
+	view.SetBorderColor(ColorFor(tracker.config.UString("wtf.colors.border.focused", "gray")))
 	tracker.App.SetFocus(view)
 }
 
@@ -208,5 +211,5 @@ func (tracker *FocusTracker) increment() {
 }
 
 func (tracker *FocusTracker) useNavShortcuts() bool {
-	return Config.UBool("wtf.navigation.shortcuts", true)
+	return tracker.config.UBool("wtf.navigation.shortcuts", true)
 }

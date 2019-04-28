@@ -21,18 +21,17 @@ type Settings struct {
 	sheetID       string
 }
 
-func NewSettingsFromYAML(name string, ymlConfig *config.Config) *Settings {
-	localConfig, _ := ymlConfig.Get("wtf.mods." + configKey)
+func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromYAML(name, configKey, ymlConfig),
+		common: cfg.NewCommonSettingsFromModule(name, ymlConfig, globalConfig),
 
-		cellNames:  localConfig.UList("cells.names"),
-		secretFile: localConfig.UString("secretFile"),
-		sheetID:    localConfig.UString("sheetId"),
+		cellNames:  ymlConfig.UList("cells.names"),
+		secretFile: ymlConfig.UString("secretFile"),
+		sheetID:    ymlConfig.UString("sheetId"),
 	}
 
-	settings.colors.values = localConfig.UString("colors.values", "green")
+	settings.colors.values = ymlConfig.UString("colors.values", "green")
 
 	return &settings
 }

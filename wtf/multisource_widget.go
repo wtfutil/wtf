@@ -1,24 +1,24 @@
 package wtf
 
 import (
-	"fmt"
+	"github.com/wtfutil/wtf/cfg"
 )
 
 type MultiSourceWidget struct {
-	module   string
-	singular string
-	plural   string
+	moduleConfig *cfg.Common
+	singular     string
+	plural       string
 
 	DisplayFunction func()
 	Idx             int
 	Sources         []string
 }
 
-func NewMultiSourceWidget(module, singular, plural string) MultiSourceWidget {
+func NewMultiSourceWidget(moduleConfig *cfg.Common, singular, plural string) MultiSourceWidget {
 	return MultiSourceWidget{
-		module:   module,
-		singular: singular,
-		plural:   plural,
+		moduleConfig: moduleConfig,
+		singular:     singular,
+		plural:       plural,
 	}
 }
 
@@ -35,11 +35,8 @@ func (widget *MultiSourceWidget) CurrentSource() string {
 func (widget *MultiSourceWidget) LoadSources() {
 	var empty []interface{}
 
-	s := fmt.Sprintf("wtf.mods.%s.%s", widget.module, widget.singular)
-	p := fmt.Sprintf("wtf.mods.%s.%s", widget.module, widget.plural)
-
-	single := Config.UString(s, "")
-	multiple := Config.UList(p, empty)
+	single := widget.moduleConfig.Config.UString(widget.singular, "")
+	multiple := widget.moduleConfig.Config.UList(widget.plural, empty)
 
 	asStrs := ToStrs(multiple)
 

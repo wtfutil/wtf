@@ -17,15 +17,14 @@ type Settings struct {
 	tags           []interface{}
 }
 
-func NewSettingsFromYAML(name string, ymlConfig *config.Config) *Settings {
-	localConfig, _ := ymlConfig.Get("wtf.mods." + configKey)
+func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromYAML(name, configKey, ymlConfig),
+		common: cfg.NewCommonSettingsFromModule(name, ymlConfig, globalConfig),
 
-		apiKey:         localConfig.UString("apiKey", os.Getenv("WTF_DATADOG_API_KEY")),
-		applicationKey: localConfig.UString("applicationKey", os.Getenv("WTF_DATADOG_APPLICATION_KEY")),
-		tags:           localConfig.UList("monitors.tags"),
+		apiKey:         ymlConfig.UString("apiKey", os.Getenv("WTF_DATADOG_API_KEY")),
+		applicationKey: ymlConfig.UString("applicationKey", os.Getenv("WTF_DATADOG_APPLICATION_KEY")),
+		tags:           ymlConfig.UList("monitors.tags"),
 	}
 
 	return &settings

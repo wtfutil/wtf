@@ -16,16 +16,15 @@ type Settings struct {
 	repositories []interface{}
 }
 
-func NewSettingsFromYAML(name string, ymlConfig *config.Config) *Settings {
-	localConfig, _ := ymlConfig.Get("wtf.mods." + configKey)
+func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromYAML(name, configKey, ymlConfig),
+		common: cfg.NewCommonSettingsFromModule(name, ymlConfig, globalConfig),
 
-		commitCount:  localConfig.UInt("commitCount", 10),
-		commitFormat: localConfig.UString("commitFormat", "[forestgreen]%h [white]%s [grey]%an on %cd[white]"),
-		dateFormat:   localConfig.UString("dateFormat", "%b %d, %Y"),
-		repositories: localConfig.UList("repositories"),
+		commitCount:  ymlConfig.UInt("commitCount", 10),
+		commitFormat: ymlConfig.UString("commitFormat", "[forestgreen]%h [white]%s [grey]%an on %cd[white]"),
+		dateFormat:   ymlConfig.UString("dateFormat", "%b %d, %Y"),
+		repositories: ymlConfig.UList("repositories"),
 	}
 
 	return &settings

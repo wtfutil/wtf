@@ -12,7 +12,6 @@ import (
 	"time"
 
 	"github.com/gdamore/tcell"
-	"github.com/olebedev/config"
 	"github.com/pkg/profile"
 	"github.com/radovskyb/watcher"
 	"github.com/rivo/tview"
@@ -24,9 +23,6 @@ import (
 
 var focusTracker wtf.FocusTracker
 var runningWidgets []wtf.Wtfable
-
-// Config parses the config.yml file and makes available the settings within
-var Config *config.Config
 
 var (
 	commit  = "dev"
@@ -61,11 +57,6 @@ func keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	return event
 }
 
-func loadConfigFile(filePath string) {
-	Config = cfg.LoadConfigFile(filePath)
-	wtf.Config = Config
-}
-
 func refreshAllWidgets(widgets []wtf.Wtfable) {
 	for _, widget := range widgets {
 		go widget.Refresh()
@@ -73,10 +64,6 @@ func refreshAllWidgets(widgets []wtf.Wtfable) {
 }
 
 func setTerm() {
-	err := os.Setenv("TERM", Config.UString("wtf.term", os.Getenv("TERM")))
-	if err != nil {
-		return
-	}
 }
 
 func watchForConfigChanges(app *tview.Application, configFilePath string, grid *tview.Grid, pages *tview.Pages) {
@@ -93,15 +80,15 @@ func watchForConfigChanges(app *tview.Application, configFilePath string, grid *
 				// Disable all widgets to stop scheduler goroutines and remove widgets from memory
 				disableAllWidgets(runningWidgets)
 
-				loadConfigFile(absPath)
+				config := cfg.LoadConfigFile(absPath)
 
-				widgets := maker.MakeWidgets(app, pages, Config)
+				widgets := maker.MakeWidgets(app, pages, config)
 				wtf.ValidateWidgets(widgets)
 				runningWidgets = widgets
 
-				focusTracker = wtf.NewFocusTracker(app, widgets)
+				focusTracker = wtf.NewFocusTracker(app, widgets, config)
 
-				display := wtf.NewDisplay(widgets)
+				display := wtf.NewDisplay(widgets, config)
 				pages.AddPage("grid", display.Grid, true, true)
 			case err := <-watch.Error:
 				log.Fatalln(err)
@@ -134,24 +121,29 @@ func main() {
 	cfg.MigrateOldConfig()
 	cfg.CreateConfigDir()
 	cfg.CreateConfigFile()
-	loadConfigFile(flags.ConfigFilePath())
+	config := cfg.LoadConfigFile(flags.ConfigFilePath())
 
 	if flags.Profile {
 		defer profile.Start(profile.MemProfile).Stop()
 	}
 
-	setTerm()
+	err := os.Setenv("TERM", config.UString("wtf.term", os.Getenv("TERM")))
+	if err != nil {
+		return
+	}
+
+	wtf.OpenFileUtil = config.UString("wtf.openFileUtil", "open")
 
 	app := tview.NewApplication()
 	pages := tview.NewPages()
 
-	widgets := maker.MakeWidgets(app, pages, Config)
+	widgets := maker.MakeWidgets(app, pages, config)
 	wtf.ValidateWidgets(widgets)
 	runningWidgets = widgets
 
-	focusTracker = wtf.NewFocusTracker(app, widgets)
+	focusTracker = wtf.NewFocusTracker(app, widgets, config)
 
-	display := wtf.NewDisplay(widgets)
+	display := wtf.NewDisplay(widgets, config)
 	pages.AddPage("grid", display.Grid, true, true)
 
 	app.SetInputCapture(keyboardIntercept)

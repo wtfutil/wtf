@@ -32,28 +32,27 @@ type Settings struct {
 	withLocation          bool
 }
 
-func NewSettingsFromYAML(name string, ymlConfig *config.Config) *Settings {
-	localConfig, _ := ymlConfig.Get("wtf.mods." + configKey)
+func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromYAML(name, configKey, ymlConfig),
+		common: cfg.NewCommonSettingsFromModule(name, ymlConfig, globalConfig),
 
-		conflictIcon:          localConfig.UString("conflictIcon", "🚨"),
-		currentIcon:           localConfig.UString("currentIcon", "🔸"),
-		displayResponseStatus: localConfig.UBool("displayResponseStatus", true),
-		email:                 localConfig.UString("email", ""),
-		eventCount:            localConfig.UInt("eventCount", 10),
-		multiCalendar:         localConfig.UBool("multiCalendar", false),
-		secretFile:            localConfig.UString("secretFile", ""),
-		showDeclined:          localConfig.UBool("showDeclined", false),
-		textInterval:          localConfig.UInt("textInterval", 30),
-		withLocation:          localConfig.UBool("withLocation", true),
+		conflictIcon:          ymlConfig.UString("conflictIcon", "🚨"),
+		currentIcon:           ymlConfig.UString("currentIcon", "🔸"),
+		displayResponseStatus: ymlConfig.UBool("displayResponseStatus", true),
+		email:                 ymlConfig.UString("email", ""),
+		eventCount:            ymlConfig.UInt("eventCount", 10),
+		multiCalendar:         ymlConfig.UBool("multiCalendar", false),
+		secretFile:            ymlConfig.UString("secretFile", ""),
+		showDeclined:          ymlConfig.UBool("showDeclined", false),
+		textInterval:          ymlConfig.UInt("textInterval", 30),
+		withLocation:          ymlConfig.UBool("withLocation", true),
 	}
 
-	settings.colors.day = localConfig.UString("colors.day", "forestgreen")
-	settings.colors.description = localConfig.UString("colors.description", "white")
-	settings.colors.past = localConfig.UString("colors.past", "gray")
-	settings.colors.title = localConfig.UString("colors.title", "white")
+	settings.colors.day = ymlConfig.UString("colors.day", "forestgreen")
+	settings.colors.description = ymlConfig.UString("colors.description", "white")
+	settings.colors.past = ymlConfig.UString("colors.past", "gray")
+	settings.colors.title = ymlConfig.UString("colors.title", "white")
 
 	return &settings
 }

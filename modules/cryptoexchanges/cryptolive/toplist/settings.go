@@ -42,29 +42,28 @@ type Settings struct {
 	top        map[string]*currency
 }
 
-func NewSettingsFromYAML(name string, ymlConfig *config.Config) *Settings {
-	localConfig, _ := ymlConfig.Get("wtf.mods." + configKey)
+func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromYAML(name, configKey, ymlConfig),
+		common: cfg.NewCommonSettingsFromModule(name, ymlConfig, globalConfig),
 	}
 
-	settings.colors.from.name = localConfig.UString("colors.from.name")
-	settings.colors.from.displayName = localConfig.UString("colors.from.displayName")
+	settings.colors.from.name = ymlConfig.UString("colors.from.name")
+	settings.colors.from.displayName = ymlConfig.UString("colors.from.displayName")
 
-	settings.colors.to.name = localConfig.UString("colors.to.name")
-	settings.colors.to.price = localConfig.UString("colors.to.price")
+	settings.colors.to.name = ymlConfig.UString("colors.to.name")
+	settings.colors.to.price = ymlConfig.UString("colors.to.price")
 
-	settings.colors.top.from.name = localConfig.UString("colors.top.from.name")
-	settings.colors.top.from.displayName = localConfig.UString("colors.top.from.displayName")
+	settings.colors.top.from.name = ymlConfig.UString("colors.top.from.name")
+	settings.colors.top.from.displayName = ymlConfig.UString("colors.top.from.displayName")
 
-	settings.colors.top.to.name = localConfig.UString("colors.top.to.name")
-	settings.colors.top.to.field = localConfig.UString("colors.top.to.field")
-	settings.colors.top.to.value = localConfig.UString("colors.top.to.value")
+	settings.colors.top.to.name = ymlConfig.UString("colors.top.to.name")
+	settings.colors.top.to.field = ymlConfig.UString("colors.top.to.field")
+	settings.colors.top.to.value = ymlConfig.UString("colors.top.to.value")
 
 	settings.currencies = make(map[string]*currency)
 
-	for key, val := range localConfig.UMap("currencies") {
+	for key, val := range ymlConfig.UMap("currencies") {
 		coercedVal := val.(map[string]interface{})
 
 		limit, _ := coercedVal["limit"].(int)
@@ -78,7 +77,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config) *Settings {
 		settings.currencies[key] = currency
 	}
 
-	for key, val := range localConfig.UMap("top") {
+	for key, val := range ymlConfig.UMap("top") {
 		coercedVal := val.(map[string]interface{})
 
 		limit, _ := coercedVal["limit"].(int)

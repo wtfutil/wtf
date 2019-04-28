@@ -17,6 +17,8 @@ const FriendlyDateFormat = "Mon, Jan 2"
 const FriendlyDateTimeFormat = "Mon, Jan 2, 15:04"
 const TimestampFormat = "2006-01-02T15:04:05-0700"
 
+var OpenFileUtil = "open"
+
 func CenterText(str string, width int) string {
 	if width < 0 {
 		width = 0
@@ -91,8 +93,7 @@ func OpenFile(path string) {
 		}
 	} else {
 		filePath, _ := ExpandHomeDir(path)
-		openFileUtil := Config.UString("wtf.openFileUtil", "open")
-		cmd := exec.Command(openFileUtil, filePath)
+		cmd := exec.Command(OpenFileUtil, filePath)
 		ExecuteCommand(cmd)
 	}
 }

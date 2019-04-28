@@ -26,8 +26,7 @@ type Colors struct {
 }
 
 type Module struct {
-	ConfigKey string
-	Name      string
+	Name string
 }
 
 type Position struct {
@@ -57,57 +56,57 @@ type Common struct {
 	Enabled         bool
 	RefreshInterval int
 	Title           string
+	Config          *config.Config
 
 	focusChar int
 }
 
-func NewCommonSettingsFromYAML(name, configKey string, ymlConfig *config.Config) *Common {
-	colorsPath := "wtf.colors"
-	modulePath := "wtf.mods." + configKey
-	positionPath := "wtf.mods." + configKey + ".position"
+func NewCommonSettingsFromModule(name string, moduleConfig *config.Config, globalSettings *config.Config) *Common {
+	colorsConfig, _ := globalSettings.Get("wtf.colors")
+	positionPath := "position"
 	sigilsPath := "wtf.sigils"
 
 	common := Common{
 		Colors: Colors{
-			Background:      ymlConfig.UString(modulePath+".background", ymlConfig.UString(colorsPath+".background", "black")),
-			BorderFocusable: ymlConfig.UString(colorsPath+".border.focusable", "red"),
-			BorderFocused:   ymlConfig.UString(colorsPath+".border.focused", "orange"),
-			BorderNormal:    ymlConfig.UString(colorsPath+".border.normal", "gray"),
-			Checked:         ymlConfig.UString(colorsPath+".checked", "white"),
-			Foreground:      ymlConfig.UString(modulePath+".foreground", ymlConfig.UString(colorsPath+".foreground", "white")),
-			HighlightFore:   ymlConfig.UString(colorsPath+".highlight.fore", "black"),
-			HighlightBack:   ymlConfig.UString(colorsPath+".highlight.back", "green"),
-			Text:            ymlConfig.UString(modulePath+".colors.text", ymlConfig.UString(colorsPath+".text", "white")),
-			Title:           ymlConfig.UString(modulePath+".colors.title", ymlConfig.UString(colorsPath+".title", "white")),
+			Background:      moduleConfig.UString("background", globalSettings.UString("background", "black")),
+			BorderFocusable: colorsConfig.UString("border.focusable", "red"),
+			BorderFocused:   colorsConfig.UString("border.focused", "orange"),
+			BorderNormal:    colorsConfig.UString("border.normal", "gray"),
+			Checked:         colorsConfig.UString("checked", "white"),
+			Foreground:      moduleConfig.UString("foreground", colorsConfig.UString("foreground", "white")),
+			HighlightFore:   colorsConfig.UString("highlight.fore", "black"),
+			HighlightBack:   colorsConfig.UString("highlight.back", "green"),
+			Text:            moduleConfig.UString("colors.text", colorsConfig.UString("text", "white")),
+			Title:           moduleConfig.UString("colors.title", colorsConfig.UString("title", "white")),
 		},
 
 		Module: Module{
-			ConfigKey: configKey,
-			Name:      name,
+			Name: name,
 		},
 
 		Position: Position{
-			Height: ymlConfig.UInt(positionPath + ".height"),
-			Left:   ymlConfig.UInt(positionPath + ".left"),
-			Top:    ymlConfig.UInt(positionPath + ".top"),
-			Width:  ymlConfig.UInt(positionPath + ".width"),
+			Height: moduleConfig.UInt(positionPath + ".height"),
+			Left:   moduleConfig.UInt(positionPath + ".left"),
+			Top:    moduleConfig.UInt(positionPath + ".top"),
+			Width:  moduleConfig.UInt(positionPath + ".width"),
 		},
 
-		Enabled:         ymlConfig.UBool(modulePath+".enabled", false),
-		RefreshInterval: ymlConfig.UInt(modulePath+".refreshInterval", 300),
-		Title:           ymlConfig.UString(modulePath+".title", name),
+		Enabled:         moduleConfig.UBool("enabled", false),
+		RefreshInterval: moduleConfig.UInt("refreshInterval", 300),
+		Title:           moduleConfig.UString("title", name),
+		Config:          moduleConfig,
 
-		focusChar: ymlConfig.UInt(modulePath+".focusChar", -1),
+		focusChar: moduleConfig.UInt("focusChar", -1),
 	}
 
-	common.Colors.Rows.Even = ymlConfig.UString(modulePath+".colors.rows.even", ymlConfig.UString(colorsPath+".rows.even", "white"))
-	common.Colors.Rows.Odd = ymlConfig.UString(modulePath+".colors.rows.even", ymlConfig.UString(colorsPath+".rows.odd", "lightblue"))
+	common.Colors.Rows.Even = moduleConfig.UString("colors.rows.even", moduleConfig.UString("rows.even", "white"))
+	common.Colors.Rows.Odd = moduleConfig.UString("colors.rows.even", moduleConfig.UString("rows.odd", "lightblue"))
 
-	common.Sigils.Checkbox.Checked = ymlConfig.UString(sigilsPath+".Checkbox.Checked", "x")
-	common.Sigils.Checkbox.Unchecked = ymlConfig.UString(sigilsPath+".Checkbox.Unchecked", " ")
+	common.Sigils.Checkbox.Checked = globalSettings.UString(sigilsPath+".Checkbox.Checked", "x")
+	common.Sigils.Checkbox.Unchecked = globalSettings.UString(sigilsPath+".Checkbox.Unchecked", " ")
 
-	common.Sigils.Paging.Normal = ymlConfig.UString(sigilsPath+".Paging.Normal", ymlConfig.UString("wtf.paging.pageSigil", "*"))
-	common.Sigils.Paging.Selected = ymlConfig.UString(sigilsPath+".Paging.Select", ymlConfig.UString("wtf.paging.selectedSigil", "_"))
+	common.Sigils.Paging.Normal = globalSettings.UString(sigilsPath+".Paging.Normal", globalSettings.UString("wtf.paging.pageSigil", "*"))
+	common.Sigils.Paging.Selected = globalSettings.UString(sigilsPath+".Paging.Select", globalSettings.UString("wtf.paging.selectedSigil", "_"))
 
 	return &common
 }

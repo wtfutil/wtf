@@ -23,19 +23,18 @@ type Settings struct {
 	tempUnit string
 }
 
-func NewSettingsFromYAML(name string, ymlConfig *config.Config) *Settings {
-	localConfig, _ := ymlConfig.Get("wtf.mods." + configKey)
+func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromYAML(name, configKey, ymlConfig),
+		common: cfg.NewCommonSettingsFromModule(name, ymlConfig, globalConfig),
 
-		apiKey:   localConfig.UString("apiKey", os.Getenv("WTF_OWM_API_KEY")),
-		cityIDs:  localConfig.UList("cityids"),
-		language: localConfig.UString("language", "EN"),
-		tempUnit: localConfig.UString("tempUnit", "C"),
+		apiKey:   ymlConfig.UString("apiKey", os.Getenv("WTF_OWM_API_KEY")),
+		cityIDs:  ymlConfig.UList("cityids"),
+		language: ymlConfig.UString("language", "EN"),
+		tempUnit: ymlConfig.UString("tempUnit", "C"),
 	}
 
-	settings.colors.current = localConfig.UString("colors.current", "green")
+	settings.colors.current = ymlConfig.UString("colors.current", "green")
 
 	return &settings
 }

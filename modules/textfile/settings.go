@@ -15,15 +15,14 @@ type Settings struct {
 	formatStyle string
 }
 
-func NewSettingsFromYAML(name string, ymlConfig *config.Config) *Settings {
-	localConfig, _ := ymlConfig.Get("wtf.mods." + configKey)
+func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromYAML(name, configKey, ymlConfig),
+		common: cfg.NewCommonSettingsFromModule(name, ymlConfig, globalConfig),
 
-		filePaths:   localConfig.UList("filePaths"),
-		format:      localConfig.UBool("format", false),
-		formatStyle: localConfig.UString("formatStyle", "vim"),
+		filePaths:   ymlConfig.UList("filePaths"),
+		format:      ymlConfig.UBool("format", false),
+		formatStyle: ymlConfig.UString("formatStyle", "vim"),
 	}
 
 	return &settings

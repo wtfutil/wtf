@@ -17,15 +17,14 @@ type Settings struct {
 	deployCount   int
 }
 
-func NewSettingsFromYAML(name string, ymlConfig *config.Config) *Settings {
-	localConfig, _ := ymlConfig.Get("wtf.mods." + configKey)
+func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromYAML(name, configKey, ymlConfig),
+		common: cfg.NewCommonSettingsFromModule(name, ymlConfig, globalConfig),
 
-		apiKey:        localConfig.UString("apiKey", os.Getenv("WTF_NEW_RELIC_API_KEY")),
-		applicationID: localConfig.UInt("applicationID"),
-		deployCount:   localConfig.UInt("deployCount", 5),
+		apiKey:        ymlConfig.UString("apiKey", os.Getenv("WTF_NEW_RELIC_API_KEY")),
+		applicationID: ymlConfig.UInt("applicationID"),
+		deployCount:   ymlConfig.UInt("deployCount", 5),
 	}
 
 	return &settings

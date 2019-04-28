@@ -15,13 +15,12 @@ type Settings struct {
 	apiKey string
 }
 
-func NewSettingsFromYAML(name string, ymlConfig *config.Config) *Settings {
-	localConfig, _ := ymlConfig.Get("wtf.mods." + configKey)
+func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromYAML(name, configKey, ymlConfig),
+		common: cfg.NewCommonSettingsFromModule(name, ymlConfig, globalConfig),
 
-		apiKey: localConfig.UString("apiKey", os.Getenv("WTF_CIRCLE_API_KEY")),
+		apiKey: ymlConfig.UString("apiKey", os.Getenv("WTF_CIRCLE_API_KEY")),
 	}
 
 	return &settings

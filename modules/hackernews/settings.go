@@ -14,14 +14,13 @@ type Settings struct {
 	storyType       string
 }
 
-func NewSettingsFromYAML(name string, ymlConfig *config.Config) *Settings {
-	localConfig, _ := ymlConfig.Get("wtf.mods." + configKey)
+func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromYAML(name, configKey, ymlConfig),
+		common: cfg.NewCommonSettingsFromModule(name, ymlConfig, globalConfig),
 
-		numberOfStories: localConfig.UInt("numberOfStories", 10),
-		storyType:       localConfig.UString("storyType", "top"),
+		numberOfStories: ymlConfig.UInt("numberOfStories", 10),
+		storyType:       ymlConfig.UString("storyType", "top"),
 	}
 
 	return &settings

@@ -16,14 +16,13 @@ type Settings struct {
 	projects []interface{}
 }
 
-func NewSettingsFromYAML(name string, ymlConfig *config.Config) *Settings {
-	localConfig, _ := ymlConfig.Get("wtf.mods." + configKey)
+func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromYAML(name, configKey, ymlConfig),
+		common: cfg.NewCommonSettingsFromModule(name, ymlConfig, globalConfig),
 
-		apiKey:   localConfig.UString("apiKey", os.Getenv("WTF_TODOIST_TOKEN")),
-		projects: localConfig.UList("projects"),
+		apiKey:   ymlConfig.UString("apiKey", os.Getenv("WTF_TODOIST_TOKEN")),
+		projects: ymlConfig.UList("projects"),
 	}
 
 	return &settings

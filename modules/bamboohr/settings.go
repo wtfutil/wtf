@@ -16,14 +16,13 @@ type Settings struct {
 	subdomain string
 }
 
-func NewSettingsFromYAML(name string, ymlConfig *config.Config) *Settings {
-	localConfig, _ := ymlConfig.Get("wtf.mods." + configKey)
+func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromYAML(name, configKey, ymlConfig),
+		common: cfg.NewCommonSettingsFromModule(name, ymlConfig, globalConfig),
 
-		apiKey:    localConfig.UString("apiKey", os.Getenv("WTF_BAMBOO_HR_TOKEN")),
-		subdomain: localConfig.UString("subdomain", os.Getenv("WTF_BAMBOO_HR_SUBDOMAIN")),
+		apiKey:    ymlConfig.UString("apiKey", os.Getenv("WTF_BAMBOO_HR_TOKEN")),
+		subdomain: ymlConfig.UString("subdomain", os.Getenv("WTF_BAMBOO_HR_SUBDOMAIN")),
 	}
 
 	return &settings

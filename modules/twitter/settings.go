@@ -17,15 +17,14 @@ type Settings struct {
 	screenNames []interface{}
 }
 
-func NewSettingsFromYAML(name string, ymlConfig *config.Config) *Settings {
-	localConfig, _ := ymlConfig.Get("wtf.mods." + configKey)
+func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromYAML(name, configKey, ymlConfig),
+		common: cfg.NewCommonSettingsFromModule(name, ymlConfig, globalConfig),
 
-		bearerToken: localConfig.UString("bearerToken", os.Getenv("WTF_TWITTER_BEARER_TOKEN")),
-		count:       localConfig.UInt("count", 5),
-		screenNames: localConfig.UList("screenName"),
+		bearerToken: ymlConfig.UString("bearerToken", os.Getenv("WTF_TWITTER_BEARER_TOKEN")),
+		count:       ymlConfig.UInt("count", 5),
+		screenNames: ymlConfig.UList("screenName"),
 	}
 
 	return &settings

@@ -18,18 +18,17 @@ type Settings struct {
 	projectOwner   string
 }
 
-func NewSettingsFromYAML(name string, ymlConfig *config.Config) *Settings {
-	localConfig, _ := ymlConfig.Get("wtf.mods." + configKey)
+func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromYAML(name, configKey, ymlConfig),
+		common: cfg.NewCommonSettingsFromModule(name, ymlConfig, globalConfig),
 
-		accessToken:    localConfig.UString("accessToken"),
-		activeOnly:     localConfig.UBool("activeOnly", false),
-		assignedToName: localConfig.UString("assignedToName"),
-		count:          localConfig.UInt("count", 10),
-		projectName:    localConfig.UString("projectName", "Items"),
-		projectOwner:   localConfig.UString("projectOwner"),
+		accessToken:    ymlConfig.UString("accessToken"),
+		activeOnly:     ymlConfig.UBool("activeOnly", false),
+		assignedToName: ymlConfig.UString("assignedToName"),
+		count:          ymlConfig.UInt("count", 10),
+		projectName:    ymlConfig.UString("projectName", "Items"),
+		projectOwner:   ymlConfig.UString("projectOwner"),
 	}
 
 	return &settings
