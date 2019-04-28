@@ -29,10 +29,9 @@ func NewWidget(app *tview.Application, name string, settings *Settings) *Widget 
 
 func (widget *Widget) Refresh() {
 	widget.app.QueueUpdateDraw(func() {
-		widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("%s", widget.Name())))
 		widget.View.Clear()
 
-		content := fmt.Sprintf("Widget %s does not exist", widget.Name())
+		content := fmt.Sprintf("Widget %s does not exist", widget.CommonSettings.Title)
 		widget.View.SetText(content)
 	})
 }

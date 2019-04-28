@@ -12,7 +12,7 @@ func (widget *Widget) display() {
 		return
 	}
 
-	widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("%s- %s", widget.Name(), widget.title(project))))
+	widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("%s- %s", widget.CommonSettings.Title, widget.title(project))))
 
 	_, _, width, _ := widget.View.GetRect()
 	str := widget.settings.common.SigilStr(len(widget.GerritProjects), widget.Idx, width) + "\n"

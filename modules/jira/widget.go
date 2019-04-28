@@ -64,7 +64,7 @@ func (widget *Widget) Refresh() {
 		widget.View.SetWrap(true)
 
 		widget.app.QueueUpdateDraw(func() {
-			widget.View.SetTitle(widget.Name())
+			widget.View.SetTitle(widget.CommonSettings.Title)
 			widget.View.SetText(err.Error())
 		})
 	} else {
@@ -84,7 +84,7 @@ func (widget *Widget) display() {
 	}
 	widget.View.SetWrap(false)
 
-	str := fmt.Sprintf("%s- [green]%s[white]", widget.Name(), widget.settings.projects)
+	str := fmt.Sprintf("%s- [green]%s[white]", widget.CommonSettings.Title, widget.settings.projects)
 
 	widget.View.Clear()
 	widget.View.SetTitle(widget.ContextualTitle(str))

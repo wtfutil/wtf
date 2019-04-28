@@ -67,7 +67,6 @@ func (widget *Widget) Refresh() {
 		widget.View.SetWrap(true)
 
 		widget.app.QueueUpdateDraw(func() {
-			widget.View.SetTitle(widget.Name())
 			widget.View.SetText(err.Error())
 		})
 	} else {
@@ -87,7 +86,7 @@ func (widget *Widget) display() {
 	}
 
 	widget.View.SetWrap(false)
-	widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("%s - %s", widget.Name(), widget.settings.projectName)))
+	widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("%s - %s", widget.CommonSettings.Title, widget.settings.projectName)))
 	widget.View.SetText(widget.contentFrom(widget.items))
 }
 

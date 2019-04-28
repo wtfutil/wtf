@@ -97,7 +97,6 @@ func (widget *Widget) Refresh() {
 		widget.View.SetWrap(true)
 
 		widget.app.QueueUpdateDraw(func() {
-			widget.View.SetTitle(widget.Name())
 			widget.View.SetText(err.Error())
 		})
 		return
@@ -110,7 +109,6 @@ func (widget *Widget) Refresh() {
 	}
 
 	widget.app.QueueUpdateDraw(func() {
-		widget.View.SetTitle(widget.Name())
 		widget.display()
 	})
 }

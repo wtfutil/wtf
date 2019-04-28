@@ -47,13 +47,13 @@ func (widget *Widget) Refresh() {
 
 	if err != nil {
 		widget.View.SetWrap(true)
-		title = widget.Name()
+		title = widget.CommonSettings.Title
 		content = err.Error()
 	} else {
 		widget.View.SetWrap(false)
 		title = fmt.Sprintf(
 			"[white]%s: [green]%s ",
-			widget.Name(),
+			widget.CommonSettings.Title,
 			widget.settings.board,
 		)
 		content = widget.contentFrom(searchResult)

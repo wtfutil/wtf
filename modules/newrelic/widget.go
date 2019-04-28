@@ -50,7 +50,7 @@ func (widget *Widget) Refresh() {
 	}
 
 	widget.app.QueueUpdateDraw(func() {
-		widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("%s - [green]%s[white]", widget.Name(), appName)))
+		widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("%s - [green]%s[white]", widget.CommonSettings.Title, appName)))
 		widget.View.Clear()
 		widget.View.SetText(content)
 	})

@@ -59,7 +59,6 @@ func (widget *Widget) Refresh() {
 	room, err := GetRoom(widget.settings.roomURI, widget.settings.apiToken)
 	if err != nil {
 		widget.View.SetWrap(true)
-		widget.View.SetTitle(widget.Name())
 		widget.View.SetText(err.Error())
 		return
 	}
@@ -74,7 +73,6 @@ func (widget *Widget) Refresh() {
 		widget.View.SetWrap(true)
 
 		widget.app.QueueUpdateDraw(func() {
-			widget.View.SetTitle(widget.Name())
 			widget.View.SetText(err.Error())
 		})
 	} else {
@@ -96,7 +94,7 @@ func (widget *Widget) display() {
 
 	widget.View.SetWrap(true)
 	widget.View.Clear()
-	widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("%s - %s", widget.Name(), widget.settings.roomURI)))
+	widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("%s - %s", widget.CommonSettings.Title, widget.settings.roomURI)))
 	widget.View.SetText(widget.contentFrom(widget.messages))
 	widget.View.Highlight(strconv.Itoa(widget.selected)).ScrollToHighlight()
 }
