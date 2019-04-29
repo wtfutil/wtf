@@ -50,7 +50,6 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 		settings: settings,
 	}
 
-	widget.LoadSources()
 	widget.SetDisplayFunction(widget.display)
 
 	widget.HelpfulWidget.SetView(widget.View)

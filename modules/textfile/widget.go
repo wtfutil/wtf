@@ -53,7 +53,6 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	widget.settings.common.RefreshInterval = 0
 
 	widget.HelpfulWidget.SetView(widget.View)
-	widget.LoadSources()
 	widget.SetDisplayFunction(widget.display)
 	widget.View.SetWrap(true)
 	widget.View.SetWordWrap(true)
