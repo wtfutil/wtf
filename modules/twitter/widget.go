@@ -48,7 +48,6 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 
 	widget.HelpfulWidget.SetView(widget.View)
 
-	widget.LoadSources()
 	widget.SetDisplayFunction(widget.display)
 
 	widget.client = NewClient(settings)
