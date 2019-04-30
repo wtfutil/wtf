@@ -69,6 +69,7 @@ func (widget *Widget) Refresh() {
 
 	if err != nil {
 		widget.View.SetWrap(true)
+		widget.View.SetTitle(widget.ContextualTitle(widget.CommonSettings.Title))
 		widget.View.SetText(err.Error())
 	} else {
 		var stories []Story

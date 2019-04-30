@@ -40,7 +40,7 @@ func (widget *Widget) Refresh() {
 		content = widget.contentFrom(monitors)
 	}
 	widget.app.QueueUpdateDraw(func() {
-		widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("%s", widget.CommonSettings.Title)))
+		widget.View.SetTitle(widget.ContextualTitle(widget.CommonSettings.Title))
 		widget.View.Clear()
 		widget.View.SetText(content)
 	})

@@ -49,6 +49,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 
 func (widget *Widget) Refresh() {
 	widget.app.QueueUpdateDraw(func() {
+		widget.View.SetTitle(widget.ContextualTitle(widget.CommonSettings.Title))
 		widget.nbascore()
 	})
 }
