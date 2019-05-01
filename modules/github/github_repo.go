@@ -160,6 +160,7 @@ func (repo *GithubRepo) loadPullRequests() ([]*ghb.PullRequest, error) {
 	}
 
 	opts := &ghb.PullRequestListOptions{}
+	opts.ListOptions.PerPage = 100
 
 	prs, _, err := github.PullRequests.List(context.Background(), repo.Owner, repo.Name, opts)
 
