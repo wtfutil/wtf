@@ -7,7 +7,7 @@ import (
 	"github.com/wtfutil/wtf/modules/cryptoexchanges/cryptolive/toplist"
 )
 
-const configKey = "cryptolive"
+const defaultTitle = "CryptolLive"
 
 type colors struct {
 	from struct {
@@ -48,7 +48,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 	top, _ := ymlConfig.Map("top")
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, ymlConfig, globalConfig),
+		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, ymlConfig, globalConfig),
 
 		currencies: currencies,
 		top:        top,

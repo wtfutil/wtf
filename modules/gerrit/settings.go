@@ -14,7 +14,7 @@ type colors struct {
 	}
 }
 
-const configKey = "gerrit"
+const defaultTitle = "Gerrit"
 
 type Settings struct {
 	colors
@@ -30,7 +30,7 @@ type Settings struct {
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, ymlConfig, globalConfig),
+		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, ymlConfig, globalConfig),
 
 		domain:                  ymlConfig.UString("domain", ""),
 		password:                ymlConfig.UString("password", os.Getenv("WTF_GERRIT_PASSWORD")),

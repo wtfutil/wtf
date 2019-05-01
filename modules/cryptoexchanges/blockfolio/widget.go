@@ -42,7 +42,7 @@ func (widget *Widget) Refresh() {
 	content := widget.contentFrom(positions)
 
 	widget.app.QueueUpdateDraw(func() {
-		widget.View.SetTitle(" Blockfolio ")
+		widget.View.SetTitle(widget.CommonSettings.Title)
 		widget.View.SetText(content)
 	})
 }

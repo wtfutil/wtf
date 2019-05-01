@@ -7,7 +7,7 @@ import (
 	"github.com/wtfutil/wtf/cfg"
 )
 
-const configKey = "jira"
+const defaultTitle = "Jira"
 
 type colors struct {
 	rows struct {
@@ -32,7 +32,7 @@ type Settings struct {
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, ymlConfig, globalConfig),
+		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, ymlConfig, globalConfig),
 
 		apiKey:                  ymlConfig.UString("apiKey", os.Getenv("WTF_JIRA_API_KEY")),
 		domain:                  ymlConfig.UString("domain"),

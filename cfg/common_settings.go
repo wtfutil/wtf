@@ -61,7 +61,7 @@ type Common struct {
 	focusChar int
 }
 
-func NewCommonSettingsFromModule(name string, moduleConfig *config.Config, globalSettings *config.Config) *Common {
+func NewCommonSettingsFromModule(name, defaultTitle string, moduleConfig *config.Config, globalSettings *config.Config) *Common {
 	colorsConfig, _ := globalSettings.Get("wtf.colors")
 	positionPath := "position"
 	sigilsPath := "wtf.sigils"
@@ -93,7 +93,7 @@ func NewCommonSettingsFromModule(name string, moduleConfig *config.Config, globa
 
 		Enabled:         moduleConfig.UBool("enabled", false),
 		RefreshInterval: moduleConfig.UInt("refreshInterval", 300),
-		Title:           moduleConfig.UString("title", name),
+		Title:           moduleConfig.UString("title", defaultTitle),
 		Config:          moduleConfig,
 
 		focusChar: moduleConfig.UInt("focusChar", -1),

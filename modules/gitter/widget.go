@@ -59,6 +59,7 @@ func (widget *Widget) Refresh() {
 	room, err := GetRoom(widget.settings.roomURI, widget.settings.apiToken)
 	if err != nil {
 		widget.View.SetWrap(true)
+		widget.View.SetTitle(widget.CommonSettings.Title)
 		widget.View.SetText(err.Error())
 		return
 	}
@@ -73,6 +74,7 @@ func (widget *Widget) Refresh() {
 		widget.View.SetWrap(true)
 
 		widget.app.QueueUpdateDraw(func() {
+			widget.View.SetTitle(widget.CommonSettings.Title)
 			widget.View.SetText(err.Error())
 		})
 	} else {

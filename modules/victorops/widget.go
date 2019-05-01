@@ -44,6 +44,7 @@ func (widget *Widget) Refresh() {
 	}
 
 	teams, err := Fetch(widget.settings.apiID, widget.settings.apiKey)
+	widget.View.SetTitle(widget.ContextualTitle(widget.CommonSettings.Title))
 
 	if err != nil {
 		widget.View.SetWrap(true)

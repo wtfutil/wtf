@@ -6,7 +6,7 @@ import (
 	"github.com/wtfutil/wtf/wtf"
 )
 
-const configKey = "cmdrunner"
+const defaultTitle = "CmdRunner"
 
 type Settings struct {
 	common *cfg.Common
@@ -18,7 +18,7 @@ type Settings struct {
 func NewSettingsFromYAML(name string, moduleConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, moduleConfig, globalConfig),
+		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, moduleConfig, globalConfig),
 
 		args: wtf.ToStrs(moduleConfig.UList("args")),
 		cmd:  moduleConfig.UString("cmd"),
