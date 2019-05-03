@@ -5,7 +5,7 @@ import (
 	"github.com/wtfutil/wtf/cfg"
 )
 
-const configKey = "git"
+const defaultTitle = "Git"
 
 type Settings struct {
 	common *cfg.Common
@@ -19,7 +19,7 @@ type Settings struct {
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, ymlConfig, globalConfig),
+		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, ymlConfig, globalConfig),
 
 		commitCount:  ymlConfig.UInt("commitCount", 10),
 		commitFormat: ymlConfig.UString("commitFormat", "[forestgreen]%h [white]%s [grey]%an on %cd[white]"),

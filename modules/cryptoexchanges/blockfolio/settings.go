@@ -5,7 +5,7 @@ import (
 	"github.com/wtfutil/wtf/cfg"
 )
 
-const configKey = "blockfolio"
+const defaultTitle = "Blockfolio"
 
 type colors struct {
 	name  string
@@ -24,7 +24,7 @@ type Settings struct {
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, ymlConfig, globalConfig),
+		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, ymlConfig, globalConfig),
 
 		deviceToken:     ymlConfig.UString("device_token"),
 		displayHoldings: ymlConfig.UBool("displayHoldings", true),

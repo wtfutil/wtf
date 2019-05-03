@@ -5,7 +5,7 @@ import (
 	"github.com/wtfutil/wtf/cfg"
 )
 
-const configKey = "textfile"
+const defaultTitle = "Textfile"
 
 type Settings struct {
 	common *cfg.Common
@@ -18,7 +18,7 @@ type Settings struct {
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, ymlConfig, globalConfig),
+		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, ymlConfig, globalConfig),
 
 		filePaths:   ymlConfig.UList("filePaths"),
 		format:      ymlConfig.UBool("format", false),

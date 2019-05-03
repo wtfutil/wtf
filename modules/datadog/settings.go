@@ -7,7 +7,7 @@ import (
 	"github.com/wtfutil/wtf/cfg"
 )
 
-const configKey = "datadog"
+const defaultTitle = "DataDog"
 
 type Settings struct {
 	common *cfg.Common
@@ -20,7 +20,7 @@ type Settings struct {
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, ymlConfig, globalConfig),
+		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, ymlConfig, globalConfig),
 
 		apiKey:         ymlConfig.UString("apiKey", os.Getenv("WTF_DATADOG_API_KEY")),
 		applicationKey: ymlConfig.UString("applicationKey", os.Getenv("WTF_DATADOG_APPLICATION_KEY")),

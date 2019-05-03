@@ -5,7 +5,7 @@ import (
 	"github.com/wtfutil/wtf/cfg"
 )
 
-const configKey = "gcal"
+const defaultTitle = "Calendar"
 
 type colors struct {
 	day         string
@@ -35,7 +35,7 @@ type Settings struct {
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, ymlConfig, globalConfig),
+		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, ymlConfig, globalConfig),
 
 		conflictIcon:          ymlConfig.UString("conflictIcon", "🚨"),
 		currentIcon:           ymlConfig.UString("currentIcon", "🔸"),

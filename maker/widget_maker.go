@@ -56,147 +56,148 @@ func MakeWidget(
 	app *tview.Application,
 	pages *tview.Pages,
 	widgetName string,
+	widgetType string,
 	moduleConfig *config.Config,
 	globalConfig *config.Config,
 ) wtf.Wtfable {
 	var widget wtf.Wtfable
 
 	// Always in alphabetical order
-	switch widgetName {
+	switch widgetType {
 	case "bamboohr":
-		settings := bamboohr.NewSettingsFromYAML("BambooHR", moduleConfig, globalConfig)
+		settings := bamboohr.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = bamboohr.NewWidget(app, settings)
 	case "bargraph":
 		settings := bargraph.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = bargraph.NewWidget(app, settings)
 	case "bittrex":
-		settings := bittrex.NewSettingsFromYAML("Bittrex", moduleConfig, globalConfig)
+		settings := bittrex.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = bittrex.NewWidget(app, settings)
 	case "blockfolio":
-		settings := blockfolio.NewSettingsFromYAML("Blockfolio", moduleConfig, globalConfig)
+		settings := blockfolio.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = blockfolio.NewWidget(app, settings)
 	case "circleci":
-		settings := circleci.NewSettingsFromYAML("CircleCI", moduleConfig, globalConfig)
+		settings := circleci.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = circleci.NewWidget(app, settings)
 	case "clocks":
-		settings := clocks.NewSettingsFromYAML("Clocks", moduleConfig, globalConfig)
+		settings := clocks.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = clocks.NewWidget(app, settings)
 	case "cmdrunner":
-		settings := cmdrunner.NewSettingsFromYAML("CmdRunner", moduleConfig, globalConfig)
+		settings := cmdrunner.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = cmdrunner.NewWidget(app, settings)
 	case "cryptolive":
-		settings := cryptolive.NewSettingsFromYAML("CryptoLive", moduleConfig, globalConfig)
+		settings := cryptolive.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = cryptolive.NewWidget(app, settings)
 	case "datadog":
-		settings := datadog.NewSettingsFromYAML("DataDog", moduleConfig, globalConfig)
+		settings := datadog.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = datadog.NewWidget(app, settings)
 	case "gcal":
-		settings := gcal.NewSettingsFromYAML("Calendar", moduleConfig, globalConfig)
+		settings := gcal.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = gcal.NewWidget(app, settings)
 	case "gerrit":
-		settings := gerrit.NewSettingsFromYAML("Gerrit", moduleConfig, globalConfig)
+		settings := gerrit.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = gerrit.NewWidget(app, pages, settings)
 	case "git":
-		settings := git.NewSettingsFromYAML("Git", moduleConfig, globalConfig)
+		settings := git.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = git.NewWidget(app, pages, settings)
 	case "github":
-		settings := github.NewSettingsFromYAML("GitHub", moduleConfig, globalConfig)
+		settings := github.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = github.NewWidget(app, pages, settings)
 	case "gitlab":
-		settings := gitlab.NewSettingsFromYAML("GitLab", moduleConfig, globalConfig)
+		settings := gitlab.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = gitlab.NewWidget(app, pages, settings)
 	case "gitter":
-		settings := gitter.NewSettingsFromYAML("Gitter", moduleConfig, globalConfig)
+		settings := gitter.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = gitter.NewWidget(app, pages, settings)
 	case "gspreadsheets":
-		settings := gspreadsheets.NewSettingsFromYAML("Google Spreadsheets", moduleConfig, globalConfig)
+		settings := gspreadsheets.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = gspreadsheets.NewWidget(app, settings)
 	case "hackernews":
-		settings := hackernews.NewSettingsFromYAML("HackerNews", moduleConfig, globalConfig)
+		settings := hackernews.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = hackernews.NewWidget(app, pages, settings)
 	case "ipapi":
-		settings := ipapi.NewSettingsFromYAML("IPAPI", moduleConfig, globalConfig)
+		settings := ipapi.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = ipapi.NewWidget(app, settings)
 	case "ipinfo":
-		settings := ipinfo.NewSettingsFromYAML("IPInfo", moduleConfig, globalConfig)
+		settings := ipinfo.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = ipinfo.NewWidget(app, settings)
 	case "jenkins":
-		settings := jenkins.NewSettingsFromYAML("Jenkins", moduleConfig, globalConfig)
+		settings := jenkins.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = jenkins.NewWidget(app, pages, settings)
 	case "jira":
-		settings := jira.NewSettingsFromYAML("Jira", moduleConfig, globalConfig)
+		settings := jira.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = jira.NewWidget(app, pages, settings)
 	case "logger":
-		settings := logger.NewSettingsFromYAML("Log", moduleConfig, globalConfig)
+		settings := logger.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = logger.NewWidget(app, settings)
 	case "mercurial":
-		settings := mercurial.NewSettingsFromYAML("Mercurial", moduleConfig, globalConfig)
+		settings := mercurial.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = mercurial.NewWidget(app, pages, settings)
 	case "nbascore":
-		settings := nbascore.NewSettingsFromYAML("NBA Score", moduleConfig, globalConfig)
+		settings := nbascore.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = nbascore.NewWidget(app, pages, settings)
 	case "newrelic":
-		settings := newrelic.NewSettingsFromYAML("NewRelic", moduleConfig, globalConfig)
+		settings := newrelic.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = newrelic.NewWidget(app, settings)
 	case "opsgenie":
-		settings := opsgenie.NewSettingsFromYAML("OpsGenie", moduleConfig, globalConfig)
+		settings := opsgenie.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = opsgenie.NewWidget(app, settings)
 	case "pagerduty":
-		settings := pagerduty.NewSettingsFromYAML("PagerDuty", moduleConfig, globalConfig)
+		settings := pagerduty.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = pagerduty.NewWidget(app, settings)
 	case "power":
-		settings := power.NewSettingsFromYAML("Power", moduleConfig, globalConfig)
+		settings := power.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = power.NewWidget(app, settings)
 	case "prettyweather":
-		settings := prettyweather.NewSettingsFromYAML("Pretty Weather", moduleConfig, globalConfig)
+		settings := prettyweather.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = prettyweather.NewWidget(app, settings)
 	case "resourceusage":
-		settings := resourceusage.NewSettingsFromYAML("Resource Usage", moduleConfig, globalConfig)
+		settings := resourceusage.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = resourceusage.NewWidget(app, settings)
 	case "rollbar":
-		settings := rollbar.NewSettingsFromYAML("Rollbar", moduleConfig, globalConfig)
+		settings := rollbar.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = rollbar.NewWidget(app, pages, settings)
 	case "security":
-		settings := security.NewSettingsFromYAML("Security", moduleConfig, globalConfig)
+		settings := security.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = security.NewWidget(app, settings)
 	case "spotify":
-		settings := spotify.NewSettingsFromYAML("Spotify", moduleConfig, globalConfig)
+		settings := spotify.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = spotify.NewWidget(app, pages, settings)
 	case "spotifyweb":
-		settings := spotifyweb.NewSettingsFromYAML("Spotify Web", moduleConfig, globalConfig)
+		settings := spotifyweb.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = spotifyweb.NewWidget(app, pages, settings)
 	case "status":
-		settings := status.NewSettingsFromYAML("Status", moduleConfig, globalConfig)
+		settings := status.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = status.NewWidget(app, settings)
 	// case "system":
-	// 	settings := system.NewSettingsFromYAML("System", moduleConfig, globalConfig)
+	// 	settings := system.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 	// 	widget = system.NewWidget(app, date, version, settings)
 	case "textfile":
-		settings := textfile.NewSettingsFromYAML("Textfile", moduleConfig, globalConfig)
+		settings := textfile.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = textfile.NewWidget(app, pages, settings)
 	case "todo":
-		settings := todo.NewSettingsFromYAML("Todo", moduleConfig, globalConfig)
+		settings := todo.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = todo.NewWidget(app, pages, settings)
 	case "todoist":
-		settings := todoist.NewSettingsFromYAML("Todoist", moduleConfig, globalConfig)
+		settings := todoist.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = todoist.NewWidget(app, pages, settings)
 	case "travisci":
-		settings := travisci.NewSettingsFromYAML("TravisCI", moduleConfig, globalConfig)
+		settings := travisci.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = travisci.NewWidget(app, pages, settings)
 	case "trello":
-		settings := trello.NewSettingsFromYAML("Trello", moduleConfig, globalConfig)
+		settings := trello.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = trello.NewWidget(app, settings)
 	case "twitter":
-		settings := twitter.NewSettingsFromYAML("Twitter", moduleConfig, globalConfig)
+		settings := twitter.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = twitter.NewWidget(app, pages, settings)
 	case "victorops":
-		settings := victorops.NewSettingsFromYAML("VictorOps - OnCall", moduleConfig, globalConfig)
+		settings := victorops.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = victorops.NewWidget(app, settings)
 	case "weather":
-		settings := weather.NewSettingsFromYAML("Weather", moduleConfig, globalConfig)
+		settings := weather.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = weather.NewWidget(app, pages, settings)
 	case "zendesk":
-		settings := zendesk.NewSettingsFromYAML("Zendesk", moduleConfig, globalConfig)
+		settings := zendesk.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = zendesk.NewWidget(app, settings)
 	default:
 		settings := unknown.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
@@ -213,8 +214,9 @@ func MakeWidgets(app *tview.Application, pages *tview.Pages, config *config.Conf
 
 	for mod := range mods {
 		modConfig, _ := config.Get("wtf.mods." + mod)
+		widgetType := modConfig.UString("type", mod)
 		if enabled := modConfig.UBool("enabled", false); enabled {
-			widget := MakeWidget(app, pages, mod, modConfig, config)
+			widget := MakeWidget(app, pages, mod, widgetType, modConfig, config)
 			widgets = append(widgets, widget)
 		}
 	}

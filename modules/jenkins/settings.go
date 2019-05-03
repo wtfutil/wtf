@@ -7,7 +7,7 @@ import (
 	"github.com/wtfutil/wtf/cfg"
 )
 
-const configKey = "jenkins"
+const defaultTitle = "Jenkins"
 
 type Settings struct {
 	common *cfg.Common
@@ -23,7 +23,7 @@ type Settings struct {
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, ymlConfig, globalConfig),
+		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, ymlConfig, globalConfig),
 
 		apiKey:                  ymlConfig.UString("apiKey", os.Getenv("WTF_JENKINS_API_KEY")),
 		jobNameRegex:            ymlConfig.UString("jobNameRegex", ".*"),

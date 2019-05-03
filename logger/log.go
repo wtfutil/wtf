@@ -59,7 +59,7 @@ func (widget *Widget) Refresh() {
 	logLines := widget.tailFile()
 
 	widget.app.QueueUpdateDraw(func() {
-		widget.View.SetTitle(widget.Name())
+		widget.View.SetTitle(widget.CommonSettings.Title)
 		widget.View.SetText(widget.contentFrom(logLines))
 	})
 }

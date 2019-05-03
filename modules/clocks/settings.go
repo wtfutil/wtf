@@ -6,7 +6,7 @@ import (
 	"github.com/wtfutil/wtf/wtf"
 )
 
-const configKey = "clocks"
+const defaultTitle = "Clocks"
 
 type colors struct {
 	rows struct {
@@ -28,7 +28,7 @@ type Settings struct {
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, ymlConfig, globalConfig),
+		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, ymlConfig, globalConfig),
 
 		dateFormat: ymlConfig.UString("dateFormat", wtf.SimpleDateFormat),
 		timeFormat: ymlConfig.UString("timeFormat", wtf.SimpleTimeFormat),

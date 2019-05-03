@@ -7,7 +7,7 @@ import (
 	"github.com/wtfutil/wtf/cfg"
 )
 
-const configKey = "weather"
+const defaultTitle = "Weather"
 
 type colors struct {
 	current string
@@ -26,7 +26,7 @@ type Settings struct {
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, ymlConfig, globalConfig),
+		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, ymlConfig, globalConfig),
 
 		apiKey:   ymlConfig.UString("apiKey", os.Getenv("WTF_OWM_API_KEY")),
 		cityIDs:  ymlConfig.UList("cityids"),

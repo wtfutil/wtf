@@ -7,7 +7,7 @@ import (
 	"github.com/wtfutil/wtf/cfg"
 )
 
-const configKey = "opsgenie"
+const defaultTitle = "OpsGenie"
 
 type Settings struct {
 	common *cfg.Common
@@ -21,7 +21,7 @@ type Settings struct {
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, ymlConfig, globalConfig),
+		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, ymlConfig, globalConfig),
 
 		apiKey:                 ymlConfig.UString("apiKey", os.Getenv("WTF_OPS_GENIE_API_KEY")),
 		displayEmpty:           ymlConfig.UBool("displayEmpty", true),
