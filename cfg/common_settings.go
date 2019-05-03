@@ -27,6 +27,7 @@ type Colors struct {
 
 type Module struct {
 	Name string
+	Type string
 }
 
 type Position struct {
@@ -82,6 +83,7 @@ func NewCommonSettingsFromModule(name, defaultTitle string, moduleConfig *config
 
 		Module: Module{
 			Name: name,
+			Type: moduleConfig.UString("type", name),
 		},
 
 		Position: Position{
