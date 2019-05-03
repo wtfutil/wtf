@@ -201,7 +201,7 @@ func MakeWidget(
 		widget = zendesk.NewWidget(app, settings)
 	default:
 		settings := unknown.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
-		widget = unknown.NewWidget(app, widgetName, settings)
+		widget = unknown.NewWidget(app, settings)
 	}
 
 	return widget
