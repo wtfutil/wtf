@@ -2,12 +2,16 @@
 
 ## Unreleased
 
-## 0.9.0
+## 0.9.1
 
 ### ⚡️ Added
 
 * Increased the pagination limit for GitHub to 100, by [@Seanstoppable](https://github.com/Seanstoppable)
 * Support for multiple instances of the same widget added, by [@Seanstoppable](https://github.com/Seanstoppable)
+
+## 0.9.0
+
+* Null release
 
 ## 0.8.0
 
