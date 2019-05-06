@@ -1,6 +1,5 @@
 before:
   hooks:
-    - go mod download
     - make install
 
 builds:
@@ -13,8 +12,8 @@ builds:
       - amd64
 
 env:
-  GO111MODULE=on
-  GOPROXY="https://gocenter.io"
+  - GO111MODULE=on
+  - GOPROXY="https://gocenter.io"
 
 archive:
   wrap_in_directory: true
