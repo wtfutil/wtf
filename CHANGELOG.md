@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### ⚡️ Added
+
+* Keyboard management system for modules reworked. Now has a KeyboardWidget to simplify adding keyboard commands
+
 ## 0.9.1
 
 ### ⚡️ Added
