@@ -1,13 +1,14 @@
 package git
 
 import (
-	"github.com/gdamore/tcell"
-	"github.com/rivo/tview"
-	"github.com/wtfutil/wtf/wtf"
 	"io/ioutil"
 	"log"
 	"sort"
 	"strings"
+
+	"github.com/gdamore/tcell"
+	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/wtf"
 )
 
 const HelpText = `
@@ -29,6 +30,7 @@ const modalHeight = 7
 
 type Widget struct {
 	wtf.HelpfulWidget
+	wtf.KeyboardWidget
 	wtf.MultiSourceWidget
 	wtf.TextWidget
 
@@ -42,6 +44,7 @@ type Widget struct {
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
 		HelpfulWidget:     wtf.NewHelpfulWidget(app, pages, HelpText),
+		KeyboardWidget:    wtf.NewKeyboardWidget(),
 		MultiSourceWidget: wtf.NewMultiSourceWidget(settings.common, "repository", "repositories"),
 		TextWidget:        wtf.NewTextWidget(app, settings.common, true),
 
@@ -50,10 +53,12 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 		settings: settings,
 	}
 
+	widget.initializeKeyboardControls()
+	widget.View.SetInputCapture(widget.InputCapture)
+
 	widget.SetDisplayFunction(widget.display)
 
 	widget.HelpfulWidget.SetView(widget.View)
-	widget.View.SetInputCapture(widget.keyboardIntercept)
 
 	return &widget
 }
@@ -242,36 +247,5 @@ func (widget *Widget) Prev() {
 
 	if widget.DisplayFunction != nil {
 		widget.DisplayFunction()
-	}
-}
-
-func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
-	switch string(event.Rune()) {
-	case "/":
-		widget.ShowHelp()
-		return nil
-	case "h":
-		widget.Prev()
-		return nil
-	case "l":
-		widget.Next()
-		return nil
-	case "p":
-		widget.Pull()
-		return nil
-	case "c":
-		widget.Checkout()
-		return nil
-	}
-
-	switch event.Key() {
-	case tcell.KeyLeft:
-		widget.Prev()
-		return nil
-	case tcell.KeyRight:
-		widget.Next()
-		return nil
-	default:
-		return event
 	}
 }

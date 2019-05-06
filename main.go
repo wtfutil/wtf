@@ -63,9 +63,6 @@ func refreshAllWidgets(widgets []wtf.Wtfable) {
 	}
 }
 
-func setTerm() {
-}
-
 func watchForConfigChanges(app *tview.Application, configFilePath string, grid *tview.Grid, pages *tview.Pages) {
 	watch := watcher.New()
 	absPath, _ := wtf.ExpandHomeDir(configFilePath)
@@ -121,6 +118,7 @@ func main() {
 	cfg.MigrateOldConfig()
 	cfg.CreateConfigDir()
 	cfg.CreateConfigFile()
+
 	config := cfg.LoadConfigFile(flags.ConfigFilePath())
 
 	if flags.Profile {

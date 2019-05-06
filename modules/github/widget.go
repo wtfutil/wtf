@@ -1,7 +1,6 @@
 package github
 
 import (
-	"github.com/gdamore/tcell"
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/wtf"
 )
@@ -22,6 +21,7 @@ const HelpText = `
 
 type Widget struct {
 	wtf.HelpfulWidget
+	wtf.KeyboardWidget
 	wtf.TextWidget
 
 	GithubRepos []*GithubRepo
@@ -33,8 +33,9 @@ type Widget struct {
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
-		TextWidget:    wtf.NewTextWidget(app, settings.common, true),
+		HelpfulWidget:  wtf.NewHelpfulWidget(app, pages, HelpText),
+		KeyboardWidget: wtf.NewKeyboardWidget(),
+		TextWidget:     wtf.NewTextWidget(app, settings.common, true),
 
 		Idx: 0,
 
@@ -44,8 +45,10 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 
 	widget.GithubRepos = widget.buildRepoCollection(widget.settings.repositories)
 
+	widget.initializeKeyboardControls()
+	widget.View.SetInputCapture(widget.InputCapture)
+
 	widget.HelpfulWidget.SetView(widget.View)
-	widget.View.SetInputCapture(widget.keyboardIntercept)
 
 	return &widget
 }
@@ -110,37 +113,6 @@ func (widget *Widget) currentGithubRepo() *GithubRepo {
 	}
 
 	return widget.GithubRepos[widget.Idx]
-}
-
-func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
-	switch string(event.Rune()) {
-	case "/":
-		widget.ShowHelp()
-		return nil
-	case "h":
-		widget.Prev()
-		return nil
-	case "l":
-		widget.Next()
-		return nil
-	case "r":
-		widget.Refresh()
-		return nil
-	}
-
-	switch event.Key() {
-	case tcell.KeyEnter:
-		widget.openRepo()
-		return nil
-	case tcell.KeyLeft:
-		widget.Prev()
-		return nil
-	case tcell.KeyRight:
-		widget.Next()
-		return nil
-	default:
-		return event
-	}
 }
 
 func (widget *Widget) openRepo() {

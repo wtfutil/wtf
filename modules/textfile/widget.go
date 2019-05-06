@@ -12,7 +12,6 @@ import (
 	"github.com/alecthomas/chroma/formatters"
 	"github.com/alecthomas/chroma/lexers"
 	"github.com/alecthomas/chroma/styles"
-	"github.com/gdamore/tcell"
 	"github.com/radovskyb/watcher"
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/wtf"
@@ -32,6 +31,7 @@ const HelpText = `
 
 type Widget struct {
 	wtf.HelpfulWidget
+	wtf.KeyboardWidget
 	wtf.MultiSourceWidget
 	wtf.TextWidget
 
@@ -39,9 +39,11 @@ type Widget struct {
 	settings *Settings
 }
 
+// NewWidget creates a new instance of a widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
 		HelpfulWidget:     wtf.NewHelpfulWidget(app, pages, HelpText),
+		KeyboardWidget:    wtf.NewKeyboardWidget(),
 		MultiSourceWidget: wtf.NewMultiSourceWidget(settings.common, "filePath", "filePaths"),
 		TextWidget:        wtf.NewTextWidget(app, settings.common, true),
 
@@ -52,11 +54,14 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	// Don't use a timer for this widget, watch for filesystem changes instead
 	widget.settings.common.RefreshInterval = 0
 
-	widget.HelpfulWidget.SetView(widget.View)
+	widget.initializeKeyboardControls()
+	widget.View.SetInputCapture(widget.InputCapture)
+
 	widget.SetDisplayFunction(widget.display)
-	widget.View.SetWrap(true)
 	widget.View.SetWordWrap(true)
-	widget.View.SetInputCapture(widget.keyboardIntercept)
+	widget.View.SetWrap(true)
+
+	widget.HelpfulWidget.SetView(widget.View)
 
 	go widget.watchForFileChanges()
 
@@ -137,36 +142,6 @@ func (widget *Widget) plainText() string {
 		return err.Error()
 	}
 	return string(text)
-}
-
-func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
-	switch string(event.Rune()) {
-	case "/":
-		widget.ShowHelp()
-		return nil
-	case "h":
-		widget.Prev()
-		return nil
-	case "l":
-		widget.Next()
-		return nil
-	case "o":
-		wtf.OpenFile(widget.CurrentSource())
-		return nil
-	}
-
-	switch event.Key() {
-	case tcell.KeyLeft:
-		widget.Prev()
-		return nil
-	case tcell.KeyRight:
-		widget.Next()
-		return nil
-	default:
-		return event
-	}
-
-	return event
 }
 
 func (widget *Widget) watchForFileChanges() {

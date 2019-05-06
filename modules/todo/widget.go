@@ -63,9 +63,10 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	}
 
 	widget.init()
-	widget.initializeKeyboardControls()
 
+	widget.initializeKeyboardControls()
 	widget.View.SetInputCapture(widget.InputCapture)
+
 	widget.View.SetRegions(true)
 	widget.View.SetScrollable(true)
 

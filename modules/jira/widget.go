@@ -3,10 +3,10 @@ package jira
 import (
 	"fmt"
 
-	"github.com/gdamore/tcell"
+	"strconv"
+
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/wtf"
-	"strconv"
 )
 
 const HelpText = `
@@ -24,6 +24,7 @@ const HelpText = `
 
 type Widget struct {
 	wtf.HelpfulWidget
+	wtf.KeyboardWidget
 	wtf.TextWidget
 
 	app      *tview.Application
@@ -34,19 +35,24 @@ type Widget struct {
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
-		TextWidget:    wtf.NewTextWidget(app, settings.common, true),
+		HelpfulWidget:  wtf.NewHelpfulWidget(app, pages, HelpText),
+		KeyboardWidget: wtf.NewKeyboardWidget(),
+		TextWidget:     wtf.NewTextWidget(app, settings.common, true),
 
 		app:      app,
 		settings: settings,
 	}
 
-	widget.HelpfulWidget.SetView(widget.View)
+	widget.initializeKeyboardControls()
+	widget.View.SetInputCapture(widget.InputCapture)
+
 	widget.unselect()
 
 	widget.View.SetScrollable(true)
 	widget.View.SetRegions(true)
-	widget.View.SetInputCapture(widget.keyboardIntercept)
+
+	widget.HelpfulWidget.SetView(widget.View)
+
 	return &widget
 }
 
@@ -161,46 +167,5 @@ func (widget *Widget) issueTypeColor(issue *Issue) string {
 		return "orange"
 	default:
 		return "white"
-	}
-}
-
-func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
-	switch string(event.Rune()) {
-	case "/":
-		widget.ShowHelp()
-	case "j":
-		// Select the next item down
-		widget.next()
-		widget.display()
-		return nil
-	case "k":
-		// Select the next item up
-		widget.prev()
-		widget.display()
-		return nil
-	}
-
-	switch event.Key() {
-	case tcell.KeyDown:
-		// Select the next item down
-		widget.next()
-		widget.display()
-		return nil
-	case tcell.KeyEnter:
-		widget.openItem()
-		return nil
-	case tcell.KeyEsc:
-		// Unselect the current row
-		widget.unselect()
-		widget.display()
-		return event
-	case tcell.KeyUp:
-		// Select the next item up
-		widget.prev()
-		widget.display()
-		return nil
-	default:
-		// Pass it along
-		return event
 	}
 }

@@ -2,9 +2,7 @@ package spotify
 
 import (
 	"fmt"
-	"time"
 
-	"github.com/gdamore/tcell"
 	"github.com/rivo/tview"
 	"github.com/sticreations/spotigopher/spotigopher"
 	"github.com/wtfutil/wtf/wtf"
@@ -17,8 +15,10 @@ const HelpText = `
 		[l] for Next Song
 `
 
+// A Widget represents a Spotify widget
 type Widget struct {
 	wtf.HelpfulWidget
+	wtf.KeyboardWidget
 	wtf.TextWidget
 
 	app      *tview.Application
@@ -27,11 +27,13 @@ type Widget struct {
 	spotigopher.SpotifyClient
 }
 
+// NewWidget creates a new instance of a widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	spotifyClient := spotigopher.NewClient()
 	widget := Widget{
-		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
-		TextWidget:    wtf.NewTextWidget(app, settings.common, true),
+		HelpfulWidget:  wtf.NewHelpfulWidget(app, pages, HelpText),
+		KeyboardWidget: wtf.NewKeyboardWidget(),
+		TextWidget:     wtf.NewTextWidget(app, settings.common, true),
 
 		Info:          spotigopher.Info{},
 		SpotifyClient: spotifyClient,
@@ -42,11 +44,15 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 
 	widget.settings.common.RefreshInterval = 5
 
-	widget.HelpfulWidget.SetView(widget.View)
-	widget.View.SetInputCapture(widget.captureInput)
+	widget.initializeKeyboardControls()
+	widget.View.SetInputCapture(widget.InputCapture)
+
 	widget.View.SetWrap(true)
 	widget.View.SetWordWrap(true)
 	widget.View.SetTitle(fmt.Sprint("[green]Spotify[white]"))
+
+	widget.HelpfulWidget.SetView(widget.View)
+
 	return &widget
 }
 
@@ -70,27 +76,6 @@ func (w *Widget) render() {
 	} else {
 		w.TextWidget.View.SetText(w.createOutput())
 	}
-}
-
-func (w *Widget) captureInput(event *tcell.EventKey) *tcell.EventKey {
-	switch (string)(event.Rune()) {
-	case "h":
-		w.SpotifyClient.Previous()
-		time.Sleep(time.Second * 1)
-		w.Refresh()
-		return nil
-	case "l":
-		w.SpotifyClient.Next()
-		time.Sleep(time.Second * 1)
-		w.Refresh()
-		return nil
-	case " ":
-		w.SpotifyClient.PlayPause()
-		time.Sleep(time.Second * 1)
-		w.Refresh()
-		return nil
-	}
-	return nil
 }
 
 func (w *Widget) createOutput() string {

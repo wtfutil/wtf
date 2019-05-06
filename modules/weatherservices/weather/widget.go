@@ -2,7 +2,6 @@ package weather
 
 import (
 	owm "github.com/briandowns/openweathermap"
-	"github.com/gdamore/tcell"
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/wtf"
 )
@@ -21,6 +20,7 @@ const HelpText = `
 // Widget is the container for weather data.
 type Widget struct {
 	wtf.HelpfulWidget
+	wtf.KeyboardWidget
 	wtf.TextWidget
 
 	// APIKey   string
@@ -31,11 +31,12 @@ type Widget struct {
 	settings *Settings
 }
 
-// NewWidget creates and returns a new instance of the weather Widget.
+// NewWidget creates and returns a new instance of the weather Widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
-		TextWidget:    wtf.NewTextWidget(app, settings.common, true),
+		HelpfulWidget:  wtf.NewHelpfulWidget(app, pages, HelpText),
+		KeyboardWidget: wtf.NewKeyboardWidget(),
+		TextWidget:     wtf.NewTextWidget(app, settings.common, true),
 
 		Idx: 0,
 
@@ -43,8 +44,10 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 		settings: settings,
 	}
 
+	widget.initializeKeyboardControls()
+	widget.View.SetInputCapture(widget.InputCapture)
+
 	widget.HelpfulWidget.SetView(widget.View)
-	widget.View.SetInputCapture(widget.keyboardIntercept)
 
 	return &widget
 }
@@ -143,29 +146,4 @@ func (widget *Widget) currentWeather(cityCode int) (*owm.CurrentWeatherData, err
 	}
 
 	return weather, nil
-}
-
-func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
-	switch string(event.Rune()) {
-	case "/":
-		widget.ShowHelp()
-		return nil
-	case "h":
-		widget.Prev()
-		return nil
-	case "l":
-		widget.Next()
-		return nil
-	}
-
-	switch event.Key() {
-	case tcell.KeyLeft:
-		widget.Prev()
-		return nil
-	case tcell.KeyRight:
-		widget.Next()
-		return nil
-	default:
-		return event
-	}
 }

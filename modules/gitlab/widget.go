@@ -1,7 +1,6 @@
 package gitlab
 
 import (
-	"github.com/gdamore/tcell"
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/wtf"
 	glb "github.com/xanzy/go-gitlab"
@@ -21,6 +20,7 @@ const HelpText = `
 
 type Widget struct {
 	wtf.HelpfulWidget
+	wtf.KeyboardWidget
 	wtf.TextWidget
 
 	GitlabProjects []*GitlabProject
@@ -40,8 +40,9 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	}
 
 	widget := Widget{
-		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
-		TextWidget:    wtf.NewTextWidget(app, settings.common, true),
+		HelpfulWidget:  wtf.NewHelpfulWidget(app, pages, HelpText),
+		KeyboardWidget: wtf.NewKeyboardWidget(),
+		TextWidget:     wtf.NewTextWidget(app, settings.common, true),
 
 		Idx: 0,
 
@@ -52,8 +53,10 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 
 	widget.GitlabProjects = widget.buildProjectCollection(settings.projects)
 
+	widget.initializeKeyboardControls()
+	widget.View.SetInputCapture(widget.InputCapture)
+
 	widget.HelpfulWidget.SetView(widget.View)
-	widget.View.SetInputCapture(widget.keyboardIntercept)
 
 	return &widget
 }
@@ -111,32 +114,4 @@ func (widget *Widget) currentGitlabProject() *GitlabProject {
 	}
 
 	return widget.GitlabProjects[widget.Idx]
-}
-
-func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
-	switch string(event.Rune()) {
-	case "/":
-		widget.ShowHelp()
-		return nil
-	case "h":
-		widget.Prev()
-		return nil
-	case "l":
-		widget.Next()
-		return nil
-	case "r":
-		widget.Refresh()
-		return nil
-	}
-
-	switch event.Key() {
-	case tcell.KeyLeft:
-		widget.Prev()
-		return nil
-	case tcell.KeyRight:
-		widget.Next()
-		return nil
-	default:
-		return event
-	}
 }
