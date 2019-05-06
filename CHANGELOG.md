@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 0.9.0
+
 ### ⚡️ Added
 
 * Increased the pagination limit for GitHub to 100, by [@Seanstoppable](https://github.com/Seanstoppable)
