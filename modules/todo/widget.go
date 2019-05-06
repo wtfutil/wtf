@@ -35,8 +35,10 @@ const offscreen = -1000
 const modalWidth = 80
 const modalHeight = 7
 
+// A Widget represents a Todo widget
 type Widget struct {
 	wtf.HelpfulWidget
+	wtf.KeyboardWidget
 	wtf.TextWidget
 
 	app      *tview.Application
@@ -46,10 +48,12 @@ type Widget struct {
 	pages    *tview.Pages
 }
 
+// NewWidget creates a new instance of a widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
-		TextWidget:    wtf.NewTextWidget(app, settings.common, true),
+		HelpfulWidget:  wtf.NewHelpfulWidget(app, pages, HelpText),
+		KeyboardWidget: wtf.NewKeyboardWidget(),
+		TextWidget:     wtf.NewTextWidget(app, settings.common, true),
 
 		app:      app,
 		settings: settings,
@@ -59,11 +63,13 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	}
 
 	widget.init()
-	widget.HelpfulWidget.SetView(widget.View)
+	widget.initializeKeyboardControls()
 
-	widget.View.SetScrollable(true)
+	widget.View.SetInputCapture(widget.InputCapture)
 	widget.View.SetRegions(true)
-	widget.View.SetInputCapture(widget.keyboardIntercept)
+	widget.View.SetScrollable(true)
+
+	widget.HelpfulWidget.SetView(widget.View)
 
 	return &widget
 }
@@ -74,20 +80,21 @@ func (widget *Widget) Refresh() {
 	widget.load()
 
 	widget.app.QueueUpdateDraw(func() {
-		widget.View.SetTitle(widget.ContextualTitle(widget.CommonSettings.Title))
+		title := widget.ContextualTitle(widget.CommonSettings.Title)
+		widget.View.SetTitle(title)
 		widget.display()
 	})
 
 }
 
-func (widget *Widget) SetList(newList checklist.Checklist) {
-	widget.list = newList
+func (widget *Widget) SetList(list checklist.Checklist) {
+	widget.list = list
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
 // edit opens a modal dialog that permits editing the text of the currently-selected item
-func (widget *Widget) editItem() {
+func (widget *Widget) editSelected() {
 	if widget.list.SelectedItem() == nil {
 		return
 	}
@@ -112,81 +119,6 @@ func (widget *Widget) init() {
 	_, err := cfg.CreateFile(widget.filePath)
 	if err != nil {
 		panic(err)
-	}
-}
-
-func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
-	switch string(event.Rune()) {
-	case " ":
-		// Check/uncheck selected item
-		widget.list.Toggle()
-		widget.persist()
-		widget.display()
-		return nil
-	case "/":
-		widget.ShowHelp()
-		return nil
-	case "j":
-		// Select the next item down
-		widget.list.Next()
-		widget.display()
-		return nil
-	case "k":
-		// Select the next item up
-		widget.list.Prev()
-		widget.display()
-		return nil
-	case "n":
-		// Add a new item
-		widget.newItem()
-		return nil
-	case "o":
-		// Open the file
-		confDir, _ := cfg.ConfigDir()
-		wtf.OpenFile(fmt.Sprintf("%s/%s", confDir, widget.filePath))
-		return nil
-	}
-
-	switch event.Key() {
-	case tcell.KeyCtrlD:
-		// Delete the selected item
-		widget.list.Delete()
-		widget.persist()
-		widget.display()
-		return nil
-	case tcell.KeyCtrlJ:
-		// Move selected item down in the list
-		widget.list.Demote()
-		widget.persist()
-		widget.display()
-		return nil
-	case tcell.KeyCtrlK:
-		// Move selected item up in the list
-		widget.list.Promote()
-		widget.persist()
-		widget.display()
-		return nil
-	case tcell.KeyDown:
-		// Select the next item down
-		widget.list.Next()
-		widget.display()
-		return nil
-	case tcell.KeyEnter:
-		widget.editItem()
-		return nil
-	case tcell.KeyEsc:
-		// Unselect the current row
-		widget.list.Unselect()
-		widget.display()
-		return event
-	case tcell.KeyUp:
-		// Select the next item up
-		widget.list.Prev()
-		widget.display()
-		return nil
-	default:
-		// Pass it along
-		return event
 	}
 }
 

@@ -104,11 +104,11 @@ func NewCommonSettingsFromModule(name, defaultTitle string, moduleConfig *config
 	common.Colors.Rows.Even = moduleConfig.UString("colors.rows.even", moduleConfig.UString("rows.even", "white"))
 	common.Colors.Rows.Odd = moduleConfig.UString("colors.rows.even", moduleConfig.UString("rows.odd", "lightblue"))
 
-	common.Sigils.Checkbox.Checked = globalSettings.UString(sigilsPath+".Checkbox.Checked", "x")
-	common.Sigils.Checkbox.Unchecked = globalSettings.UString(sigilsPath+".Checkbox.Unchecked", " ")
+	common.Sigils.Checkbox.Checked = globalSettings.UString(sigilsPath+".checkbox.checked", "x")
+	common.Sigils.Checkbox.Unchecked = globalSettings.UString(sigilsPath+".checkbox.unchecked", " ")
 
-	common.Sigils.Paging.Normal = globalSettings.UString(sigilsPath+".Paging.Normal", globalSettings.UString("wtf.paging.pageSigil", "*"))
-	common.Sigils.Paging.Selected = globalSettings.UString(sigilsPath+".Paging.Select", globalSettings.UString("wtf.paging.selectedSigil", "_"))
+	common.Sigils.Paging.Normal = globalSettings.UString(sigilsPath+".paging.normal", globalSettings.UString("wtf.paging.pageSigil", "*"))
+	common.Sigils.Paging.Selected = globalSettings.UString(sigilsPath+".paging.select", globalSettings.UString("wtf.paging.selectedSigil", "_"))
 
 	return &common
 }
