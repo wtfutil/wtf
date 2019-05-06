@@ -33,4 +33,8 @@ func (widget *HelpfulWidget) ShowHelp() {
 
 	widget.pages.AddPage("help", modal, false, true)
 	widget.app.SetFocus(modal)
+
+	widget.app.QueueUpdate(func() {
+		widget.app.Draw()
+	})
 }

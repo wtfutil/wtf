@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/gdamore/tcell"
+	"regexp"
+
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/wtf"
-	"regexp"
 )
 
 const HelpText = `
@@ -26,6 +26,7 @@ const HelpText = `
 
 type Widget struct {
 	wtf.HelpfulWidget
+	wtf.KeyboardWidget
 	wtf.TextWidget
 
 	app      *tview.Application
@@ -36,19 +37,23 @@ type Widget struct {
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
-		TextWidget:    wtf.NewTextWidget(app, settings.common, true),
+		HelpfulWidget:  wtf.NewHelpfulWidget(app, pages, HelpText),
+		KeyboardWidget: wtf.NewKeyboardWidget(),
+		TextWidget:     wtf.NewTextWidget(app, settings.common, true),
 
 		app:      app,
 		settings: settings,
 	}
 
-	widget.HelpfulWidget.SetView(widget.View)
+	widget.initializeKeyboardControls()
+	widget.View.SetInputCapture(widget.InputCapture)
+
 	widget.unselect()
 
 	widget.View.SetScrollable(true)
 	widget.View.SetRegions(true)
-	widget.View.SetInputCapture(widget.keyboardIntercept)
+
+	widget.HelpfulWidget.SetView(widget.View)
 
 	return &widget
 }
@@ -166,37 +171,4 @@ func (widget *Widget) openJob() {
 func (widget *Widget) unselect() {
 	widget.selected = -1
 	widget.display()
-}
-
-func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
-	switch string(event.Rune()) {
-	case "/":
-		widget.ShowHelp()
-	case "j":
-		widget.next()
-		return nil
-	case "k":
-		widget.prev()
-		return nil
-	case "r":
-		widget.Refresh()
-		return nil
-	}
-
-	switch event.Key() {
-	case tcell.KeyDown:
-		widget.next()
-		return nil
-	case tcell.KeyEnter:
-		widget.openJob()
-		return nil
-	case tcell.KeyEsc:
-		widget.unselect()
-		return event
-	case tcell.KeyUp:
-		widget.prev()
-		return nil
-	default:
-		return event
-	}
 }

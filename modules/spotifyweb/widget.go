@@ -4,9 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
-	"time"
 
-	"github.com/gdamore/tcell"
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/logger"
 	"github.com/wtfutil/wtf/wtf"
@@ -45,6 +43,7 @@ type Info struct {
 // Widget is the struct used by all WTF widgets to transfer to the main widget controller
 type Widget struct {
 	wtf.HelpfulWidget
+	wtf.KeyboardWidget
 	wtf.TextWidget
 
 	Info
@@ -94,8 +93,9 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	var playerState *spotify.PlayerState
 
 	widget := Widget{
-		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
-		TextWidget:    wtf.NewTextWidget(app, settings.common, true),
+		HelpfulWidget:  wtf.NewHelpfulWidget(app, pages, HelpText),
+		KeyboardWidget: wtf.NewKeyboardWidget(),
+		TextWidget:     wtf.NewTextWidget(app, settings.common, true),
 
 		Info: Info{},
 
@@ -141,11 +141,15 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 
 	widget.settings.common.RefreshInterval = 5
 
-	widget.HelpfulWidget.SetView(widget.View)
-	widget.View.SetInputCapture(widget.captureInput)
+	widget.initializeKeyboardControls()
+	widget.View.SetInputCapture(widget.InputCapture)
+
 	widget.View.SetWrap(true)
 	widget.View.SetWordWrap(true)
 	widget.View.SetTitle("[green]Spotify Web[white]")
+
+	widget.HelpfulWidget.SetView(widget.View)
+
 	return &widget
 }
 
@@ -190,40 +194,6 @@ func (w *Widget) render() {
 	} else {
 		w.TextWidget.View.SetText(w.createOutput())
 	}
-}
-
-func (w *Widget) captureInput(event *tcell.EventKey) *tcell.EventKey {
-	switch (string)(event.Rune()) {
-	case "/":
-		w.ShowHelp()
-		return nil
-	case "h":
-		w.client.Previous()
-		time.Sleep(time.Millisecond * 500)
-		w.Refresh()
-		return nil
-	case "l":
-		w.client.Next()
-		time.Sleep(time.Millisecond * 500)
-		w.Refresh()
-		return nil
-	case " ":
-		if w.playerState.CurrentlyPlaying.Playing {
-			w.client.Pause()
-		} else {
-			w.client.Play()
-		}
-		time.Sleep(time.Millisecond * 500)
-		w.Refresh()
-		return nil
-	case "s":
-		w.playerState.ShuffleState = !w.playerState.ShuffleState
-		w.client.Shuffle(w.playerState.ShuffleState)
-		time.Sleep(time.Millisecond * 500)
-		w.Refresh()
-		return nil
-	}
-	return nil
 }
 
 func (w *Widget) createOutput() string {

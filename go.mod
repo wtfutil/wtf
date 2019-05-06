@@ -47,5 +47,6 @@ require (
 	golang.org/x/text v0.3.0
 	google.golang.org/api v0.0.0-20190111181425-455dee39f703
 	google.golang.org/appengine v1.4.0
+	gopkg.in/jarcoal/httpmock.v1 v1.0.0-20190314184232-a8ac0a50d0b5 // indirect
 	gopkg.in/yaml.v2 v2.2.2
 )

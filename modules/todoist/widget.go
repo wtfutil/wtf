@@ -25,8 +25,10 @@ const HelpText = `
    arrow up: Select the previous item in the list
 `
 
+// A Widget represents a Todoist widget
 type Widget struct {
 	wtf.HelpfulWidget
+	wtf.KeyboardWidget
 	wtf.TextWidget
 
 	app      *tview.Application
@@ -35,10 +37,12 @@ type Widget struct {
 	settings *Settings
 }
 
+// NewWidget creates a new instance of a widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
-		TextWidget:    wtf.NewTextWidget(app, settings.common, true),
+		HelpfulWidget:  wtf.NewHelpfulWidget(app, pages, HelpText),
+		KeyboardWidget: wtf.NewKeyboardWidget(),
+		TextWidget:     wtf.NewTextWidget(app, settings.common, true),
 
 		app:      app,
 		settings: settings,
@@ -47,8 +51,10 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	widget.loadAPICredentials()
 	widget.loadProjects()
 
+	widget.initializeKeyboardControls()
+	widget.View.SetInputCapture(widget.InputCapture)
+
 	widget.HelpfulWidget.SetView(widget.View)
-	widget.View.SetInputCapture(widget.keyboardIntercept)
 
 	return &widget
 }
@@ -134,44 +140,6 @@ func (w *Widget) Delete() {
 }
 
 /* -------------------- Unexported Functions -------------------- */
-
-func (w *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
-	if len(w.projects) == 0 {
-		return event
-	}
-
-	switch string(event.Rune()) {
-	case "/":
-		w.ShowHelp()
-		return nil
-	case "r":
-		w.Refresh()
-		return nil
-	case "d":
-		w.Delete()
-		return nil
-	case "c":
-		w.Close()
-		return nil
-	}
-
-	switch w.vimBindings(event) {
-	case tcell.KeyLeft:
-		w.PreviousProject()
-		return nil
-	case tcell.KeyRight:
-		w.NextProject()
-		return nil
-	case tcell.KeyUp:
-		w.Up()
-		return nil
-	case tcell.KeyDown:
-		w.Down()
-		return nil
-	}
-
-	return event
-}
 
 func (widget *Widget) loadAPICredentials() {
 	todoist.Token = widget.settings.apiKey

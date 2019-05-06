@@ -3,13 +3,13 @@ package nbascore
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/gdamore/tcell"
-	"github.com/rivo/tview"
-	"github.com/wtfutil/wtf/wtf"
 	"io/ioutil"
 	"net/http"
 	"strconv"
 	"time"
+
+	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/wtf"
 )
 
 const HelpText = `
@@ -19,8 +19,10 @@ const HelpText = `
    c: Go back to current day
 `
 
+// A Widget represents an NBA Score  widget
 type Widget struct {
 	wtf.HelpfulWidget
+	wtf.KeyboardWidget
 	wtf.TextWidget
 
 	app      *tview.Application
@@ -31,18 +33,23 @@ type Widget struct {
 
 var offset = 0
 
+// NewWidget creates a new instance of a widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
-		TextWidget:    wtf.NewTextWidget(app, settings.common, true),
+		HelpfulWidget:  wtf.NewHelpfulWidget(app, pages, HelpText),
+		KeyboardWidget: wtf.NewKeyboardWidget(),
+		TextWidget:     wtf.NewTextWidget(app, settings.common, true),
 
 		app:      app,
 		settings: settings,
 	}
 
-	widget.HelpfulWidget.SetView(widget.View)
-	widget.View.SetInputCapture(widget.keyboardIntercept)
+	widget.initializeKeyboardControls()
+	widget.View.SetInputCapture(widget.InputCapture)
+
 	widget.View.SetScrollable(true)
+
+	widget.HelpfulWidget.SetView(widget.View)
 
 	return &widget
 }
@@ -141,37 +148,4 @@ func (widget *Widget) nbascore() {
 	}
 	widget.View.SetText(allGame)
 
-}
-
-func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
-	switch (string)(event.Rune()) {
-	case "h":
-		offset--
-		widget.Refresh()
-		return nil
-	case "l":
-		offset++
-		widget.Refresh()
-		return nil
-	case "c":
-		offset = 0
-		widget.Refresh()
-		return nil
-	case "/":
-		widget.ShowHelp()
-		return nil
-	}
-
-	switch event.Key() {
-	case tcell.KeyLeft:
-		offset--
-		widget.Refresh()
-		return nil
-	case tcell.KeyRight:
-		offset++
-		widget.Refresh()
-		return nil
-	default:
-		return event
-	}
 }

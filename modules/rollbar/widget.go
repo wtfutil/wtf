@@ -3,7 +3,6 @@ package rollbar
 import (
 	"fmt"
 
-	"github.com/gdamore/tcell"
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/wtf"
 )
@@ -23,8 +22,10 @@ const HelpText = `
    return: Open the selected item in a browser
 `
 
+// A Widget represents a Rollbar widget
 type Widget struct {
 	wtf.HelpfulWidget
+	wtf.KeyboardWidget
 	wtf.TextWidget
 
 	app      *tview.Application
@@ -33,19 +34,23 @@ type Widget struct {
 	settings *Settings
 }
 
+// NewWidget creates a new instance of a widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
-		TextWidget:    wtf.NewTextWidget(app, settings.common, true),
+		HelpfulWidget:  wtf.NewHelpfulWidget(app, pages, HelpText),
+		KeyboardWidget: wtf.NewKeyboardWidget(),
+		TextWidget:     wtf.NewTextWidget(app, settings.common, true),
 
 		app:      app,
 		settings: settings,
 	}
 
-	widget.HelpfulWidget.SetView(widget.View)
+	widget.initializeKeyboardControls()
+	widget.View.SetInputCapture(widget.InputCapture)
+
 	widget.unselect()
 
-	widget.View.SetInputCapture(widget.keyboardIntercept)
+	widget.HelpfulWidget.SetView(widget.View)
 
 	return &widget
 }
@@ -183,41 +188,4 @@ func (widget *Widget) openBuild() {
 func (widget *Widget) unselect() {
 	widget.selected = -1
 	widget.display()
-}
-
-func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
-	switch string(event.Rune()) {
-	case "/":
-		widget.ShowHelp()
-	case "j":
-		widget.next()
-		return nil
-	case "k":
-		widget.prev()
-		return nil
-	case "r":
-		widget.Refresh()
-		return nil
-	case "u":
-		widget.unselect()
-		return nil
-	}
-
-	switch event.Key() {
-	case tcell.KeyDown:
-		widget.next()
-		return nil
-	case tcell.KeyEnter:
-		widget.openBuild()
-		return nil
-	case tcell.KeyEsc:
-		widget.unselect()
-		return event
-	case tcell.KeyUp:
-		widget.prev()
-		widget.display()
-		return nil
-	default:
-		return event
-	}
 }

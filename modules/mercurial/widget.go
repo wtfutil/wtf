@@ -23,8 +23,10 @@ const offscreen = -1000
 const modalWidth = 80
 const modalHeight = 7
 
+// A Widget represents a Mercurial widget
 type Widget struct {
 	wtf.HelpfulWidget
+	wtf.KeyboardWidget
 	wtf.MultiSourceWidget
 	wtf.TextWidget
 
@@ -34,9 +36,11 @@ type Widget struct {
 	settings *Settings
 }
 
+// NewWidget creates a new instance of a widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
 		HelpfulWidget:     wtf.NewHelpfulWidget(app, pages, HelpText),
+		KeyboardWidget:    wtf.NewKeyboardWidget(),
 		MultiSourceWidget: wtf.NewMultiSourceWidget(settings.common, "repository", "repositories"),
 		TextWidget:        wtf.NewTextWidget(app, settings.common, true),
 
@@ -47,8 +51,10 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 
 	widget.SetDisplayFunction(widget.display)
 
+	widget.initializeKeyboardControls()
+	widget.View.SetInputCapture(widget.InputCapture)
+
 	widget.HelpfulWidget.SetView(widget.View)
-	widget.View.SetInputCapture(widget.keyboardIntercept)
 
 	return &widget
 }
@@ -169,35 +175,4 @@ func (widget *Widget) mercurialRepos(repoPaths []string) []*MercurialRepo {
 	}
 
 	return repos
-}
-
-func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
-	switch string(event.Rune()) {
-	case "/":
-		widget.ShowHelp()
-		return nil
-	case "h":
-		widget.Prev()
-		return nil
-	case "l":
-		widget.Next()
-		return nil
-	case "p":
-		widget.Pull()
-		return nil
-	case "c":
-		widget.Checkout()
-		return nil
-	}
-
-	switch event.Key() {
-	case tcell.KeyLeft:
-		widget.Prev()
-		return nil
-	case tcell.KeyRight:
-		widget.Next()
-		return nil
-	default:
-		return event
-	}
 }

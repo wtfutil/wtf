@@ -6,7 +6,6 @@ import (
 	"regexp"
 
 	"github.com/dustin/go-humanize"
-	"github.com/gdamore/tcell"
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/wtf"
 )
@@ -25,6 +24,7 @@ const HelpText = `
 
 type Widget struct {
 	wtf.HelpfulWidget
+	wtf.KeyboardWidget
 	wtf.MultiSourceWidget
 	wtf.TextWidget
 
@@ -38,6 +38,7 @@ type Widget struct {
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
 		HelpfulWidget:     wtf.NewHelpfulWidget(app, pages, HelpText),
+		KeyboardWidget:    wtf.NewKeyboardWidget(),
 		MultiSourceWidget: wtf.NewMultiSourceWidget(settings.common, "screenName", "screenNames"),
 		TextWidget:        wtf.NewTextWidget(app, settings.common, true),
 
@@ -46,7 +47,8 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 		settings: settings,
 	}
 
-	widget.HelpfulWidget.SetView(widget.View)
+	widget.initializeKeyboardControls()
+	widget.View.SetInputCapture(widget.InputCapture)
 
 	widget.SetDisplayFunction(widget.display)
 
@@ -55,7 +57,8 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	widget.View.SetBorderPadding(1, 1, 1, 1)
 	widget.View.SetWrap(true)
 	widget.View.SetWordWrap(true)
-	widget.View.SetInputCapture(widget.keyboardIntercept)
+
+	widget.HelpfulWidget.SetView(widget.View)
 
 	return &widget
 }
@@ -143,36 +146,8 @@ func (widget *Widget) format(tweet Tweet) string {
 
 	return fmt.Sprintf("%s\n[grey]%s[white]\n\n", body, attribution)
 }
-
-func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
-	switch string(event.Rune()) {
-	case "/":
-		widget.ShowHelp()
-		return nil
-	case "h":
-		widget.Prev()
-		return nil
-	case "l":
-		widget.Next()
-		return nil
-	case "o":
-		wtf.OpenFile(widget.currentSourceURI())
-		return nil
-	}
-
-	switch event.Key() {
-	case tcell.KeyLeft:
-		widget.Prev()
-		return nil
-	case tcell.KeyRight:
-		widget.Next()
-		return nil
-	default:
-		return event
-	}
-}
-
 func (widget *Widget) currentSourceURI() string {
+
 	src := "https://twitter.com/" + widget.CurrentSource()
 	return src
 }

@@ -7,7 +7,6 @@ import (
 	"regexp"
 
 	glb "github.com/andygrunwald/go-gerrit"
-	"github.com/gdamore/tcell"
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/wtf"
 )
@@ -32,6 +31,7 @@ const HelpText = `
 
 type Widget struct {
 	wtf.HelpfulWidget
+	wtf.KeyboardWidget
 	wtf.TextWidget
 
 	gerrit *glb.Client
@@ -50,8 +50,9 @@ var (
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
-		TextWidget:    wtf.NewTextWidget(app, settings.common, true),
+		HelpfulWidget:  wtf.NewHelpfulWidget(app, pages, HelpText),
+		KeyboardWidget: wtf.NewKeyboardWidget(),
+		TextWidget:     wtf.NewTextWidget(app, settings.common, true),
 
 		Idx: 0,
 
@@ -59,9 +60,11 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 		settings: settings,
 	}
 
+	widget.initializeKeyboardControls()
+	widget.View.SetInputCapture(widget.InputCapture)
+
 	widget.HelpfulWidget.SetView(widget.View)
 
-	widget.View.SetInputCapture(widget.keyboardIntercept)
 	widget.unselect()
 
 	return &widget
@@ -195,50 +198,4 @@ func (widget *Widget) currentGerritProject() *GerritProject {
 	}
 
 	return widget.GerritProjects[widget.Idx]
-}
-
-func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
-	switch string(event.Rune()) {
-	case "/":
-		widget.ShowHelp()
-		return nil
-	case "h":
-		widget.prevProject()
-		return nil
-	case "l":
-		widget.nextProject()
-		return nil
-	case "j":
-		widget.nextReview()
-		return nil
-	case "k":
-		widget.prevReview()
-		return nil
-	case "r":
-		widget.Refresh()
-		return nil
-	}
-
-	switch event.Key() {
-	case tcell.KeyLeft:
-		widget.prevProject()
-		return nil
-	case tcell.KeyRight:
-		widget.nextProject()
-		return nil
-	case tcell.KeyDown:
-		widget.nextReview()
-		return nil
-	case tcell.KeyUp:
-		widget.prevReview()
-		return nil
-	case tcell.KeyEnter:
-		widget.openReview()
-		return nil
-	case tcell.KeyEsc:
-		widget.unselect()
-		return event
-	default:
-		return event
-	}
 }

@@ -4,12 +4,13 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/gdamore/tcell"
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/wtf"
 )
 
+// A Widget represents a Zendesk widget
 type Widget struct {
+	wtf.KeyboardWidget
 	wtf.TextWidget
 
 	app      *tview.Application
@@ -18,20 +19,24 @@ type Widget struct {
 	settings *Settings
 }
 
+// NewWidget creates a new instance of a widget
 func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(app, settings.common, true),
+		KeyboardWidget: wtf.NewKeyboardWidget(),
+		TextWidget:     wtf.NewTextWidget(app, settings.common, true),
 
 		app:      app,
 		settings: settings,
 	}
 
-	widget.View.SetInputCapture(widget.keyboardIntercept)
+	widget.initializeKeyboardControls()
+	widget.View.SetInputCapture(widget.InputCapture)
 
 	return &widget
 }
 
 /* -------------------- Exported Functions -------------------- */
+
 func (widget *Widget) Refresh() {
 	ticketArray, err := widget.newTickets()
 	ticketArray.Count = len(ticketArray.Tickets)
@@ -108,49 +113,11 @@ func (widget *Widget) openTicket() {
 	sel := widget.selected
 	if sel >= 0 && widget.result != nil && sel < len(widget.result.Tickets) {
 		issue := &widget.result.Tickets[widget.selected]
-		ticketUrl := fmt.Sprintf("https://%s.zendesk.com/agent/tickets/%d", widget.settings.subdomain, issue.Id)
-		wtf.OpenFile(ticketUrl)
+		ticketURL := fmt.Sprintf("https://%s.zendesk.com/agent/tickets/%d", widget.settings.subdomain, issue.Id)
+		wtf.OpenFile(ticketURL)
 	}
 }
 
 func (widget *Widget) unselect() {
 	widget.selected = -1
-}
-
-func (widget *Widget) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
-	switch string(event.Rune()) {
-	case "j":
-		// Select the next item down
-		widget.next()
-		widget.display()
-		return nil
-	case "k":
-		// Select the next item up
-		widget.prev()
-		widget.display()
-		return nil
-	}
-	switch event.Key() {
-	case tcell.KeyDown:
-		// Select the next item down
-		widget.next()
-		widget.display()
-		return nil
-	case tcell.KeyUp:
-		// Select the next item up
-		widget.prev()
-		widget.display()
-		return nil
-	case tcell.KeyEnter:
-		widget.openTicket()
-		return nil
-	case tcell.KeyEsc:
-		// Unselect the current row
-		widget.unselect()
-		widget.display()
-		return event
-	default:
-		// Pass it along
-		return event
-	}
 }
