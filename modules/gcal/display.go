@@ -29,9 +29,6 @@ func (widget *Widget) display() {
 		return
 	}
 
-	widget.mutex.Lock()
-	defer widget.mutex.Unlock()
-
 	widget.View.SetTitle(widget.ContextualTitle(widget.settings.common.Title))
 	widget.View.SetText(widget.contentFrom(widget.calEvents))
 }
