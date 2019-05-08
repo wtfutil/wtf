@@ -1,26 +1,35 @@
 wtf:
   colors:
-    # background: gray
+    background: black
     border:
       focusable: darkslateblue
       focused: orange
       normal: gray
+    checked: yellow
+    highlight: 
+      fore: black
+      back: gray
+    rows:
+      even: yellow
+      odd: white
   grid:
     columns: [40, 40]
-    rows: [13, 13, 4, 10]
+    rows: [4, 13, 9]
   refreshInterval: 1
+  openFileUtil: "open"
   mods:
-    clocks:
+    # You can have multiple widgets of the same type.
+    # The "key" is the name of the widget and the type is the actual
+    # widget you want to implement
+    time:
+      title: "Vacation time"
+      type: clocks
       colors:
         rows:
           even: "lightblue"
           odd: "white"
       enabled: true
       locations:
-        Avignon: "Europe/Paris"
-        Barcelona: "Europe/Madrid"
-        Dubai: "Asia/Dubai"
-        UTC: "Etc/UTC"
         Vancouver: "America/Vancouver"
         Toronto: "America/Toronto"
       position:
@@ -30,60 +39,67 @@ wtf:
         width: 1
       refreshInterval: 15
       sort: "alphabetical"
-    ipinfo:
+    utc:
+      title: "UTC"
+      type: clocks
       colors:
-        name: "lightblue"
-        value: "white"
+        rows:
+          even: "lightblue"
+          odd: "white"
       enabled: true
+      locations:
+        UTC: "Etc/UTC"
+        GMT: "Etc/GMT"
       position:
-        top: 3
-        left: 0
-        height: 1
-        width: 1
-      refreshInterval: 150
-    power:
-      enabled: true
-      position:
-        top: 3
+        top: 0
         left: 1
         height: 1
         width: 1
       refreshInterval: 15
-      title: "⚡️"
-    security:
-      enabled: true
-      position:
-        top: 1
-        left: 0
-        height: 1
-        width: 1
-      refreshInterval: 3600
-    status:
+      sort: "alphabetical"
+    ip:
+      type: ipinfo
+      title: "My IP"
+      colors:
+        name: "lightblue"
+        value: "white"
       enabled: true
       position:
         top: 2
         left: 0
         height: 1
         width: 1
-      refreshInterval: 1
-    system:
+      refreshInterval: 150
+    battery:
+      type: power
+      title: "⚡️"
       enabled: true
       position:
-        top: 0
+        top: 2
         left: 1
         height: 1
         width: 1
+      refreshInterval: 15
+    security_info:
+      type: security
+      title: "Staying safe"
+      enabled: true
+      position:
+        top: 1
+        left: 0
+        height: 1
+        width: 1
       refreshInterval: 3600
-    textfile:
+    readme:
+      type: textfile
       enabled: true
       filePaths:
         - "~/.config/wtf/config.yml"
-        - "~/.config/wtf/log.txt"
       format: true
-      formatStyle: "vim"
+      formatStyle: "monokai"
       position:
         top: 1
         left: 1
-        height: 2
+        height: 1
         width: 1
       refreshInterval: 15
