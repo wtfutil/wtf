@@ -1,8 +1,6 @@
 package gcal
 
 import (
-	"sync"
-
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/wtf"
 )
@@ -12,7 +10,6 @@ type Widget struct {
 
 	app       *tview.Application
 	calEvents []*CalEvent
-	mutex     sync.Mutex
 	settings  *Settings
 }
 
