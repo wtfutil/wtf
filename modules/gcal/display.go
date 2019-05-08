@@ -214,7 +214,7 @@ func (widget *Widget) responseIcon(calEvent *CalEvent) string {
 
 	switch calEvent.ResponseFor(widget.settings.email) {
 	case "accepted":
-		return icon + "✔︎"
+		return icon + "✔"
 	case "declined":
 		return icon + "✘"
 	case "needsAction":
