@@ -25,20 +25,12 @@ func (widget *Widget) sortedEvents() ([]*CalEvent, []*CalEvent) {
 }
 
 func (widget *Widget) display() {
-	if widget.calEvents == nil || len(widget.calEvents) == 0 {
-		return
-	}
-
-	widget.mutex.Lock()
-	defer widget.mutex.Unlock()
-
-	widget.View.SetTitle(widget.ContextualTitle(widget.settings.common.Title))
-	widget.View.SetText(widget.contentFrom(widget.calEvents))
+	widget.TextWidget.Redraw(widget.settings.common.Title, widget.contentFrom(widget.calEvents), false)
 }
 
 func (widget *Widget) contentFrom(calEvents []*CalEvent) string {
 	if (calEvents == nil) || (len(calEvents) == 0) {
-		return ""
+		return "No calendar events"
 	}
 
 	var str string

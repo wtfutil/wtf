@@ -29,7 +29,8 @@ type Widget struct {
 	wtf.KeyboardWidget
 	wtf.TextWidget
 
-	app      *tview.Application
+	app *tview.Application
+
 	selected int
 	settings *Settings
 	view     *View
@@ -73,17 +74,11 @@ func (widget *Widget) Refresh() {
 	widget.view = view
 
 	if err != nil {
-		widget.View.SetWrap(true)
-
-		widget.app.QueueUpdateDraw(func() {
-			widget.View.SetText(err.Error())
-		})
+		widget.Redraw(widget.CommonSettings.Title, err.Error(), true)
+		return
 	}
 
-	widget.app.QueueUpdateDraw(func() {
-		widget.View.SetTitle(widget.ContextualTitle(widget.CommonSettings.Title))
-		widget.display()
-	})
+	widget.display()
 }
 
 /* -------------------- Unexported Functions -------------------- */
@@ -93,12 +88,12 @@ func (widget *Widget) display() {
 		return
 	}
 
-	widget.View.SetWrap(false)
+	title := fmt.Sprintf("%s: [red]%s", widget.CommonSettings.Title, widget.view.Name)
 
-	widget.View.Clear()
-	widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("%s: [red]%s", widget.CommonSettings.Title, widget.view.Name)))
-	widget.View.SetText(widget.contentFrom(widget.view))
-	widget.View.Highlight(strconv.Itoa(widget.selected)).ScrollToHighlight()
+	widget.Redraw(title, widget.contentFrom(widget.view), false)
+	widget.app.QueueUpdateDraw(func() {
+		widget.View.Highlight(strconv.Itoa(widget.selected)).ScrollToHighlight()
+	})
 }
 
 func (widget *Widget) contentFrom(view *View) string {

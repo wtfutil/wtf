@@ -11,7 +11,6 @@ import (
 type Widget struct {
 	wtf.TextWidget
 
-	app      *tview.Application
 	client   *Client
 	settings *Settings
 }
@@ -20,7 +19,6 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(app, settings.common, false),
 
-		app:      app,
 		settings: settings,
 	}
 
@@ -41,19 +39,16 @@ func (widget *Widget) Refresh() {
 	}
 
 	var content string
+	title := fmt.Sprintf("%s - [green]%s[white]", widget.CommonSettings.Title, appName)
+	wrap := false
 	if depErr != nil {
-		widget.View.SetWrap(true)
+		wrap = true
 		content = depErr.Error()
 	} else {
-		widget.View.SetWrap(false)
 		content = widget.contentFrom(deploys)
 	}
 
-	widget.app.QueueUpdateDraw(func() {
-		widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("%s - [green]%s[white]", widget.CommonSettings.Title, appName)))
-		widget.View.Clear()
-		widget.View.SetText(content)
-	})
+	widget.Redraw(title, content, wrap)
 }
 
 /* -------------------- Unexported Functions -------------------- */

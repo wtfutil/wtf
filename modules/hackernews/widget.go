@@ -30,7 +30,8 @@ type Widget struct {
 	wtf.KeyboardWidget
 	wtf.TextWidget
 
-	app      *tview.Application
+	app *tview.Application
+
 	stories  []Story
 	selected int
 	settings *Settings
@@ -89,9 +90,7 @@ func (widget *Widget) Refresh() {
 		widget.stories = stories
 	}
 
-	widget.app.QueueUpdateDraw(func() {
-		widget.display()
-	})
+	widget.display()
 }
 
 /* -------------------- Unexported Functions -------------------- */
@@ -101,12 +100,11 @@ func (widget *Widget) display() {
 		return
 	}
 
-	widget.View.SetWrap(false)
-
-	widget.View.Clear()
-	widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("%s - %sstories", widget.CommonSettings.Title, widget.settings.storyType)))
-	widget.View.SetText(widget.contentFrom(widget.stories))
-	widget.View.Highlight(strconv.Itoa(widget.selected)).ScrollToHighlight()
+	title := fmt.Sprintf("%s - %sstories", widget.CommonSettings.Title, widget.settings.storyType)
+	widget.Redraw(title, widget.contentFrom(widget.stories), false)
+	widget.app.QueueUpdateDraw(func() {
+		widget.View.Highlight(strconv.Itoa(widget.selected)).ScrollToHighlight()
+	})
 }
 
 func (widget *Widget) contentFrom(stories []Story) string {

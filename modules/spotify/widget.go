@@ -21,7 +21,6 @@ type Widget struct {
 	wtf.KeyboardWidget
 	wtf.TextWidget
 
-	app      *tview.Application
 	settings *Settings
 	spotigopher.Info
 	spotigopher.SpotifyClient
@@ -38,7 +37,6 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 		Info:          spotigopher.Info{},
 		SpotifyClient: spotifyClient,
 
-		app:      app,
 		settings: settings,
 	}
 
@@ -63,19 +61,18 @@ func (w *Widget) refreshSpotifyInfos() error {
 }
 
 func (w *Widget) Refresh() {
-	w.app.QueueUpdateDraw(func() {
-		w.render()
-	})
+	w.render()
 }
 
 func (w *Widget) render() {
 	err := w.refreshSpotifyInfos()
-	w.View.Clear()
+	var content string
 	if err != nil {
-		w.TextWidget.View.SetText(err.Error())
+		content = err.Error()
 	} else {
-		w.TextWidget.View.SetText(w.createOutput())
+		content = w.createOutput()
 	}
+	w.Redraw(w.CommonSettings.Title, content, true)
 }
 
 func (w *Widget) createOutput() string {

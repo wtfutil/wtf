@@ -8,11 +8,11 @@ func (widget *Widget) display() {
 
 	project := widget.currentGitlabProject()
 	if project == nil {
-		widget.View.SetText(" Gitlab project data is unavailable ")
+		widget.Redraw(widget.CommonSettings.Title, " Gitlab project data is unavailable ", true)
 		return
 	}
 
-	widget.View.SetTitle(fmt.Sprintf("%s- %s", widget.CommonSettings.Title, widget.title(project)))
+	title := fmt.Sprintf("%s- %s", widget.CommonSettings.Title, widget.title(project))
 
 	_, _, width, _ := widget.View.GetRect()
 	str := widget.settings.common.SigilStr(len(widget.GitlabProjects), widget.Idx, width) + "\n"
@@ -24,8 +24,7 @@ func (widget *Widget) display() {
 	str = str + "\n"
 	str = str + " [red]My Merge Requests[white]\n"
 	str = str + widget.displayMyMergeRequests(project, widget.settings.username)
-
-	widget.View.SetText(str)
+	widget.Redraw(title, str, false)
 }
 
 func (widget *Widget) displayMyMergeRequests(project *GitlabProject, username string) string {

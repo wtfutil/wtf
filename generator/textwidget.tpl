@@ -18,7 +18,6 @@ type Widget struct {
 	wtf.KeyboardWidget
 	wtf.TextWidget
 
-    app *tview.Application
 	settings *Settings
 }
 
@@ -28,14 +27,11 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 		KeyboardWidget: wtf.NewKeyboardWidget(),
 		TextWidget:    wtf.NewTextWidget(app, settings.common, false),
 
-    app: app,
 		settings: settings,
 	}
 
   widget.initializeKeyboardControls()
 	widget.View.SetInputCapture(widget.InputCapture)
-
-	widget.unselect()
 
 	widget.View.SetScrollable(true)
 	widget.View.SetRegions(true)
@@ -50,22 +46,11 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 func (widget *Widget) Refresh() {
 
 	// The last call should always be to the display function
-	widget.app.QueueUpdateDraw(func() {
-	    widget.display()
-	})
+  widget.display()
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
 func (widget *Widget) display() {
-	widget.View.SetWrap(false)
-
-	widget.View.Clear()
-	widget.View.SetText("Some Text")
-	widget.View.Highlight(strconv.Itoa(widget.selected)).ScrollToHighlight()
-}
-
-func (widget *Widget) unselect() {
-	widget.selected = -1
-	widget.display()
+  widget.Redraw(widget.CommonSettings.Title, "Some text", false)
 }

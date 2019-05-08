@@ -97,9 +97,7 @@ func (widget *Widget) Refresh() {
 		return widget.GitRepos[i].Path < widget.GitRepos[j].Path
 	})
 
-	widget.app.QueueUpdateDraw(func() {
-		widget.display()
-	})
+	widget.display()
 }
 
 /* -------------------- Unexported Functions -------------------- */
@@ -125,9 +123,11 @@ func (widget *Widget) addCancelButton(form *tview.Form) {
 }
 
 func (widget *Widget) modalFocus(form *tview.Form) {
-	frame := widget.modalFrame(form)
-	widget.pages.AddPage("modal", frame, false, true)
-	widget.app.SetFocus(frame)
+	widget.app.QueueUpdateDraw(func() {
+		frame := widget.modalFrame(form)
+		widget.pages.AddPage("modal", frame, false, true)
+		widget.app.SetFocus(frame)
+	})
 }
 
 func (widget *Widget) modalForm(lbl, text string) *tview.Form {

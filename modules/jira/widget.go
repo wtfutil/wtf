@@ -2,7 +2,6 @@ package jira
 
 import (
 	"fmt"
-
 	"strconv"
 
 	"github.com/rivo/tview"
@@ -27,7 +26,8 @@ type Widget struct {
 	wtf.KeyboardWidget
 	wtf.TextWidget
 
-	app      *tview.Application
+	app *tview.Application
+
 	result   *SearchResult
 	selected int
 	settings *Settings
@@ -67,19 +67,11 @@ func (widget *Widget) Refresh() {
 
 	if err != nil {
 		widget.result = nil
-		widget.View.SetWrap(true)
-
-		widget.app.QueueUpdateDraw(func() {
-			widget.View.SetTitle(widget.CommonSettings.Title)
-			widget.View.SetText(err.Error())
-		})
-	} else {
-		widget.result = searchResult
+		widget.Redraw(widget.CommonSettings.Title, err.Error(), true)
+		return
 	}
-
-	widget.app.QueueUpdateDraw(func() {
-		widget.display()
-	})
+	widget.result = searchResult
+	widget.display()
 }
 
 /* -------------------- Unexported Functions -------------------- */
@@ -88,14 +80,13 @@ func (widget *Widget) display() {
 	if widget.result == nil {
 		return
 	}
-	widget.View.SetWrap(false)
 
 	str := fmt.Sprintf("%s- [green]%s[white]", widget.CommonSettings.Title, widget.settings.projects)
 
-	widget.View.Clear()
-	widget.View.SetTitle(widget.ContextualTitle(str))
-	widget.View.SetText(fmt.Sprintf("%s", widget.contentFrom(widget.result)))
-	widget.View.Highlight(strconv.Itoa(widget.selected)).ScrollToHighlight()
+	widget.Redraw(str, widget.contentFrom(widget.result), false)
+	widget.app.QueueUpdateDraw(func() {
+		widget.View.Highlight(strconv.Itoa(widget.selected)).ScrollToHighlight()
+	})
 }
 
 func (widget *Widget) next() {

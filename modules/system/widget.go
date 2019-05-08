@@ -14,7 +14,6 @@ type Widget struct {
 	Date    string
 	Version string
 
-	app        *tview.Application
 	settings   *Settings
 	systemInfo *SystemInfo
 }
@@ -25,7 +24,6 @@ func NewWidget(app *tview.Application, date, version string, settings *Settings)
 
 		Date: date,
 
-		app:      app,
 		settings: settings,
 		Version:  version,
 	}
@@ -36,21 +34,18 @@ func NewWidget(app *tview.Application, date, version string, settings *Settings)
 }
 
 func (widget *Widget) Refresh() {
-	widget.app.QueueUpdateDraw(func() {
-		widget.View.SetText(
-			fmt.Sprintf(
-				"%8s: %s\n%8s: %s\n\n%8s: %s\n%8s: %s",
-				"Built",
-				widget.prettyDate(),
-				"Vers",
-				widget.Version,
-				"OS",
-				widget.systemInfo.ProductVersion,
-				"Build",
-				widget.systemInfo.BuildVersion,
-			),
-		)
-	})
+	content := fmt.Sprintf(
+		"%8s: %s\n%8s: %s\n\n%8s: %s\n%8s: %s",
+		"Built",
+		widget.prettyDate(),
+		"Vers",
+		widget.Version,
+		"OS",
+		widget.systemInfo.ProductVersion,
+		"Build",
+		widget.systemInfo.BuildVersion,
+	)
+	widget.Redraw(widget.CommonSettings.Title, content, false)
 }
 
 func (widget *Widget) prettyDate() string {

@@ -13,6 +13,7 @@ type TextWidget struct {
 	focusChar       string
 	name            string
 	refreshInterval int
+	app             *tview.Application
 
 	View *tview.TextView
 
@@ -24,6 +25,7 @@ func NewTextWidget(app *tview.Application, commonSettings *cfg.Common, focusable
 	widget := TextWidget{
 		CommonSettings: commonSettings,
 
+		app:             app,
 		enabled:         commonSettings.Enabled,
 		focusable:       focusable,
 		focusChar:       commonSettings.FocusChar(),
@@ -105,6 +107,16 @@ func (widget *TextWidget) String() string {
 
 func (widget *TextWidget) TextView() *tview.TextView {
 	return widget.View
+}
+
+func (widget *TextWidget) Redraw(title, text string, wrap bool) {
+
+	widget.app.QueueUpdateDraw(func() {
+		widget.View.Clear()
+		widget.View.SetWrap(wrap)
+		widget.View.SetTitle(widget.ContextualTitle(title))
+		widget.View.SetText(text)
+	})
 }
 
 /* -------------------- Unexported Functions -------------------- */

@@ -12,7 +12,6 @@ type Widget struct {
 
 	Battery *Battery
 
-	app      *tview.Application
 	settings *Settings
 }
 
@@ -22,7 +21,6 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 
 		Battery: NewBattery(),
 
-		app:      app,
 		settings: settings,
 	}
 
@@ -39,7 +37,5 @@ func (widget *Widget) Refresh() {
 	content = content + "\n"
 	content = content + widget.Battery.String()
 
-	widget.app.QueueUpdateDraw(func() {
-		widget.View.SetText(content)
-	})
+	widget.Redraw(widget.CommonSettings.Title, content, true)
 }

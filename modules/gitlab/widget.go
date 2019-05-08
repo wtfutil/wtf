@@ -26,7 +26,6 @@ type Widget struct {
 	GitlabProjects []*GitlabProject
 	Idx            int
 
-	app      *tview.Application
 	gitlab   *glb.Client
 	settings *Settings
 }
@@ -46,7 +45,6 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 
 		Idx: 0,
 
-		app:      app,
 		gitlab:   gitlab,
 		settings: settings,
 	}
@@ -68,9 +66,7 @@ func (widget *Widget) Refresh() {
 		project.Refresh()
 	}
 
-	widget.app.QueueUpdateDraw(func() {
-		widget.display()
-	})
+	widget.display()
 }
 
 func (widget *Widget) Next() {
