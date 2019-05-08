@@ -8,11 +8,11 @@ func (widget *Widget) display() {
 
 	project := widget.currentGerritProject()
 	if project == nil {
-		widget.View.SetText(fmt.Sprintf("%s", " Gerrit project data is unavailable (1)"))
+		widget.Redraw(widget.CommonSettings.Title, "Gerrit project data is unavailable", true)
 		return
 	}
 
-	widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("%s- %s", widget.CommonSettings.Title, widget.title(project))))
+	title := fmt.Sprintf("%s- %s", widget.CommonSettings.Title, widget.title(project))
 
 	_, _, width, _ := widget.View.GetRect()
 	str := widget.settings.common.SigilStr(len(widget.GerritProjects), widget.Idx, width) + "\n"
@@ -25,7 +25,7 @@ func (widget *Widget) display() {
 	str = str + " [red]My Outgoing Reviews[white]\n"
 	str = str + widget.displayMyOutgoingReviews(project, widget.settings.username)
 
-	widget.View.SetText(str)
+	widget.Redraw(title, str, false)
 }
 
 func (widget *Widget) displayMyIncomingReviews(project *GerritProject, username string) string {

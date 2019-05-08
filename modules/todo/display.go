@@ -2,7 +2,6 @@ package todo
 
 import (
 	"fmt"
-	"strconv"
 
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/checklist"
@@ -34,9 +33,7 @@ func (widget *Widget) display() {
 	newList.SetSelectedByItem(widget.list.SelectedItem())
 	widget.SetList(newList)
 
-	widget.View.Clear()
-	widget.View.SetText(str)
-	widget.View.Highlight(strconv.Itoa(widget.list.Selected())).ScrollToHighlight()
+	widget.Redraw(widget.CommonSettings.Title, str, false)
 }
 
 func (widget *Widget) formattedItemLine(idx int, item *checklist.ChecklistItem, selectedItem *checklist.ChecklistItem, maxLen int) string {

@@ -73,16 +73,13 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 // Refresh is only called once on start-up. Its job is to display the
 // text files that first time. After that, the watcher takes over
 func (widget *Widget) Refresh() {
-	widget.app.QueueUpdateDraw(func() {
-		widget.display()
-	})
+	widget.display()
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
 func (widget *Widget) display() {
 	title := fmt.Sprintf("[green]%s[white]", widget.CurrentSource())
-	title = widget.ContextualTitle(title)
 
 	_, _, width, _ := widget.View.GetRect()
 	text := widget.settings.common.SigilStr(len(widget.Sources), widget.Idx, width) + "\n"
@@ -93,8 +90,7 @@ func (widget *Widget) display() {
 		text = text + widget.plainText()
 	}
 
-	widget.View.SetTitle(title) // <- Writes to TextView's title
-	widget.View.SetText(text)   // <- Writes to TextView's text
+	widget.Redraw(title, text, false)
 }
 
 func (widget *Widget) fileName() string {

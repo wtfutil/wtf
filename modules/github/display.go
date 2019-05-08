@@ -8,12 +8,11 @@ import (
 
 func (widget *Widget) display() {
 	repo := widget.currentGithubRepo()
+	title := fmt.Sprintf("%s - %s", widget.CommonSettings.Title, widget.title(repo))
 	if repo == nil {
-		widget.View.SetText(" GitHub repo data is unavailable ")
+		widget.TextWidget.Redraw(title, " GitHub repo data is unavailable ", false)
 		return
 	}
-
-	widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("%s - %s", widget.CommonSettings.Title, widget.title(repo))))
 
 	_, _, width, _ := widget.View.GetRect()
 	str := widget.settings.common.SigilStr(len(widget.GithubRepos), widget.Idx, width) + "\n"
@@ -26,7 +25,7 @@ func (widget *Widget) display() {
 	str = str + " [red]My Pull Requests[white]\n"
 	str = str + widget.displayMyPullRequests(repo, widget.settings.username)
 
-	widget.View.SetText(str)
+	widget.TextWidget.Redraw(title, str, false)
 }
 
 func (widget *Widget) displayMyPullRequests(repo *GithubRepo, username string) string {

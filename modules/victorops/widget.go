@@ -20,7 +20,6 @@ const HelpText = `
 type Widget struct {
 	wtf.TextWidget
 
-	app      *tview.Application
 	teams    []OnCallTeam
 	settings *Settings
 }
@@ -47,19 +46,11 @@ func (widget *Widget) Refresh() {
 	widget.View.SetTitle(widget.ContextualTitle(widget.CommonSettings.Title))
 
 	if err != nil {
-		widget.View.SetWrap(true)
-
-		widget.app.QueueUpdateDraw(func() {
-			widget.View.SetText(err.Error())
-		})
+		widget.Redraw(widget.CommonSettings.Title, err.Error(), true)
 	} else {
 		widget.teams = teams
+		widget.Redraw(widget.CommonSettings.Title, widget.contentFrom(widget.teams), true)
 	}
-
-	widget.app.QueueUpdateDraw(func() {
-		widget.View.SetTitle(widget.ContextualTitle(widget.CommonSettings.Title))
-		widget.display()
-	})
 }
 
 func (widget *Widget) display() {
@@ -74,6 +65,10 @@ func (widget *Widget) display() {
 
 func (widget *Widget) contentFrom(teams []OnCallTeam) string {
 	var str string
+
+	if teams == nil || len(teams) == 0 {
+		return "No teams specified"
+	}
 
 	for _, team := range teams {
 		if len(widget.settings.team) > 0 && widget.settings.team != team.Slug {

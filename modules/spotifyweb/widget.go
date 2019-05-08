@@ -48,7 +48,6 @@ type Widget struct {
 
 	Info
 
-	app         *tview.Application
 	client      *spotify.Client
 	clientChan  chan *spotify.Client
 	playerState *spotify.PlayerState
@@ -99,7 +98,6 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 
 		Info: Info{},
 
-		app:         app,
 		client:      client,
 		clientChan:  tempClientChan,
 		playerState: playerState,
@@ -181,18 +179,11 @@ func (w *Widget) refreshSpotifyInfos() error {
 
 // Refresh refreshes the current view of the widget
 func (w *Widget) Refresh() {
-	w.app.QueueUpdateDraw(func() {
-		w.render()
-	})
-}
-
-func (w *Widget) render() {
 	err := w.refreshSpotifyInfos()
-	w.View.Clear()
 	if err != nil {
-		w.TextWidget.View.SetText(err.Error())
+		w.Redraw(w.CommonSettings.Title, err.Error(), true)
 	} else {
-		w.TextWidget.View.SetText(w.createOutput())
+		w.Redraw(w.CommonSettings.Title, w.createOutput(), false)
 	}
 }
 

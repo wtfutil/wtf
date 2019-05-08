@@ -9,12 +9,11 @@ import (
 func (widget *Widget) display() {
 	repoData := widget.currentData()
 	if repoData == nil {
-		widget.View.SetText(" Git repo data is unavailable ")
+		widget.Redraw(widget.CommonSettings.Title, " Git repo data is unavailable ", false)
 		return
 	}
 
 	title := fmt.Sprintf("%s - [green]%s[white]", widget.CommonSettings.Title, repoData.Repository)
-	widget.View.SetTitle(widget.ContextualTitle(title))
 
 	_, _, width, _ := widget.View.GetRect()
 	str := widget.settings.common.SigilStr(len(widget.GitRepos), widget.Idx, width) + "\n"
@@ -25,7 +24,7 @@ func (widget *Widget) display() {
 	str = str + "\n"
 	str = str + widget.formatCommits(repoData.Commits)
 
-	widget.View.SetText(str)
+	widget.Redraw(title, str, false)
 }
 
 func (widget *Widget) formatChanges(data []string) string {

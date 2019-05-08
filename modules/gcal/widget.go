@@ -1,8 +1,6 @@
 package gcal
 
 import (
-	"time"
-
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/wtf"
 )
@@ -12,7 +10,6 @@ type Widget struct {
 
 	app       *tview.Application
 	calEvents []*CalEvent
-	ch        chan struct{}
 	settings  *Settings
 }
 
@@ -21,11 +18,8 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 		TextWidget: wtf.NewTextWidget(app, settings.common, true),
 
 		app:      app,
-		ch:       make(chan struct{}),
 		settings: settings,
 	}
-
-	go updateLoop(&widget)
 
 	return &widget
 }
@@ -33,15 +27,12 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Disable() {
-	close(widget.ch)
 	widget.TextWidget.Disable()
 }
 
 func (widget *Widget) Refresh() {
 	if isAuthenticated() {
-		widget.app.QueueUpdateDraw(func() {
-			widget.fetchAndDisplayEvents()
-		})
+		widget.fetchAndDisplayEvents()
 		return
 	}
 
@@ -59,27 +50,5 @@ func (widget *Widget) fetchAndDisplayEvents() {
 		widget.calEvents = calEvents
 	}
 
-	widget.app.QueueUpdateDraw(func() {
-		widget.display()
-	})
-}
-
-func updateLoop(widget *Widget) {
-	if widget.settings.textInterval == 0 {
-		return
-	}
-
-	tick := time.NewTicker(time.Duration(widget.settings.textInterval) * time.Second)
-	defer tick.Stop()
-outer:
-	for {
-		select {
-		case <-tick.C:
-			widget.app.QueueUpdateDraw(func() {
-				widget.display()
-			})
-		case <-widget.ch:
-			break outer
-		}
-	}
+	widget.display()
 }

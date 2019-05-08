@@ -13,7 +13,6 @@ type Widget struct {
 	wtf.KeyboardWidget
 	wtf.TextWidget
 
-	app      *tview.Application
 	result   *TicketArray
 	selected int
 	settings *Settings
@@ -25,7 +24,6 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 		KeyboardWidget: wtf.NewKeyboardWidget(),
 		TextWidget:     wtf.NewTextWidget(app, settings.common, true),
 
-		app:      app,
 		settings: settings,
 	}
 
@@ -46,16 +44,14 @@ func (widget *Widget) Refresh() {
 		widget.result = ticketArray
 	}
 
-	widget.app.QueueUpdateDraw(func() {
-		widget.display()
-	})
+	widget.display()
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
 func (widget *Widget) display() {
-	widget.View.SetTitle(fmt.Sprintf("%s (%d)", widget.CommonSettings.Title, widget.result.Count))
-	widget.View.SetText(widget.textContent(widget.result.Tickets))
+	title := fmt.Sprintf("%s (%d)", widget.CommonSettings.Title, widget.result.Count)
+	widget.Redraw(title, widget.textContent(widget.result.Tickets), false)
 }
 
 func (widget *Widget) textContent(items []Ticket) string {

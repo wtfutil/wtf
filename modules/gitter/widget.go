@@ -26,7 +26,8 @@ type Widget struct {
 	wtf.KeyboardWidget
 	wtf.TextWidget
 
-	app      *tview.Application
+	app *tview.Application
+
 	messages []Message
 	selected int
 	settings *Settings
@@ -80,19 +81,12 @@ func (widget *Widget) Refresh() {
 	if err != nil {
 		widget.View.SetWrap(true)
 
-		widget.app.QueueUpdateDraw(func() {
-			widget.View.SetTitle(widget.CommonSettings.Title)
-			widget.View.SetText(err.Error())
-		})
-	} else {
-		widget.messages = messages
+		widget.Redraw(widget.CommonSettings.Title, err.Error(), true)
+		return
 	}
+	widget.messages = messages
 
-	widget.app.QueueUpdateDraw(func() {
-		widget.View.SetTitle(widget.ContextualTitle(widget.CommonSettings.Title))
-		widget.display()
-		widget.View.ScrollToEnd()
-	})
+	widget.display()
 }
 
 /* -------------------- Unexported Functions -------------------- */
@@ -102,11 +96,13 @@ func (widget *Widget) display() {
 		return
 	}
 
-	widget.View.SetWrap(true)
-	widget.View.Clear()
-	widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("%s - %s", widget.CommonSettings.Title, widget.settings.roomURI)))
-	widget.View.SetText(widget.contentFrom(widget.messages))
-	widget.View.Highlight(strconv.Itoa(widget.selected)).ScrollToHighlight()
+	title := fmt.Sprintf("%s - %s", widget.CommonSettings.Title, widget.settings.roomURI)
+
+	widget.Redraw(title, widget.contentFrom(widget.messages), true)
+	widget.app.QueueUpdateDraw(func() {
+		widget.View.Highlight(strconv.Itoa(widget.selected)).ScrollToHighlight()
+		widget.View.ScrollToEnd()
+	})
 }
 
 func (widget *Widget) contentFrom(messages []Message) string {

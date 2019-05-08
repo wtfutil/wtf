@@ -10,7 +10,6 @@ type Widget struct {
 
 	CurrentIcon int
 
-	app      *tview.Application
 	settings *Settings
 }
 
@@ -20,7 +19,6 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 
 		CurrentIcon: 0,
 
-		app:      app,
 		settings: settings,
 	}
 
@@ -30,9 +28,7 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	widget.app.QueueUpdateDraw(func() {
-		widget.View.SetText(widget.animation())
-	})
+	widget.Redraw(widget.CommonSettings.Title, widget.animation(), false)
 }
 
 /* -------------------- Unexported Functions -------------------- */

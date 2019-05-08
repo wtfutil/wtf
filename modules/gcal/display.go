@@ -29,13 +29,12 @@ func (widget *Widget) display() {
 		return
 	}
 
-	widget.View.SetTitle(widget.ContextualTitle(widget.settings.common.Title))
-	widget.View.SetText(widget.contentFrom(widget.calEvents))
+	widget.TextWidget.Redraw(widget.settings.common.Title, widget.contentFrom(widget.calEvents), false)
 }
 
 func (widget *Widget) contentFrom(calEvents []*CalEvent) string {
 	if (calEvents == nil) || (len(calEvents) == 0) {
-		return ""
+		return "No calendar events"
 	}
 
 	var str string

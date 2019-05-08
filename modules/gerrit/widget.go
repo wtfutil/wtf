@@ -39,7 +39,6 @@ type Widget struct {
 	GerritProjects []*GerritProject
 	Idx            int
 
-	app      *tview.Application
 	selected int
 	settings *Settings
 }
@@ -56,7 +55,6 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 
 		Idx: 0,
 
-		app:      app,
 		settings: settings,
 	}
 
@@ -99,9 +97,7 @@ func (widget *Widget) Refresh() {
 	if err != nil {
 		widget.View.SetWrap(true)
 
-		widget.app.QueueUpdateDraw(func() {
-			widget.View.SetText(err.Error())
-		})
+		widget.Redraw(widget.CommonSettings.Title, err.Error(), true)
 		return
 	}
 	widget.gerrit = gerrit
@@ -111,10 +107,7 @@ func (widget *Widget) Refresh() {
 		project.Refresh(widget.settings.username)
 	}
 
-	widget.app.QueueUpdateDraw(func() {
-		widget.View.SetTitle(widget.ContextualTitle(widget.CommonSettings.Title))
-		widget.display()
-	})
+	widget.display()
 }
 
 /* -------------------- Unexported Functions -------------------- */

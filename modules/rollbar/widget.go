@@ -28,7 +28,6 @@ type Widget struct {
 	wtf.KeyboardWidget
 	wtf.TextWidget
 
-	app      *tview.Application
 	items    *Result
 	selected int
 	settings *Settings
@@ -41,7 +40,6 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 		KeyboardWidget: wtf.NewKeyboardWidget(),
 		TextWidget:     wtf.NewTextWidget(app, settings.common, true),
 
-		app:      app,
 		settings: settings,
 	}
 
@@ -69,19 +67,12 @@ func (widget *Widget) Refresh() {
 	)
 
 	if err != nil {
-		widget.View.SetWrap(true)
-
-		widget.app.QueueUpdateDraw(func() {
-			widget.View.SetText(err.Error())
-		})
-	} else {
-		widget.items = &items.Results
+		widget.Redraw(widget.CommonSettings.Title, err.Error(), true)
+		return
 	}
+	widget.items = &items.Results
 
-	widget.app.QueueUpdateDraw(func() {
-		widget.View.SetTitle(widget.ContextualTitle(widget.CommonSettings.Title))
-		widget.display()
-	})
+	widget.display()
 }
 
 /* -------------------- Unexported Functions -------------------- */
@@ -91,12 +82,14 @@ func (widget *Widget) display() {
 		return
 	}
 
-	widget.View.SetWrap(false)
-	widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("%s - %s", widget.CommonSettings.Title, widget.settings.projectName)))
-	widget.View.SetText(widget.contentFrom(widget.items))
+	title := fmt.Sprintf("%s - %s", widget.CommonSettings.Title, widget.settings.projectName)
+	widget.Redraw(title, widget.contentFrom(widget.items), false)
 }
 
 func (widget *Widget) contentFrom(result *Result) string {
+	if result == nil {
+		return "No results"
+	}
 	var str string
 	if len(result.Items) > widget.settings.count {
 		result.Items = result.Items[:widget.settings.count]

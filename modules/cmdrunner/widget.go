@@ -12,7 +12,6 @@ import (
 type Widget struct {
 	wtf.TextWidget
 
-	app      *tview.Application
 	args     []string
 	cmd      string
 	settings *Settings
@@ -23,7 +22,6 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(app, settings.common, false),
 
-		app:      app,
 		args:     settings.args,
 		cmd:      settings.cmd,
 		settings: settings,
@@ -41,10 +39,7 @@ func (widget *Widget) Refresh() {
 	ansiTitle := tview.TranslateANSI(widget.String())
 	ansiResult := tview.TranslateANSI(result)
 
-	widget.app.QueueUpdateDraw(func() {
-		widget.View.SetTitle(ansiTitle)
-		widget.View.SetText(ansiResult)
-	})
+	widget.Redraw(ansiTitle, ansiResult, false)
 }
 
 // String returns the string representation of the widget

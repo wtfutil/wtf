@@ -11,7 +11,6 @@ import (
 type Widget struct {
 	wtf.TextWidget
 
-	app      *tview.Application
 	settings *Settings
 }
 
@@ -19,7 +18,6 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(app, settings.common, false),
 
-		app:      app,
 		settings: settings,
 	}
 
@@ -35,18 +33,15 @@ func (widget *Widget) Refresh() {
 	)
 
 	var content string
+	wrap := false
 	if err != nil {
-		widget.View.SetWrap(true)
+		wrap = true
 		content = err.Error()
 	} else {
-		widget.View.SetWrap(false)
 		content = widget.contentFrom(data)
 	}
 
-	widget.app.QueueUpdateDraw(func() {
-		widget.View.SetTitle(widget.ContextualTitle(widget.CommonSettings.Title))
-		widget.View.SetText(content)
-	})
+	widget.Redraw(widget.CommonSettings.Title, content, wrap)
 }
 
 /* -------------------- Unexported Functions -------------------- */
