@@ -75,6 +75,9 @@ func (widget *Widget) Refresh() {
 		})
 	} else {
 		widget.result = searchResult
+		if len(widget.result.Issues) > 0 && widget.selected < 0 {
+			widget.selected = 0
+		}
 	}
 
 	widget.app.QueueUpdateDraw(func() {
