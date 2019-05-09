@@ -122,6 +122,7 @@ func (widget *Widget) openItem() {
 
 func (widget *Widget) unselect() {
 	widget.selected = -1
+	widget.display()
 }
 
 func (widget *Widget) contentFrom(searchResult *SearchResult) string {
@@ -129,7 +130,7 @@ func (widget *Widget) contentFrom(searchResult *SearchResult) string {
 
 	for idx, issue := range searchResult.Issues {
 		fmtStr := fmt.Sprintf(
-			`["%d"][""][%s] [%s]%-6s[white] [green]%-10s[white] [yellow][%s][white] [%s]%s`,
+			`["%d"][%s] [%s]%-6s[white] [green]%-10s[white] [yellow][%s][white] [%s]%s[""]`,
 			idx,
 			widget.rowColor(idx),
 			widget.issueTypeColor(&issue),
