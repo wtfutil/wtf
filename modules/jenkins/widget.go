@@ -108,7 +108,7 @@ func (widget *Widget) contentFrom(view *View) string {
 
 		if validID.MatchString(job.Name) {
 			str = str + fmt.Sprintf(
-				`["%d"][""][%s] [%s]%-6s[white]`,
+				`["%d"][%s] [%s]%-6s[white][""]`,
 				idx,
 				widget.rowColor(idx),
 				widget.jobColor(&job),

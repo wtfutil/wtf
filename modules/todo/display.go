@@ -52,7 +52,7 @@ func (widget *Widget) formattedItemLine(idx int, item *checklist.ChecklistItem, 
 	}
 
 	str := fmt.Sprintf(
-		`["%d"][""][%s:%s]|%s| %s[white]`,
+		`["%d"][%s:%s]|%s| %s[white][""]`,
 		idx,
 		foreColor,
 		backColor,

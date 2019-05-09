@@ -113,7 +113,7 @@ func (widget *Widget) contentFrom(messages []Message) string {
 	var str string
 	for idx, message := range messages {
 		str = str + fmt.Sprintf(
-			`["%d"][""][%s] [blue]%s [lightslategray]%s: [%s]%s [aqua]%s`,
+			`["%d"][%s] [blue]%s [lightslategray]%s: [%s]%s [aqua]%s[""]`,
 			idx,
 			widget.rowColor(idx),
 			message.From.DisplayName,
