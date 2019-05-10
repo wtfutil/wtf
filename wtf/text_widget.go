@@ -131,7 +131,6 @@ func (widget *TextWidget) addView() *tview.TextView {
 
 	view.SetBorder(true)
 	view.SetDynamicColors(true)
-	view.SetTitle(widget.ContextualTitle(widget.CommonSettings.Title))
 	view.SetWrap(false)
 
 	return view

@@ -24,6 +24,7 @@ func (widget *Widget) display() {
 	}
 
 	title := widget.CommonSettings.Title
+
 	var content string
 	if err != "" {
 		content = err
@@ -74,5 +75,6 @@ func (widget *Widget) temperatures(cityData *owm.CurrentWeatherData) string {
 
 func (widget *Widget) title(cityData *owm.CurrentWeatherData) string {
 	str := fmt.Sprintf("%s %s", widget.emojiFor(cityData), cityData.Name)
-	return widget.ContextualTitle(str)
+	return str
+	// return widget.ContextualTitle(str)
 }
