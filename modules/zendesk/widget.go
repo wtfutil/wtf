@@ -8,8 +8,23 @@ import (
 	"github.com/wtfutil/wtf/wtf"
 )
 
+const HelpText = `
+ Keyboard commands for Zendesk:
+
+   /: Show/hide this help window
+   j: Select the next item in the list
+   k: Select the previous item in the list
+   o: Open the selected item in a browser
+
+   arrow down: Select the next item in the list
+   arrow up:   Select the previous item in the list
+
+   return: Open the selected item in a browser
+`
+
 // A Widget represents a Zendesk widget
 type Widget struct {
+	wtf.HelpfulWidget
 	wtf.KeyboardWidget
 	wtf.TextWidget
 
@@ -19,8 +34,9 @@ type Widget struct {
 }
 
 // NewWidget creates a new instance of a widget
-func NewWidget(app *tview.Application, settings *Settings) *Widget {
+func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
+		HelpfulWidget:  wtf.NewHelpfulWidget(app, pages, HelpText),
 		KeyboardWidget: wtf.NewKeyboardWidget(),
 		TextWidget:     wtf.NewTextWidget(app, settings.common, true),
 
