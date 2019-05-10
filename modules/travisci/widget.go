@@ -25,26 +25,24 @@ const HelpText = `
 type Widget struct {
 	wtf.HelpfulWidget
 	wtf.KeyboardWidget
-	wtf.TextWidget
+	wtf.ScrollableWidget
 
 	builds   *Builds
-	selected int
 	settings *Settings
 }
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		HelpfulWidget:  wtf.NewHelpfulWidget(app, pages, HelpText),
-		KeyboardWidget: wtf.NewKeyboardWidget(),
-		TextWidget:     wtf.NewTextWidget(app, settings.common, true),
+		HelpfulWidget:    wtf.NewHelpfulWidget(app, pages, HelpText),
+		KeyboardWidget:   wtf.NewKeyboardWidget(),
+		ScrollableWidget: wtf.NewScrollableWidget(app, settings.common, true),
 
 		settings: settings,
 	}
 
+	widget.SetRenderFunction(widget.Render)
 	widget.initializeKeyboardControls()
 	widget.View.SetInputCapture(widget.InputCapture)
-
-	widget.unselect()
 
 	widget.HelpfulWidget.SetView(widget.View)
 
@@ -65,12 +63,13 @@ func (widget *Widget) Refresh() {
 		return
 	}
 	widget.builds = builds
-	widget.display()
+	widget.SetItemCount(len(builds.Builds))
+	widget.Render()
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (widget *Widget) display() {
+func (widget *Widget) Render() {
 	if widget.builds == nil {
 		return
 	}
@@ -85,26 +84,18 @@ func (widget *Widget) contentFrom(builds *Builds) string {
 
 		str = str + fmt.Sprintf(
 			"[%s] [%s] %s-%s (%s) [%s]%s - [blue]%s\n",
-			widget.rowColor(idx),
+			widget.RowColor(idx),
 			buildColor(&build),
 			build.Repository.Name,
 			build.Number,
 			build.Branch.Name,
-			widget.rowColor(idx),
+			widget.RowColor(idx),
 			strings.Split(build.Commit.Message, "\n")[0],
 			build.CreatedBy.Login,
 		)
 	}
 
 	return str
-}
-
-func (widget *Widget) rowColor(idx int) string {
-	if widget.View.HasFocus() && (idx == widget.selected) {
-		return widget.settings.common.DefaultFocussedRowColor()
-	}
-
-	return widget.settings.common.RowColor(idx)
 }
 
 func buildColor(build *Build) string {
@@ -128,34 +119,11 @@ func buildColor(build *Build) string {
 	}
 }
 
-func (widget *Widget) next() {
-	widget.selected++
-	if widget.builds != nil && widget.selected >= len(widget.builds.Builds) {
-		widget.selected = 0
-	}
-
-	widget.display()
-}
-
-func (widget *Widget) prev() {
-	widget.selected--
-	if widget.selected < 0 && widget.builds != nil {
-		widget.selected = len(widget.builds.Builds) - 1
-	}
-
-	widget.display()
-}
-
 func (widget *Widget) openBuild() {
-	sel := widget.selected
+	sel := widget.GetSelected()
 	if sel >= 0 && widget.builds != nil && sel < len(widget.builds.Builds) {
-		build := &widget.builds.Builds[widget.selected]
+		build := &widget.builds.Builds[sel]
 		travisHost := TRAVIS_HOSTS[widget.settings.pro]
 		wtf.OpenFile(fmt.Sprintf("https://%s/%s/%s/%d", travisHost, build.Repository.Slug, "builds", build.ID))
 	}
-}
-
-func (widget *Widget) unselect() {
-	widget.selected = -1
-	widget.display()
 }

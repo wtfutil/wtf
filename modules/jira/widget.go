@@ -2,7 +2,6 @@ package jira
 
 import (
 	"fmt"
-	"strconv"
 
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/wtf"
@@ -24,32 +23,24 @@ const HelpText = `
 type Widget struct {
 	wtf.HelpfulWidget
 	wtf.KeyboardWidget
-	wtf.TextWidget
-
-	app *tview.Application
+	wtf.ScrollableWidget
 
 	result   *SearchResult
-	selected int
 	settings *Settings
 }
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		HelpfulWidget:  wtf.NewHelpfulWidget(app, pages, HelpText),
-		KeyboardWidget: wtf.NewKeyboardWidget(),
-		TextWidget:     wtf.NewTextWidget(app, settings.common, true),
+		HelpfulWidget:    wtf.NewHelpfulWidget(app, pages, HelpText),
+		KeyboardWidget:   wtf.NewKeyboardWidget(),
+		ScrollableWidget: wtf.NewScrollableWidget(app, settings.common, true),
 
-		app:      app,
 		settings: settings,
 	}
 
+	widget.SetRenderFunction(widget.Render)
 	widget.initializeKeyboardControls()
 	widget.View.SetInputCapture(widget.InputCapture)
-
-	widget.unselect()
-
-	widget.View.SetScrollable(true)
-	widget.View.SetRegions(true)
 
 	widget.HelpfulWidget.SetView(widget.View)
 
@@ -71,12 +62,13 @@ func (widget *Widget) Refresh() {
 		return
 	}
 	widget.result = searchResult
-	widget.display()
+	widget.SetItemCount(len(searchResult.Issues))
+	widget.Render()
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (widget *Widget) display() {
+func (widget *Widget) Render() {
 	if widget.result == nil {
 		return
 	}
@@ -84,36 +76,14 @@ func (widget *Widget) display() {
 	str := fmt.Sprintf("%s- [green]%s[white]", widget.CommonSettings.Title, widget.settings.projects)
 
 	widget.Redraw(str, widget.contentFrom(widget.result), false)
-	widget.app.QueueUpdateDraw(func() {
-		widget.View.Highlight(strconv.Itoa(widget.selected)).ScrollToHighlight()
-	})
-}
-
-func (widget *Widget) next() {
-	widget.selected++
-	if widget.result != nil && widget.selected >= len(widget.result.Issues) {
-		widget.selected = 0
-	}
-}
-
-func (widget *Widget) prev() {
-	widget.selected--
-	if widget.selected < 0 && widget.result != nil {
-		widget.selected = len(widget.result.Issues) - 1
-	}
 }
 
 func (widget *Widget) openItem() {
-	sel := widget.selected
+	sel := widget.GetSelected()
 	if sel >= 0 && widget.result != nil && sel < len(widget.result.Issues) {
-		issue := &widget.result.Issues[widget.selected]
+		issue := &widget.result.Issues[sel]
 		wtf.OpenFile(widget.settings.domain + "/browse/" + issue.Key)
 	}
-}
-
-func (widget *Widget) unselect() {
-	widget.selected = -1
-	widget.display()
 }
 
 func (widget *Widget) contentFrom(searchResult *SearchResult) string {
@@ -123,12 +93,12 @@ func (widget *Widget) contentFrom(searchResult *SearchResult) string {
 		fmtStr := fmt.Sprintf(
 			`["%d"][%s] [%s]%-6s[white] [green]%-10s[white] [yellow][%s][white] [%s]%s[""]`,
 			idx,
-			widget.rowColor(idx),
+			widget.RowColor(idx),
 			widget.issueTypeColor(&issue),
 			issue.IssueFields.IssueType.Name,
 			issue.Key,
 			issue.IssueFields.IssueStatus.IName,
-			widget.rowColor(idx),
+			widget.RowColor(idx),
 			issue.IssueFields.Summary,
 		)
 
@@ -139,14 +109,6 @@ func (widget *Widget) contentFrom(searchResult *SearchResult) string {
 	}
 
 	return str
-}
-
-func (widget *Widget) rowColor(idx int) string {
-	if widget.View.HasFocus() && (idx == widget.selected) {
-		widget.settings.common.DefaultFocussedRowColor()
-	}
-
-	return widget.settings.common.RowColor(idx)
 }
 
 func (widget *Widget) issueTypeColor(issue *Issue) string {

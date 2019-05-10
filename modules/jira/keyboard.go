@@ -6,22 +6,12 @@ import (
 
 func (widget *Widget) initializeKeyboardControls() {
 	widget.SetKeyboardChar("/", widget.ShowHelp)
-	widget.SetKeyboardChar("j", widget.selectNext)
-	widget.SetKeyboardChar("k", widget.selectPrev)
+	widget.SetKeyboardChar("j", widget.Next)
+	widget.SetKeyboardChar("k", widget.Prev)
 	widget.SetKeyboardChar("o", widget.openItem)
 
-	widget.SetKeyboardKey(tcell.KeyDown, widget.selectNext)
+	widget.SetKeyboardKey(tcell.KeyDown, widget.Next)
 	widget.SetKeyboardKey(tcell.KeyEnter, widget.openItem)
-	widget.SetKeyboardKey(tcell.KeyEsc, widget.unselect)
-	widget.SetKeyboardKey(tcell.KeyUp, widget.selectPrev)
-}
-
-func (widget *Widget) selectNext() {
-	widget.next()
-	widget.display()
-}
-
-func (widget *Widget) selectPrev() {
-	widget.prev()
-	widget.display()
+	widget.SetKeyboardKey(tcell.KeyEsc, widget.Unselect)
+	widget.SetKeyboardKey(tcell.KeyUp, widget.Prev)
 }

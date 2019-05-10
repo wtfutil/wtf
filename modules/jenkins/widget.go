@@ -2,8 +2,6 @@ package jenkins
 
 import (
 	"fmt"
-	"strconv"
-
 	"regexp"
 
 	"github.com/rivo/tview"
@@ -27,32 +25,24 @@ const HelpText = `
 type Widget struct {
 	wtf.HelpfulWidget
 	wtf.KeyboardWidget
-	wtf.TextWidget
+	wtf.ScrollableWidget
 
-	app *tview.Application
-
-	selected int
 	settings *Settings
 	view     *View
 }
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		HelpfulWidget:  wtf.NewHelpfulWidget(app, pages, HelpText),
-		KeyboardWidget: wtf.NewKeyboardWidget(),
-		TextWidget:     wtf.NewTextWidget(app, settings.common, true),
+		HelpfulWidget:    wtf.NewHelpfulWidget(app, pages, HelpText),
+		KeyboardWidget:   wtf.NewKeyboardWidget(),
+		ScrollableWidget: wtf.NewScrollableWidget(app, settings.common, true),
 
-		app:      app,
 		settings: settings,
 	}
 
+	widget.SetRenderFunction(widget.Render)
 	widget.initializeKeyboardControls()
 	widget.View.SetInputCapture(widget.InputCapture)
-
-	widget.unselect()
-
-	widget.View.SetScrollable(true)
-	widget.View.SetRegions(true)
 
 	widget.HelpfulWidget.SetView(widget.View)
 
@@ -78,12 +68,14 @@ func (widget *Widget) Refresh() {
 		return
 	}
 
-	widget.display()
+	widget.SetItemCount(len(widget.view.Jobs))
+
+	widget.Render()
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (widget *Widget) display() {
+func (widget *Widget) Render() {
 	if widget.view == nil {
 		return
 	}
@@ -91,9 +83,6 @@ func (widget *Widget) display() {
 	title := fmt.Sprintf("%s: [red]%s", widget.CommonSettings.Title, widget.view.Name)
 
 	widget.Redraw(title, widget.contentFrom(widget.view), false)
-	widget.app.QueueUpdateDraw(func() {
-		widget.View.Highlight(strconv.Itoa(widget.selected)).ScrollToHighlight()
-	})
 }
 
 func (widget *Widget) contentFrom(view *View) string {
@@ -105,7 +94,7 @@ func (widget *Widget) contentFrom(view *View) string {
 			str = str + fmt.Sprintf(
 				`["%d"][%s] [%s]%-6s[white][""]`,
 				idx,
-				widget.rowColor(idx),
+				widget.RowColor(idx),
 				widget.jobColor(&job),
 				job.Name,
 			)
@@ -115,14 +104,6 @@ func (widget *Widget) contentFrom(view *View) string {
 	}
 
 	return str
-}
-
-func (widget *Widget) rowColor(idx int) string {
-	if widget.View.HasFocus() && (idx == widget.selected) {
-		return widget.settings.common.DefaultFocussedRowColor()
-	}
-
-	return widget.settings.common.RowColor(idx)
 }
 
 func (widget *Widget) jobColor(job *Job) string {
@@ -137,33 +118,10 @@ func (widget *Widget) jobColor(job *Job) string {
 	}
 }
 
-func (widget *Widget) next() {
-	widget.selected++
-	if widget.view != nil && widget.selected >= len(widget.view.Jobs) {
-		widget.selected = 0
-	}
-
-	widget.display()
-}
-
-func (widget *Widget) prev() {
-	widget.selected--
-	if widget.selected < 0 && widget.view != nil {
-		widget.selected = len(widget.view.Jobs) - 1
-	}
-
-	widget.display()
-}
-
 func (widget *Widget) openJob() {
-	sel := widget.selected
+	sel := widget.GetSelected()
 	if sel >= 0 && widget.view != nil && sel < len(widget.view.Jobs) {
-		job := &widget.view.Jobs[widget.selected]
+		job := &widget.view.Jobs[sel]
 		wtf.OpenFile(job.Url)
 	}
-}
-
-func (widget *Widget) unselect() {
-	widget.selected = -1
-	widget.display()
 }

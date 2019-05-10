@@ -3,7 +3,6 @@ package hackernews
 import (
 	"fmt"
 	"net/url"
-	"strconv"
 	"strings"
 
 	"github.com/rivo/tview"
@@ -28,32 +27,24 @@ const HelpText = `
 type Widget struct {
 	wtf.HelpfulWidget
 	wtf.KeyboardWidget
-	wtf.TextWidget
-
-	app *tview.Application
+	wtf.ScrollableWidget
 
 	stories  []Story
-	selected int
 	settings *Settings
 }
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		HelpfulWidget:  wtf.NewHelpfulWidget(app, pages, HelpText),
-		KeyboardWidget: wtf.NewKeyboardWidget(),
-		TextWidget:     wtf.NewTextWidget(app, settings.common, true),
+		HelpfulWidget:    wtf.NewHelpfulWidget(app, pages, HelpText),
+		KeyboardWidget:   wtf.NewKeyboardWidget(),
+		ScrollableWidget: wtf.NewScrollableWidget(app, settings.common, true),
 
-		app:      app,
 		settings: settings,
 	}
 
+	widget.SetRenderFunction(widget.Render)
 	widget.initializeKeyboardControls()
 	widget.View.SetInputCapture(widget.InputCapture)
-
-	widget.unselect()
-
-	widget.View.SetScrollable(true)
-	widget.View.SetRegions(true)
 
 	widget.HelpfulWidget.SetView(widget.View)
 
@@ -73,38 +64,34 @@ func (widget *Widget) Refresh() {
 	}
 
 	if err != nil {
-		widget.View.SetWrap(true)
-		widget.View.SetTitle(widget.ContextualTitle(widget.CommonSettings.Title))
-		widget.View.SetText(err.Error())
-	} else {
-		var stories []Story
-		for idx := 0; idx < widget.settings.numberOfStories; idx++ {
-			story, e := GetStory(storyIds[idx])
-			if e != nil {
-				// panic(e)
-			} else {
-				stories = append(stories, story)
-			}
+		widget.Redraw(widget.CommonSettings.Title, err.Error(), true)
+		return
+	}
+	var stories []Story
+	for idx := 0; idx < widget.settings.numberOfStories; idx++ {
+		story, e := GetStory(storyIds[idx])
+		if e != nil {
+			// panic(e)
+		} else {
+			stories = append(stories, story)
 		}
-
-		widget.stories = stories
 	}
 
-	widget.display()
+	widget.stories = stories
+	widget.SetItemCount(len(stories))
+
+	widget.Render()
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (widget *Widget) display() {
+func (widget *Widget) Render() {
 	if widget.stories == nil {
 		return
 	}
 
 	title := fmt.Sprintf("%s - %sstories", widget.CommonSettings.Title, widget.settings.storyType)
 	widget.Redraw(title, widget.contentFrom(widget.stories), false)
-	widget.app.QueueUpdateDraw(func() {
-		widget.View.Highlight(strconv.Itoa(widget.selected)).ScrollToHighlight()
-	})
 }
 
 func (widget *Widget) contentFrom(stories []Story) string {
@@ -114,9 +101,9 @@ func (widget *Widget) contentFrom(stories []Story) string {
 		str = str + fmt.Sprintf(
 			`["%d"][""][%s] [yellow]%d. [%s]%s [blue](%s)[""]`,
 			idx,
-			widget.rowColor(idx),
+			widget.RowColor(idx),
 			idx+1,
-			widget.rowColor(idx),
+			widget.RowColor(idx),
 			story.Title,
 			strings.TrimPrefix(u.Host, "www."),
 		)
@@ -127,49 +114,18 @@ func (widget *Widget) contentFrom(stories []Story) string {
 	return str
 }
 
-func (widget *Widget) rowColor(idx int) string {
-	if widget.View.HasFocus() && (idx == widget.selected) {
-		return widget.settings.common.DefaultFocussedRowColor()
-	}
-
-	return widget.settings.common.RowColor(idx)
-}
-
-func (widget *Widget) next() {
-	widget.selected++
-	if widget.stories != nil && widget.selected >= len(widget.stories) {
-		widget.selected = 0
-	}
-
-	widget.display()
-}
-
-func (widget *Widget) prev() {
-	widget.selected--
-	if widget.selected < 0 && widget.stories != nil {
-		widget.selected = len(widget.stories) - 1
-	}
-
-	widget.display()
-}
-
 func (widget *Widget) openStory() {
-	sel := widget.selected
+	sel := widget.GetSelected()
 	if sel >= 0 && widget.stories != nil && sel < len(widget.stories) {
-		story := &widget.stories[widget.selected]
+		story := &widget.stories[sel]
 		wtf.OpenFile(story.URL)
 	}
 }
 
 func (widget *Widget) openComments() {
-	sel := widget.selected
+	sel := widget.GetSelected()
 	if sel >= 0 && widget.stories != nil && sel < len(widget.stories) {
-		story := &widget.stories[widget.selected]
+		story := &widget.stories[sel]
 		wtf.OpenFile(fmt.Sprintf("https://news.ycombinator.com/item?id=%d", story.ID))
 	}
-}
-
-func (widget *Widget) unselect() {
-	widget.selected = -1
-	widget.display()
 }

@@ -26,27 +26,25 @@ const HelpText = `
 type Widget struct {
 	wtf.HelpfulWidget
 	wtf.KeyboardWidget
-	wtf.TextWidget
+	wtf.ScrollableWidget
 
 	items    *Result
-	selected int
 	settings *Settings
 }
 
 // NewWidget creates a new instance of a widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		HelpfulWidget:  wtf.NewHelpfulWidget(app, pages, HelpText),
-		KeyboardWidget: wtf.NewKeyboardWidget(),
-		TextWidget:     wtf.NewTextWidget(app, settings.common, true),
+		HelpfulWidget:    wtf.NewHelpfulWidget(app, pages, HelpText),
+		KeyboardWidget:   wtf.NewKeyboardWidget(),
+		ScrollableWidget: wtf.NewScrollableWidget(app, settings.common, true),
 
 		settings: settings,
 	}
 
+	widget.SetRenderFunction(widget.Render)
 	widget.initializeKeyboardControls()
 	widget.View.SetInputCapture(widget.InputCapture)
-
-	widget.unselect()
 
 	widget.HelpfulWidget.SetView(widget.View)
 
@@ -71,13 +69,14 @@ func (widget *Widget) Refresh() {
 		return
 	}
 	widget.items = &items.Results
+	widget.SetItemCount(len(widget.items.Items))
 
-	widget.display()
+	widget.Refresh()
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (widget *Widget) display() {
+func (widget *Widget) Render() {
 	if widget.items == nil {
 		return
 	}
@@ -98,12 +97,12 @@ func (widget *Widget) contentFrom(result *Result) string {
 
 		str = str + fmt.Sprintf(
 			"[%s] [%s] %s [%s] %s [%s]count: %d [%s]%s\n",
-			widget.rowColor(idx),
+			widget.RowColor(idx),
 			levelColor(&item),
 			item.Level,
 			statusColor(&item),
 			item.Title,
-			widget.rowColor(idx),
+			widget.RowColor(idx),
 			item.TotalOccurrences,
 			"blue",
 			item.Environment,
@@ -111,14 +110,6 @@ func (widget *Widget) contentFrom(result *Result) string {
 	}
 
 	return str
-}
-
-func (widget *Widget) rowColor(idx int) string {
-	if widget.View.HasFocus() && (idx == widget.selected) {
-		return widget.settings.common.DefaultFocussedRowColor()
-	}
-
-	return widget.settings.common.RowColor(idx)
 }
 
 func statusColor(item *Item) string {
@@ -144,27 +135,9 @@ func levelColor(item *Item) string {
 	}
 }
 
-func (widget *Widget) next() {
-	widget.selected++
-	if widget.items != nil && widget.selected >= len(widget.items.Items) {
-		widget.selected = 0
-	}
-
-	widget.display()
-}
-
-func (widget *Widget) prev() {
-	widget.selected--
-	if widget.selected < 0 && widget.items.Items != nil {
-		widget.selected = len(widget.items.Items) - 1
-	}
-
-	widget.display()
-}
-
 func (widget *Widget) openBuild() {
-	if widget.selected >= 0 && widget.items != nil && widget.selected < len(widget.items.Items) {
-		item := &widget.items.Items[widget.selected]
+	if widget.GetSelected() >= 0 && widget.items != nil && widget.GetSelected() < len(widget.items.Items) {
+		item := &widget.items.Items[widget.GetSelected()]
 
 		wtf.OpenFile(
 			fmt.Sprintf(
@@ -176,9 +149,4 @@ func (widget *Widget) openBuild() {
 			),
 		)
 	}
-}
-
-func (widget *Widget) unselect() {
-	widget.selected = -1
-	widget.display()
 }
