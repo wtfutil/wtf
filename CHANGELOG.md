@@ -4,7 +4,17 @@
 
 ### ⚡️ Added
 
+* DataDog module is now scrollable and interactive, by [@Seanstoppable](https://github.com/Seanstoppable)
+
+## v0.9.2
+
+### ⚡️ Added
+
 * Keyboard management system for modules reworked. Now has a KeyboardWidget to simplify adding keyboard commands
+
+### Fixed
+
+* WTF versions are now prefixed with `v` again so module systems pick up the latest versions
 
 ## 0.9.1
 
