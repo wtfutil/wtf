@@ -18,6 +18,7 @@ import (
 	"github.com/wtfutil/wtf/cfg"
 	"github.com/wtfutil/wtf/flags"
 	"github.com/wtfutil/wtf/maker"
+	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/wtf"
 )
 
@@ -65,7 +66,7 @@ func refreshAllWidgets(widgets []wtf.Wtfable) {
 
 func watchForConfigChanges(app *tview.Application, configFilePath string, grid *tview.Grid, pages *tview.Pages) {
 	watch := watcher.New()
-	absPath, _ := wtf.ExpandHomeDir(configFilePath)
+	absPath, _ := utils.ExpandHomeDir(configFilePath)
 
 	// Notify write events
 	watch.FilterOps(watcher.Write)

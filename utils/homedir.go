@@ -2,7 +2,7 @@
 
 // Copied (mostly) verbatim from https://github.com/Atrox/homedir
 
-package wtf
+package utils
 
 import (
 	"errors"

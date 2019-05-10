@@ -19,7 +19,7 @@ import (
 	"time"
 
 	"github.com/wtfutil/wtf/cfg"
-	"github.com/wtfutil/wtf/wtf"
+	"github.com/wtfutil/wtf/utils"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
 	"google.golang.org/api/calendar/v3"
@@ -30,7 +30,7 @@ import (
 func (widget *Widget) Fetch() ([]*CalEvent, error) {
 	ctx := context.Background()
 
-	secretPath, _ := wtf.ExpandHomeDir(widget.settings.secretFile)
+	secretPath, _ := utils.ExpandHomeDir(widget.settings.secretFile)
 
 	b, err := ioutil.ReadFile(secretPath)
 	if err != nil {
@@ -123,7 +123,7 @@ func isAuthenticated() bool {
 }
 
 func (widget *Widget) authenticate() {
-	secretPath, _ := wtf.ExpandHomeDir(widget.settings.secretFile)
+	secretPath, _ := utils.ExpandHomeDir(widget.settings.secretFile)
 
 	b, err := ioutil.ReadFile(secretPath)
 	if err != nil {
