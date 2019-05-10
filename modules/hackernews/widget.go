@@ -114,7 +114,7 @@ func (widget *Widget) contentFrom(stories []Story) string {
 	for idx, story := range stories {
 		u, _ := url.Parse(story.URL)
 		str = str + fmt.Sprintf(
-			`["%d"][%s] [yellow]%d. [%s]%s [blue](%s)[""]`,
+			`["%d"][""][%s] [yellow]%d. [%s]%s [blue](%s)[""]`,
 			idx,
 			widget.rowColor(idx),
 			idx+1,
