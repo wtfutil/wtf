@@ -90,7 +90,7 @@ func MakeWidget(
 		widget = cryptolive.NewWidget(app, settings)
 	case "datadog":
 		settings := datadog.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
-		widget = datadog.NewWidget(app, settings)
+		widget = datadog.NewWidget(app, pages, settings)
 	case "gcal":
 		settings := gcal.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = gcal.NewWidget(app, settings)
