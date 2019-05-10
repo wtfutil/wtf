@@ -90,7 +90,7 @@ func (widget *Widget) display() {
 		text = text + widget.plainText()
 	}
 
-	widget.Redraw(title, text, false)
+	widget.Redraw(title, text, true)
 }
 
 func (widget *Widget) fileName() string {

@@ -88,7 +88,7 @@ func (widget *Widget) display() {
 		str = str + widget.format(tweet)
 	}
 
-	widget.Redraw(title, str, false)
+	widget.Redraw(title, str, true)
 }
 
 // If the tweet's Username is the same as the account we're watching, no

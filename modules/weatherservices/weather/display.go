@@ -29,7 +29,7 @@ func (widget *Widget) display() {
 	if err != "" {
 		content = err
 	} else {
-		title = widget.title(cityData)
+		title = widget.buildTitle(cityData)
 		_, _, width, _ := widget.View.GetRect()
 		content = widget.settings.common.SigilStr(len(widget.Data), widget.Idx, width) + "\n"
 		content = content + widget.description(cityData) + "\n\n"
@@ -73,8 +73,6 @@ func (widget *Widget) temperatures(cityData *owm.CurrentWeatherData) string {
 	return str
 }
 
-func (widget *Widget) title(cityData *owm.CurrentWeatherData) string {
-	str := fmt.Sprintf("%s %s", widget.emojiFor(cityData), cityData.Name)
-	return str
-	// return widget.ContextualTitle(str)
+func (widget *Widget) buildTitle(cityData *owm.CurrentWeatherData) string {
+	return fmt.Sprintf("%s %s", widget.emojiFor(cityData), cityData.Name)
 }
