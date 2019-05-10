@@ -144,6 +144,10 @@ func (widget *Widget) newItem() {
 
 	widget.addButtons(form, saveFctn)
 	widget.modalFocus(form)
+
+	widget.app.QueueUpdate(func() {
+		widget.app.Draw()
+	})
 }
 
 // persist writes the todo list to Yaml file
