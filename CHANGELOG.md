@@ -6,6 +6,7 @@
 
 * DataDog module is now scrollable and interactive, by [@Seanstoppable](https://github.com/Seanstoppable)
 * Focusable hot key numbers are now assigned in a stable order, [#435](https://github.com/wtfutil/wtf/issues/435) by [@Seanstoppable](https://github.com/Seanstoppable)
+* Zendesk widget now has help text, by [@Seanstoppable](https://github.com/Seanstoppable)
 
 ## v0.9.2
 
