@@ -77,7 +77,7 @@ func (widget *Widget) display() {
 	title := fmt.Sprintf("Twitter - [green]@%s[white]", widget.CurrentSource())
 
 	if len(tweets) == 0 {
-		str := fmt.Sprintf("\n\n\n%s", wtf.CenterText("[blue]No Tweets[white]", 50))
+		str := fmt.Sprintf("\n\n\n%s", wtf.CenterText("[lightblue]No Tweets[white]", 50))
 		widget.View.SetText(str)
 		return
 	}
@@ -112,7 +112,7 @@ func (widget *Widget) formatText(text string) string {
 
 	// @name mentions
 	atRegExp := regexp.MustCompile(`@[0-9A-Za-z_]*`)
-	result = atRegExp.ReplaceAllString(result, "[blue]${0}[white]")
+	result = atRegExp.ReplaceAllString(result, "[lightblue]${0}[white]")
 
 	// HTTP(S) links
 	linkRegExp := regexp.MustCompile(`http[s:\/.0-9A-Za-z]*`)
