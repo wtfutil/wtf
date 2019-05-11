@@ -26,29 +26,25 @@ const HelpText = `
 type Widget struct {
 	wtf.HelpfulWidget
 	wtf.KeyboardWidget
-	wtf.TextWidget
+	wtf.ScrollableWidget
 
-	app      *tview.Application
 	items    *Result
-	selected int
 	settings *Settings
 }
 
 // NewWidget creates a new instance of a widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		HelpfulWidget:  wtf.NewHelpfulWidget(app, pages, HelpText),
-		KeyboardWidget: wtf.NewKeyboardWidget(),
-		TextWidget:     wtf.NewTextWidget(app, settings.common, true),
+		HelpfulWidget:    wtf.NewHelpfulWidget(app, pages, HelpText),
+		KeyboardWidget:   wtf.NewKeyboardWidget(),
+		ScrollableWidget: wtf.NewScrollableWidget(app, settings.common, true),
 
-		app:      app,
 		settings: settings,
 	}
 
+	widget.SetRenderFunction(widget.Render)
 	widget.initializeKeyboardControls()
 	widget.View.SetInputCapture(widget.InputCapture)
-
-	widget.unselect()
 
 	widget.HelpfulWidget.SetView(widget.View)
 
@@ -69,34 +65,30 @@ func (widget *Widget) Refresh() {
 	)
 
 	if err != nil {
-		widget.View.SetWrap(true)
-
-		widget.app.QueueUpdateDraw(func() {
-			widget.View.SetText(err.Error())
-		})
-	} else {
-		widget.items = &items.Results
+		widget.Redraw(widget.CommonSettings.Title, err.Error(), true)
+		return
 	}
+	widget.items = &items.Results
+	widget.SetItemCount(len(widget.items.Items))
 
-	widget.app.QueueUpdateDraw(func() {
-		widget.View.SetTitle(widget.ContextualTitle(widget.CommonSettings.Title))
-		widget.display()
-	})
+	widget.Refresh()
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (widget *Widget) display() {
+func (widget *Widget) Render() {
 	if widget.items == nil {
 		return
 	}
 
-	widget.View.SetWrap(false)
-	widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("%s - %s", widget.CommonSettings.Title, widget.settings.projectName)))
-	widget.View.SetText(widget.contentFrom(widget.items))
+	title := fmt.Sprintf("%s - %s", widget.CommonSettings.Title, widget.settings.projectName)
+	widget.Redraw(title, widget.contentFrom(widget.items), false)
 }
 
 func (widget *Widget) contentFrom(result *Result) string {
+	if result == nil {
+		return "No results"
+	}
 	var str string
 	if len(result.Items) > widget.settings.count {
 		result.Items = result.Items[:widget.settings.count]
@@ -105,12 +97,12 @@ func (widget *Widget) contentFrom(result *Result) string {
 
 		str = str + fmt.Sprintf(
 			"[%s] [%s] %s [%s] %s [%s]count: %d [%s]%s\n",
-			widget.rowColor(idx),
+			widget.RowColor(idx),
 			levelColor(&item),
 			item.Level,
 			statusColor(&item),
 			item.Title,
-			widget.rowColor(idx),
+			widget.RowColor(idx),
 			item.TotalOccurrences,
 			"blue",
 			item.Environment,
@@ -118,14 +110,6 @@ func (widget *Widget) contentFrom(result *Result) string {
 	}
 
 	return str
-}
-
-func (widget *Widget) rowColor(idx int) string {
-	if widget.View.HasFocus() && (idx == widget.selected) {
-		return widget.settings.common.DefaultFocussedRowColor()
-	}
-
-	return widget.settings.common.RowColor(idx)
 }
 
 func statusColor(item *Item) string {
@@ -151,27 +135,9 @@ func levelColor(item *Item) string {
 	}
 }
 
-func (widget *Widget) next() {
-	widget.selected++
-	if widget.items != nil && widget.selected >= len(widget.items.Items) {
-		widget.selected = 0
-	}
-
-	widget.display()
-}
-
-func (widget *Widget) prev() {
-	widget.selected--
-	if widget.selected < 0 && widget.items.Items != nil {
-		widget.selected = len(widget.items.Items) - 1
-	}
-
-	widget.display()
-}
-
 func (widget *Widget) openBuild() {
-	if widget.selected >= 0 && widget.items != nil && widget.selected < len(widget.items.Items) {
-		item := &widget.items.Items[widget.selected]
+	if widget.GetSelected() >= 0 && widget.items != nil && widget.GetSelected() < len(widget.items.Items) {
+		item := &widget.items.Items[widget.GetSelected()]
 
 		wtf.OpenFile(
 			fmt.Sprintf(
@@ -183,9 +149,4 @@ func (widget *Widget) openBuild() {
 			),
 		)
 	}
-}
-
-func (widget *Widget) unselect() {
-	widget.selected = -1
-	widget.display()
 }

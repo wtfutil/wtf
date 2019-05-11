@@ -3,8 +3,6 @@ package jira
 import (
 	"fmt"
 
-	"strconv"
-
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/wtf"
 )
@@ -25,31 +23,24 @@ const HelpText = `
 type Widget struct {
 	wtf.HelpfulWidget
 	wtf.KeyboardWidget
-	wtf.TextWidget
+	wtf.ScrollableWidget
 
-	app      *tview.Application
 	result   *SearchResult
-	selected int
 	settings *Settings
 }
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		HelpfulWidget:  wtf.NewHelpfulWidget(app, pages, HelpText),
-		KeyboardWidget: wtf.NewKeyboardWidget(),
-		TextWidget:     wtf.NewTextWidget(app, settings.common, true),
+		HelpfulWidget:    wtf.NewHelpfulWidget(app, pages, HelpText),
+		KeyboardWidget:   wtf.NewKeyboardWidget(),
+		ScrollableWidget: wtf.NewScrollableWidget(app, settings.common, true),
 
-		app:      app,
 		settings: settings,
 	}
 
+	widget.SetRenderFunction(widget.Render)
 	widget.initializeKeyboardControls()
 	widget.View.SetInputCapture(widget.InputCapture)
-
-	widget.unselect()
-
-	widget.View.SetScrollable(true)
-	widget.View.SetRegions(true)
 
 	widget.HelpfulWidget.SetView(widget.View)
 
@@ -67,61 +58,32 @@ func (widget *Widget) Refresh() {
 
 	if err != nil {
 		widget.result = nil
-		widget.View.SetWrap(true)
-
-		widget.app.QueueUpdateDraw(func() {
-			widget.View.SetTitle(widget.CommonSettings.Title)
-			widget.View.SetText(err.Error())
-		})
-	} else {
-		widget.result = searchResult
+		widget.Redraw(widget.CommonSettings.Title, err.Error(), true)
+		return
 	}
-
-	widget.app.QueueUpdateDraw(func() {
-		widget.display()
-	})
+	widget.result = searchResult
+	widget.SetItemCount(len(searchResult.Issues))
+	widget.Render()
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (widget *Widget) display() {
+func (widget *Widget) Render() {
 	if widget.result == nil {
 		return
 	}
-	widget.View.SetWrap(false)
 
 	str := fmt.Sprintf("%s- [green]%s[white]", widget.CommonSettings.Title, widget.settings.projects)
 
-	widget.View.Clear()
-	widget.View.SetTitle(widget.ContextualTitle(str))
-	widget.View.SetText(fmt.Sprintf("%s", widget.contentFrom(widget.result)))
-	widget.View.Highlight(strconv.Itoa(widget.selected)).ScrollToHighlight()
-}
-
-func (widget *Widget) next() {
-	widget.selected++
-	if widget.result != nil && widget.selected >= len(widget.result.Issues) {
-		widget.selected = 0
-	}
-}
-
-func (widget *Widget) prev() {
-	widget.selected--
-	if widget.selected < 0 && widget.result != nil {
-		widget.selected = len(widget.result.Issues) - 1
-	}
+	widget.Redraw(str, widget.contentFrom(widget.result), false)
 }
 
 func (widget *Widget) openItem() {
-	sel := widget.selected
+	sel := widget.GetSelected()
 	if sel >= 0 && widget.result != nil && sel < len(widget.result.Issues) {
-		issue := &widget.result.Issues[widget.selected]
+		issue := &widget.result.Issues[sel]
 		wtf.OpenFile(widget.settings.domain + "/browse/" + issue.Key)
 	}
-}
-
-func (widget *Widget) unselect() {
-	widget.selected = -1
 }
 
 func (widget *Widget) contentFrom(searchResult *SearchResult) string {
@@ -129,14 +91,14 @@ func (widget *Widget) contentFrom(searchResult *SearchResult) string {
 
 	for idx, issue := range searchResult.Issues {
 		fmtStr := fmt.Sprintf(
-			`["%d"][""][%s] [%s]%-6s[white] [green]%-10s[white] [yellow][%s][white] [%s]%s`,
+			`["%d"][%s] [%s]%-6s[white] [green]%-10s[white] [yellow][%s][white] [%s]%s[""]`,
 			idx,
-			widget.rowColor(idx),
+			widget.RowColor(idx),
 			widget.issueTypeColor(&issue),
 			issue.IssueFields.IssueType.Name,
 			issue.Key,
 			issue.IssueFields.IssueStatus.IName,
-			widget.rowColor(idx),
+			widget.RowColor(idx),
 			issue.IssueFields.Summary,
 		)
 
@@ -147,14 +109,6 @@ func (widget *Widget) contentFrom(searchResult *SearchResult) string {
 	}
 
 	return str
-}
-
-func (widget *Widget) rowColor(idx int) string {
-	if widget.View.HasFocus() && (idx == widget.selected) {
-		widget.settings.common.DefaultFocussedRowColor()
-	}
-
-	return widget.settings.common.RowColor(idx)
 }
 
 func (widget *Widget) issueTypeColor(issue *Issue) string {

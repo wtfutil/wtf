@@ -14,6 +14,7 @@ import (
 	"github.com/alecthomas/chroma/styles"
 	"github.com/radovskyb/watcher"
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/wtf"
 )
 
@@ -73,16 +74,13 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 // Refresh is only called once on start-up. Its job is to display the
 // text files that first time. After that, the watcher takes over
 func (widget *Widget) Refresh() {
-	widget.app.QueueUpdateDraw(func() {
-		widget.display()
-	})
+	widget.display()
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
 func (widget *Widget) display() {
 	title := fmt.Sprintf("[green]%s[white]", widget.CurrentSource())
-	title = widget.ContextualTitle(title)
 
 	_, _, width, _ := widget.View.GetRect()
 	text := widget.settings.common.SigilStr(len(widget.Sources), widget.Idx, width) + "\n"
@@ -93,8 +91,7 @@ func (widget *Widget) display() {
 		text = text + widget.plainText()
 	}
 
-	widget.View.SetTitle(title) // <- Writes to TextView's title
-	widget.View.SetText(text)   // <- Writes to TextView's text
+	widget.Redraw(title, text, true)
 }
 
 func (widget *Widget) fileName() string {
@@ -102,7 +99,7 @@ func (widget *Widget) fileName() string {
 }
 
 func (widget *Widget) formattedText() string {
-	filePath, _ := wtf.ExpandHomeDir(widget.CurrentSource())
+	filePath, _ := utils.ExpandHomeDir(widget.CurrentSource())
 
 	file, err := os.Open(filePath)
 	if err != nil {
@@ -133,7 +130,7 @@ func (widget *Widget) formattedText() string {
 }
 
 func (widget *Widget) plainText() string {
-	filePath, _ := wtf.ExpandHomeDir(widget.CurrentSource())
+	filePath, _ := utils.ExpandHomeDir(widget.CurrentSource())
 
 	fmt.Println(filePath)
 
@@ -163,7 +160,7 @@ func (widget *Widget) watchForFileChanges() {
 
 	// Watch each textfile for changes
 	for _, source := range widget.Sources {
-		fullPath, err := wtf.ExpandHomeDir(source)
+		fullPath, err := utils.ExpandHomeDir(source)
 		if err == nil {
 			if err := watch.Add(fullPath); err != nil {
 				log.Fatalln(err)

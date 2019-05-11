@@ -29,16 +29,12 @@ func (widget *Widget) display() {
 		return
 	}
 
-	widget.mutex.Lock()
-	defer widget.mutex.Unlock()
-
-	widget.View.SetTitle(widget.ContextualTitle(widget.settings.common.Title))
-	widget.View.SetText(widget.contentFrom(widget.calEvents))
+	widget.TextWidget.Redraw(widget.settings.common.Title, widget.contentFrom(widget.calEvents), false)
 }
 
 func (widget *Widget) contentFrom(calEvents []*CalEvent) string {
 	if (calEvents == nil) || (len(calEvents) == 0) {
-		return ""
+		return "No calendar events"
 	}
 
 	var str string
@@ -217,7 +213,7 @@ func (widget *Widget) responseIcon(calEvent *CalEvent) string {
 
 	switch calEvent.ResponseFor(widget.settings.email) {
 	case "accepted":
-		return icon + "✔︎"
+		return icon + "✔"
 	case "declined":
 		return icon + "✘"
 	case "needsAction":

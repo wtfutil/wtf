@@ -31,7 +31,6 @@ type Widget struct {
 	wtf.KeyboardWidget
 	wtf.TextWidget
 
-	app      *tview.Application
 	idx      int
 	projects []*Project
 	settings *Settings
@@ -44,7 +43,6 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 		KeyboardWidget: wtf.NewKeyboardWidget(),
 		TextWidget:     wtf.NewTextWidget(app, settings.common, true),
 
-		app:      app,
 		settings: settings,
 	}
 
@@ -96,9 +94,7 @@ func (w *Widget) Refresh() {
 		return
 	}
 
-	w.app.QueueUpdateDraw(func() {
-		w.display()
-	})
+	w.display()
 }
 
 /* -------------------- Keyboard Movement -------------------- */

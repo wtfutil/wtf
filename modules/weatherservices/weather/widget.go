@@ -27,7 +27,6 @@ type Widget struct {
 	Data []*owm.CurrentWeatherData
 	Idx  int
 
-	app      *tview.Application
 	settings *Settings
 }
 
@@ -40,7 +39,6 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 
 		Idx: 0,
 
-		app:      app,
 		settings: settings,
 	}
 
@@ -77,9 +75,7 @@ func (widget *Widget) Refresh() {
 		widget.Data = widget.Fetch(wtf.ToInts(widget.settings.cityIDs))
 	}
 
-	widget.app.QueueUpdateDraw(func() {
-		widget.display()
-	})
+	widget.display()
 }
 
 // Next displays data for the next city data in the list. If the current city is the last

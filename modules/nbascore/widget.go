@@ -25,7 +25,6 @@ type Widget struct {
 	wtf.KeyboardWidget
 	wtf.TextWidget
 
-	app      *tview.Application
 	language string
 	result   string
 	settings *Settings
@@ -40,7 +39,6 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 		KeyboardWidget: wtf.NewKeyboardWidget(),
 		TextWidget:     wtf.NewTextWidget(app, settings.common, true),
 
-		app:      app,
 		settings: settings,
 	}
 
@@ -55,39 +53,32 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 }
 
 func (widget *Widget) Refresh() {
-	widget.app.QueueUpdateDraw(func() {
-		widget.View.SetTitle(widget.ContextualTitle(widget.CommonSettings.Title))
-		widget.nbascore()
-	})
+	widget.Redraw(widget.CommonSettings.Title, widget.nbascore(), false)
 }
 
-func (widget *Widget) nbascore() {
+func (widget *Widget) nbascore() string {
 	cur := time.Now().AddDate(0, 0, offset) // Go back/forward offset days
 	curString := cur.Format("20060102")     // Need 20060102 format to feed to api
 	client := &http.Client{}
 	req, err := http.NewRequest("GET", "http://data.nba.net/10s/prod/v1/"+curString+"/scoreboard.json", nil)
 	if err != nil {
-		widget.result = err.Error()
-		return
+		return err.Error()
 	}
 
 	req.Header.Set("Accept-Language", widget.language)
 	req.Header.Set("User-Agent", "curl")
 	response, err := client.Do(req)
 	if err != nil {
-		widget.result = err.Error()
-		return
+		return err.Error()
 	}
 	defer response.Body.Close()
 	if response.StatusCode != 200 {
-		widget.result = err.Error()
-		return
+		return err.Error()
 	} // Get data from data.nba.net and check if successful
 
 	contents, err := ioutil.ReadAll(response.Body)
 	if err != nil {
-		widget.result = err.Error()
-		return
+		return err.Error()
 	}
 	result := map[string]interface{}{}
 	json.Unmarshal(contents, &result)
@@ -146,6 +137,5 @@ func (widget *Widget) nbascore() {
 		}
 		allGame += fmt.Sprintf("%s%5s%v[white] %s %3s [white]vs %s%-3s %s\n", qColor, "Q", quarter, vTeam, vScore, hColor, hScore, hTeam) // Format the score and store in allgame
 	}
-	widget.View.SetText(allGame)
-
+	return allGame
 }

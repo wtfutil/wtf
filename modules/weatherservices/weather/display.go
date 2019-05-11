@@ -9,31 +9,35 @@ import (
 )
 
 func (widget *Widget) display() {
+	err := ""
 	if widget.apiKeyValid() == false {
-		widget.View.SetText(" Environment variable WTF_OWM_API_KEY is not set")
-		return
+		err += " Environment variable WTF_OWM_API_KEY is not set\n"
 	}
 
 	cityData := widget.currentData()
 	if cityData == nil {
-		widget.View.SetText(" Weather data is unavailable: no city data")
-		return
+		err += " Weather data is unavailable: no city data\n"
 	}
 
 	if len(cityData.Weather) == 0 {
-		widget.View.SetText(" Weather data is unavailable: no weather data")
-		return
+		err += " Weather data is unavailable: no weather data"
 	}
 
-	widget.View.SetTitle(widget.title(cityData))
+	title := widget.CommonSettings.Title
 
-	_, _, width, _ := widget.View.GetRect()
-	content := widget.settings.common.SigilStr(len(widget.Data), widget.Idx, width) + "\n"
-	content = content + widget.description(cityData) + "\n\n"
-	content = content + widget.temperatures(cityData) + "\n"
-	content = content + widget.sunInfo(cityData)
+	var content string
+	if err != "" {
+		content = err
+	} else {
+		title = widget.buildTitle(cityData)
+		_, _, width, _ := widget.View.GetRect()
+		content = widget.settings.common.SigilStr(len(widget.Data), widget.Idx, width) + "\n"
+		content = content + widget.description(cityData) + "\n\n"
+		content = content + widget.temperatures(cityData) + "\n"
+		content = content + widget.sunInfo(cityData)
+	}
 
-	widget.View.SetText(content)
+	widget.Redraw(title, content, false)
 }
 
 func (widget *Widget) description(cityData *owm.CurrentWeatherData) string {
@@ -69,7 +73,6 @@ func (widget *Widget) temperatures(cityData *owm.CurrentWeatherData) string {
 	return str
 }
 
-func (widget *Widget) title(cityData *owm.CurrentWeatherData) string {
-	str := fmt.Sprintf("%s %s", widget.emojiFor(cityData), cityData.Name)
-	return widget.ContextualTitle(str)
+func (widget *Widget) buildTitle(cityData *owm.CurrentWeatherData) string {
+	return fmt.Sprintf("%s %s", widget.emojiFor(cityData), cityData.Name)
 }

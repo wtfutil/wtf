@@ -79,13 +79,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 
 func (widget *Widget) Refresh() {
 	widget.load()
-
-	widget.app.QueueUpdateDraw(func() {
-		title := widget.ContextualTitle(widget.CommonSettings.Title)
-		widget.View.SetTitle(title)
-		widget.display()
-	})
-
+	widget.display()
 }
 
 func (widget *Widget) SetList(list checklist.Checklist) {
@@ -150,6 +144,10 @@ func (widget *Widget) newItem() {
 
 	widget.addButtons(form, saveFctn)
 	widget.modalFocus(form)
+
+	widget.app.QueueUpdate(func() {
+		widget.app.Draw()
+	})
 }
 
 // persist writes the todo list to Yaml file
@@ -198,10 +196,9 @@ func (widget *Widget) addSaveButton(form *tview.Form, fctn func()) {
 }
 
 func (widget *Widget) modalFocus(form *tview.Form) {
-	frame := widget.modalFrame(form)
-	widget.pages.AddPage("modal", frame, false, true)
-
 	widget.app.QueueUpdateDraw(func() {
+		frame := widget.modalFrame(form)
+		widget.pages.AddPage("modal", frame, false, true)
 		widget.app.SetFocus(frame)
 	})
 }

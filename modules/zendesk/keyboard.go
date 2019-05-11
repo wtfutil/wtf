@@ -3,22 +3,12 @@ package zendesk
 import "github.com/gdamore/tcell"
 
 func (widget *Widget) initializeKeyboardControls() {
-	widget.SetKeyboardChar("j", widget.selectNext)
-	widget.SetKeyboardChar("k", widget.selectPrev)
+	widget.SetKeyboardChar("j", widget.Next)
+	widget.SetKeyboardChar("k", widget.Prev)
 	widget.SetKeyboardChar("o", widget.openTicket)
 
-	widget.SetKeyboardKey(tcell.KeyDown, widget.selectNext)
-	widget.SetKeyboardKey(tcell.KeyUp, widget.selectPrev)
+	widget.SetKeyboardKey(tcell.KeyDown, widget.Next)
+	widget.SetKeyboardKey(tcell.KeyUp, widget.Prev)
 	widget.SetKeyboardKey(tcell.KeyEnter, widget.openTicket)
-	widget.SetKeyboardKey(tcell.KeyEsc, widget.unselect)
-}
-
-func (widget *Widget) selectNext() {
-	widget.next()
-	widget.display()
-}
-
-func (widget *Widget) selectPrev() {
-	widget.prev()
-	widget.display()
+	widget.SetKeyboardKey(tcell.KeyEsc, widget.Unselect)
 }

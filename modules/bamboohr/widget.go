@@ -42,10 +42,7 @@ func (widget *Widget) Refresh() {
 		wtf.Now().Format(wtf.DateFormat),
 	)
 
-	widget.app.QueueUpdateDraw(func() {
-		widget.View.SetTitle(widget.ContextualTitle(widget.CommonSettings.Title))
-		widget.View.SetText(widget.contentFrom(todayItems))
-	})
+	widget.Redraw(widget.CommonSettings.Title, widget.contentFrom(todayItems), false)
 }
 
 /* -------------------- Unexported Functions -------------------- */

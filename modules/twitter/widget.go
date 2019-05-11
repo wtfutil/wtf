@@ -28,7 +28,6 @@ type Widget struct {
 	wtf.MultiSourceWidget
 	wtf.TextWidget
 
-	app      *tview.Application
 	client   *Client
 	idx      int
 	settings *Settings
@@ -42,7 +41,6 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 		MultiSourceWidget: wtf.NewMultiSourceWidget(settings.common, "screenName", "screenNames"),
 		TextWidget:        wtf.NewTextWidget(app, settings.common, true),
 
-		app:      app,
 		idx:      0,
 		settings: settings,
 	}
@@ -67,9 +65,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 
 // Refresh is called on the interval and refreshes the data
 func (widget *Widget) Refresh() {
-	widget.app.QueueUpdateDraw(func() {
-		widget.display()
-	})
+	widget.display()
 }
 
 /* -------------------- Unexported Functions -------------------- */
@@ -78,10 +74,10 @@ func (widget *Widget) display() {
 	widget.client.screenName = widget.CurrentSource()
 	tweets := widget.client.Tweets()
 
-	widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("Twitter - [green]@%s[white]", widget.CurrentSource())))
+	title := fmt.Sprintf("Twitter - [green]@%s[white]", widget.CurrentSource())
 
 	if len(tweets) == 0 {
-		str := fmt.Sprintf("\n\n\n%s", wtf.CenterText("[blue]No Tweets[white]", 50))
+		str := fmt.Sprintf("\n\n\n%s", wtf.CenterText("[lightblue]No Tweets[white]", 50))
 		widget.View.SetText(str)
 		return
 	}
@@ -92,7 +88,7 @@ func (widget *Widget) display() {
 		str = str + widget.format(tweet)
 	}
 
-	widget.View.SetText(str)
+	widget.Redraw(title, str, true)
 }
 
 // If the tweet's Username is the same as the account we're watching, no
@@ -116,7 +112,7 @@ func (widget *Widget) formatText(text string) string {
 
 	// @name mentions
 	atRegExp := regexp.MustCompile(`@[0-9A-Za-z_]*`)
-	result = atRegExp.ReplaceAllString(result, "[blue]${0}[white]")
+	result = atRegExp.ReplaceAllString(result, "[lightblue]${0}[white]")
 
 	// HTTP(S) links
 	linkRegExp := regexp.MustCompile(`http[s:\/.0-9A-Za-z]*`)

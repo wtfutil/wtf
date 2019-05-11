@@ -2,7 +2,6 @@ package gitter
 
 import (
 	"fmt"
-	"strconv"
 
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/wtf"
@@ -24,32 +23,25 @@ const HelpText = `
 type Widget struct {
 	wtf.HelpfulWidget
 	wtf.KeyboardWidget
-	wtf.TextWidget
+	wtf.ScrollableWidget
 
-	app      *tview.Application
 	messages []Message
-	selected int
 	settings *Settings
 }
 
 // NewWidget creates a new instance of a widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		HelpfulWidget:  wtf.NewHelpfulWidget(app, pages, HelpText),
-		KeyboardWidget: wtf.NewKeyboardWidget(),
-		TextWidget:     wtf.NewTextWidget(app, settings.common, true),
+		HelpfulWidget:    wtf.NewHelpfulWidget(app, pages, HelpText),
+		KeyboardWidget:   wtf.NewKeyboardWidget(),
+		ScrollableWidget: wtf.NewScrollableWidget(app, settings.common, true),
 
-		app:      app,
 		settings: settings,
 	}
 
+	widget.SetRenderFunction(widget.Refresh)
 	widget.initializeKeyboardControls()
 	widget.View.SetInputCapture(widget.InputCapture)
-
-	widget.unselect()
-
-	widget.View.SetScrollable(true)
-	widget.View.SetRegions(true)
 
 	widget.HelpfulWidget.SetView(widget.View)
 
@@ -65,34 +57,25 @@ func (widget *Widget) Refresh() {
 
 	room, err := GetRoom(widget.settings.roomURI, widget.settings.apiToken)
 	if err != nil {
-		widget.View.SetWrap(true)
-		widget.View.SetTitle(widget.CommonSettings.Title)
-		widget.View.SetText(err.Error())
+		widget.Redraw(widget.CommonSettings.Title, err.Error(), true)
 		return
 	}
 
 	if room == nil {
+		widget.Redraw(widget.CommonSettings.Title, "No room", true)
 		return
 	}
 
 	messages, err := GetMessages(room.ID, widget.settings.numberOfMessages, widget.settings.apiToken)
 
 	if err != nil {
-		widget.View.SetWrap(true)
-
-		widget.app.QueueUpdateDraw(func() {
-			widget.View.SetTitle(widget.CommonSettings.Title)
-			widget.View.SetText(err.Error())
-		})
-	} else {
-		widget.messages = messages
+		widget.Redraw(widget.CommonSettings.Title, err.Error(), true)
+		return
 	}
+	widget.messages = messages
+	widget.SetItemCount(len(messages))
 
-	widget.app.QueueUpdateDraw(func() {
-		widget.View.SetTitle(widget.ContextualTitle(widget.CommonSettings.Title))
-		widget.display()
-		widget.View.ScrollToEnd()
-	})
+	widget.display()
 }
 
 /* -------------------- Unexported Functions -------------------- */
@@ -102,23 +85,21 @@ func (widget *Widget) display() {
 		return
 	}
 
-	widget.View.SetWrap(true)
-	widget.View.Clear()
-	widget.View.SetTitle(widget.ContextualTitle(fmt.Sprintf("%s - %s", widget.CommonSettings.Title, widget.settings.roomURI)))
-	widget.View.SetText(widget.contentFrom(widget.messages))
-	widget.View.Highlight(strconv.Itoa(widget.selected)).ScrollToHighlight()
+	title := fmt.Sprintf("%s - %s", widget.CommonSettings.Title, widget.settings.roomURI)
+
+	widget.Redraw(title, widget.contentFrom(widget.messages), true)
 }
 
 func (widget *Widget) contentFrom(messages []Message) string {
 	var str string
 	for idx, message := range messages {
 		str = str + fmt.Sprintf(
-			`["%d"][""][%s] [blue]%s [lightslategray]%s: [%s]%s [aqua]%s`,
+			`["%d"][%s] [blue]%s [lightslategray]%s: [%s]%s [aqua]%s[""]`,
 			idx,
-			widget.rowColor(idx),
+			widget.RowColor(idx),
 			message.From.DisplayName,
 			message.From.Username,
-			widget.rowColor(idx),
+			widget.RowColor(idx),
 			message.Text,
 			message.Sent.Format("Jan 02, 15:04 MST"),
 		)
@@ -129,41 +110,10 @@ func (widget *Widget) contentFrom(messages []Message) string {
 	return str
 }
 
-func (widget *Widget) rowColor(idx int) string {
-	if widget.View.HasFocus() && (idx == widget.selected) {
-		return widget.settings.common.DefaultFocussedRowColor()
-	}
-
-	return widget.settings.common.RowColor(idx)
-}
-
-func (widget *Widget) next() {
-	widget.selected++
-	if widget.messages != nil && widget.selected >= len(widget.messages) {
-		widget.selected = 0
-	}
-
-	widget.display()
-}
-
-func (widget *Widget) prev() {
-	widget.selected--
-	if widget.selected < 0 && widget.messages != nil {
-		widget.selected = len(widget.messages) - 1
-	}
-
-	widget.display()
-}
-
 func (widget *Widget) openMessage() {
-	sel := widget.selected
+	sel := widget.GetSelected()
 	if sel >= 0 && widget.messages != nil && sel < len(widget.messages) {
-		message := &widget.messages[widget.selected]
+		message := &widget.messages[sel]
 		wtf.OpenFile(message.Text)
 	}
-}
-
-func (widget *Widget) unselect() {
-	widget.selected = -1
-	widget.display()
 }

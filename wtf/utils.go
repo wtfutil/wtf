@@ -7,6 +7,8 @@ import (
 	"regexp"
 	"runtime"
 	"strings"
+
+	"github.com/wtfutil/wtf/utils"
 )
 
 const SimpleDateFormat = "Jan 2"
@@ -92,7 +94,7 @@ func OpenFile(path string) {
 		default:
 		}
 	} else {
-		filePath, _ := ExpandHomeDir(path)
+		filePath, _ := utils.ExpandHomeDir(path)
 		cmd := exec.Command(OpenFileUtil, filePath)
 		ExecuteCommand(cmd)
 	}

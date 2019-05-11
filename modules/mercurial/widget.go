@@ -71,9 +71,7 @@ func (widget *Widget) Checkout() {
 		widget.pages.RemovePage("modal")
 		widget.app.SetFocus(widget.View)
 
-		widget.app.QueueUpdateDraw(func() {
-			widget.display()
-		})
+		widget.display()
 
 		widget.Refresh()
 	}
@@ -86,7 +84,6 @@ func (widget *Widget) Pull() {
 	repoToPull := widget.Data[widget.Idx]
 	repoToPull.pull()
 	widget.Refresh()
-
 }
 
 func (widget *Widget) Refresh() {
@@ -94,9 +91,7 @@ func (widget *Widget) Refresh() {
 
 	widget.Data = widget.mercurialRepos(repoPaths)
 
-	widget.app.QueueUpdateDraw(func() {
-		widget.display()
-	})
+	widget.display()
 }
 
 /* -------------------- Unexported Functions -------------------- */
@@ -122,9 +117,11 @@ func (widget *Widget) addCancelButton(form *tview.Form) {
 }
 
 func (widget *Widget) modalFocus(form *tview.Form) {
-	frame := widget.modalFrame(form)
-	widget.pages.AddPage("modal", frame, false, true)
-	widget.app.SetFocus(frame)
+	widget.app.QueueUpdateDraw(func() {
+		frame := widget.modalFrame(form)
+		widget.pages.AddPage("modal", frame, false, true)
+		widget.app.SetFocus(frame)
+	})
 }
 
 func (widget *Widget) modalForm(lbl, text string) *tview.Form {

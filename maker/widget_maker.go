@@ -3,7 +3,6 @@ package maker
 import (
 	"github.com/olebedev/config"
 	"github.com/rivo/tview"
-	"github.com/wtfutil/wtf/logger"
 	"github.com/wtfutil/wtf/modules/bamboohr"
 	"github.com/wtfutil/wtf/modules/bargraph"
 	"github.com/wtfutil/wtf/modules/circleci"
@@ -25,6 +24,7 @@ import (
 	"github.com/wtfutil/wtf/modules/ipaddresses/ipinfo"
 	"github.com/wtfutil/wtf/modules/jenkins"
 	"github.com/wtfutil/wtf/modules/jira"
+	"github.com/wtfutil/wtf/modules/logger"
 	"github.com/wtfutil/wtf/modules/mercurial"
 	"github.com/wtfutil/wtf/modules/nbascore"
 	"github.com/wtfutil/wtf/modules/newrelic"
@@ -90,7 +90,7 @@ func MakeWidget(
 		widget = cryptolive.NewWidget(app, settings)
 	case "datadog":
 		settings := datadog.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
-		widget = datadog.NewWidget(app, settings)
+		widget = datadog.NewWidget(app, pages, settings)
 	case "gcal":
 		settings := gcal.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = gcal.NewWidget(app, settings)
@@ -198,7 +198,7 @@ func MakeWidget(
 		widget = weather.NewWidget(app, pages, settings)
 	case "zendesk":
 		settings := zendesk.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
-		widget = zendesk.NewWidget(app, settings)
+		widget = zendesk.NewWidget(app, pages, settings)
 	default:
 		settings := unknown.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = unknown.NewWidget(app, settings)

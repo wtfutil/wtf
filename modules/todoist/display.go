@@ -17,7 +17,6 @@ func (widget *Widget) display() {
 	}
 
 	title := fmt.Sprintf("[green]%s[white]", proj.Project.Name)
-	widget.View.SetTitle(widget.ContextualTitle(title))
 
 	_, _, width, _ := widget.View.GetRect()
 	str := widget.settings.common.SigilStr(len(widget.projects), widget.idx, width) + "\n"
@@ -47,5 +46,5 @@ func (widget *Widget) display() {
 		str = str + row + wtf.PadRow((checkWidth+len(item.Content)), (checkWidth+maxLen+1)) + "\n"
 	}
 
-	widget.View.SetText(str)
+	widget.TextWidget.Redraw(title, str, false)
 }
