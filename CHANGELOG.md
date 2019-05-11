@@ -8,6 +8,7 @@
 * Focusable hot key numbers are now assigned in a stable order, [#435](https://github.com/wtfutil/wtf/issues/435) by [@Seanstoppable](https://github.com/Seanstoppable)
 * Zendesk widget now has help text, by [@Seanstoppable](https://github.com/Seanstoppable)
 * Scrollable widget added to provide common keyboard-navigation list functionality, by [@Seanstoppable](https://github.com/Seanstoppable)
+* Logging functionality extracted out from Log module, by [@Seanstoppable](https://github.com/Seanstoppable)
 
 ## v0.9.2
 
