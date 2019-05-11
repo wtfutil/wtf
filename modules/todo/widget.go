@@ -65,6 +65,10 @@ func (widget *Widget) SetList(list checklist.Checklist) {
 	widget.list = list
 }
 
+func (widget *Widget) HelpText() string {
+	return widget.KeyboardWidget.HelpText()
+}
+
 /* -------------------- Unexported Functions -------------------- */
 
 // edit opens a modal dialog that permits editing the text of the currently-selected item

@@ -87,6 +87,10 @@ func (widget *Widget) Prev() {
 	widget.display()
 }
 
+func (widget *Widget) HelpText() string {
+	return widget.KeyboardWidget.HelpText()
+}
+
 /* -------------------- Unexported Functions -------------------- */
 
 func (widget *Widget) apiKeyValid() bool {

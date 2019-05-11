@@ -165,6 +165,10 @@ func (w *Widget) Refresh() {
 	}
 }
 
+func (widget *Widget) HelpText() string {
+	return widget.KeyboardWidget.HelpText()
+}
+
 func (w *Widget) createOutput() string {
 	output := wtf.CenterText(fmt.Sprintf("[green]Now %v [white]\n", w.Info.Status), w.Width())
 	output += wtf.CenterText(fmt.Sprintf("[green]Title:[white] %v\n", w.Info.Title), w.Width())

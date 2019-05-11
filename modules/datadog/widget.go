@@ -64,6 +64,10 @@ func (widget *Widget) Render() {
 	widget.Redraw(widget.CommonSettings.Title, content, false)
 }
 
+func (widget *Widget) HelpText() string {
+	return widget.KeyboardWidget.HelpText()
+}
+
 /* -------------------- Unexported Functions -------------------- */
 
 func (widget *Widget) contentFrom(triggeredMonitors []datadog.Monitor) string {

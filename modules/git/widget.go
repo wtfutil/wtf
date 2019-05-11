@@ -85,6 +85,10 @@ func (widget *Widget) Refresh() {
 	widget.display()
 }
 
+func (widget *Widget) HelpText() string {
+	return widget.KeyboardWidget.HelpText()
+}
+
 /* -------------------- Unexported Functions -------------------- */
 
 func (widget *Widget) addCheckoutButton(form *tview.Form, fctn func()) {

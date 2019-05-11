@@ -77,6 +77,10 @@ func (w *Widget) Refresh() {
 	w.display()
 }
 
+func (widget *Widget) HelpText() string {
+	return widget.KeyboardWidget.HelpText()
+}
+
 /* -------------------- Keyboard Movement -------------------- */
 
 // Down selects the next item in the list

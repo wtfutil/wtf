@@ -55,6 +55,10 @@ func (w *Widget) Refresh() {
 	w.render()
 }
 
+func (widget *Widget) HelpText() string {
+	return widget.KeyboardWidget.HelpText()
+}
+
 func (w *Widget) render() {
 	err := w.refreshSpotifyInfos()
 	var content string

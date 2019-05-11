@@ -6,11 +6,14 @@ import (
 	"path/filepath"
 
 	goFlags "github.com/jessevdk/go-flags"
+	"github.com/olebedev/config"
+	"github.com/wtfutil/wtf/help"
 	"github.com/wtfutil/wtf/utils"
 )
 
 type Flags struct {
 	Config  string `short:"c" long:"config" optional:"yes" description:"Path to config file"`
+	Module  string `short:"m" long:"module" optional:"yes" description:"Display info about a specific module, i.e.: 'wtf -m=todo'"`
 	Profile bool   `short:"p" long:"profile" optional:"yes" description:"Profile application memory usage"`
 	Version bool   `short:"v" long:"version" description:"Show version info"`
 }
@@ -26,7 +29,12 @@ func (flags *Flags) ConfigFilePath() string {
 	return flags.Config
 }
 
-func (flags *Flags) Display(version string) {
+func (flags *Flags) Display(version string, config *config.Config) {
+	if flags.HasModule() {
+		help.Display(flags.Module, config)
+		os.Exit(0)
+	}
+
 	if flags.HasVersion() {
 		fmt.Println(version)
 		os.Exit(0)
@@ -35,6 +43,10 @@ func (flags *Flags) Display(version string) {
 
 func (flags *Flags) HasConfig() bool {
 	return len(flags.Config) > 0
+}
+
+func (flags *Flags) HasModule() bool {
+	return len(flags.Module) > 0
 }
 
 func (flags *Flags) HasVersion() bool {

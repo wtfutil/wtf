@@ -78,7 +78,7 @@ func (widget *KeyboardWidget) InputCapture(event *tcell.EventKey) *tcell.EventKe
 	return event
 }
 
-func (widget *KeyboardWidget) helpText() string {
+func (widget *KeyboardWidget) HelpText() string {
 
 	str := "Keyboard commands for " + widget.settings.Module.Type + "\n\n"
 
@@ -99,7 +99,7 @@ func (widget *KeyboardWidget) ShowHelp() {
 		widget.app.SetFocus(widget.view)
 	}
 
-	modal := NewBillboardModal(widget.helpText(), closeFunc)
+	modal := NewBillboardModal(widget.HelpText(), closeFunc)
 
 	widget.pages.AddPage("help", modal, false, true)
 	widget.app.SetFocus(modal)

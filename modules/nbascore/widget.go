@@ -47,6 +47,10 @@ func (widget *Widget) Refresh() {
 	widget.Redraw(widget.CommonSettings.Title, widget.nbascore(), false)
 }
 
+func (widget *Widget) HelpText() string {
+	return widget.KeyboardWidget.HelpText()
+}
+
 func (widget *Widget) nbascore() string {
 	cur := time.Now().AddDate(0, 0, offset) // Go back/forward offset days
 	curString := cur.Format("20060102")     // Need 20060102 format to feed to api
