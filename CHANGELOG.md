@@ -4,7 +4,8 @@
 
 ### ⚡️ Added
 
-* DataDog module is now scrollable and interactive, by [@Seanstoppable](https://github.com/Seanstoppable)
+* DataDog module is now scrollable and interactive, by @Seanstoppable
+* Focusable hot key numbers are now assigned in a stable order, [#435](https://github.com/wtfutil/wtf/issues/435) by @Seanstoppable
 
 ## v0.9.2
 
