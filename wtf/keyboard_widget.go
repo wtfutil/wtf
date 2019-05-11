@@ -20,9 +20,11 @@ type KeyboardWidget struct {
 	view     *tview.TextView
 	settings *cfg.Common
 
-	charMap map[string]func()
-	keyMap  map[tcell.Key]func()
-	helpMap []helpItem
+	charMap  map[string]func()
+	keyMap   map[tcell.Key]func()
+	charHelp []helpItem
+	keyHelp  []helpItem
+	maxKey   int
 }
 
 // NewKeyboardWidget creates and returns a new instance of KeyboardWidget
@@ -33,7 +35,8 @@ func NewKeyboardWidget(app *tview.Application, pages *tview.Pages, settings *cfg
 		settings: settings,
 		charMap:  make(map[string]func()),
 		keyMap:   make(map[tcell.Key]func()),
-		helpMap:  []helpItem{},
+		charHelp: []helpItem{},
+		keyHelp:  []helpItem{},
 	}
 }
 
@@ -44,7 +47,7 @@ func NewKeyboardWidget(app *tview.Application, pages *tview.Pages, settings *cfg
 //
 func (widget *KeyboardWidget) SetKeyboardChar(char string, fn func(), helpText string) {
 	widget.charMap[char] = fn
-	widget.helpMap = append(widget.helpMap, helpItem{char, helpText})
+	widget.charHelp = append(widget.charHelp, helpItem{char, helpText})
 }
 
 // SetKeyboardKey sets a tcell.Key/function combination that responds to key presses
@@ -54,7 +57,10 @@ func (widget *KeyboardWidget) SetKeyboardChar(char string, fn func(), helpText s
 //
 func (widget *KeyboardWidget) SetKeyboardKey(key tcell.Key, fn func(), helpText string) {
 	widget.keyMap[key] = fn
-	widget.helpMap = append(widget.helpMap, helpItem{tcell.KeyNames[key], helpText})
+	widget.keyHelp = append(widget.keyHelp, helpItem{tcell.KeyNames[key], helpText})
+	if len(tcell.KeyNames[key]) > widget.maxKey {
+		widget.maxKey = len(tcell.KeyNames[key])
+	}
 }
 
 // InputCapture is the function passed to tview's SetInputCapture() function
@@ -82,8 +88,13 @@ func (widget *KeyboardWidget) HelpText() string {
 
 	str := "Keyboard commands for " + widget.settings.Module.Type + "\n\n"
 
-	for _, item := range widget.helpMap {
-		str = str + fmt.Sprintf("%s: %s\n", item.Key, item.Text)
+	for _, item := range widget.charHelp {
+		str = str + fmt.Sprintf("  [%s]: %s\n", item.Key, item.Text)
+	}
+	str = str + "\n\n"
+
+	for _, item := range widget.keyHelp {
+		str = str + fmt.Sprintf("  [%-*s]: %s\n", widget.maxKey, item.Key, item.Text)
 	}
 
 	return str
