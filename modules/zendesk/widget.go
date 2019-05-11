@@ -8,25 +8,41 @@ import (
 	"github.com/wtfutil/wtf/wtf"
 )
 
+const HelpText = `
+ Keyboard commands for Zendesk:
+
+   /: Show/hide this help window
+   j: Select the next item in the list
+   k: Select the previous item in the list
+   o: Open the selected item in a browser
+
+   arrow down: Select the next item in the list
+   arrow up:   Select the previous item in the list
+
+   return: Open the selected item in a browser
+`
+
 // A Widget represents a Zendesk widget
 type Widget struct {
+	wtf.HelpfulWidget
 	wtf.KeyboardWidget
-	wtf.TextWidget
+	wtf.ScrollableWidget
 
 	result   *TicketArray
-	selected int
 	settings *Settings
 }
 
 // NewWidget creates a new instance of a widget
-func NewWidget(app *tview.Application, settings *Settings) *Widget {
+func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
+		HelpfulWidget:  wtf.NewHelpfulWidget(app, pages, HelpText),
 		KeyboardWidget: wtf.NewKeyboardWidget(),
-		TextWidget:     wtf.NewTextWidget(app, settings.common, true),
-
+        ScrollableWidget: wtf.NewScrollableWidget(app, settings.common, true),
+		
 		settings: settings,
 	}
 
+	widget.SetRenderFunction(widget.Render)
 	widget.initializeKeyboardControls()
 	widget.View.SetInputCapture(widget.InputCapture)
 
@@ -44,12 +60,12 @@ func (widget *Widget) Refresh() {
 		widget.result = ticketArray
 	}
 
-	widget.display()
+	widget.Render()
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (widget *Widget) display() {
+func (widget *Widget) Render() {
 	title := fmt.Sprintf("%s (%d)", widget.CommonSettings.Title, widget.result.Count)
 	widget.Redraw(title, widget.textContent(widget.result.Tickets), false)
 }
@@ -69,7 +85,7 @@ func (widget *Widget) textContent(items []Ticket) string {
 
 func (widget *Widget) format(ticket Ticket, idx int) string {
 	textColor := widget.settings.common.Colors.Background
-	if idx == widget.selected {
+	if idx == widget.GetSelected() {
 		textColor = widget.settings.common.Colors.BorderFocused
 	}
 
@@ -91,29 +107,11 @@ func (widget *Widget) parseRequester(ticket Ticket) interface{} {
 	return fromName
 }
 
-func (widget *Widget) next() {
-	widget.selected++
-	if widget.result != nil && widget.selected >= len(widget.result.Tickets) {
-		widget.selected = 0
-	}
-}
-
-func (widget *Widget) prev() {
-	widget.selected--
-	if widget.selected < 0 && widget.result != nil {
-		widget.selected = len(widget.result.Tickets) - 1
-	}
-}
-
 func (widget *Widget) openTicket() {
-	sel := widget.selected
+	sel := widget.GetSelected()
 	if sel >= 0 && widget.result != nil && sel < len(widget.result.Tickets) {
-		issue := &widget.result.Tickets[widget.selected]
+		issue := &widget.result.Tickets[sel]
 		ticketURL := fmt.Sprintf("https://%s.zendesk.com/agent/tickets/%d", widget.settings.subdomain, issue.Id)
 		wtf.OpenFile(ticketURL)
 	}
-}
-
-func (widget *Widget) unselect() {
-	widget.selected = -1
 }

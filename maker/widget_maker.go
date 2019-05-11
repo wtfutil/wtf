@@ -198,7 +198,7 @@ func MakeWidget(
 		widget = weather.NewWidget(app, pages, settings)
 	case "zendesk":
 		settings := zendesk.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
-		widget = zendesk.NewWidget(app, settings)
+		widget = zendesk.NewWidget(app, pages, settings)
 	default:
 		settings := unknown.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = unknown.NewWidget(app, settings)
