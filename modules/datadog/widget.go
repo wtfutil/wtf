@@ -36,7 +36,6 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 		KeyboardWidget:   wtf.NewKeyboardWidget(),
 		ScrollableWidget: wtf.NewScrollableWidget(app, settings.common, true),
 
-		app:      app,
 		settings: settings,
 	}
 
