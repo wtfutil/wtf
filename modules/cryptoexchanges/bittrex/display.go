@@ -8,12 +8,12 @@ import (
 
 func (widget *Widget) display() {
 	if ok == false {
-		widget.View.SetText(errorText)
+		widget.Redraw(widget.CommonSettings.Title, errorText, true)
 		return
 	}
 
 	summaryText := widget.summaryText(&widget.summaryList)
-	widget.View.SetText(summaryText)
+	widget.Redraw(widget.CommonSettings.Title, summaryText, false)
 }
 
 func (widget *Widget) summaryText(list *summaryList) string {

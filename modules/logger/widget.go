@@ -40,10 +40,7 @@ func (widget *Widget) Refresh() {
 
 	logLines := widget.tailFile()
 
-	widget.app.QueueUpdateDraw(func() {
-		widget.View.SetTitle(widget.CommonSettings.Title)
-		widget.View.SetText(widget.contentFrom(logLines))
-	})
+	widget.Redraw(widget.CommonSettings.Title, widget.contentFrom(logLines), false)
 }
 
 /* -------------------- Unexported Functions -------------------- */

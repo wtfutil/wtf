@@ -144,7 +144,6 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 
 	widget.View.SetWrap(true)
 	widget.View.SetWordWrap(true)
-	widget.View.SetTitle("[green]Spotify Web[white]")
 
 	widget.HelpfulWidget.SetView(widget.View)
 
