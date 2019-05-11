@@ -3,7 +3,6 @@ package maker
 import (
 	"github.com/olebedev/config"
 	"github.com/rivo/tview"
-	"github.com/wtfutil/wtf/logger"
 	"github.com/wtfutil/wtf/modules/bamboohr"
 	"github.com/wtfutil/wtf/modules/bargraph"
 	"github.com/wtfutil/wtf/modules/circleci"
@@ -25,6 +24,7 @@ import (
 	"github.com/wtfutil/wtf/modules/ipaddresses/ipinfo"
 	"github.com/wtfutil/wtf/modules/jenkins"
 	"github.com/wtfutil/wtf/modules/jira"
+	"github.com/wtfutil/wtf/modules/logger"
 	"github.com/wtfutil/wtf/modules/mercurial"
 	"github.com/wtfutil/wtf/modules/nbascore"
 	"github.com/wtfutil/wtf/modules/newrelic"

@@ -1,46 +1,21 @@
 package logger
 
 import (
-	"fmt"
 	"log"
 	"os"
 	"path/filepath"
-	"strings"
 
-	"github.com/rivo/tview"
-	"github.com/wtfutil/wtf/wtf"
+	"github.com/wtfutil/wtf/utils"
 )
-
-const maxBufferSize int64 = 1024
-
-type Widget struct {
-	wtf.TextWidget
-
-	app      *tview.Application
-	filePath string
-	settings *Settings
-}
-
-func NewWidget(app *tview.Application, settings *Settings) *Widget {
-	widget := Widget{
-		TextWidget: wtf.NewTextWidget(app, settings.common, true),
-
-		app:      app,
-		filePath: logFilePath(),
-		settings: settings,
-	}
-
-	return &widget
-}
 
 /* -------------------- Exported Functions -------------------- */
 
 func Log(msg string) {
-	if logFileMissing() {
+	if LogFileMissing() {
 		return
 	}
 
-	f, err := os.OpenFile(logFilePath(), os.O_RDWR|os.O_CREATE|os.O_APPEND, 0600)
+	f, err := os.OpenFile(LogFilePath(), os.O_RDWR|os.O_CREATE|os.O_APPEND, 0600)
 	if err != nil {
 		log.Fatalf("error opening file: %v", err)
 	}
@@ -50,87 +25,15 @@ func Log(msg string) {
 	log.Println(msg)
 }
 
-// Refresh updates the onscreen contents of the widget
-func (widget *Widget) Refresh() {
-	if logFileMissing() {
-		return
-	}
-
-	logLines := widget.tailFile()
-
-	widget.app.QueueUpdateDraw(func() {
-		widget.View.SetTitle(widget.CommonSettings.Title)
-		widget.View.SetText(widget.contentFrom(logLines))
-	})
+func LogFileMissing() bool {
+	return LogFilePath() == ""
 }
 
-/* -------------------- Unexported Functions -------------------- */
-
-func (widget *Widget) contentFrom(logLines []string) string {
-	str := ""
-
-	for _, line := range logLines {
-		chunks := strings.Split(line, " ")
-
-		if len(chunks) >= 4 {
-			str = str + fmt.Sprintf(
-				"[green]%s[white] [yellow]%s[white] %s\n",
-				chunks[0],
-				chunks[1],
-				strings.Join(chunks[3:], " "),
-			)
-		}
-	}
-
-	return str
-}
-
-func logFileMissing() bool {
-	return logFilePath() == ""
-}
-
-func logFilePath() string {
-	dir, err := wtf.Home()
+func LogFilePath() string {
+	dir, err := utils.Home()
 	if err != nil {
 		return ""
 	}
 
 	return filepath.Join(dir, ".config", "wtf", "log.txt")
-}
-
-func (widget *Widget) tailFile() []string {
-	file, err := os.Open(widget.filePath)
-	if err != nil {
-		return []string{}
-	}
-	defer file.Close()
-
-	stat, err := file.Stat()
-	if err != nil {
-		return []string{}
-	}
-
-	bufferSize := maxBufferSize
-	if maxBufferSize > stat.Size() {
-		bufferSize = stat.Size()
-	}
-
-	startPos := stat.Size() - bufferSize
-
-	buff := make([]byte, bufferSize)
-	_, err = file.ReadAt(buff, startPos)
-	if err != nil {
-		return []string{}
-	}
-
-	logLines := strings.Split(string(buff), "\n")
-
-	// Reverse the array of lines
-	// Offset by two to account for the blank line at the end
-	last := len(logLines) - 2
-	for i := 0; i < len(logLines)/2; i++ {
-		logLines[i], logLines[last-i] = logLines[last-i], logLines[i]
-	}
-
-	return logLines
 }

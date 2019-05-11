@@ -18,6 +18,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/wtf"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
@@ -29,7 +30,7 @@ import (
 func (widget *Widget) Fetch() ([]*sheets.ValueRange, error) {
 	ctx := context.Background()
 
-	secretPath, _ := wtf.ExpandHomeDir(widget.settings.secretFile)
+	secretPath, _ := utils.ExpandHomeDir(widget.settings.secretFile)
 
 	b, err := ioutil.ReadFile(secretPath)
 	if err != nil {

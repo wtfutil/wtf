@@ -7,7 +7,7 @@ import (
 
 	goFlags "github.com/jessevdk/go-flags"
 	"github.com/wtfutil/wtf/help"
-	"github.com/wtfutil/wtf/wtf"
+	"github.com/wtfutil/wtf/utils"
 )
 
 type Flags struct {
@@ -63,7 +63,7 @@ func (flags *Flags) Parse() {
 	// If no config file is explicitly passed in as a param,
 	// set the flag to the default config file
 	if !flags.HasConfig() {
-		homeDir, err := wtf.Home()
+		homeDir, err := utils.Home()
 		if err != nil {
 			fmt.Printf("Error: %v\n", err)
 			os.Exit(1)
