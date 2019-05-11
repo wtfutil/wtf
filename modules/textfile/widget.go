@@ -14,6 +14,7 @@ import (
 	"github.com/alecthomas/chroma/styles"
 	"github.com/radovskyb/watcher"
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/wtf"
 )
 
@@ -98,7 +99,7 @@ func (widget *Widget) fileName() string {
 }
 
 func (widget *Widget) formattedText() string {
-	filePath, _ := wtf.ExpandHomeDir(widget.CurrentSource())
+	filePath, _ := utils.ExpandHomeDir(widget.CurrentSource())
 
 	file, err := os.Open(filePath)
 	if err != nil {
@@ -129,7 +130,7 @@ func (widget *Widget) formattedText() string {
 }
 
 func (widget *Widget) plainText() string {
-	filePath, _ := wtf.ExpandHomeDir(widget.CurrentSource())
+	filePath, _ := utils.ExpandHomeDir(widget.CurrentSource())
 
 	fmt.Println(filePath)
 
@@ -159,7 +160,7 @@ func (widget *Widget) watchForFileChanges() {
 
 	// Watch each textfile for changes
 	for _, source := range widget.Sources {
-		fullPath, err := wtf.ExpandHomeDir(source)
+		fullPath, err := utils.ExpandHomeDir(source)
 		if err == nil {
 			if err := watch.Add(fullPath); err != nil {
 				log.Fatalln(err)
