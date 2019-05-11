@@ -97,13 +97,14 @@ func (widget *Widget) Render() {
 func (widget *Widget) contentFrom(stories []Story) string {
 	var str string
 	for idx, story := range stories {
+
 		u, _ := url.Parse(story.URL)
+
 		str = str + fmt.Sprintf(
-			`["%d"][""][%s] [yellow]%d. [%s]%s [blue](%s)[""]`,
+			`["%d"][""][%s]%2d. %s [lightblue](%s)[white][""]`,
 			idx,
 			widget.RowColor(idx),
 			idx+1,
-			widget.RowColor(idx),
 			story.Title,
 			strings.TrimPrefix(u.Host, "www."),
 		)
