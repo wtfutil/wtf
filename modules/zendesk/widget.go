@@ -35,11 +35,10 @@ type Widget struct {
 // NewWidget creates a new instance of a widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		ScrollableWidget: wtf.NewScrollableWidget(app, settings.common, true),
 		HelpfulWidget:  wtf.NewHelpfulWidget(app, pages, HelpText),
 		KeyboardWidget: wtf.NewKeyboardWidget(),
-		TextWidget:     wtf.NewTextWidget(app, settings.common, true),
-
+        ScrollableWidget: wtf.NewScrollableWidget(app, settings.common, true),
+		
 		settings: settings,
 	}
 
