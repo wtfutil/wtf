@@ -3,13 +3,13 @@ package nbascore
 import "github.com/gdamore/tcell"
 
 func (widget *Widget) initializeKeyboardControls() {
-	widget.SetKeyboardChar("/", widget.ShowHelp)
-	widget.SetKeyboardChar("h", widget.prev)
-	widget.SetKeyboardChar("l", widget.next)
-	widget.SetKeyboardChar("c", widget.center)
+	widget.SetKeyboardChar("/", widget.ShowHelp, "Show/hide this help prompt")
+	widget.SetKeyboardChar("h", widget.prev, "Select previous item")
+	widget.SetKeyboardChar("l", widget.next, "Select next item")
+	widget.SetKeyboardChar("c", widget.center, "???")
 
-	widget.SetKeyboardKey(tcell.KeyLeft, widget.prev)
-	widget.SetKeyboardKey(tcell.KeyRight, widget.next)
+	widget.SetKeyboardKey(tcell.KeyLeft, widget.prev, "Select previous item")
+	widget.SetKeyboardKey(tcell.KeyRight, widget.next, "Select next item")
 }
 
 func (widget *Widget) center() {

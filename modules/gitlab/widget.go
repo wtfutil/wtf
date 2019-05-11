@@ -6,20 +6,7 @@ import (
 	glb "github.com/xanzy/go-gitlab"
 )
 
-const HelpText = `
-  Keyboard commands for Gitlab:
-
-    /: Show/hide this help window
-    h: Previous project
-    l: Next project
-    r: Refresh the data
-
-    arrow left:  Previous project
-    arrow right: Next project
-`
-
 type Widget struct {
-	wtf.HelpfulWidget
 	wtf.KeyboardWidget
 	wtf.TextWidget
 
@@ -39,8 +26,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	}
 
 	widget := Widget{
-		HelpfulWidget:  wtf.NewHelpfulWidget(app, pages, HelpText),
-		KeyboardWidget: wtf.NewKeyboardWidget(),
+		KeyboardWidget: wtf.NewKeyboardWidget(app, pages, settings.common),
 		TextWidget:     wtf.NewTextWidget(app, settings.common, true),
 
 		Idx: 0,
@@ -54,7 +40,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	widget.initializeKeyboardControls()
 	widget.View.SetInputCapture(widget.InputCapture)
 
-	widget.HelpfulWidget.SetView(widget.View)
+	widget.KeyboardWidget.SetView(widget.View)
 
 	return &widget
 }

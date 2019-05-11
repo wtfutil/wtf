@@ -7,15 +7,6 @@ import (
 	"github.com/wtfutil/wtf/wtf"
 )
 
-// HelpText to display to users
-const HelpText = `
-	Keyboard commands for VictorOps
-
-	/: Show/hide this help window
-	arrow down: Scroll down the list
-	arrow up: Scroll up the list
-`
-
 // Widget contains text info
 type Widget struct {
 	wtf.TextWidget

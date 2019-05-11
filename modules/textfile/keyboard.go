@@ -6,13 +6,13 @@ import (
 )
 
 func (widget *Widget) initializeKeyboardControls() {
-	widget.SetKeyboardChar("/", widget.ShowHelp)
-	widget.SetKeyboardChar("h", widget.Prev)
-	widget.SetKeyboardChar("l", widget.Next)
-	widget.SetKeyboardChar("o", widget.openFile)
+	widget.SetKeyboardChar("/", widget.ShowHelp, "Show/hide this help prompt")
+	widget.SetKeyboardChar("h", widget.Prev, "Select previous item")
+	widget.SetKeyboardChar("l", widget.Next, "Select next item")
+	widget.SetKeyboardChar("o", widget.openFile, "Open item")
 
-	widget.SetKeyboardKey(tcell.KeyLeft, widget.Prev)
-	widget.SetKeyboardKey(tcell.KeyRight, widget.Next)
+	widget.SetKeyboardKey(tcell.KeyLeft, widget.Prev, "Select previous item")
+	widget.SetKeyboardKey(tcell.KeyRight, widget.Next, "Select next item")
 }
 
 func (widget *Widget) openFile() {

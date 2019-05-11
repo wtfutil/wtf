@@ -10,20 +10,7 @@ import (
 	"github.com/wtfutil/wtf/wtf"
 )
 
-const HelpText = `
-  Keyboard commands for Twitter:
-
-    /: Show/hide this help window
-    h: Previous Twitter name
-    l: Next Twitter name
-    o: Open the Twitter handle in a browser
-
-    arrow left:  Previous Twitter name
-    arrow right: Next Twitter name
-`
-
 type Widget struct {
-	wtf.HelpfulWidget
 	wtf.KeyboardWidget
 	wtf.MultiSourceWidget
 	wtf.TextWidget
@@ -36,8 +23,7 @@ type Widget struct {
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		HelpfulWidget:     wtf.NewHelpfulWidget(app, pages, HelpText),
-		KeyboardWidget:    wtf.NewKeyboardWidget(),
+		KeyboardWidget:    wtf.NewKeyboardWidget(app, pages, settings.common),
 		MultiSourceWidget: wtf.NewMultiSourceWidget(settings.common, "screenName", "screenNames"),
 		TextWidget:        wtf.NewTextWidget(app, settings.common, true),
 
@@ -56,7 +42,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	widget.View.SetWrap(true)
 	widget.View.SetWordWrap(true)
 
-	widget.HelpfulWidget.SetView(widget.View)
+	widget.KeyboardWidget.SetView(widget.View)
 
 	return &widget
 }

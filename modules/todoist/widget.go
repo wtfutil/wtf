@@ -7,27 +7,8 @@ import (
 	"github.com/wtfutil/wtf/wtf"
 )
 
-const HelpText = `
- Keyboard commands for Todoist:
-
-   /: Show/hide this help window
-   c: Close the selected item
-   d: Delete the selected item
-   h: Previous Todoist list
-   j: Select the next item in the list
-   k: Select the previous item in the list
-   l: Next Todoist list
-   r: Refresh the todo list data
-
-   arrow down: Select the next item in the list
-   arrow left: Previous Todoist list
-   arrow right: Next Todoist list
-   arrow up: Select the previous item in the list
-`
-
 // A Widget represents a Todoist widget
 type Widget struct {
-	wtf.HelpfulWidget
 	wtf.KeyboardWidget
 	wtf.TextWidget
 
@@ -39,8 +20,7 @@ type Widget struct {
 // NewWidget creates a new instance of a widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		HelpfulWidget:  wtf.NewHelpfulWidget(app, pages, HelpText),
-		KeyboardWidget: wtf.NewKeyboardWidget(),
+		KeyboardWidget: wtf.NewKeyboardWidget(app, pages, settings.common),
 		TextWidget:     wtf.NewTextWidget(app, settings.common, true),
 
 		settings: settings,
@@ -52,7 +32,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	widget.initializeKeyboardControls()
 	widget.View.SetInputCapture(widget.InputCapture)
 
-	widget.HelpfulWidget.SetView(widget.View)
+	widget.KeyboardWidget.SetView(widget.View)
 
 	return &widget
 }

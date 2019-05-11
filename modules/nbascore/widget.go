@@ -12,16 +12,8 @@ import (
 	"github.com/wtfutil/wtf/wtf"
 )
 
-const HelpText = `
- Keyboard commands for NBA Score:
-   h: Go to previous day
-   l: Go to next day
-   c: Go back to current day
-`
-
 // A Widget represents an NBA Score  widget
 type Widget struct {
-	wtf.HelpfulWidget
 	wtf.KeyboardWidget
 	wtf.TextWidget
 
@@ -35,8 +27,7 @@ var offset = 0
 // NewWidget creates a new instance of a widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		HelpfulWidget:  wtf.NewHelpfulWidget(app, pages, HelpText),
-		KeyboardWidget: wtf.NewKeyboardWidget(),
+		KeyboardWidget: wtf.NewKeyboardWidget(app, pages, settings.common),
 		TextWidget:     wtf.NewTextWidget(app, settings.common, true),
 
 		settings: settings,
@@ -47,7 +38,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 
 	widget.View.SetScrollable(true)
 
-	widget.HelpfulWidget.SetView(widget.View)
+	widget.KeyboardWidget.SetView(widget.View)
 
 	return &widget
 }

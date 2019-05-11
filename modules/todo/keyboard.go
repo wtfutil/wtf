@@ -9,20 +9,20 @@ import (
 )
 
 func (widget *Widget) initializeKeyboardControls() {
-	widget.SetKeyboardChar(" ", widget.toggleChecked)
-	widget.SetKeyboardChar("/", widget.ShowHelp)
-	widget.SetKeyboardChar("j", widget.displayNext)
-	widget.SetKeyboardChar("k", widget.displayPrev)
-	widget.SetKeyboardChar("n", widget.newItem)
-	widget.SetKeyboardChar("o", widget.openFile)
+	widget.SetKeyboardChar(" ", widget.toggleChecked, "Toggle checkmark")
+	widget.SetKeyboardChar("/", widget.ShowHelp, "Show/hide this help prompt")
+	widget.SetKeyboardChar("j", widget.displayNext, "Select next item")
+	widget.SetKeyboardChar("k", widget.displayPrev, "Select previous item")
+	widget.SetKeyboardChar("n", widget.newItem, "Create new item")
+	widget.SetKeyboardChar("o", widget.openFile, "Open file")
 
-	widget.SetKeyboardKey(tcell.KeyCtrlD, widget.deleteSelected)
-	widget.SetKeyboardKey(tcell.KeyCtrlJ, widget.demoteSelected)
-	widget.SetKeyboardKey(tcell.KeyCtrlK, widget.promoteSelected)
-	widget.SetKeyboardKey(tcell.KeyDown, widget.displayNext)
-	widget.SetKeyboardKey(tcell.KeyEnter, widget.editSelected)
-	widget.SetKeyboardKey(tcell.KeyEsc, widget.unselect)
-	widget.SetKeyboardKey(tcell.KeyUp, widget.displayPrev)
+	widget.SetKeyboardKey(tcell.KeyCtrlD, widget.deleteSelected, "Delete item")
+	widget.SetKeyboardKey(tcell.KeyCtrlJ, widget.demoteSelected, "Demote item")
+	widget.SetKeyboardKey(tcell.KeyCtrlK, widget.promoteSelected, "Promote item")
+	widget.SetKeyboardKey(tcell.KeyDown, widget.displayNext, "Select next item")
+	widget.SetKeyboardKey(tcell.KeyEnter, widget.editSelected, "Edit item")
+	widget.SetKeyboardKey(tcell.KeyEsc, widget.unselect, "Clear selection")
+	widget.SetKeyboardKey(tcell.KeyUp, widget.displayPrev, "Select previous item")
 }
 
 func (widget *Widget) deleteSelected() {
