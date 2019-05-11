@@ -1,6 +1,8 @@
 package wtf
 
 import (
+	"sort"
+
 	"github.com/olebedev/config"
 	"github.com/rivo/tview"
 )
@@ -176,6 +178,17 @@ func (tracker *FocusTracker) focusables() []Wtfable {
 			focusable = append(focusable, widget)
 		}
 	}
+
+	// Sort for deterministic ordering
+	sort.SliceStable(focusable[:], func(i, j int) bool {
+		if focusable[i].Top() < focusable[j].Top() {
+			return true
+		}
+		if focusable[i].Top() == focusable[j].Top() {
+			return focusable[i].Left() < focusable[j].Left()
+		}
+		return false
+	})
 
 	return focusable
 }
