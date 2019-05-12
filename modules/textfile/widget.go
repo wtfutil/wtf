@@ -18,20 +18,7 @@ import (
 	"github.com/wtfutil/wtf/wtf"
 )
 
-const HelpText = `
-  Keyboard commands for Textfile:
-
-    /: Show/hide this help window
-    h: Previous text file
-    l: Next text file
-    o: Open the text file in the operating system
-
-    arrow left:  Previous text file
-    arrow right: Next text file
-`
-
 type Widget struct {
-	wtf.HelpfulWidget
 	wtf.KeyboardWidget
 	wtf.MultiSourceWidget
 	wtf.TextWidget
@@ -43,8 +30,7 @@ type Widget struct {
 // NewWidget creates a new instance of a widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		HelpfulWidget:     wtf.NewHelpfulWidget(app, pages, HelpText),
-		KeyboardWidget:    wtf.NewKeyboardWidget(),
+		KeyboardWidget:    wtf.NewKeyboardWidget(app, pages, settings.common),
 		MultiSourceWidget: wtf.NewMultiSourceWidget(settings.common, "filePath", "filePaths"),
 		TextWidget:        wtf.NewTextWidget(app, settings.common, true),
 
@@ -62,7 +48,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	widget.View.SetWordWrap(true)
 	widget.View.SetWrap(true)
 
-	widget.HelpfulWidget.SetView(widget.View)
+	widget.KeyboardWidget.SetView(widget.View)
 
 	go widget.watchForFileChanges()
 
@@ -75,6 +61,10 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 // text files that first time. After that, the watcher takes over
 func (widget *Widget) Refresh() {
 	widget.display()
+}
+
+func (widget *Widget) HelpText() string {
+	return widget.KeyboardWidget.HelpText()
 }
 
 /* -------------------- Unexported Functions -------------------- */

@@ -3,12 +3,12 @@ package gitter
 import "github.com/gdamore/tcell"
 
 func (widget *Widget) initializeKeyboardControls() {
-	widget.SetKeyboardChar("/", widget.ShowHelp)
-	widget.SetKeyboardChar("j", widget.Next)
-	widget.SetKeyboardChar("k", widget.Prev)
-	widget.SetKeyboardChar("r", widget.Refresh)
+	widget.SetKeyboardChar("/", widget.ShowHelp, "Show/hide this help prompt")
+	widget.SetKeyboardChar("j", widget.Next, "Select next item")
+	widget.SetKeyboardChar("k", widget.Prev, "Select previous item")
+	widget.SetKeyboardChar("r", widget.Refresh, "Refresh widget")
 
-	widget.SetKeyboardKey(tcell.KeyDown, widget.Next)
-	widget.SetKeyboardKey(tcell.KeyEsc, widget.Unselect)
-	widget.SetKeyboardKey(tcell.KeyUp, widget.Prev)
+	widget.SetKeyboardKey(tcell.KeyDown, widget.Next, "Select next item")
+	widget.SetKeyboardKey(tcell.KeyEsc, widget.Unselect, "Clear selection")
+	widget.SetKeyboardKey(tcell.KeyUp, widget.Prev, "Select previous item")
 }

@@ -7,24 +7,8 @@ import (
 	"github.com/wtfutil/wtf/wtf"
 )
 
-const HelpText = `
- Keyboard commands for Rollbar:
-
-   /: Show/hide this help window
-   j: Select the next item in the list
-   k: Select the previous item in the list
-   r: Refresh the data
-   u: unselect the current item(removes item being perma highlighted)
-
-   arrow down: Select the next item in the list
-   arrow up:   Select the previous item in the list
-
-   return: Open the selected item in a browser
-`
-
 // A Widget represents a Rollbar widget
 type Widget struct {
-	wtf.HelpfulWidget
 	wtf.KeyboardWidget
 	wtf.ScrollableWidget
 
@@ -35,8 +19,7 @@ type Widget struct {
 // NewWidget creates a new instance of a widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		HelpfulWidget:    wtf.NewHelpfulWidget(app, pages, HelpText),
-		KeyboardWidget:   wtf.NewKeyboardWidget(),
+		KeyboardWidget:   wtf.NewKeyboardWidget(app, pages, settings.common),
 		ScrollableWidget: wtf.NewScrollableWidget(app, settings.common, true),
 
 		settings: settings,
@@ -46,7 +29,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	widget.initializeKeyboardControls()
 	widget.View.SetInputCapture(widget.InputCapture)
 
-	widget.HelpfulWidget.SetView(widget.View)
+	widget.KeyboardWidget.SetView(widget.View)
 
 	return &widget
 }

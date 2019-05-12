@@ -5,22 +5,7 @@ import (
 	"github.com/wtfutil/wtf/wtf"
 )
 
-const HelpText = `
-  Keyboard commands for GitHub:
-
-    /: Show/hide this help window
-    h: Previous git repository
-    l: Next git repository
-    r: Refresh the data
-
-    arrow left:  Previous git repository
-    arrow right: Next git repository
-
-    return: Open the selected repository in a browser
-`
-
 type Widget struct {
-	wtf.HelpfulWidget
 	wtf.KeyboardWidget
 	wtf.TextWidget
 
@@ -33,8 +18,7 @@ type Widget struct {
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		HelpfulWidget:  wtf.NewHelpfulWidget(app, pages, HelpText),
-		KeyboardWidget: wtf.NewKeyboardWidget(),
+		KeyboardWidget: wtf.NewKeyboardWidget(app, pages, settings.common),
 		TextWidget:     wtf.NewTextWidget(app, settings.common, true),
 
 		Idx: 0,
@@ -48,7 +32,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	widget.initializeKeyboardControls()
 	widget.View.SetInputCapture(widget.InputCapture)
 
-	widget.HelpfulWidget.SetView(widget.View)
+	widget.KeyboardWidget.SetView(widget.View)
 
 	return &widget
 }
@@ -81,6 +65,10 @@ func (widget *Widget) Prev() {
 	}
 
 	widget.display()
+}
+
+func (widget *Widget) HelpText() string {
+	return widget.KeyboardWidget.HelpText()
 }
 
 /* -------------------- Unexported Functions -------------------- */

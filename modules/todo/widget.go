@@ -12,32 +12,12 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-const HelpText = `
- Keyboard commands for Todo:
-
-   /: Show/hide this help window
-   j: Select the next item in the list
-   k: Select the previous item in the list
-   n: Create a new list item
-   o: Open the todo file in the operating system
-
-   arrow down: Select the next item in the list
-   arrow up:   Select the previous item in the list
-
-   ctrl-d: Delete the selected item
-
-   esc:    Unselect the todo list
-   return: Edit selected item
-   space:  Check the selected item on or off
-`
-
 const offscreen = -1000
 const modalWidth = 80
 const modalHeight = 7
 
 // A Widget represents a Todo widget
 type Widget struct {
-	wtf.HelpfulWidget
 	wtf.KeyboardWidget
 	wtf.TextWidget
 
@@ -51,8 +31,7 @@ type Widget struct {
 // NewWidget creates a new instance of a widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		HelpfulWidget:  wtf.NewHelpfulWidget(app, pages, HelpText),
-		KeyboardWidget: wtf.NewKeyboardWidget(),
+		KeyboardWidget: wtf.NewKeyboardWidget(app, pages, settings.common),
 		TextWidget:     wtf.NewTextWidget(app, settings.common, true),
 
 		app:      app,
@@ -70,7 +49,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	widget.View.SetRegions(true)
 	widget.View.SetScrollable(true)
 
-	widget.HelpfulWidget.SetView(widget.View)
+	widget.KeyboardWidget.SetView(widget.View)
 
 	return &widget
 }
@@ -84,6 +63,10 @@ func (widget *Widget) Refresh() {
 
 func (widget *Widget) SetList(list checklist.Checklist) {
 	widget.list = list
+}
+
+func (widget *Widget) HelpText() string {
+	return widget.KeyboardWidget.HelpText()
 }
 
 /* -------------------- Unexported Functions -------------------- */

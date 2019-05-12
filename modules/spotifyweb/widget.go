@@ -11,26 +11,6 @@ import (
 	"github.com/zmb3/spotify"
 )
 
-// HelpText contains the help text for the Spotify Web API widget.
-const HelpText = `
-Keyboard commands for Spotify Web:
-
-	Before any of these commands are used, you should authenticate using the
-	URL provided by the widget.
-
-	The widget should automatically open a browser window for you, otherwise
-	you should check out the logs for the URL.
-
-	/: Show/hide this help window
-	h: Switch to previous song in Spotify queue
-	l: Switch to next song in Spotify queue
-	s: Toggle shuffle
-
-	[space]: Pause/play current song
-
-	esc: Unselect the Spotify Web module
-`
-
 // Info is the struct that contains all the information the Spotify player displays to the user
 type Info struct {
 	Artists     string
@@ -42,7 +22,6 @@ type Info struct {
 
 // Widget is the struct used by all WTF widgets to transfer to the main widget controller
 type Widget struct {
-	wtf.HelpfulWidget
 	wtf.KeyboardWidget
 	wtf.TextWidget
 
@@ -92,8 +71,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	var playerState *spotify.PlayerState
 
 	widget := Widget{
-		HelpfulWidget:  wtf.NewHelpfulWidget(app, pages, HelpText),
-		KeyboardWidget: wtf.NewKeyboardWidget(),
+		KeyboardWidget: wtf.NewKeyboardWidget(app, pages, settings.common),
 		TextWidget:     wtf.NewTextWidget(app, settings.common, true),
 
 		Info: Info{},
@@ -145,7 +123,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	widget.View.SetWrap(true)
 	widget.View.SetWordWrap(true)
 
-	widget.HelpfulWidget.SetView(widget.View)
+	widget.KeyboardWidget.SetView(widget.View)
 
 	return &widget
 }
@@ -184,6 +162,10 @@ func (w *Widget) Refresh() {
 	} else {
 		w.Redraw(w.CommonSettings.Title, w.createOutput(), false)
 	}
+}
+
+func (widget *Widget) HelpText() string {
+	return widget.KeyboardWidget.HelpText()
 }
 
 func (w *Widget) createOutput() string {

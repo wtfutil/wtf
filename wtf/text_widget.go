@@ -119,6 +119,10 @@ func (widget *TextWidget) Redraw(title, text string, wrap bool) {
 	})
 }
 
+func (widget *TextWidget) HelpText() string {
+	return fmt.Sprintf("\n  There is no help available for widget %s", widget.CommonSettings.Module.Type)
+}
+
 /* -------------------- Unexported Functions -------------------- */
 
 func (widget *TextWidget) addView() *tview.TextView {

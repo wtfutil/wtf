@@ -8,16 +8,8 @@ import (
 	"github.com/wtfutil/wtf/wtf"
 )
 
-const HelpText = `
-	To control Spotify use:
-		[Spacebar] for Play & Pause
-		[h] for Previous Song
-		[l] for Next Song
-`
-
 // A Widget represents a Spotify widget
 type Widget struct {
-	wtf.HelpfulWidget
 	wtf.KeyboardWidget
 	wtf.TextWidget
 
@@ -30,8 +22,7 @@ type Widget struct {
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	spotifyClient := spotigopher.NewClient()
 	widget := Widget{
-		HelpfulWidget:  wtf.NewHelpfulWidget(app, pages, HelpText),
-		KeyboardWidget: wtf.NewKeyboardWidget(),
+		KeyboardWidget: wtf.NewKeyboardWidget(app, pages, settings.common),
 		TextWidget:     wtf.NewTextWidget(app, settings.common, true),
 
 		Info:          spotigopher.Info{},
@@ -48,7 +39,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	widget.View.SetWrap(true)
 	widget.View.SetWordWrap(true)
 
-	widget.HelpfulWidget.SetView(widget.View)
+	widget.KeyboardWidget.SetView(widget.View)
 
 	return &widget
 }
@@ -61,6 +52,10 @@ func (w *Widget) refreshSpotifyInfos() error {
 
 func (w *Widget) Refresh() {
 	w.render()
+}
+
+func (widget *Widget) HelpText() string {
+	return widget.KeyboardWidget.HelpText()
 }
 
 func (w *Widget) render() {

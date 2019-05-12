@@ -114,13 +114,12 @@ func main() {
 
 	flags := flags.NewFlags()
 	flags.Parse()
-	flags.Display(version)
+	config := cfg.LoadConfigFile(flags.ConfigFilePath())
+	flags.Display(version, config)
 
 	cfg.MigrateOldConfig()
 	cfg.CreateConfigDir()
 	cfg.CreateConfigFile()
-
-	config := cfg.LoadConfigFile(flags.ConfigFilePath())
 
 	if flags.Profile {
 		defer profile.Start(profile.MemProfile).Stop()

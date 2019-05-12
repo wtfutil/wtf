@@ -6,6 +6,7 @@ import (
 	"path/filepath"
 
 	goFlags "github.com/jessevdk/go-flags"
+	"github.com/olebedev/config"
 	"github.com/wtfutil/wtf/help"
 	"github.com/wtfutil/wtf/utils"
 )
@@ -28,9 +29,9 @@ func (flags *Flags) ConfigFilePath() string {
 	return flags.Config
 }
 
-func (flags *Flags) Display(version string) {
+func (flags *Flags) Display(version string, config *config.Config) {
 	if flags.HasModule() {
-		help.Display(flags.Module)
+		help.Display(flags.Module, config)
 		os.Exit(0)
 	}
 
