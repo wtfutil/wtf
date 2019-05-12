@@ -6,7 +6,8 @@ import (
 
 func (widget *Widget) display(clocks []Clock, dateFormat string, timeFormat string) {
 	if len(clocks) == 0 {
-		widget.View.SetText(fmt.Sprintf("\n%s", " no timezone data available"))
+		title := fmt.Sprintf("\n%s", " no timezone data available")
+		widget.Redraw(widget.CommonSettings.Title, title, true)
 		return
 	}
 

@@ -38,7 +38,6 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 
 	widget.View.SetWrap(true)
 	widget.View.SetWordWrap(true)
-	widget.View.SetTitle(fmt.Sprint("[green]Spotify[white]"))
 
 	widget.KeyboardWidget.SetView(widget.View)
 

@@ -68,7 +68,7 @@ func (widget *Widget) display() {
 
 	if len(tweets) == 0 {
 		str := fmt.Sprintf("\n\n\n%s", wtf.CenterText("[lightblue]No Tweets[white]", 50))
-		widget.View.SetText(str)
+		widget.Redraw(title, str, true)
 		return
 	}
 
