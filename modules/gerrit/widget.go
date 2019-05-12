@@ -11,26 +11,7 @@ import (
 	"github.com/wtfutil/wtf/wtf"
 )
 
-const HelpText = `
-  Keyboard commands for Gerrit:
-
-    /: Show/hide this help window
-    h: Show the previous project
-    l: Show the next project
-    j: Select the next review in the list
-    k: Select the previous review in the list
-    r: Refresh the data
-
-    arrow left:  Show the previous project
-    arrow right: Show the next project
-    arrow down:  Select the next review in the list
-	arrow up:    Select the previous review in the list
-
-	return: Open the selected review in a browser
-`
-
 type Widget struct {
-	wtf.HelpfulWidget
 	wtf.KeyboardWidget
 	wtf.TextWidget
 
@@ -49,8 +30,7 @@ var (
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		HelpfulWidget:  wtf.NewHelpfulWidget(app, pages, HelpText),
-		KeyboardWidget: wtf.NewKeyboardWidget(),
+		KeyboardWidget: wtf.NewKeyboardWidget(app, pages, settings.common),
 		TextWidget:     wtf.NewTextWidget(app, settings.common, true),
 
 		Idx: 0,
@@ -61,7 +41,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	widget.initializeKeyboardControls()
 	widget.View.SetInputCapture(widget.InputCapture)
 
-	widget.HelpfulWidget.SetView(widget.View)
+	widget.KeyboardWidget.SetView(widget.View)
 
 	widget.unselect()
 
@@ -108,6 +88,10 @@ func (widget *Widget) Refresh() {
 	}
 
 	widget.display()
+}
+
+func (widget *Widget) HelpText() string {
+	return widget.KeyboardWidget.HelpText()
 }
 
 /* -------------------- Unexported Functions -------------------- */

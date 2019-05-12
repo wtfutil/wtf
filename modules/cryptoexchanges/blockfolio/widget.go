@@ -36,15 +36,13 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 func (widget *Widget) Refresh() {
 	positions, err := Fetch(widget.device_token)
 	if err != nil {
+		widget.Redraw(widget.CommonSettings.Title, err.Error(), true)
 		return
 	}
 
 	content := widget.contentFrom(positions)
 
-	widget.app.QueueUpdateDraw(func() {
-		widget.View.SetTitle(widget.CommonSettings.Title)
-		widget.View.SetText(content)
-	})
+	widget.Redraw(widget.CommonSettings.Title, content, false)
 }
 
 /* -------------------- Unexported Functions -------------------- */

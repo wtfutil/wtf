@@ -54,9 +54,7 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 func (widget *Widget) Refresh() {
 	widget.ipinfo()
 
-	widget.app.QueueUpdateDraw(func() {
-		widget.View.SetText(widget.result)
-	})
+	widget.Redraw(widget.CommonSettings.Title, widget.result, false)
 }
 
 //this method reads the config and calls ipinfo for ip information

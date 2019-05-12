@@ -48,9 +48,7 @@ func (widget *Widget) Refresh() {
 	widget.toplistWidget.Refresh(&wg)
 	wg.Wait()
 
-	widget.app.QueueUpdateDraw(func() {
-		widget.display()
-	})
+	widget.display()
 }
 
 /* -------------------- Unexported Functions -------------------- */
@@ -60,5 +58,5 @@ func (widget *Widget) display() {
 	str += widget.priceWidget.Result
 	str += widget.toplistWidget.Result
 
-	widget.View.SetText(fmt.Sprintf("\n%s", str))
+	widget.Redraw(widget.CommonSettings.Title, fmt.Sprintf("\n%s", str), false)
 }

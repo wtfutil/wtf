@@ -9,23 +9,7 @@ import (
 	"github.com/wtfutil/wtf/wtf"
 )
 
-const HelpText = `
- Keyboard commands for Hacker News:
-
-   /: Show/hide this help window
-   j: Select the next story in the list
-   k: Select the previous story in the list
-   r: Refresh the data
-
-   arrow down: Select the next story in the list
-   arrow up:   Select the previous story in the list
-
-   return: Open the selected story in a browser
-   c: Open the comments of the article
-`
-
 type Widget struct {
-	wtf.HelpfulWidget
 	wtf.KeyboardWidget
 	wtf.ScrollableWidget
 
@@ -35,8 +19,7 @@ type Widget struct {
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		HelpfulWidget:    wtf.NewHelpfulWidget(app, pages, HelpText),
-		KeyboardWidget:   wtf.NewKeyboardWidget(),
+		KeyboardWidget:   wtf.NewKeyboardWidget(app, pages, settings.common),
 		ScrollableWidget: wtf.NewScrollableWidget(app, settings.common, true),
 
 		settings: settings,
@@ -46,7 +29,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	widget.initializeKeyboardControls()
 	widget.View.SetInputCapture(widget.InputCapture)
 
-	widget.HelpfulWidget.SetView(widget.View)
+	widget.KeyboardWidget.SetView(widget.View)
 
 	return &widget
 }

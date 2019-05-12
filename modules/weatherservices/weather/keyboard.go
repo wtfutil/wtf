@@ -3,10 +3,10 @@ package weather
 import "github.com/gdamore/tcell"
 
 func (widget *Widget) initializeKeyboardControls() {
-	widget.SetKeyboardChar("/", widget.ShowHelp)
-	widget.SetKeyboardChar("h", widget.Prev)
-	widget.SetKeyboardChar("l", widget.Next)
+	widget.SetKeyboardChar("/", widget.ShowHelp, "Show/hide this help prompt")
+	widget.SetKeyboardChar("h", widget.Prev, "Select previous item")
+	widget.SetKeyboardChar("l", widget.Next, "Select next item")
 
-	widget.SetKeyboardKey(tcell.KeyLeft, widget.Prev)
-	widget.SetKeyboardKey(tcell.KeyRight, widget.Next)
+	widget.SetKeyboardKey(tcell.KeyLeft, widget.Prev, "Select previous item")
+	widget.SetKeyboardKey(tcell.KeyRight, widget.Next, "Select next item")
 }

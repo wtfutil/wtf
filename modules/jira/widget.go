@@ -7,21 +7,7 @@ import (
 	"github.com/wtfutil/wtf/wtf"
 )
 
-const HelpText = `
- Keyboard commands for Jira:
-
-   /: Show/hide this help window
-   j: Select the next item in the list
-   k: Select the previous item in the list
-
-   arrow down: Select the next item in the list
-   arrow up:   Select the previous item in the list
-
-   return: Open the selected issue in a browser
-`
-
 type Widget struct {
-	wtf.HelpfulWidget
 	wtf.KeyboardWidget
 	wtf.ScrollableWidget
 
@@ -31,8 +17,7 @@ type Widget struct {
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		HelpfulWidget:    wtf.NewHelpfulWidget(app, pages, HelpText),
-		KeyboardWidget:   wtf.NewKeyboardWidget(),
+		KeyboardWidget:   wtf.NewKeyboardWidget(app, pages, settings.common),
 		ScrollableWidget: wtf.NewScrollableWidget(app, settings.common, true),
 
 		settings: settings,
@@ -42,7 +27,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	widget.initializeKeyboardControls()
 	widget.View.SetInputCapture(widget.InputCapture)
 
-	widget.HelpfulWidget.SetView(widget.View)
+	widget.KeyboardWidget.SetView(widget.View)
 
 	return &widget
 }
