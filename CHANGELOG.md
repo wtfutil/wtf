@@ -9,7 +9,8 @@
 * Zendesk widget now has help text, by [@Seanstoppable](https://github.com/Seanstoppable)
 * Scrollable widget added to provide common keyboard-navigation list functionality, by [@Seanstoppable](https://github.com/Seanstoppable)
 * Logging functionality extracted out from Log module, by [@Seanstoppable](https://github.com/Seanstoppable)
-* Improved sample configs with up-to-date attributes and examples, by [@retgits](https://github.com/Seanstoppableretgits)
+* Improved sample configs with up-to-date attributes and examples, by [@retgits](https://github.com/retgits)
+* PagerDuty config now supports schedule filtering using the `scheduleIDs` config option, by [@senporprogrammer](https://github.com/senporprogrammer)
 
 ## v0.9.2
 
