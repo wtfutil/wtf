@@ -9,6 +9,7 @@
 * Zendesk widget now has help text, by [@Seanstoppable](https://github.com/Seanstoppable)
 * Scrollable widget added to provide common keyboard-navigation list functionality, by [@Seanstoppable](https://github.com/Seanstoppable)
 * Logging functionality extracted out from Log module, by [@Seanstoppable](https://github.com/Seanstoppable)
+* Improved sample configs with up-to-date attributes and examples, by [@retgits](https://github.com/Seanstoppableretgits)
 
 ## v0.9.2
 
