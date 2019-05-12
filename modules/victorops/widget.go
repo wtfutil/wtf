@@ -43,7 +43,6 @@ func (widget *Widget) Refresh() {
 	}
 
 	teams, err := Fetch(widget.settings.apiID, widget.settings.apiKey)
-	widget.View.SetTitle(widget.ContextualTitle(widget.CommonSettings.Title))
 
 	if err != nil {
 		widget.Redraw(widget.CommonSettings.Title, err.Error(), true)
@@ -51,16 +50,6 @@ func (widget *Widget) Refresh() {
 		widget.teams = teams
 		widget.Redraw(widget.CommonSettings.Title, widget.contentFrom(widget.teams), true)
 	}
-}
-
-func (widget *Widget) display() {
-	if widget.teams == nil {
-		return
-	}
-
-	widget.View.SetWrap(false)
-	widget.View.Clear()
-	widget.View.SetText(widget.contentFrom(widget.teams))
 }
 
 func (widget *Widget) contentFrom(teams []OnCallTeam) string {

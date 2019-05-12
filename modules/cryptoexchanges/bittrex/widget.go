@@ -80,9 +80,7 @@ func makeMarketCurrency(name string) *mCurrency {
 func (widget *Widget) Refresh() {
 	widget.updateSummary()
 
-	widget.app.QueueUpdateDraw(func() {
-		widget.display()
-	})
+	widget.display()
 }
 
 /* -------------------- Unexported Functions -------------------- */
@@ -142,9 +140,7 @@ func (widget *Widget) updateSummary() {
 		}
 	}
 
-	widget.app.QueueUpdateDraw(func() {
-		widget.display()
-	})
+	widget.display()
 }
 
 func makeRequest(baseName, marketName string) *http.Request {
