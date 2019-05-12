@@ -13,6 +13,7 @@ func (widget *Widget) initializeKeyboardControls() {
 
 	widget.SetKeyboardKey(tcell.KeyLeft, widget.Prev, "Select previous item")
 	widget.SetKeyboardKey(tcell.KeyRight, widget.Next, "Select next item")
+	widget.SetKeyboardKey(tcell.KeyEnter, widget.openFile, "Open item")
 }
 
 func (widget *Widget) openFile() {

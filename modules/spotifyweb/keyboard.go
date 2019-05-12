@@ -2,14 +2,20 @@ package spotifyweb
 
 import (
 	"time"
+
+	"github.com/gdamore/tcell"
 )
 
 func (widget *Widget) initializeKeyboardControls() {
 	widget.SetKeyboardChar("/", widget.ShowHelp, "Show/hide this help prompt")
+	widget.SetKeyboardChar("/", widget.Refresh, "Refresh widget")
 	widget.SetKeyboardChar("h", widget.selectPrevious, "Select previous item")
 	widget.SetKeyboardChar("l", widget.selectNext, "Select next item")
 	widget.SetKeyboardChar(" ", widget.playPause, "Play/pause")
 	widget.SetKeyboardChar("s", widget.toggleShuffle, "Toggle shuffle")
+
+	widget.SetKeyboardKey(tcell.KeyDown, widget.selectNext, "Select next item")
+	widget.SetKeyboardKey(tcell.KeyUp, widget.selectPrevious, "Select previous item")
 }
 
 func (widget *Widget) selectPrevious() {
