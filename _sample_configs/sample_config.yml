@@ -1,0 +1,180 @@
+wtf:
+  colors:
+    background: black
+    border:
+      focusable: darkslateblue
+      focused: orange
+      normal: gray
+    checked: yellow
+    highlight: 
+      fore: black
+      back: gray
+    rows:
+      even: yellow
+      odd: white
+  grid:
+    # How _wide_ the columns are, in terminal characters. In this case we have
+    # four columns, each of which are 35 characters wide.
+    columns: [35, 35, 35, 35]
+    # How _high_ the rows are, in terminal lines. In this case we have four rows
+    # that support ten line of text and one of four.
+    rows: [10, 10, 10, 10, 4]
+  refreshInterval: 1
+  openFileUtil: "open"
+  mods:
+    # You can have multiple widgets of the same type.
+    # The "key" is the name of the widget and the type is the actual
+    # widget you want to implement.
+    europe_time:
+      title: "Europe"
+      type: clocks
+      colors:
+        rows:
+          even: "lightblue"
+          odd: "white"
+      enabled: true
+      locations:
+        GMT: "Etc/GMT"
+        Amsterdam: "Europe/Amsterdam"
+        Berlin: "Europe/Berlin"
+        Barcelona: "Europe/Madrid"
+        Copenhagen: "Europe/Copenhagen"
+        London: "Europe/London"
+        Rome: "Europe/Rome"
+        Stockholm: "Europe/Stockholm"
+      position:
+        top: 0
+        left: 0
+        height: 1
+        width: 1
+      refreshInterval: 15
+      sort: "alphabetical"
+    americas_time:
+      title: "Americas"
+      type: clocks
+      colors:
+        rows:
+          even: "lightblue"
+          odd: "white"
+      enabled: true
+      locations:
+        UTC: "Etc/UTC"
+        Vancouver: "America/Vancouver"
+        New_York: "America/New_York"
+        Sao_Paolo: "America/Sao_Paulo"
+        Denver: "America/Denver"
+        Iqaluit: "America/Iqaluit"
+        Bahamas: "America/Nassau"
+        Chicago: "America/Chicago"
+      position:
+        top: 0
+        left: 1
+        height: 1
+        width: 1
+      refreshInterval: 15
+      sort: "alphabetical"
+    battery:
+      type: power
+      title: "⚡️"
+      enabled: true
+      position:
+        top: 1
+        left: 3
+        height: 1
+        width: 1
+      refreshInterval: 15
+    todolist:
+      type: todo
+      checkedIcon: "X"
+      colors:
+        checked: gray
+        highlight:
+          fore: "black"
+          back: "orange"
+      enabled: true
+      filename: "todo.yml"
+      position:
+        top: 1
+        left: 0
+        height: 2
+        width: 1
+    refreshInterval: 3600
+    ip:
+      type: ipinfo
+      title: "My IP"
+      colors:
+        name: "lightblue"
+        value: "white"
+      enabled: true
+      position:
+        top: 0
+        left: 2
+        height: 1
+        width: 2
+      refreshInterval: 150
+    security_info:
+      type: security
+      title: "Staying safe"
+      enabled: true
+      position:
+        top: 1
+        left: 2
+        height: 1
+        width: 1
+      refreshInterval: 3600
+    readme:
+      type: textfile
+      enabled: true
+      filePaths:
+        - "~/.config/wtf/config.yml"
+      format: true
+      formatStyle: "monokai"
+      position:
+        top: 1
+        left: 1
+        height: 1
+        width: 1
+      refreshInterval: 15
+    news:
+      type: hackernews
+      title: "HackerNews"
+      enabled: true
+      numberOfStories: 10
+      position:
+        top: 2
+        left: 1
+        height: 1
+        width: 3
+      storyType: top
+      refreshInterval: 900
+    resources:
+      type: resourceusage
+      enabled: true
+      position:
+        top: 3
+        left: 0
+        height: 2
+        width: 1
+      refreshInterval: 1
+    uptime:
+      type: cmdrunner
+      args: [""]
+      cmd: "uptime"
+      enabled: true
+      position:
+        top: 4
+        left: 1
+        height: 1
+        width: 3
+      refreshInterval: 30
+    disks:
+      type: cmdrunner
+      cmd: "df"
+      args: ["-h"]
+      enabled: true
+      position:
+        top: 3
+        left: 1
+        height: 1
+        width: 3
+      refreshInterval: 3600
