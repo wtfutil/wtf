@@ -14,6 +14,7 @@ type Settings struct {
 
 	apiKey           string
 	escalationFilter []interface{}
+	scheduleIDs      []interface{}
 	showIncidents    bool
 	showSchedules    bool
 }
@@ -25,6 +26,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 
 		apiKey:           ymlConfig.UString("apiKey", os.Getenv("WTF_PAGERDUTY_API_KEY")),
 		escalationFilter: ymlConfig.UList("escalationFilter"),
+		scheduleIDs:      ymlConfig.UList("scheduleIDs", []interface{}{}),
 		showIncidents:    ymlConfig.UBool("showIncidents", true),
 		showSchedules:    ymlConfig.UBool("showSchedules", true),
 	}

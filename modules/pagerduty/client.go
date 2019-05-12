@@ -7,14 +7,17 @@ import (
 )
 
 // GetOnCalls returns a list of people currently on call
-func GetOnCalls(apiKey string) ([]pagerduty.OnCall, error) {
+func GetOnCalls(apiKey string, scheduleIDs []string) ([]pagerduty.OnCall, error) {
 	client := pagerduty.NewClient(apiKey)
 
 	var results []pagerduty.OnCall
-
 	var queryOpts pagerduty.ListOnCallOptions
-	queryOpts.Since = time.Now().Format("2006-01-02T15:04:05Z07:00")
-	queryOpts.Until = time.Now().Format("2006-01-02T15:04:05Z07:00")
+
+	queryOpts.ScheduleIDs = scheduleIDs
+
+	timeFmt := "2006-01-02T15:04:05Z07:00"
+	queryOpts.Since = time.Now().Format(timeFmt)
+	queryOpts.Until = time.Now().Format(timeFmt)
 
 	oncalls, err := client.ListOnCalls(queryOpts)
 	if err != nil {

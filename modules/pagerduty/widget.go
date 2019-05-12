@@ -34,12 +34,13 @@ func (widget *Widget) Refresh() {
 	var err1 error
 	var err2 error
 
-	if widget.settings.showSchedules {
-		onCalls, err1 = GetOnCalls(widget.settings.apiKey)
-	}
-
 	if widget.settings.showIncidents {
 		incidents, err2 = GetIncidents(widget.settings.apiKey)
+	}
+
+	if widget.settings.showSchedules {
+		scheduleIDs := wtf.ToStrs(widget.settings.scheduleIDs)
+		onCalls, err1 = GetOnCalls(widget.settings.apiKey, scheduleIDs)
 	}
 
 	var content string
@@ -98,14 +99,14 @@ func (widget *Widget) contentFrom(onCalls []pagerduty.OnCall, incidents []pagerd
 	sort.Strings(keys)
 
 	if len(keys) > 0 {
-		str = str + "[yellow]Schedules[white]\n"
+		str = str + "\n[red] Schedules[white]\n"
 		// Print out policies, and escalation order of users
 		for _, key := range keys {
-			str = str + fmt.Sprintf("[red]%s\n", key)
+			str = str + fmt.Sprintf("\n [green::b]%s\n", key)
 			values := tree[key]
 			sort.Sort(ByEscalationLevel(values))
 			for _, item := range values {
-				str = str + fmt.Sprintf("[white]%d - %s\n", item.EscalationLevel, item.User.Summary)
+				str = str + fmt.Sprintf(" [white]%d - %s\n", item.EscalationLevel, item.User.Summary)
 			}
 		}
 	}
