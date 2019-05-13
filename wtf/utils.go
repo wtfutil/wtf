@@ -149,7 +149,7 @@ func ToStrs(slice []interface{}) []string {
 	results := []string{}
 
 	for _, val := range slice {
-		results = append(results, val.(string))
+		results = append(results, fmt.Sprintf("%v", val))
 	}
 
 	return results
