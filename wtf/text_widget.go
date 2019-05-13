@@ -8,6 +8,7 @@ import (
 )
 
 type TextWidget struct {
+	*KeyboardWidget
 	enabled         bool
 	focusable       bool
 	focusChar       string
@@ -19,10 +20,12 @@ type TextWidget struct {
 
 	CommonSettings *cfg.Common
 	Position
+	RefreshFunction func()
 }
 
-func NewTextWidget(app *tview.Application, commonSettings *cfg.Common, focusable bool) TextWidget {
+func NewTextWidget(app *tview.Application, pages *tview.Pages, commonSettings *cfg.Common, focusable bool) TextWidget {
 	widget := TextWidget{
+		KeyboardWidget: NewKeyboardWidget(app, pages, commonSettings),
 		CommonSettings: commonSettings,
 
 		app:             app,
@@ -40,12 +43,20 @@ func NewTextWidget(app *tview.Application, commonSettings *cfg.Common, focusable
 		commonSettings.Position.Height,
 	)
 
+	widget.SetKeyboardChar("/", widget.ShowHelp, "Show/hide this help prompt")
+	widget.SetKeyboardChar("r", widget.RefreshFunction, "Refresh widget")
 	widget.View = widget.addView()
+
+	widget.KeyboardWidget.SetView(widget.View)
 
 	return widget
 }
 
 /* -------------------- Exported Functions -------------------- */
+
+func (widget *TextWidget) SetRefreshFunction(displayFunc func()) {
+	widget.RefreshFunction = displayFunc
+}
 
 func (widget *TextWidget) BorderColor() string {
 	if widget.Focusable() {

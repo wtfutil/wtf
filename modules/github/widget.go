@@ -6,7 +6,6 @@ import (
 )
 
 type Widget struct {
-	wtf.KeyboardWidget
 	wtf.TextWidget
 
 	GithubRepos []*GithubRepo
@@ -18,8 +17,7 @@ type Widget struct {
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		KeyboardWidget: wtf.NewKeyboardWidget(app, pages, settings.common),
-		TextWidget:     wtf.NewTextWidget(app, settings.common, true),
+		TextWidget: wtf.NewTextWidget(app, pages, settings.common, true),
 
 		Idx: 0,
 
@@ -32,7 +30,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	widget.initializeKeyboardControls()
 	widget.View.SetInputCapture(widget.InputCapture)
 
-	widget.KeyboardWidget.SetView(widget.View)
+	widget.SetRefreshFunction(widget.Refresh)
 
 	return &widget
 }

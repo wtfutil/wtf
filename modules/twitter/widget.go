@@ -11,7 +11,6 @@ import (
 )
 
 type Widget struct {
-	wtf.KeyboardWidget
 	wtf.MultiSourceWidget
 	wtf.TextWidget
 
@@ -23,14 +22,14 @@ type Widget struct {
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		KeyboardWidget:    wtf.NewKeyboardWidget(app, pages, settings.common),
 		MultiSourceWidget: wtf.NewMultiSourceWidget(settings.common, "screenName", "screenNames"),
-		TextWidget:        wtf.NewTextWidget(app, settings.common, true),
+		TextWidget:        wtf.NewTextWidget(app, pages, settings.common, true),
 
 		idx:      0,
 		settings: settings,
 	}
 
+	widget.SetRefreshFunction(widget.Refresh)
 	widget.initializeKeyboardControls()
 	widget.View.SetInputCapture(widget.InputCapture)
 
@@ -41,8 +40,6 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	widget.View.SetBorderPadding(1, 1, 1, 1)
 	widget.View.SetWrap(true)
 	widget.View.SetWordWrap(true)
-
-	widget.KeyboardWidget.SetView(widget.View)
 
 	return &widget
 }

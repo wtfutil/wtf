@@ -21,15 +21,17 @@ type Widget struct {
 }
 
 // NewWidget Make new instance of widget
-func NewWidget(app *tview.Application, settings *Settings) *Widget {
+func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(app, settings.common, false),
+		TextWidget: wtf.NewTextWidget(app, pages, settings.common, false),
 
 		app:           app,
 		priceWidget:   price.NewWidget(settings.priceSettings),
 		toplistWidget: toplist.NewWidget(settings.toplistSettings),
 		settings:      settings,
 	}
+
+	widget.SetRefreshFunction(widget.Refresh)
 
 	widget.priceWidget.RefreshInterval = widget.RefreshInterval()
 	widget.toplistWidget.RefreshInterval = widget.RefreshInterval()

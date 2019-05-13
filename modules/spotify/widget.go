@@ -10,7 +10,6 @@ import (
 
 // A Widget represents a Spotify widget
 type Widget struct {
-	wtf.KeyboardWidget
 	wtf.TextWidget
 
 	settings *Settings
@@ -22,8 +21,7 @@ type Widget struct {
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	spotifyClient := spotigopher.NewClient()
 	widget := Widget{
-		KeyboardWidget: wtf.NewKeyboardWidget(app, pages, settings.common),
-		TextWidget:     wtf.NewTextWidget(app, settings.common, true),
+		TextWidget: wtf.NewTextWidget(app, pages, settings.common, true),
 
 		Info:          spotigopher.Info{},
 		SpotifyClient: spotifyClient,
@@ -33,13 +31,12 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 
 	widget.settings.common.RefreshInterval = 5
 
+	widget.SetRefreshFunction(widget.Refresh)
 	widget.initializeKeyboardControls()
 	widget.View.SetInputCapture(widget.InputCapture)
 
 	widget.View.SetWrap(true)
 	widget.View.SetWordWrap(true)
-
-	widget.KeyboardWidget.SetView(widget.View)
 
 	return &widget
 }

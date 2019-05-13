@@ -12,7 +12,6 @@ import (
 )
 
 type Widget struct {
-	wtf.KeyboardWidget
 	wtf.TextWidget
 
 	gerrit *glb.Client
@@ -30,8 +29,7 @@ var (
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		KeyboardWidget: wtf.NewKeyboardWidget(app, pages, settings.common),
-		TextWidget:     wtf.NewTextWidget(app, settings.common, true),
+		TextWidget: wtf.NewTextWidget(app, pages, settings.common, true),
 
 		Idx: 0,
 
@@ -39,9 +37,8 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	}
 
 	widget.initializeKeyboardControls()
+	widget.SetRefreshFunction(widget.Refresh)
 	widget.View.SetInputCapture(widget.InputCapture)
-
-	widget.KeyboardWidget.SetView(widget.View)
 
 	widget.unselect()
 

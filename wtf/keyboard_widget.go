@@ -28,8 +28,8 @@ type KeyboardWidget struct {
 }
 
 // NewKeyboardWidget creates and returns a new instance of KeyboardWidget
-func NewKeyboardWidget(app *tview.Application, pages *tview.Pages, settings *cfg.Common) KeyboardWidget {
-	return KeyboardWidget{
+func NewKeyboardWidget(app *tview.Application, pages *tview.Pages, settings *cfg.Common) *KeyboardWidget {
+	return &KeyboardWidget{
 		app:      app,
 		pages:    pages,
 		settings: settings,

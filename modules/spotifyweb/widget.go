@@ -22,7 +22,6 @@ type Info struct {
 
 // Widget is the struct used by all WTF widgets to transfer to the main widget controller
 type Widget struct {
-	wtf.KeyboardWidget
 	wtf.TextWidget
 
 	Info
@@ -71,8 +70,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	var playerState *spotify.PlayerState
 
 	widget := Widget{
-		KeyboardWidget: wtf.NewKeyboardWidget(app, pages, settings.common),
-		TextWidget:     wtf.NewTextWidget(app, settings.common, true),
+		TextWidget: wtf.NewTextWidget(app, pages, settings.common, true),
 
 		Info: Info{},
 
@@ -117,13 +115,12 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 
 	widget.settings.common.RefreshInterval = 5
 
+	widget.SetRefreshFunction(widget.Refresh)
 	widget.initializeKeyboardControls()
 	widget.View.SetInputCapture(widget.InputCapture)
 
 	widget.View.SetWrap(true)
 	widget.View.SetWordWrap(true)
-
-	widget.KeyboardWidget.SetView(widget.View)
 
 	return &widget
 }

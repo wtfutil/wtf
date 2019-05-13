@@ -7,7 +7,6 @@ import (
 )
 
 type Widget struct {
-	wtf.KeyboardWidget
 	wtf.TextWidget
 
 	GitlabProjects []*GitlabProject
@@ -26,8 +25,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	}
 
 	widget := Widget{
-		KeyboardWidget: wtf.NewKeyboardWidget(app, pages, settings.common),
-		TextWidget:     wtf.NewTextWidget(app, settings.common, true),
+		TextWidget: wtf.NewTextWidget(app, pages, settings.common, true),
 
 		Idx: 0,
 
@@ -37,10 +35,10 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 
 	widget.GitlabProjects = widget.buildProjectCollection(settings.projects)
 
+	widget.SetRefreshFunction(widget.Refresh)
+
 	widget.initializeKeyboardControls()
 	widget.View.SetInputCapture(widget.InputCapture)
-
-	widget.KeyboardWidget.SetView(widget.View)
 
 	return &widget
 }

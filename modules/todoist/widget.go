@@ -9,7 +9,6 @@ import (
 
 // A Widget represents a Todoist widget
 type Widget struct {
-	wtf.KeyboardWidget
 	wtf.TextWidget
 
 	idx      int
@@ -20,8 +19,7 @@ type Widget struct {
 // NewWidget creates a new instance of a widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		KeyboardWidget: wtf.NewKeyboardWidget(app, pages, settings.common),
-		TextWidget:     wtf.NewTextWidget(app, settings.common, true),
+		TextWidget: wtf.NewTextWidget(app, pages, settings.common, true),
 
 		settings: settings,
 	}
@@ -29,10 +27,9 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	widget.loadAPICredentials()
 	widget.loadProjects()
 
+	widget.SetRefreshFunction(widget.Refresh)
 	widget.initializeKeyboardControls()
 	widget.View.SetInputCapture(widget.InputCapture)
-
-	widget.KeyboardWidget.SetView(widget.View)
 
 	return &widget
 }

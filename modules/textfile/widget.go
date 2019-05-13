@@ -19,7 +19,6 @@ import (
 )
 
 type Widget struct {
-	wtf.KeyboardWidget
 	wtf.MultiSourceWidget
 	wtf.TextWidget
 
@@ -30,9 +29,8 @@ type Widget struct {
 // NewWidget creates a new instance of a widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		KeyboardWidget:    wtf.NewKeyboardWidget(app, pages, settings.common),
 		MultiSourceWidget: wtf.NewMultiSourceWidget(settings.common, "filePath", "filePaths"),
-		TextWidget:        wtf.NewTextWidget(app, settings.common, true),
+		TextWidget:        wtf.NewTextWidget(app, pages, settings.common, true),
 
 		app:      app,
 		settings: settings,
@@ -44,11 +42,10 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	widget.initializeKeyboardControls()
 	widget.View.SetInputCapture(widget.InputCapture)
 
+	widget.SetRefreshFunction(widget.Refresh)
 	widget.SetDisplayFunction(widget.display)
 	widget.View.SetWordWrap(true)
 	widget.View.SetWrap(true)
-
-	widget.KeyboardWidget.SetView(widget.View)
 
 	go widget.watchForFileChanges()
 

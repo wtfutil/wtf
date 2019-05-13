@@ -18,15 +18,17 @@ type Widget struct {
 	systemInfo *SystemInfo
 }
 
-func NewWidget(app *tview.Application, date, version string, settings *Settings) *Widget {
+func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings, date, version string) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(app, settings.common, false),
+		TextWidget: wtf.NewTextWidget(app, pages, settings.common, false),
 
 		Date: date,
 
 		settings: settings,
 		Version:  version,
 	}
+
+	widget.SetRefreshFunction(widget.Refresh)
 
 	widget.systemInfo = NewSystemInfo()
 

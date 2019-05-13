@@ -12,7 +12,6 @@ const modalHeight = 7
 
 // A Widget represents a Mercurial widget
 type Widget struct {
-	wtf.KeyboardWidget
 	wtf.MultiSourceWidget
 	wtf.TextWidget
 
@@ -25,21 +24,19 @@ type Widget struct {
 // NewWidget creates a new instance of a widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		KeyboardWidget:    wtf.NewKeyboardWidget(app, pages, settings.common),
 		MultiSourceWidget: wtf.NewMultiSourceWidget(settings.common, "repository", "repositories"),
-		TextWidget:        wtf.NewTextWidget(app, settings.common, true),
+		TextWidget:        wtf.NewTextWidget(app, pages, settings.common, true),
 
 		app:      app,
 		pages:    pages,
 		settings: settings,
 	}
 
+	widget.SetRefreshFunction(widget.Refresh)
 	widget.SetDisplayFunction(widget.display)
 
 	widget.initializeKeyboardControls()
 	widget.View.SetInputCapture(widget.InputCapture)
-
-	widget.KeyboardWidget.SetView(widget.View)
 
 	return &widget
 }

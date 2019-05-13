@@ -16,7 +16,6 @@ const modalWidth = 80
 const modalHeight = 7
 
 type Widget struct {
-	wtf.KeyboardWidget
 	wtf.MultiSourceWidget
 	wtf.TextWidget
 
@@ -29,21 +28,19 @@ type Widget struct {
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		KeyboardWidget:    wtf.NewKeyboardWidget(app, pages, settings.common),
 		MultiSourceWidget: wtf.NewMultiSourceWidget(settings.common, "repository", "repositories"),
-		TextWidget:        wtf.NewTextWidget(app, settings.common, true),
+		TextWidget:        wtf.NewTextWidget(app, pages, settings.common, true),
 
 		app:      app,
 		pages:    pages,
 		settings: settings,
 	}
 
+	widget.SetRefreshFunction(widget.Refresh)
 	widget.initializeKeyboardControls()
 	widget.View.SetInputCapture(widget.InputCapture)
 
 	widget.SetDisplayFunction(widget.display)
-
-	widget.KeyboardWidget.SetView(widget.View)
 
 	return &widget
 }

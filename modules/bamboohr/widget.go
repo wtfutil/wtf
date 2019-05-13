@@ -16,13 +16,15 @@ type Widget struct {
 	settings *Settings
 }
 
-func NewWidget(app *tview.Application, settings *Settings) *Widget {
+func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(app, settings.common, false),
+		TextWidget: wtf.NewTextWidget(app, pages, settings.common, false),
 
 		app:      app,
 		settings: settings,
 	}
+
+	widget.SetRefreshFunction(widget.Refresh)
 
 	return &widget
 }

@@ -9,8 +9,7 @@ import (
 
 // A Widget represents a Gitter widget
 type Widget struct {
-	wtf.KeyboardWidget
-	wtf.ScrollableWidget
+	*wtf.ScrollableWidget
 
 	messages []Message
 	settings *Settings
@@ -19,14 +18,13 @@ type Widget struct {
 // NewWidget creates a new instance of a widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		KeyboardWidget:   wtf.NewKeyboardWidget(app, pages, settings.common),
-		ScrollableWidget: wtf.NewScrollableWidget(app, settings.common, true),
+		ScrollableWidget: wtf.NewScrollableWidget(app, pages, settings.common, true),
 
 		settings: settings,
 	}
 
-	widget.SetRenderFunction(widget.Refresh)
-	widget.initializeKeyboardControls()
+	widget.SetRefreshFunction(widget.Refresh)
+	widget.SetRenderFunction(widget.Render)
 	widget.View.SetInputCapture(widget.InputCapture)
 
 	widget.KeyboardWidget.SetView(widget.View)
@@ -61,16 +59,14 @@ func (widget *Widget) Refresh() {
 	widget.messages = messages
 	widget.SetItemCount(len(messages))
 
-	widget.display()
+	widget.Render()
 }
 
 func (widget *Widget) HelpText() string {
 	return widget.KeyboardWidget.HelpText()
 }
 
-/* -------------------- Unexported Functions -------------------- */
-
-func (widget *Widget) display() {
+func (widget *Widget) Render() {
 	if widget.messages == nil {
 		return
 	}
@@ -99,6 +95,8 @@ func (widget *Widget) contentFrom(messages []Message) string {
 
 	return str
 }
+
+/* -------------------- Unexported Functions -------------------- */
 
 func (widget *Widget) openMessage() {
 	sel := widget.GetSelected()

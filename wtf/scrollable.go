@@ -3,6 +3,7 @@ package wtf
 import (
 	"strconv"
 
+	"github.com/gdamore/tcell"
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/cfg"
 )
@@ -15,16 +16,22 @@ type ScrollableWidget struct {
 	RenderFunction func()
 }
 
-func NewScrollableWidget(app *tview.Application, commonSettings *cfg.Common, focusable bool) ScrollableWidget {
+func NewScrollableWidget(app *tview.Application, pages *tview.Pages, commonSettings *cfg.Common, focusable bool) *ScrollableWidget {
 
 	widget := ScrollableWidget{
-		TextWidget: NewTextWidget(app, commonSettings, focusable),
+		TextWidget: NewTextWidget(app, pages, commonSettings, focusable),
 	}
 
 	widget.Unselect()
 	widget.View.SetScrollable(true)
 	widget.View.SetRegions(true)
-	return widget
+	widget.SetKeyboardChar("j", widget.Next, "Select next item")
+	widget.SetKeyboardChar("k", widget.Prev, "Select previous item")
+	widget.SetKeyboardKey(tcell.KeyDown, widget.Next, "Select next item")
+	widget.SetKeyboardKey(tcell.KeyEsc, widget.Unselect, "Clear selection")
+	widget.SetKeyboardKey(tcell.KeyUp, widget.Prev, "Select previous item")
+
+	return &widget
 }
 
 func (widget *ScrollableWidget) SetRenderFunction(displayFunc func()) {

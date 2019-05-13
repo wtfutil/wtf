@@ -10,7 +10,6 @@ import (
 
 func (widget *Widget) initializeKeyboardControls() {
 	widget.SetKeyboardChar(" ", widget.toggleChecked, "Toggle checkmark")
-	widget.SetKeyboardChar("/", widget.ShowHelp, "Show/hide this help prompt")
 	widget.SetKeyboardChar("j", widget.displayNext, "Select next item")
 	widget.SetKeyboardChar("k", widget.displayPrev, "Select previous item")
 	widget.SetKeyboardChar("n", widget.newItem, "Create new item")

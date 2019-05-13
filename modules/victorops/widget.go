@@ -16,11 +16,12 @@ type Widget struct {
 }
 
 // NewWidget creates a new widget
-func NewWidget(app *tview.Application, settings *Settings) *Widget {
+func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(app, settings.common, true),
+		TextWidget: wtf.NewTextWidget(app, pages, settings.common, true),
 	}
 
+	widget.SetRefreshFunction(widget.Refresh)
 	widget.View.SetScrollable(true)
 	widget.View.SetRegions(true)
 

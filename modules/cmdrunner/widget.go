@@ -18,9 +18,9 @@ type Widget struct {
 }
 
 // NewWidget creates a new instance of the widget
-func NewWidget(app *tview.Application, settings *Settings) *Widget {
+func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(app, settings.common, false),
+		TextWidget: wtf.NewTextWidget(app, pages, settings.common, false),
 
 		args:     settings.args,
 		cmd:      settings.cmd,
@@ -28,6 +28,7 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	}
 
 	widget.View.SetWrap(true)
+	widget.SetRefreshFunction(widget.Refresh)
 
 	return &widget
 }

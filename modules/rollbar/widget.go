@@ -9,8 +9,7 @@ import (
 
 // A Widget represents a Rollbar widget
 type Widget struct {
-	wtf.KeyboardWidget
-	wtf.ScrollableWidget
+	*wtf.ScrollableWidget
 
 	items    *Result
 	settings *Settings
@@ -19,17 +18,15 @@ type Widget struct {
 // NewWidget creates a new instance of a widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		KeyboardWidget:   wtf.NewKeyboardWidget(app, pages, settings.common),
-		ScrollableWidget: wtf.NewScrollableWidget(app, settings.common, true),
+		ScrollableWidget: wtf.NewScrollableWidget(app, pages, settings.common, true),
 
 		settings: settings,
 	}
 
+	widget.SetRefreshFunction(widget.Refresh)
 	widget.SetRenderFunction(widget.Render)
 	widget.initializeKeyboardControls()
 	widget.View.SetInputCapture(widget.InputCapture)
-
-	widget.KeyboardWidget.SetView(widget.View)
 
 	return &widget
 }

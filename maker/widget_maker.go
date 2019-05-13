@@ -66,34 +66,34 @@ func MakeWidget(
 	switch widgetType {
 	case "bamboohr":
 		settings := bamboohr.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
-		widget = bamboohr.NewWidget(app, settings)
+		widget = bamboohr.NewWidget(app, pages, settings)
 	case "bargraph":
 		settings := bargraph.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = bargraph.NewWidget(app, settings)
 	case "bittrex":
 		settings := bittrex.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
-		widget = bittrex.NewWidget(app, settings)
+		widget = bittrex.NewWidget(app, pages, settings)
 	case "blockfolio":
 		settings := blockfolio.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
-		widget = blockfolio.NewWidget(app, settings)
+		widget = blockfolio.NewWidget(app, pages, settings)
 	case "circleci":
 		settings := circleci.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
-		widget = circleci.NewWidget(app, settings)
+		widget = circleci.NewWidget(app, pages, settings)
 	case "clocks":
 		settings := clocks.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
-		widget = clocks.NewWidget(app, settings)
+		widget = clocks.NewWidget(app, pages, settings)
 	case "cmdrunner":
 		settings := cmdrunner.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
-		widget = cmdrunner.NewWidget(app, settings)
+		widget = cmdrunner.NewWidget(app, pages, settings)
 	case "cryptolive":
 		settings := cryptolive.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
-		widget = cryptolive.NewWidget(app, settings)
+		widget = cryptolive.NewWidget(app, pages, settings)
 	case "datadog":
 		settings := datadog.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = datadog.NewWidget(app, pages, settings)
 	case "gcal":
 		settings := gcal.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
-		widget = gcal.NewWidget(app, settings)
+		widget = gcal.NewWidget(app, pages, settings)
 	case "gerrit":
 		settings := gerrit.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = gerrit.NewWidget(app, pages, settings)
@@ -111,16 +111,16 @@ func MakeWidget(
 		widget = gitter.NewWidget(app, pages, settings)
 	case "gspreadsheets":
 		settings := gspreadsheets.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
-		widget = gspreadsheets.NewWidget(app, settings)
+		widget = gspreadsheets.NewWidget(app, pages, settings)
 	case "hackernews":
 		settings := hackernews.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = hackernews.NewWidget(app, pages, settings)
 	case "ipapi":
 		settings := ipapi.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
-		widget = ipapi.NewWidget(app, settings)
+		widget = ipapi.NewWidget(app, pages, settings)
 	case "ipinfo":
 		settings := ipinfo.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
-		widget = ipinfo.NewWidget(app, settings)
+		widget = ipinfo.NewWidget(app, pages, settings)
 	case "jenkins":
 		settings := jenkins.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = jenkins.NewWidget(app, pages, settings)
@@ -129,7 +129,7 @@ func MakeWidget(
 		widget = jira.NewWidget(app, pages, settings)
 	case "logger":
 		settings := logger.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
-		widget = logger.NewWidget(app, settings)
+		widget = logger.NewWidget(app, pages, settings)
 	case "mercurial":
 		settings := mercurial.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = mercurial.NewWidget(app, pages, settings)
@@ -138,19 +138,19 @@ func MakeWidget(
 		widget = nbascore.NewWidget(app, pages, settings)
 	case "newrelic":
 		settings := newrelic.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
-		widget = newrelic.NewWidget(app, settings)
+		widget = newrelic.NewWidget(app, pages, settings)
 	case "opsgenie":
 		settings := opsgenie.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
-		widget = opsgenie.NewWidget(app, settings)
+		widget = opsgenie.NewWidget(app, pages, settings)
 	case "pagerduty":
 		settings := pagerduty.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
-		widget = pagerduty.NewWidget(app, settings)
+		widget = pagerduty.NewWidget(app, pages, settings)
 	case "power":
 		settings := power.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
-		widget = power.NewWidget(app, settings)
+		widget = power.NewWidget(app, pages, settings)
 	case "prettyweather":
 		settings := prettyweather.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
-		widget = prettyweather.NewWidget(app, settings)
+		widget = prettyweather.NewWidget(app, pages, settings)
 	case "resourceusage":
 		settings := resourceusage.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = resourceusage.NewWidget(app, settings)
@@ -159,7 +159,7 @@ func MakeWidget(
 		widget = rollbar.NewWidget(app, pages, settings)
 	case "security":
 		settings := security.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
-		widget = security.NewWidget(app, settings)
+		widget = security.NewWidget(app, pages, settings)
 	case "spotify":
 		settings := spotify.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = spotify.NewWidget(app, pages, settings)
@@ -168,10 +168,10 @@ func MakeWidget(
 		widget = spotifyweb.NewWidget(app, pages, settings)
 	case "status":
 		settings := status.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
-		widget = status.NewWidget(app, settings)
+		widget = status.NewWidget(app, pages, settings)
 	// case "system":
 	// 	settings := system.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
-	// 	widget = system.NewWidget(app, date, version, settings)
+	// 	widget = system.NewWidget(app, pages, settings, date, version)
 	case "textfile":
 		settings := textfile.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = textfile.NewWidget(app, pages, settings)
@@ -186,13 +186,13 @@ func MakeWidget(
 		widget = travisci.NewWidget(app, pages, settings)
 	case "trello":
 		settings := trello.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
-		widget = trello.NewWidget(app, settings)
+		widget = trello.NewWidget(app, pages, settings)
 	case "twitter":
 		settings := twitter.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = twitter.NewWidget(app, pages, settings)
 	case "victorops":
 		settings := victorops.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
-		widget = victorops.NewWidget(app, settings)
+		widget = victorops.NewWidget(app, pages, settings)
 	case "weather":
 		settings := weather.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = weather.NewWidget(app, pages, settings)
@@ -201,7 +201,7 @@ func MakeWidget(
 		widget = zendesk.NewWidget(app, pages, settings)
 	default:
 		settings := unknown.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
-		widget = unknown.NewWidget(app, settings)
+		widget = unknown.NewWidget(app, pages, settings)
 	}
 
 	return widget
