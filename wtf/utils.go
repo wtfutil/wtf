@@ -6,6 +6,7 @@ import (
 	"os/exec"
 	"regexp"
 	"runtime"
+	"strconv"
 	"strings"
 
 	"github.com/wtfutil/wtf/utils"
@@ -149,7 +150,12 @@ func ToStrs(slice []interface{}) []string {
 	results := []string{}
 
 	for _, val := range slice {
-		results = append(results, val.(string))
+		switch val.(type) {
+		case int:
+			results = append(results, strconv.Itoa(val.(int)))
+		case string:
+			results = append(results, val.(string))
+		}
 	}
 
 	return results
