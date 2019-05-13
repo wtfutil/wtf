@@ -216,25 +216,3 @@ func (widget *Widget) findGitRepositories(repositories []*GitRepo, directory str
 
 	return repositories
 }
-
-func (widget *Widget) Next() {
-	widget.Idx = widget.Idx + 1
-	if widget.Idx == len(widget.GitRepos) {
-		widget.Idx = 0
-	}
-
-	if widget.DisplayFunction != nil {
-		widget.DisplayFunction()
-	}
-}
-
-func (widget *Widget) Prev() {
-	widget.Idx = widget.Idx - 1
-	if widget.Idx < 0 {
-		widget.Idx = len(widget.GitRepos) - 1
-	}
-
-	if widget.DisplayFunction != nil {
-		widget.DisplayFunction()
-	}
-}
