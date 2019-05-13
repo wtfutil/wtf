@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## v0.10.0
+
 ### ⚡️ Added
 
 * DataDog module is now scrollable and interactive, by [@Seanstoppable](https://github.com/Seanstoppable)
