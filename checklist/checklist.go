@@ -53,21 +53,6 @@ func (list *Checklist) Delete() {
 	list.Prev()
 }
 
-// Demote moves the selected item down in the checklist
-func (list *Checklist) Demote() {
-	if list.IsUnselectable() {
-		return
-	}
-
-	j := list.selected + 1
-	if j >= len(list.Items) {
-		j = 0
-	}
-
-	list.Swap(list.selected, j)
-	list.selected = j
-}
-
 // IsSelectable returns true if the checklist has selectable items, false if it does not
 func (list *Checklist) IsSelectable() bool {
 	return list.selected >= 0 && list.selected < len(list.Items)
@@ -76,14 +61,6 @@ func (list *Checklist) IsSelectable() bool {
 // IsUnselectable returns true if the checklist has no selectable items, false if it does
 func (list *Checklist) IsUnselectable() bool {
 	return !list.IsSelectable()
-}
-
-// Next selects the next item in the checklist
-func (list *Checklist) Next() {
-	list.selected = list.selected + 1
-	if list.selected >= len(list.Items) {
-		list.selected = 0
-	}
 }
 
 // LongestLine returns the length of the longest checklist item's text
@@ -97,29 +74,6 @@ func (list *Checklist) LongestLine() int {
 	}
 
 	return maxLen
-}
-
-// Prev selects the previous item in the checklist
-func (list *Checklist) Prev() {
-	list.selected = list.selected - 1
-	if list.selected < 0 {
-		list.selected = len(list.Items) - 1
-	}
-}
-
-// Promote moves the selected item up in the checklist
-func (list *Checklist) Promote() {
-	if list.IsUnselectable() {
-		return
-	}
-
-	j := list.selected - 1
-	if j < 0 {
-		j = len(list.Items) - 1
-	}
-
-	list.Swap(list.selected, j)
-	list.selected = j
 }
 
 func (list *Checklist) Selected() int {
@@ -180,6 +134,54 @@ func (list *Checklist) Update(text string) {
 	}
 
 	item.Text = text
+}
+
+/* -------------------- Item Movement -------------------- */
+
+// Prev selects the previous item UP in the checklist
+func (list *Checklist) Prev() {
+	list.selected = list.selected - 1
+	if list.selected < 0 {
+		list.selected = len(list.Items) - 1
+	}
+}
+
+// Next selects the next item DOWN in the checklist
+func (list *Checklist) Next() {
+	list.selected = list.selected + 1
+	if list.selected >= len(list.Items) {
+		list.selected = 0
+	}
+}
+
+// Promote moves the selected item UP in the checklist
+func (list *Checklist) Promote() {
+	if list.IsUnselectable() {
+		return
+	}
+
+	k := list.selected - 1
+	if k < 0 {
+		k = len(list.Items) - 1
+	}
+
+	list.Swap(list.selected, k)
+	list.selected = k
+}
+
+// Demote moves the selected item DOWN in the checklist
+func (list *Checklist) Demote() {
+	if list.IsUnselectable() {
+		return
+	}
+
+	j := list.selected + 1
+	if j >= len(list.Items) {
+		j = 0
+	}
+
+	list.Swap(list.selected, j)
+	list.selected = j
 }
 
 /* -------------------- Sort Interface -------------------- */

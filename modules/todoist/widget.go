@@ -11,8 +11,8 @@ import (
 type Widget struct {
 	wtf.KeyboardWidget
 	wtf.TextWidget
+	wtf.MultiSourceWidget
 
-	idx      int
 	projects []*Project
 	settings *Settings
 }
@@ -20,8 +20,9 @@ type Widget struct {
 // NewWidget creates a new instance of a widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		KeyboardWidget: wtf.NewKeyboardWidget(app, pages, settings.common),
-		TextWidget:     wtf.NewTextWidget(app, settings.common, true),
+		KeyboardWidget:    wtf.NewKeyboardWidget(app, pages, settings.common),
+		TextWidget:        wtf.NewTextWidget(app, settings.common, true),
+		MultiSourceWidget: wtf.NewMultiSourceWidget(settings.common, "project", "projects"),
 
 		settings: settings,
 	}
@@ -31,6 +32,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 
 	widget.initializeKeyboardControls()
 	widget.View.SetInputCapture(widget.InputCapture)
+	widget.SetDisplayFunction(widget.display)
 
 	widget.KeyboardWidget.SetView(widget.View)
 
@@ -40,7 +42,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) CurrentProject() *Project {
-	return widget.ProjectAt(widget.idx)
+	return widget.ProjectAt(widget.Idx)
 }
 
 func (widget *Widget) ProjectAt(idx int) *Project {
@@ -49,24 +51,6 @@ func (widget *Widget) ProjectAt(idx int) *Project {
 	}
 
 	return widget.projects[idx]
-}
-
-func (w *Widget) NextProject() {
-	w.idx = w.idx + 1
-	if w.idx == len(w.projects) {
-		w.idx = 0
-	}
-
-	w.display()
-}
-
-func (w *Widget) PreviousProject() {
-	w.idx = w.idx - 1
-	if w.idx < 0 {
-		w.idx = len(w.projects) - 1
-	}
-
-	w.display()
 }
 
 func (w *Widget) Refresh() {
