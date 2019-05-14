@@ -22,6 +22,14 @@ const TimestampFormat = "2006-01-02T15:04:05-0700"
 
 var OpenFileUtil = "open"
 
+// CenterText takes a string and a width and pads the left and right of the string with
+// empty spaces to ensure that the string is in the middle of the returned value
+//
+// Example:
+//
+//    x := CenterText("cat", 11)
+//    > "    cat    "
+//
 func CenterText(str string, width int) string {
 	if width < 0 {
 		width = 0
@@ -53,6 +61,14 @@ func ExecuteCommand(cmd *exec.Cmd) string {
 	return str
 }
 
+// Exclude takes a slice of strings and a target string and returns the contents of the original
+// slice of strings without the target string in it
+//
+// Example:
+//
+//    x := Exclude([]string{"cat", "dog", "rat"}, "dog")
+//    > []string{"cat", "rat"}
+//
 func Exclude(strs []string, val string) bool {
 	for _, str := range strs {
 		if val == str {
@@ -67,11 +83,14 @@ func FindMatch(pattern string, data string) [][]string {
 	return r.FindAllStringSubmatch(data, -1)
 }
 
+// NameFromEmail takes an email address and returns the part that comes before the @ symbol
 func NameFromEmail(email string) string {
 	parts := strings.Split(email, "@")
 	return strings.Title(strings.Replace(parts[0], ".", " ", -1))
 }
 
+// NamesFromEmails takes a slice of email addresses and returns a slice of the parts that
+// come before the @ symbol
 func NamesFromEmails(emails []string) []string {
 	names := []string{}
 
@@ -113,6 +132,7 @@ func PadRow(offset int, max int) string {
 	return strings.Repeat(" ", padSize)
 }
 
+// ReadFileBytes reads the contents of a file and returns those contents as a slice of bytes
 func ReadFileBytes(filePath string) ([]byte, error) {
 	fileData, err := ioutil.ReadFile(filePath)
 	if err != nil {
@@ -124,6 +144,7 @@ func ReadFileBytes(filePath string) ([]byte, error) {
 
 /* -------------------- Map Conversion -------------------- */
 
+// MapToStrs takes a map of interfaces and returns a map of strings
 func MapToStrs(aMap map[string]interface{}) map[string]string {
 	results := make(map[string]string)
 
@@ -136,6 +157,7 @@ func MapToStrs(aMap map[string]interface{}) map[string]string {
 
 /* -------------------- Slice Conversion -------------------- */
 
+// ToInts takes a slice of interfaces and returns a slice of ints
 func ToInts(slice []interface{}) []int {
 	results := []int{}
 
@@ -146,6 +168,7 @@ func ToInts(slice []interface{}) []int {
 	return results
 }
 
+// ToStrs takes a slice of interfaces and returns a slice of strings
 func ToStrs(slice []interface{}) []string {
 	results := []string{}
 
