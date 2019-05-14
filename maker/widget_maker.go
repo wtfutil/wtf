@@ -37,7 +37,6 @@ import (
 	"github.com/wtfutil/wtf/modules/spotify"
 	"github.com/wtfutil/wtf/modules/spotifyweb"
 	"github.com/wtfutil/wtf/modules/status"
-	// "github.com/wtfutil/wtf/modules/system"
 	"github.com/wtfutil/wtf/modules/textfile"
 	"github.com/wtfutil/wtf/modules/todo"
 	"github.com/wtfutil/wtf/modules/todoist"
@@ -169,9 +168,6 @@ func MakeWidget(
 	case "status":
 		settings := status.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = status.NewWidget(app, settings)
-	// case "system":
-	// 	settings := system.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
-	// 	widget = system.NewWidget(app, date, version, settings)
 	case "textfile":
 		settings := textfile.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = textfile.NewWidget(app, pages, settings)
