@@ -38,6 +38,7 @@ func CenterText(str string, width int) string {
 	return fmt.Sprintf("%[1]*s", -width, fmt.Sprintf("%[1]*s", (width+len(str))/2, str))
 }
 
+// ExecuteCommand executes an external command on the local machine as the current user
 func ExecuteCommand(cmd *exec.Cmd) string {
 	stdout, err := cmd.StdoutPipe()
 	if err != nil {
@@ -78,12 +79,20 @@ func Exclude(strs []string, val string) bool {
 	return true
 }
 
+// FindMatch takes a regex pattern and a string of data and returns back all the matches
+// in that string
 func FindMatch(pattern string, data string) [][]string {
 	r := regexp.MustCompile(pattern)
 	return r.FindAllStringSubmatch(data, -1)
 }
 
 // NameFromEmail takes an email address and returns the part that comes before the @ symbol
+//
+// Example:
+//
+//    NameFromEmail("test_user@example.com")
+//    > "Test_user"
+//
 func NameFromEmail(email string) string {
 	parts := strings.Split(email, "@")
 	return strings.Title(strings.Replace(parts[0], ".", " ", -1))
@@ -91,6 +100,12 @@ func NameFromEmail(email string) string {
 
 // NamesFromEmails takes a slice of email addresses and returns a slice of the parts that
 // come before the @ symbol
+//
+// Example:
+//
+//    NamesFromEmail("test_user@example.com", "other_user@example.com")
+//    > []string{"Test_user", "Other_user"}
+//
 func NamesFromEmails(emails []string) []string {
 	names := []string{}
 
