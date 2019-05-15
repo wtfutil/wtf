@@ -1,16 +1,18 @@
 package github
 
 import (
+	"strings"
+
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/wtf"
 )
 
 type Widget struct {
+	wtf.MultiSourceWidget
 	wtf.KeyboardWidget
 	wtf.TextWidget
 
 	GithubRepos []*GithubRepo
-	Idx         int
 
 	app      *tview.Application
 	settings *Settings
@@ -18,10 +20,9 @@ type Widget struct {
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		KeyboardWidget: wtf.NewKeyboardWidget(app, pages, settings.common),
-		TextWidget:     wtf.NewTextWidget(app, settings.common, true),
-
-		Idx: 0,
+		KeyboardWidget:    wtf.NewKeyboardWidget(app, pages, settings.common),
+		MultiSourceWidget: wtf.NewMultiSourceWidget(settings.common, "repository", "repositories"),
+		TextWidget:        wtf.NewTextWidget(app, settings.common, true),
 
 		app:      app,
 		settings: settings,
@@ -31,6 +32,9 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 
 	widget.initializeKeyboardControls()
 	widget.View.SetInputCapture(widget.InputCapture)
+	widget.SetDisplayFunction(widget.display)
+
+	widget.Sources = widget.settings.repositories
 
 	widget.KeyboardWidget.SetView(widget.View)
 
@@ -44,26 +48,6 @@ func (widget *Widget) Refresh() {
 		repo.Refresh()
 	}
 
-	widget.app.QueueUpdateDraw(func() {
-		widget.display()
-	})
-}
-
-func (widget *Widget) Next() {
-	widget.Idx = widget.Idx + 1
-	if widget.Idx == len(widget.GithubRepos) {
-		widget.Idx = 0
-	}
-
-	widget.display()
-}
-
-func (widget *Widget) Prev() {
-	widget.Idx = widget.Idx - 1
-	if widget.Idx < 0 {
-		widget.Idx = len(widget.GithubRepos) - 1
-	}
-
 	widget.display()
 }
 
@@ -73,13 +57,15 @@ func (widget *Widget) HelpText() string {
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (widget *Widget) buildRepoCollection(repoData map[string]interface{}) []*GithubRepo {
+func (widget *Widget) buildRepoCollection(repoData []string) []*GithubRepo {
 	githubRepos := []*GithubRepo{}
 
-	for name, owner := range repoData {
+	for _, repo := range repoData {
+		split := strings.Split(repo, "/")
+		owner, name := split[0], split[1]
 		repo := NewGithubRepo(
 			name,
-			owner.(string),
+			owner,
 			widget.settings.apiKey,
 			widget.settings.baseURL,
 			widget.settings.uploadURL,
