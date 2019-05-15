@@ -67,9 +67,10 @@ func (widget *Widget) contentFrom(searchResult *SearchResult) string {
 	str := ""
 
 	for list, cardArray := range searchResult.TrelloCards {
-		str = fmt.Sprintf("%s [red]Cards in %s[white]\n", str, list)
+		str = str + fmt.Sprintf(" [red]%s[white]\n", list)
+
 		for _, card := range cardArray {
-			str = fmt.Sprintf("%s [green]%s[white]\n", str, card.Name)
+			str = str + fmt.Sprintf(" %s[white]\n", card.Name)
 		}
 		str = fmt.Sprintf("%s\n", str)
 	}
