@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## v0.10.1
+
+### 🐞 Fixed
+
+* Fixes a bug when displaying multiple lists in Trello. All lists are now displayed, [#454](https://github.com/wtfutil/wtf/issues/454)
+
 ## v0.10.0
 
 ### ⚡️ Added
