@@ -34,6 +34,8 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	widget.View.SetInputCapture(widget.InputCapture)
 	widget.SetDisplayFunction(widget.display)
 
+	widget.Sources = widget.settings.repositories
+
 	widget.KeyboardWidget.SetView(widget.View)
 
 	return &widget
