@@ -25,8 +25,10 @@ func GetCards(client *trello.Client, username string, boardName string, lists ma
 		if err != nil {
 			return nil, err
 		}
+
 		searchResult.Total = searchResult.Total + len(cards)
 		cardArray := make([]TrelloCard, 0)
+
 		for _, card := range cards {
 			trelloCard := TrelloCard{
 				ID:          card.ID,
@@ -36,6 +38,7 @@ func GetCards(client *trello.Client, username string, boardName string, lists ma
 			}
 			cardArray = append(cardArray, trelloCard)
 		}
+
 		searchResult.TrelloCards[listName] = cardArray
 	}
 

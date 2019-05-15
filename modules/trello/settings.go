@@ -41,15 +41,15 @@ func mapifyList(ymlConfig *config.Config, globalConfig *config.Config) map[strin
 	// Single list
 	list, err := ymlConfig.String("list")
 	if err == nil {
-		lists[list] = ""
+		lists[list] = list
 		return lists
 	}
 
 	// Array of lists
-	listList := ymlConfig.UList("project")
+	listList := ymlConfig.UList("list")
 	for _, listName := range listList {
 		if list, ok := listName.(string); ok {
-			lists[list] = ""
+			lists[list] = list
 		}
 	}
 
