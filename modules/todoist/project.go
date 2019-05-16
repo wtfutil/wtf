@@ -32,32 +32,8 @@ func NewProject(id int) *Project {
 	return proj
 }
 
-func (proj *Project) isFirst() bool {
-	return proj.index == 0
-}
-
 func (proj *Project) isLast() bool {
 	return proj.index >= len(proj.tasks)-1
-}
-
-func (proj *Project) up() {
-	proj.index--
-
-	if proj.index < 0 {
-		proj.index = len(proj.tasks) - 1
-	}
-}
-
-func (proj *Project) down() {
-	if proj.index == -1 {
-		proj.index = 0
-		return
-	}
-
-	proj.index++
-	if proj.index >= len(proj.tasks) {
-		proj.index = 0
-	}
 }
 
 func (proj *Project) loadTasks() {

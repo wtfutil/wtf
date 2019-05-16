@@ -24,18 +24,12 @@ func (widget *Widget) display() {
 	maxLen := proj.LongestLine()
 
 	for index, item := range proj.tasks {
-		foreColor, backColor := widget.settings.common.Colors.Text, widget.settings.common.Colors.Background
-
-		if index == proj.index {
-			foreColor = widget.settings.common.Colors.HighlightFore
-			backColor = widget.settings.common.Colors.HighlightBack
-		}
-
 		row := fmt.Sprintf(
-			"[%s:%s]| | %s[white]",
-			foreColor,
-			backColor,
+			`["%d"][""][%s]| | %s[%s]`,
+			index,
+			widget.RowColor(index),
 			tview.Escape(item.Content),
+			widget.RowColor(index),
 		)
 
 		_, _, w, _ := widget.View.GetInnerRect()
@@ -43,8 +37,8 @@ func (widget *Widget) display() {
 			maxLen = w
 		}
 
-		str = str + row + wtf.PadRow((checkWidth+len(item.Content)), (checkWidth+maxLen+1)) + "\n"
+		str = str + row + wtf.PadRow((checkWidth+len(item.Content)), (checkWidth+maxLen+1)) + `[""]` + "\n"
 	}
 
-	widget.TextWidget.Redraw(title, str, false)
+	widget.ScrollableWidget.Redraw(title, str, false)
 }
