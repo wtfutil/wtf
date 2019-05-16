@@ -9,24 +9,27 @@ import (
 )
 
 func (widget *Widget) display() {
-	err := ""
+	var err string
+
 	if widget.apiKeyValid() == false {
-		err += " Environment variable WTF_OWM_API_KEY is not set\n"
+		err = " Environment variable WTF_OWM_API_KEY is not set\n"
 	}
 
 	cityData := widget.currentData()
-	if cityData == nil {
+	if err == "" && cityData == nil {
 		err += " Weather data is unavailable: no city data\n"
 	}
 
-	if len(cityData.Weather) == 0 {
-		err += " Weather data is unavailable: no weather data"
+	if err == "" && len(cityData.Weather) == 0 {
+		err += " Weather data is unavailable: no weather data\n"
 	}
 
 	title := widget.CommonSettings.Title
+	setWrap := false
 
 	var content string
 	if err != "" {
+		setWrap = true
 		content = err
 	} else {
 		title = widget.buildTitle(cityData)
@@ -37,7 +40,7 @@ func (widget *Widget) display() {
 		content = content + widget.sunInfo(cityData)
 	}
 
-	widget.Redraw(title, content, false)
+	widget.Redraw(title, content, setWrap)
 }
 
 func (widget *Widget) description(cityData *owm.CurrentWeatherData) string {
