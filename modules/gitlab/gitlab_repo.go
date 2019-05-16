@@ -103,7 +103,7 @@ func (project *GitlabProject) loadMergeRequests() ([]*glb.MergeRequest, error) {
 }
 
 func (project *GitlabProject) loadRemoteProject() (*glb.Project, error) {
-	projectsitory, _, err := project.gitlab.Projects.GetProject(project.Path)
+	projectsitory, _, err := project.gitlab.Projects.GetProject(project.Path, nil)
 
 	if err != nil {
 		return nil, err
