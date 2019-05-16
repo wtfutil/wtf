@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### 🐞 Fixed
+
+* Weather module no longer crashes if there's no weather data or no internet connection
+
 ## v0.10.1
 
 ### 🐞 Fixed
