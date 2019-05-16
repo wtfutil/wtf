@@ -2,9 +2,12 @@
 
 ## Unreleased
 
+## v0.10.2
+
 ### 🐞 Fixed
 
 * Weather module no longer crashes if there's no weather data or no internet connection
+* Gitlab no longer prevents installing with missing param, [#455](https://github.com/wtfutil/wtf/issues/455)
 
 ## v0.10.1
 
