@@ -30,7 +30,6 @@ require (
 	github.com/go-test/deep v1.0.1 // indirect
 	github.com/godbus/dbus v5.0.1+incompatible
 	github.com/gogo/protobuf v1.2.1 // indirect
-	github.com/golang/glog v0.0.0-20170312005925-543a34c32e4d // indirect
 	github.com/golang/mock v1.3.1 // indirect
 	github.com/golang/protobuf v1.3.1
 	github.com/google/btree v1.0.0 // indirect
