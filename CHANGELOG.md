@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## v0.10.3
+
+* Invalid glog dependency removed, by [@bosr](https://github.com/bosr)
+
 ## v0.10.2
 
 ### 🐞 Fixed
