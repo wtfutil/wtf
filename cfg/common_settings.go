@@ -148,8 +148,8 @@ func (common *Common) SigilStr(len, pos int, width int) string {
 
 	if len > 1 {
 		sigils = strings.Repeat(common.Sigils.Paging.Normal, pos)
-		sigils = sigils + common.Sigils.Paging.Selected
-		sigils = sigils + strings.Repeat(common.Sigils.Paging.Normal, len-1-pos)
+		sigils += common.Sigils.Paging.Selected
+		sigils += strings.Repeat(common.Sigils.Paging.Normal, len-1-pos)
 
 		sigils = "[lightblue]" + fmt.Sprintf(common.RightAlignFormat(width), sigils) + "[white]"
 	}

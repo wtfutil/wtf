@@ -42,23 +42,23 @@ func (widget *Widget) Refresh() {
 
 func (widget *Widget) contentFrom(data *SecurityData) string {
 	str := " [red]WiFi[white]\n"
-	str = str + fmt.Sprintf(" %8s: %s\n", "Network", data.WifiName)
-	str = str + fmt.Sprintf(" %8s: %s\n", "Crypto", data.WifiEncryption)
-	str = str + "\n"
+	str += fmt.Sprintf(" %8s: %s\n", "Network", data.WifiName)
+	str += fmt.Sprintf(" %8s: %s\n", "Crypto", data.WifiEncryption)
+	str += "\n"
 
-	str = str + " [red]Firewall[white]\n"
-	str = str + fmt.Sprintf(" %8s: %4s\n", "Status", data.FirewallEnabled)
-	str = str + fmt.Sprintf(" %8s: %4s\n", "Stealth", data.FirewallStealth)
-	str = str + "\n"
+	str += " [red]Firewall[white]\n"
+	str += fmt.Sprintf(" %8s: %4s\n", "Status", data.FirewallEnabled)
+	str += fmt.Sprintf(" %8s: %4s\n", "Stealth", data.FirewallStealth)
+	str += "\n"
 
-	str = str + " [red]Users[white]\n"
-	str = str + fmt.Sprintf("  %s", strings.Join(data.LoggedInUsers, "\n  "))
-	str = str + "\n\n"
+	str += " [red]Users[white]\n"
+	str += fmt.Sprintf("  %s", strings.Join(data.LoggedInUsers, "\n  "))
+	str += "\n\n"
 
-	str = str + " [red]DNS[white]\n"
-	str = str + fmt.Sprintf("  %12s\n", data.DnsAt(0))
-	str = str + fmt.Sprintf("  %12s\n", data.DnsAt(1))
-	str = str + "\n"
+	str += " [red]DNS[white]\n"
+	str += fmt.Sprintf("  %12s\n", data.DnsAt(0))
+	str += fmt.Sprintf("  %12s\n", data.DnsAt(1))
+	str += "\n"
 
 	return str
 }

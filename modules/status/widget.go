@@ -37,7 +37,7 @@ func (widget *Widget) animation() string {
 	icons := []string{"|", "/", "-", "\\", "|"}
 	next := icons[widget.CurrentIcon]
 
-	widget.CurrentIcon = widget.CurrentIcon + 1
+	widget.CurrentIcon++
 	if widget.CurrentIcon == len(icons) {
 		widget.CurrentIcon = 0
 	}

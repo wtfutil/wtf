@@ -112,8 +112,7 @@ func parseWlanNetsh(target string) string {
 		}
 	}
 	for i, token := range words {
-		switch token {
-		case target:
+		if token == target {
 			return words[i+1]
 		}
 	}

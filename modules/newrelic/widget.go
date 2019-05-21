@@ -73,7 +73,7 @@ func (widget *Widget) contentFrom(deploys []nr.ApplicationDeployment) string {
 				revLen = len(deploy.Revision)
 			}
 
-			str = str + fmt.Sprintf(
+			str += fmt.Sprintf(
 				" [green]%s[%s] %s %-.16s[white]\n",
 				deploy.Revision[0:revLen],
 				lineColor,

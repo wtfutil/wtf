@@ -88,7 +88,7 @@ func (widget *Widget) contentFrom(searchResult *SearchResult) string {
 		)
 
 		_, _, w, _ := widget.View.GetInnerRect()
-		fmtStr = fmtStr + wtf.PadRow(len(issue.IssueFields.Summary), w+1)
+		fmtStr += wtf.PadRow(len(issue.IssueFields.Summary), w+1)
 
 		str = str + fmtStr + "\n"
 	}

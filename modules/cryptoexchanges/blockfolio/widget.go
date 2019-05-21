@@ -60,7 +60,7 @@ func (widget *Widget) contentFrom(positions *AllPositionsResponse) string {
 		totalFiat += positions.PositionList[i].HoldingValueFiat
 
 		if widget.settings.displayHoldings {
-			res = res + fmt.Sprintf(
+			res += fmt.Sprintf(
 				"[%s]%-6s - %5.2f ([%s]%.3fk [%s]%.2f%s)\n",
 				widget.settings.colors.name,
 				positions.PositionList[i].Coin,
@@ -72,7 +72,7 @@ func (widget *Widget) contentFrom(positions *AllPositionsResponse) string {
 				"%",
 			)
 		} else {
-			res = res + fmt.Sprintf(
+			res += fmt.Sprintf(
 				"[%s]%-6s - %5.2f ([%s]%.2f%s)\n",
 				widget.settings.colors.name,
 				positions.PositionList[i].Coin,
@@ -85,7 +85,7 @@ func (widget *Widget) contentFrom(positions *AllPositionsResponse) string {
 	}
 
 	if widget.settings.displayHoldings {
-		res = res + fmt.Sprintf("\n[%s]Total value: $%.3fk", "green", totalFiat/1000)
+		res += fmt.Sprintf("\n[%s]Total value: $%.3fk", "green", totalFiat/1000)
 	}
 
 	return res

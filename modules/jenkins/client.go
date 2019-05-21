@@ -46,8 +46,8 @@ func (widget *Widget) Create(jenkinsURL string, username string, apiKey string) 
 	return view, nil
 }
 
-func ensureLastSlash(URL string) string {
-	return strings.TrimRight(URL, "/") + "/"
+func ensureLastSlash(url string) string {
+	return strings.TrimRight(url, "/") + "/"
 }
 
 /* -------------------- Unexported Functions -------------------- */

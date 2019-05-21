@@ -66,7 +66,7 @@ func (widget *Widget) contentFrom(builds *Builds) string {
 	var str string
 	for idx, build := range builds.Builds {
 
-		str = str + fmt.Sprintf(
+		str += fmt.Sprintf(
 			"[%s] [%s] %s-%s (%s) [%s]%s - [blue]%s\n",
 			widget.RowColor(idx),
 			buildColor(&build),

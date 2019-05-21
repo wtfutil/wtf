@@ -78,7 +78,7 @@ func (widget *Widget) contentFrom(result *Result) string {
 	}
 	for idx, item := range result.Items {
 
-		str = str + fmt.Sprintf(
+		str += fmt.Sprintf(
 			"[%s] [%s] %s [%s] %s [%s]count: %d [%s]%s\n",
 			widget.RowColor(idx),
 			levelColor(&item),

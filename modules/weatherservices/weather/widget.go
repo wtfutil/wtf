@@ -68,7 +68,7 @@ func (widget *Widget) Refresh() {
 // Next displays data for the next city data in the list. If the current city is the last
 // city, it wraps to the first city.
 func (widget *Widget) Next() {
-	widget.Idx = widget.Idx + 1
+	widget.Idx++
 	if widget.Idx == len(widget.Data) {
 		widget.Idx = 0
 	}
@@ -79,7 +79,7 @@ func (widget *Widget) Next() {
 // Prev displays data for the previous city in the list. If the previous city is the first
 // city, it wraps to the last city.
 func (widget *Widget) Prev() {
-	widget.Idx = widget.Idx - 1
+	widget.Idx--
 	if widget.Idx < 0 {
 		widget.Idx = len(widget.Data) - 1
 	}

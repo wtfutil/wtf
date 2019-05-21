@@ -75,7 +75,7 @@ func (widget *Widget) contentFrom(view *View) string {
 		var validID = regexp.MustCompile(widget.settings.jobNameRegex)
 
 		if validID.MatchString(job.Name) {
-			str = str + fmt.Sprintf(
+			str += fmt.Sprintf(
 				`["%d"][%s] [%s]%-6s[white][""]`,
 				idx,
 				widget.RowColor(idx),
@@ -83,7 +83,7 @@ func (widget *Widget) contentFrom(view *View) string {
 				job.Name,
 			)
 
-			str = str + "\n"
+			str += "\n"
 		}
 	}
 

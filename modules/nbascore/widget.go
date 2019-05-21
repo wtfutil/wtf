@@ -84,7 +84,8 @@ func (widget *Widget) nbascore() string {
 		quarter := 0.
 		activate := false
 		for keyGame, team := range game.(map[string]interface{}) { // assertion
-			if keyGame == "vTeam" || keyGame == "hTeam" {
+			switch keyGame {
+			case "vTeam", "hTeam":
 				for keyTeam, stat := range team.(map[string]interface{}) {
 					if keyTeam == "triCode" {
 						if keyGame == "vTeam" {
@@ -100,13 +101,13 @@ func (widget *Widget) nbascore() string {
 						}
 					}
 				}
-			} else if keyGame == "period" {
+			case "period":
 				for keyTeam, stat := range team.(map[string]interface{}) {
 					if keyTeam == "current" {
 						quarter = stat.(float64)
 					}
 				}
-			} else if keyGame == "isGameActivated" {
+			case "isGameActivated":
 				activate = team.(bool)
 			}
 		}
@@ -114,16 +115,17 @@ func (widget *Widget) nbascore() string {
 		hNum, _ := strconv.Atoi(hScore)
 		hColor := ""
 		if quarter != 0 { // Compare the score
-			if vNum > hNum {
+			switch {
+			case vNum > hNum:
 				vTeam = "[orange]" + vTeam
-			} else if hNum > vNum {
+			case hNum > vNum:
 				// hScore = "[orange]" + hScore
 				hColor = "[orange]" // For correct padding
-				hTeam = hTeam + "[white]"
-			} else {
+				hTeam += "[white]"
+			default:
 				vTeam = "[orange]" + vTeam
 				hColor = "[orange]"
-				hTeam = hTeam + "[white]"
+				hTeam += "[white]"
 			}
 		}
 		qColor := "[white]"

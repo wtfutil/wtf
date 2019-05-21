@@ -76,9 +76,9 @@ func (widget *Widget) display() {
 	text := widget.settings.common.SigilStr(len(widget.Sources), widget.Idx, width) + "\n"
 
 	if widget.settings.format {
-		text = text + widget.formattedText()
+		text += widget.formattedText()
 	} else {
-		text = text + widget.plainText()
+		text += widget.plainText()
 	}
 
 	widget.Redraw(title, text, true)
