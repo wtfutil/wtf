@@ -97,7 +97,7 @@ func (widget *Widget) HelpText() string {
 /* -------------------- Unexported Functions -------------------- */
 
 func (widget *Widget) nextProject() {
-	widget.Idx = widget.Idx + 1
+	widget.Idx++
 	widget.unselect()
 	if widget.Idx == len(widget.GerritProjects) {
 		widget.Idx = 0
@@ -107,7 +107,7 @@ func (widget *Widget) nextProject() {
 }
 
 func (widget *Widget) prevProject() {
-	widget.Idx = widget.Idx - 1
+	widget.Idx--
 	if widget.Idx < 0 {
 		widget.Idx = len(widget.GerritProjects) - 1
 	}

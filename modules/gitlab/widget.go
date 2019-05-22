@@ -56,7 +56,7 @@ func (widget *Widget) Refresh() {
 }
 
 func (widget *Widget) Next() {
-	widget.Idx = widget.Idx + 1
+	widget.Idx++
 	if widget.Idx == len(widget.GitlabProjects) {
 		widget.Idx = 0
 	}
@@ -65,7 +65,7 @@ func (widget *Widget) Next() {
 }
 
 func (widget *Widget) Prev() {
-	widget.Idx = widget.Idx - 1
+	widget.Idx--
 	if widget.Idx < 0 {
 		widget.Idx = len(widget.GitlabProjects) - 1
 	}

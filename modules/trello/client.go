@@ -26,7 +26,7 @@ func GetCards(client *trello.Client, username string, boardName string, lists ma
 			return nil, err
 		}
 
-		searchResult.Total = searchResult.Total + len(cards)
+		searchResult.Total += len(cards)
 		cardArray := make([]TrelloCard, 0)
 
 		for _, card := range cards {

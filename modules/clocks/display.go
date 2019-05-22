@@ -19,7 +19,7 @@ func (widget *Widget) display(clocks []Clock, dateFormat string, timeFormat stri
 			rowColor = widget.settings.colors.rows.even
 		}
 
-		str = str + fmt.Sprintf(
+		str += fmt.Sprintf(
 			" [%s]%-12s %-10s %7s[white]\n",
 			rowColor,
 			clock.Label,

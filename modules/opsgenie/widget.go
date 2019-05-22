@@ -61,8 +61,8 @@ func (widget *Widget) contentFrom(onCallResponses []*OnCallResponse) string {
 			msg = fmt.Sprintf(" %s\n\n", strings.Join(wtf.NamesFromEmails(data.OnCallData.Recipients), ", "))
 		}
 
-		str = str + widget.cleanScheduleName(data.OnCallData.Parent.Name)
-		str = str + msg
+		str += widget.cleanScheduleName(data.OnCallData.Parent.Name)
+		str += msg
 	}
 
 	return str

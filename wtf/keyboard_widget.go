@@ -89,12 +89,12 @@ func (widget *KeyboardWidget) HelpText() string {
 	str := "Keyboard commands for " + widget.settings.Module.Type + "\n\n"
 
 	for _, item := range widget.charHelp {
-		str = str + fmt.Sprintf("  [%s]: %s\n", item.Key, item.Text)
+		str += fmt.Sprintf("  [%s]: %s\n", item.Key, item.Text)
 	}
-	str = str + "\n\n"
+	str += "\n\n"
 
 	for _, item := range widget.keyHelp {
-		str = str + fmt.Sprintf("  [%-*s]: %s\n", widget.maxKey, item.Key, item.Text)
+		str += fmt.Sprintf("  [%-*s]: %s\n", widget.maxKey, item.Key, item.Text)
 	}
 
 	return str

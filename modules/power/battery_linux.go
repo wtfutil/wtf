@@ -69,12 +69,11 @@ func (battery *Battery) parse(data string) string {
 	if s := table["time to empty"]; s == "" {
 		table["time to empty"] = "∞"
 	}
-	str := ""
-	str = str + fmt.Sprintf(" %10s: %s\n", "Charge", battery.formatCharge(table["percentage"]))
-	str = str + fmt.Sprintf(" %10s: %s\n", "Remaining", table["time to empty"])
-	str = str + fmt.Sprintf(" %10s: %s\n", "State", battery.formatState(table["state"]))
+	str := fmt.Sprintf(" %10s: %s\n", "Charge", battery.formatCharge(table["percentage"]))
+	str += fmt.Sprintf(" %10s: %s\n", "Remaining", table["time to empty"])
+	str += fmt.Sprintf(" %10s: %s\n", "State", battery.formatState(table["state"]))
 	if s := table["time to full"]; s != "" {
-		str = str + fmt.Sprintf(" %10s: %s\n", "TimeToFull", table["time to full"])
+		str += fmt.Sprintf(" %10s: %s\n", "TimeToFull", table["time to full"])
 	}
 	batteryState = table["state"]
 	return str

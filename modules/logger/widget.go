@@ -52,7 +52,7 @@ func (widget *Widget) contentFrom(logLines []string) string {
 		chunks := strings.Split(line, " ")
 
 		if len(chunks) >= 4 {
-			str = str + fmt.Sprintf(
+			str += fmt.Sprintf(
 				"[green]%s[white] [yellow]%s[white] %s\n",
 				chunks[0],
 				chunks[1],

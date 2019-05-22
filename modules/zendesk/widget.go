@@ -63,7 +63,7 @@ func (widget *Widget) textContent(items []Ticket) string {
 
 	str := ""
 	for idx, data := range items {
-		str = str + widget.format(data, idx)
+		str += widget.format(data, idx)
 	}
 
 	return str

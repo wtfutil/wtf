@@ -16,14 +16,14 @@ func (widget *Widget) display() {
 
 	_, _, width, _ := widget.View.GetRect()
 	str := widget.settings.common.SigilStr(len(widget.GitlabProjects), widget.Idx, width) + "\n"
-	str = str + " [red]Stats[white]\n"
-	str = str + widget.displayStats(project)
-	str = str + "\n"
-	str = str + " [red]Open Approval Requests[white]\n"
-	str = str + widget.displayMyApprovalRequests(project, widget.settings.username)
-	str = str + "\n"
-	str = str + " [red]My Merge Requests[white]\n"
-	str = str + widget.displayMyMergeRequests(project, widget.settings.username)
+	str += " [red]Stats[white]\n"
+	str += widget.displayStats(project)
+	str += "\n"
+	str += " [red]Open Approval Requests[white]\n"
+	str += widget.displayMyApprovalRequests(project, widget.settings.username)
+	str += "\n"
+	str += " [red]My Merge Requests[white]\n"
+	str += widget.displayMyMergeRequests(project, widget.settings.username)
 	widget.Redraw(title, str, false)
 }
 
@@ -36,7 +36,7 @@ func (widget *Widget) displayMyMergeRequests(project *GitlabProject, username st
 
 	str := ""
 	for _, mr := range mrs {
-		str = str + fmt.Sprintf(" [green]%4d[white] %s\n", mr.IID, mr.Title)
+		str += fmt.Sprintf(" [green]%4d[white] %s\n", mr.IID, mr.Title)
 	}
 
 	return str
@@ -51,7 +51,7 @@ func (widget *Widget) displayMyApprovalRequests(project *GitlabProject, username
 
 	str := ""
 	for _, mr := range mrs {
-		str = str + fmt.Sprintf(" [green]%4d[white] %s\n", mr.IID, mr.Title)
+		str += fmt.Sprintf(" [green]%4d[white] %s\n", mr.IID, mr.Title)
 	}
 
 	return str

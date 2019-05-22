@@ -48,10 +48,10 @@ func (widget *Widget) Refresh() {
 	if err1 != nil || err2 != nil {
 		wrap = true
 		if err1 != nil {
-			content = content + err1.Error()
+			content += err1.Error()
 		}
 		if err2 != nil {
-			content = content + err2.Error()
+			content += err2.Error()
 		}
 	} else {
 		widget.View.SetWrap(false)
@@ -67,12 +67,12 @@ func (widget *Widget) contentFrom(onCalls []pagerduty.OnCall, incidents []pagerd
 	var str string
 
 	if len(incidents) > 0 {
-		str = str + "[yellow]Incidents[white]\n"
+		str += "[yellow]Incidents[white]\n"
 		for _, incident := range incidents {
-			str = str + fmt.Sprintf("[red]%s[white]\n", incident.Summary)
-			str = str + fmt.Sprintf("Status: %s\n", incident.Status)
-			str = str + fmt.Sprintf("Service: %s\n", incident.Service.Summary)
-			str = str + fmt.Sprintf("Escalation: %s\n", incident.EscalationPolicy.Summary)
+			str += fmt.Sprintf("[red]%s[white]\n", incident.Summary)
+			str += fmt.Sprintf("Status: %s\n", incident.Status)
+			str += fmt.Sprintf("Service: %s\n", incident.Service.Summary)
+			str += fmt.Sprintf("Escalation: %s\n", incident.EscalationPolicy.Summary)
 		}
 	}
 
@@ -99,14 +99,14 @@ func (widget *Widget) contentFrom(onCalls []pagerduty.OnCall, incidents []pagerd
 	sort.Strings(keys)
 
 	if len(keys) > 0 {
-		str = str + "\n[red] Schedules[white]\n"
+		str += "\n[red] Schedules[white]\n"
 		// Print out policies, and escalation order of users
 		for _, key := range keys {
-			str = str + fmt.Sprintf("\n [green::b]%s\n", key)
+			str += fmt.Sprintf("\n [green::b]%s\n", key)
 			values := tree[key]
 			sort.Sort(ByEscalationLevel(values))
 			for _, item := range values {
-				str = str + fmt.Sprintf(" [white]%d - %s\n", item.EscalationLevel, item.User.Summary)
+				str += fmt.Sprintf(" [white]%d - %s\n", item.EscalationLevel, item.User.Summary)
 			}
 		}
 	}
