@@ -63,14 +63,14 @@ func (widget *Widget) contentFrom(calEvents []*CalEvent) string {
 			title,
 		)
 
-		str = str + fmt.Sprintf("%s   %s%s\n",
+		str += fmt.Sprintf("%s   %s%s\n",
 			lineOne,
 			widget.location(calEvent),
 			widget.timeUntil(calEvent),
 		)
 
 		if (widget.location(calEvent) != "") || (widget.timeUntil(calEvent) != "") {
-			str = str + "\n"
+			str += "\n"
 		}
 
 		prevEvent = calEvent

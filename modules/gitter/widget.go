@@ -83,7 +83,7 @@ func (widget *Widget) display() {
 func (widget *Widget) contentFrom(messages []Message) string {
 	var str string
 	for idx, message := range messages {
-		str = str + fmt.Sprintf(
+		str += fmt.Sprintf(
 			`["%d"][%s] [blue]%s [lightslategray]%s: [%s]%s [aqua]%s[""]`,
 			idx,
 			widget.RowColor(idx),
@@ -94,7 +94,7 @@ func (widget *Widget) contentFrom(messages []Message) string {
 			message.Sent.Format("Jan 02, 15:04 MST"),
 		)
 
-		str = str + "\n"
+		str += "\n"
 	}
 
 	return str

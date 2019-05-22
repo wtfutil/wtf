@@ -17,25 +17,24 @@ func (widget *Widget) display() {
 
 	_, _, width, _ := widget.View.GetRect()
 	str := widget.settings.common.SigilStr(len(widget.GitRepos), widget.Idx, width) + "\n"
-	str = str + " [red]Branch[white]\n"
-	str = str + fmt.Sprintf(" %s", repoData.Branch)
-	str = str + "\n"
-	str = str + widget.formatChanges(repoData.ChangedFiles)
-	str = str + "\n"
-	str = str + widget.formatCommits(repoData.Commits)
+	str += " [red]Branch[white]\n"
+	str += fmt.Sprintf(" %s", repoData.Branch)
+	str += "\n"
+	str += widget.formatChanges(repoData.ChangedFiles)
+	str += "\n"
+	str += widget.formatCommits(repoData.Commits)
 
 	widget.Redraw(title, str, false)
 }
 
 func (widget *Widget) formatChanges(data []string) string {
-	str := ""
-	str = str + " [red]Changed Files[white]\n"
+	str := " [red]Changed Files[white]\n"
 
 	if len(data) == 1 {
-		str = str + " [grey]none[white]\n"
+		str += " [grey]none[white]\n"
 	} else {
 		for _, line := range data {
-			str = str + widget.formatChange(line)
+			str += widget.formatChange(line)
 		}
 	}
 
@@ -66,11 +65,10 @@ func (widget *Widget) formatChange(line string) string {
 }
 
 func (widget *Widget) formatCommits(data []string) string {
-	str := ""
-	str = str + " [red]Recent Commits[white]\n"
+	str := " [red]Recent Commits[white]\n"
 
 	for _, line := range data {
-		str = str + widget.formatCommit(line)
+		str += widget.formatCommit(line)
 	}
 
 	return str

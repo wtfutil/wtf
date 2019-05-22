@@ -45,7 +45,7 @@ func (widget *MultiSourceWidget) CurrentSource() string {
 // Next displays the next source in the source list. If the current source is the last
 // source it wraps around to the first source
 func (widget *MultiSourceWidget) NextSource() {
-	widget.Idx = widget.Idx + 1
+	widget.Idx++
 	if widget.Idx == len(widget.Sources) {
 		widget.Idx = 0
 	}
@@ -58,7 +58,7 @@ func (widget *MultiSourceWidget) NextSource() {
 // Prev displays the previous source in the source list. If the current source is the first
 // source, it wraps around to the last source
 func (widget *MultiSourceWidget) PrevSource() {
-	widget.Idx = widget.Idx - 1
+	widget.Idx--
 	if widget.Idx < 0 {
 		widget.Idx = len(widget.Sources) - 1
 	}

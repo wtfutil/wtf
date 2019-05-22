@@ -16,14 +16,14 @@ func (widget *Widget) display() {
 
 	_, _, width, _ := widget.View.GetRect()
 	str := widget.settings.common.SigilStr(len(widget.GerritProjects), widget.Idx, width) + "\n"
-	str = str + " [red]Stats[white]\n"
-	str = str + widget.displayStats(project)
-	str = str + "\n"
-	str = str + " [red]Open Incoming Reviews[white]\n"
-	str = str + widget.displayMyIncomingReviews(project, widget.settings.username)
-	str = str + "\n"
-	str = str + " [red]My Outgoing Reviews[white]\n"
-	str = str + widget.displayMyOutgoingReviews(project, widget.settings.username)
+	str += " [red]Stats[white]\n"
+	str += widget.displayStats(project)
+	str += "\n"
+	str += " [red]Open Incoming Reviews[white]\n"
+	str += widget.displayMyIncomingReviews(project, widget.settings.username)
+	str += "\n"
+	str += " [red]My Outgoing Reviews[white]\n"
+	str += widget.displayMyOutgoingReviews(project, widget.settings.username)
 
 	widget.Redraw(title, str, false)
 }
@@ -35,7 +35,7 @@ func (widget *Widget) displayMyIncomingReviews(project *GerritProject, username 
 
 	str := ""
 	for idx, r := range project.IncomingReviews {
-		str = str + fmt.Sprintf(" [%s] [green]%d[white] [%s] %s\n", widget.rowColor(idx), r.Number, widget.rowColor(idx), r.Subject)
+		str += fmt.Sprintf(" [%s] [green]%d[white] [%s] %s\n", widget.rowColor(idx), r.Number, widget.rowColor(idx), r.Subject)
 	}
 
 	return str
@@ -48,7 +48,7 @@ func (widget *Widget) displayMyOutgoingReviews(project *GerritProject, username 
 
 	str := ""
 	for idx, r := range project.OutgoingReviews {
-		str = str + fmt.Sprintf(" [%s] [green]%d[white] [%s] %s\n", widget.rowColor(idx+len(project.IncomingReviews)), r.Number, widget.rowColor(idx+len(project.IncomingReviews)), r.Subject)
+		str += fmt.Sprintf(" [%s] [green]%d[white] [%s] %s\n", widget.rowColor(idx+len(project.IncomingReviews)), r.Number, widget.rowColor(idx+len(project.IncomingReviews)), r.Subject)
 	}
 
 	return str

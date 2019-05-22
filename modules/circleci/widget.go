@@ -56,7 +56,7 @@ func (widget *Widget) contentFrom(builds []*Build) string {
 			return str
 		}
 
-		str = str + fmt.Sprintf(
+		str += fmt.Sprintf(
 			"[%s] %s-%d (%s) [white]%s\n",
 			buildColor(build),
 			build.Reponame,

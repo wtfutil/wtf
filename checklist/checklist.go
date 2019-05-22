@@ -140,7 +140,7 @@ func (list *Checklist) Update(text string) {
 
 // Prev selects the previous item UP in the checklist
 func (list *Checklist) Prev() {
-	list.selected = list.selected - 1
+	list.selected--
 	if list.selected < 0 {
 		list.selected = len(list.Items) - 1
 	}
@@ -148,7 +148,7 @@ func (list *Checklist) Prev() {
 
 // Next selects the next item DOWN in the checklist
 func (list *Checklist) Next() {
-	list.selected = list.selected + 1
+	list.selected++
 	if list.selected >= len(list.Items) {
 		list.selected = 0
 	}

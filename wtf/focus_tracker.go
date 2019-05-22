@@ -152,7 +152,7 @@ func (tracker *FocusTracker) blur(idx int) {
 }
 
 func (tracker *FocusTracker) decrement() {
-	tracker.Idx = tracker.Idx - 1
+	tracker.Idx--
 
 	if tracker.Idx < 0 {
 		tracker.Idx = len(tracker.focusables()) - 1
@@ -216,7 +216,7 @@ func (tracker *FocusTracker) focusState() FocusState {
 }
 
 func (tracker *FocusTracker) increment() {
-	tracker.Idx = tracker.Idx + 1
+	tracker.Idx++
 
 	if tracker.Idx == len(tracker.focusables()) {
 		tracker.Idx = 0

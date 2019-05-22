@@ -43,7 +43,7 @@ func (widget *Widget) contentFrom(valueRanges []*sheets.ValueRange) string {
 
 	cells := wtf.ToStrs(widget.settings.cellNames)
 	for i := 0; i < len(valueRanges); i++ {
-		res = res + fmt.Sprintf("%s\t[%s]%s\n", cells[i], widget.settings.colors.values, valueRanges[i].Values[0][0])
+		res += fmt.Sprintf("%s\t[%s]%s\n", cells[i], widget.settings.colors.values, valueRanges[i].Values[0][0])
 	}
 
 	return res

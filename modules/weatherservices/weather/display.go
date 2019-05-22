@@ -35,9 +35,9 @@ func (widget *Widget) display() {
 		title = widget.buildTitle(cityData)
 		_, _, width, _ := widget.View.GetRect()
 		content = widget.settings.common.SigilStr(len(widget.Data), widget.Idx, width) + "\n"
-		content = content + widget.description(cityData) + "\n\n"
-		content = content + widget.temperatures(cityData) + "\n"
-		content = content + widget.sunInfo(cityData)
+		content += widget.description(cityData) + "\n\n"
+		content += widget.temperatures(cityData) + "\n"
+		content += widget.sunInfo(cityData)
 	}
 
 	widget.Redraw(title, content, setWrap)
@@ -63,7 +63,7 @@ func (widget *Widget) sunInfo(cityData *owm.CurrentWeatherData) string {
 func (widget *Widget) temperatures(cityData *owm.CurrentWeatherData) string {
 	str := fmt.Sprintf("%8s: %4.1f° %s\n", "High", cityData.Main.TempMax, widget.settings.tempUnit)
 
-	str = str + fmt.Sprintf(
+	str += fmt.Sprintf(
 		"%8s: [%s]%4.1f° %s[white]\n",
 		"Current",
 		widget.settings.colors.current,
@@ -71,7 +71,7 @@ func (widget *Widget) temperatures(cityData *owm.CurrentWeatherData) string {
 		widget.settings.tempUnit,
 	)
 
-	str = str + fmt.Sprintf("%8s: %4.1f° %s\n", "Low", cityData.Main.TempMin, widget.settings.tempUnit)
+	str += fmt.Sprintf("%8s: %4.1f° %s\n", "Low", cityData.Main.TempMin, widget.settings.tempUnit)
 
 	return str
 }

@@ -20,13 +20,13 @@ func (widget *Widget) display() {
 	offset := 0
 
 	for idx, item := range widget.list.UncheckedItems() {
-		str = str + widget.formattedItemLine(idx, item, widget.list.SelectedItem(), widget.list.LongestLine())
+		str += widget.formattedItemLine(idx, item, widget.list.SelectedItem(), widget.list.LongestLine())
 		newList.Items = append(newList.Items, item)
 		offset++
 	}
 
 	for idx, item := range widget.list.CheckedItems() {
-		str = str + widget.formattedItemLine(idx+offset, item, widget.list.SelectedItem(), widget.list.LongestLine())
+		str += widget.formattedItemLine(idx+offset, item, widget.list.SelectedItem(), widget.list.LongestLine())
 		newList.Items = append(newList.Items, item)
 	}
 

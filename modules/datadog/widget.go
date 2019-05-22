@@ -48,8 +48,7 @@ func (widget *Widget) Refresh() {
 
 	for _, monitor := range monitors {
 		state := *monitor.OverallState
-		switch state {
-		case "Alert":
+		if state == "Alert" {
 			triggeredMonitors = append(triggeredMonitors, monitor)
 		}
 	}
@@ -74,7 +73,7 @@ func (widget *Widget) contentFrom(triggeredMonitors []datadog.Monitor) string {
 	var str string
 
 	if len(triggeredMonitors) > 0 {
-		str = str + fmt.Sprintf(
+		str += fmt.Sprintf(
 			" %s\n",
 			"[red]Triggered Monitors[white]",
 		)
@@ -87,7 +86,7 @@ func (widget *Widget) contentFrom(triggeredMonitors []datadog.Monitor) string {
 			) + "\n"
 		}
 	} else {
-		str = str + fmt.Sprintf(
+		str += fmt.Sprintf(
 			" %s\n",
 			"[green]No Triggered Monitors[white]",
 		)

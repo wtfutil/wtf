@@ -54,7 +54,7 @@ func (widget *Widget) contentFrom(items []Item) string {
 
 	str := ""
 	for _, item := range items {
-		str = str + widget.format(item)
+		str += widget.format(item)
 	}
 
 	return str

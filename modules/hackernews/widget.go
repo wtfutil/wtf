@@ -83,7 +83,7 @@ func (widget *Widget) contentFrom(stories []Story) string {
 
 		u, _ := url.Parse(story.URL)
 
-		str = str + fmt.Sprintf(
+		str += fmt.Sprintf(
 			`["%d"][""][%s]%2d. %s [lightblue](%s)[white][""]`,
 			idx,
 			widget.RowColor(idx),
@@ -92,7 +92,7 @@ func (widget *Widget) contentFrom(stories []Story) string {
 			strings.TrimPrefix(u.Host, "www."),
 		)
 
-		str = str + "\n"
+		str += "\n"
 	}
 
 	return str
