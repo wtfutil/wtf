@@ -483,7 +483,15 @@
       "name": "Romain Bossart",
       "avatar_url": "https://avatars2.githubusercontent.com/u/1936828?v=4",
       "profile": "https://github.com/bosr",
+      "contributions": []
+    },
+    {
+      "login": "sosiska",
+      "name": "Kirill Motkov",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/969838?v=4",
+      "profile": "http://eonix.ru",
       "contributions": [
+        "code"
       ]
     }
   ],
