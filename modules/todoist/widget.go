@@ -1,7 +1,6 @@
 package todoist
 
 import (
-	"fmt"
 	"github.com/darkSasori/todoist"
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/wtf"
