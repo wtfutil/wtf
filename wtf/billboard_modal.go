@@ -28,9 +28,10 @@ func NewBillboardModal(text string, closeFunc func()) *tview.Frame {
 	}
 
 	textView := tview.NewTextView()
+	textView.SetDynamicColors(true)
 	textView.SetInputCapture(keyboardIntercept)
-	textView.SetWrap(true)
 	textView.SetText(text)
+	textView.SetWrap(true)
 
 	frame := tview.NewFrame(textView)
 	frame.SetRect(offscreen, offscreen, modalWidth, modalHeight)

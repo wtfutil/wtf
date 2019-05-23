@@ -59,7 +59,6 @@ func keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	if !focusTracker.IsFocused {
 		switch string(event.Rune()) {
 		case "/":
-			fmt.Println(">> OUCH")
 			return nil
 		}
 	}

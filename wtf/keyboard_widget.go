@@ -2,6 +2,7 @@ package wtf
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/gdamore/tcell"
 	"github.com/rivo/tview"
@@ -85,16 +86,15 @@ func (widget *KeyboardWidget) InputCapture(event *tcell.EventKey) *tcell.EventKe
 }
 
 func (widget *KeyboardWidget) HelpText() string {
-
-	str := "Keyboard commands for " + widget.settings.Module.Type + "\n\n"
+	str := " [green::b]Keyboard commands for " + strings.Title(widget.settings.Module.Type) + "[white]\n\n"
 
 	for _, item := range widget.charHelp {
-		str += fmt.Sprintf("  [%s]: %s\n", item.Key, item.Text)
+		str += fmt.Sprintf("  %s\t%s\n", item.Key, item.Text)
 	}
 	str += "\n\n"
 
 	for _, item := range widget.keyHelp {
-		str += fmt.Sprintf("  [%-*s]: %s\n", widget.maxKey, item.Key, item.Text)
+		str += fmt.Sprintf("  %-*s\t%s\n", widget.maxKey, item.Key, item.Text)
 	}
 
 	return str
