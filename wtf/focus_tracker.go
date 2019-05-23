@@ -18,18 +18,22 @@ const (
 // FocusTracker is used by the app to track which onscreen widget currently has focus,
 // and to move focus between widgets.
 type FocusTracker struct {
-	App     *tview.Application
-	Idx     int
-	Widgets []Wtfable
-	config  *config.Config
+	App       *tview.Application
+	Idx       int
+	IsFocused bool
+	Widgets   []Wtfable
+
+	config *config.Config
 }
 
 func NewFocusTracker(app *tview.Application, widgets []Wtfable, config *config.Config) FocusTracker {
 	focusTracker := FocusTracker{
-		App:     app,
-		Idx:     -1,
-		Widgets: widgets,
-		config:  config,
+		App:       app,
+		Idx:       -1,
+		IsFocused: false,
+		Widgets:   widgets,
+
+		config: config,
 	}
 
 	focusTracker.assignHotKeys()
@@ -57,6 +61,7 @@ func (tracker *FocusTracker) FocusOn(char string) bool {
 			tracker.focus(tracker.Idx)
 
 			hasFocusable = true
+			tracker.IsFocused = true
 			break
 		}
 	}
@@ -149,6 +154,8 @@ func (tracker *FocusTracker) blur(idx int) {
 	view.Blur()
 
 	view.SetBorderColor(ColorFor(widget.BorderColor()))
+
+	tracker.IsFocused = false
 }
 
 func (tracker *FocusTracker) decrement() {

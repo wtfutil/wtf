@@ -55,6 +55,15 @@ func keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 		return nil
 	}
 
+	// If no specific widget has focus, then allow key presses to fall through to the app
+	if !focusTracker.IsFocused {
+		switch string(event.Rune()) {
+		case "/":
+			fmt.Println(">> OUCH")
+			return nil
+		}
+	}
+
 	return event
 }
 
