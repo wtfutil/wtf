@@ -2,7 +2,6 @@ package todoist
 
 import (
 	"github.com/darkSasori/todoist"
-	"github.com/gdamore/tcell"
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/wtf"
 )
@@ -10,8 +9,8 @@ import (
 // A Widget represents a Todoist widget
 type Widget struct {
 	wtf.KeyboardWidget
-	wtf.TextWidget
 	wtf.MultiSourceWidget
+	wtf.ScrollableWidget
 
 	projects []*Project
 	settings *Settings
@@ -21,8 +20,8 @@ type Widget struct {
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
 		KeyboardWidget:    wtf.NewKeyboardWidget(app, pages, settings.common),
-		TextWidget:        wtf.NewTextWidget(app, settings.common, true),
 		MultiSourceWidget: wtf.NewMultiSourceWidget(settings.common, "project", "projects"),
+		ScrollableWidget:  wtf.NewScrollableWidget(app, settings.common, true),
 
 		settings: settings,
 	}
@@ -30,6 +29,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	widget.loadAPICredentials()
 	widget.loadProjects()
 
+	widget.SetRenderFunction(widget.display)
 	widget.initializeKeyboardControls()
 	widget.View.SetInputCapture(widget.InputCapture)
 	widget.SetDisplayFunction(widget.display)
@@ -55,9 +55,11 @@ func (widget *Widget) ProjectAt(idx int) *Project {
 
 func (w *Widget) Refresh() {
 	if w.Disabled() || w.CurrentProject() == nil {
+		w.SetItemCount(0)
 		return
 	}
 
+	w.SetItemCount(len(w.CurrentProject().tasks))
 	w.display()
 }
 
@@ -65,30 +67,48 @@ func (widget *Widget) HelpText() string {
 	return widget.KeyboardWidget.HelpText()
 }
 
+func (widget *Widget) NextSource() {
+	widget.MultiSourceWidget.NextSource()
+	widget.Selected = widget.CurrentProject().index
+	widget.SetItemCount(len(widget.CurrentProject().tasks))
+	widget.RenderFunction()
+}
+
+func (widget *Widget) PrevSource() {
+	widget.MultiSourceWidget.PrevSource()
+	widget.Selected = widget.CurrentProject().index
+	widget.SetItemCount(len(widget.CurrentProject().tasks))
+	widget.RenderFunction()
+}
+
+func (widget *Widget) Prev() {
+	widget.ScrollableWidget.Prev()
+	widget.CurrentProject().index = widget.Selected
+}
+
+func (widget *Widget) Next() {
+	widget.ScrollableWidget.Next()
+	widget.CurrentProject().index = widget.Selected
+}
+
+func (widget *Widget) Unselect() {
+	widget.ScrollableWidget.Unselect()
+	widget.CurrentProject().index = -1
+	widget.RenderFunction()
+}
+
 /* -------------------- Keyboard Movement -------------------- */
-
-// Down selects the next item in the list
-func (w *Widget) Down() {
-	w.CurrentProject().down()
-	w.display()
-}
-
-// Up selects the previous item in the list
-func (w *Widget) Up() {
-	w.CurrentProject().up()
-	w.display()
-}
 
 // Close closes the currently-selected task in the currently-selected project
 func (w *Widget) Close() {
 	w.CurrentProject().closeSelectedTask()
 
 	if w.CurrentProject().isLast() {
-		w.Up()
+		w.Prev()
 		return
 	}
 
-	w.Down()
+	w.Next()
 }
 
 // Delete deletes the currently-selected task in the currently-selected project
@@ -96,11 +116,11 @@ func (w *Widget) Delete() {
 	w.CurrentProject().deleteSelectedTask()
 
 	if w.CurrentProject().isLast() {
-		w.Up()
+		w.Prev()
 		return
 	}
 
-	w.Down()
+	w.Next()
 }
 
 /* -------------------- Unexported Functions -------------------- */
@@ -118,18 +138,4 @@ func (widget *Widget) loadProjects() {
 	}
 
 	widget.projects = projects
-}
-
-func (w *Widget) vimBindings(event *tcell.EventKey) tcell.Key {
-	switch string(event.Rune()) {
-	case "h":
-		return tcell.KeyLeft
-	case "l":
-		return tcell.KeyRight
-	case "k":
-		return tcell.KeyUp
-	case "j":
-		return tcell.KeyDown
-	}
-	return event.Key()
 }

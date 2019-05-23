@@ -10,7 +10,7 @@ import (
 type ScrollableWidget struct {
 	TextWidget
 
-	selected       int
+	Selected       int
 	maxItems       int
 	RenderFunction func()
 }
@@ -36,11 +36,11 @@ func (widget *ScrollableWidget) SetItemCount(items int) {
 }
 
 func (widget *ScrollableWidget) GetSelected() int {
-	return widget.selected
+	return widget.Selected
 }
 
 func (widget *ScrollableWidget) RowColor(idx int) string {
-	if widget.View.HasFocus() && (idx == widget.selected) {
+	if widget.View.HasFocus() && (idx == widget.Selected) {
 		return widget.CommonSettings.DefaultFocussedRowColor()
 	}
 
@@ -48,23 +48,23 @@ func (widget *ScrollableWidget) RowColor(idx int) string {
 }
 
 func (widget *ScrollableWidget) Next() {
-	widget.selected++
-	if widget.selected >= widget.maxItems {
-		widget.selected = 0
+	widget.Selected++
+	if widget.Selected >= widget.maxItems {
+		widget.Selected = 0
 	}
 	widget.RenderFunction()
 }
 
 func (widget *ScrollableWidget) Prev() {
-	widget.selected--
-	if widget.selected < 0 {
-		widget.selected = widget.maxItems - 1
+	widget.Selected--
+	if widget.Selected < 0 {
+		widget.Selected = widget.maxItems - 1
 	}
 	widget.RenderFunction()
 }
 
 func (widget *ScrollableWidget) Unselect() {
-	widget.selected = -1
+	widget.Selected = -1
 	if widget.RenderFunction != nil {
 		widget.RenderFunction()
 	}
@@ -74,6 +74,6 @@ func (widget *ScrollableWidget) Redraw(title, content string, wrap bool) {
 
 	widget.TextWidget.Redraw(title, content, wrap)
 	widget.app.QueueUpdateDraw(func() {
-		widget.View.Highlight(strconv.Itoa(widget.selected)).ScrollToHighlight()
+		widget.View.Highlight(strconv.Itoa(widget.Selected)).ScrollToHighlight()
 	})
 }
