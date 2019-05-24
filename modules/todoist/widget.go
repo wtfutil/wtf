@@ -54,12 +54,12 @@ func (widget *Widget) ProjectAt(idx int) *Project {
 }
 
 func (widget *Widget) Refresh() {
-	widget.loadProjects()
-
 	if widget.Disabled() || widget.CurrentProject() == nil {
 		widget.SetItemCount(0)
 		return
 	}
+
+	widget.loadProjects()
 
 	widget.SetItemCount(len(widget.CurrentProject().tasks))
 	widget.display()
