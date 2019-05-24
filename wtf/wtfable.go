@@ -15,6 +15,7 @@ type Wtfable interface {
 	SetFocusChar(string)
 	TextView() *tview.TextView
 	HelpText() string
+	ConfigText() string
 
 	Height() int
 	Left() int

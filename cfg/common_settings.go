@@ -51,15 +51,15 @@ type Sigils struct {
 type Common struct {
 	Colors
 	Module
-	Position
+	Position `help:"Defines where in the grid this module’s widget will be displayed."`
 	Sigils
 
-	Enabled         bool
-	RefreshInterval int
+	Enabled         bool `help:"Determines whether or not this module is executed and if its data displayed onscreen." values:"true, false"`
+	RefreshInterval int  `help:"How often, in seconds, this module will update its data." values:"A positive integer, 0..n." optional:"true"`
 	Title           string
 	Config          *config.Config
 
-	focusChar int
+	focusChar int `help:"Define one of the number keys as a short cut key to access the widget." optional:"true"`
 }
 
 func NewCommonSettingsFromModule(name, defaultTitle string, moduleConfig *config.Config, globalSettings *config.Config) *Common {
