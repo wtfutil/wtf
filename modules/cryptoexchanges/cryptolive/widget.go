@@ -14,7 +14,6 @@ import (
 type Widget struct {
 	wtf.TextWidget
 
-	app           *tview.Application
 	priceWidget   *price.Widget
 	toplistWidget *toplist.Widget
 	settings      *Settings
@@ -25,7 +24,6 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(app, settings.common, false),
 
-		app:           app,
 		priceWidget:   price.NewWidget(settings.priceSettings),
 		toplistWidget: toplist.NewWidget(settings.toplistSettings),
 		settings:      settings,

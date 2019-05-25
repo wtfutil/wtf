@@ -14,7 +14,6 @@ type Widget struct {
 
 	GithubRepos []*GithubRepo
 
-	app      *tview.Application
 	settings *Settings
 }
 
@@ -24,7 +23,6 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 		MultiSourceWidget: wtf.NewMultiSourceWidget(settings.common, "repository", "repositories"),
 		TextWidget:        wtf.NewTextWidget(app, settings.common, true),
 
-		app:      app,
 		settings: settings,
 	}
 

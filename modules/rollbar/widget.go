@@ -78,8 +78,8 @@ func (widget *Widget) contentFrom(result *Result) string {
 	}
 	for idx, item := range result.Items {
 
-		str += fmt.Sprintf(
-			"[%s] [%s] %s [%s] %s [%s]count: %d [%s]%s\n",
+		row := fmt.Sprintf(
+			"[%s] [%s] %s [%s] %s [%s]count: %d [%s]%s",
 			widget.RowColor(idx),
 			levelColor(&item),
 			item.Level,
@@ -90,6 +90,7 @@ func (widget *Widget) contentFrom(result *Result) string {
 			"blue",
 			item.Environment,
 		)
+		str += wtf.HighlightableHelper(widget.View, row, idx, len(item.Title))
 	}
 
 	return str

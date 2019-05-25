@@ -83,16 +83,15 @@ func (widget *Widget) contentFrom(stories []Story) string {
 
 		u, _ := url.Parse(story.URL)
 
-		str += fmt.Sprintf(
-			`["%d"][""][%s]%2d. %s [lightblue](%s)[white][""]`,
-			idx,
+		row := fmt.Sprintf(
+			`[%s]%2d. %s [lightblue](%s)[white]`,
 			widget.RowColor(idx),
 			idx+1,
 			story.Title,
 			strings.TrimPrefix(u.Host, "www."),
 		)
 
-		str += "\n"
+		str += wtf.HighlightableHelper(widget.View, row, idx, len(story.Title))
 	}
 
 	return str

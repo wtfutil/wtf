@@ -78,12 +78,12 @@ func (widget *Widget) contentFrom(triggeredMonitors []datadog.Monitor) string {
 			"[red]Triggered Monitors[white]",
 		)
 		for idx, triggeredMonitor := range triggeredMonitors {
-			str = str + fmt.Sprintf(`["%d"][%s][red] %s[%s][""]`,
-				idx,
+			row := fmt.Sprintf(`[%s][red] %s[%s]`,
 				widget.RowColor(idx),
 				*triggeredMonitor.Name,
 				widget.RowColor(idx),
-			) + "\n"
+			)
+			str += wtf.HighlightableHelper(widget.View, row, idx, len(*triggeredMonitor.Name))
 		}
 	} else {
 		str += fmt.Sprintf(
