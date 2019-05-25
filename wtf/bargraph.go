@@ -116,6 +116,10 @@ func (widget *BarGraph) HelpText() string {
 	return "No help available for this widget"
 }
 
+func (widget *BarGraph) ConfigText() string {
+	return ""
+}
+
 /* -------------------- Unexported Functions -------------------- */
 
 func (widget *BarGraph) addView() *tview.TextView {

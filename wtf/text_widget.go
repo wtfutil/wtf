@@ -5,6 +5,7 @@ import (
 
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/cfg"
+	"github.com/wtfutil/wtf/utils"
 )
 
 type TextWidget struct {
@@ -121,6 +122,10 @@ func (widget *TextWidget) Redraw(title, text string, wrap bool) {
 
 func (widget *TextWidget) HelpText() string {
 	return fmt.Sprintf("\n  There is no help available for widget %s", widget.CommonSettings.Module.Type)
+}
+
+func (widget *TextWidget) ConfigText() string {
+	return utils.HelpFromInterface(cfg.Common{})
 }
 
 /* -------------------- Unexported Functions -------------------- */
