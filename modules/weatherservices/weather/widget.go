@@ -9,28 +9,31 @@ import (
 // Widget is the container for weather data.
 type Widget struct {
 	wtf.KeyboardWidget
+	wtf.MultiSourceWidget
 	wtf.TextWidget
 
 	// APIKey   string
 	Data []*owm.CurrentWeatherData
-	Idx  int
 
+	pages    *tview.Pages
 	settings *Settings
 }
 
 // NewWidget creates and returns a new instance of the weather Widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		KeyboardWidget: wtf.NewKeyboardWidget(app, pages, settings.common),
-		TextWidget:     wtf.NewTextWidget(app, settings.common, true),
+		KeyboardWidget:    wtf.NewKeyboardWidget(app, pages, settings.common),
+		MultiSourceWidget: wtf.NewMultiSourceWidget(settings.common, "cityid", "cityids"),
+		TextWidget:        wtf.NewTextWidget(app, settings.common, true),
 
-		Idx: 0,
-
+		pages:    pages,
 		settings: settings,
 	}
 
 	widget.initializeKeyboardControls()
 	widget.View.SetInputCapture(widget.InputCapture)
+
+	widget.SetDisplayFunction(widget.display)
 
 	widget.KeyboardWidget.SetView(widget.View)
 
@@ -60,28 +63,6 @@ func (widget *Widget) Fetch(cityIDs []int) []*owm.CurrentWeatherData {
 func (widget *Widget) Refresh() {
 	if widget.apiKeyValid() {
 		widget.Data = widget.Fetch(wtf.ToInts(widget.settings.cityIDs))
-	}
-
-	widget.display()
-}
-
-// Next displays data for the next city data in the list. If the current city is the last
-// city, it wraps to the first city.
-func (widget *Widget) Next() {
-	widget.Idx++
-	if widget.Idx == len(widget.Data) {
-		widget.Idx = 0
-	}
-
-	widget.display()
-}
-
-// Prev displays data for the previous city in the list. If the previous city is the first
-// city, it wraps to the last city.
-func (widget *Widget) Prev() {
-	widget.Idx--
-	if widget.Idx < 0 {
-		widget.Idx = len(widget.Data) - 1
 	}
 
 	widget.display()
