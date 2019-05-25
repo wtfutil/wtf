@@ -9,6 +9,7 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/utils"
 )
 
@@ -197,4 +198,13 @@ func ToStrs(slice []interface{}) []string {
 	}
 
 	return results
+}
+
+func HighlightableHelper(view *tview.TextView, input string, idx, offset int) string {
+	fmtStr := fmt.Sprintf(`["%d"][""]`, idx)
+	_, _, w, _ := view.GetInnerRect()
+	fmtStr += input
+	fmtStr += PadRow(offset, w+1)
+	fmtStr += `[""]` + "\n"
+	return fmtStr
 }

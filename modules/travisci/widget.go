@@ -66,7 +66,7 @@ func (widget *Widget) contentFrom(builds *Builds) string {
 	var str string
 	for idx, build := range builds.Builds {
 
-		str += fmt.Sprintf(
+		row := fmt.Sprintf(
 			"[%s] [%s] %s-%s (%s) [%s]%s - [blue]%s\n",
 			widget.RowColor(idx),
 			buildColor(&build),
@@ -77,6 +77,7 @@ func (widget *Widget) contentFrom(builds *Builds) string {
 			strings.Split(build.Commit.Message, "\n")[0],
 			build.CreatedBy.Login,
 		)
+		str += wtf.HighlightableHelper(widget.View, row, idx, len(build.Branch.Name))
 	}
 
 	return str

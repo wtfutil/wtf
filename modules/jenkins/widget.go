@@ -75,15 +75,14 @@ func (widget *Widget) contentFrom(view *View) string {
 		var validID = regexp.MustCompile(widget.settings.jobNameRegex)
 
 		if validID.MatchString(job.Name) {
-			str += fmt.Sprintf(
-				`["%d"][%s] [%s]%-6s[white][""]`,
-				idx,
+			row := fmt.Sprintf(
+				`[%s] [%s]%-6s[white]`,
 				widget.RowColor(idx),
 				widget.jobColor(&job),
 				job.Name,
 			)
 
-			str += "\n"
+			str += wtf.HighlightableHelper(widget.View, row, idx, len(job.Name))
 		}
 	}
 
