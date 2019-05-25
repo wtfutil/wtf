@@ -53,14 +53,16 @@ func (widget *Widget) ProjectAt(idx int) *Project {
 	return widget.projects[idx]
 }
 
-func (w *Widget) Refresh() {
-	if w.Disabled() || w.CurrentProject() == nil {
-		w.SetItemCount(0)
+func (widget *Widget) Refresh() {
+	if widget.Disabled() || widget.CurrentProject() == nil {
+		widget.SetItemCount(0)
 		return
 	}
 
-	w.SetItemCount(len(w.CurrentProject().tasks))
-	w.display()
+	widget.loadProjects()
+
+	widget.SetItemCount(len(widget.CurrentProject().tasks))
+	widget.display()
 }
 
 func (widget *Widget) HelpText() string {

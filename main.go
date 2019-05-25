@@ -40,22 +40,29 @@ func disableAllWidgets(widgets []wtf.Wtfable) {
 }
 
 func keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
+	// These keys are global keys used by the app. Widgets should not implement these keys
 	switch event.Key() {
 	case tcell.KeyCtrlR:
 		refreshAllWidgets(runningWidgets)
+		return nil
 	case tcell.KeyTab:
 		focusTracker.Next()
+		return nil
 	case tcell.KeyBacktab:
 		focusTracker.Prev()
+		return nil
 	case tcell.KeyEsc:
 		focusTracker.None()
+		return nil
 	}
 
+	// This function checks to see if any widget has been assigned the pressed key as its
+	// focus key
 	if focusTracker.FocusOn(string(event.Rune())) {
 		return nil
 	}
 
-	// If no specific widget has focus, then allow key presses to fall through to the app
+	// If no specific widget has focus, then allow the key presses to fall through to the app
 	if !focusTracker.IsFocused {
 		switch string(event.Rune()) {
 		case "/":

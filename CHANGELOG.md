@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### 🐞 Fixed
+
+* Todoist now properly updates list items when Refresh is called
+
 ## v0.10.3
 
 * Invalid glog dependency removed, by [@bosr](https://github.com/bosr)
