@@ -79,6 +79,8 @@ func (tracker *FocusTracker) Next() {
 	tracker.blur(tracker.Idx)
 	tracker.increment()
 	tracker.focus(tracker.Idx)
+
+	tracker.IsFocused = true
 }
 
 // None removes focus from the currently-focused widget.
@@ -100,6 +102,8 @@ func (tracker *FocusTracker) Prev() {
 	tracker.blur(tracker.Idx)
 	tracker.decrement()
 	tracker.focus(tracker.Idx)
+
+	tracker.IsFocused = true
 }
 
 func (tracker *FocusTracker) Refocus() {
