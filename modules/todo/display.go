@@ -8,8 +8,6 @@ import (
 	"github.com/wtfutil/wtf/wtf"
 )
 
-const checkWidth = 4
-
 func (widget *Widget) display() {
 	str := ""
 	newList := checklist.NewChecklist(
@@ -48,19 +46,13 @@ func (widget *Widget) formattedItemLine(idx int, item *checklist.ChecklistItem, 
 		backColor = widget.settings.common.Colors.HighlightBack
 	}
 
-	str := fmt.Sprintf(
-		`["%d"][""][%s:%s]|%s| %s[white][""]`,
-		idx,
+	row := fmt.Sprintf(
+		` [%s:%s]|%s| %s[white]`,
 		foreColor,
 		backColor,
 		item.CheckMark(),
 		tview.Escape(item.Text),
 	)
 
-	_, _, w, _ := widget.View.GetInnerRect()
-	if w > maxLen {
-		maxLen = w
-	}
-
-	return str + wtf.PadRow((checkWidth+len(item.Text)), (checkWidth+maxLen+1)) + "\n"
+	return wtf.HighlightableHelper(widget.View, row, idx, len(item.Text))
 }

@@ -83,9 +83,8 @@ func (widget *Widget) display() {
 func (widget *Widget) contentFrom(messages []Message) string {
 	var str string
 	for idx, message := range messages {
-		str += fmt.Sprintf(
-			`["%d"][%s] [blue]%s [lightslategray]%s: [%s]%s [aqua]%s[""]`,
-			idx,
+		row := fmt.Sprintf(
+			`[%s] [blue]%s [lightslategray]%s: [%s]%s [aqua]%s`,
 			widget.RowColor(idx),
 			message.From.DisplayName,
 			message.From.Username,
@@ -94,7 +93,7 @@ func (widget *Widget) contentFrom(messages []Message) string {
 			message.Sent.Format("Jan 02, 15:04 MST"),
 		)
 
-		str += "\n"
+		str += wtf.HighlightableHelper(widget.View, row, idx, len(message.Text))
 	}
 
 	return str
