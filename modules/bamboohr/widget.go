@@ -12,7 +12,6 @@ const APIURI = "https://api.bamboohr.com/api/gateway.php"
 type Widget struct {
 	wtf.TextWidget
 
-	app      *tview.Application
 	settings *Settings
 }
 
@@ -20,7 +19,6 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(app, settings.common, false),
 
-		app:      app,
 		settings: settings,
 	}
 
