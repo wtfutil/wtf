@@ -5,6 +5,7 @@
 ### 🐞 Fixed
 
 * Todoist now properly updates list items when Refresh is called
+* Keyboard modal displays properly when tabbing between widgets, [#467](https://github.com/wtfutil/wtf/issues/467)
 
 ## v0.10.3
 
