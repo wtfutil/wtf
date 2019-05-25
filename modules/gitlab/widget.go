@@ -8,10 +8,10 @@ import (
 
 type Widget struct {
 	wtf.KeyboardWidget
+	wtf.MultiSourceWidget
 	wtf.TextWidget
 
 	GitlabProjects []*GitlabProject
-	Idx            int
 
 	gitlab   *glb.Client
 	settings *Settings
@@ -26,10 +26,9 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	}
 
 	widget := Widget{
-		KeyboardWidget: wtf.NewKeyboardWidget(app, pages, settings.common),
-		TextWidget:     wtf.NewTextWidget(app, settings.common, true),
-
-		Idx: 0,
+		KeyboardWidget:    wtf.NewKeyboardWidget(app, pages, settings.common),
+		MultiSourceWidget: wtf.NewMultiSourceWidget(settings.common, "repository", "repositories"),
+		TextWidget:        wtf.NewTextWidget(app, settings.common, true),
 
 		gitlab:   gitlab,
 		settings: settings,
@@ -39,6 +38,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 
 	widget.initializeKeyboardControls()
 	widget.View.SetInputCapture(widget.InputCapture)
+	widget.SetDisplayFunction(widget.display)
 
 	widget.KeyboardWidget.SetView(widget.View)
 
@@ -50,24 +50,6 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 func (widget *Widget) Refresh() {
 	for _, project := range widget.GitlabProjects {
 		project.Refresh()
-	}
-
-	widget.display()
-}
-
-func (widget *Widget) Next() {
-	widget.Idx++
-	if widget.Idx == len(widget.GitlabProjects) {
-		widget.Idx = 0
-	}
-
-	widget.display()
-}
-
-func (widget *Widget) Prev() {
-	widget.Idx--
-	if widget.Idx < 0 {
-		widget.Idx = len(widget.GitlabProjects) - 1
 	}
 
 	widget.display()
