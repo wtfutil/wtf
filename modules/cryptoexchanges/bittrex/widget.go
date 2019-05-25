@@ -20,7 +20,6 @@ const baseURL = "https://bittrex.com/api/v1.1/public/getmarketsummary"
 type Widget struct {
 	wtf.TextWidget
 
-	app      *tview.Application
 	settings *Settings
 	summaryList
 }
@@ -30,7 +29,6 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
 		TextWidget: wtf.NewTextWidget(app, settings.common, false),
 
-		app:         app,
 		settings:    settings,
 		summaryList: summaryList{},
 	}
