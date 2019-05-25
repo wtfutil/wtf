@@ -75,9 +75,8 @@ func (widget *Widget) contentFrom(searchResult *SearchResult) string {
 	str := " [red]Assigned Issues[white]\n"
 
 	for idx, issue := range searchResult.Issues {
-		fmtStr := fmt.Sprintf(
-			`["%d"][%s] [%s]%-6s[white] [green]%-10s[white] [yellow][%s][white] [%s]%s[""]`,
-			idx,
+		row := fmt.Sprintf(
+			`[%s] [%s]%-6s[white] [green]%-10s[white] [yellow][%s][white] [%s]%s`,
 			widget.RowColor(idx),
 			widget.issueTypeColor(&issue),
 			issue.IssueFields.IssueType.Name,
@@ -87,10 +86,7 @@ func (widget *Widget) contentFrom(searchResult *SearchResult) string {
 			issue.IssueFields.Summary,
 		)
 
-		_, _, w, _ := widget.View.GetInnerRect()
-		fmtStr += wtf.PadRow(len(issue.IssueFields.Summary), w+1)
-
-		str = str + fmtStr + "\n"
+		str += wtf.HighlightableHelper(widget.View, row, idx, len(issue.IssueFields.Summary))
 	}
 
 	return str
