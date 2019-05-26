@@ -10,10 +10,10 @@
 A personal terminal-based dashboard utility, designed for
 displaying infrequently-needed, but very important, daily data.
 
+* [Screenshot](https://github.com/wtfutil/wtf/blob/master/README.md#screenshot)
 * [Communication](https://github.com/wtfutil/wtf/blob/master/README.md#communication)
     * [Slack](https://github.com/wtfutil/wtf/blob/master/README.md#slack)
     * [Twitter](https://github.com/wtfutil/wtf/blob/master/README.md#twitter)
-* [Screenshot](https://github.com/wtfutil/wtf/blob/master/README.md#screenshot)
 * [Quick Start](https://github.com/wtfutil/wtf/blob/master/README.md#quick-start)
 * [Documentation](https://github.com/wtfutil/wtf/blob/master/README.md#documentation)
     * [Contributing to the Documentation](https://github.com/wtfutil/wtf/blob/master/README.md#contributing-to-the-documentation)
@@ -21,6 +21,12 @@ displaying infrequently-needed, but very important, daily data.
     * [Adding Dependencies](https://github.com/wtfutil/wtf/blob/master/README.md#adding-dependencies)
 * [Contributors](https://github.com/wtfutil/wtf/blob/master/README.md#contributors)
 * [Acknowledgements](https://github.com/wtfutil/wtf/blob/master/README.md#acknowledgments)
+
+## Screenshot
+
+<p align="center">
+<img src="./images/screenshot.jpg" title="screenshot" width="720" height="420" />
+</p>
 
 ## Communication
 
@@ -33,12 +39,6 @@ Find #wtfutil on https://gophers.slack.com/ and join us.
 ### Twitter
 
 Also, follow [on Twitter](https://twitter.com/wtfutil) for news and latest updates. 
-
-## Screenshot
-
-<p align="center">
-<img src="./images/screenshot.jpg" title="screenshot" width="720" height="420" />
-</p>
 
 ## Quick Start
 
