@@ -10,7 +10,19 @@
 A personal terminal-based dashboard utility, designed for
 displaying infrequently-needed, but very important, daily data.
 
-## Communications
+* [Communication](https://github.com/wtfutil/wtf/blob/master/README.md#communication)
+    * [Slack](https://github.com/wtfutil/wtf/blob/master/README.md#slack)
+    * [Twitter](https://github.com/wtfutil/wtf/blob/master/README.md#twitter)
+* [Screenshot](https://github.com/wtfutil/wtf/blob/master/README.md#screenshot)
+* [Quick Start](https://github.com/wtfutil/wtf/blob/master/README.md#quick-start)
+* [Documentation](https://github.com/wtfutil/wtf/blob/master/README.md#documentation)
+    * [Contributing to the Documentation](https://github.com/wtfutil/wtf/blob/master/README.md#contributing-to-the-documentation)
+* [Contributing to the Source Code](https://github.com/wtfutil/wtf/blob/master/README.md#contributing-to-the-source-code)
+    * [Adding Dependencies](https://github.com/wtfutil/wtf/blob/master/README.md#adding-dependencies)
+* [Contributors](https://github.com/wtfutil/wtf/blob/master/README.md#contributors)
+* [Acknowledgements](https://github.com/wtfutil/wtf/blob/master/README.md#acknowledgments)
+
+## Communication
 
 ### Slack
 
