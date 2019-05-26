@@ -77,7 +77,9 @@ First, please read [Talk, then code](https://dave.cheney.net/2019/02/18/talk-the
 
 Next, please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests.
 
-Then open your issue, propose your approach, and join the rest of the awesome people who've contributed their time and effort towards WTF. Without you it wouldn't be possible.
+Then create your branch, write your code, submit your PR, and join the rest of the awesome people who've contributed their time and effort towards WTF. Without the contributors it wouldn't be possible.
+
+And don't worry if you've never written Go before, or never contributed to an open source project before, or that your code won't be good enough. For a surprising number of people WTF has been their first Go project, or first open source contribution. If you're here, and you've read this far, you're the right stuff.
 
 ### Adding Dependencies
 
