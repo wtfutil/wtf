@@ -24,6 +24,7 @@ import (
 
 var focusTracker wtf.FocusTracker
 var runningWidgets []wtf.Wtfable
+var widgetController wtf.WidgetController
 
 var (
 	commit  = "dev"
@@ -42,18 +43,29 @@ func disableAllWidgets(widgets []wtf.Wtfable) {
 func keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	// These keys are global keys used by the app. Widgets should not implement these keys
 	switch event.Key() {
+	case tcell.KeyCtrlE:
+		if !widgetController.IsVisible() {
+			widgetController.ShowVisibilityModal()
+			return nil
+		}
 	case tcell.KeyCtrlR:
 		refreshAllWidgets(runningWidgets)
 		return nil
 	case tcell.KeyTab:
-		focusTracker.Next()
-		return nil
+		if !widgetController.IsVisible() {
+			focusTracker.Next()
+			return nil
+		}
 	case tcell.KeyBacktab:
-		focusTracker.Prev()
-		return nil
+		if !widgetController.IsVisible() {
+			focusTracker.Prev()
+			return nil
+		}
 	case tcell.KeyEsc:
-		focusTracker.None()
-		return nil
+		if !widgetController.IsVisible() {
+			focusTracker.None()
+			return nil
+		}
 	}
 
 	// This function checks to see if any widget has been assigned the pressed key as its
@@ -155,6 +167,7 @@ func main() {
 	runningWidgets = widgets
 
 	focusTracker = wtf.NewFocusTracker(app, widgets, config)
+	widgetController = wtf.NewWidgetController(app, pages)
 
 	display := wtf.NewDisplay(widgets, config)
 	pages.AddPage("grid", display.Grid, true, true)

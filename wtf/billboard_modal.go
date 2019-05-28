@@ -9,6 +9,8 @@ const offscreen = -1000
 const modalWidth = 80
 const modalHeight = 22
 
+// NewBillboardModal creates and returns a billboard modal
+// These modals are suitable for displaying static text as a fixed overlay
 func NewBillboardModal(text string, closeFunc func()) *tview.Frame {
 	keyboardIntercept := func(event *tcell.EventKey) *tcell.EventKey {
 		if string(event.Rune()) == "/" {
