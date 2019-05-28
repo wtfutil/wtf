@@ -10,21 +10,35 @@
 A personal terminal-based dashboard utility, designed for
 displaying infrequently-needed, but very important, daily data.
 
-### Twitter
-
-Follow [on Twitter](https://twitter.com/wtfutil) for news and latest updates. 
-
-### Slack
-
-If you’re a member of the Gophers Slack community (https://invite.slack.golangbridge.org) there’s now a WTFUtil channel you should join for all your WTF questions, dev conversations, etc.
-
-Find #wtfutil on https://gophers.slack.com/ and join us.
+* [Screenshot](https://github.com/wtfutil/wtf/blob/master/README.md#screenshot)
+* [Communication](https://github.com/wtfutil/wtf/blob/master/README.md#communication)
+    * [Slack](https://github.com/wtfutil/wtf/blob/master/README.md#slack)
+    * [Twitter](https://github.com/wtfutil/wtf/blob/master/README.md#twitter)
+* [Quick Start](https://github.com/wtfutil/wtf/blob/master/README.md#quick-start)
+* [Documentation](https://github.com/wtfutil/wtf/blob/master/README.md#documentation)
+    * [Contributing to the Documentation](https://github.com/wtfutil/wtf/blob/master/README.md#contributing-to-the-documentation)
+* [Contributing to the Source Code](https://github.com/wtfutil/wtf/blob/master/README.md#contributing-to-the-source-code)
+    * [Adding Dependencies](https://github.com/wtfutil/wtf/blob/master/README.md#adding-dependencies)
+* [Contributors](https://github.com/wtfutil/wtf/blob/master/README.md#contributors)
+* [Acknowledgements](https://github.com/wtfutil/wtf/blob/master/README.md#acknowledgments)
 
 ## Screenshot
 
 <p align="center">
 <img src="./images/screenshot.jpg" title="screenshot" width="720" height="420" />
 </p>
+
+## Communication
+
+### Slack
+
+If you’re a member of the Gophers Slack community (https://invite.slack.golangbridge.org) there’s a WTFUtil channel you should join for all your WTF questions, development conversations, etc.
+
+Find #wtfutil on https://gophers.slack.com/ and join us.
+
+### Twitter
+
+Also, follow [on Twitter](https://twitter.com/wtfutil) for news and latest updates. 
 
 ## Quick Start
 
@@ -77,7 +91,9 @@ First, please read [Talk, then code](https://dave.cheney.net/2019/02/18/talk-the
 
 Next, please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests.
 
-Then open your issue, propose your approach, and join the rest of the awesome people who've contributed their time and effort towards WTF. Without you it wouldn't be possible.
+Then create your branch, write your code, submit your PR, and join the rest of the awesome people who've contributed their time and effort towards WTF. Without their contributors, WTF wouldn't be possible.
+
+And don't worry if you've never written Go before, or never contributed to an open source project before, or that your code won't be good enough. For a surprising number of people WTF has been their first Go project, or first open source contribution. If you're here, and you've read this far, you're the right stuff.
 
 ### Adding Dependencies
 
