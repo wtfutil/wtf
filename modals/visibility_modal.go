@@ -5,21 +5,33 @@ import (
 	"github.com/rivo/tview"
 )
 
-// NewWidgetVisibilityModal creates and returns a control modal
+// VisibilityModal is a modal that controls the onscreen visibility of widgets
+type VisibilityModal struct {
+	closeFunc         func()
+	frame             *tview.Frame
+	keyboardIntercept func(event *tcell.EventKey) *tcell.EventKey
+	name              string
+}
+
+// NewVisibilityModal creates and returns a control modal
 // This modal is used to toggle active modules on and off
-func NewWidgetVisibilityModal(closeFunc func()) *tview.Frame {
+func NewVisibilityModal() *VisibilityModal {
+	modal := &VisibilityModal{
+		name: "visibility",
+	}
+
 	keyboardIntercept := func(event *tcell.EventKey) *tcell.EventKey {
 		if string(event.Rune()) == "/" {
-			closeFunc()
+			modal.execCloseFunc()
 			return nil
 		}
 
 		switch event.Key() {
 		case tcell.KeyCtrlE:
-			closeFunc()
+			modal.execCloseFunc()
 			return nil
 		case tcell.KeyEsc:
-			closeFunc()
+			modal.execCloseFunc()
 			return nil
 		case tcell.KeyTab:
 			return nil
@@ -47,5 +59,31 @@ func NewWidgetVisibilityModal(closeFunc func()) *tview.Frame {
 	frame.SetBorders(1, 1, 0, 0, 1, 1)
 	frame.SetDrawFunc(drawFunc)
 
-	return frame
+	modal.frame = frame
+	modal.keyboardIntercept = keyboardIntercept
+
+	return modal
+}
+
+/* -------------------- Exported Functions -------------------- */
+
+// Frame returns the frame used to display the modal
+func (modal *VisibilityModal) Frame() *tview.Frame {
+	return modal.frame
+}
+
+// Name returns the name of the modal
+func (modal *VisibilityModal) Name() string {
+	return modal.name
+}
+
+// SetCloseFunction assigns the function that should be called to close this modal
+func (modal *VisibilityModal) SetCloseFunction(fn func()) {
+	modal.closeFunc = fn
+}
+
+/* -------------------- Unexported Functions -------------------- */
+
+func (modal *VisibilityModal) execCloseFunc() {
+	modal.closeFunc()
 }

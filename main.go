@@ -51,7 +51,8 @@ func keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	// These keys are global keys used by the app. Widgets should not implement these keys
 	switch event.Key() {
 	case tcell.KeyCtrlE:
-		modalController.ShowWidgetVisibilityModal()
+		visibilityModal := modals.NewVisibilityModal()
+		modalController.ShowModal(visibilityModal)
 		return nil
 	case tcell.KeyCtrlR:
 		refreshAllWidgets(runningWidgets)

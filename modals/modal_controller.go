@@ -16,18 +16,26 @@ const (
 	OffscreenPos = -1000
 )
 
-// A ModalController is used to manipulate the onscreen display of widgets
+// Modallike defines the interface that all modals must adhere to
+type Modallike interface {
+	Frame() *tview.Frame
+	Name() string
+	SetCloseFunction(fn func())
+}
+
+// A ModalController is used to manipulate the onscreen display of modal overlays
 type ModalController struct {
 	app            *tview.Application
+	currentModal   Modallike
 	modalIsVisible bool
 	pages          *tview.Pages
 
-	// prevFocused is the widget that was in focus before this modal is displayed
-	// This is used to reset focus after this modal is removed
+	// prevFocused is the widget that was in focus before the modal is displayed
+	// This is used to reset focus after the modal is removed
 	prevFocused tview.Primitive
 }
 
-// NewModalController creates and returns an instance of a widget controller
+// NewModalController creates and returns an instance of a ModalController
 func NewModalController(app *tview.Application, pages *tview.Pages) ModalController {
 	controller := ModalController{
 		app:            app,
@@ -38,28 +46,36 @@ func NewModalController(app *tview.Application, pages *tview.Pages) ModalControl
 	return controller
 }
 
-// ModalIsVisible returns whether or not this modal window is currently showing onscreen
+// CloseModal closes the currently-displayed modal
+func (cont *ModalController) CloseModal() {
+	if !cont.modalIsVisible {
+		return
+	}
+
+	if cont.currentModal == nil {
+		return
+	}
+
+	cont.pages.RemovePage(cont.currentModal.Name())
+	cont.app.SetFocus(cont.prevFocused)
+
+	cont.modalIsVisible = false
+}
+
+// ModalIsVisible returns whether or not a modal window is currently showing
 func (cont *ModalController) ModalIsVisible() bool {
 	return cont.modalIsVisible
 }
 
-// ShowWidgetVisibilityModal displays an instance of VisibilityModal on the screen
-func (cont *ModalController) ShowWidgetVisibilityModal() {
-	modalName := "visibility"
-
-	closeFunc := func() {
-		cont.pages.RemovePage(modalName)
-		cont.app.SetFocus(cont.prevFocused)
-
-		cont.modalIsVisible = false
-	}
-
-	modal := NewWidgetVisibilityModal(closeFunc)
-
+// ShowModal displays the specified Modallike instance onscreen
+func (cont *ModalController) ShowModal(modal Modallike) {
+	cont.currentModal = modal
 	cont.prevFocused = cont.app.GetFocus()
 
-	cont.pages.AddPage(modalName, modal, false, true)
-	cont.app.SetFocus(modal)
+	cont.currentModal.SetCloseFunction(cont.CloseModal)
+
+	cont.pages.AddPage(cont.currentModal.Name(), cont.currentModal.Frame(), false, true)
+	cont.app.SetFocus(cont.currentModal.Frame())
 
 	cont.modalIsVisible = true
 
