@@ -18,13 +18,14 @@ import (
 	"github.com/wtfutil/wtf/cfg"
 	"github.com/wtfutil/wtf/flags"
 	"github.com/wtfutil/wtf/maker"
+	"github.com/wtfutil/wtf/modals"
 	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/wtf"
 )
 
 var focusTracker wtf.FocusTracker
 var runningWidgets []wtf.Wtfable
-var modalController wtf.ModalController
+var modalController modals.ModalController
 
 var (
 	commit  = "dev"
@@ -165,7 +166,7 @@ func main() {
 	runningWidgets = widgets
 
 	focusTracker = wtf.NewFocusTracker(app, widgets, config)
-	modalController = wtf.NewModalController(app, pages)
+	modalController = modals.NewModalController(app, pages)
 
 	display := wtf.NewDisplay(widgets, config)
 	pages.AddPage("grid", display.Grid, true, true)

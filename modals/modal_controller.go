@@ -1,8 +1,19 @@
-package wtf
+package modals
 
 import (
-	"github.com/gdamore/tcell"
 	"github.com/rivo/tview"
+)
+
+const (
+	// ModalWidth is the default width for a modal overlay, in characters
+	ModalWidth = 80
+
+	// ModalHeight is the default height for a modal overlay, in screen lines
+	ModalHeight = 22
+
+	// OffscreenPos is the default starting position of a modal, used to build it before
+	// blitting it onscreen
+	OffscreenPos = -1000
 )
 
 // A ModalController is used to manipulate the onscreen display of widgets
@@ -55,51 +66,4 @@ func (cont *ModalController) ShowWidgetVisibilityModal() {
 	cont.app.QueueUpdate(func() {
 		cont.app.Draw()
 	})
-}
-
-/* -------------------- Visibility Modal -------------------- */
-
-// NewWidgetVisibilityModal creates and returns a control modal
-// This modal is used to toggle active modules on and off
-func NewWidgetVisibilityModal(closeFunc func()) *tview.Frame {
-	keyboardIntercept := func(event *tcell.EventKey) *tcell.EventKey {
-		if string(event.Rune()) == "/" {
-			closeFunc()
-			return nil
-		}
-
-		switch event.Key() {
-		case tcell.KeyCtrlE:
-			closeFunc()
-			return nil
-		case tcell.KeyEsc:
-			closeFunc()
-			return nil
-		case tcell.KeyTab:
-			return nil
-		default:
-			return event
-		}
-	}
-
-	textView := tview.NewTextView()
-	textView.SetDynamicColors(true)
-	textView.SetInputCapture(keyboardIntercept)
-	textView.SetText(" Hello")
-	textView.SetWrap(false)
-
-	frame := tview.NewFrame(textView)
-	frame.SetRect(offscreen, offscreen, modalWidth, modalHeight)
-
-	drawFunc := func(screen tcell.Screen, x, y, width, height int) (int, int, int, int) {
-		w, h := screen.Size()
-		frame.SetRect((w/2)-(width/2), (h/2)-(height/2), width, height)
-		return x, y, width, height
-	}
-
-	frame.SetBorder(true)
-	frame.SetBorders(1, 1, 0, 0, 1, 1)
-	frame.SetDrawFunc(drawFunc)
-
-	return frame
 }
