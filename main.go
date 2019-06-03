@@ -24,7 +24,7 @@ import (
 
 var focusTracker wtf.FocusTracker
 var runningWidgets []wtf.Wtfable
-var widgetController wtf.WidgetController
+var modalController wtf.ModalController
 
 var (
 	commit  = "dev"
@@ -41,31 +41,29 @@ func disableAllWidgets(widgets []wtf.Wtfable) {
 }
 
 func keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
+	if modalController.ModalIsVisible() {
+		// if a modal is onscreen, pass this event directly to it to deal with as the front-most
+		// focused object
+		return event
+	}
+
 	// These keys are global keys used by the app. Widgets should not implement these keys
 	switch event.Key() {
 	case tcell.KeyCtrlE:
-		if !widgetController.IsVisible() {
-			widgetController.ShowVisibilityModal()
-			return nil
-		}
+		modalController.ShowWidgetVisibilityModal()
+		return nil
 	case tcell.KeyCtrlR:
 		refreshAllWidgets(runningWidgets)
 		return nil
 	case tcell.KeyTab:
-		if !widgetController.IsVisible() {
-			focusTracker.Next()
-			return nil
-		}
+		focusTracker.Next()
+		return nil
 	case tcell.KeyBacktab:
-		if !widgetController.IsVisible() {
-			focusTracker.Prev()
-			return nil
-		}
+		focusTracker.Prev()
+		return nil
 	case tcell.KeyEsc:
-		if !widgetController.IsVisible() {
-			focusTracker.None()
-			return nil
-		}
+		focusTracker.None()
+		return nil
 	}
 
 	// This function checks to see if any widget has been assigned the pressed key as its
@@ -167,7 +165,7 @@ func main() {
 	runningWidgets = widgets
 
 	focusTracker = wtf.NewFocusTracker(app, widgets, config)
-	widgetController = wtf.NewWidgetController(app, pages)
+	modalController = wtf.NewModalController(app, pages)
 
 	display := wtf.NewDisplay(widgets, config)
 	pages.AddPage("grid", display.Grid, true, true)

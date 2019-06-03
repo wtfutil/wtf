@@ -5,52 +5,52 @@ import (
 	"github.com/rivo/tview"
 )
 
-// A WidgetController is used to manipulate the onscreen display of widgets
-type WidgetController struct {
-	app       *tview.Application
-	isVisible bool
-	pages     *tview.Pages
+// A ModalController is used to manipulate the onscreen display of widgets
+type ModalController struct {
+	app            *tview.Application
+	modalIsVisible bool
+	pages          *tview.Pages
 
 	// prevFocused is the widget that was in focus before this modal is displayed
 	// This is used to reset focus after this modal is removed
 	prevFocused tview.Primitive
 }
 
-// NewWidgetController creates and returns an instance of a widget controller
-func NewWidgetController(app *tview.Application, pages *tview.Pages) WidgetController {
-	controller := WidgetController{
-		app:       app,
-		isVisible: false,
-		pages:     pages,
+// NewModalController creates and returns an instance of a widget controller
+func NewModalController(app *tview.Application, pages *tview.Pages) ModalController {
+	controller := ModalController{
+		app:            app,
+		modalIsVisible: false,
+		pages:          pages,
 	}
 
 	return controller
 }
 
-// IsVisible returns whether or not this modal window is currently showing onscreen
-func (cont *WidgetController) IsVisible() bool {
-	return cont.isVisible
+// ModalIsVisible returns whether or not this modal window is currently showing onscreen
+func (cont *ModalController) ModalIsVisible() bool {
+	return cont.modalIsVisible
 }
 
-// ShowVisibilityModal displays an instance of VisibilityModal on the screen
-func (cont *WidgetController) ShowVisibilityModal() {
+// ShowWidgetVisibilityModal displays an instance of VisibilityModal on the screen
+func (cont *ModalController) ShowWidgetVisibilityModal() {
 	modalName := "visibility"
 
 	closeFunc := func() {
 		cont.pages.RemovePage(modalName)
 		cont.app.SetFocus(cont.prevFocused)
 
-		cont.isVisible = false
+		cont.modalIsVisible = false
 	}
 
-	modal := NewVisibilityModal(closeFunc)
+	modal := NewWidgetVisibilityModal(closeFunc)
 
 	cont.prevFocused = cont.app.GetFocus()
 
 	cont.pages.AddPage(modalName, modal, false, true)
 	cont.app.SetFocus(modal)
 
-	cont.isVisible = true
+	cont.modalIsVisible = true
 
 	cont.app.QueueUpdate(func() {
 		cont.app.Draw()
@@ -59,9 +59,9 @@ func (cont *WidgetController) ShowVisibilityModal() {
 
 /* -------------------- Visibility Modal -------------------- */
 
-// NewVisibilityModal creates and returns a control modal
+// NewWidgetVisibilityModal creates and returns a control modal
 // This modal is used to toggle active modules on and off
-func NewVisibilityModal(closeFunc func()) *tview.Frame {
+func NewWidgetVisibilityModal(closeFunc func()) *tview.Frame {
 	keyboardIntercept := func(event *tcell.EventKey) *tcell.EventKey {
 		if string(event.Rune()) == "/" {
 			closeFunc()
