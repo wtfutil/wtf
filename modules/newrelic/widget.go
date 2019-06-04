@@ -1,7 +1,7 @@
 package newrelic
 
 import (
-	"fmt"
+	"sort"
 
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/utils"
@@ -10,20 +10,38 @@ import (
 )
 
 type Widget struct {
-	view.TextWidget
+	wtf.KeyboardWidget
+	wtf.MultiSourceWidget
+	wtf.TextWidget
 
-	client   *Client
+	Clients []*Client
+
 	settings *Settings
 }
 
-func NewWidget(app *tview.Application, settings *Settings) *Widget {
+func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: view.NewTextWidget(app, settings.common, false),
+		KeyboardWidget:    wtf.NewKeyboardWidget(app, pages, settings.common),
+		MultiSourceWidget: wtf.NewMultiSourceWidget(settings.common, "applicationID", "applicationIDs"),
+		TextWidget:        wtf.NewTextWidget(app, settings.common, true),
 
 		settings: settings,
 	}
 
-	widget.client = NewClient(widget.settings.apiKey, widget.settings.applicationID)
+	widget.initializeKeyboardControls()
+	widget.View.SetInputCapture(widget.InputCapture)
+
+	for _, id := range wtf.ToInts(widget.settings.applicationIDs) {
+		widget.Clients = append(widget.Clients, NewClient(widget.settings.apiKey, id))
+	}
+
+	sort.Slice(widget.Clients, func(i, j int) bool {
+		return widget.Clients[i].applicationId < widget.Clients[j].applicationId
+	})
+
+	widget.SetDisplayFunction(widget.display)
+
+	widget.KeyboardWidget.SetView(widget.View)
 
 	return &widget
 }
@@ -89,4 +107,22 @@ func (widget *Widget) content() (string, string, bool) {
 	}
 
 	return title, content, wrap
+}
+
+func (widget *Widget) HelpText() string {
+	return widget.KeyboardWidget.HelpText()
+}
+
+/* -------------------- Unexported Functions -------------------- */
+
+func (widget *Widget) currentData() *Client {
+	if len(widget.Clients) == 0 {
+		return nil
+	}
+
+	if widget.Idx < 0 || widget.Idx >= len(widget.Clients) {
+		return nil
+	}
+
+	return widget.Clients[widget.Idx]
 }
