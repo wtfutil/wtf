@@ -12,9 +12,9 @@ const defaultTitle = "NewRelic"
 type Settings struct {
 	common *cfg.Common
 
-	apiKey        string
-	applicationID int
-	deployCount   int
+	apiKey         string
+	deployCount    int
+	applicationIDs []interface{}
 }
 
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
@@ -22,9 +22,9 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 	settings := Settings{
 		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, ymlConfig, globalConfig),
 
-		apiKey:        ymlConfig.UString("apiKey", os.Getenv("WTF_NEW_RELIC_API_KEY")),
-		applicationID: ymlConfig.UInt("applicationID"),
-		deployCount:   ymlConfig.UInt("deployCount", 5),
+		apiKey:         ymlConfig.UString("apiKey", os.Getenv("WTF_NEW_RELIC_API_KEY")),
+		deployCount:    ymlConfig.UInt("deployCount", 5),
+		applicationIDs: ymlConfig.UList("applicationIDs"),
 	}
 
 	return &settings

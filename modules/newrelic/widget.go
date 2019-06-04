@@ -1,28 +1,37 @@
 package newrelic
 
 import (
-	"fmt"
+	"sort"
 
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/wtf"
-	nr "github.com/yfronto/newrelic"
 )
 
 type Widget struct {
+	wtf.KeyboardWidget
+	wtf.MultiSourceWidget
 	wtf.TextWidget
 
-	client   *Client
+	Clients []*Client
+
 	settings *Settings
 }
 
-func NewWidget(app *tview.Application, settings *Settings) *Widget {
+func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(app, settings.common, false),
+		KeyboardWidget:    wtf.NewKeyboardWidget(app, pages, settings.common),
+		MultiSourceWidget: wtf.NewMultiSourceWidget(settings.common, "applicationID", "applicationIDs"),
+		TextWidget:        wtf.NewTextWidget(app, settings.common, true),
 
 		settings: settings,
 	}
 
-	widget.client = NewClient(widget.settings.apiKey, widget.settings.applicationID)
+	widget.initializeKeyboardControls()
+	widget.View.SetInputCapture(widget.InputCapture)
+
+	widget.SetDisplayFunction(widget.display)
+
+	widget.KeyboardWidget.SetView(widget.View)
 
 	return &widget
 }
@@ -30,64 +39,31 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	app, appErr := widget.client.Application()
-	deploys, depErr := widget.client.Deployments()
-
-	appName := "error"
-	if appErr == nil {
-		appName = app.Name
+	for _, id := range wtf.ToInts(widget.settings.applicationIDs) {
+		widget.Clients = append(widget.Clients, NewClient(widget.settings.apiKey, id))
 	}
 
-	var content string
-	title := fmt.Sprintf("%s - [green]%s[white]", widget.CommonSettings.Title, appName)
-	wrap := false
-	if depErr != nil {
-		wrap = true
-		content = depErr.Error()
-	} else {
-		content = widget.contentFrom(deploys)
-	}
+	sort.Slice(widget.Clients, func(i, j int) bool {
+		return widget.Clients[i].applicationId < widget.Clients[j].applicationId
+	})
 
-	widget.Redraw(title, content, wrap)
+	widget.display()
+}
+
+func (widget *Widget) HelpText() string {
+	return widget.KeyboardWidget.HelpText()
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (widget *Widget) contentFrom(deploys []nr.ApplicationDeployment) string {
-	str := fmt.Sprintf(
-		" %s\n",
-		"[red]Latest Deploys[white]",
-	)
-
-	revisions := []string{}
-
-	for _, deploy := range deploys {
-		if (deploy.Revision != "") && wtf.Exclude(revisions, deploy.Revision) {
-			lineColor := "white"
-			if wtf.IsToday(deploy.Timestamp) {
-				lineColor = "lightblue"
-			}
-
-			revLen := 8
-			if revLen > len(deploy.Revision) {
-				revLen = len(deploy.Revision)
-			}
-
-			str += fmt.Sprintf(
-				" [green]%s[%s] %s %-.16s[white]\n",
-				deploy.Revision[0:revLen],
-				lineColor,
-				deploy.Timestamp.Format("Jan 02 15:04 MST"),
-				wtf.NameFromEmail(deploy.User),
-			)
-
-			revisions = append(revisions, deploy.Revision)
-
-			if len(revisions) == widget.settings.deployCount {
-				break
-			}
-		}
+func (widget *Widget) currentData() *Client {
+	if len(widget.Clients) == 0 {
+		return nil
 	}
 
-	return str
+	if widget.Idx < 0 || widget.Idx >= len(widget.Clients) {
+		return nil
+	}
+
+	return widget.Clients[widget.Idx]
 }
