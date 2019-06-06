@@ -2,6 +2,7 @@ package github
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 
 	ghb "github.com/google/go-github/v25/github"
@@ -152,9 +153,23 @@ func (repo *GithubRepo) myReviewRequests(username string) []*ghb.PullRequest {
 	return prs
 }
 
+func (repo *GithubRepo) customIssueQuery(filter string, perPage int) *ghb.IssuesSearchResult {
+	github, err := repo.githubClient()
+	if err != nil {
+		return nil
+	}
+
+	opts := &ghb.SearchOptions{}
+	if perPage != 0 {
+		opts.ListOptions.PerPage = perPage
+	}
+
+	prs, _, _ := github.Search.Issues(context.Background(), fmt.Sprintf("%s repo:%s/%s", filter, repo.Owner, repo.Name), opts)
+	return prs
+}
+
 func (repo *GithubRepo) loadPullRequests() ([]*ghb.PullRequest, error) {
 	github, err := repo.githubClient()
-
 	if err != nil {
 		return nil, err
 	}
