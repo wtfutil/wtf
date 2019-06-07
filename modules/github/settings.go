@@ -14,12 +14,19 @@ const defaultTitle = "GitHub"
 type Settings struct {
 	common *cfg.Common
 
-	apiKey       string
-	baseURL      string
-	enableStatus bool
-	repositories []string
-	uploadURL    string
-	username     string
+	apiKey        string
+	baseURL       string
+	customQueries []customQuery
+	enableStatus  bool
+	repositories  []string
+	uploadURL     string
+	username      string
+}
+
+type customQuery struct {
+	title   string
+	filter  string
+	perPage int
 }
 
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
@@ -34,6 +41,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		username:     ymlConfig.UString("username"),
 	}
 	settings.repositories = parseRepositories(ymlConfig)
+	settings.customQueries = parseCustomQueries(ymlConfig)
 
 	return &settings
 }
@@ -50,5 +58,29 @@ func parseRepositories(ymlConfig *config.Config) []string {
 	}
 
 	result = wtf.ToStrs(ymlConfig.UList("repositories"))
+	return result
+}
+
+func parseCustomQueries(ymlConfig *config.Config) []customQuery {
+	result := []customQuery{}
+	if customQueries, err := ymlConfig.Map("customQueries"); err == nil {
+		for _, query := range customQueries {
+			c := customQuery{}
+			for key, value := range query.(map[string]interface{}) {
+				switch key {
+				case "title":
+					c.title = value.(string)
+				case "filter":
+					c.filter = value.(string)
+				case "perPage":
+					c.perPage = value.(int)
+				}
+			}
+
+			if c.title != "" && c.filter != "" {
+				result = append(result, c)
+			}
+		}
+	}
 	return result
 }
