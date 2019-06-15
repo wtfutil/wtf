@@ -5,6 +5,7 @@
 ### ⚡️ Added
 
 * GitHub module now supports custom queries for issues and pull requests, by [@Sean-Der](https://github.com/Sean-Der)
+* Textfile module's text wrapping is configurable via the 'wrapText' boolean setting
 
 ### 🐞 Fixed
 
