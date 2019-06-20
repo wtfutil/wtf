@@ -111,7 +111,6 @@ func (widget *TextWidget) TextView() *tview.TextView {
 }
 
 func (widget *TextWidget) Redraw(title, text string, wrap bool) {
-
 	widget.app.QueueUpdateDraw(func() {
 		widget.View.Clear()
 		widget.View.SetWrap(wrap)

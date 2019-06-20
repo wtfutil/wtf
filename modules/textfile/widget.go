@@ -44,7 +44,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 
 	widget.SetDisplayFunction(widget.display)
 	widget.View.SetWordWrap(true)
-	widget.View.SetWrap(true)
+	widget.View.SetWrap(settings.wrapText)
 
 	widget.KeyboardWidget.SetView(widget.View)
 
@@ -79,7 +79,7 @@ func (widget *Widget) display() {
 		text += widget.plainText()
 	}
 
-	widget.Redraw(title, text, true)
+	widget.Redraw(title, text, widget.settings.wrapText)
 }
 
 func (widget *Widget) fileName() string {

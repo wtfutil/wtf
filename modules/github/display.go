@@ -18,12 +18,14 @@ func (widget *Widget) display() {
 	str := widget.settings.common.SigilStr(len(widget.GithubRepos), widget.Idx, width) + "\n"
 	str += " [red]Stats[white]\n"
 	str += widget.displayStats(repo)
-	str += "\n"
-	str += " [red]Open Review Requests[white]\n"
+	str += "\n [red]Open Review Requests[white]\n"
 	str += widget.displayMyReviewRequests(repo, widget.settings.username)
-	str += "\n"
-	str += " [red]My Pull Requests[white]\n"
+	str += "\n [red]My Pull Requests[white]\n"
 	str += widget.displayMyPullRequests(repo, widget.settings.username)
+	for _, customQuery := range widget.settings.customQueries {
+		str += fmt.Sprintf("\n [red]%s[white]\n", customQuery.title)
+		str += widget.displayCustomQuery(repo, customQuery.filter, customQuery.perPage)
+	}
 
 	widget.TextWidget.Redraw(title, str, false)
 }
@@ -40,6 +42,23 @@ func (widget *Widget) displayMyPullRequests(repo *GithubRepo, username string) s
 		str += fmt.Sprintf(" %s[green]%4d[white] %s\n", widget.mergeString(pr), *pr.Number, *pr.Title)
 	}
 
+	return str
+}
+
+func (widget *Widget) displayCustomQuery(repo *GithubRepo, filter string, perPage int) string {
+	res := repo.customIssueQuery(filter, perPage)
+	if res == nil {
+		return " [grey]Invalid Query[white]\n"
+	}
+
+	if len(res.Issues) == 0 {
+		return " [grey]none[white]\n"
+	}
+
+	str := ""
+	for _, issue := range res.Issues {
+		str += fmt.Sprintf(" [green]%4d[white] %s\n", *issue.Number, *issue.Title)
+	}
 	return str
 }
 
