@@ -9,8 +9,8 @@ import (
 )
 
 const (
-	defaultTitle   = "HIBP"
-	minRefreshSecs = 21600 // TODO: Finish implementing this
+	defaultTitle       = "HIBP"
+	minRefreshInterval = 21600 // Six hours
 )
 
 type colors struct {
@@ -39,6 +39,12 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 
 	settings.colors.ok = ymlConfig.UString("colors.ok", "green")
 	settings.colors.pwned = ymlConfig.UString("colors.pwned", "red")
+
+	// HIBP data doesn't need to be reloaded very often so to be gentle on this API we
+	// enforce a minimum refresh interval
+	if settings.common.RefreshInterval < minRefreshInterval {
+		settings.common.RefreshInterval = minRefreshInterval
+	}
 
 	return &settings
 }
