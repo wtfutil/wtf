@@ -20,6 +20,7 @@ import (
 	"github.com/wtfutil/wtf/modules/gitter"
 	"github.com/wtfutil/wtf/modules/gspreadsheets"
 	"github.com/wtfutil/wtf/modules/hackernews"
+	"github.com/wtfutil/wtf/modules/hibp"
 	"github.com/wtfutil/wtf/modules/ipaddresses/ipapi"
 	"github.com/wtfutil/wtf/modules/ipaddresses/ipinfo"
 	"github.com/wtfutil/wtf/modules/jenkins"
@@ -114,6 +115,9 @@ func MakeWidget(
 	case "hackernews":
 		settings := hackernews.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = hackernews.NewWidget(app, pages, settings)
+	case "hibp":
+		settings := hibp.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
+		widget = hibp.NewWidget(app, settings)
 	case "ipapi":
 		settings := ipapi.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = ipapi.NewWidget(app, settings)
