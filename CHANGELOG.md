@@ -2,12 +2,14 @@
 
 ## Unreleased
 
+## v0.12.0
+
 ### ⚡️ Added
 
 * Textfile module's text wrapping is configurable via the 'wrapText' boolean setting
 * Have I Been Pwned (HIBP) module added (https://wtfutil.com/modules/hibp/)
 
-## 0.11.0
+## v0.11.0
 
 ### ⚡️ Added
 
