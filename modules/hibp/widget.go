@@ -48,6 +48,9 @@ func (widget *Widget) Fetch(accounts []string) ([]*Status, error) {
 func (widget *Widget) Refresh() {
 	data, err := widget.Fetch(widget.settings.accounts)
 
+	title := widget.CommonSettings.Title
+	title = title + widget.sinceDateForTitle()
+
 	var content string
 	if err != nil {
 		content = err.Error()
@@ -55,7 +58,7 @@ func (widget *Widget) Refresh() {
 		content = widget.contentFrom(data)
 	}
 
-	widget.Redraw(widget.CommonSettings.Title, content, false)
+	widget.Redraw(title, content, false)
 }
 
 /* -------------------- Unexported Functions -------------------- */
@@ -73,4 +76,23 @@ func (widget *Widget) contentFrom(data []*Status) string {
 	}
 
 	return str
+}
+
+func (widget *Widget) sinceDateForTitle() string {
+	dateStr := ""
+
+	if widget.settings.HasSince() {
+		sinceStr := ""
+
+		dt, err := widget.settings.SinceDate()
+		if err != nil {
+			sinceStr = widget.settings.since
+		} else {
+			sinceStr = dt.Format("Jan _2, 2006")
+		}
+
+		dateStr = dateStr + " since " + sinceStr
+	}
+
+	return dateStr
 }
