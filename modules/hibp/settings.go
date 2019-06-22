@@ -37,7 +37,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		since:    ymlConfig.UString("since", ""),
 	}
 
-	settings.colors.ok = ymlConfig.UString("colors.ok", "green")
+	settings.colors.ok = ymlConfig.UString("colors.ok", "white")
 	settings.colors.pwned = ymlConfig.UString("colors.pwned", "red")
 
 	// HIBP data doesn't need to be reloaded very often so to be gentle on this API we
