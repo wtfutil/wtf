@@ -10,17 +10,20 @@
 A personal terminal-based dashboard utility, designed for
 displaying infrequently-needed, but very important, daily data.
 
-* [Screenshot](https://github.com/wtfutil/wtf/blob/master/README.md#screenshot)
-* [Communication](https://github.com/wtfutil/wtf/blob/master/README.md#communication)
-    * [Slack](https://github.com/wtfutil/wtf/blob/master/README.md#slack)
-    * [Twitter](https://github.com/wtfutil/wtf/blob/master/README.md#twitter)
-* [Quick Start](https://github.com/wtfutil/wtf/blob/master/README.md#quick-start)
-* [Documentation](https://github.com/wtfutil/wtf/blob/master/README.md#documentation)
-    * [Contributing to the Documentation](https://github.com/wtfutil/wtf/blob/master/README.md#contributing-to-the-documentation)
-* [Contributing to the Source Code](https://github.com/wtfutil/wtf/blob/master/README.md#contributing-to-the-source-code)
-    * [Adding Dependencies](https://github.com/wtfutil/wtf/blob/master/README.md#adding-dependencies)
-* [Contributors](https://github.com/wtfutil/wtf/blob/master/README.md#contributors)
-* [Acknowledgements](https://github.com/wtfutil/wtf/blob/master/README.md#acknowledgments)
+* [Screenshot](#screenshot)
+* [Quick Start](#quick-start)
+    * [Download](#download)
+    * [Install from Source](#install-from-source)
+* [Communication](#communication)
+    * [Slack](#slack)
+    * [Twitter](#twitter)
+* [Documentation](#documentation)
+* [Modules](#modules)
+* [Contributing to the Source Code](#contributing-to-the-source-code)
+    * [Adding Dependencies](#adding-dependencies)
+* [Contributing to the Documentation](#contributing-to-the-documentation)
+* [Contributors](#contributors)
+* [Acknowledgements](#acknowledgments)
 
 ## Screenshot
 
@@ -28,21 +31,21 @@ displaying infrequently-needed, but very important, daily data.
 <img src="./images/screenshot.jpg" title="screenshot" width="720" height="420" />
 </p>
 
-## Communication
-
-### Slack
-
-If you’re a member of the Gophers Slack community (https://invite.slack.golangbridge.org) there’s a WTFUtil channel you should join for all your WTF questions, development conversations, etc.
-
-Find #wtfutil on https://gophers.slack.com/ and join us.
-
-### Twitter
-
-Also, follow [on Twitter](https://twitter.com/wtfutil) for news and latest updates. 
-
 ## Quick Start
 
-[Download and run the latest binary](https://github.com/wtfutil/wtf/releases) or install from source.
+### Download
+
+[Download the latest binary](https://github.com/wtfutil/wtf/releases) from GitHub.
+
+WTF is a stand-alone binary. Once downloaded, copy it to a location you can run executables from (ie: `/usr/local/bin/`), and set the permissions accordingly:
+
+```bash
+chmod a+x /usr/local/bin/wtf
+```
+
+and you should be good to go.
+
+### Install from Source
 
 If you want to run the build command from within your `$GOPATH`:
 
@@ -70,6 +73,18 @@ make run
 
 **Note:** WTF is _only_ compatible with Go versions **1.11.0** or later (due to the use of Go modules). It currently _does not_ compile with `gccgo`.
 
+## Communication
+
+### Slack
+
+If you’re a member of the Gophers Slack community (https://invite.slack.golangbridge.org) there’s a WTFUtil channel you should join for all your WTF questions, development conversations, etc.
+
+Find #wtfutil on https://gophers.slack.com/ and join us.
+
+### Twitter
+
+Also, follow [on Twitter](https://twitter.com/wtfutil) for news and latest updates. 
+
 ## Documentation
 
 See [https://wtfutil.com](https://wtfutil.com) for the definitive
@@ -79,11 +94,20 @@ documentation. Here's some short-cuts:
 * [Configuration](https://wtfutil.com/configuration/)
 * [Module Documentation](https://wtfutil.com/modules/)
 
-### Contributing to the Documentation
+## Modules
 
-Documentation now lives in its own repository here: [https://github.com/wtfutil/wtfdocs](https://github.com/wtfutil/wtfdocs).
+Modules are the chunks of functionality that make WTF useful. Modules are added and configured by including their configuration values in your `config.yml` file. The documentation for each module describes how to configure them.
 
-Please make all additions and updates to documentation in that repository.
+Some interesting modules you might consider adding to get you started:
+
+* [GitHub](https://wtfutil.com/modules/github/)
+* [Google Calendar](https://wtfutil.com/modules/google/gcal/)
+* [HackerNews](https://wtfutil.com/modules/hackernews/)
+* [Have I Been Pwned](https://wtfutil.com/modules/hibp/)
+* [NewRelic](https://wtfutil.com/modules/newrelic/)
+* [OpsGenie](https://wtfutil.com/modules/opsgenie/)
+* [Security](https://wtfutil.com/modules/security/)
+* [Trello](https://wtfutil.com/modules/trello/)
 
 ## Contributing to the Source Code
 
@@ -94,6 +118,12 @@ Next, please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of 
 Then create your branch, write your code, submit your PR, and join the rest of the awesome people who've contributed their time and effort towards WTF. Without their contributors, WTF wouldn't be possible.
 
 And don't worry if you've never written Go before, or never contributed to an open source project before, or that your code won't be good enough. For a surprising number of people WTF has been their first Go project, or first open source contribution. If you're here, and you've read this far, you're the right stuff.
+
+## Contributing to the Documentation
+
+Documentation now lives in its own repository here: [https://github.com/wtfutil/wtfdocs](https://github.com/wtfutil/wtfdocs).
+
+Please make all additions and updates to documentation in that repository.
 
 ### Adding Dependencies
 
