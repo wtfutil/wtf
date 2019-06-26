@@ -1,8 +1,7 @@
 package transmission
 
 import (
-	"fmt"
-	"strings"
+	"errors"
 
 	"github.com/hekmon/transmissionrpc"
 	"github.com/rivo/tview"
@@ -14,6 +13,7 @@ type Widget struct {
 	wtf.KeyboardWidget
 	wtf.ScrollableWidget
 
+	client   *transmissionrpc.Client
 	settings *Settings
 	torrents []*transmissionrpc.Torrent
 }
@@ -33,6 +33,13 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 
 	widget.KeyboardWidget.SetView(widget.View)
 
+	// Create a persisten transmission client for use in the calls below
+	client, err := transmissionrpc.New(widget.settings.host, widget.settings.username, widget.settings.password, nil)
+	if err != nil {
+		client = nil
+	}
+	widget.client = client
+
 	return &widget
 }
 
@@ -40,12 +47,11 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 
 // Fetch retrieves torrent data from the Transmission daemon
 func (widget *Widget) Fetch() ([]*transmissionrpc.Torrent, error) {
-	transmissionbt, err := transmissionrpc.New(widget.settings.host, widget.settings.username, widget.settings.password, nil)
-	if err != nil {
-		return nil, err
+	if widget.client == nil {
+		return nil, errors.New("client could not be initialized")
 	}
 
-	torrents, err := transmissionbt.TorrentGetAll()
+	torrents, err := widget.client.TorrentGetAll()
 	if err != nil {
 		return nil, err
 	}
@@ -91,69 +97,54 @@ func (widget *Widget) Unselect() {
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (widget *Widget) display() {
+func (widget *Widget) currentTorrent() *transmissionrpc.Torrent {
 	if len(widget.torrents) == 0 {
-		widget.ScrollableWidget.Redraw(widget.CommonSettings.Title, "no torrents", false)
+		return nil
+	}
+
+	return widget.torrents[widget.Selected]
+}
+
+// deleteSelected removes the selected torrent from transmission
+// This action is non-destructive, it does not delete the files on the host
+func (widget *Widget) deleteSelectedTorrent() {
+	if widget.client == nil {
 		return
 	}
 
-	content := widget.contentFrom(widget.torrents)
-	widget.ScrollableWidget.Redraw(widget.CommonSettings.Title, content, false)
-}
-
-func (widget *Widget) contentFrom(data []*transmissionrpc.Torrent) string {
-	str := ""
-
-	for idx, torrent := range data {
-		torrName := *torrent.Name
-
-		row := fmt.Sprintf(
-			"[%s] %s %s%s[white]",
-			widget.RowColor(idx),
-			widget.torrentPercentDone(torrent),
-			widget.torrentState(torrent),
-			tview.Escape(widget.prettyTorrentName(torrName)),
-		)
-
-		str += wtf.HighlightableHelper(widget.View, row, idx, len(torrName))
+	currTorrent := widget.currentTorrent()
+	if currTorrent == nil {
+		return
 	}
 
-	return str
+	ids := []int64{*currTorrent.ID}
+
+	removePayload := &transmissionrpc.TorrentRemovePayload{
+		IDs:             ids,
+		DeleteLocalData: false,
+	}
+
+	widget.client.TorrentRemove(removePayload)
 }
 
-func (widget *Widget) prettyTorrentName(name string) string {
-	str := strings.Replace(name, "[", "(", -1)
-	str = strings.Replace(str, "]", ")", -1)
+// pauseUnpauseTorrent either pauses or unpauses the downloading and seeding of the selected torrent
+func (widget *Widget) pauseUnpauseTorrent() {
+	if widget.client == nil {
+		return
+	}
 
-	return str
-}
+	currTorrent := widget.currentTorrent()
+	if currTorrent == nil {
+		return
+	}
 
-func (widget *Widget) torrentPercentDone(torrent *transmissionrpc.Torrent) string {
-	pctDone := *torrent.PercentDone
-	str := fmt.Sprintf("%3d", int(pctDone*100))
+	ids := []int64{*currTorrent.ID}
 
-	if pctDone == 0.0 {
-		str = "[gray::b]" + str
-	} else if pctDone == 1.0 {
-		str = "[green::b]" + str
+	if *currTorrent.Status == transmissionrpc.TorrentStatusStopped {
+		widget.client.TorrentStartIDs(ids)
 	} else {
-		str = "[lightblue::b]" + str
+		widget.client.TorrentStopIDs(ids)
 	}
 
-	return str + "[white]"
-}
-
-func (widget *Widget) torrentState(torrent *transmissionrpc.Torrent) string {
-	str := ""
-
-	switch *torrent.Status {
-	case transmissionrpc.TorrentStatusStopped:
-		str += "[gray]"
-	case transmissionrpc.TorrentStatusDownload:
-		str += "[lightblue]"
-	case transmissionrpc.TorrentStatusSeed:
-		str += "[green]"
-	}
-
-	return str
+	widget.display()
 }
