@@ -12,25 +12,28 @@ import (
 // Widget is the container for transmission data
 type Widget struct {
 	wtf.KeyboardWidget
-	wtf.TextWidget
+	wtf.ScrollableWidget
 
 	settings *Settings
+	torrents []*transmissionrpc.Torrent
 }
 
 // NewWidget creates a new instance of a widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
-	widget := &Widget{
-		KeyboardWidget: wtf.NewKeyboardWidget(app, pages, settings.common),
-		TextWidget:     wtf.NewTextWidget(app, settings.common, true),
+	widget := Widget{
+		KeyboardWidget:   wtf.NewKeyboardWidget(app, pages, settings.common),
+		ScrollableWidget: wtf.NewScrollableWidget(app, settings.common, true),
 
 		settings: settings,
 	}
 
+	widget.SetRenderFunction(widget.display)
 	widget.initializeKeyboardControls()
 	widget.View.SetInputCapture(widget.InputCapture)
+
 	widget.KeyboardWidget.SetView(widget.View)
 
-	return widget
+	return &widget
 }
 
 /* -------------------- Exported Functions -------------------- */
@@ -53,15 +56,16 @@ func (widget *Widget) Fetch() ([]*transmissionrpc.Torrent, error) {
 // Refresh updates the data for this widget and displays it onscreen
 func (widget *Widget) Refresh() {
 	torrents, err := widget.Fetch()
-
-	var content string
 	if err != nil {
-		content = err.Error()
-	} else {
-		content = widget.contentFrom(torrents)
+		widget.SetItemCount(0)
+		widget.ScrollableWidget.Redraw(widget.CommonSettings.Title, err.Error(), false)
+		return
 	}
 
-	widget.Redraw(widget.CommonSettings.Title, content, false)
+	widget.torrents = torrents
+	widget.SetItemCount(len(torrents))
+
+	widget.display()
 }
 
 // HelpText returns the help text for this widget
@@ -69,18 +73,49 @@ func (widget *Widget) HelpText() string {
 	return widget.KeyboardWidget.HelpText()
 }
 
+// Next selects the next item in the list
+func (widget *Widget) Next() {
+	widget.ScrollableWidget.Next()
+}
+
+// Prev selects the previous item in the list
+func (widget *Widget) Prev() {
+	widget.ScrollableWidget.Prev()
+}
+
+// Unselect clears the selection of list items
+func (widget *Widget) Unselect() {
+	widget.ScrollableWidget.Unselect()
+	widget.RenderFunction()
+}
+
 /* -------------------- Unexported Functions -------------------- */
+
+func (widget *Widget) display() {
+	if len(widget.torrents) == 0 {
+		widget.ScrollableWidget.Redraw(widget.CommonSettings.Title, "no torrents", false)
+		return
+	}
+
+	content := widget.contentFrom(widget.torrents)
+	widget.ScrollableWidget.Redraw(widget.CommonSettings.Title, content, false)
+}
 
 func (widget *Widget) contentFrom(data []*transmissionrpc.Torrent) string {
 	str := ""
 
-	for _, torrent := range data {
-		str += fmt.Sprintf(
-			" %s %s%s[white]\n",
+	for idx, torrent := range data {
+		torrName := *torrent.Name
+
+		row := fmt.Sprintf(
+			"[%s] %s %s%s[white]",
+			widget.RowColor(idx),
 			widget.torrentPercentDone(torrent),
 			widget.torrentState(torrent),
-			widget.prettyTorrentName(*torrent.Name),
+			tview.Escape(widget.prettyTorrentName(torrName)),
 		)
+
+		str += wtf.HighlightableHelper(widget.View, row, idx, len(torrName))
 	}
 
 	return str

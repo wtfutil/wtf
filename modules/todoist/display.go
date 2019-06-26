@@ -17,15 +17,15 @@ func (widget *Widget) display() {
 	title := fmt.Sprintf("[green]%s[white]", proj.Project.Name)
 	str := ""
 
-	for index, item := range proj.tasks {
+	for idx, item := range proj.tasks {
 		row := fmt.Sprintf(
 			`[%s]| | %s[%s]`,
-			widget.RowColor(index),
+			widget.RowColor(idx),
 			tview.Escape(item.Content),
-			widget.RowColor(index),
+			widget.RowColor(idx),
 		)
 
-		str += wtf.HighlightableHelper(widget.View, row, index, len(item.Content))
+		str += wtf.HighlightableHelper(widget.View, row, idx, len(item.Content))
 	}
 
 	widget.ScrollableWidget.Redraw(title, str, false)
