@@ -41,6 +41,7 @@ import (
 	"github.com/wtfutil/wtf/modules/textfile"
 	"github.com/wtfutil/wtf/modules/todo"
 	"github.com/wtfutil/wtf/modules/todoist"
+	"github.com/wtfutil/wtf/modules/transmission"
 	"github.com/wtfutil/wtf/modules/travisci"
 	"github.com/wtfutil/wtf/modules/trello"
 	"github.com/wtfutil/wtf/modules/twitter"
@@ -181,6 +182,9 @@ func MakeWidget(
 	case "todoist":
 		settings := todoist.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = todoist.NewWidget(app, pages, settings)
+	case "transmission":
+		settings := transmission.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
+		widget = transmission.NewWidget(app, pages, settings)
 	case "travisci":
 		settings := travisci.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = travisci.NewWidget(app, pages, settings)
