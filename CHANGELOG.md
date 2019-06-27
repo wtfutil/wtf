@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### ⚡️ Added
+
+* Transmission module addess (https://wtfutil.com/modules/transmission/)
+
 ## v0.12.0
 
 ### ⚡️ Added
