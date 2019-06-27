@@ -107,6 +107,7 @@ Some interesting modules you might consider adding to get you started:
 * [NewRelic](https://wtfutil.com/modules/newrelic/)
 * [OpsGenie](https://wtfutil.com/modules/opsgenie/)
 * [Security](https://wtfutil.com/modules/security/)
+* [Transmission](https://wtfutil.com/modules/transmission/)
 * [Trello](https://wtfutil.com/modules/trello/)
 
 ## Contributing to the Source Code
