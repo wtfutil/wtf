@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## v0.13.0
+
 ### ⚡️ Added
 
 * Transmission module addedd (https://wtfutil.com/modules/transmission/)
