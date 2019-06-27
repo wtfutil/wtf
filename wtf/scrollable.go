@@ -24,6 +24,7 @@ func NewScrollableWidget(app *tview.Application, commonSettings *cfg.Common, foc
 	widget.Unselect()
 	widget.View.SetScrollable(true)
 	widget.View.SetRegions(true)
+
 	return widget
 }
 
@@ -71,7 +72,6 @@ func (widget *ScrollableWidget) Unselect() {
 }
 
 func (widget *ScrollableWidget) Redraw(title, content string, wrap bool) {
-
 	widget.TextWidget.Redraw(title, content, wrap)
 	widget.app.QueueUpdateDraw(func() {
 		widget.View.Highlight(strconv.Itoa(widget.Selected)).ScrollToHighlight()

@@ -39,7 +39,10 @@ require (
 	github.com/google/pprof v0.0.0-20190515194954-54271f7e092f // indirect
 	github.com/gorilla/mux v1.7.1 // indirect
 	github.com/grpc-ecosystem/grpc-gateway v1.9.0 // indirect
+	github.com/hashicorp/go-cleanhttp v0.5.1 // indirect
 	github.com/hashicorp/golang-lru v0.5.1 // indirect
+	github.com/hekmon/cunits v2.0.1+incompatible // indirect
+	github.com/hekmon/transmissionrpc v0.0.0-20190525133028-1d589625bacd
 	github.com/jessevdk/go-flags v1.4.0
 	github.com/kisielk/errcheck v1.2.0 // indirect
 	github.com/kisielk/gotool v1.0.0 // indirect

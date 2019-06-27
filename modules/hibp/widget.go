@@ -17,18 +17,18 @@ type Widget struct {
 
 // NewWidget creates a new instance of a widget
 func NewWidget(app *tview.Application, settings *Settings) *Widget {
-	widget := Widget{
+	widget := &Widget{
 		TextWidget: wtf.NewTextWidget(app, settings.common, false),
 
 		settings: settings,
 	}
 
-	return &widget
+	return widget
 }
 
 /* -------------------- Exported Functions -------------------- */
 
-// Fetch rettrieves HIBP data from the HIBP API
+// Fetch retrieves HIBP data from the HIBP API
 func (widget *Widget) Fetch(accounts []string) ([]*Status, error) {
 	data := []*Status{}
 
