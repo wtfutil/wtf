@@ -31,11 +31,6 @@ func (widget *Widget) contentFrom(data []*transmissionrpc.Torrent) string {
 }
 
 func (widget *Widget) display() {
-	if len(widget.torrents) == 0 {
-		widget.ScrollableWidget.Redraw(widget.CommonSettings.Title, "no torrents", false)
-		return
-	}
-
 	content := widget.contentFrom(widget.torrents)
 	widget.ScrollableWidget.Redraw(widget.CommonSettings.Title, content, false)
 }
