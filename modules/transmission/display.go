@@ -48,7 +48,7 @@ func (widget *Widget) prettyTorrentName(name string) string {
 
 func (widget *Widget) torrentPercentDone(torrent *transmissionrpc.Torrent) string {
 	pctDone := *torrent.PercentDone
-	str := fmt.Sprintf("%3d", int(pctDone*100))
+	str := fmt.Sprintf("%3d%%", int(pctDone*100))
 
 	if pctDone == 0.0 {
 		str = "[gray::b]" + str
