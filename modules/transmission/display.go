@@ -16,9 +16,10 @@ func (widget *Widget) contentFrom(data []*transmissionrpc.Torrent) string {
 		torrName := *torrent.Name
 
 		row := fmt.Sprintf(
-			"[%s] %s %s%s[white]",
+			"[%s] %s %s %s%s[white]",
 			widget.RowColor(idx),
 			widget.torrentPercentDone(torrent),
+			widget.torrentSeedRatio(torrent),
 			widget.torrentState(torrent),
 			tview.Escape(widget.prettyTorrentName(torrName)),
 		)
@@ -48,7 +49,7 @@ func (widget *Widget) prettyTorrentName(name string) string {
 
 func (widget *Widget) torrentPercentDone(torrent *transmissionrpc.Torrent) string {
 	pctDone := *torrent.PercentDone
-	str := fmt.Sprintf("%3d%%", int(pctDone*100))
+	str := fmt.Sprintf("%3d%%↓", int(pctDone*100))
 
 	if pctDone == 0.0 {
 		str = "[gray::b]" + str
@@ -59,6 +60,11 @@ func (widget *Widget) torrentPercentDone(torrent *transmissionrpc.Torrent) strin
 	}
 
 	return str + "[white]"
+}
+
+func (widget *Widget) torrentSeedRatio(torrent *transmissionrpc.Torrent) string {
+	seedRatio := *torrent.UploadRatio
+	return fmt.Sprintf("[green]%3d%%↑", int(seedRatio*100))
 }
 
 func (widget *Widget) torrentState(torrent *transmissionrpc.Torrent) string {
