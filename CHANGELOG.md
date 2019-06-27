@@ -4,7 +4,7 @@
 
 ### ⚡️ Added
 
-* Transmission module addess (https://wtfutil.com/modules/transmission/)
+* Transmission module addedd (https://wtfutil.com/modules/transmission/)
 
 ## v0.12.0
 
