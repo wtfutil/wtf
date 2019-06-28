@@ -3,75 +3,37 @@ module github.com/wtfutil/wtf
 go 1.12
 
 require (
-	cloud.google.com/go v0.40.0
+	cloud.google.com/go v0.40.0 // indirect
 	code.cloudfoundry.org/bytefmt v0.0.0-20180906201452-2aa6f33b730c
-	git.apache.org/thrift.git v0.12.0 // indirect
-	github.com/BurntSushi/xgb v0.0.0-20160522221800-27f122750802 // indirect
-	github.com/DataDog/zstd v1.4.0 // indirect
 	github.com/PagerDuty/go-pagerduty v0.0.0-20190503230806-cf1437c7c8d6
-	github.com/Shopify/sarama v1.22.1 // indirect
-	github.com/StackExchange/wmi v0.0.0-20190523213609-cbe66965904d
+	github.com/StackExchange/wmi v0.0.0-20190523213609-cbe66965904d // indirect
 	github.com/adlio/trello v1.0.0
 	github.com/alecthomas/chroma v0.6.3
-	github.com/alecthomas/kong v0.2.0 // indirect
 	github.com/alecthomas/repr v0.0.0-20181024024818-d37bc2a10ba1 // indirect
-	github.com/alecthomas/template v0.0.0-20160405071501-a0175ee3bccc // indirect
-	github.com/alecthomas/units v0.0.0-20151022065526-2efee857e7cf // indirect
 	github.com/andygrunwald/go-gerrit v0.0.0-20190625080919-64931d233c2d
 	github.com/briandowns/openweathermap v0.0.0-20180804155945-5f41b7c9d92d
-	github.com/cenkalti/backoff v2.2.0+incompatible
-	github.com/danwakefield/fnmatch v0.0.0-20160403171240-cbb64ac3d964
+	github.com/cenkalti/backoff v2.2.0+incompatible // indirect
 	github.com/darkSasori/todoist v0.0.0-20180703032645-ec6b38b374ab
-	github.com/davecgh/go-spew v1.1.1
-	github.com/dlclark/regexp2 v1.1.6
 	github.com/dustin/go-humanize v1.0.0
-	github.com/eapache/go-resiliency v1.2.0 // indirect
-	github.com/gdamore/encoding v1.0.0
 	github.com/gdamore/tcell v1.1.4
-	github.com/go-kit/kit v0.9.0 // indirect
-	github.com/go-ole/go-ole v1.2.4
-	github.com/go-stack/stack v1.8.0 // indirect
-	github.com/go-test/deep v1.0.1 // indirect
-	github.com/godbus/dbus v5.0.1+incompatible
-	github.com/gogo/protobuf v1.2.1 // indirect
+	github.com/go-ole/go-ole v1.2.4 // indirect
+	github.com/godbus/dbus v5.0.1+incompatible // indirect
 	github.com/golang/glog v0.0.0-20170312005925-543a34c32e4d // indirect
-	github.com/golang/mock v1.3.1 // indirect
-	github.com/golang/protobuf v1.3.1
-	github.com/google/btree v1.0.0 // indirect
 	github.com/google/go-github/v26 v26.0.9
-	github.com/google/go-querystring v1.0.0
-	github.com/google/pprof v0.0.0-20190515194954-54271f7e092f // indirect
-	github.com/googleapis/gax-go/v2 v2.0.5 // indirect
-	github.com/gorilla/mux v1.7.2 // indirect
-	github.com/grpc-ecosystem/grpc-gateway v1.9.3 // indirect
 	github.com/hashicorp/go-cleanhttp v0.5.1 // indirect
 	github.com/hekmon/cunits v2.0.1+incompatible // indirect
 	github.com/hekmon/transmissionrpc v0.0.0-20190525133028-1d589625bacd
 	github.com/jessevdk/go-flags v1.4.0
-	github.com/kisielk/errcheck v1.2.0 // indirect
-	github.com/konsorten/go-windows-terminal-sequences v1.0.2 // indirect
-	github.com/kr/pty v1.1.5 // indirect
-	github.com/lucasb-eyer/go-colorful v1.0.2
-	github.com/mattn/go-colorable v0.1.2 // indirect
-	github.com/mattn/go-runewidth v0.0.4
+	github.com/kr/pretty v0.1.0 // indirect
+	github.com/mattn/go-isatty v0.0.8 // indirect
 	github.com/olebedev/config v0.0.0-20190528211619-364964f3a8e4
 	github.com/onsi/ginkgo v1.8.0 // indirect
 	github.com/onsi/gomega v1.5.0 // indirect
-	github.com/openzipkin/zipkin-go v0.1.6 // indirect
-	github.com/pierrec/lz4 v2.2.3+incompatible // indirect
-	github.com/pkg/errors v0.8.1
 	github.com/pkg/profile v1.3.0
-	github.com/pmezard/go-difflib v1.0.0
-	github.com/prometheus/common v0.6.0 // indirect
-	github.com/prometheus/procfs v0.0.3 // indirect
 	github.com/radovskyb/watcher v1.0.6
 	github.com/rivo/tview v0.0.0-20190609162513-b62197ade412
-	github.com/rogpeppe/fastuuid v1.1.0 // indirect
-	github.com/schollz/progressbar/v2 v2.13.2 // indirect
 	github.com/shirou/gopsutil v2.18.12+incompatible
-	github.com/sirupsen/logrus v1.4.2 // indirect
 	github.com/sticreations/spotigopher v0.0.0-20181009182052-98632f6f94b0
-	github.com/stretchr/objx v0.2.0 // indirect
 	github.com/stretchr/testify v1.3.0
 	github.com/xanzy/go-gitlab v0.18.0
 	github.com/yfronto/newrelic v0.0.0-20180622232530-7c9c2852e8f9
@@ -79,23 +41,14 @@ require (
 	github.com/zorkian/go-datadog-api v2.21.0+incompatible
 	go.opencensus.io v0.22.0 // indirect
 	golang.org/x/crypto v0.0.0-20190621222207-cc06ce4a13d4 // indirect
-	golang.org/x/exp v0.0.0-20190627132806-fd42eb6b336f // indirect
-	golang.org/x/image v0.0.0-20190622003408-7e034cad6442 // indirect
-	golang.org/x/lint v0.0.0-20190511005446-959b441ac422 // indirect
-	golang.org/x/mobile v0.0.0-20190607214518-6fa95d984e88 // indirect
-	golang.org/x/mod v0.1.0 // indirect
-	golang.org/x/net v0.0.0-20190628185345-da137c7871d7
+	golang.org/x/net v0.0.0-20190628185345-da137c7871d7 // indirect
 	golang.org/x/oauth2 v0.0.0-20190614102709-0f29369cfe45
-	golang.org/x/sync v0.0.0-20190427212804-112230192c58 // indirect
-	golang.org/x/sys v0.0.0-20190730174312-6a60838ec25
-	golang.org/x/text v0.3.2
-	golang.org/x/time v0.0.0-20190513212739-9d24e82272b4 // indirect
-	golang.org/x/tools v0.0.0-20190628222527-fb37f6ba8261 // indirect
+	golang.org/x/sys v0.0.0-20190730174312-6a60838ec25 // indirect
 	google.golang.org/api v0.7.0
-	google.golang.org/appengine v1.6.1
+	google.golang.org/appengine v1.6.1 // indirect
 	google.golang.org/genproto v0.0.0-20190627203621-eb59cef1c072 // indirect
 	google.golang.org/grpc v1.21.1 // indirect
+	gopkg.in/check.v1 v1.0.0-20180628173108-788fd7840127 // indirect
 	gopkg.in/jarcoal/httpmock.v1 v1.0.0-20190314184232-a8ac0a50d0b5 // indirect
 	gopkg.in/yaml.v2 v2.2.2
-	honnef.co/go/tools v0.0.0-20190624193911-785c4eef00d7 // indirect
 )
