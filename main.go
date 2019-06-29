@@ -127,10 +127,11 @@ func watchForConfigChanges(app *tview.Application, configFilePath string, grid *
 func main() {
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
 
+	// Parse and handle flags
 	flags := flags.NewFlags()
 	flags.Parse()
 	config := cfg.LoadConfigFile(flags.ConfigFilePath())
-	flags.Display(version, config)
+	flags.RenderIf(version, config)
 
 	cfg.MigrateOldConfig()
 	cfg.CreateConfigDir()

@@ -11,6 +11,7 @@ import (
 	"github.com/wtfutil/wtf/utils"
 )
 
+// Flags is the container for command line flag data
 type Flags struct {
 	Config  string `short:"c" long:"config" optional:"yes" description:"Path to config file"`
 	Module  string `short:"m" long:"module" optional:"yes" description:"Display info about a specific module, i.e.: 'wtf -m=todo'"`
@@ -18,6 +19,7 @@ type Flags struct {
 	Version bool   `short:"v" long:"version" description:"Show version info"`
 }
 
+// NewFlags creates an instance of Flags
 func NewFlags() *Flags {
 	flags := Flags{}
 	return &flags
@@ -25,11 +27,14 @@ func NewFlags() *Flags {
 
 /* -------------------- Exported Functions -------------------- */
 
+// ConfigFilePath returns the path to the currently-loaded config file
 func (flags *Flags) ConfigFilePath() string {
 	return flags.Config
 }
 
-func (flags *Flags) Display(version string, config *config.Config) {
+// RenderIf displays special-case information based on the flags passed
+// in, if any flags were passed in
+func (flags *Flags) RenderIf(version string, config *config.Config) {
 	if flags.HasModule() {
 		help.Display(flags.Module, config)
 		os.Exit(0)
@@ -41,18 +46,22 @@ func (flags *Flags) Display(version string, config *config.Config) {
 	}
 }
 
+// HasConfig returns TRUE if a config path was passed in, FALSE if one was not
 func (flags *Flags) HasConfig() bool {
 	return len(flags.Config) > 0
 }
 
+// HasModule returns TRUE if a module name was passed in, FALSE if one was not
 func (flags *Flags) HasModule() bool {
 	return len(flags.Module) > 0
 }
 
+// HasVersion returns TRUE if the version flag was passed in, FALSE if it was not
 func (flags *Flags) HasVersion() bool {
 	return flags.Version == true
 }
 
+// Parse parses the incoming flags
 func (flags *Flags) Parse() {
 	parser := goFlags.NewParser(flags, goFlags.Default)
 	if _, err := parser.Parse(); err != nil {
