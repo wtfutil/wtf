@@ -36,7 +36,10 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 func (widget *Widget) Refresh() {
 	result := widget.execute()
 
-	ansiTitle := tview.TranslateANSI(widget.String())
+	ansiTitle := tview.TranslateANSI(widget.CommonSettings.Title)
+	if ansiTitle == defaultTitle {
+		ansiTitle = tview.TranslateANSI(widget.String())
+	}
 	ansiResult := tview.TranslateANSI(result)
 
 	widget.Redraw(ansiTitle, ansiResult, false)
