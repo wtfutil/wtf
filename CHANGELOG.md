@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### ⚡️ Added
+
+* CmdRunner module now supports custom titles, by [@Seanstoppable](https://github.com/Seanstoppable)
+
 ## v0.13.0
 
 ### ⚡️ Added
