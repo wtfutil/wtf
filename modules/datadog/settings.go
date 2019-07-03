@@ -12,9 +12,9 @@ const defaultTitle = "DataDog"
 type Settings struct {
 	common *cfg.Common
 
-	apiKey         string
-	applicationKey string
-	tags           []interface{}
+	apiKey         string        `help:"Your Datadog API key."`
+	applicationKey string        `help:"Your Datadog Application key."`
+	tags           []interface{} `help:"Array of tags you want to query monitors by."`
 }
 
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {

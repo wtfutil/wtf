@@ -12,8 +12,8 @@ const defaultTitle = "BambooHR"
 type Settings struct {
 	common *cfg.Common
 
-	apiKey    string
-	subdomain string
+	apiKey    string `help:"Your BambooHR API token."`
+	subdomain string `help:"Your BambooHR API subdomain name."`
 }
 
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
