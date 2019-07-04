@@ -18,7 +18,7 @@ type Widget struct {
 }
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
-	widget := Widget{
+	widget := &Widget{
 		KeyboardWidget:   wtf.NewKeyboardWidget(app, pages, settings.common),
 		ScrollableWidget: wtf.NewScrollableWidget(app, settings.common, true),
 
@@ -31,7 +31,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 
 	widget.KeyboardWidget.SetView(widget.View)
 
-	return &widget
+	return widget
 }
 
 /* -------------------- Exported Functions -------------------- */
@@ -53,9 +53,7 @@ func (widget *Widget) Refresh() {
 	var stories []Story
 	for idx := 0; idx < widget.settings.numberOfStories; idx++ {
 		story, e := GetStory(storyIds[idx])
-		if e != nil {
-			// panic(e)
-		} else {
+		if e == nil {
 			stories = append(stories, story)
 		}
 	}
@@ -66,21 +64,22 @@ func (widget *Widget) Refresh() {
 	widget.Render()
 }
 
-/* -------------------- Unexported Functions -------------------- */
-
+// Render sets up the widget data for redrawing to the screen
 func (widget *Widget) Render() {
 	if widget.stories == nil {
 		return
 	}
 
-	title := fmt.Sprintf("%s - %sstories", widget.CommonSettings.Title, widget.settings.storyType)
+	title := fmt.Sprintf("%s - %s stories", widget.CommonSettings.Title, widget.settings.storyType)
 	widget.Redraw(title, widget.contentFrom(widget.stories), false)
 }
 
+/* -------------------- Unexported Functions -------------------- */
+
 func (widget *Widget) contentFrom(stories []Story) string {
 	var str string
-	for idx, story := range stories {
 
+	for idx, story := range stories {
 		u, _ := url.Parse(story.URL)
 
 		row := fmt.Sprintf(

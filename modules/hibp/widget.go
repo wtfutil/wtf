@@ -72,7 +72,7 @@ func (widget *Widget) contentFrom(data []*Status) string {
 			color = widget.settings.colors.pwned
 		}
 
-		str = str + fmt.Sprintf(" [%s]%s[white]\n", color, stat.Account)
+		str += fmt.Sprintf(" [%s]%s[white]\n", color, stat.Account)
 	}
 
 	return str
