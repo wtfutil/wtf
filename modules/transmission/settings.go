@@ -9,12 +9,12 @@ import (
 type Settings struct {
 	common *cfg.Common
 
-	host     string
-	https    bool
-	password string
-	port     int
-	url      string
-	username string
+	host     string `help:"The address of the machine the Transmission daemon is running on"`
+	https    bool   `help:"Whether or not to connect to the host via HTTPS"`
+	password string `help:"The password for the transmission user"`
+	port     int    `help:"The port to connect to the Transmission daemon on"`
+	url      string `help:"The RPC URI that the daemon is accessible at"`
+	username string `help:"The username for the transmission user"`
 }
 
 const (
