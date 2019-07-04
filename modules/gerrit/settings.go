@@ -9,8 +9,8 @@ import (
 
 type colors struct {
 	rows struct {
-		even string
-		odd  string
+		even string `help:"Define the foreground color for even-numbered rows." values:"Any X11 color name." optional:"true"`
+		odd  string `help:"Define the foreground color for odd-numbered rows." values:"Any X11 color name." optional:"true"`
 	}
 }
 
@@ -20,11 +20,11 @@ type Settings struct {
 	colors
 	common *cfg.Common
 
-	domain                  string
-	password                string
-	projects                []interface{}
-	username                string
-	verifyServerCertificate bool
+	domain                  string        `help:"Your Gerrit corporate domain."`
+	password                string        `help:"Your Gerrit HTTP Password."`
+	projects                []interface{} `help:"A list of Gerrit project names to fetch data for."`
+	username                string        `help:"Your Gerrit username."`
+	verifyServerCertificate bool          `help:"Determines whether or not the server’s certificate chain and host name are verified." values:"true or false" optional:"true"`
 }
 
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
