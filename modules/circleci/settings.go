@@ -12,7 +12,7 @@ const defaultTitle = "CircleCI"
 type Settings struct {
 	common *cfg.Common
 
-	apiKey string
+	apiKey string `help:"Your CircleCI API token."`
 }
 
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
