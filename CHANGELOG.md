@@ -7,6 +7,10 @@
 * CmdRunner module now supports custom titles, by [@Seanstoppable](https://github.com/Seanstoppable)
 * FeedReader module added (https://wtfutil.com/modules/feedreader/), a rudimentary Rss & Atom feed reader
 
+### 🐞 Fixed
+
+* Cryptolive widget works again, [#481](https://github.com/wtfutil/wtf/issues/481) by [@Seanstoppable](https://github.com/Seanstoppable)
+
 ## v0.13.0
 
 ### ⚡️ Added
