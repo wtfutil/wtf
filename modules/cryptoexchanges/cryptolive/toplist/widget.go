@@ -55,13 +55,12 @@ func (widget *Widget) makeToList(symbol string, limit int) (list []*tCurrency) {
 
 // Refresh & update after interval time
 func (widget *Widget) Refresh(wg *sync.WaitGroup) {
-	if len(widget.list.items) == 0 {
-		return
+	if len(widget.list.items) != 0 {
+
+		widget.updateData()
+
+		widget.display()
 	}
-
-	widget.updateData()
-
-	widget.display()
 	wg.Done()
 }
 
