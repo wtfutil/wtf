@@ -45,17 +45,14 @@ func (widget *Widget) setList() {
 
 // Refresh & update after interval time
 func (widget *Widget) Refresh(wg *sync.WaitGroup) {
-	if len(widget.list.items) == 0 {
-		return
+	if len(widget.list.items) != 0 {
+		widget.updateCurrencies()
+		if !ok {
+			widget.Result = fmt.Sprint("Please check your internet connection!")
+		} else {
+			widget.display()
+		}
 	}
-
-	widget.updateCurrencies()
-
-	if !ok {
-		widget.Result = fmt.Sprint("Please check your internet connection!")
-		return
-	}
-	widget.display()
 	wg.Done()
 }
 

@@ -37,9 +37,8 @@ type currency struct {
 
 type Settings struct {
 	colors
-	common     *cfg.Common
-	currencies map[string]*currency
-	top        map[string]*currency
+	common *cfg.Common
+	top    map[string]*currency
 }
 
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
@@ -61,21 +60,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 	settings.colors.top.to.field = ymlConfig.UString("colors.top.to.field")
 	settings.colors.top.to.value = ymlConfig.UString("colors.top.to.value")
 
-	settings.currencies = make(map[string]*currency)
-
-	for key, val := range ymlConfig.UMap("currencies") {
-		coercedVal := val.(map[string]interface{})
-
-		limit, _ := coercedVal["limit"].(int)
-
-		currency := &currency{
-			displayName: coercedVal["displayName"].(string),
-			limit:       limit,
-			to:          coercedVal["to"].([]interface{}),
-		}
-
-		settings.currencies[key] = currency
-	}
+	settings.top = make(map[string]*currency)
 
 	for key, val := range ymlConfig.UMap("top") {
 		coercedVal := val.(map[string]interface{})
@@ -88,7 +73,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 			to:          coercedVal["to"].([]interface{}),
 		}
 
-		settings.currencies[key] = currency
+		settings.top[key] = currency
 	}
 
 	return &settings
