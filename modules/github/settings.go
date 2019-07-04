@@ -14,19 +14,19 @@ const defaultTitle = "GitHub"
 type Settings struct {
 	common *cfg.Common
 
-	apiKey        string
-	baseURL       string
-	customQueries []customQuery
-	enableStatus  bool
-	repositories  []string
-	uploadURL     string
-	username      string
+	apiKey        string        `help:"Your GitHub API token."`
+	baseURL       string        `help:"Your GitHub Enterprise API URL." optional:"true"`
+	customQueries []customQuery `help:"Custom queries allow you to filter pull requests and issues however you like. Give the query a title and a filter. Filters can be copied directly from GitHub’s UI." optional:"true"`
+	enableStatus  bool          `help:"Display pull request mergeability status (‘dirty’, ‘clean’, ‘unstable’, ‘blocked’)." optional:"true"`
+	repositories  []string      `help:"A list of github repositories." values:"Example: wtfutil/wtf"`
+	uploadURL     string        `help:"Your GitHub Enterprise upload URL (often the same as API URL). optional:"true"`
+	username      string        `help:"Your GitHub username. Used to figure out which review requests you’ve been added to."`
 }
 
 type customQuery struct {
-	title   string
-	filter  string
-	perPage int
+	title   string `help:"Display title for this query"`
+	filter  string `help:"Github query filter"`
+	perPage int    `help:"Number of issues to show"`
 }
 
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {

@@ -12,9 +12,9 @@ const defaultTitle = "Gitter"
 type Settings struct {
 	common *cfg.Common
 
-	apiToken         string
-	numberOfMessages int
-	roomURI          string
+	apiToken         string `help:"Your GitterPersonal Access Token."`
+	numberOfMessages int    `help:"Maximum number of (newest) messages to be displayed. Default is 10" optional:"true"`
+	roomURI          string `help:"The room you want to display." values:"Example: wtfutil/Lobby"`
 }
 
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {

@@ -9,27 +9,26 @@ const defaultTitle = "Calendar"
 
 type colors struct {
 	day         string
-	description string
-	past        string
-	title       string
+	description string `help:"The default color for calendar event descriptions." values:"Any X11 color name." optional:true`
+	past        string `help:"The color for calendar events that have passed." values:"Any X11 color name." optional:true`
+	title       string `help:"The default colour for calendar event titles." values:"Any X11 color name." optional:true`
 
-	highlights []interface{}
+	highlights []interface{} `help:"A list of arrays that define a regular expression pattern and a color. If a calendar event title matches a regular expression, the title will be drawn in that colour. Over-rides the default title colour." values:"An array of a valid regular expression, any X11 color name." optional:true`
 }
 
 type Settings struct {
 	colors
 	common *cfg.Common
 
-	conflictIcon          string
-	currentIcon           string
-	displayResponseStatus bool
-	email                 string
-	eventCount            int
-	multiCalendar         bool
-	secretFile            string
-	showDeclined          bool
-	textInterval          int
-	withLocation          bool
+	conflictIcon          string `help:"The icon displayed beside calendar events that have conflicting times (they intersect or overlap in some way)." values:"Any displayable unicode character." optional:true`
+	currentIcon           string `help:"The icon displayed beside the current calendar event." values:"Any displayable unicode character." optional:true`
+	displayResponseStatus bool   `help:"Whether or not to display your response status to the calendar event." values:"true or false" optional:true`
+	email                 string `help:"The email address associated with your Google account. Necessary for determining 'responseStatus'." values:"A valid email address string."`
+	eventCount            int    `help:"The number of calendar events to display." values:"A positive integer, 0..n." optional:true`
+	multiCalendar         bool   `help:"Whether or not to display your primary calendar or all calendars you have access to." values:"true or false" optional:true`
+	secretFile            string `help:"Your Google client secret JSON file." values:"A string representing a file path to the JSON secret file."`
+	showDeclined          bool   `help:"Whether or not to display events you’ve declined to attend." values:"true or false" optional:true`
+	withLocation          bool   `help:"Whether or not to show the location of the appointment." values:"true or false"`
 }
 
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
@@ -45,7 +44,6 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		multiCalendar:         ymlConfig.UBool("multiCalendar", false),
 		secretFile:            ymlConfig.UString("secretFile", ""),
 		showDeclined:          ymlConfig.UBool("showDeclined", false),
-		textInterval:          ymlConfig.UInt("textInterval", 30),
 		withLocation:          ymlConfig.UBool("withLocation", true),
 	}
 
