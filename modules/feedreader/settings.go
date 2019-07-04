@@ -14,8 +14,8 @@ const (
 type Settings struct {
 	common *cfg.Common
 
-	feeds     []string
-	feedLimit int
+	feeds     []string `help:"An array of RSS and Atom feed URLs"`
+	feedLimit int      `help:"The maximum number of stories to display for each feed"`
 }
 
 // NewSettingsFromYAML creates a new settings instance from a YAML config block
