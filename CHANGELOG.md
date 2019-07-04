@@ -5,6 +5,7 @@
 ### ⚡️ Added
 
 * CmdRunner module now supports custom titles, by [@Seanstoppable](https://github.com/Seanstoppable)
+* FeedReader module added (https://wtfutil.com/modules/feedreader/), a rudimentary Rss & Atom feed reader
 
 ## v0.13.0
 
