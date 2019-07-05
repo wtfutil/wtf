@@ -126,8 +126,10 @@ func LoadConfigFile(filePath string) *config.Config {
 
 	cfg, err := config.ParseYamlFile(absPath)
 	if err != nil {
-		fmt.Println("\n\033[1mERROR:\033[0m Could not load '\033[0;33mconfig.yml\033[0m'.\n")
-		fmt.Println("This could mean one of two things:\n")
+		fmt.Println("\n\033[1mERROR:\033[0m Could not load '\033[0;33mconfig.yml\033[0m'.")
+		fmt.Println()
+		fmt.Println("This could mean one of two things:")
+		fmt.Println()
 		fmt.Println("    1. Your \033[0;33mconfig.yml\033[0m file is missing. Check in \033[0;33m~/.config/wtf\033[0m to see if \033[0;33mconfig.yml\033[0m is there.")
 		fmt.Println("    2. Your \033[0;33mconfig.yml\033[0m file has a syntax error. Try running it through http://www.yamllint.com to check for errors.")
 		fmt.Println()
