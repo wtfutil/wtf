@@ -52,6 +52,25 @@ func NewPositionFromYAML(name string, moduleConfig *config.Config) Position {
 /* -------------------- Unexported Functions -------------------- */
 
 // If any of the position values have an error then we inform the user and exit the app
+// Common examples of invalid position configuration are:
+//
+//    position:
+//      top: 3
+//      width: 2
+//      height: 1
+//
+//    position:
+//      top: 3
+//      # left: 2
+//      width: 2
+//      height: 1
+//
+//    position:
+//    top: 3
+//    left: 2
+//    width: 2
+//    height: 1
+//
 func validatePositions(name string, errs map[string]error) {
 	var errStr string
 

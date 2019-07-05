@@ -30,13 +30,6 @@ type Module struct {
 	Type string
 }
 
-// type Position struct {
-// 	Height int
-// 	Left   int
-// 	Top    int
-// 	Width  int
-// }
-
 type Sigils struct {
 	Checkbox struct {
 		Checked   string
@@ -64,7 +57,6 @@ type Common struct {
 
 func NewCommonSettingsFromModule(name, defaultTitle string, moduleConfig *config.Config, globalSettings *config.Config) *Common {
 	colorsConfig, _ := globalSettings.Get("wtf.colors")
-	// positionPath := "position"
 	sigilsPath := "wtf.sigils"
 
 	common := Common{
