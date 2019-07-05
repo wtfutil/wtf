@@ -132,6 +132,7 @@ func LoadConfigFile(filePath string) *config.Config {
 		fmt.Println("    2. Your \033[0;33mconfig.yml\033[0m file has a syntax error. Try running it through http://www.yamllint.com to check for errors.")
 		fmt.Println()
 		fmt.Printf("Error: \033[0;31m%s\033[0m\n\n", err.Error())
+
 		os.Exit(1)
 	}
 
