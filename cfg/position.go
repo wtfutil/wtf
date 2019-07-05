@@ -21,7 +21,7 @@ type Position struct {
 }
 
 // NewPositionFromYAML creates and returns a new instance of Position
-func NewPositionFromYAML(name string, moduleConfig *config.Config) Position {
+func NewPositionFromYAML(moduleName string, moduleConfig *config.Config) Position {
 	errs := make(map[string]error)
 
 	// Parse the positional data from the config data
@@ -37,7 +37,7 @@ func NewPositionFromYAML(name string, moduleConfig *config.Config) Position {
 	height, err := moduleConfig.Int(positionPath + ".height")
 	errs["height"] = err
 
-	validatePositions(name, errs)
+	validatePositions(moduleName, errs)
 
 	pos := Position{
 		Top:    top,
@@ -71,7 +71,7 @@ func NewPositionFromYAML(name string, moduleConfig *config.Config) Position {
 //    width: 2
 //    height: 1
 //
-func validatePositions(name string, errs map[string]error) {
+func validatePositions(moduleName string, errs map[string]error) {
 	var errStr string
 
 	for pos, err := range errs {
@@ -82,7 +82,7 @@ func validatePositions(name string, errs map[string]error) {
 
 	if errStr != "" {
 		fmt.Println()
-		fmt.Printf("\033[0;31mErrors in %s configuration\033[0m\n", strings.Title(name))
+		fmt.Printf("\033[0;31mErrors in %s configuration\033[0m\n", strings.Title(moduleName))
 		fmt.Println(errStr)
 		fmt.Println("Please check your config.yml file.")
 		fmt.Println()
