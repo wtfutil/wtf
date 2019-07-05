@@ -23,8 +23,8 @@ type Settings struct {
 	colors
 	common *cfg.Common
 
-	accounts []string
-	since    string
+	accounts []string `help:"A list of the accounts to check the HIBP database for."`
+	since    string   `help:"Only check for breaches after this date. Set this if you’ve been breached in the past, have taken steps to mitigate that (changing passwords, cancelling accounts, etc.) and now only want to know about future breaches." values:"A date string in the format 'yyyy-mm-dd', ie: '2019-06-22'", optional:"true"`
 }
 
 // NewSettingsFromYAML creates a new settings instance from a YAML config block

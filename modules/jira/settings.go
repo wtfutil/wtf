@@ -20,13 +20,13 @@ type Settings struct {
 	colors
 	common *cfg.Common
 
-	apiKey                  string
-	domain                  string
-	email                   string
-	jql                     string
-	projects                []string
-	username                string
-	verifyServerCertificate bool
+	apiKey                  string   `help:"Your Jira API key."`
+	domain                  string   `help:"Your Jira corporate domain."`
+	email                   string   `help:"The email address associated with your Jira account."`
+	jql                     string   `help:"Custom JQL to be appended to the search query." values:"See Search Jira like a boss with JQL for details." optional:"true"`
+	projects                []string `help:"An array of projects to get data from"`
+	username                string   `help:"Your Jira username."`
+	verifyServerCertificate bool     `help:"Determines whether or not the server’s certificate chain and host name are verified." values:"true or false" optional:"true"`
 }
 
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {

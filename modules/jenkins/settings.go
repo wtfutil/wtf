@@ -12,12 +12,12 @@ const defaultTitle = "Jenkins"
 type Settings struct {
 	common *cfg.Common
 
-	apiKey                  string
-	jobNameRegex            string
-	successBallColor        string
-	url                     string
-	user                    string
-	verifyServerCertificate bool
+	apiKey                  string `help:"Your Jenkins API key."`
+	jobNameRegex            string `help:"A regex that filters the jobs shown in the widget." optional:"true"`
+	successBallColor        string `help:"Changes the default color of successful Jenkins jobs to the color of your choosing." values:"blue, green, purple, yellow, etc." optional:"true"`
+	url                     string `help:"The url to your Jenkins project or view."`
+	user                    string `help:"Your Jenkins username."`
+	verifyServerCertificate bool   `help:"Determines whether or not the server’s certificate chain and host name are verified." values:"true or false" optional:"true"`
 }
 
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {

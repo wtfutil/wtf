@@ -12,11 +12,11 @@ const defaultTitle = "PagerDuty"
 type Settings struct {
 	common *cfg.Common
 
-	apiKey           string
-	escalationFilter []interface{}
-	scheduleIDs      []interface{}
-	showIncidents    bool
-	showSchedules    bool
+	apiKey           string        `help:"Your PagerDuty API key."`
+	escalationFilter []interface{} `help:"An array of schedule names you want to filter on."`
+	scheduleIDs      []interface{} `help:"An array of schedule IDs you want to restrict the query to."`
+	showIncidents    bool          `help:"Whether or not to list incidents." optional:"true"`
+	showSchedules    bool          `help:"Whether or not to show schedules." optional:"true"`
 }
 
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {

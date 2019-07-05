@@ -12,10 +12,10 @@ const defaultTitle = "OpsGenie"
 type Settings struct {
 	common *cfg.Common
 
-	apiKey                 string
-	displayEmpty           bool
-	schedule               []string
-	scheduleIdentifierType string
+	apiKey                 string   `help:"Your OpsGenie API token."`
+	displayEmpty           bool     `help:"Whether schedules with no assigned person on-call should be displayed." optional:"true"`
+	schedule               []string `help:"A list of names of the schedule(s) to retrieve."`
+	scheduleIdentifierType string   `help:"Type of the schedule identifier." values:"id or name" optional:"true"`
 }
 
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
