@@ -46,7 +46,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		secretFile:    ymlConfig.UString("secretFile", ""),
 		showDeclined:  ymlConfig.UBool("showDeclined", false),
 		withLocation:  ymlConfig.UBool("withLocation", true),
-		timeZone:      ymlConfig.UString("timeZone", "America/New_York"),
+		timeZone:      ymlConfig.UString("timeZone", ""),
 	}
 
 	settings.colors.day = ymlConfig.UString("colors.day", "forestgreen")
