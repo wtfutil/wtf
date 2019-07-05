@@ -59,6 +59,11 @@ func (widget *Widget) torrentPercentDone(torrent *transmissionrpc.Torrent) strin
 
 func (widget *Widget) torrentSeedRatio(torrent *transmissionrpc.Torrent) string {
 	seedRatio := *torrent.UploadRatio
+
+	if seedRatio < 0 {
+		seedRatio = 0
+	}
+
 	return fmt.Sprintf("[green]%3d%%↑", int(seedRatio*100))
 }
 
