@@ -158,9 +158,9 @@ func (w *Widget) refreshSpotifyInfos() error {
 func (w *Widget) Refresh() {
 	err := w.refreshSpotifyInfos()
 	if err != nil {
-		w.Redraw(w.CommonSettings.Title, err.Error(), true)
+		w.Redraw(w.CommonSettings().Title, err.Error(), true)
 	} else {
-		w.Redraw(w.CommonSettings.Title, w.createOutput(), false)
+		w.Redraw(w.CommonSettings().Title, w.createOutput(), false)
 	}
 }
 
@@ -169,14 +169,14 @@ func (widget *Widget) HelpText() string {
 }
 
 func (w *Widget) createOutput() string {
-	output := wtf.CenterText(fmt.Sprintf("[green]Now %v [white]\n", w.Info.Status), w.Width())
-	output += wtf.CenterText(fmt.Sprintf("[green]Title:[white] %v\n", w.Info.Title), w.Width())
-	output += wtf.CenterText(fmt.Sprintf("[green]Artist:[white] %v\n", w.Info.Artists), w.Width())
-	output += wtf.CenterText(fmt.Sprintf("[green]Album:[white] %v\n", w.Info.Album), w.Width())
+	output := wtf.CenterText(fmt.Sprintf("[green]Now %v [white]\n", w.Info.Status), w.CommonSettings().Width)
+	output += wtf.CenterText(fmt.Sprintf("[green]Title:[white] %v\n", w.Info.Title), w.CommonSettings().Width)
+	output += wtf.CenterText(fmt.Sprintf("[green]Artist:[white] %v\n", w.Info.Artists), w.CommonSettings().Width)
+	output += wtf.CenterText(fmt.Sprintf("[green]Album:[white] %v\n", w.Info.Album), w.CommonSettings().Width)
 	if w.playerState.ShuffleState {
-		output += wtf.CenterText(fmt.Sprintf("[green]Shuffle:[white] on\n"), w.Width())
+		output += wtf.CenterText(fmt.Sprintf("[green]Shuffle:[white] on\n"), w.CommonSettings().Width)
 	} else {
-		output += wtf.CenterText(fmt.Sprintf("[green]Shuffle:[white] off\n"), w.Width())
+		output += wtf.CenterText(fmt.Sprintf("[green]Shuffle:[white] off\n"), w.CommonSettings().Width)
 	}
 	return output
 }

@@ -29,7 +29,7 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 func (widget *Widget) Refresh() {
 	cells, _ := widget.Fetch()
 
-	widget.Redraw(widget.CommonSettings.Title, widget.contentFrom(cells), false)
+	widget.Redraw(widget.CommonSettings().Title, widget.contentFrom(cells), false)
 }
 
 /* -------------------- Unexported Functions -------------------- */

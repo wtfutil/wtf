@@ -45,7 +45,7 @@ func (widget *Widget) Refresh() {
 		"Build",
 		widget.systemInfo.BuildVersion,
 	)
-	widget.Redraw(widget.CommonSettings.Title, content, false)
+	widget.Redraw(widget.CommonSettings().Title, content, false)
 }
 
 func (widget *Widget) prettyDate() string {

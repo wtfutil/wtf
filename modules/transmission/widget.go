@@ -64,7 +64,7 @@ func (widget *Widget) Refresh() {
 	torrents, err := widget.Fetch()
 	if err != nil {
 		widget.SetItemCount(0)
-		widget.ScrollableWidget.Redraw(widget.CommonSettings.Title, err.Error(), false)
+		widget.ScrollableWidget.Redraw(widget.CommonSettings().Title, err.Error(), false)
 		return
 	}
 

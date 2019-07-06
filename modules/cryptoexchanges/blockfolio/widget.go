@@ -34,13 +34,13 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 func (widget *Widget) Refresh() {
 	positions, err := Fetch(widget.device_token)
 	if err != nil {
-		widget.Redraw(widget.CommonSettings.Title, err.Error(), true)
+		widget.Redraw(widget.CommonSettings().Title, err.Error(), true)
 		return
 	}
 
 	content := widget.contentFrom(positions)
 
-	widget.Redraw(widget.CommonSettings.Title, content, false)
+	widget.Redraw(widget.CommonSettings().Title, content, false)
 }
 
 /* -------------------- Unexported Functions -------------------- */

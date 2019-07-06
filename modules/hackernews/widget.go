@@ -47,7 +47,7 @@ func (widget *Widget) Refresh() {
 	}
 
 	if err != nil {
-		widget.Redraw(widget.CommonSettings.Title, err.Error(), true)
+		widget.Redraw(widget.CommonSettings().Title, err.Error(), true)
 		return
 	}
 	var stories []Story
@@ -70,7 +70,7 @@ func (widget *Widget) Render() {
 		return
 	}
 
-	title := fmt.Sprintf("%s - %s stories", widget.CommonSettings.Title, widget.settings.storyType)
+	title := fmt.Sprintf("%s - %s stories", widget.CommonSettings().Title, widget.settings.storyType)
 	widget.Redraw(title, widget.contentFrom(widget.stories), false)
 }
 

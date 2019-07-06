@@ -36,10 +36,10 @@ func (widget *Widget) Refresh() {
 	teams, err := Fetch(widget.settings.apiID, widget.settings.apiKey)
 
 	if err != nil {
-		widget.Redraw(widget.CommonSettings.Title, err.Error(), true)
+		widget.Redraw(widget.CommonSettings().Title, err.Error(), true)
 	} else {
 		widget.teams = teams
-		widget.Redraw(widget.CommonSettings.Title, widget.contentFrom(widget.teams), true)
+		widget.Redraw(widget.CommonSettings().Title, widget.contentFrom(widget.teams), true)
 	}
 }
 

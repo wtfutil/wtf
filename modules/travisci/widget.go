@@ -43,7 +43,7 @@ func (widget *Widget) Refresh() {
 	builds, err := BuildsFor(widget.settings.apiKey, widget.settings.pro)
 
 	if err != nil {
-		widget.Redraw(widget.CommonSettings.Title, err.Error(), true)
+		widget.Redraw(widget.CommonSettings().Title, err.Error(), true)
 		return
 	}
 	widget.builds = builds
@@ -58,7 +58,7 @@ func (widget *Widget) Render() {
 		return
 	}
 
-	title := fmt.Sprintf("%s - Builds", widget.CommonSettings.Title)
+	title := fmt.Sprintf("%s - Builds", widget.CommonSettings().Title)
 	widget.Redraw(title, widget.contentFrom(widget.builds), false)
 }
 

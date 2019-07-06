@@ -8,11 +8,11 @@ func (widget *Widget) display() {
 
 	project := widget.currentGitlabProject()
 	if project == nil {
-		widget.Redraw(widget.CommonSettings.Title, " Gitlab project data is unavailable ", true)
+		widget.Redraw(widget.CommonSettings().Title, " Gitlab project data is unavailable ", true)
 		return
 	}
 
-	title := fmt.Sprintf("%s- %s", widget.CommonSettings.Title, widget.title(project))
+	title := fmt.Sprintf("%s- %s", widget.CommonSettings().Title, widget.title(project))
 
 	_, _, width, _ := widget.View.GetRect()
 	str := widget.settings.common.SigilStr(len(widget.GitlabProjects), widget.Idx, width) + "\n"

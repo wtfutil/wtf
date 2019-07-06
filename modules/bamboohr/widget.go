@@ -40,7 +40,7 @@ func (widget *Widget) Refresh() {
 		wtf.Now().Format(wtf.DateFormat),
 	)
 
-	widget.Redraw(widget.CommonSettings.Title, widget.contentFrom(todayItems), false)
+	widget.Redraw(widget.CommonSettings().Title, widget.contentFrom(todayItems), false)
 }
 
 /* -------------------- Unexported Functions -------------------- */

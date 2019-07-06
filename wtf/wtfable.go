@@ -1,6 +1,8 @@
 package wtf
 
 import (
+	"github.com/wtfutil/wtf/cfg"
+
 	"github.com/rivo/tview"
 )
 
@@ -9,16 +11,13 @@ type Wtfable interface {
 	Scheduler
 
 	BorderColor() string
+	ConfigText() string
 	FocusChar() string
 	Focusable() bool
+	HelpText() string
 	Name() string
 	SetFocusChar(string)
 	TextView() *tview.TextView
-	HelpText() string
-	ConfigText() string
 
-	Height() int
-	Left() int
-	Top() int
-	Width() int
+	CommonSettings() *cfg.Common
 }

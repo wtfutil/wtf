@@ -52,7 +52,7 @@ func (widget *Widget) Refresh() {
 /* -------------------- Unexported Functions -------------------- */
 
 func (widget *Widget) Render() {
-	title := fmt.Sprintf("%s (%d)", widget.CommonSettings.Title, widget.result.Count)
+	title := fmt.Sprintf("%s (%d)", widget.CommonSettings().Title, widget.result.Count)
 	widget.Redraw(title, widget.textContent(widget.result.Tickets), false)
 }
 

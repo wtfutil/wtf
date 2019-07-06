@@ -48,7 +48,7 @@ func (widget *Widget) Refresh() {
 	)
 
 	if err != nil {
-		widget.Redraw(widget.CommonSettings.Title, err.Error(), true)
+		widget.Redraw(widget.CommonSettings().Title, err.Error(), true)
 		return
 	}
 	widget.items = &items.Results
@@ -64,7 +64,7 @@ func (widget *Widget) Render() {
 		return
 	}
 
-	title := fmt.Sprintf("%s - %s", widget.CommonSettings.Title, widget.settings.projectName)
+	title := fmt.Sprintf("%s - %s", widget.CommonSettings().Title, widget.settings.projectName)
 	widget.Redraw(title, widget.contentFrom(widget.items), false)
 }
 

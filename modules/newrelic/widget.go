@@ -39,7 +39,7 @@ func (widget *Widget) Refresh() {
 	}
 
 	var content string
-	title := fmt.Sprintf("%s - [green]%s[white]", widget.CommonSettings.Title, appName)
+	title := fmt.Sprintf("%s - [green]%s[white]", widget.CommonSettings().Title, appName)
 	wrap := false
 	if depErr != nil {
 		wrap = true

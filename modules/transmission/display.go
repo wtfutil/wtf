@@ -32,7 +32,7 @@ func (widget *Widget) contentFrom(data []*transmissionrpc.Torrent) string {
 
 func (widget *Widget) display() {
 	content := widget.contentFrom(widget.torrents)
-	widget.ScrollableWidget.Redraw(widget.CommonSettings.Title, content, false)
+	widget.ScrollableWidget.Redraw(widget.CommonSettings().Title, content, false)
 }
 
 func (widget *Widget) prettyTorrentName(name string) string {

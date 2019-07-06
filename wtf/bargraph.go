@@ -11,18 +11,16 @@ import (
 
 //BarGraph lets make graphs
 type BarGraph struct {
-	enabled   bool
-	focusable bool
-	key       string
-	maxStars  int
-	name      string
-	starChar  string
+	commonSettings *cfg.Common
+	enabled        bool
+	focusable      bool
+	key            string
+	maxStars       int
+	name           string
+	starChar       string
 
 	RefreshInt int
 	View       *tview.TextView
-	settings   *cfg.Common
-
-	Position
 }
 
 type Bar struct {
@@ -34,21 +32,14 @@ type Bar struct {
 // NewBarGraph initialize your fancy new graph
 func NewBarGraph(app *tview.Application, name string, settings *cfg.Common, focusable bool) BarGraph {
 	widget := BarGraph{
-		enabled:    settings.Enabled,
-		focusable:  focusable,
-		maxStars:   settings.Config.UInt("graphStars", 20),
-		name:       settings.Title,
-		starChar:   settings.Config.UString("graphIcon", "|"),
-		RefreshInt: settings.RefreshInterval,
-		settings:   settings,
+		enabled:        settings.Enabled,
+		focusable:      focusable,
+		maxStars:       settings.Config.UInt("graphStars", 20),
+		name:           settings.Title,
+		starChar:       settings.Config.UString("graphIcon", "|"),
+		RefreshInt:     settings.RefreshInterval,
+		commonSettings: settings,
 	}
-
-	widget.Position = NewPosition(
-		settings.Position.Top,
-		settings.Position.Left,
-		settings.Position.Width,
-		settings.Position.Height,
-	)
 
 	widget.View = widget.addView()
 	widget.View.SetChangedFunc(func() {
@@ -60,10 +51,14 @@ func NewBarGraph(app *tview.Application, name string, settings *cfg.Common, focu
 
 func (widget *BarGraph) BorderColor() string {
 	if widget.Focusable() {
-		return widget.settings.Colors.BorderFocusable
+		return widget.commonSettings.Colors.BorderFocusable
 	}
 
-	return widget.settings.Colors.BorderNormal
+	return widget.commonSettings.Colors.BorderNormal
+}
+
+func (widget *BarGraph) CommonSettings() *cfg.Common {
+	return widget.commonSettings
 }
 
 func (widget *BarGraph) Disable() {
@@ -84,12 +79,6 @@ func (widget *BarGraph) Focusable() bool {
 
 func (widget *BarGraph) FocusChar() string {
 	return ""
-}
-
-// IsPositionable returns TRUE if the widget has valid position parameters, FALSE if it has
-// invalid position parameters (ie: cannot be placed onscreen)
-func (widget *BarGraph) IsPositionable() bool {
-	return widget.Position.IsValid()
 }
 
 func (widget *BarGraph) Key() string {
@@ -118,22 +107,6 @@ func (widget *BarGraph) HelpText() string {
 
 func (widget *BarGraph) ConfigText() string {
 	return ""
-}
-
-/* -------------------- Unexported Functions -------------------- */
-
-func (widget *BarGraph) addView() *tview.TextView {
-	view := tview.NewTextView()
-
-	view.SetBackgroundColor(ColorFor(widget.settings.Colors.Background))
-	view.SetBorder(true)
-	view.SetBorderColor(ColorFor(widget.BorderColor()))
-	view.SetDynamicColors(true)
-	view.SetTitle(widget.Name())
-	view.SetTitleColor(ColorFor(widget.settings.Colors.Title))
-	view.SetWrap(false)
-
-	return view
 }
 
 // BuildBars will build a string of * to represent your data of [time][value]
@@ -188,4 +161,18 @@ func BuildStars(data []Bar, maxStars int, starChar string) string {
 	return buffer.String()
 }
 
-/* -------------------- Exported Functions -------------------- */
+/* -------------------- Unexported Functions -------------------- */
+
+func (widget *BarGraph) addView() *tview.TextView {
+	view := tview.NewTextView()
+
+	view.SetBackgroundColor(ColorFor(widget.commonSettings.Colors.Background))
+	view.SetBorder(true)
+	view.SetBorderColor(ColorFor(widget.BorderColor()))
+	view.SetDynamicColors(true)
+	view.SetTitle(widget.Name())
+	view.SetTitleColor(ColorFor(widget.commonSettings.Colors.Title))
+	view.SetWrap(false)
+
+	return view
+}

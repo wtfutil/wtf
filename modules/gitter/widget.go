@@ -43,19 +43,19 @@ func (widget *Widget) Refresh() {
 
 	room, err := GetRoom(widget.settings.roomURI, widget.settings.apiToken)
 	if err != nil {
-		widget.Redraw(widget.CommonSettings.Title, err.Error(), true)
+		widget.Redraw(widget.CommonSettings().Title, err.Error(), true)
 		return
 	}
 
 	if room == nil {
-		widget.Redraw(widget.CommonSettings.Title, "No room", true)
+		widget.Redraw(widget.CommonSettings().Title, "No room", true)
 		return
 	}
 
 	messages, err := GetMessages(room.ID, widget.settings.numberOfMessages, widget.settings.apiToken)
 
 	if err != nil {
-		widget.Redraw(widget.CommonSettings.Title, err.Error(), true)
+		widget.Redraw(widget.CommonSettings().Title, err.Error(), true)
 		return
 	}
 	widget.messages = messages
@@ -75,7 +75,7 @@ func (widget *Widget) display() {
 		return
 	}
 
-	title := fmt.Sprintf("%s - %s", widget.CommonSettings.Title, widget.settings.roomURI)
+	title := fmt.Sprintf("%s - %s", widget.CommonSettings().Title, widget.settings.roomURI)
 
 	widget.Redraw(title, widget.contentFrom(widget.messages), true)
 }

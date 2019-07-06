@@ -35,7 +35,7 @@ func (widget *Widget) Refresh() {
 	data := NewSecurityData()
 	data.Fetch()
 
-	widget.Redraw(widget.CommonSettings.Title, widget.contentFrom(data), false)
+	widget.Redraw(widget.CommonSettings().Title, widget.contentFrom(data), false)
 }
 
 /* -------------------- Unexported Functions -------------------- */

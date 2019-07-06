@@ -96,8 +96,9 @@ func watchForConfigChanges(app *tview.Application, configFilePath string, grid *
 				config := cfg.LoadConfigFile(absPath)
 
 				widgets := maker.MakeWidgets(app, pages, config)
-				wtf.ValidateWidgets(widgets)
 				runningWidgets = widgets
+
+				wtf.ValidateWidgets(widgets)
 
 				focusTracker = wtf.NewFocusTracker(app, widgets, config)
 
@@ -152,8 +153,9 @@ func main() {
 	pages := tview.NewPages()
 
 	widgets := maker.MakeWidgets(app, pages, config)
-	wtf.ValidateWidgets(widgets)
 	runningWidgets = widgets
+
+	wtf.ValidateWidgets(widgets)
 
 	focusTracker = wtf.NewFocusTracker(app, widgets, config)
 

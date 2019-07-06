@@ -41,7 +41,7 @@ func (widget *Widget) Refresh() {
 	if monitorErr != nil {
 		widget.monitors = nil
 		widget.SetItemCount(0)
-		widget.Redraw(widget.CommonSettings.Title, monitorErr.Error(), true)
+		widget.Redraw(widget.CommonSettings().Title, monitorErr.Error(), true)
 		return
 	}
 	triggeredMonitors := []datadog.Monitor{}
@@ -60,7 +60,7 @@ func (widget *Widget) Refresh() {
 
 func (widget *Widget) Render() {
 	content := widget.contentFrom(widget.monitors)
-	widget.Redraw(widget.CommonSettings.Title, content, false)
+	widget.Redraw(widget.CommonSettings().Title, content, false)
 }
 
 func (widget *Widget) HelpText() string {

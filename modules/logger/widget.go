@@ -40,7 +40,7 @@ func (widget *Widget) Refresh() {
 
 	logLines := widget.tailFile()
 
-	widget.Redraw(widget.CommonSettings.Title, widget.contentFrom(logLines), false)
+	widget.Redraw(widget.CommonSettings().Title, widget.contentFrom(logLines), false)
 }
 
 /* -------------------- Unexported Functions -------------------- */

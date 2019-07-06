@@ -9,6 +9,7 @@ import (
 )
 
 type TextWidget struct {
+	commonSettings  *cfg.Common
 	enabled         bool
 	focusable       bool
 	focusChar       string
@@ -17,14 +18,11 @@ type TextWidget struct {
 	app             *tview.Application
 
 	View *tview.TextView
-
-	CommonSettings *cfg.Common
-	Position
 }
 
 func NewTextWidget(app *tview.Application, commonSettings *cfg.Common, focusable bool) TextWidget {
 	widget := TextWidget{
-		CommonSettings: commonSettings,
+		commonSettings: commonSettings,
 
 		app:             app,
 		enabled:         commonSettings.Enabled,
@@ -33,13 +31,6 @@ func NewTextWidget(app *tview.Application, commonSettings *cfg.Common, focusable
 		name:            commonSettings.Name,
 		refreshInterval: commonSettings.RefreshInterval,
 	}
-
-	widget.Position = NewPosition(
-		commonSettings.Position.Top,
-		commonSettings.Position.Left,
-		commonSettings.Position.Width,
-		commonSettings.Position.Height,
-	)
 
 	widget.View = widget.addView()
 
@@ -50,10 +41,14 @@ func NewTextWidget(app *tview.Application, commonSettings *cfg.Common, focusable
 
 func (widget *TextWidget) BorderColor() string {
 	if widget.Focusable() {
-		return widget.CommonSettings.Colors.BorderFocusable
+		return widget.commonSettings.Colors.BorderFocusable
 	}
 
-	return widget.CommonSettings.Colors.BorderNormal
+	return widget.commonSettings.Colors.BorderNormal
+}
+
+func (widget *TextWidget) CommonSettings() *cfg.Common {
+	return widget.commonSettings
 }
 
 func (widget *TextWidget) ContextualTitle(defaultStr string) string {
@@ -82,12 +77,6 @@ func (widget *TextWidget) Focusable() bool {
 
 func (widget *TextWidget) FocusChar() string {
 	return widget.focusChar
-}
-
-// IsPositionable returns TRUE if the widget has valid position parameters, FALSE if it has
-// invalid position parameters (ie: cannot be placed onscreen)
-func (widget *TextWidget) IsPositionable() bool {
-	return widget.Position.IsValid()
 }
 
 func (widget *TextWidget) Name() string {
@@ -120,7 +109,7 @@ func (widget *TextWidget) Redraw(title, text string, wrap bool) {
 }
 
 func (widget *TextWidget) HelpText() string {
-	return fmt.Sprintf("\n  There is no help available for widget %s", widget.CommonSettings.Module.Type)
+	return fmt.Sprintf("\n  There is no help available for widget %s", widget.commonSettings.Module.Type)
 }
 
 func (widget *TextWidget) ConfigText() string {
@@ -132,10 +121,10 @@ func (widget *TextWidget) ConfigText() string {
 func (widget *TextWidget) addView() *tview.TextView {
 	view := tview.NewTextView()
 
-	view.SetBackgroundColor(ColorFor(widget.CommonSettings.Colors.Background))
+	view.SetBackgroundColor(ColorFor(widget.commonSettings.Colors.Background))
 	view.SetBorderColor(ColorFor(widget.BorderColor()))
-	view.SetTextColor(ColorFor(widget.CommonSettings.Colors.Text))
-	view.SetTitleColor(ColorFor(widget.CommonSettings.Colors.Title))
+	view.SetTextColor(ColorFor(widget.commonSettings.Colors.Text))
+	view.SetTitleColor(ColorFor(widget.commonSettings.Colors.Title))
 
 	view.SetBorder(true)
 	view.SetDynamicColors(true)

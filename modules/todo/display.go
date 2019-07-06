@@ -31,7 +31,7 @@ func (widget *Widget) display() {
 	newList.SetSelectedByItem(widget.list.SelectedItem())
 	widget.SetList(newList)
 
-	widget.Redraw(widget.CommonSettings.Title, str, false)
+	widget.Redraw(widget.CommonSettings().Title, str, false)
 }
 
 func (widget *Widget) formattedItemLine(idx int, item *checklist.ChecklistItem, selectedItem *checklist.ChecklistItem, maxLen int) string {

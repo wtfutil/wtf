@@ -24,7 +24,7 @@ func (widget *Widget) display() {
 		err += " Weather data is unavailable: no weather data\n"
 	}
 
-	title := widget.CommonSettings.Title
+	title := widget.CommonSettings().Title
 	setWrap := false
 
 	var content string

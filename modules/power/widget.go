@@ -36,5 +36,5 @@ func (widget *Widget) Refresh() {
 	content += "\n"
 	content += widget.Battery.String()
 
-	widget.Redraw(widget.CommonSettings.Title, content, true)
+	widget.Redraw(widget.CommonSettings().Title, content, true)
 }

@@ -48,7 +48,7 @@ func (widget *Widget) Fetch(accounts []string) ([]*Status, error) {
 func (widget *Widget) Refresh() {
 	data, err := widget.Fetch(widget.settings.accounts)
 
-	title := widget.CommonSettings.Title
+	title := widget.CommonSettings().Title
 	title = title + widget.sinceDateForTitle()
 
 	var content string

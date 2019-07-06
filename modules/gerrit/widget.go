@@ -77,7 +77,7 @@ func (widget *Widget) Refresh() {
 	if err != nil {
 		widget.View.SetWrap(true)
 
-		widget.Redraw(widget.CommonSettings.Title, err.Error(), true)
+		widget.Redraw(widget.CommonSettings().Title, err.Error(), true)
 		return
 	}
 	widget.gerrit = gerrit

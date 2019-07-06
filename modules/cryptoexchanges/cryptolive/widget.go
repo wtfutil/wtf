@@ -56,5 +56,5 @@ func (widget *Widget) display() {
 	str += widget.priceWidget.Result
 	str += widget.toplistWidget.Result
 
-	widget.Redraw(widget.CommonSettings.Title, fmt.Sprintf("\n%s", str), false)
+	widget.Redraw(widget.CommonSettings().Title, fmt.Sprintf("\n%s", str), false)
 }

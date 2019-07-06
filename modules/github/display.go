@@ -8,7 +8,7 @@ import (
 
 func (widget *Widget) display() {
 	repo := widget.currentGithubRepo()
-	title := fmt.Sprintf("%s - %s", widget.CommonSettings.Title, widget.title(repo))
+	title := fmt.Sprintf("%s - %s", widget.CommonSettings().Title, widget.title(repo))
 	if repo == nil {
 		widget.TextWidget.Redraw(title, " GitHub repo data is unavailable ", false)
 		return

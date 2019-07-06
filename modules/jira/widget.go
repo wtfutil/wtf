@@ -43,7 +43,7 @@ func (widget *Widget) Refresh() {
 
 	if err != nil {
 		widget.result = nil
-		widget.Redraw(widget.CommonSettings.Title, err.Error(), true)
+		widget.Redraw(widget.CommonSettings().Title, err.Error(), true)
 		return
 	}
 	widget.result = searchResult
@@ -56,7 +56,7 @@ func (widget *Widget) Render() {
 		return
 	}
 
-	str := fmt.Sprintf("%s- [green]%s[white]", widget.CommonSettings.Title, widget.settings.projects)
+	str := fmt.Sprintf("%s- [green]%s[white]", widget.CommonSettings().Title, widget.settings.projects)
 
 	widget.Redraw(str, widget.contentFrom(widget.result), false)
 }

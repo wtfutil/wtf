@@ -52,5 +52,5 @@ func (widget *Widget) Refresh() {
 /* -------------------- Unexported Functions -------------------- */
 
 func (widget *Widget) display() {
-  widget.Redraw(widget.CommonSettings.Title, "Some text", false)
+  widget.Redraw(widget.CommonSettings().Title, "Some text", false)
 }

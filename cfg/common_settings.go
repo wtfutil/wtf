@@ -44,7 +44,7 @@ type Sigils struct {
 type Common struct {
 	Colors
 	Module
-	Position `help:"Defines where in the grid this module’s widget will be displayed."`
+	PositionSettings `help:"Defines where in the grid this module’s widget will be displayed."`
 	Sigils
 
 	Enabled         bool   `help:"Determines whether or not this module is executed and if its data displayed onscreen." values:"true, false"`
@@ -78,7 +78,7 @@ func NewCommonSettingsFromModule(name, defaultTitle string, moduleConfig *config
 			Type: moduleConfig.UString("type", name),
 		},
 
-		Position: NewPositionFromYAML(name, moduleConfig),
+		PositionSettings: NewPositionSettingsFromYAML(name, moduleConfig),
 
 		Enabled:         moduleConfig.UBool("enabled", false),
 		RefreshInterval: moduleConfig.UInt("refreshInterval", 300),
@@ -100,6 +100,8 @@ func NewCommonSettingsFromModule(name, defaultTitle string, moduleConfig *config
 	return &common
 }
 
+/* -------------------- Exported Functions -------------------- */
+
 func (common *Common) DefaultFocusedRowColor() string {
 	return fmt.Sprintf("%s:%s", common.Colors.HighlightFore, common.Colors.HighlightBack)
 }
@@ -109,12 +111,11 @@ func (common *Common) DefaultRowColor() string {
 }
 
 func (common *Common) FocusChar() string {
-	focusChar := string('0' + common.focusChar)
-	if common.focusChar == -1 {
-		focusChar = ""
+	if common.focusChar <= -1 {
+		return ""
 	}
 
-	return focusChar
+	return string('0' + common.focusChar)
 }
 
 func (common *Common) RowColor(idx int) string {
@@ -142,4 +143,16 @@ func (common *Common) SigilStr(len, pos int, width int) string {
 	}
 
 	return sigils
+}
+
+// Validations aggregates all the validations from all the sub-sections in Common into a
+// single array of validations
+func (common *Common) Validations() []Validatable {
+	validatables := []Validatable{}
+
+	for _, validation := range common.PositionSettings.Validations.validations {
+		validatables = append(validatables, validation)
+	}
+
+	return validatables
 }

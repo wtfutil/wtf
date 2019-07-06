@@ -70,7 +70,7 @@ func (widget *Widget) Fetch(feedURLs []string) ([]*FeedItem, error) {
 func (widget *Widget) Refresh() {
 	feedItems, err := widget.Fetch(widget.settings.feeds)
 	if err != nil {
-		widget.Redraw(widget.CommonSettings.Title, err.Error(), true)
+		widget.Redraw(widget.CommonSettings().Title, err.Error(), true)
 	}
 
 	widget.stories = feedItems
@@ -85,7 +85,7 @@ func (widget *Widget) Render() {
 		return
 	}
 
-	title := widget.CommonSettings.Title
+	title := widget.CommonSettings().Title
 	widget.Redraw(title, widget.contentFrom(widget.stories), false)
 }
 

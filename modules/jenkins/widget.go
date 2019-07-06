@@ -48,7 +48,7 @@ func (widget *Widget) Refresh() {
 	widget.view = view
 
 	if err != nil {
-		widget.Redraw(widget.CommonSettings.Title, err.Error(), true)
+		widget.Redraw(widget.CommonSettings().Title, err.Error(), true)
 		return
 	}
 
@@ -64,7 +64,7 @@ func (widget *Widget) Render() {
 		return
 	}
 
-	title := fmt.Sprintf("%s: [red]%s", widget.CommonSettings.Title, widget.view.Name)
+	title := fmt.Sprintf("%s: [red]%s", widget.CommonSettings().Title, widget.view.Name)
 
 	widget.Redraw(title, widget.contentFrom(widget.view), false)
 }

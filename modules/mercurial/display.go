@@ -9,11 +9,11 @@ import (
 func (widget *Widget) display() {
 	repoData := widget.currentData()
 	if repoData == nil {
-		widget.Redraw(widget.CommonSettings.Title, " Mercurial repo data is unavailable ", false)
+		widget.Redraw(widget.CommonSettings().Title, " Mercurial repo data is unavailable ", false)
 		return
 	}
 
-	title := fmt.Sprintf("%s - [green]%s[white]", widget.CommonSettings.Title, repoData.Repository)
+	title := fmt.Sprintf("%s - [green]%s[white]", widget.CommonSettings().Title, repoData.Repository)
 
 	_, _, width, _ := widget.View.GetRect()
 	str := widget.settings.common.SigilStr(len(widget.Data), widget.Idx, width) + "\n"
