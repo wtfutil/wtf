@@ -47,9 +47,9 @@ type Common struct {
 	Position `help:"Defines where in the grid this module’s widget will be displayed."`
 	Sigils
 
-	Enabled         bool `help:"Determines whether or not this module is executed and if its data displayed onscreen." values:"true, false"`
-	RefreshInterval int  `help:"How often, in seconds, this module will update its data." values:"A positive integer, 0..n." optional:"true"`
-	Title           string
+	Enabled         bool   `help:"Determines whether or not this module is executed and if its data displayed onscreen." values:"true, false"`
+	RefreshInterval int    `help:"How often, in seconds, this module will update its data." values:"A positive integer, 0..n." optional:"true"`
+	Title           string `help:"The title string to show when displaying this module" optional:"true"`
 	Config          *config.Config
 
 	focusChar int `help:"Define one of the number keys as a short cut key to access the widget." optional:"true"`
