@@ -11,6 +11,7 @@
 
 * Cryptolive module works again, [#481](https://github.com/wtfutil/wtf/issues/481) by [@Seanstoppable](https://github.com/Seanstoppable)
 * gCal module now supports setting an explicit time zone via the "timezone" config attribute, [#382](https://github.com/wtfutil/wtf/issues/382) by [@jeangovil](https://github.com/jeangovil)
+* Misconfigured module positions in `config.yaml` now attempt to provide informative error messages on launch
 
 ## v0.13.0
 
