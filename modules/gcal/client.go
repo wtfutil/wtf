@@ -56,7 +56,7 @@ func (widget *Widget) Fetch() ([]*CalEvent, error) {
 	startTime := fromMidnight().Format(time.RFC3339)
 	eventLimit := int64(widget.settings.eventCount)
 
-	timezone := widget.settings.timeZone
+	timezone := widget.settings.timezone
 
 	for _, calendarId := range calendarIds {
 		calendarEvents, err := srv.Events.List(calendarId).TimeZone(timezone).ShowDeleted(false).TimeMin(startTime).MaxResults(eventLimit).SingleEvents(true).OrderBy("startTime").Do()
