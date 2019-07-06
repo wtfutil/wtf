@@ -51,8 +51,6 @@ func (widget *Widget) Refresh() {
 	widget.Render()
 }
 
-/* -------------------- Unexported Functions -------------------- */
-
 func (widget *Widget) Render() {
 	if widget.result == nil {
 		return
@@ -62,6 +60,8 @@ func (widget *Widget) Render() {
 
 	widget.Redraw(str, widget.contentFrom(widget.result), false)
 }
+
+/* -------------------- Unexported Functions -------------------- */
 
 func (widget *Widget) openItem() {
 	sel := widget.GetSelected()

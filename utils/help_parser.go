@@ -28,20 +28,24 @@ func StripColorTags(input string) string {
 
 func helpFromValue(field reflect.StructField) string {
 	result := ""
-	var help string = field.Tag.Get("help")
+
 	optional, err := strconv.ParseBool(field.Tag.Get("optional"))
 	if err != nil {
 		optional = false
 	}
-	var values string = field.Tag.Get("values")
+
+	help := field.Tag.Get("help")
 	if optional {
 		help = "Optional " + help
 	}
+
+	values := field.Tag.Get("values")
 	if help != "" {
-		result += "\n\n" + lowercaseTitle(field.Name)
-		result += "\n" + help
+		result += "\n\n " + lowercaseTitle(field.Name)
+		result += "\n " + help
+
 		if values != "" {
-			result += "\nValues: " + values
+			result += "\n Values: " + values
 		}
 	}
 
@@ -49,7 +53,6 @@ func helpFromValue(field reflect.StructField) string {
 }
 
 func HelpFromInterface(item interface{}) string {
-
 	result := ""
 	t := reflect.TypeOf(item)
 

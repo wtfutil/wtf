@@ -85,6 +85,7 @@ func (widget *KeyboardWidget) InputCapture(event *tcell.EventKey) *tcell.EventKe
 	return event
 }
 
+// HelpText returns the help text and keyboard command info for this widget
 func (widget *KeyboardWidget) HelpText() string {
 	str := " [green::b]Keyboard commands for " + strings.Title(widget.settings.Module.Type) + "[white]\n\n"
 

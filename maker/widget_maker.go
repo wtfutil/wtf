@@ -223,6 +223,7 @@ func MakeWidgets(app *tview.Application, pages *tview.Pages, config *config.Conf
 	for mod := range mods {
 		modConfig, _ := config.Get("wtf.mods." + mod)
 		widgetType := modConfig.UString("type", mod)
+
 		if enabled := modConfig.UBool("enabled", false); enabled {
 			widget := MakeWidget(app, pages, mod, widgetType, modConfig, config)
 			widgets = append(widgets, widget)
