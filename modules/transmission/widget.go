@@ -125,6 +125,8 @@ func (widget *Widget) deleteSelectedTorrent() {
 	}
 
 	widget.client.TorrentRemove(removePayload)
+
+	widget.display()
 }
 
 // pauseUnpauseTorrent either pauses or unpauses the downloading and seeding of the selected torrent
