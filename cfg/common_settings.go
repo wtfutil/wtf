@@ -100,7 +100,7 @@ func NewCommonSettingsFromModule(name, defaultTitle string, moduleConfig *config
 	return &common
 }
 
-func (common *Common) DefaultFocussedRowColor() string {
+func (common *Common) DefaultFocusedRowColor() string {
 	return fmt.Sprintf("%s:%s", common.Colors.HighlightFore, common.Colors.HighlightBack)
 }
 

@@ -42,7 +42,7 @@ func (widget *ScrollableWidget) GetSelected() int {
 
 func (widget *ScrollableWidget) RowColor(idx int) string {
 	if widget.View.HasFocus() && (idx == widget.Selected) {
-		return widget.CommonSettings.DefaultFocussedRowColor()
+		return widget.CommonSettings.DefaultFocusedRowColor()
 	}
 
 	return widget.CommonSettings.RowColor(idx)
