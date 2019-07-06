@@ -29,6 +29,7 @@ type Settings struct {
 	secretFile            string `help:"Your Google client secret JSON file." values:"A string representing a file path to the JSON secret file."`
 	showDeclined          bool   `help:"Whether or not to display events you’ve declined to attend." values:"true or false" optional:true`
 	withLocation          bool   `help:"Whether or not to show the location of the appointment." values:"true or false"`
+	timeZone              string `help:"Time zone used in the calendar." values:"A valid time zone string"`
 }
 
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
@@ -39,12 +40,13 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		conflictIcon:          ymlConfig.UString("conflictIcon", "🚨"),
 		currentIcon:           ymlConfig.UString("currentIcon", "🔸"),
 		displayResponseStatus: ymlConfig.UBool("displayResponseStatus", true),
-		email:                 ymlConfig.UString("email", ""),
-		eventCount:            ymlConfig.UInt("eventCount", 10),
-		multiCalendar:         ymlConfig.UBool("multiCalendar", false),
-		secretFile:            ymlConfig.UString("secretFile", ""),
-		showDeclined:          ymlConfig.UBool("showDeclined", false),
-		withLocation:          ymlConfig.UBool("withLocation", true),
+		email:         ymlConfig.UString("email", ""),
+		eventCount:    ymlConfig.UInt("eventCount", 10),
+		multiCalendar: ymlConfig.UBool("multiCalendar", false),
+		secretFile:    ymlConfig.UString("secretFile", ""),
+		showDeclined:  ymlConfig.UBool("showDeclined", false),
+		withLocation:  ymlConfig.UBool("withLocation", true),
+		timeZone:      ymlConfig.UString("timeZone", ""),
 	}
 
 	settings.colors.day = ymlConfig.UString("colors.day", "forestgreen")
