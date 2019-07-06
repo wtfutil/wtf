@@ -9,8 +9,6 @@ const defaultTitle = "Power"
 
 type Settings struct {
 	common *cfg.Common
-
-	filePath string
 }
 
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {

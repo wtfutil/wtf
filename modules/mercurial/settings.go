@@ -10,9 +10,9 @@ const defaultTitle = "Mercurial"
 type Settings struct {
 	common *cfg.Common
 
-	commitCount  int
-	commitFormat string
-	repositories []interface{}
+	commitCount  int           `help:"The number of past commits to display." optional:"true"`
+	commitFormat string        `help:"The string format for the commit message." optional:"true"`
+	repositories []interface{} `help:"Defines which mercurial repositories to watch." values:"A list of zero or more local file paths pointing to valid mercurial repositories."`
 }
 
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
