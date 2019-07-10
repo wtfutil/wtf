@@ -21,7 +21,7 @@ export GO111MODULE = on
 export GOPROXY = https://gocenter.io
 
 build:
-	go build -o bin/wtf
+	go build -o bin/wtfutil
 
 contrib_check:
 	npx all-contributors-cli check
@@ -29,17 +29,21 @@ contrib_check:
 install:
 	@go clean
 	@go install -ldflags="-s -w -X main.version=$(shell git describe --always --abbrev=6) -X main.date=$(shell date +%FT%T%z)"
-	@which wtf || echo "Could not find wtf in PATH" && exit 0
+	@mv ~/go/bin/wtf ~/go/bin/wtfutil
+	@which wtfutil || echo "Could not find wtfutil in PATH" && exit 0
 
 lint:
 	structcheck ./...
 	varcheck ./...
 
 run: build
-	bin/wtf
+	bin/wtfutil
 
 size:
 	loc --exclude _sample_configs/ _site/ docs/ Makefile *.md
 
 test: build
 	go test ./...
+
+uninstall:
+	@rm ~/go/bin/wtfutil

@@ -51,14 +51,18 @@ func (widget *Widget) Refresh() {
 	title := widget.CommonSettings().Title
 	title = title + widget.sinceDateForTitle()
 
+	var wrap bool
 	var content string
+
 	if err != nil {
+		wrap = true
 		content = err.Error()
 	} else {
+		wrap = false
 		content = widget.contentFrom(data)
 	}
 
-	widget.Redraw(title, content, false)
+	widget.Redraw(title, content, wrap)
 }
 
 /* -------------------- Unexported Functions -------------------- */
