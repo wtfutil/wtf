@@ -47,6 +47,8 @@
 
 ## v0.10.3
 
+### ❗️Changed
+
 * Invalid glog dependency removed, by [@bosr](https://github.com/bosr)
 
 ## v0.10.2
