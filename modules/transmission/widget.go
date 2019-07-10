@@ -102,6 +102,10 @@ func (widget *Widget) currentTorrent() *transmissionrpc.Torrent {
 		return nil
 	}
 
+	if len(widget.torrents) <= widget.Selected {
+		return nil
+	}
+
 	return widget.torrents[widget.Selected]
 }
 
