@@ -9,7 +9,7 @@
 
 ## Important Note
 
-The WTF binary has been renamed to `wtfutil`. As of version [v0.15.0](https://github.com/wtfutil/wtf/releases/tag/v0.14.0) the 
+The WTF binary has been renamed to `wtfutil`. As of version [v0.15.0](https://github.com/wtfutil/wtf/releases/tag/v0.15.0) the 
 installer will install `wtfutil` into `~/go/bin/` and you must execute `wtfutil` to run it. This change removes the name collision with the venerable and amusing [`bsd-wtf`](https://sourceforge.net/projects/bsdwtf/).
 
 ---
