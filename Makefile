@@ -1,4 +1,4 @@
-.PHONY: contrib_check dependencies install run size test
+.PHONY: build contrib_check install binary_msg lint run size test uninstall
 
 # detect GOPATH if not set
 ifndef $(GOPATH)
@@ -20,16 +20,27 @@ endif
 export GO111MODULE = on
 export GOPROXY = https://gocenter.io
 
+THIS_FILE := $(lastword $(MAKEFILE_LIST))
+
 build:
 	go build -o bin/wtfutil
+	@$(MAKE) -f $(THIS_FILE) binary_msg
 
 contrib_check:
 	npx all-contributors-cli check
 
 install:
+	@echo "Installing wtfutil..."
 	@go clean
 	@go install -ldflags="-s -w -X main.version=$(shell git describe --always --abbrev=6) -X main.date=$(shell date +%FT%T%z)"
 	@mv ~/go/bin/wtf ~/go/bin/wtfutil
+	@$(MAKE) -f $(THIS_FILE) binary_msg
+
+binary_msg:
+	@echo "\n\033[1mIMPORTANT NOTE\033[0m:"
+	@echo "    The \033[0;33mwtf\033[0m binary has been renamed to \033[0;33mwtfutil\033[0m."
+	@echo "    Executing \033[0;33mwtf\033[0m will no longer work. You \033[1mmust\033[0m use \033[0;33mwtfutil\033[0m.\n"
+	@echo "Install path: "
 	@which wtfutil || echo "Could not find wtfutil in PATH" && exit 0
 
 lint:
