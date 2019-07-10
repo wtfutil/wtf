@@ -20,6 +20,7 @@ endif
 export GO111MODULE = on
 export GOPROXY = https://gocenter.io
 
+# Determines the path to this Makefile
 THIS_FILE := $(lastword $(MAKEFILE_LIST))
 
 build:

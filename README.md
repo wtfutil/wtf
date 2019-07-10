@@ -7,6 +7,13 @@
 
 # WTF
 
+## Important Note
+
+The WTF binary has been renamed to `wtfutil`. As of version [v0.15.0](https://github.com/wtfutil/wtf/releases/tag/v0.14.0) the 
+installer will install `wtfutil` into `~/go/bin/` and you must execute `wtfutil` to run it. This change removes the name collision with the venerable and amusing [`bsd-wtf`](https://sourceforge.net/projects/bsdwtf/).
+
+---
+
 A personal terminal-based dashboard utility, designed for
 displaying infrequently-needed, but very important, daily data.
 
@@ -40,7 +47,7 @@ displaying infrequently-needed, but very important, daily data.
 WTF is a stand-alone binary. Once downloaded, copy it to a location you can run executables from (ie: `/usr/local/bin/`), and set the permissions accordingly:
 
 ```bash
-chmod a+x /usr/local/bin/wtf
+chmod a+x /usr/local/bin/wtfutil
 ```
 
 and you should be good to go.
@@ -52,8 +59,10 @@ If you want to run the build command from within your `$GOPATH`:
 ```bash
 # Set the Go proxy variable to GoCenter
 export GOPROXY="https://gocenter.io"
+
 # Enable Go modules
 export GO111MODULE=on
+
 go get -u github.com/wtfutil/wtf
 cd $GOPATH/src/github.com/wtfutil/wtf
 make install
@@ -65,6 +74,7 @@ If you want to run the build command from a folder that is not in your `$GOPATH`
 ```bash
 # Set the Go proxy variable to GoCenter
 export GOPROXY="https://gocenter.io"
+
 go get -u github.com/wtfutil/wtf
 cd $GOPATH/src/github.com/wtfutil/wtf
 make install
