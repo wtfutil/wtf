@@ -147,7 +147,7 @@ func (widget *Widget) contentFrom(data []*FeedItem) string {
 // feedItems are sorted by published date
 func (widget *Widget) sort(feedItems []*FeedItem) []*FeedItem {
 	sort.Slice(feedItems, func(i, j int) bool {
-		return feedItems[i].item.Published < feedItems[j].item.Published
+		return feedItems[i].item.Published > feedItems[j].item.Published
 	})
 
 	return feedItems
