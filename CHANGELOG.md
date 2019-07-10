@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+## v0.15.0
+
+### ❗️Changed
+
+* The installed binary has been renamed from `wtf` to `wtfutil`. [Read more about it here](https://wtfutil.com/blog/2019-07-10-wtfutil-release/).
+
 ## v0.14.0
 
 ### ⚡️ Added
