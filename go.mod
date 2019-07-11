@@ -33,7 +33,8 @@ require (
 	github.com/onsi/gomega v1.5.0 // indirect
 	github.com/pkg/profile v1.3.0
 	github.com/radovskyb/watcher v1.0.6
-	github.com/rivo/tview v0.0.0-20190609162513-b62197ade412
+	github.com/rivo/tview v0.0.0-20190626133940-2e907d29e475
+	github.com/rivo/uniseg v0.1.0 // indirect
 	github.com/shirou/gopsutil v2.18.12+incompatible
 	github.com/sticreations/spotigopher v0.0.0-20181009182052-98632f6f94b0
 	github.com/stretchr/testify v1.3.0
@@ -42,10 +43,12 @@ require (
 	github.com/zmb3/spotify v0.0.0-20190520155326-158b1863f5b5
 	github.com/zorkian/go-datadog-api v2.21.0+incompatible
 	go.opencensus.io v0.22.0 // indirect
-	golang.org/x/crypto v0.0.0-20190621222207-cc06ce4a13d4 // indirect
+	golang.org/x/crypto v0.0.0-20190701094942-4def268fd1a4 // indirect
 	golang.org/x/net v0.0.0-20190628185345-da137c7871d7 // indirect
 	golang.org/x/oauth2 v0.0.0-20190614102709-0f29369cfe45
+	golang.org/x/sync v0.0.0-20190427212804-112230192c58 // indirect
 	golang.org/x/sys v0.0.0-20190730174312-6a60838ec25 // indirect
+	golang.org/x/tools v0.0.0-20190710184609-286818132824 // indirect
 	google.golang.org/api v0.7.0
 	google.golang.org/appengine v1.6.1 // indirect
 	google.golang.org/genproto v0.0.0-20190627203621-eb59cef1c072 // indirect
