@@ -15,5 +15,18 @@ builds:
       - 386
       - amd64
 
+brews:
+  - github:
+      owner: wtfutil
+      name: homebrew-wtfutil
+
+    # Your app's homepage.
+    # Default is empty.
+    homepage: 'https://wtfutil.com'
+
+    # Your app's description.
+    # Default is empty.
+    description: 'The personal information dashboard for your terminal.'
+
 archive:
   wrap_in_directory: true
