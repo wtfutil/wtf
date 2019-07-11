@@ -47,7 +47,8 @@ type Common struct {
 	PositionSettings `help:"Defines where in the grid this module’s widget will be displayed."`
 	Sigils
 
-	Enabled         bool   `help:"Determines whether or not this module is executed and if its data displayed onscreen." values:"true, false"`
+	Bordered        bool   `help:"Whether or not the module should be displayed with a border." values:"true, false" optional:"true" default:"true"`
+	Enabled         bool   `help:"Whether or not this module is executed and if its data displayed onscreen." values:"true, false" optional:"true" default:"false"`
 	RefreshInterval int    `help:"How often, in seconds, this module will update its data." values:"A positive integer, 0..n." optional:"true"`
 	Title           string `help:"The title string to show when displaying this module" optional:"true"`
 	Config          *config.Config
@@ -80,6 +81,7 @@ func NewCommonSettingsFromModule(name, defaultTitle string, moduleConfig *config
 
 		PositionSettings: NewPositionSettingsFromYAML(name, moduleConfig),
 
+		Bordered:        moduleConfig.UBool("border", true),
 		Enabled:         moduleConfig.UBool("enabled", false),
 		RefreshInterval: moduleConfig.UInt("refreshInterval", 300),
 		Title:           moduleConfig.UString("title", defaultTitle),

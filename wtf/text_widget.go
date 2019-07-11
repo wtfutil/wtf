@@ -9,6 +9,7 @@ import (
 )
 
 type TextWidget struct {
+	bordered        bool
 	commonSettings  *cfg.Common
 	enabled         bool
 	focusable       bool
@@ -25,6 +26,7 @@ func NewTextWidget(app *tview.Application, commonSettings *cfg.Common, focusable
 		commonSettings: commonSettings,
 
 		app:             app,
+		bordered:        commonSettings.Bordered,
 		enabled:         commonSettings.Enabled,
 		focusable:       focusable,
 		focusChar:       commonSettings.FocusChar(),
@@ -33,11 +35,17 @@ func NewTextWidget(app *tview.Application, commonSettings *cfg.Common, focusable
 	}
 
 	widget.View = widget.addView()
+	widget.View.SetBorder(widget.bordered)
 
 	return widget
 }
 
 /* -------------------- Exported Functions -------------------- */
+
+// Bordered returns whether or not this widget should be drawn with a border
+func (widget *TextWidget) Bordered() bool {
+	return widget.bordered
+}
 
 func (widget *TextWidget) BorderColor() string {
 	if widget.Focusable() {
