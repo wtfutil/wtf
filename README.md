@@ -19,6 +19,7 @@ displaying infrequently-needed, but very important, daily data.
 
 * [Screenshot](#screenshot)
 * [Quick Start](#quick-start)
+    * [Install via Homebrew](#install-via-homebrew)
     * [Download](#download)
     * [Install from Source](#install-from-source)
 * [Communication](#communication)
