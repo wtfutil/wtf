@@ -20,7 +20,7 @@ displaying infrequently-needed, but very important, daily data.
 * [Screenshot](#screenshot)
 * [Quick Start](#quick-start)
     * [Install via Homebrew](#install-via-homebrew)
-    * [Download](#download)
+    * [Install the binary](#install-the-binary)
     * [Install from Source](#install-from-source)
 * [Communication](#communication)
     * [Slack](#slack)
@@ -48,7 +48,7 @@ brew tap wtfutil/wtfutil
 brew install wtfutil/wtfutil/wtf
 ```
 
-### Download Binary
+### Install the Binary
 
 [Download the latest binary](https://github.com/wtfutil/wtf/releases) from GitHub.
 
