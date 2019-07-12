@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### 🐞 Fixed
+
+* FeedReader story sorting bug fixed
+
 ## v0.15.0
 
 ### ❗️Changed
