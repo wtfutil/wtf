@@ -6,6 +6,13 @@
 
 * FeedReader story sorting bug fixed
 
+## v0.16.1
+## v0.16.0
+
+### ⚡️ Added
+
+* Config and recipe added for installing via Homebrew
+
 ## v0.15.0
 
 ### ❗️Changed
