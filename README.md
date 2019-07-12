@@ -40,7 +40,14 @@ displaying infrequently-needed, but very important, daily data.
 
 ## Quick Start
 
-### Download
+### Install via Homebrew
+
+```console
+brew tap wtfutil/wtfutil
+brew install wtfutil/wtfutil/wtf
+```
+
+### Download Binary
 
 [Download the latest binary](https://github.com/wtfutil/wtf/releases) from GitHub.
 
