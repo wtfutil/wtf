@@ -45,7 +45,7 @@ displaying infrequently-needed, but very important, daily data.
 
 ```console
 brew tap wtfutil/wtfutil
-brew install wtfutil/wtfutil/wtf
+brew install wtfutil
 
 wtfutil
 ```
