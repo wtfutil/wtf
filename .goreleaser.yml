@@ -20,12 +20,8 @@ brews:
       owner: wtfutil
       name: homebrew-wtfutil
 
-    # Your app's homepage.
-    # Default is empty.
+    name: wtfutil
     homepage: 'https://wtfutil.com'
-
-    # Your app's description.
-    # Default is empty.
     description: 'The personal information dashboard for your terminal.'
 
 archive:
