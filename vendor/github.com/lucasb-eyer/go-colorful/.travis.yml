@@ -1,0 +1,8 @@
+language: go
+install:
+  - go get golang.org/x/tools/cmd/cover
+  - go get github.com/DATA-DOG/go-sqlmock
+  - go get github.com/mattn/goveralls
+script:
+  - go test -v -covermode=count -coverprofile=coverage.out
+  - if [[ "$TRAVIS_PULL_REQUEST" = "false" ]]; then $HOME/gopath/bin/goveralls -coverprofile=coverage.out -service=travis-ci -repotoken $COVERALLS_TOKEN; fi

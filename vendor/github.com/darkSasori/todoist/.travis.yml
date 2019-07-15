@@ -1,0 +1,19 @@
+language: go
+
+notifications:
+  email: false
+
+go:
+    - "1.10.3"
+    - master
+
+before_install:
+    - curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+    - go get -u github.com/golang/lint/golint
+
+install:
+  - dep ensure
+
+script:
+    - golint -set_exit_status
+    - go test -v

@@ -1,0 +1,33 @@
+language: go
+sudo: false
+go:
+- 1.7
+- 1.8
+- 1.9
+- '1.10'
+- 1.11.x
+- master
+
+install:
+- go get github.com/pkg/errors
+# golint is no longer available for go versions 1.7 and 1.8
+- |
+  INSTALLED_GO_VERSION=`go version | sed 's/go version go\(.*\) .*/\1/'`
+  echo $INSTALLED_GO_VERSION
+  if [ "$INSTALLED_GO_VERSION" != "1.7" ] && [ "$INSTALLED_GO_VERSION" != "1.8" ]; then
+    go get golang.org/x/lint/golint
+  fi
+
+before_script:
+- |
+  which golint;
+  if [ $? == 0 ]; then
+    golint ./...
+  fi
+  go vet
+
+script:
+- go test -v -race -coverprofile=coverage.txt -covermode=atomic
+
+after_success:
+- bash <(curl -s https://codecov.io/bash)

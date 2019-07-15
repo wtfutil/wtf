@@ -1,0 +1,29 @@
+language: go
+go:
+  - 1.5.4
+  - 1.6.2
+env:
+  - GOARCH: amd64
+  - GOARCH: 386
+addons:
+  hosts:
+    - api.openweathermap.org
+before_install:
+  - sudo apt-get -qq update
+  - sudo apt-get install -y socat
+  - cat /etc/hosts
+  - wget http://ipinfo.io/ip -qO -
+  - sudo socat TCP-LISTEN:80,fork TCP:${RTCP_HOST}:${RTCP_PORT} > /tmp/socat.log 2>&1 &
+  - go get github.com/mattn/goveralls
+  - go get golang.org/x/tools/cmd/cover
+script:
+  - make test
+  - $HOME/gopath/bin/goveralls -service=travis-ci -repotoken $COVERALLS_TOKEN
+notifications:
+  email:
+    recipients:
+      - brian.downs@gmail.com
+    on_success: change
+    on_failure: always
+    after_success:
+      - coveralls

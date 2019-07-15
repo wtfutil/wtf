@@ -1,0 +1,264 @@
+# cloud.google.com/go v0.40.0
+cloud.google.com/go/compute/metadata
+# code.cloudfoundry.org/bytefmt v0.0.0-20180906201452-2aa6f33b730c
+code.cloudfoundry.org/bytefmt
+# github.com/PagerDuty/go-pagerduty v0.0.0-20190503230806-cf1437c7c8d6
+github.com/PagerDuty/go-pagerduty
+# github.com/PuerkitoBio/goquery v1.5.0
+github.com/PuerkitoBio/goquery
+# github.com/StackExchange/wmi v0.0.0-20190523213609-cbe66965904d
+github.com/StackExchange/wmi
+# github.com/adlio/trello v1.0.0
+github.com/adlio/trello
+# github.com/alecthomas/chroma v0.6.3
+github.com/alecthomas/chroma/formatters
+github.com/alecthomas/chroma/lexers
+github.com/alecthomas/chroma/styles
+github.com/alecthomas/chroma
+github.com/alecthomas/chroma/formatters/html
+github.com/alecthomas/chroma/lexers/a
+github.com/alecthomas/chroma/lexers/b
+github.com/alecthomas/chroma/lexers/c
+github.com/alecthomas/chroma/lexers/circular
+github.com/alecthomas/chroma/lexers/d
+github.com/alecthomas/chroma/lexers/e
+github.com/alecthomas/chroma/lexers/f
+github.com/alecthomas/chroma/lexers/g
+github.com/alecthomas/chroma/lexers/h
+github.com/alecthomas/chroma/lexers/i
+github.com/alecthomas/chroma/lexers/internal
+github.com/alecthomas/chroma/lexers/j
+github.com/alecthomas/chroma/lexers/k
+github.com/alecthomas/chroma/lexers/l
+github.com/alecthomas/chroma/lexers/m
+github.com/alecthomas/chroma/lexers/n
+github.com/alecthomas/chroma/lexers/o
+github.com/alecthomas/chroma/lexers/p
+github.com/alecthomas/chroma/lexers/q
+github.com/alecthomas/chroma/lexers/r
+github.com/alecthomas/chroma/lexers/s
+github.com/alecthomas/chroma/lexers/t
+github.com/alecthomas/chroma/lexers/v
+github.com/alecthomas/chroma/lexers/w
+github.com/alecthomas/chroma/lexers/x
+github.com/alecthomas/chroma/lexers/y
+# github.com/andybalholm/cascadia v1.0.0
+github.com/andybalholm/cascadia
+# github.com/andygrunwald/go-gerrit v0.0.0-20190625080919-64931d233c2d
+github.com/andygrunwald/go-gerrit
+# github.com/briandowns/openweathermap v0.0.0-20180804155945-5f41b7c9d92d
+github.com/briandowns/openweathermap
+# github.com/cenkalti/backoff v2.2.0+incompatible
+github.com/cenkalti/backoff
+# github.com/danwakefield/fnmatch v0.0.0-20160403171240-cbb64ac3d964
+github.com/danwakefield/fnmatch
+# github.com/darkSasori/todoist v0.0.0-20180703032645-ec6b38b374ab
+github.com/darkSasori/todoist
+# github.com/davecgh/go-spew v1.1.1
+github.com/davecgh/go-spew/spew
+# github.com/dlclark/regexp2 v1.1.6
+github.com/dlclark/regexp2
+github.com/dlclark/regexp2/syntax
+# github.com/dustin/go-humanize v1.0.0
+github.com/dustin/go-humanize
+# github.com/gdamore/encoding v1.0.0
+github.com/gdamore/encoding
+# github.com/gdamore/tcell v1.1.4
+github.com/gdamore/tcell
+github.com/gdamore/tcell/terminfo
+github.com/gdamore/tcell/terminfo/dynamic
+# github.com/go-ole/go-ole v1.2.4
+github.com/go-ole/go-ole
+github.com/go-ole/go-ole/oleutil
+# github.com/godbus/dbus v5.0.1+incompatible
+github.com/godbus/dbus
+# github.com/golang/protobuf v1.3.1
+github.com/golang/protobuf/proto
+github.com/golang/protobuf/ptypes
+github.com/golang/protobuf/ptypes/any
+github.com/golang/protobuf/ptypes/duration
+github.com/golang/protobuf/ptypes/timestamp
+# github.com/google/go-github/v26 v26.0.9
+github.com/google/go-github/v26/github
+# github.com/google/go-querystring v1.0.0
+github.com/google/go-querystring/query
+# github.com/hashicorp/go-cleanhttp v0.5.1
+github.com/hashicorp/go-cleanhttp
+# github.com/hashicorp/golang-lru v0.5.1
+github.com/hashicorp/golang-lru/simplelru
+# github.com/hekmon/cunits v2.0.1+incompatible
+github.com/hekmon/cunits
+# github.com/hekmon/transmissionrpc v0.0.0-20190525133028-1d589625bacd
+github.com/hekmon/transmissionrpc
+# github.com/jessevdk/go-flags v1.4.0
+github.com/jessevdk/go-flags
+# github.com/logrusorgru/aurora v0.0.0-20190428105938-cea283e61946
+github.com/logrusorgru/aurora
+# github.com/lucasb-eyer/go-colorful v1.0.2
+github.com/lucasb-eyer/go-colorful
+# github.com/mattn/go-runewidth v0.0.4
+github.com/mattn/go-runewidth
+# github.com/mmcdole/gofeed v1.0.0-beta2.0.20190420154928-0e68beaf6fdf
+github.com/mmcdole/gofeed
+github.com/mmcdole/gofeed/atom
+github.com/mmcdole/gofeed/extensions
+github.com/mmcdole/gofeed/internal/shared
+github.com/mmcdole/gofeed/rss
+# github.com/mmcdole/goxpp v0.0.0-20181012175147-0068e33feabf
+github.com/mmcdole/goxpp
+# github.com/olebedev/config v0.0.0-20190528211619-364964f3a8e4
+github.com/olebedev/config
+# github.com/pkg/errors v0.8.1
+github.com/pkg/errors
+# github.com/pkg/profile v1.3.0
+github.com/pkg/profile
+# github.com/pmezard/go-difflib v1.0.0
+github.com/pmezard/go-difflib/difflib
+# github.com/radovskyb/watcher v1.0.6
+github.com/radovskyb/watcher
+# github.com/rivo/tview v0.0.0-20190626133940-2e907d29e475
+github.com/rivo/tview
+# github.com/rivo/uniseg v0.1.0
+github.com/rivo/uniseg
+# github.com/shirou/gopsutil v2.18.12+incompatible
+github.com/shirou/gopsutil/cpu
+github.com/shirou/gopsutil/mem
+github.com/shirou/gopsutil/internal/common
+# github.com/sticreations/spotigopher v0.0.0-20181009182052-98632f6f94b0
+github.com/sticreations/spotigopher/spotigopher
+# github.com/stretchr/testify v1.3.0
+github.com/stretchr/testify/assert
+# github.com/xanzy/go-gitlab v0.18.0
+github.com/xanzy/go-gitlab
+# github.com/yfronto/newrelic v0.0.0-20180622232530-7c9c2852e8f9
+github.com/yfronto/newrelic
+# github.com/zmb3/spotify v0.0.0-20190520155326-158b1863f5b5
+github.com/zmb3/spotify
+# github.com/zorkian/go-datadog-api v2.21.0+incompatible
+github.com/zorkian/go-datadog-api
+# go.opencensus.io v0.22.0
+go.opencensus.io/plugin/ochttp
+go.opencensus.io/plugin/ochttp/propagation/b3
+go.opencensus.io/stats
+go.opencensus.io/stats/view
+go.opencensus.io/tag
+go.opencensus.io/trace
+go.opencensus.io/trace/propagation
+go.opencensus.io/metric/metricdata
+go.opencensus.io/stats/internal
+go.opencensus.io/internal/tagencoding
+go.opencensus.io/metric/metricproducer
+go.opencensus.io/internal
+go.opencensus.io/trace/internal
+go.opencensus.io/trace/tracestate
+go.opencensus.io/resource
+go.opencensus.io
+# golang.org/x/crypto v0.0.0-20190701094942-4def268fd1a4
+golang.org/x/crypto/openpgp
+golang.org/x/crypto/openpgp/armor
+golang.org/x/crypto/openpgp/errors
+golang.org/x/crypto/openpgp/packet
+golang.org/x/crypto/openpgp/s2k
+golang.org/x/crypto/cast5
+golang.org/x/crypto/openpgp/elgamal
+# golang.org/x/net v0.0.0-20190628185345-da137c7871d7
+golang.org/x/net/html
+golang.org/x/net/html/charset
+golang.org/x/net/context/ctxhttp
+golang.org/x/net/context
+golang.org/x/net/html/atom
+golang.org/x/net/trace
+golang.org/x/net/internal/timeseries
+golang.org/x/net/http2
+golang.org/x/net/http2/hpack
+golang.org/x/net/http/httpguts
+golang.org/x/net/idna
+# golang.org/x/oauth2 v0.0.0-20190614102709-0f29369cfe45
+golang.org/x/oauth2
+golang.org/x/oauth2/google
+golang.org/x/oauth2/internal
+golang.org/x/oauth2/jws
+golang.org/x/oauth2/jwt
+# golang.org/x/sys v0.0.0-20190730174312-6a60838ec25
+golang.org/x/sys/unix
+golang.org/x/sys/windows
+# golang.org/x/text v0.3.2
+golang.org/x/text/encoding
+golang.org/x/text/transform
+golang.org/x/text/encoding/internal/identifier
+golang.org/x/text/encoding/charmap
+golang.org/x/text/encoding/htmlindex
+golang.org/x/text/encoding/internal
+golang.org/x/text/encoding/japanese
+golang.org/x/text/encoding/korean
+golang.org/x/text/encoding/simplifiedchinese
+golang.org/x/text/encoding/traditionalchinese
+golang.org/x/text/encoding/unicode
+golang.org/x/text/language
+golang.org/x/text/internal/utf8internal
+golang.org/x/text/runes
+golang.org/x/text/internal/language
+golang.org/x/text/internal/language/compact
+golang.org/x/text/internal/tag
+golang.org/x/text/secure/bidirule
+golang.org/x/text/unicode/bidi
+golang.org/x/text/unicode/norm
+# google.golang.org/api v0.7.0
+google.golang.org/api/calendar/v3
+google.golang.org/api/sheets/v4
+google.golang.org/api/gensupport
+google.golang.org/api/googleapi
+google.golang.org/api/option
+google.golang.org/api/transport/http
+google.golang.org/api/googleapi/internal/uritemplates
+google.golang.org/api/internal
+google.golang.org/api/googleapi/transport
+google.golang.org/api/transport/http/internal/propagation
+# google.golang.org/appengine v1.6.1
+google.golang.org/appengine
+google.golang.org/appengine/urlfetch
+google.golang.org/appengine/internal
+google.golang.org/appengine/internal/app_identity
+google.golang.org/appengine/internal/modules
+google.golang.org/appengine/internal/urlfetch
+google.golang.org/appengine/internal/base
+google.golang.org/appengine/internal/datastore
+google.golang.org/appengine/internal/log
+google.golang.org/appengine/internal/remote_api
+# google.golang.org/genproto v0.0.0-20190627203621-eb59cef1c072
+google.golang.org/genproto/googleapis/rpc/status
+# google.golang.org/grpc v1.21.1
+google.golang.org/grpc
+google.golang.org/grpc/naming
+google.golang.org/grpc/balancer
+google.golang.org/grpc/balancer/roundrobin
+google.golang.org/grpc/codes
+google.golang.org/grpc/connectivity
+google.golang.org/grpc/credentials
+google.golang.org/grpc/encoding
+google.golang.org/grpc/encoding/proto
+google.golang.org/grpc/grpclog
+google.golang.org/grpc/internal
+google.golang.org/grpc/internal/backoff
+google.golang.org/grpc/internal/balancerload
+google.golang.org/grpc/internal/binarylog
+google.golang.org/grpc/internal/channelz
+google.golang.org/grpc/internal/envconfig
+google.golang.org/grpc/internal/grpcrand
+google.golang.org/grpc/internal/grpcsync
+google.golang.org/grpc/internal/transport
+google.golang.org/grpc/keepalive
+google.golang.org/grpc/metadata
+google.golang.org/grpc/peer
+google.golang.org/grpc/resolver
+google.golang.org/grpc/resolver/dns
+google.golang.org/grpc/resolver/passthrough
+google.golang.org/grpc/stats
+google.golang.org/grpc/status
+google.golang.org/grpc/tap
+google.golang.org/grpc/balancer/base
+google.golang.org/grpc/credentials/internal
+google.golang.org/grpc/binarylog/grpc_binarylog_v1
+google.golang.org/grpc/internal/syscall
+# gopkg.in/yaml.v2 v2.2.2
+gopkg.in/yaml.v2

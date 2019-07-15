@@ -1,0 +1,23 @@
+{
+  "DisableAll": true,
+  "Enable": [
+    "deadcode",
+    "unconvert",
+    "golint",
+    "vetshadow",
+    "vet",
+    "gofmt",
+    "goimports",
+    "goconst",
+    "errcheck",
+    "interfacer",
+    "gosec",
+    "unconvert",
+    "testify",
+    "unparam",
+    "varcheck",
+    "gotype",
+    "ineffassign",
+    "staticcheck"
+  ]
+}
