@@ -2,9 +2,12 @@
 
 ## Unreleased
 
+## v0.17.0
+
 ### 🐞 Fixed
 
 * FeedReader story sorting bug fixed
+* NewRelic dependency vendored
 
 ## v0.16.1
 ## v0.16.0
