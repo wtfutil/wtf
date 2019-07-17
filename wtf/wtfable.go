@@ -6,9 +6,10 @@ import (
 	"github.com/rivo/tview"
 )
 
+// Wtfable is the interface that enforces WTF system capabilities on a module
 type Wtfable interface {
-	Enabler
-	Scheduler
+	Enablable
+	Schedulable
 
 	BorderColor() string
 	ConfigText() string

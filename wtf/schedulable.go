@@ -4,14 +4,16 @@ import (
 	"time"
 )
 
-type Scheduler interface {
+// Schedulable is the interface that enforces scheduling capabilities on a module
+type Schedulable interface {
 	Refresh()
 	Refreshing() bool
 	RefreshInterval() int
 }
 
+// Schedule kicks off the first refresh of a module's data and then queues the rest of the
+// data refreshes on a timer
 func Schedule(widget Wtfable) {
-	// Kick off the first refresh and then leave the rest to the timer
 	widget.Refresh()
 
 	interval := time.Duration(widget.RefreshInterval()) * time.Second
