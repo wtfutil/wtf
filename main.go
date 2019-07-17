@@ -128,15 +128,15 @@ func watchForConfigChanges(app *tview.Application, configFilePath string, grid *
 func main() {
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
 
+	cfg.MigrateOldConfig()
+	cfg.CreateConfigDir()
+	cfg.CreateConfigFile()
+
 	// Parse and handle flags
 	flags := flags.NewFlags()
 	flags.Parse()
 	config := cfg.LoadConfigFile(flags.ConfigFilePath())
 	flags.RenderIf(version, config)
-
-	cfg.MigrateOldConfig()
-	cfg.CreateConfigDir()
-	cfg.CreateConfigFile()
 
 	if flags.Profile {
 		defer profile.Start(profile.MemProfile).Stop()
