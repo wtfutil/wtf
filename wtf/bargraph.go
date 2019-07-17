@@ -17,6 +17,7 @@ type BarGraph struct {
 	key            string
 	maxStars       int
 	name           string
+	refreshing     bool
 	starChar       string
 
 	RefreshInt int
@@ -89,6 +90,12 @@ func (widget *BarGraph) Name() string {
 	return widget.name
 }
 
+// Refreshing returns TRUE if the widget is currently refreshing its data, FALSE if it is not
+func (widget *BarGraph) Refreshing() bool {
+	return widget.refreshing
+}
+
+// RefreshInterval returns how often, in seconds, the widget will return its data
 func (widget *BarGraph) RefreshInterval() int {
 	return widget.RefreshInt
 }

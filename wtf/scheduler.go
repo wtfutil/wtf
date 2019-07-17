@@ -6,6 +6,7 @@ import (
 
 type Scheduler interface {
 	Refresh()
+	Refreshing() bool
 	RefreshInterval() int
 }
 

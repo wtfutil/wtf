@@ -15,6 +15,7 @@ type TextWidget struct {
 	focusable       bool
 	focusChar       string
 	name            string
+	refreshing      bool
 	refreshInterval int
 	app             *tview.Application
 
@@ -31,6 +32,7 @@ func NewTextWidget(app *tview.Application, commonSettings *cfg.Common, focusable
 		focusable:       focusable,
 		focusChar:       commonSettings.FocusChar(),
 		name:            commonSettings.Name,
+		refreshing:      false,
 		refreshInterval: commonSettings.RefreshInterval,
 	}
 
@@ -57,6 +59,10 @@ func (widget *TextWidget) BorderColor() string {
 
 func (widget *TextWidget) CommonSettings() *cfg.Common {
 	return widget.commonSettings
+}
+
+func (widget *TextWidget) ConfigText() string {
+	return utils.HelpFromInterface(cfg.Common{})
 }
 
 func (widget *TextWidget) ContextualTitle(defaultStr string) string {
@@ -87,10 +93,20 @@ func (widget *TextWidget) FocusChar() string {
 	return widget.focusChar
 }
 
+func (widget *TextWidget) HelpText() string {
+	return fmt.Sprintf("\n  There is no help available for widget %s", widget.commonSettings.Module.Type)
+}
+
 func (widget *TextWidget) Name() string {
 	return widget.name
 }
 
+// Refreshing returns TRUE if the widget is currently refreshing its data, FALSE if it is not
+func (widget *TextWidget) Refreshing() bool {
+	return widget.refreshing
+}
+
+// RefreshInterval returns how often, in seconds, the widget will return its data
 func (widget *TextWidget) RefreshInterval() int {
 	return widget.refreshInterval
 }
@@ -114,14 +130,6 @@ func (widget *TextWidget) Redraw(title, text string, wrap bool) {
 		widget.View.SetTitle(widget.ContextualTitle(title))
 		widget.View.SetText(text)
 	})
-}
-
-func (widget *TextWidget) HelpText() string {
-	return fmt.Sprintf("\n  There is no help available for widget %s", widget.commonSettings.Module.Type)
-}
-
-func (widget *TextWidget) ConfigText() string {
-	return utils.HelpFromInterface(cfg.Common{})
 }
 
 /* -------------------- Unexported Functions -------------------- */
