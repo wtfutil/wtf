@@ -4,6 +4,8 @@
 
 ## v0.17.1
 
+### 🐞 Fixed
+
 * Fixes an issue in which the default config file was not being created on first run
 
 ## v0.17.0
