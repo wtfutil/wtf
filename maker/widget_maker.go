@@ -19,6 +19,7 @@ import (
 	"github.com/wtfutil/wtf/modules/github"
 	"github.com/wtfutil/wtf/modules/gitlab"
 	"github.com/wtfutil/wtf/modules/gitter"
+	"github.com/wtfutil/wtf/modules/googleanalytics"
 	"github.com/wtfutil/wtf/modules/gspreadsheets"
 	"github.com/wtfutil/wtf/modules/hackernews"
 	"github.com/wtfutil/wtf/modules/hibp"
@@ -114,6 +115,9 @@ func MakeWidget(
 	case "gitter":
 		settings := gitter.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = gitter.NewWidget(app, pages, settings)
+	case "googleanalytics":
+		settings := googleanalytics.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
+		widget = googleanalytics.NewWidget(app, settings)
 	case "gspreadsheets":
 		settings := gspreadsheets.NewSettingsFromYAML(widgetName, moduleConfig, globalConfig)
 		widget = gspreadsheets.NewWidget(app, settings)
