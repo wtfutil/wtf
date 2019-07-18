@@ -1,5 +1,5 @@
 ---
-name: ❓Support Question
+name: ❓Ask a Question
 about: Tell us how we can help
 ---
 
