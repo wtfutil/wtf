@@ -1,16 +1,6 @@
 ---
-name:  Bug Report
-about: Something is broken?
+name:  Report a Bug
+about: Tell us what's broken
 ---
 
-#### What's the problem?
-
-
-#### How did you expect it to behave?
-
-
-#### Operating system 
-
-#### Terminal program & version
-
-#### WTF version
+## What's broken?
