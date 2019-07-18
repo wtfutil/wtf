@@ -1,11 +1,6 @@
 ---
-name: Feature Request
-about: You have a neat idea that should be implemented?
+name: Request a Feature
+about: Tell us what it could do
 ---
 
-#### What problem does this solve?
-
-
-#### How do envision it working?
-
-
+## What should it do?
