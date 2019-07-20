@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### 🐞 Fixed
+
+* Fixes the error message shown when an explicitly-specified custom config file cannot be found or cannot be read
+
 ## v0.18.0
 
 ### ⚡️ Added
