@@ -102,7 +102,7 @@ func (widget *Widget) init() {
 
 // Loads the todo list from Yaml file
 func (widget *Widget) load() {
-	confDir, _ := cfg.ConfigDir()
+	confDir, _ := cfg.WtfConfigDir()
 	filePath := fmt.Sprintf("%s/%s", confDir, widget.filePath)
 
 	fileData, _ := wtf.ReadFileBytes(filePath)
@@ -135,7 +135,7 @@ func (widget *Widget) newItem() {
 
 // persist writes the todo list to Yaml file
 func (widget *Widget) persist() {
-	confDir, _ := cfg.ConfigDir()
+	confDir, _ := cfg.WtfConfigDir()
 	filePath := fmt.Sprintf("%s/%s", confDir, widget.filePath)
 
 	fileData, _ := yaml.Marshal(&widget.list)

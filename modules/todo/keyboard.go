@@ -49,7 +49,7 @@ func (widget *Widget) displayPrev() {
 }
 
 func (widget *Widget) openFile() {
-	confDir, _ := cfg.ConfigDir()
+	confDir, _ := cfg.WtfConfigDir()
 	wtf.OpenFile(fmt.Sprintf("%s/%s", confDir, widget.filePath))
 }
 

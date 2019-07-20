@@ -93,7 +93,7 @@ func watchForConfigChanges(app *tview.Application, configFilePath string, grid *
 				// Disable all widgets to stop scheduler goroutines and remove widgets from memory
 				disableAllWidgets(runningWidgets)
 
-				config := cfg.LoadConfigFile(absPath)
+				config := cfg.LoadWtfConfigFile(absPath)
 
 				widgets := maker.MakeWidgets(app, pages, config)
 				runningWidgets = widgets
@@ -129,13 +129,14 @@ func main() {
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
 
 	cfg.MigrateOldConfig()
-	cfg.CreateConfigDir()
-	cfg.CreateConfigFile()
+	cfg.CreateXdgConfigDir()
+	cfg.CreateWtfConfigDir()
+	cfg.CreateWtfConfigFile()
 
 	// Parse and handle flags
 	flags := flags.NewFlags()
 	flags.Parse()
-	config := cfg.LoadConfigFile(flags.ConfigFilePath())
+	config := cfg.LoadWtfConfigFile(flags.ConfigFilePath())
 	flags.RenderIf(version, config)
 
 	if flags.Profile {
