@@ -129,8 +129,9 @@ func main() {
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
 
 	cfg.MigrateOldConfig()
-	cfg.CreateConfigDir()
-	cfg.CreateConfigFile()
+	cfg.CreateXdgConfigDir()
+	cfg.CreateWtfConfigDir()
+	cfg.CreateWtfConfigFile()
 
 	// Parse and handle flags
 	flags := flags.NewFlags()

@@ -11,19 +11,22 @@ import (
 	"github.com/olebedev/config"
 )
 
-// ConfigDirV1 defines the path to the first version of configuration. Do not use this
-const ConfigDirV1 = "~/.wtf/"
+// XdgConfigDir defines the path to the minimal XDG-compatible configuration directory
+const XdgConfigDir = "~/.config/"
 
-// ConfigDirV2 defines the path to the second version of the configuration. Use this.
-const ConfigDirV2 = "~/.config/wtf/"
+// WtfConfigDirV1 defines the path to the first version of configuration. Do not use this
+const WtfConfigDirV1 = "~/.wtf/"
+
+// WtfConfigDirV2 defines the path to the second version of the configuration. Use this.
+const WtfConfigDirV2 = "~/.config/wtf/"
 
 /* -------------------- Config Migration -------------------- */
 
 // MigrateOldConfig copies any existing configuration from the old location
 // to the new, XDG-compatible location
 func MigrateOldConfig() {
-	srcDir, _ := expandHomeDir(ConfigDirV1)
-	destDir, _ := expandHomeDir(ConfigDirV2)
+	srcDir, _ := expandHomeDir(WtfConfigDirV1)
+	destDir, _ := expandHomeDir(WtfConfigDirV2)
 
 	// If the old config directory doesn't exist, do not move
 	if _, err := os.Stat(srcDir); os.IsNotExist(err) {
@@ -54,7 +57,7 @@ func MigrateOldConfig() {
 
 // ConfigDir returns the absolute path to the configuration directory
 func ConfigDir() (string, error) {
-	configDir, err := expandHomeDir(ConfigDirV2)
+	configDir, err := expandHomeDir(WtfConfigDirV2)
 	if err != nil {
 		return "", err
 	}
@@ -62,21 +65,35 @@ func ConfigDir() (string, error) {
 	return configDir, nil
 }
 
-// CreateConfigDir creates the wtf/ directory in the user's home dir
-func CreateConfigDir() {
-	configDir, _ := ConfigDir()
+// CreateXdgConfigDir creates the necessary base directory for storing the config file
+// If ~/.config is missing, it will try to create it
+func CreateXdgConfigDir() {
+	xdgConfigDir, _ := expandHomeDir(XdgConfigDir)
 
-	if _, err := os.Stat(configDir); os.IsNotExist(err) {
-		err := os.Mkdir(configDir, os.ModePerm)
+	if _, err := os.Stat(xdgConfigDir); os.IsNotExist(err) {
+		err := os.Mkdir(xdgConfigDir, os.ModePerm)
 		if err != nil {
 			panic(err)
 		}
 	}
 }
 
-// CreateConfigFile creates a simple config file in the config directory if
+// CreateWtfConfigDir creates the necessary directories for storing the default config file
+// If ~/.config/wtf is missing, it will try to create it
+func CreateWtfConfigDir() {
+	wtfConfigDir, _ := ConfigDir()
+
+	if _, err := os.Stat(wtfConfigDir); os.IsNotExist(err) {
+		err := os.Mkdir(wtfConfigDir, os.ModePerm)
+		if err != nil {
+			panic(err)
+		}
+	}
+}
+
+// CreateWtfConfigFile creates a simple config file in the config directory if
 // one does not already exist
-func CreateConfigFile() {
+func CreateWtfConfigFile() {
 	filePath, err := CreateFile("config.yml")
 	if err != nil {
 		panic(err)
