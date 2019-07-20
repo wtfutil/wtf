@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### ⚡️ Added
+
+* Google Analytics module, by [@](DylanBartels)[https://github.com/DylanBartels]
+
 ## v0.17.1
 
 ### 🐞 Fixed
