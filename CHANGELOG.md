@@ -6,6 +6,10 @@
 
 * Google Analytics module, by [@DylanBartels](https://github.com/DylanBartels)
 
+### 🐞 Fixed
+
+* Now created ~/.config if that directory is missing, [#510](https://github.com/wtfutil/wtf/issues/510)
+
 ## v0.17.1
 
 ### 🐞 Fixed
