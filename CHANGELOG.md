@@ -4,7 +4,7 @@
 
 ### ⚡️ Added
 
-* Google Analytics module, by [@](DylanBartels)[https://github.com/DylanBartels]
+* Google Analytics module, by [@DylanBartels](DylanBartels)[https://github.com/DylanBartels]
 
 ## v0.17.1
 
