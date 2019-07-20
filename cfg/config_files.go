@@ -140,12 +140,17 @@ func CreateFile(fileName string) (string, error) {
 }
 
 // LoadWtfConfigFile loads the config.yml file to configure the app
-func LoadWtfConfigFile(filePath string) *config.Config {
+func LoadWtfConfigFile(filePath string, isCustomConfig bool) *config.Config {
 	absPath, _ := expandHomeDir(filePath)
 
 	cfg, err := config.ParseYamlFile(absPath)
 	if err != nil {
-		displayWtfConfigFileLoadError(err)
+		if isCustomConfig {
+			displayWtfCustomConfigFileLoadError(err)
+		} else {
+			displayWtfConfigFileLoadError(err)
+		}
+
 		os.Exit(1)
 	}
 
@@ -238,6 +243,17 @@ func displayWtfConfigFileLoadError(err error) {
 	fmt.Println()
 	fmt.Println("    1. Your \033[0;33mconfig.yml\033[0m file is missing. Check in \033[0;33m~/.config/wtf\033[0m to see if \033[0;33mconfig.yml\033[0m is there.")
 	fmt.Println("    2. Your \033[0;33mconfig.yml\033[0m file has a syntax error. Try running it through http://www.yamllint.com to check for errors.")
+	fmt.Println()
+	fmt.Printf("Error: \033[0;31m%s\033[0m\n\n", err.Error())
+}
+
+func displayWtfCustomConfigFileLoadError(err error) {
+	fmt.Println("\n\033[1mERROR:\033[0m Could not load '\033[0;33mconfig.yml\033[0m'.")
+	fmt.Println()
+	fmt.Println("This could mean one of two things:")
+	fmt.Println()
+	fmt.Println("    1. That file doesn't exist.")
+	fmt.Println("    2. That file has a YAML syntax error. Try running it through http://www.yamllint.com to check for errors.")
 	fmt.Println()
 	fmt.Printf("Error: \033[0;31m%s\033[0m\n\n", err.Error())
 }
