@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## v0.18.0
+
 ### ⚡️ Added
 
 * Google Analytics module, by [@DylanBartels](https://github.com/DylanBartels)
