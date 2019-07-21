@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### ☠️ Breaking Change
+
+* HIBP module now requires an API key to operate. See [Authentication and the Have I Been Pwned API](https://www.troyhunt.com/authentication-and-the-have-i-been-pwned-api/) for more details
+
 ### 🐞 Fixed
 
 * Fixes the error message shown when an explicitly-specified custom config file cannot be found or cannot be read
