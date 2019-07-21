@@ -12,6 +12,7 @@ import (
 	"time"
 
 	"github.com/gdamore/tcell"
+	"github.com/olebedev/config"
 	"github.com/pkg/profile"
 	"github.com/radovskyb/watcher"
 	"github.com/rivo/tview"
@@ -79,6 +80,15 @@ func refreshAllWidgets(widgets []wtf.Wtfable) {
 	}
 }
 
+func setTerm(config *config.Config) {
+	term := config.UString("wtf.term", os.Getenv("TERM"))
+	err := os.Setenv("TERM", term)
+	if err != nil {
+		fmt.Printf("\n\033[0;31mERROR:\033[0m Failed to set $TERM to '\033[0;33m%s\033[0m'.\n", term)
+		os.Exit(1)
+	}
+}
+
 func watchForConfigChanges(app *tview.Application, configFilePath string, isCustomConfig bool, grid *tview.Grid, pages *tview.Pages) {
 	watch := watcher.New()
 	absPath, _ := utils.ExpandHomeDir(configFilePath)
@@ -141,10 +151,7 @@ func main() {
 		defer profile.Start(profile.MemProfile).Stop()
 	}
 
-	err := os.Setenv("TERM", config.UString("wtf.term", os.Getenv("TERM")))
-	if err != nil {
-		return
-	}
+	setTerm(config)
 
 	wtf.OpenFileUtil = config.UString("wtf.openFileUtil", "open")
 
