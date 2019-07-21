@@ -2,6 +2,7 @@ package hibp
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -9,11 +10,15 @@ import (
 )
 
 const (
-	apiURL            = "https://haveibeenpwned.com/api/breachedaccount/"
-	apiVersion        = "application/vnd.haveibeenpwned.v2+json"
+	apiURL            = "https://haveibeenpwned.com/api/v3/breachedaccount/"
 	clientTimeoutSecs = 2
 	userAgent         = "WTFUtil"
 )
+
+type hibpError struct {
+	StatusCode int    `json:"statusCode"`
+	Message    string `json:"message"`
+}
 
 func (widget *Widget) fullURL(account string, truncated bool) string {
 	truncStr := "false"
@@ -43,8 +48,8 @@ func (widget *Widget) fetchForAccount(account string, since string) (*Status, er
 		return nil, err
 	}
 
-	request.Header.Set("Accept", apiVersion)
 	request.Header.Set("User-Agent", userAgent)
+	request.Header.Set("hibp-api-key", widget.settings.apiKey)
 
 	response, getErr := hibpClient.Do(request)
 	if getErr != nil {
@@ -54,6 +59,11 @@ func (widget *Widget) fetchForAccount(account string, since string) (*Status, er
 	body, readErr := ioutil.ReadAll(response.Body)
 	if readErr != nil {
 		return nil, err
+	}
+
+	hibpErr := widget.validateHTTPResponse(response.StatusCode, body)
+	if hibpErr != nil {
+		return nil, errors.New(hibpErr.Message)
 	}
 
 	stat, err := widget.parseResponseBody(account, body)
@@ -114,4 +124,17 @@ func (widget *Widget) filterBreaches(breaches []Breach) []Breach {
 	}
 
 	return latestBreaches
+}
+
+func (widget *Widget) validateHTTPResponse(responseCode int, body []byte) *hibpError {
+	hibpErr := &hibpError{}
+
+	switch responseCode {
+	case 401, 402:
+		json.Unmarshal(body, hibpErr)
+	default:
+		hibpErr = nil
+	}
+
+	return hibpErr
 }
