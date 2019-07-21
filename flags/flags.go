@@ -46,8 +46,8 @@ func (flags *Flags) RenderIf(version string, config *config.Config) {
 	}
 }
 
-// HasConfig returns TRUE if a config path was passed in, FALSE if one was not
-func (flags *Flags) HasConfig() bool {
+// HasCustomConfig returns TRUE if a config path was passed in, FALSE if one was not
+func (flags *Flags) HasCustomConfig() bool {
 	return len(flags.Config) > 0
 }
 
@@ -72,7 +72,7 @@ func (flags *Flags) Parse() {
 
 	// If no config file is explicitly passed in as a param,
 	// set the flag to the default config file
-	if !flags.HasConfig() {
+	if !flags.HasCustomConfig() {
 		homeDir, err := utils.Home()
 		if err != nil {
 			fmt.Printf("Error: %v\n", err)

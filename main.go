@@ -79,7 +79,7 @@ func refreshAllWidgets(widgets []wtf.Wtfable) {
 	}
 }
 
-func watchForConfigChanges(app *tview.Application, configFilePath string, grid *tview.Grid, pages *tview.Pages) {
+func watchForConfigChanges(app *tview.Application, configFilePath string, isCustomConfig bool, grid *tview.Grid, pages *tview.Pages) {
 	watch := watcher.New()
 	absPath, _ := utils.ExpandHomeDir(configFilePath)
 
@@ -93,7 +93,7 @@ func watchForConfigChanges(app *tview.Application, configFilePath string, grid *
 				// Disable all widgets to stop scheduler goroutines and remove widgets from memory
 				disableAllWidgets(runningWidgets)
 
-				config := cfg.LoadWtfConfigFile(absPath)
+				config := cfg.LoadWtfConfigFile(absPath, false)
 
 				widgets := maker.MakeWidgets(app, pages, config)
 				runningWidgets = widgets
@@ -128,6 +128,7 @@ func watchForConfigChanges(app *tview.Application, configFilePath string, grid *
 func main() {
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
 
+	// Manage the configuration directories and file
 	cfg.MigrateOldConfig()
 	cfg.CreateXdgConfigDir()
 	cfg.CreateWtfConfigDir()
@@ -136,7 +137,7 @@ func main() {
 	// Parse and handle flags
 	flags := flags.NewFlags()
 	flags.Parse()
-	config := cfg.LoadWtfConfigFile(flags.ConfigFilePath())
+	config := cfg.LoadWtfConfigFile(flags.ConfigFilePath(), flags.HasCustomConfig())
 	flags.RenderIf(version, config)
 
 	if flags.Profile {
@@ -165,7 +166,7 @@ func main() {
 
 	app.SetInputCapture(keyboardIntercept)
 
-	go watchForConfigChanges(app, flags.Config, display.Grid, pages)
+	go watchForConfigChanges(app, flags.Config, flags.HasCustomConfig(), display.Grid, pages)
 
 	if err := app.SetRoot(pages, true).Run(); err != nil {
 		fmt.Printf("Error: %v\n", err)
