@@ -54,7 +54,7 @@ func (widget *Widget) Refresh() {
 	widget.items = &items.Results
 	widget.SetItemCount(len(widget.items.Items))
 
-	widget.Refresh()
+	widget.Render()
 }
 
 /* -------------------- Unexported Functions -------------------- */
