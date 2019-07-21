@@ -5,6 +5,7 @@
 ### 🐞 Fixed
 
 * Fixes the error message shown when an explicitly-specified custom config file cannot be found or cannot be read
+* Rollbar module works again, [#507](https://github.com/wtfutil/wtf/issues/507) by [@Seanstoppable](https://github.com/Seanstoppable)
 
 ## v0.18.0
 
