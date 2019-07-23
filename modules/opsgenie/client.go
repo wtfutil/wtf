@@ -24,13 +24,22 @@ type Parent struct {
 	Enabled bool   `json:"enabled"`
 }
 
+var opsGenieAPIUrl = map[string]string{
+	"default": "https://api.opsgenie.com",
+	"europe":  "https://api.eu.opsgenie.com",
+}
+
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Fetch(scheduleIdentifierType string, schedules []string) ([]*OnCallResponse, error) {
 	agregatedResponses := []*OnCallResponse{}
+	region := "default"
 
 	for _, sched := range schedules {
-		scheduleUrl := fmt.Sprintf("https://api.opsgenie.com/v2/schedules/%s/on-calls?scheduleIdentifierType=%s&flat=true", sched, scheduleIdentifierType)
+		if widget.settings.isEurope {
+			region = "europe"
+		}
+		scheduleUrl := fmt.Sprintf("%s/v2/schedules/%s/on-calls?scheduleIdentifierType=%s&flat=true", opsGenieAPIUrl[region], sched, scheduleIdentifierType)
 		response, err := opsGenieRequest(scheduleUrl, widget.settings.apiKey)
 		agregatedResponses = append(agregatedResponses, response)
 		if err != nil {
