@@ -120,8 +120,6 @@ func (widget *Widget) formattedText() string {
 func (widget *Widget) plainText() string {
 	filePath, _ := utils.ExpandHomeDir(widget.CurrentSource())
 
-	fmt.Println(filePath)
-
 	text, err := ioutil.ReadFile(filePath)
 	if err != nil {
 		return err.Error()

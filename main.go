@@ -12,6 +12,7 @@ import (
 	"time"
 
 	"github.com/gdamore/tcell"
+	"github.com/logrusorgru/aurora"
 	"github.com/olebedev/config"
 	"github.com/pkg/profile"
 	"github.com/radovskyb/watcher"
@@ -84,7 +85,7 @@ func setTerm(config *config.Config) {
 	term := config.UString("wtf.term", os.Getenv("TERM"))
 	err := os.Setenv("TERM", term)
 	if err != nil {
-		fmt.Printf("\n\033[0;31mERROR:\033[0m Failed to set $TERM to '\033[0;33m%s\033[0m'.\n", term)
+		fmt.Printf("\n%s Failed to set $TERM to %s.\n", aurora.Red("ERROR"), aurora.Yellow(term))
 		os.Exit(1)
 	}
 }
@@ -173,7 +174,7 @@ func main() {
 	go watchForConfigChanges(app, flags.Config, flags.HasCustomConfig(), display.Grid, pages)
 
 	if err := app.SetRoot(pages, true).Run(); err != nil {
-		fmt.Printf("Error: %v\n", err)
+		fmt.Printf("\n%s %v\n", aurora.Red("ERROR"), err)
 		os.Exit(1)
 	}
 }
