@@ -13,7 +13,7 @@ type Settings struct {
 	common *cfg.Common
 
 	apiKey                 string   `help:"Your OpsGenie API token."`
-	isEurope               bool     `help:"Defines if European servers should be used." optional:"true"`
+	region                 string   `help:"Defines region to use. Possible options: us (by default), eu." optional:"true"`
 	displayEmpty           bool     `help:"Whether schedules with no assigned person on-call should be displayed." optional:"true"`
 	schedule               []string `help:"A list of names of the schedule(s) to retrieve."`
 	scheduleIdentifierType string   `help:"Type of the schedule identifier." values:"id or name" optional:"true"`
@@ -25,7 +25,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, ymlConfig, globalConfig),
 
 		apiKey:                 ymlConfig.UString("apiKey", os.Getenv("WTF_OPS_GENIE_API_KEY")),
-		isEurope:               ymlConfig.UBool("isEurope", false),
+		region:                 ymlConfig.UString("region", "us"),
 		displayEmpty:           ymlConfig.UBool("displayEmpty", true),
 		scheduleIdentifierType: ymlConfig.UString("scheduleIdentifierType", "id"),
 	}
