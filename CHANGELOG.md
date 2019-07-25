@@ -4,7 +4,7 @@
 
 ### ☠️ Breaking Change
 
-* HIBP module now requires an API key to operate. See [Authentication and the Have I Been Pwned API](https://www.troyhunt.com/authentication-and-the-have-i-been-pwned-api/) for more details
+* HIBP module now requires an API key to operate. See [Authentication and the Have I Been Pwned API](https://www.troyhunt.com/authentication-and-the-have-i-been-pwned-api/) for more details, [#508](https://github.com/wtfutil/wtf/issues/508) by [@senorprogrammer](https://github.com/senorprogrammer)
 
 ### ⚡️ Added
 
@@ -12,9 +12,10 @@
 
 ### 🐞 Fixed
 
-* Fixes the error message shown when an explicitly-specified custom config file cannot be found or cannot be read
+* Fixes the error message shown when an explicitly-specified custom config file cannot be found or cannot be read, by [@senorprogrammer](https://github.com/senorprogrammer)
 * Rollbar module works again, [#507](https://github.com/wtfutil/wtf/issues/507) by [@Seanstoppable](https://github.com/Seanstoppable)
-* The default config that gets installed on first run is much improved
+* The default config that gets installed on first run is much improved, [#504](https://github.com/wtfutil/wtf/issues/504) by [@senorprogrammer](https://github.com/senorprogrammer)
+* Default config file is now `chmod 0600` to ensure only the owning user can read it, by [@senorprogrammer](https://github.com/senorprogrammer)
 
 ## v0.18.0
 
@@ -24,7 +25,7 @@
 
 ### 🐞 Fixed
 
-* Now created ~/.config if that directory is missing, [#510](https://github.com/wtfutil/wtf/issues/510)
+* Now created ~/.config if that directory is missing, [#510](https://github.com/wtfutil/wtf/issues/510) by [@senorprogrammer](https://github.com/senorprogrammer)
 
 ## v0.17.1
 
