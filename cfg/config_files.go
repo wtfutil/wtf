@@ -20,6 +20,9 @@ const (
 
 	// WtfConfigDirV2 defines the path to the second version of the configuration. Use this.
 	WtfConfigDirV2 = "~/.config/wtf/"
+
+	// WtfConfigFile defines the name of the default config file
+	WtfConfigFile = "config.yml"
 )
 
 /* -------------------- Exported Functions -------------------- */
@@ -59,6 +62,7 @@ func Initialize() {
 	createXdgConfigDir()
 	createWtfConfigDir()
 	createWtfConfigFile()
+	chmodConfigFile()
 }
 
 // WtfConfigDir returns the absolute path to the configuration directory
@@ -71,7 +75,7 @@ func WtfConfigDir() (string, error) {
 	return configDir, nil
 }
 
-// LoadWtfConfigFile loads the config.yml file to configure the app
+// LoadWtfConfigFile loads the specified config file
 func LoadWtfConfigFile(filePath string, isCustomConfig bool) *config.Config {
 	absPath, _ := expandHomeDir(filePath)
 
@@ -90,6 +94,22 @@ func LoadWtfConfigFile(filePath string, isCustomConfig bool) *config.Config {
 }
 
 /* -------------------- Unexported Functions -------------------- */
+
+// chmodConfigFile sets the mode of the config file to r+w for the owner only
+func chmodConfigFile() {
+	relPath := fmt.Sprintf("%s%s", WtfConfigDirV2, WtfConfigFile)
+	absPath, _ := expandHomeDir(relPath)
+
+	_, err := os.Stat(absPath)
+	if err != nil && os.IsNotExist(err) {
+		return
+	}
+
+	err = os.Chmod(absPath, 0600)
+	if err != nil {
+		return
+	}
+}
 
 // createXdgConfigDir creates the necessary base directory for storing the config file
 // If ~/.config is missing, it will try to create it
@@ -122,7 +142,7 @@ func createWtfConfigDir() {
 // createWtfConfigFile creates a simple config file in the config directory if
 // one does not already exist
 func createWtfConfigFile() {
-	filePath, err := CreateFile("config.yml")
+	filePath, err := CreateFile(WtfConfigFile)
 	if err != nil {
 		panic(err)
 	}
@@ -131,44 +151,11 @@ func createWtfConfigFile() {
 	file, _ := os.Stat(filePath)
 
 	if file.Size() == 0 {
-		if ioutil.WriteFile(filePath, []byte(defaultConfigFile), 0644) != nil {
-			panic(err)
+		if ioutil.WriteFile(filePath, []byte(defaultConfigFile), 0600) != nil {
+			displayDefaultConfigWriteError(err)
+			os.Exit(1)
 		}
 	}
-}
-
-func displayXdgConfigDirCreateError(err error) {
-	fmt.Printf("\n\033[1mERROR:\033[0m Could not create the '\033[0;33m%s\033[0m' directory.\n", XdgConfigDir)
-	fmt.Println()
-	fmt.Printf("Error: \033[0;31m%s\033[0m\n\n", err.Error())
-}
-
-func displayWtfConfigDirCreateError(err error) {
-	fmt.Printf("\n\033[1mERROR:\033[0m Could not create the '\033[0;33m%s\033[0m' directory.\n", WtfConfigDirV2)
-	fmt.Println()
-	fmt.Printf("Error: \033[0;31m%s\033[0m\n\n", err.Error())
-}
-
-func displayWtfConfigFileLoadError(err error) {
-	fmt.Println("\n\033[1mERROR:\033[0m Could not load '\033[0;33mconfig.yml\033[0m'.")
-	fmt.Println()
-	fmt.Println("This could mean one of two things:")
-	fmt.Println()
-	fmt.Println("    1. Your \033[0;33mconfig.yml\033[0m file is missing. Check in \033[0;33m~/.config/wtf\033[0m to see if \033[0;33mconfig.yml\033[0m is there.")
-	fmt.Println("    2. Your \033[0;33mconfig.yml\033[0m file has a syntax error. Try running it through http://www.yamllint.com to check for errors.")
-	fmt.Println()
-	fmt.Printf("Error: \033[0;31m%s\033[0m\n\n", err.Error())
-}
-
-func displayWtfCustomConfigFileLoadError(err error) {
-	fmt.Println("\n\033[1mERROR:\033[0m Could not load '\033[0;33mconfig.yml\033[0m'.")
-	fmt.Println()
-	fmt.Println("This could mean one of two things:")
-	fmt.Println()
-	fmt.Println("    1. That file doesn't exist.")
-	fmt.Println("    2. That file has a YAML syntax error. Try running it through http://www.yamllint.com to check for errors.")
-	fmt.Println()
-	fmt.Printf("Error: \033[0;31m%s\033[0m\n\n", err.Error())
 }
 
 // Expand expands the path to include the home directory if the path
