@@ -8,7 +8,7 @@
 
 ### ⚡️ Added
 
-* OpsGenie now supports "region" config option, by [@l13t](https://github.com/l13t)
+* OpsGenie module now supports "region" configuration option ("us" or "eu"), by [@l13t](https://github.com/l13t)
 
 ### 🐞 Fixed
 
