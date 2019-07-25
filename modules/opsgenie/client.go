@@ -24,20 +24,29 @@ type Parent struct {
 	Enabled bool   `json:"enabled"`
 }
 
+var opsGenieAPIUrl = map[string]string{
+	"us": "https://api.opsgenie.com",
+	"eu": "https://api.eu.opsgenie.com",
+}
+
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Fetch(scheduleIdentifierType string, schedules []string) ([]*OnCallResponse, error) {
 	agregatedResponses := []*OnCallResponse{}
 
-	for _, sched := range schedules {
-		scheduleUrl := fmt.Sprintf("https://api.opsgenie.com/v2/schedules/%s/on-calls?scheduleIdentifierType=%s&flat=true", sched, scheduleIdentifierType)
-		response, err := opsGenieRequest(scheduleUrl, widget.settings.apiKey)
-		agregatedResponses = append(agregatedResponses, response)
-		if err != nil {
-			return nil, err
+	if regionUrl, regionErr := opsGenieAPIUrl[widget.settings.region]; regionErr {
+		for _, sched := range schedules {
+			scheduleUrl := fmt.Sprintf("%s/v2/schedules/%s/on-calls?scheduleIdentifierType=%s&flat=true", regionUrl, sched, scheduleIdentifierType)
+			response, err := opsGenieRequest(scheduleUrl, widget.settings.apiKey)
+			agregatedResponses = append(agregatedResponses, response)
+			if err != nil {
+				return nil, err
+			}
 		}
+		return agregatedResponses, nil
+	} else {
+		return nil, fmt.Errorf("You specified wrong region. Possible options are only 'us' and 'eu'.")
 	}
-	return agregatedResponses, nil
 }
 
 /* -------------------- Unexported Functions -------------------- */
