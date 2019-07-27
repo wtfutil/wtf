@@ -47,8 +47,6 @@ func NewWtfApp(app *tview.Application, config *config.Config, configFilePath str
 
 	wtf.ValidateWidgets(wtfApp.Widgets)
 
-	wtfApp.scheduleWidgets()
-
 	return &wtfApp
 }
 
@@ -56,13 +54,12 @@ func NewWtfApp(app *tview.Application, config *config.Config, configFilePath str
 
 // Start initializes the app
 func (wtfApp *WtfApp) Start() {
+	wtfApp.scheduleWidgets()
 	go wtfApp.watchForConfigChanges()
 }
 
 // Stop kills all the currently-running widgets in this app
 func (wtfApp *WtfApp) Stop() {
-	// TODO: Pretty sure we should kill their go routines that run them as well
-	// otherwise....?
 	wtfApp.disableAllWidgets()
 }
 
@@ -115,7 +112,7 @@ func (wtfApp *WtfApp) refreshAllWidgets() {
 
 func (wtfApp *WtfApp) scheduleWidgets() {
 	for _, widget := range wtfApp.Widgets {
-		go wtf.Schedule(widget)
+		go Schedule(widget)
 	}
 }
 
