@@ -13,20 +13,19 @@ type Widget struct {
 	wtf.KeyboardWidget
 	wtf.TextWidget
 
+	client   spotigopher.SpotifyClient
 	settings *Settings
 	spotigopher.Info
-	spotigopher.SpotifyClient
 }
 
 // NewWidget creates a new instance of a widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
-	spotifyClient := spotigopher.NewClient()
 	widget := Widget{
 		KeyboardWidget: wtf.NewKeyboardWidget(app, pages, settings.common),
 		TextWidget:     wtf.NewTextWidget(app, settings.common, true),
 
-		Info:          spotigopher.Info{},
-		SpotifyClient: spotifyClient,
+		Info:   spotigopher.Info{},
+		client: spotigopher.NewClient(),
 
 		settings: settings,
 	}
@@ -45,7 +44,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 }
 
 func (w *Widget) refreshSpotifyInfos() error {
-	info, err := w.SpotifyClient.GetInfo()
+	info, err := w.client.GetInfo()
 	w.Info = info
 	return err
 }

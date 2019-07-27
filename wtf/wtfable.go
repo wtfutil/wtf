@@ -10,12 +10,14 @@ import (
 type Wtfable interface {
 	Enablable
 	Schedulable
+	Stoppable
 
 	BorderColor() string
 	ConfigText() string
 	FocusChar() string
 	Focusable() bool
 	HelpText() string
+	QuitChan() chan bool
 	Name() string
 	SetFocusChar(string)
 	TextView() *tview.TextView

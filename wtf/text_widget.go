@@ -15,6 +15,7 @@ type TextWidget struct {
 	focusable       bool
 	focusChar       string
 	name            string
+	quitChan        chan bool
 	refreshing      bool
 	refreshInterval int
 	app             *tview.Application
@@ -32,6 +33,7 @@ func NewTextWidget(app *tview.Application, commonSettings *cfg.Common, focusable
 		focusable:       focusable,
 		focusChar:       commonSettings.FocusChar(),
 		name:            commonSettings.Name,
+		quitChan:        make(chan bool),
 		refreshing:      false,
 		refreshInterval: commonSettings.RefreshInterval,
 	}
@@ -97,6 +99,10 @@ func (widget *TextWidget) HelpText() string {
 	return fmt.Sprintf("\n  There is no help available for widget %s", widget.commonSettings.Module.Type)
 }
 
+func (widget *TextWidget) QuitChan() chan bool {
+	return widget.quitChan
+}
+
 func (widget *TextWidget) Name() string {
 	return widget.name
 }
@@ -113,6 +119,11 @@ func (widget *TextWidget) RefreshInterval() int {
 
 func (widget *TextWidget) SetFocusChar(char string) {
 	widget.focusChar = char
+}
+
+func (widget *TextWidget) Stop() {
+	widget.enabled = false
+	widget.quitChan <- true
 }
 
 func (widget *TextWidget) String() string {

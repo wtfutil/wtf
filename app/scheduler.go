@@ -17,21 +17,22 @@ func Schedule(widget wtf.Wtfable) {
 		return
 	}
 
-	tick := time.NewTicker(interval)
-	quit := make(chan struct{})
+	timer := time.NewTicker(interval)
 
 	for {
 		select {
-		case <-tick.C:
+		case <-timer.C:
 			if widget.Enabled() {
 				widget.Refresh()
 			} else {
-				tick.Stop()
+				timer.Stop()
 				return
 			}
-		case <-quit:
-			tick.Stop()
-			return
+		case quit := <-widget.QuitChan():
+			if quit == true {
+				timer.Stop()
+				return
+			}
 		}
 	}
 }

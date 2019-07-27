@@ -60,14 +60,14 @@ func (wtfApp *WtfApp) Start() {
 
 // Stop kills all the currently-running widgets in this app
 func (wtfApp *WtfApp) Stop() {
-	wtfApp.disableAllWidgets()
+	wtfApp.stopAllWidgets()
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (wtfApp *WtfApp) disableAllWidgets() {
+func (wtfApp *WtfApp) stopAllWidgets() {
 	for _, widget := range wtfApp.Widgets {
-		widget.Disable()
+		widget.Stop()
 	}
 }
 
