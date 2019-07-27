@@ -1,30 +1,33 @@
-package wtf
+package app
 
 import (
 	"github.com/olebedev/config"
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/wtf"
 )
 
+// Display is the container for the onscreen representation of a WtfApp
 type Display struct {
 	Grid   *tview.Grid
 	config *config.Config
 }
 
-func NewDisplay(widgets []Wtfable, config *config.Config) *Display {
+// NewDisplay creates and returns a Display
+func NewDisplay(widgets []wtf.Wtfable, config *config.Config) *Display {
 	display := Display{
 		Grid:   tview.NewGrid(),
 		config: config,
 	}
 
 	display.build(widgets)
-	display.Grid.SetBackgroundColor(ColorFor(config.UString("wtf.colors.background", "black")))
+	display.Grid.SetBackgroundColor(wtf.ColorFor(config.UString("wtf.colors.background", "black")))
 
 	return &display
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (display *Display) add(widget Wtfable) {
+func (display *Display) add(widget wtf.Wtfable) {
 	if widget.Disabled() {
 		return
 	}
@@ -41,14 +44,16 @@ func (display *Display) add(widget Wtfable) {
 	)
 }
 
-func (display *Display) build(widgets []Wtfable) *tview.Grid {
-	display.Grid.SetColumns(ToInts(display.config.UList("wtf.grid.columns"))...)
-	display.Grid.SetRows(ToInts(display.config.UList("wtf.grid.rows"))...)
+func (display *Display) build(widgets []wtf.Wtfable) *tview.Grid {
+	cols := wtf.ToInts(display.config.UList("wtf.grid.columns"))
+	rows := wtf.ToInts(display.config.UList("wtf.grid.rows"))
+
+	display.Grid.SetColumns(cols...)
+	display.Grid.SetRows(rows...)
 	display.Grid.SetBorder(false)
 
 	for _, widget := range widgets {
 		display.add(widget)
-		go Schedule(widget)
 	}
 
 	return display.Grid
