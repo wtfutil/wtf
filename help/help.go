@@ -18,8 +18,7 @@ func Display(moduleName string, config *config.Config) {
 }
 
 func helpFor(moduleName string, config *config.Config) string {
-	modConfig, _ := config.Get("wtf.mods." + moduleName)
-	widget := maker.MakeWidget(nil, nil, moduleName, moduleName, modConfig, config)
+	widget := maker.MakeWidget(nil, nil, moduleName, config)
 
 	result := ""
 	result += utils.StripColorTags(widget.HelpText())

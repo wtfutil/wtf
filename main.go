@@ -154,8 +154,6 @@ func main() {
 
 	setTerm(config)
 
-	wtf.OpenFileUtil = config.UString("wtf.openFileUtil", "open")
-
 	app := tview.NewApplication()
 	pages := tview.NewPages()
 
@@ -172,6 +170,8 @@ func main() {
 	app.SetInputCapture(keyboardIntercept)
 
 	go watchForConfigChanges(app, flags.Config, flags.HasCustomConfig(), display.Grid, pages)
+
+	wtf.Init(config.UString("wtf.openFileUtil", "open"))
 
 	if err := app.SetRoot(pages, true).Run(); err != nil {
 		fmt.Printf("\n%s %v\n", aurora.Red("ERROR"), err)

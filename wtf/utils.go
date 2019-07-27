@@ -23,6 +23,11 @@ const TimestampFormat = "2006-01-02T15:04:05-0700"
 
 var OpenFileUtil = "open"
 
+// Init initializes global settings in the wtf package
+func Init(openFileUtil string) {
+	OpenFileUtil = openFileUtil
+}
+
 // CenterText takes a string and a width and pads the left and right of the string with
 // empty spaces to ensure that the string is in the middle of the returned value
 //
