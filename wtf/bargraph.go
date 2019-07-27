@@ -17,6 +17,7 @@ type BarGraph struct {
 	key            string
 	maxStars       int
 	name           string
+	quitChan       chan bool
 	refreshing     bool
 	starChar       string
 
@@ -37,9 +38,11 @@ func NewBarGraph(app *tview.Application, name string, settings *cfg.Common, focu
 		focusable:      focusable,
 		maxStars:       settings.Config.UInt("graphStars", 20),
 		name:           settings.Title,
+		quitChan:       make(chan bool),
 		starChar:       settings.Config.UString("graphIcon", "|"),
-		RefreshInt:     settings.RefreshInterval,
 		commonSettings: settings,
+
+		RefreshInt: settings.RefreshInterval,
 	}
 
 	widget.View = widget.addView()
@@ -90,6 +93,10 @@ func (widget *BarGraph) Name() string {
 	return widget.name
 }
 
+func (widget *BarGraph) QuitChan() chan bool {
+	return widget.quitChan
+}
+
 // Refreshing returns TRUE if the widget is currently refreshing its data, FALSE if it is not
 func (widget *BarGraph) Refreshing() bool {
 	return widget.refreshing
@@ -102,6 +109,11 @@ func (widget *BarGraph) RefreshInterval() int {
 
 func (widget *BarGraph) SetFocusChar(char string) {
 	return
+}
+
+func (widget *BarGraph) Stop() {
+	widget.enabled = false
+	widget.quitChan <- true
 }
 
 func (widget *BarGraph) TextView() *tview.TextView {

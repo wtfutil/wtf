@@ -18,19 +18,19 @@ func (widget *Widget) initializeKeyboardControls() {
 }
 
 func (widget *Widget) previous() {
-	widget.SpotifyClient.Previous()
+	widget.client.Previous()
 	time.Sleep(time.Second * 1)
 	widget.Refresh()
 }
 
 func (widget *Widget) next() {
-	widget.SpotifyClient.Next()
+	widget.client.Next()
 	time.Sleep(time.Second * 1)
 	widget.Refresh()
 }
 
 func (widget *Widget) playPause() {
-	widget.SpotifyClient.PlayPause()
+	widget.client.PlayPause()
 	time.Sleep(time.Second * 1)
 	widget.Refresh()
 }
