@@ -21,7 +21,7 @@ type WtfApp struct {
 	config         *config.Config
 	configFilePath string
 	display        *Display
-	focusTracker   wtf.FocusTracker
+	focusTracker   FocusTracker
 	isCustomConfig bool
 	pages          *tview.Pages
 	widgets        []wtf.Wtfable
@@ -39,7 +39,7 @@ func NewWtfApp(app *tview.Application, config *config.Config, configFilePath str
 
 	wtfApp.widgets = maker.MakeWidgets(wtfApp.app, wtfApp.pages, wtfApp.config)
 	wtfApp.display = NewDisplay(wtfApp.widgets, wtfApp.config)
-	wtfApp.focusTracker = wtf.NewFocusTracker(wtfApp.app, wtfApp.widgets, wtfApp.config)
+	wtfApp.focusTracker = NewFocusTracker(wtfApp.app, wtfApp.widgets, wtfApp.config)
 
 	wtfApp.pages.AddPage("grid", wtfApp.display.Grid, true, true)
 	wtfApp.app.SetRoot(wtfApp.pages, true)

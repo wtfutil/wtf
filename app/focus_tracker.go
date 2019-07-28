@@ -1,10 +1,11 @@
-package wtf
+package app
 
 import (
 	"sort"
 
 	"github.com/olebedev/config"
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/wtf"
 )
 
 type FocusState int
@@ -21,12 +22,12 @@ type FocusTracker struct {
 	App       *tview.Application
 	Idx       int
 	IsFocused bool
-	Widgets   []Wtfable
+	Widgets   []wtf.Wtfable
 
 	config *config.Config
 }
 
-func NewFocusTracker(app *tview.Application, widgets []Wtfable, config *config.Config) FocusTracker {
+func NewFocusTracker(app *tview.Application, widgets []wtf.Wtfable, config *config.Config) FocusTracker {
 	focusTracker := FocusTracker{
 		App:       app,
 		Idx:       -1,
@@ -157,7 +158,7 @@ func (tracker *FocusTracker) blur(idx int) {
 	view := widget.TextView()
 	view.Blur()
 
-	view.SetBorderColor(ColorFor(widget.BorderColor()))
+	view.SetBorderColor(wtf.ColorFor(widget.BorderColor()))
 
 	tracker.IsFocused = false
 }
@@ -177,12 +178,12 @@ func (tracker *FocusTracker) focus(idx int) {
 	}
 
 	view := widget.TextView()
-	view.SetBorderColor(ColorFor(tracker.config.UString("wtf.colors.border.focused", "gray")))
+	view.SetBorderColor(wtf.ColorFor(tracker.config.UString("wtf.colors.border.focused", "gray")))
 	tracker.App.SetFocus(view)
 }
 
-func (tracker *FocusTracker) focusables() []Wtfable {
-	focusable := []Wtfable{}
+func (tracker *FocusTracker) focusables() []wtf.Wtfable {
+	focusable := []wtf.Wtfable{}
 
 	for _, widget := range tracker.Widgets {
 		if widget.Focusable() {
@@ -207,7 +208,7 @@ func (tracker *FocusTracker) focusables() []Wtfable {
 	return focusable
 }
 
-func (tracker *FocusTracker) focusableAt(idx int) Wtfable {
+func (tracker *FocusTracker) focusableAt(idx int) wtf.Wtfable {
 	if idx < 0 || idx >= len(tracker.focusables()) {
 		return nil
 	}
