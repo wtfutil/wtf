@@ -1,3 +1,3 @@
 FROM scratch
-COPY mybin /
+COPY wtfutil /
 ENTRYPOINT ["/wtfutil"]
