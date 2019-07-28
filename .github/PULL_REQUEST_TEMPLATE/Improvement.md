@@ -3,9 +3,6 @@ name: Improvement
 about: You have some improvement to make wtf better?
 ---
 
-#### What problem does this solve?
-
-
-#### Is this related to an existing Issue? If so, which one?
+Thanks for submitting a pull request. Please provide enough information so that others can review your pull request.
 
 
