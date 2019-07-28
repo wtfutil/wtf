@@ -17,40 +17,45 @@ import (
 // WtfApp is the container for a collection of widgets that are all constructed from a single
 // configuration file and displayed together
 type WtfApp struct {
-	App            *tview.Application
-	Config         *config.Config
-	ConfigFilePath string
-	Display        *Display
-	FocusTracker   wtf.FocusTracker
-	IsCustomConfig bool
-	Pages          *tview.Pages
-	Widgets        []wtf.Wtfable
+	app            *tview.Application
+	config         *config.Config
+	configFilePath string
+	display        *Display
+	focusTracker   wtf.FocusTracker
+	isCustomConfig bool
+	pages          *tview.Pages
+	widgets        []wtf.Wtfable
 }
 
 // NewWtfApp creates and returns an instance of WtfApp
 func NewWtfApp(app *tview.Application, config *config.Config, configFilePath string, isCustom bool) *WtfApp {
 	wtfApp := WtfApp{
-		App:            app,
-		Config:         config,
-		ConfigFilePath: configFilePath,
-		IsCustomConfig: isCustom,
-		Pages:          tview.NewPages(),
+		app:            app,
+		config:         config,
+		configFilePath: configFilePath,
+		isCustomConfig: isCustom,
+		pages:          tview.NewPages(),
 	}
 
-	wtfApp.Widgets = maker.MakeWidgets(wtfApp.App, wtfApp.Pages, wtfApp.Config)
-	wtfApp.Display = NewDisplay(wtfApp.Widgets, wtfApp.Config)
-	wtfApp.FocusTracker = wtf.NewFocusTracker(wtfApp.App, wtfApp.Widgets, wtfApp.Config)
+	wtfApp.widgets = maker.MakeWidgets(wtfApp.app, wtfApp.pages, wtfApp.config)
+	wtfApp.display = NewDisplay(wtfApp.widgets, wtfApp.config)
+	wtfApp.focusTracker = wtf.NewFocusTracker(wtfApp.app, wtfApp.widgets, wtfApp.config)
 
-	wtfApp.App.SetInputCapture(wtfApp.keyboardIntercept)
-	wtfApp.Pages.AddPage("grid", wtfApp.Display.Grid, true, true)
-	wtfApp.App.SetRoot(wtfApp.Pages, true)
+	wtfApp.pages.AddPage("grid", wtfApp.display.Grid, true, true)
+	wtfApp.app.SetRoot(wtfApp.pages, true)
+	wtfApp.app.SetInputCapture(wtfApp.keyboardIntercept)
 
-	wtf.ValidateWidgets(wtfApp.Widgets)
+	wtf.ValidateWidgets(wtfApp.widgets)
 
 	return &wtfApp
 }
 
 /* -------------------- Exported Functions -------------------- */
+
+// App returns the *tview.Application instance
+func (wtfApp *WtfApp) App() *tview.Application {
+	return wtfApp.app
+}
 
 // Start initializes the app
 func (wtfApp *WtfApp) Start() {
@@ -66,7 +71,7 @@ func (wtfApp *WtfApp) Stop() {
 /* -------------------- Unexported Functions -------------------- */
 
 func (wtfApp *WtfApp) stopAllWidgets() {
-	for _, widget := range wtfApp.Widgets {
+	for _, widget := range wtfApp.widgets {
 		widget.Stop()
 	}
 }
@@ -78,23 +83,23 @@ func (wtfApp *WtfApp) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 		wtfApp.refreshAllWidgets()
 		return nil
 	case tcell.KeyTab:
-		wtfApp.FocusTracker.Next()
+		wtfApp.focusTracker.Next()
 		return nil
 	case tcell.KeyBacktab:
-		wtfApp.FocusTracker.Prev()
+		wtfApp.focusTracker.Prev()
 		return nil
 	case tcell.KeyEsc:
-		wtfApp.FocusTracker.None()
+		wtfApp.focusTracker.None()
 		return nil
 	}
 
 	// Checks to see if any widget has been assigned the pressed key as its focus key
-	if wtfApp.FocusTracker.FocusOn(string(event.Rune())) {
+	if wtfApp.focusTracker.FocusOn(string(event.Rune())) {
 		return nil
 	}
 
 	// If no specific widget has focus, then allow the key presses to fall through to the app
-	if !wtfApp.FocusTracker.IsFocused {
+	if !wtfApp.focusTracker.IsFocused {
 		switch string(event.Rune()) {
 		case "/":
 			return nil
@@ -105,13 +110,13 @@ func (wtfApp *WtfApp) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 }
 
 func (wtfApp *WtfApp) refreshAllWidgets() {
-	for _, widget := range wtfApp.Widgets {
+	for _, widget := range wtfApp.widgets {
 		go widget.Refresh()
 	}
 }
 
 func (wtfApp *WtfApp) scheduleWidgets() {
-	for _, widget := range wtfApp.Widgets {
+	for _, widget := range wtfApp.widgets {
 		go Schedule(widget)
 	}
 }
@@ -128,9 +133,9 @@ func (wtfApp *WtfApp) watchForConfigChanges() {
 			case <-watch.Event:
 				wtfApp.Stop()
 
-				config := cfg.LoadWtfConfigFile(wtfApp.ConfigFilePath, wtfApp.IsCustomConfig)
+				config := cfg.LoadWtfConfigFile(wtfApp.configFilePath, wtfApp.isCustomConfig)
 
-				newApp := NewWtfApp(wtfApp.App, config, wtfApp.ConfigFilePath, wtfApp.IsCustomConfig)
+				newApp := NewWtfApp(wtfApp.app, config, wtfApp.configFilePath, wtfApp.isCustomConfig)
 				newApp.Start()
 			case err := <-watch.Error:
 				log.Fatalln(err)
@@ -141,7 +146,7 @@ func (wtfApp *WtfApp) watchForConfigChanges() {
 	}()
 
 	// Watch config file for changes.
-	absPath, _ := utils.ExpandHomeDir(wtfApp.ConfigFilePath)
+	absPath, _ := utils.ExpandHomeDir(wtfApp.configFilePath)
 	if err := watch.Add(absPath); err != nil {
 		log.Fatalln(err)
 	}
