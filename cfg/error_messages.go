@@ -19,25 +19,25 @@ func displayError(err error) {
 }
 
 func displayDefaultConfigWriteError(err error) {
-	fmt.Printf("\n%s Could not write the default configuration.\n", aurora.Red("ERROR:"))
+	fmt.Printf("\n%s Could not write the default configuration.\n", aurora.Red("ERROR"))
 	fmt.Println()
 	displayError(err)
 }
 
 func displayXdgConfigDirCreateError(err error) {
-	fmt.Printf("\n%s Could not create the '%s' directory.\n", aurora.Red("ERROR:"), aurora.Yellow(XdgConfigDir))
+	fmt.Printf("\n%s Could not create the '%s' directory.\n", aurora.Red("ERROR"), aurora.Yellow(XdgConfigDir))
 	fmt.Println()
 	displayError(err)
 }
 
 func displayWtfConfigDirCreateError(err error) {
-	fmt.Printf("\n%s Could not create the '%s' directory.\n", aurora.Red("ERROR:"), aurora.Yellow(WtfConfigDirV2))
+	fmt.Printf("\n%s Could not create the '%s' directory.\n", aurora.Red("ERROR"), aurora.Yellow(WtfConfigDirV2))
 	fmt.Println()
 	displayError(err)
 }
 
 func displayWtfConfigFileLoadError(err error) {
-	fmt.Printf("\n%s Could not load '%s'.\n", aurora.Red("ERROR:"), aurora.Yellow(WtfConfigFile))
+	fmt.Printf("\n%s Could not load '%s'.\n", aurora.Red("ERROR"), aurora.Yellow(WtfConfigFile))
 	fmt.Println()
 	fmt.Println("This could mean one of two things:")
 	fmt.Println()
@@ -48,7 +48,7 @@ func displayWtfConfigFileLoadError(err error) {
 }
 
 func displayWtfCustomConfigFileLoadError(err error) {
-	fmt.Printf("\n%s Could not load '%s'.\n", aurora.Red("ERROR:"), aurora.Yellow(WtfConfigFile))
+	fmt.Printf("\n%s Could not load '%s'.\n", aurora.Red("ERROR"), aurora.Yellow(WtfConfigFile))
 	fmt.Println()
 	fmt.Println("This could mean one of two things:")
 	fmt.Println()
