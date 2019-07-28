@@ -2,9 +2,8 @@ env:
   - GO111MODULE=on
   - GOPROXY="https://gocenter.io"
 
-before:
-  hooks:
-    - make install
+archive:
+  wrap_in_directory: true
 
 builds:
   - binary: wtfutil
@@ -15,6 +14,10 @@ builds:
       - 386
       - amd64
 
+before:
+  hooks:
+    - make install
+
 brews:
   - github:
       owner: wtfutil
@@ -24,5 +27,6 @@ brews:
     homepage: 'https://wtfutil.com'
     description: 'The personal information dashboard for your terminal.'
 
-archive:
-  wrap_in_directory: true
+dockers:
+  - image_templates:
+    - wtfutil/wtf
