@@ -1,15 +1,23 @@
-package wtf
+package app
 
 import (
 	"fmt"
 	"os"
 
 	"github.com/logrusorgru/aurora"
+	"github.com/wtfutil/wtf/wtf"
 )
 
-// ValidateWidgets rolls through all the enabled widgets and looks for configuration errors.
+type ModuleValidator struct{}
+
+func NewModuleValidator() *ModuleValidator {
+	val := &ModuleValidator{}
+	return val
+}
+
+// Validate rolls through all the enabled widgets and looks for configuration errors.
 // If it finds any it stringifies them, writes them to the console, and kills the app gracefully
-func ValidateWidgets(widgets []Wtfable) {
+func (val *ModuleValidator) Validate(widgets []wtf.Wtfable) {
 	var errStr string
 	hasErrors := false
 

@@ -24,6 +24,7 @@ type WtfApp struct {
 	focusTracker   FocusTracker
 	isCustomConfig bool
 	pages          *tview.Pages
+	validator      *ModuleValidator
 	widgets        []wtf.Wtfable
 }
 
@@ -40,12 +41,13 @@ func NewWtfApp(app *tview.Application, config *config.Config, configFilePath str
 	wtfApp.widgets = maker.MakeWidgets(wtfApp.app, wtfApp.pages, wtfApp.config)
 	wtfApp.display = NewDisplay(wtfApp.widgets, wtfApp.config)
 	wtfApp.focusTracker = NewFocusTracker(wtfApp.app, wtfApp.widgets, wtfApp.config)
+	wtfApp.validator = NewModuleValidator()
 
 	wtfApp.pages.AddPage("grid", wtfApp.display.Grid, true, true)
 	wtfApp.app.SetRoot(wtfApp.pages, true)
 	wtfApp.app.SetInputCapture(wtfApp.keyboardIntercept)
 
-	wtf.ValidateWidgets(wtfApp.widgets)
+	wtfApp.validator.Validate(wtfApp.widgets)
 
 	return &wtfApp
 }
