@@ -69,7 +69,7 @@ func main() {
 	wtfApp := app.NewWtfApp(tviewApp, config, flags.Config, flags.HasCustomConfig())
 	wtfApp.Start()
 
-	if err := wtfApp.App().Run(); err != nil {
+	if err := tviewApp.Run(); err != nil {
 		fmt.Printf("\n%s %v\n", aurora.Red("ERROR"), err)
 		os.Exit(1)
 	}
