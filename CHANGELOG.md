@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+### ⚡️ Added
+
+* Dockerfile,  by [@senorprogrammer](https://github.com/senorprogrammer)
+
+## v0.19.0
+
 ### ☠️ Breaking Change
 
 * HIBP module now requires an API key to operate. See [Authentication and the Have I Been Pwned API](https://www.troyhunt.com/authentication-and-the-have-i-been-pwned-api/) for more details, [#508](https://github.com/wtfutil/wtf/issues/508) by [@senorprogrammer](https://github.com/senorprogrammer)
