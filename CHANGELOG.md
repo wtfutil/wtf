@@ -2,9 +2,12 @@
 
 ## Unreleased
 
+## v0.19.1
+
 ### ⚡️ Added
 
-* Dockerfile,  by [@senorprogrammer](https://github.com/senorprogrammer)
+* Dockerfile, by [@senorprogrammer](https://github.com/senorprogrammer)
+* Add build targets for arm and arm64 architectures, by [@senorprogrammer](https://github.com/senorprogrammer)
 
 ## v0.19.0
 
