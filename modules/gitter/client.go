@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/wtfutil/wtf/logger"
 	"io"
 	"io/ioutil"
 	"net/http"
