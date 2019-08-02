@@ -35,7 +35,6 @@ func GetRoom(roomUri, apiToken string) (*Room, error) {
 	parseJson(&rooms, resp.Body)
 
 	for _, room := range rooms.Results {
-		logger.Log(fmt.Sprintf("room: %s", room))
 		if room.URI == roomUri {
 			return &room, nil
 		}
