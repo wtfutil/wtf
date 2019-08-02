@@ -1,11 +1,10 @@
 package wtf
 
 import (
-	"fmt"
 	"github.com/wtfutil/wtf/cfg"
-	"github.com/wtfutil/wtf/logger"
 )
 
+// MultiSourceWidget is a widget that supports displaying data from multiple sources
 type MultiSourceWidget struct {
 	moduleConfig *cfg.Common
 	singular     string
@@ -26,8 +25,6 @@ func NewMultiSourceWidget(moduleConfig *cfg.Common, singular, plural string) Mul
 
 	widget.loadSources()
 
-	logger.Log(fmt.Sprintf("%+v", widget.Sources))
-
 	return widget
 }
 
@@ -42,7 +39,7 @@ func (widget *MultiSourceWidget) CurrentSource() string {
 	return widget.Sources[widget.Idx]
 }
 
-// Next displays the next source in the source list. If the current source is the last
+// NextSource displays the next source in the source list. If the current source is the last
 // source it wraps around to the first source
 func (widget *MultiSourceWidget) NextSource() {
 	widget.Idx++
@@ -55,7 +52,7 @@ func (widget *MultiSourceWidget) NextSource() {
 	}
 }
 
-// Prev displays the previous source in the source list. If the current source is the first
+// PrevSource displays the previous source in the source list. If the current source is the first
 // source, it wraps around to the last source
 func (widget *MultiSourceWidget) PrevSource() {
 	widget.Idx--
