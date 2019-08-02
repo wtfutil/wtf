@@ -46,14 +46,16 @@ func main() {
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
 
 	// Manage the configuration directories and config file
-	cfg.Initialize()
 
 	// Parse and handle flags
 	flags := flags.NewFlags()
 	flags.Parse()
 
+	hasCustom := flags.HasCustomConfig()
+	cfg.Initialize(hasCustom)
+
 	// Load the configuration file
-	config := cfg.LoadWtfConfigFile(flags.ConfigFilePath(), flags.HasCustomConfig())
+	config := cfg.LoadWtfConfigFile(flags.ConfigFilePath(), hasCustom)
 	flags.RenderIf(version, config)
 
 	if flags.Profile {
@@ -66,7 +68,7 @@ func main() {
 
 	// Build the application
 	tviewApp = tview.NewApplication()
-	wtfApp := app.NewWtfApp(tviewApp, config, flags.Config, flags.HasCustomConfig())
+	wtfApp := app.NewWtfApp(tviewApp, config, flags.Config, hasCustom)
 	wtfApp.Start()
 
 	if err := tviewApp.Run(); err != nil {
