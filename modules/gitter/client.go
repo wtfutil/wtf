@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/wtfutil/wtf/logger"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -35,7 +34,6 @@ func GetRoom(roomUri, apiToken string) (*Room, error) {
 	parseJson(&rooms, resp.Body)
 
 	for _, room := range rooms.Results {
-		logger.Log(fmt.Sprintf("room: %s", room))
 		if room.URI == roomUri {
 			return &room, nil
 		}

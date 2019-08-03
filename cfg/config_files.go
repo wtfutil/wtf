@@ -57,12 +57,20 @@ func CreateFile(fileName string) (string, error) {
 
 // Initialize takes care of settings up the initial state of WTF configuration
 // It ensures necessary directories and files exist
-func Initialize() {
-	migrateOldConfig()
+func Initialize(hasCustom bool) {
+	if hasCustom == false {
+		migrateOldConfig()
+	}
+
+	// These always get created because this is where modules should write any permanent
+	// data they need to persist between runs (i.e.: log, textfile, etc.)
 	createXdgConfigDir()
 	createWtfConfigDir()
-	createWtfConfigFile()
-	chmodConfigFile()
+
+	if hasCustom == false {
+		createWtfConfigFile()
+		chmodConfigFile()
+	}
 }
 
 // WtfConfigDir returns the absolute path to the configuration directory
@@ -144,7 +152,8 @@ func createWtfConfigDir() {
 func createWtfConfigFile() {
 	filePath, err := CreateFile(WtfConfigFile)
 	if err != nil {
-		panic(err)
+		displayDefaultConfigCreateError(err)
+		os.Exit(1)
 	}
 
 	// If the file is empty, write to it

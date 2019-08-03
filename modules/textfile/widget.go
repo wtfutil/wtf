@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"os"
 	"path/filepath"
 	"time"
@@ -16,6 +15,10 @@ import (
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/wtf"
+)
+
+const (
+	pollingIntervalms = 100
 )
 
 type Widget struct {
@@ -137,7 +140,8 @@ func (widget *Widget) watchForFileChanges() {
 			case <-watch.Event:
 				widget.display()
 			case err := <-watch.Error:
-				log.Fatalln(err)
+				fmt.Println(err)
+				os.Exit(1)
 			case <-watch.Closed:
 				return
 			}
@@ -149,13 +153,14 @@ func (widget *Widget) watchForFileChanges() {
 		fullPath, err := utils.ExpandHomeDir(source)
 		if err == nil {
 			if err := watch.Add(fullPath); err != nil {
-				log.Fatalln(err)
+				// Ignore it, don't care about a file that doesn't exist
 			}
 		}
 	}
 
-	// Start the watching process - it'll check for changes every 100ms.
-	if err := watch.Start(time.Millisecond * 100); err != nil {
-		log.Fatalln(err)
+	// Start the watching process - it'll check for changes every pollingIntervalms.
+	if err := watch.Start(time.Millisecond * pollingIntervalms); err != nil {
+		fmt.Println(err)
+		os.Exit(1)
 	}
 }

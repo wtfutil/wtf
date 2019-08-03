@@ -4,9 +4,9 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"os"
 
 	"github.com/rivo/tview"
-	"github.com/wtfutil/wtf/logger"
 	"github.com/wtfutil/wtf/wtf"
 	"github.com/zmb3/spotify"
 )
@@ -43,15 +43,12 @@ var (
 )
 
 func authHandler(w http.ResponseWriter, r *http.Request) {
-	logger.Log("[SpotifyWeb] Got an authentication hit!")
 	tok, err := auth.Token(state, r)
 	if err != nil {
 		http.Error(w, "Couldn't get token", http.StatusForbidden)
-		logger.Log(err.Error())
 	}
 	if st := r.FormValue("state"); st != state {
 		http.NotFound(w, r)
-		logger.Log(fmt.Sprintf("State mismatch: %s != %s\n", st, state))
 	}
 	// use the token to get an authenticated client
 	client := auth.NewClient(tok)
@@ -87,7 +84,6 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 
 	go func() {
 		// wait for auth to complete
-		logger.Log("[SpotifyWeb] Waiting for authentication... URL: " + authURL)
 		client = <-tempClientChan
 
 		// use the client to make calls that require authorization
@@ -98,9 +94,10 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 
 		playerState, err = client.PlayerState()
 		if err != nil {
-			panic(err)
+			fmt.Println(err)
+			os.Exit(1)
 		}
-		logger.Log("[SpotifyWeb] Authentication complete.")
+
 		widget.client = client
 		widget.playerState = playerState
 		widget.Refresh()
