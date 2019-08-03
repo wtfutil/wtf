@@ -152,7 +152,8 @@ func createWtfConfigDir() {
 func createWtfConfigFile() {
 	filePath, err := CreateFile(WtfConfigFile)
 	if err != nil {
-		panic(err)
+		displayDefaultConfigCreateError(err)
+		os.Exit(1)
 	}
 
 	// If the file is empty, write to it

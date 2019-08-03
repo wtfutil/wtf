@@ -18,8 +18,14 @@ func displayError(err error) {
 	fmt.Printf("%s %s\n\n", aurora.Red("Error:"), err.Error())
 }
 
+func displayDefaultConfigCreateError(err error) {
+	fmt.Printf("\n%s Could not create the default configuration file.\n", aurora.Red("ERROR"))
+	fmt.Println()
+	displayError(err)
+}
+
 func displayDefaultConfigWriteError(err error) {
-	fmt.Printf("\n%s Could not write the default configuration.\n", aurora.Red("ERROR"))
+	fmt.Printf("\n%s Could not write the default configuration file.\n", aurora.Red("ERROR"))
 	fmt.Println()
 	displayError(err)
 }
