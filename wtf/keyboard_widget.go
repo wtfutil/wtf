@@ -47,6 +47,10 @@ func NewKeyboardWidget(app *tview.Application, pages *tview.Pages, settings *cfg
 //    widget.SetKeyboardChar("d", widget.deleteSelectedItem)
 //
 func (widget *KeyboardWidget) SetKeyboardChar(char string, fn func(), helpText string) {
+	if char == "" {
+		return
+	}
+
 	widget.charMap[char] = fn
 	widget.charHelp = append(widget.charHelp, helpItem{char, helpText})
 }
@@ -59,6 +63,7 @@ func (widget *KeyboardWidget) SetKeyboardChar(char string, fn func(), helpText s
 func (widget *KeyboardWidget) SetKeyboardKey(key tcell.Key, fn func(), helpText string) {
 	widget.keyMap[key] = fn
 	widget.keyHelp = append(widget.keyHelp, helpItem{tcell.KeyNames[key], helpText})
+
 	if len(tcell.KeyNames[key]) > widget.maxKey {
 		widget.maxKey = len(tcell.KeyNames[key])
 	}
@@ -70,6 +75,10 @@ func (widget *KeyboardWidget) SetKeyboardKey(key tcell.Key, fn func(), helpText 
 //    widget.View.SetInputCapture(widget.InputCapture)
 //
 func (widget *KeyboardWidget) InputCapture(event *tcell.EventKey) *tcell.EventKey {
+	if event == nil {
+		return nil
+	}
+
 	fn := widget.charMap[string(event.Rune())]
 	if fn != nil {
 		fn()

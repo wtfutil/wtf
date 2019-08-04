@@ -13,13 +13,17 @@ import (
 	"github.com/wtfutil/wtf/utils"
 )
 
-const SimpleDateFormat = "Jan 2"
-const SimpleTimeFormat = "15:04 MST"
-const MinimumTimeFormat = "15:04"
-const FullDateFormat = "Monday, Jan 2"
-const FriendlyDateFormat = "Mon, Jan 2"
-const FriendlyDateTimeFormat = "Mon, Jan 2, 15:04"
-const TimestampFormat = "2006-01-02T15:04:05-0700"
+const (
+	SimpleDateFormat  = "Jan 2"
+	SimpleTimeFormat  = "15:04 MST"
+	MinimumTimeFormat = "15:04"
+
+	FullDateFormat         = "Monday, Jan 2"
+	FriendlyDateFormat     = "Mon, Jan 2"
+	FriendlyDateTimeFormat = "Mon, Jan 2, 15:04"
+
+	TimestampFormat = "2006-01-02T15:04:05-0700"
+)
 
 var OpenFileUtil = "open"
 
@@ -46,6 +50,10 @@ func CenterText(str string, width int) string {
 
 // ExecuteCommand executes an external command on the local machine as the current user
 func ExecuteCommand(cmd *exec.Cmd) string {
+	if cmd == nil {
+		return ""
+	}
+
 	stdout, err := cmd.StdoutPipe()
 	if err != nil {
 		return fmt.Sprintf("%v\n", err)
