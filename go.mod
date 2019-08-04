@@ -33,7 +33,7 @@ require (
 	github.com/onsi/gomega v1.5.0 // indirect
 	github.com/pkg/profile v1.3.0
 	github.com/radovskyb/watcher v1.0.6
-	github.com/rivo/tview v0.0.0-20190626133940-2e907d29e475
+	github.com/rivo/tview v0.0.0-20190721135419-23dc8a0944e4
 	github.com/rivo/uniseg v0.1.0 // indirect
 	github.com/shirou/gopsutil v2.18.12+incompatible
 	github.com/sticreations/spotigopher v0.0.0-20181009182052-98632f6f94b0
