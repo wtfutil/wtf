@@ -1,11 +1,10 @@
-package wtf_tests
+package wtf
 
 import (
 	"testing"
 	"time"
 
 	. "github.com/stretchr/testify/assert"
-	. "github.com/wtfutil/wtf/wtf"
 )
 
 func TestIsToday(t *testing.T) {

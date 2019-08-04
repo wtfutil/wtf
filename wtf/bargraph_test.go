@@ -1,10 +1,9 @@
-package bargraph_test
+package wtf
 
 import (
 	"testing"
 
 	. "github.com/stretchr/testify/assert"
-	. "github.com/wtfutil/wtf/wtf"
 )
 
 // MakeData - Create sample data

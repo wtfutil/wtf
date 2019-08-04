@@ -1,10 +1,9 @@
-package wtf_tests
+package wtf
 
 import (
 	"testing"
 
 	. "github.com/stretchr/testify/assert"
-	. "github.com/wtfutil/wtf/wtf"
 )
 
 /* -------------------- CenterText() -------------------- */
