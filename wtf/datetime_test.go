@@ -81,18 +81,18 @@ func Test_UnixTime(t *testing.T) {
 		{
 			name:     "with 0 time",
 			unixVal:  0,
-			expected: "1969-12-31 16:00:00 -0800 PST",
+			expected: "1970-01-01 00:00:00 +0000 UTC",
 		},
 		{
 			name:     "with explicit time",
 			unixVal:  1564883266,
-			expected: "2019-08-03 18:47:46 -0700 PDT",
+			expected: "2019-08-04 01:47:46 +0000 UTC",
 		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			actual := UnixTime(tt.unixVal)
+			actual := UnixTime(tt.unixVal).UTC()
 
 			if tt.expected != actual.String() {
 				t.Errorf("\nexpected: %s\n     got: %s", tt.expected, actual)
