@@ -2,9 +2,9 @@
 
 ## Unreleased
 
-## v0.19.1
-
 * Tab and Esc keys work properly in modal dialogs, [#520](https://github.com/wtfutil/wtf/issues/520) by by [@Seanstoppable](https://github.com/Seanstoppable)
+
+## v0.19.1
 
 ### ⚡️ Added
 
