@@ -4,6 +4,8 @@
 
 ## v0.19.1
 
+* Tab and Esc keys work properly in modal dialogs, [#520](https://github.com/wtfutil/wtf/issues/520) by by [@Seanstoppable](https://github.com/Seanstoppable)
+
 ### ⚡️ Added
 
 * Dockerfile, by [@senorprogrammer](https://github.com/senorprogrammer)
