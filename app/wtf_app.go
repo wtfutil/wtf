@@ -38,6 +38,7 @@ func NewWtfApp(app *tview.Application, config *config.Config, configFilePath str
 		pages:          tview.NewPages(),
 	}
 
+	wtfApp.app.SetInputCapture(wtfApp.keyboardIntercept)
 	wtfApp.widgets = maker.MakeWidgets(wtfApp.app, wtfApp.pages, wtfApp.config)
 	wtfApp.display = NewDisplay(wtfApp.widgets, wtfApp.config)
 	wtfApp.focusTracker = NewFocusTracker(wtfApp.app, wtfApp.widgets, wtfApp.config)
@@ -45,7 +46,6 @@ func NewWtfApp(app *tview.Application, config *config.Config, configFilePath str
 
 	wtfApp.pages.AddPage("grid", wtfApp.display.Grid, true, true)
 	wtfApp.app.SetRoot(wtfApp.pages, true)
-	wtfApp.app.SetInputCapture(wtfApp.keyboardIntercept)
 
 	wtfApp.validator.Validate(wtfApp.widgets)
 
@@ -86,13 +86,11 @@ func (wtfApp *WtfApp) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 		return nil
 	case tcell.KeyTab:
 		wtfApp.focusTracker.Next()
-		return nil
 	case tcell.KeyBacktab:
 		wtfApp.focusTracker.Prev()
 		return nil
 	case tcell.KeyEsc:
 		wtfApp.focusTracker.None()
-		return nil
 	}
 
 	// Checks to see if any widget has been assigned the pressed key as its focus key
