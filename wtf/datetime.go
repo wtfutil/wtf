@@ -5,31 +5,36 @@ import (
 	"time"
 )
 
-// DateFormat defines the format we expect to receive dates from BambooHR in
-const DateFormat = "2006-01-02"
-const TimeFormat = "15:04"
+const (
+	// DateFormat defines the format we expect to receive dates from BambooHR in
+	DateFormat = "2006-01-02"
 
+	// TimeFormat defines the format we expect to receive times from BambooHR in
+	TimeFormat = "15:04"
+)
+
+// IsToday returns TRUE if the date is today, FALSE if the date is not today
 func IsToday(date time.Time) bool {
-	now := Now()
+	now := time.Now().Local()
 
 	return (date.Year() == now.Year()) &&
 		(date.Month() == now.Month()) &&
 		(date.Day() == now.Day())
 }
 
-func Now() time.Time {
-	return time.Now().Local()
-}
-
+// PrettyDate takes a programmer-style date string and converts it
+// in a friendlier-to-read format
 func PrettyDate(dateStr string) string {
-	newTime, _ := time.Parse(DateFormat, dateStr)
+	newTime, err := time.Parse(DateFormat, dateStr)
+	if err != nil {
+		return dateStr
+	}
+
 	return fmt.Sprint(newTime.Format("Jan 2, 2006"))
 }
 
-func Tomorrow() time.Time {
-	return Now().AddDate(0, 0, 1)
-}
-
+// UnixTime takes a Unix epoch time (in seconds) and returns a
+// time.Time instance
 func UnixTime(unix int64) time.Time {
 	return time.Unix(unix, 0)
 }

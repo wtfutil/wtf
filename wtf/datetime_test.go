@@ -3,18 +3,100 @@ package wtf
 import (
 	"testing"
 	"time"
-
-	. "github.com/stretchr/testify/assert"
 )
 
-func TestIsToday(t *testing.T) {
-	Equal(t, true, IsToday(time.Now().Local()))
-	Equal(t, false, IsToday(time.Now().AddDate(0, 0, -1)))
-	Equal(t, false, IsToday(time.Now().AddDate(0, 0, +1)))
+func Test_IsToday(t *testing.T) {
+	tests := []struct {
+		name     string
+		date     time.Time
+		expected bool
+	}{
+		{
+			name:     "when yesterday",
+			date:     time.Now().Local().AddDate(0, 0, -1),
+			expected: false,
+		},
+		{
+			name:     "when today",
+			date:     time.Now().Local(),
+			expected: true,
+		},
+		{
+			name:     "when tomorrow",
+			date:     time.Now().Local().AddDate(0, 0, +1),
+			expected: false,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			actual := IsToday(tt.date)
+
+			if tt.expected != actual {
+				t.Errorf("\nexpected: %t\n     got: %t", tt.expected, actual)
+			}
+		})
+	}
 }
 
-/* -------------------- PrettyDate() -------------------- */
+func Test_PrettyDate(t *testing.T) {
+	tests := []struct {
+		name     string
+		date     string
+		expected string
+	}{
+		{
+			name:     "with empty date",
+			date:     "",
+			expected: "",
+		},
+		{
+			name:     "with invalid date",
+			date:     "10-21-1999",
+			expected: "10-21-1999",
+		},
+		{
+			name:     "with valid date",
+			date:     "1999-10-21",
+			expected: "Oct 21, 1999",
+		},
+	}
 
-func TestPrettyDate(t *testing.T) {
-	Equal(t, "Oct 21, 1999", PrettyDate("1999-10-21"))
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			actual := PrettyDate(tt.date)
+
+			if tt.expected != actual {
+				t.Errorf("\nexpected: %s\n     got: %s", tt.expected, actual)
+			}
+		})
+	}
+}
+func Test_UnixTime(t *testing.T) {
+	tests := []struct {
+		name     string
+		unixVal  int64
+		expected string
+	}{
+		{
+			name:     "with 0 time",
+			unixVal:  0,
+			expected: "1969-12-31 16:00:00 -0800 PST",
+		},
+		{
+			name:     "with explicit time",
+			unixVal:  1564883266,
+			expected: "2019-08-03 18:47:46 -0700 PDT",
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			actual := UnixTime(tt.unixVal)
+
+			if tt.expected != actual.String() {
+				t.Errorf("\nexpected: %s\n     got: %s", tt.expected, actual)
+			}
+		})
+	}
 }

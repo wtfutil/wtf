@@ -2,6 +2,7 @@ package bamboohr
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/wtf"
@@ -36,8 +37,8 @@ func (widget *Widget) Refresh() {
 
 	todayItems := client.Away(
 		"timeOff",
-		wtf.Now().Format(wtf.DateFormat),
-		wtf.Now().Format(wtf.DateFormat),
+		time.Now().Local().Format(wtf.DateFormat),
+		time.Now().Local().Format(wtf.DateFormat),
 	)
 
 	widget.Redraw(widget.CommonSettings().Title, widget.contentFrom(todayItems), false)
