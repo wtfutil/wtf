@@ -4,13 +4,14 @@ import (
 	"fmt"
 
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/view"
 	"github.com/wtfutil/wtf/wtf"
 )
 
 // A Widget represents a Gitter widget
 type Widget struct {
-	wtf.KeyboardWidget
-	wtf.ScrollableWidget
+	view.KeyboardWidget
+	view.ScrollableWidget
 
 	messages []Message
 	settings *Settings
@@ -19,8 +20,8 @@ type Widget struct {
 // NewWidget creates a new instance of a widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		KeyboardWidget:   wtf.NewKeyboardWidget(app, pages, settings.common),
-		ScrollableWidget: wtf.NewScrollableWidget(app, settings.common, true),
+		KeyboardWidget:   view.NewKeyboardWidget(app, pages, settings.common),
+		ScrollableWidget: view.NewScrollableWidget(app, settings.common, true),
 
 		settings: settings,
 	}

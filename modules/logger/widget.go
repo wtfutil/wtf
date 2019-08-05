@@ -7,13 +7,13 @@ import (
 
 	"github.com/rivo/tview"
 	log "github.com/wtfutil/wtf/logger"
-	"github.com/wtfutil/wtf/wtf"
+	"github.com/wtfutil/wtf/view"
 )
 
 const maxBufferSize int64 = 1024
 
 type Widget struct {
-	wtf.TextWidget
+	view.TextWidget
 
 	app      *tview.Application
 	filePath string
@@ -22,7 +22,7 @@ type Widget struct {
 
 func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(app, settings.common, true),
+		TextWidget: view.NewTextWidget(app, settings.common, true),
 
 		app:      app,
 		filePath: log.LogFilePath(),

@@ -6,11 +6,12 @@ import (
 	"strings"
 
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/view"
 	"github.com/wtfutil/wtf/wtf"
 )
 
 type Widget struct {
-	wtf.TextWidget
+	view.TextWidget
 
 	args     []string
 	cmd      string
@@ -20,7 +21,7 @@ type Widget struct {
 // NewWidget creates a new instance of the widget
 func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(app, settings.common, false),
+		TextWidget: view.NewTextWidget(app, settings.common, false),
 
 		args:     settings.args,
 		cmd:      settings.cmd,

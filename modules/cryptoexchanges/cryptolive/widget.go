@@ -7,12 +7,12 @@ import (
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/modules/cryptoexchanges/cryptolive/price"
 	"github.com/wtfutil/wtf/modules/cryptoexchanges/cryptolive/toplist"
-	"github.com/wtfutil/wtf/wtf"
+	"github.com/wtfutil/wtf/view"
 )
 
 // Widget define wtf widget to register widget later
 type Widget struct {
-	wtf.TextWidget
+	view.TextWidget
 
 	priceWidget   *price.Widget
 	toplistWidget *toplist.Widget
@@ -22,7 +22,7 @@ type Widget struct {
 // NewWidget Make new instance of widget
 func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(app, settings.common, false),
+		TextWidget: view.NewTextWidget(app, settings.common, false),
 
 		priceWidget:   price.NewWidget(settings.priceSettings),
 		toplistWidget: toplist.NewWidget(settings.toplistSettings),

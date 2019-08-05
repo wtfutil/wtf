@@ -4,12 +4,13 @@ import (
 	"fmt"
 
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/view"
 	"github.com/wtfutil/wtf/wtf"
 	nr "github.com/yfronto/newrelic"
 )
 
 type Widget struct {
-	wtf.TextWidget
+	view.TextWidget
 
 	client   *Client
 	settings *Settings
@@ -17,7 +18,7 @@ type Widget struct {
 
 func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(app, settings.common, false),
+		TextWidget: view.NewTextWidget(app, settings.common, false),
 
 		settings: settings,
 	}

@@ -1,4 +1,4 @@
-package wtf
+package view
 
 import (
 	"fmt"
@@ -6,6 +6,7 @@ import (
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/cfg"
 	"github.com/wtfutil/wtf/utils"
+	"github.com/wtfutil/wtf/wtf"
 )
 
 type TextWidget struct {
@@ -148,10 +149,10 @@ func (widget *TextWidget) Redraw(title, text string, wrap bool) {
 func (widget *TextWidget) addView() *tview.TextView {
 	view := tview.NewTextView()
 
-	view.SetBackgroundColor(ColorFor(widget.commonSettings.Colors.Background))
-	view.SetBorderColor(ColorFor(widget.BorderColor()))
-	view.SetTextColor(ColorFor(widget.commonSettings.Colors.Text))
-	view.SetTitleColor(ColorFor(widget.commonSettings.Colors.Title))
+	view.SetBackgroundColor(wtf.ColorFor(widget.commonSettings.Colors.Background))
+	view.SetBorderColor(wtf.ColorFor(widget.BorderColor()))
+	view.SetTextColor(wtf.ColorFor(widget.commonSettings.Colors.Text))
+	view.SetTitleColor(wtf.ColorFor(widget.commonSettings.Colors.Title))
 
 	view.SetBorder(true)
 	view.SetDynamicColors(true)

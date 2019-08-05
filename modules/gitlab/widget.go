@@ -2,14 +2,14 @@ package gitlab
 
 import (
 	"github.com/rivo/tview"
-	"github.com/wtfutil/wtf/wtf"
+	"github.com/wtfutil/wtf/view"
 	glb "github.com/xanzy/go-gitlab"
 )
 
 type Widget struct {
-	wtf.KeyboardWidget
-	wtf.MultiSourceWidget
-	wtf.TextWidget
+	view.KeyboardWidget
+	view.MultiSourceWidget
+	view.TextWidget
 
 	GitlabProjects []*GitlabProject
 
@@ -26,9 +26,9 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	}
 
 	widget := Widget{
-		KeyboardWidget:    wtf.NewKeyboardWidget(app, pages, settings.common),
-		MultiSourceWidget: wtf.NewMultiSourceWidget(settings.common, "repository", "repositories"),
-		TextWidget:        wtf.NewTextWidget(app, settings.common, true),
+		KeyboardWidget:    view.NewKeyboardWidget(app, pages, settings.common),
+		MultiSourceWidget: view.NewMultiSourceWidget(settings.common, "repository", "repositories"),
+		TextWidget:        view.NewTextWidget(app, settings.common, true),
 
 		gitlab:   gitlab,
 		settings: settings,

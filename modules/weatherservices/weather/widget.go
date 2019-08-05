@@ -3,14 +3,15 @@ package weather
 import (
 	owm "github.com/briandowns/openweathermap"
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/view"
 	"github.com/wtfutil/wtf/wtf"
 )
 
 // Widget is the container for weather data.
 type Widget struct {
-	wtf.KeyboardWidget
-	wtf.MultiSourceWidget
-	wtf.TextWidget
+	view.KeyboardWidget
+	view.MultiSourceWidget
+	view.TextWidget
 
 	// APIKey   string
 	Data []*owm.CurrentWeatherData
@@ -22,9 +23,9 @@ type Widget struct {
 // NewWidget creates and returns a new instance of the weather Widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		KeyboardWidget:    wtf.NewKeyboardWidget(app, pages, settings.common),
-		MultiSourceWidget: wtf.NewMultiSourceWidget(settings.common, "cityid", "cityids"),
-		TextWidget:        wtf.NewTextWidget(app, settings.common, true),
+		KeyboardWidget:    view.NewKeyboardWidget(app, pages, settings.common),
+		MultiSourceWidget: view.NewMultiSourceWidget(settings.common, "cityid", "cityids"),
+		TextWidget:        view.NewTextWidget(app, settings.common, true),
 
 		pages:    pages,
 		settings: settings,

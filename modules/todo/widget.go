@@ -8,18 +8,21 @@ import (
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/cfg"
 	"github.com/wtfutil/wtf/checklist"
+	"github.com/wtfutil/wtf/view"
 	"github.com/wtfutil/wtf/wtf"
 	"gopkg.in/yaml.v2"
 )
 
-const offscreen = -1000
-const modalWidth = 80
-const modalHeight = 7
+const (
+	offscreen   = -1000
+	modalWidth  = 80
+	modalHeight = 7
+)
 
 // A Widget represents a Todo widget
 type Widget struct {
-	wtf.KeyboardWidget
-	wtf.TextWidget
+	view.KeyboardWidget
+	view.TextWidget
 
 	app      *tview.Application
 	settings *Settings
@@ -31,8 +34,8 @@ type Widget struct {
 // NewWidget creates a new instance of a widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		KeyboardWidget: wtf.NewKeyboardWidget(app, pages, settings.common),
-		TextWidget:     wtf.NewTextWidget(app, settings.common, true),
+		KeyboardWidget: view.NewKeyboardWidget(app, pages, settings.common),
+		TextWidget:     view.NewTextWidget(app, settings.common, true),
 
 		app:      app,
 		settings: settings,

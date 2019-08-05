@@ -3,14 +3,14 @@ package todoist
 import (
 	"github.com/darkSasori/todoist"
 	"github.com/rivo/tview"
-	"github.com/wtfutil/wtf/wtf"
+	"github.com/wtfutil/wtf/view"
 )
 
 // A Widget represents a Todoist widget
 type Widget struct {
-	wtf.KeyboardWidget
-	wtf.MultiSourceWidget
-	wtf.ScrollableWidget
+	view.KeyboardWidget
+	view.MultiSourceWidget
+	view.ScrollableWidget
 
 	projects []*Project
 	settings *Settings
@@ -19,9 +19,9 @@ type Widget struct {
 // NewWidget creates a new instance of a widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		KeyboardWidget:    wtf.NewKeyboardWidget(app, pages, settings.common),
-		MultiSourceWidget: wtf.NewMultiSourceWidget(settings.common, "project", "projects"),
-		ScrollableWidget:  wtf.NewScrollableWidget(app, settings.common, true),
+		KeyboardWidget:    view.NewKeyboardWidget(app, pages, settings.common),
+		MultiSourceWidget: view.NewMultiSourceWidget(settings.common, "project", "projects"),
+		ScrollableWidget:  view.NewScrollableWidget(app, settings.common, true),
 
 		settings: settings,
 	}

@@ -4,12 +4,12 @@ import (
 	"fmt"
 
 	"github.com/rivo/tview"
-	"github.com/wtfutil/wtf/wtf"
+	"github.com/wtfutil/wtf/view"
 )
 
 // Widget contains text info
 type Widget struct {
-	wtf.TextWidget
+	view.TextWidget
 
 	teams    []OnCallTeam
 	settings *Settings
@@ -18,7 +18,7 @@ type Widget struct {
 // NewWidget creates a new widget
 func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(app, settings.common, true),
+		TextWidget: view.NewTextWidget(app, settings.common, true),
 	}
 
 	widget.View.SetScrollable(true)

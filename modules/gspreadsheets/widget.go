@@ -4,19 +4,20 @@ import (
 	"fmt"
 
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/view"
 	"github.com/wtfutil/wtf/wtf"
 	sheets "google.golang.org/api/sheets/v4"
 )
 
 type Widget struct {
-	wtf.TextWidget
+	view.TextWidget
 
 	settings *Settings
 }
 
 func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(app, settings.common, false),
+		TextWidget: view.NewTextWidget(app, settings.common, false),
 
 		settings: settings,
 	}

@@ -7,6 +7,7 @@ import (
 
 	"github.com/mmcdole/gofeed"
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/view"
 	"github.com/wtfutil/wtf/wtf"
 )
 
@@ -22,8 +23,8 @@ type FeedItem struct {
 
 // Widget is the container for RSS and Atom data
 type Widget struct {
-	wtf.KeyboardWidget
-	wtf.ScrollableWidget
+	view.KeyboardWidget
+	view.ScrollableWidget
 
 	stories  []*FeedItem
 	parser   *gofeed.Parser
@@ -33,8 +34,8 @@ type Widget struct {
 // NewWidget creates a new instance of a widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := &Widget{
-		KeyboardWidget:   wtf.NewKeyboardWidget(app, pages, settings.common),
-		ScrollableWidget: wtf.NewScrollableWidget(app, settings.common, true),
+		KeyboardWidget:   view.NewKeyboardWidget(app, pages, settings.common),
+		ScrollableWidget: view.NewScrollableWidget(app, settings.common, true),
 
 		parser:   gofeed.NewParser(),
 		settings: settings,

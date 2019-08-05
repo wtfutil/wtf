@@ -1,4 +1,4 @@
-package wtf
+package view
 
 import (
 	"testing"

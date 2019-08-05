@@ -6,12 +6,13 @@ import (
 	"strings"
 
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/view"
 	"github.com/wtfutil/wtf/wtf"
 )
 
 type Widget struct {
-	wtf.KeyboardWidget
-	wtf.ScrollableWidget
+	view.KeyboardWidget
+	view.ScrollableWidget
 
 	stories  []Story
 	settings *Settings
@@ -19,8 +20,8 @@ type Widget struct {
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := &Widget{
-		KeyboardWidget:   wtf.NewKeyboardWidget(app, pages, settings.common),
-		ScrollableWidget: wtf.NewScrollableWidget(app, settings.common, true),
+		KeyboardWidget:   view.NewKeyboardWidget(app, pages, settings.common),
+		ScrollableWidget: view.NewScrollableWidget(app, settings.common, true),
 
 		settings: settings,
 	}
