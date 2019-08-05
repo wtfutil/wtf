@@ -12,19 +12,10 @@ import (
 
 //BarGraph lets make graphs
 type BarGraph struct {
-	app             *tview.Application
-	bordered        bool
-	commonSettings  *cfg.Common
-	enabled         bool
-	focusable       bool
-	key             string
-	maxStars        int
-	name            string
-	quitChan        chan bool
-	refreshing      bool
-	refreshInterval int
-	starChar        string
+	maxStars int
+	starChar string
 
+	Base
 	View *tview.TextView
 }
 
@@ -37,17 +28,19 @@ type Bar struct {
 // NewBarGraph initialize your fancy new graph
 func NewBarGraph(app *tview.Application, name string, commonSettings *cfg.Common, focusable bool) BarGraph {
 	widget := BarGraph{
-		commonSettings: commonSettings,
+		Base: Base{
+			app:             app,
+			bordered:        commonSettings.Bordered,
+			commonSettings:  commonSettings,
+			enabled:         commonSettings.Enabled,
+			focusable:       focusable,
+			name:            commonSettings.Title,
+			quitChan:        make(chan bool),
+			refreshInterval: commonSettings.RefreshInterval,
+		},
 
-		app:             app,
-		bordered:        commonSettings.Bordered,
-		enabled:         commonSettings.Enabled,
-		focusable:       focusable,
-		maxStars:        commonSettings.Config.UInt("graphStars", 20),
-		name:            commonSettings.Title,
-		quitChan:        make(chan bool),
-		refreshInterval: commonSettings.RefreshInterval,
-		starChar:        commonSettings.Config.UString("graphIcon", "|"),
+		maxStars: commonSettings.Config.UInt("graphStars", 20),
+		starChar: commonSettings.Config.UString("graphIcon", "|"),
 	}
 
 	widget.View = widget.addView()

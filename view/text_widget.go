@@ -10,33 +10,24 @@ import (
 )
 
 type TextWidget struct {
-	app             *tview.Application
-	bordered        bool
-	commonSettings  *cfg.Common
-	enabled         bool
-	focusChar       string
-	focusable       bool
-	name            string
-	quitChan        chan bool
-	refreshInterval int
-	refreshing      bool
-
+	Base
 	View *tview.TextView
 }
 
 func NewTextWidget(app *tview.Application, commonSettings *cfg.Common, focusable bool) TextWidget {
 	widget := TextWidget{
-		commonSettings: commonSettings,
-
-		app:             app,
-		bordered:        commonSettings.Bordered,
-		enabled:         commonSettings.Enabled,
-		focusChar:       commonSettings.FocusChar(),
-		focusable:       focusable,
-		name:            commonSettings.Name,
-		quitChan:        make(chan bool),
-		refreshInterval: commonSettings.RefreshInterval,
-		refreshing:      false,
+		Base: Base{
+			commonSettings:  commonSettings,
+			app:             app,
+			bordered:        commonSettings.Bordered,
+			enabled:         commonSettings.Enabled,
+			focusChar:       commonSettings.FocusChar(),
+			focusable:       focusable,
+			name:            commonSettings.Name,
+			quitChan:        make(chan bool),
+			refreshInterval: commonSettings.RefreshInterval,
+			refreshing:      false,
+		},
 	}
 
 	widget.View = widget.addView()
