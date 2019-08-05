@@ -28,16 +28,7 @@ type Bar struct {
 // NewBarGraph initialize your fancy new graph
 func NewBarGraph(app *tview.Application, name string, commonSettings *cfg.Common, focusable bool) BarGraph {
 	widget := BarGraph{
-		Base: Base{
-			app:             app,
-			bordered:        commonSettings.Bordered,
-			commonSettings:  commonSettings,
-			enabled:         commonSettings.Enabled,
-			focusable:       focusable,
-			name:            commonSettings.Title,
-			quitChan:        make(chan bool),
-			refreshInterval: commonSettings.RefreshInterval,
-		},
+		Base: NewBase(app, commonSettings, focusable),
 
 		maxStars: commonSettings.Config.UInt("graphStars", 20),
 		starChar: commonSettings.Config.UString("graphIcon", "|"),
@@ -49,79 +40,10 @@ func NewBarGraph(app *tview.Application, name string, commonSettings *cfg.Common
 	return widget
 }
 
-func (widget *BarGraph) BorderColor() string {
-	if widget.Focusable() {
-		return widget.commonSettings.Colors.BorderFocusable
-	}
-
-	return widget.commonSettings.Colors.BorderNormal
-}
-
-func (widget *BarGraph) CommonSettings() *cfg.Common {
-	return widget.commonSettings
-}
-
-func (widget *BarGraph) Disable() {
-	widget.enabled = false
-}
-
-func (widget *BarGraph) Disabled() bool {
-	return !widget.Enabled()
-}
-
-func (widget *BarGraph) Enabled() bool {
-	return widget.enabled
-}
-
-func (widget *BarGraph) Focusable() bool {
-	return widget.enabled && widget.focusable
-}
-
-func (widget *BarGraph) FocusChar() string {
-	return ""
-}
-
-func (widget *BarGraph) Key() string {
-	return widget.key
-}
-
-func (widget *BarGraph) Name() string {
-	return widget.name
-}
-
-func (widget *BarGraph) QuitChan() chan bool {
-	return widget.quitChan
-}
-
-// Refreshing returns TRUE if the widget is currently refreshing its data, FALSE if it is not
-func (widget *BarGraph) Refreshing() bool {
-	return widget.refreshing
-}
-
-// RefreshInterval returns how often, in seconds, the widget will return its data
-func (widget *BarGraph) RefreshInterval() int {
-	return widget.refreshInterval
-}
-
-func (widget *BarGraph) SetFocusChar(char string) {
-	return
-}
-
-func (widget *BarGraph) Stop() {
-	widget.enabled = false
-	widget.quitChan <- true
-}
+/* -------------------- Exported Functions -------------------- */
 
 func (widget *BarGraph) TextView() *tview.TextView {
 	return widget.View
-}
-
-func (widget *BarGraph) HelpText() string {
-	return "No help available for this widget"
-}
-
-func (widget *BarGraph) ConfigText() string {
-	return ""
 }
 
 // BuildBars will build a string of * to represent your data of [time][value]
