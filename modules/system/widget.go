@@ -5,11 +5,12 @@ import (
 	"time"
 
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/view"
 	"github.com/wtfutil/wtf/wtf"
 )
 
 type Widget struct {
-	wtf.TextWidget
+	view.TextWidget
 
 	Date    string
 	Version string
@@ -20,7 +21,7 @@ type Widget struct {
 
 func NewWidget(app *tview.Application, date, version string, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(app, settings.common, false),
+		TextWidget: view.NewTextWidget(app, settings.common, false),
 
 		Date: date,
 

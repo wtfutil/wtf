@@ -1,4 +1,4 @@
-package wtf
+package view
 
 import (
 	"strconv"
@@ -16,7 +16,6 @@ type ScrollableWidget struct {
 }
 
 func NewScrollableWidget(app *tview.Application, commonSettings *cfg.Common, focusable bool) ScrollableWidget {
-
 	widget := ScrollableWidget{
 		TextWidget: NewTextWidget(app, commonSettings, focusable),
 	}
@@ -27,6 +26,8 @@ func NewScrollableWidget(app *tview.Application, commonSettings *cfg.Common, foc
 
 	return widget
 }
+
+/* -------------------- Exported Functions -------------------- */
 
 func (widget *ScrollableWidget) SetRenderFunction(displayFunc func()) {
 	widget.RenderFunction = displayFunc

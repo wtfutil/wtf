@@ -9,7 +9,6 @@ import (
 	"github.com/radovskyb/watcher"
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/cfg"
-	"github.com/wtfutil/wtf/maker"
 	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/wtf"
 )
@@ -39,7 +38,7 @@ func NewWtfApp(app *tview.Application, config *config.Config, configFilePath str
 	}
 
 	wtfApp.app.SetInputCapture(wtfApp.keyboardIntercept)
-	wtfApp.widgets = maker.MakeWidgets(wtfApp.app, wtfApp.pages, wtfApp.config)
+	wtfApp.widgets = MakeWidgets(wtfApp.app, wtfApp.pages, wtfApp.config)
 	wtfApp.display = NewDisplay(wtfApp.widgets, wtfApp.config)
 	wtfApp.focusTracker = NewFocusTracker(wtfApp.app, wtfApp.widgets, wtfApp.config)
 	wtfApp.validator = NewModuleValidator()

@@ -2,11 +2,11 @@ package gcal
 
 import (
 	"github.com/rivo/tview"
-	"github.com/wtfutil/wtf/wtf"
+	"github.com/wtfutil/wtf/view"
 )
 
 type Widget struct {
-	wtf.TextWidget
+	view.TextWidget
 
 	app       *tview.Application
 	calEvents []*CalEvent
@@ -15,7 +15,7 @@ type Widget struct {
 
 func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(app, settings.common, true),
+		TextWidget: view.NewTextWidget(app, settings.common, true),
 
 		app:      app,
 		settings: settings,

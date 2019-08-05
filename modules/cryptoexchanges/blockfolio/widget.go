@@ -8,11 +8,11 @@ import (
 	"net/http"
 
 	"github.com/rivo/tview"
-	"github.com/wtfutil/wtf/wtf"
+	"github.com/wtfutil/wtf/view"
 )
 
 type Widget struct {
-	wtf.TextWidget
+	view.TextWidget
 
 	device_token string
 	settings     *Settings
@@ -20,7 +20,7 @@ type Widget struct {
 
 func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(app, settings.common, false),
+		TextWidget: view.NewTextWidget(app, settings.common, false),
 
 		device_token: settings.deviceToken,
 		settings:     settings,

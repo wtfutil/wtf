@@ -1,7 +1,8 @@
-package wtf
+package view
 
 import (
 	"github.com/wtfutil/wtf/cfg"
+	"github.com/wtfutil/wtf/wtf"
 )
 
 // MultiSourceWidget is a widget that supports displaying data from multiple sources
@@ -89,7 +90,7 @@ func (widget *MultiSourceWidget) loadSources() {
 	single := widget.moduleConfig.Config.UString(widget.singular, "")
 	multiple := widget.moduleConfig.Config.UList(widget.plural, empty)
 
-	asStrs := ToStrs(multiple)
+	asStrs := wtf.ToStrs(multiple)
 
 	if single != "" {
 		asStrs = append(asStrs, single)

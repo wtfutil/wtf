@@ -7,6 +7,7 @@ import (
 	"os"
 
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/view"
 	"github.com/wtfutil/wtf/wtf"
 	"github.com/zmb3/spotify"
 )
@@ -22,8 +23,8 @@ type Info struct {
 
 // Widget is the struct used by all WTF widgets to transfer to the main widget controller
 type Widget struct {
-	wtf.KeyboardWidget
-	wtf.TextWidget
+	view.KeyboardWidget
+	view.TextWidget
 
 	Info
 
@@ -68,8 +69,8 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	var playerState *spotify.PlayerState
 
 	widget := Widget{
-		KeyboardWidget: wtf.NewKeyboardWidget(app, pages, settings.common),
-		TextWidget:     wtf.NewTextWidget(app, settings.common, true),
+		KeyboardWidget: view.NewKeyboardWidget(app, pages, settings.common),
+		TextWidget:     view.NewTextWidget(app, settings.common, true),
 
 		Info: Info{},
 

@@ -5,13 +5,14 @@ import (
 
 	"github.com/rivo/tview"
 	"github.com/sticreations/spotigopher/spotigopher"
+	"github.com/wtfutil/wtf/view"
 	"github.com/wtfutil/wtf/wtf"
 )
 
 // A Widget represents a Spotify widget
 type Widget struct {
-	wtf.KeyboardWidget
-	wtf.TextWidget
+	view.KeyboardWidget
+	view.TextWidget
 
 	client   spotigopher.SpotifyClient
 	settings *Settings
@@ -21,8 +22,8 @@ type Widget struct {
 // NewWidget creates a new instance of a widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		KeyboardWidget: wtf.NewKeyboardWidget(app, pages, settings.common),
-		TextWidget:     wtf.NewTextWidget(app, settings.common, true),
+		KeyboardWidget: view.NewKeyboardWidget(app, pages, settings.common),
+		TextWidget:     view.NewTextWidget(app, settings.common, true),
 
 		Info:   spotigopher.Info{},
 		client: spotigopher.NewClient(),

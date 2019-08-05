@@ -8,7 +8,7 @@ import (
 	"net/http"
 
 	"github.com/rivo/tview"
-	"github.com/wtfutil/wtf/wtf"
+	"github.com/wtfutil/wtf/view"
 )
 
 var ok = true
@@ -18,7 +18,7 @@ const baseURL = "https://bittrex.com/api/v1.1/public/getmarketsummary"
 
 // Widget define wtf widget to register widget later
 type Widget struct {
-	wtf.TextWidget
+	view.TextWidget
 
 	settings *Settings
 	summaryList
@@ -27,7 +27,7 @@ type Widget struct {
 // NewWidget Make new instance of widget
 func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(app, settings.common, false),
+		TextWidget: view.NewTextWidget(app, settings.common, false),
 
 		settings:    settings,
 		summaryList: summaryList{},

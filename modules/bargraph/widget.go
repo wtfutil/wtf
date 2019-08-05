@@ -9,7 +9,7 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/wtfutil/wtf/wtf"
+	"github.com/wtfutil/wtf/view"
 )
 
 var started = false
@@ -17,7 +17,7 @@ var ok = true
 
 // Widget define wtf widget to register widget later
 type Widget struct {
-	wtf.BarGraph
+	view.BarGraph
 
 	app *tview.Application
 }
@@ -25,7 +25,7 @@ type Widget struct {
 // NewWidget Make new instance of widget
 func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
-		BarGraph: wtf.NewBarGraph(app, "Sample Bar Graph", settings.common, false),
+		BarGraph: view.NewBarGraph(app, "Sample Bar Graph", settings.common, false),
 
 		app: app,
 	}
@@ -43,13 +43,13 @@ func MakeGraph(widget *Widget) {
 
 	//this could come from config
 	const lineCount = 8
-	var stats [lineCount]wtf.Bar
+	var stats [lineCount]view.Bar
 
 	barTime := time.Now()
 	for i := 0; i < lineCount; i++ {
 		barTime = barTime.Add(time.Duration(time.Minute))
 
-		bar := wtf.Bar{
+		bar := view.Bar{
 			Label:   barTime.Format("15:04"),
 			Percent: rand.Intn(100-5) + 5,
 		}

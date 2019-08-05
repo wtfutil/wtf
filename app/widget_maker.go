@@ -1,4 +1,4 @@
-package maker
+package app
 
 import (
 	"github.com/olebedev/config"

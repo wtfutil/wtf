@@ -8,12 +8,13 @@ import (
 
 	glb "github.com/andygrunwald/go-gerrit"
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/view"
 	"github.com/wtfutil/wtf/wtf"
 )
 
 type Widget struct {
-	wtf.KeyboardWidget
-	wtf.TextWidget
+	view.KeyboardWidget
+	view.TextWidget
 
 	gerrit *glb.Client
 
@@ -30,8 +31,8 @@ var (
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		KeyboardWidget: wtf.NewKeyboardWidget(app, pages, settings.common),
-		TextWidget:     wtf.NewTextWidget(app, settings.common, true),
+		KeyboardWidget: view.NewKeyboardWidget(app, pages, settings.common),
+		TextWidget:     view.NewTextWidget(app, settings.common, true),
 
 		Idx: 0,
 

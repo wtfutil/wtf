@@ -8,11 +8,11 @@ import (
 	"text/template"
 
 	"github.com/rivo/tview"
-	"github.com/wtfutil/wtf/wtf"
+	"github.com/wtfutil/wtf/view"
 )
 
 type Widget struct {
-	wtf.TextWidget
+	view.TextWidget
 
 	result   string
 	settings *Settings
@@ -31,7 +31,7 @@ type ipinfo struct {
 
 func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: wtf.NewTextWidget(app, settings.common, false),
+		TextWidget: view.NewTextWidget(app, settings.common, false),
 
 		settings: settings,
 	}

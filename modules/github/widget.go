@@ -4,13 +4,13 @@ import (
 	"strings"
 
 	"github.com/rivo/tview"
-	"github.com/wtfutil/wtf/wtf"
+	"github.com/wtfutil/wtf/view"
 )
 
 type Widget struct {
-	wtf.MultiSourceWidget
-	wtf.KeyboardWidget
-	wtf.TextWidget
+	view.MultiSourceWidget
+	view.KeyboardWidget
+	view.TextWidget
 
 	GithubRepos []*GithubRepo
 
@@ -19,9 +19,9 @@ type Widget struct {
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		KeyboardWidget:    wtf.NewKeyboardWidget(app, pages, settings.common),
-		MultiSourceWidget: wtf.NewMultiSourceWidget(settings.common, "repository", "repositories"),
-		TextWidget:        wtf.NewTextWidget(app, settings.common, true),
+		KeyboardWidget:    view.NewKeyboardWidget(app, pages, settings.common),
+		MultiSourceWidget: view.NewMultiSourceWidget(settings.common, "repository", "repositories"),
+		TextWidget:        view.NewTextWidget(app, settings.common, true),
 
 		settings: settings,
 	}

@@ -14,7 +14,7 @@ import (
 	"github.com/radovskyb/watcher"
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/utils"
-	"github.com/wtfutil/wtf/wtf"
+	"github.com/wtfutil/wtf/view"
 )
 
 const (
@@ -22,9 +22,9 @@ const (
 )
 
 type Widget struct {
-	wtf.KeyboardWidget
-	wtf.MultiSourceWidget
-	wtf.TextWidget
+	view.KeyboardWidget
+	view.MultiSourceWidget
+	view.TextWidget
 
 	settings *Settings
 }
@@ -32,9 +32,9 @@ type Widget struct {
 // NewWidget creates a new instance of a widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		KeyboardWidget:    wtf.NewKeyboardWidget(app, pages, settings.common),
-		MultiSourceWidget: wtf.NewMultiSourceWidget(settings.common, "filePath", "filePaths"),
-		TextWidget:        wtf.NewTextWidget(app, settings.common, true),
+		KeyboardWidget:    view.NewKeyboardWidget(app, pages, settings.common),
+		MultiSourceWidget: view.NewMultiSourceWidget(settings.common, "filePath", "filePaths"),
+		TextWidget:        view.NewTextWidget(app, settings.common, true),
 
 		settings: settings,
 	}

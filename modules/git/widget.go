@@ -8,6 +8,7 @@ import (
 
 	"github.com/gdamore/tcell"
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/view"
 	"github.com/wtfutil/wtf/wtf"
 )
 
@@ -16,9 +17,9 @@ const modalWidth = 80
 const modalHeight = 7
 
 type Widget struct {
-	wtf.KeyboardWidget
-	wtf.MultiSourceWidget
-	wtf.TextWidget
+	view.KeyboardWidget
+	view.MultiSourceWidget
+	view.TextWidget
 
 	GitRepos []*GitRepo
 
@@ -29,9 +30,9 @@ type Widget struct {
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		KeyboardWidget:    wtf.NewKeyboardWidget(app, pages, settings.common),
-		MultiSourceWidget: wtf.NewMultiSourceWidget(settings.common, "repository", "repositories"),
-		TextWidget:        wtf.NewTextWidget(app, settings.common, true),
+		KeyboardWidget:    view.NewKeyboardWidget(app, pages, settings.common),
+		MultiSourceWidget: view.NewMultiSourceWidget(settings.common, "repository", "repositories"),
+		TextWidget:        view.NewTextWidget(app, settings.common, true),
 
 		app:      app,
 		pages:    pages,

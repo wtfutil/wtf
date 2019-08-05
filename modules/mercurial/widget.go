@@ -3,6 +3,7 @@ package mercurial
 import (
 	"github.com/gdamore/tcell"
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/view"
 	"github.com/wtfutil/wtf/wtf"
 )
 
@@ -12,9 +13,9 @@ const modalHeight = 7
 
 // A Widget represents a Mercurial widget
 type Widget struct {
-	wtf.KeyboardWidget
-	wtf.MultiSourceWidget
-	wtf.TextWidget
+	view.KeyboardWidget
+	view.MultiSourceWidget
+	view.TextWidget
 
 	app      *tview.Application
 	Data     []*MercurialRepo
@@ -25,9 +26,9 @@ type Widget struct {
 // NewWidget creates a new instance of a widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		KeyboardWidget:    wtf.NewKeyboardWidget(app, pages, settings.common),
-		MultiSourceWidget: wtf.NewMultiSourceWidget(settings.common, "repository", "repositories"),
-		TextWidget:        wtf.NewTextWidget(app, settings.common, true),
+		KeyboardWidget:    view.NewKeyboardWidget(app, pages, settings.common),
+		MultiSourceWidget: view.NewMultiSourceWidget(settings.common, "repository", "repositories"),
+		TextWidget:        view.NewTextWidget(app, settings.common, true),
 
 		app:      app,
 		pages:    pages,

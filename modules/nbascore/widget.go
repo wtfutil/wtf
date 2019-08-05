@@ -9,13 +9,14 @@ import (
 	"time"
 
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/view"
 	"github.com/wtfutil/wtf/wtf"
 )
 
 // A Widget represents an NBA Score  widget
 type Widget struct {
-	wtf.KeyboardWidget
-	wtf.TextWidget
+	view.KeyboardWidget
+	view.TextWidget
 
 	language string
 	result   string
@@ -27,8 +28,8 @@ var offset = 0
 // NewWidget creates a new instance of a widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		KeyboardWidget: wtf.NewKeyboardWidget(app, pages, settings.common),
-		TextWidget:     wtf.NewTextWidget(app, settings.common, true),
+		KeyboardWidget: view.NewKeyboardWidget(app, pages, settings.common),
+		TextWidget:     view.NewTextWidget(app, settings.common, true),
 
 		settings: settings,
 	}
