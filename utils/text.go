@@ -30,15 +30,15 @@ func HighlightableHelper(view *tview.TextView, input string, idx, offset int) st
 	fmtStr := fmt.Sprintf(`["%d"][""]`, idx)
 	_, _, w, _ := view.GetInnerRect()
 	fmtStr += input
-	fmtStr += PadRow(offset, w+1)
+	fmtStr += RowPadding(offset, w+1)
 	fmtStr += `[""]` + "\n"
 	return fmtStr
 }
 
-// PadRow returns a padding for a row to make it the full width of the containing widget.
+// RowPadding returns a padding for a row to make it the full width of the containing widget.
 // Useful for ensurig row highlighting spans the full width (I suspect tcell has a better
 // way to do this, but I haven't yet found it)
-func PadRow(offset int, max int) string {
+func RowPadding(offset int, max int) string {
 	padSize := max - offset
 	if padSize < 0 {
 		padSize = 0

@@ -21,6 +21,26 @@ const (
 	TimestampFormat = "2006-01-02T15:04:05-0700"
 )
 
+// DoesNotInclude takes a slice of strings and a target string and returns
+// TRUE if the slice does not include the target, FALSE if it does
+//
+// Example:
+//
+//    x := DoesNotInclude([]string{"cat", "dog", "rat"}, "dog")
+//    > false
+//
+//    x := DoesNotInclude([]string{"cat", "dog", "rat"}, "pig")
+//    > true
+//
+func DoesNotInclude(strs []string, val string) bool {
+	for _, str := range strs {
+		if val == str {
+			return false
+		}
+	}
+	return true
+}
+
 // ExecuteCommand executes an external command on the local machine as the current user
 func ExecuteCommand(cmd *exec.Cmd) string {
 	if cmd == nil {
@@ -47,23 +67,6 @@ func ExecuteCommand(cmd *exec.Cmd) string {
 	}
 
 	return str
-}
-
-// Exclude takes a slice of strings and a target string and returns the contents of the original
-// slice of strings without the target string in it
-//
-// Example:
-//
-//    x := Exclude([]string{"cat", "dog", "rat"}, "dog")
-//    > []string{"cat", "rat"}
-//
-func Exclude(strs []string, val string) bool {
-	for _, str := range strs {
-		if val == str {
-			return false
-		}
-	}
-	return true
 }
 
 // FindMatch takes a regex pattern and a string of data and returns back all the matches

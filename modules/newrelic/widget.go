@@ -64,7 +64,7 @@ func (widget *Widget) contentFrom(deploys []nr.ApplicationDeployment) string {
 	revisions := []string{}
 
 	for _, deploy := range deploys {
-		if (deploy.Revision != "") && utils.Exclude(revisions, deploy.Revision) {
+		if (deploy.Revision != "") && utils.DoesNotInclude(revisions, deploy.Revision) {
 			lineColor := "white"
 			if wtf.IsToday(deploy.Timestamp) {
 				lineColor = "lightblue"
