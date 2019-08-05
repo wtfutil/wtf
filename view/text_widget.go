@@ -6,17 +6,19 @@ import (
 	"github.com/wtfutil/wtf/wtf"
 )
 
+// TextWidget defines the data necessary to make a text widget
 type TextWidget struct {
 	Base
 	View *tview.TextView
 }
 
+// NewTextWidget creates and returns an instance of TextWidget
 func NewTextWidget(app *tview.Application, commonSettings *cfg.Common, focusable bool) TextWidget {
 	widget := TextWidget{
 		Base: NewBase(app, commonSettings, focusable),
 	}
 
-	widget.View = widget.addView(widget.bordered)
+	widget.View = widget.createView(widget.bordered)
 
 	return widget
 }
@@ -38,7 +40,7 @@ func (widget *TextWidget) Redraw(title, text string, wrap bool) {
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (widget *TextWidget) addView(bordered bool) *tview.TextView {
+func (widget *TextWidget) createView(bordered bool) *tview.TextView {
 	view := tview.NewTextView()
 
 	view.SetBackgroundColor(wtf.ColorFor(widget.commonSettings.Colors.Background))

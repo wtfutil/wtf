@@ -10,7 +10,7 @@ import (
 	"github.com/wtfutil/wtf/wtf"
 )
 
-//BarGraph lets make graphs
+//BarGraph defines the data required to make a bar graph
 type BarGraph struct {
 	maxStars int
 	starChar string
@@ -19,13 +19,14 @@ type BarGraph struct {
 	View *tview.TextView
 }
 
+// Bar defines a single row in the bar graph
 type Bar struct {
 	Label      string
 	Percent    int
 	ValueLabel string
 }
 
-// NewBarGraph initialize your fancy new graph
+// NewBarGraph creates and returns an instance of BarGraph
 func NewBarGraph(app *tview.Application, name string, commonSettings *cfg.Common, focusable bool) BarGraph {
 	widget := BarGraph{
 		Base: NewBase(app, commonSettings, focusable),
@@ -34,7 +35,7 @@ func NewBarGraph(app *tview.Application, name string, commonSettings *cfg.Common
 		starChar: commonSettings.Config.UString("graphIcon", "|"),
 	}
 
-	widget.View = widget.addView(widget.bordered)
+	widget.View = widget.createView(widget.bordered)
 
 	return widget
 }
@@ -56,11 +57,9 @@ func BuildStars(data []Bar, maxStars int, starChar string) string {
 
 	//just getting min and max values
 	for _, bar := range data {
-
 		if len(bar.Label) > longestLabel {
 			longestLabel = len(bar.Label)
 		}
-
 	}
 
 	// each number = how many stars?
@@ -68,7 +67,6 @@ func BuildStars(data []Bar, maxStars int, starChar string) string {
 
 	//build the stars
 	for _, bar := range data {
-
 		//how many stars for this one?
 		var starCount = int(float64(bar.Percent) * starRatio)
 
@@ -99,7 +97,7 @@ func (widget *BarGraph) TextView() *tview.TextView {
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (widget *BarGraph) addView(bordered bool) *tview.TextView {
+func (widget *BarGraph) createView(bordered bool) *tview.TextView {
 	view := tview.NewTextView()
 
 	view.SetBackgroundColor(wtf.ColorFor(widget.commonSettings.Colors.Background))
