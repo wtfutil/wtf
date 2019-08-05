@@ -27,6 +27,8 @@ func NewScrollableWidget(app *tview.Application, commonSettings *cfg.Common, foc
 	return widget
 }
 
+/* -------------------- Exported Functions -------------------- */
+
 func (widget *ScrollableWidget) SetRenderFunction(displayFunc func()) {
 	widget.RenderFunction = displayFunc
 }
