@@ -10,16 +10,16 @@ import (
 )
 
 type TextWidget struct {
+	app             *tview.Application
 	bordered        bool
 	commonSettings  *cfg.Common
 	enabled         bool
-	focusable       bool
 	focusChar       string
+	focusable       bool
 	name            string
 	quitChan        chan bool
-	refreshing      bool
 	refreshInterval int
-	app             *tview.Application
+	refreshing      bool
 
 	View *tview.TextView
 }
@@ -31,12 +31,12 @@ func NewTextWidget(app *tview.Application, commonSettings *cfg.Common, focusable
 		app:             app,
 		bordered:        commonSettings.Bordered,
 		enabled:         commonSettings.Enabled,
-		focusable:       focusable,
 		focusChar:       commonSettings.FocusChar(),
+		focusable:       focusable,
 		name:            commonSettings.Name,
 		quitChan:        make(chan bool),
-		refreshing:      false,
 		refreshInterval: commonSettings.RefreshInterval,
+		refreshing:      false,
 	}
 
 	widget.View = widget.addView()

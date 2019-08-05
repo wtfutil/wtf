@@ -12,18 +12,20 @@ import (
 
 //BarGraph lets make graphs
 type BarGraph struct {
-	commonSettings *cfg.Common
-	enabled        bool
-	focusable      bool
-	key            string
-	maxStars       int
-	name           string
-	quitChan       chan bool
-	refreshing     bool
-	starChar       string
+	app             *tview.Application
+	bordered        bool
+	commonSettings  *cfg.Common
+	enabled         bool
+	focusable       bool
+	key             string
+	maxStars        int
+	name            string
+	quitChan        chan bool
+	refreshing      bool
+	refreshInterval int
+	starChar        string
 
-	RefreshInt int
-	View       *tview.TextView
+	View *tview.TextView
 }
 
 type Bar struct {
@@ -33,23 +35,23 @@ type Bar struct {
 }
 
 // NewBarGraph initialize your fancy new graph
-func NewBarGraph(app *tview.Application, name string, settings *cfg.Common, focusable bool) BarGraph {
+func NewBarGraph(app *tview.Application, name string, commonSettings *cfg.Common, focusable bool) BarGraph {
 	widget := BarGraph{
-		enabled:        settings.Enabled,
-		focusable:      focusable,
-		maxStars:       settings.Config.UInt("graphStars", 20),
-		name:           settings.Title,
-		quitChan:       make(chan bool),
-		starChar:       settings.Config.UString("graphIcon", "|"),
-		commonSettings: settings,
+		commonSettings: commonSettings,
 
-		RefreshInt: settings.RefreshInterval,
+		app:             app,
+		bordered:        commonSettings.Bordered,
+		enabled:         commonSettings.Enabled,
+		focusable:       focusable,
+		maxStars:        commonSettings.Config.UInt("graphStars", 20),
+		name:            commonSettings.Title,
+		quitChan:        make(chan bool),
+		refreshInterval: commonSettings.RefreshInterval,
+		starChar:        commonSettings.Config.UString("graphIcon", "|"),
 	}
 
 	widget.View = widget.addView()
-	widget.View.SetChangedFunc(func() {
-		app.Draw()
-	})
+	widget.View.SetBorder(widget.bordered)
 
 	return widget
 }
@@ -105,7 +107,7 @@ func (widget *BarGraph) Refreshing() bool {
 
 // RefreshInterval returns how often, in seconds, the widget will return its data
 func (widget *BarGraph) RefreshInterval() int {
-	return widget.RefreshInt
+	return widget.refreshInterval
 }
 
 func (widget *BarGraph) SetFocusChar(char string) {
