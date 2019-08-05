@@ -8,6 +8,7 @@ import (
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/cfg"
 	"github.com/wtfutil/wtf/checklist"
+	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/view"
 	"github.com/wtfutil/wtf/wtf"
 	"gopkg.in/yaml.v2"
@@ -108,7 +109,7 @@ func (widget *Widget) load() {
 	confDir, _ := cfg.WtfConfigDir()
 	filePath := fmt.Sprintf("%s/%s", confDir, widget.filePath)
 
-	fileData, _ := wtf.ReadFileBytes(filePath)
+	fileData, _ := utils.ReadFileBytes(filePath)
 
 	yaml.Unmarshal(fileData, &widget.list)
 

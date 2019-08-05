@@ -5,7 +5,7 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/wtfutil/wtf/wtf"
+	"github.com/wtfutil/wtf/utils"
 )
 
 // https://github.com/yelinaung/wifi-name/blob/master/wifi-name.go
@@ -44,9 +44,9 @@ func WifiName() string {
 
 func wifiEncryptionLinux() string {
 	cmd := exec.Command("nmcli", "-t", "-f", "in-use,security", "dev", "wifi")
-	out := wtf.ExecuteCommand(cmd)
+	out := utils.ExecuteCommand(cmd)
 
-	name := wtf.FindMatch(`\*:(.+)`, out)
+	name := utils.FindMatch(`\*:(.+)`, out)
 
 	if len(name) > 0 {
 		return name[0][1]
@@ -56,19 +56,19 @@ func wifiEncryptionLinux() string {
 }
 
 func wifiEncryptionMacOS() string {
-	name := wtf.FindMatch(`s*auth: (.+)s*`, wifiInfo())
+	name := utils.FindMatch(`s*auth: (.+)s*`, wifiInfo())
 	return matchStr(name)
 }
 
 func wifiInfo() string {
 	cmd := exec.Command(osxWifiCmd, osxWifiArg)
-	return wtf.ExecuteCommand(cmd)
+	return utils.ExecuteCommand(cmd)
 }
 
 func wifiNameLinux() string {
 	cmd := exec.Command("nmcli", "-t", "-f", "in-use,ssid", "dev", "wifi")
-	out := wtf.ExecuteCommand(cmd)
-	name := wtf.FindMatch(`\*:(.+)`, out)
+	out := utils.ExecuteCommand(cmd)
+	name := utils.FindMatch(`\*:(.+)`, out)
 	if len(name) > 0 {
 		return name[0][1]
 	}
@@ -76,7 +76,7 @@ func wifiNameLinux() string {
 }
 
 func wifiNameMacOS() string {
-	name := wtf.FindMatch(`s*SSID: (.+)s*`, wifiInfo())
+	name := utils.FindMatch(`s*SSID: (.+)s*`, wifiInfo())
 	return matchStr(name)
 }
 

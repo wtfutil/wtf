@@ -7,8 +7,8 @@ import (
 	"os"
 
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/view"
-	"github.com/wtfutil/wtf/wtf"
 	"github.com/zmb3/spotify"
 )
 
@@ -111,7 +111,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	// The only solution would be to include quotes in the command, which is why I do here, but it doesn't work.
 	//
 	// If inconvenient, I'll remove this option and save the URL in a file or some other method.
-	wtf.OpenFile(`"` + authURL + `"`)
+	utils.OpenFile(`"` + authURL + `"`)
 
 	widget.settings.common.RefreshInterval = 5
 
@@ -167,14 +167,14 @@ func (widget *Widget) HelpText() string {
 }
 
 func (w *Widget) createOutput() string {
-	output := wtf.CenterText(fmt.Sprintf("[green]Now %v [white]\n", w.Info.Status), w.CommonSettings().Width)
-	output += wtf.CenterText(fmt.Sprintf("[green]Title:[white] %v\n", w.Info.Title), w.CommonSettings().Width)
-	output += wtf.CenterText(fmt.Sprintf("[green]Artist:[white] %v\n", w.Info.Artists), w.CommonSettings().Width)
-	output += wtf.CenterText(fmt.Sprintf("[green]Album:[white] %v\n", w.Info.Album), w.CommonSettings().Width)
+	output := utils.CenterText(fmt.Sprintf("[green]Now %v [white]\n", w.Info.Status), w.CommonSettings().Width)
+	output += utils.CenterText(fmt.Sprintf("[green]Title:[white] %v\n", w.Info.Title), w.CommonSettings().Width)
+	output += utils.CenterText(fmt.Sprintf("[green]Artist:[white] %v\n", w.Info.Artists), w.CommonSettings().Width)
+	output += utils.CenterText(fmt.Sprintf("[green]Album:[white] %v\n", w.Info.Album), w.CommonSettings().Width)
 	if w.playerState.ShuffleState {
-		output += wtf.CenterText(fmt.Sprintf("[green]Shuffle:[white] on\n"), w.CommonSettings().Width)
+		output += utils.CenterText(fmt.Sprintf("[green]Shuffle:[white] on\n"), w.CommonSettings().Width)
 	} else {
-		output += wtf.CenterText(fmt.Sprintf("[green]Shuffle:[white] off\n"), w.CommonSettings().Width)
+		output += utils.CenterText(fmt.Sprintf("[green]Shuffle:[white] off\n"), w.CommonSettings().Width)
 	}
 	return output
 }

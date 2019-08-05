@@ -7,7 +7,7 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/wtfutil/wtf/wtf"
+	"github.com/wtfutil/wtf/utils"
 )
 
 const osxFirewallCmd = "/usr/libexec/ApplicationFirewall/socketfilterfw"
@@ -66,35 +66,35 @@ func firewallStateLinux() string { // might be very Ubuntu specific
 
 func firewallStateMacOS() string {
 	cmd := exec.Command(osxFirewallCmd, "--getglobalstate")
-	str := wtf.ExecuteCommand(cmd)
+	str := utils.ExecuteCommand(cmd)
 
 	return statusLabel(str)
 }
 
 func firewallStateWindows() string {
-    // The raw way to do this in PS, not using netsh, nor registry, is the following:
-    //   if (((Get-NetFirewallProfile | select name,enabled) 
-    //                                | where { $_.Enabled -eq $True } | measure ).Count -eq 3) 
-    //   { Write-Host "OK" -ForegroundColor Green} else { Write-Host "OFF" -ForegroundColor Red }
+	// The raw way to do this in PS, not using netsh, nor registry, is the following:
+	//   if (((Get-NetFirewallProfile | select name,enabled)
+	//                                | where { $_.Enabled -eq $True } | measure ).Count -eq 3)
+	//   { Write-Host "OK" -ForegroundColor Green} else { Write-Host "OFF" -ForegroundColor Red }
 
-    cmd := exec.Command("powershell.exe", "-NoProfile", 
-    	"-Command", "& { ((Get-NetFirewallProfile | select name,enabled) | where { $_.Enabled -eq $True } | measure ).Count }")
+	cmd := exec.Command("powershell.exe", "-NoProfile",
+		"-Command", "& { ((Get-NetFirewallProfile | select name,enabled) | where { $_.Enabled -eq $True } | measure ).Count }")
 
-    fwStat := wtf.ExecuteCommand(cmd)
-	fwStat = strings.TrimSpace(fwStat)    // Always sanitize PowerShell output:  "3\r\n"
+	fwStat := utils.ExecuteCommand(cmd)
+	fwStat = strings.TrimSpace(fwStat) // Always sanitize PowerShell output:  "3\r\n"
 	//fmt.Printf("%d %q\n", len(fwStat), fwStat)
 
 	switch fwStat {
-		case "3":
-			return "[green]Good[white] (3/3)"
-		case "2":
-			return "[orange]Poor[white] (2/3)"
-		case "1":
-			return "[yellow]Bad[white] (1/3)"
-		case "0":
-			return "[red]Disabled[white]"
-		default:	
-			return "[white]N/A[white]"
+	case "3":
+		return "[green]Good[white] (3/3)"
+	case "2":
+		return "[orange]Poor[white] (2/3)"
+	case "1":
+		return "[yellow]Bad[white] (1/3)"
+	case "0":
+		return "[red]Disabled[white]"
+	default:
+		return "[white]N/A[white]"
 	}
 }
 
@@ -107,7 +107,7 @@ func firewallStealthStateLinux() string {
 
 func firewallStealthStateMacOS() string {
 	cmd := exec.Command(osxFirewallCmd, "--getstealthmode")
-	str := wtf.ExecuteCommand(cmd)
+	str := utils.ExecuteCommand(cmd)
 
 	return statusLabel(str)
 }
@@ -115,7 +115,6 @@ func firewallStealthStateMacOS() string {
 func firewallStealthStateWindows() string {
 	return "[white]N/A[white]"
 }
-
 
 func statusLabel(str string) string {
 	label := "off"

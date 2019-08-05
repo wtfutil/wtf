@@ -5,8 +5,8 @@ import (
 	"regexp"
 
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/view"
-	"github.com/wtfutil/wtf/wtf"
 )
 
 type Widget struct {
@@ -83,7 +83,7 @@ func (widget *Widget) contentFrom(view *View) string {
 				job.Name,
 			)
 
-			str += wtf.HighlightableHelper(widget.View, row, idx, len(job.Name))
+			str += utils.HighlightableHelper(widget.View, row, idx, len(job.Name))
 		}
 	}
 
@@ -106,6 +106,6 @@ func (widget *Widget) openJob() {
 	sel := widget.GetSelected()
 	if sel >= 0 && widget.view != nil && sel < len(widget.view.Jobs) {
 		job := &widget.view.Jobs[sel]
-		wtf.OpenFile(job.Url)
+		utils.OpenFile(job.Url)
 	}
 }

@@ -1,4 +1,4 @@
-package wtf
+package utils
 
 import (
 	"os/exec"

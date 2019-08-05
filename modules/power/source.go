@@ -7,7 +7,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/wtfutil/wtf/wtf"
+	"github.com/wtfutil/wtf/utils"
 )
 
 const SingleQuotesRegExp = "'(.*)'"
@@ -16,7 +16,7 @@ const SingleQuotesRegExp = "'(.*)'"
 // "AC Power" or "Battery Power"
 func powerSource() string {
 	cmd := exec.Command("pmset", []string{"-g", "ps"}...)
-	result := wtf.ExecuteCommand(cmd)
+	result := utils.ExecuteCommand(cmd)
 
 	r, _ := regexp.Compile(SingleQuotesRegExp)
 

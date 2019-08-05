@@ -5,8 +5,8 @@ import (
 
 	"github.com/rivo/tview"
 	"github.com/sticreations/spotigopher/spotigopher"
+	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/view"
-	"github.com/wtfutil/wtf/wtf"
 )
 
 // A Widget represents a Spotify widget
@@ -70,9 +70,9 @@ func (w *Widget) render() {
 }
 
 func (w *Widget) createOutput() string {
-	output := wtf.CenterText(fmt.Sprintf("[green]Now %v [white]\n", w.Info.Status), w.CommonSettings().Width)
-	output += wtf.CenterText(fmt.Sprintf("[green]Title:[white] %v\n ", w.Info.Title), w.CommonSettings().Width)
-	output += wtf.CenterText(fmt.Sprintf("[green]Artist:[white] %v\n", w.Info.Artist), w.CommonSettings().Width)
-	output += wtf.CenterText(fmt.Sprintf("[green]%v:[white] %v\n", w.Info.TrackNumber, w.Info.Album), w.CommonSettings().Width)
+	output := utils.CenterText(fmt.Sprintf("[green]Now %v [white]\n", w.Info.Status), w.CommonSettings().Width)
+	output += utils.CenterText(fmt.Sprintf("[green]Title:[white] %v\n ", w.Info.Title), w.CommonSettings().Width)
+	output += utils.CenterText(fmt.Sprintf("[green]Artist:[white] %v\n", w.Info.Artist), w.CommonSettings().Width)
+	output += utils.CenterText(fmt.Sprintf("[green]%v:[white] %v\n", w.Info.TrackNumber, w.Info.Album), w.CommonSettings().Width)
 	return output
 }

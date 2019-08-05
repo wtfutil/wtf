@@ -4,8 +4,8 @@ import (
 	"fmt"
 
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/view"
-	"github.com/wtfutil/wtf/wtf"
 	datadog "github.com/zorkian/go-datadog-api"
 )
 
@@ -84,7 +84,7 @@ func (widget *Widget) contentFrom(triggeredMonitors []datadog.Monitor) string {
 				*triggeredMonitor.Name,
 				widget.RowColor(idx),
 			)
-			str += wtf.HighlightableHelper(widget.View, row, idx, len(*triggeredMonitor.Name))
+			str += utils.HighlightableHelper(widget.View, row, idx, len(*triggeredMonitor.Name))
 		}
 	} else {
 		str += fmt.Sprintf(
@@ -101,6 +101,6 @@ func (widget *Widget) openItem() {
 	sel := widget.GetSelected()
 	if sel >= 0 && widget.monitors != nil && sel < len(widget.monitors) {
 		item := &widget.monitors[sel]
-		wtf.OpenFile(fmt.Sprintf("https://app.datadoghq.com/monitors/%d?q=*", *item.Id))
+		utils.OpenFile(fmt.Sprintf("https://app.datadoghq.com/monitors/%d?q=*", *item.Id))
 	}
 }

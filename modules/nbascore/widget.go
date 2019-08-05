@@ -9,8 +9,8 @@ import (
 	"time"
 
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/view"
-	"github.com/wtfutil/wtf/wtf"
 )
 
 // A Widget represents an NBA Score  widget
@@ -79,7 +79,7 @@ func (widget *Widget) nbascore() string {
 	result := map[string]interface{}{}
 	json.Unmarshal(contents, &result)
 	allGame := "" // store result in allgame
-	allGame += (" " + "[red]" + (cur.Format(wtf.FriendlyDateFormat) + "\n\n") + "[white]")
+	allGame += (" " + "[red]" + (cur.Format(utils.FriendlyDateFormat) + "\n\n") + "[white]")
 	for _, game := range result["games"].([]interface{}) {
 		vTeam, hTeam, vScore, hScore := "", "", "", ""
 		quarter := 0.

@@ -5,7 +5,7 @@ import (
 
 	"github.com/olebedev/config"
 	"github.com/wtfutil/wtf/cfg"
-	"github.com/wtfutil/wtf/wtf"
+	"github.com/wtfutil/wtf/utils"
 )
 
 const (
@@ -34,7 +34,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, ymlConfig, globalConfig),
 
 		apiKey:   ymlConfig.UString("apiKey", ""),
-		accounts: wtf.ToStrs(ymlConfig.UList("accounts")),
+		accounts: utils.ToStrs(ymlConfig.UList("accounts")),
 		since:    ymlConfig.UString("since", ""),
 	}
 

@@ -5,8 +5,8 @@ import (
 	"strings"
 
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/view"
-	"github.com/wtfutil/wtf/wtf"
 )
 
 type Widget struct {
@@ -59,7 +59,7 @@ func (widget *Widget) contentFrom(onCallResponses []*OnCallResponse) string {
 		if len(data.OnCallData.Recipients) == 0 {
 			msg = " [gray]no one[white]\n\n"
 		} else {
-			msg = fmt.Sprintf(" %s\n\n", strings.Join(wtf.NamesFromEmails(data.OnCallData.Recipients), ", "))
+			msg = fmt.Sprintf(" %s\n\n", strings.Join(utils.NamesFromEmails(data.OnCallData.Recipients), ", "))
 		}
 
 		str += widget.cleanScheduleName(data.OnCallData.Parent.Name)

@@ -1,4 +1,4 @@
-package wtf
+package utils
 
 import (
 	"fmt"
@@ -10,7 +10,6 @@ import (
 	"strings"
 
 	"github.com/rivo/tview"
-	"github.com/wtfutil/wtf/utils"
 )
 
 const (
@@ -24,13 +23,6 @@ const (
 
 	TimestampFormat = "2006-01-02T15:04:05-0700"
 )
-
-var OpenFileUtil = "open"
-
-// Init initializes global settings in the wtf package
-func Init(openFileUtil string) {
-	OpenFileUtil = openFileUtil
-}
 
 // CenterText takes a string and a width and pads the left and right of the string with
 // empty spaces to ensure that the string is in the middle of the returned value
@@ -143,7 +135,7 @@ func OpenFile(path string) {
 		default:
 		}
 	} else {
-		filePath, _ := utils.ExpandHomeDir(path)
+		filePath, _ := ExpandHomeDir(path)
 		cmd := exec.Command(OpenFileUtil, filePath)
 		ExecuteCommand(cmd)
 	}

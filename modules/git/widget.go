@@ -8,8 +8,8 @@ import (
 
 	"github.com/gdamore/tcell"
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/view"
-	"github.com/wtfutil/wtf/wtf"
 )
 
 const offscreen = -1000
@@ -76,7 +76,7 @@ func (widget *Widget) Pull() {
 }
 
 func (widget *Widget) Refresh() {
-	repoPaths := wtf.ToStrs(widget.settings.repositories)
+	repoPaths := utils.ToStrs(widget.settings.repositories)
 
 	widget.GitRepos = widget.gitRepos(repoPaths)
 	sort.Slice(widget.GitRepos, func(i, j int) bool {

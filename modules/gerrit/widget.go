@@ -8,8 +8,8 @@ import (
 
 	glb "github.com/andygrunwald/go-gerrit"
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/view"
-	"github.com/wtfutil/wtf/wtf"
 )
 
 type Widget struct {
@@ -146,7 +146,7 @@ func (widget *Widget) openReview() {
 		} else {
 			change = project.OutgoingReviews[sel-len(project.IncomingReviews)]
 		}
-		wtf.OpenFile(fmt.Sprintf("%s/%s/%d", widget.settings.domain, "#/c", change.Number))
+		utils.OpenFile(fmt.Sprintf("%s/%s/%d", widget.settings.domain, "#/c", change.Number))
 	}
 }
 

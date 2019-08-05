@@ -5,7 +5,7 @@ import (
 	"os/exec"
 	"strings"
 
-	"github.com/wtfutil/wtf/wtf"
+	"github.com/wtfutil/wtf/utils"
 )
 
 type GitRepo struct {
@@ -33,7 +33,7 @@ func (repo *GitRepo) branch() string {
 	arg := []string{repo.gitDir(), repo.workTree(), "rev-parse", "--abbrev-ref", "HEAD"}
 
 	cmd := exec.Command("git", arg...)
-	str := wtf.ExecuteCommand(cmd)
+	str := utils.ExecuteCommand(cmd)
 
 	return str
 }
@@ -42,7 +42,7 @@ func (repo *GitRepo) changedFiles() []string {
 	arg := []string{repo.gitDir(), repo.workTree(), "status", "--porcelain"}
 
 	cmd := exec.Command("git", arg...)
-	str := wtf.ExecuteCommand(cmd)
+	str := utils.ExecuteCommand(cmd)
 
 	data := strings.Split(str, "\n")
 
@@ -57,7 +57,7 @@ func (repo *GitRepo) commits(commitCount int, commitFormat, dateFormat string) [
 	arg := []string{repo.gitDir(), repo.workTree(), "log", dateStr, numStr, commitStr}
 
 	cmd := exec.Command("git", arg...)
-	str := wtf.ExecuteCommand(cmd)
+	str := utils.ExecuteCommand(cmd)
 
 	data := strings.Split(str, "\n")
 
@@ -67,21 +67,21 @@ func (repo *GitRepo) commits(commitCount int, commitFormat, dateFormat string) [
 func (repo *GitRepo) repository() string {
 	arg := []string{repo.gitDir(), repo.workTree(), "rev-parse", "--show-toplevel"}
 	cmd := exec.Command("git", arg...)
-	str := wtf.ExecuteCommand(cmd)
+	str := utils.ExecuteCommand(cmd)
 
 	return str
 }
 func (repo *GitRepo) pull() string {
 	arg := []string{repo.gitDir(), repo.workTree(), "pull"}
 	cmd := exec.Command("git", arg...)
-	str := wtf.ExecuteCommand(cmd)
+	str := utils.ExecuteCommand(cmd)
 	return str
 }
 
 func (repo *GitRepo) checkout(branch string) string {
 	arg := []string{repo.gitDir(), repo.workTree(), "checkout", branch}
 	cmd := exec.Command("git", arg...)
-	str := wtf.ExecuteCommand(cmd)
+	str := utils.ExecuteCommand(cmd)
 	return str
 }
 

@@ -4,8 +4,8 @@ import (
 	"fmt"
 
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/view"
-	"github.com/wtfutil/wtf/wtf"
 	sheets "google.golang.org/api/sheets/v4"
 )
 
@@ -42,7 +42,7 @@ func (widget *Widget) contentFrom(valueRanges []*sheets.ValueRange) string {
 
 	res := ""
 
-	cells := wtf.ToStrs(widget.settings.cellNames)
+	cells := utils.ToStrs(widget.settings.cellNames)
 	for i := 0; i < len(valueRanges); i++ {
 		res += fmt.Sprintf("%s\t[%s]%s\n", cells[i], widget.settings.colors.values, valueRanges[i].Values[0][0])
 	}

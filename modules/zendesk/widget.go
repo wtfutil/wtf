@@ -5,8 +5,8 @@ import (
 	"log"
 
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/view"
-	"github.com/wtfutil/wtf/wtf"
 )
 
 // A Widget represents a Zendesk widget
@@ -99,6 +99,6 @@ func (widget *Widget) openTicket() {
 	if sel >= 0 && widget.result != nil && sel < len(widget.result.Tickets) {
 		issue := &widget.result.Tickets[sel]
 		ticketURL := fmt.Sprintf("https://%s.zendesk.com/agent/tickets/%d", widget.settings.subdomain, issue.Id)
-		wtf.OpenFile(ticketURL)
+		utils.OpenFile(ticketURL)
 	}
 }

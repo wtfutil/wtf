@@ -9,7 +9,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/wtfutil/wtf/wtf"
+	"github.com/wtfutil/wtf/utils"
 )
 
 const TimeRegExp = "^(?:\\d|[01]\\d|2[0-3]):[0-5]\\d"
@@ -47,7 +47,7 @@ func (battery *Battery) String() string {
 
 func (battery *Battery) execute() string {
 	cmd := exec.Command(battery.cmd, battery.args...)
-	return wtf.ExecuteCommand(cmd)
+	return utils.ExecuteCommand(cmd)
 }
 
 func (battery *Battery) parse(data string) string {

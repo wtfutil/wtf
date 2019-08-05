@@ -5,8 +5,8 @@ import (
 	"time"
 
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/view"
-	"github.com/wtfutil/wtf/wtf"
 )
 
 type Widget struct {
@@ -50,7 +50,7 @@ func (widget *Widget) Refresh() {
 }
 
 func (widget *Widget) prettyDate() string {
-	str, err := time.Parse(wtf.TimestampFormat, widget.Date)
+	str, err := time.Parse(utils.TimestampFormat, widget.Date)
 
 	if err != nil {
 		return err.Error()
