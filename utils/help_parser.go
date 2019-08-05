@@ -10,21 +10,42 @@ import (
 	"github.com/wtfutil/wtf/cfg"
 )
 
-func lowercaseTitle(title string) string {
-	if title == "" {
-		return ""
+/* -------------------- Exported Functions -------------------- */
+
+func HelpFromInterface(item interface{}) string {
+	result := ""
+	t := reflect.TypeOf(item)
+
+	for i := 0; i < t.NumField(); i++ {
+		field := t.Field(i)
+
+		kind := field.Type.Kind()
+		if field.Type.Kind() == reflect.Ptr {
+			kind = field.Type.Elem().Kind()
+		}
+
+		if field.Name == "common" {
+			result += HelpFromInterface(cfg.Common{})
+		}
+
+		switch kind {
+		case reflect.Interface:
+			result += HelpFromInterface(field.Type.Elem())
+		default:
+			result += helpFromValue(field)
+		}
 	}
-	r, n := utf8.DecodeRuneInString(title)
-	return string(unicode.ToLower(r)) + title[n:]
+
+	return result
 }
 
-var (
-	openColorRegex = regexp.MustCompile(`\[.*?\]`)
-)
-
+// StripColorTags removes tcell color tags from a given string
 func StripColorTags(input string) string {
+	openColorRegex := regexp.MustCompile(`\[.*?\]`)
 	return openColorRegex.ReplaceAllString(input, "")
 }
+
+/* -------------------- Unexported Functions -------------------- */
 
 func helpFromValue(field reflect.StructField) string {
 	result := ""
@@ -52,29 +73,10 @@ func helpFromValue(field reflect.StructField) string {
 	return result
 }
 
-func HelpFromInterface(item interface{}) string {
-	result := ""
-	t := reflect.TypeOf(item)
-
-	for i := 0; i < t.NumField(); i++ {
-		field := t.Field(i)
-
-		kind := field.Type.Kind()
-		if field.Type.Kind() == reflect.Ptr {
-			kind = field.Type.Elem().Kind()
-		}
-
-		if field.Name == "common" {
-			result += HelpFromInterface(cfg.Common{})
-		}
-
-		switch kind {
-		case reflect.Interface:
-			result += HelpFromInterface(field.Type.Elem())
-		default:
-			result += helpFromValue(field)
-		}
+func lowercaseTitle(title string) string {
+	if title == "" {
+		return ""
 	}
-
-	return result
+	r, n := utf8.DecodeRuneInString(title)
+	return string(unicode.ToLower(r)) + title[n:]
 }
