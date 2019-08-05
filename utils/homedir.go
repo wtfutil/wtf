@@ -10,21 +10,7 @@ import (
 	"path/filepath"
 )
 
-// Dir returns the home directory for the executing user.
-// An error is returned if a home directory cannot be detected.
-func Home() (string, error) {
-	currentUser, err := user.Current()
-	if err != nil {
-		return "", err
-	}
-	if currentUser.HomeDir == "" {
-		return "", errors.New("cannot find user-specific home dir")
-	}
-
-	return currentUser.HomeDir, nil
-}
-
-// Expand expands the path to include the home directory if the path
+// ExpandHomeDir expands the path to include the home directory if the path
 // is prefixed with `~`. If it isn't prefixed with `~`, the path is
 // returned as-is.
 func ExpandHomeDir(path string) (string, error) {
@@ -46,4 +32,19 @@ func ExpandHomeDir(path string) (string, error) {
 	}
 
 	return filepath.Join(dir, path[1:]), nil
+}
+
+// Home returns the home directory for the executing user.
+// An error is returned if a home directory cannot be detected.
+func Home() (string, error) {
+	currentUser, err := user.Current()
+	if err != nil {
+		return "", err
+	}
+
+	if currentUser.HomeDir == "" {
+		return "", errors.New("cannot find user-specific home dir")
+	}
+
+	return currentUser.HomeDir, nil
 }

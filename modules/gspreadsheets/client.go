@@ -19,7 +19,6 @@ import (
 	"strings"
 
 	"github.com/wtfutil/wtf/utils"
-	"github.com/wtfutil/wtf/wtf"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
 	sheets "google.golang.org/api/sheets/v4"
@@ -52,7 +51,7 @@ func (widget *Widget) Fetch() ([]*sheets.ValueRange, error) {
 		return nil, err
 	}
 
-	cells := wtf.ToStrs(widget.settings.cellAddresses)
+	cells := utils.ToStrs(widget.settings.cellAddresses)
 	addresses := strings.Join(cells[:], ";")
 
 	responses := make([]*sheets.ValueRange, len(cells))

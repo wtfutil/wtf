@@ -7,8 +7,8 @@ import (
 
 	"github.com/mmcdole/gofeed"
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/view"
-	"github.com/wtfutil/wtf/wtf"
 )
 
 const (
@@ -144,7 +144,7 @@ func (widget *Widget) contentFrom(data []*FeedItem) string {
 			feedItem.item.Title,
 		)
 
-		str += wtf.HighlightableHelper(widget.View, row, idx, len(feedItem.item.Title))
+		str += utils.HighlightableHelper(widget.View, row, idx, len(feedItem.item.Title))
 	}
 
 	return str
@@ -169,6 +169,6 @@ func (widget *Widget) openStory() {
 		story := widget.stories[sel]
 		story.viewed = true
 
-		wtf.OpenFile(story.item.Link)
+		utils.OpenFile(story.item.Link)
 	}
 }

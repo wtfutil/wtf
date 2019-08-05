@@ -7,7 +7,7 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/wtfutil/wtf/wtf"
+	"github.com/wtfutil/wtf/utils"
 )
 
 type SystemInfo struct {
@@ -32,7 +32,7 @@ func NewSystemInfo() *SystemInfo {
 		cmd = exec.Command("sw_vers", arg...)
 	}
 
-	raw := wtf.ExecuteCommand(cmd)
+	raw := utils.ExecuteCommand(cmd)
 
 	for _, row := range strings.Split(raw, "\n") {
 		parts := strings.Split(row, ":")

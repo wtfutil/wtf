@@ -3,6 +3,7 @@ package app
 import (
 	"github.com/olebedev/config"
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/wtf"
 )
 
@@ -45,8 +46,8 @@ func (display *Display) add(widget wtf.Wtfable) {
 }
 
 func (display *Display) build(widgets []wtf.Wtfable) *tview.Grid {
-	cols := wtf.ToInts(display.config.UList("wtf.grid.columns"))
-	rows := wtf.ToInts(display.config.UList("wtf.grid.rows"))
+	cols := utils.ToInts(display.config.UList("wtf.grid.columns"))
+	rows := utils.ToInts(display.config.UList("wtf.grid.rows"))
 
 	display.Grid.SetColumns(cols...)
 	display.Grid.SetRows(rows...)

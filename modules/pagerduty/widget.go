@@ -6,8 +6,8 @@ import (
 
 	"github.com/PagerDuty/go-pagerduty"
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/view"
-	"github.com/wtfutil/wtf/wtf"
 )
 
 type Widget struct {
@@ -40,7 +40,7 @@ func (widget *Widget) Refresh() {
 	}
 
 	if widget.settings.showSchedules {
-		scheduleIDs := wtf.ToStrs(widget.settings.scheduleIDs)
+		scheduleIDs := utils.ToStrs(widget.settings.scheduleIDs)
 		onCalls, err1 = GetOnCalls(widget.settings.apiKey, scheduleIDs)
 	}
 

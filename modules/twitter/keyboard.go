@@ -2,7 +2,7 @@ package twitter
 
 import (
 	"github.com/gdamore/tcell"
-	"github.com/wtfutil/wtf/wtf"
+	"github.com/wtfutil/wtf/utils"
 )
 
 func (widget *Widget) initializeKeyboardControls() {
@@ -19,5 +19,5 @@ func (widget *Widget) initializeKeyboardControls() {
 
 func (widget *Widget) openFile() {
 	src := widget.currentSourceURI()
-	wtf.OpenFile(src)
+	utils.OpenFile(src)
 }

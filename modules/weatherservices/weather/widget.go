@@ -3,8 +3,8 @@ package weather
 import (
 	owm "github.com/briandowns/openweathermap"
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/view"
-	"github.com/wtfutil/wtf/wtf"
 )
 
 // Widget is the container for weather data.
@@ -63,7 +63,7 @@ func (widget *Widget) Fetch(cityIDs []int) []*owm.CurrentWeatherData {
 // widget's view for rendering
 func (widget *Widget) Refresh() {
 	if widget.apiKeyValid() {
-		widget.Data = widget.Fetch(wtf.ToInts(widget.settings.cityIDs))
+		widget.Data = widget.Fetch(utils.ToInts(widget.settings.cityIDs))
 	}
 
 	widget.display()

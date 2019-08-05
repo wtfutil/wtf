@@ -18,7 +18,7 @@ import (
 	"github.com/wtfutil/wtf/app"
 	"github.com/wtfutil/wtf/cfg"
 	"github.com/wtfutil/wtf/flags"
-	"github.com/wtfutil/wtf/wtf"
+	"github.com/wtfutil/wtf/utils"
 )
 
 var tviewApp *tview.Application
@@ -62,7 +62,7 @@ func main() {
 		defer profile.Start(profile.MemProfile).Stop()
 	}
 
-	wtf.Init(config.UString("wtf.openFileUtil", "open"))
+	utils.Init(config.UString("wtf.openFileUtil", "open"))
 
 	setTerm(config)
 

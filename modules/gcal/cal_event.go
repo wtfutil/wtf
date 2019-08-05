@@ -3,7 +3,7 @@ package gcal
 import (
 	"time"
 
-	"github.com/wtfutil/wtf/wtf"
+	"github.com/wtfutil/wtf/utils"
 	"google.golang.org/api/calendar/v3"
 )
 
@@ -100,9 +100,9 @@ func (calEvent *CalEvent) Start() time.Time {
 func (calEvent *CalEvent) Timestamp() string {
 	if calEvent.AllDay() {
 		startTime, _ := time.ParseInLocation("2006-01-02", calEvent.event.Start.Date, time.Local)
-		return startTime.Format(wtf.FriendlyDateFormat)
+		return startTime.Format(utils.FriendlyDateFormat)
 	}
 
 	startTime, _ := time.Parse(time.RFC3339, calEvent.event.Start.DateTime)
-	return startTime.Format(wtf.MinimumTimeFormat)
+	return startTime.Format(utils.MinimumTimeFormat)
 }

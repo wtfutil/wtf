@@ -4,8 +4,8 @@ import (
 	"fmt"
 
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/view"
-	"github.com/wtfutil/wtf/wtf"
 )
 
 type Widget struct {
@@ -68,7 +68,7 @@ func (widget *Widget) openItem() {
 	sel := widget.GetSelected()
 	if sel >= 0 && widget.result != nil && sel < len(widget.result.Issues) {
 		issue := &widget.result.Issues[sel]
-		wtf.OpenFile(widget.settings.domain + "/browse/" + issue.Key)
+		utils.OpenFile(widget.settings.domain + "/browse/" + issue.Key)
 	}
 }
 
@@ -87,7 +87,7 @@ func (widget *Widget) contentFrom(searchResult *SearchResult) string {
 			issue.IssueFields.Summary,
 		)
 
-		str += wtf.HighlightableHelper(widget.View, row, idx, len(issue.IssueFields.Summary))
+		str += utils.HighlightableHelper(widget.View, row, idx, len(issue.IssueFields.Summary))
 	}
 
 	return str

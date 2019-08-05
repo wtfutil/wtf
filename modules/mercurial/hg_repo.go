@@ -7,7 +7,7 @@ import (
 	"path"
 	"strings"
 
-	"github.com/wtfutil/wtf/wtf"
+	"github.com/wtfutil/wtf/utils"
 )
 
 type MercurialRepo struct {
@@ -37,7 +37,7 @@ func (repo *MercurialRepo) branch() string {
 	arg := []string{"branch", repo.repoPath()}
 
 	cmd := exec.Command("hg", arg...)
-	str := wtf.ExecuteCommand(cmd)
+	str := utils.ExecuteCommand(cmd)
 
 	return str
 }
@@ -54,7 +54,7 @@ func (repo *MercurialRepo) changedFiles() []string {
 	arg := []string{"status", repo.repoPath()}
 
 	cmd := exec.Command("hg", arg...)
-	str := wtf.ExecuteCommand(cmd)
+	str := utils.ExecuteCommand(cmd)
 
 	data := strings.Split(str, "\n")
 
@@ -68,7 +68,7 @@ func (repo *MercurialRepo) commits(commitCount int, commitFormat string) []strin
 	arg := []string{"log", repo.repoPath(), numStr, commitStr}
 
 	cmd := exec.Command("hg", arg...)
-	str := wtf.ExecuteCommand(cmd)
+	str := utils.ExecuteCommand(cmd)
 
 	data := strings.Split(str, "\n")
 
@@ -78,14 +78,14 @@ func (repo *MercurialRepo) commits(commitCount int, commitFormat string) []strin
 func (repo *MercurialRepo) pull() string {
 	arg := []string{"pull", repo.repoPath()}
 	cmd := exec.Command("hg", arg...)
-	str := wtf.ExecuteCommand(cmd)
+	str := utils.ExecuteCommand(cmd)
 	return str
 }
 
 func (repo *MercurialRepo) checkout(branch string) string {
 	arg := []string{"checkout", repo.repoPath(), branch}
 	cmd := exec.Command("hg", arg...)
-	str := wtf.ExecuteCommand(cmd)
+	str := utils.ExecuteCommand(cmd)
 	return str
 }
 

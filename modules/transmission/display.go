@@ -6,7 +6,7 @@ import (
 
 	"github.com/hekmon/transmissionrpc"
 	"github.com/rivo/tview"
-	"github.com/wtfutil/wtf/wtf"
+	"github.com/wtfutil/wtf/utils"
 )
 
 func (widget *Widget) contentFrom(data []*transmissionrpc.Torrent) string {
@@ -24,7 +24,7 @@ func (widget *Widget) contentFrom(data []*transmissionrpc.Torrent) string {
 			tview.Escape(widget.prettyTorrentName(torrName)),
 		)
 
-		str += wtf.HighlightableHelper(widget.View, row, idx, len(torrName))
+		str += utils.HighlightableHelper(widget.View, row, idx, len(torrName))
 	}
 
 	return str

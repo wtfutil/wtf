@@ -1,7 +1,7 @@
 package datadog
 
 import (
-	"github.com/wtfutil/wtf/wtf"
+	"github.com/wtfutil/wtf/utils"
 	datadog "github.com/zorkian/go-datadog-api"
 )
 
@@ -12,7 +12,7 @@ func (widget *Widget) Monitors() ([]datadog.Monitor, error) {
 		widget.settings.applicationKey,
 	)
 
-	tags := wtf.ToStrs(widget.settings.tags)
+	tags := utils.ToStrs(widget.settings.tags)
 
 	monitors, err := client.GetMonitorsByTags(tags)
 	if err != nil {

@@ -3,7 +3,7 @@ package cmdrunner
 import (
 	"github.com/olebedev/config"
 	"github.com/wtfutil/wtf/cfg"
-	"github.com/wtfutil/wtf/wtf"
+	"github.com/wtfutil/wtf/utils"
 )
 
 const defaultTitle = "CmdRunner"
@@ -20,7 +20,7 @@ func NewSettingsFromYAML(name string, moduleConfig *config.Config, globalConfig 
 	settings := Settings{
 		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, moduleConfig, globalConfig),
 
-		args: wtf.ToStrs(moduleConfig.UList("args")),
+		args: utils.ToStrs(moduleConfig.UList("args")),
 		cmd:  moduleConfig.UString("cmd"),
 	}
 

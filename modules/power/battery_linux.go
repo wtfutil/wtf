@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/wtfutil/wtf/wtf"
+	"github.com/wtfutil/wtf/utils"
 )
 
 var batteryState string
@@ -41,7 +41,7 @@ func (battery *Battery) String() string {
 
 func (battery *Battery) execute() string {
 	cmd := exec.Command("upower", "-e")
-	lines := strings.Split(wtf.ExecuteCommand(cmd), "\n")
+	lines := strings.Split(utils.ExecuteCommand(cmd), "\n")
 	var target string
 	for _, l := range lines {
 		if strings.Contains(l, "/battery") {
@@ -50,7 +50,7 @@ func (battery *Battery) execute() string {
 		}
 	}
 	cmd = exec.Command("upower", "-i", target)
-	return wtf.ExecuteCommand(cmd)
+	return utils.ExecuteCommand(cmd)
 }
 
 func (battery *Battery) parse(data string) string {

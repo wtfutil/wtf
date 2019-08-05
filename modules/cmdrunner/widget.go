@@ -6,8 +6,8 @@ import (
 	"strings"
 
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/view"
-	"github.com/wtfutil/wtf/wtf"
 )
 
 type Widget struct {
@@ -61,5 +61,5 @@ func (widget *Widget) String() string {
 
 func (widget *Widget) execute() string {
 	cmd := exec.Command(widget.cmd, widget.args...)
-	return wtf.ExecuteCommand(cmd)
+	return utils.ExecuteCommand(cmd)
 }

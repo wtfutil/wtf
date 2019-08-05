@@ -5,8 +5,8 @@ import (
 	"strings"
 
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/view"
-	"github.com/wtfutil/wtf/wtf"
 )
 
 type Widget struct {
@@ -78,7 +78,7 @@ func (widget *Widget) contentFrom(builds *Builds) string {
 			strings.Split(build.Commit.Message, "\n")[0],
 			build.CreatedBy.Login,
 		)
-		str += wtf.HighlightableHelper(widget.View, row, idx, len(build.Branch.Name))
+		str += utils.HighlightableHelper(widget.View, row, idx, len(build.Branch.Name))
 	}
 
 	return str
@@ -110,6 +110,6 @@ func (widget *Widget) openBuild() {
 	if sel >= 0 && widget.builds != nil && sel < len(widget.builds.Builds) {
 		build := &widget.builds.Builds[sel]
 		travisHost := TRAVIS_HOSTS[widget.settings.pro]
-		wtf.OpenFile(fmt.Sprintf("https://%s/%s/%s/%d", travisHost, build.Repository.Slug, "builds", build.ID))
+		utils.OpenFile(fmt.Sprintf("https://%s/%s/%s/%d", travisHost, build.Repository.Slug, "builds", build.ID))
 	}
 }

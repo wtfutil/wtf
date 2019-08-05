@@ -6,7 +6,7 @@ import (
 
 	"github.com/olebedev/config"
 	"github.com/wtfutil/wtf/cfg"
-	"github.com/wtfutil/wtf/wtf"
+	"github.com/wtfutil/wtf/utils"
 )
 
 const defaultTitle = "GitHub"
@@ -57,7 +57,7 @@ func parseRepositories(ymlConfig *config.Config) []string {
 		return result
 	}
 
-	result = wtf.ToStrs(ymlConfig.UList("repositories"))
+	result = utils.ToStrs(ymlConfig.UList("repositories"))
 	return result
 }
 

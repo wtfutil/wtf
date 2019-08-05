@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/view"
 	"github.com/wtfutil/wtf/wtf"
 )
@@ -49,7 +50,7 @@ func (widget *Widget) Refresh() {
 
 func (widget *Widget) contentFrom(items []Item) string {
 	if len(items) == 0 {
-		return fmt.Sprintf("\n\n\n\n\n\n\n\n%s", wtf.CenterText("[grey]no one[white]", 50))
+		return fmt.Sprintf("\n\n\n\n\n\n\n\n%s", utils.CenterText("[grey]no one[white]", 50))
 	}
 
 	str := ""

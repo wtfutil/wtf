@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/view"
 	"github.com/wtfutil/wtf/wtf"
 	nr "github.com/yfronto/newrelic"
@@ -63,7 +64,7 @@ func (widget *Widget) contentFrom(deploys []nr.ApplicationDeployment) string {
 	revisions := []string{}
 
 	for _, deploy := range deploys {
-		if (deploy.Revision != "") && wtf.Exclude(revisions, deploy.Revision) {
+		if (deploy.Revision != "") && utils.DoesNotInclude(revisions, deploy.Revision) {
 			lineColor := "white"
 			if wtf.IsToday(deploy.Timestamp) {
 				lineColor = "lightblue"
@@ -79,7 +80,7 @@ func (widget *Widget) contentFrom(deploys []nr.ApplicationDeployment) string {
 				deploy.Revision[0:revLen],
 				lineColor,
 				deploy.Timestamp.Format("Jan 02 15:04 MST"),
-				wtf.NameFromEmail(deploy.User),
+				utils.NameFromEmail(deploy.User),
 			)
 
 			revisions = append(revisions, deploy.Revision)

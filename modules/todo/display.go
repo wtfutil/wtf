@@ -5,7 +5,7 @@ import (
 
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/checklist"
-	"github.com/wtfutil/wtf/wtf"
+	"github.com/wtfutil/wtf/utils"
 )
 
 func (widget *Widget) display() {
@@ -54,5 +54,5 @@ func (widget *Widget) formattedItemLine(idx int, item *checklist.ChecklistItem, 
 		tview.Escape(item.Text),
 	)
 
-	return wtf.HighlightableHelper(widget.View, row, idx, len(item.Text))
+	return utils.HighlightableHelper(widget.View, row, idx, len(item.Text))
 }

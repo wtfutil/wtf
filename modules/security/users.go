@@ -7,7 +7,7 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/wtfutil/wtf/wtf"
+	"github.com/wtfutil/wtf/utils"
 )
 
 /* -------------------- Exported Functions -------------------- */
@@ -51,7 +51,7 @@ func cleanUsers(users []string) []string {
 
 func loggedInUsersLinux() []string {
 	cmd := exec.Command("who", "-us")
-	users := wtf.ExecuteCommand(cmd)
+	users := utils.ExecuteCommand(cmd)
 
 	cleaned := []string{}
 
@@ -77,24 +77,24 @@ func loggedInUsersLinux() []string {
 
 func loggedInUsersMacOs() []string {
 	cmd := exec.Command("dscl", []string{".", "-list", "/Users"}...)
-	users := wtf.ExecuteCommand(cmd)
+	users := utils.ExecuteCommand(cmd)
 
 	return cleanUsers(strings.Split(users, "\n"))
 }
 
 func loggedInUsersWindows() []string {
-    // We can use either one:
-    // 		(Get-WMIObject -class Win32_ComputerSystem | select username).username
-    // 		[System.Security.Principal.WindowsIdentity]::GetCurrent().Name
-    // The original was: 
-    //		cmd := exec.Command("powershell.exe", "(query user) -replace '\\s{2,}', ','") 	
-    // But that didn't work!
+	// We can use either one:
+	// 		(Get-WMIObject -class Win32_ComputerSystem | select username).username
+	// 		[System.Security.Principal.WindowsIdentity]::GetCurrent().Name
+	// The original was:
+	//		cmd := exec.Command("powershell.exe", "(query user) -replace '\\s{2,}', ','")
+	// But that didn't work!
 	// The real powershell command reads:
 	// 	 powershell.exe -NoProfile -Command "& { [System.Security.Principal.WindowsIdentity]::GetCurrent().Name }"
-    // But we here have to write it as: 
-    cmd := exec.Command("powershell.exe", "-NoProfile", "-Command", "& { [System.Security.Principal.WindowsIdentity]::GetCurrent().Name }")
-    // ToDo:  Make list for multi-user systems
+	// But we here have to write it as:
+	cmd := exec.Command("powershell.exe", "-NoProfile", "-Command", "& { [System.Security.Principal.WindowsIdentity]::GetCurrent().Name }")
+	// ToDo:  Make list for multi-user systems
 
-    users := wtf.ExecuteCommand(cmd)
-    return cleanUsers(strings.Split(users, "\n"))
+	users := utils.ExecuteCommand(cmd)
+	return cleanUsers(strings.Split(users, "\n"))
 }

@@ -6,7 +6,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/wtfutil/wtf/wtf"
+	"github.com/wtfutil/wtf/utils"
 )
 
 func (widget *Widget) sortedEvents() ([]*CalEvent, []*CalEvent) {
@@ -98,7 +98,7 @@ func (widget *Widget) dayDivider(event, prevEvent *CalEvent) string {
 
 		return fmt.Sprintf("[%s::b]",
 			widget.settings.colors.day) +
-			event.Start().Format(wtf.FullDateFormat) +
+			event.Start().Format(utils.FullDateFormat) +
 			"\n"
 	}
 
@@ -169,7 +169,7 @@ func (widget *Widget) titleColor(calEvent *CalEvent) string {
 	color := widget.settings.colors.title
 
 	for _, untypedArr := range widget.settings.highlights {
-		highlightElements := wtf.ToStrs(untypedArr.([]interface{}))
+		highlightElements := utils.ToStrs(untypedArr.([]interface{}))
 
 		match, _ := regexp.MatchString(
 			strings.ToLower(highlightElements[0]),

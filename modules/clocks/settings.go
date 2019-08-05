@@ -3,7 +3,7 @@ package clocks
 import (
 	"github.com/olebedev/config"
 	"github.com/wtfutil/wtf/cfg"
-	"github.com/wtfutil/wtf/wtf"
+	"github.com/wtfutil/wtf/utils"
 )
 
 const defaultTitle = "Clocks"
@@ -30,8 +30,8 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 	settings := Settings{
 		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, ymlConfig, globalConfig),
 
-		dateFormat: ymlConfig.UString("dateFormat", wtf.SimpleDateFormat),
-		timeFormat: ymlConfig.UString("timeFormat", wtf.SimpleTimeFormat),
+		dateFormat: ymlConfig.UString("dateFormat", utils.SimpleDateFormat),
+		timeFormat: ymlConfig.UString("timeFormat", utils.SimpleTimeFormat),
 		locations:  ymlConfig.UMap("locations"),
 		sort:       ymlConfig.UString("sort"),
 	}

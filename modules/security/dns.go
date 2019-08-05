@@ -5,7 +5,7 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/wtfutil/wtf/wtf"
+	"github.com/wtfutil/wtf/utils"
 )
 
 /* -------------------- Exported Functions -------------------- */
@@ -28,7 +28,7 @@ func DnsServers() []string {
 func dnsLinux() []string {
 	// This may be very Ubuntu specific
 	cmd := exec.Command("nmcli", "device", "show")
-	out := wtf.ExecuteCommand(cmd)
+	out := utils.ExecuteCommand(cmd)
 
 	lines := strings.Split(out, "\n")
 
@@ -46,7 +46,7 @@ func dnsLinux() []string {
 func dnsMacOS() []string {
 	cmdString := `scutil --dns | head -n 7 | grep -o '[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}'`
 	cmd := exec.Command("sh", "-c", cmdString)
-	out := wtf.ExecuteCommand(cmd)
+	out := utils.ExecuteCommand(cmd)
 
 	lines := strings.Split(out, "\n")
 
@@ -61,5 +61,5 @@ func dnsWindows() []string {
 
 	cmd := exec.Command("powershell.exe", "-NoProfile", "Get-DnsClientServerAddress | Select-Object –ExpandProperty ServerAddresses")
 
-	return []string{wtf.ExecuteCommand(cmd)}
+	return []string{utils.ExecuteCommand(cmd)}
 }

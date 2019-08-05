@@ -4,8 +4,8 @@ import (
 	"fmt"
 
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/view"
-	"github.com/wtfutil/wtf/wtf"
 )
 
 // A Widget represents a Rollbar widget
@@ -91,7 +91,7 @@ func (widget *Widget) contentFrom(result *Result) string {
 			"blue",
 			item.Environment,
 		)
-		str += wtf.HighlightableHelper(widget.View, row, idx, len(item.Title))
+		str += utils.HighlightableHelper(widget.View, row, idx, len(item.Title))
 	}
 
 	return str
@@ -124,7 +124,7 @@ func (widget *Widget) openBuild() {
 	if widget.GetSelected() >= 0 && widget.items != nil && widget.GetSelected() < len(widget.items.Items) {
 		item := &widget.items.Items[widget.GetSelected()]
 
-		wtf.OpenFile(
+		utils.OpenFile(
 			fmt.Sprintf(
 				"https://rollbar.com/%s/%s/%s/%d",
 				widget.settings.projectOwner,

@@ -4,8 +4,8 @@ import (
 	"fmt"
 
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/view"
-	"github.com/wtfutil/wtf/wtf"
 )
 
 // A Widget represents a Gitter widget
@@ -94,7 +94,7 @@ func (widget *Widget) contentFrom(messages []Message) string {
 			message.Sent.Format("Jan 02, 15:04 MST"),
 		)
 
-		str += wtf.HighlightableHelper(widget.View, row, idx, len(message.Text))
+		str += utils.HighlightableHelper(widget.View, row, idx, len(message.Text))
 	}
 
 	return str
@@ -104,6 +104,6 @@ func (widget *Widget) openMessage() {
 	sel := widget.GetSelected()
 	if sel >= 0 && widget.messages != nil && sel < len(widget.messages) {
 		message := &widget.messages[sel]
-		wtf.OpenFile(message.Text)
+		utils.OpenFile(message.Text)
 	}
 }

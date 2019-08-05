@@ -6,7 +6,7 @@ import (
 	"net/http"
 
 	ghb "github.com/google/go-github/v26/github"
-	"github.com/wtfutil/wtf/wtf"
+	"github.com/wtfutil/wtf/utils"
 	"golang.org/x/oauth2"
 )
 
@@ -35,7 +35,7 @@ func NewGithubRepo(name, owner, apiKey, baseURL, uploadURL string) *GithubRepo {
 }
 
 func (repo *GithubRepo) Open() {
-	wtf.OpenFile(*repo.RemoteRepo.HTMLURL)
+	utils.OpenFile(*repo.RemoteRepo.HTMLURL)
 }
 
 // Refresh reloads the github data via the Github API

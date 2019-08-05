@@ -5,7 +5,7 @@ import (
 
 	"github.com/gdamore/tcell"
 	"github.com/wtfutil/wtf/cfg"
-	"github.com/wtfutil/wtf/wtf"
+	"github.com/wtfutil/wtf/utils"
 )
 
 func (widget *Widget) initializeKeyboardControls() {
@@ -50,7 +50,7 @@ func (widget *Widget) displayPrev() {
 
 func (widget *Widget) openFile() {
 	confDir, _ := cfg.WtfConfigDir()
-	wtf.OpenFile(fmt.Sprintf("%s/%s", confDir, widget.filePath))
+	utils.OpenFile(fmt.Sprintf("%s/%s", confDir, widget.filePath))
 }
 
 func (widget *Widget) promoteSelected() {

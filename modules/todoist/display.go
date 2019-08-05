@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/rivo/tview"
-	"github.com/wtfutil/wtf/wtf"
+	"github.com/wtfutil/wtf/utils"
 )
 
 func (widget *Widget) display() {
@@ -25,7 +25,7 @@ func (widget *Widget) display() {
 			widget.RowColor(idx),
 		)
 
-		str += wtf.HighlightableHelper(widget.View, row, idx, len(item.Content))
+		str += utils.HighlightableHelper(widget.View, row, idx, len(item.Content))
 	}
 
 	widget.ScrollableWidget.Redraw(title, str, false)

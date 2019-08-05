@@ -6,8 +6,8 @@ import (
 	"strings"
 
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/view"
-	"github.com/wtfutil/wtf/wtf"
 )
 
 type Widget struct {
@@ -91,7 +91,7 @@ func (widget *Widget) contentFrom(stories []Story) string {
 			strings.TrimPrefix(u.Host, "www."),
 		)
 
-		str += wtf.HighlightableHelper(widget.View, row, idx, len(story.Title))
+		str += utils.HighlightableHelper(widget.View, row, idx, len(story.Title))
 	}
 
 	return str
@@ -101,7 +101,7 @@ func (widget *Widget) openStory() {
 	sel := widget.GetSelected()
 	if sel >= 0 && widget.stories != nil && sel < len(widget.stories) {
 		story := &widget.stories[sel]
-		wtf.OpenFile(story.URL)
+		utils.OpenFile(story.URL)
 	}
 }
 
@@ -109,6 +109,6 @@ func (widget *Widget) openComments() {
 	sel := widget.GetSelected()
 	if sel >= 0 && widget.stories != nil && sel < len(widget.stories) {
 		story := &widget.stories[sel]
-		wtf.OpenFile(fmt.Sprintf("https://news.ycombinator.com/item?id=%d", story.ID))
+		utils.OpenFile(fmt.Sprintf("https://news.ycombinator.com/item?id=%d", story.ID))
 	}
 }

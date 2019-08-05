@@ -3,7 +3,7 @@ package feedreader
 import (
 	"github.com/olebedev/config"
 	"github.com/wtfutil/wtf/cfg"
-	"github.com/wtfutil/wtf/wtf"
+	"github.com/wtfutil/wtf/utils"
 )
 
 const (
@@ -23,7 +23,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 	settings := &Settings{
 		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, ymlConfig, globalConfig),
 
-		feeds:     wtf.ToStrs(ymlConfig.UList("feeds")),
+		feeds:     utils.ToStrs(ymlConfig.UList("feeds")),
 		feedLimit: ymlConfig.UInt("feedLimit", -1),
 	}
 

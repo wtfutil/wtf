@@ -7,8 +7,8 @@ import (
 
 	"github.com/dustin/go-humanize"
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/view"
-	"github.com/wtfutil/wtf/wtf"
 )
 
 type Widget struct {
@@ -68,7 +68,7 @@ func (widget *Widget) display() {
 	title := fmt.Sprintf("Twitter - [green]@%s[white]", widget.CurrentSource())
 
 	if len(tweets) == 0 {
-		str := fmt.Sprintf("\n\n\n%s", wtf.CenterText("[lightblue]No Tweets[white]", 50))
+		str := fmt.Sprintf("\n\n\n%s", utils.CenterText("[lightblue]No Tweets[white]", 50))
 		widget.Redraw(title, str, true)
 		return
 	}
