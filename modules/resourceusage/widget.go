@@ -1,14 +1,15 @@
 package resourceusage
 
 import (
-	"code.cloudfoundry.org/bytefmt"
 	"fmt"
+	"math"
+	"time"
+
+	"code.cloudfoundry.org/bytefmt"
 	"github.com/rivo/tview"
 	"github.com/shirou/gopsutil/cpu"
 	"github.com/shirou/gopsutil/mem"
-	"github.com/wtfutil/wtf/wtf"
-	"math"
-	"time"
+	"github.com/wtfutil/wtf/view"
 )
 
 var started = false
@@ -16,7 +17,7 @@ var ok = true
 
 // Widget define wtf widget to register widget later
 type Widget struct {
-	wtf.BarGraph
+	view.BarGraph
 
 	app      *tview.Application
 	settings *Settings
@@ -25,7 +26,7 @@ type Widget struct {
 // NewWidget Make new instance of widget
 func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
-		BarGraph: wtf.NewBarGraph(app, settings.common.Name, settings.common, false),
+		BarGraph: view.NewBarGraph(app, settings.common.Name, settings.common, false),
 
 		app:      app,
 		settings: settings,
@@ -46,14 +47,14 @@ func MakeGraph(widget *Widget) {
 		return
 	}
 
-	var stats = make([]wtf.Bar, len(cpuStats)+2)
+	var stats = make([]view.Bar, len(cpuStats)+2)
 
 	for i, stat := range cpuStats {
 		// Stats sometimes jump outside the 0-100 range, possibly due to timing
 		stat = math.Min(100, stat)
 		stat = math.Max(0, stat)
 
-		bar := wtf.Bar{
+		bar := view.Bar{
 			Label:      fmt.Sprint(i),
 			Percent:    int(stat),
 			ValueLabel: fmt.Sprintf("%d%%", int(stat)),
@@ -76,7 +77,7 @@ func MakeGraph(widget *Widget) {
 		usedMemLabel = usedMemLabel[:len(usedMemLabel)-1]
 	}
 
-	stats[memIndex] = wtf.Bar{
+	stats[memIndex] = view.Bar{
 		Label:      "Mem",
 		Percent:    int(memInfo.UsedPercent),
 		ValueLabel: fmt.Sprintf("%s/%s", usedMemLabel, totalMemLabel),
@@ -96,7 +97,7 @@ func MakeGraph(widget *Widget) {
 		usedSwapLabel = usedSwapLabel[:len(usedSwapLabel)-1]
 	}
 
-	stats[swapIndex] = wtf.Bar{
+	stats[swapIndex] = view.Bar{
 		Label:      "Swp",
 		Percent:    int(swapPercent * 100),
 		ValueLabel: fmt.Sprintf("%s/%s", usedSwapLabel, totalSwapLabel),

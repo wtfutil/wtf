@@ -1,4 +1,4 @@
-package wtf
+package view
 
 import (
 	"bytes"
@@ -7,6 +7,7 @@ import (
 
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/cfg"
+	"github.com/wtfutil/wtf/wtf"
 )
 
 //BarGraph lets make graphs
@@ -185,12 +186,12 @@ func BuildStars(data []Bar, maxStars int, starChar string) string {
 func (widget *BarGraph) addView() *tview.TextView {
 	view := tview.NewTextView()
 
-	view.SetBackgroundColor(ColorFor(widget.commonSettings.Colors.Background))
+	view.SetBackgroundColor(wtf.ColorFor(widget.commonSettings.Colors.Background))
 	view.SetBorder(true)
-	view.SetBorderColor(ColorFor(widget.BorderColor()))
+	view.SetBorderColor(wtf.ColorFor(widget.BorderColor()))
 	view.SetDynamicColors(true)
 	view.SetTitle(widget.Name())
-	view.SetTitleColor(ColorFor(widget.commonSettings.Colors.Title))
+	view.SetTitleColor(wtf.ColorFor(widget.commonSettings.Colors.Title))
 	view.SetWrap(false)
 
 	return view
