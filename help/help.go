@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/olebedev/config"
-	"github.com/wtfutil/wtf/maker"
+	"github.com/wtfutil/wtf/app"
 	"github.com/wtfutil/wtf/utils"
 )
 
@@ -18,7 +18,7 @@ func Display(moduleName string, config *config.Config) {
 }
 
 func helpFor(moduleName string, config *config.Config) string {
-	widget := maker.MakeWidget(nil, nil, moduleName, config)
+	widget := app.MakeWidget(nil, nil, moduleName, config)
 
 	result := ""
 	result += utils.StripColorTags(widget.HelpText())
