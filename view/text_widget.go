@@ -16,8 +16,7 @@ func NewTextWidget(app *tview.Application, commonSettings *cfg.Common, focusable
 		Base: NewBase(app, commonSettings, focusable),
 	}
 
-	widget.View = widget.addView()
-	widget.View.SetBorder(widget.bordered)
+	widget.View = widget.addView(widget.bordered)
 
 	return widget
 }
@@ -39,16 +38,15 @@ func (widget *TextWidget) Redraw(title, text string, wrap bool) {
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (widget *TextWidget) addView() *tview.TextView {
+func (widget *TextWidget) addView(bordered bool) *tview.TextView {
 	view := tview.NewTextView()
 
 	view.SetBackgroundColor(wtf.ColorFor(widget.commonSettings.Colors.Background))
+	view.SetBorder(bordered)
 	view.SetBorderColor(wtf.ColorFor(widget.BorderColor()))
+	view.SetDynamicColors(true)
 	view.SetTextColor(wtf.ColorFor(widget.commonSettings.Colors.Text))
 	view.SetTitleColor(wtf.ColorFor(widget.commonSettings.Colors.Title))
-
-	view.SetBorder(true)
-	view.SetDynamicColors(true)
 	view.SetWrap(false)
 
 	return view

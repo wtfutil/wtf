@@ -34,17 +34,12 @@ func NewBarGraph(app *tview.Application, name string, commonSettings *cfg.Common
 		starChar: commonSettings.Config.UString("graphIcon", "|"),
 	}
 
-	widget.View = widget.addView()
-	widget.View.SetBorder(widget.bordered)
+	widget.View = widget.addView(widget.bordered)
 
 	return widget
 }
 
 /* -------------------- Exported Functions -------------------- */
-
-func (widget *BarGraph) TextView() *tview.TextView {
-	return widget.View
-}
 
 // BuildBars will build a string of * to represent your data of [time][value]
 // time should be passed as a int64
@@ -98,16 +93,20 @@ func BuildStars(data []Bar, maxStars int, starChar string) string {
 	return buffer.String()
 }
 
+func (widget *BarGraph) TextView() *tview.TextView {
+	return widget.View
+}
+
 /* -------------------- Unexported Functions -------------------- */
 
-func (widget *BarGraph) addView() *tview.TextView {
+func (widget *BarGraph) addView(bordered bool) *tview.TextView {
 	view := tview.NewTextView()
 
 	view.SetBackgroundColor(wtf.ColorFor(widget.commonSettings.Colors.Background))
-	view.SetBorder(true)
+	view.SetBorder(bordered)
 	view.SetBorderColor(wtf.ColorFor(widget.BorderColor()))
 	view.SetDynamicColors(true)
-	view.SetTitle(widget.Name())
+	view.SetTitle(widget.ContextualTitle(widget.CommonSettings().Title))
 	view.SetTitleColor(wtf.ColorFor(widget.commonSettings.Colors.Title))
 	view.SetWrap(false)
 
