@@ -1,0 +1,21 @@
+wtf:
+  colors:
+    border:
+      focusable: darkslateblue
+      focused: orange
+      normal: gray
+  grid:
+    columns: [32, 32, 32, 32, 32, 32]
+    rows: [10, 10, 10, 10, 10, 10]
+  refreshInterval: 2
+  mods:
+    kubernetes:
+      enabled: true
+      kubeconfig: /Users/testuser/.kube/config
+      namespaces: ["demo", "kube-system"]
+      objects: ["nodes","deployments", "pods"]
+      position:
+        top: 0
+        left: 0
+        height: 6
+        width: 3

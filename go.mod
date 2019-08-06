@@ -24,13 +24,10 @@ require (
 	github.com/hekmon/cunits v2.0.1+incompatible // indirect
 	github.com/hekmon/transmissionrpc v0.0.0-20190525133028-1d589625bacd
 	github.com/jessevdk/go-flags v1.4.0
-	github.com/kr/pretty v0.1.0 // indirect
 	github.com/logrusorgru/aurora v0.0.0-20190428105938-cea283e61946
 	github.com/mattn/go-isatty v0.0.8 // indirect
 	github.com/mmcdole/gofeed v1.0.0-beta2.0.20190420154928-0e68beaf6fdf
 	github.com/olebedev/config v0.0.0-20190528211619-364964f3a8e4
-	github.com/onsi/ginkgo v1.8.0 // indirect
-	github.com/onsi/gomega v1.5.0 // indirect
 	github.com/pkg/profile v1.3.0
 	github.com/radovskyb/watcher v1.0.6
 	github.com/rivo/tview v0.0.0-20190721135419-23dc8a0944e4
@@ -53,7 +50,8 @@ require (
 	google.golang.org/appengine v1.6.1 // indirect
 	google.golang.org/genproto v0.0.0-20190627203621-eb59cef1c072 // indirect
 	google.golang.org/grpc v1.21.1 // indirect
-	gopkg.in/check.v1 v1.0.0-20180628173108-788fd7840127 // indirect
 	gopkg.in/jarcoal/httpmock.v1 v1.0.0-20190314184232-a8ac0a50d0b5 // indirect
 	gopkg.in/yaml.v2 v2.2.2
+	k8s.io/apimachinery v0.0.0-20190802060556-6fa4771c83b3
+	k8s.io/client-go v12.0.0+incompatible
 )
