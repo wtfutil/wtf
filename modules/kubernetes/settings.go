@@ -11,7 +11,7 @@ const defaultTitle = "Kubernetes"
 type Settings struct {
 	common *cfg.Common
 
-	objects    []string `help:"Kubernetes objects to show. Options are pods, deployments."`
+	objects    []string `help:"Kubernetes objects to show. Options are: [nodes, pods, deployments]."`
 	title      string   `help:"Override the title of widget."`
 	kubeconfig string   `help:"Location of a kubeconfig file."`
 	namespaces []string `help:"List of namespaces to watch. If blank, defaults to all namespaces."`
