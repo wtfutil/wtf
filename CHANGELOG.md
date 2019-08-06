@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+### ⚡️ Added
+
+* Kubernetes module, [#142](https://github.com/wtfutil/wtf/issues/142) by [@sudermanjr](https://github.com/sudermanjr)
+
+### 🐞 Fixed
+
 * Tab and Esc keys work properly in modal dialogs, [#520](https://github.com/wtfutil/wtf/issues/520) by by [@Seanstoppable](https://github.com/Seanstoppable)
 
 ## v0.19.1
