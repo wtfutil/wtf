@@ -12,10 +12,6 @@ func Test_CenterText(t *testing.T) {
 	Equal(t, "   cat   ", CenterText("cat", 9))
 }
 
-func Test_HighlightableHelper(t *testing.T) {
-
-}
-
 func Test_RowPadding(t *testing.T) {
 	Equal(t, "", RowPadding(0, 0))
 	Equal(t, "", RowPadding(5, 2))

@@ -75,23 +75,23 @@ func (widget *Widget) fetchForAccount(account string, since string) (*Status, er
 }
 
 func (widget *Widget) parseResponseBody(account string, body []byte) (*Status, error) {
-	// If the body is empty then there's no breaches
+	breaches := []Breach{}
+	stat := NewStatus(account, breaches)
+
 	if len(body) == 0 {
-		stat := NewStatus(account, []Breach{})
+		// If the body is empty then there's no breaches
 		return stat, nil
 	}
 
-	// Else we have breaches for this account
-	breaches := make([]Breach, 0)
-
 	jsonErr := json.Unmarshal(body, &breaches)
 	if jsonErr != nil {
-		return nil, jsonErr
+		return stat, jsonErr
 	}
 
 	breaches = widget.filterBreaches(breaches)
+	stat.Breaches = breaches
 
-	return NewStatus(account, breaches), nil
+	return stat, nil
 }
 
 func (widget *Widget) filterBreaches(breaches []Breach) []Breach {

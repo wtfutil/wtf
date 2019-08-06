@@ -24,5 +24,9 @@ func (stat *Status) HasBeenCompromised() bool {
 
 // Len returns the number of breaches found for the specified account
 func (stat *Status) Len() int {
+	if stat == nil || stat.Breaches == nil {
+		return 0
+	}
+
 	return len(stat.Breaches)
 }
