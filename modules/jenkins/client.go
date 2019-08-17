@@ -8,6 +8,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"regexp"
 	"strings"
 )
 
@@ -42,6 +43,17 @@ func (widget *Widget) Create(jenkinsURL string, username string, apiKey string) 
 
 	view := &View{}
 	parseJson(view, resp.Body)
+
+	jobs := []Job{}
+
+	var validID = regexp.MustCompile(widget.settings.jobNameRegex)
+	for _, job := range view.Jobs {
+		if validID.MatchString(job.Name) {
+			jobs = append(jobs, job)
+		}
+	}
+
+	view.Jobs = jobs
 
 	return view, nil
 }
