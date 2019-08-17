@@ -2,7 +2,6 @@ package jenkins
 
 import (
 	"fmt"
-	"regexp"
 
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/utils"
@@ -73,18 +72,15 @@ func (widget *Widget) Render() {
 func (widget *Widget) contentFrom(view *View) string {
 	var str string
 	for idx, job := range view.Jobs {
-		var validID = regexp.MustCompile(widget.settings.jobNameRegex)
 
-		if validID.MatchString(job.Name) {
-			row := fmt.Sprintf(
-				`[%s] [%s]%-6s[white]`,
-				widget.RowColor(idx),
-				widget.jobColor(&job),
-				job.Name,
-			)
+		row := fmt.Sprintf(
+			`[%s] [%s]%-6s[white]`,
+			widget.RowColor(idx),
+			widget.jobColor(&job),
+			job.Name,
+		)
 
-			str += utils.HighlightableHelper(widget.View, row, idx, len(job.Name))
-		}
+		str += utils.HighlightableHelper(widget.View, row, idx, len(job.Name))
 	}
 
 	return str
