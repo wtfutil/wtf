@@ -38,9 +38,6 @@ install:
 	@$(MAKE) -f $(THIS_FILE) binary_msg
 
 binary_msg:
-	@echo "\n\033[1mIMPORTANT NOTE\033[0m:"
-	@echo "    The \033[0;33mwtf\033[0m binary has been renamed to \033[0;33mwtfutil\033[0m."
-	@echo "    Executing \033[0;33mwtf\033[0m will no longer work. You \033[1mmust\033[0m use \033[0;33mwtfutil\033[0m.\n"
 	@echo "Install path: "
 	@which wtfutil || echo "Could not find wtfutil in PATH" && exit 0
 
