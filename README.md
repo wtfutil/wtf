@@ -43,6 +43,16 @@ displaying infrequently-needed, but very important, daily data.
 
 ### Install via Homebrew
 
+The simplest way from Homebrew:
+
+```console
+brew install wtfutil
+
+wtfutil
+```
+
+That version can sometimes lag a bit, as recipe updates take time to get accepted into `homebrew-core`. If you always want the bleeding edge of releases, you can tap it:
+
 ```console
 brew tap wtfutil/wtfutil
 brew install wtfutil
