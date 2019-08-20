@@ -8,7 +8,9 @@
 
 ### 🐞 Fixed
 
-* Tab and Esc keys work properly in modal dialogs, [#520](https://github.com/wtfutil/wtf/issues/520) by by [@Seanstoppable](https://github.com/Seanstoppable)
+* Tab and Esc keys work properly in modal dialogs, [#520](https://github.com/wtfutil/wtf/issues/520) by [@Seanstoppable](https://github.com/Seanstoppable)
+* `wtfutil -m` flag now works with non-enabled modules, [#529](https://github.com/wtfutil/wtf/issues/529) by [@Seanstoppable](https://github.com/Seanstoppable)
+* Jenkins job filtering preserved across redraws, [#532](https://github.com/wtfutil/wtf/issues/532) by [@Seanstoppable](https://github.com/Seanstoppable)
 
 ## v0.19.1
 
