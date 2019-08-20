@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## v0.20.0
+
 ### ⚡️ Added
 
 * Kubernetes module, [#142](https://github.com/wtfutil/wtf/issues/142) by [@sudermanjr](https://github.com/sudermanjr)
