@@ -9,8 +9,35 @@ import (
 )
 
 func Test_DoesNotInclude(t *testing.T) {
-	Equal(t, true, DoesNotInclude([]string{"cat", "dog", "rat"}, "bat"))
-	Equal(t, false, DoesNotInclude([]string{"cat", "dog", "rat"}, "dog"))
+	tests := []struct {
+		name     string
+		strs     []string
+		val      string
+		expected bool
+	}{
+		{
+			name:     "when included",
+			strs:     []string{"a", "b", "c"},
+			val:      "b",
+			expected: false,
+		},
+		{
+			name:     "when not included",
+			strs:     []string{"a", "b", "c"},
+			val:      "f",
+			expected: true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			actual := DoesNotInclude(tt.strs, tt.val)
+
+			if tt.expected != actual {
+				t.Errorf("\nexpected: %t\n     got: %t", tt.expected, actual)
+			}
+		})
+	}
 }
 
 func Test_ExecuteCommand(t *testing.T) {
@@ -48,6 +75,38 @@ func Test_FindMatch(t *testing.T) {
 	expected := [][]string([][]string{[]string{"SSID: 7E5B5C", "7E5B5C"}})
 	result = FindMatch(`s*SSID: (.+)s*`, "SSID: 7E5B5C")
 	Equal(t, expected, result)
+}
+
+func Test_Includes(t *testing.T) {
+	tests := []struct {
+		name     string
+		strs     []string
+		val      string
+		expected bool
+	}{
+		{
+			name:     "when included",
+			strs:     []string{"a", "b", "c"},
+			val:      "b",
+			expected: true,
+		},
+		{
+			name:     "when not included",
+			strs:     []string{"a", "b", "c"},
+			val:      "f",
+			expected: false,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			actual := Includes(tt.strs, tt.val)
+
+			if tt.expected != actual {
+				t.Errorf("\nexpected: %t\n     got: %t", tt.expected, actual)
+			}
+		})
+	}
 }
 
 func Test_ReadFileBytes(t *testing.T) {

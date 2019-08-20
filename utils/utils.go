@@ -33,12 +33,7 @@ const (
 //    > true
 //
 func DoesNotInclude(strs []string, val string) bool {
-	for _, str := range strs {
-		if val == str {
-			return false
-		}
-	}
-	return true
+	return !Includes(strs, val)
 }
 
 // ExecuteCommand executes an external command on the local machine as the current user
@@ -74,6 +69,26 @@ func ExecuteCommand(cmd *exec.Cmd) string {
 func FindMatch(pattern string, data string) [][]string {
 	r := regexp.MustCompile(pattern)
 	return r.FindAllStringSubmatch(data, -1)
+}
+
+// Includes takes a slice of strings and a target string and returns
+// TRUE if the slice includes the target, FALSE if it does not
+//
+// Example:
+//
+//    x := Includes([]string{"cat", "dog", "rat"}, "dog")
+//    > true
+//
+//    x := Includes([]string{"cat", "dog", "rat"}, "pig")
+//    > false
+//
+func Includes(strs []string, val string) bool {
+	for _, str := range strs {
+		if val == str {
+			return true
+		}
+	}
+	return false
 }
 
 // OpenFile opens the file defined in `path` via the operating system

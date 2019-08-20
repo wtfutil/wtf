@@ -40,18 +40,12 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 
 // Refresh executes the command and updates the view with the results
 func (widget *Widget) Refresh() {
-
 	title := widget.generateTitle()
-
 	client := widget.getInstance()
 
 	var content string
 
-	// Debug Info
-	//content += fmt.Sprintf("Namespaces: %q %d\n", widget.namespaces, len(widget.namespaces))
-	//content += fmt.Sprintf("Objects: %q %d\n\n", widget.objects, len(widget.objects))
-
-	if !utils.DoesNotInclude(widget.objects, "nodes") {
+	if utils.Includes(widget.objects, "nodes") {
 		nodeList, nodeError := client.getNodes()
 		if nodeError != nil {
 			widget.Redraw(title, "[red] Error getting node data [white]\n", true)
@@ -64,7 +58,7 @@ func (widget *Widget) Refresh() {
 		content += "\n"
 	}
 
-	if !utils.DoesNotInclude(widget.objects, "deployments") {
+	if utils.Includes(widget.objects, "deployments") {
 		deploymentList, deploymentError := client.getDeployments(widget.namespaces)
 		if deploymentError != nil {
 			widget.Redraw(title, "[red] Error getting deployment data [white]\n", true)
@@ -77,7 +71,7 @@ func (widget *Widget) Refresh() {
 		content += "\n"
 	}
 
-	if !utils.DoesNotInclude(widget.objects, "pods") {
+	if utils.Includes(widget.objects, "pods") {
 		podList, podError := client.getPods(widget.namespaces)
 		if podError != nil {
 			widget.Redraw(title, "[red] Error getting pod data [white]\n", false)
