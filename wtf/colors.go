@@ -401,6 +401,7 @@ var colors = map[string]tcell.Color{
 	"teal":                 tcell.ColorTeal,
 	"thistle":              tcell.ColorThistle,
 	"tomato":               tcell.ColorTomato,
+	"transparent":          tcell.ColorDefault,
 	"turquoise":            tcell.ColorTurquoise,
 	"violet":               tcell.ColorViolet,
 	"wheat":                tcell.ColorWheat,

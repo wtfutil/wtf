@@ -62,7 +62,7 @@ func NewCommonSettingsFromModule(name, defaultTitle string, moduleConfig *config
 
 	common := Common{
 		Colors: Colors{
-			Background:      moduleConfig.UString("background", globalSettings.UString("background", "black")),
+			Background:      moduleConfig.UString("background", globalSettings.UString("background", "transparent")),
 			BorderFocusable: colorsConfig.UString("border.focusable", "red"),
 			BorderFocused:   colorsConfig.UString("border.focused", "orange"),
 			BorderNormal:    colorsConfig.UString("border.normal", "gray"),

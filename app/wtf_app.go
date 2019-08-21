@@ -37,6 +37,13 @@ func NewWtfApp(app *tview.Application, config *config.Config, configFilePath str
 		pages:          tview.NewPages(),
 	}
 
+	wtfApp.app.SetBeforeDrawFunc(func(s tcell.Screen) bool {
+		s.Clear()
+		return false
+	})
+
+	wtfApp.pages.Box.SetBackgroundColor(wtf.ColorFor(config.UString("wtf.colors.background", "transparent")))
+
 	wtfApp.app.SetInputCapture(wtfApp.keyboardIntercept)
 	wtfApp.widgets = MakeWidgets(wtfApp.app, wtfApp.pages, wtfApp.config)
 	wtfApp.display = NewDisplay(wtfApp.widgets, wtfApp.config)
