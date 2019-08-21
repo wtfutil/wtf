@@ -95,7 +95,7 @@ func (battery *Battery) formatRemaining(data string) string {
 	r, _ := regexp.Compile(TimeRegExp)
 
 	result := r.FindString(data)
-	if result == "" {
+	if result == "" || result == "0:00" {
 		result = "∞"
 	}
 
