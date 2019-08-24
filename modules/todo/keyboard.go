@@ -9,9 +9,8 @@ import (
 )
 
 func (widget *Widget) initializeKeyboardControls() {
-	widget.InitializeCommonControls()
+	widget.InitializeCommonControls(widget.Refresh)
 
-	widget.SetKeyboardChar("r", widget.Refresh, "Refresh widget")
 	widget.SetKeyboardChar("j", widget.displayNext, "Select next item")
 	widget.SetKeyboardChar("k", widget.displayPrev, "Select previous item")
 	widget.SetKeyboardChar(" ", widget.toggleChecked, "Toggle checkmark")

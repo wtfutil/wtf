@@ -5,9 +5,8 @@ import (
 )
 
 func (widget *Widget) initializeKeyboardControls() {
-	widget.InitializeCommonControls()
+	widget.InitializeCommonControls(widget.Refresh)
 
-	widget.SetKeyboardChar("r", widget.Refresh, "Refresh widget")
 	widget.SetKeyboardChar("l", widget.NextSource, "Select next source")
 	widget.SetKeyboardChar("h", widget.PrevSource, "Select previous source")
 	widget.SetKeyboardChar("o", widget.openRepo, "Open item in browser")

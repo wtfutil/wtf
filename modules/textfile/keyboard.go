@@ -6,7 +6,7 @@ import (
 )
 
 func (widget *Widget) initializeKeyboardControls() {
-	widget.InitializeCommonControls()
+	widget.InitializeCommonControls(nil)
 
 	widget.SetKeyboardChar("l", widget.NextSource, "Select next file")
 	widget.SetKeyboardChar("h", widget.PrevSource, "Select previous file")

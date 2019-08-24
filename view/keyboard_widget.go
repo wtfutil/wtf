@@ -74,8 +74,12 @@ func (widget *KeyboardWidget) SetKeyboardKey(key tcell.Key, fn func(), helpText 
 
 // InitializeCommonControls sets up the keyboard controls that are common to
 // all widgets that accept keyboard input
-func (widget *KeyboardWidget) InitializeCommonControls() {
+func (widget *KeyboardWidget) InitializeCommonControls(refreshFunc func()) {
 	widget.SetKeyboardChar("/", widget.ShowHelp, "Show/hide this help prompt")
+
+	if refreshFunc != nil {
+		widget.SetKeyboardChar("r", refreshFunc, "Refresh widget")
+	}
 }
 
 // InputCapture is the function passed to tview's SetInputCapture() function

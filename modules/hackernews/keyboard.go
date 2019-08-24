@@ -3,9 +3,8 @@ package hackernews
 import "github.com/gdamore/tcell"
 
 func (widget *Widget) initializeKeyboardControls() {
-	widget.InitializeCommonControls()
+	widget.InitializeCommonControls(widget.Refresh)
 
-	widget.SetKeyboardChar("r", widget.Refresh, "Refresh widget")
 	widget.SetKeyboardChar("j", widget.Next, "Select next item")
 	widget.SetKeyboardChar("k", widget.Prev, "Select previous item")
 	widget.SetKeyboardChar("o", widget.openStory, "Open story in browser")

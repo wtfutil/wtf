@@ -3,9 +3,8 @@ package todoist
 import "github.com/gdamore/tcell"
 
 func (widget *Widget) initializeKeyboardControls() {
-	widget.InitializeCommonControls()
+	widget.InitializeCommonControls(widget.Refresh)
 
-	widget.SetKeyboardChar("r", widget.Refresh, "Refresh widget")
 	widget.SetKeyboardChar("d", widget.Delete, "Delete item")
 	widget.SetKeyboardChar("j", widget.Prev, "Select previous item")
 	widget.SetKeyboardChar("k", widget.Next, "Select next item")
