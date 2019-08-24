@@ -31,7 +31,7 @@ type KeyboardWidget struct {
 
 // NewKeyboardWidget creates and returns a new instance of KeyboardWidget
 func NewKeyboardWidget(app *tview.Application, pages *tview.Pages, settings *cfg.Common) KeyboardWidget {
-	return KeyboardWidget{
+	keyWidget := KeyboardWidget{
 		app:      app,
 		pages:    pages,
 		settings: settings,
@@ -40,6 +40,8 @@ func NewKeyboardWidget(app *tview.Application, pages *tview.Pages, settings *cfg
 		charHelp: []helpItem{},
 		keyHelp:  []helpItem{},
 	}
+
+	return keyWidget
 }
 
 // SetKeyboardChar sets a character/function combination that responds to key presses
@@ -67,6 +69,16 @@ func (widget *KeyboardWidget) SetKeyboardKey(key tcell.Key, fn func(), helpText 
 
 	if len(tcell.KeyNames[key]) > widget.maxKey {
 		widget.maxKey = len(tcell.KeyNames[key])
+	}
+}
+
+// InitializeCommonControls sets up the keyboard controls that are common to
+// all widgets that accept keyboard input
+func (widget *KeyboardWidget) InitializeCommonControls(refreshFunc func()) {
+	widget.SetKeyboardChar("/", widget.ShowHelp, "Show/hide this help prompt")
+
+	if refreshFunc != nil {
+		widget.SetKeyboardChar("r", refreshFunc, "Refresh widget")
 	}
 }
 

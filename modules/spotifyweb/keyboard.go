@@ -7,8 +7,8 @@ import (
 )
 
 func (widget *Widget) initializeKeyboardControls() {
-	widget.SetKeyboardChar("/", widget.ShowHelp, "Show/hide this help prompt")
-	widget.SetKeyboardChar("/", widget.Refresh, "Refresh widget")
+	widget.InitializeCommonControls(widget.Refresh)
+
 	widget.SetKeyboardChar("h", widget.selectPrevious, "Select previous item")
 	widget.SetKeyboardChar("l", widget.selectNext, "Select next item")
 	widget.SetKeyboardChar(" ", widget.playPause, "Play/pause")

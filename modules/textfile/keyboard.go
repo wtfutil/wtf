@@ -6,7 +6,8 @@ import (
 )
 
 func (widget *Widget) initializeKeyboardControls() {
-	widget.SetKeyboardChar("/", widget.ShowHelp, "Show/hide this help prompt")
+	widget.InitializeCommonControls(nil)
+
 	widget.SetKeyboardChar("l", widget.NextSource, "Select next file")
 	widget.SetKeyboardChar("h", widget.PrevSource, "Select previous file")
 	widget.SetKeyboardChar("o", widget.openFile, "Open file")

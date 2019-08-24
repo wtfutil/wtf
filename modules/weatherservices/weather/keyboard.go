@@ -3,8 +3,8 @@ package weather
 import "github.com/gdamore/tcell"
 
 func (widget *Widget) initializeKeyboardControls() {
-	widget.SetKeyboardChar("/", widget.ShowHelp, "Show/hide this help prompt")
-	widget.SetKeyboardChar("r", widget.Refresh, "Refresh Widget")
+	widget.InitializeCommonControls(widget.Refresh)
+
 	widget.SetKeyboardChar("h", widget.PrevSource, "Select previous city")
 	widget.SetKeyboardChar("l", widget.NextSource, "Select next city")
 

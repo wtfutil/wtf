@@ -3,8 +3,8 @@ package hackernews
 import "github.com/gdamore/tcell"
 
 func (widget *Widget) initializeKeyboardControls() {
-	widget.SetKeyboardChar("/", widget.ShowHelp, "Show/hide this help widget")
-	widget.SetKeyboardChar("r", widget.Refresh, "Refresh widget")
+	widget.InitializeCommonControls(widget.Refresh)
+
 	widget.SetKeyboardChar("j", widget.Next, "Select next item")
 	widget.SetKeyboardChar("k", widget.Prev, "Select previous item")
 	widget.SetKeyboardChar("o", widget.openStory, "Open story in browser")
