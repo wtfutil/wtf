@@ -5,7 +5,7 @@
 ### 🐞 Fixed
 
 * Power indicator displays ∞ on Linux when fully-charged and on AC power, [#534](https://github.com/wtfutil/wtf/issues/534) by [@Seanstoppable](https://github.com/Seanstoppable)
-* Default background color is now the terminal background color, making transparency possible on MacOS (and perhaps Linux),  by [@Seanstoppable](https://github.com/Seanstoppable)
+* Default background color is now the terminal background color, making transparency support possible in MacOS and Linux,  by [@Seanstoppable](https://github.com/Seanstoppable)
 
 ## v0.20.0
 
