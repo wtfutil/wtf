@@ -3,7 +3,8 @@ package git
 import "github.com/gdamore/tcell"
 
 func (widget *Widget) initializeKeyboardControls() {
-	widget.SetKeyboardChar("/", widget.ShowHelp, "Show/hide this help window")
+	widget.InitializeCommonControls()
+
 	widget.SetKeyboardChar("r", widget.Refresh, "Refresh widget")
 	widget.SetKeyboardChar("l", widget.NextSource, "Select next source")
 	widget.SetKeyboardChar("h", widget.PrevSource, "Select previous source")

@@ -9,7 +9,8 @@ import (
 )
 
 func (widget *Widget) initializeKeyboardControls() {
-	widget.SetKeyboardChar("/", widget.ShowHelp, "Show/hide this help prompt")
+	widget.InitializeCommonControls()
+
 	widget.SetKeyboardChar("r", widget.Refresh, "Refresh widget")
 	widget.SetKeyboardChar("j", widget.displayNext, "Select next item")
 	widget.SetKeyboardChar("k", widget.displayPrev, "Select previous item")
@@ -24,6 +25,7 @@ func (widget *Widget) initializeKeyboardControls() {
 	widget.SetKeyboardKey(tcell.KeyCtrlJ, widget.demoteSelected, "Demote item")
 	widget.SetKeyboardKey(tcell.KeyCtrlK, widget.promoteSelected, "Promote item")
 	widget.SetKeyboardKey(tcell.KeyEnter, widget.editSelected, "Edit item")
+
 }
 
 func (widget *Widget) deleteSelected() {

@@ -3,7 +3,8 @@ package todoist
 import "github.com/gdamore/tcell"
 
 func (widget *Widget) initializeKeyboardControls() {
-	widget.SetKeyboardChar("/", widget.ShowHelp, "Show/hide this help prompt")
+	widget.InitializeCommonControls()
+
 	widget.SetKeyboardChar("r", widget.Refresh, "Refresh widget")
 	widget.SetKeyboardChar("d", widget.Delete, "Delete item")
 	widget.SetKeyboardChar("j", widget.Prev, "Select previous item")

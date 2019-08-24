@@ -3,7 +3,8 @@ package nbascore
 import "github.com/gdamore/tcell"
 
 func (widget *Widget) initializeKeyboardControls() {
-	widget.SetKeyboardChar("/", widget.ShowHelp, "Show/hide this help prompt")
+	widget.InitializeCommonControls()
+
 	widget.SetKeyboardChar("r", widget.Refresh, "Refresh widget")
 	widget.SetKeyboardChar("l", widget.next, "Select next item")
 	widget.SetKeyboardChar("h", widget.prev, "Select previous item")
