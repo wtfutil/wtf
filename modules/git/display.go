@@ -7,10 +7,13 @@ import (
 )
 
 func (widget *Widget) display() {
+	widget.RedrawFunc(widget.content)
+}
+
+func (widget *Widget) content() (string, string, bool) {
 	repoData := widget.currentData()
 	if repoData == nil {
-		widget.Redraw(widget.CommonSettings().Title, " Git repo data is unavailable ", false)
-		return
+		return widget.CommonSettings().Title, " Git repo data is unavailable ", false
 	}
 
 	title := fmt.Sprintf("%s - [green]%s[white]", widget.CommonSettings().Title, repoData.Repository)
@@ -24,7 +27,7 @@ func (widget *Widget) display() {
 	str += "\n"
 	str += widget.formatCommits(repoData.Commits)
 
-	widget.Redraw(title, str, false)
+	return title, str, false
 }
 
 func (widget *Widget) formatChanges(data []string) string {

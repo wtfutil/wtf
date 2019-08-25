@@ -62,6 +62,10 @@ func (widget *Widget) HelpText() string {
 /* -------------------- Unexported Functions -------------------- */
 
 func (widget *Widget) display() {
+	widget.RedrawFunc(widget.content)
+}
+
+func (widget *Widget) content() (string, string, bool) {
 	widget.client.screenName = widget.CurrentSource()
 	tweets := widget.client.Tweets()
 
@@ -69,8 +73,7 @@ func (widget *Widget) display() {
 
 	if len(tweets) == 0 {
 		str := fmt.Sprintf("\n\n\n%s", utils.CenterText("[lightblue]No Tweets[white]", 50))
-		widget.Redraw(title, str, true)
-		return
+		return title, str, true
 	}
 
 	_, _, width, _ := widget.View.GetRect()
@@ -79,7 +82,7 @@ func (widget *Widget) display() {
 		str += widget.format(tweet)
 	}
 
-	widget.Redraw(title, str, true)
+	return title, str, true
 }
 
 // If the tweet's Username is the same as the account we're watching, no
