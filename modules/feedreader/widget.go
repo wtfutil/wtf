@@ -91,8 +91,7 @@ func (widget *Widget) Render() {
 		return
 	}
 
-	title := widget.CommonSettings().Title
-	widget.Redraw(title, widget.contentFrom(widget.stories), false)
+	widget.RedrawFunc(widget.content)
 }
 
 /* -------------------- Unexported Functions -------------------- */
@@ -123,7 +122,9 @@ func (widget *Widget) fetchForFeed(feedURL string) ([]*FeedItem, error) {
 	return feedItems, nil
 }
 
-func (widget *Widget) contentFrom(data []*FeedItem) string {
+func (widget *Widget) content() (string, string, bool) {
+	data := widget.stories
+	title := widget.CommonSettings().Title
 	var str string
 
 	for idx, feedItem := range data {
@@ -147,7 +148,7 @@ func (widget *Widget) contentFrom(data []*FeedItem) string {
 		str += utils.HighlightableHelper(widget.View, row, idx, len(feedItem.item.Title))
 	}
 
-	return str
+	return title, str, true
 }
 
 // feedItems are sorted by published date

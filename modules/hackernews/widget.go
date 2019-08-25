@@ -71,13 +71,14 @@ func (widget *Widget) Render() {
 		return
 	}
 
-	title := fmt.Sprintf("%s - %s stories", widget.CommonSettings().Title, widget.settings.storyType)
-	widget.Redraw(title, widget.contentFrom(widget.stories), false)
+	widget.RedrawFunc(widget.content)
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (widget *Widget) contentFrom(stories []Story) string {
+func (widget *Widget) content() (string, string, bool) {
+	title := fmt.Sprintf("%s - %s stories", widget.CommonSettings().Title, widget.settings.storyType)
+	stories := widget.stories
 	var str string
 
 	for idx, story := range stories {
@@ -94,7 +95,7 @@ func (widget *Widget) contentFrom(stories []Story) string {
 		str += utils.HighlightableHelper(widget.View, row, idx, len(story.Title))
 	}
 
-	return str
+	return title, str, false
 }
 
 func (widget *Widget) openStory() {
