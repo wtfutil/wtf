@@ -32,41 +32,38 @@ func (widget *Widget) Refresh() {
 		return
 	}
 
-	builds, err := widget.Client.BuildsFor()
-
-	title := fmt.Sprintf("%s - Builds", widget.CommonSettings().Title)
-	var content string
-	wrap := false
-	if err != nil {
-		wrap = true
-		content = err.Error()
-	} else {
-		content = widget.contentFrom(builds)
-	}
-
-	widget.Redraw(title, content, wrap)
+	widget.RedrawFunc(widget.content)
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (widget *Widget) contentFrom(builds []*Build) string {
-	var str string
-	for idx, build := range builds {
-		if idx > 10 {
-			return str
-		}
+func (widget *Widget) content() (string, string, bool) {
+	builds, err := widget.Client.BuildsFor()
 
-		str += fmt.Sprintf(
-			"[%s] %s-%d (%s) [white]%s\n",
-			buildColor(build),
-			build.Reponame,
-			build.BuildNum,
-			build.Branch,
-			build.AuthorName,
-		)
+	title := fmt.Sprintf("%s - Builds", widget.CommonSettings().Title)
+	var str string
+	wrap := false
+	if err != nil {
+		wrap = true
+		str = err.Error()
+	} else {
+		for idx, build := range builds {
+			if idx > 10 {
+				break
+			}
+
+			str += fmt.Sprintf(
+				"[%s] %s-%d (%s) [white]%s\n",
+				buildColor(build),
+				build.Reponame,
+				build.BuildNum,
+				build.Branch,
+				build.AuthorName,
+			)
+		}
 	}
 
-	return str
+	return title, str, wrap
 }
 
 func buildColor(build *Build) string {

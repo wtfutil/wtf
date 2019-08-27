@@ -46,15 +46,15 @@ func (widget *Widget) Refresh() {
 	widget.toplistWidget.Refresh(&wg)
 	wg.Wait()
 
-	widget.display()
+	widget.RedrawFunc(widget.content)
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (widget *Widget) display() {
+func (widget *Widget) content() (string, string, bool) {
 	str := ""
 	str += widget.priceWidget.Result
 	str += widget.toplistWidget.Result
 
-	widget.Redraw(widget.CommonSettings().Title, fmt.Sprintf("\n%s", str), false)
+	return widget.CommonSettings().Title, fmt.Sprintf("\n%s", str), false
 }

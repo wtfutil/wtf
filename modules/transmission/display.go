@@ -9,7 +9,8 @@ import (
 	"github.com/wtfutil/wtf/utils"
 )
 
-func (widget *Widget) contentFrom(data []*transmissionrpc.Torrent) string {
+func (widget *Widget) content() (string, string, bool) {
+	data := widget.torrents
 	str := ""
 
 	for idx, torrent := range data {
@@ -27,12 +28,11 @@ func (widget *Widget) contentFrom(data []*transmissionrpc.Torrent) string {
 		str += utils.HighlightableHelper(widget.View, row, idx, len(torrName))
 	}
 
-	return str
+	return widget.CommonSettings().Title, str, false
 }
 
 func (widget *Widget) display() {
-	content := widget.contentFrom(widget.torrents)
-	widget.ScrollableWidget.Redraw(widget.CommonSettings().Title, content, false)
+	widget.ScrollableWidget.RedrawFunc(widget.content)
 }
 
 func (widget *Widget) prettyTorrentName(name string) string {

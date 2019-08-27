@@ -9,6 +9,10 @@ import (
 )
 
 func (widget *Widget) display() {
+	widget.RedrawFunc(widget.content)
+}
+
+func (widget *Widget) content() (string, string, bool) {
 	str := ""
 	newList := checklist.NewChecklist(
 		widget.settings.common.Sigils.Checkbox.Checked,
@@ -31,7 +35,7 @@ func (widget *Widget) display() {
 	newList.SetSelectedByItem(widget.list.SelectedItem())
 	widget.SetList(newList)
 
-	widget.Redraw(widget.CommonSettings().Title, str, false)
+	return widget.CommonSettings().Title, str, false
 }
 
 func (widget *Widget) formattedItemLine(idx int, item *checklist.ChecklistItem, selectedItem *checklist.ChecklistItem, maxLen int) string {

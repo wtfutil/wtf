@@ -59,13 +59,13 @@ func (widget *Widget) Render() {
 		return
 	}
 
-	title := fmt.Sprintf("%s - Builds", widget.CommonSettings().Title)
-	widget.Redraw(title, widget.contentFrom(widget.builds), false)
+	widget.RedrawFunc(widget.content)
 }
 
-func (widget *Widget) contentFrom(builds *Builds) string {
+func (widget *Widget) content() (string, string, bool) {
+	title := fmt.Sprintf("%s - Builds", widget.CommonSettings().Title)
 	var str string
-	for idx, build := range builds.Builds {
+	for idx, build := range widget.builds.Builds {
 
 		row := fmt.Sprintf(
 			"[%s] [%s] %s-%s (%s) [%s]%s - [blue]%s\n",
@@ -81,7 +81,7 @@ func (widget *Widget) contentFrom(builds *Builds) string {
 		str += utils.HighlightableHelper(widget.View, row, idx, len(build.Branch.Name))
 	}
 
-	return str
+	return title, str, false
 }
 
 func buildColor(build *Build) string {

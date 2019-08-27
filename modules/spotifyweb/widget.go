@@ -154,27 +154,28 @@ func (w *Widget) refreshSpotifyInfos() error {
 
 // Refresh refreshes the current view of the widget
 func (w *Widget) Refresh() {
-	err := w.refreshSpotifyInfos()
-	if err != nil {
-		w.Redraw(w.CommonSettings().Title, err.Error(), true)
-	} else {
-		w.Redraw(w.CommonSettings().Title, w.createOutput(), false)
-	}
+	w.RedrawFunc(w.createOutput)
 }
 
 func (widget *Widget) HelpText() string {
 	return widget.KeyboardWidget.HelpText()
 }
 
-func (w *Widget) createOutput() string {
-	output := utils.CenterText(fmt.Sprintf("[green]Now %v [white]\n", w.Info.Status), w.CommonSettings().Width)
-	output += utils.CenterText(fmt.Sprintf("[green]Title:[white] %v\n", w.Info.Title), w.CommonSettings().Width)
-	output += utils.CenterText(fmt.Sprintf("[green]Artist:[white] %v\n", w.Info.Artists), w.CommonSettings().Width)
-	output += utils.CenterText(fmt.Sprintf("[green]Album:[white] %v\n", w.Info.Album), w.CommonSettings().Width)
-	if w.playerState.ShuffleState {
-		output += utils.CenterText(fmt.Sprintf("[green]Shuffle:[white] on\n"), w.CommonSettings().Width)
+func (w *Widget) createOutput() (string, string, bool) {
+	err := w.refreshSpotifyInfos()
+	var output string
+	if err != nil {
+		output = err.Error()
 	} else {
-		output += utils.CenterText(fmt.Sprintf("[green]Shuffle:[white] off\n"), w.CommonSettings().Width)
+		output := utils.CenterText(fmt.Sprintf("[green]Now %v [white]\n", w.Info.Status), w.CommonSettings().Width)
+		output += utils.CenterText(fmt.Sprintf("[green]Title:[white] %v\n", w.Info.Title), w.CommonSettings().Width)
+		output += utils.CenterText(fmt.Sprintf("[green]Artist:[white] %v\n", w.Info.Artists), w.CommonSettings().Width)
+		output += utils.CenterText(fmt.Sprintf("[green]Album:[white] %v\n", w.Info.Album), w.CommonSettings().Width)
+		if w.playerState.ShuffleState {
+			output += utils.CenterText(fmt.Sprintf("[green]Shuffle:[white] on\n"), w.CommonSettings().Width)
+		} else {
+			output += utils.CenterText(fmt.Sprintf("[green]Shuffle:[white] off\n"), w.CommonSettings().Width)
+		}
 	}
-	return output
+	return w.CommonSettings().Title, output, true
 }

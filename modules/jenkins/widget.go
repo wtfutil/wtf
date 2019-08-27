@@ -2,7 +2,6 @@ package jenkins
 
 import (
 	"fmt"
-
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/view"
@@ -60,18 +59,18 @@ func (widget *Widget) Refresh() {
 /* -------------------- Unexported Functions -------------------- */
 
 func (widget *Widget) Render() {
-	if widget.view == nil {
-		return
-	}
-
-	title := fmt.Sprintf("%s: [red]%s", widget.CommonSettings().Title, widget.view.Name)
-
-	widget.Redraw(title, widget.contentFrom(widget.view), false)
+	widget.RedrawFunc(widget.content)
 }
 
-func (widget *Widget) contentFrom(view *View) string {
+func (widget *Widget) content() (string, string, bool) {
+	title := fmt.Sprintf("%s: [red]%s", widget.CommonSettings().Title, widget.view.Name)
+	if widget.view == nil {
+		return title, "No content to display", false
+	}
+
 	var str string
-	for idx, job := range view.Jobs {
+	jobs := widget.view.Jobs
+	for idx, job := range jobs {
 
 		row := fmt.Sprintf(
 			`[%s] [%s]%-6s[white]`,
@@ -83,7 +82,7 @@ func (widget *Widget) contentFrom(view *View) string {
 		str += utils.HighlightableHelper(widget.View, row, idx, len(job.Name))
 	}
 
-	return str
+	return title, str, false
 }
 
 func (widget *Widget) jobColor(job *Job) string {

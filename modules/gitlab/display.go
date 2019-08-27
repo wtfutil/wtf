@@ -5,11 +5,14 @@ import (
 )
 
 func (widget *Widget) display() {
+	widget.RedrawFunc(widget.content)
+}
+
+func (widget *Widget) content() (string, string, bool) {
 
 	project := widget.currentGitlabProject()
 	if project == nil {
-		widget.Redraw(widget.CommonSettings().Title, " Gitlab project data is unavailable ", true)
-		return
+		return widget.CommonSettings().Title, " Gitlab project data is unavailable ", true
 	}
 
 	title := fmt.Sprintf("%s- %s", widget.CommonSettings().Title, widget.title(project))
@@ -24,7 +27,8 @@ func (widget *Widget) display() {
 	str += "\n"
 	str += " [red]My Merge Requests[white]\n"
 	str += widget.displayMyMergeRequests(project, widget.settings.username)
-	widget.Redraw(title, str, false)
+
+	return title, str, false
 }
 
 func (widget *Widget) displayMyMergeRequests(project *GitlabProject, username string) string {

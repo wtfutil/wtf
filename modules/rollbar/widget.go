@@ -65,13 +65,14 @@ func (widget *Widget) Render() {
 		return
 	}
 
-	title := fmt.Sprintf("%s - %s", widget.CommonSettings().Title, widget.settings.projectName)
-	widget.Redraw(title, widget.contentFrom(widget.items), false)
+	widget.RedrawFunc(widget.content)
 }
 
-func (widget *Widget) contentFrom(result *Result) string {
+func (widget *Widget) content() (string, string, bool) {
+	title := fmt.Sprintf("%s - %s", widget.CommonSettings().Title, widget.settings.projectName)
+	result := widget.items
 	if result == nil {
-		return "No results"
+		return title, "No results", false
 	}
 	var str string
 	if len(result.Items) > widget.settings.count {
@@ -94,7 +95,7 @@ func (widget *Widget) contentFrom(result *Result) string {
 		str += utils.HighlightableHelper(widget.View, row, idx, len(item.Title))
 	}
 
-	return str
+	return title, str, false
 }
 
 func statusColor(item *Item) string {

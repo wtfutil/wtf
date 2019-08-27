@@ -7,7 +7,6 @@ import (
 	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/view"
 	"github.com/wtfutil/wtf/wtf"
-	nr "github.com/yfronto/newrelic"
 )
 
 type Widget struct {
@@ -32,6 +31,12 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
+	widget.RedrawFunc(widget.content)
+}
+
+/* -------------------- Unexported Functions -------------------- */
+
+func (widget *Widget) content() (string, string, bool) {
 	app, appErr := widget.client.Application()
 	deploys, depErr := widget.client.Deployments()
 
@@ -47,49 +52,41 @@ func (widget *Widget) Refresh() {
 		wrap = true
 		content = depErr.Error()
 	} else {
-		content = widget.contentFrom(deploys)
-	}
+		content += fmt.Sprintf(
+			" %s\n",
+			"[red]Latest Deploys[white]",
+		)
 
-	widget.Redraw(title, content, wrap)
-}
+		revisions := []string{}
 
-/* -------------------- Unexported Functions -------------------- */
+		for _, deploy := range deploys {
+			if (deploy.Revision != "") && utils.DoesNotInclude(revisions, deploy.Revision) {
+				lineColor := "white"
+				if wtf.IsToday(deploy.Timestamp) {
+					lineColor = "lightblue"
+				}
 
-func (widget *Widget) contentFrom(deploys []nr.ApplicationDeployment) string {
-	str := fmt.Sprintf(
-		" %s\n",
-		"[red]Latest Deploys[white]",
-	)
+				revLen := 8
+				if revLen > len(deploy.Revision) {
+					revLen = len(deploy.Revision)
+				}
 
-	revisions := []string{}
+				content += fmt.Sprintf(
+					" [green]%s[%s] %s %-.16s[white]\n",
+					deploy.Revision[0:revLen],
+					lineColor,
+					deploy.Timestamp.Format("Jan 02 15:04 MST"),
+					utils.NameFromEmail(deploy.User),
+				)
 
-	for _, deploy := range deploys {
-		if (deploy.Revision != "") && utils.DoesNotInclude(revisions, deploy.Revision) {
-			lineColor := "white"
-			if wtf.IsToday(deploy.Timestamp) {
-				lineColor = "lightblue"
-			}
+				revisions = append(revisions, deploy.Revision)
 
-			revLen := 8
-			if revLen > len(deploy.Revision) {
-				revLen = len(deploy.Revision)
-			}
-
-			str += fmt.Sprintf(
-				" [green]%s[%s] %s %-.16s[white]\n",
-				deploy.Revision[0:revLen],
-				lineColor,
-				deploy.Timestamp.Format("Jan 02 15:04 MST"),
-				utils.NameFromEmail(deploy.User),
-			)
-
-			revisions = append(revisions, deploy.Revision)
-
-			if len(revisions) == widget.settings.deployCount {
-				break
+				if len(revisions) == widget.settings.deployCount {
+					break
+				}
 			}
 		}
 	}
 
-	return str
+	return title, content, wrap
 }

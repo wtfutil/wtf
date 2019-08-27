@@ -7,16 +7,15 @@ import (
 )
 
 func (widget *Widget) display() {
-	if ok == false {
-		widget.Redraw(widget.CommonSettings().Title, errorText, true)
-		return
-	}
 
-	summaryText := widget.summaryText(&widget.summaryList)
-	widget.Redraw(widget.CommonSettings().Title, summaryText, false)
+	widget.RedrawFunc(widget.content)
 }
 
-func (widget *Widget) summaryText(list *summaryList) string {
+func (widget *Widget) content() (string, string, bool) {
+	if ok == false {
+		return widget.CommonSettings().Title, errorText, true
+	}
+	list := &widget.summaryList
 	str := ""
 
 	for _, baseCurrency := range list.items {
@@ -62,7 +61,7 @@ func (widget *Widget) summaryText(list *summaryList) string {
 
 	}
 
-	return str
+	return widget.CommonSettings().Title, str, true
 
 }
 

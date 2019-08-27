@@ -72,18 +72,16 @@ func (widget *Widget) HelpText() string {
 /* -------------------- Unexported Functions -------------------- */
 
 func (widget *Widget) display() {
-	if widget.messages == nil {
-		return
-	}
-
-	title := fmt.Sprintf("%s - %s", widget.CommonSettings().Title, widget.settings.roomURI)
-
-	widget.Redraw(title, widget.contentFrom(widget.messages), true)
+	widget.RedrawFunc(widget.content)
 }
 
-func (widget *Widget) contentFrom(messages []Message) string {
+func (widget *Widget) content() (string, string, bool) {
+	title := fmt.Sprintf("%s - %s", widget.CommonSettings().Title, widget.settings.roomURI)
+	if widget.messages == nil || len(widget.messages) == 0 {
+		return title, "No Messages To Display", false
+	}
 	var str string
-	for idx, message := range messages {
+	for idx, message := range widget.messages {
 		row := fmt.Sprintf(
 			`[%s] [blue]%s [lightslategray]%s: [%s]%s [aqua]%s`,
 			widget.RowColor(idx),
@@ -97,7 +95,7 @@ func (widget *Widget) contentFrom(messages []Message) string {
 		str += utils.HighlightableHelper(widget.View, row, idx, len(message.Text))
 	}
 
-	return str
+	return title, str, true
 }
 
 func (widget *Widget) openMessage() {

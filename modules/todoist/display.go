@@ -7,14 +7,15 @@ import (
 	"github.com/wtfutil/wtf/utils"
 )
 
-func (widget *Widget) display() {
+func (widget *Widget) content() (string, string, bool) {
 	proj := widget.CurrentProject()
 
 	if proj == nil {
-		return
+		return widget.CommonSettings().Title, "", false
 	}
 
 	title := fmt.Sprintf("[green]%s[white]", proj.Project.Name)
+
 	str := ""
 
 	for idx, item := range proj.tasks {
@@ -27,6 +28,9 @@ func (widget *Widget) display() {
 
 		str += utils.HighlightableHelper(widget.View, row, idx, len(item.Content))
 	}
+	return title, str, false
+}
 
-	widget.ScrollableWidget.Redraw(title, str, false)
+func (widget *Widget) display() {
+	widget.ScrollableWidget.RedrawFunc(widget.content)
 }

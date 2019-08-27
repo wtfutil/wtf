@@ -34,7 +34,7 @@ func NewWidget(app *tview.Application, date, version string, settings *Settings)
 	return &widget
 }
 
-func (widget *Widget) Refresh() {
+func (widget *Widget) display() (string, string, bool) {
 	content := fmt.Sprintf(
 		"%8s: %s\n%8s: %s\n\n%8s: %s\n%8s: %s",
 		"Built",
@@ -46,7 +46,12 @@ func (widget *Widget) Refresh() {
 		"Build",
 		widget.systemInfo.BuildVersion,
 	)
-	widget.Redraw(widget.CommonSettings().Title, content, false)
+
+	return widget.CommonSettings().Title, content, false
+}
+
+func (widget *Widget) Refresh() {
+	widget.RedrawFunc(widget.display)
 }
 
 func (widget *Widget) prettyDate() string {

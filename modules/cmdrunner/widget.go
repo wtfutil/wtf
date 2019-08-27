@@ -33,8 +33,7 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	return &widget
 }
 
-// Refresh executes the command and updates the view with the results
-func (widget *Widget) Refresh() {
+func (widget *Widget) content() (string, string, bool) {
 	result := widget.execute()
 
 	ansiTitle := tview.TranslateANSI(widget.CommonSettings().Title)
@@ -43,7 +42,12 @@ func (widget *Widget) Refresh() {
 	}
 	ansiResult := tview.TranslateANSI(result)
 
-	widget.Redraw(ansiTitle, ansiResult, false)
+	return ansiTitle, ansiResult, false
+}
+
+// Refresh executes the command and updates the view with the results
+func (widget *Widget) Refresh() {
+	widget.RedrawFunc(widget.content)
 }
 
 // String returns the string representation of the widget

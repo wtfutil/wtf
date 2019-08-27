@@ -7,11 +7,14 @@ import (
 )
 
 func (widget *Widget) display() {
+	widget.TextWidget.RedrawFunc(widget.content)
+}
+
+func (widget *Widget) content() (string, string, bool) {
 	repo := widget.currentGithubRepo()
 	title := fmt.Sprintf("%s - %s", widget.CommonSettings().Title, widget.title(repo))
 	if repo == nil {
-		widget.TextWidget.Redraw(title, " GitHub repo data is unavailable ", false)
-		return
+		return title, " GitHub repo data is unavailable ", false
 	}
 
 	_, _, width, _ := widget.View.GetRect()
@@ -27,7 +30,7 @@ func (widget *Widget) display() {
 		str += widget.displayCustomQuery(repo, customQuery.filter, customQuery.perPage)
 	}
 
-	widget.TextWidget.Redraw(title, str, false)
+	return title, str, false
 }
 
 func (widget *Widget) displayMyPullRequests(repo *GithubRepo, username string) string {

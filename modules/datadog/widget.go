@@ -60,8 +60,7 @@ func (widget *Widget) Refresh() {
 }
 
 func (widget *Widget) Render() {
-	content := widget.contentFrom(widget.monitors)
-	widget.Redraw(widget.CommonSettings().Title, content, false)
+	widget.RedrawFunc(widget.content)
 }
 
 func (widget *Widget) HelpText() string {
@@ -70,7 +69,8 @@ func (widget *Widget) HelpText() string {
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (widget *Widget) contentFrom(triggeredMonitors []datadog.Monitor) string {
+func (widget *Widget) content() (string, string, bool) {
+	triggeredMonitors := widget.monitors
 	var str string
 
 	if len(triggeredMonitors) > 0 {
@@ -93,7 +93,7 @@ func (widget *Widget) contentFrom(triggeredMonitors []datadog.Monitor) string {
 		)
 	}
 
-	return str
+	return widget.CommonSettings().Title, str, false
 }
 
 func (widget *Widget) openItem() {

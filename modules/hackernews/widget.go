@@ -67,17 +67,17 @@ func (widget *Widget) Refresh() {
 
 // Render sets up the widget data for redrawing to the screen
 func (widget *Widget) Render() {
-	if widget.stories == nil {
-		return
-	}
-
-	title := fmt.Sprintf("%s - %s stories", widget.CommonSettings().Title, widget.settings.storyType)
-	widget.Redraw(title, widget.contentFrom(widget.stories), false)
+	widget.RedrawFunc(widget.content)
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (widget *Widget) contentFrom(stories []Story) string {
+func (widget *Widget) content() (string, string, bool) {
+	title := fmt.Sprintf("%s - %s stories", widget.CommonSettings().Title, widget.settings.storyType)
+	stories := widget.stories
+	if stories == nil || len(stories) == 0 {
+		return title, "No stories to display", false
+	}
 	var str string
 
 	for idx, story := range stories {
@@ -94,7 +94,7 @@ func (widget *Widget) contentFrom(stories []Story) string {
 		str += utils.HighlightableHelper(widget.View, row, idx, len(story.Title))
 	}
 
-	return str
+	return title, str, false
 }
 
 func (widget *Widget) openStory() {

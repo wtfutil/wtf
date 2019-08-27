@@ -71,6 +71,10 @@ func (widget *Widget) HelpText() string {
 /* -------------------- Unexported Functions -------------------- */
 
 func (widget *Widget) display() {
+	widget.RedrawFunc(widget.content)
+}
+
+func (widget *Widget) content() (string, string, bool) {
 	title := fmt.Sprintf("[green]%s[white]", widget.CurrentSource())
 
 	_, _, width, _ := widget.View.GetRect()
@@ -82,7 +86,7 @@ func (widget *Widget) display() {
 		text += widget.plainText()
 	}
 
-	widget.Redraw(title, text, widget.settings.wrapText)
+	return title, text, widget.settings.wrapText
 }
 
 func (widget *Widget) fileName() string {

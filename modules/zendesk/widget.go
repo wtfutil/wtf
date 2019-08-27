@@ -53,13 +53,14 @@ func (widget *Widget) Refresh() {
 /* -------------------- Unexported Functions -------------------- */
 
 func (widget *Widget) Render() {
-	title := fmt.Sprintf("%s (%d)", widget.CommonSettings().Title, widget.result.Count)
-	widget.Redraw(title, widget.textContent(widget.result.Tickets), false)
+	widget.RedrawFunc(widget.content)
 }
 
-func (widget *Widget) textContent(items []Ticket) string {
+func (widget *Widget) content() (string, string, bool) {
+	title := fmt.Sprintf("%s (%d)", widget.CommonSettings().Title, widget.result.Count)
+	items := widget.result.Tickets
 	if len(items) == 0 {
-		return fmt.Sprintf("No unassigned tickets in queue - woop!!")
+		return title, "No unassigned tickets in queue - woop!!", false
 	}
 
 	str := ""
@@ -67,7 +68,7 @@ func (widget *Widget) textContent(items []Ticket) string {
 		str += widget.format(data, idx)
 	}
 
-	return str
+	return title, str, false
 }
 
 func (widget *Widget) format(ticket Ticket, idx int) string {

@@ -9,6 +9,10 @@ import (
 )
 
 func (widget *Widget) display() {
+	widget.RedrawFunc(widget.content)
+}
+
+func (widget *Widget) content() (string, string, bool) {
 	var err string
 
 	if widget.apiKeyValid() == false {
@@ -40,7 +44,7 @@ func (widget *Widget) display() {
 		content += widget.sunInfo(cityData)
 	}
 
-	widget.Redraw(title, content, setWrap)
+	return title, content, setWrap
 }
 
 func (widget *Widget) description(cityData *owm.CurrentWeatherData) string {

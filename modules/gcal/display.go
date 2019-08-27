@@ -25,16 +25,14 @@ func (widget *Widget) sortedEvents() ([]*CalEvent, []*CalEvent) {
 }
 
 func (widget *Widget) display() {
-	if widget.calEvents == nil || len(widget.calEvents) == 0 {
-		return
-	}
-
-	widget.TextWidget.Redraw(widget.settings.common.Title, widget.contentFrom(widget.calEvents), false)
+	widget.RedrawFunc(widget.content)
 }
 
-func (widget *Widget) contentFrom(calEvents []*CalEvent) string {
+func (widget *Widget) content() (string, string, bool) {
+	title := widget.settings.common.Title
+	calEvents := widget.calEvents
 	if (calEvents == nil) || (len(calEvents) == 0) {
-		return "No calendar events"
+		return title, "No calendar events", false
 	}
 
 	var str string
@@ -76,7 +74,7 @@ func (widget *Widget) contentFrom(calEvents []*CalEvent) string {
 		prevEvent = calEvent
 	}
 
-	return str
+	return title, str, false
 }
 
 func (widget *Widget) dayDivider(event, prevEvent *CalEvent) string {
