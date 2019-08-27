@@ -45,36 +45,37 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 }
 
 func (widget *Widget) Refresh() {
-	widget.Redraw(widget.CommonSettings().Title, widget.nbascore(), false)
+	widget.RedrawFunc(widget.nbascore)
 }
 
 func (widget *Widget) HelpText() string {
 	return widget.KeyboardWidget.HelpText()
 }
 
-func (widget *Widget) nbascore() string {
+func (widget *Widget) nbascore() (string, string, bool) {
+	title := widget.CommonSettings().Title
 	cur := time.Now().AddDate(0, 0, offset) // Go back/forward offset days
 	curString := cur.Format("20060102")     // Need 20060102 format to feed to api
 	client := &http.Client{}
 	req, err := http.NewRequest("GET", "http://data.nba.net/10s/prod/v1/"+curString+"/scoreboard.json", nil)
 	if err != nil {
-		return err.Error()
+		return title, err.Error(), true
 	}
 
 	req.Header.Set("Accept-Language", widget.language)
 	req.Header.Set("User-Agent", "curl")
 	response, err := client.Do(req)
 	if err != nil {
-		return err.Error()
+		return title, err.Error(), true
 	}
 	defer response.Body.Close()
 	if response.StatusCode != 200 {
-		return err.Error()
+		return title, err.Error(), true
 	} // Get data from data.nba.net and check if successful
 
 	contents, err := ioutil.ReadAll(response.Body)
 	if err != nil {
-		return err.Error()
+		return title, err.Error(), true
 	}
 	result := map[string]interface{}{}
 	json.Unmarshal(contents, &result)
@@ -135,5 +136,5 @@ func (widget *Widget) nbascore() string {
 		}
 		allGame += fmt.Sprintf("%s%5s%v[white] %s %3s [white]vs %s%-3s %s\n", qColor, "Q", quarter, vTeam, vScore, hColor, hScore, hTeam) // Format the score and store in allgame
 	}
-	return allGame
+	return title, allGame, false
 }

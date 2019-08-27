@@ -32,15 +32,14 @@ func (widget *Widget) Refresh() {
 		return
 	}
 
-	data := NewSecurityData()
-	data.Fetch()
-
-	widget.Redraw(widget.CommonSettings().Title, widget.contentFrom(data), false)
+	widget.RedrawFunc(widget.content)
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (widget *Widget) contentFrom(data *SecurityData) string {
+func (widget *Widget) content() (string, string, bool) {
+	data := NewSecurityData()
+	data.Fetch()
 	str := " [red]WiFi[white]\n"
 	str += fmt.Sprintf(" %8s: %s\n", "Network", data.WifiName)
 	str += fmt.Sprintf(" %8s: %s\n", "Crypto", data.WifiEncryption)
@@ -60,7 +59,7 @@ func (widget *Widget) contentFrom(data *SecurityData) string {
 	str += fmt.Sprintf("  %12s\n", data.DnsAt(1))
 	str += "\n"
 
-	return str
+	return widget.CommonSettings().Title, str, false
 }
 
 func (widget *Widget) labelColor(label string) string {

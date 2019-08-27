@@ -29,12 +29,14 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	return &widget
 }
 
-func (widget *Widget) Refresh() {
-	widget.Battery.Refresh()
-
+func (widget *Widget) content() (string, string, bool) {
 	content := fmt.Sprintf(" %10s: %s\n", "Source", powerSource())
 	content += "\n"
 	content += widget.Battery.String()
+	return widget.CommonSettings().Title, content, true
+}
 
-	widget.Redraw(widget.CommonSettings().Title, content, true)
+func (widget *Widget) Refresh() {
+	widget.Battery.Refresh()
+	widget.RedrawFunc(widget.content)
 }

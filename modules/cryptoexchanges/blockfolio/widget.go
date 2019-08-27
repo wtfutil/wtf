@@ -32,19 +32,18 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	positions, err := Fetch(widget.device_token)
-	if err != nil {
-		widget.Redraw(widget.CommonSettings().Title, err.Error(), true)
-		return
-	}
 
-	content := widget.contentFrom(positions)
-
-	widget.Redraw(widget.CommonSettings().Title, content, false)
+	widget.RedrawFunc(widget.content)
 }
 
 /* -------------------- Unexported Functions -------------------- */
-func (widget *Widget) contentFrom(positions *AllPositionsResponse) string {
+func (widget *Widget) content() (string, string, bool) {
+	positions, err := Fetch(widget.device_token)
+	title := widget.CommonSettings().Title
+	if err != nil {
+		return title, err.Error(), true
+	}
+
 	res := ""
 	totalFiat := float32(0.0)
 
@@ -86,7 +85,7 @@ func (widget *Widget) contentFrom(positions *AllPositionsResponse) string {
 		res += fmt.Sprintf("\n[%s]Total value: $%.3fk", "green", totalFiat/1000)
 	}
 
-	return res
+	return title, res, true
 }
 
 //always the same

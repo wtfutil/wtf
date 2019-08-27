@@ -16,6 +16,7 @@ type Widget struct {
 	view.TextWidget
 
 	settings *Settings
+	items    []Item
 }
 
 func NewWidget(app *tview.Application, settings *Settings) *Widget {
@@ -37,28 +38,28 @@ func (widget *Widget) Refresh() {
 		widget.settings.subdomain,
 	)
 
-	todayItems := client.Away(
+	widget.items = client.Away(
 		"timeOff",
 		time.Now().Local().Format(wtf.DateFormat),
 		time.Now().Local().Format(wtf.DateFormat),
 	)
 
-	widget.Redraw(widget.CommonSettings().Title, widget.contentFrom(todayItems), false)
+	widget.RedrawFunc(widget.content)
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (widget *Widget) contentFrom(items []Item) string {
-	if len(items) == 0 {
-		return fmt.Sprintf("\n\n\n\n\n\n\n\n%s", utils.CenterText("[grey]no one[white]", 50))
-	}
-
+func (widget *Widget) content() (string, string, bool) {
 	str := ""
-	for _, item := range items {
-		str += widget.format(item)
+	if len(widget.items) == 0 {
+		str = fmt.Sprintf("\n\n\n\n\n\n\n\n%s", utils.CenterText("[grey]no one[white]", 50))
+	} else {
+		for _, item := range widget.items {
+			str += widget.format(item)
+		}
 	}
 
-	return str
+	return widget.CommonSettings().Title, str, false
 }
 
 func (widget *Widget) format(item Item) string {

@@ -59,15 +59,14 @@ func (widget *Widget) Refresh() {
 /* -------------------- Unexported Functions -------------------- */
 
 func (widget *Widget) Render() {
-	if widget.view == nil {
-		return
-	}
-
 	widget.RedrawFunc(widget.content)
 }
 
 func (widget *Widget) content() (string, string, bool) {
 	title := fmt.Sprintf("%s: [red]%s", widget.CommonSettings().Title, widget.view.Name)
+	if widget.view == nil {
+		return title, "No content to display", false
+	}
 
 	var str string
 	jobs := widget.view.Jobs

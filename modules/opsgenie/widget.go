@@ -28,10 +28,17 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	data, err := widget.Fetch(
+	widget.RedrawFunc(widget.content)
+}
+
+/* -------------------- Unexported Functions -------------------- */
+
+func (widget *Widget) content() (string, string, bool) {
+	onCallResponses, err := widget.Fetch(
 		widget.settings.scheduleIdentifierType,
 		widget.settings.schedule,
 	)
+	title := widget.CommonSettings().Title
 
 	var content string
 	wrap := false
@@ -39,34 +46,25 @@ func (widget *Widget) Refresh() {
 		wrap = true
 		content = err.Error()
 	} else {
-		content = widget.contentFrom(data)
+
+		for _, data := range onCallResponses {
+			if (len(data.OnCallData.Recipients) == 0) && (widget.settings.displayEmpty == false) {
+				continue
+			}
+
+			var msg string
+			if len(data.OnCallData.Recipients) == 0 {
+				msg = " [gray]no one[white]\n\n"
+			} else {
+				msg = fmt.Sprintf(" %s\n\n", strings.Join(utils.NamesFromEmails(data.OnCallData.Recipients), ", "))
+			}
+
+			content += widget.cleanScheduleName(data.OnCallData.Parent.Name)
+			content += msg
+		}
 	}
 
-	widget.Redraw(widget.CommonSettings().Title, content, wrap)
-}
-
-/* -------------------- Unexported Functions -------------------- */
-
-func (widget *Widget) contentFrom(onCallResponses []*OnCallResponse) string {
-	str := ""
-
-	for _, data := range onCallResponses {
-		if (len(data.OnCallData.Recipients) == 0) && (widget.settings.displayEmpty == false) {
-			continue
-		}
-
-		var msg string
-		if len(data.OnCallData.Recipients) == 0 {
-			msg = " [gray]no one[white]\n\n"
-		} else {
-			msg = fmt.Sprintf(" %s\n\n", strings.Join(utils.NamesFromEmails(data.OnCallData.Recipients), ", "))
-		}
-
-		str += widget.cleanScheduleName(data.OnCallData.Parent.Name)
-		str += msg
-	}
-
-	return str
+	return title, content, wrap
 }
 
 func (widget *Widget) cleanScheduleName(schedule string) string {

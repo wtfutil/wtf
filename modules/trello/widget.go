@@ -27,6 +27,13 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
+	widget.RedrawFunc(widget.content)
+}
+
+/* -------------------- Unexported Functions -------------------- */
+
+func (widget *Widget) content() (string, string, bool) {
+
 	client := trello.NewClient(
 		widget.settings.apiKey,
 		widget.settings.accessToken,
@@ -41,7 +48,7 @@ func (widget *Widget) Refresh() {
 	)
 
 	var title string
-	var content string
+	content := ""
 
 	wrap := false
 	if err != nil {
@@ -49,31 +56,20 @@ func (widget *Widget) Refresh() {
 		title = widget.CommonSettings().Title
 		content = err.Error()
 	} else {
-		widget.View.SetWrap(false)
 		title = fmt.Sprintf(
 			"[white]%s: [green]%s ",
 			widget.CommonSettings().Title,
 			widget.settings.board,
 		)
-		content = widget.contentFrom(searchResult)
-	}
+		for list, cardArray := range searchResult.TrelloCards {
+			content += fmt.Sprintf(" [red]%s[white]\n", list)
 
-	widget.Redraw(title, content, wrap)
-}
-
-/* -------------------- Unexported Functions -------------------- */
-
-func (widget *Widget) contentFrom(searchResult *SearchResult) string {
-	str := ""
-
-	for list, cardArray := range searchResult.TrelloCards {
-		str += fmt.Sprintf(" [red]%s[white]\n", list)
-
-		for _, card := range cardArray {
-			str += fmt.Sprintf(" %s[white]\n", card.Name)
+			for _, card := range cardArray {
+				content += fmt.Sprintf(" %s[white]\n", card.Name)
+			}
+			content = fmt.Sprintf("%s\n", content)
 		}
-		str = fmt.Sprintf("%s\n", str)
 	}
 
-	return str
+	return title, content, wrap
 }

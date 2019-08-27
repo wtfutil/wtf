@@ -52,7 +52,7 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 func (widget *Widget) Refresh() {
 	widget.ipinfo()
 
-	widget.Redraw(widget.CommonSettings().Title, widget.result, false)
+	widget.RedrawFunc(func() (string, string, bool) { return widget.CommonSettings().Title, widget.result, false })
 }
 
 //this method reads the config and calls ipinfo for ip information

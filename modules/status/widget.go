@@ -28,12 +28,12 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	widget.Redraw(widget.CommonSettings().Title, widget.animation(), false)
+	widget.RedrawFunc(widget.animation)
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (widget *Widget) animation() string {
+func (widget *Widget) animation() (string, string, bool) {
 	icons := []string{"|", "/", "-", "\\", "|"}
 	next := icons[widget.CurrentIcon]
 
@@ -42,5 +42,5 @@ func (widget *Widget) animation() string {
 		widget.CurrentIcon = 0
 	}
 
-	return next
+	return widget.CommonSettings().Title, next, false
 }
