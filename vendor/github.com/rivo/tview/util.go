@@ -24,7 +24,7 @@ var (
 	regionPattern    = regexp.MustCompile(`\["([a-zA-Z0-9_,;: \-\.]*)"\]`)
 	escapePattern    = regexp.MustCompile(`\[([a-zA-Z0-9_,;: \-\."#]+)\[(\[*)\]`)
 	nonEscapePattern = regexp.MustCompile(`(\[[a-zA-Z0-9_,;: \-\."#]+\[*)\]`)
-	boundaryPattern  = regexp.MustCompile(`(([[:punct:]]|\n)[ \t\f\r]*|(\s+))`)
+	boundaryPattern  = regexp.MustCompile(`(([,\.\-:;!\?&#+]|\n)[ \t\f\r]*|([ \t\f\r]+))`)
 	spacePattern     = regexp.MustCompile(`\s+`)
 )
 
@@ -454,8 +454,8 @@ func WordWrap(text string, width int) (lines []string) {
 	var (
 		colorPos, escapePos, breakpointPos, tagOffset      int
 		lastBreakpoint, lastContinuation, currentLineStart int
-		lineWidth, continuationWidth                       int
-		newlineBreakpoint                                  bool
+		lineWidth, overflow                                int
+		forceBreak                                         bool
 	)
 	unescape := func(substr string, startIndex int) string {
 		// A helper function to unescape escaped tags.
@@ -468,54 +468,65 @@ func WordWrap(text string, width int) (lines []string) {
 		return substr
 	}
 	iterateString(strippedText, func(main rune, comb []rune, textPos, textWidth, screenPos, screenWidth int) bool {
-		// Handle colour tags.
-		if colorPos < len(colorTagIndices) && textPos+tagOffset >= colorTagIndices[colorPos][0] && textPos+tagOffset < colorTagIndices[colorPos][1] {
-			tagOffset += colorTagIndices[colorPos][1] - colorTagIndices[colorPos][0]
-			colorPos++
-		}
-
-		// Handle escape tags.
-		if escapePos < len(escapeIndices) && textPos+tagOffset == escapeIndices[escapePos][1]-2 {
-			tagOffset++
-			escapePos++
-		}
-
-		// Check if a break is warranted.
-		afterContinuation := lastContinuation > 0 && textPos+tagOffset >= lastContinuation
-		noBreakpoint := lastContinuation == 0
-		beyondWidth := lineWidth > 0 && lineWidth > width
-		if beyondWidth && noBreakpoint {
-			// We need a hard break without a breakpoint.
-			lines = append(lines, unescape(text[currentLineStart:textPos+tagOffset], currentLineStart))
-			currentLineStart = textPos + tagOffset
-			lineWidth = continuationWidth
-		} else if afterContinuation && (beyondWidth || newlineBreakpoint) {
-			// Break at last breakpoint or at newline.
-			lines = append(lines, unescape(text[currentLineStart:lastBreakpoint], currentLineStart))
-			currentLineStart = lastContinuation
-			lineWidth = continuationWidth
-			lastBreakpoint, lastContinuation, newlineBreakpoint = 0, 0, false
+		// Handle tags.
+		for {
+			if colorPos < len(colorTagIndices) && textPos+tagOffset >= colorTagIndices[colorPos][0] && textPos+tagOffset < colorTagIndices[colorPos][1] {
+				// Colour tags.
+				tagOffset += colorTagIndices[colorPos][1] - colorTagIndices[colorPos][0]
+				colorPos++
+			} else if escapePos < len(escapeIndices) && textPos+tagOffset == escapeIndices[escapePos][1]-2 {
+				// Escape tags.
+				tagOffset++
+				escapePos++
+			} else {
+				break
+			}
 		}
 
 		// Is this a breakpoint?
-		if breakpointPos < len(breakpoints) && textPos == breakpoints[breakpointPos][0] {
+		if breakpointPos < len(breakpoints) && textPos+tagOffset == breakpoints[breakpointPos][0] {
 			// Yes, it is. Set up breakpoint infos depending on its type.
 			lastBreakpoint = breakpoints[breakpointPos][0] + tagOffset
 			lastContinuation = breakpoints[breakpointPos][1] + tagOffset
-			newlineBreakpoint = main == '\n'
-			if breakpoints[breakpointPos][6] < 0 && !newlineBreakpoint {
+			overflow = 0
+			forceBreak = main == '\n'
+			if breakpoints[breakpointPos][6] < 0 && !forceBreak {
 				lastBreakpoint++ // Don't skip punctuation.
 			}
 			breakpointPos++
 		}
 
-		// Once we hit the continuation point, we start buffering widths.
-		if textPos+tagOffset < lastContinuation {
-			continuationWidth = 0
+		// Check if a break is warranted.
+		if forceBreak || lineWidth > 0 && lineWidth+screenWidth > width {
+			breakpoint := lastBreakpoint
+			continuation := lastContinuation
+			if forceBreak {
+				breakpoint = textPos + tagOffset
+				continuation = textPos + tagOffset + 1
+				lastBreakpoint = 0
+				overflow = 0
+			} else if lastBreakpoint <= currentLineStart {
+				breakpoint = textPos + tagOffset
+				continuation = textPos + tagOffset
+				overflow = 0
+			}
+			lines = append(lines, unescape(text[currentLineStart:breakpoint], currentLineStart))
+			currentLineStart, lineWidth, forceBreak = continuation, overflow, false
 		}
 
+		// Remember the characters since the last breakpoint.
+		if lastBreakpoint > 0 && lastContinuation <= textPos+tagOffset {
+			overflow += screenWidth
+		}
+
+		// Advance.
 		lineWidth += screenWidth
-		continuationWidth += screenWidth
+
+		// But if we're still inside a breakpoint, skip next character (whitespace).
+		if textPos+tagOffset < currentLineStart {
+			lineWidth -= screenWidth
+		}
+
 		return false
 	})
 
@@ -558,7 +569,6 @@ func iterateString(text string, callback func(main rune, comb []rune, textPos, t
 			comb = r[1:]
 		}
 
-		//		panic(fmt.Sprintf(`from=%d to=%d screenPos=%d width=%d`, from, to, screenPos, width))
 		if callback(r[0], comb, from, to-from, screenPos, width) {
 			return true
 		}

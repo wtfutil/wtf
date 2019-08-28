@@ -4,6 +4,7 @@ import (
 	"math"
 	"regexp"
 	"strings"
+	"sync"
 	"unicode/utf8"
 
 	"github.com/gdamore/tcell"
@@ -70,6 +71,16 @@ type InputField struct {
 
 	// The number of bytes of the text string skipped ahead while drawing.
 	offset int
+
+	// An optional autocomplete function which receives the current text of the
+	// input field and returns a slice of strings to be displayed in a drop-down
+	// selection.
+	autocomplete func(text string) []string
+
+	// The List object which shows the selectable autocomplete entries. If not
+	// nil, the list's main texts represent the current autocomplete entries.
+	autocompleteList      *List
+	autocompleteListMutex sync.Mutex
 
 	// An optional function which may reject the last character that was entered.
 	accept func(text string, ch rune) bool
@@ -187,6 +198,70 @@ func (i *InputField) GetFieldWidth() int {
 // of 0 disables masking.
 func (i *InputField) SetMaskCharacter(mask rune) *InputField {
 	i.maskCharacter = mask
+	return i
+}
+
+// SetAutocompleteFunc sets an autocomplete callback function which may return
+// strings to be selected from a drop-down based on the current text of the
+// input field. The drop-down appears only if len(entries) > 0. The callback is
+// invoked in this function and whenever the current text changes or when
+// Autocomplete() is called. Entries are cleared when the user selects an entry
+// or presses Escape.
+func (i *InputField) SetAutocompleteFunc(callback func(currentText string) (entries []string)) *InputField {
+	i.autocomplete = callback
+	i.Autocomplete()
+	return i
+}
+
+// Autocomplete invokes the autocomplete callback (if there is one). If the
+// length of the returned autocomplete entries slice is greater than 0, the
+// input field will present the user with a corresponding drop-down list the
+// next time the input field is drawn.
+//
+// It is safe to call this function from any goroutine. Note that the input
+// field is not redrawn automatically unless called from the main goroutine
+// (e.g. in response to events).
+func (i *InputField) Autocomplete() *InputField {
+	i.autocompleteListMutex.Lock()
+	defer i.autocompleteListMutex.Unlock()
+	if i.autocomplete == nil {
+		return i
+	}
+
+	// Do we have any autocomplete entries?
+	entries := i.autocomplete(i.text)
+	if len(entries) == 0 {
+		// No entries, no list.
+		i.autocompleteList = nil
+		return i
+	}
+
+	// Make a list if we have none.
+	if i.autocompleteList == nil {
+		i.autocompleteList = NewList()
+		i.autocompleteList.ShowSecondaryText(false).
+			SetMainTextColor(Styles.PrimitiveBackgroundColor).
+			SetSelectedTextColor(Styles.PrimitiveBackgroundColor).
+			SetSelectedBackgroundColor(Styles.PrimaryTextColor).
+			SetHighlightFullLine(true).
+			SetBackgroundColor(Styles.MoreContrastBackgroundColor)
+	}
+
+	// Fill it with the entries.
+	currentEntry := -1
+	i.autocompleteList.Clear()
+	for index, entry := range entries {
+		i.autocompleteList.AddItem(entry, "", 0, nil)
+		if currentEntry < 0 && entry == i.text {
+			currentEntry = index
+		}
+	}
+
+	// Set the selection if we have one.
+	if currentEntry >= 0 {
+		i.autocompleteList.SetCurrentItem(currentEntry)
+	}
+
 	return i
 }
 
@@ -319,6 +394,38 @@ func (i *InputField) Draw(screen tcell.Screen) {
 		}
 	}
 
+	// Draw autocomplete list.
+	i.autocompleteListMutex.Lock()
+	defer i.autocompleteListMutex.Unlock()
+	if i.autocompleteList != nil {
+		// How much space do we need?
+		lheight := i.autocompleteList.GetItemCount()
+		lwidth := 0
+		for index := 0; index < lheight; index++ {
+			entry, _ := i.autocompleteList.GetItemText(index)
+			width := TaggedStringWidth(entry)
+			if width > lwidth {
+				lwidth = width
+			}
+		}
+
+		// We prefer to drop down but if there is no space, maybe drop up?
+		lx := x
+		ly := y + 1
+		_, sheight := screen.Size()
+		if ly+lheight >= sheight && ly-2 > lheight-ly {
+			ly = y - lheight
+			if ly < 0 {
+				ly = 0
+			}
+		}
+		if ly+lheight >= sheight {
+			lheight = sheight - ly
+		}
+		i.autocompleteList.SetRect(lx, ly, lwidth, lheight)
+		i.autocompleteList.Draw(screen)
+	}
+
 	// Set cursor.
 	if i.focus.HasFocus() {
 		screen.ShowCursor(x+cursorScreenPos, y)
@@ -331,8 +438,11 @@ func (i *InputField) InputHandler() func(event *tcell.EventKey, setFocus func(p 
 		// Trigger changed events.
 		currentText := i.text
 		defer func() {
-			if i.text != currentText && i.changed != nil {
-				i.changed(i.text)
+			if i.text != currentText {
+				i.Autocomplete()
+				if i.changed != nil {
+					i.changed(i.text)
+				}
 			}
 		}()
 
@@ -370,7 +480,19 @@ func (i *InputField) InputHandler() func(event *tcell.EventKey, setFocus func(p 
 			return true
 		}
 
+		// Finish up.
+		finish := func(key tcell.Key) {
+			if i.done != nil {
+				i.done(key)
+			}
+			if i.finished != nil {
+				i.finished(key)
+			}
+		}
+
 		// Process key event.
+		i.autocompleteListMutex.Lock()
+		defer i.autocompleteListMutex.Unlock()
 		switch key := event.Key(); key {
 		case tcell.KeyRune: // Regular character.
 			if event.Modifiers()&tcell.ModAlt > 0 {
@@ -435,12 +557,36 @@ func (i *InputField) InputHandler() func(event *tcell.EventKey, setFocus func(p 
 			home()
 		case tcell.KeyEnd, tcell.KeyCtrlE:
 			end()
-		case tcell.KeyEnter, tcell.KeyTab, tcell.KeyBacktab, tcell.KeyEscape: // We're done.
-			if i.done != nil {
-				i.done(key)
+		case tcell.KeyEnter, tcell.KeyEscape: // We might be done.
+			if i.autocompleteList != nil {
+				i.autocompleteList = nil
+			} else {
+				finish(key)
 			}
-			if i.finished != nil {
-				i.finished(key)
+		case tcell.KeyDown, tcell.KeyTab: // Autocomplete selection.
+			if i.autocompleteList != nil {
+				count := i.autocompleteList.GetItemCount()
+				newEntry := i.autocompleteList.GetCurrentItem() + 1
+				if newEntry >= count {
+					newEntry = 0
+				}
+				i.autocompleteList.SetCurrentItem(newEntry)
+				currentText, _ = i.autocompleteList.GetItemText(newEntry) // Don't trigger changed function twice.
+				i.SetText(currentText)
+			} else {
+				finish(key)
+			}
+		case tcell.KeyUp, tcell.KeyBacktab: // Autocomplete selection.
+			if i.autocompleteList != nil {
+				newEntry := i.autocompleteList.GetCurrentItem() - 1
+				if newEntry < 0 {
+					newEntry = i.autocompleteList.GetItemCount() - 1
+				}
+				i.autocompleteList.SetCurrentItem(newEntry)
+				currentText, _ = i.autocompleteList.GetItemText(newEntry) // Don't trigger changed function twice.
+				i.SetText(currentText)
+			} else {
+				finish(key)
 			}
 		}
 	})
