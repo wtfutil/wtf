@@ -6,6 +6,7 @@
 
 * Power indicator displays ∞ on Linux when fully-charged and on AC power, [#534](https://github.com/wtfutil/wtf/issues/534) by [@Seanstoppable](https://github.com/Seanstoppable)
 * Default background color is now the terminal background color, making transparency support possible in MacOS and Linux,  by [@Seanstoppable](https://github.com/Seanstoppable)
+* `xdg-open` now used as the opener for HTTP/HTTPS by default, by [@hxw](https://github.com/hxw)
 
 ## v0.20.0
 
