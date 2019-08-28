@@ -61,7 +61,7 @@ wtf:
         UTC: "Etc/UTC"
         Vancouver: "America/Vancouver"
         New_York: "America/New_York"
-        Sao_Paolo: "America/Sao_Paulo"
+        Sao_Paulo: "America/Sao_Paulo"
         Denver: "America/Denver"
         Iqaluit: "America/Iqaluit"
         Bahamas: "America/Nassau"
@@ -98,7 +98,7 @@ wtf:
         left: 0
         height: 2
         width: 1
-    refreshInterval: 3600
+      refreshInterval: 3600
     ip:
       type: ipinfo
       title: "My IP"
