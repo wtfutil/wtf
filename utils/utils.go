@@ -102,6 +102,8 @@ func OpenFile(path string) {
 		case "darwin":
 			exec.Command("open", path).Start()
 		default:
+			// for the BSDs
+			exec.Command("xdg-open", path).Start()
 		}
 	} else {
 		filePath, _ := ExpandHomeDir(path)
