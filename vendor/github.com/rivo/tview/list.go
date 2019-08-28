@@ -95,12 +95,13 @@ func (l *List) SetCurrentItem(index int) *List {
 	if index < 0 {
 		index = 0
 	}
-	l.currentItem = index
 
 	if index != l.currentItem && l.changed != nil {
-		item := l.items[l.currentItem]
-		l.changed(l.currentItem, item.MainText, item.SecondaryText, item.Shortcut)
+		item := l.items[index]
+		l.changed(index, item.MainText, item.SecondaryText, item.Shortcut)
 	}
+
+	l.currentItem = index
 
 	return l
 }

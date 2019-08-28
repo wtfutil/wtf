@@ -127,6 +127,7 @@ func (a *ansi) Write(text []byte) (int, error) {
 							"#ffffff",
 						}[colorNumber]
 					}
+				FieldLoop:
 					for index, field := range fields {
 						switch field {
 						case "1", "01":
@@ -185,6 +186,7 @@ func (a *ansi) Write(text []byte) (int, error) {
 									background = color
 								}
 							}
+							break FieldLoop
 						}
 					}
 					if len(attributes) > 0 || clearAttributes {

@@ -355,9 +355,14 @@ func (t *Table) GetSelection() (row, column int) {
 
 // Select sets the selected cell. Depending on the selection settings
 // specified via SetSelectable(), this may be an entire row or column, or even
-// ignored completely.
+// ignored completely. The "selection changed" event is fired if such a callback
+// is available (even if the selection ends up being the same as before, even if
+// cells are not selectable).
 func (t *Table) Select(row, column int) *Table {
 	t.selectedRow, t.selectedColumn = row, column
+	if t.selectionChanged != nil {
+		t.selectionChanged(row, column)
+	}
 	return t
 }
 
@@ -387,10 +392,10 @@ func (t *Table) SetSelectedFunc(handler func(row, column int)) *Table {
 	return t
 }
 
-// SetSelectionChangedFunc sets a handler which is called whenever the user
-// navigates to a new selection. The handler receives the position of the new
-// selection. If entire rows are selected, the column index is undefined.
-// Likewise for entire columns.
+// SetSelectionChangedFunc sets a handler which is called whenever the current
+// selection changes. The handler receives the position of the new selection.
+// If entire rows are selected, the column index is undefined. Likewise for
+// entire columns.
 func (t *Table) SetSelectionChangedFunc(handler func(row, column int)) *Table {
 	t.selectionChanged = handler
 	return t
