@@ -15,6 +15,7 @@ Events contain the `os.FileInfo` of the file or directory that the event is base
 [Watcher Command](#command)  
 
 # Update
+- Event.OldPath has been added [Aug 17, 2019]
 - Added new file filter hooks (Including a built in regexp filtering hook) [Dec 12, 2018]
 - Event.Path for Rename and Move events is now returned in the format of `fromPath -> toPath`
 

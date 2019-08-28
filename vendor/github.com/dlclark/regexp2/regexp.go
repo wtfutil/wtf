@@ -120,6 +120,7 @@ const (
 	RightToLeft                          = 0x0040 // "r"
 	Debug                                = 0x0080 // "d"
 	ECMAScript                           = 0x0100 // "e"
+	RE2                                  = 0x0200 // RE2 (regexp package) compatibility mode
 )
 
 func (re *Regexp) RightToLeft() bool {

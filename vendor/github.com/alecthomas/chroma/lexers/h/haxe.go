@@ -619,13 +619,14 @@ func haxePreProcMutator(state *LexerState) error {
 	}
 
 	proc := state.Groups[2]
-	if proc == "if" {
+	switch proc {
+	case "if":
 		stack = append(stack, state.Stack)
-	} else if proc == "else" || proc == "elseif" {
+	case "else", "elseif":
 		if len(stack) > 0 {
 			state.Stack = stack[len(stack)-1]
 		}
-	} else if proc == "end" {
+	case "end":
 		stack = stack[:len(stack)-1]
 	}
 

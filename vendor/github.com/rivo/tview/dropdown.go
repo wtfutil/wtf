@@ -22,9 +22,18 @@ type DropDown struct {
 	// The options from which the user can choose.
 	options []*dropDownOption
 
+	// Strings to be placed before and after each drop-down option.
+	optionPrefix, optionSuffix string
+
 	// The index of the currently selected option. Negative if no option is
 	// currently selected.
 	currentOption int
+
+	// Strings to be placed beefore and after the current option.
+	currentOptionPrefix, currentOptionSuffix string
+
+	// The text to be displayed when no option has yet been selected.
+	noSelection string
 
 	// Set to true if the options are visible and selectable.
 	open bool
@@ -74,10 +83,12 @@ type DropDown struct {
 
 // NewDropDown returns a new drop-down.
 func NewDropDown() *DropDown {
-	list := NewList().ShowSecondaryText(false)
-	list.SetMainTextColor(Styles.PrimitiveBackgroundColor).
+	list := NewList()
+	list.ShowSecondaryText(false).
+		SetMainTextColor(Styles.PrimitiveBackgroundColor).
 		SetSelectedTextColor(Styles.PrimitiveBackgroundColor).
 		SetSelectedBackgroundColor(Styles.PrimaryTextColor).
+		SetHighlightFullLine(true).
 		SetBackgroundColor(Styles.MoreContrastBackgroundColor)
 
 	d := &DropDown{
@@ -126,6 +137,23 @@ func (d *DropDown) GetCurrentOption() (int, string) {
 		text = d.options[d.currentOption].Text
 	}
 	return d.currentOption, text
+}
+
+// SetTextOptions sets the text to be placed before and after each drop-down
+// option (prefix/suffix), the text placed before and after the currently
+// selected option (currentPrefix/currentSuffix) as well as the text to be
+// displayed when no option is currently selected. Per default, all of these
+// strings are empty.
+func (d *DropDown) SetTextOptions(prefix, suffix, currentPrefix, currentSuffix, noSelection string) *DropDown {
+	d.currentOptionPrefix = currentPrefix
+	d.currentOptionSuffix = currentSuffix
+	d.noSelection = noSelection
+	d.optionPrefix = prefix
+	d.optionSuffix = suffix
+	for index := 0; index < d.list.GetItemCount(); index++ {
+		d.list.SetItemText(index, prefix+d.options[index].Text+suffix, "")
+	}
+	return d
 }
 
 // SetLabel sets the text to be displayed before the input area.
@@ -208,7 +236,7 @@ func (d *DropDown) GetFieldWidth() int {
 // callback is called when this option was selected. It may be nil.
 func (d *DropDown) AddOption(text string, selected func()) *DropDown {
 	d.options = append(d.options, &dropDownOption{Text: text, Selected: selected})
-	d.list.AddItem(text, "", 0, nil)
+	d.list.AddItem(d.optionPrefix+text+d.optionSuffix, "", 0, nil)
 	return d
 }
 
@@ -282,8 +310,9 @@ func (d *DropDown) Draw(screen tcell.Screen) {
 
 	// What's the longest option text?
 	maxWidth := 0
+	optionWrapWidth := TaggedStringWidth(d.optionPrefix + d.optionSuffix)
 	for _, option := range d.options {
-		strWidth := TaggedStringWidth(option.Text)
+		strWidth := TaggedStringWidth(option.Text) + optionWrapWidth
 		if strWidth > maxWidth {
 			maxWidth = strWidth
 		}
@@ -293,6 +322,17 @@ func (d *DropDown) Draw(screen tcell.Screen) {
 	fieldWidth := d.fieldWidth
 	if fieldWidth == 0 {
 		fieldWidth = maxWidth
+		if d.currentOption < 0 {
+			noSelectionWidth := TaggedStringWidth(d.noSelection)
+			if noSelectionWidth > fieldWidth {
+				fieldWidth = noSelectionWidth
+			}
+		} else if d.currentOption < len(d.options) {
+			currentOptionWidth := TaggedStringWidth(d.currentOptionPrefix + d.options[d.currentOption].Text + d.currentOptionSuffix)
+			if currentOptionWidth > fieldWidth {
+				fieldWidth = currentOptionWidth
+			}
+		}
 	}
 	if rightLimit-x < fieldWidth {
 		fieldWidth = rightLimit - x
@@ -308,21 +348,25 @@ func (d *DropDown) Draw(screen tcell.Screen) {
 	// Draw selected text.
 	if d.open && len(d.prefix) > 0 {
 		// Show the prefix.
-		Print(screen, d.prefix, x, y, fieldWidth, AlignLeft, d.prefixTextColor)
+		currentOptionPrefixWidth := TaggedStringWidth(d.currentOptionPrefix)
 		prefixWidth := stringWidth(d.prefix)
 		listItemText := d.options[d.list.GetCurrentItem()].Text
-		if prefixWidth < fieldWidth && len(d.prefix) < len(listItemText) {
-			Print(screen, listItemText[len(d.prefix):], x+prefixWidth, y, fieldWidth-prefixWidth, AlignLeft, d.fieldTextColor)
+		Print(screen, d.currentOptionPrefix, x, y, fieldWidth, AlignLeft, d.fieldTextColor)
+		Print(screen, d.prefix, x+currentOptionPrefixWidth, y, fieldWidth-currentOptionPrefixWidth, AlignLeft, d.prefixTextColor)
+		if len(d.prefix) < len(listItemText) {
+			Print(screen, listItemText[len(d.prefix):]+d.currentOptionSuffix, x+prefixWidth+currentOptionPrefixWidth, y, fieldWidth-prefixWidth-currentOptionPrefixWidth, AlignLeft, d.fieldTextColor)
 		}
 	} else {
+		color := d.fieldTextColor
+		text := d.noSelection
 		if d.currentOption >= 0 && d.currentOption < len(d.options) {
-			color := d.fieldTextColor
-			// Just show the current selection.
-			if d.GetFocusable().HasFocus() && !d.open {
-				color = d.fieldBackgroundColor
-			}
-			Print(screen, d.options[d.currentOption].Text, x, y, fieldWidth, AlignLeft, color)
+			text = d.currentOptionPrefix + d.options[d.currentOption].Text + d.currentOptionSuffix
 		}
+		// Just show the current selection.
+		if d.GetFocusable().HasFocus() && !d.open {
+			color = d.fieldBackgroundColor
+		}
+		Print(screen, text, x, y, fieldWidth, AlignLeft, color)
 	}
 
 	// Draw options list.

@@ -23,7 +23,7 @@ type EscalationPolicy struct {
 	APIObject
 	Name            string           `json:"name,omitempty"`
 	EscalationRules []EscalationRule `json:"escalation_rules,omitempty"`
-	Services        []APIReference   `json:"services,omitempty"`
+	Services        []APIObject      `json:"services,omitempty"`
 	NumLoops        uint             `json:"num_loops,omitempty"`
 	Teams           []APIReference   `json:"teams,omitempty"`
 	Description     string           `json:"description,omitempty"`

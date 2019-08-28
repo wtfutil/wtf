@@ -68,7 +68,7 @@ func (c *Client) ListLogEntries(o ListLogEntriesOptions) (*ListLogEntryResponse,
 
 // GetLogEntryOptions is the data structure used when calling the GetLogEntry API endpoint.
 type GetLogEntryOptions struct {
-	TimeZone string   `url:"timezone,omitempty"`
+	TimeZone string   `url:"time_zone,omitempty"`
 	Includes []string `url:"include,omitempty,brackets"`
 }
 

@@ -416,7 +416,7 @@ func (s *ProjectsService) GetProjectEvents(pid interface{}, opt *GetProjectEvent
 	return p, resp, err
 }
 
-// CreateProjectOptions represents the available CreateProjects() options.
+// CreateProjectOptions represents the available CreateProject() options.
 //
 // GitLab API docs: https://docs.gitlab.com/ee/api/projects.html#create-project
 type CreateProjectOptions struct {
@@ -1243,6 +1243,7 @@ type ProjectApprovals struct {
 	ApprovalsBeforeMerge                      int                          `json:"approvals_before_merge"`
 	ResetApprovalsOnPush                      bool                         `json:"reset_approvals_on_push"`
 	DisableOverridingApproversPerMergeRequest bool                         `json:"disable_overriding_approvers_per_merge_request"`
+	MergeRequestsAuthorApproval               bool                         `json:"merge_requests_author_approval"`
 }
 
 // GetApprovalConfiguration get the approval configuration for a project.
@@ -1279,6 +1280,7 @@ type ChangeApprovalConfigurationOptions struct {
 	ApprovalsBeforeMerge                      *int  `url:"approvals_before_merge,omitempty" json:"approvals_before_merge,omitempty"`
 	ResetApprovalsOnPush                      *bool `url:"reset_approvals_on_push,omitempty" json:"reset_approvals_on_push,omitempty"`
 	DisableOverridingApproversPerMergeRequest *bool `url:"disable_overriding_approvers_per_merge_request,omitempty" json:"disable_overriding_approvers_per_merge_request,omitempty"`
+	MergeRequestsAuthorApproval               *bool `url:"merge_requests_author_approval,omitempty" json:"merge_requests_author_approval,omitempty"`
 }
 
 // ChangeApprovalConfiguration updates the approval configuration for a project.
@@ -1339,4 +1341,28 @@ func (s *ProjectsService) ChangeAllowedApprovers(pid interface{}, opt *ChangeAll
 	}
 
 	return pa, resp, err
+}
+
+// StartMirroringProject start the pull mirroring process for a project.
+//
+// GitLab API docs:
+// https://docs.gitlab.com/ee/api/projects.html#start-the-pull-mirroring-process-for-a-project-starter
+func (s *ProjectsService) StartMirroringProject(pid interface{}, options ...OptionFunc) (*Response, error) {
+	project, err := parseID(pid)
+	if err != nil {
+		return nil, err
+	}
+	u := fmt.Sprintf("projects/%s/mirror/pull", pathEscape(project))
+
+	req, err := s.client.NewRequest("POST", u, nil, options)
+	if err != nil {
+		return nil, err
+	}
+
+	resp, err := s.client.Do(req, nil)
+	if err != nil {
+		return resp, err
+	}
+
+	return resp, err
 }

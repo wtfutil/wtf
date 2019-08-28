@@ -10,7 +10,7 @@ import (
 	"fmt"
 )
 
-// AdminStats represents a variety of stats of a Github Enterprise
+// AdminStats represents a variety of stats of a GitHub Enterprise
 // installation.
 type AdminStats struct {
 	Issues     *IssueStats     `json:"issues,omitempty"`
@@ -147,7 +147,7 @@ func (s RepoStats) String() string {
 	return Stringify(s)
 }
 
-// GetAdminStats returns a variety of metrics about a Github Enterprise
+// GetAdminStats returns a variety of metrics about a GitHub Enterprise
 // installation.
 //
 // Please note that this is only available to site administrators,

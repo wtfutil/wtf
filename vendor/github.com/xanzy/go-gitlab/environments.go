@@ -32,10 +32,11 @@ type EnvironmentsService struct {
 //
 // GitLab API docs: https://docs.gitlab.com/ce/api/environments.html
 type Environment struct {
-	ID          int    `json:"id"`
-	Name        string `json:"name"`
-	Slug        string `json:"slug"`
-	ExternalURL string `json:"external_url"`
+	ID             int         `json:"id"`
+	Name           string      `json:"name"`
+	Slug           string      `json:"slug"`
+	ExternalURL    string      `json:"external_url"`
+	LastDeployment *Deployment `json:"last_deployment"`
 }
 
 func (env Environment) String() string {
@@ -72,6 +73,31 @@ func (s *EnvironmentsService) ListEnvironments(pid interface{}, opts *ListEnviro
 	}
 
 	return envs, resp, err
+}
+
+// GetEnvironment gets a specific environment from a project.
+//
+// GitLab API docs:
+// https://docs.gitlab.com/ee/api/environments.html#get-a-specific-environment
+func (s *EnvironmentsService) GetEnvironment(pid interface{}, environment int, options ...OptionFunc) (*Environment, *Response, error) {
+	project, err := parseID(pid)
+	if err != nil {
+		return nil, nil, err
+	}
+	u := fmt.Sprintf("projects/%s/environments/%d", pathEscape(project), environment)
+
+	req, err := s.client.NewRequest("GET", u, nil, options)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	env := new(Environment)
+	resp, err := s.client.Do(req, env)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return env, resp, err
 }
 
 // CreateEnvironmentOptions represents the available CreateEnvironment() options.

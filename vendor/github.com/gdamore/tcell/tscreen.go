@@ -27,6 +27,9 @@ import (
 
 	"github.com/gdamore/tcell/terminfo"
 	"github.com/gdamore/tcell/terminfo/dynamic"
+
+	// import the stock terminals
+	_ "github.com/gdamore/tcell/terminfo/base"
 )
 
 // NewTerminfoScreen returns a Screen that uses the stock TTY interface
@@ -99,7 +102,6 @@ type tScreen struct {
 	cursorx   int
 	cursory   int
 	tiosp     *termiosPrivate
-	baud      int
 	wasbtn    bool
 	acs       map[rune]string
 	charset   string
@@ -672,9 +674,9 @@ func (t *tScreen) writeString(s string) {
 
 func (t *tScreen) TPuts(s string) {
 	if t.buffering {
-		t.ti.TPuts(&t.buf, s, t.baud)
+		t.ti.TPuts(&t.buf, s)
 	} else {
-		t.ti.TPuts(t.out, s, t.baud)
+		t.ti.TPuts(t.out, s)
 	}
 }
 

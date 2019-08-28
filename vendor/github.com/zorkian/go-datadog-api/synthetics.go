@@ -11,6 +11,7 @@ type SyntheticsTest struct {
 	MonitorId     *int               `json:"monitor_id,omitempty"`
 	Name          *string            `json:"name,omitempty"`
 	Type          *string            `json:"type,omitempty"`
+	Subtype       *string            `json:"subtype,omitempty"`
 	Tags          []string           `json:"tags"`
 	CreatedAt     *string            `json:"created_at,omitempty"`
 	ModifiedAt    *string            `json:"modified_at,omitempty"`
@@ -37,6 +38,8 @@ type SyntheticsRequest struct {
 	Timeout *int              `json:"timeout,omitempty"`
 	Headers map[string]string `json:"headers,omitempty"`
 	Body    *string           `json:"body,omitempty"`
+	Host    *string           `json:"host,omitempty"`
+	Port    *int              `json:"port,omitempty"`
 }
 
 type SyntheticsAssertion struct {
@@ -54,6 +57,7 @@ type SyntheticsOptions struct {
 	MinFailureDuration *int     `json:"min_failure_duration,omitempty"`
 	MinLocationFailed  *int     `json:"min_location_failed,omitempty"`
 	DeviceIds          []string `json:"device_ids,omitempty"`
+	AcceptSelfSigned   *bool    `json:"accept_self_signed,omitempty"`
 }
 
 type SyntheticsUser struct {

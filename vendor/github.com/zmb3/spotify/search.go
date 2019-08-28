@@ -69,7 +69,7 @@ type SearchResult struct {
 // Operators
 //
 // The operator NOT can be used to exclude results.  For example,
-// query = "roadhouse NOT blues" returns items that match "roadhouse" but exludes
+// query = "roadhouse NOT blues" returns items that match "roadhouse" but excludes
 // those that also contain the keyword "blues".  Similarly, the OR operator can
 // be used to broaden the search.  query = "roadhouse OR blues" returns all results
 // that include either of the terms.  Only one OR operator can be used in a query.

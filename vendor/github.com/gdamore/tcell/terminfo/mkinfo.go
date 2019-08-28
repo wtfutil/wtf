@@ -20,31 +20,24 @@
 //
 // Usage is like this:
 //
-// mkinfo [-init] [-go file.go] [-json file.json] [-quiet] [-nofatal] [<term>...]
+// mkinfo [-go file.go] [-quiet] [-nofatal] [-I <import>] [-P <pkg}] [<term>...]
 //
-// -all      scan terminfo to determine database entries to use
-// -db       generate database entries (database/*), implied for -all
-// -gzip     specifies output should be compressed (json only)
 // -go       specifies Go output into the named file.  Use - for stdout.
-// -json     specifies JSON output in the named file.  Use - for stdout
 // -nofatal  indicates that errors loading definitions should not be fatal
+// -P pkg    use the supplied package name
+// -I import use the named import instead of github.com/gdamore/tcell/terminfo
 //
 
 package main
 
 import (
-	"bufio"
 	"bytes"
-	"compress/gzip"
-	"crypto/sha1"
-	"encoding/json"
 	"errors"
 	"flag"
 	"fmt"
 	"io"
 	"os"
 	"os/exec"
-	"path"
 	"regexp"
 	"strconv"
 	"strings"
@@ -136,25 +129,6 @@ func unescape(s string) string {
 		}
 	}
 	return (buf.String())
-}
-
-func getallterms() ([]string, error) {
-	out := []string{}
-	cmd := exec.Command("toe", "-a")
-	output := &bytes.Buffer{}
-	cmd.Stdout = output
-	err := cmd.Run()
-	if err != nil {
-		return nil, err
-	}
-	lines := strings.Split(output.String(), "\n")
-	for _, l := range lines {
-		fields := strings.Fields(l)
-		if len(fields) > 0 {
-			out = append(out, fields[0])
-		}
-	}
-	return out, nil
 }
 
 func (tc *termcap) setupterm(name string) error {
@@ -498,200 +472,203 @@ func dotGoAddArr(w io.Writer, n string, a []string) {
 	fmt.Fprintln(w, "},")
 }
 
-func dotGoHeader(w io.Writer, packname string) {
+func dotGoHeader(w io.Writer, packname, tipackname string) {
 	fmt.Fprintln(w, "// Generated automatically.  DO NOT HAND-EDIT.")
 	fmt.Fprintln(w, "")
 	fmt.Fprintf(w, "package %s\n", packname)
+	fmt.Fprintln(w, "")
+	fmt.Fprintf(w, "import \"%s\"\n", tipackname)
 	fmt.Fprintln(w, "")
 }
 
 func dotGoTrailer(w io.Writer) {
 }
 
-func dotGoInfo(w io.Writer, t *terminfo.Terminfo, desc string) {
+func dotGoInfo(w io.Writer, terms []*TData) {
 
-	fmt.Fprintln(w, "")
 	fmt.Fprintln(w, "func init() {")
-	fmt.Fprintf(w, "\t// %s\n", desc)
-	fmt.Fprintln(w, "\tAddTerminfo(&Terminfo{")
-	dotGoAddStr(w, "Name", t.Name)
-	dotGoAddArr(w, "Aliases", t.Aliases)
-	dotGoAddInt(w, "Columns", t.Columns)
-	dotGoAddInt(w, "Lines", t.Lines)
-	dotGoAddInt(w, "Colors", t.Colors)
-	dotGoAddStr(w, "Bell", t.Bell)
-	dotGoAddStr(w, "Clear", t.Clear)
-	dotGoAddStr(w, "EnterCA", t.EnterCA)
-	dotGoAddStr(w, "ExitCA", t.ExitCA)
-	dotGoAddStr(w, "ShowCursor", t.ShowCursor)
-	dotGoAddStr(w, "HideCursor", t.HideCursor)
-	dotGoAddStr(w, "AttrOff", t.AttrOff)
-	dotGoAddStr(w, "Underline", t.Underline)
-	dotGoAddStr(w, "Bold", t.Bold)
-	dotGoAddStr(w, "Dim", t.Dim)
-	dotGoAddStr(w, "Blink", t.Blink)
-	dotGoAddStr(w, "Reverse", t.Reverse)
-	dotGoAddStr(w, "EnterKeypad", t.EnterKeypad)
-	dotGoAddStr(w, "ExitKeypad", t.ExitKeypad)
-	dotGoAddStr(w, "SetFg", t.SetFg)
-	dotGoAddStr(w, "SetBg", t.SetBg)
-	dotGoAddStr(w, "SetFgBg", t.SetFgBg)
-	dotGoAddStr(w, "PadChar", t.PadChar)
-	dotGoAddStr(w, "AltChars", t.AltChars)
-	dotGoAddStr(w, "EnterAcs", t.EnterAcs)
-	dotGoAddStr(w, "ExitAcs", t.ExitAcs)
-	dotGoAddStr(w, "EnableAcs", t.EnableAcs)
-	dotGoAddStr(w, "SetFgRGB", t.SetFgRGB)
-	dotGoAddStr(w, "SetBgRGB", t.SetBgRGB)
-	dotGoAddStr(w, "SetFgBgRGB", t.SetFgBgRGB)
-	dotGoAddStr(w, "Mouse", t.Mouse)
-	dotGoAddStr(w, "MouseMode", t.MouseMode)
-	dotGoAddStr(w, "SetCursor", t.SetCursor)
-	dotGoAddStr(w, "CursorBack1", t.CursorBack1)
-	dotGoAddStr(w, "CursorUp1", t.CursorUp1)
-	dotGoAddStr(w, "KeyUp", t.KeyUp)
-	dotGoAddStr(w, "KeyDown", t.KeyDown)
-	dotGoAddStr(w, "KeyRight", t.KeyRight)
-	dotGoAddStr(w, "KeyLeft", t.KeyLeft)
-	dotGoAddStr(w, "KeyInsert", t.KeyInsert)
-	dotGoAddStr(w, "KeyDelete", t.KeyDelete)
-	dotGoAddStr(w, "KeyBackspace", t.KeyBackspace)
-	dotGoAddStr(w, "KeyHome", t.KeyHome)
-	dotGoAddStr(w, "KeyEnd", t.KeyEnd)
-	dotGoAddStr(w, "KeyPgUp", t.KeyPgUp)
-	dotGoAddStr(w, "KeyPgDn", t.KeyPgDn)
-	dotGoAddStr(w, "KeyF1", t.KeyF1)
-	dotGoAddStr(w, "KeyF2", t.KeyF2)
-	dotGoAddStr(w, "KeyF3", t.KeyF3)
-	dotGoAddStr(w, "KeyF4", t.KeyF4)
-	dotGoAddStr(w, "KeyF5", t.KeyF5)
-	dotGoAddStr(w, "KeyF6", t.KeyF6)
-	dotGoAddStr(w, "KeyF7", t.KeyF7)
-	dotGoAddStr(w, "KeyF8", t.KeyF8)
-	dotGoAddStr(w, "KeyF9", t.KeyF9)
-	dotGoAddStr(w, "KeyF10", t.KeyF10)
-	dotGoAddStr(w, "KeyF11", t.KeyF11)
-	dotGoAddStr(w, "KeyF12", t.KeyF12)
-	dotGoAddStr(w, "KeyF13", t.KeyF13)
-	dotGoAddStr(w, "KeyF14", t.KeyF14)
-	dotGoAddStr(w, "KeyF15", t.KeyF15)
-	dotGoAddStr(w, "KeyF16", t.KeyF16)
-	dotGoAddStr(w, "KeyF17", t.KeyF17)
-	dotGoAddStr(w, "KeyF18", t.KeyF18)
-	dotGoAddStr(w, "KeyF19", t.KeyF19)
-	dotGoAddStr(w, "KeyF20", t.KeyF20)
-	dotGoAddStr(w, "KeyF21", t.KeyF21)
-	dotGoAddStr(w, "KeyF22", t.KeyF22)
-	dotGoAddStr(w, "KeyF23", t.KeyF23)
-	dotGoAddStr(w, "KeyF24", t.KeyF24)
-	dotGoAddStr(w, "KeyF25", t.KeyF25)
-	dotGoAddStr(w, "KeyF26", t.KeyF26)
-	dotGoAddStr(w, "KeyF27", t.KeyF27)
-	dotGoAddStr(w, "KeyF28", t.KeyF28)
-	dotGoAddStr(w, "KeyF29", t.KeyF29)
-	dotGoAddStr(w, "KeyF30", t.KeyF30)
-	dotGoAddStr(w, "KeyF31", t.KeyF31)
-	dotGoAddStr(w, "KeyF32", t.KeyF32)
-	dotGoAddStr(w, "KeyF33", t.KeyF33)
-	dotGoAddStr(w, "KeyF34", t.KeyF34)
-	dotGoAddStr(w, "KeyF35", t.KeyF35)
-	dotGoAddStr(w, "KeyF36", t.KeyF36)
-	dotGoAddStr(w, "KeyF37", t.KeyF37)
-	dotGoAddStr(w, "KeyF38", t.KeyF38)
-	dotGoAddStr(w, "KeyF39", t.KeyF39)
-	dotGoAddStr(w, "KeyF40", t.KeyF40)
-	dotGoAddStr(w, "KeyF41", t.KeyF41)
-	dotGoAddStr(w, "KeyF42", t.KeyF42)
-	dotGoAddStr(w, "KeyF43", t.KeyF43)
-	dotGoAddStr(w, "KeyF44", t.KeyF44)
-	dotGoAddStr(w, "KeyF45", t.KeyF45)
-	dotGoAddStr(w, "KeyF46", t.KeyF46)
-	dotGoAddStr(w, "KeyF47", t.KeyF47)
-	dotGoAddStr(w, "KeyF48", t.KeyF48)
-	dotGoAddStr(w, "KeyF49", t.KeyF49)
-	dotGoAddStr(w, "KeyF50", t.KeyF50)
-	dotGoAddStr(w, "KeyF51", t.KeyF51)
-	dotGoAddStr(w, "KeyF52", t.KeyF52)
-	dotGoAddStr(w, "KeyF53", t.KeyF53)
-	dotGoAddStr(w, "KeyF54", t.KeyF54)
-	dotGoAddStr(w, "KeyF55", t.KeyF55)
-	dotGoAddStr(w, "KeyF56", t.KeyF56)
-	dotGoAddStr(w, "KeyF57", t.KeyF57)
-	dotGoAddStr(w, "KeyF58", t.KeyF58)
-	dotGoAddStr(w, "KeyF59", t.KeyF59)
-	dotGoAddStr(w, "KeyF60", t.KeyF60)
-	dotGoAddStr(w, "KeyF61", t.KeyF61)
-	dotGoAddStr(w, "KeyF62", t.KeyF62)
-	dotGoAddStr(w, "KeyF63", t.KeyF63)
-	dotGoAddStr(w, "KeyF64", t.KeyF64)
-	dotGoAddStr(w, "KeyCancel", t.KeyCancel)
-	dotGoAddStr(w, "KeyPrint", t.KeyPrint)
-	dotGoAddStr(w, "KeyExit", t.KeyExit)
-	dotGoAddStr(w, "KeyHelp", t.KeyHelp)
-	dotGoAddStr(w, "KeyClear", t.KeyClear)
-	dotGoAddStr(w, "KeyBacktab", t.KeyBacktab)
-	dotGoAddStr(w, "KeyShfLeft", t.KeyShfLeft)
-	dotGoAddStr(w, "KeyShfRight", t.KeyShfRight)
-	dotGoAddStr(w, "KeyShfUp", t.KeyShfUp)
-	dotGoAddStr(w, "KeyShfDown", t.KeyShfDown)
-	dotGoAddStr(w, "KeyCtrlLeft", t.KeyCtrlLeft)
-	dotGoAddStr(w, "KeyCtrlRight", t.KeyCtrlRight)
-	dotGoAddStr(w, "KeyCtrlUp", t.KeyCtrlUp)
-	dotGoAddStr(w, "KeyCtrlDown", t.KeyCtrlDown)
-	dotGoAddStr(w, "KeyMetaLeft", t.KeyMetaLeft)
-	dotGoAddStr(w, "KeyMetaRight", t.KeyMetaRight)
-	dotGoAddStr(w, "KeyMetaUp", t.KeyMetaUp)
-	dotGoAddStr(w, "KeyMetaDown", t.KeyMetaDown)
-	dotGoAddStr(w, "KeyAltLeft", t.KeyAltLeft)
-	dotGoAddStr(w, "KeyAltRight", t.KeyAltRight)
-	dotGoAddStr(w, "KeyAltUp", t.KeyAltUp)
-	dotGoAddStr(w, "KeyAltDown", t.KeyAltDown)
-	dotGoAddStr(w, "KeyAltShfLeft", t.KeyAltShfLeft)
-	dotGoAddStr(w, "KeyAltShfRight", t.KeyAltShfRight)
-	dotGoAddStr(w, "KeyAltShfUp", t.KeyAltShfUp)
-	dotGoAddStr(w, "KeyAltShfDown", t.KeyAltShfDown)
-	dotGoAddStr(w, "KeyMetaShfLeft", t.KeyMetaShfLeft)
-	dotGoAddStr(w, "KeyMetaShfRight", t.KeyMetaShfRight)
-	dotGoAddStr(w, "KeyMetaShfUp", t.KeyMetaShfUp)
-	dotGoAddStr(w, "KeyMetaShfDown", t.KeyMetaShfDown)
-	dotGoAddStr(w, "KeyCtrlShfLeft", t.KeyCtrlShfLeft)
-	dotGoAddStr(w, "KeyCtrlShfRight", t.KeyCtrlShfRight)
-	dotGoAddStr(w, "KeyCtrlShfUp", t.KeyCtrlShfUp)
-	dotGoAddStr(w, "KeyCtrlShfDown", t.KeyCtrlShfDown)
-	dotGoAddStr(w, "KeyShfHome", t.KeyShfHome)
-	dotGoAddStr(w, "KeyShfEnd", t.KeyShfEnd)
-	dotGoAddStr(w, "KeyCtrlHome", t.KeyCtrlHome)
-	dotGoAddStr(w, "KeyCtrlEnd", t.KeyCtrlEnd)
-	dotGoAddStr(w, "KeyMetaHome", t.KeyMetaHome)
-	dotGoAddStr(w, "KeyMetaEnd", t.KeyMetaEnd)
-	dotGoAddStr(w, "KeyAltHome", t.KeyAltHome)
-	dotGoAddStr(w, "KeyAltEnd", t.KeyAltEnd)
-	dotGoAddStr(w, "KeyCtrlShfHome", t.KeyCtrlShfHome)
-	dotGoAddStr(w, "KeyCtrlShfEnd", t.KeyCtrlShfEnd)
-	dotGoAddStr(w, "KeyMetaShfHome", t.KeyMetaShfHome)
-	dotGoAddStr(w, "KeyMetaShfEnd", t.KeyMetaShfEnd)
-	dotGoAddStr(w, "KeyAltShfHome", t.KeyAltShfHome)
-	dotGoAddStr(w, "KeyAltShfEnd", t.KeyAltShfEnd)
-	fmt.Fprintln(w, "\t})")
+	for _, t := range terms {
+		fmt.Fprintf(w, "\n\t// %s\n", t.Desc)
+		fmt.Fprintln(w, "\tterminfo.AddTerminfo(&terminfo.Terminfo{")
+		dotGoAddStr(w, "Name", t.Name)
+		dotGoAddArr(w, "Aliases", t.Aliases)
+		dotGoAddInt(w, "Columns", t.Columns)
+		dotGoAddInt(w, "Lines", t.Lines)
+		dotGoAddInt(w, "Colors", t.Colors)
+		dotGoAddStr(w, "Bell", t.Bell)
+		dotGoAddStr(w, "Clear", t.Clear)
+		dotGoAddStr(w, "EnterCA", t.EnterCA)
+		dotGoAddStr(w, "ExitCA", t.ExitCA)
+		dotGoAddStr(w, "ShowCursor", t.ShowCursor)
+		dotGoAddStr(w, "HideCursor", t.HideCursor)
+		dotGoAddStr(w, "AttrOff", t.AttrOff)
+		dotGoAddStr(w, "Underline", t.Underline)
+		dotGoAddStr(w, "Bold", t.Bold)
+		dotGoAddStr(w, "Dim", t.Dim)
+		dotGoAddStr(w, "Blink", t.Blink)
+		dotGoAddStr(w, "Reverse", t.Reverse)
+		dotGoAddStr(w, "EnterKeypad", t.EnterKeypad)
+		dotGoAddStr(w, "ExitKeypad", t.ExitKeypad)
+		dotGoAddStr(w, "SetFg", t.SetFg)
+		dotGoAddStr(w, "SetBg", t.SetBg)
+		dotGoAddStr(w, "SetFgBg", t.SetFgBg)
+		dotGoAddStr(w, "PadChar", t.PadChar)
+		dotGoAddStr(w, "AltChars", t.AltChars)
+		dotGoAddStr(w, "EnterAcs", t.EnterAcs)
+		dotGoAddStr(w, "ExitAcs", t.ExitAcs)
+		dotGoAddStr(w, "EnableAcs", t.EnableAcs)
+		dotGoAddStr(w, "SetFgRGB", t.SetFgRGB)
+		dotGoAddStr(w, "SetBgRGB", t.SetBgRGB)
+		dotGoAddStr(w, "SetFgBgRGB", t.SetFgBgRGB)
+		dotGoAddStr(w, "Mouse", t.Mouse)
+		dotGoAddStr(w, "MouseMode", t.MouseMode)
+		dotGoAddStr(w, "SetCursor", t.SetCursor)
+		dotGoAddStr(w, "CursorBack1", t.CursorBack1)
+		dotGoAddStr(w, "CursorUp1", t.CursorUp1)
+		dotGoAddStr(w, "KeyUp", t.KeyUp)
+		dotGoAddStr(w, "KeyDown", t.KeyDown)
+		dotGoAddStr(w, "KeyRight", t.KeyRight)
+		dotGoAddStr(w, "KeyLeft", t.KeyLeft)
+		dotGoAddStr(w, "KeyInsert", t.KeyInsert)
+		dotGoAddStr(w, "KeyDelete", t.KeyDelete)
+		dotGoAddStr(w, "KeyBackspace", t.KeyBackspace)
+		dotGoAddStr(w, "KeyHome", t.KeyHome)
+		dotGoAddStr(w, "KeyEnd", t.KeyEnd)
+		dotGoAddStr(w, "KeyPgUp", t.KeyPgUp)
+		dotGoAddStr(w, "KeyPgDn", t.KeyPgDn)
+		dotGoAddStr(w, "KeyF1", t.KeyF1)
+		dotGoAddStr(w, "KeyF2", t.KeyF2)
+		dotGoAddStr(w, "KeyF3", t.KeyF3)
+		dotGoAddStr(w, "KeyF4", t.KeyF4)
+		dotGoAddStr(w, "KeyF5", t.KeyF5)
+		dotGoAddStr(w, "KeyF6", t.KeyF6)
+		dotGoAddStr(w, "KeyF7", t.KeyF7)
+		dotGoAddStr(w, "KeyF8", t.KeyF8)
+		dotGoAddStr(w, "KeyF9", t.KeyF9)
+		dotGoAddStr(w, "KeyF10", t.KeyF10)
+		dotGoAddStr(w, "KeyF11", t.KeyF11)
+		dotGoAddStr(w, "KeyF12", t.KeyF12)
+		dotGoAddStr(w, "KeyF13", t.KeyF13)
+		dotGoAddStr(w, "KeyF14", t.KeyF14)
+		dotGoAddStr(w, "KeyF15", t.KeyF15)
+		dotGoAddStr(w, "KeyF16", t.KeyF16)
+		dotGoAddStr(w, "KeyF17", t.KeyF17)
+		dotGoAddStr(w, "KeyF18", t.KeyF18)
+		dotGoAddStr(w, "KeyF19", t.KeyF19)
+		dotGoAddStr(w, "KeyF20", t.KeyF20)
+		dotGoAddStr(w, "KeyF21", t.KeyF21)
+		dotGoAddStr(w, "KeyF22", t.KeyF22)
+		dotGoAddStr(w, "KeyF23", t.KeyF23)
+		dotGoAddStr(w, "KeyF24", t.KeyF24)
+		dotGoAddStr(w, "KeyF25", t.KeyF25)
+		dotGoAddStr(w, "KeyF26", t.KeyF26)
+		dotGoAddStr(w, "KeyF27", t.KeyF27)
+		dotGoAddStr(w, "KeyF28", t.KeyF28)
+		dotGoAddStr(w, "KeyF29", t.KeyF29)
+		dotGoAddStr(w, "KeyF30", t.KeyF30)
+		dotGoAddStr(w, "KeyF31", t.KeyF31)
+		dotGoAddStr(w, "KeyF32", t.KeyF32)
+		dotGoAddStr(w, "KeyF33", t.KeyF33)
+		dotGoAddStr(w, "KeyF34", t.KeyF34)
+		dotGoAddStr(w, "KeyF35", t.KeyF35)
+		dotGoAddStr(w, "KeyF36", t.KeyF36)
+		dotGoAddStr(w, "KeyF37", t.KeyF37)
+		dotGoAddStr(w, "KeyF38", t.KeyF38)
+		dotGoAddStr(w, "KeyF39", t.KeyF39)
+		dotGoAddStr(w, "KeyF40", t.KeyF40)
+		dotGoAddStr(w, "KeyF41", t.KeyF41)
+		dotGoAddStr(w, "KeyF42", t.KeyF42)
+		dotGoAddStr(w, "KeyF43", t.KeyF43)
+		dotGoAddStr(w, "KeyF44", t.KeyF44)
+		dotGoAddStr(w, "KeyF45", t.KeyF45)
+		dotGoAddStr(w, "KeyF46", t.KeyF46)
+		dotGoAddStr(w, "KeyF47", t.KeyF47)
+		dotGoAddStr(w, "KeyF48", t.KeyF48)
+		dotGoAddStr(w, "KeyF49", t.KeyF49)
+		dotGoAddStr(w, "KeyF50", t.KeyF50)
+		dotGoAddStr(w, "KeyF51", t.KeyF51)
+		dotGoAddStr(w, "KeyF52", t.KeyF52)
+		dotGoAddStr(w, "KeyF53", t.KeyF53)
+		dotGoAddStr(w, "KeyF54", t.KeyF54)
+		dotGoAddStr(w, "KeyF55", t.KeyF55)
+		dotGoAddStr(w, "KeyF56", t.KeyF56)
+		dotGoAddStr(w, "KeyF57", t.KeyF57)
+		dotGoAddStr(w, "KeyF58", t.KeyF58)
+		dotGoAddStr(w, "KeyF59", t.KeyF59)
+		dotGoAddStr(w, "KeyF60", t.KeyF60)
+		dotGoAddStr(w, "KeyF61", t.KeyF61)
+		dotGoAddStr(w, "KeyF62", t.KeyF62)
+		dotGoAddStr(w, "KeyF63", t.KeyF63)
+		dotGoAddStr(w, "KeyF64", t.KeyF64)
+		dotGoAddStr(w, "KeyCancel", t.KeyCancel)
+		dotGoAddStr(w, "KeyPrint", t.KeyPrint)
+		dotGoAddStr(w, "KeyExit", t.KeyExit)
+		dotGoAddStr(w, "KeyHelp", t.KeyHelp)
+		dotGoAddStr(w, "KeyClear", t.KeyClear)
+		dotGoAddStr(w, "KeyBacktab", t.KeyBacktab)
+		dotGoAddStr(w, "KeyShfLeft", t.KeyShfLeft)
+		dotGoAddStr(w, "KeyShfRight", t.KeyShfRight)
+		dotGoAddStr(w, "KeyShfUp", t.KeyShfUp)
+		dotGoAddStr(w, "KeyShfDown", t.KeyShfDown)
+		dotGoAddStr(w, "KeyCtrlLeft", t.KeyCtrlLeft)
+		dotGoAddStr(w, "KeyCtrlRight", t.KeyCtrlRight)
+		dotGoAddStr(w, "KeyCtrlUp", t.KeyCtrlUp)
+		dotGoAddStr(w, "KeyCtrlDown", t.KeyCtrlDown)
+		dotGoAddStr(w, "KeyMetaLeft", t.KeyMetaLeft)
+		dotGoAddStr(w, "KeyMetaRight", t.KeyMetaRight)
+		dotGoAddStr(w, "KeyMetaUp", t.KeyMetaUp)
+		dotGoAddStr(w, "KeyMetaDown", t.KeyMetaDown)
+		dotGoAddStr(w, "KeyAltLeft", t.KeyAltLeft)
+		dotGoAddStr(w, "KeyAltRight", t.KeyAltRight)
+		dotGoAddStr(w, "KeyAltUp", t.KeyAltUp)
+		dotGoAddStr(w, "KeyAltDown", t.KeyAltDown)
+		dotGoAddStr(w, "KeyAltShfLeft", t.KeyAltShfLeft)
+		dotGoAddStr(w, "KeyAltShfRight", t.KeyAltShfRight)
+		dotGoAddStr(w, "KeyAltShfUp", t.KeyAltShfUp)
+		dotGoAddStr(w, "KeyAltShfDown", t.KeyAltShfDown)
+		dotGoAddStr(w, "KeyMetaShfLeft", t.KeyMetaShfLeft)
+		dotGoAddStr(w, "KeyMetaShfRight", t.KeyMetaShfRight)
+		dotGoAddStr(w, "KeyMetaShfUp", t.KeyMetaShfUp)
+		dotGoAddStr(w, "KeyMetaShfDown", t.KeyMetaShfDown)
+		dotGoAddStr(w, "KeyCtrlShfLeft", t.KeyCtrlShfLeft)
+		dotGoAddStr(w, "KeyCtrlShfRight", t.KeyCtrlShfRight)
+		dotGoAddStr(w, "KeyCtrlShfUp", t.KeyCtrlShfUp)
+		dotGoAddStr(w, "KeyCtrlShfDown", t.KeyCtrlShfDown)
+		dotGoAddStr(w, "KeyShfHome", t.KeyShfHome)
+		dotGoAddStr(w, "KeyShfEnd", t.KeyShfEnd)
+		dotGoAddStr(w, "KeyCtrlHome", t.KeyCtrlHome)
+		dotGoAddStr(w, "KeyCtrlEnd", t.KeyCtrlEnd)
+		dotGoAddStr(w, "KeyMetaHome", t.KeyMetaHome)
+		dotGoAddStr(w, "KeyMetaEnd", t.KeyMetaEnd)
+		dotGoAddStr(w, "KeyAltHome", t.KeyAltHome)
+		dotGoAddStr(w, "KeyAltEnd", t.KeyAltEnd)
+		dotGoAddStr(w, "KeyCtrlShfHome", t.KeyCtrlShfHome)
+		dotGoAddStr(w, "KeyCtrlShfEnd", t.KeyCtrlShfEnd)
+		dotGoAddStr(w, "KeyMetaShfHome", t.KeyMetaShfHome)
+		dotGoAddStr(w, "KeyMetaShfEnd", t.KeyMetaShfEnd)
+		dotGoAddStr(w, "KeyAltShfHome", t.KeyAltShfHome)
+		dotGoAddStr(w, "KeyAltShfEnd", t.KeyAltShfEnd)
+		fmt.Fprintln(w, "\t})")
+	}
 	fmt.Fprintln(w, "}")
 }
 
-var packname = "terminfo"
+var packname = ""
+var tipackname = "github.com/gdamore/tcell/terminfo"
 
-func dotGoFile(fname string, term *terminfo.Terminfo, desc string, makeDir bool) error {
+func dotGoFile(fname string, terms []*TData) error {
 	w := os.Stdout
 	var e error
 	if fname != "-" && fname != "" {
-		if makeDir {
-			dname := path.Dir(fname)
-			_ = os.Mkdir(dname, 0777)
-		}
 		if w, e = os.Create(fname); e != nil {
 			return e
 		}
 	}
-	dotGoHeader(w, packname)
-	dotGoInfo(w, term, desc)
+	if packname == "" {
+		packname = strings.Replace(terms[0].Name, "-", "_", -1)
+	}
+	dotGoHeader(w, packname, tipackname)
+	dotGoInfo(w, terms)
 	dotGoTrailer(w)
 	if w != os.Stdout {
 		w.Close()
@@ -701,138 +678,33 @@ func dotGoFile(fname string, term *terminfo.Terminfo, desc string, makeDir bool)
 	return nil
 }
 
-func dotGzFile(fname string, term *terminfo.Terminfo, makeDir bool) error {
+type TData struct {
+	Desc string
 
-	var w io.WriteCloser = os.Stdout
-	var e error
-	if fname != "-" && fname != "" {
-		if makeDir {
-			dname := path.Dir(fname)
-			_ = os.Mkdir(dname, 0777)
-		}
-		if w, e = os.Create(fname); e != nil {
-			return e
-		}
-	}
-
-	w = gzip.NewWriter(w)
-
-	js, e := json.Marshal(term)
-	fmt.Fprintln(w, string(js))
-
-	if w != os.Stdout {
-		w.Close()
-	}
-	return nil
-}
-
-func jsonFile(fname string, term *terminfo.Terminfo, makeDir bool) error {
-	w := os.Stdout
-	var e error
-	if fname != "-" && fname != "" {
-		if makeDir {
-			dname := path.Dir(fname)
-			_ = os.Mkdir(dname, 0777)
-		}
-		if w, e = os.Create(fname); e != nil {
-			return e
-		}
-	}
-
-	js, e := json.Marshal(term)
-	fmt.Fprintln(w, string(js))
-
-	if w != os.Stdout {
-		w.Close()
-	}
-	return nil
-}
-
-func dumpDatabase(terms map[string]*terminfo.Terminfo, descs map[string]string) {
-
-	// Load models .text
-	mfile, e := os.Open("models.txt")
-	models := make(map[string]bool)
-	if e != nil {
-		fmt.Fprintf(os.Stderr, "Failed reading models.txt: %v", e)
-	}
-	scanner := bufio.NewScanner(mfile)
-	for scanner.Scan() {
-		models[scanner.Text()] = true
-	}
-
-	for name, t := range terms {
-
-		// If this is one of our builtin models, generate the GO file
-		if models[name] {
-			desc := descs[name]
-			safename := strings.Replace(name, "-", "_", -1)
-			goname := fmt.Sprintf("term_%s.go", safename)
-			e = dotGoFile(goname, t, desc, true)
-			if e != nil {
-				fmt.Fprintf(os.Stderr, "Failed creating %s: %v", goname, e)
-				os.Exit(1)
-			}
-			continue
-		}
-
-		hash := fmt.Sprintf("%x", sha1.Sum([]byte(name)))
-		fname := fmt.Sprintf("%s.gz", hash[0:8])
-		fname = path.Join("database", hash[0:2], fname)
-		e = dotGzFile(fname, t, true)
-		if e != nil {
-			fmt.Fprintf(os.Stderr, "Failed creating %s: %v", fname, e)
-			os.Exit(1)
-		}
-
-		for _, a := range t.Aliases {
-			hash = fmt.Sprintf("%x", sha1.Sum([]byte(a)))
-			fname = path.Join("database", hash[0:2], hash[0:8])
-			e = jsonFile(fname, &terminfo.Terminfo{Name: t.Name}, true)
-			if e != nil {
-				fmt.Fprintf(os.Stderr, "Failed creating %s: %v", fname, e)
-				os.Exit(1)
-			}
-		}
-	}
+	terminfo.Terminfo
 }
 
 func main() {
 	gofile := ""
-	jsonfile := ""
 	nofatal := false
 	quiet := false
-	dogzip := false
 	all := false
-	db := false
 
 	flag.StringVar(&gofile, "go", "", "generate go source in named file")
-	flag.StringVar(&jsonfile, "json", "", "generate json in named file")
+	flag.StringVar(&tipackname, "I", tipackname, "import package path")
 	flag.StringVar(&packname, "P", packname, "package name (go source)")
 	flag.BoolVar(&nofatal, "nofatal", false, "errors are not fatal")
 	flag.BoolVar(&quiet, "quiet", false, "suppress error messages")
-	flag.BoolVar(&dogzip, "gzip", false, "compress json output")
 	flag.BoolVar(&all, "all", false, "load all terminals from terminfo")
-	flag.BoolVar(&db, "db", false, "generate json db file in place")
 	flag.Parse()
 	var e error
 
 	args := flag.Args()
-	if all {
-		db = true // implied
-		allterms, e := getallterms()
-		if e != nil {
-			fmt.Fprintf(os.Stderr, "Failed: %v", e)
-			os.Exit(1)
-		}
-		args = append(args, allterms...)
-	}
 	if len(args) == 0 {
 		args = []string{os.Getenv("TERM")}
 	}
 
-	tdata := make(map[string]*terminfo.Terminfo)
-	descs := make(map[string]string)
+	tdata := make([]*TData, 0)
 
 	for _, term := range args {
 		if t, desc, e := getinfo(term); e != nil {
@@ -847,8 +719,10 @@ func main() {
 				os.Exit(1)
 			}
 		} else {
-			tdata[term] = t
-			descs[term] = desc
+			tdata = append(tdata, &TData{
+				Desc:     desc,
+				Terminfo: *t,
+			})
 		}
 	}
 
@@ -857,32 +731,9 @@ func main() {
 		os.Exit(0)
 	}
 
-	if db {
-		dumpDatabase(tdata, descs)
-	} else if gofile != "" {
-		for term, t := range tdata {
-			if t.Name == term {
-				e = dotGoFile(gofile, t, descs[term], false)
-				if e != nil {
-					fmt.Fprintf(os.Stderr, "Failed %s: %v", gofile, e)
-					os.Exit(1)
-				}
-			}
-		}
-
-	} else {
-		for _, t := range tdata {
-			if dogzip {
-				if e = dotGzFile(jsonfile, t, false); e != nil {
-					fmt.Fprintf(os.Stderr, "Failed %s: %v", gofile, e)
-					os.Exit(1)
-				}
-			} else {
-				if e = jsonFile(jsonfile, t, false); e != nil {
-					fmt.Fprintf(os.Stderr, "Failed %s: %v", gofile, e)
-					os.Exit(1)
-				}
-			}
-		}
+	e = dotGoFile(gofile, tdata)
+	if e != nil {
+		fmt.Fprintf(os.Stderr, "Failed %s: %v", gofile, e)
+		os.Exit(1)
 	}
 }

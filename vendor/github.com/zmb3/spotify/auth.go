@@ -131,6 +131,11 @@ func (a Authenticator) AuthURL(state string) string {
 	return a.config.AuthCodeURL(state)
 }
 
+// AuthURLWithDialog returns the same URL as AuthURL, but sets show_dialog to true
+func (a Authenticator) AuthURLWithDialog(state string) string {
+	return a.config.AuthCodeURL(state, oauth2.SetAuthURLParam("show_dialog", "true"))
+}
+
 // Token pulls an authorization code from an HTTP request and attempts to exchange
 // it for an access token.  The standard use case is to call Token from the handler
 // that handles requests to your application's redirect URL.

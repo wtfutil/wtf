@@ -75,6 +75,7 @@ type Settings struct {
 	ImportSources                       []string          `json:"import_sources"`
 	KodingEnabled                       bool              `json:"koding_enabled"`
 	KodingURL                           string            `json:"koding_url"`
+	LocalMarkdownVersion                int               `json:"local_markdown_version"`
 	MaxArtifactsSize                    int               `json:"max_artifacts_size"`
 	MaxAttachmentSize                   int               `json:"max_attachment_size"`
 	MaxPagesSize                        int               `json:"max_pages_size"`
@@ -92,7 +93,7 @@ type Settings struct {
 	PerformanceBarEnabled               bool              `json:"performance_bar_enabled"`
 	PlantumlEnabled                     bool              `json:"plantuml_enabled"`
 	PlantumlURL                         string            `json:"plantuml_url"`
-	PollingIntervalMultiplier           float64           `json:"polling_interval_multiplier"`
+	PollingIntervalMultiplier           float64           `json:"polling_interval_multiplier,string"`
 	ProjectExportEnabled                bool              `json:"project_export_enabled"`
 	PrometheusMetricsEnabled            bool              `json:"prometheus_metrics_enabled"`
 	RecaptchaEnabled                    bool              `json:"recaptcha_enabled"`
@@ -195,6 +196,7 @@ type UpdateSettingsOptions struct {
 	ImportSources                       []string          `url:"import_sources,omitempty" json:"import_sources,omitempty"`
 	KodingEnabled                       *bool             `url:"koding_enabled,omitempty" json:"koding_enabled,omitempty"`
 	KodingURL                           *string           `url:"koding_url,omitempty" json:"koding_url,omitempty"`
+	LocalMarkdownVersion                *int              `url:"local_markdown_version,omitempty" json:"local_markdown_version,omitempty"`
 	MaxArtifactsSize                    *int              `url:"max_artifacts_size,omitempty" json:"max_artifacts_size,omitempty"`
 	MaxAttachmentSize                   *int              `url:"max_attachment_size,omitempty" json:"max_attachment_size,omitempty"`
 	MaxPagesSize                        *int              `url:"max_pages_size,omitempty" json:"max_pages_size,omitempty"`

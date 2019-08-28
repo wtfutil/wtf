@@ -11,6 +11,7 @@ package datadog
 import (
 	"encoding/json"
 	"errors"
+	"math"
 	"strconv"
 )
 
@@ -40,6 +41,25 @@ func GetIntOk(v *int) (int, bool) {
 	}
 
 	return 0, false
+}
+
+// Float64 is a helper routine that allocates a new float64 value
+// to store v and returns a pointer to it.
+func Float64(v float64) *float64 { return &v }
+
+// GetFloat64Ok is a helper routine that returns a boolean representing
+// if a value was set, and if so, dereferences the pointer to it.
+func GetFloat64Ok(v *float64) (float64, bool) {
+	if v != nil {
+		return *v, true
+	}
+
+	return 0, false
+}
+
+// Float64AlmostEqual will return true if two floats are within a certain tolerance of each other
+func Float64AlmostEqual(a, b, tolerance float64) bool {
+	return math.Abs(a-b) < tolerance
 }
 
 // String is a helper routine that allocates a new string value

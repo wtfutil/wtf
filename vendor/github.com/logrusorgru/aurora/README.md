@@ -13,6 +13,28 @@ Ultimate ANSI colors for Golang. The package supports Printf/Sprintf etc.
 
 ![aurora logo](https://github.com/logrusorgru/aurora/blob/master/gopher_aurora.png)
 
+# TOC
+
+- [Insallation](#installation)
+- [Usage](#usage)
+  + [Simple](#simple)
+  + [Printf](#printf)
+  + [aurora.Sprintf](#aurorasprintf)
+  + [Enable/Disable colors](#enabledisable-colors)
+- [Chains](#chains)
+- [Colorize](#colorize)
+- [Grayscale](#grayscale)
+- [8-bit colors](#8-bit-colors)
+- [Supported Colors & Formats](#supported-colors--formats)
+  + [All colors](#all-colors)
+  + [Standard and bright colors](#standard-and-bright-colors)
+  + [Formats are likely supported](#formats-are-likely-supported)
+  + [Formats are likely unsupported](#formats-are-likely-unsupported)
+- [Limitations](#limitations)
+  + [Windows](#windows)
+  + [TTY](#tty)
+- [Licensing](#licensing)
+
 # Installation
 
 Get
@@ -267,6 +289,19 @@ aurora.value %!p(aurora.value={0xc42000a310 768 0})
 ```
 
 The obvious workaround is `Red(fmt.Sprintf("%T", some))`
+
+### Windows
+
+The Aurora provides ANSI colors only. So, there are not supports and workarounds for OS Windows.
+Check out this commetns to find a way
+- [Using go-colrable](https://github.com/logrusorgru/aurora/issues/2#issuecomment-299014211).
+- [Using registry for Windows 10](https://github.com/logrusorgru/aurora/issues/10#issue-476361247).
+
+### TTY
+
+The Aurora has no internal TTY detectors by design. Take a look
+ [this comment](https://github.com/logrusorgru/aurora/issues/2#issuecomment-299030108) if you want turn
+on colors for a terminal only, and turn them off for a file.
 
 ### Licensing
 

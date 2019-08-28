@@ -158,6 +158,15 @@ type ReviewInfo struct {
 	Labels map[string]int `json:"labels"`
 }
 
+// ReviewerUpdateInfo entity contains information about updates
+// to change's reviewers set.
+type ReviewerUpdateInfo struct {
+	Updated   Timestamp   `json:"updated"`    // Timestamp of the update.
+	UpdatedBy AccountInfo `json:"updated_by"` // The account which modified state of the reviewer in question.
+	Reviewer  AccountInfo `json:"reviewer"`   // The reviewer account added or removed from the change.
+	State     string      `json:"state"`      // The reviewer state, one of "REVIEWER", "CC" or "REMOVED".
+}
+
 // ReviewResult entity contains information regarding the updates that were
 // made to a review.
 type ReviewResult struct {
@@ -359,12 +368,14 @@ type ChangeInfo struct {
 	PermittedLabels    map[string][]string      `json:"permitted_labels,omitempty"`
 	RemovableReviewers []AccountInfo            `json:"removable_reviewers,omitempty"`
 	Reviewers          map[string][]AccountInfo `json:"reviewers,omitempty"`
+	ReviewerUpdates    []ReviewerUpdateInfo     `json:"reviewer_updates,omitempty"`
 	Messages           []ChangeMessageInfo      `json:"messages,omitempty"`
 	CurrentRevision    string                   `json:"current_revision,omitempty"`
 	Revisions          map[string]RevisionInfo  `json:"revisions,omitempty"`
 	MoreChanges        bool                     `json:"_more_changes,omitempty"`
 	Problems           []ProblemInfo            `json:"problems,omitempty"`
 	BaseChange         string                   `json:"base_change,omitempty"`
+	Submittable        bool                     `json:"submittable,omitempty"`
 }
 
 // LabelInfo entity contains information about a label on a change, always corresponding to the current patch set.

@@ -52,6 +52,7 @@ type RunnerDetails struct {
 	Architecture string     `json:"architecture"`
 	Description  string     `json:"description"`
 	ID           int        `json:"id"`
+	IPAddress    string     `json:"ip_address"`
 	IsShared     bool       `json:"is_shared"`
 	ContactedAt  *time.Time `json:"contacted_at"`
 	Name         string     `json:"name"`

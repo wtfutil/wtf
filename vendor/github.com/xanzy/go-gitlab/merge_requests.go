@@ -51,6 +51,8 @@ type MergeRequest struct {
 		Name      string     `json:"name"`
 		State     string     `json:"state"`
 		CreatedAt *time.Time `json:"created_at"`
+		AvatarURL string     `json:"avatar_url"`
+		WebURL    string     `json:"web_url"`
 	} `json:"author"`
 	Assignee struct {
 		ID        int        `json:"id"`
@@ -58,6 +60,8 @@ type MergeRequest struct {
 		Name      string     `json:"name"`
 		State     string     `json:"state"`
 		CreatedAt *time.Time `json:"created_at"`
+		AvatarURL string     `json:"avatar_url"`
+		WebURL    string     `json:"web_url"`
 	} `json:"assignee"`
 	SourceProjectID           int        `json:"source_project_id"`
 	TargetProjectID           int        `json:"target_project_id"`
@@ -67,12 +71,15 @@ type MergeRequest struct {
 	Milestone                 *Milestone `json:"milestone"`
 	MergeWhenPipelineSucceeds bool       `json:"merge_when_pipeline_succeeds"`
 	MergeStatus               string     `json:"merge_status"`
+	MergeError                string     `json:"merge_error"`
 	MergedBy                  struct {
 		ID        int        `json:"id"`
 		Username  string     `json:"username"`
 		Name      string     `json:"name"`
 		State     string     `json:"state"`
 		CreatedAt *time.Time `json:"created_at"`
+		AvatarURL string     `json:"avatar_url"`
+		WebURL    string     `json:"web_url"`
 	} `json:"merged_by"`
 	MergedAt *time.Time `json:"merged_at"`
 	ClosedBy struct {
@@ -81,6 +88,8 @@ type MergeRequest struct {
 		Name      string     `json:"name"`
 		State     string     `json:"state"`
 		CreatedAt *time.Time `json:"created_at"`
+		AvatarURL string     `json:"avatar_url"`
+		WebURL    string     `json:"web_url"`
 	} `json:"closed_by"`
 	ClosedAt                 *time.Time `json:"closed_at"`
 	Subscribed               bool       `json:"subscribed"`

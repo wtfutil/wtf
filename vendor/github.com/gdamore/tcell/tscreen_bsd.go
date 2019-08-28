@@ -1,6 +1,6 @@
 // +build freebsd netbsd openbsd dragonfly
 
-// Copyright 2018 The TCell Authors
+// Copyright 2019 The TCell Authors
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use file except in compliance with the License.
@@ -48,9 +48,6 @@ func (t *tScreen) termioInit() error {
 		goto failed
 	}
 
-	// On this platform (FreeBSD and family), the baud rate is stored
-	// directly as an integer in termios.c_ospeed.  No bitmasking required.
-	t.baud = int(t.tiosp.Ospeed)
 	newtios = *t.tiosp
 	newtios.Iflag &^= syscall.IGNBRK | syscall.BRKINT | syscall.PARMRK |
 		syscall.ISTRIP | syscall.INLCR | syscall.IGNCR |

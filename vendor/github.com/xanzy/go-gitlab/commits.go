@@ -18,6 +18,7 @@ package gitlab
 
 import (
 	"fmt"
+	"net/url"
 	"time"
 )
 
@@ -145,19 +146,19 @@ type GetCommitRefsOptions struct {
 //
 // GitLab API docs:
 // https://docs.gitlab.com/ce/api/commits.html#get-references-a-commit-is-pushed-to
-func (s *CommitsService) GetCommitRefs(pid interface{}, sha string, opt *GetCommitRefsOptions, options ...OptionFunc) ([]CommitRef, *Response, error) {
+func (s *CommitsService) GetCommitRefs(pid interface{}, sha string, opt *GetCommitRefsOptions, options ...OptionFunc) ([]*CommitRef, *Response, error) {
 	project, err := parseID(pid)
 	if err != nil {
 		return nil, nil, err
 	}
-	u := fmt.Sprintf("projects/%s/repository/commits/%s/refs", pathEscape(project), sha)
+	u := fmt.Sprintf("projects/%s/repository/commits/%s/refs", pathEscape(project), url.PathEscape(sha))
 
 	req, err := s.client.NewRequest("GET", u, opt, options)
 	if err != nil {
 		return nil, nil, err
 	}
 
-	var cs []CommitRef
+	var cs []*CommitRef
 	resp, err := s.client.Do(req, &cs)
 	if err != nil {
 		return nil, resp, err
@@ -175,7 +176,7 @@ func (s *CommitsService) GetCommit(pid interface{}, sha string, options ...Optio
 	if err != nil {
 		return nil, nil, err
 	}
-	u := fmt.Sprintf("projects/%s/repository/commits/%s", pathEscape(project), sha)
+	u := fmt.Sprintf("projects/%s/repository/commits/%s", pathEscape(project), url.PathEscape(sha))
 
 	req, err := s.client.NewRequest("GET", u, nil, options)
 	if err != nil {
@@ -218,7 +219,7 @@ func (s *CommitsService) CreateCommit(pid interface{}, opt *CreateCommitOptions,
 		return nil, nil, err
 	}
 
-	var c *Commit
+	c := new(Commit)
 	resp, err := s.client.Do(req, &c)
 	if err != nil {
 		return nil, resp, err
@@ -260,7 +261,7 @@ func (s *CommitsService) GetCommitDiff(pid interface{}, sha string, opt *GetComm
 	if err != nil {
 		return nil, nil, err
 	}
-	u := fmt.Sprintf("projects/%s/repository/commits/%s/diff", pathEscape(project), sha)
+	u := fmt.Sprintf("projects/%s/repository/commits/%s/diff", pathEscape(project), url.PathEscape(sha))
 
 	req, err := s.client.NewRequest("GET", u, opt, options)
 	if err != nil {
@@ -317,7 +318,7 @@ func (s *CommitsService) GetCommitComments(pid interface{}, sha string, opt *Get
 	if err != nil {
 		return nil, nil, err
 	}
-	u := fmt.Sprintf("projects/%s/repository/commits/%s/comments", pathEscape(project), sha)
+	u := fmt.Sprintf("projects/%s/repository/commits/%s/comments", pathEscape(project), url.PathEscape(sha))
 
 	req, err := s.client.NewRequest("GET", u, opt, options)
 	if err != nil {
@@ -356,7 +357,7 @@ func (s *CommitsService) PostCommitComment(pid interface{}, sha string, opt *Pos
 	if err != nil {
 		return nil, nil, err
 	}
-	u := fmt.Sprintf("projects/%s/repository/commits/%s/comments", pathEscape(project), sha)
+	u := fmt.Sprintf("projects/%s/repository/commits/%s/comments", pathEscape(project), url.PathEscape(sha))
 
 	req, err := s.client.NewRequest("POST", u, opt, options)
 	if err != nil {
@@ -408,7 +409,7 @@ func (s *CommitsService) GetCommitStatuses(pid interface{}, sha string, opt *Get
 	if err != nil {
 		return nil, nil, err
 	}
-	u := fmt.Sprintf("projects/%s/repository/commits/%s/statuses", pathEscape(project), sha)
+	u := fmt.Sprintf("projects/%s/repository/commits/%s/statuses", pathEscape(project), url.PathEscape(sha))
 
 	req, err := s.client.NewRequest("GET", u, opt, options)
 	if err != nil {
@@ -444,14 +445,14 @@ func (s *CommitsService) SetCommitStatus(pid interface{}, sha string, opt *SetCo
 	if err != nil {
 		return nil, nil, err
 	}
-	u := fmt.Sprintf("projects/%s/statuses/%s", pathEscape(project), sha)
+	u := fmt.Sprintf("projects/%s/statuses/%s", pathEscape(project), url.PathEscape(sha))
 
 	req, err := s.client.NewRequest("POST", u, opt, options)
 	if err != nil {
 		return nil, nil, err
 	}
 
-	var cs *CommitStatus
+	cs := new(CommitStatus)
 	resp, err := s.client.Do(req, &cs)
 	if err != nil {
 		return nil, resp, err
@@ -469,7 +470,7 @@ func (s *CommitsService) GetMergeRequestsByCommit(pid interface{}, sha string, o
 	if err != nil {
 		return nil, nil, err
 	}
-	u := fmt.Sprintf("projects/%s/repository/commits/%s/merge_requests", pathEscape(project), sha)
+	u := fmt.Sprintf("projects/%s/repository/commits/%s/merge_requests", pathEscape(project), url.PathEscape(sha))
 
 	req, err := s.client.NewRequest("GET", u, nil, options)
 	if err != nil {
@@ -485,14 +486,14 @@ func (s *CommitsService) GetMergeRequestsByCommit(pid interface{}, sha string, o
 	return mrs, resp, err
 }
 
-// CherryPickCommitOptions represents the available options for cherry-picking a commit.
+// CherryPickCommitOptions represents the available CherryPickCommit() options.
 //
 // GitLab API docs: https://docs.gitlab.com/ce/api/commits.html#cherry-pick-a-commit
 type CherryPickCommitOptions struct {
-	TargetBranch *string `url:"branch" json:"branch,omitempty"`
+	Branch *string `url:"branch,omitempty" json:"branch,omitempty"`
 }
 
-// CherryPickCommit sherry picks a commit to a given branch.
+// CherryPickCommit cherry picks a commit to a given branch.
 //
 // GitLab API docs: https://docs.gitlab.com/ce/api/commits.html#cherry-pick-a-commit
 func (s *CommitsService) CherryPickCommit(pid interface{}, sha string, opt *CherryPickCommitOptions, options ...OptionFunc) (*Commit, *Response, error) {
@@ -500,18 +501,86 @@ func (s *CommitsService) CherryPickCommit(pid interface{}, sha string, opt *Cher
 	if err != nil {
 		return nil, nil, err
 	}
-	u := fmt.Sprintf("projects/%s/repository/commits/%s/cherry_pick", pathEscape(project), sha)
+	u := fmt.Sprintf("projects/%s/repository/commits/%s/cherry_pick", pathEscape(project), url.PathEscape(sha))
 
 	req, err := s.client.NewRequest("POST", u, opt, options)
 	if err != nil {
 		return nil, nil, err
 	}
 
-	var c *Commit
+	c := new(Commit)
 	resp, err := s.client.Do(req, &c)
 	if err != nil {
 		return nil, resp, err
 	}
 
 	return c, resp, err
+}
+
+// RevertCommitOptions represents the available RevertCommit() options.
+//
+// GitLab API docs: https://docs.gitlab.com/ee/api/commits.html#revert-a-commit
+type RevertCommitOptions struct {
+	Branch *string `url:"branch,omitempty" json:"branch,omitempty"`
+}
+
+// RevertCommit reverts a commit in a given branch.
+//
+// GitLab API docs: https://docs.gitlab.com/ee/api/commits.html#revert-a-commit
+func (s *CommitsService) RevertCommit(pid interface{}, sha string, opt *RevertCommitOptions, options ...OptionFunc) (*Commit, *Response, error) {
+	project, err := parseID(pid)
+	if err != nil {
+		return nil, nil, err
+	}
+	u := fmt.Sprintf("projects/%s/repository/commits/%s/revert", pathEscape(project), url.PathEscape(sha))
+
+	req, err := s.client.NewRequest("POST", u, opt, options)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	c := new(Commit)
+	resp, err := s.client.Do(req, &c)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return c, resp, err
+}
+
+// GPGSignature represents a Gitlab commit's GPG Signature.
+//
+// GitLab API docs:
+// https://docs.gitlab.com/ee/api/commits.html#get-gpg-signature-of-a-commit
+type GPGSignature struct {
+	KeyID              int    `json:"gpg_key_id"`
+	KeyPrimaryKeyID    string `json:"gpg_key_primary_keyid"`
+	KeyUserName        string `json:"gpg_key_user_name"`
+	KeyUserEmail       string `json:"gpg_key_user_email"`
+	VerificationStatus string `json:"verification_status"`
+	KeySubkeyID        int    `json:"gpg_key_subkey_id"`
+}
+
+// GetGPGSiganature gets a GPG signature of a commit.
+//
+// GitLab API docs: https://docs.gitlab.com/ee/api/commits.html#get-gpg-signature-of-a-commit
+func (s *CommitsService) GetGPGSiganature(pid interface{}, sha string, options ...OptionFunc) (*GPGSignature, *Response, error) {
+	project, err := parseID(pid)
+	if err != nil {
+		return nil, nil, err
+	}
+	u := fmt.Sprintf("projects/%s/repository/commits/%s/signature", pathEscape(project), url.PathEscape(sha))
+
+	req, err := s.client.NewRequest("GET", u, nil, options)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	sig := new(GPGSignature)
+	resp, err := s.client.Do(req, &sig)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return sig, resp, err
 }

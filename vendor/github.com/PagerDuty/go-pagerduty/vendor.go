@@ -10,15 +10,18 @@ import (
 // Vendor represents a specific type of integration. AWS Cloudwatch, Splunk, Datadog, etc are all examples of vendors that can be integrated in PagerDuty by making an integration.
 type Vendor struct {
 	APIObject
-	Name                string `json:"name,omitempty"`
-	LogoURL             string `json:"logo_url,omitempty"`
-	LongName            string `json:"long_name,omitempty"`
-	WebsiteURL          string `json:"website_url,omitempty"`
-	Description         string `json:"description,omitempty"`
-	Connectable         bool   `json:"connectable,omitempty"`
-	ThumbnailURL        string `json:"thumbnail_url,omitempty"`
-	GenericServiceType  string `json:"generic_service_type,omitempty"`
-	IntegrationGuideURL string `json:"integration_guide_url,omitempty"`
+	Name                  string `json:"name,omitempty"`
+	LogoURL               string `json:"logo_url,omitempty"`
+	LongName              string `json:"long_name,omitempty"`
+	WebsiteURL            string `json:"website_url,omitempty"`
+	Description           string `json:"description,omitempty"`
+	Connectable           bool   `json:"connectable,omitempty"`
+	ThumbnailURL          string `json:"thumbnail_url,omitempty"`
+	GenericServiceType    string `json:"generic_service_type,omitempty"`
+	IntegrationGuideURL   string `json:"integration_guide_url,omitempty"`
+	AlertCreationDefault  string `json:"alert_creation_default,omitempty"`
+	AlertCreationEditable bool   `json:"alert_creation_editable,omitempty"`
+	IsPDCEF               bool   `json:"is_pd_cef,omitempty"`
 }
 
 // ListVendorResponse is the data structure returned from calling the ListVendors API endpoint.

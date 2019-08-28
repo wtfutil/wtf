@@ -35,10 +35,12 @@ type ProjectVariablesService struct {
 // GitLab API docs:
 // https://docs.gitlab.com/ee/api/project_level_variables.html
 type ProjectVariable struct {
-	Key              string `json:"key"`
-	Value            string `json:"value"`
-	Protected        bool   `json:"protected"`
-	EnvironmentScope string `json:"environment_scope"`
+	Key              string            `json:"key"`
+	Value            string            `json:"value"`
+	VariableType     VariableTypeValue `json:"variable_type"`
+	Protected        bool              `json:"protected"`
+	Masked           bool              `json:"masked"`
+	EnvironmentScope string            `json:"environment_scope"`
 }
 
 func (v ProjectVariable) String() string {
@@ -95,23 +97,25 @@ func (s *ProjectVariablesService) GetVariable(pid interface{}, key string, optio
 	return v, resp, err
 }
 
-// CreateVariableOptions represents the available
-// CreateVariable() options.
+// CreateProjectVariableOptions represents the available CreateVariable()
+// options.
 //
 // GitLab API docs:
 // https://docs.gitlab.com/ee/api/project_level_variables.html#create-variable
-type CreateVariableOptions struct {
-	Key              *string `url:"key,omitempty" json:"key,omitempty"`
-	Value            *string `url:"value,omitempty" json:"value,omitempty"`
-	Protected        *bool   `url:"protected,omitempty" json:"protected,omitempty"`
-	EnvironmentScope *string `url:"environment_scope,omitempty" json:"environment_scope,omitempty"`
+type CreateProjectVariableOptions struct {
+	Key              *string            `url:"key,omitempty" json:"key,omitempty"`
+	Value            *string            `url:"value,omitempty" json:"value,omitempty"`
+	VariableType     *VariableTypeValue `url:"variable_type,omitempty" json:"variable_type,omitempty"`
+	Protected        *bool              `url:"protected,omitempty" json:"protected,omitempty"`
+	Masked           *bool              `url:"masked,omitempty" json:"masked,omitempty"`
+	EnvironmentScope *string            `url:"environment_scope,omitempty" json:"environment_scope,omitempty"`
 }
 
 // CreateVariable creates a new project variable.
 //
 // GitLab API docs:
 // https://docs.gitlab.com/ee/api/project_level_variables.html#create-variable
-func (s *ProjectVariablesService) CreateVariable(pid interface{}, opt *CreateVariableOptions, options ...OptionFunc) (*ProjectVariable, *Response, error) {
+func (s *ProjectVariablesService) CreateVariable(pid interface{}, opt *CreateProjectVariableOptions, options ...OptionFunc) (*ProjectVariable, *Response, error) {
 	project, err := parseID(pid)
 	if err != nil {
 		return nil, nil, err
@@ -132,22 +136,24 @@ func (s *ProjectVariablesService) CreateVariable(pid interface{}, opt *CreateVar
 	return v, resp, err
 }
 
-// UpdateVariableOptions represents the available
-// UpdateVariable() options.
+// UpdateProjectVariableOptions represents the available UpdateVariable()
+// options.
 //
 // GitLab API docs:
 // https://docs.gitlab.com/ee/api/project_level_variables.html#update-variable
-type UpdateVariableOptions struct {
-	Value            *string `url:"value,omitempty" json:"value,omitempty"`
-	Protected        *bool   `url:"protected,omitempty" json:"protected,omitempty"`
-	EnvironmentScope *string `url:"environment_scope,omitempty" json:"environment_scope,omitempty"`
+type UpdateProjectVariableOptions struct {
+	Value            *string            `url:"value,omitempty" json:"value,omitempty"`
+	VariableType     *VariableTypeValue `url:"variable_type,omitempty" json:"variable_type,omitempty"`
+	Protected        *bool              `url:"protected,omitempty" json:"protected,omitempty"`
+	Masked           *bool              `url:"masked,omitempty" json:"masked,omitempty"`
+	EnvironmentScope *string            `url:"environment_scope,omitempty" json:"environment_scope,omitempty"`
 }
 
-// UpdateVariable updates a project's variable
+// UpdateVariable updates a project's variable.
 //
 // GitLab API docs:
 // https://docs.gitlab.com/ee/api/project_level_variables.html#update-variable
-func (s *ProjectVariablesService) UpdateVariable(pid interface{}, key string, opt *UpdateVariableOptions, options ...OptionFunc) (*ProjectVariable, *Response, error) {
+func (s *ProjectVariablesService) UpdateVariable(pid interface{}, key string, opt *UpdateProjectVariableOptions, options ...OptionFunc) (*ProjectVariable, *Response, error) {
 	project, err := parseID(pid)
 	if err != nil {
 		return nil, nil, err

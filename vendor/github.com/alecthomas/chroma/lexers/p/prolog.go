@@ -15,7 +15,6 @@ var Prolog = internal.Register(MustNewLexer(
 	},
 	Rules{
 		"root": {
-			{`^#.*`, CommentSingle, nil},
 			{`/\*`, CommentMultiline, Push("nested-comment")},
 			{`%.*`, CommentSingle, nil},
 			{`0\'.`, LiteralStringChar, nil},
