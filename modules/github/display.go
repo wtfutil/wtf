@@ -7,7 +7,7 @@ import (
 )
 
 func (widget *Widget) display() {
-	widget.TextWidget.RedrawFunc(widget.content)
+	widget.TextWidget.Redraw(widget.content)
 }
 
 func (widget *Widget) content() (string, string, bool) {

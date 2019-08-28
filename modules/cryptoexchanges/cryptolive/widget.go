@@ -46,7 +46,7 @@ func (widget *Widget) Refresh() {
 	widget.toplistWidget.Refresh(&wg)
 	wg.Wait()
 
-	widget.RedrawFunc(widget.content)
+	widget.Redraw(widget.content)
 }
 
 /* -------------------- Unexported Functions -------------------- */

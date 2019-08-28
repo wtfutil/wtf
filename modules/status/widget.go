@@ -28,7 +28,7 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	widget.RedrawFunc(widget.animation)
+	widget.Redraw(widget.animation)
 }
 
 /* -------------------- Unexported Functions -------------------- */

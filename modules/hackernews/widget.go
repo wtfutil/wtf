@@ -48,7 +48,7 @@ func (widget *Widget) Refresh() {
 	}
 
 	if err != nil {
-		widget.Redraw(widget.CommonSettings().Title, err.Error(), true)
+		widget.Redraw(func() (string, string, bool) { return widget.CommonSettings().Title, err.Error(), true })
 		return
 	}
 	var stories []Story
@@ -67,7 +67,7 @@ func (widget *Widget) Refresh() {
 
 // Render sets up the widget data for redrawing to the screen
 func (widget *Widget) Render() {
-	widget.RedrawFunc(widget.content)
+	widget.Redraw(widget.content)
 }
 
 /* -------------------- Unexported Functions -------------------- */

@@ -25,5 +25,5 @@ func (widget *Widget) Refresh() {
 	websiteReports := widget.Fetch()
 	contentTable := widget.createTable(websiteReports)
 
-	widget.Redraw(widget.CommonSettings().Title, contentTable, false)
+	widget.Redraw(func() (string, string, bool) { return widget.CommonSettings().Title, contentTable, false })
 }

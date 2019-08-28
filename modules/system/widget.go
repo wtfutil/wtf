@@ -51,7 +51,7 @@ func (widget *Widget) display() (string, string, bool) {
 }
 
 func (widget *Widget) Refresh() {
-	widget.RedrawFunc(widget.display)
+	widget.Redraw(widget.display)
 }
 
 func (widget *Widget) prettyDate() string {

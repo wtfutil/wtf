@@ -44,19 +44,19 @@ func (widget *Widget) Refresh() {
 
 	room, err := GetRoom(widget.settings.roomURI, widget.settings.apiToken)
 	if err != nil {
-		widget.Redraw(widget.CommonSettings().Title, err.Error(), true)
+		widget.Redraw(func() (string, string, bool) { return widget.CommonSettings().Title, err.Error(), true })
 		return
 	}
 
 	if room == nil {
-		widget.Redraw(widget.CommonSettings().Title, "No room", true)
+		widget.Redraw(func() (string, string, bool) { return widget.CommonSettings().Title, "No room", true })
 		return
 	}
 
 	messages, err := GetMessages(room.ID, widget.settings.numberOfMessages, widget.settings.apiToken)
 
 	if err != nil {
-		widget.Redraw(widget.CommonSettings().Title, err.Error(), true)
+		widget.Redraw(func() (string, string, bool) { return widget.CommonSettings().Title, err.Error(), true })
 		return
 	}
 	widget.messages = messages
@@ -72,7 +72,7 @@ func (widget *Widget) HelpText() string {
 /* -------------------- Unexported Functions -------------------- */
 
 func (widget *Widget) display() {
-	widget.RedrawFunc(widget.content)
+	widget.Redraw(widget.content)
 }
 
 func (widget *Widget) content() (string, string, bool) {

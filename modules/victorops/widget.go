@@ -13,6 +13,7 @@ type Widget struct {
 
 	teams    []OnCallTeam
 	settings *Settings
+	err      error
 }
 
 // NewWidget creates a new widget
@@ -36,18 +37,25 @@ func (widget *Widget) Refresh() {
 	teams, err := Fetch(widget.settings.apiID, widget.settings.apiKey)
 
 	if err != nil {
-		widget.Redraw(widget.CommonSettings().Title, err.Error(), true)
+		widget.err = err
+		widget.teams = nil
 	} else {
+		widget.err = nil
 		widget.teams = teams
-		widget.Redraw(widget.CommonSettings().Title, widget.contentFrom(widget.teams), true)
 	}
+	widget.Redraw(widget.content)
 }
 
-func (widget *Widget) contentFrom(teams []OnCallTeam) string {
+func (widget *Widget) content() (string, string, bool) {
+	title := widget.CommonSettings().Title
+	if widget.err != nil {
+		return title, widget.err.Error(), true
+	}
+	teams := widget.teams
 	var str string
 
 	if teams == nil || len(teams) == 0 {
-		return "No teams specified"
+		return title, "No teams specified", false
 	}
 
 	for _, team := range teams {
@@ -69,5 +77,5 @@ func (widget *Widget) contentFrom(teams []OnCallTeam) string {
 	if len(str) == 0 {
 		str = "Could not find any teams to display"
 	}
-	return str
+	return title, str, false
 }

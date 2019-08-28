@@ -14,6 +14,7 @@ type Widget struct {
 
 	result   *SearchResult
 	settings *Settings
+	err      error
 }
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
@@ -43,23 +44,18 @@ func (widget *Widget) Refresh() {
 	)
 
 	if err != nil {
+		widget.err = err
 		widget.result = nil
-		widget.Redraw(widget.CommonSettings().Title, err.Error(), true)
 		return
 	}
+	widget.err = nil
 	widget.result = searchResult
 	widget.SetItemCount(len(searchResult.Issues))
 	widget.Render()
 }
 
 func (widget *Widget) Render() {
-	if widget.result == nil {
-		return
-	}
-
-	str := fmt.Sprintf("%s- [green]%s[white]", widget.CommonSettings().Title, widget.settings.projects)
-
-	widget.Redraw(str, widget.contentFrom(widget.result), false)
+	widget.Redraw(widget.content)
 }
 
 /* -------------------- Unexported Functions -------------------- */
@@ -72,10 +68,19 @@ func (widget *Widget) openItem() {
 	}
 }
 
-func (widget *Widget) contentFrom(searchResult *SearchResult) string {
+func (widget *Widget) content() (string, string, bool) {
+	if widget.err != nil {
+		return widget.CommonSettings().Title, widget.err.Error(), true
+	}
+
+	title := fmt.Sprintf("%s- [green]%s[white]", widget.CommonSettings().Title, widget.settings.projects)
 	str := " [red]Assigned Issues[white]\n"
 
-	for idx, issue := range searchResult.Issues {
+	if widget.result == nil || len(widget.result.Issues) == 0 {
+		return title, "No results to display", false
+	}
+
+	for idx, issue := range widget.result.Issues {
 		row := fmt.Sprintf(
 			`[%s] [%s]%-6s[white] [green]%-10s[white] [yellow][%s][white] [%s]%s`,
 			widget.RowColor(idx),
@@ -90,7 +95,7 @@ func (widget *Widget) contentFrom(searchResult *SearchResult) string {
 		str += utils.HighlightableHelper(widget.View, row, idx, len(issue.IssueFields.Summary))
 	}
 
-	return str
+	return title, str, false
 }
 
 func (widget *Widget) issueTypeColor(issue *Issue) string {

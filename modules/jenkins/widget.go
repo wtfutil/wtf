@@ -13,6 +13,7 @@ type Widget struct {
 
 	settings *Settings
 	view     *View
+	err      error
 }
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
@@ -47,11 +48,11 @@ func (widget *Widget) Refresh() {
 	widget.view = view
 
 	if err != nil {
-		widget.Redraw(widget.CommonSettings().Title, err.Error(), true)
-		return
+		widget.err = err
+		widget.SetItemCount(0)
+	} else {
+		widget.SetItemCount(len(widget.view.Jobs))
 	}
-
-	widget.SetItemCount(len(widget.view.Jobs))
 
 	widget.Render()
 }
@@ -59,12 +60,15 @@ func (widget *Widget) Refresh() {
 /* -------------------- Unexported Functions -------------------- */
 
 func (widget *Widget) Render() {
-	widget.RedrawFunc(widget.content)
+	widget.Redraw(widget.content)
 }
 
 func (widget *Widget) content() (string, string, bool) {
 	title := fmt.Sprintf("%s: [red]%s", widget.CommonSettings().Title, widget.view.Name)
-	if widget.view == nil {
+	if widget.err != nil {
+		return title, widget.err.Error(), true
+	}
+	if widget.view == nil || len(widget.view.Jobs) == 0 {
 		return title, "No content to display", false
 	}
 

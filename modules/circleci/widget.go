@@ -32,7 +32,7 @@ func (widget *Widget) Refresh() {
 		return
 	}
 
-	widget.RedrawFunc(widget.content)
+	widget.Redraw(widget.content)
 }
 
 /* -------------------- Unexported Functions -------------------- */

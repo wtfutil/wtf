@@ -51,7 +51,7 @@ func (w *Widget) refreshSpotifyInfos() error {
 }
 
 func (w *Widget) Refresh() {
-	w.RedrawFunc(w.createOutput)
+	w.Redraw(w.createOutput)
 }
 
 func (widget *Widget) HelpText() string {

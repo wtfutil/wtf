@@ -59,7 +59,7 @@ func (widget *Widget) Refresh() {
 		content = widget.contentFrom(onCalls, incidents)
 	}
 
-	widget.Redraw(widget.CommonSettings().Title, content, wrap)
+	widget.Redraw(func() (string, string, bool) { return widget.CommonSettings().Title, content, wrap })
 }
 
 /* -------------------- Unexported Functions -------------------- */

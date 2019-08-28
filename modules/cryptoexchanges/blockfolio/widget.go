@@ -33,7 +33,7 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 
 func (widget *Widget) Refresh() {
 
-	widget.RedrawFunc(widget.content)
+	widget.Redraw(widget.content)
 }
 
 /* -------------------- Unexported Functions -------------------- */

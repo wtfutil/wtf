@@ -53,7 +53,7 @@ func (widget *Widget) Refresh() {
 /* -------------------- Unexported Functions -------------------- */
 
 func (widget *Widget) Render() {
-	widget.RedrawFunc(widget.content)
+	widget.Redraw(widget.content)
 }
 
 func (widget *Widget) content() (string, string, bool) {

@@ -15,6 +15,7 @@ type Widget struct {
 
 	builds   *Builds
 	settings *Settings
+	err      error
 }
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
@@ -44,41 +45,44 @@ func (widget *Widget) Refresh() {
 	builds, err := BuildsFor(widget.settings.apiKey, widget.settings.pro)
 
 	if err != nil {
-		widget.Redraw(widget.CommonSettings().Title, err.Error(), true)
-		return
+		widget.err = err
+		widget.builds = nil
+		widget.SetItemCount(0)
+	} else {
+		widget.err = nil
+		widget.builds = builds
+		widget.SetItemCount(len(builds.Builds))
 	}
-	widget.builds = builds
-	widget.SetItemCount(len(builds.Builds))
 	widget.Render()
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
 func (widget *Widget) Render() {
-	if widget.builds == nil {
-		return
-	}
-
-	widget.RedrawFunc(widget.content)
+	widget.Redraw(widget.content)
 }
 
 func (widget *Widget) content() (string, string, bool) {
 	title := fmt.Sprintf("%s - Builds", widget.CommonSettings().Title)
 	var str string
-	for idx, build := range widget.builds.Builds {
+	if widget.err != nil {
+		str = widget.err.Error()
+	} else {
+		for idx, build := range widget.builds.Builds {
 
-		row := fmt.Sprintf(
-			"[%s] [%s] %s-%s (%s) [%s]%s - [blue]%s\n",
-			widget.RowColor(idx),
-			buildColor(&build),
-			build.Repository.Name,
-			build.Number,
-			build.Branch.Name,
-			widget.RowColor(idx),
-			strings.Split(build.Commit.Message, "\n")[0],
-			build.CreatedBy.Login,
-		)
-		str += utils.HighlightableHelper(widget.View, row, idx, len(build.Branch.Name))
+			row := fmt.Sprintf(
+				"[%s] [%s] %s-%s (%s) [%s]%s - [blue]%s\n",
+				widget.RowColor(idx),
+				buildColor(&build),
+				build.Repository.Name,
+				build.Number,
+				build.Branch.Name,
+				widget.RowColor(idx),
+				strings.Split(build.Commit.Message, "\n")[0],
+				build.CreatedBy.Login,
+			)
+			str += utils.HighlightableHelper(widget.View, row, idx, len(build.Branch.Name))
+		}
 	}
 
 	return title, str, false

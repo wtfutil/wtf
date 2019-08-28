@@ -5,7 +5,7 @@ import (
 )
 
 func (widget *Widget) display() {
-	widget.RedrawFunc(widget.content)
+	widget.Redraw(widget.content)
 }
 
 func (widget *Widget) content() (string, string, bool) {

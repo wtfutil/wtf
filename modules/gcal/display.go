@@ -25,7 +25,7 @@ func (widget *Widget) sortedEvents() ([]*CalEvent, []*CalEvent) {
 }
 
 func (widget *Widget) display() {
-	widget.RedrawFunc(widget.content)
+	widget.Redraw(widget.content)
 }
 
 func (widget *Widget) content() (string, string, bool) {

@@ -10,7 +10,14 @@ import (
 )
 
 func (widget *Widget) content() (string, string, bool) {
+	title := widget.CommonSettings().Title
+	if widget.err != nil {
+		return title, widget.err.Error(), true
+	}
 	data := widget.torrents
+	if data == nil || len(data) == 0 {
+		return title, "No data", false
+	}
 	str := ""
 
 	for idx, torrent := range data {
@@ -28,11 +35,11 @@ func (widget *Widget) content() (string, string, bool) {
 		str += utils.HighlightableHelper(widget.View, row, idx, len(torrName))
 	}
 
-	return widget.CommonSettings().Title, str, false
+	return title, str, false
 }
 
 func (widget *Widget) display() {
-	widget.ScrollableWidget.RedrawFunc(widget.content)
+	widget.ScrollableWidget.Redraw(widget.content)
 }
 
 func (widget *Widget) prettyTorrentName(name string) string {
