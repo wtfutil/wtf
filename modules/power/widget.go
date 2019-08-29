@@ -38,5 +38,5 @@ func (widget *Widget) content() (string, string, bool) {
 
 func (widget *Widget) Refresh() {
 	widget.Battery.Refresh()
-	widget.RedrawFunc(widget.content)
+	widget.Redraw(widget.content)
 }

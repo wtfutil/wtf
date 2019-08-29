@@ -29,6 +29,7 @@ type Widget struct {
 	stories  []*FeedItem
 	parser   *gofeed.Parser
 	settings *Settings
+	err      error
 }
 
 // NewWidget creates a new instance of a widget
@@ -76,22 +77,21 @@ func (widget *Widget) Fetch(feedURLs []string) ([]*FeedItem, error) {
 func (widget *Widget) Refresh() {
 	feedItems, err := widget.Fetch(widget.settings.feeds)
 	if err != nil {
-		widget.Redraw(widget.CommonSettings().Title, err.Error(), true)
+		widget.err = err
+		widget.stories = nil
+		widget.SetItemCount(0)
+	} else {
+		widget.err = nil
+		widget.stories = feedItems
+		widget.SetItemCount(len(feedItems))
 	}
-
-	widget.stories = feedItems
-	widget.SetItemCount(len(feedItems))
 
 	widget.Render()
 }
 
 // Render sets up the widget data for redrawing to the screen
 func (widget *Widget) Render() {
-	if widget.stories == nil {
-		return
-	}
-
-	widget.RedrawFunc(widget.content)
+	widget.Redraw(widget.content)
 }
 
 /* -------------------- Unexported Functions -------------------- */
@@ -123,8 +123,14 @@ func (widget *Widget) fetchForFeed(feedURL string) ([]*FeedItem, error) {
 }
 
 func (widget *Widget) content() (string, string, bool) {
-	data := widget.stories
 	title := widget.CommonSettings().Title
+	if widget.err != nil {
+		return title, widget.err.Error(), true
+	}
+	data := widget.stories
+	if data == nil || len(data) == 0 {
+		return title, "No data", false
+	}
 	var str string
 
 	for idx, feedItem := range data {

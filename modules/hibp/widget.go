@@ -11,8 +11,9 @@ import (
 type Widget struct {
 	view.TextWidget
 
-	accounts []string
 	settings *Settings
+	data     []*Status
+	err      error
 }
 
 // NewWidget creates a new instance of a widget
@@ -48,29 +49,28 @@ func (widget *Widget) Fetch(accounts []string) ([]*Status, error) {
 func (widget *Widget) Refresh() {
 	data, err := widget.Fetch(widget.settings.accounts)
 
-	title := widget.CommonSettings().Title
-	title = title + widget.sinceDateForTitle()
-
-	var wrap bool
-	var content string
-
 	if err != nil {
-		wrap = true
-		content = err.Error()
+		widget.err = err
+		widget.data = nil
 	} else {
-		wrap = false
-		content = widget.contentFrom(data)
+		widget.err = nil
+		widget.data = data
 	}
 
-	widget.Redraw(title, content, wrap)
+	widget.Redraw(widget.content)
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (widget *Widget) contentFrom(data []*Status) string {
+func (widget *Widget) content() (string, string, bool) {
+	title := widget.CommonSettings().Title
+	if widget.err != nil {
+		return title, widget.err.Error(), true
+	}
+	title = title + widget.sinceDateForTitle()
 	str := ""
 
-	for _, stat := range data {
+	for _, stat := range widget.data {
 		color := widget.settings.colors.ok
 		if stat.HasBeenCompromised() {
 			color = widget.settings.colors.pwned
@@ -79,7 +79,7 @@ func (widget *Widget) contentFrom(data []*Status) string {
 		str += fmt.Sprintf(" [%s]%s[white]\n", color, stat.Account)
 	}
 
-	return str
+	return title, str, false
 }
 
 func (widget *Widget) sinceDateForTitle() string {

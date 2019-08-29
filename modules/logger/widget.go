@@ -34,18 +34,17 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 
 // Refresh updates the onscreen contents of the widget
 func (widget *Widget) Refresh() {
-	if log.LogFileMissing() {
-		return
-	}
-
-	logLines := widget.tailFile()
-
-	widget.Redraw(widget.CommonSettings().Title, widget.contentFrom(logLines), false)
+	widget.Redraw(widget.content)
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (widget *Widget) contentFrom(logLines []string) string {
+func (widget *Widget) content() (string, string, bool) {
+	if log.LogFileMissing() {
+		return widget.CommonSettings().Title, "File missing", false
+	}
+
+	logLines := widget.tailFile()
 	str := ""
 
 	for _, line := range logLines {
@@ -61,7 +60,7 @@ func (widget *Widget) contentFrom(logLines []string) string {
 		}
 	}
 
-	return str
+	return widget.CommonSettings().Title, str, false
 }
 
 func (widget *Widget) tailFile() []string {

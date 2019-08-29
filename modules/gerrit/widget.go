@@ -76,9 +76,7 @@ func (widget *Widget) Refresh() {
 	}
 	gerrit, err := glb.NewClient(gerritUrl, httpClient)
 	if err != nil {
-		widget.View.SetWrap(true)
-
-		widget.Redraw(widget.CommonSettings().Title, err.Error(), true)
+		widget.Redraw(func() (string, string, bool) { return widget.CommonSettings().Title, err.Error(), true })
 		return
 	}
 	widget.gerrit = gerrit

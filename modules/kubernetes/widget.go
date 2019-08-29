@@ -48,7 +48,7 @@ func (widget *Widget) Refresh() {
 	if utils.Includes(widget.objects, "nodes") {
 		nodeList, nodeError := client.getNodes()
 		if nodeError != nil {
-			widget.Redraw(title, "[red] Error getting node data [white]\n", true)
+			widget.Redraw(func() (string, string, bool) { return title, "[red] Error getting node data [white]\n", true })
 			return
 		}
 		content += "[red]Nodes[white]\n"
@@ -61,7 +61,7 @@ func (widget *Widget) Refresh() {
 	if utils.Includes(widget.objects, "deployments") {
 		deploymentList, deploymentError := client.getDeployments(widget.namespaces)
 		if deploymentError != nil {
-			widget.Redraw(title, "[red] Error getting deployment data [white]\n", true)
+			widget.Redraw(func() (string, string, bool) { return title, "[red] Error getting deployment data [white]\n", true })
 			return
 		}
 		content += "[red]Deployments[white]\n"
@@ -74,7 +74,7 @@ func (widget *Widget) Refresh() {
 	if utils.Includes(widget.objects, "pods") {
 		podList, podError := client.getPods(widget.namespaces)
 		if podError != nil {
-			widget.Redraw(title, "[red] Error getting pod data [white]\n", false)
+			widget.Redraw(func() (string, string, bool) { return title, "[red] Error getting pod data [white]\n", false })
 			return
 		}
 		content += "[red]Pods[white]\n"
@@ -84,7 +84,7 @@ func (widget *Widget) Refresh() {
 		content += "\n"
 	}
 
-	widget.Redraw(title, content, false)
+	widget.Redraw(func() (string, string, bool) { return title, content, false })
 }
 
 /* -------------------- Unexported Functions -------------------- */

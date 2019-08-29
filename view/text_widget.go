@@ -29,16 +29,7 @@ func (widget *TextWidget) TextView() *tview.TextView {
 	return widget.View
 }
 
-func (widget *TextWidget) Redraw(title, text string, wrap bool) {
-	widget.app.QueueUpdateDraw(func() {
-		widget.View.Clear()
-		widget.View.SetWrap(wrap)
-		widget.View.SetTitle(widget.ContextualTitle(title))
-		widget.View.SetText(text)
-	})
-}
-
-func (widget *TextWidget) RedrawFunc(data func() (string, string, bool)) {
+func (widget *TextWidget) Redraw(data func() (string, string, bool)) {
 	widget.app.QueueUpdateDraw(func() {
 		title, content, wrap := data()
 		widget.View.Clear()

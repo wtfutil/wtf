@@ -15,6 +15,7 @@ type Widget struct {
 
 	items    *Result
 	settings *Settings
+	err      error
 }
 
 // NewWidget creates a new instance of a widget
@@ -49,11 +50,13 @@ func (widget *Widget) Refresh() {
 	)
 
 	if err != nil {
-		widget.Redraw(widget.CommonSettings().Title, err.Error(), true)
-		return
+		widget.err = err
+		widget.items = nil
+		widget.SetItemCount(0)
+	} else {
+		widget.items = &items.Results
+		widget.SetItemCount(len(widget.items.Items))
 	}
-	widget.items = &items.Results
-	widget.SetItemCount(len(widget.items.Items))
 
 	widget.Render()
 }
@@ -61,17 +64,16 @@ func (widget *Widget) Refresh() {
 /* -------------------- Unexported Functions -------------------- */
 
 func (widget *Widget) Render() {
-	if widget.items == nil {
-		return
-	}
-
-	widget.RedrawFunc(widget.content)
+	widget.Redraw(widget.content)
 }
 
 func (widget *Widget) content() (string, string, bool) {
 	title := fmt.Sprintf("%s - %s", widget.CommonSettings().Title, widget.settings.projectName)
+	if widget.err != nil {
+		return widget.CommonSettings().Title, widget.err.Error(), true
+	}
 	result := widget.items
-	if result == nil {
+	if result == nil || len(result.Items) == 0 {
 		return title, "No results", false
 	}
 	var str string

@@ -45,7 +45,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 }
 
 func (widget *Widget) Refresh() {
-	widget.RedrawFunc(widget.nbascore)
+	widget.Redraw(widget.nbascore)
 }
 
 func (widget *Widget) HelpText() string {

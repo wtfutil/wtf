@@ -47,7 +47,7 @@ func (widget *Widget) content() (string, string, bool) {
 
 // Refresh executes the command and updates the view with the results
 func (widget *Widget) Refresh() {
-	widget.RedrawFunc(widget.content)
+	widget.Redraw(widget.content)
 }
 
 // String returns the string representation of the widget

@@ -44,7 +44,7 @@ func (widget *Widget) Refresh() {
 		time.Now().Local().Format(wtf.DateFormat),
 	)
 
-	widget.RedrawFunc(widget.content)
+	widget.Redraw(widget.content)
 }
 
 /* -------------------- Unexported Functions -------------------- */

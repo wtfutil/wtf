@@ -32,5 +32,5 @@ func (widget *Widget) content() (string, string, bool) {
 }
 
 func (widget *Widget) display() {
-	widget.ScrollableWidget.RedrawFunc(widget.content)
+	widget.ScrollableWidget.Redraw(widget.content)
 }

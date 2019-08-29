@@ -13,6 +13,7 @@ type Widget struct {
 	view.TextWidget
 
 	settings *Settings
+	cells    []*sheets.ValueRange
 }
 
 func NewWidget(app *tview.Application, settings *Settings) *Widget {
@@ -29,23 +30,24 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 
 func (widget *Widget) Refresh() {
 	cells, _ := widget.Fetch()
+	widget.cells = cells
 
-	widget.Redraw(widget.CommonSettings().Title, widget.contentFrom(cells), false)
+	widget.Redraw(widget.content)
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (widget *Widget) contentFrom(valueRanges []*sheets.ValueRange) string {
-	if valueRanges == nil {
-		return "error 1"
+func (widget *Widget) content() (string, string, bool) {
+	if widget.cells == nil {
+		return widget.CommonSettings().Title, "error 1", false
 	}
 
 	res := ""
 
 	cells := utils.ToStrs(widget.settings.cellNames)
-	for i := 0; i < len(valueRanges); i++ {
-		res += fmt.Sprintf("%s\t[%s]%s\n", cells[i], widget.settings.colors.values, valueRanges[i].Values[0][0])
+	for i := 0; i < len(widget.cells); i++ {
+		res += fmt.Sprintf("%s\t[%s]%s\n", cells[i], widget.settings.colors.values, widget.cells[i].Values[0][0])
 	}
 
-	return res
+	return widget.CommonSettings().Title, res, false
 }

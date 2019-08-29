@@ -16,6 +16,7 @@ type Widget struct {
 	client   *transmissionrpc.Client
 	settings *Settings
 	torrents []*transmissionrpc.Torrent
+	err      error
 }
 
 // NewWidget creates a new instance of a widget
@@ -63,13 +64,14 @@ func (widget *Widget) Fetch() ([]*transmissionrpc.Torrent, error) {
 func (widget *Widget) Refresh() {
 	torrents, err := widget.Fetch()
 	if err != nil {
+		widget.err = err
+		widget.torrents = nil
 		widget.SetItemCount(0)
-		widget.ScrollableWidget.Redraw(widget.CommonSettings().Title, err.Error(), false)
-		return
+	} else {
+		widget.err = nil
+		widget.torrents = torrents
+		widget.SetItemCount(len(torrents))
 	}
-
-	widget.torrents = torrents
-	widget.SetItemCount(len(torrents))
 
 	widget.display()
 }
