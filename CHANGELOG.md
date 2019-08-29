@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### ⚡️ Added
+
+* Power Soure module support added for FreeBSD, by [@hxw](https://github.com/hxw)
+
 ### 🐞 Fixed
 
 * Power indicator displays ∞ on Linux when fully-charged and on AC power, [#534](https://github.com/wtfutil/wtf/issues/534) by [@Seanstoppable](https://github.com/Seanstoppable)
