@@ -1,4 +1,5 @@
 // +build !linux
+// +build !freebsd
 
 package power
 
