@@ -12,6 +12,7 @@ displaying infrequently-needed, but very important, daily data.
 * [Screenshot](#screenshot)
 * [Quick Start](#quick-start)
     * [Install via Homebrew](#install-via-homebrew)
+    * [Install via MacPorts](#install-via-macports)
     * [Install the Binary](#install-the-binary)
     * [Install from Source](#install-from-source)
 * [Communication](#communication)
@@ -48,6 +49,17 @@ That version can sometimes lag a bit, as recipe updates take time to get accepte
 ```console
 brew tap wtfutil/wtfutil
 brew install wtfutil
+
+wtfutil
+```
+
+### Install via MacPorts
+
+You can also install via [MacPorts](https://www.macports.org/):
+
+```console
+sudo port selfupdate
+sudo port install wtfutil
 
 wtfutil
 ```
