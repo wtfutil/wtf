@@ -154,7 +154,7 @@ func (widget *Widget) content() (string, string, bool) {
 		str += utils.HighlightableHelper(widget.View, row, idx, len(feedItem.item.Title))
 	}
 
-	return title, str, true
+	return title, str, false
 }
 
 // feedItems are sorted by published date
