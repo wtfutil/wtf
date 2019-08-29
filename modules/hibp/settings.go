@@ -1,6 +1,7 @@
 package hibp
 
 import (
+	"os"
 	"time"
 
 	"github.com/olebedev/config"
@@ -33,7 +34,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 	settings := &Settings{
 		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, ymlConfig, globalConfig),
 
-		apiKey:   ymlConfig.UString("apiKey", ""),
+		apiKey:   ymlConfig.UString("apiKey", ymlConfig.UString("apikey", os.Getenv("WTF_HIBP_TOKEN"))),
 		accounts: utils.ToStrs(ymlConfig.UList("accounts")),
 		since:    ymlConfig.UString("since", ""),
 	}

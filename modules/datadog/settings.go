@@ -22,7 +22,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 	settings := Settings{
 		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, ymlConfig, globalConfig),
 
-		apiKey:         ymlConfig.UString("apiKey", os.Getenv("WTF_DATADOG_API_KEY")),
+		apiKey:         ymlConfig.UString("apiKey", ymlConfig.UString("apikey", os.Getenv("WTF_DATADOG_API_KEY"))),
 		applicationKey: ymlConfig.UString("applicationKey", os.Getenv("WTF_DATADOG_APPLICATION_KEY")),
 		tags:           ymlConfig.UList("monitors.tags"),
 	}

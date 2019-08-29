@@ -23,7 +23,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 	settings := Settings{
 		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, ymlConfig, globalConfig),
 
-		apiKey:    ymlConfig.UString("apiKey", os.Getenv("ZENDESK_API")),
+		apiKey:    ymlConfig.UString("apiKey", ymlConfig.UString("apikey", os.Getenv("ZENDESK_API"))),
 		status:    ymlConfig.UString("status"),
 		subdomain: ymlConfig.UString("subdomain", os.Getenv("ZENDESK_SUBDOMAIN")),
 		username:  ymlConfig.UString("username"),
