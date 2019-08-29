@@ -22,7 +22,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 	settings := Settings{
 		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, ymlConfig, globalConfig),
 
-		apiKey:        ymlConfig.UString("apiKey", os.Getenv("WTF_NEW_RELIC_API_KEY")),
+		apiKey:        ymlConfig.UString("apiKey", ymlConfig.UString("apikey", os.Getenv("WTF_NEW_RELIC_API_KEY"))),
 		applicationID: ymlConfig.UInt("applicationID"),
 		deployCount:   ymlConfig.UInt("deployCount", 5),
 	}

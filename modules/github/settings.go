@@ -34,7 +34,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 	settings := Settings{
 		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, ymlConfig, globalConfig),
 
-		apiKey:       ymlConfig.UString("apiKey", os.Getenv("WTF_GITHUB_TOKEN")),
+		apiKey:       ymlConfig.UString("apiKey", ymlConfig.UString("apikey", os.Getenv("WTF_GITHUB_TOKEN"))),
 		baseURL:      ymlConfig.UString("baseURL", os.Getenv("WTF_GITHUB_BASE_URL")),
 		enableStatus: ymlConfig.UBool("enableStatus", false),
 		uploadURL:    ymlConfig.UString("uploadURL", os.Getenv("WTF_GITHUB_UPLOAD_URL")),

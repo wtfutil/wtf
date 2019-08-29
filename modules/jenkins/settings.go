@@ -25,7 +25,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 	settings := Settings{
 		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, ymlConfig, globalConfig),
 
-		apiKey:                  ymlConfig.UString("apiKey", os.Getenv("WTF_JENKINS_API_KEY")),
+		apiKey:                  ymlConfig.UString("apiKey", ymlConfig.UString("apikey", os.Getenv("WTF_JENKINS_API_KEY"))),
 		jobNameRegex:            ymlConfig.UString("jobNameRegex", ".*"),
 		successBallColor:        ymlConfig.UString("successBallColor", "blue"),
 		url:                     ymlConfig.UString("url"),

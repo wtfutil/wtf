@@ -23,7 +23,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, ymlConfig, globalConfig),
 
 		apiID:  ymlConfig.UString("apiID", os.Getenv("WTF_VICTOROPS_API_ID")),
-		apiKey: ymlConfig.UString("apiKey", os.Getenv("WTF_VICTOROPS_API_KEY")),
+		apiKey: ymlConfig.UString("apiKey", ymlConfig.UString("apikey", os.Getenv("WTF_VICTOROPS_API_KEY"))),
 		team:   ymlConfig.UString("team"),
 	}
 

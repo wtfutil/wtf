@@ -21,7 +21,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 	settings := Settings{
 		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, ymlConfig, globalConfig),
 
-		apiKey: ymlConfig.UString("apiKey", os.Getenv("WTF_TRAVIS_API_TOKEN")),
+		apiKey: ymlConfig.UString("apiKey", ymlConfig.UString("apikey", os.Getenv("WTF_TRAVIS_API_TOKEN"))),
 		pro:    ymlConfig.UBool("pro", false),
 	}
 

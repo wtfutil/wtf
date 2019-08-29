@@ -28,7 +28,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 	settings := Settings{
 		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, ymlConfig, globalConfig),
 
-		apiKey:   ymlConfig.UString("apiKey", os.Getenv("WTF_OWM_API_KEY")),
+		apiKey:   ymlConfig.UString("apiKey", ymlConfig.UString("apikey", os.Getenv("WTF_OWM_API_KEY"))),
 		cityIDs:  ymlConfig.UList("cityids"),
 		language: ymlConfig.UString("language", "EN"),
 		tempUnit: ymlConfig.UString("tempUnit", "C"),

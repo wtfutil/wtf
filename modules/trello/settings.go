@@ -24,7 +24,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 	settings := Settings{
 		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, ymlConfig, globalConfig),
 
-		accessToken: ymlConfig.UString("accessToken", os.Getenv("WTF_TRELLO_ACCESS_TOKEN")),
+		accessToken: ymlConfig.UString("accessToken", ymlConfig.UString("apikey", os.Getenv("WTF_TRELLO_ACCESS_TOKEN"))),
 		apiKey:      ymlConfig.UString("apiKey", os.Getenv("WTF_TRELLO_APP_KEY")),
 		board:       ymlConfig.UString("board"),
 		username:    ymlConfig.UString("username"),
