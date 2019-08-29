@@ -1,19 +1,17 @@
-// +build !linux
-// +build !freebsd
+// +build freebsd
 
 package power
 
 import (
 	"fmt"
 	"os/exec"
-	"regexp"
 	"strconv"
 	"strings"
 
 	"github.com/wtfutil/wtf/utils"
 )
 
-const TimeRegExp = "^(?:\\d|[01]\\d|2[0-3]):[0-5]\\d"
+var batteryState string
 
 type Battery struct {
 	args   []string
@@ -25,12 +23,7 @@ type Battery struct {
 }
 
 func NewBattery() *Battery {
-	battery := Battery{
-		args: []string{"-g", "batt"},
-		cmd:  "pmset",
-	}
-
-	return &battery
+	return &Battery{}
 }
 
 /* -------------------- Exported Functions -------------------- */
@@ -46,38 +39,43 @@ func (battery *Battery) String() string {
 
 /* -------------------- Unexported Functions -------------------- */
 
+// returns 3 numbers
+//   1/0   = AC/battery
+//   c     = battery charge percentage
+//   -1/s  = charging / seconds to empty
 func (battery *Battery) execute() string {
-	cmd := exec.Command(battery.cmd, battery.args...)
+	cmd := exec.Command("apm", "-alt")
 	return utils.ExecuteCommand(cmd)
 }
 
 func (battery *Battery) parse(data string) string {
 	lines := strings.Split(data, "\n")
-	if len(lines) < 2 {
-		return "unknown (1)"
+	if len(lines) < 3 {
+		return "unknown"
+	}
+	batteryState = strings.TrimSpace(lines[0])
+	charge := strings.TrimSpace(lines[1])
+	timeToEmpty := "∞"
+	seconds, err := strconv.Atoi(strings.TrimSpace(lines[2]))
+	if err == nil && seconds >= 0 {
+		h := seconds / 3600
+		m := seconds % 3600 / 60
+		s := seconds % 60
+		timeToEmpty = fmt.Sprintf("%2d:%02d:%02d", h, m, s)
 	}
 
-	stats := strings.Split(lines[1], "\t")
-	if len(stats) < 2 {
-		return "unknown (2)"
-	}
-
-	details := strings.Split(stats[1], "; ")
-	if len(details) < 3 {
-		return "unknown (3)"
-	}
-
-	str := ""
-	str = str + fmt.Sprintf(" %10s: %s\n", "Charge", battery.formatCharge(details[0]))
-	str = str + fmt.Sprintf(" %10s: %s\n", "Remaining", battery.formatRemaining(details[2]))
-	str = str + fmt.Sprintf(" %10s: %s\n", "State", battery.formatState(details[1]))
+	str := fmt.Sprintf(" %10s: %s%%\n", "Charge", battery.formatCharge(charge))
+	str += fmt.Sprintf(" %10s: %s\n", "Remaining", timeToEmpty)
+	str += fmt.Sprintf(" %10s: %s\n", "State", battery.formatState(batteryState))
+	//	if s := table["time to full"]; s != "" {
+	//		str += fmt.Sprintf(" %10s: %s\n", "TimeToFull", table["time to full"])
+	//	}
 
 	return str
 }
 
 func (battery *Battery) formatCharge(data string) string {
 	percent, _ := strconv.ParseFloat(strings.Replace(data, "%", "", -1), 32)
-
 	color := ""
 
 	switch {
@@ -92,28 +90,17 @@ func (battery *Battery) formatCharge(data string) string {
 	return color + data + "[white]"
 }
 
-func (battery *Battery) formatRemaining(data string) string {
-	r, _ := regexp.Compile(TimeRegExp)
-
-	result := r.FindString(data)
-	if result == "" || result == "0:00" {
-		result = "∞"
-	}
-
-	return result
-}
-
 func (battery *Battery) formatState(data string) string {
 	color := ""
 
 	switch data {
-	case "charging":
-		color = "[green]"
-	case "discharging":
-		color = "[yellow]"
+	case "1":
+		color = "[green]charging"
+	case "0":
+		color = "[yellow]discharging"
 	default:
-		color = "[white]"
+		color = "[white]unknown"
 	}
 
-	return color + data + "[white]"
+	return color + "[white]"
 }
