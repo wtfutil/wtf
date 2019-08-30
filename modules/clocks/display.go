@@ -27,5 +27,5 @@ func (widget *Widget) display(clocks []Clock, dateFormat string, timeFormat stri
 		}
 	}
 
-	widget.Redraw(func() (string, string, bool) { return widget.CommonSettings().Title, str, true })
+	widget.Redraw(func() (string, string, bool) { return widget.CommonSettings().Title, str, false })
 }
