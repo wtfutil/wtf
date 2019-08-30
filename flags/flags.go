@@ -17,6 +17,8 @@ type Flags struct {
 	Module  string `short:"m" long:"module" optional:"yes" description:"Display info about a specific module, i.e.: 'wtf -m=todo'"`
 	Profile bool   `short:"p" long:"profile" optional:"yes" description:"Profile application memory usage"`
 	Version bool   `short:"v" long:"version" description:"Show version info"`
+
+	hasCustom bool
 }
 
 // NewFlags creates an instance of Flags
@@ -48,7 +50,7 @@ func (flags *Flags) RenderIf(version string, config *config.Config) {
 
 // HasCustomConfig returns TRUE if a config path was passed in, FALSE if one was not
 func (flags *Flags) HasCustomConfig() bool {
-	return len(flags.Config) > 0
+	return flags.hasCustom
 }
 
 // HasModule returns TRUE if a module name was passed in, FALSE if one was not
@@ -70,15 +72,18 @@ func (flags *Flags) Parse() {
 		}
 	}
 
-	// If no config file is explicitly passed in as a param,
-	// set the flag to the default config file
-	if !flags.HasCustomConfig() {
-		homeDir, err := utils.Home()
-		if err != nil {
-			fmt.Printf("Error: %v\n", err)
-			os.Exit(1)
-		}
-
-		flags.Config = filepath.Join(homeDir, ".config", "wtf", "config.yml")
+	// If we have a custom config, then we're done parsing parameters, we don't need to
+	// generate the default value
+	flags.hasCustom = (len(flags.Config) > 0)
+	if flags.hasCustom == true {
+		return
 	}
+
+	// If no config file is explicitly passed in as a param then set the flag to the default config file
+	homeDir, err := utils.Home()
+	if err != nil {
+		fmt.Printf("Error: %v\n", err)
+		os.Exit(1)
+	}
+	flags.Config = filepath.Join(homeDir, ".config", "wtf", "config.yml")
 }
