@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## v0.21.0
+
 ### ⚡️ Added
 
 * Power Soure module support added for FreeBSD, by [@hxw](https://github.com/hxw)
