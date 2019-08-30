@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### ⚡️ Added
+
+* Arpansagovau (arpansa.gov.au) module added, by [@jeffz](https://github.com/jeffz)
+
 ## v0.21.0
 
 ### ⚡️ Added
@@ -20,7 +24,7 @@
 
 ### ⚡️ Added
 
-* Kubernetes module, [#142](https://github.com/wtfutil/wtf/issues/142) by [@sudermanjr](https://github.com/sudermanjr)
+* Kubernetes module added, [#142](https://github.com/wtfutil/wtf/issues/142) by [@sudermanjr](https://github.com/sudermanjr)
 
 ### 🐞 Fixed
 
