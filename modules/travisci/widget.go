@@ -42,7 +42,7 @@ func (widget *Widget) Refresh() {
 		return
 	}
 
-	builds, err := BuildsFor(widget.settings.apiKey, widget.settings.pro)
+	builds, err := BuildsFor(widget.settings)
 
 	if err != nil {
 		widget.err = err
@@ -68,10 +68,14 @@ func (widget *Widget) content() (string, string, bool) {
 	if widget.err != nil {
 		str = widget.err.Error()
 	} else {
+		var rowFormat = "[%s] [%s] %s-%s (%s) [%s]%s - [blue]%s"
+		if widget.settings.compact != true {
+			rowFormat += "\n"
+		}
 		for idx, build := range widget.builds.Builds {
 
 			row := fmt.Sprintf(
-				"[%s] [%s] %s-%s (%s) [%s]%s - [blue]%s\n",
+				rowFormat,
 				widget.RowColor(idx),
 				buildColor(&build),
 				build.Repository.Name,
