@@ -35,7 +35,10 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	widget.KeyboardWidget.SetView(widget.View)
 
 	// Create a persisten transmission client for use in the calls below
-	client, err := transmissionrpc.New(widget.settings.host, widget.settings.username, widget.settings.password, nil)
+	client, err := transmissionrpc.New(widget.settings.host, widget.settings.username, widget.settings.password,
+		&transmissionrpc.AdvancedConfig{
+			Port: widget.settings.port,
+		})
 	if err != nil {
 		client = nil
 	}
