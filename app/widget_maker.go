@@ -50,6 +50,7 @@ import (
 	"github.com/wtfutil/wtf/modules/twitter"
 	"github.com/wtfutil/wtf/modules/unknown"
 	"github.com/wtfutil/wtf/modules/victorops"
+	"github.com/wtfutil/wtf/modules/weatherservices/arpansagovau"
 	"github.com/wtfutil/wtf/modules/weatherservices/prettyweather"
 	"github.com/wtfutil/wtf/modules/weatherservices/weather"
 	"github.com/wtfutil/wtf/modules/zendesk"
@@ -73,6 +74,9 @@ func MakeWidget(
 
 	// Always in alphabetical order
 	switch moduleConfig.UString("type", moduleName) {
+	case "arpansagovau":
+		settings := arpansagovau.NewSettingsFromYAML(moduleName, moduleConfig, config)
+		widget = arpansagovau.NewWidget(app, settings)
 	case "bamboohr":
 		settings := bamboohr.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = bamboohr.NewWidget(app, settings)
