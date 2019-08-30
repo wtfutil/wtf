@@ -26,10 +26,11 @@ type Settings struct {
 	email                 string `help:"The email address associated with your Google account. Necessary for determining 'responseStatus'." values:"A valid email address string."`
 	eventCount            int    `help:"The number of calendar events to display." values:"A positive integer, 0..n." optional:"true"`
 	multiCalendar         bool   `help:"Whether or not to display your primary calendar or all calendars you have access to." values:"true or false" optional:"true"`
-	secretFile            string `help:"Your Google client secret JSON file." values:"A string representing a file path to the JSON secret file."`
-	showDeclined          bool   `help:"Whether or not to display events you’ve declined to attend." values:"true or false" optional:"true"`
-	withLocation          bool   `help:"Whether or not to show the location of the appointment." values:"true or false"`
-	timezone              string `help:"The time zone used to display calendar event times." values:"A valid TZ database time zone string" optional:"true"`
+	secretFile        	  string `help:"Your Google client secret JSON file." values:"A string representing a file path to the JSON secret file."`
+	showDeclined      	  bool   `help:"Whether or not to display events you’ve declined to attend." values:"true or false" optional:"true"`
+	withLocation      	  bool   `help:"Whether or not to show the location of the appointment." values:"true or false"`
+	timezone          	  string `help:"The time zone used to display calendar event times." values:"A valid TZ database time zone string" optional:"true"`
+	calendarReadLevel 	  string `help:"The calender read level specifies level you want to read events. Default: writer " values:"reader, writer", optional: "true"`
 }
 
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
@@ -47,6 +48,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		showDeclined:          ymlConfig.UBool("showDeclined", false),
 		withLocation:          ymlConfig.UBool("withLocation", true),
 		timezone:              ymlConfig.UString("timezone", ""),
+		calendarReadLevel:     ymlConfig.UString("calendarReadLevel", "writer"),
 	}
 
 	settings.colors.day = ymlConfig.UString("colors.day", "forestgreen")

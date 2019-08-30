@@ -203,7 +203,7 @@ func (widget *Widget) getCalendarIdList(srv *calendar.Service) ([]string, error)
 	var calendarIds []string
 	var pageToken string
 	for {
-		calendarList, err := srv.CalendarList.List().ShowHidden(false).MinAccessRole("writer").PageToken(pageToken).Do()
+		calendarList, err := srv.CalendarList.List().ShowHidden(false).MinAccessRole(widget.settings.calendarReadLevel).PageToken(pageToken).Do()
 		if err != nil {
 			return nil, err
 		}
