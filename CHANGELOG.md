@@ -12,6 +12,7 @@
 * Default background color is now the terminal background color, making transparency support possible in MacOS and Linux,  by [@Seanstoppable](https://github.com/Seanstoppable)
 * `xdg-open` now used as the opener for HTTP/HTTPS by default, by [@hxw](https://github.com/hxw)
 * Transmission port over-ride now working, [#565](https://github.com/wtfutil/wtf/issues/565) by [@Seanstoppable](https://github.com/Seanstoppable)
+* Default config is now created on first run, [#553](https://github.com/wtfutil/wtf/issues/553) by [@senorprogrammer](https://github.com/senorprogrammer)
 
 ## v0.20.0
 
