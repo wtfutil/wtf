@@ -10,7 +10,7 @@ A personal terminal-based dashboard utility, designed for
 displaying infrequently-needed, but very important, daily data.
 
 * [Screenshot](#screenshot)
-* [Quick Start](#quick-start)
+* [Installing](#installing)
     * [Install via Homebrew](#install-via-homebrew)
     * [Install via MacPorts](#install-via-macports)
     * [Install the Binary](#install-the-binary)
@@ -32,7 +32,7 @@ displaying infrequently-needed, but very important, daily data.
 <img src="./images/screenshot.jpg" title="screenshot" width="720" height="420" />
 </p>
 
-## Quick Start
+## Installing
 
 ### Install via Homebrew
 
