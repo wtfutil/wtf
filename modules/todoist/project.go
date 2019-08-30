@@ -55,18 +55,18 @@ func (proj *Project) LongestLine() int {
 	return maxLen
 }
 
-func (proj *Project) currentTask() *todoist.Task {
-	if proj.index < 0 {
-		return nil
+func (proj *Project) currentTask() (*todoist.Task, error) {
+	if len(proj.tasks) > 0 && len(proj.tasks) > proj.index {
+		return &proj.tasks[proj.index], nil
+	} else {
+		return nil, fmt.Errorf("no current task")
 	}
-
-	return &proj.tasks[proj.index]
 }
 
 func (proj *Project) closeSelectedTask() {
-	currTask := proj.currentTask()
+	currTask, ctError := proj.currentTask()
 
-	if currTask != nil {
+	if ctError == nil {
 		if err := currTask.Close(); err != nil {
 			return
 		}
@@ -76,9 +76,9 @@ func (proj *Project) closeSelectedTask() {
 }
 
 func (proj *Project) deleteSelectedTask() {
-	currTask := proj.currentTask()
+	currTask, ctError := proj.currentTask()
 
-	if currTask != nil {
+	if ctError == nil {
 		if err := currTask.Delete(); err != nil {
 			return
 		}
