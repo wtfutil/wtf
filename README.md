@@ -13,7 +13,7 @@ displaying infrequently-needed, but very important, daily data.
 * [Installing](#installing)
     * [Install via Homebrew](#install-via-homebrew)
     * [Install via MacPorts](#install-via-macports)
-    * [Install the Binary](#install-the-binary)
+    * [Install a Binary](#install-a-binary)
     * [Install from Source](#install-from-source)
 * [Communication](#communication)
     * [Slack](#slack)
@@ -64,7 +64,7 @@ sudo port install wtfutil
 wtfutil
 ```
 
-### Install the Binary
+### Install a Binary
 
 [Download the latest binary](https://github.com/wtfutil/wtf/releases) from GitHub.
 
