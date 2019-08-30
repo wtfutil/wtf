@@ -188,6 +188,8 @@ Dependency management in WTF is handled by [Go modules](https://github.com/golan
 The inspiration for `WTF` came from Monica Dinculescu's
 [tiny-care-terminal](https://github.com/notwaldorf/tiny-care-terminal).
 
+WTF is built atop [tcell](https://github.com/gdamore/tcell) and [tview](https://github.com/rivo/tview), fantastic projects both.
+
 Many thanks to <a href="https://lendesk.com">Lendesk</a> for supporting this project by
 providing time to develop it.
 
