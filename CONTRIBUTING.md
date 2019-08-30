@@ -1,9 +1,6 @@
 # Contributing
 
-When contributing to this repository, please first discuss the change you wish to make via issue,
-email, or any other method with the owners of this repository before making a change.
-
-Note that we have a code of conduct. Please follow it in all your interactions with the project.
+When contributing to this repository, please read the process below. Note that we have a code of conduct. Please follow it in all your interactions with the project.
 
 ## Pull Request Process
 
@@ -11,6 +8,7 @@ Note that we have a code of conduct. Please follow it in all your interactions w
    build.
 2. Update the static documentation with details of changes to the interface, this includes new environment
    variables, useful file locations and configuration parameters.
+
 Documentation lives at [wtfdocs](https://github.com/wtfutil/wtfdocs) and is a [Hugo](https://gohugo.io) app. See Hugo's documentation for usage.
 
 ## Code of Conduct
