@@ -2,6 +2,8 @@ package github
 
 import (
 	"fmt"
+	"strconv"
+	"net/url"
 
 	"github.com/google/go-github/v26/github"
 )
@@ -36,20 +38,31 @@ func (widget *Widget) content() (string, string, bool) {
 func (widget *Widget) displayMyPullRequests(repo *GithubRepo, username string) string {
 	prs := repo.myPullRequests(username, widget.settings.enableStatus)
 
+	u, _ := url.Parse(*repo.RemoteRepo.HTMLURL + "/pull/")
+	numSelections := widget.GetSelected()
+
 	if len(prs) == 0 {
 		return " [grey]none[white]\n"
 	}
 
 	str := ""
 	for _, pr := range prs {
-		str += fmt.Sprintf(" %s[green]%4d[white] %s\n", widget.mergeString(pr), *pr.Number, *pr.Title)
+		// str += fmt.Sprintf(` %s[green]%4d[white] %s\n`, widget.mergeString(pr), *pr.Number, *pr.Title)
+		str += fmt.Sprintf(`["%d"]%s[""]`, numSelections, u.String() + strconv.Itoa(*pr.Number))
+		str += "\n"
+		numSelections++
 	}
+
 
 	return str
 }
 
 func (widget *Widget) displayCustomQuery(repo *GithubRepo, filter string, perPage int) string {
 	res := repo.customIssueQuery(filter, perPage)
+	
+	u, _ := url.Parse(*repo.RemoteRepo.HTMLURL + "/pull/")
+	numSelections := widget.GetSelected()
+	
 	if res == nil {
 		return " [grey]Invalid Query[white]\n"
 	}
@@ -60,8 +73,14 @@ func (widget *Widget) displayCustomQuery(repo *GithubRepo, filter string, perPag
 
 	str := ""
 	for _, issue := range res.Issues {
-		str += fmt.Sprintf(" [green]%4d[white] %s\n", *issue.Number, *issue.Title)
+		// str += fmt.Sprintf(" [green]%4d[white] %s\n", *issue.Number, *issue.Title)
+		str += fmt.Sprintf(`["%d"]%s[""]`, numSelections, u.String() + strconv.Itoa(*issue.Number))
+		str += "\n"
+		numSelections++
 	}
+
+	widget.SetItemCount(numSelections)
+
 	return str
 }
 
