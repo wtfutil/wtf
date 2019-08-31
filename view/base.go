@@ -23,7 +23,9 @@ type Base struct {
 	enabledMutex    *sync.Mutex
 }
 
-func NewBase(app *tview.Application, commonSettings *cfg.Common, focusable bool) Base {
+func NewBase(app *tview.Application, commonSettings *cfg.Common, defaultFocusable bool) Base {
+	focusable := commonSettings.Focusable || defaultFocusable
+
 	base := Base{
 		commonSettings:  commonSettings,
 		app:             app,

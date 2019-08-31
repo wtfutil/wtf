@@ -13,9 +13,9 @@ type TextWidget struct {
 }
 
 // NewTextWidget creates and returns an instance of TextWidget
-func NewTextWidget(app *tview.Application, commonSettings *cfg.Common, focusable bool) TextWidget {
+func NewTextWidget(app *tview.Application, commonSettings *cfg.Common, defaultFocusable bool) TextWidget {
 	widget := TextWidget{
-		Base: NewBase(app, commonSettings, focusable),
+		Base: NewBase(app, commonSettings, defaultFocusable),
 	}
 
 	widget.View = widget.createView(widget.bordered)
