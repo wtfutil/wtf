@@ -36,12 +36,14 @@ func (widget *Widget) content() (string, string, bool) {
 
 func (widget *Widget) displayMyPullRequests(repo *GithubRepo, username string) string {
 	prs := repo.myPullRequests(username, widget.settings.enableStatus)
+	
+	prLength := len(prs)
 
-	if len(prs) == 0 {
+	if prLength == 0 {
 		return " [grey]none[white]\n"
 	}
 
-	widget.SetItemCount(len(prs))
+	widget.SetItemCount(prLength)
 
 	str := ""
 	for idx, pr := range prs {
@@ -55,23 +57,25 @@ func (widget *Widget) displayMyPullRequests(repo *GithubRepo, username string) s
 func (widget *Widget) displayCustomQuery(repo *GithubRepo, filter string, perPage int) string {
 	res := repo.customIssueQuery(filter, perPage)
 	
-	maxItems := widget.GetItemCount()
-	
 	if res == nil {
 		return " [grey]Invalid Query[white]\n"
 	}
 
-	if len(res.Issues) == 0 {
+	issuesLength := len(res.Issues)
+	
+	if issuesLength == 0 {
 		return " [grey]none[white]\n"
 	}
+	
+	maxItems := widget.GetItemCount()
 
 	str := ""
 	for idx, issue := range res.Issues {
-		str += fmt.Sprintf(`[green]["%d"]%4d[""][white] %s`, maxItems + idx, *issue.Number, *issue.Title)
+		str += fmt.Sprintf(`[green]["%d"]%4d[""][white] %s`, maxItems + idx , *issue.Number, *issue.Title)
 		str += "\n"
 	}
 
-	widget.SetItemCount(maxItems + len(res.Issues))
+	widget.SetItemCount(maxItems + issuesLength)
 
 	return str
 }
@@ -79,11 +83,13 @@ func (widget *Widget) displayCustomQuery(repo *GithubRepo, filter string, perPag
 func (widget *Widget) displayMyReviewRequests(repo *GithubRepo, username string) string {
 	prs := repo.myReviewRequests(username)
 
-	maxItems := widget.GetItemCount()
+	prLength := len(prs)
 
-	if len(prs) == 0 {
+	if prLength == 0 {
 		return " [grey]none[white]\n"
 	}
+
+	maxItems := widget.GetItemCount()
 
 	str := ""
 	for idx, pr := range prs {
@@ -91,7 +97,7 @@ func (widget *Widget) displayMyReviewRequests(repo *GithubRepo, username string)
 		str += "\n"
 	}
 
-	widget.SetItemCount(maxItems + len(prs))
+	widget.SetItemCount(maxItems + prLength)
 
 	return str
 }
