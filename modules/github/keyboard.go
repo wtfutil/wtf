@@ -18,5 +18,5 @@ func (widget *Widget) initializeKeyboardControls() {
 	widget.SetKeyboardKey(tcell.KeyRight, widget.NextSource, "Select next source")
 	widget.SetKeyboardKey(tcell.KeyLeft, widget.PrevSource, "Select previous source")
 	widget.SetKeyboardKey(tcell.KeyEnter, widget.openPr, "Open item in browser")
-	widget.SetKeyboardKey(tcell.KeyBackspace, widget.openRepo, "Open item in browser")
+	widget.SetKeyboardKey(tcell.KeyInsert, widget.openRepo, "Open item in browser")
 }
