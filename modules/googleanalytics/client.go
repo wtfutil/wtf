@@ -125,7 +125,7 @@ func getReports(
 func getLiveCount(service *gaV3.Service, viewID string) *gaV3.RealtimeData {
 	res, err := service.Data.Realtime.Get("ga:"+viewID, "rt:activeUsers").Do()
 	if err != nil {
-		log.Fatalf("Failed to fetch realtime data for view ID %s: %v", viewID, err)
+		log.Fatalf("Failed to fetch real time data for view ID %s: %v.  Have you enrolled in the real time beta?  If not, do so here: https://docs.google.com/forms/d/1qfRFysCikpgCMGqgF3yXdUyQW4xAlLyjKuOoOEFN2Uw/viewform", viewID, err)
 	}
 
 	return res
