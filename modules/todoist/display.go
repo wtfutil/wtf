@@ -14,6 +14,10 @@ func (widget *Widget) content() (string, string, bool) {
 		return widget.CommonSettings().Title, "", false
 	}
 
+	if proj.err != nil {
+		return widget.CommonSettings().Title, proj.err.Error(), true
+	}
+
 	title := fmt.Sprintf("[green]%s[white]", proj.Project.Name)
 
 	str := ""
