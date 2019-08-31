@@ -12,6 +12,8 @@ func (widget *Widget) display() {
 
 func (widget *Widget) content() (string, string, bool) {
 	repo := widget.currentGithubRepo()
+	widget.Unselect()
+
 	title := fmt.Sprintf("%s - %s", widget.CommonSettings().Title, widget.title(repo))
 	if repo == nil {
 		return title, " GitHub repo data is unavailable ", false

@@ -76,9 +76,6 @@ func (widget *Widget) Prev() {
 
 func (widget *Widget) Unselect() {
 	widget.Selected = -1
-	if widget.DisplayFunction != nil {
-		widget.SetDisplayFunction(widget.display)
-	}
 }
 
 func (widget *Widget) Refresh() {
