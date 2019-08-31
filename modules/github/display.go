@@ -79,7 +79,7 @@ func (widget *Widget) displayCustomQuery(repo *GithubRepo, filter string, perPag
 	return str
 }
 
-func (widget *Widget) displayMyReviewRequests(repo*GithubRepo, username string) string {
+func (widget *Widget) displayMyReviewRequests(repo *GithubRepo, username string) string {
 	prs := repo.myReviewRequests(username)
 
 	numSelections := widget.GetSelected()

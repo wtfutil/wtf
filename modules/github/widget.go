@@ -31,7 +31,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	}
 
 	widget.GithubRepos = widget.buildRepoCollection(widget.settings.repositories)
-	
+
 	widget.initializeKeyboardControls()
 	widget.View.SetRegions(true)
 	widget.View.SetInputCapture(widget.InputCapture)
