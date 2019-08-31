@@ -12,7 +12,6 @@ func (widget *Widget) display() {
 
 func (widget *Widget) content() (string, string, bool) {
 	repo := widget.currentGithubRepo()
-
 	title := fmt.Sprintf("%s - %s", widget.CommonSettings().Title, widget.title(repo))
 	if repo == nil {
 		return title, " GitHub repo data is unavailable ", false
@@ -47,7 +46,7 @@ func (widget *Widget) displayMyPullRequests(repo *GithubRepo, username string) s
 
 	str := ""
 	for idx, pr := range prs {
-		str += fmt.Sprintf(`[green]["%d"]%4d[""][white] %s`, idx, *pr.Number, *pr.Title)
+		str += fmt.Sprintf(`%s[green]["%d"]%4d[""][white] %s`, widget.mergeString(pr), idx, *pr.Number, *pr.Title)
 		str += "\n"
 	}
 
