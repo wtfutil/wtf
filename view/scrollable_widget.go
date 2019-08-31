@@ -35,6 +35,9 @@ func (widget *ScrollableWidget) SetRenderFunction(displayFunc func()) {
 
 func (widget *ScrollableWidget) SetItemCount(items int) {
 	widget.maxItems = items
+	if items == 0 {
+		widget.Selected = -1
+	}
 }
 
 func (widget *ScrollableWidget) GetSelected() int {
@@ -54,6 +57,9 @@ func (widget *ScrollableWidget) Next() {
 	if widget.Selected >= widget.maxItems {
 		widget.Selected = 0
 	}
+	if widget.maxItems == 0 {
+		widget.Selected = -1
+	}
 	widget.RenderFunction()
 }
 
@@ -61,6 +67,9 @@ func (widget *ScrollableWidget) Prev() {
 	widget.Selected--
 	if widget.Selected < 0 {
 		widget.Selected = widget.maxItems - 1
+	}
+	if widget.maxItems == 0 {
+		widget.Selected = -1
 	}
 	widget.RenderFunction()
 }

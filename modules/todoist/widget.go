@@ -104,25 +104,26 @@ func (widget *Widget) Unselect() {
 // Close closes the currently-selected task in the currently-selected project
 func (w *Widget) Close() {
 	w.CurrentProject().closeSelectedTask()
+	w.SetItemCount(len(w.CurrentProject().tasks))
 
 	if w.CurrentProject().isLast() {
 		w.Prev()
 		return
 	}
-
-	w.Next()
+	w.CurrentProject().index = w.Selected
+	w.RenderFunction()
 }
 
 // Delete deletes the currently-selected task in the currently-selected project
 func (w *Widget) Delete() {
 	w.CurrentProject().deleteSelectedTask()
+	w.SetItemCount(len(w.CurrentProject().tasks))
 
 	if w.CurrentProject().isLast() {
 		w.Prev()
-		return
 	}
-
-	w.Next()
+	w.CurrentProject().index = w.Selected
+	w.RenderFunction()
 }
 
 /* -------------------- Unexported Functions -------------------- */
