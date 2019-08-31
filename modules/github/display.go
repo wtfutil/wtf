@@ -12,15 +12,18 @@ func (widget *Widget) display() {
 
 func (widget *Widget) content() (string, string, bool) {
 	repo := widget.currentGithubRepo()
+	username := widget.settings.username
 
+	// Choses the correct place to scroll to when changing sources
 	if len(widget.View.GetHighlights()) > 0 {
 		widget.View.ScrollToHighlight()
 	} else {
 		widget.View.ScrollToBeginning()
 	}
-	
-	widget.SetItemCount(len(repo.myReviewRequests((widget.settings.username))))
-	
+
+	// initial maxItems count
+	widget.SetItemCount(len(repo.myReviewRequests((username))))
+
 	title := fmt.Sprintf("%s - %s", widget.CommonSettings().Title, widget.title(repo))
 	if repo == nil {
 		return title, " GitHub repo data is unavailable ", false
@@ -31,9 +34,9 @@ func (widget *Widget) content() (string, string, bool) {
 	str += " [red]Stats[white]\n"
 	str += widget.displayStats(repo)
 	str += "\n [red]Open Review Requests[white]\n"
-	str += widget.displayMyReviewRequests(repo, widget.settings.username)
+	str += widget.displayMyReviewRequests(repo, username)
 	str += "\n [red]My Pull Requests[white]\n"
-	str += widget.displayMyPullRequests(repo, widget.settings.username)
+	str += widget.displayMyPullRequests(repo, username)
 	for _, customQuery := range widget.settings.customQueries {
 		str += fmt.Sprintf("\n [red]%s[white]\n", customQuery.title)
 		str += widget.displayCustomQuery(repo, customQuery.filter, customQuery.perPage)
@@ -55,7 +58,7 @@ func (widget *Widget) displayMyPullRequests(repo *GithubRepo, username string) s
 
 	str := ""
 	for idx, pr := range prs {
-		str += fmt.Sprintf(`%s[green]["%d"]%4d[""][white] %s`, widget.mergeString(pr), maxItems + idx, *pr.Number, *pr.Title)
+		str += fmt.Sprintf(` %s[green]["%d"]%4d[""][white] %s`, widget.mergeString(pr), maxItems + idx, *pr.Number, *pr.Title)
 		str += "\n"
 	}
 
@@ -81,7 +84,7 @@ func (widget *Widget) displayCustomQuery(repo *GithubRepo, filter string, perPag
 
 	str := ""
 	for idx, issue := range res.Issues {
-		str += fmt.Sprintf(`[green]["%d"]%4d[""][white] %s`, maxItems + idx , *issue.Number, *issue.Title)
+		str += fmt.Sprintf(` [green]["%d"]%4d[""][white] %s`, maxItems + idx , *issue.Number, *issue.Title)
 		str += "\n"
 	}
 
@@ -99,7 +102,7 @@ func (widget *Widget) displayMyReviewRequests(repo *GithubRepo, username string)
 
 	str := ""
 	for idx, pr := range prs {
-		str += fmt.Sprintf(`[green]["%d"]%4d[""][white] %s`, idx, *pr.Number, *pr.Title)
+		str += fmt.Sprintf(` [green]["%d"]%4d[""][white] %s`, idx, *pr.Number, *pr.Title)
 		str += "\n"
 	}
 
