@@ -88,7 +88,6 @@ func (widget *Widget) Refresh() {
 		repo.Refresh()
 	}
 
-	widget.SetItemCount(0)
 	widget.display()
 }
 

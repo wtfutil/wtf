@@ -12,6 +12,15 @@ func (widget *Widget) display() {
 
 func (widget *Widget) content() (string, string, bool) {
 	repo := widget.currentGithubRepo()
+
+	if len(widget.View.GetHighlights()) > 0 {
+		widget.View.ScrollToHighlight()
+	} else {
+		widget.View.ScrollToBeginning()
+	}
+	
+	widget.SetItemCount(len(repo.myReviewRequests((widget.settings.username))))
+	
 	title := fmt.Sprintf("%s - %s", widget.CommonSettings().Title, widget.title(repo))
 	if repo == nil {
 		return title, " GitHub repo data is unavailable ", false
@@ -35,20 +44,22 @@ func (widget *Widget) content() (string, string, bool) {
 
 func (widget *Widget) displayMyPullRequests(repo *GithubRepo, username string) string {
 	prs := repo.myPullRequests(username, widget.settings.enableStatus)
-	
+
 	prLength := len(prs)
 
 	if prLength == 0 {
 		return " [grey]none[white]\n"
 	}
 
-	widget.SetItemCount(prLength)
+	maxItems := widget.GetItemCount()
 
 	str := ""
 	for idx, pr := range prs {
-		str += fmt.Sprintf(`%s[green]["%d"]%4d[""][white] %s`, widget.mergeString(pr), idx, *pr.Number, *pr.Title)
+		str += fmt.Sprintf(`%s[green]["%d"]%4d[""][white] %s`, widget.mergeString(pr), maxItems + idx, *pr.Number, *pr.Title)
 		str += "\n"
 	}
+
+	widget.SetItemCount(maxItems + prLength)
 
 	return str
 }
@@ -82,21 +93,15 @@ func (widget *Widget) displayCustomQuery(repo *GithubRepo, filter string, perPag
 func (widget *Widget) displayMyReviewRequests(repo *GithubRepo, username string) string {
 	prs := repo.myReviewRequests(username)
 
-	prLength := len(prs)
-
-	if prLength == 0 {
+	if len(prs) == 0 {
 		return " [grey]none[white]\n"
 	}
 
-	maxItems := widget.GetItemCount()
-
 	str := ""
 	for idx, pr := range prs {
-		str += fmt.Sprintf(`[green]["%d"]%4d[""][white] %s`, maxItems + idx, *pr.Number, *pr.Title)
+		str += fmt.Sprintf(`[green]["%d"]%4d[""][white] %s`, idx, *pr.Number, *pr.Title)
 		str += "\n"
 	}
-
-	widget.SetItemCount(maxItems + prLength)
 
 	return str
 }
