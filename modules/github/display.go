@@ -12,7 +12,6 @@ func (widget *Widget) display() {
 
 func (widget *Widget) content() (string, string, bool) {
 	repo := widget.currentGithubRepo()
-	widget.Unselect()
 
 	title := fmt.Sprintf("%s - %s", widget.CommonSettings().Title, widget.title(repo))
 	if repo == nil {
@@ -38,20 +37,17 @@ func (widget *Widget) content() (string, string, bool) {
 func (widget *Widget) displayMyPullRequests(repo *GithubRepo, username string) string {
 	prs := repo.myPullRequests(username, widget.settings.enableStatus)
 
-	numSelections := widget.GetSelected()
-
 	if len(prs) == 0 {
 		return " [grey]none[white]\n"
 	}
 
-	str := ""
-	for _, pr := range prs {
-		str += fmt.Sprintf(`[green]["%d"]%4d[""][white] %s`, numSelections, *pr.Number, *pr.Title)
-		str += "\n"
-		numSelections++
-	}
+	widget.SetItemCount(len(prs))
 
-	widget.SetItemCount(numSelections)
+	str := ""
+	for idx, pr := range prs {
+		str += fmt.Sprintf(`[green]["%d"]%4d[""][white] %s`, idx, *pr.Number, *pr.Title)
+		str += "\n"
+	}
 
 	return str
 }
@@ -59,7 +55,7 @@ func (widget *Widget) displayMyPullRequests(repo *GithubRepo, username string) s
 func (widget *Widget) displayCustomQuery(repo *GithubRepo, filter string, perPage int) string {
 	res := repo.customIssueQuery(filter, perPage)
 	
-	numSelections := widget.GetSelected()
+	maxItems := widget.GetItemCount()
 	
 	if res == nil {
 		return " [grey]Invalid Query[white]\n"
@@ -70,13 +66,12 @@ func (widget *Widget) displayCustomQuery(repo *GithubRepo, filter string, perPag
 	}
 
 	str := ""
-	for _, issue := range res.Issues {
-		str += fmt.Sprintf(`[green]["%d"]%4d[""][white] %s`, numSelections, *issue.Number, *issue.Title)
+	for idx, issue := range res.Issues {
+		str += fmt.Sprintf(`[green]["%d"]%4d[""][white] %s`, maxItems + idx, *issue.Number, *issue.Title)
 		str += "\n"
-		numSelections++
 	}
 
-	widget.SetItemCount(numSelections)
+	widget.SetItemCount(maxItems + len(res.Issues))
 
 	return str
 }
@@ -84,20 +79,19 @@ func (widget *Widget) displayCustomQuery(repo *GithubRepo, filter string, perPag
 func (widget *Widget) displayMyReviewRequests(repo *GithubRepo, username string) string {
 	prs := repo.myReviewRequests(username)
 
-	numSelections := widget.GetSelected()
+	maxItems := widget.GetItemCount()
 
 	if len(prs) == 0 {
 		return " [grey]none[white]\n"
 	}
 
 	str := ""
-	for _, pr := range prs {
-		str += fmt.Sprintf(`[green]["%d"]%4d[""][white] %s`, numSelections, *pr.Number, *pr.Title)
+	for idx, pr := range prs {
+		str += fmt.Sprintf(`[green]["%d"]%4d[""][white] %s`, maxItems + idx, *pr.Number, *pr.Title)
 		str += "\n"
-		numSelections++
 	}
 
-	widget.SetItemCount(numSelections)
+	widget.SetItemCount(maxItems + len(prs))
 
 	return str
 }

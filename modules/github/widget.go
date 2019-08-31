@@ -51,6 +51,10 @@ func (widget *Widget) SetItemCount(items int) {
 	widget.maxItems = items
 }
 
+func (widget *Widget) GetItemCount() int {
+	return widget.maxItems
+}
+
 func (widget *Widget) GetSelected() int {
 	if widget.Selected < 0 {
 		return 0
@@ -76,6 +80,7 @@ func (widget *Widget) Prev() {
 
 func (widget *Widget) Unselect() {
 	widget.Selected = -1
+	widget.View.Highlight(strconv.Itoa(widget.Selected)).ScrollToHighlight()
 }
 
 func (widget *Widget) Refresh() {
@@ -83,6 +88,7 @@ func (widget *Widget) Refresh() {
 		repo.Refresh()
 	}
 
+	widget.SetItemCount(0)
 	widget.display()
 }
 
