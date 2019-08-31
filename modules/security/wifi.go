@@ -43,10 +43,10 @@ func WifiName() string {
 /* -------------------- Unexported Functions -------------------- */
 
 func wifiEncryptionLinux() string {
-	cmd := exec.Command("nmcli", "-t", "-f", "in-use,security", "dev", "wifi")
-	out := utils.ExecuteCommand(cmd)
+  cmd := exec.Command("/usr/bin/wicd-cli", "--wireless", "-d")
+  out := utils.ExecuteCommand(cmd)
 
-	name := utils.FindMatch(`\*:(.+)`, out)
+	name := utils.FindMatch(`Encryption Method:(.+)`, out)
 
 	if len(name) > 0 {
 		return name[0][1]
