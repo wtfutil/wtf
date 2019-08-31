@@ -130,7 +130,8 @@ func (widget *Widget) currentGithubRepo() *GithubRepo {
 func (widget *Widget) openPr() {
 	currentSelection := widget.View.GetHighlights()
 	if widget.Selected >= 0 && currentSelection[0] != "" {
-		utils.OpenFile(widget.View.GetRegionText(currentSelection[0]))
+		url := (*widget.currentGithubRepo().RemoteRepo.HTMLURL + "/pull/" +  widget.View.GetRegionText(currentSelection[0]))
+		utils.OpenFile(url)
 	}
 }
 

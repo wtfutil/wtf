@@ -2,8 +2,6 @@ package github
 
 import (
 	"fmt"
-	"strconv"
-	"net/url"
 
 	"github.com/google/go-github/v26/github"
 )
@@ -38,7 +36,6 @@ func (widget *Widget) content() (string, string, bool) {
 func (widget *Widget) displayMyPullRequests(repo *GithubRepo, username string) string {
 	prs := repo.myPullRequests(username, widget.settings.enableStatus)
 
-	u, _ := url.Parse(*repo.RemoteRepo.HTMLURL + "/pull/")
 	numSelections := widget.GetSelected()
 
 	if len(prs) == 0 {
@@ -47,12 +44,12 @@ func (widget *Widget) displayMyPullRequests(repo *GithubRepo, username string) s
 
 	str := ""
 	for _, pr := range prs {
-		// str += fmt.Sprintf(` %s[green]%4d[white] %s\n`, widget.mergeString(pr), *pr.Number, *pr.Title)
-		str += fmt.Sprintf(`["%d"]%s[""]`, numSelections, u.String() + strconv.Itoa(*pr.Number))
+		str += fmt.Sprintf(`[green]["%d"]%4d[""][white] %s`, numSelections, *pr.Number, *pr.Title)
 		str += "\n"
 		numSelections++
 	}
 
+	widget.SetItemCount(numSelections)
 
 	return str
 }
@@ -60,7 +57,6 @@ func (widget *Widget) displayMyPullRequests(repo *GithubRepo, username string) s
 func (widget *Widget) displayCustomQuery(repo *GithubRepo, filter string, perPage int) string {
 	res := repo.customIssueQuery(filter, perPage)
 	
-	u, _ := url.Parse(*repo.RemoteRepo.HTMLURL + "/pull/")
 	numSelections := widget.GetSelected()
 	
 	if res == nil {
@@ -73,8 +69,7 @@ func (widget *Widget) displayCustomQuery(repo *GithubRepo, filter string, perPag
 
 	str := ""
 	for _, issue := range res.Issues {
-		// str += fmt.Sprintf(" [green]%4d[white] %s\n", *issue.Number, *issue.Title)
-		str += fmt.Sprintf(`["%d"]%s[""]`, numSelections, u.String() + strconv.Itoa(*issue.Number))
+		str += fmt.Sprintf(`[green]["%d"]%4d[""][white] %s`, numSelections, *issue.Number, *issue.Title)
 		str += "\n"
 		numSelections++
 	}
@@ -84,8 +79,10 @@ func (widget *Widget) displayCustomQuery(repo *GithubRepo, filter string, perPag
 	return str
 }
 
-func (widget *Widget) displayMyReviewRequests(repo *GithubRepo, username string) string {
+func (widget *Widget) displayMyReviewRequests(repo*GithubRepo, username string) string {
 	prs := repo.myReviewRequests(username)
+
+	numSelections := widget.GetSelected()
 
 	if len(prs) == 0 {
 		return " [grey]none[white]\n"
@@ -93,8 +90,12 @@ func (widget *Widget) displayMyReviewRequests(repo *GithubRepo, username string)
 
 	str := ""
 	for _, pr := range prs {
-		str += fmt.Sprintf(" [green]%4d[white] %s\n", *pr.Number, *pr.Title)
+		str += fmt.Sprintf(`[green]["%d"]%4d[""][white] %s`, numSelections, *pr.Number, *pr.Title)
+		str += "\n"
+		numSelections++
 	}
+
+	widget.SetItemCount(numSelections)
 
 	return str
 }
