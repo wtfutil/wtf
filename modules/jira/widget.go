@@ -2,7 +2,6 @@ package jira
 
 import (
 	"fmt"
-
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/view"
@@ -68,26 +67,35 @@ func (widget *Widget) openItem() {
 	}
 }
 
+const MaxIssueTypeLength = 7
+const MaxStatusNameLength = 14
+
 func (widget *Widget) content() (string, string, bool) {
 	if widget.err != nil {
 		return widget.CommonSettings().Title, widget.err.Error(), true
 	}
 
 	title := fmt.Sprintf("%s- [green]%s[white]", widget.CommonSettings().Title, widget.settings.projects)
+
 	str := " [red]Assigned Issues[white]\n"
 
 	if widget.result == nil || len(widget.result.Issues) == 0 {
 		return title, "No results to display", false
 	}
 
+	longestIssueTypeLength, longestKeyLength, longestStatusNameLength := getLongestColumnLengths(widget.result.Issues)
+
 	for idx, issue := range widget.result.Issues {
 		row := fmt.Sprintf(
-			`[%s] [%s]%-6s[white] [green]%-10s[white] [yellow][%s][white] [%s]%s`,
+			`[%s] [%s]%-*s[white] [green]%-*s[white] [yellow]%-*s[white] [%s]%s`,
 			widget.RowColor(idx),
 			widget.issueTypeColor(&issue),
-			issue.IssueFields.IssueType.Name,
+			longestIssueTypeLength+1,
+			trimToMaxLength(issue.IssueFields.IssueType.Name, MaxIssueTypeLength),
+			longestKeyLength+1,
 			issue.Key,
-			issue.IssueFields.IssueStatus.IName,
+			longestStatusNameLength+1,
+			trimToMaxLength(issue.IssueFields.IssueStatus.IName, MaxStatusNameLength),
 			widget.RowColor(idx),
 			issue.IssueFields.Summary,
 		)
@@ -96,6 +104,38 @@ func (widget *Widget) content() (string, string, bool) {
 	}
 
 	return title, str, false
+}
+
+func getLongestColumnLengths(issues []Issue) (int, int, int) {
+	longestIssueTypeLength := 0
+	longestKeyLength := 0
+	longestStatusNameLength := 0
+	for _, issue := range issues {
+		issueTypeLength := len(issue.IssueFields.IssueType.Name)
+		if issueTypeLength > longestIssueTypeLength {
+			longestIssueTypeLength = issueTypeLength
+		}
+
+		issueKeyLength := len(issue.Key)
+		if issueKeyLength > longestKeyLength {
+			longestKeyLength = len("WTF-XXX") // issueKeyLength
+		}
+
+		statusNameLength := len(issue.IssueFields.IssueStatus.IName)
+		if statusNameLength > longestStatusNameLength {
+			longestStatusNameLength = statusNameLength
+		}
+	}
+
+	if longestIssueTypeLength > MaxIssueTypeLength {
+		longestIssueTypeLength = MaxIssueTypeLength
+	}
+
+	if longestStatusNameLength > MaxStatusNameLength {
+		longestStatusNameLength = MaxStatusNameLength
+	}
+
+	return longestIssueTypeLength, longestKeyLength, longestStatusNameLength
 }
 
 func (widget *Widget) issueTypeColor(issue *Issue) string {
@@ -108,5 +148,13 @@ func (widget *Widget) issueTypeColor(issue *Issue) string {
 		return "orange"
 	default:
 		return "white"
+	}
+}
+
+func trimToMaxLength(text string, maxLength int) string {
+	if len(text) <= maxLength {
+		return text
+	} else {
+		return text[:maxLength]
 	}
 }
