@@ -80,7 +80,7 @@ func (widget *Widget) Prev() {
 
 func (widget *Widget) Unselect() {
 	widget.Selected = -1
-	widget.View.Highlight(strconv.Itoa(widget.Selected)).ScrollToHighlight()
+	widget.View.ScrollToBeginning()
 }
 
 func (widget *Widget) Refresh() {
