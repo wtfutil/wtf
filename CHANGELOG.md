@@ -6,6 +6,7 @@
 
 * Arpansagovau (arpansa.gov.au) module added, by [@jeffz](https://github.com/jeffz)
 * 'calendarReadLevel' setting added to gCal module, by [@mikkeljuhl](https://github.com/mikkeljuhl)
+* Todoist module now catches and displays API errors, by [@Seanstoppable](https://github.com/Seanstoppable)
 
 ### 🐞 Fixed
 
