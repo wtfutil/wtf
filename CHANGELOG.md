@@ -7,6 +7,10 @@
 * Arpansagovau (arpansa.gov.au) module added, by [@jeffz](https://github.com/jeffz)
 * 'calendarReadLevel' setting added to gCal module, by [@mikkeljuhl](https://github.com/mikkeljuhl)
 
+### 🐞 Fixed
+
+* ScrollableWidget bounds checking error fixed, [#578](https://github.com/wtfutil/wtf/issues/578) by [@Seanstoppable](https://github.com/Seanstoppable)
+
 ## v0.21.0
 
 ### ⚡️ Added
