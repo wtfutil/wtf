@@ -43,6 +43,7 @@ import (
 	"github.com/wtfutil/wtf/modules/status"
 	"github.com/wtfutil/wtf/modules/textfile"
 	"github.com/wtfutil/wtf/modules/todo"
+	"github.com/wtfutil/wtf/modules/todo_plus"
 	"github.com/wtfutil/wtf/modules/todoist"
 	"github.com/wtfutil/wtf/modules/transmission"
 	"github.com/wtfutil/wtf/modules/travisci"
@@ -200,6 +201,9 @@ func MakeWidget(
 	case "todo":
 		settings := todo.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = todo.NewWidget(app, pages, settings)
+	case "todo_plus":
+		settings := todo_plus.NewSettingsFromYAML(moduleName, moduleConfig, config)
+		widget = todo_plus.NewWidget(app, pages, settings)
 	case "todoist":
 		settings := todoist.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = todoist.NewWidget(app, pages, settings)
