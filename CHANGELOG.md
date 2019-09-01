@@ -5,6 +5,7 @@
 ### ⚡️ Added
 
 * Arpansagovau (arpansa.gov.au) module added, by [@jeffz](https://github.com/jeffz)
+* 'calendarReadLevel' setting added to gCal module, by [@mikkeljuhl](https://github.com/mikkeljuhl)
 
 ## v0.21.0
 
