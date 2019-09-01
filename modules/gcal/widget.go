@@ -11,6 +11,7 @@ type Widget struct {
 	app       *tview.Application
 	calEvents []*CalEvent
 	settings  *Settings
+	err       error
 }
 
 func NewWidget(app *tview.Application, settings *Settings) *Widget {
@@ -45,8 +46,10 @@ func (widget *Widget) Refresh() {
 func (widget *Widget) fetchAndDisplayEvents() {
 	calEvents, err := widget.Fetch()
 	if err != nil {
+		widget.err = err
 		widget.calEvents = []*CalEvent{}
 	} else {
+		widget.err = nil
 		widget.calEvents = calEvents
 	}
 

@@ -36,13 +36,9 @@ func (widget *Widget) Refresh() {
 
 	teams, err := Fetch(widget.settings.apiID, widget.settings.apiKey)
 
-	if err != nil {
-		widget.err = err
-		widget.teams = nil
-	} else {
-		widget.err = nil
-		widget.teams = teams
-	}
+	widget.err = err
+	widget.teams = teams
+
 	widget.Redraw(widget.content)
 }
 

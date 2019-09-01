@@ -45,7 +45,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	widget.initializeKeyboardControls()
 	widget.View.SetInputCapture(widget.InputCapture)
 
-	widget.SetDisplayFunction(widget.display)
+	widget.SetDisplayFunction(widget.Refresh)
 	widget.View.SetWordWrap(true)
 	widget.View.SetWrap(settings.wrapText)
 
@@ -61,7 +61,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 // Refresh is only called once on start-up. Its job is to display the
 // text files that first time. After that, the watcher takes over
 func (widget *Widget) Refresh() {
-	widget.display()
+	widget.Redraw(widget.content)
 }
 
 func (widget *Widget) HelpText() string {
@@ -69,10 +69,6 @@ func (widget *Widget) HelpText() string {
 }
 
 /* -------------------- Unexported Functions -------------------- */
-
-func (widget *Widget) display() {
-	widget.Redraw(widget.content)
-}
 
 func (widget *Widget) content() (string, string, bool) {
 	title := fmt.Sprintf("[green]%s[white]", widget.CurrentSource())
@@ -142,7 +138,7 @@ func (widget *Widget) watchForFileChanges() {
 		for {
 			select {
 			case <-watch.Event:
-				widget.display()
+				widget.Refresh()
 			case err := <-watch.Error:
 				fmt.Println(err)
 				os.Exit(1)
