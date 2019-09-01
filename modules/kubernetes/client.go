@@ -28,7 +28,10 @@ func (widget *Widget) getInstance() *clientInstance {
 
 // getKubeClient returns a kubernetes clientset for the kubeconfig provided
 func (widget *Widget) getKubeClient() kubernetes.Interface {
-	config, _ := clientcmd.BuildConfigFromFlags("", widget.kubeconfig)
+	config, err := clientcmd.BuildConfigFromFlags("", widget.kubeconfig)
+	if err != nil {
+		panic(err.Error)
+	}
 	clientset, err := kubernetes.NewForConfig(config)
 	if err != nil {
 		panic(err.Error)
