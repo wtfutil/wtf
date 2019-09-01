@@ -5,6 +5,7 @@ import (
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/view"
+	"net/url"
 )
 
 type Widget struct {
@@ -75,12 +76,13 @@ func (widget *Widget) content() (string, string, bool) {
 	var str string
 	jobs := widget.view.Jobs
 	for idx, job := range jobs {
+		jobName, _ := url.QueryUnescape(job.Name)
 
 		row := fmt.Sprintf(
 			`[%s] [%s]%-6s[white]`,
 			widget.RowColor(idx),
 			widget.jobColor(&job),
-			job.Name,
+			jobName,
 		)
 
 		str += utils.HighlightableHelper(widget.View, row, idx, len(job.Name))
