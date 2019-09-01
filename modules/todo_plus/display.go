@@ -26,11 +26,11 @@ func (widget *Widget) content() (string, string, bool) {
 		row := fmt.Sprintf(
 			`[%s]| | %s[%s]`,
 			widget.RowColor(idx),
-			tview.Escape(item.Content),
+			tview.Escape(item.Name),
 			widget.RowColor(idx),
 		)
 
-		str += utils.HighlightableHelper(widget.View, row, idx, len(item.Content))
+		str += utils.HighlightableHelper(widget.View, row, idx, len(item.Name))
 	}
 	return title, str, false
 }

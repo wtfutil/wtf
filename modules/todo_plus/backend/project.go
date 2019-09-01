@@ -1,13 +1,13 @@
 package backend
 
 type Task struct {
-	ID        int
+	ID        string
 	Completed bool
-	Content   string
+	Name      string
 }
 
 type Project struct {
-	ID   int
+	ID   string
 	Name string
 
 	Index   int
@@ -20,12 +20,6 @@ func (proj *Project) IsLast() bool {
 	return proj.Index >= len(proj.Tasks)-1
 }
 
-func NewProject(id int, backend Backend) *Project {
-	proj := backend.NewProject(id)
-	proj.backend = backend
-	return proj
-}
-
 func (proj *Project) loadTasks() {
 	Tasks, err := proj.backend.LoadTasks(proj.ID)
 	proj.Err = err
@@ -36,8 +30,8 @@ func (proj *Project) LongestLine() int {
 	maxLen := 0
 
 	for _, task := range proj.Tasks {
-		if len(task.Content) > maxLen {
-			maxLen = len(task.Content)
+		if len(task.Name) > maxLen {
+			maxLen = len(task.Name)
 		}
 	}
 

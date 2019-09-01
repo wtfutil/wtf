@@ -33,8 +33,6 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	widget.backend.Setup(settings.backendSettings)
 	widget.CommonSettings().Title = widget.backend.Title()
 
-	widget.loadProjects()
-
 	widget.SetRenderFunction(widget.display)
 	widget.initializeKeyboardControls()
 	widget.View.SetInputCapture(widget.InputCapture)
@@ -47,6 +45,9 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 
 func getBackend(backendType string) backend.Backend {
 	switch backendType {
+	case "trello":
+		backend := &backend.Trello{}
+		return backend
 	case "todoist":
 		backend := &backend.Todoist{}
 		return backend
@@ -72,13 +73,11 @@ func (widget *Widget) ProjectAt(idx int) *backend.Project {
 }
 
 func (widget *Widget) Refresh() {
-	if widget.Disabled() || widget.CurrentProject() == nil {
-		widget.SetItemCount(0)
+	if widget.Disabled() {
 		return
 	}
 
-	widget.loadProjects()
-
+	widget.projects = widget.backend.BuildProjects()
 	widget.SetItemCount(len(widget.CurrentProject().Tasks))
 	widget.display()
 }
@@ -142,17 +141,4 @@ func (w *Widget) Delete() {
 	}
 	w.CurrentProject().Index = w.Selected
 	w.RenderFunction()
-}
-
-/* -------------------- Unexported Functions -------------------- */
-
-func (widget *Widget) loadProjects() {
-	projects := []*backend.Project{}
-
-	for _, id := range widget.settings.projects {
-		proj := backend.NewProject(id.(int), widget.backend)
-		projects = append(projects, proj)
-	}
-
-	widget.projects = projects
 }

@@ -2,12 +2,14 @@ package backend
 
 import (
 	"fmt"
+	"strconv"
 
 	"github.com/darkSasori/todoist"
 	"github.com/olebedev/config"
 )
 
 type Todoist struct {
+	projects []interface{}
 }
 
 func (todo *Todoist) Title() string {
@@ -16,21 +18,35 @@ func (todo *Todoist) Title() string {
 
 func (todo *Todoist) Setup(config *config.Config) {
 	todoist.Token = config.UString("apiKey")
+	todo.projects = config.UList("projects")
 }
 
-func (todo *Todoist) NewProject(id int) *Project {
+func (todo *Todoist) BuildProjects() []*Project {
+	projects := []*Project{}
+
+	for _, id := range todo.projects {
+		i := strconv.Itoa(id.(int))
+		proj := todo.GetProject(i)
+		projects = append(projects, proj)
+	}
+	return projects
+}
+
+func (todo *Todoist) GetProject(id string) *Project {
 	// Todoist seems to experience a lot of network issues on their side
 	// If we can't connect, handle it with an empty project until we can
-	project, err := todoist.GetProject(id)
 	proj := &Project{
-		Index: -1,
+		Index:   -1,
+		backend: todo,
 	}
+	i, _ := strconv.Atoi(id)
+	project, err := todoist.GetProject(i)
 	if err != nil {
 		proj.Err = err
 		return proj
 	}
 
-	proj.ID = project.ID
+	proj.ID = strconv.Itoa(project.ID)
 	proj.Name = project.Name
 
 	tasks, err := todo.LoadTasks(proj.ID)
@@ -41,15 +57,16 @@ func (todo *Todoist) NewProject(id int) *Project {
 }
 
 func toTask(task todoist.Task) Task {
+	id := strconv.Itoa(task.ID)
 	return Task{
-		ID:        task.ID,
+		ID:        id,
 		Completed: task.Completed,
-		Content:   task.Content,
+		Name:      task.Content,
 	}
 }
 
-func (todo *Todoist) LoadTasks(id int) ([]Task, error) {
-	tasks, err := todoist.ListTask(todoist.QueryParam{"project_id": fmt.Sprintf("%d", id)})
+func (todo *Todoist) LoadTasks(id string) ([]Task, error) {
+	tasks, err := todoist.ListTask(todoist.QueryParam{"project_id": fmt.Sprintf("%s", id)})
 
 	if err != nil {
 		return nil, err
@@ -63,7 +80,8 @@ func (todo *Todoist) LoadTasks(id int) ([]Task, error) {
 
 func (todo *Todoist) CloseTask(task *Task) error {
 	if task != nil {
-		internal := todoist.Task{ID: task.ID}
+		i, _ := strconv.Atoi(task.ID)
+		internal := todoist.Task{ID: i}
 		return internal.Close()
 	}
 	return nil
@@ -71,7 +89,8 @@ func (todo *Todoist) CloseTask(task *Task) error {
 
 func (todo *Todoist) DeleteTask(task *Task) error {
 	if task != nil {
-		internal := todoist.Task{ID: task.ID}
+		i, _ := strconv.Atoi(task.ID)
+		internal := todoist.Task{ID: i}
 		return internal.Delete()
 	}
 	return nil

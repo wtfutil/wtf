@@ -7,8 +7,9 @@ import (
 type Backend interface {
 	Title() string
 	Setup(*config.Config)
-	NewProject(int) *Project
-	LoadTasks(int) ([]Task, error)
+	BuildProjects() []*Project
+	GetProject(string) *Project
+	LoadTasks(string) ([]Task, error)
 	CloseTask(*Task) error
 	DeleteTask(*Task) error
 }
