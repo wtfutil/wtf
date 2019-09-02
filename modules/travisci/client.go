@@ -15,12 +15,12 @@ var TRAVIS_HOSTS = map[bool]string{
 	true:  "travis-ci.com",
 }
 
-func BuildsFor(apiKey string, pro bool) (*Builds, error) {
+func BuildsFor(settings *Settings) (*Builds, error) {
 	builds := &Builds{}
 
-	travisAPIURL.Host = "api." + TRAVIS_HOSTS[pro]
+	travisAPIURL.Host = "api." + TRAVIS_HOSTS[settings.pro]
 
-	resp, err := travisRequest(apiKey, "builds")
+	resp, err := travisBuildRequest(settings)
 	if err != nil {
 		return builds, err
 	}
@@ -36,9 +36,11 @@ var (
 	travisAPIURL = &url.URL{Scheme: "https", Path: "/"}
 )
 
-func travisRequest(apiKey string, path string) (*http.Response, error) {
+func travisBuildRequest(settings *Settings) (*http.Response, error) {
+	var path string = "builds"
 	params := url.Values{}
-	params.Add("limit", "10")
+	params.Add("limit", settings.limit)
+	params.Add("sort_by", settings.sort_by)
 
 	requestUrl := travisAPIURL.ResolveReference(&url.URL{Path: path, RawQuery: params.Encode()})
 
@@ -47,7 +49,7 @@ func travisRequest(apiKey string, path string) (*http.Response, error) {
 	req.Header.Add("Content-Type", "application/json")
 	req.Header.Add("Travis-API-Version", "3")
 
-	bearer := fmt.Sprintf("token %s", apiKey)
+	bearer := fmt.Sprintf("token %s", settings.apiKey)
 	req.Header.Add("Authorization", bearer)
 	if err != nil {
 		return nil, err
