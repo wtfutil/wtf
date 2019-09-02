@@ -12,4 +12,5 @@ type Backend interface {
 	LoadTasks(string) ([]Task, error)
 	CloseTask(*Task) error
 	DeleteTask(*Task) error
+	Sources() []string
 }

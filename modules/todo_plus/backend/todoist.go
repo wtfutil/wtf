@@ -95,3 +95,12 @@ func (todo *Todoist) DeleteTask(task *Task) error {
 	}
 	return nil
 }
+
+func (todo *Todoist) Sources() []string {
+	var result []string
+	for _, id := range todo.projects {
+		i := strconv.Itoa(id.(int))
+		result = append(result, i)
+	}
+	return result
+}

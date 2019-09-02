@@ -78,6 +78,7 @@ func (widget *Widget) Refresh() {
 	}
 
 	widget.projects = widget.backend.BuildProjects()
+	widget.Sources = widget.backend.Sources()
 	widget.SetItemCount(len(widget.CurrentProject().Tasks))
 	widget.display()
 }

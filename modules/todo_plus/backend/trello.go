@@ -160,3 +160,11 @@ func (todo *Trello) CloseTask(task *Task) error {
 func (todo *Trello) DeleteTask(task *Task) error {
 	return nil
 }
+
+func (todo *Trello) Sources() []string {
+	var result []string
+	for _, id := range todo.projects {
+		result = append(result, id.(string))
+	}
+	return result
+}
