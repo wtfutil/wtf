@@ -8,6 +8,7 @@
 * 'calendarReadLevel' setting added to gCal module, by [@mikkeljuhl](https://github.com/mikkeljuhl)
 * Todoist module now catches and displays API errors, by [@Seanstoppable](https://github.com/Seanstoppable)
 * TravisCI sort orders now configurable,  by [@nyourchuck](https://github.com/nyourchuck)
+* Google Analytics module now supports real-time metrics, [#581](https://github.com/wtfutil/wtf/issues/581) by [@Ameobea](https://github.com/Ameobea)
 
 ### 🐞 Fixed
 
