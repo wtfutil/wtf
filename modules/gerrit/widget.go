@@ -23,6 +23,7 @@ type Widget struct {
 
 	selected int
 	settings *Settings
+	err      error
 }
 
 var (
@@ -76,14 +77,16 @@ func (widget *Widget) Refresh() {
 	}
 	gerrit, err := glb.NewClient(gerritUrl, httpClient)
 	if err != nil {
-		widget.Redraw(func() (string, string, bool) { return widget.CommonSettings().Title, err.Error(), true })
-		return
-	}
-	widget.gerrit = gerrit
-	widget.GerritProjects = widget.buildProjectCollection(widget.settings.projects)
-
-	for _, project := range widget.GerritProjects {
-		project.Refresh(widget.settings.username)
+		widget.err = err
+		widget.gerrit = nil
+		widget.GerritProjects = nil
+	} else {
+		widget.err = nil
+		widget.gerrit = gerrit
+		widget.GerritProjects = widget.buildProjectCollection(widget.settings.projects)
+		for _, project := range widget.GerritProjects {
+			project.Refresh(widget.settings.username)
+		}
 	}
 
 	widget.display()

@@ -46,11 +46,12 @@ func (widget *Widget) Refresh() {
 	if err != nil {
 		widget.err = err
 		widget.result = nil
-		return
+		widget.SetItemCount(0)
+	} else {
+		widget.err = nil
+		widget.result = searchResult
+		widget.SetItemCount(len(searchResult.Issues))
 	}
-	widget.err = nil
-	widget.result = searchResult
-	widget.SetItemCount(len(searchResult.Issues))
 	widget.Render()
 }
 

@@ -31,6 +31,11 @@ func (widget *Widget) display() {
 func (widget *Widget) content() (string, string, bool) {
 	title := widget.settings.common.Title
 	calEvents := widget.calEvents
+
+	if widget.err != nil {
+		return title, widget.err.Error(), true
+	}
+
 	if (calEvents == nil) || (len(calEvents) == 0) {
 		return title, "No calendar events", false
 	}

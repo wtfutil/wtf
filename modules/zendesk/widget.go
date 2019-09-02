@@ -2,7 +2,6 @@ package zendesk
 
 import (
 	"fmt"
-	"log"
 
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/utils"
@@ -16,6 +15,7 @@ type Widget struct {
 
 	result   *TicketArray
 	settings *Settings
+	err      error
 }
 
 // NewWidget creates a new instance of a widget
@@ -41,12 +41,8 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 func (widget *Widget) Refresh() {
 	ticketArray, err := widget.newTickets()
 	ticketArray.Count = len(ticketArray.Tickets)
-	if err != nil {
-		log.Fatal(err)
-	} else {
-		widget.result = ticketArray
-	}
-
+	widget.err = err
+	widget.result = ticketArray
 	widget.Render()
 }
 
@@ -58,6 +54,10 @@ func (widget *Widget) Render() {
 
 func (widget *Widget) content() (string, string, bool) {
 	title := fmt.Sprintf("%s (%d)", widget.CommonSettings().Title, widget.result.Count)
+	if widget.err != nil {
+		return title, widget.err.Error(), true
+	}
+
 	items := widget.result.Tickets
 	if len(items) == 0 {
 		return title, "No unassigned tickets in queue - woop!!", false

@@ -16,6 +16,7 @@ type Widget struct {
 
 	stories  []Story
 	settings *Settings
+	err      error
 }
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
@@ -43,24 +44,21 @@ func (widget *Widget) Refresh() {
 	}
 
 	storyIds, err := GetStories(widget.settings.storyType)
-	if storyIds == nil {
-		return
-	}
-
 	if err != nil {
-		widget.Redraw(func() (string, string, bool) { return widget.CommonSettings().Title, err.Error(), true })
-		return
-	}
-	var stories []Story
-	for idx := 0; idx < widget.settings.numberOfStories; idx++ {
-		story, e := GetStory(storyIds[idx])
-		if e == nil {
-			stories = append(stories, story)
+		widget.err = err
+		widget.stories = nil
+		widget.SetItemCount(0)
+	} else {
+		var stories []Story
+		for idx := 0; idx < widget.settings.numberOfStories; idx++ {
+			story, e := GetStory(storyIds[idx])
+			if e == nil {
+				stories = append(stories, story)
+			}
 		}
+		widget.stories = stories
+		widget.SetItemCount(len(stories))
 	}
-
-	widget.stories = stories
-	widget.SetItemCount(len(stories))
 
 	widget.Render()
 }
@@ -74,6 +72,11 @@ func (widget *Widget) Render() {
 
 func (widget *Widget) content() (string, string, bool) {
 	title := fmt.Sprintf("%s - %s stories", widget.CommonSettings().Title, widget.settings.storyType)
+
+	if widget.err != nil {
+		return title, widget.err.Error(), true
+	}
+
 	stories := widget.stories
 	if stories == nil || len(stories) == 0 {
 		return title, "No stories to display", false

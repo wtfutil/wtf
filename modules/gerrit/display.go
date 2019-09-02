@@ -9,13 +9,17 @@ func (widget *Widget) display() {
 }
 
 func (widget *Widget) content() (string, string, bool) {
+	title := widget.CommonSettings().Title
+	if widget.err != nil {
+		return title, widget.err.Error(), true
+	}
 
 	project := widget.currentGerritProject()
 	if project == nil {
-		return widget.CommonSettings().Title, "Gerrit project data is unavailable", true
+		return title, "Gerrit project data is unavailable", true
 	}
 
-	title := fmt.Sprintf("%s- %s", widget.CommonSettings().Title, widget.title(project))
+	title = fmt.Sprintf("%s- %s", widget.CommonSettings().Title, widget.title(project))
 
 	_, _, width, _ := widget.View.GetRect()
 	str := widget.settings.common.SigilStr(len(widget.GerritProjects), widget.Idx, width) + "\n"

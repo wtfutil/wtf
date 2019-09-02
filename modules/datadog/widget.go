@@ -15,6 +15,7 @@ type Widget struct {
 
 	monitors []datadog.Monitor
 	settings *Settings
+	err      error
 }
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
@@ -37,10 +38,12 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
+	widget.err = nil
 	monitors, monitorErr := widget.Monitors()
 
 	if monitorErr != nil {
 		widget.monitors = nil
+		widget.err = monitorErr
 		widget.SetItemCount(0)
 		widget.Redraw(func() (string, string, bool) { return widget.CommonSettings().Title, monitorErr.Error(), true })
 		return
@@ -73,6 +76,12 @@ func (widget *Widget) content() (string, string, bool) {
 	triggeredMonitors := widget.monitors
 	var str string
 
+	title := widget.CommonSettings().Title
+
+	if widget.err != nil {
+		return title, widget.err.Error(), true
+	}
+
 	if len(triggeredMonitors) > 0 {
 		str += fmt.Sprintf(
 			" %s\n",
@@ -93,7 +102,7 @@ func (widget *Widget) content() (string, string, bool) {
 		)
 	}
 
-	return widget.CommonSettings().Title, str, false
+	return title, str, false
 }
 
 func (widget *Widget) openItem() {

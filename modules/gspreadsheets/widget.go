@@ -14,6 +14,7 @@ type Widget struct {
 
 	settings *Settings
 	cells    []*sheets.ValueRange
+	err      error
 }
 
 func NewWidget(app *tview.Application, settings *Settings) *Widget {
@@ -29,7 +30,8 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	cells, _ := widget.Fetch()
+	cells, err := widget.Fetch()
+	widget.err = err
 	widget.cells = cells
 
 	widget.Redraw(widget.content)
@@ -38,8 +40,13 @@ func (widget *Widget) Refresh() {
 /* -------------------- Unexported Functions -------------------- */
 
 func (widget *Widget) content() (string, string, bool) {
+	title := widget.CommonSettings().Title
+	if widget.err != nil {
+		return title, widget.err.Error(), true
+	}
+
 	if widget.cells == nil {
-		return widget.CommonSettings().Title, "error 1", false
+		return title, "No cells", false
 	}
 
 	res := ""
@@ -49,5 +56,5 @@ func (widget *Widget) content() (string, string, bool) {
 		res += fmt.Sprintf("%s\t[%s]%s\n", cells[i], widget.settings.colors.values, widget.cells[i].Values[0][0])
 	}
 
-	return widget.CommonSettings().Title, res, false
+	return title, res, false
 }

@@ -35,7 +35,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	widget.initializeKeyboardControls()
 	widget.View.SetInputCapture(widget.InputCapture)
 
-	widget.SetDisplayFunction(widget.display)
+	widget.SetDisplayFunction(widget.Refresh)
 
 	widget.client = NewClient(settings)
 
@@ -52,7 +52,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 
 // Refresh is called on the interval and refreshes the data
 func (widget *Widget) Refresh() {
-	widget.display()
+	widget.Redraw(widget.content)
 }
 
 func (widget *Widget) HelpText() string {
@@ -60,10 +60,6 @@ func (widget *Widget) HelpText() string {
 }
 
 /* -------------------- Unexported Functions -------------------- */
-
-func (widget *Widget) display() {
-	widget.Redraw(widget.content)
-}
 
 func (widget *Widget) content() (string, string, bool) {
 	widget.client.screenName = widget.CurrentSource()
