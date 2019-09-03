@@ -1,0 +1,37 @@
+wtf:
+  colors:
+    # background: black
+    # foreground: blue
+    border:
+      focusable: darkslateblue
+      focused: orange
+      normal: gray
+    checked: yellow
+    highlight: 
+      fore: black
+      back: gray
+    rows:
+      even: yellow
+      odd: white
+  grid:
+    # How _wide_ the columns are, in terminal characters. In this case we have
+    # four columns, each of which are 35 characters wide.
+    # columns: [50, ]
+    # How _high_ the rows are, in terminal lines. In this case we have four rows
+    # that support ten line of text and one of four.
+    # rows: [50]
+  refreshInterval: 1
+  openFileUtil: "open"
+  mods:
+    docker:
+      type: docker
+      title: "💻"
+      enabled: true
+      position:
+        top: 0
+        left: 0
+        height: 3
+        width: 3
+      refreshInterval: 1
+      labelColor: lightblue
+  
