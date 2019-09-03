@@ -15,7 +15,7 @@ require (
 	github.com/cenkalti/backoff v2.2.0+incompatible // indirect
 	github.com/darkSasori/todoist v0.0.0-20180703032645-ec6b38b374ab
 	github.com/dustin/go-humanize v1.0.0
-	github.com/gdamore/tcell v1.1.4
+	github.com/gdamore/tcell v1.2.0
 	github.com/go-ole/go-ole v1.2.4 // indirect
 	github.com/godbus/dbus v5.0.1+incompatible // indirect
 	github.com/golang/glog v0.0.0-20170312005925-543a34c32e4d // indirect
@@ -30,7 +30,7 @@ require (
 	github.com/olebedev/config v0.0.0-20190528211619-364964f3a8e4
 	github.com/pkg/profile v1.3.0
 	github.com/radovskyb/watcher v1.0.6
-	github.com/rivo/tview v0.0.0-20190721135419-23dc8a0944e4
+	github.com/rivo/tview v0.0.0-20190829161255-f8bc69b90341
 	github.com/rivo/uniseg v0.1.0 // indirect
 	github.com/shirou/gopsutil v2.18.12+incompatible
 	github.com/sticreations/spotigopher v0.0.0-20181009182052-98632f6f94b0
@@ -40,12 +40,12 @@ require (
 	github.com/zmb3/spotify v0.0.0-20190520155326-158b1863f5b5
 	github.com/zorkian/go-datadog-api v2.21.0+incompatible
 	go.opencensus.io v0.22.0 // indirect
-	golang.org/x/crypto v0.0.0-20190701094942-4def268fd1a4 // indirect
-	golang.org/x/net v0.0.0-20190628185345-da137c7871d7 // indirect
+	golang.org/x/crypto v0.0.0-20190829043050-9756ffdc2472 // indirect
+	golang.org/x/net v0.0.0-20190827160401-ba9fcec4b297 // indirect
 	golang.org/x/oauth2 v0.0.0-20190614102709-0f29369cfe45
-	golang.org/x/sync v0.0.0-20190427212804-112230192c58 // indirect
-	golang.org/x/sys v0.0.0-20190730174312-6a60838ec25 // indirect
-	golang.org/x/tools v0.0.0-20190710184609-286818132824 // indirect
+	golang.org/x/sync v0.0.0-20190806142011-112230192c58 // indirect
+	golang.org/x/sys v0.0.0-20190902133755-9109b7679e13 // indirect
+	golang.org/x/tools v0.0.0-20190903025054-afe7f8212f0d // indirect
 	google.golang.org/api v0.7.0
 	google.golang.org/appengine v1.6.1 // indirect
 	google.golang.org/genproto v0.0.0-20190627203621-eb59cef1c072 // indirect
