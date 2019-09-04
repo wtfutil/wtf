@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/gdamore/tcell"
+	_ "github.com/gdamore/tcell/terminfo/extended"
 	"github.com/olebedev/config"
 	"github.com/radovskyb/watcher"
 	"github.com/rivo/tview"
