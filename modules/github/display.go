@@ -22,6 +22,7 @@ func (widget *Widget) content() (string, string, bool) {
 	}
 
 	// initial maxItems count
+	widget.Items = make([]int, 0)
 	widget.SetItemCount(len(repo.myReviewRequests((username))))
 
 	title := fmt.Sprintf("%s - %s", widget.CommonSettings().Title, widget.title(repo))
@@ -60,6 +61,7 @@ func (widget *Widget) displayMyPullRequests(repo *GithubRepo, username string) s
 	for idx, pr := range prs {
 		str += fmt.Sprintf(` %s[green]["%d"]%4d[""][white] %s`, widget.mergeString(pr), maxItems + idx, *pr.Number, *pr.Title)
 		str += "\n"
+		widget.Items = append(widget.Items, *pr.Number)
 	}
 
 	widget.SetItemCount(maxItems + prLength)
@@ -86,6 +88,7 @@ func (widget *Widget) displayCustomQuery(repo *GithubRepo, filter string, perPag
 	for idx, issue := range res.Issues {
 		str += fmt.Sprintf(` [green]["%d"]%4d[""][white] %s`, maxItems + idx , *issue.Number, *issue.Title)
 		str += "\n"
+		widget.Items = append(widget.Items, *issue.Number)
 	}
 
 	widget.SetItemCount(maxItems + issuesLength)
@@ -104,6 +107,7 @@ func (widget *Widget) displayMyReviewRequests(repo *GithubRepo, username string)
 	for idx, pr := range prs {
 		str += fmt.Sprintf(` [green]["%d"]%4d[""][white] %s`, idx, *pr.Number, *pr.Title)
 		str += "\n"
+		widget.Items = append(widget.Items, *pr.Number)
 	}
 
 	return str

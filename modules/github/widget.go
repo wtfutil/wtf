@@ -19,6 +19,7 @@ type Widget struct {
 	settings *Settings
 	Selected int
 	maxItems int
+	Items	[]int
 }
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
@@ -132,7 +133,7 @@ func (widget *Widget) currentGithubRepo() *GithubRepo {
 func (widget *Widget) openPr() {
 	currentSelection := widget.View.GetHighlights()
 	if widget.Selected >= 0 && currentSelection[0] != "" {
-		url := (*widget.currentGithubRepo().RemoteRepo.HTMLURL + "/pull/" +  widget.View.GetRegionText(currentSelection[0]))
+		url := (*widget.currentGithubRepo().RemoteRepo.HTMLURL + "/pull/" + strconv.Itoa(widget.Items[widget.Selected]))
 		utils.OpenFile(url)
 	}
 }
