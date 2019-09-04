@@ -81,6 +81,7 @@ func (widget *Widget) Prev() {
 
 func (widget *Widget) Unselect() {
 	widget.Selected = -1
+	widget.View.Highlight()
 	widget.View.ScrollToBeginning()
 }
 
