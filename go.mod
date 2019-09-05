@@ -70,3 +70,5 @@ require (
 	k8s.io/client-go v12.0.0+incompatible
 	rsc.io/binaryregexp v0.2.0 // indirect
 )
+
+replace github.com/darkSasori/todoist => ./vendor/github.com/darkSasori/todoist
