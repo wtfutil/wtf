@@ -10,6 +10,7 @@
 * TravisCI sort orders now configurable,  by [@nyourchuck](https://github.com/nyourchuck)
 * Google Analytics module now supports real-time metrics, [#581](https://github.com/wtfutil/wtf/issues/581) by [@Ameobea](https://github.com/Ameobea)
 * Colors in configuration can now be defined using long-form hex, i.e.: #ff0000, by [@Seanstoppable](https://github.com/Seanstoppable)
+* GitHub module pull requests are now selectable and openable via keyboard, [#547](https://github.com/wtfutil/wtf/issues/547) by [@Midnight-Conqueror](https://github.com/Midnight-Conqueror)
 
 ### 🐞 Fixed
 
