@@ -19,6 +19,7 @@ type GithubRepo struct {
 	Owner        string
 	PullRequests []*ghb.PullRequest
 	RemoteRepo   *ghb.Repository
+	Err          error
 }
 
 func NewGithubRepo(name, owner, apiKey, baseURL, uploadURL string) *GithubRepo {
@@ -40,8 +41,15 @@ func (repo *GithubRepo) Open() {
 
 // Refresh reloads the github data via the Github API
 func (repo *GithubRepo) Refresh() {
-	repo.PullRequests, _ = repo.loadPullRequests()
-	repo.RemoteRepo, _ = repo.loadRemoteRepository()
+	prs, err := repo.loadPullRequests()
+	repo.Err = err
+	repo.PullRequests = prs
+	if err != nil {
+		return
+	}
+	remote, err := repo.loadRemoteRepository()
+	repo.Err = err
+	repo.RemoteRepo = remote
 }
 
 /* -------------------- Counts -------------------- */
