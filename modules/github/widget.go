@@ -2,8 +2,10 @@ package github
 
 import (
 	"strings"
+	"strconv"
 
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/view"
 )
 
@@ -15,6 +17,9 @@ type Widget struct {
 	GithubRepos []*GithubRepo
 
 	settings *Settings
+	Selected int
+	maxItems int
+	Items	[]int
 }
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
@@ -29,8 +34,11 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	widget.GithubRepos = widget.buildRepoCollection(widget.settings.repositories)
 
 	widget.initializeKeyboardControls()
+	widget.View.SetRegions(true)
 	widget.View.SetInputCapture(widget.InputCapture)
 	widget.SetDisplayFunction(widget.display)
+
+	widget.Unselect()
 
 	widget.Sources = widget.settings.repositories
 
@@ -40,6 +48,42 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 }
 
 /* -------------------- Exported Functions -------------------- */
+func (widget *Widget) SetItemCount(items int) {
+	widget.maxItems = items
+}
+
+func (widget *Widget) GetItemCount() int {
+	return widget.maxItems
+}
+
+func (widget *Widget) GetSelected() int {
+	if widget.Selected < 0 {
+		return 0
+	}
+	return widget.Selected
+}
+
+func (widget *Widget) Next() {
+	widget.Selected++
+	if widget.Selected >= widget.maxItems {
+		widget.Selected = 0
+	}
+	widget.View.Highlight(strconv.Itoa(widget.Selected)).ScrollToHighlight()
+}
+
+func (widget *Widget) Prev() {
+	widget.Selected--
+	if widget.Selected < 0 {
+		widget.Selected = widget.maxItems - 1
+	}
+	widget.View.Highlight(strconv.Itoa(widget.Selected)).ScrollToHighlight()
+}
+
+func (widget *Widget) Unselect() {
+	widget.Selected = -1
+	widget.View.Highlight()
+	widget.View.ScrollToBeginning()
+}
 
 func (widget *Widget) Refresh() {
 	for _, repo := range widget.GithubRepos {
@@ -85,6 +129,14 @@ func (widget *Widget) currentGithubRepo() *GithubRepo {
 	}
 
 	return widget.GithubRepos[widget.Idx]
+}
+
+func (widget *Widget) openPr() {
+	currentSelection := widget.View.GetHighlights()
+	if widget.Selected >= 0 && currentSelection[0] != "" {
+		url := (*widget.currentGithubRepo().RemoteRepo.HTMLURL + "/pull/" + strconv.Itoa(widget.Items[widget.Selected]))
+		utils.OpenFile(url)
+	}
 }
 
 func (widget *Widget) openRepo() {
