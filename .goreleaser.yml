@@ -2,8 +2,9 @@ env:
   - GO111MODULE=on
   - GOPROXY="https://gocenter.io"
 
-archive:
-  wrap_in_directory: true
+archives:
+  - id: default
+    wrap_in_directory: true
 
 builds:
   - binary: wtfutil
