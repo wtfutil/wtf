@@ -15,6 +15,8 @@ func (widget *Widget) content() (string, string, bool) {
 	title := fmt.Sprintf("%s - %s", widget.CommonSettings().Title, widget.title(repo))
 	if repo == nil {
 		return title, " GitHub repo data is unavailable ", false
+	} else if repo.Err != nil {
+		return title, repo.Err.Error(), true
 	}
 
 	_, _, width, _ := widget.View.GetRect()
