@@ -49,12 +49,12 @@ func Test_ColorFor(t *testing.T) {
 		{
 			name:     "with no label",
 			label:    "",
-			expected: tcell.ColorGreen,
+			expected: tcell.ColorDefault,
 		},
 		{
 			name:     "with missing label",
 			label:    "cat",
-			expected: tcell.ColorGreen,
+			expected: tcell.ColorDefault,
 		},
 		{
 			name:     "with defined label",
