@@ -6,13 +6,12 @@ import (
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/view"
-	"github.com/wtfutil/wtf/wtf"
 )
 
 type Widget struct {
-	wtf.KeyboardWidget
-	wtf.MultiSourceWidget
-	wtf.TextWidget
+	view.KeyboardWidget
+	view.MultiSourceWidget
+	view.TextWidget
 
 	Clients []*Client
 
@@ -21,9 +20,9 @@ type Widget struct {
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		KeyboardWidget:    wtf.NewKeyboardWidget(app, pages, settings.common),
-		MultiSourceWidget: wtf.NewMultiSourceWidget(settings.common, "applicationID", "applicationIDs"),
-		TextWidget:        wtf.NewTextWidget(app, settings.common, true),
+		KeyboardWidget:    view.NewKeyboardWidget(app, pages, settings.common),
+		MultiSourceWidget: view.NewMultiSourceWidget(settings.common, "applicationID", "applicationIDs"),
+		TextWidget:        view.NewTextWidget(app, settings.common, true),
 
 		settings: settings,
 	}
@@ -31,7 +30,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	widget.initializeKeyboardControls()
 	widget.View.SetInputCapture(widget.InputCapture)
 
-	for _, id := range wtf.ToInts(widget.settings.applicationIDs) {
+	for _, id := range utils.ToInts(widget.settings.applicationIDs) {
 		widget.Clients = append(widget.Clients, NewClient(widget.settings.apiKey, id))
 	}
 
@@ -39,7 +38,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 		return widget.Clients[i].applicationId < widget.Clients[j].applicationId
 	})
 
-	widget.SetDisplayFunction(widget.display)
+	widget.SetDisplayFunction(widget.Refresh)
 
 	widget.KeyboardWidget.SetView(widget.View)
 
@@ -53,61 +52,6 @@ func (widget *Widget) Refresh() {
 }
 
 /* -------------------- Unexported Functions -------------------- */
-
-func (widget *Widget) content() (string, string, bool) {
-	app, appErr := widget.client.Application()
-	deploys, depErr := widget.client.Deployments()
-
-	appName := "error"
-	if appErr == nil {
-		appName = app.Name
-	}
-
-	var content string
-	title := fmt.Sprintf("%s - [green]%s[white]", widget.CommonSettings().Title, appName)
-	wrap := false
-	if depErr != nil {
-		wrap = true
-		content = depErr.Error()
-	} else {
-		content += fmt.Sprintf(
-			" %s\n",
-			"[red]Latest Deploys[white]",
-		)
-
-		revisions := []string{}
-
-		for _, deploy := range deploys {
-			if (deploy.Revision != "") && utils.DoesNotInclude(revisions, deploy.Revision) {
-				lineColor := "white"
-				if wtf.IsToday(deploy.Timestamp) {
-					lineColor = "lightblue"
-				}
-
-				revLen := 8
-				if revLen > len(deploy.Revision) {
-					revLen = len(deploy.Revision)
-				}
-
-				content += fmt.Sprintf(
-					" [green]%s[%s] %s %-.16s[white]\n",
-					deploy.Revision[0:revLen],
-					lineColor,
-					deploy.Timestamp.Format("Jan 02 15:04 MST"),
-					utils.NameFromEmail(deploy.User),
-				)
-
-				revisions = append(revisions, deploy.Revision)
-
-				if len(revisions) == widget.settings.deployCount {
-					break
-				}
-			}
-		}
-	}
-
-	return title, content, wrap
-}
 
 func (widget *Widget) HelpText() string {
 	return widget.KeyboardWidget.HelpText()

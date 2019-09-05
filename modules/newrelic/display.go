@@ -3,15 +3,15 @@ package newrelic
 import (
 	"fmt"
 
+	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/wtf"
 	nr "github.com/yfronto/newrelic"
 )
 
-func (widget *Widget) display() {
+func (widget *Widget) content() (string, string, bool) {
 	client := widget.currentData()
 	if client == nil {
-		widget.Redraw(widget.CommonSettings.Title, " NewRelic data unavailable ", false)
-		return
+		return widget.CommonSettings().Title, " NewRelic data unavailable ", false
 	}
 	app, appErr := client.Application()
 	deploys, depErr := client.Deployments()
@@ -22,7 +22,7 @@ func (widget *Widget) display() {
 	}
 
 	var content string
-	title := fmt.Sprintf("%s - [green]%s[white]", widget.CommonSettings.Title, appName)
+	title := fmt.Sprintf("%s - [green]%s[white]", widget.CommonSettings().Title, appName)
 	wrap := false
 	if depErr != nil {
 		wrap = true
@@ -31,7 +31,7 @@ func (widget *Widget) display() {
 		content = widget.contentFrom(deploys)
 	}
 
-	widget.Redraw(title, content, wrap)
+	return title, content, wrap
 }
 
 func (widget *Widget) contentFrom(deploys []nr.ApplicationDeployment) string {
@@ -43,7 +43,7 @@ func (widget *Widget) contentFrom(deploys []nr.ApplicationDeployment) string {
 	revisions := []string{}
 
 	for _, deploy := range deploys {
-		if (deploy.Revision != "") && wtf.Exclude(revisions, deploy.Revision) {
+		if (deploy.Revision != "") && utils.DoesNotInclude(revisions, deploy.Revision) {
 			lineColor := "white"
 			if wtf.IsToday(deploy.Timestamp) {
 				lineColor = "lightblue"
@@ -59,7 +59,7 @@ func (widget *Widget) contentFrom(deploys []nr.ApplicationDeployment) string {
 				deploy.Revision[0:revLen],
 				lineColor,
 				deploy.Timestamp.Format("Jan 02 15:04 MST"),
-				wtf.NameFromEmail(deploy.User),
+				utils.NameFromEmail(deploy.User),
 			)
 
 			revisions = append(revisions, deploy.Revision)
