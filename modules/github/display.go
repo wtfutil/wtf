@@ -61,7 +61,7 @@ func (widget *Widget) displayMyPullRequests(repo *GithubRepo, username string) s
 
 	str := ""
 	for idx, pr := range prs {
-		str += fmt.Sprintf(` %s[green]["%d"]%4d[""][white] %s`, widget.mergeString(pr), maxItems + idx, *pr.Number, *pr.Title)
+		str += fmt.Sprintf(` %s[green]["%d"]%4d[""][white] %s`, widget.mergeString(pr), maxItems+idx, *pr.Number, *pr.Title)
 		str += "\n"
 		widget.Items = append(widget.Items, *pr.Number)
 	}
@@ -73,22 +73,22 @@ func (widget *Widget) displayMyPullRequests(repo *GithubRepo, username string) s
 
 func (widget *Widget) displayCustomQuery(repo *GithubRepo, filter string, perPage int) string {
 	res := repo.customIssueQuery(filter, perPage)
-	
+
 	if res == nil {
 		return " [grey]Invalid Query[white]\n"
 	}
 
 	issuesLength := len(res.Issues)
-	
+
 	if issuesLength == 0 {
 		return " [grey]none[white]\n"
 	}
-	
+
 	maxItems := widget.GetItemCount()
 
 	str := ""
 	for idx, issue := range res.Issues {
-		str += fmt.Sprintf(` [green]["%d"]%4d[""][white] %s`, maxItems + idx , *issue.Number, *issue.Title)
+		str += fmt.Sprintf(` [green]["%d"]%4d[""][white] %s`, maxItems+idx, *issue.Number, *issue.Title)
 		str += "\n"
 		widget.Items = append(widget.Items, *issue.Number)
 	}
@@ -131,10 +131,10 @@ func (widget *Widget) title(repo *GithubRepo) string {
 }
 
 var mergeIcons = map[string]string{
-	"dirty":    "[red]![white] ",
-	"clean":    "[green]✔[white] ",
-	"unstable": "[red]✖[white] ",
-	"blocked":  "[red]✖[white] ",
+	"dirty":    "[red]\u0021[white] ",
+	"clean":    "[green]\u2713[white] ",
+	"unstable": "[red]\u274C[white] ",
+	"blocked":  "[red]\u274C[white] ",
 }
 
 func (widget *Widget) mergeString(pr *github.PullRequest) string {

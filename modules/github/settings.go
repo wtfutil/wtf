@@ -11,6 +11,7 @@ import (
 
 const defaultTitle = "GitHub"
 
+// Settings defines the configuration properties for this module
 type Settings struct {
 	common *cfg.Common
 
@@ -29,6 +30,7 @@ type customQuery struct {
 	perPage int    `help:"Number of issues to show"`
 }
 
+// NewSettingsFromYAML creates a new settings instance from a YAML config block
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
