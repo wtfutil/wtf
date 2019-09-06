@@ -171,7 +171,7 @@ func (widget *Widget) timeUntil(calEvent *CalEvent) string {
 func (widget *Widget) titleColor(calEvent *CalEvent) string {
 	color := widget.settings.colors.title
 
-	for _, untypedArr := range widget.settings.highlights {
+	for _, untypedArr := range widget.settings.colors.highlights {
 		highlightElements := utils.ToStrs(untypedArr.([]interface{}))
 
 		match, _ := regexp.MatchString(
