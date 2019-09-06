@@ -3,7 +3,6 @@ package git
 import (
 	"io/ioutil"
 	"log"
-	"sort"
 	"strings"
 
 	"github.com/gdamore/tcell"
@@ -79,9 +78,6 @@ func (widget *Widget) Refresh() {
 	repoPaths := utils.ToStrs(widget.settings.repositories)
 
 	widget.GitRepos = widget.gitRepos(repoPaths)
-	sort.Slice(widget.GitRepos, func(i, j int) bool {
-		return widget.GitRepos[i].Path < widget.GitRepos[j].Path
-	})
 
 	widget.display()
 }
