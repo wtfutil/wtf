@@ -20,6 +20,7 @@
 * Todoist module updated to latest API version, by [@Seanstoppable](https://github.com/Seanstoppable)
 * gCal colour highlighting working again, [#611](https://github.com/wtfutil/wtf/issues/611) by [@senorprogrammer](https://github.com/senorprogrammer)
 * Per-module background and text colour settings working again, [#568](https://github.com/wtfutil/wtf/issues/568) by [@Seanstoppable](https://github.com/Seanstoppable)
+* Git module no longer forces sorting of repositories, [#608](https://github.com/wtfutil/wtf/pull/608) by [@Seanstoppable](https://github.com/Seanstoppable)
 
 ## v0.21.0
 
