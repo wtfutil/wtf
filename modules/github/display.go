@@ -133,8 +133,8 @@ func (widget *Widget) title(repo *GithubRepo) string {
 var mergeIcons = map[string]string{
 	"dirty":    "[red]\u0021[white] ",
 	"clean":    "[green]\u2713[white] ",
-	"unstable": "[red]\u274C[white] ",
-	"blocked":  "[red]\u274C[white] ",
+	"unstable": "[red]\u2717[white] ",
+	"blocked":  "[red]\u2717[white] ",
 }
 
 func (widget *Widget) mergeString(pr *github.PullRequest) string {
