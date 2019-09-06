@@ -1,14 +1,15 @@
 package github
 
 import (
-	"strings"
 	"strconv"
+	"strings"
 
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/view"
 )
 
+// Widget define wtf widget to register widget later
 type Widget struct {
 	view.MultiSourceWidget
 	view.KeyboardWidget
@@ -19,9 +20,10 @@ type Widget struct {
 	settings *Settings
 	Selected int
 	maxItems int
-	Items	[]int
+	Items    []int
 }
 
+// NewWidget creates a new instance of the widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
 		KeyboardWidget:    view.NewKeyboardWidget(app, pages, settings.common),
@@ -48,14 +50,18 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 }
 
 /* -------------------- Exported Functions -------------------- */
+
+// SetItemCount sets the amount of PRs RRs and other PRs throughout the widgets display creation
 func (widget *Widget) SetItemCount(items int) {
 	widget.maxItems = items
 }
 
+// GetItemCount returns the amount of PRs RRs and other PRs calculated so far as an int
 func (widget *Widget) GetItemCount() int {
 	return widget.maxItems
 }
 
+// GetSelected returns the index of the currently highlighted item as an int
 func (widget *Widget) GetSelected() int {
 	if widget.Selected < 0 {
 		return 0
@@ -63,6 +69,7 @@ func (widget *Widget) GetSelected() int {
 	return widget.Selected
 }
 
+// Next cycles the currently highlighted text down
 func (widget *Widget) Next() {
 	widget.Selected++
 	if widget.Selected >= widget.maxItems {
@@ -71,6 +78,7 @@ func (widget *Widget) Next() {
 	widget.View.Highlight(strconv.Itoa(widget.Selected)).ScrollToHighlight()
 }
 
+// Prev cycles the currently highlighted text up
 func (widget *Widget) Prev() {
 	widget.Selected--
 	if widget.Selected < 0 {
@@ -79,12 +87,14 @@ func (widget *Widget) Prev() {
 	widget.View.Highlight(strconv.Itoa(widget.Selected)).ScrollToHighlight()
 }
 
+// Unselect stops highlighting the text and jumps the scroll position to the top
 func (widget *Widget) Unselect() {
 	widget.Selected = -1
 	widget.View.Highlight()
 	widget.View.ScrollToBeginning()
 }
 
+// Refresh reloads the github data via the Github API and reruns the display
 func (widget *Widget) Refresh() {
 	for _, repo := range widget.GithubRepos {
 		repo.Refresh()
@@ -93,6 +103,7 @@ func (widget *Widget) Refresh() {
 	widget.display()
 }
 
+// HelpText displays the widgets controls
 func (widget *Widget) HelpText() string {
 	return widget.KeyboardWidget.HelpText()
 }

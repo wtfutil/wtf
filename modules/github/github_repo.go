@@ -10,6 +10,7 @@ import (
 	"golang.org/x/oauth2"
 )
 
+// GithubRepo defines a new GithubRepo structure
 type GithubRepo struct {
 	apiKey    string
 	baseURL   string
@@ -22,6 +23,7 @@ type GithubRepo struct {
 	Err          error
 }
 
+// NewGithubRepo returns a new Github Repo with a name, owner, apiKey, baseURL and uploadURL
 func NewGithubRepo(name, owner, apiKey, baseURL, uploadURL string) *GithubRepo {
 	repo := GithubRepo{
 		Name:  name,
@@ -35,6 +37,7 @@ func NewGithubRepo(name, owner, apiKey, baseURL, uploadURL string) *GithubRepo {
 	return &repo
 }
 
+// Open will open the GitHub Repo URL using the utils helper
 func (repo *GithubRepo) Open() {
 	utils.OpenFile(*repo.RemoteRepo.HTMLURL)
 }
@@ -54,6 +57,7 @@ func (repo *GithubRepo) Refresh() {
 
 /* -------------------- Counts -------------------- */
 
+// IssueCount return the total amount of issues as an int
 func (repo *GithubRepo) IssueCount() int {
 	if repo.RemoteRepo == nil {
 		return 0
@@ -62,10 +66,12 @@ func (repo *GithubRepo) IssueCount() int {
 	return *repo.RemoteRepo.OpenIssuesCount
 }
 
+// PullRequestCount returns the total amount of pull requests as an int
 func (repo *GithubRepo) PullRequestCount() int {
 	return len(repo.PullRequests)
 }
 
+// StarCount returns the total amount of stars this repo has gained as an int
 func (repo *GithubRepo) StarCount() int {
 	if repo.RemoteRepo == nil {
 		return 0
