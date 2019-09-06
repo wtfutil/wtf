@@ -4,6 +4,8 @@ import (
 	"sync"
 
 	"k8s.io/client-go/kubernetes"
+	// Includes authentication modules for various Kubernetes providers
+	_ "k8s.io/client-go/plugin/pkg/client/auth"
 	"k8s.io/client-go/tools/clientcmd"
 )
 
@@ -30,11 +32,11 @@ func (widget *Widget) getInstance() *clientInstance {
 func (widget *Widget) getKubeClient() kubernetes.Interface {
 	config, err := clientcmd.BuildConfigFromFlags("", widget.kubeconfig)
 	if err != nil {
-		panic(err.Error)
+		panic(err)
 	}
 	clientset, err := kubernetes.NewForConfig(config)
 	if err != nil {
-		panic(err.Error)
+		panic(err)
 	}
 	return clientset
 }

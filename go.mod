@@ -20,7 +20,6 @@ require (
 	github.com/go-ole/go-ole v1.2.4 // indirect
 	github.com/godbus/dbus v5.0.1+incompatible // indirect
 	github.com/golang/glog v0.0.0-20170312005925-543a34c32e4d // indirect
-	github.com/google/btree v1.0.0 // indirect
 	github.com/google/go-cmp v0.3.1 // indirect
 	github.com/google/go-github/v26 v26.0.9
 	github.com/google/pprof v0.0.0-20190723021845-34ac40c74b70 // indirect
@@ -68,7 +67,6 @@ require (
 	honnef.co/go/tools v0.0.1-2019.2.3 // indirect
 	k8s.io/apimachinery v0.0.0-20190802060556-6fa4771c83b3
 	k8s.io/client-go v12.0.0+incompatible
-	rsc.io/binaryregexp v0.2.0 // indirect
 )
 
 replace github.com/darkSasori/todoist => ./vendor/github.com/darkSasori/todoist
