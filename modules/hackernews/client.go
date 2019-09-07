@@ -1,14 +1,12 @@
 package hackernews
 
 import (
-	"bytes"
-	"encoding/json"
 	"fmt"
-	"io"
-	"io/ioutil"
 	"net/http"
 	"strconv"
 	"strings"
+
+	"github.com/wtfutil/wtf/utils"
 )
 
 func GetStories(storyType string) ([]int, error) {
@@ -21,7 +19,10 @@ func GetStories(storyType string) ([]int, error) {
 			return storyIds, err
 		}
 
-		parseJson(&storyIds, resp.Body)
+		err = utils.ParseJson(&storyIds, resp.Body)
+		if err != nil {
+			return storyIds, err
+		}
 	}
 
 	return storyIds, nil
@@ -35,7 +36,10 @@ func GetStory(id int) (Story, error) {
 		return story, err
 	}
 
-	parseJson(&story, resp.Body)
+	err = utils.ParseJson(&story, resp.Body)
+	if err != nil {
+		return story, err
+	}
 
 	return story, nil
 }
@@ -60,21 +64,4 @@ func apiRequest(path string) (*http.Response, error) {
 	}
 
 	return resp, nil
-}
-
-func parseJson(obj interface{}, text io.Reader) {
-	jsonStream, err := ioutil.ReadAll(text)
-	if err != nil {
-		panic(err)
-	}
-
-	decoder := json.NewDecoder(bytes.NewReader(jsonStream))
-
-	for {
-		if err := decoder.Decode(obj); err == io.EOF {
-			break
-		} else if err != nil {
-			panic(err)
-		}
-	}
 }

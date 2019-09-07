@@ -1,27 +1,26 @@
 package jenkins
 
 import (
-	"bytes"
 	"crypto/tls"
-	"encoding/json"
-	"io"
-	"io/ioutil"
 	"net/http"
 	"net/url"
 	"regexp"
 	"strings"
+
+	"github.com/wtfutil/wtf/utils"
 )
 
 func (widget *Widget) Create(jenkinsURL string, username string, apiKey string) (*View, error) {
 	const apiSuffix = "api/json?pretty=true"
+	view := &View{}
 	parsedSuffix, err := url.Parse(apiSuffix)
 	if err != nil {
-		return &View{}, err
+		return view, err
 	}
 
 	parsedJenkinsURL, err := url.Parse(ensureLastSlash(jenkinsURL))
 	if err != nil {
-		return &View{}, err
+		return view, err
 	}
 	jenkinsAPIURL := parsedJenkinsURL.ResolveReference(parsedSuffix)
 
@@ -38,11 +37,13 @@ func (widget *Widget) Create(jenkinsURL string, username string, apiKey string) 
 	resp, err := httpClient.Do(req)
 
 	if err != nil {
-		return &View{}, err
+		return view, err
 	}
 
-	view := &View{}
-	parseJson(view, resp.Body)
+	err = utils.ParseJson(view, resp.Body)
+	if err != nil {
+		return view, err
+	}
 
 	jobs := []Job{}
 
@@ -60,23 +61,4 @@ func (widget *Widget) Create(jenkinsURL string, username string, apiKey string) 
 
 func ensureLastSlash(url string) string {
 	return strings.TrimRight(url, "/") + "/"
-}
-
-/* -------------------- Unexported Functions -------------------- */
-
-func parseJson(obj interface{}, text io.Reader) {
-	jsonStream, err := ioutil.ReadAll(text)
-	if err != nil {
-		panic(err)
-	}
-
-	decoder := json.NewDecoder(bytes.NewReader(jsonStream))
-
-	for {
-		if err := decoder.Decode(obj); err == io.EOF {
-			break
-		} else if err != nil {
-			panic(err)
-		}
-	}
 }

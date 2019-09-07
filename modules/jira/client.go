@@ -1,15 +1,13 @@
 package jira
 
 import (
-	"bytes"
 	"crypto/tls"
-	"encoding/json"
 	"fmt"
-	"io"
-	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strings"
+
+	"github.com/wtfutil/wtf/utils"
 )
 
 func (widget *Widget) IssuesFor(username string, projects []string, jql string) (*SearchResult, error) {
@@ -40,7 +38,10 @@ func (widget *Widget) IssuesFor(username string, projects []string, jql string) 
 	}
 
 	searchResult := &SearchResult{}
-	parseJson(searchResult, resp.Body)
+	err = utils.ParseJson(searchResult, resp.Body)
+	if err != nil {
+		return nil, err
+	}
 
 	return searchResult, nil
 }
@@ -77,23 +78,6 @@ func (widget *Widget) jiraRequest(path string) (*http.Response, error) {
 	}
 
 	return resp, nil
-}
-
-func parseJson(obj interface{}, text io.Reader) {
-	jsonStream, err := ioutil.ReadAll(text)
-	if err != nil {
-		panic(err)
-	}
-
-	decoder := json.NewDecoder(bytes.NewReader(jsonStream))
-
-	for {
-		if err := decoder.Decode(obj); err == io.EOF {
-			break
-		} else if err != nil {
-			panic(err)
-		}
-	}
 }
 
 func getProjectQuery(projects []string) string {

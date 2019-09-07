@@ -1,13 +1,11 @@
 package rollbar
 
 import (
-	"bytes"
-	"encoding/json"
 	"fmt"
-	"io"
-	"io/ioutil"
 	"net/http"
 	"net/url"
+
+	"github.com/wtfutil/wtf/utils"
 )
 
 func CurrentActiveItems(accessToken, assignedToName string, activeOnly bool) (*ActiveItems, error) {
@@ -20,7 +18,7 @@ func CurrentActiveItems(accessToken, assignedToName string, activeOnly bool) (*A
 		return items, err
 	}
 
-	parseJSON(&items, resp.Body)
+	err = utils.ParseJson(&items, resp.Body)
 
 	return items, nil
 }
@@ -55,21 +53,4 @@ func rollbarItemRequest(accessToken, assignedToName string, activeOnly bool) (*h
 	}
 
 	return resp, nil
-}
-
-func parseJSON(obj interface{}, text io.Reader) {
-	jsonStream, err := ioutil.ReadAll(text)
-	if err != nil {
-		panic(err)
-	}
-
-	decoder := json.NewDecoder(bytes.NewReader(jsonStream))
-
-	for {
-		if err := decoder.Decode(obj); err == io.EOF {
-			break
-		} else if err != nil {
-			panic(err)
-		}
-	}
 }

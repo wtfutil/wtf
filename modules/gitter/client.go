@@ -1,13 +1,11 @@
 package gitter
 
 import (
-	"bytes"
-	"encoding/json"
 	"fmt"
-	"io"
-	"io/ioutil"
 	"net/http"
 	"strconv"
+
+	"github.com/wtfutil/wtf/utils"
 )
 
 func GetMessages(roomId string, numberOfMessages int, apiToken string) ([]Message, error) {
@@ -18,7 +16,10 @@ func GetMessages(roomId string, numberOfMessages int, apiToken string) ([]Messag
 		return nil, err
 	}
 
-	parseJson(&messages, resp.Body)
+	err = utils.ParseJson(&messages, resp.Body)
+	if err != nil {
+		return nil, err
+	}
 
 	return messages, nil
 }
@@ -31,7 +32,10 @@ func GetRoom(roomUri, apiToken string) (*Room, error) {
 		return nil, err
 	}
 
-	parseJson(&rooms, resp.Body)
+	err = utils.ParseJson(&rooms, resp.Body)
+	if err != nil {
+		return nil, err
+	}
 
 	for _, room := range rooms.Results {
 		if room.URI == roomUri {
@@ -64,21 +68,4 @@ func apiRequest(path, apiToken string) (*http.Response, error) {
 	}
 
 	return resp, nil
-}
-
-func parseJson(obj interface{}, text io.Reader) {
-	jsonStream, err := ioutil.ReadAll(text)
-	if err != nil {
-		panic(err)
-	}
-
-	decoder := json.NewDecoder(bytes.NewReader(jsonStream))
-
-	for {
-		if err := decoder.Decode(obj); err == io.EOF {
-			break
-		} else if err != nil {
-			panic(err)
-		}
-	}
 }

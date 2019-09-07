@@ -1,7 +1,10 @@
 package utils
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"os/exec"
 	"regexp"
@@ -120,4 +123,23 @@ func ReadFileBytes(filePath string) ([]byte, error) {
 	}
 
 	return fileData, nil
+}
+
+// ParseJson is a standard JSON reader from text
+func ParseJson(obj interface{}, text io.Reader) error {
+	jsonStream, err := ioutil.ReadAll(text)
+	if err != nil {
+		return err
+	}
+
+	decoder := json.NewDecoder(bytes.NewReader(jsonStream))
+
+	for {
+		if err := decoder.Decode(obj); err == io.EOF {
+			break
+		} else if err != nil {
+			return err
+		}
+	}
+	return nil
 }
