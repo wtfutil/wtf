@@ -63,13 +63,13 @@ func NewCommonSettingsFromModule(name, defaultTitle string, moduleConfig *config
 	common := Common{
 		Colors: Colors{
 			Background:      moduleConfig.UString("colors.background", colorsConfig.UString("background", "transparent")),
-			BorderFocusable: colorsConfig.UString("border.focusable", "red"),
-			BorderFocused:   colorsConfig.UString("border.focused", "orange"),
-			BorderNormal:    colorsConfig.UString("border.normal", "gray"),
-			Checked:         colorsConfig.UString("checked", "white"),
+			BorderFocusable: moduleConfig.UString("colors.border.focusable", colorsConfig.UString("border.focusable", "red")),
+			BorderFocused:   moduleConfig.UString("colors.border.focused", colorsConfig.UString("border.focused", "orange")),
+			BorderNormal:    moduleConfig.UString("colors.border.normal", colorsConfig.UString("border.normal", "gray")),
+			Checked:         moduleConfig.UString("colors.checked", colorsConfig.UString("checked", "white")),
 			Foreground:      moduleConfig.UString("colors.foreground", colorsConfig.UString("foreground", "white")),
-			HighlightFore:   colorsConfig.UString("highlight.fore", "black"),
-			HighlightBack:   colorsConfig.UString("highlight.back", "green"),
+			HighlightFore:   moduleConfig.UString("colors.highlight.fore", colorsConfig.UString("highlight.fore", "black")),
+			HighlightBack:   moduleConfig.UString("colors.highlight.back", colorsConfig.UString("highlight.back", "green")),
 			Text:            moduleConfig.UString("colors.text", colorsConfig.UString("text", "white")),
 			Title:           moduleConfig.UString("colors.title", colorsConfig.UString("title", "white")),
 		},
@@ -90,8 +90,8 @@ func NewCommonSettingsFromModule(name, defaultTitle string, moduleConfig *config
 		focusChar: moduleConfig.UInt("focusChar", -1),
 	}
 
-	common.Colors.Rows.Even = moduleConfig.UString("colors.rows.even", moduleConfig.UString("rows.even", "white"))
-	common.Colors.Rows.Odd = moduleConfig.UString("colors.rows.even", moduleConfig.UString("rows.odd", "lightblue"))
+	common.Colors.Rows.Even = moduleConfig.UString("colors.rows.even", colorsConfig.UString("rows.even", "white"))
+	common.Colors.Rows.Odd = moduleConfig.UString("colors.rows.even", colorsConfig.UString("rows.odd", "lightblue"))
 
 	common.Sigils.Checkbox.Checked = globalSettings.UString(sigilsPath+".checkbox.checked", "x")
 	common.Sigils.Checkbox.Unchecked = globalSettings.UString(sigilsPath+".checkbox.unchecked", " ")
