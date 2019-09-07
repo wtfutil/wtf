@@ -1,12 +1,10 @@
 package github
 
 import (
-	"fmt"
 	"os"
 
 	"github.com/olebedev/config"
 	"github.com/wtfutil/wtf/cfg"
-	"github.com/wtfutil/wtf/utils"
 )
 
 const defaultTitle = "GitHub"
@@ -42,26 +40,13 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		uploadURL:    ymlConfig.UString("uploadURL", os.Getenv("WTF_GITHUB_UPLOAD_URL")),
 		username:     ymlConfig.UString("username"),
 	}
-	settings.repositories = parseRepositories(ymlConfig)
+	settings.repositories = cfg.ParseAsMapOrList(ymlConfig, "repositories")
 	settings.customQueries = parseCustomQueries(ymlConfig)
 
 	return &settings
 }
 
-func parseRepositories(ymlConfig *config.Config) []string {
-
-	result := []string{}
-	repositories, err := ymlConfig.Map("repositories")
-	if err == nil {
-		for key, value := range repositories {
-			result = append(result, fmt.Sprintf("%s/%s", value, key))
-		}
-		return result
-	}
-
-	result = utils.ToStrs(ymlConfig.UList("repositories"))
-	return result
-}
+/* -------------------- Unexported Functions -------------------- */
 
 func parseCustomQueries(ymlConfig *config.Config) []customQuery {
 	result := []customQuery{}
