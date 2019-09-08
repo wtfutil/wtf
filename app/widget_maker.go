@@ -12,6 +12,7 @@ import (
 	"github.com/wtfutil/wtf/modules/cryptoexchanges/blockfolio"
 	"github.com/wtfutil/wtf/modules/cryptoexchanges/cryptolive"
 	"github.com/wtfutil/wtf/modules/datadog"
+	"github.com/wtfutil/wtf/modules/digitalclock"
 	"github.com/wtfutil/wtf/modules/feedreader"
 	"github.com/wtfutil/wtf/modules/gcal"
 	"github.com/wtfutil/wtf/modules/gerrit"
@@ -95,6 +96,9 @@ func MakeWidget(
 	case "clocks":
 		settings := clocks.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = clocks.NewWidget(app, settings)
+	case "digitalclock":
+		settings := digitalclock.NewSettingsFromYAML(moduleName, moduleConfig, config)
+		widget = digitalclock.NewWidget(app, settings)
 	case "cmdrunner":
 		settings := cmdrunner.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = cmdrunner.NewWidget(app, settings)
