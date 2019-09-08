@@ -167,7 +167,7 @@ func MakeWidget(
 		widget = nbascore.NewWidget(app, pages, settings)
 	case "newrelic":
 		settings := newrelic.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = newrelic.NewWidget(app, settings)
+		widget = newrelic.NewWidget(app, pages, settings)
 	case "opsgenie":
 		settings := opsgenie.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = opsgenie.NewWidget(app, settings)
