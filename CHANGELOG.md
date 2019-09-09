@@ -4,14 +4,14 @@
 
 ### ⚡️ Added
 
-* Arpansagovau (arpansa.gov.au) module added, by [@jeffz](https://github.com/jeffz)
+* [Arpansagovau](https://wtfutil.com/modules/weather_services/arpansagovau/) (arpansa.gov.au) module added, by [@jeffz](https://github.com/jeffz)
 * 'calendarReadLevel' setting added to gCal module, by [@mikkeljuhl](https://github.com/mikkeljuhl)
 * Todoist module now catches and displays API errors, by [@Seanstoppable](https://github.com/Seanstoppable)
 * TravisCI sort orders now configurable,  by [@nyourchuck](https://github.com/nyourchuck)
 * Google Analytics module now supports real-time metrics, [#581](https://github.com/wtfutil/wtf/issues/581) by [@Ameobea](https://github.com/Ameobea)
 * Colors in configuration can now be defined using long-form hex, i.e.: #ff0000, by [@Seanstoppable](https://github.com/Seanstoppable)
 * GitHub module pull requests are now selectable and openable via keyboard, [#547](https://github.com/wtfutil/wtf/issues/547) by [@Midnight-Conqueror](https://github.com/Midnight-Conqueror)
-* Docker module added, [#594](https://github.com/wtfutil/wtf/issues/594) by [@v-braun](https://github.com/v-braun)
+* [Docker](https://wtfutil.com/modules/docker/) module added, [#594](https://github.com/wtfutil/wtf/issues/594) by [@v-braun](https://github.com/v-braun)
 * NewRelic module now supports displaying data from multiple apps, [#471](https://github.com/wtfutil/wtf/issues/471) by [@ChrisDBrown](https://github.com/ChrisDBrown) and [@Seanstoppable](https://github.com/Seanstoppable)
 
 ### 🐞 Fixed
