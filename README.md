@@ -84,6 +84,9 @@ If you want to run the build command from within your `$GOPATH`:
 # Set the Go proxy variable to GoCenter
 export GOPROXY="https://gocenter.io"
 
+# Disable the Go checksum database
+export GOSUMDB=off
+
 # Enable Go modules
 export GO111MODULE=on
 
