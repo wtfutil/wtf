@@ -73,5 +73,5 @@ func (widget *Widget) displayStats(project *GitlabProject) string {
 }
 
 func (widget *Widget) title(project *GitlabProject) string {
-	return fmt.Sprintf("[green]%s [white]", project.Path)
+	return fmt.Sprintf("[green]%s [white]", project.path)
 }

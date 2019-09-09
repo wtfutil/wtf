@@ -61,11 +61,11 @@ func (widget *Widget) HelpText() string {
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (widget *Widget) buildProjectCollection(projectData map[string]interface{}) []*GitlabProject {
+func (widget *Widget) buildProjectCollection(projectData []string) []*GitlabProject {
 	gitlabProjects := []*GitlabProject{}
 
-	for name, namespace := range projectData {
-		project := NewGitlabProject(name, namespace.(string), widget.gitlab)
+	for _, projectPath := range projectData {
+		project := NewGitlabProject(projectPath, widget.gitlab)
 		gitlabProjects = append(gitlabProjects, project)
 	}
 
