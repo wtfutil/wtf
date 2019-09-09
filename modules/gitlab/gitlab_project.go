@@ -5,18 +5,17 @@ import (
 )
 
 type GitlabProject struct {
-	gitlab *glb.Client
-	Path   string
+	client *glb.Client
+	path   string
 
 	MergeRequests []*glb.MergeRequest
 	RemoteProject *glb.Project
 }
 
-func NewGitlabProject(name string, namespace string, gitlab *glb.Client) *GitlabProject {
-	path := namespace + "/" + name
+func NewGitlabProject(projectPath string, client *glb.Client) *GitlabProject {
 	project := GitlabProject{
-		gitlab: gitlab,
-		Path:   path,
+		client: client,
+		path:   projectPath,
 	}
 
 	return &project
@@ -73,7 +72,7 @@ func (project *GitlabProject) myApprovalRequests(username string) []*glb.MergeRe
 	mrs := []*glb.MergeRequest{}
 
 	for _, mr := range project.MergeRequests {
-		approvers, _, err := project.gitlab.MergeRequests.GetMergeRequestApprovals(project.Path, mr.IID)
+		approvers, _, err := project.client.MergeRequests.GetMergeRequestApprovals(project.path, mr.IID)
 		if err != nil {
 			continue
 		}
@@ -93,7 +92,7 @@ func (project *GitlabProject) loadMergeRequests() ([]*glb.MergeRequest, error) {
 		State: &state,
 	}
 
-	mrs, _, err := project.gitlab.MergeRequests.ListProjectMergeRequests(project.Path, &opts)
+	mrs, _, err := project.client.MergeRequests.ListProjectMergeRequests(project.path, &opts)
 
 	if err != nil {
 		return nil, err
@@ -103,7 +102,7 @@ func (project *GitlabProject) loadMergeRequests() ([]*glb.MergeRequest, error) {
 }
 
 func (project *GitlabProject) loadRemoteProject() (*glb.Project, error) {
-	projectsitory, _, err := project.gitlab.Projects.GetProject(project.Path, nil)
+	projectsitory, _, err := project.client.Projects.GetProject(project.path, nil)
 
 	if err != nil {
 		return nil, err
