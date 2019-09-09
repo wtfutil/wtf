@@ -5,15 +5,15 @@ import (
 	"github.com/wtfutil/wtf/view"
 )
 
+// Widget a text widget struct to hold info about the current widget
 type Widget struct {
 	view.TextWidget
 
-	app        *tview.Application
-	dateFormat string
-	timeFormat string
-	settings   *Settings
+	app      *tview.Application
+	settings *Settings
 }
 
+// NewWidget creates a new widget using settings
 func NewWidget(app *tview.Application, settings *Settings) *Widget {
 
 	widget := Widget{
@@ -31,7 +31,7 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 // Refresh updates the onscreen contents of the widget
 func (widget *Widget) Refresh() {
 	widget.app.QueueUpdateDraw(func() {
-		widget.display(widget.dateFormat, widget.timeFormat)
+		widget.display()
 	})
 }
 

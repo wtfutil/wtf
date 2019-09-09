@@ -20,7 +20,7 @@ func renderWidget(widgetSettings Settings) string {
 	return mergeLines(outputStrings)
 }
 
-func (widget *Widget) display(dateFormat string, timeFormat string) {
+func (widget *Widget) display() {
 	widget.Redraw(func() (string, string, bool) {
 		return widget.CommonSettings().Title, renderWidget(*widget.settings), false
 	})
