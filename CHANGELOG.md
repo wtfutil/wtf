@@ -13,6 +13,7 @@
 * GitHub module pull requests are now selectable and openable via keyboard, [#547](https://github.com/wtfutil/wtf/issues/547) by [@Midnight-Conqueror](https://github.com/Midnight-Conqueror)
 * [Docker](https://wtfutil.com/modules/docker/) module added, [#594](https://github.com/wtfutil/wtf/issues/594) by [@v-braun](https://github.com/v-braun)
 * NewRelic module now supports displaying data from multiple apps, [#471](https://github.com/wtfutil/wtf/issues/471) by [@ChrisDBrown](https://github.com/ChrisDBrown) and [@Seanstoppable](https://github.com/Seanstoppable)
+* [Digital Clock](https://wtfutil.com/modules/digitalclock/) module added, by [@Narengowda](https://github.com/Narengowda)
 
 ### 🐞 Fixed
 
