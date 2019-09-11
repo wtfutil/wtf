@@ -2,6 +2,7 @@ package view
 
 import (
 	"fmt"
+	"sync"
 
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/cfg"
@@ -19,6 +20,7 @@ type Base struct {
 	quitChan        chan bool
 	refreshing      bool
 	refreshInterval int
+	enabledMutex    *sync.Mutex
 }
 
 func NewBase(app *tview.Application, commonSettings *cfg.Common, focusable bool) Base {
@@ -33,6 +35,7 @@ func NewBase(app *tview.Application, commonSettings *cfg.Common, focusable bool)
 		quitChan:        make(chan bool),
 		refreshInterval: commonSettings.RefreshInterval,
 		refreshing:      false,
+		enabledMutex:    &sync.Mutex{},
 	}
 	return base
 }
@@ -73,19 +76,30 @@ func (base *Base) ContextualTitle(defaultStr string) string {
 }
 
 func (base *Base) Disable() {
+	base.enabledMutex.Lock()
 	base.enabled = false
+	base.enabledMutex.Unlock()
 }
 
 func (base *Base) Disabled() bool {
-	return !base.enabled
+	base.enabledMutex.Lock()
+	result := !base.enabled
+	base.enabledMutex.Unlock()
+	return result
 }
 
 func (base *Base) Enabled() bool {
-	return base.enabled
+	base.enabledMutex.Lock()
+	result := base.enabled
+	base.enabledMutex.Unlock()
+	return result
 }
 
 func (base *Base) Focusable() bool {
-	return base.enabled && base.focusable
+	base.enabledMutex.Lock()
+	result := base.enabled && base.focusable
+	base.enabledMutex.Unlock()
+	return result
 }
 
 func (base *Base) FocusChar() string {
@@ -119,7 +133,9 @@ func (base *Base) SetFocusChar(char string) {
 }
 
 func (base *Base) Stop() {
+	base.enabledMutex.Lock()
 	base.enabled = false
+	base.enabledMutex.Unlock()
 	base.quitChan <- true
 }
 
