@@ -141,10 +141,14 @@ func (wtfApp *WtfApp) watchForConfigChanges() {
 				wtfApp.Stop()
 
 				config := cfg.LoadWtfConfigFile(wtfApp.configFilePath, wtfApp.isCustomConfig)
-
 				newApp := NewWtfApp(wtfApp.app, config, wtfApp.configFilePath, wtfApp.isCustomConfig)
+
 				newApp.Start()
 			case err := <-watch.Error:
+				if err == watcher.ErrWatchedFileDeleted {
+					// Usually happens because the watcher looks for the file as the OS is updating it
+					continue
+				}
 				log.Fatalln(err)
 			case <-watch.Closed:
 				return
