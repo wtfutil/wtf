@@ -1,13 +1,11 @@
 package circleci
 
 import (
-	"bytes"
-	"encoding/json"
 	"fmt"
-	"io"
-	"io/ioutil"
 	"net/http"
 	"net/url"
+
+	"github.com/wtfutil/wtf/utils"
 )
 
 type Client struct {
@@ -30,7 +28,10 @@ func (client *Client) BuildsFor() ([]*Build, error) {
 		return builds, err
 	}
 
-	parseJson(&builds, resp.Body)
+	err = utils.ParseJson(&builds, resp.Body)
+	if err != nil {
+		return builds, err
+	}
 
 	return builds, nil
 }
@@ -65,21 +66,4 @@ func (client *Client) circleRequest(path string) (*http.Response, error) {
 	}
 
 	return resp, nil
-}
-
-func parseJson(obj interface{}, text io.Reader) {
-	jsonStream, err := ioutil.ReadAll(text)
-	if err != nil {
-		panic(err)
-	}
-
-	decoder := json.NewDecoder(bytes.NewReader(jsonStream))
-
-	for {
-		if err := decoder.Decode(obj); err == io.EOF {
-			break
-		} else if err != nil {
-			panic(err)
-		}
-	}
 }
