@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## v0.22.0
+
 ### ⚡️ Added
 
 * [Arpansagovau](https://wtfutil.com/modules/weather_services/arpansagovau/) (arpansa.gov.au) module added, by [@jeffz](https://github.com/jeffz)
