@@ -20,9 +20,9 @@ type Settings struct {
 	colors
 	common *cfg.Common
 
-	apiKey                  string   `help:"Your Jira API key."`
+	apiKey                  string   `help:"Your Jira API key (or password for basic auth)."`
 	domain                  string   `help:"Your Jira corporate domain."`
-	email                   string   `help:"The email address associated with your Jira account."`
+	email                   string   `help:"The email address associated with your Jira account (or username for basic auth)."`
 	jql                     string   `help:"Custom JQL to be appended to the search query." values:"See Search Jira like a boss with JQL for details." optional:"true"`
 	projects                []string `help:"An array of projects to get data from"`
 	username                string   `help:"Your Jira username."`
