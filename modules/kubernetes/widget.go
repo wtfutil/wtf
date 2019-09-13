@@ -41,7 +41,12 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 // Refresh executes the command and updates the view with the results
 func (widget *Widget) Refresh() {
 	title := widget.generateTitle()
-	client := widget.getInstance()
+	client, err := widget.getInstance()
+
+	if err != nil {
+		widget.Redraw(func() (string, string, bool) { return title, err.Error(), true })
+		return
+	}
 
 	var content string
 

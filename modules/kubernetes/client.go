@@ -10,6 +10,7 @@ import (
 )
 
 var kubeClient *clientInstance
+var kubeError error
 var clientOnce sync.Once
 
 type clientInstance struct {
@@ -17,26 +18,30 @@ type clientInstance struct {
 }
 
 // getInstance returns a Kubernetes interface for a clientset
-func (widget *Widget) getInstance() *clientInstance {
+func (widget *Widget) getInstance() (*clientInstance, error) {
 	clientOnce.Do(func() {
 		if kubeClient == nil {
+			client, err := widget.getKubeClient()
+			if err != nil {
+				kubeError = err
+			}
 			kubeClient = &clientInstance{
-				Client: widget.getKubeClient(),
+				Client: client,
 			}
 		}
 	})
-	return kubeClient
+	return kubeClient, kubeError
 }
 
 // getKubeClient returns a kubernetes clientset for the kubeconfig provided
-func (widget *Widget) getKubeClient() kubernetes.Interface {
+func (widget *Widget) getKubeClient() (kubernetes.Interface, error) {
 	config, err := clientcmd.BuildConfigFromFlags("", widget.kubeconfig)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 	clientset, err := kubernetes.NewForConfig(config)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
-	return clientset
+	return clientset, nil
 }
