@@ -55,7 +55,7 @@ func main() {
 	cfg.Initialize(hasCustom)
 
 	// Load the configuration file
-	config := cfg.LoadWtfConfigFile(flags.ConfigFilePath(), hasCustom)
+	config := cfg.LoadWtfConfigFile(flags.ConfigFilePath())
 	flags.RenderIf(version, config)
 
 	if flags.Profile {
@@ -68,7 +68,7 @@ func main() {
 
 	// Build the application
 	tviewApp = tview.NewApplication()
-	wtfApp := app.NewWtfApp(tviewApp, config, flags.Config, hasCustom)
+	wtfApp := app.NewWtfApp(tviewApp, config, flags.Config)
 	wtfApp.Start()
 
 	if err := tviewApp.Run(); err != nil {

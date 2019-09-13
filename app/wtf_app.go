@@ -22,19 +22,17 @@ type WtfApp struct {
 	configFilePath string
 	display        *Display
 	focusTracker   FocusTracker
-	isCustomConfig bool
 	pages          *tview.Pages
 	validator      *ModuleValidator
 	widgets        []wtf.Wtfable
 }
 
 // NewWtfApp creates and returns an instance of WtfApp
-func NewWtfApp(app *tview.Application, config *config.Config, configFilePath string, isCustom bool) *WtfApp {
+func NewWtfApp(app *tview.Application, config *config.Config, configFilePath string) *WtfApp {
 	wtfApp := WtfApp{
 		app:            app,
 		config:         config,
 		configFilePath: configFilePath,
-		isCustomConfig: isCustom,
 		pages:          tview.NewPages(),
 	}
 
@@ -140,8 +138,8 @@ func (wtfApp *WtfApp) watchForConfigChanges() {
 			case <-watch.Event:
 				wtfApp.Stop()
 
-				config := cfg.LoadWtfConfigFile(wtfApp.configFilePath, wtfApp.isCustomConfig)
-				newApp := NewWtfApp(wtfApp.app, config, wtfApp.configFilePath, wtfApp.isCustomConfig)
+				config := cfg.LoadWtfConfigFile(wtfApp.configFilePath)
+				newApp := NewWtfApp(wtfApp.app, config, wtfApp.configFilePath)
 
 				newApp.Start()
 			case err := <-watch.Error:

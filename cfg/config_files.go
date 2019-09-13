@@ -84,17 +84,12 @@ func WtfConfigDir() (string, error) {
 }
 
 // LoadWtfConfigFile loads the specified config file
-func LoadWtfConfigFile(filePath string, isCustomConfig bool) *config.Config {
+func LoadWtfConfigFile(filePath string) *config.Config {
 	absPath, _ := expandHomeDir(filePath)
 
 	cfg, err := config.ParseYamlFile(absPath)
 	if err != nil {
-		if isCustomConfig {
-			displayWtfCustomConfigFileLoadError(err)
-		} else {
-			displayWtfConfigFileLoadError(err)
-		}
-
+		displayWtfConfigFileLoadError(absPath, err)
 		os.Exit(1)
 	}
 

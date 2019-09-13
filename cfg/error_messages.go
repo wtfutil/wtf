@@ -42,19 +42,8 @@ func displayWtfConfigDirCreateError(err error) {
 	displayError(err)
 }
 
-func displayWtfConfigFileLoadError(err error) {
-	fmt.Printf("\n%s Could not load '%s'.\n", aurora.Red("ERROR"), aurora.Yellow(WtfConfigFile))
-	fmt.Println()
-	fmt.Println("This could mean one of two things:")
-	fmt.Println()
-	fmt.Printf("    1. Your %s file is missing. Check in %s to see if %s is there.\n", aurora.Yellow(WtfConfigFile), aurora.Yellow("~/.config/wtf/"), aurora.Yellow(WtfConfigFile))
-	fmt.Printf("    2. Your %s file has a syntax error. Try running it through http://www.yamllint.com to check for errors.\n", aurora.Yellow(WtfConfigFile))
-	fmt.Println()
-	displayError(err)
-}
-
-func displayWtfCustomConfigFileLoadError(err error) {
-	fmt.Printf("\n%s Could not load '%s'.\n", aurora.Red("ERROR"), aurora.Yellow(WtfConfigFile))
+func displayWtfConfigFileLoadError(path string, err error) {
+	fmt.Printf("\n%s Could not load '%s'.\n", aurora.Red("ERROR"), aurora.Yellow(path))
 	fmt.Println()
 	fmt.Println("This could mean one of two things:")
 	fmt.Println()
