@@ -24,6 +24,7 @@ type Bar struct {
 	Label      string
 	Percent    int
 	ValueLabel string
+	LabelColor string
 }
 
 // NewBarGraph creates and returns an instance of BarGraph
@@ -78,9 +79,10 @@ func BuildStars(data []Bar, maxStars int, starChar string) string {
 		//write the line
 		buffer.WriteString(
 			fmt.Sprintf(
-				"%s%s[[red]%s[white]%s] %s\n",
+				"%s%s[[%s]%s[white]%s] %s\n",
 				bar.Label,
 				strings.Repeat(" ", longestLabel-len(bar.Label)),
+				bar.LabelColor,
 				strings.Repeat(starChar, starCount),
 				strings.Repeat(" ", maxStars-starCount),
 				label,

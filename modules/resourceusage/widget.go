@@ -58,6 +58,7 @@ func MakeGraph(widget *Widget) {
 			Label:      fmt.Sprint(i),
 			Percent:    int(stat),
 			ValueLabel: fmt.Sprintf("%d%%", int(stat)),
+			LabelColor: "red",
 		}
 
 		stats[i] = bar
@@ -81,6 +82,7 @@ func MakeGraph(widget *Widget) {
 		Label:      "Mem",
 		Percent:    int(memInfo.UsedPercent),
 		ValueLabel: fmt.Sprintf("%s/%s", usedMemLabel, totalMemLabel),
+		LabelColor: "green",
 	}
 
 	swapIndex := len(cpuStats) + 1
@@ -101,6 +103,7 @@ func MakeGraph(widget *Widget) {
 		Label:      "Swp",
 		Percent:    int(swapPercent * 100),
 		ValueLabel: fmt.Sprintf("%s/%s", usedSwapLabel, totalSwapLabel),
+		LabelColor: "yellow",
 	}
 
 	widget.BarGraph.BuildBars(stats[:])
