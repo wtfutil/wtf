@@ -107,4 +107,4 @@ require (
 	k8s.io/client-go v12.0.0+incompatible
 )
 
-replace github.com/darkSasori/todoist => ./vendor/github.com/darkSasori/todoist
+// replace github.com/darkSasori/todoist => ./vendor/github.com/darkSasori/todoist
