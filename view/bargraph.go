@@ -76,13 +76,18 @@ func BuildStars(data []Bar, maxStars int, starChar string) string {
 			label = fmt.Sprint(bar.Percent)
 		}
 
+		labelColor := bar.LabelColor
+		if labelColor == "" {
+			labelColor = "default"
+		}
+
 		//write the line
 		buffer.WriteString(
 			fmt.Sprintf(
-				"%s%s[[%s]%s[white]%s] %s\n",
+				"%s%s[[%s]%s[default]%s] %s\n",
 				bar.Label,
 				strings.Repeat(" ", longestLabel-len(bar.Label)),
-				bar.LabelColor,
+				labelColor,
 				strings.Repeat(starChar, starCount),
 				strings.Repeat(" ", maxStars-starCount),
 				label,

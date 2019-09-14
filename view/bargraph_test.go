@@ -40,7 +40,7 @@ func TestOutput(t *testing.T) {
 	result := BuildStars(makeData(), 20, "*")
 
 	Equal(t,
-		"Jun 27, 2018[[]****[white]                ] 20\nJul 09, 2018[[red]****************[white]    ] 80\nJul 09, 2018[[green]****************[white]    ] 80\n",
+		"Jun 27, 2018[[default]****[default]                ] 20\nJul 09, 2018[[red]****************[default]    ] 80\nJul 09, 2018[[green]****************[default]    ] 80\n",
 		result,
 	)
 }
