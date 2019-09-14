@@ -6,6 +6,7 @@ require (
 	cloud.google.com/go v0.45.1 // indirect
 	code.cloudfoundry.org/bytefmt v0.0.0-20180906201452-2aa6f33b730c
 	github.com/BurntSushi/xgb v0.0.0-20160522221800-27f122750802 // indirect
+	github.com/Microsoft/go-winio v0.4.14 // indirect
 	github.com/PagerDuty/go-pagerduty v0.0.0-20190503230806-cf1437c7c8d6
 	github.com/StackExchange/wmi v0.0.0-20190523213609-cbe66965904d // indirect
 	github.com/adlio/trello v1.0.0

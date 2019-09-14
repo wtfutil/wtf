@@ -16,18 +16,14 @@ package terminfo
 
 import (
 	"bytes"
-	"compress/gzip"
-	"crypto/sha1"
-	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
 	"os"
-	"path"
-	"path/filepath"
 	"strconv"
 	"strings"
 	"sync"
+	"time"
 )
 
 var (
@@ -45,122 +41,122 @@ var (
 // in Go, but when we write out JSON, we use the same names as terminfo.
 // The name, aliases and smous, rmous fields do not come from terminfo directly.
 type Terminfo struct {
-	Name         string   `json:"name"`
-	Aliases      []string `json:"aliases,omitempty"`
-	Columns      int      `json:"cols,omitempty"`   // cols
-	Lines        int      `json:"lines,omitempty"`  // lines
-	Colors       int      `json:"colors,omitempty"` // colors
-	Bell         string   `json:"bell,omitempty"`   // bell
-	Clear        string   `json:"clear,omitempty"`  // clear
-	EnterCA      string   `json:"smcup,omitempty"`  // smcup
-	ExitCA       string   `json:"rmcup,omitempty"`  // rmcup
-	ShowCursor   string   `json:"cnorm,omitempty"`  // cnorm
-	HideCursor   string   `json:"civis,omitempty"`  // civis
-	AttrOff      string   `json:"sgr0,omitempty"`   // sgr0
-	Underline    string   `json:"smul,omitempty"`   // smul
-	Bold         string   `json:"bold,omitempty"`   // bold
-	Blink        string   `json:"blink,omitempty"`  // blink
-	Reverse      string   `json:"rev,omitempty"`    // rev
-	Dim          string   `json:"dim,omitempty"`    // dim
-	EnterKeypad  string   `json:"smkx,omitempty"`   // smkx
-	ExitKeypad   string   `json:"rmkx,omitempty"`   // rmkx
-	SetFg        string   `json:"setaf,omitempty"`  // setaf
-	SetBg        string   `json:"setbg,omitempty"`  // setab
-	SetCursor    string   `json:"cup,omitempty"`    // cup
-	CursorBack1  string   `json:"cub1,omitempty"`   // cub1
-	CursorUp1    string   `json:"cuu1,omitempty"`   // cuu1
-	PadChar      string   `json:"pad,omitempty"`    // pad
-	KeyBackspace string   `json:"kbs,omitempty"`    // kbs
-	KeyF1        string   `json:"kf1,omitempty"`    // kf1
-	KeyF2        string   `json:"kf2,omitempty"`    // kf2
-	KeyF3        string   `json:"kf3,omitempty"`    // kf3
-	KeyF4        string   `json:"kf4,omitempty"`    // kf4
-	KeyF5        string   `json:"kf5,omitempty"`    // kf5
-	KeyF6        string   `json:"kf6,omitempty"`    // kf6
-	KeyF7        string   `json:"kf7,omitempty"`    // kf7
-	KeyF8        string   `json:"kf8,omitempty"`    // kf8
-	KeyF9        string   `json:"kf9,omitempty"`    // kf9
-	KeyF10       string   `json:"kf10,omitempty"`   // kf10
-	KeyF11       string   `json:"kf11,omitempty"`   // kf11
-	KeyF12       string   `json:"kf12,omitempty"`   // kf12
-	KeyF13       string   `json:"kf13,omitempty"`   // kf13
-	KeyF14       string   `json:"kf14,omitempty"`   // kf14
-	KeyF15       string   `json:"kf15,omitempty"`   // kf15
-	KeyF16       string   `json:"kf16,omitempty"`   // kf16
-	KeyF17       string   `json:"kf17,omitempty"`   // kf17
-	KeyF18       string   `json:"kf18,omitempty"`   // kf18
-	KeyF19       string   `json:"kf19,omitempty"`   // kf19
-	KeyF20       string   `json:"kf20,omitempty"`   // kf20
-	KeyF21       string   `json:"kf21,omitempty"`   // kf21
-	KeyF22       string   `json:"kf22,omitempty"`   // kf22
-	KeyF23       string   `json:"kf23,omitempty"`   // kf23
-	KeyF24       string   `json:"kf24,omitempty"`   // kf24
-	KeyF25       string   `json:"kf25,omitempty"`   // kf25
-	KeyF26       string   `json:"kf26,omitempty"`   // kf26
-	KeyF27       string   `json:"kf27,omitempty"`   // kf27
-	KeyF28       string   `json:"kf28,omitempty"`   // kf28
-	KeyF29       string   `json:"kf29,omitempty"`   // kf29
-	KeyF30       string   `json:"kf30,omitempty"`   // kf30
-	KeyF31       string   `json:"kf31,omitempty"`   // kf31
-	KeyF32       string   `json:"kf32,omitempty"`   // kf32
-	KeyF33       string   `json:"kf33,omitempty"`   // kf33
-	KeyF34       string   `json:"kf34,omitempty"`   // kf34
-	KeyF35       string   `json:"kf35,omitempty"`   // kf35
-	KeyF36       string   `json:"kf36,omitempty"`   // kf36
-	KeyF37       string   `json:"kf37,omitempty"`   // kf37
-	KeyF38       string   `json:"kf38,omitempty"`   // kf38
-	KeyF39       string   `json:"kf39,omitempty"`   // kf39
-	KeyF40       string   `json:"kf40,omitempty"`   // kf40
-	KeyF41       string   `json:"kf41,omitempty"`   // kf41
-	KeyF42       string   `json:"kf42,omitempty"`   // kf42
-	KeyF43       string   `json:"kf43,omitempty"`   // kf43
-	KeyF44       string   `json:"kf44,omitempty"`   // kf44
-	KeyF45       string   `json:"kf45,omitempty"`   // kf45
-	KeyF46       string   `json:"kf46,omitempty"`   // kf46
-	KeyF47       string   `json:"kf47,omitempty"`   // kf47
-	KeyF48       string   `json:"kf48,omitempty"`   // kf48
-	KeyF49       string   `json:"kf49,omitempty"`   // kf49
-	KeyF50       string   `json:"kf50,omitempty"`   // kf50
-	KeyF51       string   `json:"kf51,omitempty"`   // kf51
-	KeyF52       string   `json:"kf52,omitempty"`   // kf52
-	KeyF53       string   `json:"kf53,omitempty"`   // kf53
-	KeyF54       string   `json:"kf54,omitempty"`   // kf54
-	KeyF55       string   `json:"kf55,omitempty"`   // kf55
-	KeyF56       string   `json:"kf56,omitempty"`   // kf56
-	KeyF57       string   `json:"kf57,omitempty"`   // kf57
-	KeyF58       string   `json:"kf58,omitempty"`   // kf58
-	KeyF59       string   `json:"kf59,omitempty"`   // kf59
-	KeyF60       string   `json:"kf60,omitempty"`   // kf60
-	KeyF61       string   `json:"kf61,omitempty"`   // kf61
-	KeyF62       string   `json:"kf62,omitempty"`   // kf62
-	KeyF63       string   `json:"kf63,omitempty"`   // kf63
-	KeyF64       string   `json:"kf64,omitempty"`   // kf64
-	KeyInsert    string   `json:"kich,omitempty"`   // kich1
-	KeyDelete    string   `json:"kdch,omitempty"`   // kdch1
-	KeyHome      string   `json:"khome,omitempty"`  // khome
-	KeyEnd       string   `json:"kend,omitempty"`   // kend
-	KeyHelp      string   `json:"khlp,omitempty"`   // khlp
-	KeyPgUp      string   `json:"kpp,omitempty"`    // kpp
-	KeyPgDn      string   `json:"knp,omitempty"`    // knp
-	KeyUp        string   `json:"kcuu1,omitempty"`  // kcuu1
-	KeyDown      string   `json:"kcud1,omitempty"`  // kcud1
-	KeyLeft      string   `json:"kcub1,omitempty"`  // kcub1
-	KeyRight     string   `json:"kcuf1,omitempty"`  // kcuf1
-	KeyBacktab   string   `json:"kcbt,omitempty"`   // kcbt
-	KeyExit      string   `json:"kext,omitempty"`   // kext
-	KeyClear     string   `json:"kclr,omitempty"`   // kclr
-	KeyPrint     string   `json:"kprt,omitempty"`   // kprt
-	KeyCancel    string   `json:"kcan,omitempty"`   // kcan
-	Mouse        string   `json:"kmous,omitempty"`  // kmous
-	MouseMode    string   `json:"XM,omitempty"`     // XM
-	AltChars     string   `json:"acsc,omitempty"`   // acsc
-	EnterAcs     string   `json:"smacs,omitempty"`  // smacs
-	ExitAcs      string   `json:"rmacs,omitempty"`  // rmacs
-	EnableAcs    string   `json:"enacs,omitempty"`  // enacs
-	KeyShfRight  string   `json:"kRIT,omitempty"`   // kRIT
-	KeyShfLeft   string   `json:"kLFT,omitempty"`   // kLFT
-	KeyShfHome   string   `json:"kHOM,omitempty"`   // kHOM
-	KeyShfEnd    string   `json:"kEND,omitempty"`   // kEND
+	Name         string
+	Aliases      []string
+	Columns      int    // cols
+	Lines        int    // lines
+	Colors       int    // colors
+	Bell         string // bell
+	Clear        string // clear
+	EnterCA      string // smcup
+	ExitCA       string // rmcup
+	ShowCursor   string // cnorm
+	HideCursor   string // civis
+	AttrOff      string // sgr0
+	Underline    string // smul
+	Bold         string // bold
+	Blink        string // blink
+	Reverse      string // rev
+	Dim          string // dim
+	EnterKeypad  string // smkx
+	ExitKeypad   string // rmkx
+	SetFg        string // setaf
+	SetBg        string // setab
+	SetCursor    string // cup
+	CursorBack1  string // cub1
+	CursorUp1    string // cuu1
+	PadChar      string // pad
+	KeyBackspace string // kbs
+	KeyF1        string // kf1
+	KeyF2        string // kf2
+	KeyF3        string // kf3
+	KeyF4        string // kf4
+	KeyF5        string // kf5
+	KeyF6        string // kf6
+	KeyF7        string // kf7
+	KeyF8        string // kf8
+	KeyF9        string // kf9
+	KeyF10       string // kf10
+	KeyF11       string // kf11
+	KeyF12       string // kf12
+	KeyF13       string // kf13
+	KeyF14       string // kf14
+	KeyF15       string // kf15
+	KeyF16       string // kf16
+	KeyF17       string // kf17
+	KeyF18       string // kf18
+	KeyF19       string // kf19
+	KeyF20       string // kf20
+	KeyF21       string // kf21
+	KeyF22       string // kf22
+	KeyF23       string // kf23
+	KeyF24       string // kf24
+	KeyF25       string // kf25
+	KeyF26       string // kf26
+	KeyF27       string // kf27
+	KeyF28       string // kf28
+	KeyF29       string // kf29
+	KeyF30       string // kf30
+	KeyF31       string // kf31
+	KeyF32       string // kf32
+	KeyF33       string // kf33
+	KeyF34       string // kf34
+	KeyF35       string // kf35
+	KeyF36       string // kf36
+	KeyF37       string // kf37
+	KeyF38       string // kf38
+	KeyF39       string // kf39
+	KeyF40       string // kf40
+	KeyF41       string // kf41
+	KeyF42       string // kf42
+	KeyF43       string // kf43
+	KeyF44       string // kf44
+	KeyF45       string // kf45
+	KeyF46       string // kf46
+	KeyF47       string // kf47
+	KeyF48       string // kf48
+	KeyF49       string // kf49
+	KeyF50       string // kf50
+	KeyF51       string // kf51
+	KeyF52       string // kf52
+	KeyF53       string // kf53
+	KeyF54       string // kf54
+	KeyF55       string // kf55
+	KeyF56       string // kf56
+	KeyF57       string // kf57
+	KeyF58       string // kf58
+	KeyF59       string // kf59
+	KeyF60       string // kf60
+	KeyF61       string // kf61
+	KeyF62       string // kf62
+	KeyF63       string // kf63
+	KeyF64       string // kf64
+	KeyInsert    string // kich1
+	KeyDelete    string // kdch1
+	KeyHome      string // khome
+	KeyEnd       string // kend
+	KeyHelp      string // khlp
+	KeyPgUp      string // kpp
+	KeyPgDn      string // knp
+	KeyUp        string // kcuu1
+	KeyDown      string // kcud1
+	KeyLeft      string // kcub1
+	KeyRight     string // kcuf1
+	KeyBacktab   string // kcbt
+	KeyExit      string // kext
+	KeyClear     string // kclr
+	KeyPrint     string // kprt
+	KeyCancel    string // kcan
+	Mouse        string // kmous
+	MouseMode    string // XM
+	AltChars     string // acsc
+	EnterAcs     string // smacs
+	ExitAcs      string // rmacs
+	EnableAcs    string // enacs
+	KeyShfRight  string // kRIT
+	KeyShfLeft   string // kLFT
+	KeyShfHome   string // kHOM
+	KeyShfEnd    string // kEND
 
 	// These are non-standard extensions to terminfo.  This includes
 	// true color support, and some additional keys.  Its kind of bizarre
@@ -168,48 +164,48 @@ type Terminfo struct {
 	// Terminal support for these are going to vary amongst XTerm
 	// emulations, so don't depend too much on them in your application.
 
-	SetFgBg         string `json:"_setfgbg,omitempty"`    // setfgbg
-	SetFgBgRGB      string `json:"_setfgbgrgb,omitempty"` // setfgbgrgb
-	SetFgRGB        string `json:"_setfrgb,omitempty"`    // setfrgb
-	SetBgRGB        string `json:"_setbrgb,omitempty"`    // setbrgb
-	KeyShfUp        string `json:"_kscu1,omitempty"`      // shift-up
-	KeyShfDown      string `json:"_kscud1,omitempty"`     // shift-down
-	KeyCtrlUp       string `json:"_kccu1,omitempty"`      // ctrl-up
-	KeyCtrlDown     string `json:"_kccud1,omitempty"`     // ctrl-left
-	KeyCtrlRight    string `json:"_kccuf1,omitempty"`     // ctrl-right
-	KeyCtrlLeft     string `json:"_kccub1,omitempty"`     // ctrl-left
-	KeyMetaUp       string `json:"_kmcu1,omitempty"`      // meta-up
-	KeyMetaDown     string `json:"_kmcud1,omitempty"`     // meta-left
-	KeyMetaRight    string `json:"_kmcuf1,omitempty"`     // meta-right
-	KeyMetaLeft     string `json:"_kmcub1,omitempty"`     // meta-left
-	KeyAltUp        string `json:"_kacu1,omitempty"`      // alt-up
-	KeyAltDown      string `json:"_kacud1,omitempty"`     // alt-left
-	KeyAltRight     string `json:"_kacuf1,omitempty"`     // alt-right
-	KeyAltLeft      string `json:"_kacub1,omitempty"`     // alt-left
-	KeyCtrlHome     string `json:"_kchome,omitempty"`
-	KeyCtrlEnd      string `json:"_kcend,omitempty"`
-	KeyMetaHome     string `json:"_kmhome,omitempty"`
-	KeyMetaEnd      string `json:"_kmend,omitempty"`
-	KeyAltHome      string `json:"_kahome,omitempty"`
-	KeyAltEnd       string `json:"_kaend,omitempty"`
-	KeyAltShfUp     string `json:"_kascu1,omitempty"`
-	KeyAltShfDown   string `json:"_kascud1,omitempty"`
-	KeyAltShfLeft   string `json:"_kascub1,omitempty"`
-	KeyAltShfRight  string `json:"_kascuf1,omitempty"`
-	KeyMetaShfUp    string `json:"_kmscu1,omitempty"`
-	KeyMetaShfDown  string `json:"_kmscud1,omitempty"`
-	KeyMetaShfLeft  string `json:"_kmscub1,omitempty"`
-	KeyMetaShfRight string `json:"_kmscuf1,omitempty"`
-	KeyCtrlShfUp    string `json:"_kcscu1,omitempty"`
-	KeyCtrlShfDown  string `json:"_kcscud1,omitempty"`
-	KeyCtrlShfLeft  string `json:"_kcscub1,omitempty"`
-	KeyCtrlShfRight string `json:"_kcscuf1,omitempty"`
-	KeyCtrlShfHome  string `json:"_kcHOME,omitempty"`
-	KeyCtrlShfEnd   string `json:"_kcEND,omitempty"`
-	KeyAltShfHome   string `json:"_kaHOME,omitempty"`
-	KeyAltShfEnd    string `json:"_kaEND,omitempty"`
-	KeyMetaShfHome  string `json:"_kmHOME,omitempty"`
-	KeyMetaShfEnd   string `json:"_kmEND,omitempty"`
+	SetFgBg         string // setfgbg
+	SetFgBgRGB      string // setfgbgrgb
+	SetFgRGB        string // setfrgb
+	SetBgRGB        string // setbrgb
+	KeyShfUp        string // shift-up
+	KeyShfDown      string // shift-down
+	KeyCtrlUp       string // ctrl-up
+	KeyCtrlDown     string // ctrl-left
+	KeyCtrlRight    string // ctrl-right
+	KeyCtrlLeft     string // ctrl-left
+	KeyMetaUp       string // meta-up
+	KeyMetaDown     string // meta-left
+	KeyMetaRight    string // meta-right
+	KeyMetaLeft     string // meta-left
+	KeyAltUp        string // alt-up
+	KeyAltDown      string // alt-left
+	KeyAltRight     string // alt-right
+	KeyAltLeft      string // alt-left
+	KeyCtrlHome     string
+	KeyCtrlEnd      string
+	KeyMetaHome     string
+	KeyMetaEnd      string
+	KeyAltHome      string
+	KeyAltEnd       string
+	KeyAltShfUp     string
+	KeyAltShfDown   string
+	KeyAltShfLeft   string
+	KeyAltShfRight  string
+	KeyMetaShfUp    string
+	KeyMetaShfDown  string
+	KeyMetaShfLeft  string
+	KeyMetaShfRight string
+	KeyCtrlShfUp    string
+	KeyCtrlShfDown  string
+	KeyCtrlShfLeft  string
+	KeyCtrlShfRight string
+	KeyCtrlShfHome  string
+	KeyCtrlShfEnd   string
+	KeyAltShfHome   string
+	KeyAltShfEnd    string
+	KeyMetaShfHome  string
+	KeyMetaShfEnd   string
 }
 
 type stackElem struct {
@@ -618,11 +614,10 @@ func (t *Terminfo) TParm(s string, p ...int) string {
 
 // TPuts emits the string to the writer, but expands inline padding
 // indications (of the form $<[delay]> where [delay] is msec) to
-// a suitable number of padding characters (usually null bytes) based
-// upon the supplied baud.  At high baud rates, more padding characters
-// will be inserted.  All Terminfo based strings should be emitted using
-// this function.
-func (t *Terminfo) TPuts(w io.Writer, s string, baud int) {
+// a suitable time (unless the terminfo string indicates this isn't needed
+// by specifying npc - no padding).  All Terminfo based strings should be
+// emitted using this function.
+func (t *Terminfo) TPuts(w io.Writer, s string) {
 	for {
 		beg := strings.Index(s, "$<")
 		if beg < 0 {
@@ -641,7 +636,7 @@ func (t *Terminfo) TPuts(w io.Writer, s string, baud int) {
 		val := s[:end]
 		s = s[end+1:]
 		padus := 0
-		unit := 1000
+		unit := time.Millisecond
 		dot := false
 	loop:
 		for i := range val {
@@ -650,7 +645,7 @@ func (t *Terminfo) TPuts(w io.Writer, s string, baud int) {
 				padus *= 10
 				padus += int(val[i] - '0')
 				if dot {
-					unit *= 10
+					unit /= 10
 				}
 			case '.':
 				if !dot {
@@ -662,10 +657,12 @@ func (t *Terminfo) TPuts(w io.Writer, s string, baud int) {
 				break loop
 			}
 		}
-		cnt := int(((baud / 8) * padus) / unit)
-		for cnt > 0 {
-			io.WriteString(w, t.PadChar)
-			cnt--
+
+		// Curses historically uses padding to achieve "fine grained"
+		// delays. We have much better clocks these days, and so we
+		// do not rely on padding but simply sleep a bit.
+		if len(t.PadChar) > 0 {
+			time.Sleep(unit * time.Duration(padus))
 		}
 	}
 }
@@ -717,54 +714,7 @@ func AddTerminfo(t *Terminfo) {
 	dblock.Unlock()
 }
 
-func loadFromFile(fname string, term string) (*Terminfo, error) {
-	var e error
-	var f io.Reader
-	if f, e = os.Open(fname); e != nil {
-		return nil, e
-	}
-	if strings.HasSuffix(fname, ".gz") {
-		if f, e = gzip.NewReader(f); e != nil {
-			return nil, e
-		}
-	}
-	d := json.NewDecoder(f)
-	for {
-		t := &Terminfo{}
-		if e := d.Decode(t); e != nil {
-			if e == io.EOF {
-				return nil, ErrTermNotFound
-			}
-			return nil, e
-		}
-		if t.SetCursor == "" {
-			// This must be an alias record, return it.
-			return t, nil
-		}
-		if t.Name == term {
-			return t, nil
-		}
-		for _, a := range t.Aliases {
-			if a == term {
-				return t, nil
-			}
-		}
-	}
-}
-
 // LookupTerminfo attempts to find a definition for the named $TERM.
-// It first looks in the builtin database, which should cover just about
-// everyone.  If it can't find one there, then it will attempt to read
-// one from the JSON file located in either $TCELLDB, $HOME/.tcelldb,
-// or as a database file.
-//
-// The database files are named by taking  terminal name, hashing it through
-// sha1, and then a subdirectory of the form database/hash[0:2]/hash[0:8]
-// (with an optional .gz extension).
-//
-// For other local database files, we will look for the database file using
-// the terminal name, so database/term[0:2]/term[0:8], again with optional
-// .gz extension.
 func LookupTerminfo(name string) (*Terminfo, error) {
 	if name == "" {
 		// else on windows: index out of bounds
@@ -780,98 +730,6 @@ func LookupTerminfo(name string) (*Terminfo, error) {
 	dblock.Lock()
 	t := terminfos[name]
 	dblock.Unlock()
-
-	if t == nil {
-
-		var files []string
-		letter := fmt.Sprintf("%02x", name[0])
-		gzfile := path.Join(letter, name+".gz")
-		jsfile := path.Join(letter, name)
-		hash := fmt.Sprintf("%x", sha1.Sum([]byte(name)))
-		gzhfile := path.Join(hash[0:2], hash[0:8]+".gz")
-		jshfile := path.Join(hash[0:2], hash[0:8])
-
-		// Build up the search path.  Old versions of tcell used a
-		// single database file, whereas the new ones locate them
-		// in JSON (optionally compressed) files.
-		//
-		// The search path for "xterm" (SHA1 sig e2e28a8e...) looks
-		// like this:
-		//
-		// $TCELLDB/78/xterm.gz
-		// $TCELLDB/78/xterm
-		// $TCELLDB
-		// $HOME/.tcelldb/e2/e2e28a8e.gz
-		// $HOME/.tcelldb/e2/e2e28a8e
-		// $HOME/.tcelldb/78/xterm.gz
-		// $HOME/.tcelldb/78/xterm
-		// $HOME/.tcelldb
-		// $GOPATH/terminfo/database/e2/e2e28a8e.gz
-		// $GOPATH/terminfo/database/e2/e2e28a8e
-		// $GOPATH/terminfo/database/78/xterm.gz
-		// $GOPATH/terminfo/database/78/xterm
-		//
-		// Note that the legacy name lookups (78/xterm etc.) are
-		// provided for compatibility.  We do not actually deliver
-		// any files with this style of naming, to avoid collisions
-		// on case insensitive filesystems. (*cough* mac *cough*).
-
-		// If $GOPATH set, honor it, else assume $HOME/go just like
-		// modern golang does.
-		gopath := os.Getenv("GOPATH")
-		if gopath == "" {
-			gopath = path.Join(os.Getenv("HOME"), "go")
-		}
-		if pth := os.Getenv("TCELLDB"); pth != "" {
-			files = append(files,
-				path.Join(pth, gzfile),
-				path.Join(pth, jsfile),
-				pth)
-		}
-		if pth := os.Getenv("HOME"); pth != "" {
-			pth = path.Join(pth, ".tcelldb")
-			files = append(files,
-				path.Join(pth, gzhfile),
-				path.Join(pth, jshfile),
-				path.Join(pth, gzfile),
-				path.Join(pth, jsfile),
-				pth)
-		}
-
-		for _, pth := range filepath.SplitList(gopath) {
-			pth = path.Join(pth, "src", "github.com",
-				"gdamore", "tcell", "terminfo", "database")
-			files = append(files,
-				path.Join(pth, gzhfile),
-				path.Join(pth, jshfile),
-				path.Join(pth, gzfile),
-				path.Join(pth, jsfile))
-		}
-
-		for _, fname := range files {
-			t, _ = loadFromFile(fname, name)
-			if t != nil {
-				break
-			}
-		}
-		if t != nil {
-			if t.Name != name {
-				// Check for a database loop (no infinite
-				// recursion).
-				dblock.Lock()
-				if aliases[name] != "" {
-					dblock.Unlock()
-					return nil, ErrTermNotFound
-				}
-				aliases[name] = t.Name
-				dblock.Unlock()
-				return LookupTerminfo(t.Name)
-			}
-			dblock.Lock()
-			terminfos[name] = t
-			dblock.Unlock()
-		}
-	}
 
 	// If the name ends in -truecolor, then fabricate an entry
 	// from the corresponding -256color, -color, or bare terminal.
