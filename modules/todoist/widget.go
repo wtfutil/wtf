@@ -1,8 +1,9 @@
 package todoist
 
 import (
-	"github.com/darkSasori/todoist"
+	// "github.com/darkSasori/todoist"
 	"github.com/rivo/tview"
+	"github.com/wtfutil/todoist"
 	"github.com/wtfutil/wtf/view"
 )
 

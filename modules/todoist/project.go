@@ -3,7 +3,8 @@ package todoist
 import (
 	"fmt"
 
-	"github.com/darkSasori/todoist"
+	// "github.com/darkSasori/todoist"
+	"github.com/wtfutil/todoist"
 )
 
 type Project struct {

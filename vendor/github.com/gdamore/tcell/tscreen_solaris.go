@@ -1,6 +1,6 @@
 // +build solaris
 
-// Copyright 2017 The TCell Authors
+// Copyright 2019 The TCell Authors
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use file except in compliance with the License.
@@ -28,76 +28,6 @@ type termiosPrivate struct {
 	tio *unix.Termios
 }
 
-const (
-	// These are for missing CBAUDEXT and CIBAUDEXT.
-	// The values are fixed for Solaris and illumos, and cannot ever
-	// change without breaking applications.
-	cBaudExt  = 0x200000
-	ciBaudExt = 0x400000
-)
-
-// getbaud is sort of cfgetospeed, but in Go.
-func getbaud(tios *unix.Termios) int {
-	// First we mask off the rate by looking at the Cflag.
-	bval := tios.Cflag & unix.CBAUD
-	if (tios.Cflag & cBaudExt) != 0 {
-		bval += unix.CBAUD + 1
-	}
-
-	// This gives us the appropriate BXXX value, so convert
-	switch bval {
-	case unix.B0:
-		return 0
-	case unix.B50:
-		return 50
-	case unix.B75:
-		return 75
-	case unix.B110:
-		return 110
-	case unix.B134:
-		return 134
-	case unix.B150:
-		return 150
-	case unix.B200:
-		return 200
-	case unix.B300:
-		return 300
-	case unix.B600:
-		return 600
-	case unix.B1200:
-		return 1200
-	case unix.B1800:
-		return 1800
-	case unix.B2400:
-		return 2400
-	case unix.B4800:
-		return 4800
-	case unix.B9600:
-		return 9600
-	case unix.B19200:
-		return 19200
-	case unix.B38400:
-		return 38400
-	case unix.B57600:
-		return 57600
-	case unix.B76800:
-		return 76800
-	case unix.B115200:
-		return 115200
-	case unix.B153600:
-		return 153600
-	case unix.B230400:
-		return 230400
-	case unix.B307200:
-		return 307200
-	case unix.B460800:
-		return 460800
-	case unix.B921600:
-		return 921600
-	}
-	return 0
-}
-
 func (t *tScreen) termioInit() error {
 	var e error
 	var raw *unix.Termios
@@ -116,7 +46,6 @@ func (t *tScreen) termioInit() error {
 	}
 
 	t.tiosp = &termiosPrivate{tio: tio}
-	t.baud = getbaud(tio)
 
 	// make a local copy, to make it raw
 	raw = &unix.Termios{
