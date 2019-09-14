@@ -50,8 +50,9 @@ func MakeGraph(widget *Widget) {
 		barTime = barTime.Add(time.Duration(time.Minute))
 
 		bar := view.Bar{
-			Label:   barTime.Format("15:04"),
-			Percent: rand.Intn(100-5) + 5,
+			Label:      barTime.Format("15:04"),
+			Percent:    rand.Intn(100-5) + 5,
+			LabelColor: "red",
 		}
 
 		stats[i] = bar
