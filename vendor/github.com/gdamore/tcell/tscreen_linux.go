@@ -28,88 +28,6 @@ type termiosPrivate struct {
 	tio *unix.Termios
 }
 
-// Linux is a little weird, in that it supports the ospeed and
-// ispeed fields for most architectures, which can be set to nearly
-// any valid value.  However, for some (e.g. MIPS) it does not have
-// those fields.  In all cases it also uses the old BXXX values
-// and attempts to find the closest match unless something different
-// was specified by the application.  Since we can't rely on
-// ospeed or ispeed everywhere, we settle for the legacy method.
-// (Alternatively we could have different versions of this for
-// different CPU architectures, but that's no fun either.)
-func getbaud(tios *unix.Termios) int {
-	bval := tios.Cflag & unix.CBAUD
-
-	// This gives us the appropriate BXXX value, so convert.
-	// Note that if we ever have SPARC on Linux, it will need
-	// a different set of values.
-	switch bval {
-	case unix.B0:
-		return 0
-	case unix.B50:
-		return 50
-	case unix.B75:
-		return 75
-	case unix.B110:
-		return 110
-	case unix.B134:
-		return 134
-	case unix.B150:
-		return 150
-	case unix.B200:
-		return 200
-	case unix.B300:
-		return 300
-	case unix.B600:
-		return 600
-	case unix.B1200:
-		return 1200
-	case unix.B1800:
-		return 1800
-	case unix.B2400:
-		return 2400
-	case unix.B4800:
-		return 4800
-	case unix.B9600:
-		return 9600
-	case unix.B19200:
-		return 19200
-	case unix.B38400:
-		return 38400
-	case unix.B57600:
-		return 57600
-	case unix.B115200:
-		return 115200
-	case unix.B230400:
-		return 230400
-	case unix.B460800:
-		return 460800
-	case unix.B500000:
-		return 500000
-	case unix.B576000:
-		return 576000
-	case unix.B921600:
-		return 921600
-	case unix.B1000000:
-		return 1000000
-	case unix.B1152000:
-		return 1152000
-	case unix.B1500000:
-		return 1500000
-	case unix.B2000000:
-		return 2000000
-	case unix.B2500000:
-		return 2500000
-	case unix.B3000000:
-		return 3000000
-	case unix.B3500000:
-		return 3500000
-	case unix.B4000000:
-		return 4000000
-	}
-	return 0
-}
-
 func (t *tScreen) termioInit() error {
 	var e error
 	var raw *unix.Termios
@@ -128,7 +46,6 @@ func (t *tScreen) termioInit() error {
 	}
 
 	t.tiosp = &termiosPrivate{tio: tio}
-	t.baud = getbaud(tio)
 
 	// make a local copy, to make it raw
 	raw = &unix.Termios{
@@ -150,8 +67,8 @@ func (t *tScreen) termioInit() error {
 	// use non-blocking reads, but now a separate input loop and timer
 	// copes with the problems we had on some systems (BSD/Darwin)
 	// where close hung forever.
-	raw.Cc[syscall.VMIN] = 1
-	raw.Cc[syscall.VTIME] = 0
+	raw.Cc[unix.VMIN] = 1
+	raw.Cc[unix.VTIME] = 0
 
 	e = unix.IoctlSetTermios(int(t.out.Fd()), unix.TCSETS, raw)
 	if e != nil {

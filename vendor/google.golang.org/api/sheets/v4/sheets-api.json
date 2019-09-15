@@ -27,6 +27,7 @@
   "description": "Reads and writes Google Sheets.",
   "discoveryVersion": "v1",
   "documentationLink": "https://developers.google.com/sheets/",
+  "fullyEncodeReservedExpansion": true,
   "icons": {
     "x16": "http://www.google.com/images/icons/product/search-16.gif",
     "x32": "http://www.google.com/images/icons/product/search-32.gif"
@@ -808,7 +809,7 @@
       }
     }
   },
-  "revision": "20190429",
+  "revision": "20190813",
   "rootUrl": "https://sheets.googleapis.com/",
   "schemas": {
     "AddBandingRequest": {
@@ -1166,6 +1167,10 @@
         "titleTextPosition": {
           "$ref": "TextPosition",
           "description": "The axis title text position."
+        },
+        "viewWindowOptions": {
+          "$ref": "ChartAxisViewWindowOptions",
+          "description": "The view window options for this axis."
         }
       },
       "type": "object"
@@ -2243,6 +2248,39 @@
       },
       "type": "object"
     },
+    "ChartAxisViewWindowOptions": {
+      "description": "The options that define a \"view window\" for a chart (such as the visible\nvalues in an axis).",
+      "id": "ChartAxisViewWindowOptions",
+      "properties": {
+        "viewWindowMax": {
+          "description": "The maximum numeric value to be shown in this view window. If unset, will\nautomatically determine a maximum value that looks good for the data.",
+          "format": "double",
+          "type": "number"
+        },
+        "viewWindowMin": {
+          "description": "The minimum numeric value to be shown in this view window. If unset, will\nautomatically determine a minimum value that looks good for the data.",
+          "format": "double",
+          "type": "number"
+        },
+        "viewWindowMode": {
+          "description": "The view window's mode.",
+          "enum": [
+            "DEFAULT_VIEW_WINDOW_MODE",
+            "VIEW_WINDOW_MODE_UNSUPPORTED",
+            "EXPLICIT",
+            "PRETTY"
+          ],
+          "enumDescriptions": [
+            "The default view window mode used in the Sheets editor for this chart\ntype. In most cases, if set, the default mode is equivalent to\n`PRETTY`.",
+            "Do not use. Represents that the currently set mode is not supported by\nthe API.",
+            "Follows the min and max exactly if specified. If a value is unspecified,\nit will fall back to the `PRETTY` value.",
+            "Chooses a min and max that make the chart look good. Both min and max are\nignored in this mode."
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
     "ChartData": {
       "description": "The data included in a domain or series.",
       "id": "ChartData",
@@ -2820,6 +2858,36 @@
         "range": {
           "$ref": "DimensionRange",
           "description": "The dimensions to delete from the sheet."
+        }
+      },
+      "type": "object"
+    },
+    "DeleteDuplicatesRequest": {
+      "description": "Removes rows within this range that contain values in the specified columns\nthat are duplicates of values in any previous row. Rows with identical values\nbut different letter cases, formatting, or formulas are considered to be\nduplicates.\n\nThis request also removes duplicate rows hidden from view (for example, due\nto a filter). When removing duplicates, the first instance of each duplicate\nrow scanning from the top downwards is kept in the resulting range. Content\noutside of the specified range isn't removed, and rows considered duplicates\ndo not have to be adjacent to each other in the range.",
+      "id": "DeleteDuplicatesRequest",
+      "properties": {
+        "comparisonColumns": {
+          "description": "The columns in the range to analyze for duplicate values. If no columns are\nselected then all columns are analyzed for duplicates.",
+          "items": {
+            "$ref": "DimensionRange"
+          },
+          "type": "array"
+        },
+        "range": {
+          "$ref": "GridRange",
+          "description": "The range to remove duplicates rows from."
+        }
+      },
+      "type": "object"
+    },
+    "DeleteDuplicatesResponse": {
+      "description": "The result of removing duplicates in a range.",
+      "id": "DeleteDuplicatesResponse",
+      "properties": {
+        "duplicatesRemovedCount": {
+          "description": "The number of duplicate rows removed.",
+          "format": "int32",
+          "type": "integer"
         }
       },
       "type": "object"
@@ -4610,6 +4678,10 @@
           "$ref": "DeleteDimensionGroupRequest",
           "description": "Deletes a group over the specified range."
         },
+        "deleteDuplicates": {
+          "$ref": "DeleteDuplicatesRequest",
+          "description": "Removes rows containing duplicate values in specified columns of a cell\nrange."
+        },
         "deleteEmbeddedObject": {
           "$ref": "DeleteEmbeddedObjectRequest",
           "description": "Deletes an embedded object (e.g, chart, image) in a sheet."
@@ -4689,6 +4761,10 @@
         "textToColumns": {
           "$ref": "TextToColumnsRequest",
           "description": "Converts a column of text into many columns of text."
+        },
+        "trimWhitespace": {
+          "$ref": "TrimWhitespaceRequest",
+          "description": "Trims cells of whitespace (such as spaces, tabs, or new lines)."
         },
         "unmergeCells": {
           "$ref": "UnmergeCellsRequest",
@@ -4801,6 +4877,10 @@
           "$ref": "DeleteDimensionGroupResponse",
           "description": "A reply from deleting a dimension group."
         },
+        "deleteDuplicates": {
+          "$ref": "DeleteDuplicatesResponse",
+          "description": "A reply from removing rows containing duplicate values."
+        },
         "duplicateFilterView": {
           "$ref": "DuplicateFilterViewResponse",
           "description": "A reply from duplicating a filter view."
@@ -4812,6 +4892,10 @@
         "findReplace": {
           "$ref": "FindReplaceResponse",
           "description": "A reply from doing a find/replace."
+        },
+        "trimWhitespace": {
+          "$ref": "TrimWhitespaceResponse",
+          "description": "A reply from trimming whitespace."
         },
         "updateConditionalFormatRule": {
           "$ref": "UpdateConditionalFormatRuleResponse",
@@ -5395,6 +5479,29 @@
         "textFormat": {
           "$ref": "TextFormat",
           "description": "The text format for all labels on the chart."
+        }
+      },
+      "type": "object"
+    },
+    "TrimWhitespaceRequest": {
+      "description": "Trims the whitespace (such as spaces, tabs, or new lines) in every cell in\nthe specified range. This request removes all whitespace from the start and\nend of each cell's text, and reduces any subsequence of remaining whitespace\ncharacters to a single space. If the resulting trimmed text starts with a '+'\nor '=' character, the text remains as a string value and isn't interpreted\nas a formula.",
+      "id": "TrimWhitespaceRequest",
+      "properties": {
+        "range": {
+          "$ref": "GridRange",
+          "description": "The range whose cells to trim."
+        }
+      },
+      "type": "object"
+    },
+    "TrimWhitespaceResponse": {
+      "description": "The result of trimming whitespace in cells.",
+      "id": "TrimWhitespaceResponse",
+      "properties": {
+        "cellsChangedCount": {
+          "description": "The number of cells that were trimmed of whitespace.",
+          "format": "int32",
+          "type": "integer"
         }
       },
       "type": "object"

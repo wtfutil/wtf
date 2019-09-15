@@ -59,7 +59,8 @@ type Form struct {
 	itemPadding int
 
 	// The index of the item or button which has focus. (Items are counted first,
-	// buttons are counted last.)
+	// buttons are counted last.) This is only used when the form itself receives
+	// focus so that the last element that had focus keeps it.
 	focusedElement int
 
 	// The label color.
@@ -345,6 +346,11 @@ func (f *Form) SetCancelFunc(callback func()) *Form {
 func (f *Form) Draw(screen tcell.Screen) {
 	f.Box.Draw(screen)
 
+	// Determine the actual item that has focus.
+	if index := f.focusIndex(); index >= 0 {
+		f.focusedElement = index
+	}
+
 	// Determine the dimensions.
 	x, y, width, height := f.GetInnerRect()
 	topLimit := y
@@ -575,15 +581,22 @@ func (f *Form) HasFocus() bool {
 	if f.hasFocus {
 		return true
 	}
-	for _, item := range f.items {
+	return f.focusIndex() >= 0
+}
+
+// focusIndex returns the index of the currently focused item, counting form
+// items first, then buttons. A negative value indicates that no containeed item
+// has focus.
+func (f *Form) focusIndex() int {
+	for index, item := range f.items {
 		if item.GetFocusable().HasFocus() {
-			return true
+			return index
 		}
 	}
-	for _, button := range f.buttons {
+	for index, button := range f.buttons {
 		if button.focus.HasFocus() {
-			return true
+			return len(f.items) + index
 		}
 	}
-	return false
+	return -1
 }
