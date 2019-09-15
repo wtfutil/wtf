@@ -12,7 +12,7 @@ import (
 
 // Token save the personal token from todoist
 var Token string
-var todoistURL = "https://beta.todoist.com/API/v8/"
+var todoistURL = "https://api.todoist.com/rest/v1/"
 
 func makeRequest(method, endpoint string, data interface{}) (*http.Response, error) {
 	url := todoistURL + endpoint

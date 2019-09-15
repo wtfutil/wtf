@@ -20,7 +20,6 @@ require (
 	github.com/coreos/go-semver v0.3.0 // indirect
 	github.com/coreos/go-systemd v0.0.0-20190719114852-fd7a80b32e1f // indirect
 	github.com/cosiner/argv v0.0.1 // indirect
-	github.com/darkSasori/todoist v0.0.0-20180703032645-ec6b38b374ab
 	github.com/docker/distribution v2.7.1+incompatible // indirect
 	github.com/docker/docker v1.13.1
 	github.com/docker/go-connections v0.4.0 // indirect
@@ -78,6 +77,7 @@ require (
 	github.com/stretchr/objx v0.2.0 // indirect
 	github.com/stretchr/testify v1.4.0
 	github.com/ugorji/go v1.1.7 // indirect
+	github.com/wtfutil/todoist v0.0.0-20180625015933-97395e581a76
 	github.com/xanzy/go-gitlab v0.18.0
 	github.com/yfronto/newrelic v0.0.0-20180622232530-7c9c2852e8f9
 	github.com/zmb3/spotify v0.0.0-20190520155326-158b1863f5b5
@@ -107,5 +107,3 @@ require (
 	k8s.io/apimachinery v0.0.0-20190802060556-6fa4771c83b3
 	k8s.io/client-go v12.0.0+incompatible
 )
-
-// replace github.com/darkSasori/todoist => ./vendor/github.com/darkSasori/todoist
