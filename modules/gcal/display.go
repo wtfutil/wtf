@@ -48,7 +48,7 @@ func (widget *Widget) content() (string, string, bool) {
 	}
 
 	for _, calEvent := range calEvents {
-		timestamp := fmt.Sprintf("[%s]%s", widget.descriptionColor(calEvent), calEvent.Timestamp())
+		timestamp := fmt.Sprintf("[%s]%s", widget.eventTimeColor(calEvent), calEvent.Timestamp())
 		if calEvent.AllDay() {
 			timestamp = ""
 		}
@@ -114,6 +114,10 @@ func (widget *Widget) descriptionColor(calEvent *CalEvent) string {
 	}
 
 	return widget.settings.colors.description
+}
+
+func (widget *Widget) eventTimeColor(calEvent *CalEvent) string {
+	return widget.settings.colors.eventTime
 }
 
 func (widget *Widget) eventSummary(calEvent *CalEvent, conflict bool) string {
