@@ -147,6 +147,12 @@ Some interesting modules you might consider adding to get you started:
 * [Transmission](https://wtfutil.com/modules/transmission/)
 * [Trello](https://wtfutil.com/modules/trello/)
 
+## Getting Bugs Fixed or Features Added
+
+WTF is open-source software, informally maintained by a small collection of volunteers who come and go at their leisure. There are absolutely no guarantees that, even if an issue is opened for them, bugs will be fixed or features added.
+
+If there is a bug that you really need to have fixed or a feature you really want to have implemented, you can greatly increase your chances of that happening by creating a bounty on [BountySource](https://www.bountysource.com) to provide an incentive for someone to tackle it.
+
 ## Contributing to the Source Code
 
 First, please read [Talk, then code](https://dave.cheney.net/2019/02/18/talk-then-code) by Dave Cheney. It's great advice and will often save a lot of time and effort. 
