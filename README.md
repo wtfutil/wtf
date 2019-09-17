@@ -20,6 +20,7 @@ displaying infrequently-needed, but very important, daily data.
     * [Twitter](#twitter)
 * [Documentation](#documentation)
 * [Modules](#modules)
+* [Getting Bugs Fixed or Features Added](#getting-bugs-fixed-or-features-added)
 * [Contributing to the Source Code](#contributing-to-the-source-code)
     * [Adding Dependencies](#adding-dependencies)
 * [Contributing to the Documentation](#contributing-to-the-documentation)
