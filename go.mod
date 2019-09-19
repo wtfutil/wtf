@@ -31,7 +31,6 @@ require (
 	github.com/go-ole/go-ole v1.2.4 // indirect
 	github.com/godbus/dbus v5.0.1+incompatible // indirect
 	github.com/gogo/protobuf v1.3.0 // indirect
-	github.com/golang/glog v0.0.0-20170312005925-543a34c32e4d // indirect
 	github.com/google/go-cmp v0.3.1 // indirect
 	github.com/google/go-github/v26 v26.0.9
 	github.com/google/pprof v0.0.0-20190723021845-34ac40c74b70 // indirect
