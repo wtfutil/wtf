@@ -14,6 +14,7 @@ import (
 	"github.com/wtfutil/wtf/modules/datadog"
 	"github.com/wtfutil/wtf/modules/digitalclock"
 	"github.com/wtfutil/wtf/modules/docker"
+	"github.com/wtfutil/wtf/modules/azuredevops"
 	"github.com/wtfutil/wtf/modules/feedreader"
 	"github.com/wtfutil/wtf/modules/gcal"
 	"github.com/wtfutil/wtf/modules/gerrit"
@@ -112,6 +113,9 @@ func MakeWidget(
 	case "docker":
 		settings := docker.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = docker.NewWidget(app, pages, settings)
+	case "azuredevops":
+		settings := azuredevops.NewSettingsFromYAML(moduleName, moduleConfig, config)
+		widget = azuredevops.NewWidget(app, pages, settings)
 	case "feedreader":
 		settings := feedreader.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = feedreader.NewWidget(app, pages, settings)
