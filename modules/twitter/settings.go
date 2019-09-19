@@ -7,7 +7,10 @@ import (
 	"github.com/wtfutil/wtf/cfg"
 )
 
-const defaultTitle = "Twitter"
+const (
+	defaultFocusable = true
+	defaultTitle     = "Twitter"
+)
 
 type Settings struct {
 	common *cfg.Common
@@ -18,9 +21,8 @@ type Settings struct {
 }
 
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
-
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, ymlConfig, globalConfig),
+		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 
 		bearerToken: ymlConfig.UString("bearerToken", os.Getenv("WTF_TWITTER_BEARER_TOKEN")),
 		count:       ymlConfig.UInt("count", 5),

@@ -57,7 +57,7 @@ type Common struct {
 	focusChar int `help:"Define one of the number keys as a short cut key to access the widget." optional:"true"`
 }
 
-func NewCommonSettingsFromModule(name, defaultTitle string, moduleConfig *config.Config, globalSettings *config.Config) *Common {
+func NewCommonSettingsFromModule(name, defaultTitle string, defaultFocusable bool, moduleConfig *config.Config, globalSettings *config.Config) *Common {
 	colorsConfig, _ := globalSettings.Get("wtf.colors")
 	sigilsPath := "wtf.sigils"
 
@@ -84,7 +84,7 @@ func NewCommonSettingsFromModule(name, defaultTitle string, moduleConfig *config
 
 		Bordered:        moduleConfig.UBool("border", true),
 		Enabled:         moduleConfig.UBool("enabled", false),
-		Focusable:       moduleConfig.UBool("focusable", false),
+		Focusable:       moduleConfig.UBool("focusable", defaultFocusable),
 		RefreshInterval: moduleConfig.UInt("refreshInterval", 300),
 		Title:           moduleConfig.UString("title", defaultTitle),
 		Config:          moduleConfig,

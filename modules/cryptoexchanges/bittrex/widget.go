@@ -11,10 +11,14 @@ import (
 	"github.com/wtfutil/wtf/view"
 )
 
-var ok = true
-var errorText = ""
+const (
+	baseURL = "https://bittrex.com/api/v1.1/public/getmarketsummary"
+)
 
-const baseURL = "https://bittrex.com/api/v1.1/public/getmarketsummary"
+var (
+	errorText = ""
+	ok        = true
+)
 
 // Widget define wtf widget to register widget later
 type Widget struct {
@@ -27,7 +31,7 @@ type Widget struct {
 // NewWidget Make new instance of widget
 func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: view.NewTextWidget(app, settings.common, false),
+		TextWidget: view.NewTextWidget(app, settings.common),
 
 		settings:    settings,
 		summaryList: summaryList{},

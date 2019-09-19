@@ -6,7 +6,10 @@ import (
 	"github.com/wtfutil/wtf/utils"
 )
 
-const defaultTitle = "Kubernetes"
+const (
+	defaultFocusable = false
+	defaultTitle     = "Kubernetes"
+)
 
 type Settings struct {
 	common *cfg.Common
@@ -20,7 +23,7 @@ type Settings struct {
 func NewSettingsFromYAML(name string, moduleConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, moduleConfig, globalConfig),
+		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, moduleConfig, globalConfig),
 
 		objects:    utils.ToStrs(moduleConfig.UList("objects")),
 		title:      moduleConfig.UString("title"),

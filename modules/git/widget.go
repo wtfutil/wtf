@@ -11,9 +11,11 @@ import (
 	"github.com/wtfutil/wtf/view"
 )
 
-const offscreen = -1000
-const modalWidth = 80
-const modalHeight = 7
+const (
+	modalHeight = 7
+	modalWidth  = 80
+	offscreen   = -1000
+)
 
 type Widget struct {
 	view.KeyboardWidget
@@ -31,7 +33,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	widget := Widget{
 		KeyboardWidget:    view.NewKeyboardWidget(app, pages, settings.common),
 		MultiSourceWidget: view.NewMultiSourceWidget(settings.common, "repository", "repositories"),
-		TextWidget:        view.NewTextWidget(app, settings.common, true),
+		TextWidget:        view.NewTextWidget(app, settings.common),
 
 		app:      app,
 		pages:    pages,

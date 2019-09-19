@@ -12,8 +12,10 @@ import (
 	"github.com/wtfutil/wtf/view"
 )
 
-var started = false
-var ok = true
+var (
+	ok      = true
+	started = false
+)
 
 // Widget define wtf widget to register widget later
 type Widget struct {
@@ -25,7 +27,7 @@ type Widget struct {
 // NewWidget Make new instance of widget
 func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
-		BarGraph: view.NewBarGraph(app, "Sample Bar Graph", settings.common, false),
+		BarGraph: view.NewBarGraph(app, "Sample Bar Graph", settings.common),
 
 		app: app,
 	}

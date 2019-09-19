@@ -10,7 +10,9 @@ import (
 	"github.com/wtfutil/wtf/view"
 )
 
-const maxBufferSize int64 = 1024
+const (
+	maxBufferSize int64 = 1024
+)
 
 type Widget struct {
 	view.TextWidget
@@ -22,7 +24,7 @@ type Widget struct {
 
 func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: view.NewTextWidget(app, settings.common, true),
+		TextWidget: view.NewTextWidget(app, settings.common),
 
 		app:      app,
 		filePath: log.LogFilePath(),

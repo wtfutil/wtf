@@ -12,6 +12,15 @@ import (
 	"github.com/zmb3/spotify"
 )
 
+var (
+	auth           spotify.Authenticator
+	tempClientChan = make(chan *spotify.Client)
+	state          = "wtfSpotifyWebStateString"
+	authURL        string
+	callbackPort   string
+	redirectURI    string
+)
+
 // Info is the struct that contains all the information the Spotify player displays to the user
 type Info struct {
 	Artists     string
@@ -33,15 +42,6 @@ type Widget struct {
 	playerState *spotify.PlayerState
 	settings    *Settings
 }
-
-var (
-	auth           spotify.Authenticator
-	tempClientChan = make(chan *spotify.Client)
-	state          = "wtfSpotifyWebStateString"
-	authURL        string
-	callbackPort   string
-	redirectURI    string
-)
 
 func authHandler(w http.ResponseWriter, r *http.Request) {
 	tok, err := auth.Token(state, r)
@@ -70,7 +70,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 
 	widget := Widget{
 		KeyboardWidget: view.NewKeyboardWidget(app, pages, settings.common),
-		TextWidget:     view.NewTextWidget(app, settings.common, true),
+		TextWidget:     view.NewTextWidget(app, settings.common),
 
 		Info: Info{},
 

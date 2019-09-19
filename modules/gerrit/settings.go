@@ -7,14 +7,17 @@ import (
 	"github.com/wtfutil/wtf/cfg"
 )
 
+const (
+	defaultFocusable = true
+	defaultTitle     = "Gerrit"
+)
+
 type colors struct {
 	rows struct {
 		even string `help:"Define the foreground color for even-numbered rows." values:"Any X11 color name." optional:"true"`
 		odd  string `help:"Define the foreground color for odd-numbered rows." values:"Any X11 color name." optional:"true"`
 	}
 }
-
-const defaultTitle = "Gerrit"
 
 type Settings struct {
 	colors
@@ -28,9 +31,8 @@ type Settings struct {
 }
 
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
-
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, ymlConfig, globalConfig),
+		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 
 		domain:                  ymlConfig.UString("domain", ""),
 		password:                ymlConfig.UString("password", os.Getenv("WTF_GERRIT_PASSWORD")),

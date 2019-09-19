@@ -19,7 +19,7 @@ type Widget struct {
 // NewWidget creates a new widget
 func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: view.NewTextWidget(app, settings.common, true),
+		TextWidget: view.NewTextWidget(app, settings.common),
 	}
 
 	widget.View.SetScrollable(true)

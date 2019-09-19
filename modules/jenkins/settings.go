@@ -7,7 +7,10 @@ import (
 	"github.com/wtfutil/wtf/cfg"
 )
 
-const defaultTitle = "Jenkins"
+const (
+	defaultFocusable = true
+	defaultTitle     = "Jenkins"
+)
 
 type Settings struct {
 	common *cfg.Common
@@ -23,7 +26,7 @@ type Settings struct {
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, ymlConfig, globalConfig),
+		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 
 		apiKey:                  ymlConfig.UString("apiKey", ymlConfig.UString("apikey", os.Getenv("WTF_JENKINS_API_KEY"))),
 		jobNameRegex:            ymlConfig.UString("jobNameRegex", ".*"),

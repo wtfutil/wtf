@@ -6,7 +6,10 @@ import (
 	"github.com/wtfutil/wtf/cfg"
 )
 
-const defaultTitle = "dev.to | News Feed"
+const (
+	defaultFocusable = true
+	defaultTitle     = "dev.to | News Feed"
+)
 
 // Settings defines the configuration options for this module
 type Settings struct {
@@ -21,7 +24,7 @@ type Settings struct {
 // NewSettingsFromYAML creates and returns an instance of Settings with configuration options populated
 func NewSettingsFromYAML(name string, yamlConfig *config.Config, globalConfig *config.Config) *Settings {
 	settings := Settings{
-		common:           cfg.NewCommonSettingsFromModule(name, defaultTitle, yamlConfig, globalConfig),
+		common:           cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, yamlConfig, globalConfig),
 		numberOfArticles: yamlConfig.UInt("numberOfArticles", 10),
 		contentTag:       yamlConfig.UString("contentTag", ""),
 		contentUsername:  yamlConfig.UString("contentUsername", ""),

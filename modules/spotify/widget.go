@@ -23,7 +23,7 @@ type Widget struct {
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
 		KeyboardWidget: view.NewKeyboardWidget(app, pages, settings.common),
-		TextWidget:     view.NewTextWidget(app, settings.common, true),
+		TextWidget:     view.NewTextWidget(app, settings.common),
 
 		Info:   spotigopher.Info{},
 		client: spotigopher.NewClient(),

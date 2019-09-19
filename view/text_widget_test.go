@@ -15,7 +15,6 @@ func testTextWidget() TextWidget {
 				Name: "test widget",
 			},
 		},
-		true,
 	)
 	return txtWid
 }
