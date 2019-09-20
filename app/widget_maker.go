@@ -12,6 +12,7 @@ import (
 	"github.com/wtfutil/wtf/modules/cryptoexchanges/blockfolio"
 	"github.com/wtfutil/wtf/modules/cryptoexchanges/cryptolive"
 	"github.com/wtfutil/wtf/modules/datadog"
+	"github.com/wtfutil/wtf/modules/devto"
 	"github.com/wtfutil/wtf/modules/digitalclock"
 	"github.com/wtfutil/wtf/modules/docker"
 	"github.com/wtfutil/wtf/modules/feedreader"
@@ -109,6 +110,9 @@ func MakeWidget(
 	case "datadog":
 		settings := datadog.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = datadog.NewWidget(app, pages, settings)
+	case "devto":
+		settings := devto.NewSettingsFromYAML(moduleName, moduleConfig, config)
+		widget = devto.NewWidget(app, pages, settings)
 	case "docker":
 		settings := docker.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = docker.NewWidget(app, pages, settings)

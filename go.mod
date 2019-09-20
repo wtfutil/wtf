@@ -9,6 +9,7 @@ require (
 	github.com/Microsoft/go-winio v0.4.14 // indirect
 	github.com/PagerDuty/go-pagerduty v0.0.0-20190503230806-cf1437c7c8d6
 	github.com/StackExchange/wmi v0.0.0-20190523213609-cbe66965904d // indirect
+	github.com/VictorAvelar/devto-api-go v0.0.0-20190904195309-51e7b4279ce6
 	github.com/adlio/trello v1.0.0
 	github.com/alecthomas/chroma v0.6.3
 	github.com/alecthomas/repr v0.0.0-20181024024818-d37bc2a10ba1 // indirect
