@@ -2,6 +2,8 @@ module github.com/wtfutil/wtf
 
 go 1.12
 
+replace github.com/yfronto/newrelic => ./vendor/github.com/yfronto/newrelic
+
 require (
 	cloud.google.com/go v0.45.1 // indirect
 	code.cloudfoundry.org/bytefmt v0.0.0-20180906201452-2aa6f33b730c
