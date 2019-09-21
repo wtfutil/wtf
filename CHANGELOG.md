@@ -4,6 +4,8 @@
 
 ### ⚡️ Added
 
+* [Azure DevOps](https://wtfutil.com/modules/azure-devops/) module added, by [@v-braun](https://github.com/v-braun)
+
 ### 🐞 Fixed
 
 * gCal calendar event time colour can now be changed by setting the `eventTime` configuration setting, [#638](https://github.com/wtfutil/wtf/issues/638) by [@indradhanush](https://github.com/indradhanush)
