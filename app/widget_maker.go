@@ -3,6 +3,7 @@ package app
 import (
 	"github.com/olebedev/config"
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/modules/azuredevops"
 	"github.com/wtfutil/wtf/modules/bamboohr"
 	"github.com/wtfutil/wtf/modules/bargraph"
 	"github.com/wtfutil/wtf/modules/circleci"
@@ -14,7 +15,6 @@ import (
 	"github.com/wtfutil/wtf/modules/datadog"
 	"github.com/wtfutil/wtf/modules/digitalclock"
 	"github.com/wtfutil/wtf/modules/docker"
-	"github.com/wtfutil/wtf/modules/azuredevops"
 	"github.com/wtfutil/wtf/modules/feedreader"
 	"github.com/wtfutil/wtf/modules/gcal"
 	"github.com/wtfutil/wtf/modules/gerrit"
@@ -80,6 +80,9 @@ func MakeWidget(
 	case "arpansagovau":
 		settings := arpansagovau.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = arpansagovau.NewWidget(app, settings)
+	case "azuredevops":
+		settings := azuredevops.NewSettingsFromYAML(moduleName, moduleConfig, config)
+		widget = azuredevops.NewWidget(app, pages, settings)
 	case "bamboohr":
 		settings := bamboohr.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = bamboohr.NewWidget(app, settings)
@@ -113,9 +116,6 @@ func MakeWidget(
 	case "docker":
 		settings := docker.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = docker.NewWidget(app, pages, settings)
-	case "azuredevops":
-		settings := azuredevops.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = azuredevops.NewWidget(app, pages, settings)
 	case "feedreader":
 		settings := feedreader.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = feedreader.NewWidget(app, pages, settings)

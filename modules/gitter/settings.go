@@ -12,7 +12,7 @@ const defaultTitle = "Gitter"
 type Settings struct {
 	common *cfg.Common
 
-	apiToken         string `help:"Your GitterPersonal Access Token."`
+	apiToken         string `help:"Your Gitter Personal Access Token."`
 	numberOfMessages int    `help:"Maximum number of (newest) messages to be displayed. Default is 10" optional:"true"`
 	roomURI          string `help:"The room you want to display." values:"Example: wtfutil/Lobby"`
 }
