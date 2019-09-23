@@ -5,7 +5,10 @@ import (
 	"github.com/wtfutil/wtf/cfg"
 )
 
-const defaultTitle = "Google Spreadsheets"
+const (
+	defaultFocusable = false
+	defaultTitle     = "Google Spreadsheets"
+)
 
 type colors struct {
 	values string
@@ -24,7 +27,7 @@ type Settings struct {
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, ymlConfig, globalConfig),
+		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 
 		cellNames:  ymlConfig.UList("cells.names"),
 		secretFile: ymlConfig.UString("secretFile"),

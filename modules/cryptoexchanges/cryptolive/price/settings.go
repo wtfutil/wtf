@@ -5,7 +5,10 @@ import (
 	"github.com/wtfutil/wtf/cfg"
 )
 
-const defaultTitle = "CryptoLive"
+const (
+	defaultFocusable = false
+	defaultTitle     = "CryptoLive"
+)
 
 type colors struct {
 	from struct {
@@ -43,7 +46,7 @@ type Settings struct {
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, ymlConfig, globalConfig),
+		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 	}
 
 	settings.colors.from.name = ymlConfig.UString("colors.from.name")

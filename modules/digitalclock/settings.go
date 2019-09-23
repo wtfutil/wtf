@@ -5,7 +5,10 @@ import (
 	"github.com/wtfutil/wtf/cfg"
 )
 
-const defaultTitle = "Clocks"
+const (
+	defaultFocusable = false
+	defaultTitle     = "Clocks"
+)
 
 // Settings struct to define settings got digital clock
 type Settings struct {
@@ -21,7 +24,7 @@ type Settings struct {
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common:     cfg.NewCommonSettingsFromModule(name, defaultTitle, ymlConfig, globalConfig),
+		common:     cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 		color:      ymlConfig.UString("color"),
 		font:       ymlConfig.UString("font"),
 		hourFormat: ymlConfig.UString("hourFormat"),

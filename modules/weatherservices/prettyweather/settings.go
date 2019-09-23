@@ -5,7 +5,10 @@ import (
 	"github.com/wtfutil/wtf/cfg"
 )
 
-const defaultTitle = "Pretty Weather"
+const (
+	defaultFocusable = false
+	defaultTitle     = "Pretty Weather"
+)
 
 type Settings struct {
 	common *cfg.Common
@@ -17,9 +20,8 @@ type Settings struct {
 }
 
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
-
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, ymlConfig, globalConfig),
+		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 
 		city:     ymlConfig.UString("city", "Barcelona"),
 		language: ymlConfig.UString("language", "en"),

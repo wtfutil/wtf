@@ -21,7 +21,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	widget := Widget{
 		KeyboardWidget:    view.NewKeyboardWidget(app, pages, settings.common),
 		MultiSourceWidget: view.NewMultiSourceWidget(settings.common, "project", "projects"),
-		ScrollableWidget:  view.NewScrollableWidget(app, settings.common, true),
+		ScrollableWidget:  view.NewScrollableWidget(app, settings.common),
 
 		settings: settings,
 	}

@@ -38,7 +38,7 @@ type ipinfo struct {
 // NewWidget constructor
 func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: view.NewTextWidget(app, settings.common, false),
+		TextWidget: view.NewTextWidget(app, settings.common),
 
 		settings: settings,
 	}

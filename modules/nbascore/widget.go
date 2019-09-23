@@ -13,6 +13,8 @@ import (
 	"github.com/wtfutil/wtf/view"
 )
 
+var offset = 0
+
 // A Widget represents an NBA Score  widget
 type Widget struct {
 	view.KeyboardWidget
@@ -23,13 +25,11 @@ type Widget struct {
 	settings *Settings
 }
 
-var offset = 0
-
 // NewWidget creates a new instance of a widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
 		KeyboardWidget: view.NewKeyboardWidget(app, pages, settings.common),
-		TextWidget:     view.NewTextWidget(app, settings.common, true),
+		TextWidget:     view.NewTextWidget(app, settings.common),
 
 		settings: settings,
 	}

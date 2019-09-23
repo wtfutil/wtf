@@ -8,18 +8,18 @@ import (
 
 type Widget struct {
 	view.TextWidget
-	location *location
+	location  *location
 	lastError error
-	settings *Settings
+	settings  *Settings
 }
 
 func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	locationData, err := GetLocationData(settings.city)
-	widget := Widget {
-		TextWidget: view.NewTextWidget(app, settings.common, false),
-		location: locationData,
-		lastError: err,
-		settings: settings,
+	widget := Widget{
+		TextWidget: view.NewTextWidget(app, settings.common),
+		location:   locationData,
+		lastError:  err,
+		settings:   settings,
 	}
 
 	widget.View.SetWrap(true)
@@ -50,32 +50,32 @@ func formatLocationData(location *location) string {
 	var color string
 	var content string
 
-	if(location.name == "") {
+	if location.name == "" {
 		return "[red]No data?"
 	}
 
-	if(location.status != "ok") {
+	if location.status != "ok" {
 		content = "[red]Data unavailable for "
 		content += location.name
 		return content
 	}
 
 	switch {
-		case location.index < 2.5:
-			color = "[green]"
-			level = " (LOW)"
-		case location.index >= 2.5 && location.index < 5.5:
-			color = "[yellow]"
-			level = " (MODERATE)"
-		case location.index >= 5.5 && location.index < 7.5:
-			color = "[orange]"
-			level = " (HIGH)"
-		case location.index >= 7.5 && location.index < 10.5:
-			color = "[red]"
-			level = " (VERY HIGH)"
-		case location.index >= 10.5:
-			color = "[fuchsia]"
-			level = " (EXTREME)"
+	case location.index < 2.5:
+		color = "[green]"
+		level = " (LOW)"
+	case location.index >= 2.5 && location.index < 5.5:
+		color = "[yellow]"
+		level = " (MODERATE)"
+	case location.index >= 5.5 && location.index < 7.5:
+		color = "[orange]"
+		level = " (HIGH)"
+	case location.index >= 7.5 && location.index < 10.5:
+		color = "[red]"
+		level = " (VERY HIGH)"
+	case location.index >= 10.5:
+		color = "[fuchsia]"
+		level = " (EXTREME)"
 	}
 
 	content = "Location: "

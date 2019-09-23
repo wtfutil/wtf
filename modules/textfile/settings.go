@@ -5,7 +5,10 @@ import (
 	"github.com/wtfutil/wtf/cfg"
 )
 
-const defaultTitle = "Textfile"
+const (
+	defaultFocusable = true
+	defaultTitle     = "Textfile"
+)
 
 // Settings defines the configuration properties for this module
 type Settings struct {
@@ -21,7 +24,7 @@ type Settings struct {
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, ymlConfig, globalConfig),
+		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 
 		filePaths:   ymlConfig.UList("filePaths"),
 		format:      ymlConfig.UBool("format", false),

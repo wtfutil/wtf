@@ -10,6 +10,7 @@ import (
 )
 
 const (
+	defaultFocusable   = false
 	defaultTitle       = "HIBP"
 	minRefreshInterval = 21600 // Six hours
 )
@@ -32,7 +33,7 @@ type Settings struct {
 // NewSettingsFromYAML creates a new settings instance from a YAML config block
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 	settings := &Settings{
-		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, ymlConfig, globalConfig),
+		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 
 		apiKey:   ymlConfig.UString("apiKey", ymlConfig.UString("apikey", os.Getenv("WTF_HIBP_TOKEN"))),
 		accounts: utils.ToStrs(ymlConfig.UList("accounts")),

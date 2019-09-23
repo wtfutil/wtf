@@ -26,7 +26,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	widget := Widget{
 		KeyboardWidget:    view.NewKeyboardWidget(app, pages, settings.common),
 		MultiSourceWidget: view.NewMultiSourceWidget(settings.common, "screenName", "screenNames"),
-		TextWidget:        view.NewTextWidget(app, settings.common, true),
+		TextWidget:        view.NewTextWidget(app, settings.common),
 
 		idx:      0,
 		settings: settings,

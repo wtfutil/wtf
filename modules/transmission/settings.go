@@ -5,6 +5,11 @@ import (
 	"github.com/wtfutil/wtf/cfg"
 )
 
+const (
+	defaultFocusable = true
+	defaultTitle     = "Transmission"
+)
+
 // Settings defines the configuration properties for this module
 type Settings struct {
 	common *cfg.Common
@@ -17,14 +22,10 @@ type Settings struct {
 	username string `help:"The username of the Transmission user"`
 }
 
-const (
-	defaultTitle = "Transmission"
-)
-
 // NewSettingsFromYAML creates a new settings instance from a YAML config block
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, ymlConfig, globalConfig),
+		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 
 		host:     ymlConfig.UString("host"),
 		https:    ymlConfig.UBool("https", false),

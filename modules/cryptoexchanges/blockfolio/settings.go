@@ -5,7 +5,10 @@ import (
 	"github.com/wtfutil/wtf/cfg"
 )
 
-const defaultTitle = "Blockfolio"
+const (
+	defaultFocusable = false
+	defaultTitle     = "Blockfolio"
+)
 
 type colors struct {
 	name  string
@@ -24,7 +27,7 @@ type Settings struct {
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, ymlConfig, globalConfig),
+		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 
 		deviceToken:     ymlConfig.UString("device_token"),
 		displayHoldings: ymlConfig.UBool("displayHoldings", true),

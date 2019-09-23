@@ -10,7 +10,7 @@ import (
 	"github.com/wtfutil/wtf/wtf"
 )
 
-const APIURI = "https://api.bamboohr.com/api/gateway.php"
+const apiURI = "https://api.bamboohr.com/api/gateway.php"
 
 type Widget struct {
 	view.TextWidget
@@ -21,7 +21,7 @@ type Widget struct {
 
 func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: view.NewTextWidget(app, settings.common, false),
+		TextWidget: view.NewTextWidget(app, settings.common),
 
 		settings: settings,
 	}
@@ -33,7 +33,7 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 
 func (widget *Widget) Refresh() {
 	client := NewClient(
-		APIURI,
+		apiURI,
 		widget.settings.apiKey,
 		widget.settings.subdomain,
 	)

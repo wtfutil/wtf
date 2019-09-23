@@ -15,9 +15,9 @@ import (
 )
 
 const (
-	offscreen   = -1000
-	modalWidth  = 80
 	modalHeight = 7
+	modalWidth  = 80
+	offscreen   = -1000
 )
 
 // A Widget represents a Todo widget
@@ -36,7 +36,7 @@ type Widget struct {
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
 		KeyboardWidget: view.NewKeyboardWidget(app, pages, settings.common),
-		TextWidget:     view.NewTextWidget(app, settings.common, true),
+		TextWidget:     view.NewTextWidget(app, settings.common),
 
 		app:      app,
 		settings: settings,
