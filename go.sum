@@ -26,6 +26,8 @@ github.com/PuerkitoBio/purell v1.0.0/go.mod h1:c11w/QuzBsJSee3cPx9rAFu61PvFxuPbt
 github.com/PuerkitoBio/urlesc v0.0.0-20160726150825-5bd2802263f2/go.mod h1:uGdkoq3SwY9Y+13GIhn11/XLaGBb4BfwItxLd5jeuXE=
 github.com/StackExchange/wmi v0.0.0-20190523213609-cbe66965904d h1:VWP4o43LuzNbykZJzMUv5b9DWLgn0sn3GUj3RUyWMMQ=
 github.com/StackExchange/wmi v0.0.0-20190523213609-cbe66965904d/go.mod h1:3eOhrUMpNV+6aFIbp5/iudMxNCF27Vw2OZgy4xEx0Fg=
+github.com/VictorAvelar/devto-api-go v0.0.0-20190904195309-51e7b4279ce6 h1:haE29vRbSi3MeYqE3inBER8PzfsSuD5w0K/xRzrNN7M=
+github.com/VictorAvelar/devto-api-go v0.0.0-20190904195309-51e7b4279ce6/go.mod h1:gX13cqzMdpo49qP8VtBR2uCnzW7d76LFrAVSX2eLifY=
 github.com/adlio/trello v1.0.0 h1:7Mp6DnNXBHBAdhfcutftFDnX7K/G9yEtScAEplJzu+0=
 github.com/adlio/trello v1.0.0/go.mod h1:l2068AhUuUuQ9Vsb95ECMueHThYyAj4e85lWPmr2/LE=
 github.com/alecthomas/assert v0.0.0-20170929043011-405dbfeb8e38 h1:smF2tmSOzy2Mm+0dGI2AIUHY+w0BUc+4tn40djz7+6U=
