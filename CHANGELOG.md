@@ -4,7 +4,8 @@
 
 ### ⚡️ Added
 
-* [Azure DevOps](https://wtfutil.com/modules/azure-devops/) module added, by [@v-braun](https://github.com/v-braun)
+* [Azure DevOps](https://wtfutil.com/modules/azure-devops/) module added by [@v-braun](https://github.com/v-braun)
+* [Dev.to](https://wtfutil.com/modules/devto/) modiule added by [@VictorAvelar](https://github.com/VictorAvelar)
 
 ### 🐞 Fixed
 
