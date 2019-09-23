@@ -55,7 +55,7 @@ require (
 	github.com/xanzy/go-gitlab v0.18.0
 	github.com/yfronto/newrelic v0.0.0-20180622232530-7c9c2852e8f9
 	github.com/zmb3/spotify v0.0.0-20190520155326-158b1863f5b5
-	github.com/zorkian/go-datadog-api v2.21.0+incompatible
+	github.com/zorkian/go-datadog-api v2.24.0+incompatible
 	go.opencensus.io v0.22.1 // indirect
 	golang.org/x/crypto v0.0.0-20190829043050-9756ffdc2472 // indirect
 	golang.org/x/net v0.0.0-20190827160401-ba9fcec4b297 // indirect
