@@ -20,6 +20,7 @@
 * Updated `google-api-go-client` to version 0.10.0
 * Updated `chroma` to version 0.6.7
 * Updated `go-gitlab` to version 0.20.1
+* Updated `trello` to version 1.4.0
 
 ## v0.22.0
 
