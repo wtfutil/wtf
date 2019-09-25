@@ -17,6 +17,9 @@ func BuildsFor(settings *Settings) (*Builds, error) {
 	builds := &Builds{}
 
 	travisAPIURL.Host = "api." + TRAVIS_HOSTS[settings.pro]
+	if settings.baseURL != "" {
+		travisAPIURL.Host = settings.baseURL
+	}
 
 	resp, err := travisBuildRequest(settings)
 	if err != nil {
@@ -39,6 +42,9 @@ var (
 
 func travisBuildRequest(settings *Settings) (*http.Response, error) {
 	var path string = "builds"
+	if settings.baseURL != "" {
+		travisAPIURL.Path = "/api/"
+	}
 	params := url.Values{}
 	params.Add("limit", settings.limit)
 	params.Add("sort_by", settings.sort_by)
@@ -46,15 +52,15 @@ func travisBuildRequest(settings *Settings) (*http.Response, error) {
 	requestUrl := travisAPIURL.ResolveReference(&url.URL{Path: path, RawQuery: params.Encode()})
 
 	req, err := http.NewRequest("GET", requestUrl.String(), nil)
+	if err != nil {
+		return nil, err
+	}
 	req.Header.Add("Accept", "application/json")
 	req.Header.Add("Content-Type", "application/json")
 	req.Header.Add("Travis-API-Version", "3")
 
 	bearer := fmt.Sprintf("token %s", settings.apiKey)
 	req.Header.Add("Authorization", bearer)
-	if err != nil {
-		return nil, err
-	}
 
 	httpClient := &http.Client{}
 	resp, err := httpClient.Do(req)

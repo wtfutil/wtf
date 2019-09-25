@@ -29,7 +29,7 @@ require (
 	github.com/gogo/protobuf v1.3.0 // indirect
 	github.com/google/btree v1.0.0 // indirect
 	github.com/google/go-cmp v0.3.1 // indirect
-	github.com/google/go-github/v26 v26.0.9
+	github.com/google/go-github/v26 v26.1.3
 	github.com/hashicorp/go-cleanhttp v0.5.1 // indirect
 	github.com/hekmon/cunits v2.0.1+incompatible // indirect
 	github.com/hekmon/transmissionrpc v0.0.0-20190525133028-1d589625bacd
@@ -45,7 +45,7 @@ require (
 	github.com/opencontainers/go-digest v1.0.0-rc1 // indirect
 	github.com/pkg/errors v0.8.1
 	github.com/pkg/profile v1.3.0
-	github.com/radovskyb/watcher v1.0.6
+	github.com/radovskyb/watcher v1.0.7
 	github.com/rivo/tview v0.0.0-20190829161255-f8bc69b90341
 	github.com/rivo/uniseg v0.1.0 // indirect
 	github.com/shirou/gopsutil v2.18.12+incompatible

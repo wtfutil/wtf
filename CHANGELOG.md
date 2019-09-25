@@ -5,7 +5,8 @@
 ### ⚡️ Added
 
 * [Azure DevOps](https://wtfutil.com/modules/azure-devops/) module added by [@v-braun](https://github.com/v-braun)
-* [Dev.to](https://wtfutil.com/modules/devto/) modiule added by [@VictorAvelar](https://github.com/VictorAvelar)
+* [Dev.to](https://wtfutil.com/modules/devto/) module added by [@VictorAvelar](https://github.com/VictorAvelar)
+* [TravisCI]() module now supports enterprise endpoints, [#652](https://github.com/wtfutil/wtf/issues/652) by [@scw007](https://github.com/scw007)
 
 ### 🐞 Fixed
 
