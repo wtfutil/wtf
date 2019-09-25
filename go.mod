@@ -12,7 +12,7 @@ require (
 	github.com/StackExchange/wmi v0.0.0-20190523213609-cbe66965904d // indirect
 	github.com/VictorAvelar/devto-api-go v0.0.0-20190904195309-51e7b4279ce6
 	github.com/adlio/trello v1.0.0
-	github.com/alecthomas/chroma v0.6.3
+	github.com/alecthomas/chroma v0.6.7
 	github.com/alecthomas/repr v0.0.0-20181024024818-d37bc2a10ba1 // indirect
 	github.com/andygrunwald/go-gerrit v0.0.0-20190625080919-64931d233c2d
 	github.com/briandowns/openweathermap v0.0.0-20180804155945-5f41b7c9d92d
