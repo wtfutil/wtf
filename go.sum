@@ -271,6 +271,8 @@ github.com/wtfutil/todoist v0.0.0-20180625015933-97395e581a76 h1:8pVwscQmyw1Dcca
 github.com/wtfutil/todoist v0.0.0-20180625015933-97395e581a76/go.mod h1:YuuGLJSsTK6DGBD5Zaf3J8LSMfpEC2WtzYPey3XVOdI=
 github.com/xanzy/go-gitlab v0.18.0 h1:LybNSWSIw8BK+GnxuETAhUXEzzh5rHsHjopqVkGJXRE=
 github.com/xanzy/go-gitlab v0.18.0/go.mod h1:LSfUQ9OPDnwRqulJk2HcWaAiFfCzaknyeGvjQI67MbE=
+github.com/xanzy/go-gitlab v0.20.1 h1:+1BWDry84G5PzsnzG9DI4YjPbHeWKyouM0q0gfDPKgY=
+github.com/xanzy/go-gitlab v0.20.1/go.mod h1:LSfUQ9OPDnwRqulJk2HcWaAiFfCzaknyeGvjQI67MbE=
 github.com/yfronto/newrelic v0.0.0-20180622232530-7c9c2852e8f9 h1:MYjp+3xEmdmEs41pec7vbPtMg4Fe+za4FFA1lXV6RLo=
 github.com/yfronto/newrelic v0.0.0-20180622232530-7c9c2852e8f9/go.mod h1:0AAHfU8E7myJ9nLrWxqgrUDCCqNjTQ4/7cRLvYTHBnw=
 github.com/zmb3/spotify v0.0.0-20190520155326-158b1863f5b5 h1:UagwVflTu8e//SSwujymFEz0G9MUP5/fJJLCzdQy3as=
