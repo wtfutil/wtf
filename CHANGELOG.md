@@ -12,6 +12,15 @@
 
 * gCal calendar event time colour can now be changed by setting the `eventTime` configuration setting, [#638](https://github.com/wtfutil/wtf/issues/638) by [@indradhanush](https://github.com/indradhanush)
 
+### 👍 Updated
+
+* Updated `go-datadog-api` to version v2.24.0
+* Updated `go-github` to version 26.13
+* Updated `watcher` to version 1.0.7
+* Updated `google-api-go-client` to version 0.10.0
+* Updated `chroma` to version 0.6.7
+* Updated `go-gitlab` to version 0.20.1
+
 ## v0.22.0
 
 ### ⚡️ Added
