@@ -121,6 +121,34 @@ func (widget *Widget) createClient() {
 	widget.client = godo.NewClient(oauthClient)
 }
 
+// currentDroplet returns the currently-selected droplet, if there is one
+// Returns nil if no droplet is selected
+func (widget *Widget) currentDroplet() *godo.Droplet {
+	if len(widget.droplets) == 0 {
+		return nil
+	}
+
+	if len(widget.droplets) <= widget.Selected {
+		return nil
+	}
+
+	return &widget.droplets[widget.Selected]
+}
+
+// destroySelectedDroplet destroys the selected droplet
+// This action is extremelt destructive
+func (widget *Widget) destroySelectedDroplet() {
+	currDroplet := widget.currentDroplet()
+	if currDroplet == nil {
+		return
+	}
+
+	widget.client.Droplets.Delete(context.Background(), currDroplet.ID)
+
+	widget.removeCurrentDroplet()
+	widget.display()
+}
+
 func (widget *Widget) fetchDroplets() ([]godo.Droplet, error) {
 	dropletList := []godo.Droplet{}
 	opts := &godo.ListOptions{}
@@ -149,4 +177,13 @@ func (widget *Widget) fetchDroplets() ([]godo.Droplet, error) {
 	}
 
 	return dropletList, nil
+}
+
+// removeCurrentDroplet removes the currently-selected droplet from the internal list of droplets
+func (widget *Widget) removeCurrentDroplet() {
+	currDroplet := widget.currentDroplet()
+	if currDroplet != nil {
+		widget.droplets[len(widget.droplets)-1], widget.droplets[widget.Selected] = widget.droplets[widget.Selected], widget.droplets[len(widget.droplets)-1]
+		widget.droplets = widget.droplets[:len(widget.droplets)-1]
+	}
 }

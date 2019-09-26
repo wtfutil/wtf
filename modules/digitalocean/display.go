@@ -2,9 +2,11 @@ package digitalocean
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/utils"
+	"github.com/wtfutil/wtf/wtf"
 )
 
 func (widget *Widget) content() (string, string, bool) {
@@ -13,19 +15,17 @@ func (widget *Widget) content() (string, string, bool) {
 		return title, widget.err.Error(), true
 	}
 
-	str := " [red]Droplets[white]\n"
+	str := fmt.Sprintf(" [red]Droplets [grey](%d)[white]\n", len(widget.droplets))
 
 	for idx, droplet := range widget.droplets {
 		dropletName := droplet.Name
-		ipV4, _ := droplet.PublicIPv4()
 
 		row := fmt.Sprintf(
-			"[%s]%3d %s %s %s[white]",
+			"[%s] %s\t%s\t%s[white]",
 			widget.RowColor(idx),
-			(idx + 1),
+			wtf.PrettyDate(strings.Split(droplet.Created, "T")[0]),
 			tview.Escape(dropletName),
-			droplet.Region.Slug,
-			ipV4,
+			strings.Join(droplet.Tags, ","),
 		)
 
 		str += utils.HighlightableHelper(widget.View, row, idx, len(dropletName))
