@@ -9,8 +9,13 @@ import (
 
 var rootPage = "https://reddit.com/r/"
 
-func GetLinks(subreddit string, sortMode string) ([]Link, error) {
-	request, err := http.NewRequest("GET", rootPage+subreddit+"/"+sortMode+".json", nil)
+func GetLinks(subreddit string, sortMode string, topTimePeriod string) ([]Link, error) {
+	url := rootPage + subreddit + "/" + sortMode + ".json"
+	if sortMode == "top" {
+		url = url + "?sort=top&t=" + topTimePeriod
+	}
+
+	request, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -32,6 +37,10 @@ func GetLinks(subreddit string, sortMode string) ([]Link, error) {
 
 	if err != nil {
 		return nil, err
+	}
+
+	if len(m.Data.Children) == 0 {
+		return nil, fmt.Errorf("No links")
 	}
 
 	var links []Link

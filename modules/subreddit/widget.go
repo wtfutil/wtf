@@ -35,15 +35,17 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 
 }
 
+/* -------------------- Exported Functions -------------------- */
+
 func (widget *Widget) Refresh() {
-	links, err := GetLinks(widget.settings.subreddit, widget.settings.sortOrder)
+	links, err := GetLinks(widget.settings.subreddit, widget.settings.sortOrder, widget.settings.topTimePeriod)
 	if err != nil {
 		widget.err = err
 		widget.links = nil
 		widget.SetItemCount(0)
 	} else {
-		widget.links = links
-		widget.SetItemCount(len(links))
+		widget.links = links[:widget.settings.numberOfPosts]
+		widget.SetItemCount(len(widget.links))
 		widget.err = nil
 	}
 	widget.Render()
@@ -52,6 +54,8 @@ func (widget *Widget) Refresh() {
 func (widget *Widget) Render() {
 	widget.Redraw(widget.content)
 }
+
+/* -------------------- Unexported Functions -------------------- */
 
 func (widget *Widget) content() (string, string, bool) {
 	title := "/r/" + widget.settings.subreddit + " - " + widget.settings.sortOrder
