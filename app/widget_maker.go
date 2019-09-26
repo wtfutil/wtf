@@ -16,6 +16,7 @@ import (
 	"github.com/wtfutil/wtf/modules/datadog"
 	"github.com/wtfutil/wtf/modules/devto"
 	"github.com/wtfutil/wtf/modules/digitalclock"
+	"github.com/wtfutil/wtf/modules/digitalocean"
 	"github.com/wtfutil/wtf/modules/docker"
 	"github.com/wtfutil/wtf/modules/exchangerates"
 	"github.com/wtfutil/wtf/modules/feedreader"
@@ -111,9 +112,6 @@ func MakeWidget(
 	case "clocks":
 		settings := clocks.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = clocks.NewWidget(app, settings)
-	case "digitalclock":
-		settings := digitalclock.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = digitalclock.NewWidget(app, settings)
 	case "cmdrunner":
 		settings := cmdrunner.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = cmdrunner.NewWidget(app, settings)
@@ -126,6 +124,12 @@ func MakeWidget(
 	case "devto":
 		settings := devto.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = devto.NewWidget(app, pages, settings)
+	case "digitalclock":
+		settings := digitalclock.NewSettingsFromYAML(moduleName, moduleConfig, config)
+		widget = digitalclock.NewWidget(app, settings)
+	case "digitalocean":
+		settings := digitalocean.NewSettingsFromYAML(moduleName, moduleConfig, config)
+		widget = digitalocean.NewWidget(app, pages, settings)
 	case "docker":
 		settings := docker.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = docker.NewWidget(app, pages, settings)

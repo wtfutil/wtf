@@ -114,11 +114,16 @@ func (widget *Widget) Unselect() {
 
 /* -------------------- Unexported Functions -------------------- */
 
+<<<<<<< HEAD
 // buildClient creates a persisten transmission client
 func buildClient(widget *Widget) {
 	widget.mu.Lock()
 	defer widget.mu.Unlock()
 
+=======
+// createClient create a persisten transmission client for use in the calls below
+func (widget *Widget) createClient() {
+>>>>>>> WTF-484 DigitalOcean module stubbed out
 	client, err := transmissionrpc.New(widget.settings.host, widget.settings.username, widget.settings.password,
 		&transmissionrpc.AdvancedConfig{
 			Port: widget.settings.port,
