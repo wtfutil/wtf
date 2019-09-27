@@ -67,16 +67,18 @@ func (widget *Widget) content() (string, string, bool) {
 	if widget.err != nil {
 		return title, widget.err.Error(), true
 	}
+
 	title = title + widget.sinceDateForTitle()
 	str := ""
 
-	for _, stat := range widget.data {
+	for _, status := range widget.data {
 		color := widget.settings.colors.ok
-		if stat.HasBeenCompromised() {
+
+		if status.HasBeenCompromised() {
 			color = widget.settings.colors.pwned
 		}
 
-		str += fmt.Sprintf(" [%s]%s[white]\n", color, stat.Account)
+		str += fmt.Sprintf(" [%s]%s[white]\n", color, status.Account)
 	}
 
 	return title, str, false
