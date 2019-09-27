@@ -23,7 +23,7 @@ require (
 	github.com/docker/go-connections v0.4.0 // indirect
 	github.com/docker/go-units v0.4.0 // indirect
 	github.com/dustin/go-humanize v1.0.0
-	github.com/gdamore/tcell v1.3.0
+	github.com/gdamore/tcell v1.2.0
 	github.com/go-ole/go-ole v1.2.4 // indirect
 	github.com/godbus/dbus v5.0.1+incompatible // indirect
 	github.com/gogo/protobuf v1.3.0 // indirect
