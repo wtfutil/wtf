@@ -12,7 +12,7 @@ type Widget struct {
 	view.TextWidget
 
 	settings *Settings
-	data     []*Status
+	statuses []*Status
 	err      error
 }
 
@@ -47,14 +47,14 @@ func (widget *Widget) Fetch(accounts []string) ([]*Status, error) {
 
 // Refresh updates the data for this widget and displays it onscreen
 func (widget *Widget) Refresh() {
-	data, err := widget.Fetch(widget.settings.accounts)
+	statuses, err := widget.Fetch(widget.settings.accounts)
 
 	if err != nil {
 		widget.err = err
-		widget.data = nil
+		widget.statuses = nil
 	} else {
 		widget.err = nil
-		widget.data = data
+		widget.statuses = statuses
 	}
 
 	widget.Redraw(widget.content)
@@ -71,14 +71,16 @@ func (widget *Widget) content() (string, string, bool) {
 	title = title + widget.sinceDateForTitle()
 	str := ""
 
-	for _, status := range widget.data {
+	for _, status := range widget.statuses {
 		color := widget.settings.colors.ok
 
 		if status.HasBeenCompromised() {
 			color = widget.settings.colors.pwned
 		}
 
-		str += fmt.Sprintf(" [%s]%s[white]\n", color, status.Account)
+		if status != nil {
+			str += fmt.Sprintf(" [%s]%s[white]\n", color, status.Account)
+		}
 	}
 
 	return title, str, false
