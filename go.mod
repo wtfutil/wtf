@@ -67,7 +67,7 @@ require (
 	google.golang.org/grpc v1.23.0 // indirect
 	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
 	gopkg.in/jarcoal/httpmock.v1 v1.0.0-20190314184232-a8ac0a50d0b5 // indirect
-	gopkg.in/yaml.v2 v2.2.2
+	gopkg.in/yaml.v2 v2.2.3
 	k8s.io/apimachinery v0.0.0-20190802060556-6fa4771c83b3
 	k8s.io/client-go v12.0.0+incompatible
 )
