@@ -65,6 +65,16 @@ sudo port install wtfutil
 wtfutil
 ```
 
+### Install via Scarf
+
+If you're interested in supporting wtfutil, please consider installing via [Scarf](https://scarf.sh/package/senorprogrammer/wtfutil).
+
+```console
+scarf install wtfutil
+
+wtfutil
+```
+
 ### Install a Binary
 
 [Download the latest binary](https://github.com/wtfutil/wtf/releases) from GitHub.
