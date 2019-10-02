@@ -13,9 +13,10 @@ import (
 )
 
 const (
-	SimpleDateFormat  = "Jan 2"
-	SimpleTimeFormat  = "15:04 MST"
-	MinimumTimeFormat = "15:04"
+	SimpleDateFormat    = "Jan 2"
+	SimpleTimeFormat    = "15:04 MST"
+	MinimumTimeFormat12 = "3:04 PM"
+	MinimumTimeFormat24 = "15:04"
 
 	FullDateFormat         = "Monday, Jan 2"
 	FriendlyDateFormat     = "Mon, Jan 2"
