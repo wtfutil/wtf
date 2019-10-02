@@ -155,8 +155,8 @@ func (widget *Widget) persist() {
 // items have the correct checked/unchecked icon per the user's preferences
 func (widget *Widget) setItemChecks() {
 	for _, item := range widget.list.Items {
-		item.CheckedIcon = widget.settings.common.Checkbox.Checked
-		item.UncheckedIcon = widget.settings.common.Checkbox.Unchecked
+		item.CheckedIcon = widget.settings.checked
+		item.UncheckedIcon = widget.settings.unchecked
 	}
 }
 

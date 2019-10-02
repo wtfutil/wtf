@@ -13,15 +13,21 @@ const (
 type Settings struct {
 	common *cfg.Common
 
-	filePath string
+	filePath  string
+	checked   string
+	unchecked string
 }
 
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
-	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
+	common := cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig)
 
-		filePath: ymlConfig.UString("filename"),
+	settings := Settings{
+		common: common,
+
+		filePath:  ymlConfig.UString("filename"),
+		checked:   ymlConfig.UString("checkedIcon", common.Checkbox.Checked),
+		unchecked: ymlConfig.UString("uncheckedIcon", common.Checkbox.Unchecked),
 	}
 
 	return &settings
