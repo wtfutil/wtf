@@ -8,8 +8,8 @@ wtf:
       focused: orange
       normal: gray
   grid:
-    columns: [32, 32, 32, 32]
-    rows: [10, 10, 10, 4, 4]
+    columns: [32, 32, 32, 32, 90]
+    rows: [10, 10, 10, 4, 4, 90]
   refreshInterval: 1
   mods:
     clocks_a:
