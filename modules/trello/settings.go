@@ -18,7 +18,7 @@ type Settings struct {
 	accessToken string
 	apiKey      string
 	board       string
-	list        map[string]string
+	list        []string
 	username    string
 }
 
@@ -32,18 +32,18 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		username:    ymlConfig.UString("username"),
 	}
 
-	settings.list = mapifyList(ymlConfig, globalConfig)
+	settings.list = buildLists(ymlConfig, globalConfig)
 
 	return &settings
 }
 
-func mapifyList(ymlConfig *config.Config, globalConfig *config.Config) map[string]string {
-	lists := make(map[string]string)
+func buildLists(ymlConfig *config.Config, globalConfig *config.Config) []string {
+	lists := []string{}
 
 	// Single list
 	list, err := ymlConfig.String("list")
 	if err == nil {
-		lists[list] = list
+		lists = append(lists, list)
 		return lists
 	}
 
@@ -51,7 +51,7 @@ func mapifyList(ymlConfig *config.Config, globalConfig *config.Config) map[strin
 	listList := ymlConfig.UList("list")
 	for _, listName := range listList {
 		if list, ok := listName.(string); ok {
-			lists[list] = list
+			lists = append(lists, list)
 		}
 	}
 
