@@ -100,7 +100,7 @@ func (widget *Widget) contentFrom(onCalls []pagerduty.OnCall, incidents []pagerd
 	sort.Strings(keys)
 
 	if len(keys) > 0 {
-		str += "\n[red] Schedules[white]\n"
+		str += "[red] Schedules[white]\n"
 		// Print out policies, and escalation order of users
 		for _, key := range keys {
 			str += fmt.Sprintf("\n [green::b]%s\n", key)

@@ -93,7 +93,7 @@ func NewCommonSettingsFromModule(name, defaultTitle string, defaultFocusable boo
 	}
 
 	common.Colors.Rows.Even = moduleConfig.UString("colors.rows.even", colorsConfig.UString("rows.even", "white"))
-	common.Colors.Rows.Odd = moduleConfig.UString("colors.rows.even", colorsConfig.UString("rows.odd", "lightblue"))
+	common.Colors.Rows.Odd = moduleConfig.UString("colors.rows.odd", colorsConfig.UString("rows.odd", "lightblue"))
 
 	common.Sigils.Checkbox.Checked = globalSettings.UString(sigilsPath+".checkbox.checked", "x")
 	common.Sigils.Checkbox.Unchecked = globalSettings.UString(sigilsPath+".checkbox.unchecked", " ")
