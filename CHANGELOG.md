@@ -29,6 +29,7 @@
 * Updated `go-gitlab` to version 0.20.1
 * Updated `trello` to version 1.4.0
 * Updated `tcell` to version 1.3.0
+* Updated `gopsutil` to version 2.19.9+incompatible
 
 ## v0.22.0
 
