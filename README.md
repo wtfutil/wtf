@@ -13,6 +13,7 @@ displaying infrequently-needed, but very important, daily data.
 * [Installing](#installing)
     * [Install via Homebrew](#install-via-homebrew)
     * [Install via MacPorts](#install-via-macports)
+    * [Install via Scarf](#install-via-scarf)
     * [Install a Binary](#install-a-binary)
     * [Install from Source](#install-from-source)
 * [Communication](#communication)
