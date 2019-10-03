@@ -17,6 +17,7 @@
 * [Clocks](https://wtfutil.com/modules/clocks/) now obeys global row colour settings, [#658](https://github.com/wtfutil/wtf/issues/658) by [@senorprogrammer](https://github.com/senorprogrammer)
 * [Transmission](https://wtfutil.com/modules/transmission/) module no longer blocks rendering when a Transmission daemon cannot be found, [#661](https://github.com/wtfutil/wtf/issues/661) by [@senorprogrammer](https://github.com/senorprogrammer)
 * [Trello](https://wtfutil.com/modules/trello/) module now respects project list order, [#664](https://github.com/wtfutil/wtf/issues/664) by [@Seanstoppable](https://github.com/Seanstoppable)
+* [Todo](https://wtfutil.com/modules/todo/) module now respects checkbox settings, [#616](https://github.com/wtfutil/wtf/issues/616) by [@Seanstoppable](https://github.com/Seanstoppable)
 
 ### 👍 Updated
 
