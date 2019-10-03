@@ -11,15 +11,8 @@ const (
 	defaultTitle     = "Clocks"
 )
 
-type colors struct {
-	rows struct {
-		even string
-		odd  string
-	}
-}
-
+// Settings defines the configuration properties for this module
 type Settings struct {
-	colors
 	common *cfg.Common
 
 	dateFormat string                 `help:"The format of the date string for all clocks." values:"Any valid Go date layout which is handled by Time.Format. Defaults to Jan 2."`
@@ -28,6 +21,7 @@ type Settings struct {
 	sort       string                 `help:"Defines the display order of the clocks in the widget." values:"'alphabetical' or 'chronological'. 'alphabetical' will sort in acending order by key, 'chronological' will sort in ascending order by date/time."`
 }
 
+// NewSettingsFromYAML creates a new settings instance from a YAML config block
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 	settings := Settings{
 		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
@@ -37,9 +31,6 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		locations:  ymlConfig.UMap("locations"),
 		sort:       ymlConfig.UString("sort"),
 	}
-
-	settings.colors.rows.even = ymlConfig.UString("colors.rows.even", "white")
-	settings.colors.rows.odd = ymlConfig.UString("colors.rows.odd", "blue")
 
 	return &settings
 }
