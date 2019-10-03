@@ -30,6 +30,7 @@ type Settings struct {
 	displayResponseStatus bool   `help:"Whether or not to display your response status to the calendar event." values:"true or false" optional:"true"`
 	email                 string `help:"The email address associated with your Google account. Necessary for determining 'responseStatus'." values:"A valid email address string."`
 	eventCount            int    `help:"The number of calendar events to display." values:"A positive integer, 0..n." optional:"true"`
+	hourFormat            string `help:"The format of the clock." values:"12 or 24"`
 	multiCalendar         bool   `help:"Whether or not to display your primary calendar or all calendars you have access to." values:"true or false" optional:"true"`
 	secretFile            string `help:"Your Google client secret JSON file." values:"A string representing a file path to the JSON secret file."`
 	showDeclined          bool   `help:"Whether or not to display events you’ve declined to attend." values:"true or false" optional:"true"`
@@ -48,6 +49,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		displayResponseStatus: ymlConfig.UBool("displayResponseStatus", true),
 		email:                 ymlConfig.UString("email", ""),
 		eventCount:            ymlConfig.UInt("eventCount", 10),
+		hourFormat:            ymlConfig.UString("hourFormat", "24"),
 		multiCalendar:         ymlConfig.UBool("multiCalendar", false),
 		secretFile:            ymlConfig.UString("secretFile", ""),
 		showDeclined:          ymlConfig.UBool("showDeclined", false),
