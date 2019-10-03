@@ -67,7 +67,7 @@ wtfutil
 
 ### Install via Scarf
 
-If you're interested in supporting wtfutil, please consider installing via [Scarf](https://scarf.sh/package/senorprogrammer/wtfutil).
+You can also install via [Scarf](https://scarf.sh/package/senorprogrammer/wtfutil):
 
 ```console
 scarf install wtfutil
