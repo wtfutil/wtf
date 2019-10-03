@@ -34,15 +34,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 
 	widget.KeyboardWidget.SetView(widget.View)
 
-	// Create a persisten transmission client for use in the calls below
-	client, err := transmissionrpc.New(widget.settings.host, widget.settings.username, widget.settings.password,
-		&transmissionrpc.AdvancedConfig{
-			Port: widget.settings.port,
-		})
-	if err != nil {
-		client = nil
-	}
-	widget.client = client
+	go buildClient(&widget)
 
 	return &widget
 }
@@ -52,7 +44,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 // Fetch retrieves torrent data from the Transmission daemon
 func (widget *Widget) Fetch() ([]*transmissionrpc.Torrent, error) {
 	if widget.client == nil {
-		return nil, errors.New("client could not be initialized")
+		return nil, errors.New("client was not initialized")
 	}
 
 	torrents, err := widget.client.TorrentGetAll()
@@ -101,6 +93,20 @@ func (widget *Widget) Unselect() {
 }
 
 /* -------------------- Unexported Functions -------------------- */
+
+// buildClient creates a persisten transmission client
+func buildClient(widget *Widget) {
+	client, err := transmissionrpc.New(widget.settings.host, widget.settings.username, widget.settings.password,
+		&transmissionrpc.AdvancedConfig{
+			Port: widget.settings.port,
+		})
+	if err != nil {
+		client = nil
+	}
+	widget.client = client
+
+	widget.Refresh()
+}
 
 func (widget *Widget) currentTorrent() *transmissionrpc.Torrent {
 	if len(widget.torrents) == 0 {
