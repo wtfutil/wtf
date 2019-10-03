@@ -6,13 +6,13 @@ import (
 	"github.com/adlio/trello"
 )
 
-func GetCards(client *trello.Client, username string, boardName string, lists map[string]string) (*SearchResult, error) {
+func GetCards(client *trello.Client, username string, boardName string, listNames []string) (*SearchResult, error) {
 	boardID, err := getBoardID(client, username, boardName)
 	if err != nil {
 		return nil, err
 	}
 
-	lists, err = getListIDs(client, boardID, lists)
+	lists, err := getLists(client, boardID, listNames)
 	if err != nil {
 		return nil, err
 	}
@@ -20,8 +20,8 @@ func GetCards(client *trello.Client, username string, boardName string, lists ma
 	searchResult := &SearchResult{Total: 0}
 	searchResult.TrelloCards = make(map[string][]TrelloCard)
 
-	for listName, listID := range lists {
-		cards, err := getCardsOnList(client, listID)
+	for _, list := range lists {
+		cards, err := getCardsOnList(client, list.ID)
 		if err != nil {
 			return nil, err
 		}
@@ -32,14 +32,14 @@ func GetCards(client *trello.Client, username string, boardName string, lists ma
 		for _, card := range cards {
 			trelloCard := TrelloCard{
 				ID:          card.ID,
-				List:        listName,
+				List:        list.Name,
 				Name:        card.Name,
 				Description: card.Desc,
 			}
 			cardArray = append(cardArray, trelloCard)
 		}
 
-		searchResult.TrelloCards[listName] = cardArray
+		searchResult.TrelloCards[list.Name] = cardArray
 	}
 
 	return searchResult, nil
@@ -65,7 +65,13 @@ func getBoardID(client *trello.Client, username, boardName string) (string, erro
 	return "", fmt.Errorf("could not find board with name %s", boardName)
 }
 
-func getListIDs(client *trello.Client, boardID string, lists map[string]string) (map[string]string, error) {
+func getLists(client *trello.Client, boardID string, listNames []string) ([]TrelloList, error) {
+	comparison := make(map[string]string, len(listNames))
+	results := []TrelloList{}
+	//convert to a map for comparison
+	for _, item := range listNames {
+		comparison[item] = ""
+	}
 	board, err := client.GetBoard(boardID, trello.Defaults())
 	if err != nil {
 		return nil, err
@@ -77,12 +83,12 @@ func getListIDs(client *trello.Client, boardID string, lists map[string]string) 
 	}
 
 	for _, list := range boardLists {
-		if _, ok := lists[list.Name]; ok {
-			lists[list.Name] = list.ID
+		if _, ok := comparison[list.Name]; ok {
+			results = append(results, TrelloList{ID: list.ID, Name: list.Name})
 		}
 	}
 
-	return lists, nil
+	return results, nil
 }
 
 func getCardsOnList(client *trello.Client, listID string) ([]*trello.Card, error) {

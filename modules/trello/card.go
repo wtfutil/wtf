@@ -6,3 +6,8 @@ type TrelloCard struct {
 	List        string
 	Description string
 }
+
+type TrelloList struct {
+	ID   string
+	Name string
+}
