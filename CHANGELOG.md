@@ -9,6 +9,7 @@
 * [TravisCI]() module now supports enterprise endpoints, [#652](https://github.com/wtfutil/wtf/issues/652) by [@scw007](https://github.com/scw007)
 * [Subreddit](https://wtfutil.com/modules/subreddit/) module added, by [@lawrencecraft](https://github.com/lawrencecraft)
 * [gCal](https://wtfutil.com/modules/google/gcal/) module now supports a `hourFormat` setting for defining whether to display 12 or 24-hour times, [#665](https://github.com/wtfutil/wtf/issues/665) by [@senorprogrammer](https://github.com/senorprogrammer)
+* [Scarf](https://scarf.sh) installation instructions added to README, by [@aviaviavi](https://github.com/aviaviavi)
 
 ### 🐞 Fixed
 
