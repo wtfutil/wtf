@@ -10,6 +10,7 @@
 * [Subreddit](https://wtfutil.com/modules/subreddit/) module added, by [@lawrencecraft](https://github.com/lawrencecraft)
 * [gCal](https://wtfutil.com/modules/google/gcal/) module now supports a `hourFormat` setting for defining whether to display 12 or 24-hour times, [#665](https://github.com/wtfutil/wtf/issues/665) by [@senorprogrammer](https://github.com/senorprogrammer)
 * [Scarf](https://scarf.sh) installation instructions added to README, by [@aviaviavi](https://github.com/aviaviavi)
+* Spotify widget now supports colour themes, [#659](https://github.com/wtfutil/wtf/issues/659) by [@Tardog](https://github.com/Tardog)
 
 ### 🐞 Fixed
 
