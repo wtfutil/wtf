@@ -30,6 +30,7 @@
 * Updated `trello` to version 1.4.0
 * Updated `tcell` to version 1.3.0
 * Updated `gopsutil` to version 2.19.9+incompatible
+* Updated `yaml` to version 2.2.4
 
 ## v0.22.0
 
