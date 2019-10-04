@@ -214,9 +214,6 @@ The inspiration for `WTF` came from Monica Dinculescu's
 
 WTF is built atop [tcell](https://github.com/gdamore/tcell) and [tview](https://github.com/rivo/tview), fantastic projects both. WTF is built, packaged, and deployed via [GoReleaser](https://goreleaser.com).
 
-Many thanks to <a href="https://lendesk.com">Lendesk</a> for supporting this project by
-providing time to develop it.
-
 <p align="center">
 <img src="./images/dude_wtf.png?raw=true" title="Dude WTF" width="251" height="201" />
 </p>
