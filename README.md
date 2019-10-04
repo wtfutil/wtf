@@ -9,7 +9,16 @@
 A personal terminal-based dashboard utility, designed for
 displaying infrequently-needed, but very important, daily data.
 
-* [Screenshot](#screenshot)
+#
+
+## Hacktoberfest Participation
+
+🎃[Hacktoberfest](https://hacktoberfest.digitalocean.com) is upon us once again. If you're participating, we've got a new "Hacktoberfest" PR label available to use. Tag your PR with that label and we'll try to prioritize it when reviewing and merging. Offer good until Oct 31.
+
+Happy hacking! 👻
+
+#
+
 * [Installing](#installing)
     * [Install via Homebrew](#install-via-homebrew)
     * [Install via MacPorts](#install-via-macports)
@@ -27,8 +36,6 @@ displaying infrequently-needed, but very important, daily data.
 * [Contributing to the Documentation](#contributing-to-the-documentation)
 * [Contributors](#contributors)
 * [Acknowledgements](#acknowledgments)
-
-## Screenshot
 
 <p align="center">
 <img src="./images/screenshot.jpg" title="screenshot" width="720" height="420" />
