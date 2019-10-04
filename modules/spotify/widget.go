@@ -64,10 +64,13 @@ func (w *Widget) createOutput() (string, string, bool) {
 	if err != nil {
 		content = err.Error()
 	} else {
-		content = utils.CenterText(fmt.Sprintf("[green]Now %v [white]\n", w.Info.Status), w.CommonSettings().Width)
-		content += utils.CenterText(fmt.Sprintf("[green]Title:[white] %v\n ", w.Info.Title), w.CommonSettings().Width)
-		content += utils.CenterText(fmt.Sprintf("[green]Artist:[white] %v\n", w.Info.Artist), w.CommonSettings().Width)
-		content += utils.CenterText(fmt.Sprintf("[green]%v:[white] %v\n", w.Info.TrackNumber, w.Info.Album), w.CommonSettings().Width)
+		labelColor := w.settings.colors.label
+		textColor := w.settings.colors.text
+
+		content = utils.CenterText(fmt.Sprintf("[%s]Now %v [%s]\n", labelColor, w.Info.Status, textColor), w.CommonSettings().Width)
+		content += utils.CenterText(fmt.Sprintf("[%s]Title:[%s] %v\n ", labelColor, textColor, w.Info.Title), w.CommonSettings().Width)
+		content += utils.CenterText(fmt.Sprintf("[%s]Artist:[%s] %v\n", labelColor, textColor, w.Info.Artist), w.CommonSettings().Width)
+		content += utils.CenterText(fmt.Sprintf("[%s]%v:[%s] %v\n", labelColor, w.Info.TrackNumber, textColor, w.Info.Album), w.CommonSettings().Width)
 	}
 	return w.CommonSettings().Title, content, true
 }
