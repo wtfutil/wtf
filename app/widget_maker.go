@@ -6,6 +6,7 @@ import (
 	"github.com/wtfutil/wtf/modules/azuredevops"
 	"github.com/wtfutil/wtf/modules/bamboohr"
 	"github.com/wtfutil/wtf/modules/bargraph"
+	"github.com/wtfutil/wtf/modules/buildkite"
 	"github.com/wtfutil/wtf/modules/circleci"
 	"github.com/wtfutil/wtf/modules/clocks"
 	"github.com/wtfutil/wtf/modules/cmdrunner"
@@ -97,6 +98,9 @@ func MakeWidget(
 	case "blockfolio":
 		settings := blockfolio.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = blockfolio.NewWidget(app, settings)
+	case "buildkite":
+		settings := buildkite.NewSettingsFromYAML(moduleName, moduleConfig, config)
+		widget = buildkite.NewWidget(app, pages, settings)
 	case "circleci":
 		settings := circleci.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = circleci.NewWidget(app, settings)
