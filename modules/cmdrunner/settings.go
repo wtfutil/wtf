@@ -30,7 +30,7 @@ func NewSettingsFromYAML(name string, moduleConfig *config.Config, globalConfig 
 		args:     utils.ToStrs(moduleConfig.UList("args")),
 		cmd:      moduleConfig.UString("cmd"),
 		tail:     moduleConfig.UBool("tail"),
-		maxLines: moduleConfig.UInt("maxLines", -1),
+		maxLines: moduleConfig.UInt("maxLines", 256),
 	}
 
 	return &settings
