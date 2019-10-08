@@ -8,6 +8,7 @@ import (
 	"github.com/wtfutil/wtf/modules/circleci"
 	"github.com/wtfutil/wtf/modules/clocks"
 	"github.com/wtfutil/wtf/modules/cmdrunner"
+	"github.com/wtfutil/wtf/modules/cmdrunner2"
 	"github.com/wtfutil/wtf/modules/cryptoexchanges/bittrex"
 	"github.com/wtfutil/wtf/modules/cryptoexchanges/blockfolio"
 	"github.com/wtfutil/wtf/modules/cryptoexchanges/cryptolive"
@@ -38,6 +39,7 @@ import (
 	"github.com/wtfutil/wtf/modules/pagerduty"
 	"github.com/wtfutil/wtf/modules/power"
 	"github.com/wtfutil/wtf/modules/resourceusage"
+	"github.com/wtfutil/wtf/modules/resourceusage2"
 	"github.com/wtfutil/wtf/modules/rollbar"
 	"github.com/wtfutil/wtf/modules/security"
 	"github.com/wtfutil/wtf/modules/spotify"
@@ -103,6 +105,33 @@ func MakeWidget(
 	case "cmdrunner":
 		settings := cmdrunner.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = cmdrunner.NewWidget(app, settings)
+	case "cmdrunner2":
+		settings := cmdrunner2.NewSettingsFromYAML(2, moduleName, moduleConfig, config)
+		widget = cmdrunner2.NewWidget(app, settings)
+	case "cmdrunner3":
+		settings := cmdrunner2.NewSettingsFromYAML(3, moduleName, moduleConfig, config)
+		widget = cmdrunner2.NewWidget(app, settings)
+	case "cmdrunner4":
+		settings := cmdrunner2.NewSettingsFromYAML(4, moduleName, moduleConfig, config)
+		widget = cmdrunner2.NewWidget(app, settings)
+	case "cmdrunner5":
+		settings := cmdrunner2.NewSettingsFromYAML(5, moduleName, moduleConfig, config)
+		widget = cmdrunner2.NewWidget(app, settings)
+	case "cmdrunner6":
+		settings := cmdrunner2.NewSettingsFromYAML(6, moduleName, moduleConfig, config)
+		widget = cmdrunner2.NewWidget(app, settings)
+	case "cmdrunner7":
+		settings := cmdrunner2.NewSettingsFromYAML(7, moduleName, moduleConfig, config)
+		widget = cmdrunner2.NewWidget(app, settings)
+	case "cmdrunner8":
+		settings := cmdrunner2.NewSettingsFromYAML(8, moduleName, moduleConfig, config)
+		widget = cmdrunner2.NewWidget(app, settings)
+	case "cmdrunner9":
+		settings := cmdrunner2.NewSettingsFromYAML(9, moduleName, moduleConfig, config)
+		widget = cmdrunner2.NewWidget(app, settings)
+	case "cmdrunner0":
+		settings := cmdrunner2.NewSettingsFromYAML(0, moduleName, moduleConfig, config)
+		widget = cmdrunner2.NewWidget(app, settings)
 	case "cryptolive":
 		settings := cryptolive.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = cryptolive.NewWidget(app, settings)
@@ -187,6 +216,9 @@ func MakeWidget(
 	case "resourceusage":
 		settings := resourceusage.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = resourceusage.NewWidget(app, settings)
+	case "resourceusage2":
+		settings := resourceusage2.NewSettingsFromYAML(moduleName, moduleConfig, config)
+		widget = resourceusage2.NewWidget(app, settings)
 	case "rollbar":
 		settings := rollbar.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = rollbar.NewWidget(app, pages, settings)
