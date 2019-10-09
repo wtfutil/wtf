@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/view"
-	"strings"
 )
 
 const HelpText = `
@@ -65,65 +64,7 @@ func (widget *Widget) content() (string, string, bool) {
 		return title, widget.err.Error(), true
 	}
 
-	pipelineData := groupByPipeline(widget.builds)
-	maxPipelineLength := getLongestPipelineLength(widget.builds)
+	displayData := NewPipelinesDisplayData(widget.builds)
 
-	str := ""
-	for pipeline, builds := range pipelineData {
-		str += fmt.Sprintf("[white]%s", padRight(pipeline, maxPipelineLength))
-		for _, build := range builds {
-			str += fmt.Sprintf("  [%s]%s[white]", buildColor(build.State), build.Branch)
-		}
-		str += "\n"
-	}
-
-	return title, str, false
-}
-
-func groupByPipeline(builds []Build) map[string][]Build {
-	grouped := make(map[string][]Build)
-
-	for _, build := range builds {
-		if _, ok := grouped[build.Pipeline.Slug]; ok {
-			grouped[build.Pipeline.Slug] = append(grouped[build.Pipeline.Slug], build)
-		} else {
-			grouped[build.Pipeline.Slug] = []Build{}
-			grouped[build.Pipeline.Slug] = append(grouped[build.Pipeline.Slug], build)
-		}
-	}
-
-	return grouped
-}
-
-func getLongestPipelineLength(builds []Build) int {
-	maxPipelineLength := 0
-
-	for _, build := range builds {
-		if len(build.Pipeline.Slug) > maxPipelineLength {
-			maxPipelineLength = len(build.Pipeline.Slug)
-		}
-	}
-
-	return maxPipelineLength
-}
-
-func padRight(text string, length int) string {
-	padLength := length - len(text)
-
-	if padLength <= 0 {
-		return text[:length]
-	}
-
-	return text + strings.Repeat(" ", padLength)
-}
-
-func buildColor(state string) string {
-	switch state {
-	case "passed":
-		return "green"
-	case "failed":
-		return "red"
-	default:
-		return "yellow"
-	}
+	return title, displayData.Content(), false
 }
