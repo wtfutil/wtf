@@ -27,7 +27,6 @@ require (
 	github.com/go-ole/go-ole v1.2.4 // indirect
 	github.com/godbus/dbus v5.0.1+incompatible // indirect
 	github.com/gogo/protobuf v1.3.0 // indirect
-	github.com/google/btree v1.0.0 // indirect
 	github.com/google/go-cmp v0.3.1 // indirect
 	github.com/google/go-github/v26 v26.1.3
 	github.com/hashicorp/go-cleanhttp v0.5.1 // indirect
