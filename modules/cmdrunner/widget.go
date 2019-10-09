@@ -3,6 +3,7 @@ package cmdrunner
 import (
 	"bytes"
 	"fmt"
+	"os"
 	"os/exec"
 	"strings"
 	"sync"
@@ -108,6 +109,7 @@ func (widget *Widget) execute() {
 	// Setup the command to run
 	cmd := exec.Command(widget.settings.cmd, widget.settings.args...)
 	cmd.Stdout = widget
+	cmd.Env = widget.environment()
 
 	// Run the command and wait for it to exit in another Go-routine
 	go func() {
@@ -133,4 +135,14 @@ func (widget *Widget) drainLines(n int) {
 	for i := 0; i < n; i++ {
 		widget.buffer.ReadBytes('\n')
 	}
+}
+
+func (widget *Widget) environment() []string {
+	envs := os.Environ()
+	envs = append(
+		envs,
+		fmt.Sprintf("WTF_WIDGET_WIDTH=%d", widget.settings.width),
+		fmt.Sprintf("WTF_WIDGET_HEIGHT=%d", widget.settings.height),
+	)
+	return envs
 }
