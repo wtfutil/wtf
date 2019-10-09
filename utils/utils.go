@@ -10,6 +10,8 @@ import (
 	"regexp"
 	"runtime"
 	"strings"
+
+	"github.com/olebedev/config"
 )
 
 const (
@@ -143,4 +145,54 @@ func ParseJson(obj interface{}, text io.Reader) error {
 		}
 	}
 	return nil
+}
+
+// CalculateDimensions reads the module dimensions from the module and global config. The border is already substracted.
+func CalculateDimensions(moduleConfig, globalConfig *config.Config) (int, int) {
+	// Read the source data from the config
+	left := moduleConfig.UInt("position.left", 0)
+	top := moduleConfig.UInt("position.top", 0)
+	width := moduleConfig.UInt("position.width", 0)
+	height := moduleConfig.UInt("position.height", 0)
+
+	cols := ToInts(globalConfig.UList("wtf.grid.columns"))
+	rows := ToInts(globalConfig.UList("wtf.grid.rows"))
+
+	// Make sure the values are in bounds
+	left = clamp(left, 0, len(cols)-1)
+	top = clamp(top, 0, len(rows)-1)
+	width = clamp(width, 0, len(cols)-left)
+	height = clamp(height, 0, len(rows)-top)
+
+	// Start with the border subtracted and add all the spanned rows and cols
+	w, h := -2, -2
+	for _, x := range cols[left : left+width] {
+		w += x
+	}
+	for _, y := range rows[top : top+height] {
+		h += y
+	}
+
+	// The usable space may be empty
+	w = max(w, 0)
+	h = max(h, 0)
+
+	return w, h
+}
+
+func max(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
+}
+
+func clamp(x, a, b int) int {
+	if a > x {
+		return a
+	}
+	if b < x {
+		return b
+	}
+	return x
 }
