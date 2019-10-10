@@ -14,7 +14,7 @@ type PipelineSettings struct {
 
 type Settings struct {
 	common    *cfg.Common
-	token     string             `help:"Your Buildkite API Token"`
+	apiKey    string             `help:"Your Buildkite API Token"`
 	orgSlug   string             `help:"Organization Slug"`
 	pipelines []PipelineSettings `help:"An array of pipelines to get data from"`
 }
@@ -25,7 +25,7 @@ const defaultFocusable = true
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 	settings := Settings{
 		common:    cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
-		token:     ymlConfig.UString("token", os.Getenv("WTF_BUILDKITE_TOKEN")),
+		apiKey:    ymlConfig.UString("apiKey", os.Getenv("WTF_BUILDKITE_TOKEN")),
 		orgSlug:   ymlConfig.UString("organizationSlug"),
 		pipelines: buildPipelineSettings(ymlConfig),
 	}
