@@ -263,6 +263,8 @@ github.com/valyala/bytebufferpool v1.0.0/go.mod h1:6bBcMArwyJ5K/AmCkWv1jt77kVWyC
 github.com/valyala/fasttemplate v1.0.1/go.mod h1:UQGH1tvbgY+Nz5t2n7tXsz52dQxojPUpymEIMZ47gx8=
 github.com/wtfutil/todoist v0.0.0-20180625015933-97395e581a76 h1:8pVwscQmyw1Dcca9R8QuHvLFTHr4h6MDlgbLM1A+WLA=
 github.com/wtfutil/todoist v0.0.0-20180625015933-97395e581a76/go.mod h1:YuuGLJSsTK6DGBD5Zaf3J8LSMfpEC2WtzYPey3XVOdI=
+github.com/wtfutil/todoist v0.0.0-20190913231042-97395e581a76 h1:xYi42YVngKInpr8/IAuO5dUzaw8PrVPdyHCCqDoM3Ks=
+github.com/wtfutil/todoist v0.0.0-20190913231042-97395e581a76/go.mod h1:YuuGLJSsTK6DGBD5Zaf3J8LSMfpEC2WtzYPey3XVOdI=
 github.com/xanzy/go-gitlab v0.20.1 h1:+1BWDry84G5PzsnzG9DI4YjPbHeWKyouM0q0gfDPKgY=
 github.com/xanzy/go-gitlab v0.20.1/go.mod h1:LSfUQ9OPDnwRqulJk2HcWaAiFfCzaknyeGvjQI67MbE=
 github.com/zmb3/spotify v0.0.0-20190520155326-158b1863f5b5 h1:UagwVflTu8e//SSwujymFEz0G9MUP5/fJJLCzdQy3as=
