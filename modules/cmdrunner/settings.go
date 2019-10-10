@@ -19,6 +19,10 @@ type Settings struct {
 	cmd      string   `help:"The terminal command to be run, withouth the arguments. Ie: ping, whoami, curl."`
 	tail     bool     `help:"Automatically scroll to the end of the command output."`
 	maxLines int      `help:"Maximum number of lines kept in the buffer."`
+
+	// The dimensions of the module
+	width  int
+	height int
 }
 
 // NewSettingsFromYAML loads the cmdrunner portion of the WTF config
@@ -32,6 +36,8 @@ func NewSettingsFromYAML(name string, moduleConfig *config.Config, globalConfig 
 		tail:     moduleConfig.UBool("tail"),
 		maxLines: moduleConfig.UInt("maxLines", 256),
 	}
+
+	settings.width, settings.height = utils.CalculateDimensions(moduleConfig, globalConfig)
 
 	return &settings
 }
