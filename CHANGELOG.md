@@ -62,6 +62,7 @@
 * GitHub PR icons render properly without phantom characters, by [@Midnight-Conqueror](https://github.com/Midnight-Conqueror)
 * GitLab configuration now takes a list of project paths, [#566](https://github.com/wtfutil/wtf/issues/566) by [@senorprogrammer](https://github.com/senorprogrammer)
 * Kubernetes configuration segfault fixed, [#549](https://github.com/wtfutil/wtf/issues/549) by [@ibaum](https://github.com/ibaum)
+* [Todoist](https://wtfutil.com/modules/todoist/) module now properly handles todo items with due date and times, [#645](https://github.com/wtfutil/wtf/issues/645) by [@massa1240](https://github.com/massa1240) 
 
 ## v0.21.0
 
