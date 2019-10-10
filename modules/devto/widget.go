@@ -14,7 +14,7 @@ import (
 type Widget struct {
 	view.KeyboardWidget
 	view.ScrollableWidget
-	articles []devto.Article
+	articles []devto.ListedArticle
 	settings *Settings
 	err      error
 }
@@ -59,7 +59,7 @@ func (widget *Widget) Refresh() {
 		widget.articles = nil
 		widget.SetItemCount(0)
 	} else {
-		var displayArticles []devto.Article
+		var displayArticles []devto.ListedArticle
 		var l int
 		if len(articles) < widget.settings.numberOfArticles {
 			l = len(articles)
