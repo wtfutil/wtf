@@ -735,8 +735,14 @@
       "name": "Alex Fornuto",
       "avatar_url": "https://avatars3.githubusercontent.com/u/2349184?v=4",
       "profile": "http://alexfornuto.com",
+      "contributions": []
+    },
+    {
+      "login": "stevenwhitehead",
+      "name": "stevenwhitehead",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/30630257?v=4",
+      "profile": "https://github.com/stevenwhitehead",
       "contributions": [
-        "code"
       ]
     }
   ],
