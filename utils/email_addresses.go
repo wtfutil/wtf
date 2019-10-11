@@ -25,10 +25,10 @@ func NameFromEmail(email string) string {
 //    > []string{"Test_user", "Other_user"}
 //
 func NamesFromEmails(emails []string) []string {
-	names := []string{}
+	names := make([]string, len(emails))
 
-	for _, email := range emails {
-		names = append(names, NameFromEmail(email))
+	for i, email := range emails {
+		names[i] = NameFromEmail(email)
 	}
 
 	return names
