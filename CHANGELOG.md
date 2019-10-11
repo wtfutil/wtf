@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 0.23.0
+
 ### ⚡️ Added
 
 * [Azure DevOps](https://wtfutil.com/modules/azure-devops/) module added, by [@v-braun](https://github.com/v-braun)
