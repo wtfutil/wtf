@@ -9,15 +9,24 @@ import (
 	"github.com/wtfutil/wtf/utils"
 )
 
+func (widget *Widget) display() {
+	widget.ScrollableWidget.Redraw(widget.content)
+}
+
 func (widget *Widget) content() (string, string, bool) {
+	widget.mu.Lock()
+	defer widget.mu.Unlock()
+
 	title := widget.CommonSettings().Title
 	if widget.err != nil {
 		return title, widget.err.Error(), true
 	}
+
 	data := widget.torrents
 	if data == nil || len(data) == 0 {
 		return title, "No data", false
 	}
+
 	str := ""
 
 	for idx, torrent := range data {
@@ -36,10 +45,6 @@ func (widget *Widget) content() (string, string, bool) {
 	}
 
 	return title, str, false
-}
-
-func (widget *Widget) display() {
-	widget.ScrollableWidget.Redraw(widget.content)
 }
 
 func (widget *Widget) prettyTorrentName(name string) string {

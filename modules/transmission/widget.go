@@ -2,6 +2,7 @@ package transmission
 
 import (
 	"errors"
+	"sync"
 
 	"github.com/hekmon/transmissionrpc"
 	"github.com/rivo/tview"
@@ -15,6 +16,7 @@ type Widget struct {
 
 	client   *transmissionrpc.Client
 	settings *Settings
+	mu       sync.Mutex
 	torrents []*transmissionrpc.Torrent
 	err      error
 }
@@ -43,6 +45,9 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 
 // Fetch retrieves torrent data from the Transmission daemon
 func (widget *Widget) Fetch() ([]*transmissionrpc.Torrent, error) {
+	widget.mu.Lock()
+	widget.mu.Unlock()
+
 	if widget.client == nil {
 		return nil, errors.New("client was not initialized")
 	}
@@ -58,15 +63,17 @@ func (widget *Widget) Fetch() ([]*transmissionrpc.Torrent, error) {
 // Refresh updates the data for this widget and displays it onscreen
 func (widget *Widget) Refresh() {
 	torrents, err := widget.Fetch()
-	if err != nil {
-		widget.err = err
-		widget.torrents = nil
-		widget.SetItemCount(0)
-	} else {
-		widget.err = nil
-		widget.torrents = torrents
-		widget.SetItemCount(len(torrents))
+	count := 0
+
+	if err == nil {
+		count = len(torrents)
 	}
+
+	widget.mu.Lock()
+	widget.err = err
+	widget.torrents = torrents
+	widget.SetItemCount(count)
+	widget.mu.Unlock()
 
 	widget.display()
 }
@@ -96,6 +103,9 @@ func (widget *Widget) Unselect() {
 
 // buildClient creates a persisten transmission client
 func buildClient(widget *Widget) {
+	widget.mu.Lock()
+	defer widget.mu.Unlock()
+
 	client, err := transmissionrpc.New(widget.settings.host, widget.settings.username, widget.settings.password,
 		&transmissionrpc.AdvancedConfig{
 			Port: widget.settings.port,
@@ -103,9 +113,8 @@ func buildClient(widget *Widget) {
 	if err != nil {
 		client = nil
 	}
-	widget.client = client
 
-	widget.Refresh()
+	widget.client = client
 }
 
 func (widget *Widget) currentTorrent() *transmissionrpc.Torrent {
