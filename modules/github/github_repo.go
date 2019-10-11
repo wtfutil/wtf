@@ -63,7 +63,9 @@ func (repo *GithubRepo) IssueCount() int {
 		return 0
 	}
 
-	return *repo.RemoteRepo.OpenIssuesCount
+	issuesLessPulls := *repo.RemoteRepo.OpenIssuesCount - len(repo.PullRequests)
+
+	return issuesLessPulls
 }
 
 // PullRequestCount returns the total amount of pull requests as an int
