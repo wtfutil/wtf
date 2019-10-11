@@ -6,7 +6,7 @@ package utils
 
 import (
 	"errors"
-	"os"
+	"os/user"
 	"path/filepath"
 )
 
@@ -37,5 +37,14 @@ func ExpandHomeDir(path string) (string, error) {
 // Home returns the home directory for the executing user.
 // An error is returned if a home directory cannot be detected.
 func Home() (string, error) {
-	return os.UserHomeDir()
+	currentUser, err := user.Current()
+	if err != nil {
+		return "", err
+	}
+
+	if currentUser.HomeDir == "" {
+		return "", errors.New("cannot find user-specific home dir")
+	}
+
+	return currentUser.HomeDir, nil
 }
