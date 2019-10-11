@@ -45,8 +45,6 @@ func setTerm(config *config.Config) {
 func main() {
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
 
-	// Manage the configuration directories and config file
-
 	// Parse and handle flags
 	flags := flags.NewFlags()
 	flags.Parse()
