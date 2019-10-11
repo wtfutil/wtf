@@ -46,7 +46,7 @@ func (widget *Widget) recentBuilds(pipeline PipelineSettings) ([]Build, error) {
 	if err != nil {
 		return nil, err
 	}
-	req.Header.Add("Authorization", fmt.Sprintf("Bearer %s", widget.settings.token))
+	req.Header.Add("Authorization", fmt.Sprintf("Bearer %s", widget.settings.apiKey))
 
 	httpClient := &http.Client{Transport: &http.Transport{
 		Proxy: http.ProxyFromEnvironment,
