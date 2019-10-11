@@ -2,8 +2,6 @@ module github.com/wtfutil/wtf
 
 go 1.12
 
-replace github.com/yfronto/newrelic => ./vendor/github.com/yfronto/newrelic
-
 require (
 	cloud.google.com/go v0.46.3 // indirect
 	code.cloudfoundry.org/bytefmt v0.0.0-20190819182555-854d396b647c
@@ -82,3 +80,5 @@ require (
 	k8s.io/client-go v12.0.0+incompatible
 	k8s.io/klog v1.0.0 // indirect
 )
+
+replace github.com/yfronto/newrelic => ./vendor/github.com/yfronto/newrelic
