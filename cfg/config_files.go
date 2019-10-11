@@ -23,6 +23,9 @@ const (
 
 	// WtfConfigFile defines the name of the default config file
 	WtfConfigFile = "config.yml"
+
+	// WtfSecretsFile defines the file in which to store API Keys and other values you may want to keep out of config.yml
+	WtfSecretsFile = "secrets.yml"
 )
 
 /* -------------------- Exported Functions -------------------- */
@@ -70,6 +73,7 @@ func Initialize(hasCustom bool) {
 	if hasCustom == false {
 		createWtfConfigFile()
 		chmodConfigFile()
+		chmodSecretsFile()
 	}
 }
 
@@ -96,11 +100,40 @@ func LoadWtfConfigFile(filePath string) *config.Config {
 	return cfg
 }
 
+// LoadWtfSecretsFile loads the specified secrets file
+func LoadWtfSecretsFile(filePath string) *config.Config {
+	absPath, _ := expandHomeDir(filePath)
+
+	secrets, err := config.ParseYamlFile(absPath)
+	if err != nil {
+		displayWtfConfigFileLoadError(absPath, err)
+		os.Exit(1)
+	}
+
+	return secrets
+}
+
 /* -------------------- Unexported Functions -------------------- */
 
 // chmodConfigFile sets the mode of the config file to r+w for the owner only
 func chmodConfigFile() {
 	relPath := fmt.Sprintf("%s%s", WtfConfigDirV2, WtfConfigFile)
+	absPath, _ := expandHomeDir(relPath)
+
+	_, err := os.Stat(absPath)
+	if err != nil && os.IsNotExist(err) {
+		return
+	}
+
+	err = os.Chmod(absPath, 0600)
+	if err != nil {
+		return
+	}
+}
+
+// chmodSecretsFile sets the mode of the Secrets file to r+w for the owner only
+func chmodSecretsFile() {
+	relPath := fmt.Sprintf("%s%s", WtfConfigDirV2, WtfSecretsFile)
 	absPath, _ := expandHomeDir(relPath)
 
 	_, err := os.Stat(absPath)
@@ -156,6 +189,26 @@ func createWtfConfigFile() {
 
 	if file.Size() == 0 {
 		if ioutil.WriteFile(filePath, []byte(defaultConfigFile), 0600) != nil {
+			displayDefaultConfigWriteError(err)
+			os.Exit(1)
+		}
+	}
+}
+
+// createWtfSecretsFile creates a simple config file in the config directory if
+// one does not already exist
+func createWtfSecretsFile() {
+	filePath, err := CreateFile(WtfSecretsFile)
+	if err != nil {
+		displayDefaultConfigCreateError(err)
+		os.Exit(1)
+	}
+
+	// If the file is empty, write to it
+	file, _ := os.Stat(filePath)
+
+	if file.Size() == 0 {
+		if ioutil.WriteFile(filePath, []byte(defaultSecretsFile), 0600) != nil {
 			displayDefaultConfigWriteError(err)
 			os.Exit(1)
 		}

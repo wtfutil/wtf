@@ -103,3 +103,10 @@ wtf:
       refreshInterval: 30
       type: cmdrunner
 `
+const defaultSecretsFile = `
+wtf:
+  keys:
+  # API keys and other secrets are listed below. For example:
+  #WTF_GITHUB_TOKEN: AVERYLONGSECRET
+
+`

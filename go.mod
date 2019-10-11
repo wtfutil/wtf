@@ -31,6 +31,7 @@ require (
 	github.com/gogo/protobuf v1.3.0 // indirect
 	github.com/golang/glog v0.0.0-20170312005925-543a34c32e4d // indirect
 	github.com/golang/groupcache v0.0.0-20191002201903-404acd9df4cc // indirect
+	github.com/google/btree v1.0.0 // indirect
 	github.com/google/go-cmp v0.3.1 // indirect
 	github.com/google/go-github/v26 v26.1.3+incompatible
 	github.com/googleapis/gnostic v0.3.1 // indirect

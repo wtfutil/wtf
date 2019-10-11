@@ -17,23 +17,25 @@ import (
 // WtfApp is the container for a collection of widgets that are all constructed from a single
 // configuration file and displayed together
 type WtfApp struct {
-	app            *tview.Application
-	config         *config.Config
-	configFilePath string
-	display        *Display
-	focusTracker   FocusTracker
-	pages          *tview.Pages
-	validator      *ModuleValidator
-	widgets        []wtf.Wtfable
+	app             *tview.Application
+	config          *config.Config
+	configFilePath  string
+	secretsFilePath string
+	display         *Display
+	focusTracker    FocusTracker
+	pages           *tview.Pages
+	validator       *ModuleValidator
+	widgets         []wtf.Wtfable
 }
 
 // NewWtfApp creates and returns an instance of WtfApp
-func NewWtfApp(app *tview.Application, config *config.Config, configFilePath string) *WtfApp {
+func NewWtfApp(app *tview.Application, config *config.Config, configFilePath string, secretsFilePath string) *WtfApp {
 	wtfApp := WtfApp{
-		app:            app,
-		config:         config,
-		configFilePath: configFilePath,
-		pages:          tview.NewPages(),
+		app:             app,
+		config:          config,
+		configFilePath:  configFilePath,
+		secretsFilePath: secretsFilePath,
+		pages:           tview.NewPages(),
 	}
 
 	wtfApp.app.SetBeforeDrawFunc(func(s tcell.Screen) bool {
@@ -139,7 +141,8 @@ func (wtfApp *WtfApp) watchForConfigChanges() {
 				wtfApp.Stop()
 
 				config := cfg.LoadWtfConfigFile(wtfApp.configFilePath)
-				newApp := NewWtfApp(wtfApp.app, config, wtfApp.configFilePath)
+				secrets := cfg.LoadWtfSecretsFile(wtfApp.secretsFilePath)
+				newApp := NewWtfApp(wtfApp.app, config, wtfApp.configFilePath, wtfApp.secretsFilePath)
 
 				newApp.Start()
 			case err := <-watch.Error:
