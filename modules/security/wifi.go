@@ -66,14 +66,11 @@ func wifiInfo() string {
 }
 
 func wifiNameLinux() string {
-	cmd := exec.Command("nmcli", "-t", "-f", "in-use,ssid", "dev", "wifi")
-	out := utils.ExecuteCommand(cmd)
-	name := utils.FindMatch(`\*:(.+)`, out)
-	if len(name) > 0 {
-		return name[0][1]
-	}
-	return ""
+  cmd, _ := exec.Command("iwgetid", "-r").Output()
+  return string(cmd)
 }
+
+
 
 func wifiNameMacOS() string {
 	name := utils.FindMatch(`s*SSID: (.+)s*`, wifiInfo())
