@@ -13,7 +13,7 @@ import (
 
 type Widget struct {
 	view.TextWidget
-	cli           *azrBuild.Client
+	cli           azrBuild.Client
 	settings      *Settings
 	displayBuffer string
 	ctx           context.Context
