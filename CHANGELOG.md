@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### 🐞 Fixed
+
+* Github PRs do not count against issues, by [@alexfornuto](https://github.com/alexfornuto)
+
 ## 0.23.0
 
 ### ⚡️ Added
