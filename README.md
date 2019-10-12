@@ -129,6 +129,21 @@ make run
 
 **Note:** WTF is _only_ compatible with Go versions **1.11.0** or later (due to the use of Go modules). If you would like to use `gccgo` to compile, you _must_ use `gccgo-9` or later which introduces support for Go modules.
 
+## Install and run in Docker
+
+You can run `wtf` inside a docker container
+
+```bash
+# download the source
+git clone https://github.com/wtfutil/wtf
+
+# build the docker container
+docker build -t wtfutil .
+
+# run the container
+docker run -it wtfutil
+```
+
 ## Communication
 
 ### Slack
