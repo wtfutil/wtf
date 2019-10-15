@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### ⚡️ Added
+
+* Proper, usable Docker file added, by [@Boot-Error](https://github.com/Boot-Error)
+
 ### 🐞 Fixed
 
 * Github PRs do not count against issues, by [@alexfornuto](https://github.com/alexfornuto)
