@@ -25,6 +25,7 @@ Happy hacking! 👻
     * [Install via Scarf](#install-via-scarf)
     * [Install a Binary](#install-a-binary)
     * [Install from Source](#install-from-source)
+    * [Running via Docker](#running-via-docker)
 * [Communication](#communication)
     * [Slack](#slack)
     * [Twitter](#twitter)
@@ -129,7 +130,7 @@ make run
 
 **Note:** WTF is _only_ compatible with Go versions **1.12.0** or later (due to the use of Go modules and newer standard library functions). If you would like to use `gccgo` to compile, you _must_ use `gccgo-9` or later which introduces support for Go modules.
 
-## Install and run in Docker
+## Running via Docker
 
 You can run `wtf` inside a docker container
 
