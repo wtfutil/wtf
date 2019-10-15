@@ -9,6 +9,7 @@ type GitlabProject struct {
 	path   string
 
 	MergeRequests []*glb.MergeRequest
+	Issues        []*glb.Issue
 	RemoteProject *glb.Project
 }
 
@@ -25,6 +26,7 @@ func NewGitlabProject(projectPath string, client *glb.Client) *GitlabProject {
 func (project *GitlabProject) Refresh() {
 	project.MergeRequests, _ = project.loadMergeRequests()
 	project.RemoteProject, _ = project.loadRemoteProject()
+	project.Issues, _ = project.loadIssues()
 }
 
 /* -------------------- Counts -------------------- */
@@ -86,6 +88,32 @@ func (project *GitlabProject) myApprovalRequests(username string) []*glb.MergeRe
 	return mrs
 }
 
+// myAssignedIssues returns a list of issues for which username has been assigned
+func (project *GitlabProject) myAssignedIssues(username string) []*glb.Issue {
+	issues := []*glb.Issue{}
+
+	for _, issue := range project.Issues {
+		if issue.Assignee != nil && issue.Assignee.Username == username {
+			issues = append(issues, issue)
+		}
+	}
+
+	return issues
+}
+
+// myIssues returns a list of issues created by username on this project
+func (project *GitlabProject) myIssues(username string) []*glb.Issue {
+	issues := []*glb.Issue{}
+
+	for _, issue := range project.Issues {
+		if issue.Author.Username == username {
+			issues = append(issues, issue)
+		}
+	}
+
+	return issues
+}
+
 func (project *GitlabProject) loadMergeRequests() ([]*glb.MergeRequest, error) {
 	state := "opened"
 	opts := glb.ListProjectMergeRequestsOptions{
@@ -99,6 +127,21 @@ func (project *GitlabProject) loadMergeRequests() ([]*glb.MergeRequest, error) {
 	}
 
 	return mrs, nil
+}
+
+func (project *GitlabProject) loadIssues() ([]*glb.Issue, error) {
+	state := "opened"
+	opts := glb.ListProjectIssuesOptions{
+		State: &state,
+	}
+
+	issues, _, err := project.client.Issues.ListProjectIssues(project.path, &opts)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return issues, nil
 }
 
 func (project *GitlabProject) loadRemoteProject() (*glb.Project, error) {

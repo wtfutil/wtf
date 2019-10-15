@@ -27,6 +27,12 @@ func (widget *Widget) content() (string, string, bool) {
 	str += "\n"
 	str += " [red]My Merge Requests[white]\n"
 	str += widget.displayMyMergeRequests(project, widget.settings.username)
+	str += "\n"
+	str += " [red]Open Assigned Issues[white]\n"
+	str += widget.displayMyAssignedIssues(project, widget.settings.username)
+	str += "\n"
+	str += " [red]My Issues[white]\n"
+	str += widget.displayMyIssues(project, widget.settings.username)
 
 	return title, str, false
 }
@@ -56,6 +62,36 @@ func (widget *Widget) displayMyApprovalRequests(project *GitlabProject, username
 	str := ""
 	for _, mr := range mrs {
 		str += fmt.Sprintf(" [green]%4d[white] %s\n", mr.IID, mr.Title)
+	}
+
+	return str
+}
+
+func (widget *Widget) displayMyAssignedIssues(project *GitlabProject, username string) string {
+	issues := project.myAssignedIssues(username)
+
+	if len(issues) == 0 {
+		return " [grey]none[white]\n"
+	}
+
+	str := ""
+	for _, issue := range issues {
+		str += fmt.Sprintf(" [green]%4d[white] %s\n", issue.IID, issue.Title)
+	}
+
+	return str
+}
+
+func (widget *Widget) displayMyIssues(project *GitlabProject, username string) string {
+	issues := project.myIssues(username)
+
+	if len(issues) == 0 {
+		return " [grey]none[white]\n"
+	}
+
+	str := ""
+	for _, issue := range issues {
+		str += fmt.Sprintf(" [green]%4d[white] %s\n", issue.IID, issue.Title)
 	}
 
 	return str
