@@ -127,7 +127,7 @@ make install
 make run
 ```
 
-**Note:** WTF is _only_ compatible with Go versions **1.11.0** or later (due to the use of Go modules). If you would like to use `gccgo` to compile, you _must_ use `gccgo-9` or later which introduces support for Go modules.
+**Note:** WTF is _only_ compatible with Go versions **1.12.0** or later (due to the use of Go modules and newer standard library functions). If you would like to use `gccgo` to compile, you _must_ use `gccgo-9` or later which introduces support for Go modules.
 
 ## Communication
 
