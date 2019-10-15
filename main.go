@@ -60,7 +60,8 @@ func main() {
 		defer profile.Start(profile.MemProfile).Stop()
 	}
 
-	utils.Init(config.UString("wtf.openFileUtil", "open"))
+	openUrlUtil := utils.ToStrs(config.UList("wtf.openUrlUtil", []interface{}{}))
+	utils.Init(config.UString("wtf.openFileUtil", "open"), openUrlUtil)
 
 	setTerm(config)
 
