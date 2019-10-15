@@ -3,7 +3,6 @@ package utils
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 	"io"
 	"io/ioutil"
 	"os/exec"
@@ -48,26 +47,14 @@ func ExecuteCommand(cmd *exec.Cmd) string {
 		return ""
 	}
 
-	stdout, err := cmd.StdoutPipe()
-	if err != nil {
-		return fmt.Sprintf("%v\n", err)
+	buf := &bytes.Buffer{}
+	cmd.Stdout = buf
+
+	if err := cmd.Run(); err != nil {
+		return err.Error()
 	}
 
-	if err := cmd.Start(); err != nil {
-		return fmt.Sprintf("%v\n", err)
-	}
-
-	var str string
-	if b, err := ioutil.ReadAll(stdout); err == nil {
-		str += string(b)
-	}
-
-	err = cmd.Wait()
-	if err != nil {
-		return fmt.Sprintf("%v\n", err)
-	}
-
-	return str
+	return buf.String()
 }
 
 // FindMatch takes a regex pattern and a string of data and returns back all the matches
@@ -130,21 +117,8 @@ func ReadFileBytes(filePath string) ([]byte, error) {
 
 // ParseJson is a standard JSON reader from text
 func ParseJson(obj interface{}, text io.Reader) error {
-	jsonStream, err := ioutil.ReadAll(text)
-	if err != nil {
-		return err
-	}
-
-	decoder := json.NewDecoder(bytes.NewReader(jsonStream))
-
-	for {
-		if err := decoder.Decode(obj); err == io.EOF {
-			break
-		} else if err != nil {
-			return err
-		}
-	}
-	return nil
+	d := json.NewDecoder(text)
+	return d.Decode(obj)
 }
 
 // CalculateDimensions reads the module dimensions from the module and global config. The border is already substracted.
