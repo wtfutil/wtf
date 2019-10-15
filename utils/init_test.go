@@ -7,6 +7,8 @@ import (
 )
 
 func Test_Init(t *testing.T) {
-	Init("cats")
+	Init("cats", []string{"dogs"})
+
 	Equal(t, OpenFileUtil, "cats")
+	Equal(t, OpenUrlUtil, []string{"dogs"})
 }
