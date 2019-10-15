@@ -132,7 +132,7 @@ make run
 
 ## Running via Docker
 
-You can run `wtf` inside a docker container
+You can run `wtf` inside a docker container:
 
 ```bash
 # download the source
