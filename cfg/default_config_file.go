@@ -1,7 +1,6 @@
 package cfg
 
-const defaultConfigFile = `
-wtf:
+const defaultConfigFile = `wtf:
   colors:
     border:
       focusable: darkslateblue
