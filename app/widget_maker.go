@@ -18,6 +18,7 @@ import (
 	"github.com/wtfutil/wtf/modules/digitalclock"
 	"github.com/wtfutil/wtf/modules/docker"
 	"github.com/wtfutil/wtf/modules/feedreader"
+	"github.com/wtfutil/wtf/modules/football"
 	"github.com/wtfutil/wtf/modules/gcal"
 	"github.com/wtfutil/wtf/modules/gerrit"
 	"github.com/wtfutil/wtf/modules/git"
@@ -128,6 +129,9 @@ func MakeWidget(
 	case "feedreader":
 		settings := feedreader.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = feedreader.NewWidget(app, pages, settings)
+	case "football":
+		settings := football.NewSettingsFromYAML(moduleName, moduleConfig, config)
+		widget = football.NewWidget(app, settings)
 	case "gcal":
 		settings := gcal.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = gcal.NewWidget(app, settings)
