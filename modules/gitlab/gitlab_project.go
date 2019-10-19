@@ -91,9 +91,9 @@ func (project *GitlabProject) myMergeRequests(username string) []*glb.MergeReque
 	return project.AuthoredMergeRequests
 }
 
-// myApprovalRequests returns a list of merge requests for which username has been
-// requested to approve
-func (project *GitlabProject) myApprovalRequests(username string) []*glb.MergeRequest {
+// myAssignedMergeRequests returns a list of merge requests for which username has been
+// assigned
+func (project *GitlabProject) myAssignedMergeRequests(username string) []*glb.MergeRequest {
 	return project.AssignedMergeRequests
 }
 
