@@ -23,7 +23,7 @@ const (
 // A Widget represents a Todo widget
 type Widget struct {
 	view.KeyboardWidget
-	view.TextWidget
+	view.ScrollableWidget
 
 	app      *tview.Application
 	settings *Settings
@@ -35,8 +35,8 @@ type Widget struct {
 // NewWidget creates a new instance of a widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		KeyboardWidget: view.NewKeyboardWidget(app, pages, settings.common),
-		TextWidget:     view.NewTextWidget(app, settings.common),
+		KeyboardWidget:   view.NewKeyboardWidget(app, pages, settings.common),
+		ScrollableWidget: view.NewScrollableWidget(app, settings.common),
 
 		app:      app,
 		settings: settings,
@@ -54,6 +54,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	widget.View.SetScrollable(true)
 
 	widget.KeyboardWidget.SetView(widget.View)
+	widget.SetRenderFunction(widget.display)
 
 	return &widget
 }
@@ -75,18 +76,44 @@ func (widget *Widget) HelpText() string {
 
 /* -------------------- Unexported Functions -------------------- */
 
-// edit opens a modal dialog that permits editing the text of the currently-selected item
-func (widget *Widget) editSelected() {
-	if widget.list.SelectedItem() == nil {
+// isItemSelected returns weather any item of the todo is selected or not
+func (widget *Widget) isItemSelected() bool {
+
+	return widget.Selected >= 0 && widget.Selected < len(widget.list.Items)
+}
+
+// SelectedItem returns the currently-selected checklist item or nil if no item is selected
+func (widget *Widget) SelectedItem() *checklist.ChecklistItem {
+	var selectedItem *checklist.ChecklistItem
+	if widget.isItemSelected() {
+		selectedItem = widget.list.Items[widget.Selected]
+	}
+
+	return selectedItem
+}
+
+// updateSelectedItem update the text of the selected item.
+func (widget *Widget) updateSelectedItem(text string) {
+	selectedItem := widget.SelectedItem()
+	if selectedItem == nil {
 		return
 	}
 
-	form := widget.modalForm("Edit:", widget.list.SelectedItem().Text)
+	selectedItem.Text = text
+}
+
+// updateSelected sets the text of the currently-selected item to the provided text
+func (widget *Widget) updateSelected() {
+	if !widget.isItemSelected() {
+		return
+	}
+
+	form := widget.modalForm("Edit:", widget.SelectedItem().Text)
 
 	saveFctn := func() {
 		text := form.GetFormItem(0).(*tview.InputField).GetText()
 
-		widget.list.Update(text)
+		widget.updateSelectedItem(text)
 		widget.persist()
 		widget.pages.RemovePage("modal")
 		widget.app.SetFocus(widget.View)
@@ -104,7 +131,7 @@ func (widget *Widget) init() {
 	}
 }
 
-// Loads the todo list from Yaml file
+// Loads the todo list from3 Yaml file
 func (widget *Widget) load() {
 	confDir, _ := cfg.WtfConfigDir()
 	filePath := fmt.Sprintf("%s/%s", confDir, widget.filePath)
@@ -113,6 +140,7 @@ func (widget *Widget) load() {
 
 	yaml.Unmarshal(fileData, &widget.list)
 
+	widget.ScrollableWidget.SetItemCount(len(widget.list.Items))
 	widget.setItemChecks()
 }
 
@@ -123,6 +151,7 @@ func (widget *Widget) newItem() {
 		text := form.GetFormItem(0).(*tview.InputField).GetText()
 
 		widget.list.Add(false, text)
+		widget.SetItemCount(len(widget.list.Items))
 		widget.persist()
 		widget.pages.RemovePage("modal")
 		widget.app.SetFocus(widget.View)

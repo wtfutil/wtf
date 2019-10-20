@@ -48,9 +48,8 @@ func (list *Checklist) CheckedItems() []*ChecklistItem {
 }
 
 // Delete removes the selected item from the checklist
-func (list *Checklist) Delete() {
-	list.Items = append(list.Items[:list.selected], list.Items[list.selected+1:]...)
-	list.Prev()
+func (list *Checklist) Delete(selectedIndex int) {
+	list.Items = append(list.Items[:selectedIndex], list.Items[selectedIndex+1:]...)
 }
 
 // IsSelectable returns true if the checklist has selectable items, false if it does not
@@ -76,35 +75,14 @@ func (list *Checklist) LongestLine() int {
 	return maxLen
 }
 
-func (list *Checklist) Selected() int {
-	return list.selected
-}
-
-// SelectedItem returns the currently-selected checklist item or nil if no item is selected
-func (list *Checklist) SelectedItem() *ChecklistItem {
-	if list.IsUnselectable() {
-		return nil
-	}
-
-	return list.Items[list.selected]
-}
-
-func (list *Checklist) SetSelectedByItem(selectableItem *ChecklistItem) {
+// IndexByItem returns the index of a giving item if found ,otherwise returns 0 with ok set to false
+func (list *Checklist) IndexByItem(selectableItem *ChecklistItem) (index int, ok bool) {
 	for idx, item := range list.Items {
 		if item == selectableItem {
-			list.selected = idx
-			break
+			return idx, true
 		}
 	}
-}
-
-// Toggle switches the checked state of the currently-selected item
-func (list *Checklist) Toggle() {
-	if list.IsUnselectable() {
-		return
-	}
-
-	list.SelectedItem().Toggle()
+	return 0, false
 }
 
 // UncheckedItems returns a slice of all the unchecked items
@@ -123,65 +101,6 @@ func (list *Checklist) UncheckedItems() []*ChecklistItem {
 // Unselect removes the current select such that no item is selected
 func (list *Checklist) Unselect() {
 	list.selected = -1
-}
-
-// Update sets the text of the currently-selected item to the provided text
-func (list *Checklist) Update(text string) {
-	item := list.SelectedItem()
-
-	if item == nil {
-		return
-	}
-
-	item.Text = text
-}
-
-/* -------------------- Item Movement -------------------- */
-
-// Prev selects the previous item UP in the checklist
-func (list *Checklist) Prev() {
-	list.selected--
-	if list.selected < 0 {
-		list.selected = len(list.Items) - 1
-	}
-}
-
-// Next selects the next item DOWN in the checklist
-func (list *Checklist) Next() {
-	list.selected++
-	if list.selected >= len(list.Items) {
-		list.selected = 0
-	}
-}
-
-// Promote moves the selected item UP in the checklist
-func (list *Checklist) Promote() {
-	if list.IsUnselectable() {
-		return
-	}
-
-	k := list.selected - 1
-	if k < 0 {
-		k = len(list.Items) - 1
-	}
-
-	list.Swap(list.selected, k)
-	list.selected = k
-}
-
-// Demote moves the selected item DOWN in the checklist
-func (list *Checklist) Demote() {
-	if list.IsUnselectable() {
-		return
-	}
-
-	j := list.selected + 1
-	if j >= len(list.Items) {
-		j = 0
-	}
-
-	list.Swap(list.selected, j)
-	list.selected = j
 }
 
 /* -------------------- Sort Interface -------------------- */

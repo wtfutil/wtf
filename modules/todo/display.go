@@ -20,19 +20,22 @@ func (widget *Widget) content() (string, string, bool) {
 	)
 
 	offset := 0
-
+	selectedItem := widget.SelectedItem()
 	for idx, item := range widget.list.UncheckedItems() {
-		str += widget.formattedItemLine(idx, item, widget.list.SelectedItem(), widget.list.LongestLine())
+		str += widget.formattedItemLine(idx, item, selectedItem, widget.list.LongestLine())
 		newList.Items = append(newList.Items, item)
 		offset++
 	}
 
 	for idx, item := range widget.list.CheckedItems() {
-		str += widget.formattedItemLine(idx+offset, item, widget.list.SelectedItem(), widget.list.LongestLine())
+		str += widget.formattedItemLine(idx+offset, item, selectedItem, widget.list.LongestLine())
 		newList.Items = append(newList.Items, item)
 	}
 
-	newList.SetSelectedByItem(widget.list.SelectedItem())
+	if idx, ok := newList.IndexByItem(selectedItem); ok {
+		widget.Selected = idx
+	}
+
 	widget.SetList(newList)
 
 	return widget.CommonSettings().Title, str, false
