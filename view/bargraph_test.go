@@ -3,12 +3,14 @@ package view
 import (
 	"testing"
 
-	. "github.com/stretchr/testify/assert"
+	"github.com/olebedev/config"
+	"github.com/rivo/tview"
+	"github.com/stretchr/testify/assert"
+	"github.com/wtfutil/wtf/cfg"
 )
 
 // MakeData - Create sample data
 func makeData() []Bar {
-
 	//this could come from config
 	const lineCount = 3
 	var stats [lineCount]Bar
@@ -31,15 +33,51 @@ func makeData() []Bar {
 	}
 
 	return stats[:]
-
 }
 
-//TestOutput of the bargraph make string (BuildStars) function
-func TestOutput(t *testing.T) {
+func newTestGraph(graphStars int, graphIcon string) *BarGraph {
+	widget := NewBarGraph(
+		tview.NewApplication(),
+		"testapp",
+		&cfg.Common{
+			Config: &config.Config{
+				Root: map[string]interface{}{
+					"graphStars": graphStars,
+					"graphIcon":  graphIcon,
+				},
+			},
+		},
+	)
+	return &widget
+}
 
+func TestNewBarGraph(t *testing.T) {
+	widget := newTestGraph(15, "|")
+
+	assert.NotNil(t, widget.View)
+	assert.Equal(t, 15, widget.maxStars)
+	assert.Equal(t, "|", widget.starChar)
+}
+
+func TestBuildBars(t *testing.T) {
+	widget := newTestGraph(15, "|")
+
+	before := widget.View.GetText(false)
+	widget.BuildBars(makeData())
+	after := widget.View.GetText(false)
+
+	assert.NotEqual(t, before, after)
+}
+
+func TestTextView(t *testing.T) {
+	widget := newTestGraph(15, "|")
+
+	assert.NotNil(t, widget.TextView())
+}
+
+func TestBuildStars(t *testing.T) {
 	result := BuildStars(makeData(), 20, "*")
-
-	Equal(t,
+	assert.Equal(t,
 		"Jun 27, 2018[[default]****[default]                ] 20\nJul 09, 2018[[red]****************[default]    ] 80\nJul 09, 2018[[green]****************[default]    ] 80\n",
 		result,
 	)
