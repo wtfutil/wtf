@@ -96,6 +96,7 @@ func (widget *Widget) formattedText() string {
 	if err != nil {
 		return err.Error()
 	}
+	defer file.Close()
 
 	lexer := lexers.Match(filePath)
 	if lexer == nil {
