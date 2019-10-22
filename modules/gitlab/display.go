@@ -22,8 +22,8 @@ func (widget *Widget) content() (string, string, bool) {
 	str += " [red]Stats[white]\n"
 	str += widget.displayStats(project)
 	str += "\n"
-	str += " [red]Open Approval Requests[white]\n"
-	str += widget.displayMyApprovalRequests(project, widget.settings.username)
+	str += " [red]Open Assigned Merge Requests[white]\n"
+	str += widget.displayMyAssignedMergeRequests(project, widget.settings.username)
 	str += "\n"
 	str += " [red]My Merge Requests[white]\n"
 	str += widget.displayMyMergeRequests(project, widget.settings.username)
@@ -52,8 +52,8 @@ func (widget *Widget) displayMyMergeRequests(project *GitlabProject, username st
 	return str
 }
 
-func (widget *Widget) displayMyApprovalRequests(project *GitlabProject, username string) string {
-	mrs := project.myApprovalRequests(username)
+func (widget *Widget) displayMyAssignedMergeRequests(project *GitlabProject, username string) string {
+	mrs := project.myAssignedMergeRequests(username)
 
 	if len(mrs) == 0 {
 		return " [grey]none[white]\n"
