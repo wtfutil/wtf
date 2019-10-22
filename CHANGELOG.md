@@ -10,6 +10,7 @@
 ### 🐞 Fixed
 
 * Github PRs do not count against issues, by [@alexfornuto](https://github.com/alexfornuto)
+* Todo scrolling now works properly, [#707](https://github.com/wtfutil/wtf/issues/707) by [3mard](https://github.com/3mard)
 
 ## 0.23.0
 
