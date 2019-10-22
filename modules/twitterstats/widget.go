@@ -40,16 +40,15 @@ func (widget *Widget) Refresh() {
 
 func (widget *Widget) content() (string, string, bool) {
 	usernames := widget.client.screenNames
-	followerCounts := widget.client.GetFollowerCounts()
-	tweetCounts := widget.client.GetTweetCounts()
+	stats := widget.client.GetStats()
 
 	// Add header row
 	str := fmt.Sprintf("%-16s %-8s %-8s\n", "Username", "Followers", "# Tweets")
 
 	// Add rows for each of the followed usernames
 	for i, username := range usernames {
-		followerCount := followerCounts[i]
-		tweetCount := tweetCounts[i]
+		followerCount := stats[i].followerCount
+		tweetCount := stats[i].tweetCount
 
 		str += fmt.Sprintf("%-16s %8d %8d\n", username, followerCount, tweetCount)
 	}
