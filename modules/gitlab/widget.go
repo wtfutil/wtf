@@ -3,7 +3,6 @@ package gitlab
 import (
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/view"
-	glb "github.com/xanzy/go-gitlab"
 )
 
 type Widget struct {
@@ -13,28 +12,23 @@ type Widget struct {
 
 	GitlabProjects []*GitlabProject
 
-	gitlab   *glb.Client
+	context  *context
 	settings *Settings
 }
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
-	baseURL := settings.domain
-	gitlab := glb.NewClient(nil, settings.apiKey)
-
-	if baseURL != "" {
-		gitlab.SetBaseURL(baseURL)
-	}
+	context, _ := newContext(settings)
 
 	widget := Widget{
 		KeyboardWidget:    view.NewKeyboardWidget(app, pages, settings.common),
 		MultiSourceWidget: view.NewMultiSourceWidget(settings.common, "repository", "repositories"),
 		TextWidget:        view.NewTextWidget(app, settings.common),
 
-		gitlab:   gitlab,
+		context:  context,
 		settings: settings,
 	}
 
-	widget.GitlabProjects = widget.buildProjectCollection(settings.projects)
+	widget.GitlabProjects = widget.buildProjectCollection(context, settings.projects)
 
 	widget.initializeKeyboardControls()
 	widget.View.SetInputCapture(widget.InputCapture)
@@ -61,11 +55,11 @@ func (widget *Widget) HelpText() string {
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (widget *Widget) buildProjectCollection(projectData []string) []*GitlabProject {
+func (widget *Widget) buildProjectCollection(context *context, projectData []string) []*GitlabProject {
 	gitlabProjects := []*GitlabProject{}
 
 	for _, projectPath := range projectData {
-		project := NewGitlabProject(projectPath, widget.gitlab)
+		project := NewGitlabProject(context, projectPath)
 		gitlabProjects = append(gitlabProjects, project)
 	}
 

@@ -4,19 +4,49 @@ import (
 	glb "github.com/xanzy/go-gitlab"
 )
 
-type GitlabProject struct {
+type context struct {
 	client *glb.Client
-	path   string
-
-	MergeRequests []*glb.MergeRequest
-	Issues        []*glb.Issue
-	RemoteProject *glb.Project
+	user   *glb.User
 }
 
-func NewGitlabProject(projectPath string, client *glb.Client) *GitlabProject {
+func newContext(settings *Settings) (*context, error) {
+	baseURL := settings.domain
+	gitlabClient := glb.NewClient(nil, settings.apiKey)
+
+	if baseURL != "" {
+		gitlabClient.SetBaseURL(baseURL)
+	}
+
+	user, _, err := gitlabClient.Users.CurrentUser()
+
+	if err != nil {
+		return nil, err
+	}
+
+	context := context{
+		client: gitlabClient,
+		user:   user,
+	}
+
+	return &context, nil
+}
+
+type GitlabProject struct {
+	context *context
+	path    string
+
+	MergeRequests         []*glb.MergeRequest
+	AssignedMergeRequests []*glb.MergeRequest
+	AuthoredMergeRequests []*glb.MergeRequest
+	AssignedIssues        []*glb.Issue
+	AuthoredIssues        []*glb.Issue
+	RemoteProject         *glb.Project
+}
+
+func NewGitlabProject(context *context, projectPath string) *GitlabProject {
 	project := GitlabProject{
-		client: client,
-		path:   projectPath,
+		context: context,
+		path:    projectPath,
 	}
 
 	return &project
@@ -25,8 +55,11 @@ func NewGitlabProject(projectPath string, client *glb.Client) *GitlabProject {
 // Refresh reloads the gitlab data via the Gitlab API
 func (project *GitlabProject) Refresh() {
 	project.MergeRequests, _ = project.loadMergeRequests()
+	project.AssignedMergeRequests, _ = project.loadAssignedMergeRequests()
+	project.AuthoredMergeRequests, _ = project.loadAuthoredMergeRequests()
+	project.AssignedIssues, _ = project.loadAssignedIssues()
+	project.AuthoredIssues, _ = project.loadAuthoredIssues()
 	project.RemoteProject, _ = project.loadRemoteProject()
-	project.Issues, _ = project.loadIssues()
 }
 
 /* -------------------- Counts -------------------- */
@@ -55,63 +88,23 @@ func (project *GitlabProject) StarCount() int {
 
 // myMergeRequests returns a list of merge requests created by username on this project
 func (project *GitlabProject) myMergeRequests(username string) []*glb.MergeRequest {
-	mrs := []*glb.MergeRequest{}
-
-	for _, mr := range project.MergeRequests {
-		user := mr.Author
-
-		if user.Username == username {
-			mrs = append(mrs, mr)
-		}
-	}
-
-	return mrs
+	return project.AuthoredMergeRequests
 }
 
-// myApprovalRequests returns a list of merge requests for which username has been
-// requested to approve
-func (project *GitlabProject) myApprovalRequests(username string) []*glb.MergeRequest {
-	mrs := []*glb.MergeRequest{}
-
-	for _, mr := range project.MergeRequests {
-		approvers, _, err := project.client.MergeRequests.GetMergeRequestApprovals(project.path, mr.IID)
-		if err != nil {
-			continue
-		}
-		for _, approver := range approvers.Approvers {
-			if approver.User.Username == username {
-				mrs = append(mrs, mr)
-			}
-		}
-	}
-
-	return mrs
+// myAssignedMergeRequests returns a list of merge requests for which username has been
+// assigned
+func (project *GitlabProject) myAssignedMergeRequests(username string) []*glb.MergeRequest {
+	return project.AssignedMergeRequests
 }
 
 // myAssignedIssues returns a list of issues for which username has been assigned
 func (project *GitlabProject) myAssignedIssues(username string) []*glb.Issue {
-	issues := []*glb.Issue{}
-
-	for _, issue := range project.Issues {
-		if issue.Assignee != nil && issue.Assignee.Username == username {
-			issues = append(issues, issue)
-		}
-	}
-
-	return issues
+	return project.AssignedIssues
 }
 
 // myIssues returns a list of issues created by username on this project
 func (project *GitlabProject) myIssues(username string) []*glb.Issue {
-	issues := []*glb.Issue{}
-
-	for _, issue := range project.Issues {
-		if issue.Author.Username == username {
-			issues = append(issues, issue)
-		}
-	}
-
-	return issues
+	return project.AuthoredIssues
 }
 
 func (project *GitlabProject) loadMergeRequests() ([]*glb.MergeRequest, error) {
@@ -120,7 +113,7 @@ func (project *GitlabProject) loadMergeRequests() ([]*glb.MergeRequest, error) {
 		State: &state,
 	}
 
-	mrs, _, err := project.client.MergeRequests.ListProjectMergeRequests(project.path, &opts)
+	mrs, _, err := project.context.client.MergeRequests.ListProjectMergeRequests(project.path, &opts)
 
 	if err != nil {
 		return nil, err
@@ -129,13 +122,62 @@ func (project *GitlabProject) loadMergeRequests() ([]*glb.MergeRequest, error) {
 	return mrs, nil
 }
 
-func (project *GitlabProject) loadIssues() ([]*glb.Issue, error) {
+func (project *GitlabProject) loadAssignedMergeRequests() ([]*glb.MergeRequest, error) {
 	state := "opened"
-	opts := glb.ListProjectIssuesOptions{
-		State: &state,
+	opts := glb.ListProjectMergeRequestsOptions{
+		State:      &state,
+		AssigneeID: &project.context.user.ID,
 	}
 
-	issues, _, err := project.client.Issues.ListProjectIssues(project.path, &opts)
+	mrs, _, err := project.context.client.MergeRequests.ListProjectMergeRequests(project.path, &opts)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return mrs, nil
+}
+
+func (project *GitlabProject) loadAuthoredMergeRequests() ([]*glb.MergeRequest, error) {
+	state := "opened"
+	opts := glb.ListProjectMergeRequestsOptions{
+		State:    &state,
+		AuthorID: &project.context.user.ID,
+	}
+
+	mrs, _, err := project.context.client.MergeRequests.ListProjectMergeRequests(project.path, &opts)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return mrs, nil
+}
+
+func (project *GitlabProject) loadAssignedIssues() ([]*glb.Issue, error) {
+	state := "opened"
+	opts := glb.ListProjectIssuesOptions{
+		State:      &state,
+		AssigneeID: &project.context.user.ID,
+	}
+
+	issues, _, err := project.context.client.Issues.ListProjectIssues(project.path, &opts)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return issues, nil
+}
+
+func (project *GitlabProject) loadAuthoredIssues() ([]*glb.Issue, interface{}) {
+	state := "opened"
+	opts := glb.ListProjectIssuesOptions{
+		State:    &state,
+		AuthorID: &project.context.user.ID,
+	}
+
+	issues, _, err := project.context.client.Issues.ListProjectIssues(project.path, &opts)
 
 	if err != nil {
 		return nil, err
@@ -145,7 +187,7 @@ func (project *GitlabProject) loadIssues() ([]*glb.Issue, error) {
 }
 
 func (project *GitlabProject) loadRemoteProject() (*glb.Project, error) {
-	projectsitory, _, err := project.client.Projects.GetProject(project.path, nil)
+	projectsitory, _, err := project.context.client.Projects.GetProject(project.path, nil)
 
 	if err != nil {
 		return nil, err
