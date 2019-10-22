@@ -8,24 +8,16 @@ import (
 )
 
 type Widget struct {
-	view.KeyboardWidget
 	view.TextWidget
 
-	client   *Client
-	idx      int
-	settings *Settings
-	sources  []string
+	client *Client
 }
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
 		TextWidget: view.NewTextWidget(app, settings.common),
-
-		idx:      0,
-		settings: settings,
+		client:     NewClient(settings),
 	}
-
-	widget.client = NewClient(settings)
 
 	widget.View.SetBorderPadding(1, 1, 1, 1)
 	widget.View.SetWrap(true)
@@ -43,7 +35,7 @@ func (widget *Widget) content() (string, string, bool) {
 	stats := widget.client.GetStats()
 
 	// Add header row
-	str := fmt.Sprintf("%-16s %-8s %-8s\n", "Username", "Followers", "# Tweets")
+	str := fmt.Sprintf("%-16s %8s %8s\n", "Username", "Followers", "Tweets")
 
 	// Add rows for each of the followed usernames
 	for i, username := range usernames {

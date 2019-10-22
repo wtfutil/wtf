@@ -11,21 +11,23 @@ import (
 	"golang.org/x/oauth2/clientcredentials"
 )
 
+// Client contains state that allows stats to be fetched about a list of Twitter users
 type Client struct {
-	apiBase     string
 	httpClient  *http.Client
 	screenNames []string
 }
 
+// TwitterStats Represents a stats snapshot for a single Twitter user at a point in time
 type TwitterStats struct {
 	followerCount int64
 	tweetCount    int64
 }
 
 const (
-	userTimelineUrl = "https://api.twitter.com/1.1/users/show.json"
+	userTimelineURL = "https://api.twitter.com/1.1/users/show.json"
 )
 
+// NewClient creates a new twitterstats client that contains an OAuth2 HTTP client which can be used
 func NewClient(settings *Settings) *Client {
 	usernames := make([]string, len(settings.screenNames))
 	for i, username := range settings.screenNames {
@@ -45,12 +47,9 @@ func NewClient(settings *Settings) *Client {
 		ClientSecret: settings.consumerSecret,
 		TokenURL:     "https://api.twitter.com/oauth2/token",
 	}
-
-	// token, err := conf.Token(oauth2.NoContext)
 	httpClient := conf.Client(oauth2.NoContext)
 
 	client := Client{
-		apiBase:     "https://api.twitter.com/1.1/",
 		httpClient:  httpClient,
 		screenNames: usernames,
 	}
@@ -58,6 +57,8 @@ func NewClient(settings *Settings) *Client {
 	return &client
 }
 
+// GetStats Returns a slice of `TwitterStats` structs for each username in `client.screenNames` in the same
+// order of `client.screenNames`
 func (client *Client) GetStats() []TwitterStats {
 	stats := make([]TwitterStats, len(client.screenNames))
 
@@ -67,7 +68,7 @@ func (client *Client) GetStats() []TwitterStats {
 			tweetCount:    0,
 		}
 
-		res, err := client.httpClient.Get(fmt.Sprintf("%s?screen_name=%s", userTimelineUrl, username))
+		res, err := client.httpClient.Get(fmt.Sprintf("%s?screen_name=%s", userTimelineURL, username))
 		if err != nil {
 			continue
 		}
