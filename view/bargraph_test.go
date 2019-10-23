@@ -51,7 +51,7 @@ func newTestGraph(graphStars int, graphIcon string) *BarGraph {
 	return &widget
 }
 
-func TestNewBarGraph(t *testing.T) {
+func Test_NewBarGraph(t *testing.T) {
 	widget := newTestGraph(15, "|")
 
 	assert.NotNil(t, widget.View)
@@ -59,7 +59,7 @@ func TestNewBarGraph(t *testing.T) {
 	assert.Equal(t, "|", widget.starChar)
 }
 
-func TestBuildBars(t *testing.T) {
+func Test_BuildBars(t *testing.T) {
 	widget := newTestGraph(15, "|")
 
 	before := widget.View.GetText(false)
@@ -69,13 +69,13 @@ func TestBuildBars(t *testing.T) {
 	assert.NotEqual(t, before, after)
 }
 
-func TestTextView(t *testing.T) {
+func Test_TextView(t *testing.T) {
 	widget := newTestGraph(15, "|")
 
 	assert.NotNil(t, widget.TextView())
 }
 
-func TestBuildStars(t *testing.T) {
+func Test_BuildStars(t *testing.T) {
 	result := BuildStars(makeData(), 20, "*")
 	assert.Equal(t,
 		"Jun 27, 2018[[default]****[default]                ] 20\nJul 09, 2018[[red]****************[default]    ] 80\nJul 09, 2018[[green]****************[default]    ] 80\n",
