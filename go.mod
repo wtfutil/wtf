@@ -15,7 +15,6 @@ require (
 	github.com/andybalholm/cascadia v1.1.0 // indirect
 	github.com/andygrunwald/go-gerrit v0.0.0-20190625080919-64931d233c2d
 	github.com/briandowns/openweathermap v0.0.0-20180804155945-5f41b7c9d92d
-	github.com/buger/jsonparser v0.0.0-20191004114745-ee4c978eae7e
 	github.com/cenkalti/backoff v2.2.1+incompatible // indirect
 	github.com/dlclark/regexp2 v1.2.0 // indirect
 	github.com/docker/distribution v2.7.1+incompatible // indirect
@@ -35,7 +34,6 @@ require (
 	github.com/hashicorp/go-cleanhttp v0.5.1 // indirect
 	github.com/hekmon/cunits v2.0.1+incompatible // indirect
 	github.com/hekmon/transmissionrpc v0.0.0-20190525133028-1d589625bacd
-	github.com/icedream/go-footballdata v0.1.0
 	github.com/imdario/mergo v0.3.8 // indirect
 	github.com/jessevdk/go-flags v1.4.0
 	github.com/json-iterator/go v1.1.7 // indirect
@@ -57,7 +55,6 @@ require (
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/sticreations/spotigopher v0.0.0-20181009182052-98632f6f94b0
 	github.com/stretchr/testify v1.4.0
-	github.com/tidwall/gjson v1.3.2
 	github.com/wtfutil/todoist v0.0.0-20190913231042-97395e581a76
 	github.com/xanzy/go-gitlab v0.20.1
 	github.com/yfronto/newrelic v0.0.0-20180622232530-7c9c2852e8f9
