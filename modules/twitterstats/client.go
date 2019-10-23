@@ -19,8 +19,8 @@ type Client struct {
 
 // TwitterStats Represents a stats snapshot for a single Twitter user at a point in time
 type TwitterStats struct {
-	followerCount int64
-	tweetCount    int64
+	FollowerCount int64 `json:"followers_count"`
+	TweetCount    int64 `json:"statuses_count"`
 }
 
 const (
@@ -31,15 +31,10 @@ const (
 func NewClient(settings *Settings) *Client {
 	usernames := make([]string, len(settings.screenNames))
 	for i, username := range settings.screenNames {
-		switch username.(type) {
-		default:
-			{
-				log.Fatalf("All `screenName`s in twitterstats config must be of type string")
-			}
-		case string:
-			usernames[i] = username.(string)
+		var ok bool
+		if usernames[i], ok = username.(string); !ok {
+			log.Fatalf("All `screenName`s in twitterstats config must be of type string")
 		}
-
 	}
 
 	conf := &clientcredentials.Config{
@@ -57,38 +52,39 @@ func NewClient(settings *Settings) *Client {
 	return &client
 }
 
+// GetStatsForUser Fetches stats for a single user.  If there is an error fetching or parsing the response
+// from the Twitter API, an empty stats struct will be returned.
+func (client *Client) GetStatsForUser(username string) TwitterStats {
+	stats := TwitterStats{
+		FollowerCount: 0,
+		TweetCount:    0,
+	}
+
+	url := fmt.Sprintf("%s?screen_name=%s", userTimelineURL, username)
+	res, err := client.httpClient.Get(url)
+	if err != nil {
+		return stats
+	}
+	defer res.Body.Close()
+
+	body, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		return stats
+	}
+
+	// If there is an error while parsing, just discard the error and return the empty stats
+	json.Unmarshal(body, &stats)
+
+	return stats
+}
+
 // GetStats Returns a slice of `TwitterStats` structs for each username in `client.screenNames` in the same
 // order of `client.screenNames`
 func (client *Client) GetStats() []TwitterStats {
 	stats := make([]TwitterStats, len(client.screenNames))
 
 	for i, username := range client.screenNames {
-		stats[i] = TwitterStats{
-			followerCount: 0,
-			tweetCount:    0,
-		}
-
-		res, err := client.httpClient.Get(fmt.Sprintf("%s?screen_name=%s", userTimelineURL, username))
-		if err != nil {
-			continue
-		}
-		defer res.Body.Close()
-
-		body, err := ioutil.ReadAll(res.Body)
-		if err != nil {
-			continue
-		}
-
-		var parsed map[string]interface{}
-		err = json.Unmarshal(body, &parsed)
-		if err != nil {
-			continue
-		}
-
-		stats[i] = TwitterStats{
-			followerCount: int64(parsed["followers_count"].(float64)),
-			tweetCount:    int64(parsed["statuses_count"].(float64)),
-		}
+		stats[i] = client.GetStatsForUser(username)
 	}
 
 	return stats

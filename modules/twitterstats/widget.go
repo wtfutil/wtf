@@ -39,8 +39,8 @@ func (widget *Widget) content() (string, string, bool) {
 
 	// Add rows for each of the followed usernames
 	for i, username := range usernames {
-		followerCount := stats[i].followerCount
-		tweetCount := stats[i].tweetCount
+		followerCount := stats[i].FollowerCount
+		tweetCount := stats[i].TweetCount
 
 		str += fmt.Sprintf("%-16s %8d %8d\n", username, followerCount, tweetCount)
 	}
