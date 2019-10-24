@@ -19,12 +19,10 @@ require (
 	github.com/docker/go-connections v0.4.0 // indirect
 	github.com/docker/go-units v0.4.0 // indirect
 	github.com/dustin/go-humanize v1.0.0
-	github.com/fatih/color v1.7.0
 	github.com/gdamore/tcell v1.3.0
 	github.com/go-ole/go-ole v1.2.4 // indirect
 	github.com/godbus/dbus v4.1.0+incompatible // indirect
 	github.com/google/go-github/v26 v26.1.3
-	github.com/gookit/color v1.2.0
 	github.com/gophercloud/gophercloud v0.5.0 // indirect
 	github.com/hashicorp/go-cleanhttp v0.5.1 // indirect
 	github.com/hekmon/cunits v2.0.1+incompatible // indirect
