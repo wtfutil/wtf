@@ -244,6 +244,8 @@ github.com/wtfutil/todoist v0.0.1 h1:E3srzocggLHme8zIEAEXXoY/fQZtFRjW69m4OiYv3hg
 github.com/wtfutil/todoist v0.0.1/go.mod h1:YuuGLJSsTK6DGBD5Zaf3J8LSMfpEC2WtzYPey3XVOdI=
 github.com/xanzy/go-gitlab v0.20.1 h1:+1BWDry84G5PzsnzG9DI4YjPbHeWKyouM0q0gfDPKgY=
 github.com/xanzy/go-gitlab v0.20.1/go.mod h1:LSfUQ9OPDnwRqulJk2HcWaAiFfCzaknyeGvjQI67MbE=
+github.com/xanzy/go-gitlab v0.21.0 h1:Ru55sR4TBoDNsAKwCOpzeaGtbiWj7xTksVmzBJbLu6c=
+github.com/xanzy/go-gitlab v0.21.0/go.mod h1:t4Bmvnxj7k37S4Y17lfLx+nLqkf/oQwT2HagfWKv5Og=
 github.com/zmb3/spotify v0.0.0-20191010212056-e12fb981aacb h1:uWB0RGxBo7AToSJ3rvoCZhXtLw4U7XISXSezPewmfic=
 github.com/zmb3/spotify v0.0.0-20191010212056-e12fb981aacb/go.mod h1:pHsWAmY9PfX7i/uwPZkmWrebc8JbK8FppKbvyevwzSU=
 github.com/zorkian/go-datadog-api v2.24.0+incompatible h1:conz6t5Vu0nIVigLpinYudl6uYc+xhajR6WuX+tD21I=
