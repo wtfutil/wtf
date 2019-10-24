@@ -153,17 +153,19 @@ func (widget *Widget) GetMatches(leagueId int) string {
 
 	if len(l.Matches) != 0 {
 
-		for _, val := range l.Matches {
-			if strings.Contains(val.AwayTeam.Name, widget.settings.favTeam) || strings.Contains(val.HomeTeam.Name, widget.settings.favTeam) || widget.settings.favTeam == "" {
-				if val.Status == "SCHEDULED" {
-					row := []string{"⚽", val.HomeTeam.Name, "🆚", val.AwayTeam.Name, parseDateString(val.Date)}
-					tScheduled.Append(row)
-				} else if val.Status == "FINISHED" {
-					row := []string{"⚽", val.HomeTeam.Name, strconv.Itoa(val.Score.FullTime.HomeTeam), "🆚", val.AwayTeam.Name, strconv.Itoa(val.Score.FullTime.AwayTeam)}
-					tPlayed.Append(row)
-				}
+		for _, m := range l.Matches {
+
+			widget.markFavorite(&m)
+
+			if m.Status == "SCHEDULED" {
+				row := []string{m.HomeTeam.Name, "🆚", m.AwayTeam.Name, parseDateString(m.Date)}
+				tScheduled.Append(row)
+			} else if m.Status == "FINISHED" {
+				row := []string{m.HomeTeam.Name, strconv.Itoa(m.Score.FullTime.HomeTeam), "🆚", m.AwayTeam.Name, strconv.Itoa(m.Score.FullTime.AwayTeam)}
+				tPlayed.Append(row)
 			}
 		}
+
 		tScheduled.Render()
 		tPlayed.Render()
 		if playedBuf.String() != "" {
@@ -178,4 +180,17 @@ func (widget *Widget) GetMatches(leagueId int) string {
 	}
 
 	return content
+}
+
+func (widget *Widget) markFavorite(m *Matches) {
+
+	switch {
+
+	case widget.settings.favTeam == "":
+		return
+	case strings.Contains(m.AwayTeam.Name, widget.settings.favTeam):
+		m.AwayTeam.Name = fmt.Sprintf("%s ⭐", m.AwayTeam.Name)
+	case strings.Contains(m.HomeTeam.Name, widget.settings.favTeam):
+		m.HomeTeam.Name = fmt.Sprintf("%s ⭐", m.HomeTeam.Name)
+	}
 }
