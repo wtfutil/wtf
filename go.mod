@@ -43,7 +43,7 @@ require (
 	github.com/sticreations/spotigopher v0.0.0-20181009182052-98632f6f94b0
 	github.com/stretchr/testify v1.4.0
 	github.com/wtfutil/todoist v0.0.1
-	github.com/xanzy/go-gitlab v0.20.1
+	github.com/xanzy/go-gitlab v0.21.0
 	github.com/yfronto/newrelic v0.0.0-00010101000000-000000000000
 	github.com/zmb3/spotify v0.0.0-20191010212056-e12fb981aacb
 	github.com/zorkian/go-datadog-api v2.24.0+incompatible
