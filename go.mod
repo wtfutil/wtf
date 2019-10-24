@@ -10,7 +10,7 @@ require (
 	github.com/StackExchange/wmi v0.0.0-20190523213315-cbe66965904d // indirect
 	github.com/VictorAvelar/devto-api-go v1.0.0
 	github.com/adlio/trello v1.4.0
-	github.com/alecthomas/chroma v0.6.7
+	github.com/alecthomas/chroma v0.6.8
 	github.com/andygrunwald/go-gerrit v0.0.0-20190825170856-5959a9bf9ff8
 	github.com/briandowns/openweathermap v0.0.0-20180804155945-5f41b7c9d92d
 	github.com/cenkalti/backoff v2.2.1+incompatible // indirect
@@ -45,12 +45,8 @@ require (
 	github.com/shirou/gopsutil v2.19.9+incompatible
 	github.com/sticreations/spotigopher v0.0.0-20181009182052-98632f6f94b0
 	github.com/stretchr/testify v1.4.0
-<<<<<<< HEAD
 	github.com/wtfutil/todoist v0.0.1
-=======
-	github.com/wtfutil/todoist v0.0.0-20190913231042-97395e581a76
->>>>>>> 59b8877b... feat: Add new widget for football scores and standings
-	github.com/xanzy/go-gitlab v0.20.1
+	github.com/xanzy/go-gitlab v0.21.0
 	github.com/yfronto/newrelic v0.0.0-00010101000000-000000000000
 	github.com/zmb3/spotify v0.0.0-20191010212056-e12fb981aacb
 	github.com/zorkian/go-datadog-api v2.24.0+incompatible
