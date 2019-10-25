@@ -105,15 +105,15 @@ func (widget *Widget) GetStandings(leagueId int) string {
 		return fmt.Sprintf("Error fetching standings")
 	}
 
-	if len(l.Standings) > 0 {
-		for _, i := range l.Standings[0].Table {
-			if i.Position <= widget.settings.standingCount {
-				row := []string{strconv.Itoa(i.Position), i.Team.Name, strconv.Itoa(i.PlayedGames), strconv.Itoa(i.Won), strconv.Itoa(i.Draw), strconv.Itoa(i.Lost), strconv.Itoa(i.GoalDifference), strconv.Itoa(i.Points)}
-				tStandings.Append(row)
-			}
-		}
-	} else {
+	if len(l.Standings) == 0 {
 		return fmt.Sprintf("Error fetching standings")
+	}
+
+	for _, i := range l.Standings[0].Table {
+		if i.Position <= widget.settings.standingCount {
+			row := []string{strconv.Itoa(i.Position), i.Team.Name, strconv.Itoa(i.PlayedGames), strconv.Itoa(i.Won), strconv.Itoa(i.Draw), strconv.Itoa(i.Lost), strconv.Itoa(i.GoalDifference), strconv.Itoa(i.Points)}
+			tStandings.Append(row)
+		}
 	}
 
 	tStandings.Render()
@@ -151,32 +151,33 @@ func (widget *Widget) GetMatches(leagueId int) string {
 		return fmt.Sprintf("Error fetching matches: %s", err.Error())
 	}
 
-	if len(l.Matches) != 0 {
+	if len(l.Matches) == 0 {
+		return fmt.Sprintf("Error fetching matches")
+	}
 
-		for _, m := range l.Matches {
+	for _, m := range l.Matches {
 
-			widget.markFavorite(&m)
+		widget.markFavorite(&m)
 
-			if m.Status == "SCHEDULED" {
-				row := []string{m.HomeTeam.Name, "🆚", m.AwayTeam.Name, parseDateString(m.Date)}
-				tScheduled.Append(row)
-			} else if m.Status == "FINISHED" {
-				row := []string{m.HomeTeam.Name, strconv.Itoa(m.Score.FullTime.HomeTeam), "🆚", m.AwayTeam.Name, strconv.Itoa(m.Score.FullTime.AwayTeam)}
-				tPlayed.Append(row)
-			}
+		if m.Status == "SCHEDULED" {
+			row := []string{m.HomeTeam.Name, "🆚", m.AwayTeam.Name, parseDateString(m.Date)}
+			tScheduled.Append(row)
+		} else if m.Status == "FINISHED" {
+			row := []string{m.HomeTeam.Name, strconv.Itoa(m.Score.FullTime.HomeTeam), "🆚", m.AwayTeam.Name, strconv.Itoa(m.Score.FullTime.AwayTeam)}
+			tPlayed.Append(row)
 		}
+	}
 
-		tScheduled.Render()
-		tPlayed.Render()
-		if playedBuf.String() != "" {
-			content += "\nMatches Played:\n\n"
-			content += playedBuf.String()
+	tScheduled.Render()
+	tPlayed.Render()
+	if playedBuf.String() != "" {
+		content += "\nMatches Played:\n\n"
+		content += playedBuf.String()
 
-		}
-		if scheduledBuf.String() != "" {
-			content += "\nUpcoming Matches:\n\n"
-			content += scheduledBuf.String()
-		}
+	}
+	if scheduledBuf.String() != "" {
+		content += "\nUpcoming Matches:\n\n"
+		content += scheduledBuf.String()
 	}
 
 	return content
