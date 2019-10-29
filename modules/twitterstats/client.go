@@ -1,6 +1,7 @@
 package twitterstats
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -15,6 +16,7 @@ import (
 type Client struct {
 	httpClient  *http.Client
 	screenNames []string
+	bearerToken string
 }
 
 // TwitterStats Represents a stats snapshot for a single Twitter user at a point in time
@@ -37,12 +39,23 @@ func NewClient(settings *Settings) *Client {
 		}
 	}
 
-	conf := &clientcredentials.Config{
-		ClientID:     settings.consumerKey,
-		ClientSecret: settings.consumerSecret,
-		TokenURL:     "https://api.twitter.com/oauth2/token",
+	var httpClient *http.Client
+	// If a bearer token is supplied, use that directly.  Otherwise, let the Oauth client fetch a token
+	// using the consumer key and secret.
+	if settings.bearerToken == "" {
+		conf := &clientcredentials.Config{
+			ClientID:     settings.consumerKey,
+			ClientSecret: settings.consumerSecret,
+			TokenURL:     "https://api.twitter.com/oauth2/token",
+		}
+		httpClient = conf.Client(oauth2.NoContext)
+	} else {
+		ctx := context.Background()
+		httpClient = oauth2.NewClient(ctx, oauth2.StaticTokenSource(&oauth2.Token{
+			AccessToken: settings.bearerToken,
+			TokenType:   "Bearer",
+		}))
 	}
-	httpClient := conf.Client(oauth2.NoContext)
 
 	client := Client{
 		httpClient:  httpClient,
