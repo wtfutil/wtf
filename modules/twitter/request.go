@@ -2,21 +2,11 @@ package twitter
 
 import (
 	"bytes"
-	"fmt"
 	"net/http"
 )
 
-func Request(bearerToken string, apiURL string) ([]byte, error) {
-	req, err := http.NewRequest("GET", apiURL, nil)
-	if err != nil {
-		return nil, err
-	}
-
-	// Expected authorization format for single-application twitter dev accounts
-	req.Header.Add("Authorization", fmt.Sprintf("Bearer %s", bearerToken))
-
-	client := &http.Client{}
-	resp, err := client.Do(req)
+func Request(httpClient *http.Client, apiURL string) ([]byte, error) {
+	resp, err := httpClient.Get(apiURL)
 	if err != nil {
 		return nil, err
 	}
