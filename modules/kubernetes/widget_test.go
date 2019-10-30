@@ -11,6 +11,7 @@ func Test_generateTitle(t *testing.T) {
 		title      string
 		namespaces []string
 	}
+
 	testCases := []struct {
 		name   string
 		fields fields
@@ -46,6 +47,7 @@ func Test_generateTitle(t *testing.T) {
 			want: "Test Explicit Title",
 		},
 	}
+
 	for _, tt := range testCases {
 		t.Run(tt.name, func(t *testing.T) {
 			widget := &Widget{

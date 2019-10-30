@@ -14,8 +14,8 @@ type Colors struct {
 	BorderNormal    string
 	Checked         string
 	Foreground      string
-	HighlightFore   string
 	HighlightBack   string
+	HighlightFore   string
 	Text            string
 	Title           string
 
@@ -83,11 +83,11 @@ func NewCommonSettingsFromModule(name, defaultTitle string, defaultFocusable boo
 		PositionSettings: NewPositionSettingsFromYAML(name, moduleConfig),
 
 		Bordered:        moduleConfig.UBool("border", true),
+		Config:          moduleConfig,
 		Enabled:         moduleConfig.UBool("enabled", false),
 		Focusable:       moduleConfig.UBool("focusable", defaultFocusable),
 		RefreshInterval: moduleConfig.UInt("refreshInterval", 300),
 		Title:           moduleConfig.UString("title", defaultTitle),
-		Config:          moduleConfig,
 
 		focusChar: moduleConfig.UInt("focusChar", -1),
 	}
@@ -135,7 +135,7 @@ func (common *Common) RightAlignFormat(width int) string {
 	return fmt.Sprintf("%%%ds", width-borderOffset)
 }
 
-func (common *Common) SigilStr(len, pos int, width int) string {
+func (common *Common) SigilStr(len, pos, width int) string {
 	sigils := ""
 
 	if len > 1 {
