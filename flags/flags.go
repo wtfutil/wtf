@@ -8,7 +8,6 @@ import (
 	goFlags "github.com/jessevdk/go-flags"
 	"github.com/olebedev/config"
 	"github.com/wtfutil/wtf/help"
-	"github.com/wtfutil/wtf/utils"
 )
 
 // Flags is the container for command line flag data
@@ -80,7 +79,7 @@ func (flags *Flags) Parse() {
 	}
 
 	// If no config file is explicitly passed in as a param then set the flag to the default config file
-	homeDir, err := utils.Home()
+	homeDir, err := os.UserHomeDir()
 	if err != nil {
 		fmt.Printf("Error: %v\n", err)
 		os.Exit(1)
