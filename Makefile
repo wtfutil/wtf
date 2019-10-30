@@ -1,4 +1,4 @@
-.PHONY: build contrib_check install binary_msg lint run size test uninstall
+.PHONY: build contrib_check coverage install binary_msg lint run size test uninstall
 
 # detect GOPATH if not set
 ifndef $(GOPATH)
@@ -29,6 +29,10 @@ build:
 
 contrib_check:
 	npx all-contributors-cli check
+
+coverage:
+	go test -coverprofile=coverage.out ./...
+	go tool cover -html=coverage.out
 
 install:
 	@echo "Installing wtfutil..."
