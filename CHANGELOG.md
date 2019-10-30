@@ -4,11 +4,12 @@
 
 ### ⚡️ Added
 
-* Proper, usable Docker file added, by [@Boot-Error](https://github.com/Boot-Error)
+* Proper, usable [Docker file](https://github.com/wtfutil/wtf/blob/master/Dockerfile) added, by [@Boot-Error](https://github.com/Boot-Error)
 * [GitLab](https://wtfutil.com/modules/gitlab/) module displays issues assigned to, and opened by, the user, by [@caalberts](https://github.com/caalberts)
 * [TravisCI](https://wtfutil.com/modules/travisci/) now checks for uncommitted vendor changes, by [@indradhanush](https://github.com/indradhanush)
 * Football module added, by [@C123R](https://github.com/C123R)
 * [resourceuseage](https://wtfutil.com/modules/resourceusage/) now supports a `cpuCombined` setting, by [@madepolli](https://github.com/madepolli)
+* [Twitter Stats](https://wtfutil.com/modules/twitter/twittertweets/) module added, by [@Ameobea](https://github.com/Ameobea)
 
 ### 🐞 Fixed
 

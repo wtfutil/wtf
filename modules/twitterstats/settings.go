@@ -1,4 +1,4 @@
-package twitter
+package twitterstats
 
 import (
 	"os"
@@ -9,7 +9,7 @@ import (
 
 const (
 	defaultFocusable = true
-	defaultTitle     = "Twitter"
+	defaultTitle     = "Twitter Stats"
 )
 
 type Settings struct {
@@ -18,7 +18,6 @@ type Settings struct {
 	bearerToken    string
 	consumerKey    string
 	consumerSecret string
-	count          int
 	screenNames    []interface{}
 }
 
@@ -29,8 +28,8 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		bearerToken:    ymlConfig.UString("bearerToken", os.Getenv("WTF_TWITTER_BEARER_TOKEN")),
 		consumerKey:    ymlConfig.UString("consumerKey", os.Getenv("WTF_TWITTER_CONSUMER_KEY")),
 		consumerSecret: ymlConfig.UString("consumerSecret", os.Getenv("WTF_TWITTER_CONSUMER_SECRET")),
-		count:          ymlConfig.UInt("count", 5),
-		screenNames:    ymlConfig.UList("screenName"),
+
+		screenNames: ymlConfig.UList("screenNames"),
 	}
 
 	return &settings
