@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"testing"
 
-	. "github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/assert"
 )
 
 func Test_DoesNotInclude(t *testing.T) {
@@ -74,7 +74,8 @@ func Test_FindMatch(t *testing.T) {
 
 	expected := [][]string([][]string{[]string{"SSID: 7E5B5C", "7E5B5C"}})
 	result = FindMatch(`s*SSID: (.+)s*`, "SSID: 7E5B5C")
-	Equal(t, expected, result)
+
+	assert.Equal(t, expected, result)
 }
 
 func Test_Includes(t *testing.T) {

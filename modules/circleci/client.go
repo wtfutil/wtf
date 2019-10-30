@@ -28,7 +28,7 @@ func (client *Client) BuildsFor() ([]*Build, error) {
 		return builds, err
 	}
 
-	err = utils.ParseJson(&builds, resp.Body)
+	err = utils.ParseJSON(&builds, resp.Body)
 	if err != nil {
 		return builds, err
 	}
