@@ -11,14 +11,6 @@ displaying infrequently-needed, but very important, daily data.
 
 #
 
-## 🎃 Hacktoberfest Participation
-
-[Hacktoberfest](https://hacktoberfest.digitalocean.com) is upon us once again. If you're participating, include `#hacktoberfest` in your PR description and we'll try to prioritize it when reviewing and merging. Offer good until Oct 31.
-
-Happy hacking! 👻
-
-#
-
 * [Installing](#installing)
     * [Install via Homebrew](#install-via-homebrew)
     * [Install via MacPorts](#install-via-macports)
