@@ -10,8 +10,8 @@ func testChecklistItem() *ChecklistItem {
 	item := NewChecklistItem(
 		false,
 		"test",
-		"x",
-		" ",
+		"",
+		"",
 	)
 	return item
 }
