@@ -3,7 +3,7 @@ package utils
 import (
 	"testing"
 
-	. "github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/assert"
 )
 
 func Test_MapToStrs(t *testing.T) {
@@ -18,7 +18,7 @@ func Test_MapToStrs(t *testing.T) {
 		source[val] = val
 	}
 
-	Equal(t, expected, MapToStrs(source))
+	assert.Equal(t, expected, MapToStrs(source))
 }
 
 func Test_ToInts(t *testing.T) {
@@ -29,16 +29,23 @@ func Test_ToInts(t *testing.T) {
 		source[idx] = val
 	}
 
-	Equal(t, expected, ToInts(source))
+	assert.Equal(t, expected, ToInts(source))
 }
 
 func Test_ToStrs(t *testing.T) {
-	expected := []string{"cat", "dog", "rat"}
+	expectedInts := []int{1, 2, 3}
+	expectedStrs := []string{"1", "2", "3"}
 
-	source := make([]interface{}, len(expected))
-	for idx, val := range expected {
-		source[idx] = val
+	fromInts := make([]interface{}, 3)
+	for idx, val := range expectedInts {
+		fromInts[idx] = val
 	}
 
-	Equal(t, expected, ToStrs(source))
+	fromStrs := make([]interface{}, 3)
+	for idx, val := range expectedStrs {
+		fromStrs[idx] = val
+	}
+
+	assert.Equal(t, expectedStrs, ToStrs(fromInts))
+	assert.Equal(t, expectedStrs, ToStrs(fromStrs))
 }
