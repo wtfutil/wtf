@@ -33,7 +33,7 @@ func GetLinks(subreddit string, sortMode string, topTimePeriod string) ([]Link, 
 		return nil, fmt.Errorf(resp.Status)
 	}
 	var m RedditDocument
-	err = utils.ParseJson(&m, resp.Body)
+	err = utils.ParseJSON(&m, resp.Body)
 
 	if err != nil {
 		return nil, err

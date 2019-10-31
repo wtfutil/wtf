@@ -2,8 +2,9 @@ package buildkite
 
 import (
 	"fmt"
-	"github.com/wtfutil/wtf/utils"
 	"net/http"
+
+	"github.com/wtfutil/wtf/utils"
 )
 
 type Pipeline struct {
@@ -61,7 +62,7 @@ func (widget *Widget) recentBuilds(pipeline PipelineSettings) ([]Build, error) {
 	}
 
 	builds := []Build{}
-	err = utils.ParseJson(&builds, resp.Body)
+	err = utils.ParseJSON(&builds, resp.Body)
 	if err != nil {
 		return nil, err
 	}

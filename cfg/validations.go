@@ -18,7 +18,7 @@ func (vals *Validations) append(key string, posVal Validatable) {
 	vals.validations[key] = posVal
 }
 
-func (vals *Validations) valueFor(key string) int {
+func (vals *Validations) intValueFor(key string) int {
 	val := vals.validations[key]
 	if val != nil {
 		return val.IntValue()

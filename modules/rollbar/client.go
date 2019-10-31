@@ -18,7 +18,7 @@ func CurrentActiveItems(accessToken, assignedToName string, activeOnly bool) (*A
 		return items, err
 	}
 
-	err = utils.ParseJson(&items, resp.Body)
+	err = utils.ParseJSON(&items, resp.Body)
 
 	return items, nil
 }

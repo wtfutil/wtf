@@ -38,7 +38,7 @@ func (widget *Widget) IssuesFor(username string, projects []string, jql string) 
 	}
 
 	searchResult := &SearchResult{}
-	err = utils.ParseJson(searchResult, resp.Body)
+	err = utils.ParseJSON(searchResult, resp.Body)
 	if err != nil {
 		return nil, err
 	}

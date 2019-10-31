@@ -4,8 +4,6 @@ import (
 	"log"
 	"os"
 	"path/filepath"
-
-	"github.com/wtfutil/wtf/utils"
 )
 
 /* -------------------- Exported Functions -------------------- */
@@ -30,7 +28,7 @@ func LogFileMissing() bool {
 }
 
 func LogFilePath() string {
-	dir, err := utils.Home()
+	dir, err := os.UserHomeDir()
 	if err != nil {
 		return ""
 	}

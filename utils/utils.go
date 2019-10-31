@@ -121,8 +121,8 @@ func ReadFileBytes(filePath string) ([]byte, error) {
 	return fileData, nil
 }
 
-// ParseJson is a standard JSON reader from text
-func ParseJson(obj interface{}, text io.Reader) error {
+// ParseJSON is a standard JSON reader from text
+func ParseJSON(obj interface{}, text io.Reader) error {
 	d := json.NewDecoder(text)
 	return d.Decode(obj)
 }
@@ -139,10 +139,10 @@ func CalculateDimensions(moduleConfig, globalConfig *config.Config) (int, int) {
 	rows := ToInts(globalConfig.UList("wtf.grid.rows"))
 
 	// Make sure the values are in bounds
-	left = clamp(left, 0, len(cols)-1)
-	top = clamp(top, 0, len(rows)-1)
-	width = clamp(width, 0, len(cols)-left)
-	height = clamp(height, 0, len(rows)-top)
+	left = Clamp(left, 0, len(cols)-1)
+	top = Clamp(top, 0, len(rows)-1)
+	width = Clamp(width, 0, len(cols)-left)
+	height = Clamp(height, 0, len(rows)-top)
 
 	// Start with the border subtracted and add all the spanned rows and cols
 	w, h := -2, -2
@@ -154,20 +154,35 @@ func CalculateDimensions(moduleConfig, globalConfig *config.Config) (int, int) {
 	}
 
 	// The usable space may be empty
-	w = max(w, 0)
-	h = max(h, 0)
+	w = MaxInt(w, 0)
+	h = MaxInt(h, 0)
 
 	return w, h
 }
 
-func max(a, b int) int {
-	if a > b {
-		return a
+// MaxInt returns the larger of x or y
+//
+// Examples:
+//
+//   MaxInt(3, 2) => 3
+//   MaxInt(2, 3) => 3
+//
+func MaxInt(x, y int) int {
+	if x > y {
+		return x
 	}
-	return b
+	return y
 }
 
-func clamp(x, a, b int) int {
+// Clamp restricts values to a minimum and maximum value
+//
+// Examples:
+//
+//   clamp(6, 3, 8) => 4
+//   clamp(1, 3, 8) => 3
+//   clamp(9, 3, 8) => 8
+//
+func Clamp(x, a, b int) int {
 	if a > x {
 		return a
 	}

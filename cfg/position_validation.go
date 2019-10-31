@@ -54,6 +54,8 @@ func (posVal *positionValidation) String() string {
 	return fmt.Sprintf("Invalid value for %s:\t%d", aurora.Yellow(posVal.name), posVal.intVal)
 }
 
+/* -------------------- Unexported Functions -------------------- */
+
 func newPositionValidation(name string, intVal int, err error) *positionValidation {
 	posVal := &positionValidation{
 		err:    err,

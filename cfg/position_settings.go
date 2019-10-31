@@ -41,10 +41,10 @@ func NewPositionSettingsFromYAML(moduleName string, moduleConfig *config.Config)
 	pos := PositionSettings{
 		Validations: validations,
 
-		Top:    validations.valueFor("top"),
-		Left:   validations.valueFor("left"),
-		Width:  validations.valueFor("width"),
-		Height: validations.valueFor("height"),
+		Top:    validations.intValueFor("top"),
+		Left:   validations.intValueFor("left"),
+		Width:  validations.intValueFor("width"),
+		Height: validations.intValueFor("height"),
 	}
 
 	return pos

@@ -22,7 +22,8 @@ func NewChecklist(checkedIcon, uncheckedIcon string) Checklist {
 
 /* -------------------- Exported Functions -------------------- */
 
-// Add creates a new item in the checklist
+// Add creates a new checklist item and prepends it onto the existing
+// list of items. The new one is at the start of the list
 func (list *Checklist) Add(checked bool, text string) {
 	item := NewChecklistItem(
 		checked,
@@ -49,7 +50,9 @@ func (list *Checklist) CheckedItems() []*ChecklistItem {
 
 // Delete removes the selected item from the checklist
 func (list *Checklist) Delete(selectedIndex int) {
-	list.Items = append(list.Items[:selectedIndex], list.Items[selectedIndex+1:]...)
+	if selectedIndex >= 0 && selectedIndex < len(list.Items) {
+		list.Items = append(list.Items[:selectedIndex], list.Items[selectedIndex+1:]...)
+	}
 }
 
 // IsSelectable returns true if the checklist has selectable items, false if it does not
@@ -75,7 +78,7 @@ func (list *Checklist) LongestLine() int {
 	return maxLen
 }
 
-// IndexByItem returns the index of a giving item if found ,otherwise returns 0 with ok set to false
+// IndexByItem returns the index of a giving item if found, otherwise returns 0 with ok set to false
 func (list *Checklist) IndexByItem(selectableItem *ChecklistItem) (index int, ok bool) {
 	for idx, item := range list.Items {
 		if item == selectableItem {

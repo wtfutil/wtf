@@ -26,16 +26,10 @@ func ExpandHomeDir(path string) (string, error) {
 		return "", errors.New("cannot expand user-specific home dir")
 	}
 
-	dir, err := Home()
+	dir, err := os.UserHomeDir()
 	if err != nil {
 		return "", err
 	}
 
 	return filepath.Join(dir, path[1:]), nil
-}
-
-// Home returns the home directory for the executing user.
-// An error is returned if a home directory cannot be detected.
-func Home() (string, error) {
-	return os.UserHomeDir()
 }
