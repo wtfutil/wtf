@@ -49,8 +49,8 @@ func (widget *Widget) formattedItemLine(idx int, item *checklist.ChecklistItem, 
 	}
 
 	if widget.View.HasFocus() && (item == selectedItem) {
-		foreColor = widget.settings.common.Colors.HighlightFore
-		backColor = widget.settings.common.Colors.HighlightBack
+		foreColor = widget.settings.common.Colors.RowTheme.HighlightedForeground
+		backColor = widget.settings.common.Colors.RowTheme.HighlightedBackground
 	}
 
 	row := fmt.Sprintf(

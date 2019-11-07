@@ -49,10 +49,10 @@ func (base *Base) Bordered() bool {
 
 func (base *Base) BorderColor() string {
 	if base.Focusable() {
-		return base.commonSettings.Colors.BorderFocusable
+		return base.commonSettings.Colors.BorderTheme.Focusable
 	}
 
-	return base.commonSettings.Colors.BorderNormal
+	return base.commonSettings.Colors.BorderTheme.Unfocusable
 }
 
 func (base *Base) CommonSettings() *cfg.Common {
