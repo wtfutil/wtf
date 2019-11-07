@@ -23,13 +23,13 @@ func (widget *Widget) content() (string, string, bool) {
 
 	_, _, width, _ := widget.View.GetRect()
 	str := widget.settings.common.SigilStr(len(widget.GerritProjects), widget.Idx, width) + "\n"
-	str += " [red]Stats[white]\n"
+	str += fmt.Sprintf(" [%s]Stats[white]\n", widget.settings.common.Colors.Subheading)
 	str += widget.displayStats(project)
 	str += "\n"
-	str += " [red]Open Incoming Reviews[white]\n"
+	str += fmt.Sprintf(" [%s]Open Incoming Reviews[white]\n", widget.settings.common.Colors.Subheading)
 	str += widget.displayMyIncomingReviews(project, widget.settings.username)
 	str += "\n"
-	str += " [red]My Outgoing Reviews[white]\n"
+	str += fmt.Sprintf(" [%s]My Outgoing Reviews[white]\n", widget.settings.common.Colors.Subheading)
 	str += widget.displayMyOutgoingReviews(project, widget.settings.username)
 
 	return title, str, false

@@ -56,7 +56,7 @@ func (widget *Widget) Refresh() {
 			widget.Redraw(func() (string, string, bool) { return title, "[red] Error getting node data [white]\n", true })
 			return
 		}
-		content += "[red]Nodes[white]\n"
+		content += fmt.Sprintf("[%s]Nodes[white]\n", widget.settings.common.Colors.Subheading)
 		for _, node := range nodeList {
 			content += fmt.Sprintf("%s\n", node)
 		}
@@ -69,7 +69,7 @@ func (widget *Widget) Refresh() {
 			widget.Redraw(func() (string, string, bool) { return title, "[red] Error getting deployment data [white]\n", true })
 			return
 		}
-		content += "[red]Deployments[white]\n"
+		content += fmt.Sprintf("[%s]Deployments[white]\n", widget.settings.common.Colors.Subheading)
 		for _, deployment := range deploymentList {
 			content += fmt.Sprintf("%s\n", deployment)
 		}
@@ -82,7 +82,7 @@ func (widget *Widget) Refresh() {
 			widget.Redraw(func() (string, string, bool) { return title, "[red] Error getting pod data [white]\n", false })
 			return
 		}
-		content += "[red]Pods[white]\n"
+		content += fmt.Sprintf("[%s]Pods[white]\n", widget.settings.common.Colors.Subheading)
 		for _, pod := range podList {
 			content += fmt.Sprintf("%s\n", pod)
 		}

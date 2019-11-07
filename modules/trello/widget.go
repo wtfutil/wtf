@@ -62,7 +62,7 @@ func (widget *Widget) content() (string, string, bool) {
 			widget.settings.board,
 		)
 		for list, cardArray := range searchResult.TrelloCards {
-			content += fmt.Sprintf(" [red]%s[white]\n", list)
+			content += fmt.Sprintf(" [%s]%s[white]\n", widget.settings.common.Colors.Subheading, list)
 
 			for _, card := range cardArray {
 				content += fmt.Sprintf(" %s[white]\n", card.Name)

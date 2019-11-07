@@ -10,13 +10,16 @@ import (
 type Widget struct {
 	view.TextWidget
 
-	client *Client
+	client   *Client
+	settings *Settings
 }
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
 		TextWidget: view.NewTextWidget(app, settings.common),
-		client:     NewClient(settings),
+
+		client:   NewClient(settings),
+		settings: settings,
 	}
 
 	widget.View.SetBorderPadding(1, 1, 1, 1)
@@ -31,18 +34,25 @@ func (widget *Widget) Refresh() {
 }
 
 func (widget *Widget) content() (string, string, bool) {
-	usernames := widget.client.screenNames
+	// Add header row
+	str := fmt.Sprintf(
+		"[%s]%-12s %10s %8s[white]\n",
+		widget.settings.common.Colors.Subheading,
+		"Username",
+		"Followers",
+		"Tweets",
+	)
+
 	stats := widget.client.GetStats()
 
-	// Add header row
-	str := fmt.Sprintf("%-16s %8s %8s\n", "Username", "Followers", "Tweets")
-
 	// Add rows for each of the followed usernames
-	for i, username := range usernames {
-		followerCount := stats[i].FollowerCount
-		tweetCount := stats[i].TweetCount
-
-		str += fmt.Sprintf("%-16s %8d %8d\n", username, followerCount, tweetCount)
+	for i, username := range widget.client.screenNames {
+		str += fmt.Sprintf(
+			"%-12s %10d %8d\n",
+			username,
+			stats[i].FollowerCount,
+			stats[i].TweetCount,
+		)
 	}
 
 	return "Twitter Stats", str, true

@@ -20,7 +20,7 @@ func (widget *Widget) content() (string, string, bool) {
 
 	_, _, width, _ := widget.View.GetRect()
 	str := widget.settings.common.SigilStr(len(widget.Data), widget.Idx, width) + "\n"
-	str += " [red]Branch:Bookmark[white]\n"
+	str += fmt.Sprintf(" [%s]Branch:Bookmark[white]\n", widget.settings.common.Colors.Subheading)
 	str += fmt.Sprintf(" %s:%s\n", repoData.Branch, repoData.Bookmark)
 	str += "\n"
 	str += widget.formatChanges(repoData.ChangedFiles)
@@ -31,7 +31,7 @@ func (widget *Widget) content() (string, string, bool) {
 }
 
 func (widget *Widget) formatChanges(data []string) string {
-	str := " [red]Changed Files[white]\n"
+	str := fmt.Sprintf(" [%s]Changed Files[white]\n", widget.settings.common.Colors.Subheading)
 
 	if len(data) == 1 {
 		str += " [grey]none[white]\n"
@@ -68,7 +68,7 @@ func (widget *Widget) formatChange(line string) string {
 }
 
 func (widget *Widget) formatCommits(data []string) string {
-	str := " [red]Recent Commits[white]\n"
+	str := fmt.Sprintf(" [%s]Recent Commits[white]\n", widget.settings.common.Colors.Subheading)
 
 	for _, line := range data {
 		str += widget.formatCommit(line)

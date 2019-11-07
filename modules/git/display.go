@@ -20,7 +20,7 @@ func (widget *Widget) content() (string, string, bool) {
 
 	_, _, width, _ := widget.View.GetRect()
 	str := widget.settings.common.SigilStr(len(widget.GitRepos), widget.Idx, width) + "\n"
-	str += " [red]Branch[white]\n"
+	str += fmt.Sprintf(" [%s]Branch[white]\n", widget.settings.common.Colors.Subheading)
 	str += fmt.Sprintf(" %s", repoData.Branch)
 	str += "\n"
 	str += widget.formatChanges(repoData.ChangedFiles)
@@ -31,7 +31,7 @@ func (widget *Widget) content() (string, string, bool) {
 }
 
 func (widget *Widget) formatChanges(data []string) string {
-	str := " [red]Changed Files[white]\n"
+	str := fmt.Sprintf(" [%s]Changed Files[white]\n", widget.settings.common.Colors.Subheading)
 
 	if len(data) == 1 {
 		str += " [grey]none[white]\n"

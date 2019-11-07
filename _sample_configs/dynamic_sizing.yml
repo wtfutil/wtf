@@ -1,6 +1,4 @@
 wtf:
-  refreshInterval: 1
-  openFileUtil: "open"
   mods:
     battery:
       type: power
