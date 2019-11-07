@@ -127,7 +127,12 @@ func (widget *Widget) displayStats(repo *GithubRepo) string {
 }
 
 func (widget *Widget) title(repo *GithubRepo) string {
-	return fmt.Sprintf("[green]%s - %s[white]", repo.Owner, repo.Name)
+	return fmt.Sprintf(
+		"[%s]%s - %s[white]",
+		widget.settings.common.Colors.TextTheme.Title,
+		repo.Owner,
+		repo.Name,
+	)
 }
 
 var mergeIcons = map[string]string{

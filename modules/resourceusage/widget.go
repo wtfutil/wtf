@@ -58,12 +58,12 @@ func MakeGraph(widget *Widget) {
 		stat = math.Max(0, stat)
 
 		var label string
-		if (widget.settings.cpuCombined) {
+		if widget.settings.cpuCombined {
 			label = "CPU"
 		} else {
 			label = fmt.Sprint(i)
 		}
-		
+
 		bar := view.Bar{
 			Label:      label,
 			Percent:    int(stat),
@@ -122,13 +122,12 @@ func MakeGraph(widget *Widget) {
 
 // Refresh & update after interval time
 func (widget *Widget) Refresh() {
-
 	if widget.Disabled() {
 		return
 	}
 
 	widget.app.QueueUpdateDraw(func() {
-		widget.View.Clear()	
+		widget.View.Clear()
 		display(widget)
 	})
 }

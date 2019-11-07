@@ -45,7 +45,7 @@ func (widget *Widget) formattedItemLine(idx int, item *checklist.ChecklistItem, 
 	foreColor, backColor := widget.settings.common.Colors.Text, widget.settings.common.Colors.Background
 
 	if item.Checked {
-		foreColor = widget.settings.common.Colors.Checked
+		foreColor = widget.settings.common.Colors.CheckboxTheme.Checked
 	}
 
 	if widget.View.HasFocus() && (item == selectedItem) {

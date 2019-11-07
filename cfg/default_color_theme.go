@@ -59,7 +59,7 @@ func NewDefaultColorTheme() ColorTheme {
 		},
 
 		CheckboxTheme: CheckboxTheme{
-			Checked: "white",
+			Checked: "gray",
 		},
 
 		RowTheme: RowTheme{

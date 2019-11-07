@@ -71,7 +71,11 @@ func (widget *Widget) HelpText() string {
 /* -------------------- Unexported Functions -------------------- */
 
 func (widget *Widget) content() (string, string, bool) {
-	title := fmt.Sprintf("[green]%s[white]", widget.CurrentSource())
+	title := fmt.Sprintf(
+		"[%s]%s[white]",
+		widget.settings.common.Colors.TextTheme.Title,
+		widget.CurrentSource(),
+	)
 
 	_, _, width, _ := widget.View.GetRect()
 	text := widget.settings.common.SigilStr(len(widget.Sources), widget.Idx, width) + "\n"

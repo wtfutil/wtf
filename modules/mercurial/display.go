@@ -16,7 +16,11 @@ func (widget *Widget) content() (string, string, bool) {
 		return widget.CommonSettings().Title, " Mercurial repo data is unavailable ", false
 	}
 
-	title := fmt.Sprintf("%s - [green]%s[white]", widget.CommonSettings().Title, repoData.Repository)
+	title := fmt.Sprintf(
+		"%s - %s[white]",
+		widget.settings.common.Colors.TextTheme.Title,
+		repoData.Repository,
+	)
 
 	_, _, width, _ := widget.View.GetRect()
 	str := widget.settings.common.SigilStr(len(widget.Data), widget.Idx, width) + "\n"
