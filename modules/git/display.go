@@ -18,7 +18,7 @@ func (widget *Widget) content() (string, string, bool) {
 
 	title := fmt.Sprintf(
 		"%s - %s[white]",
-		widget.settings.common.Colors.TextTheme.Title,
+		widget.CommonSettings().Title,
 		repoData.Repository,
 	)
 
@@ -72,7 +72,7 @@ func (widget *Widget) formatChange(line string) string {
 }
 
 func (widget *Widget) formatCommits(data []string) string {
-	str := " [red]Recent Commits[white]\n"
+	str := fmt.Sprintf(" [%s]Recent Commits[white]\n", widget.settings.common.Colors.Subheading)
 
 	for _, line := range data {
 		str += widget.formatCommit(line)
