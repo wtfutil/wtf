@@ -52,7 +52,7 @@ require (
 	golang.org/x/oauth2 v0.0.0-20190604053449-0f29369cfe45
 	google.golang.org/api v0.13.0
 	gopkg.in/jarcoal/httpmock.v1 v1.0.0-20181110093347-3be5f16b70eb // indirect
-	gopkg.in/yaml.v2 v2.2.4
+	gopkg.in/yaml.v2 v2.2.5
 	k8s.io/api v0.0.0-20191010143144-fbf594f18f80 // indirect
 	k8s.io/apimachinery v0.0.0-20191016060620-86f2f1b9c076
 	k8s.io/client-go v0.0.0-20190620085101-78d2af792bab
