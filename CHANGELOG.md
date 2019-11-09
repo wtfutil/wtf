@@ -15,6 +15,7 @@
 
 * Github PRs do not count against issues, by [@alexfornuto](https://github.com/alexfornuto)
 * Todo scrolling now works properly, [#707](https://github.com/wtfutil/wtf/issues/707) by [3mard](https://github.com/3mard)
+* Configs with a missing `color` key now load properly, [#718](https://github.com/wtfutil/wtf/issues/718) and [#730](https://github.com/wtfutil/wtf/issues/730) by [@senorprogrammer](https://github.com/senorprogrammer)
 
 ## 0.23.0
 
