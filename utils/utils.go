@@ -134,8 +134,8 @@ func CalculateDimensions(moduleConfig, globalConfig *config.Config) (int, int, e
 		return 0, 0, err
 	}
 
-	cols := ToInts(grid.UList("wtf.grid.columns"))
-	rows := ToInts(grid.UList("wtf.grid.rows"))
+	cols := ToInts(grid.UList("columns"))
+	rows := ToInts(grid.UList("rows"))
 
 	// Read the source data from the config
 	left := moduleConfig.UInt("position.left", 0)
