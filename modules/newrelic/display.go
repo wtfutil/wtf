@@ -37,7 +37,10 @@ func (widget *Widget) content() (string, string, bool) {
 func (widget *Widget) contentFrom(deploys []nr.ApplicationDeployment) string {
 	str := fmt.Sprintf(
 		" %s\n",
-		"[red]Latest Deploys[white]",
+		fmt.Sprintf(
+			"[%s]Latest Deploys[white]",
+			widget.settings.common.Colors.Subheading,
+		),
 	)
 
 	revisions := []string{}

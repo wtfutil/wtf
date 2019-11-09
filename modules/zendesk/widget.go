@@ -74,7 +74,7 @@ func (widget *Widget) content() (string, string, bool) {
 func (widget *Widget) format(ticket Ticket, idx int) string {
 	textColor := widget.settings.common.Colors.Background
 	if idx == widget.GetSelected() {
-		textColor = widget.settings.common.Colors.BorderFocused
+		textColor = widget.settings.common.Colors.BorderTheme.Focused
 	}
 
 	requesterName := widget.parseRequester(ticket)

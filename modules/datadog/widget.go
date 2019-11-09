@@ -85,7 +85,10 @@ func (widget *Widget) content() (string, string, bool) {
 	if len(triggeredMonitors) > 0 {
 		str += fmt.Sprintf(
 			" %s\n",
-			"[red]Triggered Monitors[white]",
+			fmt.Sprintf(
+				"[%s]Triggered Monitors[white]",
+				widget.settings.common.Colors.Subheading,
+			),
 		)
 		for idx, triggeredMonitor := range triggeredMonitors {
 			row := fmt.Sprintf(`[%s][red] %s[%s]`,

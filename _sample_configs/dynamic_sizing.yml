@@ -1,0 +1,21 @@
+wtf:
+  mods:
+    battery:
+      type: power
+      title: "⚡️"
+      enabled: true
+      position:
+        top: 0
+        left: 0
+        height: 1
+        width: 1
+      refreshInterval: 15
+    security_info:
+      type: security
+      enabled: true
+      position:
+        top: 0
+        left: 1
+        height: 1
+        width: 1
+      refreshInterval: 3600

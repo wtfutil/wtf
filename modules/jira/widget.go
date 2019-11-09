@@ -2,6 +2,7 @@ package jira
 
 import (
 	"fmt"
+
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/view"
@@ -78,7 +79,7 @@ func (widget *Widget) content() (string, string, bool) {
 
 	title := fmt.Sprintf("%s- [green]%s[white]", widget.CommonSettings().Title, widget.settings.projects)
 
-	str := " [red]Assigned Issues[white]\n"
+	str := fmt.Sprintf(" [%s]Assigned Issues[white]\n", widget.settings.common.Colors.Subheading)
 
 	if widget.result == nil || len(widget.result.Issues) == 0 {
 		return title, "No results to display", false

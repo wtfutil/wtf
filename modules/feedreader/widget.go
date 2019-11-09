@@ -140,7 +140,7 @@ func (widget *Widget) content() (string, string, bool) {
 			// Grays out viewed items in the list, while preserving background highlighting when selected
 			rowColor = "gray"
 			if idx == widget.Selected {
-				rowColor = fmt.Sprintf("gray:%s", widget.settings.common.Colors.HighlightBack)
+				rowColor = fmt.Sprintf("gray:%s", widget.settings.common.Colors.RowTheme.HighlightedBackground)
 			}
 		}
 

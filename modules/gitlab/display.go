@@ -19,19 +19,19 @@ func (widget *Widget) content() (string, string, bool) {
 
 	_, _, width, _ := widget.View.GetRect()
 	str := widget.settings.common.SigilStr(len(widget.GitlabProjects), widget.Idx, width) + "\n"
-	str += " [red]Stats[white]\n"
+	str += fmt.Sprintf(" [%s]Stats[white]\n", widget.settings.common.Colors.Subheading)
 	str += widget.displayStats(project)
 	str += "\n"
-	str += " [red]Open Assigned Merge Requests[white]\n"
+	str += fmt.Sprintf(" [%s]Open Assigned Merge Requests[white]\n", widget.settings.common.Colors.Subheading)
 	str += widget.displayMyAssignedMergeRequests(project, widget.settings.username)
 	str += "\n"
-	str += " [red]My Merge Requests[white]\n"
+	str += fmt.Sprintf(" [%s]My Merge Requests[white]\n", widget.settings.common.Colors.Subheading)
 	str += widget.displayMyMergeRequests(project, widget.settings.username)
 	str += "\n"
-	str += " [red]Open Assigned Issues[white]\n"
+	str += fmt.Sprintf(" [%s]Open Assigned Issues[white]\n", widget.settings.common.Colors.Subheading)
 	str += widget.displayMyAssignedIssues(project, widget.settings.username)
 	str += "\n"
-	str += " [red]My Issues[white]\n"
+	str += fmt.Sprintf(" [%s]My Issues[white]\n", widget.settings.common.Colors.Subheading)
 	str += widget.displayMyIssues(project, widget.settings.username)
 
 	return title, str, false

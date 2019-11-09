@@ -70,7 +70,7 @@ func (widget *Widget) contentFrom(onCalls []pagerduty.OnCall, incidents []pagerd
 	if len(incidents) > 0 {
 		str += "[yellow]Incidents[white]\n"
 		for _, incident := range incidents {
-			str += fmt.Sprintf("[red]%s[white]\n", incident.Summary)
+			str += fmt.Sprintf("[%s]%s[white]\n", widget.settings.common.Colors.Subheading, incident.Summary)
 			str += fmt.Sprintf("Status: %s\n", incident.Status)
 			str += fmt.Sprintf("Service: %s\n", incident.Service.Summary)
 			str += fmt.Sprintf("Escalation: %s\n", incident.EscalationPolicy.Summary)
@@ -100,14 +100,26 @@ func (widget *Widget) contentFrom(onCalls []pagerduty.OnCall, incidents []pagerd
 	sort.Strings(keys)
 
 	if len(keys) > 0 {
-		str += "[red] Schedules[white]\n"
+		str += fmt.Sprintf("[%s] Schedules[white]\n", widget.settings.common.Colors.Subheading)
+
 		// Print out policies, and escalation order of users
 		for _, key := range keys {
-			str += fmt.Sprintf("\n [green::b]%s\n", key)
+			str += fmt.Sprintf(
+				"\n [%s]%s\n",
+				widget.settings.common.Colors.Subheading,
+				key,
+			)
+
 			values := tree[key]
 			sort.Sort(ByEscalationLevel(values))
+
 			for _, item := range values {
-				str += fmt.Sprintf(" [white]%d - %s\n", item.EscalationLevel, item.User.Summary)
+				str += fmt.Sprintf(
+					" [%s]%d - %s\n",
+					widget.settings.common.Colors.Text,
+					item.EscalationLevel,
+					item.User.Summary,
+				)
 			}
 		}
 	}
