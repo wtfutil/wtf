@@ -41,25 +41,23 @@ func (widget *Widget) content() (string, string, bool) {
 	return widget.CommonSettings().Title, str, false
 }
 
-func (widget *Widget) formattedItemLine(idx int, item *checklist.ChecklistItem, selectedItem *checklist.ChecklistItem, maxLen int) string {
-	foreColor, backColor := widget.settings.common.Colors.Text, widget.settings.common.Colors.Background
+func (widget *Widget) formattedItemLine(idx int, currItem *checklist.ChecklistItem, selectedItem *checklist.ChecklistItem, maxLen int) string {
+	rowColor := widget.RowColor(idx)
 
-	if item.Checked {
-		foreColor = widget.settings.common.Colors.Checked
+	if currItem.Checked {
+		rowColor = widget.settings.common.Colors.CheckboxTheme.Checked
 	}
 
-	if widget.View.HasFocus() && (item == selectedItem) {
-		foreColor = widget.settings.common.Colors.HighlightFore
-		backColor = widget.settings.common.Colors.HighlightBack
+	if widget.View.HasFocus() && (currItem == selectedItem) {
+		rowColor = widget.RowColor(idx)
 	}
 
 	row := fmt.Sprintf(
-		` [%s:%s]|%s| %s[white]`,
-		foreColor,
-		backColor,
-		item.CheckMark(),
-		tview.Escape(item.Text),
+		` [%s]|%s| %s[white]`,
+		rowColor,
+		currItem.CheckMark(),
+		tview.Escape(currItem.Text),
 	)
 
-	return utils.HighlightableHelper(widget.View, row, idx, len(item.Text))
+	return utils.HighlightableHelper(widget.View, row, idx, len(currItem.Text))
 }

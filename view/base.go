@@ -47,12 +47,13 @@ func (base *Base) Bordered() bool {
 	return base.bordered
 }
 
+// BorderColor returns the color that the border of this widget should be drawn in
 func (base *Base) BorderColor() string {
 	if base.Focusable() {
-		return base.commonSettings.Colors.BorderFocusable
+		return base.commonSettings.Colors.BorderTheme.Focusable
 	}
 
-	return base.commonSettings.Colors.BorderNormal
+	return base.commonSettings.Colors.BorderTheme.Unfocusable
 }
 
 func (base *Base) CommonSettings() *cfg.Common {
@@ -69,10 +70,10 @@ func (base *Base) ContextualTitle(defaultStr string) string {
 	} else if defaultStr != "" && base.FocusChar() == "" {
 		return fmt.Sprintf(" %s ", defaultStr)
 	} else if defaultStr == "" && base.FocusChar() != "" {
-		return fmt.Sprintf(" [darkgray::u]%s[::-][green] ", base.FocusChar())
-	} else {
-		return fmt.Sprintf(" %s [darkgray::u]%s[::-][green] ", defaultStr, base.FocusChar())
+		return fmt.Sprintf(" [darkgray::u]%s[::-][white] ", base.FocusChar())
 	}
+
+	return fmt.Sprintf(" %s [darkgray::u]%s[::-][white] ", defaultStr, base.FocusChar())
 }
 
 func (base *Base) Disable() {

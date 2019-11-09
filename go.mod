@@ -10,8 +10,7 @@ require (
 	github.com/StackExchange/wmi v0.0.0-20190523213315-cbe66965904d // indirect
 	github.com/VictorAvelar/devto-api-go v1.0.0
 	github.com/adlio/trello v1.4.0
-	github.com/alecthomas/assert v0.0.0-20170929043011-405dbfeb8e38
-	github.com/alecthomas/chroma v0.6.9
+	github.com/alecthomas/chroma v0.6.8
 	github.com/andygrunwald/go-gerrit v0.0.0-20190825170856-5959a9bf9ff8
 	github.com/briandowns/openweathermap v0.0.0-20180804155945-5f41b7c9d92d
 	github.com/cenkalti/backoff v2.2.1+incompatible // indirect

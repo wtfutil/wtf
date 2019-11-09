@@ -41,13 +41,13 @@ func (widget *Widget) getSystemInfo() string {
 	}{
 		{
 			name:  "name:",
-			value: fmt.Sprintf("[%s]%s", widget.settings.common.Foreground, info.Name),
+			value: fmt.Sprintf("[%s]%s", widget.settings.common.Colors.RowTheme.EvenForeground, info.Name),
 		}, {
 			name:  "version:",
-			value: fmt.Sprintf("[%s]%s", widget.settings.common.Foreground, info.ServerVersion),
+			value: fmt.Sprintf("[%s]%s", widget.settings.common.Colors.RowTheme.EvenForeground, info.ServerVersion),
 		}, {
 			name:  "root:",
-			value: fmt.Sprintf("[%s]%s", widget.settings.common.Foreground, info.DockerRootDir),
+			value: fmt.Sprintf("[%s]%s", widget.settings.common.Colors.RowTheme.EvenForeground, info.DockerRootDir),
 		},
 		{
 			name: "containers:",
@@ -57,15 +57,15 @@ func (widget *Widget) getSystemInfo() string {
 		},
 		{
 			name:  "images:",
-			value: fmt.Sprintf("[%s]%d", widget.settings.common.Foreground, info.Images),
+			value: fmt.Sprintf("[%s]%d", widget.settings.common.Colors.RowTheme.EvenForeground, info.Images),
 		},
 		{
 			name:  "volumes:",
-			value: fmt.Sprintf("[%s]%v", widget.settings.common.Foreground, len(diskUsage.Volumes)),
+			value: fmt.Sprintf("[%s]%v", widget.settings.common.Colors.RowTheme.EvenForeground, len(diskUsage.Volumes)),
 		},
 		{
 			name:  "memory limit:",
-			value: fmt.Sprintf("[%s]%s", widget.settings.common.Foreground, humanize.Bytes(uint64(info.MemTotal))),
+			value: fmt.Sprintf("[%s]%s", widget.settings.common.Colors.RowTheme.EvenForeground, humanize.Bytes(uint64(info.MemTotal))),
 		},
 		{
 			name: "disk usage:",
@@ -76,19 +76,19 @@ func (widget *Widget) getSystemInfo() string {
     [%s]* [::b]total:      [%s]%s[::-]
 `,
 				widget.settings.labelColor,
-				widget.settings.common.Foreground,
+				widget.settings.common.Colors.RowTheme.EvenForeground,
 				humanize.Bytes(uint64(duContainer)),
 
 				widget.settings.labelColor,
-				widget.settings.common.Foreground,
+				widget.settings.common.Colors.RowTheme.EvenForeground,
 				humanize.Bytes(uint64(duImg)),
 
 				widget.settings.labelColor,
-				widget.settings.common.Foreground,
+				widget.settings.common.Colors.RowTheme.EvenForeground,
 				humanize.Bytes(uint64(duVol)),
 
 				widget.settings.labelColor,
-				widget.settings.common.Foreground,
+				widget.settings.common.Colors.RowTheme.EvenForeground,
 				humanize.Bytes(uint64(duContainer+duImg+duVol))),
 		},
 	}

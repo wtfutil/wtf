@@ -79,8 +79,9 @@ func (widget *Widget) nbascore() (string, string, bool) {
 	}
 	result := map[string]interface{}{}
 	json.Unmarshal(contents, &result)
-	allGame := "" // store result in allgame
-	allGame += (" " + "[red]" + (cur.Format(utils.FriendlyDateFormat) + "\n\n") + "[white]")
+
+	allGame := fmt.Sprintf(" [%s]", widget.settings.common.Colors.Subheading) + (cur.Format(utils.FriendlyDateFormat) + "\n\n") + "[white]"
+
 	for _, game := range result["games"].([]interface{}) {
 		vTeam, hTeam, vScore, hScore := "", "", "", ""
 		quarter := 0.

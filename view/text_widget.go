@@ -44,12 +44,12 @@ func (widget *TextWidget) Redraw(data func() (string, string, bool)) {
 func (widget *TextWidget) createView(bordered bool) *tview.TextView {
 	view := tview.NewTextView()
 
-	view.SetBackgroundColor(wtf.ColorFor(widget.commonSettings.Colors.Background))
+	view.SetBackgroundColor(wtf.ColorFor(widget.commonSettings.Colors.WidgetTheme.Background))
 	view.SetBorder(bordered)
 	view.SetBorderColor(wtf.ColorFor(widget.BorderColor()))
 	view.SetDynamicColors(true)
-	view.SetTextColor(wtf.ColorFor(widget.commonSettings.Colors.Text))
-	view.SetTitleColor(wtf.ColorFor(widget.commonSettings.Colors.Title))
+	view.SetTextColor(wtf.ColorFor(widget.commonSettings.Colors.TextTheme.Text))
+	view.SetTitleColor(wtf.ColorFor(widget.commonSettings.Colors.TextTheme.Title))
 	view.SetWrap(false)
 
 	return view
