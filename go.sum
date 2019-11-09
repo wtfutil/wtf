@@ -32,8 +32,6 @@ github.com/alecthomas/assert v0.0.0-20170929043011-405dbfeb8e38 h1:smF2tmSOzy2Mm
 github.com/alecthomas/assert v0.0.0-20170929043011-405dbfeb8e38/go.mod h1:r7bzyVFMNntcxPZXK3/+KdruV1H5KSlyVY0gc+NgInI=
 github.com/alecthomas/chroma v0.6.8 h1:TW4JJaIdbAbMyUtGEd6BukFlOKYvVQz3vVhLBEUNwMU=
 github.com/alecthomas/chroma v0.6.8/go.mod h1:o9ohftueRi7H5be3+Q2cQCNa/YnLBFUNx40ZJfGVFKA=
-github.com/alecthomas/chroma v0.6.9 h1:afiCdwnNPo6fcyvoqqsXs78t7NbR9TuW4wDB7NJkcag=
-github.com/alecthomas/chroma v0.6.9/go.mod h1:1U/PfCsTALWWYHDnsIQkxEBM0+6LLe0v8+RSVMOwxeY=
 github.com/alecthomas/colour v0.0.0-20160524082231-60882d9e2721 h1:JHZL0hZKJ1VENNfmXvHbgYlbUOvpzYzvy2aZU5gXVeo=
 github.com/alecthomas/colour v0.0.0-20160524082231-60882d9e2721/go.mod h1:QO9JBoKquHd+jz9nshCh40fOfO+JzsoXy8qTHF68zU0=
 github.com/alecthomas/kong v0.1.17-0.20190424132513-439c674f7ae0/go.mod h1:+inYUSluD+p4L8KdviBSgzcqEjUQOfC5fQDRFuc36lI=
@@ -229,8 +227,6 @@ github.com/rivo/uniseg v0.0.0-20190513083848-b9f5b9457d44 h1:XKCbzPvK4/BbMXoMJOk
 github.com/rivo/uniseg v0.0.0-20190513083848-b9f5b9457d44/go.mod h1:J6wj4VEh+S6ZtnVlnTBMWIodfgj8LQOQFoIToxlJtxc=
 github.com/sergi/go-diff v1.0.0 h1:Kpca3qRNrduNnOQeazBd0ysaKrUJiIuISHxogkT9RPQ=
 github.com/sergi/go-diff v1.0.0/go.mod h1:0CfEIISq7TuYL3j771MWULgwwjU+GofnZX9QAmXWZgo=
-github.com/shirou/gopsutil v2.19.9+incompatible h1:IrPVlK4nfwW10DF7pW+7YJKws9NkgNzWozwwWv9FsgY=
-github.com/shirou/gopsutil v2.19.9+incompatible/go.mod h1:5b4v6he4MtMOwMlS0TUMTu2PcXUg8+E1lC7eC3UO/RA=
 github.com/shirou/gopsutil v2.19.10+incompatible h1:lA4Pi29JEVIQIgATSeftHSY0rMGI9CLrl2ZvDLiahto=
 github.com/shirou/gopsutil v2.19.10+incompatible/go.mod h1:5b4v6he4MtMOwMlS0TUMTu2PcXUg8+E1lC7eC3UO/RA=
 github.com/sirupsen/logrus v1.4.1/go.mod h1:ni0Sbl8bgC9z8RoU9G6nDWqqs/fq4eDPysMBDgk/93Q=
@@ -252,8 +248,6 @@ github.com/valyala/bytebufferpool v1.0.0/go.mod h1:6bBcMArwyJ5K/AmCkWv1jt77kVWyC
 github.com/valyala/fasttemplate v1.0.1/go.mod h1:UQGH1tvbgY+Nz5t2n7tXsz52dQxojPUpymEIMZ47gx8=
 github.com/wtfutil/todoist v0.0.1 h1:E3srzocggLHme8zIEAEXXoY/fQZtFRjW69m4OiYv3hg=
 github.com/wtfutil/todoist v0.0.1/go.mod h1:YuuGLJSsTK6DGBD5Zaf3J8LSMfpEC2WtzYPey3XVOdI=
-github.com/xanzy/go-gitlab v0.21.0 h1:Ru55sR4TBoDNsAKwCOpzeaGtbiWj7xTksVmzBJbLu6c=
-github.com/xanzy/go-gitlab v0.21.0/go.mod h1:t4Bmvnxj7k37S4Y17lfLx+nLqkf/oQwT2HagfWKv5Og=
 github.com/xanzy/go-gitlab v0.22.0 h1:36pMeB8I6pOe/olay52wAizhlqSApo3b32z9GKx4Pic=
 github.com/xanzy/go-gitlab v0.22.0/go.mod h1:t4Bmvnxj7k37S4Y17lfLx+nLqkf/oQwT2HagfWKv5Og=
 github.com/zmb3/spotify v0.0.0-20191010212056-e12fb981aacb h1:uWB0RGxBo7AToSJ3rvoCZhXtLw4U7XISXSezPewmfic=
