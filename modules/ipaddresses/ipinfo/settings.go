@@ -21,13 +21,12 @@ type Settings struct {
 }
 
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
-
 	settings := Settings{
 		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 	}
 
-	settings.colors.name = ymlConfig.UString("colors.name", "red")
-	settings.colors.value = ymlConfig.UString("colors.value", "white")
+	settings.colors.name = ymlConfig.UString("colors.label", ymlConfig.UString("colors.name", "red"))
+	settings.colors.value = ymlConfig.UString("colors.text", ymlConfig.UString("colors.value", "white"))
 
 	return &settings
 }
