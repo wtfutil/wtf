@@ -128,15 +128,20 @@ func ParseJSON(obj interface{}, text io.Reader) error {
 }
 
 // CalculateDimensions reads the module dimensions from the module and global config. The border is already substracted.
-func CalculateDimensions(moduleConfig, globalConfig *config.Config) (int, int) {
+func CalculateDimensions(moduleConfig, globalConfig *config.Config) (int, int, error) {
+	grid, err := globalConfig.Get("wtf.grid")
+	if err != nil {
+		return 0, 0, err
+	}
+
+	cols := ToInts(grid.UList("wtf.grid.columns"))
+	rows := ToInts(grid.UList("wtf.grid.rows"))
+
 	// Read the source data from the config
 	left := moduleConfig.UInt("position.left", 0)
 	top := moduleConfig.UInt("position.top", 0)
 	width := moduleConfig.UInt("position.width", 0)
 	height := moduleConfig.UInt("position.height", 0)
-
-	cols := ToInts(globalConfig.UList("wtf.grid.columns"))
-	rows := ToInts(globalConfig.UList("wtf.grid.rows"))
 
 	// Make sure the values are in bounds
 	left = Clamp(left, 0, len(cols)-1)
@@ -157,7 +162,7 @@ func CalculateDimensions(moduleConfig, globalConfig *config.Config) (int, int) {
 	w = MaxInt(w, 0)
 	h = MaxInt(h, 0)
 
-	return w, h
+	return w, h, nil
 }
 
 // MaxInt returns the larger of x or y

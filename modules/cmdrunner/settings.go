@@ -27,7 +27,6 @@ type Settings struct {
 
 // NewSettingsFromYAML loads the cmdrunner portion of the WTF config
 func NewSettingsFromYAML(name string, moduleConfig *config.Config, globalConfig *config.Config) *Settings {
-
 	settings := Settings{
 		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, moduleConfig, globalConfig),
 
@@ -37,7 +36,11 @@ func NewSettingsFromYAML(name string, moduleConfig *config.Config, globalConfig 
 		maxLines: moduleConfig.UInt("maxLines", 256),
 	}
 
-	settings.width, settings.height = utils.CalculateDimensions(moduleConfig, globalConfig)
+	width, height, err := utils.CalculateDimensions(moduleConfig, globalConfig)
+	if err == nil {
+		settings.width = width
+		settings.height = height
+	}
 
 	return &settings
 }
