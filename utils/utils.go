@@ -3,13 +3,16 @@ package utils
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"io"
 	"io/ioutil"
+	"os"
 	"os/exec"
 	"regexp"
 	"runtime"
 	"strings"
 
+	"github.com/logrusorgru/aurora"
 	"github.com/olebedev/config"
 )
 
@@ -137,6 +140,12 @@ func CalculateDimensions(moduleConfig, globalConfig *config.Config) (int, int, e
 	cols := ToInts(grid.UList("columns"))
 	rows := ToInts(grid.UList("rows"))
 
+	// If they're defined in the config, they cannot be empty
+	if len(cols) == 0 || len(rows) == 0 {
+		displayGridConfigError()
+		os.Exit(1)
+	}
+
 	// Read the source data from the config
 	left := moduleConfig.UInt("position.left", 0)
 	top := moduleConfig.UInt("position.top", 0)
@@ -195,4 +204,20 @@ func Clamp(x, a, b int) int {
 		return b
 	}
 	return x
+}
+
+/* -------------------- Unexported Functions -------------------- */
+
+func displayGridConfigError() {
+	fmt.Printf("\n%s 'grid' config values are invalid. 'columns' and 'rows' cannot be empty.\n", aurora.Red("ERROR"))
+	fmt.Println()
+	fmt.Println("This is invalid:")
+	fmt.Println()
+	fmt.Println("  grid:")
+	fmt.Println("    columns: []")
+	fmt.Println("    rows: []")
+	fmt.Println()
+	fmt.Printf("%s If you want the columns and rows to be dynamically-determined, remove the 'grid' key and child keys from your config file.\n", aurora.Yellow("*"))
+	fmt.Printf("%s If you want explicit widths and heights, add integer values to the 'columns' and 'rows' arrays.\n", aurora.Yellow("*"))
+	fmt.Println()
 }
