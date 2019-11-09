@@ -104,11 +104,22 @@ func (widget *Widget) contentFrom(onCalls []pagerduty.OnCall, incidents []pagerd
 
 		// Print out policies, and escalation order of users
 		for _, key := range keys {
-			str += fmt.Sprintf("\n [green::b]%s\n", key)
+			str += fmt.Sprintf(
+				"\n [%s]%s\n",
+				widget.settings.common.Colors.Subheading,
+				key,
+			)
+
 			values := tree[key]
 			sort.Sort(ByEscalationLevel(values))
+
 			for _, item := range values {
-				str += fmt.Sprintf(" [white]%d - %s\n", item.EscalationLevel, item.User.Summary)
+				str += fmt.Sprintf(
+					" [%s]%d - %s\n",
+					widget.settings.common.Colors.Text,
+					item.EscalationLevel,
+					item.User.Summary,
+				)
 			}
 		}
 	}
