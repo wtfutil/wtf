@@ -9,6 +9,6 @@ before_install:
   - test ! -d $GOPATH/src/github.com/wtfutil/wtf && mv $TRAVIS_BUILD_DIR $GOPATH/src/github.com/wtfutil/wtf || true
   - export TRAVIS_BUILD_DIR=$HOME/gopath/src/github.com/wtfutil/wtf
   - cd $HOME/gopath/src/github.com/wtfutil/wtf
-  - export GOPROXY="https://gocenter.io" && export GO111MODULE=on
+  - export GOPROXY="https://proxy.golang.org,direct" && export GO111MODULE=on
 
 script: go get ./... && ./scripts/check-uncommitted-vendor-files.sh && go test -v github.com/wtfutil/wtf/...

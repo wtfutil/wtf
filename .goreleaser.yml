@@ -1,6 +1,6 @@
 env:
   - GO111MODULE=on
-  - GOPROXY="https://gocenter.io"
+  - GOPROXY="https://proxy.golang.org,direct"
 
 archives:
   - id: default

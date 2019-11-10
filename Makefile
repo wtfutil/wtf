@@ -18,7 +18,7 @@ endif
 
 # Set go modules to on and use GoCenter for immutable modules
 export GO111MODULE = on
-export GOPROXY = https://gocenter.io
+export GOPROXY = https://proxy.golang.org,direct
 
 # Determines the path to this Makefile
 THIS_FILE := $(lastword $(MAKEFILE_LIST))

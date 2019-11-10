@@ -93,8 +93,8 @@ and you should be good to go.
 If you want to run the build command from within your `$GOPATH`:
 
 ```bash
-# Set the Go proxy variable to GoCenter
-export GOPROXY="https://gocenter.io"
+# Set the Go proxy
+export GOPROXY="https://proxy.golang.org,direct"
 
 # Disable the Go checksum database
 export GOSUMDB=off
@@ -111,8 +111,8 @@ make run
 If you want to run the build command from a folder that is not in your `$GOPATH`:
 
 ```bash
-# Set the Go proxy variable to GoCenter
-export GOPROXY="https://gocenter.io"
+# Set the Go proxy
+export GOPROXY="https://proxy.golang.org,direct"
 
 go get -u github.com/wtfutil/wtf
 cd $GOPATH/src/github.com/wtfutil/wtf
@@ -147,7 +147,7 @@ Find #wtfutil on https://gophers.slack.com/ and join us.
 
 ### Twitter
 
-Also, follow [on Twitter](https://twitter.com/wtfutil) for news and latest updates. 
+Also, follow [on Twitter](https://twitter.com/wtfutil) for news and latest updates.
 
 ## Documentation
 
@@ -182,7 +182,7 @@ If there is a bug that you really need to have fixed or a feature you really wan
 
 ## Contributing to the Source Code
 
-First, please read [Talk, then code](https://dave.cheney.net/2019/02/18/talk-then-code) by Dave Cheney. It's great advice and will often save a lot of time and effort. 
+First, please read [Talk, then code](https://dave.cheney.net/2019/02/18/talk-then-code) by Dave Cheney. It's great advice and will often save a lot of time and effort.
 
 Next, please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests.
 

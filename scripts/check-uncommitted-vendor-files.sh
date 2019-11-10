@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-GOPROXY="https://gocenter.io" GOSUMDB=off GO111MODULE=on go mod tidy
+GOPROXY="https://proxy.golang.org,direct" GOSUMDB=off GO111MODULE=on go mod tidy
 
 untracked_files=$(git ls-files --others --exclude-standard | wc -l)
 
