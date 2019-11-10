@@ -1,14 +1,14 @@
 language: go
+
 go:
-  - "1.12.x"
   - "1.13.x"
-sudo: false
+
 before_install:
   # Make sure travis builds work for forks
   - mkdir -p $TRAVIS_BUILD_DIR $GOPATH/src/github.com/wtfutil
   - test ! -d $GOPATH/src/github.com/wtfutil/wtf && mv $TRAVIS_BUILD_DIR $GOPATH/src/github.com/wtfutil/wtf || true
   - export TRAVIS_BUILD_DIR=$HOME/gopath/src/github.com/wtfutil/wtf
   - cd $HOME/gopath/src/github.com/wtfutil/wtf
-  - export GOPROXY="https://proxy.golang.org,direct" && export GO111MODULE=on
+  - export GOPROXY="https://proxy.golang.org,direct"
 
 script: go get ./... && ./scripts/check-uncommitted-vendor-files.sh && go test -v github.com/wtfutil/wtf/...
