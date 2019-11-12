@@ -87,8 +87,8 @@ func (widget *Widget) setResult(info *ipinfo) {
 	resultBuffer := new(bytes.Buffer)
 
 	resultTemplate.Execute(resultBuffer, map[string]string{
-		"nameColor":    widget.settings.colors.name,
-		"valueColor":   widget.settings.colors.value,
+		"nameColor":    widget.settings.common.Colors.Subheading,
+		"valueColor":   widget.settings.common.Colors.Text,
 		"Ip":           info.Ip,
 		"Hostname":     info.Hostname,
 		"City":         info.City,
