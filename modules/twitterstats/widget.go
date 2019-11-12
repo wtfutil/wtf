@@ -23,7 +23,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	}
 
 	widget.View.SetBorderPadding(1, 1, 1, 1)
-	widget.View.SetWrap(true)
+	widget.View.SetWrap(false)
 	widget.View.SetWordWrap(true)
 
 	return &widget
@@ -55,5 +55,5 @@ func (widget *Widget) content() (string, string, bool) {
 		)
 	}
 
-	return "Twitter Stats", str, true
+	return "Twitter Stats", str, false
 }
