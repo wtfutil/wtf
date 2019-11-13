@@ -1,7 +1,5 @@
 # Contributing
 
-When contributing to this repository, please read the process below. Note that we have a code of conduct. Please follow it in all your interactions with the project.
-
 ## Pull Request Process
 
 1. Ensure any install or build dependencies are removed before the end of the layer when doing a

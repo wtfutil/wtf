@@ -1,22 +1,28 @@
+<p align="center">
+    <img src="./images/logo_transparent.png?raw=true" title="WTF" alt="WTF" width="560" height="560" />
+</p>
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-114-orange.svg?style=flat-square)](#contributors)
-[![Build Status](https://travis-ci.com/wtfutil/wtf.svg?branch=master)](https://travis-ci.com/wtfutil/wtf)
-[![Twitter](https://img.shields.io/badge/follow-on%20twitter-blue.svg)](https://twitter.com/wtfutil)
-[![Go Report Card](https://goreportcard.com/badge/github.com/wtfutil/wtf)](https://goreportcard.com/report/github.com/wtfutil/wtf)
+<p align="center">
+    <a href="#contributors"><img alt="All Contributors" src="https://img.shields.io/badge/all_contributors-114-orange.svg?style=flat-square"></a>
+    <a href="https://travis-ci.com/wtfutil/wtf"><img alt="Travis Status" src="https://img.shields.io/travis/com/wtfutil/wtf/master.svg?label=travis&maxAge=43200"></a>
+    <a href="https://goreportcard.com/report/github.com/wtfutil/wtf"><img alt="Go Report Card" src="https://goreportcard.com/badge/github.com/wtfutil/wtf"></a>
+    <a href="https://twitter.com/wtfutil"><img alt="Twitter" src="https://img.shields.io/badge/follow-on%20twitter-blue.svg"></a>
+</p>
 
-# WTF
+WTF (aka 'wtfutil') is the personal information dashboard for your terminal, providing at-a-glance access to your very important but infrequently-needed stats and data.
 
-A personal terminal-based dashboard utility, designed for
-displaying infrequently-needed, but very important, daily data.
+Used by thousands of developers and tech people around the world, WTF is free and open-source. To support the continued use and development of WTF, please consider sponsoring WTF via [GitHub Sponsors](https://github.com/sponsors/senorprogrammer).
 
 #
 
-* [Installing](#installing)
-    * [Install via Homebrew](#install-via-homebrew)
-    * [Install via MacPorts](#install-via-macports)
-    * [Install via Scarf](#install-via-scarf)
-    * [Install a Binary](#install-a-binary)
-    * [Install from Source](#install-from-source)
+<p> </p>
+
+* [Installation](#installation)
+    * [Installing via Homebrew](#installing-via-homebrew)
+    * [Installing via MacPorts](#installing-via-macports)
+    * [Installing via Scarf](#installing-via-scarf)
+    * [Installing a Binary](#installing-a-binary)
+    * [Installing from Source](#installing-from-source)
     * [Running via Docker](#running-via-docker)
 * [Communication](#communication)
     * [Slack](#slack)
@@ -34,9 +40,9 @@ displaying infrequently-needed, but very important, daily data.
 <img src="./images/screenshot.jpg" title="screenshot" width="720" height="420" />
 </p>
 
-## Installing
+## Installation
 
-### Install via Homebrew
+### Installing via Homebrew
 
 The simplest way from Homebrew:
 
@@ -55,7 +61,7 @@ brew install wtfutil
 wtfutil
 ```
 
-### Install via MacPorts
+### Installing via MacPorts
 
 You can also install via [MacPorts](https://www.macports.org/):
 
@@ -66,7 +72,7 @@ sudo port install wtfutil
 wtfutil
 ```
 
-### Install via Scarf
+### Installing via Scarf
 
 You can also install via [Scarf](https://scarf.sh/package/senorprogrammer/wtfutil):
 
@@ -76,7 +82,7 @@ scarf install wtfutil
 wtfutil
 ```
 
-### Install a Binary
+### Installing a Binary
 
 [Download the latest binary](https://github.com/wtfutil/wtf/releases) from GitHub.
 
@@ -88,7 +94,7 @@ chmod a+x /usr/local/bin/wtfutil
 
 and you should be good to go.
 
-### Install from Source
+### Installing from Source
 
 If you want to run the build command from within your `$GOPATH`:
 
@@ -182,9 +188,9 @@ If there is a bug that you really need to have fixed or a feature you really wan
 
 ## Contributing to the Source Code
 
-First, please read [Talk, then code](https://dave.cheney.net/2019/02/18/talk-then-code) by Dave Cheney. It's great advice and will often save a lot of time and effort.
+First, kindly read [Talk, then code](https://dave.cheney.net/2019/02/18/talk-then-code) by Dave Cheney. It's great advice and will often save a lot of time and effort.
 
-Next, please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests.
+Next, kindly read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests.
 
 Then create your branch, write your code, submit your PR, and join the rest of the awesome people who've contributed their time and effort towards WTF. Without their contributors, WTF wouldn't be possible.
 
