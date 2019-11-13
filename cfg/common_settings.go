@@ -69,6 +69,7 @@ func NewCommonSettingsFromModule(name, defaultTitle string, defaultFocusable boo
 	baseColors.RowTheme.EvenForeground = moduleConfig.UString("colors.rows.even", colorsConfig.UString("rows.even", defaultColorTheme.RowTheme.EvenForeground))
 	baseColors.RowTheme.OddForeground = moduleConfig.UString("colors.rows.odd", colorsConfig.UString("rows.odd", defaultColorTheme.RowTheme.OddForeground))
 
+	baseColors.TextTheme.Label = moduleConfig.UString("colors.label", colorsConfig.UString("label", defaultColorTheme.TextTheme.Label))
 	baseColors.TextTheme.Subheading = moduleConfig.UString("colors.subheading", colorsConfig.UString("subheading", defaultColorTheme.TextTheme.Subheading))
 	baseColors.TextTheme.Text = moduleConfig.UString("colors.text", colorsConfig.UString("text", defaultColorTheme.TextTheme.Text))
 	baseColors.TextTheme.Title = moduleConfig.UString("colors.title", colorsConfig.UString("title", defaultColorTheme.TextTheme.Title))

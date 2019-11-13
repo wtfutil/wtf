@@ -31,11 +31,13 @@ type RowTheme struct {
 
 // TextTheme defines the default color scheme for text rendering
 type TextTheme struct {
+	Label      string
 	Subheading string
 	Text       string
 	Title      string
 }
 
+// WidgetTheme defines the default color scheme for the widget rect itself
 type WidgetTheme struct {
 	Background string
 }
@@ -74,6 +76,7 @@ func NewDefaultColorTheme() ColorTheme {
 		},
 
 		TextTheme: TextTheme{
+			Label:      "lightblue",
 			Subheading: "red",
 			Text:       "white",
 			Title:      "green",
