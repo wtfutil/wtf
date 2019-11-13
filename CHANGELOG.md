@@ -6,6 +6,10 @@
 
 * [Transmission](https://wtfutil.com/modules/transmission/) module now supports a `hideComplete` configuration setting, by [@schoentoon](https://github.com/schoentoon)
 
+### 👍 Updated
+
+* Switched from `gocenter.io` as the Go proxy to `proxy.golang.org`, by [@chenrui333](https://github.com/chenrui333)
+
 ## v0.24.0
 
 ### ⚡️ Added
