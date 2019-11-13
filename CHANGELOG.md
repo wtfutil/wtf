@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+### ⚡️ Added
+
+* [Transmission](https://wtfutil.com/modules/transmission/) module now supports a `hideComplete` configuration setting, by [@schoentoon](https://github.com/schoentoon)
+
 ## v0.24.0
 
 ### ⚡️ Added
