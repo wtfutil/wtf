@@ -4,7 +4,7 @@ RUN apk add --no-cache make ncurses
 
 COPY . $GOPATH/src/github.com/wtfutil/wtf
 
-ENV GOPROXY=https://gocenter.io
+ENV GOPROXY=https://proxy.golang.org,direct
 ENV GO111MODULE=on
 ENV GOSUMDB=off
 
@@ -14,4 +14,4 @@ ENV PATH=$PATH:./bin
 
 RUN make build
 
-ENTRYPOINT "wtfutil" 
+ENTRYPOINT "wtfutil"
