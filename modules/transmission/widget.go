@@ -57,7 +57,20 @@ func (widget *Widget) Fetch() ([]*transmissionrpc.Torrent, error) {
 		return nil, err
 	}
 
-	return torrents, nil
+	if !widget.settings.hideComplete {
+		return torrents, nil
+	}
+
+	out := make([]*transmissionrpc.Torrent, 0)
+	for _, torrent := range torrents {
+		if *torrent.PercentDone == 1.0 {
+			continue
+		}
+
+		out = append(out, torrent)
+	}
+
+	return out, nil
 }
 
 // Refresh updates the data for this widget and displays it onscreen
