@@ -105,7 +105,7 @@ func MakeGraph(widget *Widget) {
 	usedSwapLabel := bytefmt.ByteSize(swapUsed)
 	totalSwapLabel := bytefmt.ByteSize(memInfo.SwapTotal)
 
-	if usedSwapLabel[len(usedSwapLabel)-1] == totalMemLabel[len(totalSwapLabel)-1] {
+	if usedSwapLabel[len(usedSwapLabel)-1] == totalSwapLabel[len(totalSwapLabel)-1] {
 		usedSwapLabel = usedSwapLabel[:len(usedSwapLabel)-1]
 	}
 
