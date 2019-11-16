@@ -11,6 +11,7 @@
 ### 👍 Updated
 
 * Switched from `gocenter.io` as the Go proxy to `proxy.golang.org`, by [@chenrui333](https://github.com/chenrui333)
+* Updated `go-datadog-api` to version 2.25.0+incompatible
 
 ## v0.24.0
 
