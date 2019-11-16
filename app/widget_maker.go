@@ -40,6 +40,7 @@ import (
 	"github.com/wtfutil/wtf/modules/newrelic"
 	"github.com/wtfutil/wtf/modules/opsgenie"
 	"github.com/wtfutil/wtf/modules/pagerduty"
+	"github.com/wtfutil/wtf/modules/pocket"
 	"github.com/wtfutil/wtf/modules/power"
 	"github.com/wtfutil/wtf/modules/resourceusage"
 	"github.com/wtfutil/wtf/modules/rollbar"
@@ -202,6 +203,9 @@ func MakeWidget(
 	case "prettyweather":
 		settings := prettyweather.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = prettyweather.NewWidget(app, settings)
+	case "pocket":
+		settings := pocket.NewSettingsFromYAML(moduleName, moduleConfig, config)
+		widget = pocket.NewWidget(app, pages, settings)
 	case "resourceusage":
 		settings := resourceusage.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = resourceusage.NewWidget(app, settings)
