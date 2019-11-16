@@ -48,7 +48,7 @@ require (
 	github.com/xanzy/go-gitlab v0.22.0
 	github.com/yfronto/newrelic v0.0.0-00010101000000-000000000000
 	github.com/zmb3/spotify v0.0.0-20191010212056-e12fb981aacb
-	github.com/zorkian/go-datadog-api v2.24.0+incompatible
+	github.com/zorkian/go-datadog-api v2.25.0+incompatible
 	golang.org/x/oauth2 v0.0.0-20190604053449-0f29369cfe45
 	google.golang.org/api v0.13.0
 	gopkg.in/jarcoal/httpmock.v1 v1.0.0-20181110093347-3be5f16b70eb // indirect
