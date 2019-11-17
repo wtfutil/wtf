@@ -8,6 +8,7 @@
 * Pocket module added, [#742] by [@3mard](https://github.com/3mard)
 * Exchange Rates module added, by [@schoentoon](https://github.com/schoentoon)
 
+### 🐞 Fixed
 
 * Subreddit out of bounds error fixed, [#753](https://github.com/wtfutil/wtf/issues/753) by [@TDHTTTT](https://github.com/TDHTTTT)
 
