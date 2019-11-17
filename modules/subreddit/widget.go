@@ -44,10 +44,16 @@ func (widget *Widget) Refresh() {
 		widget.links = nil
 		widget.SetItemCount(0)
 	} else {
-		widget.links = links[:widget.settings.numberOfPosts]
-		widget.SetItemCount(len(widget.links))
-		widget.err = nil
-	}
+    if len(links) <= widget.settings.numberOfPosts {
+      widget.links = links
+      widget.SetItemCount(len(widget.links))
+      widget.err = nil
+    } else {
+      widget.links = links[:widget.settings.numberOfPosts]
+      widget.SetItemCount(len(widget.links))
+      widget.err = nil
+	  }
+  }
 	widget.Render()
 }
 
