@@ -8,6 +8,9 @@
 * Pocket module added, [#742] by [@3mard](https://github.com/3mard)
 * Exchange Rates module added, by [@schoentoon](https://github.com/schoentoon)
 
+
+* Subreddit out of bounds error fixed, [#753](https://github.com/wtfutil/wtf/issues/753) by [@TDHTTTT](https://github.com/TDHTTTT)
+
 ### 👍 Updated
 
 * Switched from `gocenter.io` as the Go proxy to `proxy.golang.org`, by [@chenrui333](https://github.com/chenrui333)
