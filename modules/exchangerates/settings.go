@@ -16,6 +16,7 @@ type Settings struct {
 	common *cfg.Common
 
 	rates map[string][]string `help:"Defines what currency rates we want to know about`
+	order []string
 }
 
 // NewSettingsFromYAML creates a new settings instance from a YAML config block
@@ -24,10 +25,12 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 
 		rates: map[string][]string{},
+		order: []string{},
 	}
 
 	raw := ymlConfig.UMap("rates", map[string]interface{}{})
 	for key, value := range raw {
+		settings.order = append(settings.order, key)
 		settings.rates[key] = []string{}
 		switch value.(type) {
 		case string:

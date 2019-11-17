@@ -55,10 +55,11 @@ func (widget *Widget) content() (string, string, bool) {
 	if widget.err != nil {
 		out = widget.err.Error()
 	} else {
-		for base, rates := range widget.rates {
+		for base, rates := range widget.settings.rates {
 			out += fmt.Sprintf("[%s]Rates from %s[white]\n", widget.settings.common.Colors.Subheading, base)
 			idx := 0
-			for cur, rate := range rates {
+			for _, cur := range rates {
+				rate := widget.rates[base][cur]
 				out += fmt.Sprintf("[%s]%s - %f[white]\n", widget.CommonSettings().RowColor(idx), cur, rate)
 				idx++
 			}
