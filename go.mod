@@ -38,7 +38,7 @@ require (
 	github.com/onsi/ginkgo v1.10.2 // indirect
 	github.com/opencontainers/go-digest v1.0.0-rc1 // indirect
 	github.com/pkg/errors v0.8.1
-	github.com/pkg/profile v1.3.0
+	github.com/pkg/profile v1.4.0
 	github.com/radovskyb/watcher v1.0.7
 	github.com/rivo/tview v0.0.0-20190829161255-f8bc69b90341
 	github.com/shirou/gopsutil v2.19.10+incompatible
