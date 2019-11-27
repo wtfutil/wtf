@@ -27,8 +27,6 @@ github.com/VictorAvelar/devto-api-go v1.0.0 h1:oXmzye3xYvlgBX18vX4+v6LVbjoihgIok
 github.com/VictorAvelar/devto-api-go v1.0.0/go.mod h1:gX13cqzMdpo49qP8VtBR2uCnzW7d76LFrAVSX2eLifY=
 github.com/adlio/trello v1.4.0 h1:Wpo6fPFgf28N3PbFyZkBJx2nDKkuLAoPkJ8Eh7jE3Bg=
 github.com/adlio/trello v1.4.0/go.mod h1:l2068AhUuUuQ9Vsb95ECMueHThYyAj4e85lWPmr2/LE=
-github.com/adlio/trello v1.6.0 h1:ajkfwcQiBv83Vd/HHkUNOIrK3NJtEEHwUMnZJHbCwAo=
-github.com/adlio/trello v1.6.0/go.mod h1:l2068AhUuUuQ9Vsb95ECMueHThYyAj4e85lWPmr2/LE=
 github.com/akavel/rsrc v0.8.0/go.mod h1:uLoCtb9J+EyAqh+26kdrTgmzRBFPGOolLWKpdxkKq+c=
 github.com/alecthomas/assert v0.0.0-20170929043011-405dbfeb8e38 h1:smF2tmSOzy2Mm+0dGI2AIUHY+w0BUc+4tn40djz7+6U=
 github.com/alecthomas/assert v0.0.0-20170929043011-405dbfeb8e38/go.mod h1:r7bzyVFMNntcxPZXK3/+KdruV1H5KSlyVY0gc+NgInI=
