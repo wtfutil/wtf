@@ -16,6 +16,13 @@
 
 * Switched from `gocenter.io` as the Go proxy to `proxy.golang.org`, by [@chenrui333](https://github.com/chenrui333)
 * Updated `go-datadog-api` to version 2.25.0+incompatible
+* Updated `adlio/trello` to version 1.6.0
+* Updated `alecthomas/chroma` to version 0.7.0
+* Updated `olekukonko/tablewriter` to version 0.0.3
+* Updated `pkg/profile` to version 1.4.0
+* Updated `yaml.v2` to 2.2.7
+* Updated `google.golang.org/api` to 0.14.0
+* Updated `xanzy/go-gitlab` to 0.22.0
 
 ## v0.24.0
 
