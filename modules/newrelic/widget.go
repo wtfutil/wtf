@@ -13,7 +13,7 @@ type Widget struct {
 	view.MultiSourceWidget
 	view.TextWidget
 
-	Clients []*Client
+	Clients []*Client2
 
 	settings *Settings
 }
@@ -59,7 +59,7 @@ func (widget *Widget) HelpText() string {
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (widget *Widget) currentData() *Client {
+func (widget *Widget) currentData() *Client2 {
 	if len(widget.Clients) == 0 {
 		return nil
 	}
