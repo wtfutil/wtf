@@ -9,8 +9,8 @@ require (
 	github.com/PuerkitoBio/goquery v1.5.0 // indirect
 	github.com/StackExchange/wmi v0.0.0-20190523213315-cbe66965904d // indirect
 	github.com/VictorAvelar/devto-api-go v1.0.0
-	github.com/adlio/trello v1.6.0
-	github.com/alecthomas/chroma v0.6.8
+	github.com/adlio/trello v1.4.0
+	github.com/alecthomas/chroma v0.7.0
 	github.com/andygrunwald/go-gerrit v0.0.0-20190825170856-5959a9bf9ff8
 	github.com/briandowns/openweathermap v0.0.0-20180804155945-5f41b7c9d92d
 	github.com/cenkalti/backoff v2.2.1+incompatible // indirect
@@ -34,25 +34,25 @@ require (
 	github.com/mmcdole/gofeed v1.0.0-beta2
 	github.com/mmcdole/goxpp v0.0.0-20181012175147-0068e33feabf // indirect
 	github.com/olebedev/config v0.0.0-20190528211619-364964f3a8e4
-	github.com/olekukonko/tablewriter v0.0.2
+	github.com/olekukonko/tablewriter v0.0.3
 	github.com/onsi/ginkgo v1.10.2 // indirect
 	github.com/opencontainers/go-digest v1.0.0-rc1 // indirect
 	github.com/pkg/errors v0.8.1
-	github.com/pkg/profile v1.3.0
+	github.com/pkg/profile v1.4.0
 	github.com/radovskyb/watcher v1.0.7
 	github.com/rivo/tview v0.0.0-20190829161255-f8bc69b90341
 	github.com/shirou/gopsutil v2.19.10+incompatible
 	github.com/sticreations/spotigopher v0.0.0-20181009182052-98632f6f94b0
 	github.com/stretchr/testify v1.4.0
 	github.com/wtfutil/todoist v0.0.1
-	github.com/xanzy/go-gitlab v0.22.0
+	github.com/xanzy/go-gitlab v0.22.1
 	github.com/yfronto/newrelic v0.0.0-00010101000000-000000000000
 	github.com/zmb3/spotify v0.0.0-20191010212056-e12fb981aacb
 	github.com/zorkian/go-datadog-api v2.25.0+incompatible
 	golang.org/x/oauth2 v0.0.0-20190604053449-0f29369cfe45
-	google.golang.org/api v0.13.0
+	google.golang.org/api v0.14.0
 	gopkg.in/jarcoal/httpmock.v1 v1.0.0-20181110093347-3be5f16b70eb // indirect
-	gopkg.in/yaml.v2 v2.2.5
+	gopkg.in/yaml.v2 v2.2.7
 	k8s.io/api v0.0.0-20191010143144-fbf594f18f80 // indirect
 	k8s.io/apimachinery v0.0.0-20191016060620-86f2f1b9c076
 	k8s.io/client-go v0.0.0-20190620085101-78d2af792bab
