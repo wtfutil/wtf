@@ -84,7 +84,7 @@ func writeMetaDataToDisk(metaData pocketMetaData) error {
 
 	fileData, err := yaml.Marshal(metaData)
 	if err != nil {
-		return fmt.Errorf("Could not write token to disk %v", err)
+		return fmt.Errorf("Could not write token to disk %w", err)
 	}
 
 	wtfConfigDir, err := cfg.WtfConfigDir()
