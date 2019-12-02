@@ -46,7 +46,6 @@ require (
 	github.com/stretchr/testify v1.4.0
 	github.com/wtfutil/todoist v0.0.1
 	github.com/xanzy/go-gitlab v0.22.1
-	github.com/yfronto/newrelic v0.0.0-00010101000000-000000000000
 	github.com/zmb3/spotify v0.0.0-20191010212056-e12fb981aacb
 	github.com/zorkian/go-datadog-api v2.25.0+incompatible
 	golang.org/x/oauth2 v0.0.0-20190604053449-0f29369cfe45
@@ -58,5 +57,3 @@ require (
 	k8s.io/client-go v0.0.0-20190620085101-78d2af792bab
 	k8s.io/utils v0.0.0-20191010214722-8d271d903fe4 // indirect
 )
-
-replace github.com/yfronto/newrelic => ./vendor/github.com/yfronto/newrelic
