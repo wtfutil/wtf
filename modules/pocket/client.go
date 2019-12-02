@@ -100,8 +100,8 @@ func (client *Client) request(req request, result interface{}) error {
 	}
 
 	if err := json.Unmarshal(responseBody, &result); err != nil {
-		return fmt.Errorf(`Could not unmarshal url [%s] 
-		response [%s] request[%s] error:%v`, req.url, responseBody, jsonValues, err)
+		return fmt.Errorf("Could not unmarshal url [%s] \n\t\tresponse [%s] request[%s] error:%w",
+	req.url, responseBody, jsonValues, err)
 	}
 
 	return nil
