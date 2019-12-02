@@ -1,4 +1,4 @@
-.PHONY: build contrib_check coverage install binary_msg lint run size test uninstall
+.PHONY: build contrib_check coverage install isntall binary_msg lint run size test uninstall
 
 # detect GOPATH if not set
 ifndef $(GOPATH)
@@ -23,6 +23,9 @@ export GOPROXY = https://proxy.golang.org,direct
 # Determines the path to this Makefile
 THIS_FILE := $(lastword $(MAKEFILE_LIST))
 
+binary_msg:
+	@echo "Install path: "
+
 build:
 	go build -o bin/wtfutil
 	@$(MAKE) -f $(THIS_FILE) binary_msg
@@ -34,15 +37,15 @@ coverage:
 	go test -coverprofile=coverage.out ./...
 	go tool cover -html=coverage.out
 
+isntall:
+	@$(MAKE) -f $(THIS_FILE) install
+
 install:
 	@echo "Installing wtfutil..."
 	@go clean
 	@go install -ldflags="-s -w -X main.version=$(shell git describe --always --abbrev=6) -X main.date=$(shell date +%FT%T%z)"
 	@mv ~/go/bin/wtf ~/go/bin/wtfutil
 	@$(MAKE) -f $(THIS_FILE) binary_msg
-
-binary_msg:
-	@echo "Install path: "
 	@which wtfutil || echo "Could not find wtfutil in PATH" && exit 0
 
 lint:
