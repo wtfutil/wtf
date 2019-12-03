@@ -18,9 +18,10 @@ type Widget struct {
 
 	settings *Settings
 
-	m       sync.Mutex
-	buffer  *bytes.Buffer
-	running bool
+	m          sync.Mutex
+	buffer     *bytes.Buffer
+	runChan    chan bool
+	redrawChan chan bool
 }
 
 // NewWidget creates a new instance of the widget
@@ -35,30 +36,28 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget.View.SetWrap(true)
 	widget.View.SetScrollable(true)
 
+	widget.runChan = make(chan bool)
+	widget.redrawChan = make(chan bool)
+	go runCommandLoop(&widget)
+	go redrawLoop(&widget)
+	widget.runChan <- true
+
 	return &widget
 }
 
-func (widget *Widget) content() (string, string, bool) {
-	result := widget.buffer.String()
-
-	ansiTitle := tview.TranslateANSI(widget.CommonSettings().Title)
-	if ansiTitle == defaultTitle {
-		ansiTitle = tview.TranslateANSI(widget.String())
-	}
-	ansiResult := tview.TranslateANSI(result)
-
-	return ansiTitle, ansiResult, false
-}
-
-// Refresh executes the command and updates the view with the results
+// Refresh signals the runCommandLoop to continue, or triggers a re-draw if the
+// command is still running.
 func (widget *Widget) Refresh() {
 	widget.m.Lock()
 	defer widget.m.Unlock()
 
-	widget.execute()
-	widget.Redraw(widget.content)
-	if widget.settings.tail {
-		widget.View.ScrollToEnd()
+	// Try to run the command. If the command is still running, let it keep
+	// running and do a refresh instead. Otherwise, the widget will redraw when
+	// the command completes.
+	select {
+	case widget.runChan <- true:
+	default:
+		widget.redrawChan <- true
 	}
 }
 
@@ -86,44 +85,10 @@ func (widget *Widget) Write(p []byte) (n int, err error) {
 		widget.drainLines(lines - widget.settings.maxLines)
 	}
 
-	// Redraw the widget
-	widget.Redraw(widget.content)
-
-	return
+	return n, err
 }
 
 /* -------------------- Unexported Functions -------------------- */
-
-func (widget *Widget) execute() {
-	// Make sure the command is not already running
-	if widget.running {
-		return
-	}
-
-	// Reset the buffer
-	widget.buffer.Reset()
-
-	// Indicate that the command is running
-	widget.running = true
-
-	// Setup the command to run
-	cmd := exec.Command(widget.settings.cmd, widget.settings.args...)
-	cmd.Stdout = widget
-	cmd.Env = widget.environment()
-
-	// Run the command and wait for it to exit in another Go-routine
-	go func() {
-		err := cmd.Run()
-
-		// The command has exited, print any error messages
-		widget.m.Lock()
-		if err != nil {
-			widget.buffer.WriteString(err.Error())
-		}
-		widget.running = false
-		widget.m.Unlock()
-	}()
-}
 
 // countLines counts the lines of data in the buffer
 func (widget *Widget) countLines() int {
@@ -145,4 +110,56 @@ func (widget *Widget) environment() []string {
 		fmt.Sprintf("WTF_WIDGET_HEIGHT=%d", widget.settings.height),
 	)
 	return envs
+}
+
+func runCommandLoop(widget *Widget) {
+	// Run the command forever in a loop. Refresh() will put a value into the
+	// channel to signal the loop to continue.
+	for {
+		<-widget.runChan
+		widget.resetBuffer()
+		cmd := exec.Command(widget.settings.cmd, widget.settings.args...)
+		cmd.Stdout = widget
+		cmd.Env = widget.environment()
+		err := cmd.Run()
+
+		// The command has exited, print any error messages
+		if err != nil {
+			widget.m.Lock()
+			widget.buffer.WriteString(err.Error())
+			widget.m.Unlock()
+		}
+		widget.redrawChan <- true
+	}
+}
+
+func redrawLoop(widget *Widget) {
+	for {
+		widget.Redraw(widget.content)
+		if widget.settings.tail {
+			widget.View.ScrollToEnd()
+		}
+		<-widget.redrawChan
+	}
+}
+
+func (widget *Widget) content() (string, string, bool) {
+	widget.m.Lock()
+	result := widget.buffer.String()
+	widget.m.Unlock()
+
+	ansiTitle := tview.TranslateANSI(widget.CommonSettings().Title)
+	if ansiTitle == defaultTitle {
+		ansiTitle = tview.TranslateANSI(widget.String())
+	}
+	ansiResult := tview.TranslateANSI(result)
+
+	return ansiTitle, ansiResult, false
+}
+
+func (widget *Widget) resetBuffer() {
+	widget.m.Lock()
+	defer widget.m.Unlock()
+
+	widget.buffer.Reset()
 }
