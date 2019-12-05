@@ -23,7 +23,9 @@
 * Updated `pkg/profile` to version 1.4.0
 * Updated `yaml.v2` to 2.2.7
 * Updated `google.golang.org/api` to 0.14.0
-* Updated `xanzy/go-gitlab` to 0.22.0
+* Updated `xanzy/go-gitlab` to 0.22.2
+* Uodated `shirou/gopsutil` to 2.19.11+incompatible
+
 
 ## v0.24.0
 
