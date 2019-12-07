@@ -12,6 +12,8 @@ func (widget *Widget) initializeKeyboardControls() {
 	widget.SetKeyboardChar("l", widget.NextSource, "Select next source")
 	widget.SetKeyboardChar("h", widget.PrevSource, "Select previous source")
 	widget.SetKeyboardChar("o", widget.openRepo, "Open item in browser")
+	widget.SetKeyboardChar("p", widget.openPulls, "Open pull requests in browser")
+	widget.SetKeyboardChar("i", widget.openIssues, "Open issues in browser")
 
 	widget.SetKeyboardKey(tcell.KeyDown, widget.Next, "Select next item")
 	widget.SetKeyboardKey(tcell.KeyUp, widget.Prev, "Select previous item")
