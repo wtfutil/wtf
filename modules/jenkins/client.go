@@ -45,10 +45,13 @@ func (widget *Widget) Create(jenkinsURL string, username string, apiKey string) 
 		return view, err
 	}
 
-	jobs := []Job{}
+	respJobs := make([]Job, 0, len(view.Jobs) + len(view.ActiveConfigurations))
+	respJobs = append(append(respJobs, view.Jobs...), view.ActiveConfigurations...)
+
+	jobs := make([]Job, 0)
 
 	var validID = regexp.MustCompile(widget.settings.jobNameRegex)
-	for _, job := range view.Jobs {
+	for _, job := range respJobs {
 		if validID.MatchString(job.Name) {
 			jobs = append(jobs, job)
 		}
