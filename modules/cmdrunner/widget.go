@@ -48,9 +48,6 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 // Refresh signals the runCommandLoop to continue, or triggers a re-draw if the
 // command is still running.
 func (widget *Widget) Refresh() {
-	widget.m.Lock()
-	defer widget.m.Unlock()
-
 	// Try to run the command. If the command is still running, let it keep
 	// running and do a refresh instead. Otherwise, the widget will redraw when
 	// the command completes.
