@@ -10,7 +10,7 @@ func (widget *Widget) initializeKeyboardControls() {
 	widget.SetKeyboardChar("j", widget.Prev, "Select previous item")
 	widget.SetKeyboardChar("k", widget.Next, "Select next item")
 	widget.SetKeyboardChar("p", widget.dropletEnabledPrivateNetworking, "Enable private networking for the selected drople")
-	widget.SetKeyboardChar("r", widget.dropletRestart, "Reboot the selected droplet")
+	widget.SetKeyboardChar("b", widget.dropletRestart, "Reboot the selected droplet")
 	widget.SetKeyboardChar("s", widget.dropletShutDown, "Shut down the selected droplet")
 	widget.SetKeyboardChar("u", widget.Unselect, "Clear selection")
 
