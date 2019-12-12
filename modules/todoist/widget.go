@@ -102,28 +102,28 @@ func (widget *Widget) Unselect() {
 /* -------------------- Keyboard Movement -------------------- */
 
 // Close closes the currently-selected task in the currently-selected project
-func (w *Widget) Close() {
-	w.CurrentProject().closeSelectedTask()
-	w.SetItemCount(len(w.CurrentProject().tasks))
+func (widget *Widget) Close() {
+	widget.CurrentProject().closeSelectedTask()
+	widget.SetItemCount(len(widget.CurrentProject().tasks))
 
-	if w.CurrentProject().isLast() {
-		w.Prev()
+	if widget.CurrentProject().isLast() {
+		widget.Prev()
 		return
 	}
-	w.CurrentProject().index = w.Selected
-	w.RenderFunction()
+	widget.CurrentProject().index = widget.Selected
+	widget.RenderFunction()
 }
 
 // Delete deletes the currently-selected task in the currently-selected project
-func (w *Widget) Delete() {
-	w.CurrentProject().deleteSelectedTask()
-	w.SetItemCount(len(w.CurrentProject().tasks))
+func (widget *Widget) Delete() {
+	widget.CurrentProject().deleteSelectedTask()
+	widget.SetItemCount(len(widget.CurrentProject().tasks))
 
-	if w.CurrentProject().isLast() {
-		w.Prev()
+	if widget.CurrentProject().isLast() {
+		widget.Prev()
 	}
-	w.CurrentProject().index = w.Selected
-	w.RenderFunction()
+	widget.CurrentProject().index = widget.Selected
+	widget.RenderFunction()
 }
 
 /* -------------------- Unexported Functions -------------------- */
@@ -136,7 +136,7 @@ func (widget *Widget) loadProjects() {
 	projects := []*Project{}
 
 	for _, id := range widget.settings.projects {
-		proj := NewProject(id.(int))
+		proj := NewProject(id)
 		projects = append(projects, proj)
 	}
 
