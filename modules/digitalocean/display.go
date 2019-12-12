@@ -15,9 +15,8 @@ func (widget *Widget) content() (string, string, bool) {
 	}
 
 	str := fmt.Sprintf(
-		" [%s]Droplets [grey](%d)[white]\n\n",
+		" [%s]Droplets[white]\n",
 		widget.settings.common.Colors.Subheading,
-		len(widget.droplets),
 	)
 
 	for idx, droplet := range widget.droplets {
@@ -26,10 +25,9 @@ func (widget *Widget) content() (string, string, bool) {
 		row := fmt.Sprintf(
 			"[%s] %-24s %-8s %s[white]",
 			widget.RowColor(idx),
-			// wtf.PrettyDate(strings.Split(droplet.Created, "T")[0]),
-			tview.Escape(dropletName),
-			droplet.Status,
-			strings.Join(droplet.Tags, ","),
+			utils.Truncate(tview.Escape(dropletName), 24, true),
+			utils.Truncate(droplet.Status, 8, true),
+			utils.Truncate(strings.Join(droplet.Tags, ","), 24, true),
 		)
 
 		str += utils.HighlightableHelper(widget.View, row, idx, len(dropletName))

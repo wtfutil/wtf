@@ -26,3 +26,13 @@ func Test_RowPadding(t *testing.T) {
 	assert.Equal(t, " ", RowPadding(1, 2))
 	assert.Equal(t, "     ", RowPadding(0, 5))
 }
+
+func Test_Truncate(t *testing.T) {
+	assert.Equal(t, "ca", Truncate("cat", 2, false))
+	assert.Equal(t, "cat", Truncate("cat", 3, false))
+	assert.Equal(t, "cat", Truncate("cat", 4, false))
+
+	assert.Equal(t, "c…", Truncate("cat", 2, true))
+	assert.Equal(t, "ca…", Truncate("cat", 3, true))
+	assert.Equal(t, "cat", Truncate("cat", 4, true))
+}

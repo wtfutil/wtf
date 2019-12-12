@@ -3,10 +3,12 @@ package digitalocean
 import (
 	"context"
 	"errors"
+	"fmt"
 
 	"github.com/digitalocean/godo"
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/view"
+	"github.com/wtfutil/wtf/wtf"
 	"golang.org/x/oauth2"
 )
 
@@ -31,8 +33,10 @@ type Widget struct {
 	view.KeyboardWidget
 	view.ScrollableWidget
 
+	app      *tview.Application
 	client   *godo.Client
 	droplets []godo.Droplet
+	pages    *tview.Pages
 	settings *Settings
 	err      error
 }
@@ -43,6 +47,8 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 		KeyboardWidget:   view.NewKeyboardWidget(app, pages, settings.common),
 		ScrollableWidget: view.NewScrollableWidget(app, settings.common),
 
+		app:      app,
+		pages:    pages,
 		settings: settings,
 	}
 
@@ -66,7 +72,7 @@ func (widget *Widget) Fetch() error {
 	}
 
 	var err error
-	widget.droplets, err = widget.fetchDroplets()
+	widget.droplets, err = widget.dropletsFetch()
 	return err
 }
 
@@ -131,21 +137,7 @@ func (widget *Widget) currentDroplet() *godo.Droplet {
 	return &widget.droplets[widget.Selected]
 }
 
-// destroySelectedDroplet destroys the selected droplet
-// This action is extremely destructive
-func (widget *Widget) destroySelectedDroplet() {
-	currDroplet := widget.currentDroplet()
-	if currDroplet == nil {
-		return
-	}
-
-	widget.client.Droplets.Delete(context.Background(), currDroplet.ID)
-
-	widget.removeCurrentDroplet()
-	widget.Refresh()
-}
-
-func (widget *Widget) fetchDroplets() ([]godo.Droplet, error) {
+func (widget *Widget) dropletsFetch() ([]godo.Droplet, error) {
 	dropletList := []godo.Droplet{}
 	opts := &godo.ListOptions{}
 
@@ -175,8 +167,33 @@ func (widget *Widget) fetchDroplets() ([]godo.Droplet, error) {
 	return dropletList, nil
 }
 
-// removeCurrentDroplet removes the currently-selected droplet from the internal list of droplets
-func (widget *Widget) removeCurrentDroplet() {
+/* -------------------- Droplet Actions -------------------- */
+
+// dropletDestroy destroys the selected droplet
+func (widget *Widget) dropletDestroy() {
+	currDroplet := widget.currentDroplet()
+	if currDroplet == nil {
+		return
+	}
+
+	widget.client.Droplets.Delete(context.Background(), currDroplet.ID)
+
+	widget.dropletRemoveSelected()
+	widget.Refresh()
+}
+
+func (widget *Widget) dropletEnabledPrivateNetworking() {
+	currDroplet := widget.currentDroplet()
+	if currDroplet == nil {
+		return
+	}
+
+	widget.client.DropletActions.EnablePrivateNetworking(context.Background(), currDroplet.ID)
+	widget.Refresh()
+}
+
+// dropletRemoveSelected removes the currently-selected droplet from the internal list of droplets
+func (widget *Widget) dropletRemoveSelected() {
 	currDroplet := widget.currentDroplet()
 	if currDroplet != nil {
 		widget.droplets[len(widget.droplets)-1], widget.droplets[widget.Selected] = widget.droplets[widget.Selected], widget.droplets[len(widget.droplets)-1]
@@ -184,8 +201,8 @@ func (widget *Widget) removeCurrentDroplet() {
 	}
 }
 
-// restart restarts the selected droplet
-func (widget *Widget) restart() {
+// dropletRestart restarts the selected droplet
+func (widget *Widget) dropletRestart() {
 	currDroplet := widget.currentDroplet()
 	if currDroplet == nil {
 		return
@@ -195,11 +212,8 @@ func (widget *Widget) restart() {
 	widget.Refresh()
 }
 
-// showInfo shows a modal window with information about the selected droplet
-func (widget *Widget) showInfo() {}
-
-// restart restarts the selected droplet
-func (widget *Widget) shutDown() {
+// dropletShutDown powers down the selected droplet
+func (widget *Widget) dropletShutDown() {
 	currDroplet := widget.currentDroplet()
 	if currDroplet == nil {
 		return
@@ -207,4 +221,31 @@ func (widget *Widget) shutDown() {
 
 	widget.client.DropletActions.Shutdown(context.Background(), currDroplet.ID)
 	widget.Refresh()
+}
+
+/* -------------------- Common Actions -------------------- */
+
+// showInfo shows a modal window with information about the selected droplet
+func (widget *Widget) showInfo() {
+	droplet := widget.currentDroplet()
+	if droplet == nil {
+		return
+	}
+
+	closeFunc := func() {
+		widget.pages.RemovePage("info")
+		widget.app.SetFocus(widget.View)
+	}
+
+	dropletInfo := newInfoTable(droplet).render()
+
+	modal := wtf.NewBillboardModal(dropletInfo, closeFunc)
+	modal.SetTitle(fmt.Sprintf("  %s  ", droplet.Name))
+
+	widget.pages.AddPage("info", modal, false, true)
+	widget.app.SetFocus(modal)
+
+	widget.app.QueueUpdateDraw(func() {
+		widget.app.Draw()
+	})
 }

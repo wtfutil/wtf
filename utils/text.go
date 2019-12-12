@@ -48,3 +48,20 @@ func RowPadding(offset int, max int) string {
 
 	return strings.Repeat(" ", padSize)
 }
+
+// Truncate chops a given string at len length. Appends an ellipse character if warranted
+func Truncate(src string, len int, withEllipse bool) string {
+	var numRunes = 0
+
+	for index := range src {
+		numRunes++
+		if numRunes > len {
+			if withEllipse == true {
+				return src[:index-1] + "…"
+			}
+
+			return src[:index]
+		}
+	}
+	return src
+}
