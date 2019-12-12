@@ -50,12 +50,19 @@ func RowPadding(offset int, max int) string {
 }
 
 // Truncate chops a given string at len length. Appends an ellipse character if warranted
-func Truncate(src string, len int, withEllipse bool) string {
-	var numRunes = 0
+func Truncate(src string, maxLen int, withEllipse bool) string {
+	if len(src) < 1 || maxLen < 1 {
+		return ""
+	}
 
+	if maxLen == 1 {
+		return src[:1]
+	}
+
+	var numRunes = 0
 	for index := range src {
 		numRunes++
-		if numRunes > len {
+		if numRunes > maxLen {
 			if withEllipse == true {
 				return src[:index-1] + "…"
 			}
