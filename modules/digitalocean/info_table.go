@@ -49,6 +49,7 @@ func (infoTbl *infoTable) buildPropertyMap() map[string]string {
 	propMap["CPUs"] = strconv.Itoa(infoTbl.droplet.Vcpus)
 	propMap["Created"] = infoTbl.droplet.Created
 	propMap["Disk"] = strconv.Itoa(infoTbl.droplet.Disk)
+	propMap["Features"] = utils.Truncate(strings.Join(infoTbl.droplet.Features, ","), infoTableColWidth1, true)
 	propMap["Image"] = fmt.Sprintf("%s (%s)", infoTbl.droplet.Image.Name, infoTbl.droplet.Image.Distribution)
 	propMap["Memory"] = strconv.Itoa(infoTbl.droplet.Memory)
 	propMap["Public IP v4"] = publicV4

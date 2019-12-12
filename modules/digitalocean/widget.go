@@ -138,6 +138,7 @@ func (widget *Widget) currentDroplet() *godo.Droplet {
 	return &widget.droplets[widget.Selected]
 }
 
+// dropletsFetch uses the DigitalOcean API to fetch information about all the available droplets
 func (widget *Widget) dropletsFetch() ([]godo.Droplet, error) {
 	dropletList := []godo.Droplet{}
 	opts := &godo.ListOptions{}
@@ -183,6 +184,7 @@ func (widget *Widget) dropletDestroy() {
 	widget.Refresh()
 }
 
+// dropletEnabledPrivateNetworking enabled private networking on the selected droplet
 func (widget *Widget) dropletEnabledPrivateNetworking() {
 	currDroplet := widget.currentDroplet()
 	if currDroplet == nil {
