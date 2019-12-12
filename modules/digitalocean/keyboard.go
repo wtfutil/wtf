@@ -3,14 +3,14 @@ package digitalocean
 import "github.com/gdamore/tcell"
 
 func (widget *Widget) initializeKeyboardControls() {
-	widget.InitializeCommonControls(nil)
+	widget.InitializeCommonControls(widget.Refresh)
 
 	widget.SetKeyboardChar("?", widget.showInfo, "Show info about the selected droplet")
 
+	widget.SetKeyboardChar("b", widget.dropletRestart, "Reboot the selected droplet")
 	widget.SetKeyboardChar("j", widget.Prev, "Select previous item")
 	widget.SetKeyboardChar("k", widget.Next, "Select next item")
 	widget.SetKeyboardChar("p", widget.dropletEnabledPrivateNetworking, "Enable private networking for the selected drople")
-	widget.SetKeyboardChar("b", widget.dropletRestart, "Reboot the selected droplet")
 	widget.SetKeyboardChar("s", widget.dropletShutDown, "Shut down the selected droplet")
 	widget.SetKeyboardChar("u", widget.Unselect, "Clear selection")
 

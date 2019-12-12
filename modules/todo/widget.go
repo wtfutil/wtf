@@ -61,11 +61,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 
 /* -------------------- Exported Functions -------------------- */
 
-func (widget *Widget) Refresh() {
-	widget.load()
-	widget.display()
-}
-
+// HelpText returns the help text for this widget
 func (widget *Widget) HelpText() string {
 	return widget.KeyboardWidget.HelpText()
 }
@@ -78,6 +74,12 @@ func (widget *Widget) SelectedItem() *checklist.ChecklistItem {
 	}
 
 	return selectedItem
+}
+
+// Refresh updates the data for this widget and displays it onscreen
+func (widget *Widget) Refresh() {
+	widget.load()
+	widget.display()
 }
 
 func (widget *Widget) SetList(list checklist.Checklist) {

@@ -59,15 +59,15 @@ func Truncate(src string, maxLen int, withEllipse bool) string {
 		return src[:1]
 	}
 
-	var numRunes = 0
-	for index := range src {
-		numRunes++
-		if numRunes > maxLen {
+	var runeCount = 0
+	for idx := range src {
+		runeCount++
+		if runeCount > maxLen {
 			if withEllipse == true {
-				return src[:index-1] + "…"
+				return src[:idx-1] + "…"
 			}
 
-			return src[:index]
+			return src[:idx]
 		}
 	}
 	return src

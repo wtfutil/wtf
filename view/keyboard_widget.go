@@ -54,6 +54,11 @@ func (widget *KeyboardWidget) SetKeyboardChar(char string, fn func(), helpText s
 		return
 	}
 
+	// Check to ensure that the key trying to be used isn't already being used for something
+	if _, ok := widget.charMap[char]; ok {
+		panic(fmt.Sprintf("Key is already mapped to a keyboard command: %s\n", char))
+	}
+
 	widget.charMap[char] = fn
 	widget.charHelp = append(widget.charHelp, helpItem{char, helpText})
 }

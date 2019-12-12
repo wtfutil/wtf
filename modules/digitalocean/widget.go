@@ -53,11 +53,13 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 		settings: settings,
 	}
 
-	widget.SetRenderFunction(widget.display)
 	widget.initializeKeyboardControls()
 	widget.View.SetInputCapture(widget.InputCapture)
 
+	widget.View.SetScrollable(true)
+
 	widget.KeyboardWidget.SetView(widget.View)
+	widget.SetRenderFunction(widget.display)
 
 	widget.createClient()
 
@@ -77,20 +79,6 @@ func (widget *Widget) Fetch() error {
 	return err
 }
 
-// Refresh updates the data for this widget and displays it onscreen
-func (widget *Widget) Refresh() {
-	err := widget.Fetch()
-	if err != nil {
-		widget.err = err
-		widget.SetItemCount(0)
-	} else {
-		widget.err = nil
-		widget.SetItemCount(len(widget.droplets))
-	}
-
-	widget.display()
-}
-
 // HelpText returns the help text for this widget
 func (widget *Widget) HelpText() string {
 	return widget.KeyboardWidget.HelpText()
@@ -104,6 +92,20 @@ func (widget *Widget) Next() {
 // Prev selects the previous item in the list
 func (widget *Widget) Prev() {
 	widget.ScrollableWidget.Prev()
+}
+
+// Refresh updates the data for this widget and displays it onscreen
+func (widget *Widget) Refresh() {
+	err := widget.Fetch()
+	if err != nil {
+		widget.err = err
+		widget.SetItemCount(0)
+	} else {
+		widget.err = nil
+		widget.SetItemCount(len(widget.droplets))
+	}
+
+	widget.display()
 }
 
 // Unselect clears the selection of list items
