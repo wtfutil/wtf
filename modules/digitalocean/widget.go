@@ -59,7 +59,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 
 /* -------------------- Exported Functions -------------------- */
 
-// Fetch retrieves torrent data from the Transmission daemon
+// Fetch retrieves droplet data
 func (widget *Widget) Fetch() error {
 	if widget.client == nil {
 		return errors.New("client could not be initialized")
@@ -67,11 +67,7 @@ func (widget *Widget) Fetch() error {
 
 	var err error
 	widget.droplets, err = widget.fetchDroplets()
-	if err != nil {
-		return err
-	}
-
-	return nil
+	return err
 }
 
 // Refresh updates the data for this widget and displays it onscreen
@@ -136,7 +132,7 @@ func (widget *Widget) currentDroplet() *godo.Droplet {
 }
 
 // destroySelectedDroplet destroys the selected droplet
-// This action is extremelt destructive
+// This action is extremely destructive
 func (widget *Widget) destroySelectedDroplet() {
 	currDroplet := widget.currentDroplet()
 	if currDroplet == nil {
@@ -146,7 +142,7 @@ func (widget *Widget) destroySelectedDroplet() {
 	widget.client.Droplets.Delete(context.Background(), currDroplet.ID)
 
 	widget.removeCurrentDroplet()
-	widget.display()
+	widget.Refresh()
 }
 
 func (widget *Widget) fetchDroplets() ([]godo.Droplet, error) {
@@ -186,4 +182,29 @@ func (widget *Widget) removeCurrentDroplet() {
 		widget.droplets[len(widget.droplets)-1], widget.droplets[widget.Selected] = widget.droplets[widget.Selected], widget.droplets[len(widget.droplets)-1]
 		widget.droplets = widget.droplets[:len(widget.droplets)-1]
 	}
+}
+
+// restart restarts the selected droplet
+func (widget *Widget) restart() {
+	currDroplet := widget.currentDroplet()
+	if currDroplet == nil {
+		return
+	}
+
+	widget.client.DropletActions.Reboot(context.Background(), currDroplet.ID)
+	widget.Refresh()
+}
+
+// showInfo shows a modal window with information about the selected droplet
+func (widget *Widget) showInfo() {}
+
+// restart restarts the selected droplet
+func (widget *Widget) shutDown() {
+	currDroplet := widget.currentDroplet()
+	if currDroplet == nil {
+		return
+	}
+
+	widget.client.DropletActions.Shutdown(context.Background(), currDroplet.ID)
+	widget.Refresh()
 }

@@ -27,16 +27,18 @@ func CenterText(str string, width int) string {
 // containing it. This is helpful for extending row highlighting across the entire width
 // of the view
 func HighlightableHelper(view *tview.TextView, input string, idx, offset int) string {
-	fmtStr := fmt.Sprintf(`["%d"][""]`, idx)
 	_, _, w, _ := view.GetInnerRect()
+
+	fmtStr := fmt.Sprintf(`["%d"][""]`, idx)
 	fmtStr += input
-	fmtStr += RowPadding(offset, w+1)
+	fmtStr += RowPadding(offset, w)
 	fmtStr += `[""]` + "\n"
+
 	return fmtStr
 }
 
 // RowPadding returns a padding for a row to make it the full width of the containing widget.
-// Useful for ensurig row highlighting spans the full width (I suspect tcell has a better
+// Useful for ensuring row highlighting spans the full width (I suspect tcell has a better
 // way to do this, but I haven't yet found it)
 func RowPadding(offset int, max int) string {
 	padSize := max - offset

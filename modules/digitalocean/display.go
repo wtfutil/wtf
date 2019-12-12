@@ -6,7 +6,6 @@ import (
 
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/utils"
-	"github.com/wtfutil/wtf/wtf"
 )
 
 func (widget *Widget) content() (string, string, bool) {
@@ -16,7 +15,7 @@ func (widget *Widget) content() (string, string, bool) {
 	}
 
 	str := fmt.Sprintf(
-		" [%s]Droplets [grey](%d)[white]\n",
+		" [%s]Droplets [grey](%d)[white]\n\n",
 		widget.settings.common.Colors.Subheading,
 		len(widget.droplets),
 	)
@@ -25,10 +24,11 @@ func (widget *Widget) content() (string, string, bool) {
 		dropletName := droplet.Name
 
 		row := fmt.Sprintf(
-			"[%s] %14s %28s %12s[white]",
+			"[%s] %-24s %-8s %s[white]",
 			widget.RowColor(idx),
-			wtf.PrettyDate(strings.Split(droplet.Created, "T")[0]),
+			// wtf.PrettyDate(strings.Split(droplet.Created, "T")[0]),
 			tview.Escape(dropletName),
+			droplet.Status,
 			strings.Join(droplet.Tags, ","),
 		)
 
