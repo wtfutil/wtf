@@ -80,28 +80,28 @@ func (widget *Widget) setResult(info *ipinfo) {
 			formatableText("City", "City") +
 			formatableText("Region", "Region") +
 			formatableText("Country", "Country") +
-			formatableText("Coords", "Coordinates") +
+			formatableText("Loc", "Coordinates") +
 			formatableText("Org", "Organization"),
 	)
 
 	resultBuffer := new(bytes.Buffer)
 
 	resultTemplate.Execute(resultBuffer, map[string]string{
-		"nameColor":    widget.settings.common.Colors.Subheading,
-		"valueColor":   widget.settings.common.Colors.Text,
-		"Ip":           info.Ip,
-		"Hostname":     info.Hostname,
-		"City":         info.City,
-		"Region":       info.Region,
-		"Country":      info.Country,
-		"Coordinates":  info.Coordinates,
-		"PostalCode":   info.PostalCode,
-		"Organization": info.Organization,
+		"subheadingColor": widget.settings.common.Colors.Subheading,
+		"valueColor":      widget.settings.common.Colors.Text,
+		"Ip":              info.Ip,
+		"Hostname":        info.Hostname,
+		"City":            info.City,
+		"Region":          info.Region,
+		"Country":         info.Country,
+		"Coordinates":     info.Coordinates,
+		"PostalCode":      info.PostalCode,
+		"Organization":    info.Organization,
 	})
 
 	widget.result = resultBuffer.String()
 }
 
 func formatableText(key, value string) string {
-	return fmt.Sprintf(" [{{.nameColor}}]%8s: [{{.valueColor}}]{{.%s}}\n", key, value)
+	return fmt.Sprintf(" [{{.subheadingColor}}]%8s[-:-:-] [{{.valueColor}}]{{.%s}}\n", key, value)
 }
