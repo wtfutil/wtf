@@ -15,13 +15,17 @@ func (widget *Widget) content() (string, string, bool) {
 		return title, widget.err.Error(), true
 	}
 
-	str := fmt.Sprintf(" [red]Droplets [grey](%d)[white]\n", len(widget.droplets))
+	str := fmt.Sprintf(
+		" [%s]Droplets [grey](%d)[white]\n",
+		widget.settings.common.Colors.Subheading,
+		len(widget.droplets),
+	)
 
 	for idx, droplet := range widget.droplets {
 		dropletName := droplet.Name
 
 		row := fmt.Sprintf(
-			"[%s] %s\t%s\t%s[white]",
+			"[%s] %14s %28s %12s[white]",
 			widget.RowColor(idx),
 			wtf.PrettyDate(strings.Split(droplet.Created, "T")[0]),
 			tview.Escape(dropletName),
