@@ -94,8 +94,11 @@ func (infoTbl *infoTable) render() string {
 	}
 
 	// Pad the table with extra rows to push it to the bottom
-	for i := 0; i < infoTableBodyHeight-len(infoTbl.propertyMap); i++ {
-		tbl.Append([]string{"", ""})
+	paddingAmt := infoTableBodyHeight - len(infoTbl.propertyMap) - 1
+	if paddingAmt > 0 {
+		for i := 0; i < paddingAmt; i++ {
+			tbl.Append([]string{"", ""})
+		}
 	}
 
 	tbl.Render()

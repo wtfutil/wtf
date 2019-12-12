@@ -7,6 +7,7 @@ import (
 
 	"github.com/digitalocean/godo"
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/view"
 	"github.com/wtfutil/wtf/wtf"
 	"golang.org/x/oauth2"
@@ -238,6 +239,7 @@ func (widget *Widget) showInfo() {
 	}
 
 	dropletInfo := newInfoTable(droplet).render()
+	dropletInfo += utils.CenterText("Esc to close", 80)
 
 	modal := wtf.NewBillboardModal(dropletInfo, closeFunc)
 	modal.SetTitle(fmt.Sprintf("  %s  ", droplet.Name))
