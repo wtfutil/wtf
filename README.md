@@ -170,6 +170,7 @@ Modules are the chunks of functionality that make WTF useful. Modules are added 
 
 Some interesting modules you might consider adding to get you started:
 
+* [DigitalOcean](https://wtfutil.com/modules/digitalocean/)
 * [GitHub](https://wtfutil.com/modules/github/)
 * [Google Calendar](https://wtfutil.com/modules/google/gcal/)
 * [HackerNews](https://wtfutil.com/modules/hackernews/)
