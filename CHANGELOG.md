@@ -4,6 +4,7 @@
 
 ### ⚡️ Added
 
+* [DigitalOcean](https://wtfutil.com/modules/digitalocean/) module added, by [@senorprogrammer](https://github.com/senorprogrammer)
 * [Transmission](https://wtfutil.com/modules/transmission/) module now supports a `hideComplete` configuration setting, by [@schoentoon](https://github.com/schoentoon)
 * Pocket module added, [#742] by [@3mard](https://github.com/3mard)
 * Exchange Rates module added, by [@schoentoon](https://github.com/schoentoon)
