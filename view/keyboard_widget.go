@@ -7,7 +7,6 @@ import (
 	"github.com/gdamore/tcell"
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/cfg"
-	"github.com/wtfutil/wtf/wtf"
 )
 
 type helpItem struct {
@@ -52,6 +51,11 @@ func NewKeyboardWidget(app *tview.Application, pages *tview.Pages, settings *cfg
 func (widget *KeyboardWidget) SetKeyboardChar(char string, fn func(), helpText string) {
 	if char == "" {
 		return
+	}
+
+	// Check to ensure that the key trying to be used isn't already being used for something
+	if _, ok := widget.charMap[char]; ok {
+		panic(fmt.Sprintf("Key is already mapped to a keyboard command: %s\n", char))
 	}
 
 	widget.charMap[char] = fn
@@ -133,7 +137,7 @@ func (widget *KeyboardWidget) ShowHelp() {
 		widget.app.SetFocus(widget.view)
 	}
 
-	modal := wtf.NewBillboardModal(widget.HelpText(), closeFunc)
+	modal := NewBillboardModal(widget.HelpText(), closeFunc)
 
 	widget.pages.AddPage("help", modal, false, true)
 	widget.app.SetFocus(modal)
