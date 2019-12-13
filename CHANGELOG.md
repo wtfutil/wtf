@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 0.25.0
+
 ### ⚡️ Added
 
 * [DigitalOcean](https://wtfutil.com/modules/digitalocean/) module added, by [@senorprogrammer](https://github.com/senorprogrammer)
