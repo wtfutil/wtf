@@ -15,6 +15,7 @@
 
 * Subreddit out of bounds error fixed, [#753](https://github.com/wtfutil/wtf/issues/753) by [@TDHTTTT](https://github.com/TDHTTTT)
 * Homebrew builds now contain version information, [#557](https://github.com/wtfutil/wtf/issues/557) by [@jottr](https://github.com/jottr)
+* CmdRunner flicker problem, [#732](https://github.com/wtfutil/wtf/issues/732) by [@Gibstick](https://github.com/Gibstick)
 
 ### 👍 Updated
 
