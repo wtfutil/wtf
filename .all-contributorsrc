@@ -819,7 +819,15 @@
       "name": "jottr",
       "avatar_url": "https://avatars0.githubusercontent.com/u/2744198?v=4",
       "profile": "https://github.com/jottr",
+      "contributions": []
+    },
+    {
+      "login": "NickyMateev",
+      "name": "Nikolay Mateev",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/15074116?v=4",
+      "profile": "https://www.linkedin.com/in/nikolay-mateev-79187b167/",
       "contributions": [
+        "code"
       ]
     }
   ],
