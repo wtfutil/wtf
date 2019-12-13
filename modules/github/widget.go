@@ -157,3 +157,19 @@ func (widget *Widget) openRepo() {
 		repo.Open()
 	}
 }
+
+func (widget *Widget) openPulls() {
+	repo := widget.currentGithubRepo()
+
+	if repo != nil {
+		repo.OpenPulls()
+	}
+}
+
+func (widget *Widget) openIssues() {
+	repo := widget.currentGithubRepo()
+
+	if repo != nil {
+		repo.OpenIssues()
+	}
+}

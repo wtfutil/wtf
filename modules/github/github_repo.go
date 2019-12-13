@@ -10,6 +10,12 @@ import (
 	"golang.org/x/oauth2"
 )
 
+const (
+	pullRequestsPath = "/pulls"
+	issuesPath = "/issues"
+)
+
+
 // GithubRepo defines a new GithubRepo structure
 type GithubRepo struct {
 	apiKey    string
@@ -40,6 +46,16 @@ func NewGithubRepo(name, owner, apiKey, baseURL, uploadURL string) *GithubRepo {
 // Open will open the GitHub Repo URL using the utils helper
 func (repo *GithubRepo) Open() {
 	utils.OpenFile(*repo.RemoteRepo.HTMLURL)
+}
+
+// Open will open the GitHub Pull Requests URL using the utils helper
+func (repo *GithubRepo) OpenPulls() {
+	utils.OpenFile(*repo.RemoteRepo.HTMLURL + pullRequestsPath)
+}
+
+// Open will open the GitHub Issues URL using the utils helper
+func (repo *GithubRepo) OpenIssues() {
+	utils.OpenFile(*repo.RemoteRepo.HTMLURL + issuesPath)
 }
 
 // Refresh reloads the github data via the Github API
