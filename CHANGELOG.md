@@ -7,8 +7,9 @@
 * [Transmission](https://wtfutil.com/modules/transmission/) module now supports a `hideComplete` configuration setting, by [@schoentoon](https://github.com/schoentoon)
 * Pocket module added, [#742] by [@3mard](https://github.com/3mard)
 * Exchange Rates module added, by [@schoentoon](https://github.com/schoentoon)
-* GitHub modules supports 'p' keyboard command to open **p**ull requests, by [@NickyMateev](https://github.com/NickyMateev)
-* GitHub modules supports 'i' keyboard command to open **i**ssues, by [@NickyMateev](https://github.com/NickyMateev)
+* [GitHub](https://wtfutil.com/modules/github/) modules supports 'p' keyboard command to open **p**ull requests, by [@NickyMateev](https://github.com/NickyMateev)
+* [GitHub](https://wtfutil.com/modules/github/) modules supports 'i' keyboard command to open **i**ssues, by [@NickyMateev](https://github.com/NickyMateev)
+* [Jenkins](https://wtfutil.com/modules/jenkins/) module now supports multi-configuration projects, by [@NickyMateev](https://github.com/NickyMateev)
 
 ### 🐞 Fixed
 
