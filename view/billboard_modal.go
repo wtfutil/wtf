@@ -1,4 +1,4 @@
-package wtf
+package view
 
 import (
 	"github.com/gdamore/tcell"
@@ -9,6 +9,10 @@ const offscreen = -1000
 const modalWidth = 80
 const modalHeight = 22
 
+// NewBillboardModal creates and returns a modal dialog suitable for displaying
+// a wall of text
+// An example of this is the keyboard help modal that shows up for all widgets
+// that support keyboard control when '/' is pressed
 func NewBillboardModal(text string, closeFunc func()) *tview.Frame {
 	keyboardIntercept := func(event *tcell.EventKey) *tcell.EventKey {
 		if string(event.Rune()) == "/" {

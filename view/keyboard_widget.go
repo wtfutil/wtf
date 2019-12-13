@@ -7,7 +7,6 @@ import (
 	"github.com/gdamore/tcell"
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/cfg"
-	"github.com/wtfutil/wtf/wtf"
 )
 
 type helpItem struct {
@@ -138,7 +137,7 @@ func (widget *KeyboardWidget) ShowHelp() {
 		widget.app.SetFocus(widget.view)
 	}
 
-	modal := wtf.NewBillboardModal(widget.HelpText(), closeFunc)
+	modal := NewBillboardModal(widget.HelpText(), closeFunc)
 
 	widget.pages.AddPage("help", modal, false, true)
 	widget.app.SetFocus(modal)

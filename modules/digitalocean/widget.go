@@ -9,7 +9,6 @@ import (
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/view"
-	"github.com/wtfutil/wtf/wtf"
 	"golang.org/x/oauth2"
 )
 
@@ -242,10 +241,10 @@ func (widget *Widget) showInfo() {
 		widget.app.SetFocus(widget.View)
 	}
 
-	dropletInfo := newInfoTable(droplet).render()
-	dropletInfo += utils.CenterText("Esc to close", 80)
+	propTable := newDropletPropertiesTable(droplet).render()
+	propTable += utils.CenterText("Esc to close", 80)
 
-	modal := wtf.NewBillboardModal(dropletInfo, closeFunc)
+	modal := view.NewBillboardModal(propTable, closeFunc)
 	modal.SetTitle(fmt.Sprintf("  %s  ", droplet.Name))
 
 	widget.pages.AddPage("info", modal, false, true)

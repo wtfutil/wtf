@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/utils"
 )
 
@@ -15,7 +14,7 @@ func (widget *Widget) content() (string, string, bool) {
 	}
 
 	str := fmt.Sprintf(
-		" [%s]Droplets[-:-:-]\n\n",
+		" [%s]Droplets\n\n",
 		widget.settings.common.Colors.Subheading,
 	)
 
@@ -23,14 +22,14 @@ func (widget *Widget) content() (string, string, bool) {
 		dropletName := droplet.Name
 
 		row := fmt.Sprintf(
-			"[%s] %-24s %-8s %s[-:-:-]",
+			"[%s] %-8s %-24s %s",
 			widget.RowColor(idx),
-			utils.Truncate(tview.Escape(dropletName), 24, true),
-			widget.statusColor(droplet.Status, widget.RowColor(idx)),
+			droplet.Status,
+			dropletName,
 			utils.Truncate(strings.Join(droplet.Tags, ","), 24, true),
 		)
 
-		str += utils.HighlightableHelper(widget.View, row, idx, len(dropletName))
+		str += utils.HighlightableHelper(widget.View, row, idx, 33)
 	}
 
 	return title, str, false
@@ -38,21 +37,4 @@ func (widget *Widget) content() (string, string, bool) {
 
 func (widget *Widget) display() {
 	widget.ScrollableWidget.Redraw(widget.content)
-}
-
-func (widget *Widget) statusColor(status string, rowColor string) string {
-	color := rowColor
-
-	switch status {
-	case "active":
-		color = "green"
-	case "archive":
-		color = "gray"
-	case "new":
-		color = "yellow"
-	case "off":
-		color = "gray"
-	}
-
-	return fmt.Sprintf("[%s]%s[%s]", color, status, rowColor)
 }
