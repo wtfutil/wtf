@@ -91,6 +91,7 @@ func (c *Card) CreatedAt() time.Time {
 	return t
 }
 
+
 // CustomFields returns the card's custom fields.
 func (c *Card) CustomFields(boardCustomFields []*CustomField) map[string]interface{} {
 
@@ -99,14 +100,16 @@ func (c *Card) CustomFields(boardCustomFields []*CustomField) map[string]interfa
 	if cfm == nil {
 		cfm = &(map[string]interface{}{})
 
-		// bcfOptionNames[CustomField ID] = Custom Field Name
-		bcfOptionNames := map[string]string{}
+		// bcfNames[CustomFieldItem ID] = Custom Field Name
+		bcfNames := map[string]string{}
 
 		// bcfOptionsMap[CustomField ID][ID of the option] = Value of the option
 		bcfOptionsMap := map[string]map[string]interface{}{}
 
 		for _, bcf := range boardCustomFields {
-			bcfOptionNames[bcf.ID] = bcf.Name
+			bcfNames[bcf.ID] = bcf.Name
+
+			//Options for Dropbox field
 			for _, cf := range bcf.Options {
 				// create 2nd level map when not available yet
 				map2, ok := bcfOptionsMap[cf.IDCustomField]
@@ -120,20 +123,23 @@ func (c *Card) CustomFields(boardCustomFields []*CustomField) map[string]interfa
 		}
 
 		for _, cf := range c.CustomFieldItems {
-			name := bcfOptionNames[cf.IDCustomField]
+			if name, ok := bcfNames[cf.IDCustomField]; ok {
+				if cf.Value.Get() != nil {
+					(*cfm)[name] = cf.Value.Get()
+				} else { // Dropbox
+					// create 2nd level map when not available yet
+					map2, ok := bcfOptionsMap[cf.IDCustomField]
+					if !ok {
+						continue
+					}
+					value, ok := map2[cf.IDValue]
 
-			// create 2nd level map when not available yet
-			map2, ok := bcfOptionsMap[cf.IDCustomField]
-			if !ok {
-				continue
-			}
-			value, ok := map2[cf.IDValue]
-
-			if ok {
-				(*cfm)[name] = value
+					if ok {
+						(*cfm)[name] = value
+					}
+				}
 			}
 		}
-		c.customFieldMap = cfm
 	}
 	return *cfm
 }

@@ -29,6 +29,24 @@ type Board struct {
 	ModifiedAt        *string            `json:"modified_at,omitempty"`
 }
 
+// BoardLite represents a simplify dashboard (without widgets, notify list, ...)
+// It's used when we load all boards.
+type BoardLite struct {
+	Title        *string `json:"title,omitempty"`
+	Description  *string `json:"description,omitempty"`
+	LayoutType   *string `json:"layout_type,omitempty"`
+	Id           *string `json:"id,omitempty"`
+	Url          *string `json:"url,omitempty"`
+	AuthorHandle *string `json:"author_handle,omitempty"`
+	IsReadOnly   *bool   `json:"is_read_only,omitempty"`
+	CreatedAt    *string `json:"created_at,omitempty"`
+	ModifiedAt   *string `json:"modified_at,omitempty"`
+}
+
+type reqGetBoards struct {
+	Boards []BoardLite `json:"dashboards,omitempty"`
+}
+
 // GetBoard returns a single dashboard created on this account.
 func (client *Client) GetBoard(id string) (*Board, error) {
 	var board Board
@@ -56,4 +74,14 @@ func (client *Client) CreateBoard(board *Board) (*Board, error) {
 // Use this if you've updated your local and need to push it back.
 func (client *Client) UpdateBoard(board *Board) error {
 	return client.doJsonRequest("PUT", fmt.Sprintf("/v1/dashboard/%s", *board.Id), board, nil)
+}
+
+// GetBoards returns all Dashboards.
+func (client *Client) GetBoards() ([]BoardLite, error) {
+	var out reqGetBoards
+	if err := client.doJsonRequest("GET", "/v1/dashboard", nil, &out); err != nil {
+		return nil, err
+	}
+
+	return out.Boards, nil
 }

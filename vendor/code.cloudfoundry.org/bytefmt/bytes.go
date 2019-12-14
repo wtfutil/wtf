@@ -18,11 +18,15 @@ const (
 	MEGABYTE
 	GIGABYTE
 	TERABYTE
+	PETABYTE
+	EXABYTE
 )
 
 var invalidByteQuantityError = errors.New("byte quantity must be a positive integer with a unit of measurement like M, MB, MiB, G, GiB, or GB")
 
 // ByteSize returns a human-readable byte string of the form 10M, 12.5K, and so forth.  The following units are available:
+//	E: Exabyte
+//	P: Petabyte
 //	T: Terabyte
 //	G: Gigabyte
 //	M: Megabyte
@@ -34,6 +38,12 @@ func ByteSize(bytes uint64) string {
 	value := float64(bytes)
 
 	switch {
+	case bytes >= EXABYTE:
+		unit = "E"
+		value = value / EXABYTE
+	case bytes >= PETABYTE:
+		unit = "P"
+		value = value / PETABYTE
 	case bytes >= TERABYTE:
 		unit = "T"
 		value = value / TERABYTE
@@ -49,7 +59,7 @@ func ByteSize(bytes uint64) string {
 	case bytes >= BYTE:
 		unit = "B"
 	case bytes == 0:
-		return "0"
+		return "0B"
 	}
 
 	result := strconv.FormatFloat(value, 'f', 1, 64)
@@ -72,6 +82,8 @@ func ToMegabytes(s string) (uint64, error) {
 // MB = M = MiB = 1024 * K
 // GB = G = GiB = 1024 * M
 // TB = T = TiB = 1024 * G
+// PB = P = PiB = 1024 * T
+// EB = E = EiB = 1024 * P
 func ToBytes(s string) (uint64, error) {
 	s = strings.TrimSpace(s)
 	s = strings.ToUpper(s)
@@ -84,11 +96,15 @@ func ToBytes(s string) (uint64, error) {
 
 	bytesString, multiple := s[:i], s[i:]
 	bytes, err := strconv.ParseFloat(bytesString, 64)
-	if err != nil || bytes <= 0 {
+	if err != nil || bytes < 0 {
 		return 0, invalidByteQuantityError
 	}
 
 	switch multiple {
+	case "E", "EB", "EIB":
+		return uint64(bytes * EXABYTE), nil
+	case "P", "PB", "PIB":
+		return uint64(bytes * PETABYTE), nil
 	case "T", "TB", "TIB":
 		return uint64(bytes * TERABYTE), nil
 	case "G", "GB", "GIB":

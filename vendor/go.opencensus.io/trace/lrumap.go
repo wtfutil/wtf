@@ -15,47 +15,23 @@
 package trace
 
 import (
-	"github.com/golang/groupcache/lru"
+	"github.com/hashicorp/golang-lru/simplelru"
 )
 
-// A simple lru.Cache wrapper that tracks the keys of the current contents and
-// the cumulative number of evicted items.
 type lruMap struct {
-	cacheKeys    map[lru.Key]bool
-	cache        *lru.Cache
+	simpleLruMap *simplelru.LRU
 	droppedCount int
 }
 
 func newLruMap(size int) *lruMap {
-	lm := &lruMap{
-		cacheKeys:    make(map[lru.Key]bool),
-		cache:        lru.New(size),
-		droppedCount: 0,
-	}
-	lm.cache.OnEvicted = func(key lru.Key, value interface{}) {
-		delete(lm.cacheKeys, key)
-		lm.droppedCount++
-	}
+	lm := &lruMap{}
+	lm.simpleLruMap, _ = simplelru.NewLRU(size, nil)
 	return lm
 }
 
-func (lm lruMap) len() int {
-	return lm.cache.Len()
-}
-
-func (lm lruMap) keys() []interface{} {
-	keys := []interface{}{}
-	for k := range lm.cacheKeys {
-		keys = append(keys, k)
-	}
-	return keys
-}
-
 func (lm *lruMap) add(key, value interface{}) {
-	lm.cacheKeys[lru.Key(key)] = true
-	lm.cache.Add(lru.Key(key), value)
-}
-
-func (lm *lruMap) get(key interface{}) (interface{}, bool) {
-	return lm.cache.Get(key)
+	evicted := lm.simpleLruMap.Add(key, value)
+	if evicted {
+		lm.droppedCount++
+	}
 }

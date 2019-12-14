@@ -11,6 +11,7 @@ import (
 var TTY16m = Register("terminal16m", chroma.FormatterFunc(trueColourFormatter))
 
 func trueColourFormatter(w io.Writer, style *chroma.Style, it chroma.Iterator) error {
+	style = clearBackground(style)
 	for token := it(); token != chroma.EOF; token = it() {
 		entry := style.Get(token.Type)
 		if !entry.IsZero() {
@@ -20,6 +21,9 @@ func trueColourFormatter(w io.Writer, style *chroma.Style, it chroma.Iterator) e
 			}
 			if entry.Underline == chroma.Yes {
 				out += "\033[4m"
+			}
+			if entry.Italic == chroma.Yes {
+				out += "\033[3m"
 			}
 			if entry.Colour.IsSet() {
 				out += fmt.Sprintf("\033[38;2;%d;%d;%dm", entry.Colour.Red(), entry.Colour.Green(), entry.Colour.Blue())

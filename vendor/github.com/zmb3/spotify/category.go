@@ -28,7 +28,7 @@ type Category struct {
 // category strings in a particular language (for example: "es_MX" means
 // get categories in Mexico, returned in Spanish).
 //
-// This call requries authorization.
+// This call requires authorization.
 func (c *Client) GetCategoryOpt(id, country, locale string) (Category, error) {
 	cat := Category{}
 	spotifyURL := fmt.Sprintf("%sbrowse/categories/%s", c.baseURL, id)
@@ -57,7 +57,7 @@ func (c *Client) GetCategory(id string) (Category, error) {
 	return c.GetCategoryOpt(id, "", "")
 }
 
-// GetCategoryPlaylists gets a list of Spotify playlists tagged with a paricular category.
+// GetCategoryPlaylists gets a list of Spotify playlists tagged with a particular category.
 func (c *Client) GetCategoryPlaylists(catID string) (*SimplePlaylistPage, error) {
 	return c.GetCategoryPlaylistsOpt(catID, nil)
 }

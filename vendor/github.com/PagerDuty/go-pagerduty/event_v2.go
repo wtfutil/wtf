@@ -14,6 +14,7 @@ type V2Event struct {
 	Action     string        `json:"event_action"`
 	DedupKey   string        `json:"dedup_key,omitempty"`
 	Images     []interface{} `json:"images,omitempty"`
+	Links      []interface{} `json:"links,omitempty"`
 	Client     string        `json:"client,omitempty"`
 	ClientURL  string        `json:"client_url,omitempty"`
 	Payload    *V2Payload    `json:"payload,omitempty"`

@@ -405,7 +405,7 @@ func (s *AwardEmojiService) createAwardEmojiOnNote(pid interface{}, resource str
 		noteID,
 	)
 
-	req, err := s.client.NewRequest("POST", u, nil, options)
+	req, err := s.client.NewRequest("POST", u, opt, options)
 	if err != nil {
 		return nil, nil, err
 	}

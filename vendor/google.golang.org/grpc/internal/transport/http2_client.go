@@ -117,8 +117,6 @@ type http2Client struct {
 
 	onGoAway func(GoAwayReason)
 	onClose  func()
-
-	bufferPool *bufferPool
 }
 
 func dial(ctx context.Context, fn func(context.Context, string) (net.Conn, error), addr string) (net.Conn, error) {
@@ -251,7 +249,6 @@ func newHTTP2Client(connectCtx, ctx context.Context, addr TargetInfo, opts Conne
 		onGoAway:              onGoAway,
 		onClose:               onClose,
 		keepaliveEnabled:      keepaliveEnabled,
-		bufferPool:            newBufferPool(),
 	}
 	t.controlBuf = newControlBuffer(t.ctxDone)
 	if opts.InitialWindowSize >= defaultWindowSize {
@@ -370,7 +367,6 @@ func (t *http2Client) newStream(ctx context.Context, callHdr *CallHdr) *Stream {
 			closeStream: func(err error) {
 				t.CloseStream(s, err)
 			},
-			freeBuffer: t.bufferPool.put,
 		},
 		windowHandler: func(n int) {
 			t.updateWindow(s, uint32(n))
@@ -441,15 +437,6 @@ func (t *http2Client) createHeaderFields(ctx context.Context, callHdr *CallHdr) 
 
 	if md, added, ok := metadata.FromOutgoingContextRaw(ctx); ok {
 		var k string
-		for k, vv := range md {
-			// HTTP doesn't allow you to set pseudoheaders after non pseudoheaders were set.
-			if isReservedHeader(k) {
-				continue
-			}
-			for _, v := range vv {
-				headerFields = append(headerFields, hpack.HeaderField{Name: k, Value: encodeMetadataHeader(k, v)})
-			}
-		}
 		for _, vv := range added {
 			for i, v := range vv {
 				if i%2 == 0 {
@@ -461,6 +448,15 @@ func (t *http2Client) createHeaderFields(ctx context.Context, callHdr *CallHdr) 
 					continue
 				}
 				headerFields = append(headerFields, hpack.HeaderField{Name: strings.ToLower(k), Value: encodeMetadataHeader(k, v)})
+			}
+		}
+		for k, vv := range md {
+			// HTTP doesn't allow you to set pseudoheaders after non pseudoheaders were set.
+			if isReservedHeader(k) {
+				continue
+			}
+			for _, v := range vv {
+				headerFields = append(headerFields, hpack.HeaderField{Name: k, Value: encodeMetadataHeader(k, v)})
 			}
 		}
 	}
@@ -493,9 +489,6 @@ func (t *http2Client) createAudience(callHdr *CallHdr) string {
 }
 
 func (t *http2Client) getTrAuthData(ctx context.Context, audience string) (map[string]string, error) {
-	if len(t.perRPCCreds) == 0 {
-		return nil, nil
-	}
 	authData := map[string]string{}
 	for _, c := range t.perRPCCreds {
 		data, err := c.GetRequestMetadata(ctx, audience)
@@ -516,7 +509,7 @@ func (t *http2Client) getTrAuthData(ctx context.Context, audience string) (map[s
 }
 
 func (t *http2Client) getCallAuthData(ctx context.Context, audience string, callHdr *CallHdr) (map[string]string, error) {
-	var callAuthData map[string]string
+	callAuthData := map[string]string{}
 	// Check if credentials.PerRPCCredentials were provided via call options.
 	// Note: if these credentials are provided both via dial options and call
 	// options, then both sets of credentials will be applied.
@@ -528,7 +521,6 @@ func (t *http2Client) getCallAuthData(ctx context.Context, audience string, call
 		if err != nil {
 			return nil, status.Errorf(codes.Internal, "transport: %v", err)
 		}
-		callAuthData = make(map[string]string, len(data))
 		for k, v := range data {
 			// Capital header names are illegal in HTTP/2
 			k = strings.ToLower(k)
@@ -557,9 +549,10 @@ func (t *http2Client) NewStream(ctx context.Context, callHdr *CallHdr) (_ *Strea
 		s.write(recvMsg{err: err})
 		close(s.done)
 		// If headerChan isn't closed, then close it.
-		if atomic.CompareAndSwapUint32(&s.headerChanClosed, 0, 1) {
+		if atomic.SwapUint32(&s.headerDone, 1) == 0 {
 			close(s.headerChan)
 		}
+
 	}
 	hdr := &headerFrame{
 		hf:        headerFields,
@@ -720,7 +713,7 @@ func (t *http2Client) closeStream(s *Stream, err error, rst bool, rstCode http2.
 		s.write(recvMsg{err: err})
 	}
 	// If headerChan isn't closed, then close it.
-	if atomic.CompareAndSwapUint32(&s.headerChanClosed, 0, 1) {
+	if atomic.SwapUint32(&s.headerDone, 1) == 0 {
 		s.noHeaders = true
 		close(s.headerChan)
 	}
@@ -772,9 +765,6 @@ func (t *http2Client) Close() error {
 		t.mu.Unlock()
 		return nil
 	}
-	// Call t.onClose before setting the state to closing to prevent the client
-	// from attempting to create new streams ASAP.
-	t.onClose()
 	t.state = closing
 	streams := t.activeStreams
 	t.activeStreams = nil
@@ -795,6 +785,7 @@ func (t *http2Client) Close() error {
 		}
 		t.statsHandler.HandleConn(t.ctx, connEnd)
 	}
+	t.onClose()
 	return err
 }
 
@@ -803,21 +794,21 @@ func (t *http2Client) Close() error {
 // stream is closed.  If there are no active streams, the transport is closed
 // immediately.  This does nothing if the transport is already draining or
 // closing.
-func (t *http2Client) GracefulClose() {
+func (t *http2Client) GracefulClose() error {
 	t.mu.Lock()
 	// Make sure we move to draining only from active.
 	if t.state == draining || t.state == closing {
 		t.mu.Unlock()
-		return
+		return nil
 	}
 	t.state = draining
 	active := len(t.activeStreams)
 	t.mu.Unlock()
 	if active == 0 {
-		t.Close()
-		return
+		return t.Close()
 	}
 	t.controlBuf.put(&incomingGoAway{})
+	return nil
 }
 
 // Write formats the data into HTTP2 data frame(s) and sends it out. The caller
@@ -955,10 +946,9 @@ func (t *http2Client) handleData(f *http2.DataFrame) {
 		// guarantee f.Data() is consumed before the arrival of next frame.
 		// Can this copy be eliminated?
 		if len(f.Data()) > 0 {
-			buffer := t.bufferPool.get()
-			buffer.Reset()
-			buffer.Write(f.Data())
-			s.write(recvMsg{buffer: buffer})
+			data := make([]byte, len(f.Data()))
+			copy(data, f.Data())
+			s.write(recvMsg{data: data})
 		}
 	}
 	// The server has closed the stream without sending trailers.  Record that
@@ -983,9 +973,9 @@ func (t *http2Client) handleRSTStream(f *http2.RSTStreamFrame) {
 		statusCode = codes.Unknown
 	}
 	if statusCode == codes.Canceled {
-		if d, ok := s.ctx.Deadline(); ok && !d.After(time.Now()) {
-			// Our deadline was already exceeded, and that was likely the cause
-			// of this cancelation.  Alter the status code accordingly.
+		// Our deadline was already exceeded, and that was likely the cause of
+		// this cancelation.  Alter the status code accordingly.
+		if d, ok := s.ctx.Deadline(); ok && d.After(time.Now()) {
 			statusCode = codes.DeadlineExceeded
 		}
 	}
@@ -1090,12 +1080,11 @@ func (t *http2Client) handleGoAway(f *http2.GoAwayFrame) {
 	default:
 		t.setGoAwayReason(f)
 		close(t.goAway)
-		t.controlBuf.put(&incomingGoAway{})
-		// Notify the clientconn about the GOAWAY before we set the state to
-		// draining, to allow the client to stop attempting to create streams
-		// before disallowing new streams on this connection.
-		t.onGoAway(t.goAwayReason)
 		t.state = draining
+		t.controlBuf.put(&incomingGoAway{})
+
+		// This has to be a new goroutine because we're still using the current goroutine to read in the transport.
+		t.onGoAway(t.goAwayReason)
 	}
 	// All streams with IDs greater than the GoAwayId
 	// and smaller than the previous GoAway ID should be killed.
@@ -1153,24 +1142,26 @@ func (t *http2Client) operateHeaders(frame *http2.MetaHeadersFrame) {
 	}
 	endStream := frame.StreamEnded()
 	atomic.StoreUint32(&s.bytesReceived, 1)
-	initialHeader := atomic.LoadUint32(&s.headerChanClosed) == 0
+	initialHeader := atomic.SwapUint32(&s.headerDone, 1) == 0
 
 	if !initialHeader && !endStream {
-		// As specified by gRPC over HTTP2, a HEADERS frame (and associated CONTINUATION frames) can only appear at the start or end of a stream. Therefore, second HEADERS frame must have EOS bit set.
+		// As specified by RFC 7540, a HEADERS frame (and associated CONTINUATION frames) can only appear
+		// at the start or end of a stream. Therefore, second HEADERS frame must have EOS bit set.
 		st := status.New(codes.Internal, "a HEADERS frame cannot appear in the middle of a stream")
 		t.closeStream(s, st.Err(), true, http2.ErrCodeProtocol, st, nil, false)
 		return
 	}
 
 	state := &decodeState{}
-	// Initialize isGRPC value to be !initialHeader, since if a gRPC Response-Headers has already been received, then it means that the peer is speaking gRPC and we are in gRPC mode.
+	// Initialize isGRPC value to be !initialHeader, since if a gRPC ResponseHeader has been received
+	// which indicates peer speaking gRPC, we are in gRPC mode.
 	state.data.isGRPC = !initialHeader
 	if err := state.decodeHeader(frame); err != nil {
 		t.closeStream(s, err, true, http2.ErrCodeProtocol, status.Convert(err), nil, endStream)
 		return
 	}
 
-	isHeader := false
+	var isHeader bool
 	defer func() {
 		if t.statsHandler != nil {
 			if isHeader {
@@ -1189,10 +1180,10 @@ func (t *http2Client) operateHeaders(frame *http2.MetaHeadersFrame) {
 		}
 	}()
 
-	// If headerChan hasn't been closed yet
-	if atomic.CompareAndSwapUint32(&s.headerChanClosed, 0, 1) {
+	// If headers haven't been received yet.
+	if initialHeader {
 		if !endStream {
-			// HEADERS frame block carries a Response-Headers.
+			// Headers frame is ResponseHeader.
 			isHeader = true
 			// These values can be set without any synchronization because
 			// stream goroutine will read it only after seeing a closed
@@ -1201,15 +1192,12 @@ func (t *http2Client) operateHeaders(frame *http2.MetaHeadersFrame) {
 			if len(state.data.mdata) > 0 {
 				s.header = state.data.mdata
 			}
-		} else {
-			// HEADERS frame block carries a Trailers-Only.
-			s.noHeaders = true
+			close(s.headerChan)
+			return
 		}
+		// Headers frame is Trailers-only.
+		s.noHeaders = true
 		close(s.headerChan)
-	}
-
-	if !endStream {
-		return
 	}
 
 	// if client received END_STREAM from server while stream was still active, send RST_STREAM
@@ -1245,7 +1233,6 @@ func (t *http2Client) reader() {
 
 	// loop to keep reading incoming messages on this transport.
 	for {
-		t.controlBuf.throttle()
 		frame, err := t.framer.fr.ReadFrame()
 		if t.keepaliveEnabled {
 			atomic.CompareAndSwapUint32(&t.activity, 0, 1)
@@ -1333,7 +1320,6 @@ func (t *http2Client) keepalive() {
 					timer.Reset(t.kp.Time)
 					continue
 				}
-				infof("transport: closing client transport due to idleness.")
 				t.Close()
 				return
 			case <-t.ctx.Done():

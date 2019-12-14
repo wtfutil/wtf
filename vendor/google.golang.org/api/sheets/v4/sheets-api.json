@@ -809,7 +809,7 @@
       }
     }
   },
-  "revision": "20190813",
+  "revision": "20191105",
   "rootUrl": "https://sheets.googleapis.com/",
   "schemas": {
     "AddBandingRequest": {
@@ -985,6 +985,28 @@
       },
       "type": "object"
     },
+    "AddSlicerRequest": {
+      "description": "Adds a slicer to a sheet in the spreadsheet.",
+      "id": "AddSlicerRequest",
+      "properties": {
+        "slicer": {
+          "$ref": "Slicer",
+          "description": "The slicer that should be added to the spreadsheet, including\nthe position where it should be placed. The slicerId field is optional; if one is not set, an id\nwill be randomly generated. (It is an error to specify the ID\nof a slicer that already exists.)"
+        }
+      },
+      "type": "object"
+    },
+    "AddSlicerResponse": {
+      "description": "The result of adding a slicer to a spreadsheet.",
+      "id": "AddSlicerResponse",
+      "properties": {
+        "slicer": {
+          "$ref": "Slicer",
+          "description": "The newly added slicer."
+        }
+      },
+      "type": "object"
+    },
     "AppendCellsRequest": {
       "description": "Adds new cells after the last row with data in a sheet,\ninserting new rows into the sheet if necessary.",
       "id": "AppendCellsRequest",
@@ -1132,6 +1154,47 @@
         "secondBandColor": {
           "$ref": "Color",
           "description": "The second color that is alternating. (Required)"
+        }
+      },
+      "type": "object"
+    },
+    "BaselineValueFormat": {
+      "description": "Formatting options for baseline value.",
+      "id": "BaselineValueFormat",
+      "properties": {
+        "comparisonType": {
+          "description": "The comparison type of key value with baseline value.",
+          "enum": [
+            "COMPARISON_TYPE_UNDEFINED",
+            "ABSOLUTE_DIFFERENCE",
+            "PERCENTAGE_DIFFERENCE"
+          ],
+          "enumDescriptions": [
+            "Default value, do not use.",
+            "Use absolute difference between key and baseline value.",
+            "Use percentage difference between key and baseline value."
+          ],
+          "type": "string"
+        },
+        "description": {
+          "description": "Description which is appended after the baseline value.\nThis field is optional.",
+          "type": "string"
+        },
+        "negativeColor": {
+          "$ref": "Color",
+          "description": "Color to be used, in case baseline value represents a negative change for\nkey value. This field is optional."
+        },
+        "position": {
+          "$ref": "TextPosition",
+          "description": "Specifies the horizontal text positioning of baseline value.\nThis field is optional. If not specified, default positioning is used."
+        },
+        "positiveColor": {
+          "$ref": "Color",
+          "description": "Color to be used, in case baseline value represents a positive change for\nkey value. This field is optional."
+        },
+        "textFormat": {
+          "$ref": "TextFormat",
+          "description": "Text formatting options for baseline value."
         }
       },
       "type": "object"
@@ -2281,6 +2344,21 @@
       },
       "type": "object"
     },
+    "ChartCustomNumberFormatOptions": {
+      "description": "Custom number formatting options for chart attributes.",
+      "id": "ChartCustomNumberFormatOptions",
+      "properties": {
+        "prefix": {
+          "description": "Custom prefix to be prepended to the chart attribute.\nThis field is optional.",
+          "type": "string"
+        },
+        "suffix": {
+          "description": "Custom suffix to be appended to the chart attribute.\nThis field is optional.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
     "ChartData": {
       "description": "The data included in a domain or series.",
       "id": "ChartData",
@@ -2367,6 +2445,10 @@
         "pieChart": {
           "$ref": "PieChartSpec",
           "description": "A pie chart specification."
+        },
+        "scorecardChart": {
+          "$ref": "ScorecardChartSpec",
+          "description": "A scorecard chart specification."
         },
         "subtitle": {
           "description": "The subtitle of the chart.",
@@ -3411,6 +3493,14 @@
             "type": "string"
           },
           "type": "array"
+        },
+        "visibleBackgroundColor": {
+          "$ref": "Color",
+          "description": "The background fill color to filter by; only cells with this fill color are\nshown. Mutually exclusive with all other filter criteria. Requests to set\nthis field will fail with a 400 error if any other filter criteria field is\nset."
+        },
+        "visibleForegroundColor": {
+          "$ref": "Color",
+          "description": "The text color to filter by; only cells with this text color are shown.\nMutually exclusive with all other filter criteria. Requests to set this\nfield will fail with a 400 error if any other filter criteria field is set."
         }
       },
       "type": "object"
@@ -3872,6 +3962,21 @@
           "description": "When iterative calculation is enabled, the maximum number of calculation\nrounds to perform.",
           "format": "int32",
           "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "KeyValueFormat": {
+      "description": "Formatting options for key value.",
+      "id": "KeyValueFormat",
+      "properties": {
+        "position": {
+          "$ref": "TextPosition",
+          "description": "Specifies the horizontal text positioning of key value.\nThis field is optional. If not specified, default positioning is used."
+        },
+        "textFormat": {
+          "$ref": "TextFormat",
+          "description": "Text formatting options for key value."
         }
       },
       "type": "object"
@@ -4626,6 +4731,10 @@
           "$ref": "AddSheetRequest",
           "description": "Adds a sheet."
         },
+        "addSlicer": {
+          "$ref": "AddSlicerRequest",
+          "description": "Adds a slicer."
+        },
         "appendCells": {
           "$ref": "AppendCellsRequest",
           "description": "Appends cells after the last row with data in a sheet."
@@ -4822,6 +4931,10 @@
           "$ref": "UpdateSheetPropertiesRequest",
           "description": "Updates a sheet's properties."
         },
+        "updateSlicerSpec": {
+          "$ref": "UpdateSlicerSpecRequest",
+          "description": "Updates a slicer's specifications."
+        },
         "updateSpreadsheetProperties": {
           "$ref": "UpdateSpreadsheetPropertiesRequest",
           "description": "Updates the spreadsheet's properties."
@@ -4860,6 +4973,10 @@
         "addSheet": {
           "$ref": "AddSheetResponse",
           "description": "A reply from adding a sheet."
+        },
+        "addSlicer": {
+          "$ref": "AddSlicerResponse",
+          "description": "A reply from adding a slicer."
         },
         "createDeveloperMetadata": {
           "$ref": "CreateDeveloperMetadataResponse",
@@ -4922,6 +5039,74 @@
             "$ref": "CellData"
           },
           "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "ScorecardChartSpec": {
+      "description": "A scorecard chart. Scorecard charts are used to highlight key performance\nindicators, known as KPIs, on the spreadsheet. A scorecard chart can\nrepresent things like total sales, average cost, or a top selling item. You\ncan specify a single data value, or aggregate over a range of data.\nPercentage or absolute difference from a baseline value can be highlighted,\nlike changes over time.",
+      "id": "ScorecardChartSpec",
+      "properties": {
+        "aggregateType": {
+          "description": "The aggregation type for key and baseline chart data in scorecard chart.\nThis field is optional.",
+          "enum": [
+            "CHART_AGGREGATE_TYPE_UNSPECIFIED",
+            "AVERAGE",
+            "COUNT",
+            "MAX",
+            "MEDIAN",
+            "MIN",
+            "SUM"
+          ],
+          "enumDescriptions": [
+            "Default value, do not use.",
+            "Average aggregate function.",
+            "Count aggregate function.",
+            "Maximum aggregate function.",
+            "Median aggregate function.",
+            "Minimum aggregate function.",
+            "Sum aggregate function."
+          ],
+          "type": "string"
+        },
+        "baselineValueData": {
+          "$ref": "ChartData",
+          "description": "The data for scorecard baseline value.\nThis field is optional."
+        },
+        "baselineValueFormat": {
+          "$ref": "BaselineValueFormat",
+          "description": "Formatting options for baseline value.\nThis field is needed only if baseline_value_data is specified."
+        },
+        "customFormatOptions": {
+          "$ref": "ChartCustomNumberFormatOptions",
+          "description": "Custom formatting options for numeric key/baseline values in scorecard\nchart. This field is used only when number_format_source is set to\nCUSTOM. This field is optional."
+        },
+        "keyValueData": {
+          "$ref": "ChartData",
+          "description": "The data for scorecard key value."
+        },
+        "keyValueFormat": {
+          "$ref": "KeyValueFormat",
+          "description": "Formatting options for key value."
+        },
+        "numberFormatSource": {
+          "description": "The number format source used in the scorecard chart.\nThis field is optional.",
+          "enum": [
+            "CHART_NUMBER_FORMAT_SOURCE_UNDEFINED",
+            "FROM_DATA",
+            "CUSTOM"
+          ],
+          "enumDescriptions": [
+            "Default value, do not use.",
+            "Inherit number formatting from data.",
+            "Apply custom formatting as specified by ChartCustomNumberFormatOptions."
+          ],
+          "type": "string"
+        },
+        "scaleFactor": {
+          "description": "Value to scale scorecard key and baseline value. For example, a factor of\n10 can be used to divide all values in the chart by 10.\nThis field is optional.",
+          "format": "double",
+          "type": "number"
         }
       },
       "type": "object"
@@ -5061,6 +5246,13 @@
             "$ref": "DimensionGroup"
           },
           "type": "array"
+        },
+        "slicers": {
+          "description": "The slicers on this sheet.",
+          "items": {
+            "$ref": "Slicer"
+          },
+          "type": "array"
         }
       },
       "type": "object"
@@ -5116,6 +5308,78 @@
       },
       "type": "object"
     },
+    "Slicer": {
+      "description": "A slicer in a sheet.",
+      "id": "Slicer",
+      "properties": {
+        "position": {
+          "$ref": "EmbeddedObjectPosition",
+          "description": "The position of the slicer. Note that slicer can be positioned only on\nexisting sheet. Also, width and height of slicer can be automatically\nadjusted to keep it within permitted limits."
+        },
+        "slicerId": {
+          "description": "The ID of the slicer.",
+          "format": "int32",
+          "type": "integer"
+        },
+        "spec": {
+          "$ref": "SlicerSpec",
+          "description": "The specification of the slicer."
+        }
+      },
+      "type": "object"
+    },
+    "SlicerSpec": {
+      "description": "The specifications of a slicer.",
+      "id": "SlicerSpec",
+      "properties": {
+        "applyToPivotTables": {
+          "description": "True if the filter should apply to pivot tables.\nIf not set, default to `True`.",
+          "type": "boolean"
+        },
+        "backgroundColor": {
+          "$ref": "Color",
+          "description": "The background color of the slicer."
+        },
+        "columnIndex": {
+          "description": "The column index in the data table on which the filter is applied to.",
+          "format": "int32",
+          "type": "integer"
+        },
+        "dataRange": {
+          "$ref": "GridRange",
+          "description": "The data range of the slicer."
+        },
+        "filterCriteria": {
+          "$ref": "FilterCriteria",
+          "description": "The filtering criteria of the slicer."
+        },
+        "horizontalAlignment": {
+          "description": "The horizontal alignment of title in the slicer.\nIf unspecified, defaults to `LEFT`",
+          "enum": [
+            "HORIZONTAL_ALIGN_UNSPECIFIED",
+            "LEFT",
+            "CENTER",
+            "RIGHT"
+          ],
+          "enumDescriptions": [
+            "The horizontal alignment is not specified. Do not use this.",
+            "The text is explicitly aligned to the left of the cell.",
+            "The text is explicitly aligned to the center of the cell.",
+            "The text is explicitly aligned to the right of the cell."
+          ],
+          "type": "string"
+        },
+        "textFormat": {
+          "$ref": "TextFormat",
+          "description": "The text format of title in the slicer."
+        },
+        "title": {
+          "description": "The title of the slicer.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
     "SortRangeRequest": {
       "description": "Sorts data in rows based on a sort order per column.",
       "id": "SortRangeRequest",
@@ -5138,10 +5402,18 @@
       "description": "A sort order associated with a specific column or row.",
       "id": "SortSpec",
       "properties": {
+        "backgroundColor": {
+          "$ref": "Color",
+          "description": "The background fill color to sort by. Mutually exclusive with sorting by\ntext color. Requests to set this field will fail with a 400 error if\nforeground color is also set."
+        },
         "dimensionIndex": {
           "description": "The dimension the sort should be applied to.",
           "format": "int32",
           "type": "integer"
+        },
+        "foregroundColor": {
+          "$ref": "Color",
+          "description": "The text color to sort by. Mutually exclusive with sorting by background\nfill color. Requests to set this field will fail with a 400 error if\nbackground color is also set."
         },
         "sortOrder": {
           "description": "The order data should be sorted.",
@@ -5827,6 +6099,27 @@
         "properties": {
           "$ref": "SheetProperties",
           "description": "The properties to update."
+        }
+      },
+      "type": "object"
+    },
+    "UpdateSlicerSpecRequest": {
+      "description": "Updates a slicer’s specifications.\n(This does not move or resize a slicer. To move or resize a slicer use\nUpdateEmbeddedObjectPositionRequest.",
+      "id": "UpdateSlicerSpecRequest",
+      "properties": {
+        "fields": {
+          "description": "The fields that should be updated.  At least one field must be specified.\nThe root `SlicerSpec` is implied and should not be specified. A single \"*\"`\ncan be used as short-hand for listing every field.",
+          "format": "google-fieldmask",
+          "type": "string"
+        },
+        "slicerId": {
+          "description": "The id of the slicer to update.",
+          "format": "int32",
+          "type": "integer"
+        },
+        "spec": {
+          "$ref": "SlicerSpec",
+          "description": "The specification to apply to the slicer."
         }
       },
       "type": "object"

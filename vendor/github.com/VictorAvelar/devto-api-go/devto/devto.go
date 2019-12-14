@@ -15,7 +15,7 @@ const (
 	APIKeyHeader string = "api-key"
 )
 
-//devto client errors
+// devto client errors
 var (
 	ErrMissingConfig     = errors.New("missing configuration")
 	ErrProtectedEndpoint = errors.New("to use this resource you need to provide an authentication method")
@@ -25,8 +25,8 @@ type httpClient interface {
 	Do(req *http.Request) (res *http.Response, err error)
 }
 
-//Client is the main data structure for performing actions
-//against dev.to API
+// Client is the main data structure for performing actions
+// against dev.to API
 type Client struct {
 	Context    context.Context
 	BaseURL    *url.URL
@@ -35,8 +35,8 @@ type Client struct {
 	Articles   *ArticlesResource
 }
 
-//NewClient takes a context, a configuration pointer and optionally a
-//base http client (bc) to build an Client instance.
+// NewClient takes a context, a configuration pointer and optionally a
+// base http client (bc) to build an Client instance.
 func NewClient(ctx context.Context, conf *Config, bc httpClient, bu string) (dev *Client, err error) {
 	if bc == nil {
 		bc = http.DefaultClient
@@ -54,7 +54,10 @@ func NewClient(ctx context.Context, conf *Config, bc httpClient, bu string) (dev
 		bu = BaseURL
 	}
 
-	u, _ := url.Parse(bu)
+	u, err := url.Parse(bu)
+	if err != nil {
+		return nil, err
+	}
 
 	c := &Client{
 		Context:    ctx,
@@ -66,7 +69,7 @@ func NewClient(ctx context.Context, conf *Config, bc httpClient, bu string) (dev
 	return c, nil
 }
 
-//NewRequest build the request relative to the client BaseURL
+// NewRequest build the request relative to the client BaseURL
 func (c *Client) NewRequest(method string, uri string, body io.Reader) (*http.Request, error) {
 	u, err := url.Parse(uri)
 	if err != nil {

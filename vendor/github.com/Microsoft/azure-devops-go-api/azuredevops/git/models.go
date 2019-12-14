@@ -1454,7 +1454,7 @@ type GitPullRequestCompletionOptions struct {
 	MergeCommitMessage *string `json:"mergeCommitMessage,omitempty"`
 	// Specify the strategy used to merge the pull request during completion. If MergeStrategy is not set to any value, a no-FF merge will be created if SquashMerge == false. If MergeStrategy is not set to any value, the pull request commits will be squash if SquashMerge == true. The SquashMerge member is deprecated. It is recommended that you explicitly set MergeStrategy in all cases. If an explicit value is provided for MergeStrategy, the SquashMerge member will be ignored.
 	MergeStrategy *GitPullRequestMergeStrategy `json:"mergeStrategy,omitempty"`
-	// SquashMerge is deprecated. You should explicity set the value of MergeStrategy. If MergeStrategy is set to any value, the SquashMerge value will be ignored. If MergeStrategy is not set, the merge strategy will be no-fast-forward if this flag is false, or squash if true.
+	// SquashMerge is deprecated. You should explicitly set the value of MergeStrategy. If MergeStrategy is set to any value, the SquashMerge value will be ignored. If MergeStrategy is not set, the merge strategy will be no-fast-forward if this flag is false, or squash if true.
 	SquashMerge *bool `json:"squashMerge,omitempty"`
 	// If true, we will attempt to transition any work items linked to the pull request into the next logical state (i.e. Active -> Resolved)
 	TransitionWorkItems *bool `json:"transitionWorkItems,omitempty"`
@@ -2162,7 +2162,7 @@ type GitTemplate struct {
 type GitTreeDiff struct {
 	// ObjectId of the base tree of this diff.
 	BaseTreeId *string `json:"baseTreeId,omitempty"`
-	// List of tree entries that differ between the base and target tree.  Renames and object type changes are returned as a delete for the old object and add for the new object.  If a continuation token is returned in the response header, some tree entries are yet to be processed and may yeild more diff entries. If the continuation token is not returned all the diff entries have been included in this response.
+	// List of tree entries that differ between the base and target tree.  Renames and object type changes are returned as a delete for the old object and add for the new object.  If a continuation token is returned in the response header, some tree entries are yet to be processed and may yield more diff entries. If the continuation token is not returned all the diff entries have been included in this response.
 	DiffEntries *[]GitTreeDiffEntry `json:"diffEntries,omitempty"`
 	// ObjectId of the target tree of this diff.
 	TargetTreeId *string `json:"targetTreeId,omitempty"`
@@ -2518,7 +2518,7 @@ var PullRequestStatusValues = pullRequestStatusValuesType{
 	Abandoned: "abandoned",
 	// Pull request is completed.
 	Completed: "completed",
-	// Used in pull request search criterias to include all statuses.
+	// Used in pull request search criteria to include all statuses.
 	All: "all",
 }
 

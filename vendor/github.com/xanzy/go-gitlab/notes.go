@@ -154,7 +154,8 @@ func (s *NotesService) GetIssueNote(pid interface{}, issue, note int, options ..
 // GitLab API docs:
 // https://docs.gitlab.com/ce/api/notes.html#create-new-issue-note
 type CreateIssueNoteOptions struct {
-	Body *string `url:"body,omitempty" json:"body,omitempty"`
+	Body      *string    `url:"body,omitempty" json:"body,omitempty"`
+	CreatedAt *time.Time `url:"created_at,omitempty" json:"created_at,omitempty"`
 }
 
 // CreateIssueNote creates a new note to a single project issue.

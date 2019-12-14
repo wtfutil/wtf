@@ -20,10 +20,6 @@ incompatible changes that were needed to fully support the V4 Gitlab API.
 This API client package covers most of the existing Gitlab API calls and is updated regularly
 to add new and/or missing endpoints. Currently the following services are supported:
 
-- [ ] Discussions (threaded comments)
-- [ ] Epic Issues
-- [ ] Epics
-- [ ] Geo Nodes
 - [x] Award Emojis
 - [x] Branches
 - [x] Broadcast Messages
@@ -32,9 +28,13 @@ to add new and/or missing endpoints. Currently the following services are suppor
 - [x] Custom Attributes
 - [x] Deploy Keys
 - [x] Deployments
+- [ ] Discussions (threaded comments)
 - [x] Environments
+- [ ] Epic Issues
+- [ ] Epics
 - [x] Events
 - [x] Feature Flags
+- [ ] Geo Nodes
 - [x] GitLab CI Config Templates
 - [x] Gitignores Templates
 - [x] Group Access Requests
@@ -97,8 +97,8 @@ users:
 
 ```go
 git := gitlab.NewClient(nil, "yourtokengoeshere")
-//git.SetBaseURL("https://git.mydomain.com/api/v3")
-users, _, err := git.Users.ListUsers()
+//git.SetBaseURL("https://git.mydomain.com/api/v4")
+users, _, err := git.Users.ListUsers(&gitlab.ListUsersOptions{})
 ```
 
 Some API methods have optional parameters that can be passed. For example,

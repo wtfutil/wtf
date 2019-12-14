@@ -25,7 +25,7 @@ var Ballerina = internal.Register(MustNewLexer(
 			{`(annotation|bind|but|endpoint|error|function|object|private|public|returns|service|type|var|with|worker)\b`, KeywordDeclaration, nil},
 			{`(boolean|byte|decimal|float|int|json|map|nil|record|string|table|xml)\b`, KeywordType, nil},
 			{`(true|false|null)\b`, KeywordConstant, nil},
-			{`import(\s+)`, ByGroups(KeywordNamespace, Text), Push("import")},
+			{`(import)(\s+)`, ByGroups(KeywordNamespace, Text), Push("import")},
 			{`"(\\\\|\\"|[^"])*"`, LiteralString, nil},
 			{`'\\.'|'[^\\]'|'\\u[0-9a-fA-F]{4}'`, LiteralStringChar, nil},
 			{`(\.)((?:[^\W\d]|\$)[\w$]*)`, ByGroups(Operator, NameAttribute), nil},

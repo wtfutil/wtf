@@ -30,6 +30,7 @@ import (
 	"golang.org/x/net/trace"
 	"google.golang.org/grpc/balancer"
 	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/connectivity"
 	"google.golang.org/grpc/encoding"
 	"google.golang.org/grpc/grpclog"
 	"google.golang.org/grpc/internal/balancerload"
@@ -244,7 +245,7 @@ func newClientStream(ctx context.Context, desc *StreamDesc, cc *ClientConn, meth
 		trInfo.tr.LazyLog(&trInfo.firstLine, false)
 		ctx = trace.NewContext(ctx, trInfo.tr)
 	}
-	ctx = newContextWithRPCInfo(ctx, c.failFast, c.codec, cp, comp)
+	ctx = newContextWithRPCInfo(ctx, c.failFast)
 	sh := cc.dopts.copts.StatsHandler
 	var beginTime time.Time
 	if sh != nil {
@@ -327,23 +328,13 @@ func newClientStream(ctx context.Context, desc *StreamDesc, cc *ClientConn, meth
 	return cs, nil
 }
 
-// newAttemptLocked creates a new attempt with a transport.
-// If it succeeds, then it replaces clientStream's attempt with this new attempt.
-func (cs *clientStream) newAttemptLocked(sh stats.Handler, trInfo *traceInfo) (retErr error) {
-	newAttempt := &csAttempt{
+func (cs *clientStream) newAttemptLocked(sh stats.Handler, trInfo *traceInfo) error {
+	cs.attempt = &csAttempt{
 		cs:           cs,
 		dc:           cs.cc.dopts.dc,
 		statsHandler: sh,
 		trInfo:       trInfo,
 	}
-	defer func() {
-		if retErr != nil {
-			// This attempt is not set in the clientStream, so it's finish won't
-			// be called. Call it here for stats and trace in case they are not
-			// nil.
-			newAttempt.finish(retErr)
-		}
-	}()
 
 	if err := cs.ctx.Err(); err != nil {
 		return toRPCErr(err)
@@ -355,9 +346,8 @@ func (cs *clientStream) newAttemptLocked(sh stats.Handler, trInfo *traceInfo) (r
 	if trInfo != nil {
 		trInfo.firstLine.SetRemoteAddr(t.RemoteAddr())
 	}
-	newAttempt.t = t
-	newAttempt.done = done
-	cs.attempt = newAttempt
+	cs.attempt.t = t
+	cs.attempt.done = done
 	return nil
 }
 
@@ -406,18 +396,11 @@ type clientStream struct {
 	serverHeaderBinlogged bool
 
 	mu                      sync.Mutex
-	firstAttempt            bool // if true, transparent retry is valid
-	numRetries              int  // exclusive of transparent retry attempt(s)
-	numRetriesSincePushback int  // retries since pushback; to reset backoff
-	finished                bool // TODO: replace with atomic cmpxchg or sync.Once?
-	// attempt is the active client stream attempt.
-	// The only place where it is written is the newAttemptLocked method and this method never writes nil.
-	// So, attempt can be nil only inside newClientStream function when clientStream is first created.
-	// One of the first things done after clientStream's creation, is to call newAttemptLocked which either
-	// assigns a non nil value to the attempt or returns an error. If an error is returned from newAttemptLocked,
-	// then newClientStream calls finish on the clientStream and returns. So, finish method is the only
-	// place where we need to check if the attempt is nil.
-	attempt *csAttempt
+	firstAttempt            bool       // if true, transparent retry is valid
+	numRetries              int        // exclusive of transparent retry attempt(s)
+	numRetriesSincePushback int        // retries since pushback; to reset backoff
+	finished                bool       // TODO: replace with atomic cmpxchg or sync.Once?
+	attempt                 *csAttempt // the active client stream attempt
 	// TODO(hedging): hedging will have multiple attempts simultaneously.
 	committed  bool                       // active attempt committed for retry?
 	buffer     []func(a *csAttempt) error // operations to replay on retry
@@ -475,8 +458,8 @@ func (cs *clientStream) shouldRetry(err error) error {
 	if cs.attempt.s != nil {
 		<-cs.attempt.s.Done()
 	}
-	if cs.firstAttempt && (cs.attempt.s == nil || cs.attempt.s.Unprocessed()) {
-		// First attempt, stream unprocessed: transparently retry.
+	if cs.firstAttempt && !cs.callInfo.failFast && (cs.attempt.s == nil || cs.attempt.s.Unprocessed()) {
+		// First attempt, wait-for-ready, stream unprocessed: transparently retry.
 		cs.firstAttempt = false
 		return nil
 	}
@@ -694,13 +677,15 @@ func (cs *clientStream) SendMsg(m interface{}) (err error) {
 	if !cs.desc.ClientStreams {
 		cs.sentLast = true
 	}
-
-	// load hdr, payload, data
-	hdr, payload, data, err := prepareMsg(m, cs.codec, cs.cp, cs.comp)
+	data, err := encode(cs.codec, m)
 	if err != nil {
 		return err
 	}
-
+	compData, err := compress(data, cs.cp, cs.comp)
+	if err != nil {
+		return err
+	}
+	hdr, payload := msgHeader(data, compData)
 	// TODO(dfawley): should we be checking len(data) instead?
 	if len(payload) > *cs.callInfo.maxSendMessageSize {
 		return status.Errorf(codes.ResourceExhausted, "trying to send message larger than max (%d vs. %d)", len(payload), *cs.callInfo.maxSendMessageSize)
@@ -823,11 +808,11 @@ func (cs *clientStream) finish(err error) {
 	}
 	if cs.attempt != nil {
 		cs.attempt.finish(err)
-		// after functions all rely upon having a stream.
-		if cs.attempt.s != nil {
-			for _, o := range cs.opts {
-				o.after(cs.callInfo)
-			}
+	}
+	// after functions all rely upon having a stream.
+	if cs.attempt.s != nil {
+		for _, o := range cs.opts {
+			o.after(cs.callInfo)
 		}
 	}
 	cs.cancel()
@@ -982,24 +967,33 @@ func (a *csAttempt) finish(err error) {
 	a.mu.Unlock()
 }
 
-// newClientStream creates a ClientStream with the specified transport, on the
-// given addrConn.
-//
-// It's expected that the given transport is either the same one in addrConn, or
-// is already closed. To avoid race, transport is specified separately, instead
-// of using ac.transpot.
-//
-// Main difference between this and ClientConn.NewStream:
-// - no retry
-// - no service config (or wait for service config)
-// - no tracing or stats
-func newNonRetryClientStream(ctx context.Context, desc *StreamDesc, method string, t transport.ClientTransport, ac *addrConn, opts ...CallOption) (_ ClientStream, err error) {
+func (ac *addrConn) newClientStream(ctx context.Context, desc *StreamDesc, method string, t transport.ClientTransport, opts ...CallOption) (_ ClientStream, err error) {
+	ac.mu.Lock()
+	if ac.transport != t {
+		ac.mu.Unlock()
+		return nil, status.Error(codes.Canceled, "the provided transport is no longer valid to use")
+	}
+	// transition to CONNECTING state when an attempt starts
+	if ac.state != connectivity.Connecting {
+		ac.updateConnectivityState(connectivity.Connecting)
+		ac.cc.handleSubConnStateChange(ac.acbw, ac.state)
+	}
+	ac.mu.Unlock()
+
 	if t == nil {
 		// TODO: return RPC error here?
 		return nil, errors.New("transport provided is nil")
 	}
 	// defaultCallInfo contains unnecessary info(i.e. failfast, maxRetryRPCBufferSize), so we just initialize an empty struct.
 	c := &callInfo{}
+
+	for _, o := range opts {
+		if err := o.before(c); err != nil {
+			return nil, toRPCErr(err)
+		}
+	}
+	c.maxReceiveMessageSize = getMaxSize(nil, c.maxReceiveMessageSize, defaultClientMaxReceiveMessageSize)
+	c.maxSendMessageSize = getMaxSize(nil, c.maxSendMessageSize, defaultServerMaxSendMessageSize)
 
 	// Possible context leak:
 	// The cancel function for the child context we create will only be called
@@ -1013,13 +1007,6 @@ func newNonRetryClientStream(ctx context.Context, desc *StreamDesc, method strin
 		}
 	}()
 
-	for _, o := range opts {
-		if err := o.before(c); err != nil {
-			return nil, toRPCErr(err)
-		}
-	}
-	c.maxReceiveMessageSize = getMaxSize(nil, c.maxReceiveMessageSize, defaultClientMaxReceiveMessageSize)
-	c.maxSendMessageSize = getMaxSize(nil, c.maxSendMessageSize, defaultServerMaxSendMessageSize)
 	if err := setCallInfoCodec(c); err != nil {
 		return nil, err
 	}
@@ -1052,7 +1039,6 @@ func newNonRetryClientStream(ctx context.Context, desc *StreamDesc, method strin
 		callHdr.Creds = c.creds
 	}
 
-	// Use a special addrConnStream to avoid retry.
 	as := &addrConnStream{
 		callHdr:  callHdr,
 		ac:       ac,
@@ -1164,13 +1150,15 @@ func (as *addrConnStream) SendMsg(m interface{}) (err error) {
 	if !as.desc.ClientStreams {
 		as.sentLast = true
 	}
-
-	// load hdr, payload, data
-	hdr, payld, _, err := prepareMsg(m, as.codec, as.cp, as.comp)
+	data, err := encode(as.codec, m)
 	if err != nil {
 		return err
 	}
-
+	compData, err := compress(data, as.cp, as.comp)
+	if err != nil {
+		return err
+	}
+	hdr, payld := msgHeader(data, compData)
 	// TODO(dfawley): should we be checking len(data) instead?
 	if len(payld) > *as.callInfo.maxSendMessageSize {
 		return status.Errorf(codes.ResourceExhausted, "trying to send message larger than max (%d vs. %d)", len(payld), *as.callInfo.maxSendMessageSize)
@@ -1407,13 +1395,15 @@ func (ss *serverStream) SendMsg(m interface{}) (err error) {
 			ss.t.IncrMsgSent()
 		}
 	}()
-
-	// load hdr, payload, data
-	hdr, payload, data, err := prepareMsg(m, ss.codec, ss.cp, ss.comp)
+	data, err := encode(ss.codec, m)
 	if err != nil {
 		return err
 	}
-
+	compData, err := compress(data, ss.cp, ss.comp)
+	if err != nil {
+		return err
+	}
+	hdr, payload := msgHeader(data, compData)
 	// TODO(dfawley): should we be checking len(data) instead?
 	if len(payload) > ss.maxSendMessageSize {
 		return status.Errorf(codes.ResourceExhausted, "trying to send message larger than max (%d vs. %d)", len(payload), ss.maxSendMessageSize)
@@ -1505,25 +1495,4 @@ func (ss *serverStream) RecvMsg(m interface{}) (err error) {
 // The returned string is in the format of "/service/method".
 func MethodFromServerStream(stream ServerStream) (string, bool) {
 	return Method(stream.Context())
-}
-
-// prepareMsg returns the hdr, payload and data
-// using the compressors passed or using the
-// passed preparedmsg
-func prepareMsg(m interface{}, codec baseCodec, cp Compressor, comp encoding.Compressor) (hdr, payload, data []byte, err error) {
-	if preparedMsg, ok := m.(*PreparedMsg); ok {
-		return preparedMsg.hdr, preparedMsg.payload, preparedMsg.encodedData, nil
-	}
-	// The input interface is not a prepared msg.
-	// Marshal and Compress the data at this point
-	data, err = encode(codec, m)
-	if err != nil {
-		return nil, nil, nil, err
-	}
-	compData, err := compress(data, cp, comp)
-	if err != nil {
-		return nil, nil, nil, err
-	}
-	hdr, payload = msgHeader(data, compData)
-	return hdr, payload, data, nil
 }

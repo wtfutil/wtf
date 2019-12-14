@@ -37,6 +37,17 @@ type UsersService struct {
 	client *Client
 }
 
+// BasicUser included in other service responses (such as merge requests, pipelines, etc).
+type BasicUser struct {
+	ID        int        `json:"id"`
+	Username  string     `json:"username"`
+	Name      string     `json:"name"`
+	State     string     `json:"state"`
+	CreatedAt *time.Time `json:"created_at"`
+	AvatarURL string     `json:"avatar_url"`
+	WebURL    string     `json:"web_url"`
+}
+
 // User represents a GitLab user.
 //
 // GitLab API docs: https://docs.gitlab.com/ee/api/users.html
@@ -163,6 +174,7 @@ type CreateUserOptions struct {
 	CanCreateGroup   *bool   `url:"can_create_group,omitempty" json:"can_create_group,omitempty"`
 	SkipConfirmation *bool   `url:"skip_confirmation,omitempty" json:"skip_confirmation,omitempty"`
 	External         *bool   `url:"external,omitempty" json:"external,omitempty"`
+	PrivateProfile   *bool   `url:"private_profile,omitempty" json:"private_profile,omitempty"`
 }
 
 // CreateUser creates a new user. Note only administrators can create new users.
@@ -205,6 +217,7 @@ type ModifyUserOptions struct {
 	CanCreateGroup     *bool   `url:"can_create_group,omitempty" json:"can_create_group,omitempty"`
 	SkipReconfirmation *bool   `url:"skip_reconfirmation,omitempty" json:"skip_reconfirmation,omitempty"`
 	External           *bool   `url:"external,omitempty" json:"external,omitempty"`
+	PrivateProfile     *bool   `url:"private_profile,omitempty" json:"private_profile,omitempty"`
 }
 
 // ModifyUser modifies an existing user. Only administrators can change attributes

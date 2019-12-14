@@ -34,7 +34,7 @@ type insertion struct {
 	tokens     []Token
 }
 
-func (d *delegatingLexer) Tokenise(options *TokeniseOptions, text string) (Iterator, error) {
+func (d *delegatingLexer) Tokenise(options *TokeniseOptions, text string) (Iterator, error) { // nolint: gocognit
 	tokens, err := Tokenise(Coalesce(d.language), options, text)
 	if err != nil {
 		return nil, err

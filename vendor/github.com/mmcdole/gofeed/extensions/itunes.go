@@ -14,7 +14,6 @@ type ITunesFeedExtension struct {
 	Image      string            `json:"image,omitempty"`
 	Complete   string            `json:"complete,omitempty"`
 	NewFeedURL string            `json:"newFeedUrl,omitempty"`
-	Type       string            `json:"type,omitempty"`
 }
 
 // ITunesItemExtension is a set of extension
@@ -59,7 +58,6 @@ func NewITunesFeedExtension(extensions map[string][]Extension) *ITunesFeedExtens
 	feed.NewFeedURL = parseTextExtension("new-feed-url", extensions)
 	feed.Categories = parseCategories(extensions)
 	feed.Owner = parseOwner(extensions)
-	feed.Type = parseTextExtension("type", extensions)
 	return feed
 }
 
@@ -73,7 +71,6 @@ func NewITunesItemExtension(extensions map[string][]Extension) *ITunesItemExtens
 	entry.Explicit = parseTextExtension("explicit", extensions)
 	entry.Subtitle = parseTextExtension("subtitle", extensions)
 	entry.Summary = parseTextExtension("summary", extensions)
-	entry.Keywords = parseTextExtension("keywords", extensions)
 	entry.Image = parseImage(extensions)
 	entry.IsClosedCaptioned = parseTextExtension("isClosedCaptioned", extensions)
 	entry.Order = parseTextExtension("order", extensions)

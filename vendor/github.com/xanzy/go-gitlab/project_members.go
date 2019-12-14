@@ -124,6 +124,7 @@ func (s *ProjectMembersService) GetProjectMember(pid interface{}, user int, opti
 type AddProjectMemberOptions struct {
 	UserID      *int              `url:"user_id,omitempty" json:"user_id,omitempty"`
 	AccessLevel *AccessLevelValue `url:"access_level,omitempty" json:"access_level,omitempty"`
+	ExpiresAt   *string           `url:"expires_at,omitempty" json:"expires_at"`
 }
 
 // AddProjectMember adds a user to a project team. This is an idempotent
@@ -160,6 +161,7 @@ func (s *ProjectMembersService) AddProjectMember(pid interface{}, opt *AddProjec
 // https://docs.gitlab.com/ce/api/members.html#edit-a-member-of-a-group-or-project
 type EditProjectMemberOptions struct {
 	AccessLevel *AccessLevelValue `url:"access_level,omitempty" json:"access_level,omitempty"`
+	ExpiresAt   *string           `url:"expires_at,omitempty" json:"expires_at"`
 }
 
 // EditProjectMember updates a project team member to a specified access level..

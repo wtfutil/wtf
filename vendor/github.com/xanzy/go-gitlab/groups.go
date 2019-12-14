@@ -32,21 +32,34 @@ type GroupsService struct {
 //
 // GitLab API docs: https://docs.gitlab.com/ce/api/groups.html
 type Group struct {
-	ID                   int                `json:"id"`
-	Name                 string             `json:"name"`
-	Path                 string             `json:"path"`
-	Description          string             `json:"description"`
-	Visibility           *VisibilityValue   `json:"visibility"`
-	LFSEnabled           bool               `json:"lfs_enabled"`
-	AvatarURL            string             `json:"avatar_url"`
-	WebURL               string             `json:"web_url"`
-	RequestAccessEnabled bool               `json:"request_access_enabled"`
-	FullName             string             `json:"full_name"`
-	FullPath             string             `json:"full_path"`
-	ParentID             int                `json:"parent_id"`
-	Projects             []*Project         `json:"projects"`
-	Statistics           *StorageStatistics `json:"statistics"`
-	CustomAttributes     []*CustomAttribute `json:"custom_attributes"`
+	ID                             int                `json:"id"`
+	Name                           string             `json:"name"`
+	Path                           string             `json:"path"`
+	Description                    string             `json:"description"`
+	Visibility                     *VisibilityValue   `json:"visibility"`
+	LFSEnabled                     bool               `json:"lfs_enabled"`
+	AvatarURL                      string             `json:"avatar_url"`
+	WebURL                         string             `json:"web_url"`
+	RequestAccessEnabled           bool               `json:"request_access_enabled"`
+	FullName                       string             `json:"full_name"`
+	FullPath                       string             `json:"full_path"`
+	ParentID                       int                `json:"parent_id"`
+	Projects                       []*Project         `json:"projects"`
+	Statistics                     *StorageStatistics `json:"statistics"`
+	CustomAttributes               []*CustomAttribute `json:"custom_attributes"`
+	ShareWithGroupLock             bool               `json:"share_with_group_lock"`
+	RequireTwoFactorAuth           bool               `json:"require_two_factor_authentication"`
+	TwoFactorGracePeriod           int                `json:"two_factor_grace_period"`
+	ProjectCreationLevel           string             `json:"project_creation_level"`
+	AutoDevopsEnabled              bool               `json:"auto_devops_enabled"`
+	SubGroupCreationLevel          string             `json:"subgroup_creation_level"`
+	EmailsDisabled                 bool               `json:"emails_disabled"`
+	RunnersToken                   string             `json:"runners_token"`
+	SharedProjects                 []*Project         `json:"shared_projects"`
+	LDAPCN                         string             `json:"ldap_cn"`
+	LDAPAccess                     bool               `json:"ldap_access"`
+	SharedRunnersMinutesLimit      int                `json:"shared_runners_minutes_limit"`
+	ExtraSharedRunnersMinutesLimit int                `json:"extra_shared_runners_minutes_limit"`
 }
 
 // ListGroupsOptions represents the available ListGroups() options.

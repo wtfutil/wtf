@@ -57,7 +57,6 @@ type TileDefMarker struct {
 }
 
 type TileDefRequest struct {
-	Query *string `json:"q,omitempty"`
 
 	// For Hostmap
 	Type *string `json:"type,omitempty"`
@@ -68,6 +67,12 @@ type TileDefRequest struct {
 	TextFilter *string   `json:"text_filter,omitempty"`
 	TagFilters []*string `json:"tag_filters"`
 	Limit      *int      `json:"limit,omitempty"`
+
+	// A Widget can only have one of these types of query.
+	Query        *string               `json:"q,omitempty"`
+	LogQuery     *TileDefApmOrLogQuery `json:"log_query,omitempty"`
+	ApmQuery     *TileDefApmOrLogQuery `json:"apm_query,omitempty"`
+	ProcessQuery *TileDefProcessQuery  `json:"process_query,omitempty"`
 
 	ConditionalFormats []ConditionalFormat        `json:"conditional_formats,omitempty"`
 	Style              *TileDefRequestStyle       `json:"style,omitempty"`
@@ -81,12 +86,45 @@ type TileDefRequest struct {
 	Metadata           map[string]TileDefMetadata `json:"metadata,omitempty"`
 }
 
+// TileDefApmOrLogQuery represents an APM or a Log query
+type TileDefApmOrLogQuery struct {
+	Index   *string                       `json:"index"`
+	Compute *TileDefApmOrLogQueryCompute  `json:"compute"`
+	Search  *TileDefApmOrLogQuerySearch   `json:"search,omitempty"`
+	GroupBy []TileDefApmOrLogQueryGroupBy `json:"groupBy,omitempty"`
+}
+type TileDefApmOrLogQueryCompute struct {
+	Aggregation *string `json:"aggregation"`
+	Facet       *string `json:"facet,omitempty"`
+	Interval    *string `json:"interval,omitempty"`
+}
+type TileDefApmOrLogQuerySearch struct {
+	Query *string `json:"query"`
+}
+type TileDefApmOrLogQueryGroupBy struct {
+	Facet *string                          `json:"facet"`
+	Limit *int                             `json:"limit,omitempty"`
+	Sort  *TileDefApmOrLogQueryGroupBySort `json:"sort,omitempty"`
+}
+type TileDefApmOrLogQueryGroupBySort struct {
+	Aggregation *string `json:"aggregation"`
+	Order       *string `json:"order"`
+	Facet       *string `json:"facet,omitempty"`
+}
+
+type TileDefProcessQuery struct {
+	Metric   *string  `json:"metric"`
+	SearchBy *string  `json:"search_by,omitempty"`
+	FilterBy []string `json:"filter_by,omitempty"`
+	Limit    *int     `json:"limit,omitempty"`
+}
+
 type TileDefMetadata struct {
 	Alias *string `json:"alias,omitempty"`
 }
 
 type ConditionalFormat struct {
-	Color         *string `json:"color,omitempty"`
+	Color         *string `json:"custom_fg_color,omitempty"`
 	Palette       *string `json:"palette,omitempty"`
 	Comparator    *string `json:"comparator,omitempty"`
 	Invert        *bool   `json:"invert,omitempty"`

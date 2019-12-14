@@ -2,6 +2,7 @@ package spotify
 
 import (
 	"errors"
+	"reflect"
 )
 
 // ErrNoMorePages is the error returned when you attempt to get the next
@@ -84,4 +85,50 @@ type PlaylistTrackPage struct {
 type CategoryPage struct {
 	basePage
 	Categories []Category `json:"items"`
+}
+
+// pageable is an internal interface for types that support paging
+// by embedding basePage.
+type pageable interface{ canPage() }
+
+func (b basePage) canPage() {}
+
+// NextPage fetches the next page of items and writes them into p.
+// It returns ErrNoMorePages if p already contains the last page.
+func (c *Client) NextPage(p pageable) error {
+	val := reflect.ValueOf(p).Elem()
+	field := val.FieldByName("Next")
+	nextURL := field.Interface().(string)
+
+	if len(nextURL) == 0 {
+		return ErrNoMorePages
+	}
+
+	// Zero out the page so that we can overwrite it in the next
+	// call to get. This is necessary because encoding/json does
+	// not clear out existing values when unmarshaling JSON null.
+	zero := reflect.Zero(val.Type())
+	val.Set(zero)
+
+	return c.get(nextURL, p)
+}
+
+// PreviousPage fetches the previous page of items and writes them into p.
+// It returns ErrNoMorePages if p already contains the last page.
+func (c *Client) PreviousPage(p pageable) error {
+	val := reflect.ValueOf(p).Elem()
+	field := val.FieldByName("Previous")
+	prevURL := field.Interface().(string)
+
+	if len(prevURL) == 0 {
+		return ErrNoMorePages
+	}
+
+	// Zero out the page so that we can overwrite it in the next
+	// call to get. This is necessary because encoding/json does
+	// not clear out existing values when unmarshaling JSON null.
+	zero := reflect.Zero(val.Type())
+	val.Set(zero)
+
+	return c.get(prevURL, p)
 }

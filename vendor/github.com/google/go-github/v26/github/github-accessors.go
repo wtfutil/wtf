@@ -3324,6 +3324,30 @@ func (h *HookStats) GetTotalHooks() int {
 	return *h.TotalHooks
 }
 
+// GetGroupDescription returns the GroupDescription field if it's non-nil, zero value otherwise.
+func (i *IDPGroup) GetGroupDescription() string {
+	if i == nil || i.GroupDescription == nil {
+		return ""
+	}
+	return *i.GroupDescription
+}
+
+// GetGroupID returns the GroupID field if it's non-nil, zero value otherwise.
+func (i *IDPGroup) GetGroupID() string {
+	if i == nil || i.GroupID == nil {
+		return ""
+	}
+	return *i.GroupID
+}
+
+// GetGroupName returns the GroupName field if it's non-nil, zero value otherwise.
+func (i *IDPGroup) GetGroupName() string {
+	if i == nil || i.GroupName == nil {
+		return ""
+	}
+	return *i.GroupName
+}
+
 // GetAuthorsCount returns the AuthorsCount field if it's non-nil, zero value otherwise.
 func (i *Import) GetAuthorsCount() int {
 	if i == nil || i.AuthorsCount == nil {
@@ -6130,6 +6154,14 @@ func (o *Organization) GetLogin() string {
 		return ""
 	}
 	return *o.Login
+}
+
+// GetMembersAllowedRepositoryCreationType returns the MembersAllowedRepositoryCreationType field if it's non-nil, zero value otherwise.
+func (o *Organization) GetMembersAllowedRepositoryCreationType() string {
+	if o == nil || o.MembersAllowedRepositoryCreationType == nil {
+		return ""
+	}
+	return *o.MembersAllowedRepositoryCreationType
 }
 
 // GetMembersCanCreateRepos returns the MembersCanCreateRepos field if it's non-nil, zero value otherwise.
@@ -12386,6 +12418,14 @@ func (u *UserEmail) GetVerified() bool {
 		return false
 	}
 	return *u.Verified
+}
+
+// GetVisibility returns the Visibility field if it's non-nil, zero value otherwise.
+func (u *UserEmail) GetVisibility() string {
+	if u == nil || u.Visibility == nil {
+		return ""
+	}
+	return *u.Visibility
 }
 
 // GetAvatarURL returns the AvatarURL field if it's non-nil, zero value otherwise.

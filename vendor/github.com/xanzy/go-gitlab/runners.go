@@ -52,6 +52,7 @@ type RunnerDetails struct {
 	Architecture string     `json:"architecture"`
 	Description  string     `json:"description"`
 	ID           int        `json:"id"`
+	IPAddress    string     `json:"ip_address"`
 	IsShared     bool       `json:"is_shared"`
 	ContactedAt  *time.Time `json:"contacted_at"`
 	Name         string     `json:"name"`
@@ -69,8 +70,14 @@ type RunnerDetails struct {
 	Revision       string   `json:"revision"`
 	TagList        []string `json:"tag_list"`
 	Version        string   `json:"version"`
+	Locked         bool `json:"locked"`
 	AccessLevel    string   `json:"access_level"`
 	MaximumTimeout int      `json:"maximum_timeout"`
+	Groups         []struct {
+		ID     int    `json:"id"`
+		Name   string `json:"name"`
+		WebURL string `json:"web_url"`
+	} `json:"groups"`
 }
 
 // ListRunnersOptions represents the available ListRunners() options.
@@ -79,9 +86,10 @@ type RunnerDetails struct {
 // https://docs.gitlab.com/ce/api/runners.html#list-owned-runners
 type ListRunnersOptions struct {
 	ListOptions
-	Scope  *string `url:"scope,omitempty" json:"scope,omitempty"`
-	Status *string `url:"status,omitempty" json:"status,omitempty"`
-	Type   *string `url:"type,omitempty" json:"type,omitempty"`
+	Scope   *string  `url:"scope,omitempty" json:"scope,omitempty"`
+	Type    *string  `url:"type,omitempty" json:"type,omitempty"`
+	Status  *string  `url:"status,omitempty" json:"status,omitempty"`
+	TagList []string `url:"tag_list,comma,omitempty" json:"tag_list,omitempty"`
 }
 
 // ListRunners gets a list of runners accessible by the authenticated user.
@@ -210,10 +218,12 @@ func (s *RunnersService) RemoveRunner(rid interface{}, options ...OptionFunc) (*
 // options. Status can be one of: running, success, failed, canceled.
 //
 // GitLab API docs:
-// https://docs.gitlab.com/ce/api/runners.html#list-runner-39-s-jobs
+// https://docs.gitlab.com/ce/api/runners.html#list-runners-jobs
 type ListRunnerJobsOptions struct {
 	ListOptions
-	Status *string `url:"status,omitempty" json:"status,omitempty"`
+	Status  *string `url:"status,omitempty" json:"status,omitempty"`
+	OrderBy *string `url:"order_by,omitempty" json:"order_by,omitempty"`
+	Sort    *string `url:"sort,omitempty" json:"sort,omitempty"`
 }
 
 // ListRunnerJobs gets a list of jobs that are being processed or were processed by specified Runner.

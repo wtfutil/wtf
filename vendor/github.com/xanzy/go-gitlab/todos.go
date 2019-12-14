@@ -121,6 +121,7 @@ func (t Todo) String() string {
 //
 // GitLab API docs: https://docs.gitlab.com/ce/api/todos.html#get-a-list-of-todos
 type ListTodosOptions struct {
+	ListOptions
 	Action    *TodoAction `url:"action,omitempty" json:"action,omitempty"`
 	AuthorID  *int        `url:"author_id,omitempty" json:"author_id,omitempty"`
 	ProjectID *int        `url:"project_id,omitempty" json:"project_id,omitempty"`

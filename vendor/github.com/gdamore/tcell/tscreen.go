@@ -1,4 +1,4 @@
-// Copyright 2017 The TCell Authors
+// Copyright 2019 The TCell Authors
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use file except in compliance with the License.
@@ -26,7 +26,6 @@ import (
 	"golang.org/x/text/transform"
 
 	"github.com/gdamore/tcell/terminfo"
-	"github.com/gdamore/tcell/terminfo/dynamic"
 
 	// import the stock terminals
 	_ "github.com/gdamore/tcell/terminfo/base"
@@ -43,7 +42,7 @@ import (
 func NewTerminfoScreen() (Screen, error) {
 	ti, e := terminfo.LookupTerminfo(os.Getenv("TERM"))
 	if e != nil {
-		ti, _, e = dynamic.LoadTerminfo(os.Getenv("TERM"))
+		ti, e = loadDynamicTerminfo(os.Getenv("TERM"))
 		if e != nil {
 			return nil, e
 		}

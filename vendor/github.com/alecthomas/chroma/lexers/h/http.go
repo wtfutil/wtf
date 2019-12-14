@@ -38,7 +38,6 @@ func httpContentBlock(groups []string, lexer Lexer) Iterator {
 		{Generic, groups[0]},
 	}
 	return Literator(tokens...)
-
 }
 
 func httpHeaderBlock(groups []string, lexer Lexer) Iterator {
@@ -66,7 +65,7 @@ func httpBodyContentTypeLexer(lexer Lexer) Lexer { return &httpBodyContentTyper{
 
 type httpBodyContentTyper struct{ Lexer }
 
-func (d *httpBodyContentTyper) Tokenise(options *TokeniseOptions, text string) (Iterator, error) {
+func (d *httpBodyContentTyper) Tokenise(options *TokeniseOptions, text string) (Iterator, error) { // nolint: gocognit
 	var contentType string
 	var isContentType bool
 	var subIterator Iterator
@@ -123,9 +122,7 @@ func (d *httpBodyContentTyper) Tokenise(options *TokeniseOptions, text string) (
 					return EOF
 				}
 			}
-
 		}
 		return token
-
 	}, nil
 }

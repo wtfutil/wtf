@@ -16,19 +16,24 @@ import (
 	"net/url"
 )
 
-type Client struct {
+type Client interface {
+	// Gets an operation from the the operationId using the given pluginId.
+	GetOperation(context.Context, GetOperationArgs) (*Operation, error)
+}
+
+type ClientImpl struct {
 	Client azuredevops.Client
 }
 
-func NewClient(ctx context.Context, connection *azuredevops.Connection) *Client {
+func NewClient(ctx context.Context, connection *azuredevops.Connection) Client {
 	client := connection.GetClientByUrl(connection.BaseUrl)
-	return &Client{
+	return &ClientImpl{
 		Client: *client,
 	}
 }
 
 // Gets an operation from the the operationId using the given pluginId.
-func (client *Client) GetOperation(ctx context.Context, args GetOperationArgs) (*Operation, error) {
+func (client *ClientImpl) GetOperation(ctx context.Context, args GetOperationArgs) (*Operation, error) {
 	routeValues := make(map[string]string)
 	if args.OperationId == nil {
 		return nil, &azuredevops.ArgumentNilError{ArgumentName: "args.OperationId"}

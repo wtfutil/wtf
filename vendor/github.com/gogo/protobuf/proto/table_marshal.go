@@ -389,13 +389,8 @@ func (u *marshalInfo) computeMarshalInfo() {
 	// get oneof implementers
 	var oneofImplementers []interface{}
 	// gogo: isOneofMessage is needed for embedded oneof messages, without a marshaler and unmarshaler
-	if isOneofMessage {
-		switch m := reflect.Zero(reflect.PtrTo(t)).Interface().(type) {
-		case oneofFuncsIface:
-			_, _, _, oneofImplementers = m.XXX_OneofFuncs()
-		case oneofWrappersIface:
-			oneofImplementers = m.XXX_OneofWrappers()
-		}
+	if m, ok := reflect.Zero(reflect.PtrTo(t)).Interface().(oneofMessage); ok && isOneofMessage {
+		_, _, _, oneofImplementers = m.XXX_OneofFuncs()
 	}
 
 	// normal fields
@@ -522,6 +517,10 @@ func (fi *marshalFieldInfo) computeOneofFieldInfo(f *reflect.StructField, oneofI
 			marshaler: marshalr,
 		}
 	}
+}
+
+type oneofMessage interface {
+	XXX_OneofFuncs() (func(Message, *Buffer) error, func(Message, int, int, *Buffer) (bool, error), func(Message) int, []interface{})
 }
 
 // wiretype returns the wire encoding of the type.

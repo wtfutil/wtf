@@ -174,6 +174,9 @@ func entryToEscapeSequence(table *ttyTable, entry chroma.StyleEntry) string {
 	if entry.Underline == chroma.Yes {
 		out += "\033[4m"
 	}
+	if entry.Italic == chroma.Yes {
+		out += "\033[3m"
+	}
 	if entry.Colour.IsSet() {
 		out += table.foreground[findClosest(table, entry.Colour)]
 	}
@@ -197,6 +200,7 @@ func findClosest(table *ttyTable, seeking chroma.Colour) chroma.Colour {
 }
 
 func styleToEscapeSequence(table *ttyTable, style *chroma.Style) map[chroma.TokenType]string {
+	style = clearBackground(style)
 	out := map[chroma.TokenType]string{}
 	for _, ttype := range style.Types() {
 		entry := style.Get(ttype)
@@ -205,16 +209,22 @@ func styleToEscapeSequence(table *ttyTable, style *chroma.Style) map[chroma.Toke
 	return out
 }
 
+// Clear the background colour.
+func clearBackground(style *chroma.Style) *chroma.Style {
+	builder := style.Builder()
+	bg := builder.Get(chroma.Background)
+	bg.Background = 0
+	bg.NoInherit = true
+	builder.AddEntry(chroma.Background, bg)
+	style, _ = builder.Build()
+	return style
+}
+
 type indexedTTYFormatter struct {
 	table *ttyTable
 }
 
 func (c *indexedTTYFormatter) Format(w io.Writer, style *chroma.Style, it chroma.Iterator) (err error) {
-	defer func() {
-		if perr := recover(); perr != nil {
-			err = perr.(error)
-		}
-	}()
 	theme := styleToEscapeSequence(c.table, style)
 	for token := it(); token != chroma.EOF; token = it() {
 		// TODO: Cache token lookups?

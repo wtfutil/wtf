@@ -35,23 +35,33 @@ type JobsService struct {
 //
 // GitLab API docs: https://docs.gitlab.com/ce/api/jobs.html
 type Job struct {
-	Commit        *Commit    `json:"commit"`
-	CreatedAt     *time.Time `json:"created_at"`
-	Coverage      float64    `json:"coverage"`
-	ArtifactsFile struct {
-		Filename string `json:"filename"`
-		Size     int    `json:"size"`
-	} `json:"artifacts_file"`
-	FinishedAt *time.Time `json:"finished_at"`
-	ID         int        `json:"id"`
-	Name       string     `json:"name"`
-	Pipeline   struct {
+	Commit            *Commit    `json:"commit"`
+	Coverage          float64    `json:"coverage"`
+	AllowFailure      bool       `json:"allow_failure"`
+	CreatedAt         *time.Time `json:"created_at"`
+	StartedAt         *time.Time `json:"started_at"`
+	FinishedAt        *time.Time `json:"finished_at"`
+	Duration          float64    `json:"duration"`
+	ArtifactsExpireAt *time.Time `json:"artifacts_expire_at"`
+	ID                int        `json:"id"`
+	Name              string     `json:"name"`
+	Pipeline          struct {
 		ID     int    `json:"id"`
 		Ref    string `json:"ref"`
 		Sha    string `json:"sha"`
 		Status string `json:"status"`
 	} `json:"pipeline"`
-	Ref    string `json:"ref"`
+	Ref       string `json:"ref"`
+	Artifacts []struct {
+		FileType   string `json:"file_type"`
+		Filename   string `json:"filename"`
+		Size       int    `json:"size"`
+		FileFormat string `json:"file_format"`
+	} `json:"artifacts"`
+	ArtifactsFile struct {
+		Filename string `json:"filename"`
+		Size     int    `json:"size"`
+	} `json:"artifacts_file"`
 	Runner struct {
 		ID          int    `json:"id"`
 		Description string `json:"description"`
@@ -59,12 +69,11 @@ type Job struct {
 		IsShared    bool   `json:"is_shared"`
 		Name        string `json:"name"`
 	} `json:"runner"`
-	Stage     string     `json:"stage"`
-	StartedAt *time.Time `json:"started_at"`
-	Status    string     `json:"status"`
-	Tag       bool       `json:"tag"`
-	User      *User      `json:"user"`
-	WebURL    string     `json:"web_url"`
+	Stage  string `json:"stage"`
+	Status string `json:"status"`
+	Tag    bool   `json:"tag"`
+	WebURL string `json:"web_url"`
+	User   *User  `json:"user"`
 }
 
 // ListJobsOptions are options for two list apis

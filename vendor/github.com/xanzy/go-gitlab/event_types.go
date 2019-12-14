@@ -28,17 +28,18 @@ import (
 // GitLab API docs:
 // https://docs.gitlab.com/ce/user/project/integrations/webhooks.html#push-events
 type PushEvent struct {
-	ObjectKind  string `json:"object_kind"`
-	Before      string `json:"before"`
-	After       string `json:"after"`
-	Ref         string `json:"ref"`
-	CheckoutSHA string `json:"checkout_sha"`
-	UserID      int    `json:"user_id"`
-	UserName    string `json:"user_name"`
-	UserEmail   string `json:"user_email"`
-	UserAvatar  string `json:"user_avatar"`
-	ProjectID   int    `json:"project_id"`
-	Project     struct {
+	ObjectKind   string `json:"object_kind"`
+	Before       string `json:"before"`
+	After        string `json:"after"`
+	Ref          string `json:"ref"`
+	CheckoutSHA  string `json:"checkout_sha"`
+	UserID       int    `json:"user_id"`
+	UserName     string `json:"user_name"`
+	UserUsername string `json:"user_username"`
+	UserEmail    string `json:"user_email"`
+	UserAvatar   string `json:"user_avatar"`
+	ProjectID    int    `json:"project_id"`
+	Project      struct {
 		Name              string          `json:"name"`
 		Description       string          `json:"description"`
 		AvatarURL         string          `json:"avatar_url"`
@@ -311,6 +312,7 @@ type MergeCommentEvent struct {
 	} `json:"project"`
 	ObjectAttributes struct {
 		ID           int    `json:"id"`
+		DiscussionID string `json:"discussion_id"`
 		Note         string `json:"note"`
 		NoteableType string `json:"noteable_type"`
 		AuthorID     int    `json:"author_id"`
@@ -346,9 +348,7 @@ type MergeCommentEvent struct {
 		LockedAt        string `json:"locked_at"`
 		UpdatedByID     int    `json:"updated_by_id"`
 		MergeError      string `json:"merge_error"`
-		MergeParams     struct {
-			ForceRemoveSourceBranch string `json:"force_remove_source_branch"`
-		} `json:"merge_params"`
+		MergeParams     *MergeParams `json:"merge_params"`
 		MergeWhenPipelineSucceeds bool        `json:"merge_when_pipeline_succeeds"`
 		MergeUserID               int         `json:"merge_user_id"`
 		MergeCommitSHA            string      `json:"merge_commit_sha"`
@@ -375,6 +375,7 @@ type MergeCommentEvent struct {
 		} `json:"last_commit"`
 		WorkInProgress bool `json:"work_in_progress"`
 		TotalTimeSpent int  `json:"total_time_spent"`
+		HeadPipelineID int  `json:"head_pipeline_id"`
 	} `json:"merge_request"`
 }
 
@@ -558,28 +559,20 @@ type MergeEvent struct {
 				Email string `json:"email"`
 			} `json:"author"`
 		} `json:"last_commit"`
-		WorkInProgress bool   `json:"work_in_progress"`
-		URL            string `json:"url"`
-		Action         string `json:"action"`
-		OldRev         string `json:"oldrev"`
-		Assignee       struct {
-			Name      string `json:"name"`
-			Username  string `json:"username"`
-			AvatarURL string `json:"avatar_url"`
-		} `json:"assignee"`
+		WorkInProgress bool          `json:"work_in_progress"`
+		URL            string        `json:"url"`
+		Action         string        `json:"action"`
+		OldRev         string        `json:"oldrev"`
+		Assignee       MergeAssignee `json:"assignee"`
 	} `json:"object_attributes"`
-	Repository *Repository `json:"repository"`
-	Assignee   struct {
-		Name      string `json:"name"`
-		Username  string `json:"username"`
-		AvatarURL string `json:"avatar_url"`
-	} `json:"assignee"`
-	Labels  []Label `json:"labels"`
-	Changes struct {
-		AssigneeID struct {
-			Previous int `json:"previous"`
-			Current  int `json:"current"`
-		} `json:"assignee_id"`
+	Repository *Repository   `json:"repository"`
+	Assignee   MergeAssignee `json:"assignee"`
+	Labels     []Label       `json:"labels"`
+	Changes    struct {
+		Assignees struct {
+			Previous []MergeAssignee `json:"previous"`
+			Current  []MergeAssignee `json:"current"`
+		} `json:"assignees"`
 		Description struct {
 			Previous string `json:"previous"`
 			Current  string `json:"current"`
@@ -588,11 +581,38 @@ type MergeEvent struct {
 			Previous []Label `json:"previous"`
 			Current  []Label `json:"current"`
 		} `json:"labels"`
+		SourceBranch struct {
+			Previous string `json:"previous"`
+			Current  string `json:"current"`
+		} `json:"source_branch"`
+		SourceProjectID struct {
+			Previous int `json:"previous"`
+			Current  int `json:"current"`
+		} `json:"source_project_id"`
+		TargetBranch struct {
+			Previous string `json:"previous"`
+			Current  string `json:"current"`
+		} `json:"target_branch"`
+		TargetProjectID struct {
+			Previous int `json:"previous"`
+			Current  int `json:"current"`
+		} `json:"target_project_id"`
+		Title struct {
+			Previous string `json:"previous"`
+			Current  string `json:"current"`
+		} `json:"title"`
 		UpdatedByID struct {
 			Previous int `json:"previous"`
 			Current  int `json:"current"`
 		} `json:"updated_by_id"`
 	} `json:"changes"`
+}
+
+// MergeAssignee represents a merge assignee.
+type MergeAssignee struct {
+	Name      string `json:"name"`
+	Username  string `json:"username"`
+	AvatarURL string `json:"avatar_url"`
 }
 
 // MergeParams represents the merge params.

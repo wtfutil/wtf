@@ -85,7 +85,8 @@ var defaultHTTPClient HTTPClient = newDefaultHTTPClient()
 
 // Client wraps http client
 type Client struct {
-	authToken string
+	authToken   string
+	apiEndpoint string
 
 	// HTTPClient is the HTTP client used for making requests against the
 	// PagerDuty API. You can use either *http.Client here, or your own
@@ -96,8 +97,9 @@ type Client struct {
 // NewClient creates an API client
 func NewClient(authToken string) *Client {
 	return &Client{
-		authToken:  authToken,
-		HTTPClient: defaultHTTPClient,
+		authToken:   authToken,
+		apiEndpoint: apiEndpoint,
+		HTTPClient:  defaultHTTPClient,
 	}
 }
 
@@ -130,7 +132,7 @@ func (c *Client) get(path string) (*http.Response, error) {
 }
 
 func (c *Client) do(method, path string, body io.Reader, headers *map[string]string) (*http.Response, error) {
-	endpoint := apiEndpoint + path
+	endpoint := c.apiEndpoint + path
 	req, _ := http.NewRequest(method, endpoint, body)
 	req.Header.Set("Accept", "application/vnd.pagerduty+json;version=2")
 	if headers != nil {

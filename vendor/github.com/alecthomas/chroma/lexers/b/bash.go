@@ -53,7 +53,7 @@ var Bash = internal.Register(MustNewLexer(
 			{`&`, Punctuation, nil},
 			{`\|`, Punctuation, nil},
 			{`\s+`, Text, nil},
-			{`\d+\b`, LiteralNumber, nil},
+			{`\d+(?= |$)`, LiteralNumber, nil},
 			{"[^=\\s\\[\\]{}()$\"\\'`\\\\<&|;]+", Text, nil},
 			{`<`, Text, nil},
 		},

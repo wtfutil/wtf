@@ -184,6 +184,25 @@ func (s Project) String() string {
 	return Stringify(s)
 }
 
+// ProjectApprovalRule represents a GitLab project approval rule.
+//
+// GitLab API docs:
+// https://docs.gitlab.com/ee/api/merge_request_approvals.html#get-project-level-rules
+type ProjectApprovalRule struct {
+	ID                   int          `json:"id"`
+	Name                 string       `json:"name"`
+	RuleType             string       `json:"rule_type"`
+	EligibleApprovers    []*BasicUser `json:"eligible_approvers"`
+	ApprovalsRequired    int          `json:"approvals_required"`
+	Users                []*BasicUser `json:"users"`
+	Groups               []*Group     `json:"groups"`
+	ContainsHiddenGroups bool         `json:"contains_hidden_groups"`
+}
+
+func (s ProjectApprovalRule) String() string {
+	return Stringify(s)
+}
+
 // ListProjectsOptions represents the available ListProjects() options.
 //
 // GitLab API docs: https://docs.gitlab.com/ce/api/projects.html#list-projects
@@ -203,6 +222,7 @@ type ListProjectsOptions struct {
 	WithMergeRequestsEnabled *bool             `url:"with_merge_requests_enabled,omitempty" json:"with_merge_requests_enabled,omitempty"`
 	MinAccessLevel           *AccessLevelValue `url:"min_access_level,omitempty" json:"min_access_level,omitempty"`
 	WithCustomAttributes     *bool             `url:"with_custom_attributes,omitempty" json:"with_custom_attributes,omitempty"`
+	WithProgrammingLanguage  *string           `url:"with_programming_language,omitempty" json:"with_programming_language,omitempty"`
 }
 
 // ListProjects gets a list of projects accessible by the authenticated user.
@@ -416,7 +436,7 @@ func (s *ProjectsService) GetProjectEvents(pid interface{}, opt *GetProjectEvent
 	return p, resp, err
 }
 
-// CreateProjectOptions represents the available CreateProjects() options.
+// CreateProjectOptions represents the available CreateProject() options.
 //
 // GitLab API docs: https://docs.gitlab.com/ee/api/projects.html#create-project
 type CreateProjectOptions struct {
@@ -448,6 +468,10 @@ type CreateProjectOptions struct {
 	Mirror                                    *bool             `url:"mirror,omitempty" json:"mirror,omitempty"`
 	MirrorTriggerBuilds                       *bool             `url:"mirror_trigger_builds,omitempty" json:"mirror_trigger_builds,omitempty"`
 	InitializeWithReadme                      *bool             `url:"initialize_with_readme,omitempty" json:"initialize_with_readme,omitempty"`
+	TemplateName                              *string           `url:"template_name,omitempty" json:"template_name,omitempty"`
+	UseCustomTemplate                         *bool             `url:"use_custom_template,omitempty" json:"use_custom_template,omitempty"`
+	GroupWithProjectTemplatesID               *int              `url:"group_with_project_templates_id,omitempty" json:"group_with_project_templates_id,omitempty"`
+	BuildCoverageRegex                        *string           `url:"build_coverage_regex,omitempty" json:"build_coverage_regex,omitempty"`
 }
 
 // CreateProject creates a new project owned by the authenticated user.
@@ -531,6 +555,7 @@ type EditProjectOptions struct {
 	OnlyMirrorProtectedBranches               *bool             `url:"only_mirror_protected_branches,omitempty" json:"only_mirror_protected_branches,omitempty"`
 	MirrorOverwritesDivergedBranches          *bool             `url:"mirror_overwrites_diverged_branches,omitempty" json:"mirror_overwrites_diverged_branches,omitempty"`
 	PackagesEnabled                           *bool             `url:"packages_enabled,omitempty" json:"packages_enabled,omitempty"`
+	BuildCoverageRegex                        *string           `url:"build_coverage_regex,omitempty" json:"build_coverage_regex,omitempty"`
 }
 
 // EditProject updates an existing project.
@@ -768,6 +793,7 @@ type ProjectMember struct {
 	Name        string           `json:"name"`
 	State       string           `json:"state"`
 	CreatedAt   *time.Time       `json:"created_at"`
+	ExpiresAt   *ISOTime         `json:"expires_at"`
 	AccessLevel AccessLevelValue `json:"access_level"`
 }
 
@@ -1243,6 +1269,8 @@ type ProjectApprovals struct {
 	ApprovalsBeforeMerge                      int                          `json:"approvals_before_merge"`
 	ResetApprovalsOnPush                      bool                         `json:"reset_approvals_on_push"`
 	DisableOverridingApproversPerMergeRequest bool                         `json:"disable_overriding_approvers_per_merge_request"`
+	MergeRequestsAuthorApproval               bool                         `json:"merge_requests_author_approval"`
+	MergeRequestsDisableCommittersApproval    bool                         `json:"merge_requests_disable_committers_approval"`
 }
 
 // GetApprovalConfiguration get the approval configuration for a project.
@@ -1279,6 +1307,8 @@ type ChangeApprovalConfigurationOptions struct {
 	ApprovalsBeforeMerge                      *int  `url:"approvals_before_merge,omitempty" json:"approvals_before_merge,omitempty"`
 	ResetApprovalsOnPush                      *bool `url:"reset_approvals_on_push,omitempty" json:"reset_approvals_on_push,omitempty"`
 	DisableOverridingApproversPerMergeRequest *bool `url:"disable_overriding_approvers_per_merge_request,omitempty" json:"disable_overriding_approvers_per_merge_request,omitempty"`
+	MergeRequestsAuthorApproval               *bool `url:"merge_requests_author_approval,omitempty" json:"merge_requests_author_approval,omitempty"`
+	MergeRequestsDisableCommittersApproval    *bool `url:"merge_requests_disable_committers_approval,omitempty" json:"merge_requests_disable_committers_approval,omitempty"`
 }
 
 // ChangeApprovalConfiguration updates the approval configuration for a project.
@@ -1306,14 +1336,132 @@ func (s *ProjectsService) ChangeApprovalConfiguration(pid interface{}, opt *Chan
 	return pa, resp, err
 }
 
+// GetProjectApprovalRules looks up the list of project level approvers.
+//
+// GitLab API docs:
+// https://docs.gitlab.com/ee/api/merge_request_approvals.html#get-project-level-rules
+func (s *ProjectsService) GetProjectApprovalRules(pid interface{}, options ...OptionFunc) ([]*ProjectApprovalRule, *Response, error) {
+	project, err := parseID(pid)
+	if err != nil {
+		return nil, nil, err
+	}
+	u := fmt.Sprintf("projects/%s/approval_rules", pathEscape(project))
+
+	req, err := s.client.NewRequest("GET", u, nil, options)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var par []*ProjectApprovalRule
+	resp, err := s.client.Do(req, &par)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return par, resp, err
+}
+
+// CreateProjectLevelRuleOptions represents the available CreateProjectApprovalRule()
+// options.
+//
+// GitLab API docs:
+// https://docs.gitlab.com/ee/api/merge_request_approvals.html#create-project-level-rules
+type CreateProjectLevelRuleOptions struct {
+	Name              *string `url:"name,omitempty" json:"name,omitempty"`
+	ApprovalsRequired *int    `url:"approvals_required,omitempty" json:"approvals_required,omitempty"`
+	UserIDs           []int   `url:"user_ids,omitempty" json:"user_ids,omitempty"`
+	GroupIDs          []int   `url:"group_ids,omitempty" json:"group_ids,omitempty"`
+}
+
+// CreateProjectApprovalRule creates a new project-level approval rule.
+//
+// GitLab API docs:
+// https://docs.gitlab.com/ee/api/merge_request_approvals.html#create-project-level-rules
+func (s *ProjectsService) CreateProjectApprovalRule(pid interface{}, opt *CreateProjectLevelRuleOptions, options ...OptionFunc) (*ProjectApprovalRule, *Response, error) {
+	project, err := parseID(pid)
+	if err != nil {
+		return nil, nil, err
+	}
+	u := fmt.Sprintf("projects/%s/approval_rules", pathEscape(project))
+
+	req, err := s.client.NewRequest("POST", u, opt, options)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	par := new(ProjectApprovalRule)
+	resp, err := s.client.Do(req, &par)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return par, resp, err
+}
+
+// UpdateProjectLevelRuleOptions represents the available UpdateProjectApprovalRule()
+// options.
+//
+// GitLab API docs:
+// https://docs.gitlab.com/ee/api/merge_request_approvals.html#update-project-level-rules
+type UpdateProjectLevelRuleOptions struct {
+	Name              *string `url:"name,omitempty" json:"name,omitempty"`
+	ApprovalsRequired *int    `url:"approvals_required,omitempty" json:"approvals_required,omitempty"`
+	UserIDs           []int   `url:"user_ids,omitempty" json:"user_ids,omitempty"`
+	GroupIDs          []int   `url:"group_ids,omitempty" json:"group_ids,omitempty"`
+}
+
+// UpdateProjectApprovalRule updates an existing approval rule with new options.
+//
+// GitLab API docs:
+// https://docs.gitlab.com/ee/api/merge_request_approvals.html#update-project-level-rules
+func (s *ProjectsService) UpdateProjectApprovalRule(pid interface{}, approvalRule int, opt *UpdateProjectLevelRuleOptions, options ...OptionFunc) (*ProjectApprovalRule, *Response, error) {
+	project, err := parseID(pid)
+	if err != nil {
+		return nil, nil, err
+	}
+	u := fmt.Sprintf("projects/%s/approval_rules/%d", pathEscape(project), approvalRule)
+
+	req, err := s.client.NewRequest("PUT", u, opt, options)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	par := new(ProjectApprovalRule)
+	resp, err := s.client.Do(req, &par)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return par, resp, err
+}
+
+// DeleteProjectApprovalRule deletes a project-level approval rule.
+//
+// GitLab API docs:
+// https://docs.gitlab.com/ee/api/merge_request_approvals.html#delete-project-level-rules
+func (s *ProjectsService) DeleteProjectApprovalRule(pid interface{}, approvalRule int, options ...OptionFunc) (*Response, error) {
+	project, err := parseID(pid)
+	if err != nil {
+		return nil, err
+	}
+	u := fmt.Sprintf("projects/%s/approval_rules/%d", pathEscape(project), approvalRule)
+
+	req, err := s.client.NewRequest("DELETE", u, nil, options)
+	if err != nil {
+		return nil, err
+	}
+
+	return s.client.Do(req, nil)
+}
+
 // ChangeAllowedApproversOptions represents the available ChangeAllowedApprovers()
 // options.
 //
 // GitLab API docs:
 // https://docs.gitlab.com/ee/api/merge_request_approvals.html#change-allowed-approvers
 type ChangeAllowedApproversOptions struct {
-	ApproverIDs      []*int `url:"approver_ids,omitempty" json:"approver_ids,omitempty"`
-	ApproverGroupIDs []*int `url:"approver_group_ids,omitempty" json:"approver_group_ids,omitempty"`
+	ApproverIDs      []int `url:"approver_ids,omitempty" json:"approver_ids,omitempty"`
+	ApproverGroupIDs []int `url:"approver_group_ids,omitempty" json:"approver_group_ids,omitempty"`
 }
 
 // ChangeAllowedApprovers updates the list of approvers and approver groups.
@@ -1327,7 +1475,7 @@ func (s *ProjectsService) ChangeAllowedApprovers(pid interface{}, opt *ChangeAll
 	}
 	u := fmt.Sprintf("projects/%s/approvers", pathEscape(project))
 
-	req, err := s.client.NewRequest("POST", u, opt, options)
+	req, err := s.client.NewRequest("PUT", u, opt, options)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -1339,4 +1487,28 @@ func (s *ProjectsService) ChangeAllowedApprovers(pid interface{}, opt *ChangeAll
 	}
 
 	return pa, resp, err
+}
+
+// StartMirroringProject start the pull mirroring process for a project.
+//
+// GitLab API docs:
+// https://docs.gitlab.com/ee/api/projects.html#start-the-pull-mirroring-process-for-a-project-starter
+func (s *ProjectsService) StartMirroringProject(pid interface{}, options ...OptionFunc) (*Response, error) {
+	project, err := parseID(pid)
+	if err != nil {
+		return nil, err
+	}
+	u := fmt.Sprintf("projects/%s/mirror/pull", pathEscape(project))
+
+	req, err := s.client.NewRequest("POST", u, nil, options)
+	if err != nil {
+		return nil, err
+	}
+
+	resp, err := s.client.Do(req, nil)
+	if err != nil {
+		return resp, err
+	}
+
+	return resp, err
 }

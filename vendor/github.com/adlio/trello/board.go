@@ -20,6 +20,7 @@ type Board struct {
 	Closed         bool   `json:"closed"`
 	IDOrganization string `json:"idOrganization"`
 	Pinned         bool   `json:"pinned"`
+	Starred        bool   `json:"starred"`
 	URL            string `json:"url"`
 	ShortURL       string `json:"shortUrl"`
 	Prefs          struct {
@@ -42,6 +43,7 @@ type Board struct {
 		CanBePrivate          bool              `json:"canBePrivate"`
 		CanInvite             bool              `json:"canInvite"`
 	} `json:"prefs"`
+	Subscribed bool `json:"subscribed"`
 	LabelNames struct {
 		Black  string `json:"black,omitempty"`
 		Blue   string `json:"blue,omitempty"`
@@ -85,7 +87,7 @@ func (b *Board) CreatedAt() time.Time {
 }
 
 // CreateBoard creates a board remote.
-// Attribute currently supported as exra argument: powerUps.
+// Attribute currently supported as exra argument: defaultLists, powerUps.
 // Attributes currently known to be unsupported: idBoardSource, keepFromSource.
 //
 // API Docs: https://developers.trello.com/reference/#boardsid
@@ -118,6 +120,10 @@ func (c *Client) CreateBoard(board *Board, extraArgs Arguments) error {
 		args["prefs_cardAging"] = board.Prefs.CardAging
 	}
 
+	// Expects "true" or "false"
+	if defaultLists, ok := extraArgs["defaultLists"]; ok {
+		args["defaultLists"] = defaultLists
+	}
 	// Expects one of "all", "calendar", "cardAging", "recap", or "voting".
 	if powerUps, ok := extraArgs["powerUps"]; ok {
 		args["powerUps"] = powerUps
@@ -128,6 +134,12 @@ func (c *Client) CreateBoard(board *Board, extraArgs Arguments) error {
 		board.client = c
 	}
 	return err
+}
+
+// Update PUTs the supported board attributes remote and updates
+// the struct from the returned values.
+func (b *Board) Update(extraArgs Arguments) error {
+	return b.client.PutBoard(b, extraArgs)
 }
 
 // Delete makes a DELETE call for the receiver Board.
@@ -162,6 +174,49 @@ func (m *Member) GetBoards(args Arguments) (boards []*Board, err error) {
 	err = m.client.Get(path, args, &boards)
 	for i := range boards {
 		boards[i].client = m.client
+
+		for j := range boards[i].Lists {
+			boards[i].Lists[j].client = m.client
+		}
 	}
 	return
+}
+
+// PutBoard PUTs a board remote. Extra arguments are currently unsupported.
+//
+// API Docs: https://developers.trello.com/reference#idnext
+func (c *Client) PutBoard(board *Board, extraArgs Arguments) error {
+	path := fmt.Sprintf("boards/%s", board.ID)
+	args := Arguments{
+		"desc":             board.Desc,
+		"name":             board.Name,
+		"prefs/selfJoin":   fmt.Sprintf("%t", board.Prefs.SelfJoin),
+		"prefs/cardCovers": fmt.Sprintf("%t", board.Prefs.CardCovers),
+		"idOrganization":   board.IDOrganization,
+	}
+
+	if board.Prefs.Voting != "" {
+		args["prefs/voting"] = board.Prefs.Voting
+	}
+	if board.Prefs.PermissionLevel != "" {
+		args["prefs/permissionLevel"] = board.Prefs.PermissionLevel
+	}
+	if board.Prefs.Comments != "" {
+		args["prefs/comments"] = board.Prefs.Comments
+	}
+	if board.Prefs.Invitations != "" {
+		args["prefs/invitations"] = board.Prefs.Invitations
+	}
+	if board.Prefs.Background != "" {
+		args["prefs/background"] = board.Prefs.Background
+	}
+	if board.Prefs.CardAging != "" {
+		args["prefs/cardAging"] = board.Prefs.CardAging
+	}
+
+	err := c.Put(path, args, &board)
+	if err == nil {
+		board.client = c
+	}
+	return err
 }

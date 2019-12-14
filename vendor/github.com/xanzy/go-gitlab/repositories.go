@@ -20,6 +20,7 @@ import (
 	"bytes"
 	"fmt"
 	"io"
+	"net/url"
 )
 
 // RepositoriesService handles communication with the repositories related
@@ -91,7 +92,7 @@ func (s *RepositoriesService) Blob(pid interface{}, sha string, options ...Optio
 	if err != nil {
 		return nil, nil, err
 	}
-	u := fmt.Sprintf("projects/%s/repository/blobs/%s", pathEscape(project), sha)
+	u := fmt.Sprintf("projects/%s/repository/blobs/%s", pathEscape(project), url.PathEscape(sha))
 
 	req, err := s.client.NewRequest("GET", u, nil, options)
 	if err != nil {
@@ -116,7 +117,7 @@ func (s *RepositoriesService) RawBlobContent(pid interface{}, sha string, option
 	if err != nil {
 		return nil, nil, err
 	}
-	u := fmt.Sprintf("projects/%s/repository/blobs/%s/raw", pathEscape(project), sha)
+	u := fmt.Sprintf("projects/%s/repository/blobs/%s/raw", pathEscape(project), url.PathEscape(sha))
 
 	req, err := s.client.NewRequest("GET", u, nil, options)
 	if err != nil {
@@ -265,7 +266,11 @@ func (c Contributor) String() string {
 // ListContributorsOptions represents the available ListContributors() options.
 //
 // GitLab API docs: https://docs.gitlab.com/ce/api/repositories.html#contributors
-type ListContributorsOptions ListOptions
+type ListContributorsOptions struct {
+	ListOptions
+	OrderBy *string `url:"order_by,omitempty" json:"order_by,omitempty"`
+	Sort    *string `url:"sort,omitempty" json:"sort,omitempty"`
+}
 
 // Contributors gets the repository contributors list.
 //

@@ -159,10 +159,9 @@ func isFailure(code int, validCodes []int) bool {
 	return true
 }
 
-// execute executes a non-GET request. `needsStatus` describes other HTTP status codes
-// that can represent success. Note that in all current usages of this function,
-// we need to still allow a 200 even if we'd also like to check for additional
-// success codes.
+// `execute` executes a non-GET request. `needsStatus` describes other HTTP
+// status codes that will be treated as success. Note that we allow all 200s
+// even if there are additional success codes that represent success.
 func (c *Client) execute(req *http.Request, result interface{}, needsStatus ...int) error {
 	for {
 		resp, err := c.http.Do(req)
@@ -175,7 +174,9 @@ func (c *Client) execute(req *http.Request, result interface{}, needsStatus ...i
 			time.Sleep(retryDuration(resp))
 			continue
 		}
-		if resp.StatusCode != http.StatusOK && isFailure(resp.StatusCode, needsStatus) {
+		if (resp.StatusCode >= 300 ||
+			resp.StatusCode < 200) &&
+			isFailure(resp.StatusCode, needsStatus) {
 			return c.decodeError(resp)
 		}
 

@@ -6,7 +6,6 @@
 package trello
 
 import (
-	"bytes"
 	"context"
 	"encoding/json"
 	"fmt"
@@ -95,22 +94,7 @@ func (c *Client) Get(path string, args Arguments, target interface{}) error {
 	}
 	req = req.WithContext(c.ctx)
 
-	resp, err := c.Client.Do(req)
-	if err != nil {
-		return errors.Wrapf(err, "HTTP request failure on %s", url)
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != 200 {
-		return makeHTTPClientError(url, resp)
-	}
-
-	decoder := json.NewDecoder(resp.Body)
-	err = decoder.Decode(target)
-	if err != nil {
-		return errors.Wrapf(err, "JSON decode failed on %s", url)
-	}
-
-	return nil
+	return c.do(req, url, target)
 }
 
 // Put takes a path, Arguments, and a target interface (e.g. Board or Card).
@@ -141,22 +125,7 @@ func (c *Client) Put(path string, args Arguments, target interface{}) error {
 		return errors.Wrapf(err, "Invalid PUT request %s", url)
 	}
 
-	resp, err := c.Client.Do(req)
-	if err != nil {
-		return errors.Wrapf(err, "HTTP request failure on %s", url)
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != 200 {
-		return makeHTTPClientError(url, resp)
-	}
-
-	decoder := json.NewDecoder(resp.Body)
-	err = decoder.Decode(target)
-	if err != nil {
-		return errors.Wrapf(err, "JSON decode failed on %s", url)
-	}
-
-	return nil
+	return c.do(req, url, target)
 }
 
 // Post takes a path, Arguments, and a target interface (e.g. Board or Card).
@@ -187,26 +156,7 @@ func (c *Client) Post(path string, args Arguments, target interface{}) error {
 		return errors.Wrapf(err, "Invalid POST request %s", url)
 	}
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
-
-	resp, err := c.Client.Do(req)
-	if err != nil {
-		return errors.Wrapf(err, "HTTP request failure on %s", url)
-	}
-
-	defer resp.Body.Close()
-
-	b, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		return errors.Wrapf(err, "HTTP Read error on response for %s", url)
-	}
-
-	decoder := json.NewDecoder(bytes.NewBuffer(b))
-	err = decoder.Decode(target)
-	if err != nil {
-		return errors.Wrapf(err, "JSON decode failed on %s:\n%s", url, string(b))
-	}
-
-	return nil
+	return c.do(req, url, target)
 }
 
 // Delete takes a path, Arguments, and a target interface (e.g. Board or Card).
@@ -236,28 +186,32 @@ func (c *Client) Delete(path string, args Arguments, target interface{}) error {
 		return errors.Wrapf(err, "Invalid DELETE request %s", url)
 	}
 
-	resp, err := c.Client.Do(req)
-	if err != nil {
-		return errors.Wrapf(err, "HTTP request failure on %s", url)
-	}
-	defer resp.Body.Close()
-
-	b, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		return errors.Wrapf(err, "HTTP Read error on response for %s", url)
-	}
-
-	decoder := json.NewDecoder(bytes.NewBuffer(b))
-	err = decoder.Decode(target)
-	if err != nil {
-		return errors.Wrapf(err, "JSON decode failed on %s:\n%s", url, string(b))
-	}
-
-	return nil
+	return c.do(req, url, target)
 }
 
 func (c *Client) log(format string, args ...interface{}) {
 	if c.Logger != nil {
 		c.Logger.Debugf(format, args...)
 	}
+}
+
+func (c *Client) do(req *http.Request, url string, target interface{}) error {
+	resp, err := c.Client.Do(req)
+	if err != nil {
+		return errors.Wrapf(err, "HTTP request failure on %s", url)
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode < 200 || resp.StatusCode > 299 {
+		return makeHTTPClientError(url, resp)
+	}
+
+	b, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return errors.Wrapf(err, "HTTP Read error on response for %s", url)
+	}
+	err = json.Unmarshal(b, target)
+	if err != nil {
+		return errors.Wrapf(err, "JSON decode failed on %s:\n%s", url, string(b))
+	}
+	return nil
 }

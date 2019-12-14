@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	"github.com/mmcdole/gofeed/internal/shared"
-	xpp "github.com/mmcdole/goxpp"
+	"github.com/mmcdole/goxpp"
 )
 
 // FeedType represents one of the possible feed
@@ -28,8 +28,7 @@ const (
 func DetectFeedType(feed io.Reader) FeedType {
 	p := xpp.NewXMLPullParser(feed, false, shared.NewReaderLabel)
 
-	xmlBase := shared.XMLBase{}
-	_, err := xmlBase.FindRoot(p)
+	_, err := shared.FindRoot(p)
 	if err != nil {
 		return FeedTypeUnknown
 	}

@@ -26,7 +26,7 @@
   "description": "Manipulates events and other calendar data.",
   "discoveryVersion": "v1",
   "documentationLink": "https://developers.google.com/google-apps/calendar/firstapp",
-  "etag": "\"9eZ1uxVRThTDhLJCZHhqs3eQWz4/K_k45CtMfV--mlEBFlbW_LzaaUU\"",
+  "etag": "\"LYADMvHWYH2ul9D6m9UT9gT77YM/2FyuV5GKtx7ICYqjtmyzVJzmBrs\"",
   "icons": {
     "x16": "http://www.google.com/images/icons/product/calendar-16.png",
     "x32": "http://www.google.com/images/icons/product/calendar-32.png"
@@ -1724,7 +1724,7 @@
       }
     }
   },
-  "revision": "20190609",
+  "revision": "20190929",
   "rootUrl": "https://www.googleapis.com/",
   "schemas": {
     "Acl": {
@@ -2103,7 +2103,7 @@
       "id": "ConferenceData",
       "properties": {
         "conferenceId": {
-          "description": "The ID of the conference.\nCan be used by developers to keep track of conferences, should not be displayed to users.\nValues for solution types:  \n- \"eventHangout\": unset.\n- \"eventNamedHangout\": the name of the Hangout.\n- \"hangoutsMeet\": the 10-letter meeting code, for example \"aaa-bbbb-ccc\".  Optional.",
+          "description": "The ID of the conference.\nCan be used by developers to keep track of conferences, should not be displayed to users.\nValues for solution types:  \n- \"eventHangout\": unset.\n- \"eventNamedHangout\": the name of the Hangout.\n- \"hangoutsMeet\": the 10-letter meeting code, for example \"aaa-bbbb-ccc\".\n- \"addOn\": defined by 3P conference provider.  Optional.",
           "type": "string"
         },
         "conferenceSolution": {
@@ -2203,7 +2203,7 @@
       "id": "ConferenceSolutionKey",
       "properties": {
         "type": {
-          "description": "The conference solution type.\nIf a client encounters an unfamiliar or empty type, it should still be able to display the entry points. However, it should disallow modifications.\nThe possible values are:  \n- \"eventHangout\" for Hangouts for consumers (http://hangouts.google.com)\n- \"eventNamedHangout\" for classic Hangouts for G Suite users (http://hangouts.google.com)\n- \"hangoutsMeet\" for Hangouts Meet (http://meet.google.com)",
+          "description": "The conference solution type.\nIf a client encounters an unfamiliar or empty type, it should still be able to display the entry points. However, it should disallow modifications.\nThe possible values are:  \n- \"eventHangout\" for Hangouts for consumers (http://hangouts.google.com)\n- \"eventNamedHangout\" for classic Hangouts for G Suite users (http://hangouts.google.com)\n- \"hangoutsMeet\" for Hangouts Meet (http://meet.google.com)\n- \"addOn\" for 3P conference providers",
           "type": "string"
         }
       },
@@ -2522,7 +2522,7 @@
         },
         "privateCopy": {
           "default": "false",
-          "description": "Whether this is a private event copy where changes are not shared with other copies on other calendars. Optional. Immutable. The default is False.",
+          "description": "If set to True, Event propagation is disabled. Note that it is not the same thing as Private event properties. Optional. Immutable. The default is False.",
           "type": "boolean"
         },
         "recurrence": {

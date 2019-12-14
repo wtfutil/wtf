@@ -24,6 +24,9 @@ type Client struct {
 	//The Http Client that is used to make requests
 	HttpClient   *http.Client
 	RetryTimeout time.Duration
+
+	//Option to specify extra headers like User-Agent
+	ExtraHeader map[string]string
 }
 
 // valid is the struct to unmarshal validation endpoint responses into.
@@ -37,7 +40,7 @@ type valid struct {
 func NewClient(apiKey, appKey string) *Client {
 	baseUrl := os.Getenv("DATADOG_HOST")
 	if baseUrl == "" {
-		baseUrl = "https://app.datadoghq.com"
+		baseUrl = "https://api.datadoghq.com"
 	}
 
 	return &Client{
@@ -65,7 +68,7 @@ func (c *Client) GetBaseUrl() string {
 	return c.baseUrl
 }
 
-// Validate checks if the API and application keys are valid.
+// Validate checks if the API key (not the APP key) is valid.
 func (client *Client) Validate() (bool, error) {
 	var out valid
 	var resp *http.Response
@@ -79,6 +82,8 @@ func (client *Client) Validate() (bool, error) {
 	if err != nil {
 		return false, err
 	}
+	req.Header.Set("DD-API-KEY", client.apiKey)
+	req.Header.Set("DD-APPLICATION-KEY", client.appKey)
 
 	resp, err = client.doRequestWithRetries(req, client.RetryTimeout)
 	if err != nil {
@@ -86,6 +91,10 @@ func (client *Client) Validate() (bool, error) {
 	}
 
 	defer resp.Body.Close()
+
+	if resp.StatusCode == http.StatusForbidden {
+		return false, nil
+	}
 
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {

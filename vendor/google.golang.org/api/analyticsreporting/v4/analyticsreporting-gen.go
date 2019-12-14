@@ -53,8 +53,8 @@ import (
 	"strconv"
 	"strings"
 
-	gensupport "google.golang.org/api/gensupport"
 	googleapi "google.golang.org/api/googleapi"
+	gensupport "google.golang.org/api/internal/gensupport"
 	option "google.golang.org/api/option"
 	htransport "google.golang.org/api/transport/http"
 )
@@ -174,7 +174,15 @@ type UserActivityService struct {
 // hits.
 // These hits will be merged into one ECOMMERCE Activity.
 type Activity struct {
-	// ActivityTime: Timestamp of the activity.
+	// ActivityTime: Timestamp of the activity. If activities for a visit
+	// cross midnight and
+	// occur in two separate dates, then two sessions (one per date)
+	// share the session identifier.
+	// For example, say session ID 113472 has activity within 2019-08-20,
+	// and
+	// session ID 243742 has activity within 2019-08-25 and 2019-08-26.
+	// Session ID
+	// 113472 is one session, and session ID 243742 is two sessions.
 	ActivityTime string `json:"activityTime,omitempty"`
 
 	// ActivityType: Type of this activity.
@@ -3004,7 +3012,7 @@ func (c *ReportsBatchGetCall) Header() http.Header {
 
 func (c *ReportsBatchGetCall) doRequest(alt string) (*http.Response, error) {
 	reqHeaders := make(http.Header)
-	reqHeaders.Set("x-goog-api-client", "gl-go/1.11.0 gdcl/20190802")
+	reqHeaders.Set("x-goog-api-client", "gl-go/1.13.4 gdcl/20191114")
 	for k, v := range c.header_ {
 		reqHeaders[k] = v
 	}
@@ -3130,7 +3138,7 @@ func (c *UserActivitySearchCall) Header() http.Header {
 
 func (c *UserActivitySearchCall) doRequest(alt string) (*http.Response, error) {
 	reqHeaders := make(http.Header)
-	reqHeaders.Set("x-goog-api-client", "gl-go/1.11.0 gdcl/20190802")
+	reqHeaders.Set("x-goog-api-client", "gl-go/1.13.4 gdcl/20191114")
 	for k, v := range c.header_ {
 		reqHeaders[k] = v
 	}

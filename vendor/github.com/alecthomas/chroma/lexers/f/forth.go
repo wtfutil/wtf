@@ -10,7 +10,7 @@ var Forth = internal.Register(MustNewLexer(
 	&Config{
 		Name:            "Forth",
 		Aliases:         []string{"forth"},
-		Filenames:       []string{"*.frt", "*.fs"},
+		Filenames:       []string{"*.frt", "*.fth", "*.fs"},
 		MimeTypes:       []string{"application/x-forth"},
 		CaseInsensitive: true,
 	},

@@ -8,7 +8,7 @@ import (
 // AudioFeatures contains various high-level acoustic attributes
 // for a particular track.
 type AudioFeatures struct {
-	//Acousticness is a confidence measure from 0.0 to 1.0 of whether
+	// Acousticness is a confidence measure from 0.0 to 1.0 of whether
 	// the track is acoustic.  A value of 1.0 represents high confidence
 	// that the track is acoustic.
 	Acousticness float32 `json:"acousticness"`

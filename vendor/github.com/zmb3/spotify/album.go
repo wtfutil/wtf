@@ -51,6 +51,25 @@ type SimpleAlbum struct {
 	ReleaseDatePrecision string `json:"release_date_precision"`
 }
 
+// ReleaseDateTime converts the album's ReleaseDate to a time.TimeValue.
+// All of the fields in the result may not be valid.  For example, if
+// ReleaseDatePrecision is "month", then only the month and year
+// (but not the day) of the result are valid.
+func (s *SimpleAlbum) ReleaseDateTime() time.Time {
+	if s.ReleaseDatePrecision == "day" {
+		result, _ := time.Parse(DateLayout, s.ReleaseDate)
+		return result
+	}
+	if s.ReleaseDatePrecision == "month" {
+		ym := strings.Split(s.ReleaseDate, "-")
+		year, _ := strconv.Atoi(ym[0])
+		month, _ := strconv.Atoi(ym[1])
+		return time.Date(year, time.Month(month), 1, 0, 0, 0, 0, time.UTC)
+	}
+	year, _ := strconv.Atoi(s.ReleaseDate)
+	return time.Date(year, 1, 1, 0, 0, 0, 0, time.UTC)
+}
+
 // Copyright contains the copyright statement associated with an album.
 type Copyright struct {
 	// The copyright text for the album.
@@ -62,22 +81,14 @@ type Copyright struct {
 // FullAlbum provides extra album data in addition to the data provided by SimpleAlbum.
 type FullAlbum struct {
 	SimpleAlbum
-	Artists    []SimpleArtist `json:"artists"`
-	Copyrights []Copyright    `json:"copyrights"`
-	Genres     []string       `json:"genres"`
+	Copyrights []Copyright `json:"copyrights"`
+	Genres     []string    `json:"genres"`
 	// The popularity of the album, represented as an integer between 0 and 100,
 	// with 100 being the most popular.  Popularity of an album is calculated
 	// from the popularify of the album's individual tracks.
-	Popularity int `json:"popularity"`
-	// The date the album was first released.  For example, "1981-12-15".
-	// Depending on the ReleaseDatePrecision, it might be shown as
-	// "1981" or "1981-12". You can use ReleaseDateTime to convert this
-	// to a time.Time value.
-	ReleaseDate string `json:"release_date"`
-	// The precision with which ReleaseDate value is known: "year", "month", or "day"
-	ReleaseDatePrecision string            `json:"release_date_precision"`
-	Tracks               SimpleTrackPage   `json:"tracks"`
-	ExternalIDs          map[string]string `json:"external_ids"`
+	Popularity  int               `json:"popularity"`
+	Tracks      SimpleTrackPage   `json:"tracks"`
+	ExternalIDs map[string]string `json:"external_ids"`
 }
 
 // SavedAlbum provides info about an album saved to an user's account.
@@ -88,25 +99,6 @@ type SavedAlbum struct {
 	// a time.Time value.
 	AddedAt   string `json:"added_at"`
 	FullAlbum `json:"album"`
-}
-
-// ReleaseDateTime converts the album's ReleaseDate to a time.TimeValue.
-// All of the fields in the result may not be valid.  For example, if
-// f.ReleaseDatePrecision is "month", then only the month and year
-// (but not the day) of the result are valid.
-func (f *FullAlbum) ReleaseDateTime() time.Time {
-	if f.ReleaseDatePrecision == "day" {
-		result, _ := time.Parse(DateLayout, f.ReleaseDate)
-		return result
-	}
-	if f.ReleaseDatePrecision == "month" {
-		ym := strings.Split(f.ReleaseDate, "-")
-		year, _ := strconv.Atoi(ym[0])
-		month, _ := strconv.Atoi(ym[1])
-		return time.Date(year, time.Month(month), 1, 0, 0, 0, 0, time.UTC)
-	}
-	year, _ := strconv.Atoi(f.ReleaseDate)
-	return time.Date(year, 1, 1, 0, 0, 0, 0, time.UTC)
 }
 
 // GetAlbum gets Spotify catalog information for a single album, given its Spotify ID.

@@ -1,3 +1,4 @@
+// Package internal contains common API functions and structures shared between lexer packages.
 package internal
 
 import (

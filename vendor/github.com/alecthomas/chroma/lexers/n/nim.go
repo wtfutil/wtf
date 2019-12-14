@@ -16,6 +16,7 @@ var Nim = internal.Register(MustNewLexer(
 	},
 	Rules{
 		"root": {
+			{`#\[[\s\S]*?\]#`, CommentMultiline, nil},
 			{`##.*$`, LiteralStringDoc, nil},
 			{`#.*$`, Comment, nil},
 			{`[*=><+\-/@$~&%!?|\\\[\]]`, Operator, nil},

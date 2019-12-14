@@ -5,27 +5,33 @@ go-pagerduty is a CLI and [go](https://golang.org/) client library for the [Page
 
 ## Installation
 
-```
+First, download the source code
+```cli
 go get github.com/PagerDuty/go-pagerduty
+```
+
+Next build the application.
+```cli
+cd $GOPATH/src/github.com/PagerDuty/go-pagerduty
+go build -o $GOPATH/bin/pd command/*
+```
+If you do not have the dependencies necessary to build the project, run this in the project root and try again
+
+```cli
+go get ./...
 ```
 
 ## Usage
 
 ### CLI
 
-The CLI requires an [authentication token](https://v2.developer.pagerduty.com/docs/authentication), which can be sepcified in `.pd.yml`
+The CLI requires an [authentication token](https://v2.developer.pagerduty.com/docs/authentication), which can be specified in `.pd.yml`
 file in the home directory of the user, or passed as a command-line argument.
 Example of config file:
 
 ```yaml
 ---
 authtoken: fooBar
-```
-
-#### Install
-```cli
-cd $GOPATH/github.com/PagerDuty/go-pagerduty
-go build -o $GOPATH/bin/pd command/*
 ```
 
 #### Commands
@@ -57,12 +63,12 @@ var	authtoken = "" // Set your auth token here
 func main() {
 	var opts pagerduty.ListEscalationPoliciesOptions
 	client := pagerduty.NewClient(authtoken)
-	if eps, err := client.ListEscalationPolicies(opts); err != nil {
+	eps, err := client.ListEscalationPolicies(opts)
+	if err != nil {
 		panic(err)
-	} else {
-		for _, p := range eps.EscalationPolicies {
-			fmt.Println(p.Name)
-		}
+	}
+	for _, p := range eps.EscalationPolicies {
+		fmt.Println(p.Name)
 	}
 }
 ```
@@ -71,6 +77,8 @@ The PagerDuty API client also exposes its HTTP client as the `HTTPClient` field.
 If you need to use your own HTTP client, for doing things like defining your own
 transport settings, you can replace the default HTTP client with your own by
 simply by setting a new value in the `HTTPClient` field.
+## License
+[Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0)
 
 ## Contributing
 

@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"time"
 )
 
 // Task is a model of todoist project entity
@@ -25,7 +26,7 @@ type Task struct {
 type Due struct {
 	String   string     `json:"string"`
 	Date     string     `json:"date"`
-	Datetime CustomTime `json:"datetime"`
+	Datetime time.Time  `json:"datetime,omitempty"`
 	Timezone string     `json:"timezone"`
 }
 

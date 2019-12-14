@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/mmcdole/gofeed/atom"
-	ext "github.com/mmcdole/gofeed/extensions"
+	"github.com/mmcdole/gofeed/extensions"
 	"github.com/mmcdole/gofeed/internal/shared"
 	"github.com/mmcdole/gofeed/rss"
 )

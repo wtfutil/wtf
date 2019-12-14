@@ -23,6 +23,28 @@ type User struct {
 	IsAdmin *bool `json:"is_admin,omitempty"`
 }
 
+type reqUpdateUser struct {
+	Email      *string `json:"email,omitempty"`
+	Name       *string `json:"name,omitempty"`
+	Role       *string `json:"role,omitempty"`
+	AccessRole *string `json:"access_role,omitempty"`
+	Verified   *bool   `json:"verified,omitempty"`
+	Disabled   *bool   `json:"disabled,omitempty"`
+	IsAdmin    *bool   `json:"is_admin,omitempty"`
+}
+
+func reqUpdateUserFromUser(user User) reqUpdateUser {
+	return reqUpdateUser{
+		Email:      user.Email,
+		Name:       user.Name,
+		Role:       user.Role,
+		AccessRole: user.AccessRole,
+		Verified:   user.Verified,
+		Disabled:   user.Disabled,
+		IsAdmin:    user.IsAdmin,
+	}
+}
+
 // reqInviteUsers contains email addresses to send invitations to.
 type reqInviteUsers struct {
 	Emails []string `json:"emails,omitempty"`
@@ -85,7 +107,8 @@ func (client *Client) GetUser(handle string) (user User, err error) {
 // and returns an error if the update failed
 func (client *Client) UpdateUser(user User) error {
 	uri := "/v1/user/" + *user.Handle
-	return client.doJsonRequest("PUT", uri, user, nil)
+	req := reqUpdateUserFromUser(user)
+	return client.doJsonRequest("PUT", uri, req, nil)
 }
 
 // DeleteUser deletes a user and returns an error if deletion failed

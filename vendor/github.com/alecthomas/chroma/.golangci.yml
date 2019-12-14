@@ -14,6 +14,10 @@ linters:
     - lll
     - gocyclo
     - dupl
+    - gochecknoglobals
+    - funlen
+    - godox
+    - wsl
 
 linters-settings:
   govet:
@@ -42,3 +46,6 @@ issues:
     - 'Potential file inclusion via variable'
     - 'should have comment or be unexported'
     - 'comment on exported var .* should be of the form'
+    - 'at least one file in a package should have a package comment'
+    - 'string literal contains the Unicode'
+    - 'methods on the same type should have the same receiver name'

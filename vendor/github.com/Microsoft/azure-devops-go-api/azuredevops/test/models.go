@@ -238,7 +238,7 @@ type CloneOperationInformation struct {
 	SourcePlan *ShallowReference `json:"sourcePlan,omitempty"`
 	// Shallow reference of the source
 	SourceProject *ShallowReference `json:"sourceProject,omitempty"`
-	// Current state of the operation. When State reaches Suceeded or Failed, the operation is complete
+	// Current state of the operation. When State reaches Succeeded or Failed, the operation is complete
 	State *CloneOperationState `json:"state,omitempty"`
 	// Url for getting the clone information
 	Url *string `json:"url,omitempty"`

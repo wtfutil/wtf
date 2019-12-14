@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
-	"strings"
 	"time"
 )
 
@@ -56,33 +55,6 @@ func makeRequest(method, endpoint string, data interface{}) (*http.Response, err
 	return res, nil
 }
 
-const ctLayout = "2006-01-02T15:04:05+00:00"
-
-// CustomTime had a custom json date format
-type CustomTime struct {
-	time.Time
-}
-
-// UnmarshalJSON convert from []byte to CustomTime
-func (ct *CustomTime) UnmarshalJSON(b []byte) (err error) {
-	s := strings.Trim(string(b), "\"")
-	if s == "null" {
-		ct.Time = time.Time{}
-		return nil
-	}
-
-	ct.Time, err = time.Parse(ctLayout, s)
-	return err
-}
-
-// MarshalJSON convert CustomTime to []byte
-func (ct CustomTime) MarshalJSON() ([]byte, error) {
-	if ct.Time.IsZero() {
-		return []byte("null"), nil
-	}
-	return []byte(`"` + ct.Time.Format(ctLayout) + `"`), nil
-}
-
 type taskSave struct {
 	Content     string     `json:"content"`
 	ProjectID   int        `json:"project_id,omitempty"`
@@ -90,7 +62,7 @@ type taskSave struct {
 	LabelIDs    []int      `json:"label_ids,omitempty"`
 	Priority    int        `json:"priority,omitempty"`
 	DueString   string     `json:"due_string,omitempty"`
-	DueDateTime CustomTime `json:"due_datetime,omitempty"`
+	DueDateTime time.Time  `json:"due_datetime,omitempty"`
 	DueLang     string     `json:"due_lang,omitempty"`
 }
 

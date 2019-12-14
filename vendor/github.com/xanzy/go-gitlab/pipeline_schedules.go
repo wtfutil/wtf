@@ -236,8 +236,9 @@ func (s *PipelineSchedulesService) DeletePipelineSchedule(pid interface{}, sched
 // GitLab API docs:
 // https://docs.gitlab.com/ce/api/pipeline_schedules.html#create-a-new-pipeline-schedule
 type CreatePipelineScheduleVariableOptions struct {
-	Key   *string `url:"key" json:"key"`
-	Value *string `url:"value" json:"value"`
+	Key          *string `url:"key" json:"key"`
+	Value        *string `url:"value" json:"value"`
+	VariableType *string `url:"variable_type,omitempty" json:"variable_type,omitempty"`
 }
 
 // CreatePipelineScheduleVariable creates a pipeline schedule variable.
@@ -271,7 +272,8 @@ func (s *PipelineSchedulesService) CreatePipelineScheduleVariable(pid interface{
 // GitLab API docs:
 // https://docs.gitlab.com/ce/api/pipeline_schedules.html#edit-a-pipeline-schedule-variable
 type EditPipelineScheduleVariableOptions struct {
-	Value *string `url:"value" json:"value"`
+	Value        *string `url:"value" json:"value"`
+	VariableType *string `url:"variable_type,omitempty" json:"variable_type,omitempty"`
 }
 
 // EditPipelineScheduleVariable creates a pipeline schedule variable.
