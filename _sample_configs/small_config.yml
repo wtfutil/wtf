@@ -1,0 +1,17 @@
+wtf:
+  grid:
+    columns: [20, 20]
+    rows: [3, 3]
+  refreshInterval: 1
+  mods:
+    uptime:
+      type: cmdrunner
+      args: [""]
+      cmd: "uptime"
+      enabled: true
+      position:
+        top: 0
+        left: 0
+        height: 1
+        width: 1
+      refreshInterval: 30
