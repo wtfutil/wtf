@@ -5,7 +5,7 @@ import (
 	"github.com/wtfutil/wtf/view"
 )
 
-// Widget a text widget struct to hold info about the current widget
+// Widget is a text widget struct to hold info about the current widget
 type Widget struct {
 	view.TextWidget
 
@@ -15,7 +15,6 @@ type Widget struct {
 
 // NewWidget creates a new widget using settings
 func NewWidget(app *tview.Application, settings *Settings) *Widget {
-
 	widget := Widget{
 		TextWidget: view.NewTextWidget(app, settings.common),
 
@@ -30,9 +29,5 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 
 // Refresh updates the onscreen contents of the widget
 func (widget *Widget) Refresh() {
-	widget.app.QueueUpdateDraw(func() {
-		widget.display()
-	})
+	widget.display()
 }
-
-/* -------------------- Unexported Functions -------------------- */

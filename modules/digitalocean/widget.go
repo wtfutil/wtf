@@ -28,7 +28,7 @@ func (t *tokenSource) Token() (*oauth2.Token, error) {
 
 /* -------------------- Widget -------------------- */
 
-// Widget is the container for transmission data
+// Widget is the container for droplet data
 type Widget struct {
 	view.KeyboardWidget
 	view.ScrollableWidget

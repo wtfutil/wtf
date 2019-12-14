@@ -36,17 +36,43 @@ func main() {
 		widgetName,
 	}
 
-	tpl, _ := template.New("textwidget.tpl").Funcs(template.FuncMap{
-		"Lower": strings.ToLower,
-		"Title": strings.Title,
-	}).ParseFiles("generator/textwidget.tpl")
+	createModuleDirectory(data)
 
-	err := os.Mkdir(strings.ToLower(widgetName), os.ModePerm)
+	generateWidgetFile(data)
+	generateSettingsFile(data)
+
+	fmt.Println("Done")
+}
+
+/* -------------------- Unexported Functions -------------------- */
+
+func createModuleDirectory(data struct { Name string }) {
+	err := os.MkdirAll(strings.ToLower(fmt.Sprintf("modules/%s", data.Name)), os.ModePerm)
 	if err != nil {
 		fmt.Println(err.Error())
 	}
+}
 
-	out, err := os.Create(fmt.Sprintf("%s/widget.go", strings.ToLower(widgetName)))
+func generateWidgetFile(data struct { Name string }) {
+	tpl, _ := template.New("textwidget.tpl").Funcs(template.FuncMap{
+		"Lower": strings.ToLower,
+	}).ParseFiles("generator/textwidget.tpl")
+
+	out, err := os.Create(fmt.Sprintf("modules/%s/widget.go", strings.ToLower(data.Name)))
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+	defer out.Close()
+
+	tpl.Execute(out, data)
+}
+
+func generateSettingsFile(data struct { Name string }) {
+    tpl, _ := template.New("settings.tpl").Funcs(template.FuncMap{
+		"Lower": strings.ToLower,
+	}).ParseFiles("generator/settings.tpl")
+
+	out, err := os.Create(fmt.Sprintf("modules/%s/settings.go", strings.ToLower(data.Name)))
 	if err != nil {
 		fmt.Println(err.Error())
 	}
