@@ -2,6 +2,7 @@ package spotigopher
 
 import (
 	"errors"
+	"fmt"
 	"log"
 	"os/exec"
 	"runtime"
@@ -161,10 +162,13 @@ func getDarwinInfo(infoType string) string {
 	default:
 		args = []string{`-etell application "Spotify" to name of current track as string`}
 	}
+
 	info, err := exec.Command("osascript", args...).Output()
 	if err != nil {
-		log.Fatalf("Could not get info: %s", infoType)
+		// There is likely no current track yet, inform the user
+		return fmt.Sprintf("Could not get info for: %s", infoType)
 	}
+
 	return strings.Trim(string(info), "\n")
 }
 

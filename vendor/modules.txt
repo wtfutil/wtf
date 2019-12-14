@@ -260,10 +260,10 @@ github.com/shirou/gopsutil/internal/common
 github.com/shirou/gopsutil/mem
 # github.com/spf13/pflag v1.0.3
 github.com/spf13/pflag
-# github.com/sticreations/spotigopher v0.0.0-20181009182052-98632f6f94b0
-github.com/sticreations/spotigopher/spotigopher
 # github.com/stretchr/testify v1.4.0
 github.com/stretchr/testify/assert
+# github.com/wtfutil/spotigopher v0.0.0-20191127141047-7d8168fe103a
+github.com/wtfutil/spotigopher/spotigopher
 # github.com/wtfutil/todoist v0.0.1
 github.com/wtfutil/todoist
 # github.com/xanzy/go-gitlab v0.22.2
