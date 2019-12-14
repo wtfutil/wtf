@@ -30,16 +30,17 @@ APP=wtfutil
 
 ## build: builds a local version
 build:
-	go build -o bin/${APP}
-	@echo "Done"
+	go build -o bin/${APP} -mod=vendor
+	@echo "Done building"
 
 ## clean: removes old build cruft
 clean:
 	rm -rf ./dist
 	rm -rf ./bin/${APP}
+	@echo "Done cleaning"
 
 ## contrib-check: checks for any contributors who have not been given due credit
-contrib_check:
+contrib-check:
 	npx all-contributors-cli check
 
 ## coverage: figures out and displays test code coverage
@@ -77,7 +78,7 @@ run: build
 
 ## size: displays the lines of code (LoC) count
 size:
-	loc --exclude _sample_configs/ _site/ docs/ Makefile *.md
+	@loc --exclude _sample_configs/ _site/ docs/ Makefile *.md
 
 ## test: runs the test suite
 test: build
