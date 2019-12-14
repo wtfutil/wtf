@@ -1,56 +1,47 @@
-// Package {{(Lower .Name)}}
 package {{(Lower .Name)}}
 
 import (
-	"strconv"
-
-	"github.com/gdamore/tcell"
 	"github.com/rivo/tview"
-	"github.com/wtfutil/wtf/wtf"
+	"github.com/wtfutil/wtf/view"
 )
 
-const HelpText = `
- Keyboard commands for {{(Title .Name)}}:
-`
-
+// Widget is the container for your module's data
 type Widget struct {
-	wtf.HelpfulWidget
-	wtf.KeyboardWidget
-	wtf.TextWidget
+	view.TextWidget
 
+    app      *tview.Application
 	settings *Settings
 }
 
+// NewWidget creates and returns an instance of Widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		HelpfulWidget: wtf.NewHelpfulWidget(app, pages, HelpText),
-		KeyboardWidget: wtf.NewKeyboardWidget(),
-		TextWidget:    wtf.NewTextWidget(app, settings.common, false),
+		TextWidget: view.NewTextWidget(app, settings.common),
 
+		app:      app,
 		settings: settings,
 	}
-
-  widget.initializeKeyboardControls()
-	widget.View.SetInputCapture(widget.InputCapture)
-
-	widget.View.SetScrollable(true)
-	widget.View.SetRegions(true)
-
-	widget.HelpfulWidget.SetView(widget.View)
 
 	return &widget
 }
 
 /* -------------------- Exported Functions -------------------- */
 
+// Refresh updates the onscreen contents of the widget
 func (widget *Widget) Refresh() {
 
-	// The last call should always be to the display function
-  widget.display()
+    // The last call should always be to the display function
+    widget.display()
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
+func (widget *Widget) content() string {
+	return "This is my widget"
+}
+
 func (widget *Widget) display() {
-  widget.Redraw(widget.CommonSettings().Title, "Some text", false)
+	widget.Redraw(func() (string, string, bool) {
+		return widget.CommonSettings().Title, widget.content(), false
+	})
 }

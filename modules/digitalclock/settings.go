@@ -10,9 +10,8 @@ const (
 	defaultTitle     = "Clocks"
 )
 
-// Settings struct to define settings got digital clock
+// Settings defines the configuration properties for this module
 type Settings struct {
-	// hello
 	common *cfg.Common
 
 	hourFormat string `help:"The format of the clock." values:"12 or 24"`
@@ -20,7 +19,7 @@ type Settings struct {
 	font       string `help:"The font of the clock." values:"bigfont or digitalfont"`
 }
 
-// NewSettingsFromYAML functino to create setting instance from yaml file
+// NewSettingsFromYAML creates a new settings instance from a YAML config block
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{

@@ -24,5 +24,4 @@ func (widget *Widget) display() {
 	widget.Redraw(func() (string, string, bool) {
 		return widget.CommonSettings().Title, renderWidget(*widget.settings), false
 	})
-
 }
