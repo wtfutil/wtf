@@ -1,4 +1,4 @@
-.PHONY: build clean contrib_check coverage help install isntall binary_msg lint run size test uninstall
+.PHONY: build clean contrib_check coverage help install isntall lint run size test uninstall
 
 # detect GOPATH if not set
 ifndef $(GOPATH)
@@ -26,15 +26,12 @@ THIS_FILE := $(lastword $(MAKEFILE_LIST))
 
 APP=wtfutil
 
-binary_msg:
-	@echo "Install path: "
-
 # -------------------- Actions -------------------- # 
 
 ## build: builds a local version
 build:
 	go build -o bin/${APP}
-	@$(MAKE) -f $(THIS_FILE) binary_msg
+	@echo "Done"
 
 ## clean: removes old build cruft
 clean:
@@ -65,8 +62,8 @@ install:
 	@go clean
 	@go install -ldflags="-s -w -X main.version=$(shell git describe --always --abbrev=6) -X main.date=$(shell date +%FT%T%z)"
 	@mv ~/go/bin/wtf ~/go/bin/${APP}
-	@$(MAKE) -f $(THIS_FILE) binary_msg
-	@which ${APP} || echo "Could not find ${APP} in PATH" && exit 0
+	$(eval INSTALLPATH = $(shell which ${APP}))
+	@echo "${APP} installed into ${INSTALLPATH}"
 
 ## lint: runs a number of code quality checks against the source code
 lint:
