@@ -63,10 +63,10 @@ func (widget *Widget) String() string {
 	args := strings.Join(widget.settings.args, " ")
 
 	if args != "" {
-		return fmt.Sprintf(" %s %s ", widget.settings.cmd, args)
+		return fmt.Sprintf("%s %s", widget.settings.cmd, args)
 	}
 
-	return fmt.Sprintf(" %s ", widget.settings.cmd)
+	return widget.settings.cmd
 }
 
 func (widget *Widget) Write(p []byte) (n int, err error) {
