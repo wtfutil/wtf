@@ -44,8 +44,8 @@ require (
 	github.com/radovskyb/watcher v1.0.7
 	github.com/rivo/tview v0.0.0-20190829161255-f8bc69b90341
 	github.com/shirou/gopsutil v2.19.11+incompatible
-	github.com/sticreations/spotigopher v0.0.0-20181009182052-98632f6f94b0
 	github.com/stretchr/testify v1.4.0
+	github.com/wtfutil/spotigopher v0.0.0-20191127141047-7d8168fe103a
 	github.com/wtfutil/todoist v0.0.1
 	github.com/xanzy/go-gitlab v0.22.2
 	github.com/zmb3/spotify v0.0.0-20191010212056-e12fb981aacb

@@ -239,8 +239,6 @@ github.com/spf13/pflag v0.0.0-20170130214245-9ff6c6923cff/go.mod h1:DYY7MBk1bdzu
 github.com/spf13/pflag v1.0.1/go.mod h1:DYY7MBk1bdzusC3SYhjObp+wFpr4gzcvqqNjLnInEg4=
 github.com/spf13/pflag v1.0.3 h1:zPAT6CGy6wXeQ7NtTnaTerfKOsV6V6F8agHXFiazDkg=
 github.com/spf13/pflag v1.0.3/go.mod h1:DYY7MBk1bdzusC3SYhjObp+wFpr4gzcvqqNjLnInEg4=
-github.com/sticreations/spotigopher v0.0.0-20181009182052-98632f6f94b0 h1:WWyBZL7bRdl7Do39EvkJmBFXT11uXLACy0cJHHOZ7IE=
-github.com/sticreations/spotigopher v0.0.0-20181009182052-98632f6f94b0/go.mod h1:DjuRbAVIoxD4Lv7aE12Km2XYYYKrtXXNbpivYwXv2HE=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/objx v0.1.1/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/testify v0.0.0-20151208002404-e3a8ff8ce365/go.mod h1:a8OnRcib4nhh0OaRAV+Yts87kKdq0PP7pXfy6kDkUVs=
@@ -250,6 +248,8 @@ github.com/stretchr/testify v1.4.0 h1:2E4SXV/wtOkTonXsotYi4li6zVWxYlZuYNCXe9XRJy
 github.com/stretchr/testify v1.4.0/go.mod h1:j7eGeouHqKxXV5pUuKE4zz7dFj8WfuZ+81PSLYec5m4=
 github.com/valyala/bytebufferpool v1.0.0/go.mod h1:6bBcMArwyJ5K/AmCkWv1jt77kVWyCJ6HpOuEn7z0Csc=
 github.com/valyala/fasttemplate v1.0.1/go.mod h1:UQGH1tvbgY+Nz5t2n7tXsz52dQxojPUpymEIMZ47gx8=
+github.com/wtfutil/spotigopher v0.0.0-20191127141047-7d8168fe103a h1:2eyMT9EpTPS4PiVfvXvqA8PKB5FoSl6gGjgb3CQ0cug=
+github.com/wtfutil/spotigopher v0.0.0-20191127141047-7d8168fe103a/go.mod h1:AlO4kKlF1zyOHTq2pBzxEERdBDStJev0VZNukFEqz/E=
 github.com/wtfutil/todoist v0.0.1 h1:E3srzocggLHme8zIEAEXXoY/fQZtFRjW69m4OiYv3hg=
 github.com/wtfutil/todoist v0.0.1/go.mod h1:YuuGLJSsTK6DGBD5Zaf3J8LSMfpEC2WtzYPey3XVOdI=
 github.com/xanzy/go-gitlab v0.22.2 h1:KYPewSm3Tl7WHrVON7BOwX6FZ1gaiFEdpOt0DNIYySA=

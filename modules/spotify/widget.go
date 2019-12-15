@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/rivo/tview"
-	"github.com/sticreations/spotigopher/spotigopher"
+	"github.com/wtfutil/spotigopher/spotigopher"
 	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/view"
 )
