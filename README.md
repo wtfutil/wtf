@@ -20,7 +20,6 @@ Used by thousands of developers and tech people around the world, WTF is free an
 * [Installation](#installation)
     * [Installing via Homebrew](#installing-via-homebrew)
     * [Installing via MacPorts](#installing-via-macports)
-    * [Installing via Scarf](#installing-via-scarf)
     * [Installing a Binary](#installing-a-binary)
     * [Installing from Source](#installing-from-source)
     * [Running via Docker](#running-via-docker)
@@ -68,16 +67,6 @@ You can also install via [MacPorts](https://www.macports.org/):
 ```console
 sudo port selfupdate
 sudo port install wtfutil
-
-wtfutil
-```
-
-### Installing via Scarf
-
-You can also install via [Scarf](https://scarf.sh/package/senorprogrammer/wtfutil):
-
-```console
-scarf install wtfutil
 
 wtfutil
 ```
