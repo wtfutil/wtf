@@ -18,7 +18,7 @@ type Settings struct {
 	common *cfg.Common
 
 	apiKey   string `help:"Your Todoist API key"`
-	projects []int
+	projects []string
 }
 
 // NewSettingsFromYAML creates a new settings instance from a YAML config block
@@ -27,7 +27,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 
 		apiKey:   ymlConfig.UString("apiKey", ymlConfig.UString("apikey", os.Getenv("WTF_TODOIST_TOKEN"))),
-		projects: utils.ToInts(ymlConfig.UList("projects")),
+		projects: utils.ToStrs(ymlConfig.UList("projects")),
 	}
 
 	return &settings

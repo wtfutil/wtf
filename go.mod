@@ -46,7 +46,7 @@ require (
 	github.com/shirou/gopsutil v2.19.11+incompatible
 	github.com/stretchr/testify v1.4.0
 	github.com/wtfutil/spotigopher v0.0.0-20191127141047-7d8168fe103a
-	github.com/wtfutil/todoist v0.0.1
+	github.com/wtfutil/todoist v0.0.2-0.20191215183557-6f3412240454
 	github.com/xanzy/go-gitlab v0.22.2
 	github.com/zmb3/spotify v0.0.0-20191010212056-e12fb981aacb
 	github.com/zorkian/go-datadog-api v2.25.0+incompatible

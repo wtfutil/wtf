@@ -14,7 +14,7 @@ type Project struct {
 	err   error
 }
 
-func NewProject(id int) *Project {
+func NewProject(id string) *Project {
 	// Todoist seems to experience a lot of network issues on their side
 	// If we can't connect, handle it with an empty project until we can
 	project, err := todoist.GetProject(id)
@@ -38,7 +38,7 @@ func (proj *Project) isLast() bool {
 }
 
 func (proj *Project) loadTasks() {
-	tasks, err := todoist.ListTask(todoist.QueryParam{"project_id": fmt.Sprintf("%d", proj.ID)})
+	tasks, err := todoist.ListTask(todoist.QueryParam{"project_id": fmt.Sprintf("%s", proj.ID)})
 	if err != nil {
 		proj.err = err
 		proj.tasks = nil

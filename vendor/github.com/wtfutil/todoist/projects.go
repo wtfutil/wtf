@@ -9,7 +9,7 @@ import (
 
 // Project is a model of todoist project entity
 type Project struct {
-	ID           int    `json:"id"`
+	ID           string `json:"id"`
 	Name         string `json:"name"`
 	CommentCount int    `json:"comment_count"`
 	Order        int    `json:"order"`
@@ -62,8 +62,8 @@ func ListProject() ([]Project, error) {
 //			panic(err)
 //		}
 //		fmt.Println(project)
-func GetProject(id int) (Project, error) {
-	path := fmt.Sprintf("projects/%d", id)
+func GetProject(id string) (Project, error) {
+	path := fmt.Sprintf("projects/%s", id)
 	res, err := makeRequest(http.MethodGet, path, nil)
 	if err != nil {
 		return Project{}, err
@@ -109,7 +109,7 @@ func CreateProject(name string) (Project, error) {
 //			panic(err)
 //		}
 func (p Project) Delete() error {
-	path := fmt.Sprintf("projects/%d", p.ID)
+	path := fmt.Sprintf("projects/%s", p.ID)
 	_, err := makeRequest(http.MethodDelete, path, nil)
 	if err != nil {
 		return err
@@ -133,7 +133,7 @@ func (p Project) Delete() error {
 //		}
 //		fmt.Println(project)
 func (p Project) Update() error {
-	path := fmt.Sprintf("projects/%d", p.ID)
+	path := fmt.Sprintf("projects/%s", p.ID)
 	project := struct {
 		Name string `json:"name"`
 	}{
