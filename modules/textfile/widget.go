@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
-	"path/filepath"
 	"time"
 
 	"github.com/alecthomas/chroma/formatters"
@@ -89,10 +88,6 @@ func (widget *Widget) content() (string, string, bool) {
 	return title, text, widget.settings.wrapText
 }
 
-func (widget *Widget) fileName() string {
-	return filepath.Base(widget.CurrentSource())
-}
-
 func (widget *Widget) formattedText() string {
 	filePath, _ := utils.ExpandHomeDir(widget.CurrentSource())
 
@@ -157,9 +152,7 @@ func (widget *Widget) watchForFileChanges() {
 	for _, source := range widget.Sources {
 		fullPath, err := utils.ExpandHomeDir(source)
 		if err == nil {
-			if err := watch.Add(fullPath); err != nil {
-				// Ignore it, don't care about a file that doesn't exist
-			}
+			watch.Add(fullPath)
 		}
 	}
 

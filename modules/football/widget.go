@@ -41,7 +41,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	leagueId, err := getLeague(settings.league)
 	if err != nil {
 		widget = Widget{
-			err:      fmt.Errorf("Unable to get the league id for provided league '%s'", settings.league),
+			err:      fmt.Errorf("unable to get the league id for provided league '%s'", settings.league),
 			Client:   NewClient(settings.apiKey),
 			settings: settings,
 		}
@@ -80,7 +80,7 @@ func getLeague(league string) (leagueInfo, error) {
 	if val, ok := leagueID[league]; ok {
 		return val, nil
 	}
-	return l, fmt.Errorf("No such league")
+	return l, fmt.Errorf("no such league")
 }
 
 // GetStandings of particular league

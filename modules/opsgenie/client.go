@@ -34,10 +34,10 @@ var opsGenieAPIUrl = map[string]string{
 func (widget *Widget) Fetch(scheduleIdentifierType string, schedules []string) ([]*OnCallResponse, error) {
 	agregatedResponses := []*OnCallResponse{}
 
-	if regionUrl, regionErr := opsGenieAPIUrl[widget.settings.region]; regionErr {
+	if regionURL, regionErr := opsGenieAPIUrl[widget.settings.region]; regionErr {
 		for _, sched := range schedules {
-			scheduleUrl := fmt.Sprintf("%s/v2/schedules/%s/on-calls?scheduleIdentifierType=%s&flat=true", regionUrl, sched, scheduleIdentifierType)
-			response, err := opsGenieRequest(scheduleUrl, widget.settings.apiKey)
+			scheduleURL := fmt.Sprintf("%s/v2/schedules/%s/on-calls?scheduleIdentifierType=%s&flat=true", regionURL, sched, scheduleIdentifierType)
+			response, err := opsGenieRequest(scheduleURL, widget.settings.apiKey)
 			agregatedResponses = append(agregatedResponses, response)
 			if err != nil {
 				return nil, err
@@ -45,7 +45,7 @@ func (widget *Widget) Fetch(scheduleIdentifierType string, schedules []string) (
 		}
 		return agregatedResponses, nil
 	} else {
-		return nil, fmt.Errorf("You specified wrong region. Possible options are only 'us' and 'eu'.")
+		return nil, fmt.Errorf("you specified wrong region. Possible options are only 'us' and 'eu'")
 	}
 }
 

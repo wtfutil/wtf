@@ -132,9 +132,9 @@ func (widget *Widget) authenticate() {
 		log.Fatalf("Unable to read secret file. %v", widget.settings.secretFile)
 	}
 
-	config, err := google.ConfigFromJSON(b, calendar.CalendarReadonlyScope)
+	config, _ := google.ConfigFromJSON(b, calendar.CalendarReadonlyScope)
 	tok := getTokenFromWeb(config)
-	cacheFile, err := tokenCacheFile()
+	cacheFile, _ := tokenCacheFile()
 	saveToken(cacheFile, tok)
 }
 
@@ -150,7 +150,7 @@ func getTokenFromWeb(config *oauth2.Config) *oauth2.Token {
 		log.Fatalf("Unable to read authorization code %v", err)
 	}
 
-	tok, err := config.Exchange(oauth2.NoContext, code)
+	tok, err := config.Exchange(context.Background(), code)
 	if err != nil {
 		log.Fatalf("Unable to retrieve token from web %v", err)
 	}

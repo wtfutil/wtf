@@ -52,25 +52,20 @@ func (c *Client) doRequest(req *http.Request, out interface{}) error {
 func encodeGetParams(params map[string]interface{}) string {
 	s := url.Values{}
 	for k, v := range params {
-		switch v.(type) {
+		switch val := v.(type) {
 		case string:
-			val := v.(string)
 			if val != "" {
 				s.Add(k, val)
 			}
 		case int:
-			val := v.(int)
-			// TODO: Zero values versus not defined
 			if val != 0 {
 				s.Add(k, strconv.Itoa(val))
 			}
 		case []string:
-			val := v.([]string)
 			if len(val) != 0 {
 				s.Add(k, strings.Join(val, ","))
 			}
 		case []int:
-			val := v.([]int)
 			arr := []string{}
 			for _, v := range val {
 				arr = append(arr, strconv.Itoa(v))
@@ -79,19 +74,15 @@ func encodeGetParams(params map[string]interface{}) string {
 				s.Add(k, strings.Join(arr, ","))
 			}
 		case time.Time:
-			val := v.(time.Time)
 			if !val.IsZero() {
 				s.Add(k, val.String())
 			}
 		case Array:
-			val := v.(Array)
 			for _, v := range val.arr {
 				s.Add(k, v)
 			}
 		case bool:
-			if v.(bool) {
-				s.Add(k, "true")
-			}
+			s.Add(k, "true")
 		default:
 			s.Add(k, fmt.Sprintf("%v", v))
 		}

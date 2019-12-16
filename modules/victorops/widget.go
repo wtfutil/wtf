@@ -50,7 +50,7 @@ func (widget *Widget) content() (string, string, bool) {
 	teams := widget.teams
 	var str string
 
-	if teams == nil || len(teams) == 0 {
+	if len(teams) == 0 {
 		return title, "No teams specified", false
 	}
 

@@ -68,12 +68,17 @@ install:
 
 ## lint: runs a number of code quality checks against the source code
 lint:
+	# https://golang.org/cmd/vet/
 	go vet ./modules/...
 
 	# https://staticcheck.io/docs/
 	staticcheck ./app
 	staticcheck ./cfg
 	staticcheck ./modules/...
+	staticcheck ./utils
+	staticcheck ./utils
+	staticcheck ./view
+	staticcheck ./wtf
 
 ## run: executes the locally-installed version
 run: build

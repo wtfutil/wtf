@@ -52,7 +52,7 @@ func (calEvent *CalEvent) Past() bool {
 		return false
 	}
 
-	return (calEvent.Now() == false) && calEvent.Start().Before(time.Now())
+	return !calEvent.Now() && calEvent.Start().Before(time.Now())
 }
 
 func (calEvent *CalEvent) ResponseFor(email string) string {

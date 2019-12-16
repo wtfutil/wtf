@@ -64,7 +64,6 @@ type ItemLists struct {
 type request struct {
 	requestBody interface{}
 	method      string
-	result      interface{}
 	headers     map[string]string
 	url         string
 }
@@ -100,8 +99,8 @@ func (client *Client) request(req request, result interface{}) error {
 	}
 
 	if err := json.Unmarshal(responseBody, &result); err != nil {
-		return fmt.Errorf("Could not unmarshal url [%s] \n\t\tresponse [%s] request[%s] error:%w",
-	req.url, responseBody, jsonValues, err)
+		return fmt.Errorf("could not unmarshal url [%s] \n\t\tresponse [%s] request[%s] error:%w",
+			req.url, responseBody, jsonValues, err)
 	}
 
 	return nil
@@ -120,13 +119,13 @@ func (client *Client) ObtainRequestToken() (code string, err error) {
 
 	var responseData map[string]string
 	req := request{
+		headers: map[string]string{
+			"X-Accept":     "application/json",
+			"Content-Type": "application/json",
+		},
 		method:      "POST",
-		url:         url,
 		requestBody: requestData,
-	}
-	req.headers = map[string]string{
-		"X-Accept":     "application/json",
-		"Content-Type": "application/json",
+		url:         url,
 	}
 	err = client.request(req, &responseData)
 

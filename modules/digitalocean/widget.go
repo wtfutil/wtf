@@ -150,9 +150,7 @@ func (widget *Widget) dropletsFetch() ([]godo.Droplet, error) {
 			return dropletList, err
 		}
 
-		for _, d := range droplets {
-			dropletList = append(dropletList, d)
-		}
+		dropletList = append(dropletList, droplets...)
 
 		if resp.Links == nil || resp.Links.IsLastPage() {
 			break

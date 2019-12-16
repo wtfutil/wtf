@@ -59,11 +59,7 @@ func (sett *Settings) HasSince() bool {
 	}
 
 	_, err := sett.SinceDate()
-	if err != nil {
-		return false
-	}
-
-	return true
+	return err == nil
 }
 
 // SinceDate returns the "since" settings as a proper Time instance

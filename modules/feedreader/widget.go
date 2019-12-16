@@ -63,9 +63,7 @@ func (widget *Widget) Fetch(feedURLs []string) ([]*FeedItem, error) {
 			return nil, err
 		}
 
-		for _, feedItem := range feedItems {
-			data = append(data, feedItem)
-		}
+		data = append(data, feedItems...)
 	}
 
 	data = widget.sort(data)
@@ -128,7 +126,7 @@ func (widget *Widget) content() (string, string, bool) {
 		return title, widget.err.Error(), true
 	}
 	data := widget.stories
-	if data == nil || len(data) == 0 {
+	if len(data) == 0 {
 		return title, "No data", false
 	}
 	var str string

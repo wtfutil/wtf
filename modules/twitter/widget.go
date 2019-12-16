@@ -19,7 +19,6 @@ type Widget struct {
 	client   *Client
 	idx      int
 	settings *Settings
-	sources  []string
 }
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {

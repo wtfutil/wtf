@@ -48,7 +48,7 @@ func (widget *Widget) content() (string, string, bool) {
 	} else {
 
 		for _, data := range onCallResponses {
-			if (len(data.OnCallData.Recipients) == 0) && (widget.settings.displayEmpty == false) {
+			if (len(data.OnCallData.Recipients) == 0) && !widget.settings.displayEmpty {
 				continue
 			}
 

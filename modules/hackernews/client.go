@@ -52,6 +52,9 @@ var (
 
 func apiRequest(path string) (*http.Response, error) {
 	req, err := http.NewRequest("GET", apiEndpoint+path+".json", nil)
+	if err != nil {
+		return nil, err
+	}
 
 	httpClient := &http.Client{}
 	resp, err := httpClient.Do(req)
