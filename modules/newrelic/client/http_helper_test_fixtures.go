@@ -7,7 +7,7 @@ import (
 )
 
 type testJSONInterface struct {
-	data string `json:"data"id,omitempty"`
+	data string
 }
 
 type testParamsInterface struct {

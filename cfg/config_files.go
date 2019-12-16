@@ -58,7 +58,7 @@ func CreateFile(fileName string) (string, error) {
 // Initialize takes care of settings up the initial state of WTF configuration
 // It ensures necessary directories and files exist
 func Initialize(hasCustom bool) {
-	if hasCustom == false {
+	if !hasCustom {
 		migrateOldConfig()
 	}
 
@@ -67,7 +67,7 @@ func Initialize(hasCustom bool) {
 	createXdgConfigDir()
 	createWtfConfigDir()
 
-	if hasCustom == false {
+	if !hasCustom {
 		createWtfConfigFile()
 		chmodConfigFile()
 	}

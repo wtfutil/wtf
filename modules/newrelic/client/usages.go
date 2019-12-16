@@ -6,7 +6,7 @@ import (
 
 // Usage describes usage over a single time period.
 type Usage struct {
-	From  time.Time `json"from,omitempty"`
+	From  time.Time `json:"from,omitempty"`
 	To    time.Time `json:"to,omitempty"`
 	Usage int       `json:"usage,omitempty"`
 }

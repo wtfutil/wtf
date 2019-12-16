@@ -15,7 +15,7 @@ const (
 type Settings struct {
 	common *cfg.Common
 
-	rates map[string][]string `help:"Defines what currency rates we want to know about`
+	rates map[string][]string `help:"Defines what currency rates we want to know about"`
 	order []string
 }
 
