@@ -45,18 +45,16 @@ require (
 	github.com/rivo/tview v0.0.0-20190829161255-f8bc69b90341
 	github.com/shirou/gopsutil v2.19.11+incompatible
 	github.com/stretchr/testify v1.4.0
-	github.com/surullabs/lint v0.0.0-20171003141706-f90256a82312 // indirect
 	github.com/wtfutil/spotigopher v0.0.0-20191127141047-7d8168fe103a
 	github.com/wtfutil/todoist v0.0.1
 	github.com/xanzy/go-gitlab v0.22.2
 	github.com/zmb3/spotify v0.0.0-20191010212056-e12fb981aacb
 	github.com/zorkian/go-datadog-api v2.25.0+incompatible
+	golang.org/x/crypto v0.0.0-20190510104115-cbcb75029529 // indirect
 	golang.org/x/oauth2 v0.0.0-20190604053449-0f29369cfe45
 	google.golang.org/api v0.14.0
 	gopkg.in/jarcoal/httpmock.v1 v1.0.0-20181110093347-3be5f16b70eb // indirect
 	gopkg.in/yaml.v2 v2.2.7
-	gotest.tools v2.2.0+incompatible
-	honnef.co/go/tools v0.0.1-2019.2.3 // indirect
 	k8s.io/api v0.0.0-20191010143144-fbf594f18f80 // indirect
 	k8s.io/apimachinery v0.0.0-20191016060620-86f2f1b9c076
 	k8s.io/client-go v0.0.0-20190620085101-78d2af792bab
