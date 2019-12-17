@@ -19,6 +19,17 @@ func MapToStrs(aMap map[string]interface{}) map[string]string {
 
 /* -------------------- Slice Conversion -------------------- */
 
+// IntsToUints takes a slice of ints and returns a slice of uints
+func IntsToUints(slice []int) []uint {
+	results := make([]uint, len(slice))
+
+	for i, val := range slice {
+		results[i] = uint(val)
+	}
+
+	return results
+}
+
 // ToInts takes a slice of interfaces and returns a slice of ints
 func ToInts(slice []interface{}) []int {
 	results := make([]int, len(slice))
@@ -41,6 +52,17 @@ func ToStrs(slice []interface{}) []string {
 		case string:
 			results[i] = t
 		}
+	}
+
+	return results
+}
+
+// ToUints takes a slice of interfaces and returns a slice of ints
+func ToUints(slice []interface{}) []uint {
+	results := make([]uint, len(slice))
+
+	for i, val := range slice {
+		results[i] = val.(uint)
 	}
 
 	return results

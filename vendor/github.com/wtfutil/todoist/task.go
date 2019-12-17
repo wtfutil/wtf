@@ -10,7 +10,7 @@ import (
 
 // Task is a model of todoist project entity
 type Task struct {
-	ID           int    `json:"id"`
+	ID           uint   `json:"id"`
 	CommentCount int    `json:"comment_count"`
 	Completed    bool   `json:"completed"`
 	Content      string `json:"content"`
@@ -24,10 +24,10 @@ type Task struct {
 
 // Due is a model of todoist project entity
 type Due struct {
-	String   string     `json:"string"`
-	Date     string     `json:"date"`
-	Datetime time.Time  `json:"datetime,omitempty"`
-	Timezone string     `json:"timezone"`
+	String   string    `json:"string"`
+	Date     string    `json:"date"`
+	Datetime time.Time `json:"datetime,omitempty"`
+	Timezone string    `json:"timezone"`
 }
 
 func (t Task) taskSave() taskSave {
@@ -94,7 +94,7 @@ func ListTask(qp QueryParam) ([]Task, error) {
 }
 
 // GetTask return a task by id
-func GetTask(id int) (Task, error) {
+func GetTask(id uint) (Task, error) {
 	path := fmt.Sprintf("tasks/%d", id)
 	res, err := makeRequest(http.MethodGet, path, nil)
 	if err != nil {

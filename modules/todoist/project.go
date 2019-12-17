@@ -14,7 +14,7 @@ type Project struct {
 	err   error
 }
 
-func NewProject(id int) *Project {
+func NewProject(id uint) *Project {
 	// Todoist seems to experience a lot of network issues on their side
 	// If we can't connect, handle it with an empty project until we can
 	project, err := todoist.GetProject(id)
