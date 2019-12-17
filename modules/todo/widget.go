@@ -91,11 +91,11 @@ func (widget *Widget) SetList(list checklist.Checklist) {
 func (widget *Widget) init() {
 	_, err := cfg.CreateFile(widget.filePath)
 	if err != nil {
-		panic(err)
+		return
 	}
 }
 
-// isItemSelected returns weather any item of the todo is selected or not
+// isItemSelected returns whether any item of the todo is selected or not
 func (widget *Widget) isItemSelected() bool {
 	return widget.Selected >= 0 && widget.Selected < len(widget.list.Items)
 }
@@ -107,7 +107,10 @@ func (widget *Widget) load() {
 
 	fileData, _ := utils.ReadFileBytes(filePath)
 
-	yaml.Unmarshal(fileData, &widget.list)
+	err := yaml.Unmarshal(fileData, &widget.list)
+	if err != nil {
+		return
+	}
 
 	widget.ScrollableWidget.SetItemCount(len(widget.list.Items))
 	widget.setItemChecks()

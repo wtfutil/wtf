@@ -95,7 +95,7 @@ func (widget *Widget) formattedText() string {
 	if err != nil {
 		return err.Error()
 	}
-	defer file.Close()
+	defer func() { _ = file.Close() }()
 
 	lexer := lexers.Match(filePath)
 	if lexer == nil {
@@ -115,7 +115,10 @@ func (widget *Widget) formattedText() string {
 	iterator, _ := lexer.Tokenise(nil, string(contents))
 
 	var buf bytes.Buffer
-	formatter.Format(&buf, style, iterator)
+	err = formatter.Format(&buf, style, iterator)
+	if err != nil {
+		return err.Error()
+	}
 
 	return tview.TranslateANSI(buf.String())
 }
@@ -152,7 +155,11 @@ func (widget *Widget) watchForFileChanges() {
 	for _, source := range widget.Sources {
 		fullPath, err := utils.ExpandHomeDir(source)
 		if err == nil {
-			watch.Add(fullPath)
+			e := watch.Add(fullPath)
+			if e != nil {
+				fmt.Println(e)
+				os.Exit(1)
+			}
 		}
 	}
 

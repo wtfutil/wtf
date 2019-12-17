@@ -70,7 +70,7 @@ func (widget *Widget) tailFile() []string {
 	if err != nil {
 		return []string{}
 	}
-	defer file.Close()
+	defer func() { _ = file.Close() }()
 
 	stat, err := file.Stat()
 	if err != nil {

@@ -68,16 +68,41 @@ install:
 
 ## lint: runs a number of code quality checks against the source code
 lint:
+	# https://github.com/kisielk/errcheck
+	errcheck ./app
+	errcheck ./cfg
+	errcheck ./flags
+	errcheck ./help
+	errcheck ./logger
+	errcheck ./modules/...
+	errcheck ./utils
+	errcheck ./view
+	errcheck ./wtf
+	errcheck ./main.go
+
 	# https://golang.org/cmd/vet/
+	go vet ./app
+	go vet ./cfg
+	go vet ./flags
+	go vet ./help
+	go vet ./logger
 	go vet ./modules/...
+	go vet ./utils
+	go vet ./view
+	go vet ./wtf
+	go vet ./main.go
 
 	# https://staticcheck.io/docs/
 	staticcheck ./app
 	staticcheck ./cfg
+	staticcheck ./flags
+	staticcheck ./help
+	staticcheck ./logger
 	staticcheck ./modules/...
 	staticcheck ./utils
 	staticcheck ./view
 	staticcheck ./wtf
+	staticcheck ./main.go
 
 ## run: executes the locally-installed version
 run: build

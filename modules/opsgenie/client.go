@@ -65,7 +65,7 @@ func opsGenieRequest(url string, apiKey string) (*OnCallResponse, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	response := &OnCallResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(response); err != nil {

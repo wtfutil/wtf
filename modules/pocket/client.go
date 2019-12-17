@@ -87,7 +87,7 @@ func (client *Client) request(req request, result interface{}) error {
 	if err != nil {
 		return err
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	responseBody, err := ioutil.ReadAll(resp.Body)
 

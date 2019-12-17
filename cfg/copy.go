@@ -34,7 +34,7 @@ func fcopy(src, dest string, info os.FileInfo) error {
 	if err != nil {
 		return err
 	}
-	defer f.Close()
+	defer func() { _ = f.Close() }()
 
 	if err = os.Chmod(f.Name(), info.Mode()); err != nil {
 		return err
@@ -44,7 +44,7 @@ func fcopy(src, dest string, info os.FileInfo) error {
 	if err != nil {
 		return err
 	}
-	defer s.Close()
+	defer func() { _ = f.Close() }()
 
 	_, err = io.Copy(f, s)
 	return err

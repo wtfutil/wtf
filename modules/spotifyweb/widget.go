@@ -53,7 +53,10 @@ func authHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	// use the token to get an authenticated client
 	client := auth.NewClient(tok)
-	fmt.Fprintf(w, "Login Completed!")
+	_, err = fmt.Fprintf(w, "Login Completed!")
+	if err != nil {
+		return
+	}
 	tempClientChan <- &client
 }
 
@@ -81,7 +84,12 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	}
 
 	http.HandleFunc("/callback", authHandler)
-	go http.ListenAndServe(":"+callbackPort, nil)
+	go func() {
+		err := http.ListenAndServe(":"+callbackPort, nil)
+		if err != nil {
+			return
+		}
+	}()
 
 	go func() {
 		// wait for auth to complete

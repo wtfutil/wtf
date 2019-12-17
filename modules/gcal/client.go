@@ -172,7 +172,8 @@ func tokenFromFile(file string) (*oauth2.Token, error) {
 	}
 	t := &oauth2.Token{}
 	err = json.NewDecoder(f).Decode(t)
-	defer f.Close()
+	defer func() { _ = f.Close() }()
+
 	return t, err
 }
 
@@ -182,11 +183,14 @@ func saveToken(file string, token *oauth2.Token) {
 	fmt.Printf("Saving credential file to: %s\n", file)
 	f, err := os.OpenFile(file, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0600)
 	if err != nil {
-		log.Fatalf("Unable to cache oauth token: %v", err)
+		log.Fatalf("unable to cache oauth token: %v", err)
 	}
-	defer f.Close()
+	defer func() { _ = f.Close() }()
 
-	json.NewEncoder(f).Encode(token)
+	err = json.NewEncoder(f).Encode(token)
+	if err != nil {
+		log.Fatalf("unable to encode oauth token: %v", err)
+	}
 }
 
 func (widget *Widget) getCalendarIdList(srv *calendar.Service) ([]string, error) {

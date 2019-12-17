@@ -79,7 +79,7 @@ func (widget *Widget) Write(p []byte) (n int, err error) {
 	// Remove lines that exceed maxLines
 	lines := widget.countLines()
 	if lines > widget.settings.maxLines {
-		widget.drainLines(lines - widget.settings.maxLines)
+		err = widget.drainLines(lines - widget.settings.maxLines)
 	}
 
 	return n, err
@@ -93,10 +93,15 @@ func (widget *Widget) countLines() int {
 }
 
 // drainLines removed the first n lines from the buffer
-func (widget *Widget) drainLines(n int) {
+func (widget *Widget) drainLines(n int) error {
 	for i := 0; i < n; i++ {
-		widget.buffer.ReadBytes('\n')
+		_, err := widget.buffer.ReadBytes('\n')
+		if err != nil {
+			return err
+		}
 	}
+
+	return nil
 }
 
 func (widget *Widget) environment() []string {

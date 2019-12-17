@@ -35,14 +35,14 @@ func (flags *Flags) ConfigFilePath() string {
 
 // RenderIf displays special-case information based on the flags passed
 // in, if any flags were passed in
-func (flags *Flags) RenderIf(version string, config *config.Config) {
+func (flags *Flags) RenderIf(version, date string, config *config.Config) {
 	if flags.HasModule() {
 		help.Display(flags.Module, config)
 		os.Exit(0)
 	}
 
 	if flags.HasVersion() {
-		fmt.Println(version)
+		fmt.Println(fmt.Sprintf("%s (%s)", version, date))
 		os.Exit(0)
 	}
 }
@@ -59,7 +59,7 @@ func (flags *Flags) HasModule() bool {
 
 // HasVersion returns TRUE if the version flag was passed in, FALSE if it was not
 func (flags *Flags) HasVersion() bool {
-	return flags.Version == true
+	return flags.Version
 }
 
 // Parse parses the incoming flags
@@ -74,7 +74,7 @@ func (flags *Flags) Parse() {
 	// If we have a custom config, then we're done parsing parameters, we don't need to
 	// generate the default value
 	flags.hasCustom = (len(flags.Config) > 0)
-	if flags.hasCustom == true {
+	if flags.hasCustom {
 		return
 	}
 

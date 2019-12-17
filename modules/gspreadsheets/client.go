@@ -112,10 +112,14 @@ func tokenCacheFile() (string, error) {
 	if err != nil {
 		return "", err
 	}
+
 	tokenCacheDir := filepath.Join(usr.HomeDir, ".credentials")
-	os.MkdirAll(tokenCacheDir, 0700)
-	return filepath.Join(tokenCacheDir,
-		url.QueryEscape("spreadsheets-go-quickstart.json")), err
+	err = os.MkdirAll(tokenCacheDir, 0700)
+	if err != nil {
+		return "", err
+	}
+
+	return filepath.Join(tokenCacheDir, url.QueryEscape("spreadsheets-go-quickstart.json")), err
 }
 
 // tokenFromFile retrieves a Token from a given file path.
@@ -127,7 +131,7 @@ func tokenFromFile(file string) (*oauth2.Token, error) {
 	}
 	t := &oauth2.Token{}
 	err = json.NewDecoder(f).Decode(t)
-	defer f.Close()
+	defer func() { _ = f.Close() }()
 	return t, err
 }
 
@@ -139,7 +143,10 @@ func saveToken(file string, token *oauth2.Token) {
 	if err != nil {
 		log.Fatalf("Unable to cache oauth token: %v", err)
 	}
-	defer f.Close()
+	defer func() { _ = f.Close() }()
 
-	json.NewEncoder(f).Encode(token)
+	err = json.NewEncoder(f).Encode(token)
+	if err != nil {
+		log.Fatalf("Unable to encode oauth token: %v", err)
+	}
 }

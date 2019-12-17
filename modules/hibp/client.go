@@ -131,7 +131,10 @@ func (widget *Widget) validateHTTPResponse(responseCode int, body []byte) *hibpE
 
 	switch responseCode {
 	case 401, 402:
-		json.Unmarshal(body, hibpErr)
+		err := json.Unmarshal(body, hibpErr)
+		if err != nil {
+			return nil
+		}
 	default:
 		hibpErr = nil
 	}

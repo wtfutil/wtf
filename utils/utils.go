@@ -92,26 +92,37 @@ func OpenFile(path string) {
 	if (strings.HasPrefix(path, "http://")) || (strings.HasPrefix(path, "https://")) {
 		if len(OpenUrlUtil) > 0 {
 			commands := append(OpenUrlUtil, path)
-			exec.Command(commands[0], commands[1:]...).Start()
+			cmd := exec.Command(commands[0], commands[1:]...)
+			err := cmd.Start()
+			if err != nil {
+				return
+			}
 			return
 		}
 
+		var cmd *exec.Cmd
 		switch runtime.GOOS {
 		case "linux":
-			exec.Command("xdg-open", path).Start()
+			cmd = exec.Command("xdg-open", path)
 		case "windows":
-			exec.Command("rundll32", "url.dll,FileProtocolHandler", path).Start()
+			cmd = exec.Command("rundll32", "url.dll,FileProtocolHandler", path)
 		case "darwin":
-			exec.Command("open", path).Start()
+			cmd = exec.Command("open", path)
 		default:
 			// for the BSDs
-			exec.Command("xdg-open", path).Start()
+			cmd = exec.Command("xdg-open", path)
 		}
-	} else {
-		filePath, _ := ExpandHomeDir(path)
-		cmd := exec.Command(OpenFileUtil, filePath)
-		ExecuteCommand(cmd)
+
+		err := cmd.Start()
+		if err != nil {
+			return
+		}
+		return
 	}
+
+	filePath, _ := ExpandHomeDir(path)
+	cmd := exec.Command(OpenFileUtil, filePath)
+	ExecuteCommand(cmd)
 }
 
 // ReadFileBytes reads the contents of a file and returns those contents as a slice of bytes

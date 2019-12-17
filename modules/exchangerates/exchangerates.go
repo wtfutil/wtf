@@ -16,14 +16,14 @@ func FetchExchangeRates(settings *Settings) (map[string]map[string]float64, erro
 	out := map[string]map[string]float64{}
 
 	for base, rates := range settings.rates {
-		res, err := http.Get(fmt.Sprintf("https://api.exchangeratesapi.io/latest?base=%s", base))
+		resp, err := http.Get(fmt.Sprintf("https://api.exchangeratesapi.io/latest?base=%s", base))
 		if err != nil {
 			return nil, err
 		}
-		defer res.Body.Close()
+		defer func() { _ = resp.Body.Close() }()
 
-		var resp Response
-		err = utils.ParseJSON(&resp, res.Body)
+		var data Response
+		err = utils.ParseJSON(&data, resp.Body)
 		if err != nil {
 			return nil, err
 		}
@@ -31,7 +31,7 @@ func FetchExchangeRates(settings *Settings) (map[string]map[string]float64, erro
 		out[base] = map[string]float64{}
 
 		for _, currency := range rates {
-			rate, ok := resp.Rates[currency]
+			rate, ok := data.Rates[currency]
 			if ok {
 				out[base][currency] = rate
 			}

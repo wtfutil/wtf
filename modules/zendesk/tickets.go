@@ -55,12 +55,16 @@ func (widget *Widget) listTickets(pag ...string) (*TicketArray, error) {
 	} else {
 		path = pag[0]
 	}
+
 	resource, err := widget.api("GET", path, "")
 	if err != nil {
 		return nil, err
 	}
 
-	json.Unmarshal([]byte(resource.Raw), TicketStruct)
+	err = json.Unmarshal([]byte(resource.Raw), TicketStruct)
+	if err != nil {
+		return nil, err
+	}
 
 	return TicketStruct, err
 

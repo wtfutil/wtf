@@ -177,7 +177,10 @@ func (widget *Widget) dropletDestroy() {
 		return
 	}
 
-	widget.client.Droplets.Delete(context.Background(), currDroplet.ID)
+	_, err := widget.client.Droplets.Delete(context.Background(), currDroplet.ID)
+	if err != nil {
+		return
+	}
 
 	widget.dropletRemoveSelected()
 	widget.Refresh()
@@ -190,7 +193,11 @@ func (widget *Widget) dropletEnabledPrivateNetworking() {
 		return
 	}
 
-	widget.client.DropletActions.EnablePrivateNetworking(context.Background(), currDroplet.ID)
+	_, _, err := widget.client.DropletActions.EnablePrivateNetworking(context.Background(), currDroplet.ID)
+	if err != nil {
+		return
+	}
+
 	widget.Refresh()
 }
 
@@ -210,7 +217,10 @@ func (widget *Widget) dropletRestart() {
 		return
 	}
 
-	widget.client.DropletActions.Reboot(context.Background(), currDroplet.ID)
+	_, _, err := widget.client.DropletActions.Reboot(context.Background(), currDroplet.ID)
+	if err != nil {
+		return
+	}
 	widget.Refresh()
 }
 
@@ -221,7 +231,10 @@ func (widget *Widget) dropletShutDown() {
 		return
 	}
 
-	widget.client.DropletActions.Shutdown(context.Background(), currDroplet.ID)
+	_, _, err := widget.client.DropletActions.Shutdown(context.Background(), currDroplet.ID)
+	if err != nil {
+		return
+	}
 	widget.Refresh()
 }
 

@@ -19,30 +19,47 @@ func (widget *Widget) initializeKeyboardControls() {
 }
 
 func (widget *Widget) selectPrevious() {
-	widget.client.Previous()
+	err := widget.client.Previous()
+	if err != nil {
+		return
+	}
+
 	time.Sleep(time.Millisecond * 500)
 	widget.Refresh()
 }
 
 func (widget *Widget) selectNext() {
-	widget.client.Next()
+	err := widget.client.Next()
+	if err != nil {
+		return
+	}
+
 	time.Sleep(time.Millisecond * 500)
 	widget.Refresh()
 }
 
 func (widget *Widget) playPause() {
+	var err error
 	if widget.playerState.CurrentlyPlaying.Playing {
-		widget.client.Pause()
+		err = widget.client.Pause()
 	} else {
-		widget.client.Play()
+		err = widget.client.Play()
 	}
+	if err != nil {
+		return
+	}
+
 	time.Sleep(time.Millisecond * 500)
 	widget.Refresh()
 }
 
 func (widget *Widget) toggleShuffle() {
 	widget.playerState.ShuffleState = !widget.playerState.ShuffleState
-	widget.client.Shuffle(widget.playerState.ShuffleState)
+	err := widget.client.Shuffle(widget.playerState.ShuffleState)
+	if err != nil {
+		return
+	}
+
 	time.Sleep(time.Millisecond * 500)
 	widget.Refresh()
 }

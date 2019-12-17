@@ -55,7 +55,7 @@ func (widget *Widget) prettyWeather() {
 		return
 
 	}
-	defer response.Body.Close()
+	defer func() { _ = response.Body.Close() }()
 
 	contents, err := ioutil.ReadAll(response.Body)
 	if err != nil {
