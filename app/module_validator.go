@@ -52,7 +52,7 @@ func (val *ModuleValidator) Validate(widgets []wtf.Wtfable) {
 
 	if hasErrors {
 		fmt.Println()
-		fmt.Printf(errStr)
+		fmt.Println(errStr)
 
 		os.Exit(1)
 	}

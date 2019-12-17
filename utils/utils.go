@@ -92,10 +92,10 @@ func OpenFile(path string) {
 	if (strings.HasPrefix(path, "http://")) || (strings.HasPrefix(path, "https://")) {
 		if len(OpenUrlUtil) > 0 {
 			commands := append(OpenUrlUtil, path)
-			args := commands[1:len(commands)]
-			exec.Command(commands[0], args...).Start()
+			exec.Command(commands[0], commands[1:]...).Start()
 			return
 		}
+
 		switch runtime.GOOS {
 		case "linux":
 			exec.Command("xdg-open", path).Start()

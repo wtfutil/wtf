@@ -69,11 +69,11 @@ func (widget *Widget) content() (string, string, bool) {
 		str = widget.err.Error()
 	} else {
 		var rowFormat = "[%s] [%s] %s-%s (%s) [%s]%s - [blue]%s"
-		if widget.settings.compact != true {
+		if !widget.settings.compact {
 			rowFormat += "\n"
 		}
-		for idx, build := range widget.builds.Builds {
 
+		for idx, build := range widget.builds.Builds {
 			row := fmt.Sprintf(
 				rowFormat,
 				widget.RowColor(idx),

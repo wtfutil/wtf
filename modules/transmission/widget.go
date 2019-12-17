@@ -45,9 +45,6 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 
 // Fetch retrieves torrent data from the Transmission daemon
 func (widget *Widget) Fetch() ([]*transmissionrpc.Torrent, error) {
-	widget.mu.Lock()
-	widget.mu.Unlock()
-
 	if widget.client == nil {
 		return nil, errors.New("client was not initialized")
 	}

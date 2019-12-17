@@ -21,7 +21,6 @@ type Widget struct {
 	view.TextWidget
 
 	language string
-	result   string
 	settings *Settings
 }
 
@@ -132,7 +131,7 @@ func (widget *Widget) nbascore() (string, string, bool) {
 			}
 		}
 		qColor := "[white]"
-		if activate == true {
+		if activate {
 			qColor = "[sandybrown]"
 		}
 		allGame += fmt.Sprintf("%s%5s%v[white] %s %3s [white]vs %s%-3s %s\n", qColor, "Q", quarter, vTeam, vScore, hColor, hScore, hTeam) // Format the score and store in allgame

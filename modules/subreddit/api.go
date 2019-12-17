@@ -40,7 +40,7 @@ func GetLinks(subreddit string, sortMode string, topTimePeriod string) ([]Link, 
 	}
 
 	if len(m.Data.Children) == 0 {
-		return nil, fmt.Errorf("No links")
+		return nil, fmt.Errorf("no links")
 	}
 
 	var links []Link

@@ -61,14 +61,3 @@ func (widget *Widget) content() (string, string, bool) {
 
 	return widget.CommonSettings().Title, str, false
 }
-
-func (widget *Widget) labelColor(label string) string {
-	switch label {
-	case "on":
-		return "green"
-	case "off":
-		return "red"
-	default:
-		return "white"
-	}
-}

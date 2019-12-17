@@ -9,21 +9,6 @@ import (
 	"github.com/wtfutil/wtf/utils"
 )
 
-func (widget *Widget) sortedEvents() ([]*CalEvent, []*CalEvent) {
-	allDayEvents := []*CalEvent{}
-	timedEvents := []*CalEvent{}
-
-	for _, calEvent := range widget.calEvents {
-		if calEvent.AllDay() {
-			allDayEvents = append(allDayEvents, calEvent)
-		} else {
-			timedEvents = append(timedEvents, calEvent)
-		}
-	}
-
-	return allDayEvents, timedEvents
-}
-
 func (widget *Widget) display() {
 	widget.Redraw(widget.content)
 }
@@ -183,7 +168,7 @@ func (widget *Widget) titleColor(calEvent *CalEvent) string {
 			strings.ToLower(calEvent.event.Summary),
 		)
 
-		if match == true {
+		if match {
 			color = highlightElements[1]
 		}
 	}
@@ -196,7 +181,7 @@ func (widget *Widget) titleColor(calEvent *CalEvent) string {
 }
 
 func (widget *Widget) location(calEvent *CalEvent) string {
-	if widget.settings.withLocation == false {
+	if !widget.settings.withLocation {
 		return ""
 	}
 
@@ -212,7 +197,7 @@ func (widget *Widget) location(calEvent *CalEvent) string {
 }
 
 func (widget *Widget) responseIcon(calEvent *CalEvent) string {
-	if widget.settings.displayResponseStatus == false {
+	if !widget.settings.displayResponseStatus {
 		return ""
 	}
 

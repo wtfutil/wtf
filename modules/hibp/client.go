@@ -22,7 +22,7 @@ type hibpError struct {
 
 func (widget *Widget) fullURL(account string, truncated bool) string {
 	truncStr := "false"
-	if truncated == true {
+	if truncated {
 		truncStr = "true"
 	}
 

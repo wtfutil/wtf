@@ -94,11 +94,11 @@ func (widget *Widget) content() (string, string, bool) {
 	}
 
 	articles := widget.articles
-	if articles == nil || len(articles) == 0 {
+	if len(articles) == 0 {
 		return title, "No stories to display", false
 	}
-	var str string
 
+	var str string
 	for idx, article := range articles {
 		row := fmt.Sprintf(
 			`[%s]%2d. %s [lightblue](%s)[white]`,

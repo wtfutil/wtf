@@ -22,14 +22,13 @@ func (widget *Widget) content() (string, string, bool) {
 		return title, widget.err.Error(), true
 	}
 
-	data := widget.torrents
-	if data == nil || len(data) == 0 {
+	if len(widget.torrents) == 0 {
 		return title, "No data", false
 	}
 
 	str := ""
 
-	for idx, torrent := range data {
+	for idx, torrent := range widget.torrents {
 		torrName := *torrent.Name
 
 		row := fmt.Sprintf(

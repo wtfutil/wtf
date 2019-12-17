@@ -54,6 +54,10 @@ var (
 
 func apiRequest(path, apiToken string) (*http.Response, error) {
 	req, err := http.NewRequest("GET", apiBaseURL+path, nil)
+	if err != nil {
+		return nil, err
+	}
+
 	bearer := fmt.Sprintf("Bearer %s", apiToken)
 	req.Header.Add("Authorization", bearer)
 

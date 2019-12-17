@@ -128,12 +128,12 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 
 func (w *Widget) refreshSpotifyInfos() error {
 	if w.client == nil || w.playerState == nil {
-		return errors.New("Authentication failed! Please log in to Spotify by visiting the following page in your browser: " + authURL)
+		return errors.New("authentication failed! Please log in to Spotify by visiting the following page in your browser: " + authURL)
 	}
 	var err error
 	w.playerState, err = w.client.PlayerState()
 	if err != nil {
-		return errors.New("Extracting player state failed! Please refresh or restart WTF")
+		return errors.New("extracting player state failed! Please refresh or restart WTF")
 	}
 	w.Info.Album = fmt.Sprint(w.playerState.CurrentlyPlaying.Item.Album.Name)
 	artists := ""

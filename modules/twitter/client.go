@@ -34,7 +34,7 @@ func NewClient(settings *Settings) *Client {
 			ClientSecret: settings.consumerSecret,
 			TokenURL:     "https://api.twitter.com/oauth2/token",
 		}
-		httpClient = conf.Client(oauth2.NoContext)
+		httpClient = conf.Client(context.Background())
 	} else {
 		ctx := context.Background()
 		httpClient = oauth2.NewClient(ctx, oauth2.StaticTokenSource(&oauth2.Token{

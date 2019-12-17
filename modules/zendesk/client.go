@@ -4,19 +4,12 @@ import (
 	"bytes"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"net/http"
 )
 
 type Resource struct {
 	Response interface{}
 	Raw      string
-}
-
-func errHandler(err error) {
-	if err != nil {
-		log.Print(err)
-	}
 }
 
 func (widget *Widget) api(meth string, path string, params string) (*Resource, error) {

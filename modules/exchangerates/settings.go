@@ -15,7 +15,7 @@ const (
 type Settings struct {
 	common *cfg.Common
 
-	rates map[string][]string `help:"Defines what currency rates we want to know about`
+	rates map[string][]string `help:"Defines what currency rates we want to know about"`
 	order []string
 }
 
@@ -32,11 +32,11 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 	for key, value := range raw {
 		settings.order = append(settings.order, key)
 		settings.rates[key] = []string{}
-		switch value.(type) {
+		switch value := value.(type) {
 		case string:
-			settings.rates[key] = []string{value.(string)}
+			settings.rates[key] = []string{value}
 		case []interface{}:
-			for _, currency := range value.([]interface{}) {
+			for _, currency := range value {
 				str, ok := currency.(string)
 				if ok {
 					settings.rates[key] = append(settings.rates[key], str)

@@ -23,6 +23,7 @@ import (
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
 	"google.golang.org/api/calendar/v3"
+	"google.golang.org/api/option"
 )
 
 /* -------------------- Exported Functions -------------------- */
@@ -43,12 +44,10 @@ func (widget *Widget) Fetch() ([]*CalEvent, error) {
 	}
 	client := getClient(ctx, config)
 
-	srv, err := calendar.New(client)
+	srv, err := calendar.NewService(context.Background(), option.WithHTTPClient(client))
 	if err != nil {
 		return nil, err
 	}
-
-	calendarIds, err := widget.getCalendarIdList(srv)
 
 	// Get calendar events
 	var events calendar.Events
@@ -58,8 +57,9 @@ func (widget *Widget) Fetch() ([]*CalEvent, error) {
 
 	timezone := widget.settings.timezone
 
-	for _, calendarId := range calendarIds {
-		calendarEvents, err := srv.Events.List(calendarId).TimeZone(timezone).ShowDeleted(false).TimeMin(startTime).MaxResults(eventLimit).SingleEvents(true).OrderBy("startTime").Do()
+	calendarIDs, err := widget.getCalendarIdList(srv)
+	for _, calendarID := range calendarIDs {
+		calendarEvents, err := srv.Events.List(calendarID).TimeZone(timezone).ShowDeleted(false).TimeMin(startTime).MaxResults(eventLimit).SingleEvents(true).OrderBy("startTime").Do()
 		if err != nil {
 			break
 		}
@@ -132,9 +132,9 @@ func (widget *Widget) authenticate() {
 		log.Fatalf("Unable to read secret file. %v", widget.settings.secretFile)
 	}
 
-	config, err := google.ConfigFromJSON(b, calendar.CalendarReadonlyScope)
+	config, _ := google.ConfigFromJSON(b, calendar.CalendarReadonlyScope)
 	tok := getTokenFromWeb(config)
-	cacheFile, err := tokenCacheFile()
+	cacheFile, _ := tokenCacheFile()
 	saveToken(cacheFile, tok)
 }
 
@@ -150,7 +150,7 @@ func getTokenFromWeb(config *oauth2.Config) *oauth2.Token {
 		log.Fatalf("Unable to read authorization code %v", err)
 	}
 
-	tok, err := config.Exchange(oauth2.NoContext, code)
+	tok, err := config.Exchange(context.Background(), code)
 	if err != nil {
 		log.Fatalf("Unable to retrieve token from web %v", err)
 	}
