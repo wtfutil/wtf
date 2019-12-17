@@ -76,7 +76,6 @@ lint:
 	staticcheck ./cfg
 	staticcheck ./modules/...
 	staticcheck ./utils
-	staticcheck ./utils
 	staticcheck ./view
 	staticcheck ./wtf
 

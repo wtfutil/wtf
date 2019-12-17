@@ -21,6 +21,7 @@ import (
 	"github.com/wtfutil/wtf/utils"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
+	"google.golang.org/api/option"
 	sheets "google.golang.org/api/sheets/v4"
 )
 
@@ -45,7 +46,7 @@ func (widget *Widget) Fetch() ([]*sheets.ValueRange, error) {
 	}
 	client := getClient(ctx, config)
 
-	srv, err := sheets.New(client)
+	srv, err := sheets.NewService(context.Background(), option.WithHTTPClient(client))
 	if err != nil {
 		log.Fatalf("Unable to get create server. %v", err)
 		return nil, err
@@ -97,7 +98,7 @@ func getTokenFromWeb(config *oauth2.Config) *oauth2.Token {
 		log.Fatalf("Unable to read authorization code %v", err)
 	}
 
-	tok, err := config.Exchange(oauth2.NoContext, code)
+	tok, err := config.Exchange(context.Background(), code)
 	if err != nil {
 		log.Fatalf("Unable to retrieve token from web %v", err)
 	}

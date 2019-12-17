@@ -23,8 +23,8 @@ func Test_ASCIItoTviewColors(t *testing.T) {
 			expected: "cat",
 		},
 		{
-			name: "with defined color",
-			text: "[38;5;226mcat/[0m",
+			name:     "with defined color",
+			text:     "[38;5;226mcat/\x1b[0m",
 			expected: "[38;5;226mcat/[-]",
 		},
 	}

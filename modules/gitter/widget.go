@@ -97,11 +97,3 @@ func (widget *Widget) content() (string, string, bool) {
 
 	return title, str, true
 }
-
-func (widget *Widget) openMessage() {
-	sel := widget.GetSelected()
-	if sel >= 0 && widget.messages != nil && sel < len(widget.messages) {
-		message := &widget.messages[sel]
-		utils.OpenFile(message.Text)
-	}
-}

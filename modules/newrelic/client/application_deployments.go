@@ -24,7 +24,7 @@ type ApplicationDeployment struct {
 	Revision    string                     `json:"revision,omitempty"`
 	Changelog   string                     `json:"changelog,omitempty"`
 	Description string                     `json:"description,omitempty"`
-	User        string                     `json:"user,omitemtpy"`
+	User        string                     `json:"user,omitempty"`
 	Timestamp   time.Time                  `json:"timestamp,omitempty"`
 	Links       ApplicationDeploymentLinks `json:"links,omitempty"`
 }

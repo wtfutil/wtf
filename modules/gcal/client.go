@@ -23,6 +23,7 @@ import (
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
 	"google.golang.org/api/calendar/v3"
+	"google.golang.org/api/option"
 )
 
 /* -------------------- Exported Functions -------------------- */
@@ -43,12 +44,10 @@ func (widget *Widget) Fetch() ([]*CalEvent, error) {
 	}
 	client := getClient(ctx, config)
 
-	srv, err := calendar.New(client)
+	srv, err := calendar.NewService(context.Background(), option.WithHTTPClient(client))
 	if err != nil {
 		return nil, err
 	}
-
-	calendarIds, err := widget.getCalendarIdList(srv)
 
 	// Get calendar events
 	var events calendar.Events
@@ -58,8 +57,9 @@ func (widget *Widget) Fetch() ([]*CalEvent, error) {
 
 	timezone := widget.settings.timezone
 
-	for _, calendarId := range calendarIds {
-		calendarEvents, err := srv.Events.List(calendarId).TimeZone(timezone).ShowDeleted(false).TimeMin(startTime).MaxResults(eventLimit).SingleEvents(true).OrderBy("startTime").Do()
+	calendarIDs, err := widget.getCalendarIdList(srv)
+	for _, calendarID := range calendarIDs {
+		calendarEvents, err := srv.Events.List(calendarID).TimeZone(timezone).ShowDeleted(false).TimeMin(startTime).MaxResults(eventLimit).SingleEvents(true).OrderBy("startTime").Do()
 		if err != nil {
 			break
 		}
