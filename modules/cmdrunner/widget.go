@@ -128,7 +128,10 @@ func runCommandLoop(widget *Widget) {
 		// The command has exited, print any error messages
 		if err != nil {
 			widget.m.Lock()
-			widget.buffer.WriteString(err.Error())
+			_, err := widget.buffer.WriteString(err.Error())
+			if err != nil {
+				return
+			}
 			widget.m.Unlock()
 		}
 		widget.redrawChan <- true

@@ -32,7 +32,7 @@ func (widget *Widget) Fetch() ([]*sheets.ValueRange, error) {
 
 	secretPath, _ := utils.ExpandHomeDir(widget.settings.secretFile)
 
-	b, err := ioutil.ReadFile(secretPath)
+	b, err := ioutil.ReadFile(filepath.Clean(secretPath))
 	if err != nil {
 		log.Fatalf("Unable to read secretPath. %v", err)
 		return nil, err
@@ -125,7 +125,7 @@ func tokenCacheFile() (string, error) {
 // tokenFromFile retrieves a Token from a given file path.
 // It returns the retrieved Token and any read error encountered.
 func tokenFromFile(file string) (*oauth2.Token, error) {
-	f, err := os.Open(file)
+	f, err := os.Open(filepath.Clean(file))
 	if err != nil {
 		return nil, err
 	}

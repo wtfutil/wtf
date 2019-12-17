@@ -82,7 +82,7 @@ func BuildStars(data []Bar, maxStars int, starChar string) string {
 		}
 
 		//write the line
-		buffer.WriteString(
+		_, err := buffer.WriteString(
 			fmt.Sprintf(
 				"%s%s[[%s]%s[default]%s] %s\n",
 				bar.Label,
@@ -93,6 +93,9 @@ func BuildStars(data []Bar, maxStars int, starChar string) string {
 				label,
 			),
 		)
+		if err != nil {
+			return ""
+		}
 	}
 
 	return buffer.String()

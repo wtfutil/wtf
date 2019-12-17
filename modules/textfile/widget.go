@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"path/filepath"
 	"time"
 
 	"github.com/alecthomas/chroma/formatters"
@@ -91,7 +92,7 @@ func (widget *Widget) content() (string, string, bool) {
 func (widget *Widget) formattedText() string {
 	filePath, _ := utils.ExpandHomeDir(widget.CurrentSource())
 
-	file, err := os.Open(filePath)
+	file, err := os.Open(filepath.Clean(filePath))
 	if err != nil {
 		return err.Error()
 	}
@@ -124,9 +125,9 @@ func (widget *Widget) formattedText() string {
 }
 
 func (widget *Widget) plainText() string {
-	filePath, _ := utils.ExpandHomeDir(widget.CurrentSource())
+	filePath, _ := utils.ExpandHomeDir(filepath.Clean(widget.CurrentSource()))
 
-	text, err := ioutil.ReadFile(filePath)
+	text, err := ioutil.ReadFile(filepath.Clean(filePath))
 	if err != nil {
 		return err.Error()
 	}

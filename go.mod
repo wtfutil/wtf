@@ -24,6 +24,7 @@ require (
 	github.com/gdamore/tcell v1.3.0
 	github.com/go-ole/go-ole v1.2.4 // indirect
 	github.com/godbus/dbus v4.1.0+incompatible // indirect
+	github.com/golang/protobuf v1.3.2 // indirect
 	github.com/google/go-github/v26 v26.1.3
 	github.com/gophercloud/gophercloud v0.5.0 // indirect
 	github.com/hashicorp/go-cleanhttp v0.5.1 // indirect
@@ -37,12 +38,13 @@ require (
 	github.com/mmcdole/goxpp v0.0.0-20181012175147-0068e33feabf // indirect
 	github.com/olebedev/config v0.0.0-20190528211619-364964f3a8e4
 	github.com/olekukonko/tablewriter v0.0.4
+	github.com/onsi/ginkgo v1.10.3 // indirect
+	github.com/onsi/gomega v1.7.1 // indirect
 	github.com/opencontainers/go-digest v1.0.0-rc1 // indirect
 	github.com/pkg/errors v0.8.1
 	github.com/pkg/profile v1.4.0
 	github.com/radovskyb/watcher v1.0.7
 	github.com/rivo/tview v0.0.0-20190829161255-f8bc69b90341
-	github.com/securego/gosec v0.0.0-20191217083152-cb4f343eaff1 // indirect
 	github.com/shirou/gopsutil v2.19.11+incompatible
 	github.com/stretchr/testify v1.4.0
 	github.com/wtfutil/spotigopher v0.0.0-20191127141047-7d8168fe103a
@@ -50,8 +52,12 @@ require (
 	github.com/xanzy/go-gitlab v0.22.2
 	github.com/zmb3/spotify v0.0.0-20191010212056-e12fb981aacb
 	github.com/zorkian/go-datadog-api v2.25.0+incompatible
+	golang.org/x/crypto v0.0.0-20191011191535-87dc89f01550 // indirect
+	golang.org/x/net v0.0.0-20190923162816-aa69164e4478 // indirect
 	golang.org/x/oauth2 v0.0.0-20190604053449-0f29369cfe45
+	golang.org/x/sys v0.0.0-20190922100055-0a153f010e69 // indirect
 	google.golang.org/api v0.14.0
+	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
 	gopkg.in/jarcoal/httpmock.v1 v1.0.0-20181110093347-3be5f16b70eb // indirect
 	gopkg.in/yaml.v2 v2.2.7
 	k8s.io/api v0.0.0-20191010143144-fbf594f18f80 // indirect
