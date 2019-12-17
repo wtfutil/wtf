@@ -31,7 +31,7 @@ func (c *Client) doRequest(req *http.Request, out interface{}) error {
 	if err != nil {
 		return err
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 	b, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return err

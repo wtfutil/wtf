@@ -14,7 +14,10 @@ func newContext(settings *Settings) (*context, error) {
 	gitlabClient := glb.NewClient(nil, settings.apiKey)
 
 	if baseURL != "" {
-		gitlabClient.SetBaseURL(baseURL)
+		err := gitlabClient.SetBaseURL(baseURL)
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	user, _, err := gitlabClient.Users.CurrentUser()

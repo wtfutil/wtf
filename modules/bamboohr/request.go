@@ -18,7 +18,7 @@ func Request(apiKey string, apiURL string) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	data, err := ParseBody(resp)
 	if err != nil {

@@ -73,19 +73,22 @@ func (client *Client) GetStatsForUser(username string) TwitterStats {
 	}
 
 	url := fmt.Sprintf("%s?screen_name=%s", userTimelineURL, username)
-	res, err := client.httpClient.Get(url)
+	resp, err := client.httpClient.Get(url)
 	if err != nil {
 		return stats
 	}
-	defer res.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
-	body, err := ioutil.ReadAll(res.Body)
+	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return stats
 	}
 
 	// If there is an error while parsing, just discard the error and return the empty stats
-	json.Unmarshal(body, &stats)
+	err = json.Unmarshal(body, &stats)
+	if err != nil {
+		return stats
+	}
 
 	return stats
 }

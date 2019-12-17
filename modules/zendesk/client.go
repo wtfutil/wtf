@@ -36,8 +36,7 @@ func (widget *Widget) api(meth string, path string, params string) (*Resource, e
 	if err != nil {
 		return nil, err
 	}
-
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	data, err := ioutil.ReadAll(resp.Body)
 	if err != nil {

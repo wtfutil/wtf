@@ -99,7 +99,9 @@ func (widget *Widget) getToList(symbol string) []*toCurrency {
 
 func (widget *Widget) updateCurrencies() {
 	defer func() {
-		recover()
+		if r := recover(); r != nil {
+			fmt.Println("recovered in updateSummary()", r)
+		}
 	}()
 	for _, fromCurrency := range widget.list.items {
 
@@ -121,7 +123,7 @@ func (widget *Widget) updateCurrencies() {
 			ok = true
 		}
 
-		defer response.Body.Close()
+		defer func() { _ = response.Body.Close() }()
 
 		_ = json.NewDecoder(response.Body).Decode(&jsonResponse)
 

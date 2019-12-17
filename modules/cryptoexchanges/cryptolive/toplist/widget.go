@@ -68,7 +68,9 @@ func (widget *Widget) Refresh(wg *sync.WaitGroup) {
 
 func (widget *Widget) updateData() {
 	defer func() {
-		recover()
+		if r := recover(); r != nil {
+			fmt.Println("recovered in updateSummary()", r)
+		}
 	}()
 
 	client := &http.Client{

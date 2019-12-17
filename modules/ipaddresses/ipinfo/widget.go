@@ -61,7 +61,7 @@ func (widget *Widget) ipinfo() {
 		widget.result = err.Error()
 		return
 	}
-	defer response.Body.Close()
+	defer func() { _ = response.Body.Close() }()
 
 	var info ipinfo
 	err = json.NewDecoder(response.Body).Decode(&info)
@@ -86,7 +86,7 @@ func (widget *Widget) setResult(info *ipinfo) {
 
 	resultBuffer := new(bytes.Buffer)
 
-	resultTemplate.Execute(resultBuffer, map[string]string{
+	err := resultTemplate.Execute(resultBuffer, map[string]string{
 		"subheadingColor": widget.settings.common.Colors.Subheading,
 		"valueColor":      widget.settings.common.Colors.Text,
 		"Ip":              info.Ip,
@@ -98,6 +98,10 @@ func (widget *Widget) setResult(info *ipinfo) {
 		"PostalCode":      info.PostalCode,
 		"Organization":    info.Organization,
 	})
+
+	if err != nil {
+		widget.result = err.Error()
+	}
 
 	widget.result = resultBuffer.String()
 }

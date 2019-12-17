@@ -44,7 +44,7 @@ func (widget *Widget) content() (string, string, bool) {
 					formatableText("Open Sell", "OpenSellOrders"),
 			)
 
-			strTemplate.Execute(writer, map[string]string{
+			err := strTemplate.Execute(writer, map[string]string{
 				"nameColor":      widget.settings.colors.market.name,
 				"fieldColor":     widget.settings.colors.market.field,
 				"valueColor":     widget.settings.colors.market.value,
@@ -57,7 +57,11 @@ func (widget *Widget) content() (string, string, bool) {
 				"OpenSellOrders": marketCurrency.OpenSellOrders,
 			})
 
-			str += writer.String() + "\n"
+			if err != nil {
+				str = err.Error()
+			} else {
+				str += writer.String() + "\n"
+			}
 		}
 
 	}

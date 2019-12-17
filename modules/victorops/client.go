@@ -38,7 +38,7 @@ func victorOpsRequest(url string, apiID string, apiKey string) ([]OnCallTeam, er
 	if resp.StatusCode != 200 {
 		return nil, fmt.Errorf("%s", resp.Status)
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	response := &OnCallResponse{}
 	if err := json.NewDecoder(resp.Body).Decode(response); err != nil {

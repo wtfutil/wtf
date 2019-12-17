@@ -158,7 +158,10 @@ func (widget *Widget) deleteSelectedTorrent() {
 		DeleteLocalData: false,
 	}
 
-	widget.client.TorrentRemove(removePayload)
+	err := widget.client.TorrentRemove(removePayload)
+	if err != nil {
+		return
+	}
 
 	widget.display()
 }
@@ -176,10 +179,15 @@ func (widget *Widget) pauseUnpauseTorrent() {
 
 	ids := []int64{*currTorrent.ID}
 
+	var err error
 	if *currTorrent.Status == transmissionrpc.TorrentStatusStopped {
-		widget.client.TorrentStartIDs(ids)
+		err = widget.client.TorrentStartIDs(ids)
 	} else {
-		widget.client.TorrentStopIDs(ids)
+		err = widget.client.TorrentStopIDs(ids)
+	}
+
+	if err != nil {
+		return
 	}
 
 	widget.display()

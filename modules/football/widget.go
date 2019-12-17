@@ -95,7 +95,7 @@ func (widget *Widget) GetStandings(leagueId int) string {
 	if err != nil {
 		return fmt.Sprintf("Error fetching standings: %s", err.Error())
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 	data, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return fmt.Sprintf("Error fetching standings: %s", err.Error())
@@ -141,7 +141,7 @@ func (widget *Widget) GetMatches(leagueId int) string {
 	if err != nil {
 		return fmt.Sprintf("Error fetching matches: %s", err.Error())
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 	data, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return fmt.Sprintf("Error fetching matches: %s", err.Error())

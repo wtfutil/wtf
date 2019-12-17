@@ -18,7 +18,11 @@ func Display(moduleName string, cfg *config.Config) {
 }
 
 func helpFor(moduleName string, cfg *config.Config) string {
-	cfg.Set("wtf.mods."+moduleName+".enabled", true)
+	err := cfg.Set("wtf.mods."+moduleName+".enabled", true)
+	if err != nil {
+		return ""
+	}
+
 	widget := app.MakeWidget(nil, nil, moduleName, cfg)
 
 	// Since we are forcing enabled config, if no module

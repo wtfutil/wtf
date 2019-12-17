@@ -67,7 +67,7 @@ func (widget *Widget) nbascore() (string, string, bool) {
 	if err != nil {
 		return title, err.Error(), true
 	}
-	defer response.Body.Close()
+	defer func() { _ = response.Body.Close() }()
 	if response.StatusCode != 200 {
 		return title, err.Error(), true
 	} // Get data from data.nba.net and check if successful
@@ -77,7 +77,10 @@ func (widget *Widget) nbascore() (string, string, bool) {
 		return title, err.Error(), true
 	}
 	result := map[string]interface{}{}
-	json.Unmarshal(contents, &result)
+	err = json.Unmarshal(contents, &result)
+	if err != nil {
+		return title, err.Error(), true
+	}
 
 	allGame := fmt.Sprintf(" [%s]", widget.settings.common.Colors.Subheading) + (cur.Format(utils.FriendlyDateFormat) + "\n\n") + "[white]"
 
