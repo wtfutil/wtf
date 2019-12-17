@@ -15,7 +15,7 @@ Used by thousands of developers and tech people around the world, WTF is free an
 
 #
 
-<p> </p>
+<p></p>
 
 * [Installation](#installation)
     * [Installing via Homebrew](#installing-via-homebrew)
