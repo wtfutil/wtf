@@ -15,6 +15,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"path/filepath"
 	"sort"
 	"time"
 
@@ -33,7 +34,7 @@ func (widget *Widget) Fetch() ([]*CalEvent, error) {
 
 	secretPath, _ := utils.ExpandHomeDir(widget.settings.secretFile)
 
-	b, err := ioutil.ReadFile(secretPath)
+	b, err := ioutil.ReadFile(filepath.Clean(secretPath))
 	if err != nil {
 		return nil, err
 	}
@@ -125,9 +126,9 @@ func isAuthenticated() bool {
 }
 
 func (widget *Widget) authenticate() {
-	secretPath, _ := utils.ExpandHomeDir(widget.settings.secretFile)
+	secretPath, _ := utils.ExpandHomeDir(filepath.Clean(widget.settings.secretFile))
 
-	b, err := ioutil.ReadFile(secretPath)
+	b, err := ioutil.ReadFile(filepath.Clean(secretPath))
 	if err != nil {
 		log.Fatalf("Unable to read secret file. %v", widget.settings.secretFile)
 	}
@@ -166,7 +167,7 @@ func tokenCacheFile() (string, error) {
 // tokenFromFile retrieves a Token from a given file path.
 // It returns the retrieved Token and any read error encountered.
 func tokenFromFile(file string) (*oauth2.Token, error) {
-	f, err := os.Open(file)
+	f, err := os.Open(filepath.Clean(file))
 	if err != nil {
 		return nil, err
 	}

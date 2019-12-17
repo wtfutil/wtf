@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"path/filepath"
 	"time"
 
 	"github.com/wtfutil/wtf/utils"
@@ -47,7 +48,7 @@ func (widget *Widget) Fetch() []websiteReport {
 }
 
 func buildNetClient(secretPath string) *http.Client {
-	clientSecret, err := ioutil.ReadFile(secretPath)
+	clientSecret, err := ioutil.ReadFile(filepath.Clean(secretPath))
 	if err != nil {
 		log.Fatalf("Unable to read secretPath. %v", err)
 	}

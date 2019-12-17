@@ -8,6 +8,7 @@ import (
 	"io/ioutil"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"regexp"
 	"runtime"
 	"strings"
@@ -127,7 +128,7 @@ func OpenFile(path string) {
 
 // ReadFileBytes reads the contents of a file and returns those contents as a slice of bytes
 func ReadFileBytes(filePath string) ([]byte, error) {
-	fileData, err := ioutil.ReadFile(filePath)
+	fileData, err := ioutil.ReadFile(filepath.Clean(filePath))
 	if err != nil {
 		return []byte{}, err
 	}

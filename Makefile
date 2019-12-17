@@ -48,6 +48,10 @@ coverage:
 	go test -coverprofile=coverage.out ./...
 	go tool cover -html=coverage.out
 
+## gosec: runs the gosec static security scanner against the source code
+gosec:
+	gosec -tests ./...
+
 ## help: prints this help message
 help:
 	@echo "Usage: \n"
@@ -104,13 +108,13 @@ lint:
 	staticcheck ./wtf
 	staticcheck ./main.go
 
+## loc: displays the lines of code (LoC) count
+loc:
+	@loc --exclude _sample_configs/ _site/ docs/ Makefile *.md
+
 ## run: executes the locally-installed version
 run: build
 	bin/${APP}
-
-## size: displays the lines of code (LoC) count
-size:
-	@loc --exclude _sample_configs/ _site/ docs/ Makefile *.md
 
 ## test: runs the test suite
 test: build
