@@ -83,8 +83,7 @@ func (widget *Widget) dayDivider(event, prevEvent *CalEvent) string {
 	eventStartDay := toMidnight(event.Start())
 
 	if !eventStartDay.Equal(prevStartDay) {
-
-		return fmt.Sprintf("[%s::b]",
+		return fmt.Sprintf("[%s]",
 			widget.settings.colors.day) +
 			event.Start().Format(utils.FullDateFormat) +
 			"\n"

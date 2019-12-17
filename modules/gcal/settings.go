@@ -58,7 +58,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		calendarReadLevel:     ymlConfig.UString("calendarReadLevel", "writer"),
 	}
 
-	settings.colors.day = ymlConfig.UString("colors.day", "forestgreen")
+	settings.colors.day = ymlConfig.UString("colors.day", settings.common.Colors.Subheading)
 	settings.colors.description = ymlConfig.UString("colors.description", "white")
 	// settings.colors.eventTime is a new feature introduced via issue #638. Prior to this, the color of the event
 	// time was (unintentionally) customized via settings.colors.description. To maintain backwards compatibility
