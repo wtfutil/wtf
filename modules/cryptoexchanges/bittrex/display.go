@@ -12,9 +12,10 @@ func (widget *Widget) display() {
 }
 
 func (widget *Widget) content() (string, string, bool) {
-	if ok == false {
+	if !ok {
 		return widget.CommonSettings().Title, errorText, true
 	}
+
 	list := &widget.summaryList
 	str := ""
 

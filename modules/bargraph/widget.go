@@ -12,11 +12,6 @@ import (
 	"github.com/wtfutil/wtf/view"
 )
 
-var (
-	ok      = true
-	started = false
-)
-
 // Widget define wtf widget to register widget later
 type Widget struct {
 	view.BarGraph

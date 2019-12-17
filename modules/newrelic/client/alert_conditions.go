@@ -2,14 +2,14 @@ package newrelic
 
 // AlertCondition describes what triggers an alert for a specific policy.
 type AlertCondition struct {
-	ID          int                  `json:"id,omitempty"`
-	Type        string               `json:"type,omitempty"`
-	Name        string               `json:"name,omitempty"`
-	Enabled     bool                 `json:"name,omitempty"`
+	Enabled     bool                 `json:"enabled,omitempty"`
 	Entities    []string             `json:"entities,omitempty"`
+	ID          int                  `json:"id,omitempty"`
 	Metric      string               `json:"metric,omitempty"`
+	Name        string               `json:"name,omitempty"`
 	RunbookURL  string               `json:"runbook_url,omitempty"`
 	Terms       []AlertConditionTerm `json:"terms,omitempty"`
+	Type        string               `json:"type,omitempty"`
 	UserDefined AlertUserDefined     `json:"user_defined,omitempty"`
 }
 

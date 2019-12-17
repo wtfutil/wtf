@@ -42,6 +42,7 @@ func NewWtfApp(app *tview.Application, config *config.Config, configFilePath str
 	})
 
 	wtfApp.app.SetInputCapture(wtfApp.keyboardIntercept)
+
 	wtfApp.widgets = MakeWidgets(wtfApp.app, wtfApp.pages, wtfApp.config)
 	wtfApp.display = NewDisplay(wtfApp.widgets, wtfApp.config)
 	wtfApp.focusTracker = NewFocusTracker(wtfApp.app, wtfApp.widgets, wtfApp.config)
@@ -63,11 +64,6 @@ func NewWtfApp(app *tview.Application, config *config.Config, configFilePath str
 }
 
 /* -------------------- Exported Functions -------------------- */
-
-// App returns the *tview.Application instance
-func (wtfApp *WtfApp) App() *tview.Application {
-	return wtfApp.app
-}
 
 // Start initializes the app
 func (wtfApp *WtfApp) Start() {

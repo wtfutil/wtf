@@ -29,7 +29,7 @@ func Schedule(widget wtf.Wtfable) {
 				return
 			}
 		case quit := <-widget.QuitChan():
-			if quit == true {
+			if quit {
 				timer.Stop()
 				return
 			}

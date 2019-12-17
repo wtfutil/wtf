@@ -63,7 +63,7 @@ func Truncate(src string, maxLen int, withEllipse bool) string {
 	for idx := range src {
 		runeCount++
 		if runeCount > maxLen {
-			if withEllipse == true {
+			if withEllipse {
 				return src[:idx-1] + "…"
 			}
 

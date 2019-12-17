@@ -1,6 +1,7 @@
 package googleanalytics
 
 import (
+	"context"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -8,10 +9,10 @@ import (
 	"time"
 
 	"github.com/wtfutil/wtf/utils"
-	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
 	gaV3 "google.golang.org/api/analytics/v3"
 	gaV4 "google.golang.org/api/analyticsreporting/v4"
+	"google.golang.org/api/option"
 )
 
 type websiteReport struct {
@@ -56,12 +57,13 @@ func buildNetClient(secretPath string) *http.Client {
 		log.Fatalf("Unable to get config from JSON. %v", err)
 	}
 
-	return jwtConfig.Client(oauth2.NoContext)
+	return jwtConfig.Client(context.Background())
 }
 
 func makeReportServiceV3(secretPath string) (*gaV3.Service, error) {
-	var netClient = buildNetClient(secretPath)
-	svc, err := gaV3.New(netClient)
+	client := buildNetClient(secretPath)
+
+	svc, err := gaV3.NewService(context.Background(), option.WithHTTPClient(client))
 	if err != nil {
 		log.Fatalf("Failed to create v3 Google Analytics Reporting Service")
 	}
@@ -70,8 +72,8 @@ func makeReportServiceV3(secretPath string) (*gaV3.Service, error) {
 }
 
 func makeReportServiceV4(secretPath string) (*gaV4.Service, error) {
-	var netClient = buildNetClient(secretPath)
-	svc, err := gaV4.New(netClient)
+	client := buildNetClient(secretPath)
+	svc, err := gaV4.NewService(context.Background(), option.WithHTTPClient(client))
 	if err != nil {
 		log.Fatalf("Failed to create v4 Google Analytics Reporting Service")
 	}

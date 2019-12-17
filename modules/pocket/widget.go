@@ -61,7 +61,7 @@ func (widget *Widget) Refresh() {
 	}
 
 	state := Unread
-	if widget.archivedView == true {
+	if widget.archivedView {
 		state = Read
 	}
 	response, err := widget.client.GetLinks(state)
@@ -84,7 +84,7 @@ func writeMetaDataToDisk(metaData pocketMetaData) error {
 
 	fileData, err := yaml.Marshal(metaData)
 	if err != nil {
-		return fmt.Errorf("Could not write token to disk %w", err)
+		return fmt.Errorf("could not write token to disk %w", err)
 	}
 
 	wtfConfigDir, err := cfg.WtfConfigDir()
@@ -187,7 +187,7 @@ func (widget *Widget) openLink() {
 func (widget *Widget) toggleLink() {
 	sel := widget.GetSelected()
 	action := Archive
-	if widget.archivedView == true {
+	if widget.archivedView {
 		action = ReAdd
 	}
 
@@ -205,7 +205,7 @@ func (widget *Widget) toggleLink() {
 func (widget *Widget) formatItem(item Item, isSelected bool) string {
 	foreColor, backColor := widget.settings.common.Colors.RowTheme.EvenForeground, widget.settings.common.Colors.RowTheme.EvenBackground
 	text := item.ResolvedTitle
-	if isSelected == true {
+	if isSelected {
 		foreColor = widget.settings.common.Colors.RowTheme.HighlightedForeground
 		backColor = widget.settings.common.Colors.RowTheme.HighlightedBackground
 
@@ -217,7 +217,7 @@ func (widget *Widget) formatItem(item Item, isSelected bool) string {
 func (widget *Widget) content() (string, string, bool) {
 	title := widget.CommonSettings().Title
 	currentViewTitle := "Reading List"
-	if widget.archivedView == true {
+	if widget.archivedView {
 		currentViewTitle = "Archived list"
 	}
 

@@ -78,8 +78,14 @@ func MakeWidget(
 	var widget wtf.Wtfable
 
 	moduleConfig, _ := config.Get("wtf.mods." + moduleName)
+
+	// Don' try to initialize modules that don't exist
+	if moduleConfig == nil {
+		return nil
+	}
+
+	// Don't try to initialize modules that aren't enabled
 	if enabled := moduleConfig.UBool("enabled", false); !enabled {
-		// Don't initialize modules that aren't enabled
 		return nil
 	}
 

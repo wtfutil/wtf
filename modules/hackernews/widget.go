@@ -77,13 +77,12 @@ func (widget *Widget) content() (string, string, bool) {
 		return title, widget.err.Error(), true
 	}
 
-	stories := widget.stories
-	if stories == nil || len(stories) == 0 {
+	if len(widget.stories) == 0 {
 		return title, "No stories to display", false
 	}
-	var str string
 
-	for idx, story := range stories {
+	var str string
+	for idx, story := range widget.stories {
 		u, _ := url.Parse(story.URL)
 
 		row := fmt.Sprintf(

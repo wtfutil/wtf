@@ -15,7 +15,7 @@ func (widget *Widget) display() {
 func (widget *Widget) content() (string, string, bool) {
 	var err string
 
-	if widget.apiKeyValid() == false {
+	if !widget.apiKeyValid() {
 		err = " Environment variable WTF_OWM_API_KEY is not set\n"
 	}
 

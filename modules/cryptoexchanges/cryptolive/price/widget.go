@@ -131,17 +131,13 @@ func (widget *Widget) updateCurrencies() {
 }
 
 func makeRequest(currency *fromCurrency) *http.Request {
-	fsym := currency.name
 	tsyms := ""
 	for _, to := range currency.to {
 		tsyms += fmt.Sprintf("%s,", to.name)
 	}
 
-	url := fmt.Sprintf("%s?fsym=%s&tsyms=%s", baseURL, fsym, tsyms)
-	request, err := http.NewRequest("GET", url, nil)
-
-	if err != nil {
-	}
+	url := fmt.Sprintf("%s?fsym=%s&tsyms=%s", baseURL, currency.name, "")
+	request, _ := http.NewRequest("GET", url, nil)
 
 	return request
 }

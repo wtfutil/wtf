@@ -18,7 +18,7 @@ func CurrentActiveItems(accessToken, assignedToName string, activeOnly bool) (*A
 		return items, err
 	}
 
-	err = utils.ParseJSON(&items, resp.Body)
+	utils.ParseJSON(&items, resp.Body)
 
 	return items, nil
 }
@@ -38,7 +38,7 @@ func rollbarItemRequest(accessToken, assignedToName string, activeOnly bool) (*h
 	}
 
 	requestURL := rollbarAPIURL.ResolveReference(&url.URL{RawQuery: params.Encode()})
-	req, err := http.NewRequest("GET", requestURL.String(), nil)
+	req, _ := http.NewRequest("GET", requestURL.String(), nil)
 	req.Header.Add("Accept", "application/json")
 	req.Header.Add("Content-Type", "application/json")
 
