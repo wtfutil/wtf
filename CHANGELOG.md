@@ -10,6 +10,7 @@
 ### 👍 Updated
 
 * Updated `digitalocean/godo` from 1.22.0 to 1.29.0
+* Updated `google.golang.org/api` from 0.14.0 to 0.15.0
 
 ## 0.25.0
 
