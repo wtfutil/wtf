@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+### 🐞 Fixed
+
+* Module templating working again, [#748](https://github.com/wtfutil/wtf/issues/748) by [@senorprogrammer](https://github.com/senorprogrammer)
+* CmdRunner title spacing issue fixed, [#784](https://github.com/wtfutil/wtf/issues/784) by [@senorprogrammer](https://github.com/senorprogrammer)
+
+### 👍 Updated
+
+* Updated `digitalocean/godo` from 1.22.0 to 1.29.0
+
 ## 0.25.0
 
 ### ⚡️ Added
