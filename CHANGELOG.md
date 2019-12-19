@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+### ⚡️ Added
+
+* `myName` config setting added to PagerDuty module
+* `withDate` config setting added to Digital Clock module
+
 ### 🐞 Fixed
 
 * Module templating working again, [#748](https://github.com/wtfutil/wtf/issues/748) by [@senorprogrammer](https://github.com/senorprogrammer)
