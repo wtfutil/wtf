@@ -118,11 +118,21 @@ func (widget *Widget) contentFrom(onCalls []pagerduty.OnCall, incidents []pagerd
 					" [%s]%d - %s\n",
 					widget.settings.common.Colors.Text,
 					item.EscalationLevel,
-					item.User.Summary,
+					widget.userSummary(item),
 				)
 			}
 		}
 	}
 
 	return str
+}
+
+func (widget *Widget) userSummary(item pagerduty.OnCall) string {
+	summary := item.User.Summary
+
+	if summary == widget.settings.myName {
+		summary = fmt.Sprintf("[::b]%s", summary)
+	}
+
+	return summary
 }
