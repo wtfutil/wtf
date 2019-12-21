@@ -142,7 +142,7 @@ func ParseJSON(obj interface{}, text io.Reader) error {
 	return d.Decode(obj)
 }
 
-// CalculateDimensions reads the module dimensions from the module and global config. The border is already substracted.
+// CalculateDimensions reads the module dimensions from the module and global config. The border is already subtracted.
 func CalculateDimensions(moduleConfig, globalConfig *config.Config) (int, int, error) {
 	grid, err := globalConfig.Get("wtf.grid")
 	if err != nil {
