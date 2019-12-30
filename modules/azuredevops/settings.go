@@ -16,11 +16,11 @@ const (
 type Settings struct {
 	common *cfg.Common
 
-	labelColor  string
 	apiToken    string `help:"Your Azure DevOps Access Token."`
+	labelColor  string
+	maxRows     int
 	orgURL      string `help:"Your Azure DevOps organization URL."`
 	projectName string
-	maxRows     int
 }
 
 // NewSettingsFromYAML creates and returns an instance of Settings with configuration options populated
@@ -28,11 +28,11 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 	settings := Settings{
 		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocus, ymlConfig, globalConfig),
 
+		apiToken:    ymlConfig.UString("apiToken", os.Getenv("WTF_AZURE_DEVOPS_API_TOKEN")),
 		labelColor:  ymlConfig.UString("labelColor", "white"),
-		apiToken:    ymlConfig.UString("apiToken", os.Getenv("WTF_AZURE DEVOPS_API_TOKEN")),
+		maxRows:     ymlConfig.UInt("maxRows", 3),
 		orgURL:      ymlConfig.UString("orgURL", os.Getenv("WTF_AZURE_DEVOPS_ORG_URL")),
 		projectName: ymlConfig.UString("projectName", os.Getenv("WTF_AZURE_DEVOPS_PROJECT_NAME")),
-		maxRows:     ymlConfig.UInt("maxRows", 3),
 	}
 
 	return &settings

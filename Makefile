@@ -26,7 +26,7 @@ THIS_FILE := $(lastword $(MAKEFILE_LIST))
 
 APP=wtfutil
 
-# -------------------- Actions -------------------- # 
+# -------------------- Actions -------------------- #
 
 ## build: builds a local version
 build:
@@ -72,7 +72,7 @@ install:
 
 ## lint: runs a number of code quality checks against the source code
 lint:
-	# https://github.com/kisielk/errcheck
+	@echo "\033[35mhttps://github.com/kisielk/errcheck\033[0m"
 	errcheck ./app
 	errcheck ./cfg
 	errcheck ./flags
@@ -84,7 +84,7 @@ lint:
 	errcheck ./wtf
 	errcheck ./main.go
 
-	# https://golang.org/cmd/vet/
+	@echo "\033[35mhttps://golang.org/cmd/vet/k\033[0m"
 	go vet ./app
 	go vet ./cfg
 	go vet ./flags
@@ -96,7 +96,7 @@ lint:
 	go vet ./wtf
 	go vet ./main.go
 
-	# https://staticcheck.io/docs/
+	@echo "\033[35m# https://staticcheck.io/docs/k\033[0m"
 	staticcheck ./app
 	staticcheck ./cfg
 	staticcheck ./flags
