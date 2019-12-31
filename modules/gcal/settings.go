@@ -33,6 +33,7 @@ type Settings struct {
 	hourFormat            string `help:"The format of the clock." values:"12 or 24"`
 	multiCalendar         bool   `help:"Whether or not to display your primary calendar or all calendars you have access to." values:"true or false" optional:"true"`
 	secretFile            string `help:"Your Google client secret JSON file." values:"A string representing a file path to the JSON secret file."`
+	showAllDay            bool   `help:"Whether or not to display all-day events" values:"true or false" optional:"true" default:"true"`
 	showDeclined          bool   `help:"Whether or not to display events you’ve declined to attend." values:"true or false" optional:"true"`
 	withLocation          bool   `help:"Whether or not to show the location of the appointment." values:"true or false"`
 	timezone              string `help:"The time zone used to display calendar event times." values:"A valid TZ database time zone string" optional:"true"`
@@ -52,6 +53,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		hourFormat:            ymlConfig.UString("hourFormat", "24"),
 		multiCalendar:         ymlConfig.UBool("multiCalendar", false),
 		secretFile:            ymlConfig.UString("secretFile", ""),
+		showAllDay:            ymlConfig.UBool("showAllDay", true),
 		showDeclined:          ymlConfig.UBool("showDeclined", false),
 		withLocation:          ymlConfig.UBool("withLocation", true),
 		timezone:              ymlConfig.UString("timezone", ""),
