@@ -57,6 +57,7 @@ import (
 	"github.com/wtfutil/wtf/modules/transmission"
 	"github.com/wtfutil/wtf/modules/travisci"
 	"github.com/wtfutil/wtf/modules/trello"
+	"github.com/wtfutil/wtf/modules/twitch"
 	"github.com/wtfutil/wtf/modules/twitter"
 	"github.com/wtfutil/wtf/modules/twitterstats"
 	"github.com/wtfutil/wtf/modules/unknown"
@@ -256,6 +257,9 @@ func MakeWidget(
 	case "trello":
 		settings := trello.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = trello.NewWidget(app, settings)
+	case "twitch":
+		settings := twitch.NewSettingsFromYAML(moduleName, moduleConfig, config)
+		widget = twitch.NewWidget(app, pages, settings)
 	case "twitter":
 		settings := twitter.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = twitter.NewWidget(app, pages, settings)
