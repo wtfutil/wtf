@@ -7,6 +7,7 @@ import (
 
 	goFlags "github.com/jessevdk/go-flags"
 	"github.com/olebedev/config"
+	"github.com/wtfutil/wtf/cfg"
 	"github.com/wtfutil/wtf/help"
 )
 
@@ -79,10 +80,10 @@ func (flags *Flags) Parse() {
 	}
 
 	// If no config file is explicitly passed in as a param then set the flag to the default config file
-	homeDir, err := os.UserHomeDir()
+	configDir, err := cfg.WtfConfigDir()
 	if err != nil {
 		fmt.Printf("Error: %v\n", err)
 		os.Exit(1)
 	}
-	flags.Config = filepath.Join(homeDir, ".config", "wtf", "config.yml")
+	flags.Config = filepath.Join(configDir, "config.yml")
 }
