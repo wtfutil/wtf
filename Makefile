@@ -30,7 +30,7 @@ APP=wtfutil
 
 ## build: builds a local version
 build:
-	go build -o bin/${APP} -mod=vendor
+	go build -o bin/${APP}
 	@echo "Done building"
 
 ## clean: removes old build cruft
