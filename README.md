@@ -122,11 +122,14 @@ make run
 You can run `wtf` inside a docker container:
 
 ```bash
-# download the source
-git clone https://github.com/wtfutil/wtf
+# download or create the Dockerfile
+curl -o Dockerfile https://raw.githubusercontent.com/wtfutil/wtf/master/Dockerfile
 
 # build the docker container
 docker build -t wtfutil .
+
+# or for a particular tag or branch
+docker build --build-args=version=v0.25.0 -t wtfutil .
 
 # run the container
 docker run -it wtfutil

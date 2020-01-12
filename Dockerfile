@@ -1,8 +1,11 @@
-FROM golang:1.13-alpine
+FROM golang:1.13-alpine as build
 
-RUN apk add --no-cache make ncurses
+ARG version=master
 
-COPY . $GOPATH/src/github.com/wtfutil/wtf
+RUN apk add git make ncurses && \
+    git clone https://github.com/wtfutil/wtf.git $GOPATH/src/github.com/wtfutil/wtf && \
+    cd $GOPATH/src/github.com/wtfutil/wtf && \
+    git checkout $version
 
 ENV GOPROXY=https://proxy.golang.org,direct
 ENV GO111MODULE=on
@@ -14,4 +17,6 @@ ENV PATH=$PATH:./bin
 
 RUN make build
 
+FROM alpine
+COPY --from=build /go/src/github.com/wtfutil/wtf/bin/wtfutil /usr/local/bin/
 ENTRYPOINT "wtfutil"
