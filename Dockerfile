@@ -18,5 +18,9 @@ ENV PATH=$PATH:./bin
 RUN make build
 
 FROM alpine
+
 COPY --from=build /go/src/github.com/wtfutil/wtf/bin/wtfutil /usr/local/bin/
-ENTRYPOINT "wtfutil"
+RUN adduser -h /config -DG users -u 20000 wtf
+
+USER wtf
+ENTRYPOINT ["wtfutil"]

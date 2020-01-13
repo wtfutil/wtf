@@ -133,6 +133,9 @@ docker build --build-args=version=v0.25.0 -t wtfutil .
 
 # run the container
 docker run -it wtfutil
+
+# run container with a local config file
+docker run -it -v path/to/config.yml:/config/config.yml wtfutil --config=/config/config.yml
 ```
 
 ## Communication
