@@ -9,6 +9,7 @@
 * Twitch module added, by [@bjoernw](https://github.com/bjoernw)
 * HackerNews module now opens HN comments when there is no alternative external link, [#758](https://github.com/wtfutil/wtf/issues/758) by [@senorprogrammer](https://github.com/senorprogrammer)
 * gCal module now now allows users to hide all-day events, [#733](https://github.com/wtfutil/wtf/issues/733) by [@senorprogrammer](https://github.com/senorprogrammer)
+* SpaceX module added, by [@bjoernw](https://github.com/bjoernw)
 
 ### 🐞 Fixed
 
