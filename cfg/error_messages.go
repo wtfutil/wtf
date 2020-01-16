@@ -30,8 +30,8 @@ func displayDefaultConfigWriteError(err error) {
 	displayError(err)
 }
 
-func displayXdgConfigDirCreateError(err error) {
-	fmt.Printf("\n%s Could not create the '%s' directory.\n", aurora.Red("ERROR"), aurora.Yellow(XdgConfigDir))
+func displayXdgConfigDirCreateError(path string, err error) {
+	fmt.Printf("\n%s Could not create the '%s' directory.\n", aurora.Red("ERROR"), aurora.Yellow(path))
 	fmt.Println()
 	displayError(err)
 }
