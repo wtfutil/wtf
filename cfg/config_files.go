@@ -64,7 +64,6 @@ func Initialize(hasCustom bool) {
 
 	// These always get created because this is where modules should write any permanent
 	// data they need to persist between runs (i.e.: log, textfile, etc.)
-	createXdgConfigDir()
 	createWtfConfigDir()
 
 	if !hasCustom {
@@ -75,7 +74,13 @@ func Initialize(hasCustom bool) {
 
 // WtfConfigDir returns the absolute path to the configuration directory
 func WtfConfigDir() (string, error) {
-	configDir, err := expandHomeDir(WtfConfigDirV2)
+	configDir := os.Getenv("XDG_CONFIG_HOME")
+	if configDir == "" {
+		configDir = WtfConfigDirV2
+	} else {
+		configDir = configDir + "/wtf/"
+	}
+	configDir, err := expandHomeDir(configDir)
 	if err != nil {
 		return "", err
 	}
@@ -100,7 +105,8 @@ func LoadWtfConfigFile(filePath string) *config.Config {
 
 // chmodConfigFile sets the mode of the config file to r+w for the owner only
 func chmodConfigFile() {
-	relPath := fmt.Sprintf("%s%s", WtfConfigDirV2, WtfConfigFile)
+	configDir, _ := WtfConfigDir()
+	relPath := fmt.Sprintf("%s%s", configDir, WtfConfigFile)
 	absPath, _ := expandHomeDir(relPath)
 
 	_, err := os.Stat(absPath)
@@ -114,27 +120,13 @@ func chmodConfigFile() {
 	}
 }
 
-// createXdgConfigDir creates the necessary base directory for storing the config file
-// If ~/.config is missing, it will try to create it
-func createXdgConfigDir() {
-	xdgConfigDir, _ := expandHomeDir(XdgConfigDir)
-
-	if _, err := os.Stat(xdgConfigDir); os.IsNotExist(err) {
-		err := os.Mkdir(xdgConfigDir, os.ModePerm)
-		if err != nil {
-			displayXdgConfigDirCreateError(err)
-			os.Exit(1)
-		}
-	}
-}
-
 // createWtfConfigDir creates the necessary directories for storing the default config file
 // If ~/.config/wtf is missing, it will try to create it
 func createWtfConfigDir() {
 	wtfConfigDir, _ := WtfConfigDir()
 
 	if _, err := os.Stat(wtfConfigDir); os.IsNotExist(err) {
-		err := os.Mkdir(wtfConfigDir, os.ModePerm)
+		err := os.MkdirAll(wtfConfigDir, os.ModePerm)
 		if err != nil {
 			displayWtfConfigDirCreateError(err)
 			os.Exit(1)
@@ -204,7 +196,7 @@ func home() (string, error) {
 // to the new, XDG-compatible location
 func migrateOldConfig() {
 	srcDir, _ := expandHomeDir(WtfConfigDirV1)
-	destDir, _ := expandHomeDir(WtfConfigDirV2)
+	destDir, _ := WtfConfigDir()
 
 	// If the old config directory doesn't exist, do not move
 	if _, err := os.Stat(srcDir); os.IsNotExist(err) {
