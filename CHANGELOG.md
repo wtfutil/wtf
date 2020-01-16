@@ -19,6 +19,9 @@
 
 * Updated `digitalocean/godo` from 1.22.0 to 1.29.0
 * Updated `google.golang.org/api` from 0.14.0 to 0.15.0
+* Updated `alecthomas/chroma` from 0.7.0 to 0.7.1
+* Updated `pkg/errors` from 0.8.1 to 0.9.1
+* Updated `xanzy/go-gitlab` from 0.22.2 to 0.22.3
 
 ## 0.25.0
 
