@@ -45,8 +45,8 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/pkg/profile v1.4.0
 	github.com/radovskyb/watcher v1.0.7
-	github.com/rivo/tview v0.0.0-20190829161255-f8bc69b90341
-	github.com/shirou/gopsutil v2.19.12+incompatible
+	github.com/rivo/tview v0.0.0-20200108161608-1316ea7a4b35
+	github.com/shirou/gopsutil v2.19.11+incompatible
 	github.com/stretchr/testify v1.4.0
 	github.com/wtfutil/spotigopher v0.0.0-20191127141047-7d8168fe103a
 	github.com/wtfutil/todoist v0.0.2-0.20191216004217-0ec29ceda61a
@@ -56,7 +56,6 @@ require (
 	golang.org/x/crypto v0.0.0-20191011191535-87dc89f01550 // indirect
 	golang.org/x/net v0.0.0-20190923162816-aa69164e4478 // indirect
 	golang.org/x/oauth2 v0.0.0-20190604053449-0f29369cfe45
-	golang.org/x/sys v0.0.0-20190922100055-0a153f010e69 // indirect
 	golang.org/x/text v0.3.2
 	google.golang.org/api v0.15.0
 	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
