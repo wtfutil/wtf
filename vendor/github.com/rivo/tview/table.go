@@ -227,6 +227,10 @@ type Table struct {
 	// The rightmost column in the data set.
 	lastColumn int
 
+	// If true, when calculating the widths of the columns, all rows are evaluated
+	// instead of only the visible ones.
+	evaluateAllRows bool
+
 	// The number of fixed rows / columns.
 	fixedRows, fixedColumns int
 
@@ -381,6 +385,17 @@ func (t *Table) SetOffset(row, column int) *Table {
 // rows and columns the table is scrolled down and to the right.
 func (t *Table) GetOffset() (row, column int) {
 	return t.rowOffset, t.columnOffset
+}
+
+// SetEvaluateAllRows sets a flag which determines the rows to be evaluated when
+// calculating the widths of the table's columns. When false, only visible rows
+// are evaluated. When true, all rows in the table are evaluated.
+//
+// Set this flag to true to avoid shifting column widths when the table is
+// scrolled. (May be slower for large tables.)
+func (t *Table) SetEvaluateAllRows(all bool) *Table {
+	t.evaluateAllRows = all
+	return t
 }
 
 // SetSelectedFunc sets a handler which is called whenever the user presses the
@@ -637,13 +652,19 @@ func (t *Table) Draw(screen tcell.Screen) {
 	// Determine the indices and widths of the columns and rows which fit on the
 	// screen.
 	var (
-		columns, rows, widths   []int
-		tableHeight, tableWidth int
+		columns, rows, allRows, widths []int
+		tableHeight, tableWidth        int
 	)
 	rowStep := 1
 	if t.borders {
 		rowStep = 2    // With borders, every table row takes two screen rows.
 		tableWidth = 1 // We start at the second character because of the left table border.
+	}
+	if t.evaluateAllRows {
+		allRows = make([]int, len(t.cells))
+		for row := range t.cells {
+			allRows[row] = row
+		}
 	}
 	indexRow := func(row int) bool { // Determine if this row is visible, store its index.
 		if tableHeight >= height {
@@ -701,7 +722,11 @@ ColumnLoop:
 		// What's this column's width (without expansion)?
 		maxWidth := -1
 		expansion := 0
-		for _, row := range rows {
+		evaluationRows := rows
+		if t.evaluateAllRows {
+			evaluationRows = allRows
+		}
+		for _, row := range evaluationRows {
 			if cell := getCell(row, column); cell != nil {
 				_, _, _, _, _, _, cellWidth := decomposeString(cell.Text, true, false)
 				if cell.MaxWidth > 0 && cell.MaxWidth < cellWidth {
