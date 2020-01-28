@@ -115,6 +115,19 @@ make install
 make run
 ```
 
+### Installing from Source using Docker
+
+All building is done inside a docker container. You can then copy the binary to
+your local machine.
+
+```bash
+curl -o Dockerfile.build https://raw.githubusercontent.com/wtfutil/wtf/master/Dockerfile.build
+docker build -f Dockerfile.build -t wtfutil --build-args=version=master .
+docker create --name wtf_build wtfutil
+docker cp wtf_build:/usr/local/bin/wtfutil ~/.local/bin
+docker rm wtf_build
+```
+
 **Note:** WTF is _only_ compatible with Go versions **1.12.0** or later (due to the use of Go modules and newer standard library functions). If you would like to use `gccgo` to compile, you _must_ use `gccgo-9` or later which introduces support for Go modules.
 
 ## Running via Docker
@@ -122,14 +135,20 @@ make run
 You can run `wtf` inside a docker container:
 
 ```bash
-# download the source
-git clone https://github.com/wtfutil/wtf
+# download or create the Dockerfile
+curl -o Dockerfile https://raw.githubusercontent.com/wtfutil/wtf/master/Dockerfile
 
 # build the docker container
 docker build -t wtfutil .
 
+# or for a particular tag or branch
+docker build --build-args=version=v0.25.0 -t wtfutil .
+
 # run the container
 docker run -it wtfutil
+
+# run container with a local config file
+docker run -it -v path/to/config.yml:/config/config.yml wtfutil --config=/config/config.yml
 ```
 
 ## Communication
