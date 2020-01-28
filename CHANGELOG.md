@@ -17,6 +17,7 @@
 * Module templating working again, [#748](https://github.com/wtfutil/wtf/issues/748) by [@senorprogrammer](https://github.com/senorprogrammer)
 * CmdRunner title spacing issue fixed, [#784](https://github.com/wtfutil/wtf/issues/784) by [@senorprogrammer](https://github.com/senorprogrammer)
 * Colors in cmdrunner fixed when using nodejs chalk et al., [#618](https://github.com/wtfutil/wtf/issues/618) by [@Seanstoppable](https://github.com/Seanstoppable)
+* Docker buid instructions updated and improved, by [@firecat53](https://github.com/firecat53)
 
 ### 👍 Updated
 
