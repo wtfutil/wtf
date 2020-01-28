@@ -122,7 +122,7 @@ your local machine.
 
 ```bash
 curl -o Dockerfile.build https://raw.githubusercontent.com/wtfutil/wtf/master/Dockerfile.build
-docker build -f Dockerfile.build -t wtfutil --build-args=version=master .
+docker build -f Dockerfile.build -t wtfutil --build-arg=version=master .
 docker create --name wtf_build wtfutil
 docker cp wtf_build:/usr/local/bin/wtfutil ~/.local/bin
 docker rm wtf_build
@@ -142,7 +142,7 @@ curl -o Dockerfile https://raw.githubusercontent.com/wtfutil/wtf/master/Dockerfi
 docker build -t wtfutil .
 
 # or for a particular tag or branch
-docker build --build-args=version=v0.25.0 -t wtfutil .
+docker build --build-arg=version=v0.25.0 -t wtfutil .
 
 # run the container
 docker run -it wtfutil
