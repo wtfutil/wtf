@@ -296,9 +296,15 @@ func (f *Form) AddFormItem(item FormItem) *Form {
 	return f
 }
 
-// GetFormItem returns the form element at the given position, starting with
-// index 0. Elements are referenced in the order they were added. Buttons are
-// not included.
+// GetFormItemCount returns the number of items in the form (not including the
+// buttons).
+func (f *Form) GetFormItemCount() int {
+	return len(f.items)
+}
+
+// GetFormItem returns the form item at the given position, starting with index
+// 0. Elements are referenced in the order they were added. Buttons are not
+// included.
 func (f *Form) GetFormItem(index int) FormItem {
 	return f.items[index]
 }
@@ -333,6 +339,19 @@ func (f *Form) GetFormItemIndex(label string) int {
 		}
 	}
 	return -1
+}
+
+// GetFocusedItemIndex returns the indices of the form element or button which
+// currently has focus. If they don't, -1 is returned resepectively.
+func (f *Form) GetFocusedItemIndex() (formItem, button int) {
+	index := f.focusIndex()
+	if index < 0 {
+		return -1, -1
+	}
+	if index < len(f.items) {
+		return index, -1
+	}
+	return -1, index - len(f.items)
 }
 
 // SetCancelFunc sets a handler which is called when the user hits the Escape

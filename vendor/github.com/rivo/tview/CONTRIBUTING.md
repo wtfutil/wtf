@@ -15,7 +15,9 @@ Please note that this document is work in progress so I might add to it in the f
 
 ## Pull Requests
 
-If you have a feature request, open an issue first before sending me a pull request, and allow for some discussion. It may save you from writing code that will get rejected. If your case is strong, there is a good chance that I will add the feature for you.
+In my limited time I can spend on this project, I will always go through issues first before looking at pull requests. It takes a _lot_ of time to look at code that you submitted and I may not have that time. So be prepared to have your pull requests lying around for a long time.
+
+Therefore, if you have a feature request, open an issue first before sending me a pull request, and allow for some discussion. It may save you from writing code that will get rejected. If your case is strong, there is a good chance that I will add the feature for you.
 
 I'm very picky about the code that goes into this repo. So if you violate any of the following guidelines, there is a good chance I won't merge your pull request.
 

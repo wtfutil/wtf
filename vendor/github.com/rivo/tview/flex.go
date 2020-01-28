@@ -149,9 +149,13 @@ func (f *Flex) Draw(screen tcell.Screen) {
 	for _, item := range f.items {
 		size := item.FixedSize
 		if size <= 0 {
-			size = distSize * item.Proportion / proportionSum
-			distSize -= size
-			proportionSum -= item.Proportion
+			if proportionSum > 0 {
+				size = distSize * item.Proportion / proportionSum
+				distSize -= size
+				proportionSum -= item.Proportion
+			} else {
+				size = 0
+			}
 		}
 		if item.Item != nil {
 			if f.direction == FlexColumn {
