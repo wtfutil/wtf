@@ -226,6 +226,11 @@ func (b *Box) SetTitle(title string) *Box {
 	return b
 }
 
+// GetTitle returns the box's current title.
+func (b *Box) GetTitle() string {
+	return b.title
+}
+
 // SetTitleColor sets the box's title color.
 func (b *Box) SetTitleColor(color tcell.Color) *Box {
 	b.titleColor = color

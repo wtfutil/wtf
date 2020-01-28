@@ -226,6 +226,17 @@ func (p *Pages) SendToBack(name string) *Pages {
 	return p
 }
 
+// GetFrontPage returns the front-most visible page. If there are no visible
+// pages, ("", nil) is returned.
+func (p *Pages) GetFrontPage() (name string, item Primitive) {
+	for index := len(p.pages) - 1; index >= 0; index-- {
+		if p.pages[index].Visible {
+			return p.pages[index].Name, p.pages[index].Item
+		}
+	}
+	return
+}
+
 // HasFocus returns whether or not this primitive has focus.
 func (p *Pages) HasFocus() bool {
 	for _, page := range p.pages {

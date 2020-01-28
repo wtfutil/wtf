@@ -203,6 +203,7 @@ type JobEvent struct {
 	BuildFinishedAt   string  `json:"build_finished_at"`
 	BuildDuration     float64 `json:"build_duration"`
 	BuildAllowFailure bool    `json:"build_allow_failure"`
+	PipelineID        int     `json:"pipeline_id"`
 	ProjectID         int     `json:"project_id"`
 	ProjectName       string  `json:"project_name"`
 	User              struct {
@@ -329,40 +330,40 @@ type MergeCommentEvent struct {
 	} `json:"object_attributes"`
 	Repository   *Repository `json:"repository"`
 	MergeRequest struct {
-		ID              int    `json:"id"`
-		TargetBranch    string `json:"target_branch"`
-		SourceBranch    string `json:"source_branch"`
-		SourceProjectID int    `json:"source_project_id"`
-		AuthorID        int    `json:"author_id"`
-		AssigneeID      int    `json:"assignee_id"`
-		Title           string `json:"title"`
-		CreatedAt       string `json:"created_at"`
-		UpdatedAt       string `json:"updated_at"`
-		MilestoneID     int    `json:"milestone_id"`
-		State           string `json:"state"`
-		MergeStatus     string `json:"merge_status"`
-		TargetProjectID int    `json:"target_project_id"`
-		IID             int    `json:"iid"`
-		Description     string `json:"description"`
-		Position        int    `json:"position"`
-		LockedAt        string `json:"locked_at"`
-		UpdatedByID     int    `json:"updated_by_id"`
-		MergeError      string `json:"merge_error"`
-		MergeParams     *MergeParams `json:"merge_params"`
-		MergeWhenPipelineSucceeds bool        `json:"merge_when_pipeline_succeeds"`
-		MergeUserID               int         `json:"merge_user_id"`
-		MergeCommitSHA            string      `json:"merge_commit_sha"`
-		DeletedAt                 string      `json:"deleted_at"`
-		InProgressMergeCommitSHA  string      `json:"in_progress_merge_commit_sha"`
-		LockVersion               int         `json:"lock_version"`
-		ApprovalsBeforeMerge      string      `json:"approvals_before_merge"`
-		RebaseCommitSHA           string      `json:"rebase_commit_sha"`
-		TimeEstimate              int         `json:"time_estimate"`
-		Squash                    bool        `json:"squash"`
-		LastEditedAt              string      `json:"last_edited_at"`
-		LastEditedByID            int         `json:"last_edited_by_id"`
-		Source                    *Repository `json:"source"`
-		Target                    *Repository `json:"target"`
+		ID                        int          `json:"id"`
+		TargetBranch              string       `json:"target_branch"`
+		SourceBranch              string       `json:"source_branch"`
+		SourceProjectID           int          `json:"source_project_id"`
+		AuthorID                  int          `json:"author_id"`
+		AssigneeID                int          `json:"assignee_id"`
+		Title                     string       `json:"title"`
+		CreatedAt                 string       `json:"created_at"`
+		UpdatedAt                 string       `json:"updated_at"`
+		MilestoneID               int          `json:"milestone_id"`
+		State                     string       `json:"state"`
+		MergeStatus               string       `json:"merge_status"`
+		TargetProjectID           int          `json:"target_project_id"`
+		IID                       int          `json:"iid"`
+		Description               string       `json:"description"`
+		Position                  int          `json:"position"`
+		LockedAt                  string       `json:"locked_at"`
+		UpdatedByID               int          `json:"updated_by_id"`
+		MergeError                string       `json:"merge_error"`
+		MergeParams               *MergeParams `json:"merge_params"`
+		MergeWhenPipelineSucceeds bool         `json:"merge_when_pipeline_succeeds"`
+		MergeUserID               int          `json:"merge_user_id"`
+		MergeCommitSHA            string       `json:"merge_commit_sha"`
+		DeletedAt                 string       `json:"deleted_at"`
+		InProgressMergeCommitSHA  string       `json:"in_progress_merge_commit_sha"`
+		LockVersion               int          `json:"lock_version"`
+		ApprovalsBeforeMerge      string       `json:"approvals_before_merge"`
+		RebaseCommitSHA           string       `json:"rebase_commit_sha"`
+		TimeEstimate              int          `json:"time_estimate"`
+		Squash                    bool         `json:"squash"`
+		LastEditedAt              string       `json:"last_edited_at"`
+		LastEditedByID            int          `json:"last_edited_by_id"`
+		Source                    *Repository  `json:"source"`
+		Target                    *Repository  `json:"target"`
 		LastCommit                struct {
 			ID        string     `json:"id"`
 			Message   string     `json:"message"`
@@ -522,6 +523,7 @@ type MergeEvent struct {
 		SourceProjectID          int          `json:"source_project_id"`
 		AuthorID                 int          `json:"author_id"`
 		AssigneeID               int          `json:"assignee_id"`
+		AssigneeIDs              []int        `json:"assignee_ids"`
 		Title                    string       `json:"title"`
 		CreatedAt                string       `json:"created_at"` // Should be *time.Time (see Gitlab issue #21468)
 		UpdatedAt                string       `json:"updated_at"` // Should be *time.Time (see Gitlab issue #21468)
@@ -713,6 +715,18 @@ type PipelineEvent struct {
 		FinishedAt string   `json:"finished_at"`
 		Duration   int      `json:"duration"`
 	} `json:"object_attributes"`
+	MergeRequest struct {
+		ID                 int    `json:"id"`
+		IID                int    `json:"iid"`
+		Title              string `json:"title"`
+		SourceBranch       string `json:"source_branch"`
+		SourceProjectID    int    `json:"source_project_id"`
+		TargetBranch       string `json:"target_branch"`
+		TargetProjectID    int    `json:"target_project_id"`
+		State              string `json:"state"`
+		MergeRequestStatus string `json:"merge_status"`
+		URL                string `json:"url"`
+	} `json:"merge_request"`
 	User struct {
 		Name      string `json:"name"`
 		Username  string `json:"username"`

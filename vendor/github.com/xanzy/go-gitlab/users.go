@@ -24,9 +24,11 @@ import (
 
 // List a couple of standard errors.
 var (
-	ErrUserBlockPrevented   = errors.New("Cannot block a user that is already blocked by LDAP synchronization")
-	ErrUserNotFound         = errors.New("User does not exist")
-	ErrUserUnblockPrevented = errors.New("Cannot unblock a user that is blocked by LDAP synchronization")
+	ErrUserActivatePrevented   = errors.New("Cannot activate a user that is blocked by admin or by LDAP synchronization")
+	ErrUserBlockPrevented      = errors.New("Cannot block a user that is already blocked by LDAP synchronization")
+	ErrUserDeactivatePrevented = errors.New("Cannot deactivate a user that is blocked by admin or by LDAP synchronization, or that has any activity in past 180 days")
+	ErrUserNotFound            = errors.New("User does not exist")
+	ErrUserUnblockPrevented    = errors.New("Cannot unblock a user that is blocked by LDAP synchronization")
 )
 
 // UsersService handles communication with the user related methods of
@@ -482,6 +484,62 @@ func (s *UsersService) UnblockUser(user int, options ...OptionFunc) error {
 		return nil
 	case 403:
 		return ErrUserUnblockPrevented
+	case 404:
+		return ErrUserNotFound
+	default:
+		return fmt.Errorf("Received unexpected result code: %d", resp.StatusCode)
+	}
+}
+
+// DeactivateUser deactivate the specified user. Available only for admin.
+//
+// GitLab API docs: https://docs.gitlab.com/ce/api/users.html#deactivate-user
+func (s *UsersService) DeactivateUser(user int, options ...OptionFunc) error {
+	u := fmt.Sprintf("users/%d/deactivate", user)
+
+	req, err := s.client.NewRequest("POST", u, nil, options)
+	if err != nil {
+		return err
+	}
+
+	resp, err := s.client.Do(req, nil)
+	if err != nil && resp == nil {
+		return err
+	}
+
+	switch resp.StatusCode {
+	case 201:
+		return nil
+	case 403:
+		return ErrUserDeactivatePrevented
+	case 404:
+		return ErrUserNotFound
+	default:
+		return fmt.Errorf("Received unexpected result code: %d", resp.StatusCode)
+	}
+}
+
+// ActivateUser activate the specified user. Available only for admin.
+//
+// GitLab API docs: https://docs.gitlab.com/ce/api/users.html#activate-user
+func (s *UsersService) ActivateUser(user int, options ...OptionFunc) error {
+	u := fmt.Sprintf("users/%d/activate", user)
+
+	req, err := s.client.NewRequest("POST", u, nil, options)
+	if err != nil {
+		return err
+	}
+
+	resp, err := s.client.Do(req, nil)
+	if err != nil && resp == nil {
+		return err
+	}
+
+	switch resp.StatusCode {
+	case 201:
+		return nil
+	case 403:
+		return ErrUserActivatePrevented
 	case 404:
 		return ErrUserNotFound
 	default:
