@@ -847,7 +847,15 @@
       "name": "Bjoern Weidlich",
       "avatar_url": "https://avatars1.githubusercontent.com/u/1467156?v=4",
       "profile": "https://bjoern.svbtle.com",
+      "contributions": []
+    },
+    {
+      "login": "firecat53",
+      "name": "Scott Hansen",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/568113?v=4",
+      "profile": "https://github.com/firecat53",
       "contributions": [
+        "code"
       ]
     }
   ],
