@@ -54,7 +54,6 @@ import (
 	"github.com/wtfutil/wtf/modules/subreddit"
 	"github.com/wtfutil/wtf/modules/textfile"
 	"github.com/wtfutil/wtf/modules/todo"
-	"github.com/wtfutil/cori/modules/toggl"
 	"github.com/wtfutil/wtf/modules/todoist"
 	"github.com/wtfutil/wtf/modules/transmission"
 	"github.com/wtfutil/wtf/modules/travisci"
@@ -69,6 +68,7 @@ import (
 	"github.com/wtfutil/wtf/modules/weatherservices/weather"
 	"github.com/wtfutil/wtf/modules/zendesk"
 	"github.com/wtfutil/wtf/wtf"
+	"github.com/cori/wtf/modules/toggl"
 )
 
 // MakeWidget creates and returns instances of widgets
