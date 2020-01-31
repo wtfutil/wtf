@@ -18,6 +18,7 @@ type Settings struct {
 	title      string   `help:"Override the title of widget."`
 	kubeconfig string   `help:"Location of a kubeconfig file."`
 	namespaces []string `help:"List of namespaces to watch. If blank, defaults to all namespaces."`
+	context    string   `help:"Kubernetes context to use. If blank, uses default context"`
 }
 
 func NewSettingsFromYAML(name string, moduleConfig *config.Config, globalConfig *config.Config) *Settings {
@@ -29,6 +30,7 @@ func NewSettingsFromYAML(name string, moduleConfig *config.Config, globalConfig 
 		title:      moduleConfig.UString("title"),
 		kubeconfig: moduleConfig.UString("kubeconfig"),
 		namespaces: utils.ToStrs(moduleConfig.UList("namespaces")),
+		context:    moduleConfig.UString("context"),
 	}
 
 	return &settings

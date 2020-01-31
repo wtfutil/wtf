@@ -68,7 +68,7 @@ type Grid struct {
 //   grid.SetBackgroundColor(tview.Styles.PrimitiveBackgroundColor)
 func NewGrid() *Grid {
 	g := &Grid{
-		Box:          NewBox(),
+		Box:          NewBox().SetBackgroundColor(tcell.ColorDefault),
 		bordersColor: Styles.GraphicsColor,
 	}
 	g.focus = g

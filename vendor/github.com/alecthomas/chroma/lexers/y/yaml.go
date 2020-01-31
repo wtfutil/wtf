@@ -15,12 +15,15 @@ var YAML = internal.Register(MustNewLexer(
 	Rules{
 		"root": {
 			Include("whitespace"),
-			{`#.*`, Comment, nil},
+			{`^---`, Text, nil},
+			{`[\n?]?\s*- `, Text, nil},
+			{`#.*$`, Comment, nil},
 			{`!![^\s]+`, CommentPreproc, nil},
 			{`&[^\s]+`, CommentPreproc, nil},
 			{`\*[^\s]+`, CommentPreproc, nil},
 			{`^%include\s+[^\n\r]+`, CommentPreproc, nil},
 			{`([>|+-]\s+)(\s+)((?:(?:.*?$)(?:[\n\r]*?)?)*)`, ByGroups(StringDoc, StringDoc, StringDoc), nil},
+			Include("key"),
 			Include("value"),
 			{`[?:,\[\]]`, Punctuation, nil},
 			{`.`, Text, nil},
@@ -33,8 +36,15 @@ var YAML = internal.Register(MustNewLexer(
 			{`\b[+\-]?(0x[\da-f]+|0o[0-7]+|(\d+\.?\d*|\.?\d+)(e[\+\-]?\d+)?|\.inf|\.nan)\b`, Number, nil},
 			{`\b[\w]+\b`, Text, nil},
 		},
+		"key": {
+			{`"[^"\n].*": `, Keyword, nil},
+			{`(-)( )([^"\n{]*)(:)( )`, ByGroups(Punctuation, Whitespace, Keyword, Punctuation, Whitespace), nil},
+			{`([^"\n{]*)(:)( )`, ByGroups(Keyword, Punctuation, Whitespace), nil},
+			{`([^"\n{]*)(:)(\n)`, ByGroups(Keyword, Punctuation, Whitespace), nil},
+		},
 		"whitespace": {
 			{`\s+`, Whitespace, nil},
+			{`\n+`, Whitespace, nil},
 		},
 	},
 ))
