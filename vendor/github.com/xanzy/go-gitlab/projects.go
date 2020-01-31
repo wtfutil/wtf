@@ -459,10 +459,12 @@ type CreateProjectOptions struct {
 	OnlyAllowMergeIfPipelineSucceeds          *bool             `url:"only_allow_merge_if_pipeline_succeeds,omitempty" json:"only_allow_merge_if_pipeline_succeeds,omitempty"`
 	OnlyAllowMergeIfAllDiscussionsAreResolved *bool             `url:"only_allow_merge_if_all_discussions_are_resolved,omitempty" json:"only_allow_merge_if_all_discussions_are_resolved,omitempty"`
 	MergeMethod                               *MergeMethodValue `url:"merge_method,omitempty" json:"merge_method,omitempty"`
+	RemoveSourceBranchAfterMerge              *bool             `url:"remove_source_branch_after_merge,omitempty" json:"remove_source_branch_after_merge,omitempty"`
 	LFSEnabled                                *bool             `url:"lfs_enabled,omitempty" json:"lfs_enabled,omitempty"`
 	RequestAccessEnabled                      *bool             `url:"request_access_enabled,omitempty" json:"request_access_enabled,omitempty"`
 	TagList                                   *[]string         `url:"tag_list,omitempty" json:"tag_list,omitempty"`
 	PrintingMergeRequestLinkEnabled           *bool             `url:"printing_merge_request_link_enabled,omitempty" json:"printing_merge_request_link_enabled,omitempty"`
+	BuildCoverageRegex                        *string           `url:"build_coverage_regex,omitempty" json:"build_coverage_regex,omitempty"`
 	CIConfigPath                              *string           `url:"ci_config_path,omitempty" json:"ci_config_path,omitempty"`
 	ApprovalsBeforeMerge                      *int              `url:"approvals_before_merge,omitempty" json:"approvals_before_merge,omitempty"`
 	Mirror                                    *bool             `url:"mirror,omitempty" json:"mirror,omitempty"`
@@ -471,7 +473,6 @@ type CreateProjectOptions struct {
 	TemplateName                              *string           `url:"template_name,omitempty" json:"template_name,omitempty"`
 	UseCustomTemplate                         *bool             `url:"use_custom_template,omitempty" json:"use_custom_template,omitempty"`
 	GroupWithProjectTemplatesID               *int              `url:"group_with_project_templates_id,omitempty" json:"group_with_project_templates_id,omitempty"`
-	BuildCoverageRegex                        *string           `url:"build_coverage_regex,omitempty" json:"build_coverage_regex,omitempty"`
 }
 
 // CreateProject creates a new project owned by the authenticated user.
@@ -543,9 +544,11 @@ type EditProjectOptions struct {
 	OnlyAllowMergeIfPipelineSucceeds          *bool             `url:"only_allow_merge_if_pipeline_succeeds,omitempty" json:"only_allow_merge_if_pipeline_succeeds,omitempty"`
 	OnlyAllowMergeIfAllDiscussionsAreResolved *bool             `url:"only_allow_merge_if_all_discussions_are_resolved,omitempty" json:"only_allow_merge_if_all_discussions_are_resolved,omitempty"`
 	MergeMethod                               *MergeMethodValue `url:"merge_method,omitempty" json:"merge_method,omitempty"`
+	RemoveSourceBranchAfterMerge              *bool             `url:"remove_source_branch_after_merge,omitempty" json:"remove_source_branch_after_merge,omitempty"`
 	LFSEnabled                                *bool             `url:"lfs_enabled,omitempty" json:"lfs_enabled,omitempty"`
 	RequestAccessEnabled                      *bool             `url:"request_access_enabled,omitempty" json:"request_access_enabled,omitempty"`
 	TagList                                   *[]string         `url:"tag_list,omitempty" json:"tag_list,omitempty"`
+	BuildCoverageRegex                        *string           `url:"build_coverage_regex,omitempty" json:"build_coverage_regex,omitempty"`
 	CIConfigPath                              *string           `url:"ci_config_path,omitempty" json:"ci_config_path,omitempty"`
 	ApprovalsBeforeMerge                      *int              `url:"approvals_before_merge,omitempty" json:"approvals_before_merge,omitempty"`
 	ExternalAuthorizationClassificationLabel  *string           `url:"external_authorization_classification_label,omitempty" json:"external_authorization_classification_label,omitempty"`
@@ -555,7 +558,6 @@ type EditProjectOptions struct {
 	OnlyMirrorProtectedBranches               *bool             `url:"only_mirror_protected_branches,omitempty" json:"only_mirror_protected_branches,omitempty"`
 	MirrorOverwritesDivergedBranches          *bool             `url:"mirror_overwrites_diverged_branches,omitempty" json:"mirror_overwrites_diverged_branches,omitempty"`
 	PackagesEnabled                           *bool             `url:"packages_enabled,omitempty" json:"packages_enabled,omitempty"`
-	BuildCoverageRegex                        *string           `url:"build_coverage_regex,omitempty" json:"build_coverage_regex,omitempty"`
 }
 
 // EditProject updates an existing project.
@@ -1118,17 +1120,19 @@ func (s *ProjectsService) ListProjectForks(pid interface{}, opt *ListProjectsOpt
 // GitLab API docs:
 // https://docs.gitlab.com/ee/api/projects.html#push-rules
 type ProjectPushRules struct {
-	ID                 int        `json:"id"`
-	ProjectID          int        `json:"project_id"`
-	CommitMessageRegex string     `json:"commit_message_regex"`
-	BranchNameRegex    string     `json:"branch_name_regex"`
-	DenyDeleteTag      bool       `json:"deny_delete_tag"`
-	CreatedAt          *time.Time `json:"created_at"`
-	MemberCheck        bool       `json:"member_check"`
-	PreventSecrets     bool       `json:"prevent_secrets"`
-	AuthorEmailRegex   string     `json:"author_email_regex"`
-	FileNameRegex      string     `json:"file_name_regex"`
-	MaxFileSize        int        `json:"max_file_size"`
+	ID                    int        `json:"id"`
+	ProjectID             int        `json:"project_id"`
+	CommitMessageRegex    string     `json:"commit_message_regex"`
+	BranchNameRegex       string     `json:"branch_name_regex"`
+	DenyDeleteTag         bool       `json:"deny_delete_tag"`
+	CreatedAt             *time.Time `json:"created_at"`
+	MemberCheck           bool       `json:"member_check"`
+	PreventSecrets        bool       `json:"prevent_secrets"`
+	AuthorEmailRegex      string     `json:"author_email_regex"`
+	FileNameRegex         string     `json:"file_name_regex"`
+	MaxFileSize           int        `json:"max_file_size"`
+	CommitCommitterCheck  bool       `json:"commit_committer_check"`
+	RejectUnsignedCommits bool       `json:"reject_unsigned_commits"`
 }
 
 // GetProjectPushRules gets the push rules of a project.
@@ -1203,14 +1207,16 @@ func (s *ProjectsService) AddProjectPushRule(pid interface{}, opt *AddProjectPus
 // GitLab API docs:
 // https://docs.gitlab.com/ee/api/projects.html#edit-project-push-rule
 type EditProjectPushRuleOptions struct {
-	AuthorEmailRegex   *string `url:"author_email_regex,omitempty" json:"author_email_regex,omitempty"`
-	BranchNameRegex    *string `url:"branch_name_regex,omitempty" json:"branch_name_regex,omitempty"`
-	CommitMessageRegex *string `url:"commit_message_regex,omitempty" json:"commit_message_regex,omitempty"`
-	FileNameRegex      *string `url:"file_name_regex,omitempty" json:"file_name_regex,omitempty"`
-	DenyDeleteTag      *bool   `url:"deny_delete_tag,omitempty" json:"deny_delete_tag,omitempty"`
-	MemberCheck        *bool   `url:"member_check,omitempty" json:"member_check,omitempty"`
-	PreventSecrets     *bool   `url:"prevent_secrets,omitempty" json:"prevent_secrets,omitempty"`
-	MaxFileSize        *int    `url:"max_file_size,omitempty" json:"max_file_size,omitempty"`
+	AuthorEmailRegex      *string `url:"author_email_regex,omitempty" json:"author_email_regex,omitempty"`
+	BranchNameRegex       *string `url:"branch_name_regex,omitempty" json:"branch_name_regex,omitempty"`
+	CommitMessageRegex    *string `url:"commit_message_regex,omitempty" json:"commit_message_regex,omitempty"`
+	FileNameRegex         *string `url:"file_name_regex,omitempty" json:"file_name_regex,omitempty"`
+	DenyDeleteTag         *bool   `url:"deny_delete_tag,omitempty" json:"deny_delete_tag,omitempty"`
+	MemberCheck           *bool   `url:"member_check,omitempty" json:"member_check,omitempty"`
+	PreventSecrets        *bool   `url:"prevent_secrets,omitempty" json:"prevent_secrets,omitempty"`
+	MaxFileSize           *int    `url:"max_file_size,omitempty" json:"max_file_size,omitempty"`
+	CommitCommitterCheck  *bool   `url:"commit_committer_check,omitempty" json:"commit_committer_check,omitempty"`
+	RejectUnsignedCommits *bool   `url:"reject_unsigned_commits,omitempty" json:"reject_unsigned_commits,omitempty"`
 }
 
 // EditProjectPushRule edits a push rule for a specified project.
@@ -1511,4 +1517,35 @@ func (s *ProjectsService) StartMirroringProject(pid interface{}, options ...Opti
 	}
 
 	return resp, err
+}
+
+// TransferProjectOptions represents the available TransferProject() options.
+//
+// GitLab API docs: https://docs.gitlab.com/ce/api/projects.html#transfer-a-project-to-a-new-namespace
+type TransferProjectOptions struct {
+	Namespace interface{} `url:"namespace,omitempty" json:"namespace,omitempty"`
+}
+
+// TransferProject transfer a project into the specified namespace
+//
+// GitLab API docs: https://docs.gitlab.com/ce/api/projects.html#transfer-a-project-to-a-new-namespace
+func (s *ProjectsService) TransferProject(pid interface{}, opt *TransferProjectOptions, options ...OptionFunc) (*Project, *Response, error) {
+	project, err := parseID(pid)
+	if err != nil {
+		return nil, nil, err
+	}
+	u := fmt.Sprintf("projects/%s/transfer", pathEscape(project))
+
+	req, err := s.client.NewRequest("PUT", u, opt, options)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	p := new(Project)
+	resp, err := s.client.Do(req, p)
+	if err != nil {
+		return nil, resp, err
+	}
+
+	return p, resp, err
 }

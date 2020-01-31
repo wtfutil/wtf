@@ -18,6 +18,8 @@ linters:
     - funlen
     - godox
     - wsl
+    - gomnd
+    - gocognit
 
 linters-settings:
   govet:
@@ -49,3 +51,5 @@ issues:
     - 'at least one file in a package should have a package comment'
     - 'string literal contains the Unicode'
     - 'methods on the same type should have the same receiver name'
+    - '_TokenType_name should be _TokenTypeName'
+    - '`_TokenType_map` should be `_TokenTypeMap`'

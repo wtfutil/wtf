@@ -126,6 +126,12 @@ func (m *Modal) ClearButtons() *Modal {
 	return m
 }
 
+// SetFocus shifts the focus to the button with the given index.
+func (m *Modal) SetFocus(index int) *Modal {
+	m.form.SetFocus(index)
+	return m
+}
+
 // Focus is called when this primitive receives focus.
 func (m *Modal) Focus(delegate func(p Primitive)) {
 	delegate(m.form)

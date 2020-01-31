@@ -809,7 +809,7 @@
       }
     }
   },
-  "revision": "20191105",
+  "revision": "20191213",
   "rootUrl": "https://sheets.googleapis.com/",
   "schemas": {
     "AddBandingRequest": {
@@ -2545,6 +2545,45 @@
       },
       "type": "object"
     },
+    "ColorStyle": {
+      "description": "A color value.",
+      "id": "ColorStyle",
+      "properties": {
+        "rgbColor": {
+          "$ref": "Color",
+          "description": "RGB color."
+        },
+        "themeColor": {
+          "description": "Theme color.",
+          "enum": [
+            "THEME_COLOR_TYPE_UNSPECIFIED",
+            "TEXT",
+            "BACKGROUND",
+            "ACCENT1",
+            "ACCENT2",
+            "ACCENT3",
+            "ACCENT4",
+            "ACCENT5",
+            "ACCENT6",
+            "LINK"
+          ],
+          "enumDescriptions": [
+            "Unspecified theme color",
+            "Represents the primary text color",
+            "Represents the primary background color",
+            "Represents the first accent color",
+            "Represents the second accent color",
+            "Represents the third accent color",
+            "Represents the fourth accent color",
+            "Represents the fifth accent color",
+            "Represents the sixth accent color",
+            "Represents the color to use for hyperlinks"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
     "ConditionValue": {
       "description": "The value of the condition.",
       "id": "ConditionValue",
@@ -3485,7 +3524,7 @@
       "properties": {
         "condition": {
           "$ref": "BooleanCondition",
-          "description": "A condition that must be true for values to be shown.\n(This does not override hiddenValues -- if a value is listed there,\n it will still be hidden.)"
+          "description": "A condition that must be true for values to be shown.\n(This does not override hidden_values -- if a value is listed there,\n it will still be hidden.)"
         },
         "hiddenValues": {
           "description": "Values that should be hidden.",
@@ -5534,6 +5573,10 @@
           "description": "The locale of the spreadsheet in one of the following formats:\n\n* an ISO 639-1 language code such as `en`\n\n* an ISO 639-2 language code such as `fil`, if no 639-1 code exists\n\n* a combination of the ISO language code and country code, such as `en_US`\n\nNote: when updating this field, not all locales/languages are supported.",
           "type": "string"
         },
+        "spreadsheetTheme": {
+          "$ref": "SpreadsheetTheme",
+          "description": "Theme applied to the spreadsheet."
+        },
         "timeZone": {
           "description": "The time zone of the spreadsheet, in CLDR format such as\n`America/New_York`. If the time zone isn't recognized, this may\nbe a custom time zone such as `GMT-07:00`.",
           "type": "string"
@@ -5541,6 +5584,24 @@
         "title": {
           "description": "The title of the spreadsheet.",
           "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "SpreadsheetTheme": {
+      "description": "Represents spreadsheet theme",
+      "id": "SpreadsheetTheme",
+      "properties": {
+        "primaryFontFamily": {
+          "description": "/ Name of the primary font family.",
+          "type": "string"
+        },
+        "themeColors": {
+          "description": "The spreadsheet theme color pairs. For update users need to give all pairs\nof theme colors.",
+          "items": {
+            "$ref": "ThemeColorPair"
+          },
+          "type": "array"
         }
       },
       "type": "object"
@@ -5669,6 +5730,45 @@
         "source": {
           "$ref": "GridRange",
           "description": "The source data range.  This must span exactly one column."
+        }
+      },
+      "type": "object"
+    },
+    "ThemeColorPair": {
+      "description": "A pair mapping a spreadsheet theme color type to the concrete color it\nrepresents.",
+      "id": "ThemeColorPair",
+      "properties": {
+        "color": {
+          "$ref": "ColorStyle",
+          "description": "The concrete color corresponding to the theme color type."
+        },
+        "colorType": {
+          "description": "The type of the spreadsheet theme color.",
+          "enum": [
+            "THEME_COLOR_TYPE_UNSPECIFIED",
+            "TEXT",
+            "BACKGROUND",
+            "ACCENT1",
+            "ACCENT2",
+            "ACCENT3",
+            "ACCENT4",
+            "ACCENT5",
+            "ACCENT6",
+            "LINK"
+          ],
+          "enumDescriptions": [
+            "Unspecified theme color",
+            "Represents the primary text color",
+            "Represents the primary background color",
+            "Represents the first accent color",
+            "Represents the second accent color",
+            "Represents the third accent color",
+            "Represents the fourth accent color",
+            "Represents the fifth accent color",
+            "Represents the sixth accent color",
+            "Represents the color to use for hyperlinks"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
@@ -6104,7 +6204,7 @@
       "type": "object"
     },
     "UpdateSlicerSpecRequest": {
-      "description": "Updates a slicer’s specifications.\n(This does not move or resize a slicer. To move or resize a slicer use\nUpdateEmbeddedObjectPositionRequest.",
+      "description": "Updates a slicer's specifications.\n(This does not move or resize a slicer. To move or resize a slicer use\nUpdateEmbeddedObjectPositionRequest.",
       "id": "UpdateSlicerSpecRequest",
       "properties": {
         "fields": {

@@ -46,13 +46,13 @@ require (
 	github.com/pkg/profile v1.4.0
 	github.com/radovskyb/watcher v1.0.7
 	github.com/rivo/tview v0.0.0-20200108161608-1316ea7a4b35
-	github.com/shirou/gopsutil v2.19.11+incompatible
+	github.com/shirou/gopsutil v2.19.12+incompatible
 	github.com/stretchr/testify v1.4.0
 	github.com/wtfutil/spotigopher v0.0.0-20191127141047-7d8168fe103a
 	github.com/wtfutil/todoist v0.0.2-0.20191216004217-0ec29ceda61a
 	github.com/xanzy/go-gitlab v0.22.3
 	github.com/zmb3/spotify v0.0.0-20191010212056-e12fb981aacb
-	github.com/zorkian/go-datadog-api v2.25.0+incompatible
+	github.com/zorkian/go-datadog-api v2.26.0+incompatible
 	golang.org/x/crypto v0.0.0-20191011191535-87dc89f01550 // indirect
 	golang.org/x/net v0.0.0-20190923162816-aa69164e4478 // indirect
 	golang.org/x/oauth2 v0.0.0-20190604053449-0f29369cfe45

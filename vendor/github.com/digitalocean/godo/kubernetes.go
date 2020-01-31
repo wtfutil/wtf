@@ -354,6 +354,7 @@ type KubernetesRegion struct {
 type kubernetesClustersRoot struct {
 	Clusters []*KubernetesCluster `json:"kubernetes_clusters,omitempty"`
 	Links    *Links               `json:"links,omitempty"`
+	Meta     *Meta                `json:"meta"`
 }
 
 type kubernetesClusterRoot struct {
@@ -469,6 +470,14 @@ func (svc *KubernetesServiceOp) List(ctx context.Context, opts *ListOptions) ([]
 	if err != nil {
 		return nil, resp, err
 	}
+
+	if l := root.Links; l != nil {
+		resp.Links = l
+	}
+	if m := root.Meta; m != nil {
+		resp.Meta = m
+	}
+
 	return root.Clusters, resp, nil
 }
 

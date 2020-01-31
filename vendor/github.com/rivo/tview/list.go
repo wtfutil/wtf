@@ -51,6 +51,9 @@ type List struct {
 	// If true, the entire row is highlighted when selected.
 	highlightFullLine bool
 
+	// Whether or not navigating the list will wrap around.
+	wrapAround bool
+
 	// The number of list items skipped at the top before the first item is drawn.
 	offset int
 
@@ -71,6 +74,7 @@ func NewList() *List {
 	return &List{
 		Box:                     NewBox(),
 		showSecondaryText:       true,
+		wrapAround:              true,
 		mainTextColor:           Styles.PrimaryTextColor,
 		secondaryTextColor:      Styles.TertiaryTextColor,
 		shortcutColor:           Styles.SecondaryTextColor,
@@ -209,6 +213,16 @@ func (l *List) SetHighlightFullLine(highlight bool) *List {
 // ShowSecondaryText determines whether or not to show secondary item texts.
 func (l *List) ShowSecondaryText(show bool) *List {
 	l.showSecondaryText = show
+	return l
+}
+
+// SetWrapAround sets the flag that determines whether navigating the list will
+// wrap around. That is, navigating downwards on the last item will move the
+// selection to the first item (similarly in the other direction). If set to
+// false, the selection won't change when navigating downwards on the last item
+// or navigating upwards on the first item.
+func (l *List) SetWrapAround(wrapAround bool) *List {
+	l.wrapAround = wrapAround
 	return l
 }
 
@@ -516,9 +530,17 @@ func (l *List) InputHandler() func(event *tcell.EventKey, setFocus func(p Primit
 		}
 
 		if l.currentItem < 0 {
-			l.currentItem = len(l.items) - 1
+			if l.wrapAround {
+				l.currentItem = len(l.items) - 1
+			} else {
+				l.currentItem = 0
+			}
 		} else if l.currentItem >= len(l.items) {
-			l.currentItem = 0
+			if l.wrapAround {
+				l.currentItem = 0
+			} else {
+				l.currentItem = len(l.items) - 1
+			}
 		}
 
 		if l.currentItem != previousItem && l.currentItem < len(l.items) && l.changed != nil {
