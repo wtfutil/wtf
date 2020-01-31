@@ -125,6 +125,7 @@ type ProjectResourceLinks struct {
 type projectsRoot struct {
 	Projects []Project `json:"projects"`
 	Links    *Links    `json:"links"`
+	Meta     *Meta     `json:"meta"`
 }
 
 type projectRoot struct {
@@ -134,6 +135,7 @@ type projectRoot struct {
 type projectResourcesRoot struct {
 	Resources []ProjectResource `json:"resources"`
 	Links     *Links            `json:"links,omitempty"`
+	Meta      *Meta             `json:"meta"`
 }
 
 var _ ProjectsService = &ProjectsServiceOp{}
@@ -157,6 +159,9 @@ func (p *ProjectsServiceOp) List(ctx context.Context, opts *ListOptions) ([]Proj
 	}
 	if l := root.Links; l != nil {
 		resp.Links = l
+	}
+	if m := root.Meta; m != nil {
+		resp.Meta = m
 	}
 
 	return root.Projects, resp, err
@@ -237,6 +242,9 @@ func (p *ProjectsServiceOp) ListResources(ctx context.Context, projectID string,
 	}
 	if l := root.Links; l != nil {
 		resp.Links = l
+	}
+	if m := root.Meta; m != nil {
+		resp.Meta = m
 	}
 
 	return root.Resources, resp, err

@@ -72,6 +72,7 @@ type imageRoot struct {
 type imagesRoot struct {
 	Images []Image
 	Links  *Links `json:"links"`
+	Meta   *Meta  `json:"meta"`
 }
 
 type listImageOptions struct {
@@ -235,6 +236,9 @@ func (s *ImagesServiceOp) list(ctx context.Context, opt *ListOptions, listOpt *l
 	}
 	if l := root.Links; l != nil {
 		resp.Links = l
+	}
+	if m := root.Meta; m != nil {
+		resp.Meta = m
 	}
 
 	return root.Images, resp, err

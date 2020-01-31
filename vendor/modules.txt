@@ -22,7 +22,7 @@ github.com/StackExchange/wmi
 github.com/VictorAvelar/devto-api-go/devto
 # github.com/adlio/trello v1.6.0
 github.com/adlio/trello
-# github.com/alecthomas/chroma v0.7.0
+# github.com/alecthomas/chroma v0.7.1
 github.com/alecthomas/chroma
 github.com/alecthomas/chroma/formatters
 github.com/alecthomas/chroma/formatters/html
@@ -69,7 +69,7 @@ github.com/danwakefield/fnmatch
 github.com/davecgh/go-spew/spew
 # github.com/dgrijalva/jwt-go v3.2.0+incompatible
 github.com/dgrijalva/jwt-go
-# github.com/digitalocean/godo v1.22.0
+# github.com/digitalocean/godo v1.29.0
 github.com/digitalocean/godo
 # github.com/dlclark/regexp2 v1.1.6
 github.com/dlclark/regexp2
@@ -163,12 +163,18 @@ github.com/godbus/dbus
 # github.com/gogo/protobuf v1.2.2-0.20190723190241-65acae22fc9d
 github.com/gogo/protobuf/proto
 github.com/gogo/protobuf/sortkeys
-# github.com/golang/protobuf v1.3.1
+# github.com/golang/protobuf v1.3.2
 github.com/golang/protobuf/proto
 github.com/golang/protobuf/ptypes
 github.com/golang/protobuf/ptypes/any
 github.com/golang/protobuf/ptypes/duration
 github.com/golang/protobuf/ptypes/timestamp
+# github.com/google/go-cmp v0.3.0
+github.com/google/go-cmp/cmp
+github.com/google/go-cmp/cmp/internal/diff
+github.com/google/go-cmp/cmp/internal/flags
+github.com/google/go-cmp/cmp/internal/function
+github.com/google/go-cmp/cmp/internal/value
 # github.com/google/go-github/v26 v26.1.3
 github.com/google/go-github/v26/github
 # github.com/google/go-querystring v1.0.0
@@ -236,13 +242,15 @@ github.com/mmcdole/goxpp
 github.com/modern-go/concurrent
 # github.com/modern-go/reflect2 v1.0.1
 github.com/modern-go/reflect2
+# github.com/nicklaw5/helix v0.5.4
+github.com/nicklaw5/helix
 # github.com/olebedev/config v0.0.0-20190528211619-364964f3a8e4
 github.com/olebedev/config
 # github.com/olekukonko/tablewriter v0.0.4
 github.com/olekukonko/tablewriter
 # github.com/opencontainers/go-digest v1.0.0-rc1
 github.com/opencontainers/go-digest
-# github.com/pkg/errors v0.8.1
+# github.com/pkg/errors v0.9.1
 github.com/pkg/errors
 # github.com/pkg/profile v1.4.0
 github.com/pkg/profile
@@ -250,9 +258,9 @@ github.com/pkg/profile
 github.com/pmezard/go-difflib/difflib
 # github.com/radovskyb/watcher v1.0.7
 github.com/radovskyb/watcher
-# github.com/rivo/tview v0.0.0-20190829161255-f8bc69b90341
+# github.com/rivo/tview v0.0.0-20200108161608-1316ea7a4b35
 github.com/rivo/tview
-# github.com/rivo/uniseg v0.0.0-20190513083848-b9f5b9457d44
+# github.com/rivo/uniseg v0.1.0
 github.com/rivo/uniseg
 # github.com/shirou/gopsutil v2.19.11+incompatible
 github.com/shirou/gopsutil/cpu
@@ -266,7 +274,7 @@ github.com/stretchr/testify/assert
 github.com/wtfutil/spotigopher/spotigopher
 # github.com/wtfutil/todoist v0.0.2-0.20191216004217-0ec29ceda61a
 github.com/wtfutil/todoist
-# github.com/xanzy/go-gitlab v0.22.2
+# github.com/xanzy/go-gitlab v0.22.3
 github.com/xanzy/go-gitlab
 # github.com/zmb3/spotify v0.0.0-20191010212056-e12fb981aacb
 github.com/zmb3/spotify
@@ -289,7 +297,7 @@ go.opencensus.io/trace
 go.opencensus.io/trace/internal
 go.opencensus.io/trace/propagation
 go.opencensus.io/trace/tracestate
-# golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2
+# golang.org/x/crypto v0.0.0-20191011191535-87dc89f01550
 golang.org/x/crypto/cast5
 golang.org/x/crypto/openpgp
 golang.org/x/crypto/openpgp/armor
@@ -298,7 +306,7 @@ golang.org/x/crypto/openpgp/errors
 golang.org/x/crypto/openpgp/packet
 golang.org/x/crypto/openpgp/s2k
 golang.org/x/crypto/ssh/terminal
-# golang.org/x/net v0.0.0-20190812203447-cdfb69ac37fc
+# golang.org/x/net v0.0.0-20190923162816-aa69164e4478
 golang.org/x/net/context
 golang.org/x/net/context/ctxhttp
 golang.org/x/net/html
@@ -319,7 +327,7 @@ golang.org/x/oauth2/google
 golang.org/x/oauth2/internal
 golang.org/x/oauth2/jws
 golang.org/x/oauth2/jwt
-# golang.org/x/sys v0.0.0-20190626150813-e07cf5db2756
+# golang.org/x/sys v0.0.0-20191018095205-727590c5006e
 golang.org/x/sys/unix
 golang.org/x/sys/windows
 # golang.org/x/text v0.3.2
@@ -333,11 +341,19 @@ golang.org/x/text/encoding/korean
 golang.org/x/text/encoding/simplifiedchinese
 golang.org/x/text/encoding/traditionalchinese
 golang.org/x/text/encoding/unicode
+golang.org/x/text/feature/plural
+golang.org/x/text/internal
+golang.org/x/text/internal/catmsg
+golang.org/x/text/internal/format
 golang.org/x/text/internal/language
 golang.org/x/text/internal/language/compact
+golang.org/x/text/internal/number
+golang.org/x/text/internal/stringset
 golang.org/x/text/internal/tag
 golang.org/x/text/internal/utf8internal
 golang.org/x/text/language
+golang.org/x/text/message
+golang.org/x/text/message/catalog
 golang.org/x/text/runes
 golang.org/x/text/secure/bidirule
 golang.org/x/text/transform
@@ -345,7 +361,7 @@ golang.org/x/text/unicode/bidi
 golang.org/x/text/unicode/norm
 # golang.org/x/time v0.0.0-20181108054448-85acf8d2951c
 golang.org/x/time/rate
-# google.golang.org/api v0.14.0
+# google.golang.org/api v0.15.0
 google.golang.org/api/analytics/v3
 google.golang.org/api/analyticsreporting/v4
 google.golang.org/api/calendar/v3
@@ -408,6 +424,12 @@ google.golang.org/grpc/tap
 gopkg.in/inf.v0
 # gopkg.in/yaml.v2 v2.2.7
 gopkg.in/yaml.v2
+# gotest.tools v2.2.0+incompatible
+gotest.tools/assert
+gotest.tools/assert/cmp
+gotest.tools/internal/difflib
+gotest.tools/internal/format
+gotest.tools/internal/source
 # k8s.io/api v0.0.0-20191010143144-fbf594f18f80
 k8s.io/api/admissionregistration/v1beta1
 k8s.io/api/apps/v1

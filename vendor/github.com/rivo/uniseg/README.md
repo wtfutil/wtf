@@ -3,7 +3,7 @@
 [![Godoc Reference](https://img.shields.io/badge/godoc-reference-blue.svg)](https://godoc.org/github.com/rivo/uniseg)
 [![Go Report](https://img.shields.io/badge/go%20report-A%2B-brightgreen.svg)](https://goreportcard.com/report/github.com/rivo/uniseg)
 
-This Go package implements Unicode Text Segmentation according to [Unicode Standard Annex #29](http://unicode.org/reports/tr29/).
+This Go package implements Unicode Text Segmentation according to [Unicode Standard Annex #29](http://unicode.org/reports/tr29/) (Unicode version 12.0.0).
 
 At this point, only the determination of grapheme cluster boundaries is implemented.
 

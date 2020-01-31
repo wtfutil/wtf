@@ -58,6 +58,15 @@ func LineNumbersInTable(b bool) Option {
 	}
 }
 
+// LinkableLineNumbers decorates the line numbers HTML elements with an "id"
+// attribute so they can be linked.
+func LinkableLineNumbers(b bool, prefix string) Option {
+	return func(f *Formatter) {
+		f.linkableLineNumbers = b
+		f.lineNumbersIDPrefix = prefix
+	}
+}
+
 // HighlightLines higlights the given line ranges with the Highlight style.
 //
 // A range is the beginning and ending of a range as 1-based line numbers, inclusive.
@@ -129,15 +138,17 @@ var (
 
 // Formatter that generates HTML.
 type Formatter struct {
-	standalone         bool
-	prefix             string
-	Classes            bool // Exported field to detect when classes are being used
-	preWrapper         PreWrapper
-	tabWidth           int
-	lineNumbers        bool
-	lineNumbersInTable bool
-	highlightRanges    highlightRanges
-	baseLineNumber     int
+	standalone          bool
+	prefix              string
+	Classes             bool // Exported field to detect when classes are being used
+	preWrapper          PreWrapper
+	tabWidth            int
+	lineNumbers         bool
+	lineNumbersInTable  bool
+	linkableLineNumbers bool
+	lineNumbersIDPrefix string
+	highlightRanges     highlightRanges
+	baseLineNumber      int
 }
 
 type highlightRanges [][2]int
@@ -196,7 +207,7 @@ func (f *Formatter) writeHTML(w io.Writer, style *chroma.Style, tokens []chroma.
 				fmt.Fprintf(w, "<span%s>", f.styleAttr(css, chroma.LineHighlight))
 			}
 
-			fmt.Fprintf(w, "<span%s>%*d\n</span>", f.styleAttr(css, chroma.LineNumbersTable), lineDigits, line)
+			fmt.Fprintf(w, "<span%s%s>%*d\n</span>", f.styleAttr(css, chroma.LineNumbersTable), f.lineIDAttribute(line), lineDigits, line)
 
 			if highlight {
 				fmt.Fprintf(w, "</span>")
@@ -222,7 +233,7 @@ func (f *Formatter) writeHTML(w io.Writer, style *chroma.Style, tokens []chroma.
 		}
 
 		if f.lineNumbers && !wrapInTable {
-			fmt.Fprintf(w, "<span%s>%*d</span>", f.styleAttr(css, chroma.LineNumbers), lineDigits, line)
+			fmt.Fprintf(w, "<span%s%s>%*d</span>", f.styleAttr(css, chroma.LineNumbers), f.lineIDAttribute(line), lineDigits, line)
 		}
 
 		for _, token := range tokens {
@@ -251,6 +262,13 @@ func (f *Formatter) writeHTML(w io.Writer, style *chroma.Style, tokens []chroma.
 	}
 
 	return nil
+}
+
+func (f *Formatter) lineIDAttribute(line int) string {
+	if !f.linkableLineNumbers {
+		return ""
+	}
+	return fmt.Sprintf(" id=\"%s%d\"", f.lineNumbersIDPrefix, line)
 }
 
 func (f *Formatter) shouldHighlight(highlightIndex, line int) (bool, bool) {
@@ -325,6 +343,13 @@ func (f *Formatter) WriteCSS(w io.Writer, style *chroma.Style) error {
 		if _, err := fmt.Fprintf(w, "/* %s */ .%schroma .%s:last-child { width: 100%%; }",
 			chroma.LineTableTD, f.prefix, f.class(chroma.LineTableTD)); err != nil {
 			return err
+		}
+	}
+	// Special-case line number highlighting when targeted.
+	if f.lineNumbers || f.lineNumbersInTable {
+		targetedLineCSS := StyleEntryToCSS(style.Get(chroma.LineHighlight))
+		for _, tt := range []chroma.TokenType{chroma.LineNumbers, chroma.LineNumbersTable} {
+			fmt.Fprintf(w, "/* %s targeted by URL anchor */ .%schroma .%s:target { %s }\n", tt, f.prefix, f.class(tt), targetedLineCSS)
 		}
 	}
 	tts := []int{}

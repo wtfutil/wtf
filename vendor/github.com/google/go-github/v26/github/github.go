@@ -527,7 +527,7 @@ func (c *Client) Do(ctx context.Context, req *http.Request, v interface{}) (*Res
 
 		return nil, err
 	}
-	defer func() { _ = resp.Body.Close() }()
+	defer resp.Body.Close()
 
 	response := newResponse(resp)
 
