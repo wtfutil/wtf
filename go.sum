@@ -253,6 +253,8 @@ github.com/zmb3/spotify v0.0.0-20191010212056-e12fb981aacb h1:uWB0RGxBo7AToSJ3rv
 github.com/zmb3/spotify v0.0.0-20191010212056-e12fb981aacb/go.mod h1:pHsWAmY9PfX7i/uwPZkmWrebc8JbK8FppKbvyevwzSU=
 github.com/zorkian/go-datadog-api v2.25.0+incompatible h1:6uTEIky3RbhdqlZCdeGYBtIb+quwNwMdbYLADl+cASU=
 github.com/zorkian/go-datadog-api v2.25.0+incompatible/go.mod h1:PkXwHX9CUQa/FpB9ZwAD45N1uhCW4MT/Wj7m36PbKss=
+github.com/zorkian/go-datadog-api v2.26.0+incompatible h1:mljeL9ywBmiDEAKGH8Fg6Mfb3I8T6JMVDd5QQbgRGKI=
+github.com/zorkian/go-datadog-api v2.26.0+incompatible/go.mod h1:PkXwHX9CUQa/FpB9ZwAD45N1uhCW4MT/Wj7m36PbKss=
 go.opencensus.io v0.21.0 h1:mU6zScU4U1YAFPHEHYk+3JC4SY7JxgkqS10ZOSyksNg=
 go.opencensus.io v0.21.0/go.mod h1:mSImk1erAIZhrmZN+AvHh14ztQfjbGwt4TtuofqLduU=
 golang.org/x/crypto v0.0.0-20181025213731-e84da0312774/go.mod h1:6SG95UA2DQfeDnfUPMdvaQW0Q7yPrPDi9nlGo2tz2b4=
