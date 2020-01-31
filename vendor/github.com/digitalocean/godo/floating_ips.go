@@ -44,6 +44,7 @@ func (f FloatingIP) URN() string {
 type floatingIPsRoot struct {
 	FloatingIPs []FloatingIP `json:"floating_ips"`
 	Links       *Links       `json:"links"`
+	Meta        *Meta        `json:"meta"`
 }
 
 type floatingIPRoot struct {
@@ -79,6 +80,9 @@ func (f *FloatingIPsServiceOp) List(ctx context.Context, opt *ListOptions) ([]Fl
 	}
 	if l := root.Links; l != nil {
 		resp.Links = l
+	}
+	if m := root.Meta; m != nil {
+		resp.Meta = m
 	}
 
 	return root.FloatingIPs, resp, err

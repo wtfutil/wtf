@@ -47,6 +47,7 @@ type snapshotRoot struct {
 type snapshotsRoot struct {
 	Snapshots []Snapshot `json:"snapshots"`
 	Links     *Links     `json:"links,omitempty"`
+	Meta      *Meta      `json:"meta,omitempty"`
 }
 
 type listSnapshotOptions struct {

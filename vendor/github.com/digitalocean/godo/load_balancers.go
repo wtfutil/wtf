@@ -167,6 +167,7 @@ func (l dropletIDsRequest) String() string {
 type loadBalancersRoot struct {
 	LoadBalancers []LoadBalancer `json:"load_balancers"`
 	Links         *Links         `json:"links"`
+	Meta          *Meta          `json:"meta"`
 }
 
 type loadBalancerRoot struct {
@@ -217,6 +218,9 @@ func (l *LoadBalancersServiceOp) List(ctx context.Context, opt *ListOptions) ([]
 	}
 	if l := root.Links; l != nil {
 		resp.Links = l
+	}
+	if m := root.Meta; m != nil {
+		resp.Meta = m
 	}
 
 	return root.LoadBalancers, resp, err

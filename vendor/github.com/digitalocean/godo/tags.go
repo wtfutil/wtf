@@ -42,7 +42,9 @@ const (
 	// LoadBalancerResourceType holds the string representing our ResourceType of LoadBalancer.
 	LoadBalancerResourceType ResourceType = "load_balancer"
 	// VolumeSnapshotResourceType holds the string representing our ResourceType for storage Snapshots.
-	VolumeSnapshotResourceType ResourceType = "volumesnapshot"
+	VolumeSnapshotResourceType ResourceType = "volume_snapshot"
+	// DatabaseResourceType holds the string representing our ResourceType of Database.
+	DatabaseResourceType ResourceType = "database"
 )
 
 // Resource represent a single resource for associating/disassociating with tags
@@ -53,11 +55,13 @@ type Resource struct {
 
 // TaggedResources represent the set of resources a tag is attached to
 type TaggedResources struct {
-	Count         int                      `json:"count"`
-	LastTaggedURI string                   `json:"last_tagged_uri,omitempty"`
-	Droplets      *TaggedDropletsResources `json:"droplets,omitempty"`
-	Images        *TaggedImagesResources   `json:"images"`
-	Volumes       *TaggedVolumesResources  `json:"volumes"`
+	Count           int                             `json:"count"`
+	LastTaggedURI   string                          `json:"last_tagged_uri,omitempty"`
+	Droplets        *TaggedDropletsResources        `json:"droplets,omitempty"`
+	Images          *TaggedImagesResources          `json:"images"`
+	Volumes         *TaggedVolumesResources         `json:"volumes"`
+	VolumeSnapshots *TaggedVolumeSnapshotsResources `json:"volume_snapshots"`
+	Databases       *TaggedDatabasesResources       `json:"databases"`
 }
 
 // TaggedDropletsResources represent the droplet resources a tag is attached to
@@ -78,6 +82,12 @@ type TaggedImagesResources TaggedResourcesData
 
 // TaggedVolumesResources represent the volume resources a tag is attached to
 type TaggedVolumesResources TaggedResourcesData
+
+// TaggedVolumeSnapshotsResources represent the volume snapshot resources a tag is attached to
+type TaggedVolumeSnapshotsResources TaggedResourcesData
+
+// TaggedDatabasesResources represent the database resources a tag is attached to
+type TaggedDatabasesResources TaggedResourcesData
 
 // Tag represent DigitalOcean tag
 type Tag struct {
@@ -103,6 +113,7 @@ type UntagResourcesRequest struct {
 type tagsRoot struct {
 	Tags  []Tag  `json:"tags"`
 	Links *Links `json:"links"`
+	Meta  *Meta  `json:"meta"`
 }
 
 type tagRoot struct {
@@ -130,6 +141,9 @@ func (s *TagsServiceOp) List(ctx context.Context, opt *ListOptions) ([]Tag, *Res
 	}
 	if l := root.Links; l != nil {
 		resp.Links = l
+	}
+	if m := root.Meta; m != nil {
+		resp.Meta = m
 	}
 
 	return root.Tags, resp, err

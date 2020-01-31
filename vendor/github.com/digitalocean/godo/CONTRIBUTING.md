@@ -18,7 +18,7 @@ go get -u github.com/stretchr/testify/assert
 If outside `$GOPATH`, just clone the repository:
 
 ```sh
-git clone github.com/digitalocean/godo
+git clone https://github.com/digitalocean/godo
 ```
 
 ## Running tests

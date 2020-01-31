@@ -18,6 +18,7 @@ type Widget struct {
 	title      string
 	kubeconfig string
 	namespaces []string
+	context    string
 	settings   *Settings
 }
 
@@ -31,6 +32,7 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 		kubeconfig: settings.kubeconfig,
 		namespaces: settings.namespaces,
 		settings:   settings,
+		context:    settings.context,
 	}
 
 	widget.View.SetWrap(true)
@@ -100,6 +102,10 @@ func (widget *Widget) generateTitle() string {
 		return widget.title
 	}
 	title := "Kube"
+
+	if widget.context != "" {
+		title = fmt.Sprintf("%s (%s)", title, widget.context)
+	}
 
 	if len(widget.namespaces) == 1 {
 		title += fmt.Sprintf(" - Namespace: %s", widget.namespaces[0])

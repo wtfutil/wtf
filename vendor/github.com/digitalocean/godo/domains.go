@@ -47,6 +47,7 @@ type domainRoot struct {
 type domainsRoot struct {
 	Domains []Domain `json:"domains"`
 	Links   *Links   `json:"links"`
+	Meta    *Meta    `json:"meta"`
 }
 
 // DomainCreateRequest respresents a request to create a domain.
@@ -121,6 +122,9 @@ func (s DomainsServiceOp) List(ctx context.Context, opt *ListOptions) ([]Domain,
 	}
 	if l := root.Links; l != nil {
 		resp.Links = l
+	}
+	if m := root.Meta; m != nil {
+		resp.Meta = m
 	}
 
 	return root.Domains, resp, err

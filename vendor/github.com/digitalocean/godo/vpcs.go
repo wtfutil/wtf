@@ -63,6 +63,7 @@ type vpcRoot struct {
 type vpcsRoot struct {
 	VPCs  []*VPC `json:"vpcs"`
 	Links *Links `json:"links"`
+	Meta  *Meta  `json:"meta"`
 }
 
 // Get returns the details of a Virtual Private Cloud.
@@ -117,6 +118,9 @@ func (v *VPCsServiceOp) List(ctx context.Context, opt *ListOptions) ([]*VPC, *Re
 	}
 	if l := root.Links; l != nil {
 		resp.Links = l
+	}
+	if m := root.Meta; m != nil {
+		resp.Meta = m
 	}
 
 	return root.VPCs, resp, nil

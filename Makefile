@@ -1,4 +1,4 @@
-.PHONY: build clean contrib_check coverage help install isntall lint run size test uninstall
+.PHONY: build clean contrib_check coverage docker-build docker-install help install isntall lint run size test uninstall
 
 # detect GOPATH if not set
 ifndef $(GOPATH)
@@ -47,6 +47,21 @@ contrib-check:
 coverage:
 	go test -coverprofile=coverage.out ./...
 	go tool cover -html=coverage.out
+
+## docker-build: builds in docker
+docker-build:
+	@echo "Building ${APP} in Docker..."
+	docker build -t wtfutil:build --build-arg=version=master -f Dockerfile.build .
+	@echo "Done with docker build"
+
+## docker-install: installs a local version of the app from docker build
+docker-install:
+	@echo "Installing ${APP}..."
+	docker create --name wtf_build wtfutil:build
+	docker cp wtf_build:/usr/local/bin/wtfutil ~/.local/bin/
+	$(eval INSTALLPATH = $(shell which ${APP}))
+	@echo "${APP} installed into ${INSTALLPATH}"
+	docker rm wtf_build
 
 ## gosec: runs the gosec static security scanner against the source code
 gosec:
