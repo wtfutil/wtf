@@ -21,8 +21,7 @@ type PageResult struct {
 func PageResultFrom(resp *http.Response) (PageResult, error) {
 	var parsedBody interface{}
 
-	defer func() { _ = resp.Body.Close() }()
-
+	defer resp.Body.Close()
 	rawBody, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return PageResult{}, err

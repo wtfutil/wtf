@@ -35,10 +35,21 @@ func (widget *Widget) getInstance() (*clientInstance, error) {
 
 // getKubeClient returns a kubernetes clientset for the kubeconfig provided
 func (widget *Widget) getKubeClient() (kubernetes.Interface, error) {
-	config, err := clientcmd.BuildConfigFromFlags("", widget.kubeconfig)
+	var overrides *clientcmd.ConfigOverrides
+	if widget.context != "" {
+		overrides = &clientcmd.ConfigOverrides{
+			CurrentContext: widget.context,
+		}
+	}
+
+	config, err := clientcmd.NewNonInteractiveDeferredLoadingClientConfig(
+		&clientcmd.ClientConfigLoadingRules{ExplicitPath: widget.kubeconfig},
+		overrides).ClientConfig()
+
 	if err != nil {
 		return nil, err
 	}
+
 	clientset, err := kubernetes.NewForConfig(config)
 	if err != nil {
 		return nil, err
