@@ -22,12 +22,12 @@
 
 ### 👍 Updated
 
-* Updated `digitalocean/godo` from 1.22.0 to 1.29.0
+* Updated `digitalocean/godo` from 1.22.0 to 1.30.0
 * Updated `google.golang.org/api` from 0.14.0 to 0.15.0
 * Updated `alecthomas/chroma` from 0.7.0 to 0.7.1
 * Updated `pkg/errors` from 0.8.1 to 0.9.1
 * Updated `xanzy/go-gitlab` from 0.22.2 to 0.23.0
-* Updated `shirou/gopsutil` from 2.19.11 to 2.19.12
+* Updated `shirou/gopsutil` from 2.19.11 to 2.20.1
 * Updated `zorkian/go-datadog-api` from 2.25.0 to 2.26.0
 * Updated `gopkg.in/yaml.v2` from 2.2.7 to 2.2.8
 * Updated `nicklaw5/helix` from 0.5.4 to 0.5.5
