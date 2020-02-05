@@ -57,7 +57,7 @@ require (
 	golang.org/x/net v0.0.0-20190923162816-aa69164e4478 // indirect
 	golang.org/x/oauth2 v0.0.0-20190604053449-0f29369cfe45
 	golang.org/x/text v0.3.2
-	google.golang.org/api v0.15.0
+	google.golang.org/api v0.16.0
 	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
 	gopkg.in/jarcoal/httpmock.v1 v1.0.0-20181110093347-3be5f16b70eb // indirect
 	gopkg.in/yaml.v2 v2.2.8
