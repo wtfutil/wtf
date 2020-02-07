@@ -263,6 +263,8 @@ github.com/zorkian/go-datadog-api v2.25.0+incompatible h1:6uTEIky3RbhdqlZCdeGYBt
 github.com/zorkian/go-datadog-api v2.25.0+incompatible/go.mod h1:PkXwHX9CUQa/FpB9ZwAD45N1uhCW4MT/Wj7m36PbKss=
 github.com/zorkian/go-datadog-api v2.26.0+incompatible h1:mljeL9ywBmiDEAKGH8Fg6Mfb3I8T6JMVDd5QQbgRGKI=
 github.com/zorkian/go-datadog-api v2.26.0+incompatible/go.mod h1:PkXwHX9CUQa/FpB9ZwAD45N1uhCW4MT/Wj7m36PbKss=
+github.com/zorkian/go-datadog-api v2.27.0+incompatible h1:n2O5e7F1xu2WuFyMcX1tYbOwkI/BbqanxnHFWa2nUZw=
+github.com/zorkian/go-datadog-api v2.27.0+incompatible/go.mod h1:PkXwHX9CUQa/FpB9ZwAD45N1uhCW4MT/Wj7m36PbKss=
 go.opencensus.io v0.21.0 h1:mU6zScU4U1YAFPHEHYk+3JC4SY7JxgkqS10ZOSyksNg=
 go.opencensus.io v0.21.0/go.mod h1:mSImk1erAIZhrmZN+AvHh14ztQfjbGwt4TtuofqLduU=
 golang.org/x/crypto v0.0.0-20181025213731-e84da0312774/go.mod h1:6SG95UA2DQfeDnfUPMdvaQW0Q7yPrPDi9nlGo2tz2b4=
