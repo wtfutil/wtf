@@ -43,7 +43,6 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	widget.SetDisplayFunction(widget.display)
 
 	widget.Unselect()
-
 	widget.KeyboardWidget.SetView(widget.View)
 
 	widget.client = cdsclient.New(cdsclient.Config{
@@ -136,7 +135,6 @@ func (widget *Widget) currentCDSWorkflow() *sdk.Workflow {
 
 	if widget.Idx < 0 || widget.Idx >= len(widget.workflows) {
 		widget.Idx = 0
-		return nil
 	}
 
 	p := widget.workflows[widget.Idx]

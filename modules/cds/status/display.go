@@ -27,11 +27,11 @@ func (widget *Widget) content() (string, string, bool) {
 func (widget *Widget) displayStatus() string {
 	status, err := widget.client.MonStatus()
 
-	widget.SetItemCount(len(status.Lines))
-
 	if err != nil || len(status.Lines) == 0 {
 		return fmt.Sprintf(" [red]Error: %v[white]\n", err.Error())
 	}
+
+	widget.SetItemCount(len(status.Lines))
 
 	var (
 		global     []string
