@@ -66,11 +66,9 @@ func wifiInfo() string {
 }
 
 func wifiNameLinux() string {
-  cmd, _ := exec.Command("iwgetid", "-r").Output()
-  return string(cmd)
+	cmd, _ := exec.Command("iwgetid", "-r").Output()
+	return string(cmd)
 }
-
-
 
 func wifiNameMacOS() string {
 	name := utils.FindMatch(`s*SSID: (.+)s*`, wifiInfo())
@@ -103,7 +101,7 @@ func parseWlanNetsh(target string) string {
 	splits := strings.Split(string(out), "\n")
 	var words []string
 	for _, line := range splits {
-		token := strings.Split(string(line), ":")
+		token := strings.Split(line, ":")
 		for _, word := range token {
 			words = append(words, strings.TrimSpace(word))
 		}

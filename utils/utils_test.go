@@ -70,10 +70,8 @@ func Test_ExecuteCommand(t *testing.T) {
 }
 
 func Test_FindMatch(t *testing.T) {
-	var result [][]string
-
 	expected := [][]string([][]string{[]string{"SSID: 7E5B5C", "7E5B5C"}})
-	result = FindMatch(`s*SSID: (.+)s*`, "SSID: 7E5B5C")
+	result := FindMatch(`s*SSID: (.+)s*`, "SSID: 7E5B5C")
 
 	assert.Equal(t, expected, result)
 }

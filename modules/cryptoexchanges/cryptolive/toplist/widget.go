@@ -74,7 +74,7 @@ func (widget *Widget) updateData() {
 	}()
 
 	client := &http.Client{
-		Timeout: time.Duration(5 * time.Second),
+		Timeout: 5 * time.Second,
 	}
 
 	for _, fromCurrency := range widget.list.items {

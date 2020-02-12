@@ -96,7 +96,7 @@ func (widget *Widget) updateSummary() {
 	}()
 
 	client := &http.Client{
-		Timeout: time.Duration(5 * time.Second),
+		Timeout: 5 * time.Second,
 	}
 
 	for _, baseCurrency := range widget.summaryList.items {

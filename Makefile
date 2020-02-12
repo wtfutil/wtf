@@ -123,6 +123,9 @@ lint:
 	staticcheck ./wtf
 	staticcheck ./main.go
 
+	@echo "\033[35m# https://github.com/mdempsky/unconvert\033[0m"
+	unconvert ./...
+
 ## loc: displays the lines of code (LoC) count
 loc:
 	@loc --exclude _sample_configs/ _site/ docs/ Makefile *.md
