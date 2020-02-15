@@ -7,6 +7,9 @@ import (
 	"github.com/wtfutil/wtf/modules/bamboohr"
 	"github.com/wtfutil/wtf/modules/bargraph"
 	"github.com/wtfutil/wtf/modules/buildkite"
+	"github.com/wtfutil/wtf/modules/cds/favorites"
+	"github.com/wtfutil/wtf/modules/cds/queue"
+	"github.com/wtfutil/wtf/modules/cds/status"
 	"github.com/wtfutil/wtf/modules/circleci"
 	"github.com/wtfutil/wtf/modules/clocks"
 	"github.com/wtfutil/wtf/modules/cmdrunner"
@@ -115,6 +118,15 @@ func MakeWidget(
 	case "buildkite":
 		settings := buildkite.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = buildkite.NewWidget(app, pages, settings)
+	case "cdsFavorites":
+		settings := cdsfavorites.NewSettingsFromYAML(moduleName, moduleConfig, config)
+		widget = cdsfavorites.NewWidget(app, pages, settings)
+	case "cdsQueue":
+		settings := cdsqueue.NewSettingsFromYAML(moduleName, moduleConfig, config)
+		widget = cdsqueue.NewWidget(app, pages, settings)
+	case "cdsStatus":
+		settings := cdsstatus.NewSettingsFromYAML(moduleName, moduleConfig, config)
+		widget = cdsstatus.NewWidget(app, pages, settings)
 	case "circleci":
 		settings := circleci.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = circleci.NewWidget(app, settings)
