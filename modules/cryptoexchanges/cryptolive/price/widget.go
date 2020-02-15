@@ -111,7 +111,7 @@ func (widget *Widget) updateCurrencies() {
 		)
 
 		client = http.Client{
-			Timeout: time.Duration(5 * time.Second),
+			Timeout: 5 * time.Second,
 		}
 
 		request := makeRequest(fromCurrency)
