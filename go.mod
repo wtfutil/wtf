@@ -24,7 +24,6 @@ require (
 	github.com/gdamore/tcell v1.3.0
 	github.com/go-ole/go-ole v1.2.4 // indirect
 	github.com/godbus/dbus v4.1.0+incompatible // indirect
-	github.com/golang/protobuf v1.3.2 // indirect
 	github.com/google/go-github/v26 v26.1.3
 	github.com/gophercloud/gophercloud v0.5.0 // indirect
 	github.com/hashicorp/go-cleanhttp v0.5.1 // indirect
