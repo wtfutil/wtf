@@ -532,7 +532,8 @@
       "name": "Elliot",
       "avatar_url": "https://avatars1.githubusercontent.com/u/590442?v=4",
       "profile": "https://github.com/elliotrushton",
-      "contributions": []
+      "contributions": [
+      ]
     },
     {
       "login": "chenrui333",
@@ -861,8 +862,7 @@
       "name": "David Bond",
       "avatar_url": "https://avatars3.githubusercontent.com/u/6227720?v=4",
       "profile": "https://davidsbond.github.io",
-      "contributions": [
-      ]
+      "contributions": []
     }
   ],
   "contributorsPerLine": 7
