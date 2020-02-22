@@ -7,6 +7,10 @@
 * GitLab Todo module added, by [@elliotrushton](https://github.com/elliotrushton)
 * [CDS](https://github.com/ovh/cds) module added, by [@yesnault](https://github.com/yesnault)
 
+### 🐞 Fixed
+
+* The `vendor` directory has been removed, [#792](https://github.com/wtfutil/wtf/issues/792) by [@bjoernw](https://github.com/bjoernw)
+
 ### 👍 Updated
 
 * Updated `zorkian/go-datadog-api` from 2.26.0+incompatible to 2.27.0+incompatible
