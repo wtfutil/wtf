@@ -466,6 +466,8 @@ github.com/ncw/swift v0.0.0-20171019114456-c95c6e5c2d1a h1:SAjW6pL/9NssyKM1Qvyy5
 github.com/ncw/swift v0.0.0-20171019114456-c95c6e5c2d1a/go.mod h1:23YIA4yWVnGwv2dQlN4bB7egfYX6YLn0Yo/S6zZO/ZM=
 github.com/nicklaw5/helix v0.5.6 h1:42kr1D7I/vMidIXJR0b1WGLHWebp0I2LWZGTZVlLlO0=
 github.com/nicklaw5/helix v0.5.6/go.mod h1:nRcok4VLg8ONQYW/iXBZ24wcfiJjTlDbhgk0ZatOrUY=
+github.com/nicklaw5/helix v0.5.7 h1:DvNyoKkuLYrqZv5/yugL18Ud99UeQoXzzAsg4OwU8uY=
+github.com/nicklaw5/helix v0.5.7/go.mod h1:nRcok4VLg8ONQYW/iXBZ24wcfiJjTlDbhgk0ZatOrUY=
 github.com/nsf/termbox-go v0.0.0-20190817171036-93860e161317/go.mod h1:IuKpRQcYE1Tfu+oAQqaLisqDeXgjyyltCfsaoYN18NQ=
 github.com/nwaples/rardecode v1.0.0/go.mod h1:5DzqNKiOdpKKBH87u8VlvAnPZMXcGRhxWkRpHbbfGS0=
 github.com/oklog/ulid v1.3.1/go.mod h1:CirwcVhetQ6Lv90oh/F+FBtV6XMibvdAFo93nm5qn4U=
