@@ -7,7 +7,7 @@
 ### ⚡️ Added
 
 * GitLab Todo module added, by [@elliotrushton](https://github.com/elliotrushton)
-* [CDS](https://github.com/ovh/cds) module added, by [@yesnault](https://github.com/yesnault)
+* [CDS](https://wtfutil.com/modules/cds/) module added, by [@yesnault](https://github.com/yesnault)
 
 ### 🐞 Fixed
 
