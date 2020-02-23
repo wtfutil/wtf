@@ -15,8 +15,9 @@
 
 * Updated `zorkian/go-datadog-api` from 2.26.0+incompatible to 2.27.0+incompatible
 * Updated `google.golang.org/api` from 0.15.0 to 0.17.0
-* Updated `github.com/nicklaw5/helix` from 0.5.5 to 0.5.6
-* Updated `xanzy/go-gitlab` from 0.23.0 to 0.25.0
+* Updated `github.com/nicklaw5/helix` from 0.5.5 to 0.5.7
+* Updated `xanzy/go-gitlab` from 0.23.0 to 0.26.0
+* Updated `stretchr/testify` from o.4.0 to 0.5;1
 
 ## 0.26.0
 
