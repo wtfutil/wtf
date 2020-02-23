@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 0.27.0
+
 ### ⚡️ Added
 
 * GitLab Todo module added, by [@elliotrushton](https://github.com/elliotrushton)
