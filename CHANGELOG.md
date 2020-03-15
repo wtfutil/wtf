@@ -6,6 +6,16 @@
 
 * Support for customizing CPU, Mem, and Swap display in ResourceUsage, by [@leterio](https://github.com/leterio)
 
+### 👍 Updated
+
+* Now prefers Go 1.14 for compilation (should still work under 1.13 however)
+* Updated `shirou/gopsutil` from 2.20.1+incompatible to 2.20.2+incompatible
+* Updated `google.golang.org/api` from 0.17.0 to 0.20.0
+* Updated `digitalocean/godo` from 1.30.0 to 1.32.0
+* Updated `xanzy/go-gitlab` from 0.26.0 to 0.28.0
+* Updated `adlio/trello` from 1.6.0 to 1.7.0
+* Updated `zorkian/go-datadog-api` from 2.27.0+incompatible to 2.28.0+incompatible
+
 ## 0.27.0
 
 ### ⚡️ Added
