@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## v0.28.0
+
 ### ⚡️ Added
 
 * Support for customizing CPU, Mem, and Swap display in ResourceUsage, by [@leterio](https://github.com/leterio)
