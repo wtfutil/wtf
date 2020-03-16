@@ -50,8 +50,6 @@ github.com/StackExchange/wmi v0.0.0-20190523213315-cbe66965904d h1:G0m3OIz70MZUW
 github.com/StackExchange/wmi v0.0.0-20190523213315-cbe66965904d/go.mod h1:3eOhrUMpNV+6aFIbp5/iudMxNCF27Vw2OZgy4xEx0Fg=
 github.com/VictorAvelar/devto-api-go v1.0.0 h1:oXmzye3xYvlgBX18vX4+v6LVbjoihgIokpeOpzeJzqU=
 github.com/VictorAvelar/devto-api-go v1.0.0/go.mod h1:gX13cqzMdpo49qP8VtBR2uCnzW7d76LFrAVSX2eLifY=
-github.com/adlio/trello v1.6.0 h1:ajkfwcQiBv83Vd/HHkUNOIrK3NJtEEHwUMnZJHbCwAo=
-github.com/adlio/trello v1.6.0/go.mod h1:l2068AhUuUuQ9Vsb95ECMueHThYyAj4e85lWPmr2/LE=
 github.com/adlio/trello v1.7.0 h1:syLRJ27wCM8URf7zOBWGr981cG+dpmLSyMqjEoQc+4g=
 github.com/adlio/trello v1.7.0/go.mod h1:l2068AhUuUuQ9Vsb95ECMueHThYyAj4e85lWPmr2/LE=
 github.com/alecthomas/assert v0.0.0-20170929043011-405dbfeb8e38 h1:smF2tmSOzy2Mm+0dGI2AIUHY+w0BUc+4tn40djz7+6U=
@@ -132,8 +130,6 @@ github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSs
 github.com/dgrijalva/jwt-go v3.2.0+incompatible h1:7qlOGliEKZXTDg6OTjfoBKDXWrumCAMpl/TFQ4/5kLM=
 github.com/dgrijalva/jwt-go v3.2.0+incompatible/go.mod h1:E3ru+11k8xSBh+hMPgOLZmtrrCbhqsmaPHjLKYnJCaQ=
 github.com/dgryski/go-sip13 v0.0.0-20181026042036-e10d5fee7954/go.mod h1:vAd38F8PWV+bWy6jNmig1y/TA+kYO4g3RSRF0IAv0no=
-github.com/digitalocean/godo v1.30.0 h1:4Zb+xBlKMXKg772eyQk6px3sk9RhWj/CR75tQ375A/U=
-github.com/digitalocean/godo v1.30.0/go.mod h1:iJnN9rVu6K5LioLxLimlq0uRI+y/eAQjROUmeU/r0hY=
 github.com/digitalocean/godo v1.32.0 h1:ljfhYi/IqDYiZcBYV7nUPzw1Q7NlmPSFDtI69UeRThk=
 github.com/digitalocean/godo v1.32.0/go.mod h1:iJnN9rVu6K5LioLxLimlq0uRI+y/eAQjROUmeU/r0hY=
 github.com/dlclark/regexp2 v1.1.6 h1:CqB4MjHw0MFCDj+PHHjiESmHX+N7t0tJzKvC6M97BRg=
@@ -584,8 +580,6 @@ github.com/sethgrid/pester v0.0.0-20171127025028-760f8913c048/go.mod h1:Ad7IjTpv
 github.com/sguiheux/go-coverage v0.0.0-20190710153556-287b082a7197 h1:qu90yDtRE5WEfRT5mn9v0Xz9RaopLguhbPwZKx4dHq8=
 github.com/sguiheux/go-coverage v0.0.0-20190710153556-287b082a7197/go.mod h1:0hhKrsUsoT7yvxwNGKa+TSYNA26DNWMqReeZEQq/9FI=
 github.com/shirou/gopsutil v0.0.0-20170406131756-e49a95f3d5f8/go.mod h1:5b4v6he4MtMOwMlS0TUMTu2PcXUg8+E1lC7eC3UO/RA=
-github.com/shirou/gopsutil v2.20.1+incompatible h1:oIq9Cq4i84Hk8uQAUOG3eNdI/29hBawGrD5YRl6JRDY=
-github.com/shirou/gopsutil v2.20.1+incompatible/go.mod h1:5b4v6he4MtMOwMlS0TUMTu2PcXUg8+E1lC7eC3UO/RA=
 github.com/shirou/gopsutil v2.20.2+incompatible h1:ucK79BhBpgqQxPASyS2cu9HX8cfDVljBN1WWFvbNvgY=
 github.com/shirou/gopsutil v2.20.2+incompatible/go.mod h1:5b4v6he4MtMOwMlS0TUMTu2PcXUg8+E1lC7eC3UO/RA=
 github.com/sirupsen/logrus v1.0.6/go.mod h1:pMByvHTf9Beacp5x1UXfOR9xyW/9antXMhjMPG0dEzc=
@@ -646,8 +640,6 @@ github.com/wtfutil/spotigopher v0.0.0-20191127141047-7d8168fe103a/go.mod h1:AlO4
 github.com/wtfutil/todoist v0.0.2-0.20191216004217-0ec29ceda61a h1:nD8ALd4TSo+zPHK5MqQWFj01G8fMMHFfC3rWvoq/9JA=
 github.com/wtfutil/todoist v0.0.2-0.20191216004217-0ec29ceda61a/go.mod h1:YuuGLJSsTK6DGBD5Zaf3J8LSMfpEC2WtzYPey3XVOdI=
 github.com/xanzy/go-gitlab v0.15.0/go.mod h1:8zdQa/ri1dfn8eS3Ir1SyfvOKlw7WBJ8DVThkpGiXrs=
-github.com/xanzy/go-gitlab v0.26.0 h1:eAnJRBUC+GDJSy8OoGCZBqBMpXsGOOT235TFm/F8C0Q=
-github.com/xanzy/go-gitlab v0.26.0/go.mod h1:t4Bmvnxj7k37S4Y17lfLx+nLqkf/oQwT2HagfWKv5Og=
 github.com/xanzy/go-gitlab v0.28.0 h1:nsyjDVvBrP4KRXEN4b1m1ewiqmTNL4BOWW041nKGV7k=
 github.com/xanzy/go-gitlab v0.28.0/go.mod h1:t4Bmvnxj7k37S4Y17lfLx+nLqkf/oQwT2HagfWKv5Og=
 github.com/xi2/xz v0.0.0-20171230120015-48954b6210f8/go.mod h1:HUYIGzjTL3rfEspMxjDjgmT5uz5wzYJKVo23qUhYTos=
@@ -665,8 +657,6 @@ github.com/zmb3/spotify v0.0.0-20191010212056-e12fb981aacb h1:uWB0RGxBo7AToSJ3rv
 github.com/zmb3/spotify v0.0.0-20191010212056-e12fb981aacb h1:uWB0RGxBo7AToSJ3rvoCZhXtLw4U7XISXSezPewmfic=
 github.com/zmb3/spotify v0.0.0-20191010212056-e12fb981aacb/go.mod h1:pHsWAmY9PfX7i/uwPZkmWrebc8JbK8FppKbvyevwzSU=
 github.com/zmb3/spotify v0.0.0-20191010212056-e12fb981aacb/go.mod h1:pHsWAmY9PfX7i/uwPZkmWrebc8JbK8FppKbvyevwzSU=
-github.com/zorkian/go-datadog-api v2.27.0+incompatible h1:n2O5e7F1xu2WuFyMcX1tYbOwkI/BbqanxnHFWa2nUZw=
-github.com/zorkian/go-datadog-api v2.27.0+incompatible/go.mod h1:PkXwHX9CUQa/FpB9ZwAD45N1uhCW4MT/Wj7m36PbKss=
 github.com/zorkian/go-datadog-api v2.28.0+incompatible h1:bh/2jIkDFCZRjkuQKBFdmB+sScAMXf8fctKTT0ae+wE=
 github.com/zorkian/go-datadog-api v2.28.0+incompatible/go.mod h1:PkXwHX9CUQa/FpB9ZwAD45N1uhCW4MT/Wj7m36PbKss=
 go.etcd.io/bbolt v1.3.2/go.mod h1:IbVyRI1SCnLcuJnV2u8VeU0CEYM7e686BmAb1XKL+uU=
@@ -792,8 +782,6 @@ google.golang.org/api v0.3.2/go.mod h1:6wY9I6uQWHQ8EM57III9mq/AjF+i8G65rmVagqKMt
 google.golang.org/api v0.4.0/go.mod h1:8k5glujaEP+g9n7WNsDg8QP6cUVNI86fCNMcbazEtwE=
 google.golang.org/api v0.7.0/go.mod h1:WtwebWUNSVBH/HAw79HIFXZNqEvBhG+Ra+ax0hx3E3M=
 google.golang.org/api v0.8.0/go.mod h1:o4eAsZoiT+ibD93RtjEohWalFOjRDx6CVaqeizhEnKg=
-google.golang.org/api v0.17.0 h1:0q95w+VuFtv4PAx4PZVQdBMmYbaCHbnfKaEiDIcVyag=
-google.golang.org/api v0.17.0/go.mod h1:BwFmGc8tA3vsd7r/7kR8DY7iEEGSU04BFxCo5jP/sfE=
 google.golang.org/api v0.20.0 h1:jz2KixHX7EcCPiQrySzPdnYT7DbINAypCqKZ1Z7GM40=
 google.golang.org/api v0.20.0/go.mod h1:BwFmGc8tA3vsd7r/7kR8DY7iEEGSU04BFxCo5jP/sfE=
 google.golang.org/appengine v1.1.0/go.mod h1:EbEs0AVv82hx2wNQdGPgUI5lhzA/G0D9YwlJXL52JkM=
