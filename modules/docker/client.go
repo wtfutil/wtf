@@ -110,11 +110,11 @@ func (widget *Widget) getSystemInfo() string {
 func (widget *Widget) getContainerStates() string {
 	cntrs, err := widget.cli.ContainerList(context.Background(), types.ContainerListOptions{All: true})
 	if err != nil {
-		return errors.Wrapf(err, "could not get container list").Error()
+		return errors.Wrapf(err, " could not get container list").Error()
 	}
 
 	if len(cntrs) == 0 {
-		return "no containers"
+		return " no containers"
 	}
 
 	colorMap := map[string]string{

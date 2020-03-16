@@ -1,6 +1,8 @@
 package docker
 
 import (
+	"fmt"
+
 	"github.com/docker/docker/client"
 	"github.com/pkg/errors"
 	"github.com/rivo/tview"
@@ -54,11 +56,11 @@ func (widget *Widget) refreshDisplayBuffer() {
 
 	widget.displayBuffer = ""
 
-	widget.displayBuffer += "[" + widget.settings.labelColor + "::bul]system\n"
+	widget.displayBuffer += fmt.Sprintf("[%s] System[white]\n", widget.settings.common.Colors.Subheading)
 	widget.displayBuffer += widget.getSystemInfo()
 
 	widget.displayBuffer += "\n"
 
-	widget.displayBuffer += "[" + widget.settings.labelColor + "::bul]containers\n"
+	widget.displayBuffer += fmt.Sprintf("[%s] Containers[white]\n", widget.settings.common.Colors.Subheading)
 	widget.displayBuffer += widget.getContainerStates()
 }
