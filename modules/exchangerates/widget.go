@@ -43,25 +43,26 @@ func (widget *Widget) Refresh() {
 	widget.Render()
 }
 
-/* -------------------- Unexported Functions -------------------- */
-
 func (widget *Widget) Render() {
 	widget.Redraw(widget.content)
 }
 
+/* -------------------- Unexported Functions -------------------- */
+
 func (widget *Widget) content() (string, string, bool) {
-	var out string
+	out := ""
 
 	if widget.err != nil {
 		out = widget.err.Error()
 	} else {
 		for base, rates := range widget.settings.rates {
-			out += fmt.Sprintf("[%s]1 %s[white] = ", widget.settings.common.Colors.Subheading, base)
-			idx := 0
-			for _, cur := range rates {
+			prefix := fmt.Sprintf("[%s]1 %s[white] = ", widget.settings.common.Colors.Subheading, base)
+
+			for idx, cur := range rates {
 				rate := widget.rates[base][cur]
+
+				out += prefix
 				out += fmt.Sprintf("[%s]%f %s[white]\n", widget.CommonSettings().RowColor(idx), rate, cur)
-				idx++
 			}
 		}
 	}
