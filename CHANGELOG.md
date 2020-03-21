@@ -5,6 +5,7 @@
 ### 🐞 Fixed
 
 * Docker module subheading display, [#847](https://github.com/wtfutil/wtf/issues/847) by [@senorprogrammer](https://github.com/senorprogrammer)
+* Improved display of currencies for the Exchange Rate module, by [@indradhanush](https://github.com/indradhanush)
 
 ## v0.28.0
 
