@@ -7,6 +7,12 @@
 * Docker module subheading display, [#847](https://github.com/wtfutil/wtf/issues/847) by [@senorprogrammer](https://github.com/senorprogrammer)
 * Improved display of currencies for the Exchange Rate module, by [@indradhanush](https://github.com/indradhanush)
 
+### 👍 Updated
+
+* Updated `nicklaw5/helix` from 0.5.7 to 0.5.8
+* Updated `digitalocean/godo` from 1.32.0 to 1.33.1
+* Updated `xanzy/go-gitlab` from 0.28.0 to 0.29.0
+
 ## v0.28.0
 
 ### ⚡️ Added
