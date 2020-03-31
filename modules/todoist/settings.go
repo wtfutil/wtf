@@ -30,5 +30,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		projects: utils.IntsToUints(utils.ToInts(ymlConfig.UList("projects"))),
 	}
 
+	cfg.ModuleSecret(name, globalConfig, &settings.apiKey).Load()
+
 	return &settings
 }

@@ -34,5 +34,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		projectOwner:   ymlConfig.UString("projectOwner"),
 	}
 
+	cfg.ModuleSecret(name, globalConfig, &settings.accessToken).Load()
+
 	return &settings
 }

@@ -32,6 +32,9 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		username:    ymlConfig.UString("username"),
 	}
 
+	cfg.ModuleSecret(name+"-api", globalConfig, &settings.apiKey).Load()
+	cfg.ModuleSecret(name+"-access", globalConfig, &settings.accessToken).Load()
+
 	settings.list = buildLists(ymlConfig, globalConfig)
 
 	return &settings

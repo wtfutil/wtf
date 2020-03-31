@@ -40,6 +40,8 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		since:    ymlConfig.UString("since", ""),
 	}
 
+	cfg.ModuleSecret(name, globalConfig, &settings.apiKey).Load()
+
 	settings.colors.ok = ymlConfig.UString("colors.ok", "white")
 	settings.colors.pwned = ymlConfig.UString("colors.pwned", "red")
 

@@ -30,5 +30,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		secretKey:    ymlConfig.UString("secretKey", os.Getenv("SPOTIFY_SECRET")),
 	}
 
+	cfg.ModuleSecret(name, globalConfig, &settings.secretKey).Load()
+
 	return &settings
 }

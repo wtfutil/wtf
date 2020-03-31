@@ -30,5 +30,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		applicationIDs: ymlConfig.UList("applicationIDs"),
 	}
 
+	cfg.ModuleSecret(name, globalConfig, &settings.apiKey).Load()
+
 	return &settings
 }
