@@ -40,6 +40,13 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		since:    ymlConfig.UString("since", ""),
 	}
 
+	cfg.ConfigureSecret(
+		globalConfig,
+		"https://haveibeenpwned.com/api",
+		"",
+		&settings.apiKey,
+		nil,
+	)
 	settings.colors.ok = ymlConfig.UString("colors.ok", "white")
 	settings.colors.pwned = ymlConfig.UString("colors.pwned", "red")
 

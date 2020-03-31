@@ -35,5 +35,13 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		sort_by: ymlConfig.UString("sort_by", "id:desc"),
 	}
 
+	cfg.ConfigureSecret(
+		globalConfig,
+		"https://travis.com",
+		"",
+		&settings.baseURL,
+		&settings.apiKey,
+	)
+
 	return &settings
 }

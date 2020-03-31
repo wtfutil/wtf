@@ -26,5 +26,13 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		apiKey: ymlConfig.UString("apiKey", ymlConfig.UString("apikey", os.Getenv("WTF_CIRCLE_API_KEY"))),
 	}
 
+	cfg.ConfigureSecret(
+		globalConfig,
+		"",
+		name,
+		nil,
+		&settings.apiKey,
+	)
+
 	return &settings
 }

@@ -23,5 +23,13 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		consumerKey: ymlConfig.UString("consumerKey"),
 	}
 
+	cfg.ConfigureSecret(
+		globalConfig,
+		"https://pocket.com",
+		"",
+		nil,
+		&settings.consumerKey,
+	)
+
 	return &settings
 }

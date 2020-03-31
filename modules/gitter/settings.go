@@ -30,5 +30,13 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		roomURI:          ymlConfig.UString("roomUri", "wtfutil/Lobby"),
 	}
 
+	cfg.ConfigureSecret(
+		globalConfig,
+		"https://api.gitter.im",
+		"",
+		&settings.apiToken,
+		nil,
+	)
+
 	return &settings
 }

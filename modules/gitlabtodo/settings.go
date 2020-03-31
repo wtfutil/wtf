@@ -32,5 +32,13 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		showProject:   ymlConfig.UBool("showProject", true),
 	}
 
+	cfg.ConfigureSecret(
+		globalConfig,
+		settings.domain,
+		name,
+		nil,
+		&settings.apiKey,
+	)
+
 	return &settings
 }

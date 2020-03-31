@@ -30,5 +30,21 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		tags:           ymlConfig.UList("monitors.tags"),
 	}
 
+	cfg.ConfigureSecret(
+		globalConfig,
+		"",
+		"datadog-api",
+		nil,
+		&settings.apiKey,
+	)
+
+	cfg.ConfigureSecret(
+		globalConfig,
+		"",
+		"datadog-app",
+		nil,
+		&settings.applicationKey,
+	)
+
 	return &settings
 }
