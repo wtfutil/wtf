@@ -46,6 +46,7 @@ import (
 	"github.com/wtfutil/wtf/modules/newrelic"
 	"github.com/wtfutil/wtf/modules/opsgenie"
 	"github.com/wtfutil/wtf/modules/pagerduty"
+	"github.com/wtfutil/wtf/modules/pihole"
 	"github.com/wtfutil/wtf/modules/pocket"
 	"github.com/wtfutil/wtf/modules/power"
 	"github.com/wtfutil/wtf/modules/resourceusage"
@@ -226,6 +227,9 @@ func MakeWidget(
 	case "pagerduty":
 		settings := pagerduty.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = pagerduty.NewWidget(app, settings)
+	case "pihole":
+		settings := pihole.NewSettingsFromYAML(moduleName, moduleConfig, config)
+		widget = pihole.NewWidget(app, pages, settings)
 	case "power":
 		settings := power.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = power.NewWidget(app, settings)
