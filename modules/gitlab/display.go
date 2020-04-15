@@ -2,10 +2,27 @@ package gitlab
 
 import (
 	"fmt"
+
+	"github.com/xanzy/go-gitlab"
 )
 
 func (widget *Widget) display() {
 	widget.Redraw(widget.content)
+}
+
+func (widget *Widget) displayError() {
+	widget.Redraw(widget.contentError)
+}
+
+func (widget *Widget) contentError() (string, string, bool) {
+
+	title := fmt.Sprintf("%s - Error", widget.CommonSettings().Title)
+
+	if widget.configError != nil {
+		return title, fmt.Sprintf("Error: \n [red]%v[white]", widget.configError), false
+
+	}
+	return title, "Error", false
 }
 
 func (widget *Widget) content() (string, string, bool) {
@@ -15,7 +32,11 @@ func (widget *Widget) content() (string, string, bool) {
 		return widget.CommonSettings().Title, " Gitlab project data is unavailable ", true
 	}
 
-	title := fmt.Sprintf("%s- %s", widget.CommonSettings().Title, widget.title(project))
+	// initial maxItems count
+	widget.Items = make([]ContentItem, 0)
+	widget.SetItemCount(0)
+
+	title := fmt.Sprintf("%s - %s", widget.CommonSettings().Title, widget.title(project))
 
 	_, _, width, _ := widget.View.GetRect()
 	str := widget.settings.common.SigilStr(len(widget.GitlabProjects), widget.Idx, width) + "\n"
@@ -39,60 +60,60 @@ func (widget *Widget) content() (string, string, bool) {
 
 func (widget *Widget) displayMyMergeRequests(project *GitlabProject, username string) string {
 	mrs := project.myMergeRequests(username)
-
-	if len(mrs) == 0 {
-		return " [grey]none[white]\n"
-	}
-
-	str := ""
-	for _, mr := range mrs {
-		str += fmt.Sprintf(" [green]%4d[white] %s\n", mr.IID, mr.Title)
-	}
-
-	return str
+	return widget.renderMergeRequests(mrs, username)
 }
 
 func (widget *Widget) displayMyAssignedMergeRequests(project *GitlabProject, username string) string {
 	mrs := project.myAssignedMergeRequests(username)
-
-	if len(mrs) == 0 {
-		return " [grey]none[white]\n"
-	}
-
-	str := ""
-	for _, mr := range mrs {
-		str += fmt.Sprintf(" [green]%4d[white] %s\n", mr.IID, mr.Title)
-	}
-
-	return str
+	return widget.renderMergeRequests(mrs, username)
 }
 
 func (widget *Widget) displayMyAssignedIssues(project *GitlabProject, username string) string {
 	issues := project.myAssignedIssues(username)
-
-	if len(issues) == 0 {
-		return " [grey]none[white]\n"
-	}
-
-	str := ""
-	for _, issue := range issues {
-		str += fmt.Sprintf(" [green]%4d[white] %s\n", issue.IID, issue.Title)
-	}
-
-	return str
+	return widget.renderIssues(issues, username)
 }
 
 func (widget *Widget) displayMyIssues(project *GitlabProject, username string) string {
 	issues := project.myIssues(username)
+	return widget.renderIssues(issues, username)
+}
 
-	if len(issues) == 0 {
+func (widget *Widget) renderMergeRequests(mrs []*gitlab.MergeRequest, username string) string {
+
+	length := len(mrs)
+
+	if length == 0 {
 		return " [grey]none[white]\n"
 	}
+	maxItems := widget.GetItemCount()
 
 	str := ""
-	for _, issue := range issues {
-		str += fmt.Sprintf(" [green]%4d[white] %s\n", issue.IID, issue.Title)
+	for idx, issue := range mrs {
+		str += fmt.Sprintf(` [green]["%d"]%4d[""][white] %s`, maxItems+idx, issue.IID, issue.Title)
+		str += "\n"
+		widget.Items = append(widget.Items, ContentItem{Type: "MR", ID: issue.IID})
 	}
+	widget.SetItemCount(maxItems + length)
+
+	return str
+}
+
+func (widget *Widget) renderIssues(issues []*gitlab.Issue, username string) string {
+
+	length := len(issues)
+
+	if length == 0 {
+		return " [grey]none[white]\n"
+	}
+	maxItems := widget.GetItemCount()
+
+	str := ""
+	for idx, issue := range issues {
+		str += fmt.Sprintf(` [green]["%d"]%4d[""][white] %s`, maxItems+idx, issue.IID, issue.Title)
+		str += "\n"
+		widget.Items = append(widget.Items, ContentItem{Type: "ISSUE", ID: issue.IID})
+	}
+	widget.SetItemCount(maxItems + length)
 
 	return str
 }
