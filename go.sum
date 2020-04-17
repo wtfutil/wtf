@@ -132,8 +132,6 @@ github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSs
 github.com/dgrijalva/jwt-go v3.2.0+incompatible h1:7qlOGliEKZXTDg6OTjfoBKDXWrumCAMpl/TFQ4/5kLM=
 github.com/dgrijalva/jwt-go v3.2.0+incompatible/go.mod h1:E3ru+11k8xSBh+hMPgOLZmtrrCbhqsmaPHjLKYnJCaQ=
 github.com/dgryski/go-sip13 v0.0.0-20181026042036-e10d5fee7954/go.mod h1:vAd38F8PWV+bWy6jNmig1y/TA+kYO4g3RSRF0IAv0no=
-github.com/digitalocean/godo v1.32.0 h1:ljfhYi/IqDYiZcBYV7nUPzw1Q7NlmPSFDtI69UeRThk=
-github.com/digitalocean/godo v1.32.0/go.mod h1:iJnN9rVu6K5LioLxLimlq0uRI+y/eAQjROUmeU/r0hY=
 github.com/digitalocean/godo v1.33.1 h1:W5e7EgW8EVOM+ycZ6z+LU/WTZrxohIkgxbVwLOU/Q6s=
 github.com/digitalocean/godo v1.33.1/go.mod h1:gfLm3JSupWD9V/ibQygXWW3IVz7hranzckH5UimhZsI=
 github.com/digitalocean/godo v1.34.0 h1:OXJhLLJS2VTB5SziTyCq8valKVZ0uBHCFQsDW3/HF78=
@@ -301,6 +299,7 @@ github.com/hashicorp/errwrap v0.0.0-20141028054710-7554cd9344ce/go.mod h1:YH+1FK
 github.com/hashicorp/go-cleanhttp v0.0.0-20160407174126-ad28ea4487f0/go.mod h1:JpRdi6/HCYpAwUzNwuwqhbovhLtngrth3wmdIIUrZ80=
 github.com/hashicorp/go-cleanhttp v0.5.1 h1:dH3aiDG9Jvb5r5+bYHsikaOUIpcM0xvgMXVoDkXMzJM=
 github.com/hashicorp/go-cleanhttp v0.5.1/go.mod h1:JpRdi6/HCYpAwUzNwuwqhbovhLtngrth3wmdIIUrZ80=
+github.com/hashicorp/go-hclog v0.9.2 h1:CG6TE5H9/JXsFWJCfoIVpKFIkFe6ysEuHirp4DxCsHI=
 github.com/hashicorp/go-hclog v0.9.2/go.mod h1:5CU+agLiy3J7N7QjHK5d05KxGsuXiQLrjA0H7acj2lQ=
 github.com/hashicorp/go-immutable-radix v1.0.0 h1:AKDB1HM5PWEA7i4nhcpwOrO2byshxBjXVn/J/3+z5/0=
 github.com/hashicorp/go-immutable-radix v1.0.0/go.mod h1:0y9vanUI8NX6FsYoO3zeMjhV/C5i9g4Q3DwcSNZ4P60=
@@ -473,8 +472,6 @@ github.com/nbutton23/zxcvbn-go v0.0.0-20180912185939-ae427f1e4c1d h1:AREM5mwr4u1
 github.com/nbutton23/zxcvbn-go v0.0.0-20180912185939-ae427f1e4c1d/go.mod h1:o96djdrsSGy3AWPyBgZMAGfxZNfgntdJG+11KU4QvbU=
 github.com/ncw/swift v0.0.0-20171019114456-c95c6e5c2d1a h1:SAjW6pL/9NssyKM1Qvyy5/V4kR3z76qlTbaqJLixhP4=
 github.com/ncw/swift v0.0.0-20171019114456-c95c6e5c2d1a/go.mod h1:23YIA4yWVnGwv2dQlN4bB7egfYX6YLn0Yo/S6zZO/ZM=
-github.com/nicklaw5/helix v0.5.7 h1:DvNyoKkuLYrqZv5/yugL18Ud99UeQoXzzAsg4OwU8uY=
-github.com/nicklaw5/helix v0.5.7/go.mod h1:nRcok4VLg8ONQYW/iXBZ24wcfiJjTlDbhgk0ZatOrUY=
 github.com/nicklaw5/helix v0.5.8 h1:RG1vV/XDI6Kc0V/KvoUzRb3Q/7rmAQvVuisfxxYg1ZY=
 github.com/nicklaw5/helix v0.5.8/go.mod h1:nRcok4VLg8ONQYW/iXBZ24wcfiJjTlDbhgk0ZatOrUY=
 github.com/nsf/termbox-go v0.0.0-20190817171036-93860e161317/go.mod h1:IuKpRQcYE1Tfu+oAQqaLisqDeXgjyyltCfsaoYN18NQ=
@@ -653,8 +650,6 @@ github.com/wtfutil/spotigopher v0.0.0-20191127141047-7d8168fe103a/go.mod h1:AlO4
 github.com/wtfutil/todoist v0.0.2-0.20191216004217-0ec29ceda61a h1:nD8ALd4TSo+zPHK5MqQWFj01G8fMMHFfC3rWvoq/9JA=
 github.com/wtfutil/todoist v0.0.2-0.20191216004217-0ec29ceda61a/go.mod h1:YuuGLJSsTK6DGBD5Zaf3J8LSMfpEC2WtzYPey3XVOdI=
 github.com/xanzy/go-gitlab v0.15.0/go.mod h1:8zdQa/ri1dfn8eS3Ir1SyfvOKlw7WBJ8DVThkpGiXrs=
-github.com/xanzy/go-gitlab v0.28.0 h1:nsyjDVvBrP4KRXEN4b1m1ewiqmTNL4BOWW041nKGV7k=
-github.com/xanzy/go-gitlab v0.28.0/go.mod h1:t4Bmvnxj7k37S4Y17lfLx+nLqkf/oQwT2HagfWKv5Og=
 github.com/xanzy/go-gitlab v0.29.0 h1:9tMvAkG746eIlzcdpnRgpcKPA1woUDmldMIjR/E5OWM=
 github.com/xanzy/go-gitlab v0.29.0/go.mod h1:sPLojNBn68fMUWSxIJtdVVIP8uSBYqesTfDUseX11Ug=
 github.com/xanzy/go-gitlab v0.31.0 h1:+nHztQuCXGSMluKe5Q9IRaPdz6tO8O0gMkQ0vqGpiBk=
