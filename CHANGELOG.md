@@ -10,8 +10,10 @@
 ### 👍 Updated
 
 * Updated `nicklaw5/helix` from 0.5.7 to 0.5.8
-* Updated `digitalocean/godo` from 1.32.0 to 1.33.1
-* Updated `xanzy/go-gitlab` from 0.28.0 to 0.29.0
+* Updated `digitalocean/godo` from 1.32.0 to 1.34.0
+* Updated `xanzy/go-gitlab` from 0.28.0 to 0.31.0
+* Updated `shirou/gopsutil` from 2.20.2+incompatible to 2.20.3+incompatible
+* Updated `alecthomas/chroma` from 0.7.1 to 0.7.2
 
 ## v0.28.0
 
