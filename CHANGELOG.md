@@ -14,6 +14,7 @@
 * Updated `xanzy/go-gitlab` from 0.28.0 to 0.31.0
 * Updated `shirou/gopsutil` from 2.20.2+incompatible to 2.20.3+incompatible
 * Updated `alecthomas/chroma` from 0.7.1 to 0.7.2
+* Updated `google.golang.org/api` from 0.20.0 to 0.21.0
 
 ## v0.28.0
 
