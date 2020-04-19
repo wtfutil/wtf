@@ -27,7 +27,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 		settings: settings,
 	}
 
-	widget.gitlabClient = gitlab.NewClient(nil, settings.apiKey)
+	widget.gitlabClient, _ = gitlab.NewClient(settings.apiKey)
 
 	widget.SetRenderFunction(widget.Render)
 	widget.initializeKeyboardControls()

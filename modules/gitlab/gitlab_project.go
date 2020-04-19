@@ -11,14 +11,7 @@ type context struct {
 
 func newContext(settings *Settings) (*context, error) {
 	baseURL := settings.domain
-	gitlabClient := glb.NewClient(nil, settings.apiKey)
-
-	if baseURL != "" {
-		err := gitlabClient.SetBaseURL(baseURL)
-		if err != nil {
-			return nil, err
-		}
-	}
+	gitlabClient, _ := glb.NewClient(settings.apiKey, glb.WithBaseURL(baseURL))
 
 	user, _, err := gitlabClient.Users.CurrentUser()
 
