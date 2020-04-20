@@ -35,6 +35,7 @@ type Settings struct {
 	secretFile            string `help:"Your Google client secret JSON file." values:"A string representing a file path to the JSON secret file."`
 	showAllDay            bool   `help:"Whether or not to display all-day events" values:"true or false" optional:"true" default:"true"`
 	showDeclined          bool   `help:"Whether or not to display events you’ve declined to attend." values:"true or false" optional:"true"`
+	showEndTime           bool   `help:"Display the end time of events, in addition to start time." values:"true or false" optional:"true" default:"false"`
 	withLocation          bool   `help:"Whether or not to show the location of the appointment." values:"true or false"`
 	timezone              string `help:"The time zone used to display calendar event times." values:"A valid TZ database time zone string" optional:"true"`
 	calendarReadLevel     string `help:"The calender read level specifies level you want to read events. Default: writer " values:"reader, writer" optional:"true"`
@@ -54,6 +55,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		multiCalendar:         ymlConfig.UBool("multiCalendar", false),
 		secretFile:            ymlConfig.UString("secretFile", ""),
 		showAllDay:            ymlConfig.UBool("showAllDay", true),
+		showEndTime:           ymlConfig.UBool("showEndTime", false),
 		showDeclined:          ymlConfig.UBool("showDeclined", false),
 		withLocation:          ymlConfig.UBool("withLocation", true),
 		timezone:              ymlConfig.UString("timezone", ""),

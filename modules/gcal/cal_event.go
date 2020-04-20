@@ -98,7 +98,7 @@ func (calEvent *CalEvent) Start() time.Time {
 	return start
 }
 
-func (calEvent *CalEvent) Timestamp(hourFormat string) string {
+func (calEvent *CalEvent) Timestamp(hourFormat string, showEndTime bool) string {
 	if calEvent.AllDay() {
 		startTime, _ := time.ParseInLocation("2006-01-02", calEvent.event.Start.Date, time.Local)
 		return startTime.Format(utils.FriendlyDateFormat)
@@ -112,5 +112,9 @@ func (calEvent *CalEvent) Timestamp(hourFormat string) string {
 		timeFormat = utils.MinimumTimeFormat12
 	}
 
-	return fmt.Sprintf("%s-%s", startTime.Format(timeFormat), endTime.Format(timeFormat))
+	if showEndTime {
+		return fmt.Sprintf("%s-%s", startTime.Format(timeFormat), endTime.Format(timeFormat))
+	}
+
+	return startTime.Format(timeFormat)
 }
