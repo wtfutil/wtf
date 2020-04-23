@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### ⚡️ Added
+
+* gCal module now has a `showEndTime` boolean option for displaying meeting end times, by [@acaloiaro](https://github.com/acaloiaro)
+
 ### 🐞 Fixed
 
 * Docker module subheading display, [#847](https://github.com/wtfutil/wtf/issues/847) by [@senorprogrammer](https://github.com/senorprogrammer)
