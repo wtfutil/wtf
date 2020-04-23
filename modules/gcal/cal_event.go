@@ -1,6 +1,7 @@
 package gcal
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/wtfutil/wtf/utils"
@@ -97,17 +98,23 @@ func (calEvent *CalEvent) Start() time.Time {
 	return start
 }
 
-func (calEvent *CalEvent) Timestamp(hourFormat string) string {
+func (calEvent *CalEvent) Timestamp(hourFormat string, showEndTime bool) string {
 	if calEvent.AllDay() {
 		startTime, _ := time.ParseInLocation("2006-01-02", calEvent.event.Start.Date, time.Local)
 		return startTime.Format(utils.FriendlyDateFormat)
 	}
 
 	startTime, _ := time.Parse(time.RFC3339, calEvent.event.Start.DateTime)
+	endTime, _ := time.Parse(time.RFC3339, calEvent.event.End.DateTime)
 
 	timeFormat := utils.MinimumTimeFormat24
 	if hourFormat == "12" {
 		timeFormat = utils.MinimumTimeFormat12
 	}
+
+	if showEndTime {
+		return fmt.Sprintf("%s-%s", startTime.Format(timeFormat), endTime.Format(timeFormat))
+	}
+
 	return startTime.Format(timeFormat)
 }

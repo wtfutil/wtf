@@ -30,7 +30,6 @@ require (
 	github.com/godbus/dbus v4.1.0+incompatible // indirect
 	github.com/google/go-github/v26 v26.1.3
 	github.com/gophercloud/gophercloud v0.5.0 // indirect
-	github.com/hashicorp/go-cleanhttp v0.5.1 // indirect
 	github.com/hekmon/cunits v2.0.1+incompatible // indirect
 	github.com/hekmon/transmissionrpc v0.0.0-20190525133028-1d589625bacd
 	github.com/imdario/mergo v0.3.8 // indirect
