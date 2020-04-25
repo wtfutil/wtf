@@ -882,9 +882,17 @@
       "name": "Adriano",
       "avatar_url": "https://avatars3.githubusercontent.com/u/3331648?v=4",
       "profile": "https://adriano.fyi",
+      "contributions": []
+    },
+    {
+      "login": "jonhadfield",
+      "name": "Jon Hadfield",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/843944?v=4",
+      "profile": "https://github.com/jonhadfield",
       "contributions": [
       ]
     }
   ],
-  "contributorsPerLine": 7
+  "contributorsPerLine": 7,
+  "commitConvention": "none"
 }
