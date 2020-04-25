@@ -5,6 +5,7 @@
 ### ⚡️ Added
 
 * gCal module now has a `showEndTime` boolean option for displaying meeting end times, by [@acaloiaro](https://github.com/acaloiaro)
+* [Pi-hole](https://wtfutil.com/modules/pihole/) module added, by [@jonhadfield](https://github.com/jonhadfield)
 
 ### 🐞 Fixed
 
