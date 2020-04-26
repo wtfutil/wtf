@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 0.29.0
+
 ### ⚡️ Added
 
 * gCal module now has a `showEndTime` boolean option for displaying meeting end times, by [@acaloiaro](https://github.com/acaloiaro)
