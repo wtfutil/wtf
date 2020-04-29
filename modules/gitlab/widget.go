@@ -1,23 +1,37 @@
 package gitlab
 
 import (
+	"strconv"
+
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/view"
 )
 
+type ContentItem struct {
+	Type string
+	ID   int
+}
+
 type Widget struct {
-	view.KeyboardWidget
 	view.MultiSourceWidget
+	view.KeyboardWidget
 	view.TextWidget
 
 	GitlabProjects []*GitlabProject
 
 	context  *context
 	settings *Settings
+	Selected int
+	maxItems int
+	Items    []ContentItem
+
+	configError error
 }
 
+// NewWidget creates a new instance of the widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
-	context, _ := newContext(settings)
+	context, err := newContext(settings)
 
 	widget := Widget{
 		KeyboardWidget:    view.NewKeyboardWidget(app, pages, settings.common),
@@ -26,13 +40,18 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 
 		context:  context,
 		settings: settings,
+
+		configError: err,
 	}
 
 	widget.GitlabProjects = widget.buildProjectCollection(context, settings.projects)
 
 	widget.initializeKeyboardControls()
+	widget.View.SetRegions(true)
 	widget.View.SetInputCapture(widget.InputCapture)
 	widget.SetDisplayFunction(widget.display)
+
+	widget.Unselect()
 
 	widget.KeyboardWidget.SetView(widget.View)
 
@@ -42,6 +61,11 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
+	if widget.context == nil || widget.configError != nil {
+		widget.displayError()
+		return
+	}
+
 	for _, project := range widget.GitlabProjects {
 		project.Refresh()
 	}
@@ -51,6 +75,49 @@ func (widget *Widget) Refresh() {
 
 func (widget *Widget) HelpText() string {
 	return widget.KeyboardWidget.HelpText()
+}
+
+// SetItemCount sets the amount of PRs RRs and other PRs throughout the widgets display creation
+func (widget *Widget) SetItemCount(items int) {
+	widget.maxItems = items
+}
+
+// GetItemCount returns the amount of PRs RRs and other PRs calculated so far as an int
+func (widget *Widget) GetItemCount() int {
+	return widget.maxItems
+}
+
+// GetSelected returns the index of the currently highlighted item as an int
+func (widget *Widget) GetSelected() int {
+	if widget.Selected < 0 {
+		return 0
+	}
+	return widget.Selected
+}
+
+// Next cycles the currently highlighted text down
+func (widget *Widget) Next() {
+	widget.Selected++
+	if widget.Selected >= widget.maxItems {
+		widget.Selected = 0
+	}
+	widget.View.Highlight(strconv.Itoa(widget.Selected)).ScrollToHighlight()
+}
+
+// Prev cycles the currently highlighted text up
+func (widget *Widget) Prev() {
+	widget.Selected--
+	if widget.Selected < 0 {
+		widget.Selected = widget.maxItems - 1
+	}
+	widget.View.Highlight(strconv.Itoa(widget.Selected)).ScrollToHighlight()
+}
+
+// Unselect stops highlighting the text and jumps the scroll position to the top
+func (widget *Widget) Unselect() {
+	widget.Selected = -1
+	widget.View.Highlight()
+	widget.View.ScrollToBeginning()
 }
 
 /* -------------------- Unexported Functions -------------------- */
@@ -76,4 +143,55 @@ func (widget *Widget) currentGitlabProject() *GitlabProject {
 	}
 
 	return widget.GitlabProjects[widget.Idx]
+}
+
+func (widget *Widget) openItemInBrowser() {
+	currentSelection := widget.View.GetHighlights()
+	if widget.Selected >= 0 && currentSelection[0] != "" {
+
+		item := widget.Items[widget.Selected]
+		url := ""
+
+		project := widget.currentGitlabProject()
+		if project == nil {
+			// This is a problem. We will just bail out for now
+			return
+		}
+
+		switch item.Type {
+		case "MR":
+			url = (project.RemoteProject.WebURL + "/merge_requests/" + strconv.Itoa(item.ID))
+		case "ISSUE":
+			url = (project.RemoteProject.WebURL + "/issues/" + strconv.Itoa(item.ID))
+		}
+
+		utils.OpenFile(url)
+	}
+}
+
+func (widget *Widget) openRepo() {
+	project := widget.currentGitlabProject()
+	if project == nil {
+		return
+	}
+	url := project.RemoteProject.WebURL
+	utils.OpenFile(url)
+}
+
+func (widget *Widget) openPulls() {
+	project := widget.currentGitlabProject()
+	if project == nil {
+		return
+	}
+	url := project.RemoteProject.WebURL + "/merge_requests/"
+	utils.OpenFile(url)
+}
+
+func (widget *Widget) openIssues() {
+	project := widget.currentGitlabProject()
+	if project == nil {
+		return
+	}
+	url := project.RemoteProject.WebURL + "/issues/"
+	utils.OpenFile(url)
 }
