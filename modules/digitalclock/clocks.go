@@ -40,7 +40,6 @@ func getHourMinute(hourFormat string) string {
 	}
 
 	strMintues := intStrConv(time.Now().Minute())
-	fmt.Println(AMPM)
 	strMintues = strMintues + AMPM
 	return strHours + getColon() + strMintues
 }
