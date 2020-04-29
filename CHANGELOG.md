@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### 🐞 Fixed
+
+* Random capital letters around display, [#811](https://github.com/wtfutil/wtf/issues/811) by [@jonhadfield](https://github.com/jonhadfield)
+
 ## 0.29.0
 
 ### ⚡️ Added
