@@ -10,6 +10,10 @@
 
 * Random capital letters around display, [#811](https://github.com/wtfutil/wtf/issues/811) by [@jonhadfield](https://github.com/jonhadfield)
 
+### 👍 Updated
+
+* Updated `zorkian/go-datadog-api` from 2.28.0+incompatible to 2.29.0+incompatible
+
 ## 0.29.0
 
 ### ⚡️ Added
