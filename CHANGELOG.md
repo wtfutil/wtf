@@ -9,6 +9,7 @@
 ### 🐞 Fixed
 
 * Random capital letters around display, [#811](https://github.com/wtfutil/wtf/issues/811) by [@jonhadfield](https://github.com/jonhadfield)
+* [Feed Reader](https://wtfutil.com/modules/feedreader/) module now properly sorts multi-feed items by date, by [@rsaarelm](https://github.com/rsaarelm)
 
 ### 👍 Updated
 
