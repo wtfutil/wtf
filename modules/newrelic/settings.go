@@ -30,5 +30,13 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		applicationIDs: ymlConfig.UList("applicationIDs"),
 	}
 
+	cfg.ConfigureSecret(
+		globalConfig,
+		"newrelic.com",
+		"",
+		nil,
+		&settings.apiKey,
+	)
+
 	return &settings
 }

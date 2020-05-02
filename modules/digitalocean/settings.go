@@ -31,5 +31,13 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		dateFormat: ymlConfig.UString("dateFormat", wtf.DateFormat),
 	}
 
+	cfg.ConfigureSecret(
+		globalConfig,
+		"",
+		name,
+		nil,
+		&settings.apiKey,
+	)
+
 	return &settings
 }

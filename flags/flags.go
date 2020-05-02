@@ -1,10 +1,13 @@
 package flags
 
 import (
+	"bufio"
 	"fmt"
 	"os"
 	"path/filepath"
+	"strings"
 
+	"github.com/chzyer/readline"
 	goFlags "github.com/jessevdk/go-flags"
 	"github.com/olebedev/config"
 	"github.com/wtfutil/wtf/cfg"
@@ -17,9 +20,28 @@ type Flags struct {
 	Module  string `short:"m" long:"module" optional:"yes" description:"Display info about a specific module, i.e.: 'wtfutil -m=todo'"`
 	Profile bool   `short:"p" long:"profile" optional:"yes" description:"Profile application memory usage"`
 	Version bool   `short:"v" long:"version" description:"Show version info"`
+	// Work-around go-flags misfeatures. If any sub-command is defined
+	// then `wtf` (no sub-commands, the common usage), is warned about.
+	Opt struct {
+		Cmd  string   `positional-arg-name:"command"`
+		Args []string `positional-arg-name:"args"`
+	} `positional-args:"yes"`
 
 	hasCustom bool
 }
+
+var EXTRA = `
+Commands:
+  save-secret <service> [secret [username]]
+    service      Service URL or name for secret.
+    secret       Secret to be saved for the service.
+    username     Username to associate with the service.
+  Save a secret into the secret store.  Requires wtf.secretStore
+  to be configured.  See individual modules for information on what
+  service, secret, and username means for their configuration. Not
+  all modules use secrets, and not all secrets require a username.
+  If secret or username is not provided, will prompt for them.
+`
 
 // NewFlags creates an instance of Flags
 func NewFlags() *Flags {
@@ -46,6 +68,71 @@ func (flags *Flags) RenderIf(version, date string, config *config.Config) {
 		fmt.Println(fmt.Sprintf("%s (%s)", version, date))
 		os.Exit(0)
 	}
+
+	if flags.Opt.Cmd == "" {
+		return
+	}
+
+	switch cmd := flags.Opt.Cmd; cmd {
+	case "save-secret":
+		var service, secret, username string
+		args := flags.Opt.Args
+
+		if len(args) < 1 || args[0] == "" {
+			fmt.Fprintf(os.Stderr, "save-secret: service required, see `%s --help`\n", os.Args[0])
+			os.Exit(1)
+		}
+
+		service = args[0]
+
+		if len(args) > 1 {
+			secret = args[1]
+		} else {
+			b, err := readline.Password("Secret (required): ")
+			if err != nil {
+				fmt.Fprintf(os.Stderr, "Error: %v\n", err)
+				os.Exit(1)
+			}
+			secret = string(b)
+		}
+		secret = strings.TrimSpace(secret)
+
+		if secret == "" {
+			fmt.Fprintf(os.Stderr, "save-secret: secret required, see `%s --help`\n", os.Args[0])
+			os.Exit(1)
+		}
+
+		if len(args) > 2 {
+			username = args[2]
+		} else {
+			fmt.Printf("Username (optional): ")
+			reader := bufio.NewReader(os.Stdin)
+			var err error
+			username, err = reader.ReadString('\n')
+			if err != nil {
+				fmt.Fprintf(os.Stderr, "Error: %v\n", err)
+				os.Exit(1)
+			}
+		}
+		username = strings.TrimSpace(username)
+
+		err := cfg.StoreSecret(config, &cfg.Secret{
+			Service:  service,
+			Secret:   secret,
+			Username: username,
+		})
+
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "Saving secret for service %q: %s\n", service, err.Error())
+			os.Exit(1)
+		}
+
+		fmt.Printf("Saved secret for service %q (username %q)\n", service, username)
+		os.Exit(0)
+	default:
+		fmt.Fprintf(os.Stderr, "Command `%s` is not supported, try `%s --help`\n", cmd, os.Args[0])
+		os.Exit(1)
+	}
 }
 
 // HasCustomConfig returns TRUE if a config path was passed in, FALSE if one was not
@@ -68,6 +155,7 @@ func (flags *Flags) Parse() {
 	parser := goFlags.NewParser(flags, goFlags.Default)
 	if _, err := parser.Parse(); err != nil {
 		if flagsErr, ok := err.(*goFlags.Error); ok && flagsErr.Type == goFlags.ErrHelp {
+			fmt.Println(EXTRA)
 			os.Exit(0)
 		}
 	}

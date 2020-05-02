@@ -31,5 +31,13 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		username:  ymlConfig.UString("username"),
 	}
 
+	cfg.ConfigureSecret(
+		globalConfig,
+		"https://zendesk.com",
+		"",
+		&settings.subdomain,
+		&settings.apiKey,
+	)
+
 	return &settings
 }

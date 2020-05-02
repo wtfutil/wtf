@@ -34,5 +34,13 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		projectOwner:   ymlConfig.UString("projectOwner"),
 	}
 
+	cfg.ConfigureSecret(
+		globalConfig,
+		"https://rollbar.com",
+		"",
+		nil,
+		&settings.accessToken,
+	)
+
 	return &settings
 }

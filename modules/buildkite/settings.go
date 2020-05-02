@@ -1,10 +1,11 @@
 package buildkite
 
 import (
+	"os"
+
 	"github.com/olebedev/config"
 	"github.com/wtfutil/wtf/cfg"
 	"github.com/wtfutil/wtf/utils"
-	"os"
 )
 
 const (
@@ -34,6 +35,14 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		orgSlug:   ymlConfig.UString("organizationSlug"),
 		pipelines: buildPipelineSettings(ymlConfig),
 	}
+
+	cfg.ConfigureSecret(
+		globalConfig,
+		"",
+		name,
+		&settings.orgSlug,
+		&settings.apiKey,
+	)
 
 	return &settings
 }

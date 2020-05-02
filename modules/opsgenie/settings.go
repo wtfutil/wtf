@@ -33,6 +33,14 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		scheduleIdentifierType: ymlConfig.UString("scheduleIdentifierType", "id"),
 	}
 
+	cfg.ConfigureSecret(
+		globalConfig,
+		"https://opsgenie.com",
+		"",
+		nil,
+		&settings.apiKey,
+	)
+
 	settings.schedule = settings.arrayifySchedules(ymlConfig, globalConfig)
 
 	return &settings

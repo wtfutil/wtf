@@ -30,5 +30,13 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		secretKey:    ymlConfig.UString("secretKey", os.Getenv("SPOTIFY_SECRET")),
 	}
 
+	cfg.ConfigureSecret(
+		globalConfig,
+		"https://spotify.com",
+		"",
+		&settings.clientID,
+		&settings.secretKey,
+	)
+
 	return &settings
 }

@@ -37,5 +37,13 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		showSchedules:    ymlConfig.UBool("showSchedules", true),
 	}
 
+	cfg.ConfigureSecret(
+		globalConfig,
+		"https://pagerduty.com",
+		"",
+		&settings.myName,
+		&settings.apiKey,
+	)
+
 	return &settings
 }

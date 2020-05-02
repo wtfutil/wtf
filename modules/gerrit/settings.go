@@ -41,6 +41,14 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		verifyServerCertificate: ymlConfig.UBool("verifyServerCertificate", true),
 	}
 
+	cfg.ConfigureSecret(
+		globalConfig,
+		settings.domain,
+		name,
+		nil, // Seems like it should be mandatory, but its optional above.
+		&settings.password,
+	)
+
 	settings.colors.rows.even = ymlConfig.UString("colors.rows.even", "white")
 	settings.colors.rows.odd = ymlConfig.UString("colors.rows.odd", "blue")
 

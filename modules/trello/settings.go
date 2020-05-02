@@ -32,6 +32,14 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		username:    ymlConfig.UString("username"),
 	}
 
+	cfg.ConfigureSecret(
+		globalConfig,
+		"https://trello.com",
+		"",
+		&settings.accessToken,
+		&settings.apiKey,
+	)
+
 	settings.list = buildLists(ymlConfig, globalConfig)
 
 	return &settings
