@@ -54,7 +54,7 @@ require (
 	github.com/wtfutil/todoist v0.0.2-0.20191216004217-0ec29ceda61a
 	github.com/xanzy/go-gitlab v0.31.0
 	github.com/zmb3/spotify v0.0.0-20191010212056-e12fb981aacb
-	github.com/zorkian/go-datadog-api v2.28.0+incompatible
+	github.com/zorkian/go-datadog-api v2.29.0+incompatible
 	golang.org/x/crypto v0.0.0-20191011191535-87dc89f01550 // indirect
 	golang.org/x/oauth2 v0.0.0-20200107190931-bf48bf16ab8d
 	golang.org/x/text v0.3.2
