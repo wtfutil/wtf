@@ -5,6 +5,7 @@
 ### ⚡️ Added
 
 * Expansive keyboard controls for the [GitLab](https://wtfutil.com/modules/gitlab/) module, by [@mogensen](https://github.com/mogensen)
+* [IPInfo](https://wtfutil.com/modules/ipaddress/ipinfo/) module now supports IPv6 lookup, by [@acaloiaro](https://github.com/acaloiaro)
 
 ### 🐞 Fixed
 
