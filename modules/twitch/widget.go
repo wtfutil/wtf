@@ -3,6 +3,7 @@ package twitch
 import (
 	"errors"
 	"fmt"
+
 	"github.com/nicklaw5/helix"
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/utils"

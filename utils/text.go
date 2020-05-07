@@ -2,10 +2,11 @@ package utils
 
 import (
 	"fmt"
-	"golang.org/x/text/language"
-	"golang.org/x/text/message"
 	"math"
 	"strings"
+
+	"golang.org/x/text/language"
+	"golang.org/x/text/message"
 
 	"github.com/rivo/tview"
 )

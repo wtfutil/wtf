@@ -1,7 +1,5 @@
 package checklist
 
-import ()
-
 // ChecklistItem is a module for creating generic checklist implementations
 // See 'Todo' for an implementation example
 type ChecklistItem struct {

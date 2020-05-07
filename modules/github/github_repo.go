@@ -12,9 +12,8 @@ import (
 
 const (
 	pullRequestsPath = "/pulls"
-	issuesPath = "/issues"
+	issuesPath       = "/issues"
 )
-
 
 // GithubRepo defines a new GithubRepo structure
 type GithubRepo struct {
