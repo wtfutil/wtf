@@ -24,16 +24,16 @@ jobs:
         run: errcheck
         token: ${{ secrets.GITHUB_TOKEN }}
 
-  lint:
-    name: Lint
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@master
-    - name: check
-      uses: grandcolline/golang-github-actions@v1.1.0
-      with:
-        run: lint
-        token: ${{ secrets.GITHUB_TOKEN }}
+  #lint:
+    #name: Lint
+    #runs-on: ubuntu-latest
+    #steps:
+    #- uses: actions/checkout@master
+    #- name: check
+      #uses: grandcolline/golang-github-actions@v1.1.0
+      #with:
+        #run: lint
+        #token: ${{ secrets.GITHUB_TOKEN }}
 
   shadow:
     name: Shadow
