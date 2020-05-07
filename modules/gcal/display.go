@@ -43,7 +43,7 @@ func (widget *Widget) content() (string, string, bool) {
 			timestamp = ""
 		}
 
-		title := fmt.Sprintf("[%s]%s",
+		title = fmt.Sprintf("[%s]%s",
 			widget.titleColor(calEvent),
 			widget.eventSummary(calEvent, calEvent.ConflictsWith(calEvents)),
 		)

@@ -59,7 +59,7 @@ func getStatus(c http.Client, apiURL string) (status Status, err error) {
 	}
 
 	defer func() {
-		if err := resp.Body.Close(); err != nil {
+		if closeErr := resp.Body.Close(); closeErr != nil {
 			return
 		}
 	}()
@@ -120,7 +120,7 @@ func getTopItems(c http.Client, settings *Settings) (ti TopItems, err error) {
 	}
 
 	defer func() {
-		if err := resp.Body.Close(); err != nil {
+		if closeErr := resp.Body.Close(); closeErr != nil {
 			return
 		}
 	}()
@@ -186,7 +186,7 @@ func getTopClients(c http.Client, settings *Settings) (tc TopClients, err error)
 	}
 
 	defer func() {
-		if err := resp.Body.Close(); err != nil {
+		if closeErr := resp.Body.Close(); closeErr != nil {
 			return
 		}
 	}()
@@ -245,7 +245,7 @@ func getQueryTypes(c http.Client, settings *Settings) (qt QueryTypes, err error)
 	}
 
 	defer func() {
-		if err := resp.Body.Close(); err != nil {
+		if closeErr := resp.Body.Close(); closeErr != nil {
 			return
 		}
 	}()

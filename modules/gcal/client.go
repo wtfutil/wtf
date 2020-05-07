@@ -60,8 +60,8 @@ func (widget *Widget) Fetch() ([]*CalEvent, error) {
 
 	calendarIDs, err := widget.getCalendarIdList(srv)
 	for _, calendarID := range calendarIDs {
-		calendarEvents, err := srv.Events.List(calendarID).TimeZone(timezone).ShowDeleted(false).TimeMin(startTime).MaxResults(eventLimit).SingleEvents(true).OrderBy("startTime").Do()
-		if err != nil {
+		calendarEvents, listErr := srv.Events.List(calendarID).TimeZone(timezone).ShowDeleted(false).TimeMin(startTime).MaxResults(eventLimit).SingleEvents(true).OrderBy("startTime").Do()
+		if listErr != nil {
 			break
 		}
 		events.Items = append(events.Items, calendarEvents.Items...)

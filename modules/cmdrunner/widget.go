@@ -128,8 +128,8 @@ func runCommandLoop(widget *Widget) {
 		// The command has exited, print any error messages
 		if err != nil {
 			widget.m.Lock()
-			_, err := widget.buffer.WriteString(err.Error())
-			if err != nil {
+			_, writeErr := widget.buffer.WriteString(err.Error())
+			if writeErr != nil {
 				return
 			}
 			widget.m.Unlock()

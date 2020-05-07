@@ -19,12 +19,12 @@ func newContext(settings *Settings) (*context, error) {
 		return nil, err
 	}
 
-	context := context{
+	ctx := &context{
 		client: gitlabClient,
 		user:   user,
 	}
 
-	return &context, nil
+	return ctx, nil
 }
 
 type GitlabProject struct {

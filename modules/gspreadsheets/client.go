@@ -16,7 +16,6 @@ import (
 	"os"
 	"os/user"
 	"path/filepath"
-	"strings"
 
 	"github.com/wtfutil/wtf/utils"
 	"golang.org/x/oauth2"
@@ -39,29 +38,25 @@ func (widget *Widget) Fetch() ([]*sheets.ValueRange, error) {
 	}
 
 	config, err := google.ConfigFromJSON(b, "https://www.googleapis.com/auth/spreadsheets.readonly")
-
 	if err != nil {
-		log.Fatalf("Unable to get config from JSON. %v", err)
 		return nil, err
 	}
+
 	client := getClient(ctx, config)
 
 	srv, err := sheets.NewService(context.Background(), option.WithHTTPClient(client))
 	if err != nil {
-		log.Fatalf("Unable to get create server. %v", err)
 		return nil, err
 	}
 
 	cells := utils.ToStrs(widget.settings.cellAddresses)
-	addresses := strings.Join(cells[:], ";")
 
 	responses := make([]*sheets.ValueRange, len(cells))
 
 	for i := 0; i < len(cells); i++ {
-		resp, err := srv.Spreadsheets.Values.Get(widget.settings.sheetID, cells[i]).Do()
-		if err != nil {
-			log.Fatalf("Error fetching cells %s", addresses)
-			return nil, err
+		resp, getErr := srv.Spreadsheets.Values.Get(widget.settings.sheetID, cells[i]).Do()
+		if getErr != nil {
+			return nil, getErr
 		}
 		responses[i] = resp
 	}
