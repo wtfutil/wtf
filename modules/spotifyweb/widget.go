@@ -180,9 +180,9 @@ func (w *Widget) createOutput() (string, string, bool) {
 		output += utils.CenterText(fmt.Sprintf("[green]Artist:[white] %v\n", w.Info.Artists), w.CommonSettings().Width)
 		output += utils.CenterText(fmt.Sprintf("[green]Album:[white] %v\n", w.Info.Album), w.CommonSettings().Width)
 		if w.playerState.ShuffleState {
-			output += utils.CenterText(fmt.Sprintf("[green]Shuffle:[white] on\n"), w.CommonSettings().Width)
+			output += utils.CenterText("[green]Shuffle:[white] on\n", w.CommonSettings().Width)
 		} else {
-			output += utils.CenterText(fmt.Sprintf("[green]Shuffle:[white] off\n"), w.CommonSettings().Width)
+			output += utils.CenterText("[green]Shuffle:[white] off\n", w.CommonSettings().Width)
 		}
 	}
 	return w.CommonSettings().Title, output, true

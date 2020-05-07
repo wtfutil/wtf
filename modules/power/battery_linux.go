@@ -14,8 +14,6 @@ import (
 var batteryState string
 
 type Battery struct {
-	args   []string
-	cmd    string
 	result string
 
 	Charge    string

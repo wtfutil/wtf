@@ -19,7 +19,7 @@ func (widget *Widget) createTable(websiteReports []websiteReport) string {
 			websiteRow := fmt.Sprintf(" %-20s", websiteReport.Name)
 
 			if websiteReport.RealtimeReport == nil {
-				websiteRow += fmt.Sprintf("No data found for given ViewId.")
+				websiteRow += "No data found for given ViewId"
 			} else {
 				if len(websiteReport.RealtimeReport.Rows) == 0 {
 					websiteRow += "-"
@@ -51,7 +51,7 @@ func (widget *Widget) createTable(websiteReports []websiteReport) string {
 			}
 
 			if reportRows == nil {
-				websiteRow += fmt.Sprintf("No data found for given ViewId.")
+				websiteRow += "No data found for given ViewId"
 			} else {
 				for _, row := range reportRows {
 					metrics := row.Metrics

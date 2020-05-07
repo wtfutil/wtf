@@ -88,7 +88,7 @@ func (widget *Widget) GetStandings(leagueId int) string {
 
 	var l LeagueStandings
 	var content string
-	content += fmt.Sprintf("Standings:\n\n")
+	content += "Standings:\n\n"
 	buf := new(bytes.Buffer)
 	tStandings := createTable([]string{"No.", "Team", "MP", "Won", "Draw", "Lost", "GD", "Points"}, buf)
 	resp, err := widget.Client.footballRequest("standings", leagueId)
@@ -102,11 +102,11 @@ func (widget *Widget) GetStandings(leagueId int) string {
 	}
 	err = json.Unmarshal(data, &l)
 	if err != nil {
-		return fmt.Sprintf("Error fetching standings")
+		return "Error fetching standings"
 	}
 
 	if len(l.Standings) == 0 {
-		return fmt.Sprintf("Error fetching standings")
+		return "Error fetching standings"
 	}
 
 	for _, i := range l.Standings[0].Table {
@@ -152,7 +152,7 @@ func (widget *Widget) GetMatches(leagueId int) string {
 	}
 
 	if len(l.Matches) == 0 {
-		return fmt.Sprintf("Error fetching matches")
+		return "Error fetching matches"
 	}
 
 	for _, m := range l.Matches {

@@ -103,19 +103,3 @@ func getStatusColor(status string) string {
 	}
 	return "red"
 }
-
-func pad(t string, size int) string {
-	if len(t) > size {
-		return t[0:size-3] + "..."
-	}
-	return t + strings.Repeat(" ", size-len(t))
-}
-
-func getVarsInPbj(key string, ps []sdk.Parameter) string {
-	for _, p := range ps {
-		if p.Name == key {
-			return p.Value
-		}
-	}
-	return ""
-}

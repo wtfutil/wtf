@@ -36,26 +36,26 @@ func getStatus(c http.Client, apiURL string) (status Status, err error) {
 	var url *url2.URL
 
 	if url, err = url2.Parse(apiURL); err != nil {
-		return status, fmt.Errorf(" failed to parse API URL\n %s\n", parseError(err))
+		return status, fmt.Errorf(" failed to parse API URL\n %s", parseError(err))
 	}
 
 	var query url2.Values
 
 	if query, err = url2.ParseQuery(url.RawQuery); err != nil {
-		return status, fmt.Errorf(" failed to parse query\n %s\n", parseError(err))
+		return status, fmt.Errorf(" failed to parse query\n %s", parseError(err))
 	}
 
 	query.Add("summary", "")
 
 	url.RawQuery = query.Encode()
 	if req, err = http.NewRequest("GET", url.String(), nil); err != nil {
-		return status, fmt.Errorf(" failed to create request\n %s\n", parseError(err))
+		return status, fmt.Errorf(" failed to create request\n %s", parseError(err))
 	}
 
 	var resp *http.Response
 
 	if resp, err = c.Do(req); err != nil || resp == nil {
-		return status, fmt.Errorf(" failed to connect to Pi-hole server\n %s\n", parseError(err))
+		return status, fmt.Errorf(" failed to connect to Pi-hole server\n %s", parseError(err))
 	}
 
 	defer func() {
@@ -76,7 +76,7 @@ func getStatus(c http.Client, apiURL string) (status Status, err error) {
 	}
 
 	if err = json.Unmarshal(rBody, &status); err != nil {
-		return status, fmt.Errorf(" failed to retrieve top items: check provided api URL and token\n %s\n\n",
+		return status, fmt.Errorf(" failed to retrieve top items: check provided api URL and token\n %s",
 			parseError(err))
 	}
 
@@ -94,13 +94,13 @@ func getTopItems(c http.Client, settings *Settings) (ti TopItems, err error) {
 	var url *url2.URL
 
 	if url, err = url2.Parse(settings.apiUrl); err != nil {
-		return ti, fmt.Errorf(" failed to parse API URL\n %s\n", parseError(err))
+		return ti, fmt.Errorf(" failed to parse API URL\n %s", parseError(err))
 	}
 
 	var query url2.Values
 
 	if query, err = url2.ParseQuery(url.RawQuery); err != nil {
-		return ti, fmt.Errorf(" failed to parse query\n %s\n", parseError(err))
+		return ti, fmt.Errorf(" failed to parse query\n %s", parseError(err))
 	}
 
 	query.Add("auth", settings.token)
@@ -110,13 +110,13 @@ func getTopItems(c http.Client, settings *Settings) (ti TopItems, err error) {
 
 	req, err = http.NewRequest("GET", url.String(), nil)
 	if err != nil {
-		return ti, fmt.Errorf(" failed to create request\n %s\n", parseError(err))
+		return ti, fmt.Errorf(" failed to create request\n %s", parseError(err))
 	}
 
 	var resp *http.Response
 
 	if resp, err = c.Do(req); err != nil || resp == nil {
-		return ti, fmt.Errorf(" failed to connect to Pi-hole server\n %s\n", parseError(err))
+		return ti, fmt.Errorf(" failed to connect to Pi-hole server\n %s", parseError(err))
 	}
 
 	defer func() {
@@ -134,7 +134,7 @@ func getTopItems(c http.Client, settings *Settings) (ti TopItems, err error) {
 
 	rBody, err = ioutil.ReadAll(resp.Body)
 	if err = json.Unmarshal(rBody, &ti); err != nil {
-		return ti, fmt.Errorf(" failed to retrieve top items: check provided api URL and token\n %s\n\n",
+		return ti, fmt.Errorf(" failed to retrieve top items: check provided api URL and token\n %s",
 			parseError(err))
 	}
 
@@ -162,13 +162,13 @@ func getTopClients(c http.Client, settings *Settings) (tc TopClients, err error)
 	var url *url2.URL
 
 	if url, err = url2.Parse(settings.apiUrl); err != nil {
-		return tc, fmt.Errorf(" failed to parse API URL\n %s\n", parseError(err))
+		return tc, fmt.Errorf(" failed to parse API URL\n %s", parseError(err))
 	}
 
 	var query url2.Values
 
 	if query, err = url2.ParseQuery(url.RawQuery); err != nil {
-		return tc, fmt.Errorf(" failed to parse query\n %s\n", parseError(err))
+		return tc, fmt.Errorf(" failed to parse query\n %s", parseError(err))
 	}
 
 	query.Add("topClients", strconv.Itoa(settings.showTopClients))
@@ -176,13 +176,13 @@ func getTopClients(c http.Client, settings *Settings) (tc TopClients, err error)
 	url.RawQuery = query.Encode()
 
 	if req, err = http.NewRequest("GET", url.String(), nil); err != nil {
-		return tc, fmt.Errorf(" failed to create request\n %s\n", parseError(err))
+		return tc, fmt.Errorf(" failed to create request\n %s", parseError(err))
 	}
 
 	var resp *http.Response
 
 	if resp, err = c.Do(req); err != nil || resp == nil {
-		return tc, fmt.Errorf(" failed to connect to Pi-hole server\n %s\n", parseError(err))
+		return tc, fmt.Errorf(" failed to connect to Pi-hole server\n %s", parseError(err))
 	}
 
 	defer func() {
@@ -199,11 +199,11 @@ func getTopClients(c http.Client, settings *Settings) (tc TopClients, err error)
 	var rBody []byte
 
 	if rBody, err = ioutil.ReadAll(resp.Body); err != nil {
-		return tc, fmt.Errorf(" failed to read top clients response\n %s\n", parseError(err))
+		return tc, fmt.Errorf(" failed to read top clients response\n %s", parseError(err))
 	}
 
 	if err = json.Unmarshal(rBody, &tc); err != nil {
-		return tc, fmt.Errorf(" failed to retrieve top clients: check provided api URL and token\n %s\n\n",
+		return tc, fmt.Errorf(" failed to retrieve top clients: check provided api URL and token\n %s",
 			parseError(err))
 	}
 
@@ -235,13 +235,13 @@ func getQueryTypes(c http.Client, settings *Settings) (qt QueryTypes, err error)
 	url.RawQuery = query.Encode()
 
 	if req, err = http.NewRequest("GET", url.String(), nil); err != nil {
-		return qt, fmt.Errorf(" failed to create request\n %s\n", parseError(err))
+		return qt, fmt.Errorf(" failed to create request\n %s", parseError(err))
 	}
 
 	var resp *http.Response
 
 	if resp, err = c.Do(req); err != nil || resp == nil {
-		return qt, fmt.Errorf(" failed to connect to Pi-hole server\n %s\n", parseError(err))
+		return qt, fmt.Errorf(" failed to connect to Pi-hole server\n %s", parseError(err))
 	}
 
 	defer func() {
@@ -258,11 +258,11 @@ func getQueryTypes(c http.Client, settings *Settings) (qt QueryTypes, err error)
 	var rBody []byte
 
 	if rBody, err = ioutil.ReadAll(resp.Body); err != nil {
-		return qt, fmt.Errorf(" failed to read top clients response\n %s\n", parseError(err))
+		return qt, fmt.Errorf(" failed to read top clients response\n %s", parseError(err))
 	}
 
 	if err = json.Unmarshal(rBody, &qt); err != nil {
-		return qt, fmt.Errorf(" failed to parse query types response\n %s\n", parseError(err))
+		return qt, fmt.Errorf(" failed to parse query types response\n %s", parseError(err))
 	}
 
 	return qt, err
@@ -276,7 +276,7 @@ func checkServer(c http.Client, apiURL string) error {
 	var url *url2.URL
 
 	if url, err = url2.Parse(apiURL); err != nil {
-		return fmt.Errorf(" failed to parse API URL\n %s\n", parseError(err))
+		return fmt.Errorf(" failed to parse API URL\n %s", parseError(err))
 	}
 
 	if url.Host == "" {
@@ -291,7 +291,7 @@ func checkServer(c http.Client, apiURL string) error {
 	var resp *http.Response
 
 	if resp, err = c.Do(req); err != nil {
-		return fmt.Errorf(" failed to connect to Pi-hole server\n %s\n", parseError(err))
+		return fmt.Errorf(" failed to connect to Pi-hole server\n %s", parseError(err))
 	}
 
 	defer func() {
@@ -310,11 +310,11 @@ func checkServer(c http.Client, apiURL string) error {
 	var rBody []byte
 
 	if rBody, err = ioutil.ReadAll(resp.Body); err != nil {
-		return fmt.Errorf(" Pi-hole server failed to respond\n %s\n", parseError(err))
+		return fmt.Errorf(" Pi-hole server failed to respond\n %s", parseError(err))
 	}
 
 	if err = json.Unmarshal(rBody, &vResp); err != nil {
-		return fmt.Errorf(" invalid response returned from Pi-hole Server\n %s\n", parseError(err))
+		return fmt.Errorf(" invalid response returned from Pi-hole Server\n %s", parseError(err))
 	}
 
 	if vResp.Version != 3 {

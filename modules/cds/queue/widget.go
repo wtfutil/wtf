@@ -17,7 +17,6 @@ type Widget struct {
 	view.KeyboardWidget
 	view.TextWidget
 
-	jobs    []sdk.WorkflowNodeJobRun
 	filters []string
 
 	client cdsclient.Interface

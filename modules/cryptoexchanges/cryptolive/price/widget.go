@@ -48,7 +48,7 @@ func (widget *Widget) Refresh(wg *sync.WaitGroup) {
 	if len(widget.list.items) != 0 {
 		widget.updateCurrencies()
 		if !ok {
-			widget.Result = fmt.Sprint("Please check your internet connection!")
+			widget.Result = "Please check your internet connection"
 		} else {
 			widget.display()
 		}

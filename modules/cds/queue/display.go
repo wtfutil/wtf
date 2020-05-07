@@ -69,9 +69,9 @@ func (widget *Widget) generateQueueJobLine(id int64, parameters []sdk.Parameter,
 	triggeredBy := getVarsInPbj("cds.triggered_by.username", parameters)
 
 	row := make([]string, 6)
-	row[0] = pad(fmt.Sprintf(sdk.Round(duration, time.Second).String()), 9)
+	row[0] = pad(sdk.Round(duration, time.Second).String(), 9)
 	row[2] = pad(run, 7)
-	row[3] = fmt.Sprintf("%s", pad(prj+"/"+workflow+"/"+node, 40))
+	row[3] = pad(prj+"/"+workflow+"/"+node, 40)
 
 	if status == sdk.StatusBuilding {
 		row[1] = pad(fmt.Sprintf(" %s.%s ", executedJob.WorkerName, executedJob.WorkerID), 27)
@@ -93,24 +93,6 @@ func (widget *Widget) generateQueueJobLine(id int64, parameters []sdk.Parameter,
 	}
 
 	return fmt.Sprintf("[%s]%s [grey]%s %s %s %s\n", c, row[0], row[1], row[2], row[3], row[4])
-}
-
-func getStatusColor(status string) string {
-	switch status {
-	case sdk.StatusSuccess:
-		return "green"
-	case sdk.StatusBuilding, sdk.StatusWaiting:
-		return "blue"
-	case sdk.StatusFail:
-		return "red"
-	case sdk.StatusStopped:
-		return "red"
-	case sdk.StatusSkipped:
-		return "grey"
-	case sdk.StatusDisabled:
-		return "grey"
-	}
-	return "red"
 }
 
 func pad(t string, size int) string {

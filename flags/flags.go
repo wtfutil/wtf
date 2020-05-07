@@ -43,7 +43,7 @@ func (flags *Flags) RenderIf(version, date string, config *config.Config) {
 	}
 
 	if flags.HasVersion() {
-		fmt.Println(fmt.Sprintf("%s (%s)", version, date))
+		fmt.Printf("%s (%s)\n", version, date)
 		os.Exit(0)
 	}
 }

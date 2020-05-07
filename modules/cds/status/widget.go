@@ -17,7 +17,6 @@ type Widget struct {
 	view.KeyboardWidget
 	view.TextWidget
 
-	jobs    []sdk.WorkflowNodeJobRun
 	filters []string
 
 	client cdsclient.Interface
@@ -118,19 +117,6 @@ func (widget *Widget) HelpText() string {
 }
 
 /* -------------------- Unexported Functions -------------------- */
-
-func (widget *Widget) currentFilter() string {
-	if len(widget.filters) == 0 {
-		return sdk.StatusWaiting
-	}
-
-	if widget.Idx < 0 || widget.Idx >= len(widget.filters) {
-		widget.Idx = 0
-		return sdk.StatusWaiting
-	}
-
-	return widget.filters[widget.Idx]
-}
 
 func (widget *Widget) openWorkflow() {
 	currentSelection := widget.View.GetHighlights()
