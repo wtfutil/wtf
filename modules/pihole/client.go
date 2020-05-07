@@ -72,7 +72,7 @@ func getStatus(c http.Client, apiURL string) (status Status, err error) {
 	var rBody []byte
 
 	if rBody, err = ioutil.ReadAll(resp.Body); err != nil {
-		return status, fmt.Errorf(" failed to read status response\n")
+		return status, fmt.Errorf(" failed to read status response")
 	}
 
 	if err = json.Unmarshal(rBody, &status); err != nil {
@@ -220,13 +220,13 @@ func getQueryTypes(c http.Client, settings *Settings) (qt QueryTypes, err error)
 	var url *url2.URL
 
 	if url, err = url2.Parse(settings.apiUrl); err != nil {
-		return qt, fmt.Errorf(" failed to parse API URL\n %s\n", parseError(err))
+		return qt, fmt.Errorf(" failed to parse API URL\n %s", parseError(err))
 	}
 
 	var query url2.Values
 
 	if query, err = url2.ParseQuery(url.RawQuery); err != nil {
-		return qt, fmt.Errorf(" failed to parse query\n %s\n", parseError(err))
+		return qt, fmt.Errorf(" failed to parse query\n %s", parseError(err))
 	}
 
 	query.Add("getQueryTypes", strconv.Itoa(settings.showTopClients))
@@ -285,7 +285,7 @@ func checkServer(c http.Client, apiURL string) error {
 
 	if req, err = http.NewRequest("GET", fmt.Sprintf("%s?version",
 		url.String()), nil); err != nil {
-		return fmt.Errorf("invalid request: %s\n", parseError(err))
+		return fmt.Errorf("invalid request: %s", parseError(err))
 	}
 
 	var resp *http.Response

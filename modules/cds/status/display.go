@@ -85,21 +85,3 @@ func (widget *Widget) displayStatus() string {
 	}
 	return content
 }
-
-func getStatusColor(status string) string {
-	switch status {
-	case sdk.StatusSuccess:
-		return "green"
-	case sdk.StatusBuilding, sdk.StatusWaiting:
-		return "blue"
-	case sdk.StatusFail:
-		return "red"
-	case sdk.StatusStopped:
-		return "red"
-	case sdk.StatusSkipped:
-		return "grey"
-	case sdk.StatusDisabled:
-		return "grey"
-	}
-	return "red"
-}

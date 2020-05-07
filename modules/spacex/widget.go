@@ -2,17 +2,17 @@ package spacex
 
 import (
 	"fmt"
+	"time"
+
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/view"
 	"github.com/wtfutil/wtf/wtf"
-	"time"
 )
 
 type Widget struct {
 	view.TextWidget
 	settings *Settings
 	err      error
-	launch   Launch
 }
 
 func NewWidget(app *tview.Application, settings *Settings) *Widget {
