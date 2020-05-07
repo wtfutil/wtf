@@ -125,8 +125,10 @@ func (widget *Widget) markAsDone() {
 	sel := widget.GetSelected()
 	if sel >= 0 && widget.todos != nil && sel < len(widget.todos) {
 		todo := widget.todos[sel]
-		widget.gitlabClient.Todos.MarkTodoAsDone(todo.ID)
-		widget.Refresh()
+		_, err := widget.gitlabClient.Todos.MarkTodoAsDone(todo.ID)
+		if err == nil {
+			widget.Refresh()
+		}
 	}
 }
 
