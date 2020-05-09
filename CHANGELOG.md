@@ -15,6 +15,8 @@
 ### 👍 Updated
 
 * Updated `zorkian/go-datadog-api` from 2.28.0+incompatible to 2.29.0+incompatible
+* Updated `shirou/gopsutil` from 2.20.3+incompatible to 2.20.4+incompatible
+* Updated `google.golang.org/api` from 0.22.0 to 0.23.0
 
 ## 0.29.0
 
