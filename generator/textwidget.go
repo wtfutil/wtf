@@ -46,14 +46,14 @@ func main() {
 
 /* -------------------- Unexported Functions -------------------- */
 
-func createModuleDirectory(data struct { Name string }) {
+func createModuleDirectory(data struct{ Name string }) {
 	err := os.MkdirAll(strings.ToLower(fmt.Sprintf("modules/%s", data.Name)), os.ModePerm)
 	if err != nil {
 		fmt.Println(err.Error())
 	}
 }
 
-func generateWidgetFile(data struct { Name string }) {
+func generateWidgetFile(data struct{ Name string }) {
 	tpl, _ := template.New("textwidget.tpl").Funcs(template.FuncMap{
 		"Lower": strings.ToLower,
 	}).ParseFiles("generator/textwidget.tpl")
@@ -67,8 +67,8 @@ func generateWidgetFile(data struct { Name string }) {
 	tpl.Execute(out, data)
 }
 
-func generateSettingsFile(data struct { Name string }) {
-    tpl, _ := template.New("settings.tpl").Funcs(template.FuncMap{
+func generateSettingsFile(data struct{ Name string }) {
+	tpl, _ := template.New("settings.tpl").Funcs(template.FuncMap{
 		"Lower": strings.ToLower,
 	}).ParseFiles("generator/settings.tpl")
 

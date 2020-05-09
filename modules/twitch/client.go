@@ -2,6 +2,7 @@ package twitch
 
 import (
 	"fmt"
+
 	"github.com/nicklaw5/helix"
 )
 

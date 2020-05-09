@@ -170,12 +170,13 @@ func (widget *Widget) HelpText() string {
 }
 
 func (w *Widget) createOutput() (string, string, bool) {
-	err := w.refreshSpotifyInfos()
 	var output string
+
+	err := w.refreshSpotifyInfos()
 	if err != nil {
 		output = err.Error()
 	} else {
-		output := utils.CenterText(fmt.Sprintf("[green]Now %v [white]\n", w.Info.Status), w.CommonSettings().Width)
+		output += utils.CenterText(fmt.Sprintf("[green]Now %v [white]\n", w.Info.Status), w.CommonSettings().Width)
 		output += utils.CenterText(fmt.Sprintf("[green]Title:[white] %v\n", w.Info.Title), w.CommonSettings().Width)
 		output += utils.CenterText(fmt.Sprintf("[green]Artist:[white] %v\n", w.Info.Artists), w.CommonSettings().Width)
 		output += utils.CenterText(fmt.Sprintf("[green]Album:[white] %v\n", w.Info.Album), w.CommonSettings().Width)

@@ -128,7 +128,7 @@ func getMyIP() (ip net.IP, v6 bool) {
 	if err != nil {
 		return
 	}
-	defer conn.Close()
+	defer func() { _ = conn.Close() }()
 
 	addr := conn.LocalAddr().(*net.TCPAddr)
 	ip = addr.IP

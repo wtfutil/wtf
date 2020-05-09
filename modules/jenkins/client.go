@@ -45,7 +45,7 @@ func (widget *Widget) Create(jenkinsURL string, username string, apiKey string) 
 		return view, err
 	}
 
-	respJobs := make([]Job, 0, len(view.Jobs) + len(view.ActiveConfigurations))
+	respJobs := make([]Job, 0, len(view.Jobs)+len(view.ActiveConfigurations))
 	respJobs = append(append(respJobs, view.Jobs...), view.ActiveConfigurations...)
 
 	jobs := make([]Job, 0)

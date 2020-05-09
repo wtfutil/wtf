@@ -12,7 +12,7 @@ type Issue struct {
 type IssueFields struct {
 	Summary string `json:"summary"`
 
-	IssueType *IssueType `json:"issuetype"`
+	IssueType   *IssueType   `json:"issuetype"`
 	IssueStatus *IssueStatus `json:"status"`
 }
 
@@ -26,7 +26,7 @@ type IssueType struct {
 }
 
 type IssueStatus struct {
-	ISelf				string `json:"self"`
-	IDescription	string `json:"description"`
-	IName				string `json:"name"`
+	ISelf        string `json:"self"`
+	IDescription string `json:"description"`
+	IName        string `json:"name"`
 }

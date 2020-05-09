@@ -1,8 +1,9 @@
 package spacex
 
 import (
-	"github.com/wtfutil/wtf/utils"
 	"net/http"
+
+	"github.com/wtfutil/wtf/utils"
 )
 
 const (

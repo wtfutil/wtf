@@ -1,10 +1,11 @@
 package twitch
 
 import (
+	"os"
+
 	"github.com/olebedev/config"
 	"github.com/wtfutil/wtf/cfg"
 	"github.com/wtfutil/wtf/utils"
-	"os"
 )
 
 const (

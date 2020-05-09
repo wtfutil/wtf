@@ -2,10 +2,11 @@ package jenkins
 
 import (
 	"fmt"
+	"net/url"
+
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/view"
-	"net/url"
 )
 
 type Widget struct {
