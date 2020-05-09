@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## v0.30.0
+
 ### ⚡️ Added
 
 * Expansive keyboard controls for the [GitLab](https://wtfutil.com/modules/gitlab/) module, by [@mogensen](https://github.com/mogensen)
