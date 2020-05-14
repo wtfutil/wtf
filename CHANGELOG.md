@@ -9,6 +9,7 @@
 * Expansive keyboard controls for the [GitLab](https://wtfutil.com/modules/gitlab/) module, by [@mogensen](https://github.com/mogensen)
 * [IPInfo](https://wtfutil.com/modules/ipaddress/ipinfo/) module now supports IPv6 lookup, by [@acaloiaro](https://github.com/acaloiaro)
 * The GitHub repo now runs a set of actions that lint PRs for code quality and conformity and comment in-line on the PRs. See here for action details https://github.com/wtfutil/wtf/actions
+* [docker-credential-helpers](https://github.com/docker/docker-credential-helpers) support added to provide optional securing of module secrets, [#517](https://github.com/wtfutil/wtf/issues/517) by [sam-github](https://github.com/sam-github)
 
 ### 🐞 Fixed
 
