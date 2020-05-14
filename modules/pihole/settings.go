@@ -34,5 +34,8 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		maxDomainWidth: ymlConfig.UInt("maxDomainWidth", 20),
 	}
 
+	cfg.ModuleSecret(name, globalConfig, &settings.token).
+		Service(settings.apiUrl).Load()
+
 	return &settings
 }

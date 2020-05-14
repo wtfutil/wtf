@@ -30,5 +30,8 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		tags:           ymlConfig.UList("monitors.tags"),
 	}
 
+	cfg.ModuleSecret(name+"-api", globalConfig, &settings.apiKey).Load()
+	cfg.ModuleSecret(name+"-app", globalConfig, &settings.applicationKey).Load()
+
 	return &settings
 }

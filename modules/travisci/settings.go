@@ -35,5 +35,8 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		sort_by: ymlConfig.UString("sort_by", "id:desc"),
 	}
 
+	cfg.ModuleSecret(name, globalConfig, &settings.apiKey).
+		Service(settings.baseURL).Load()
+
 	return &settings
 }

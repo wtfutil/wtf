@@ -29,5 +29,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		team:   ymlConfig.UString("team"),
 	}
 
+	cfg.ModuleSecret(name, globalConfig, &settings.apiKey).Load()
+
 	return &settings
 }

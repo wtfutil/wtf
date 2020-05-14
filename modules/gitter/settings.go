@@ -30,5 +30,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		roomURI:          ymlConfig.UString("roomUri", "wtfutil/Lobby"),
 	}
 
+	cfg.ModuleSecret(name, globalConfig, &settings.apiToken).Load()
+
 	return &settings
 }

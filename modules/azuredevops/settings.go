@@ -35,5 +35,8 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		projectName: ymlConfig.UString("projectName", os.Getenv("WTF_AZURE_DEVOPS_PROJECT_NAME")),
 	}
 
+	cfg.ModuleSecret(name, globalConfig, &settings.apiToken).
+		Service(settings.orgURL).Load()
+
 	return &settings
 }

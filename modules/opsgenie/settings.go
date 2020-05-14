@@ -33,6 +33,8 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		scheduleIdentifierType: ymlConfig.UString("scheduleIdentifierType", "id"),
 	}
 
+	cfg.ModuleSecret(name, globalConfig, &settings.apiKey).Load()
+
 	settings.schedule = settings.arrayifySchedules(ymlConfig, globalConfig)
 
 	return &settings

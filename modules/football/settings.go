@@ -33,5 +33,8 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		matchesTo:     ymlConfig.UInt("matchesTo", 5),
 		standingCount: ymlConfig.UInt("standingCount", 5),
 	}
+
+	cfg.ModuleSecret(name, globalConfig, &settings.apiKey).Load()
+
 	return &settings
 }

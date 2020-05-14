@@ -27,5 +27,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		subdomain: ymlConfig.UString("subdomain", os.Getenv("WTF_BAMBOO_HR_SUBDOMAIN")),
 	}
 
+	cfg.ModuleSecret(name, globalConfig, &settings.apiKey).Load()
+
 	return &settings
 }

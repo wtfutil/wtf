@@ -36,5 +36,8 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		verifyServerCertificate: ymlConfig.UBool("verifyServerCertificate", true),
 	}
 
+	cfg.ModuleSecret(name, globalConfig, &settings.apiKey).
+		Service(settings.url).Load()
+
 	return &settings
 }

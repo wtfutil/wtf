@@ -36,6 +36,8 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		pipelines: buildPipelineSettings(ymlConfig),
 	}
 
+	cfg.ModuleSecret(name, globalConfig, &settings.apiKey).Load()
+
 	return &settings
 }
 

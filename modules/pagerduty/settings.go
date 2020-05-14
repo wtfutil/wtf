@@ -37,5 +37,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		showSchedules:    ymlConfig.UBool("showSchedules", true),
 	}
 
+	cfg.ModuleSecret(name, globalConfig, &settings.apiKey).Load()
+
 	return &settings
 }
