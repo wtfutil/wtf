@@ -43,7 +43,7 @@ func (widget *Widget) content() (string, string, bool) {
 			timestamp = ""
 		}
 
-		title = fmt.Sprintf("[%s]%s",
+		eventTitle := fmt.Sprintf("[%s]%s",
 			widget.titleColor(calEvent),
 			widget.eventSummary(calEvent, calEvent.ConflictsWith(calEvents)),
 		)
@@ -53,7 +53,7 @@ func (widget *Widget) content() (string, string, bool) {
 			widget.dayDivider(calEvent, prevEvent),
 			widget.responseIcon(calEvent),
 			timestamp,
-			title,
+			eventTitle,
 		)
 
 		str += fmt.Sprintf("%s   %s%s\n",
