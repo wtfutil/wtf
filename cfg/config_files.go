@@ -78,7 +78,7 @@ func WtfConfigDir() (string, error) {
 	if configDir == "" {
 		configDir = WtfConfigDirV2
 	} else {
-		configDir = configDir + "/wtf/"
+		configDir += "/wtf/"
 	}
 	configDir, err := expandHomeDir(configDir)
 	if err != nil {

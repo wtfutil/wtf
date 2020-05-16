@@ -67,7 +67,6 @@ func (widget *Widget) listTickets(pag ...string) (*TicketArray, error) {
 	}
 
 	return TicketStruct, err
-
 }
 
 func (widget *Widget) newTickets() (*TicketArray, error) {

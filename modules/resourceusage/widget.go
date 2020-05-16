@@ -121,7 +121,7 @@ func MakeGraph(widget *Widget) {
 		}
 	}
 
-	widget.BarGraph.BuildBars(stats[:])
+	widget.BarGraph.BuildBars(stats)
 
 }
 

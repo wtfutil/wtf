@@ -65,11 +65,12 @@ func (base *Base) ConfigText() string {
 }
 
 func (base *Base) ContextualTitle(defaultStr string) string {
-	if defaultStr == "" && base.FocusChar() == "" {
+	switch {
+	case defaultStr == "" && base.FocusChar() == "":
 		return ""
-	} else if defaultStr != "" && base.FocusChar() == "" {
+	case defaultStr != "" && base.FocusChar() == "":
 		return fmt.Sprintf(" %s ", defaultStr)
-	} else if defaultStr == "" && base.FocusChar() != "" {
+	case defaultStr == "" && base.FocusChar() != "":
 		return fmt.Sprintf(" [darkgray::u]%s[::-][white] ", base.FocusChar())
 	}
 

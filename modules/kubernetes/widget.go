@@ -198,11 +198,12 @@ func (client *clientInstance) getNodes() ([]string, error) {
 		var nodeStatus string
 		for _, condition := range node.Status.Conditions {
 			if condition.Reason == "KubeletReady" {
-				if condition.Status == "True" {
+				switch {
+				case condition.Status == "True":
 					nodeStatus = "Ready"
-				} else if condition.Reason == "False" {
+				case condition.Reason == "False":
 					nodeStatus = "NotReady"
-				} else {
+				default:
 					nodeStatus = "Unknown"
 				}
 			}

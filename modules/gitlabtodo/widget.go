@@ -90,7 +90,7 @@ func (widget *Widget) getTodos(apiKey string) ([]*gitlab.Todo, error) {
 func (widget *Widget) trimTodoBody(body string) string {
 	r := []rune(body)
 
-	// Cut at first occurance of a newline
+	// Cut at first occurence of a newline
 	for i, a := range r {
 		if a == '\n' {
 			return string(r[:i])

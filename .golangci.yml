@@ -1,0 +1,15 @@
+linters:
+  enable:
+    - vet
+    - errcheck
+    - staticcheck
+#   - dupl
+#   - funlen
+#   - goconst
+#   - gocritic
+    - gofmt
+#   - golint
+#   - misspell
+#   - stylecheck
+    - unconvert
+#   - whitespace

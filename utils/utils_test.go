@@ -70,7 +70,7 @@ func Test_ExecuteCommand(t *testing.T) {
 }
 
 func Test_FindMatch(t *testing.T) {
-	expected := [][]string([][]string{[]string{"SSID: 7E5B5C", "7E5B5C"}})
+	expected := [][]string{{"SSID: 7E5B5C", "7E5B5C"}}
 	result := FindMatch(`s*SSID: (.+)s*`, "SSID: 7E5B5C")
 
 	assert.Equal(t, expected, result)
@@ -115,7 +115,7 @@ func Test_ReadFileBytes(t *testing.T) {
 		expected []byte
 	}{
 		{
-			name:     "with non-existant file",
+			name:     "with non-existent file",
 			file:     "/tmp/junk-daa6bf613f4c.md",
 			expected: []byte{},
 		},

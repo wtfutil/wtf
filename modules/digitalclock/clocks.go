@@ -13,7 +13,7 @@ const AM = "A"
 const PM = "P"
 const minRowsForBorder = 3
 
-// Converts integer to string along with makes sure the lenght of string is > 2
+// Converts integer to string along with makes sure the length of string is > 2
 func intStrConv(val int) string {
 	valStr := strconv.Itoa(val)
 
@@ -39,9 +39,9 @@ func getHourMinute(hourFormat string) string {
 
 	}
 
-	strMintues := intStrConv(time.Now().Minute())
-	strMintues = strMintues + AMPM
-	return strHours + getColon() + strMintues
+	strMinutes := intStrConv(time.Now().Minute())
+	strMinutes += AMPM
+	return strHours + getColon() + strMinutes
 }
 
 // Returns the : with blinking based on the seconds

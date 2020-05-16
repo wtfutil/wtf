@@ -73,11 +73,12 @@ func (widget *Widget) generateQueueJobLine(id int64, parameters []sdk.Parameter,
 	row[2] = pad(run, 7)
 	row[3] = pad(prj+"/"+workflow+"/"+node, 40)
 
-	if status == sdk.StatusBuilding {
+	switch {
+	case status == sdk.StatusBuilding:
 		row[1] = pad(fmt.Sprintf(" %s.%s ", executedJob.WorkerName, executedJob.WorkerID), 27)
-	} else if bookedBy.ID != 0 {
+	case bookedBy.ID != 0:
 		row[1] = pad(fmt.Sprintf(" %s.%d ", bookedBy.Name, bookedBy.ID), 27)
-	} else {
+	default:
 		row[1] = pad("", 27)
 	}
 

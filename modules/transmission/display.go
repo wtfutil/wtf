@@ -57,11 +57,12 @@ func (widget *Widget) torrentPercentDone(torrent *transmissionrpc.Torrent) strin
 	pctDone := *torrent.PercentDone
 	str := fmt.Sprintf("%3d%%↓", int(pctDone*100))
 
-	if pctDone == 0.0 {
+	switch pctDone {
+	case 0.0:
 		str = "[gray::b]" + str
-	} else if pctDone == 1.0 {
+	case 1.0:
 		str = "[green::b]" + str
-	} else {
+	default:
 		str = "[lightblue::b]" + str
 	}
 

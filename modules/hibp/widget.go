@@ -68,7 +68,7 @@ func (widget *Widget) content() (string, string, bool) {
 		return title, widget.err.Error(), true
 	}
 
-	title = title + widget.sinceDateForTitle()
+	title += widget.sinceDateForTitle()
 	str := ""
 
 	for _, status := range widget.statuses {

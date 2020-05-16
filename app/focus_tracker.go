@@ -200,7 +200,7 @@ func (tracker *FocusTracker) focusables() []wtf.Wtfable {
 	}
 
 	// Sort for deterministic ordering
-	sort.SliceStable(focusable[:], func(i, j int) bool {
+	sort.SliceStable(focusable, func(i, j int) bool {
 		iTop := focusable[i].CommonSettings().Top
 		jTop := focusable[j].CommonSettings().Top
 
