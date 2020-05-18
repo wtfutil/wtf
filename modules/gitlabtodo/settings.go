@@ -28,7 +28,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 
 		numberOfTodos: ymlConfig.UInt("numberOfTodos", 10),
 		apiKey:        ymlConfig.UString("apiKey", os.Getenv("WTF_GITLAB_TOKEN")),
-		domain:        ymlConfig.UString("domain"),
+		domain:        ymlConfig.UString("domain", "https://gitlab.com"),
 		showProject:   ymlConfig.UBool("showProject", true),
 	}
 
