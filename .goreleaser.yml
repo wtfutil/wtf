@@ -29,7 +29,3 @@ brews:
     name: wtfutil
     homepage: 'https://wtfutil.com'
     description: 'The personal information dashboard for your terminal.'
-
-#dockers:
-  #- image_templates:
-    #- wtfutil/wtf
