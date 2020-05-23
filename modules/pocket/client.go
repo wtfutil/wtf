@@ -178,7 +178,7 @@ func (client *Client) GetAccessToken(requestToken string) (accessToken string, e
 
 }
 
-/*LinkState  represents links states to be retrived
+/*LinkState  represents link states to be retrieved
 According to the api https://getpocket.com/developer/docs/v3/retrieve
 there are 3 states:
 	1-archive
@@ -197,7 +197,7 @@ const (
 	Unread LinkState = "unread"
 )
 
-// GetLinks retrive links of a given states https://getpocket.com/developer/docs/v3/retrieve
+// GetLinks retrieve links of a given states https://getpocket.com/developer/docs/v3/retrieve
 func (client *Client) GetLinks(state LinkState) (response ItemLists, err error) {
 	url := fmt.Sprintf("%s/get?sort=newest&state=%s&consumer_key=%s&access_token=%s", client.baseURL, state, client.consumerKey, *client.accessToken)
 	req := request{

@@ -43,17 +43,18 @@ func (widget *Widget) displayStatus() string {
 	)
 
 	for _, line := range status.Lines {
-		if line.Status == sdk.MonitoringStatusWarn && strings.Contains(line.Component, "Global") {
+		switch {
+		case line.Status == sdk.MonitoringStatusWarn && strings.Contains(line.Component, "Global"):
 			globalWarn = append(globalWarn, line.String())
-		} else if line.Status != sdk.MonitoringStatusOK && strings.Contains(line.Component, "Global") {
+		case line.Status != sdk.MonitoringStatusOK && strings.Contains(line.Component, "Global"):
 			globalRed = append(globalRed, line.String())
-		} else if strings.Contains(line.Component, "Global") {
+		case strings.Contains(line.Component, "Global"):
 			global = append(global, line.String())
-		} else if line.Status == sdk.MonitoringStatusWarn {
+		case line.Status == sdk.MonitoringStatusWarn:
 			warn = append(warn, line.String())
-		} else if line.Status == sdk.MonitoringStatusOK {
+		case line.Status == sdk.MonitoringStatusOK:
 			ok = append(ok, line.String())
-		} else {
+		default:
 			red = append(red, line.String())
 		}
 	}

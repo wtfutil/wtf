@@ -129,7 +129,6 @@ func (widget *Widget) updateCurrencies() {
 
 		setPrices(&jsonResponse, fromCurrency)
 	}
-
 }
 
 func makeRequest(currency *fromCurrency) *http.Request {

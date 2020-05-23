@@ -3,7 +3,7 @@ package digitalclock
 import "strings"
 
 func mergeLines(outString []string) string {
-	return strings.Join(outString[:], "\n")
+	return strings.Join(outString, "\n")
 }
 
 func renderWidget(widgetSettings Settings) string {

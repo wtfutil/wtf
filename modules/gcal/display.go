@@ -147,11 +147,12 @@ func (widget *Widget) timeUntil(calEvent *CalEvent) string {
 	untilStr := ""
 
 	color := "[lightblue]"
-	if days > 0 {
+	switch {
+	case days > 0:
 		untilStr = fmt.Sprintf("%dd", days)
-	} else if hours > 0 {
+	case hours > 0:
 		untilStr = fmt.Sprintf("%dh", hours)
-	} else {
+	default:
 		untilStr = fmt.Sprintf("%dm", mins)
 		if mins < 30 {
 			color = "[red]"

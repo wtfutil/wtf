@@ -86,6 +86,9 @@ install:
 	@echo "${APP} installed into ${INSTALLPATH}"
 
 ## lint: runs a number of code quality checks against the source code
+cilint:
+	golangci-lint run
+
 lint:
 	@echo "\033[35mhttps://github.com/kisielk/errcheck\033[0m"
 	errcheck ./app

@@ -77,7 +77,7 @@ func (widget *Widget) content() (string, string, bool) {
 			row := fmt.Sprintf(
 				rowFormat,
 				widget.RowColor(idx),
-				buildColor(&build),
+				buildColor(build),
 				build.Repository.Name,
 				build.Number,
 				build.Branch.Name,
@@ -92,7 +92,7 @@ func (widget *Widget) content() (string, string, bool) {
 	return title, str, false
 }
 
-func buildColor(build *Build) string {
+func buildColor(build Build) string {
 	switch build.State {
 	case "broken":
 		return "red"

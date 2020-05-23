@@ -82,7 +82,7 @@ func (widget *Widget) content() (string, string, bool) {
 		row := fmt.Sprintf(
 			`[%s] [%s]%-6s[white]`,
 			widget.RowColor(idx),
-			widget.jobColor(&job),
+			widget.jobColor(job),
 			jobName,
 		)
 
@@ -92,7 +92,7 @@ func (widget *Widget) content() (string, string, bool) {
 	return title, str, false
 }
 
-func (widget *Widget) jobColor(job *Job) string {
+func (widget *Widget) jobColor(job Job) string {
 	switch job.Color {
 	case "blue":
 		// Override color if successBallColor boolean param provided in config

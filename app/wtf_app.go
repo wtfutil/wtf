@@ -109,6 +109,7 @@ func (wtfApp *WtfApp) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 		switch string(event.Rune()) {
 		case "/":
 			return nil
+		default:
 		}
 	}
 
