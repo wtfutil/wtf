@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### ⚡️ Added
+
+* [docker-credential-helpers](https://github.com/docker/docker-credential-helpers) support added to provide optional securing of module secrets, [#517](https://github.com/wtfutil/wtf/issues/517) by [sam-github](https://github.com/sam-github)
+
 ## v0.30.0
 
 ### ⚡️ Added
