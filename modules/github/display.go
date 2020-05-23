@@ -34,12 +34,18 @@ func (widget *Widget) content() (string, string, bool) {
 
 	_, _, width, _ := widget.View.GetRect()
 	str := widget.settings.common.SigilStr(len(widget.GithubRepos), widget.Idx, width) + "\n"
-	str += fmt.Sprintf(" [%s]Stats[white]\n", widget.settings.common.Colors.Subheading)
-	str += widget.displayStats(repo)
-	str += fmt.Sprintf("\n [%s]Open Review Requests[white]\n", widget.settings.common.Colors.Subheading)
-	str += widget.displayMyReviewRequests(repo, username)
-	str += fmt.Sprintf("\n [%s]My Pull Requests[white]\n", widget.settings.common.Colors.Subheading)
-	str += widget.displayMyPullRequests(repo, username)
+	if widget.settings.showStats {
+		str += fmt.Sprintf(" [%s]Stats[white]\n", widget.settings.common.Colors.Subheading)
+		str += widget.displayStats(repo)
+	}
+	if widget.settings.showOpenReviewRequests {
+		str += fmt.Sprintf("\n [%s]Open Review Requests[white]\n", widget.settings.common.Colors.Subheading)
+		str += widget.displayMyReviewRequests(repo, username)
+	}
+	if widget.settings.showMyPullRequests {
+		str += fmt.Sprintf("\n [%s]My Pull Requests[white]\n", widget.settings.common.Colors.Subheading)
+		str += widget.displayMyPullRequests(repo, username)
+	}
 	for _, customQuery := range widget.settings.customQueries {
 		str += fmt.Sprintf("\n [%s]%s[white]\n", widget.settings.common.Colors.Subheading, customQuery.title)
 		str += widget.displayCustomQuery(repo, customQuery.filter, customQuery.perPage)
