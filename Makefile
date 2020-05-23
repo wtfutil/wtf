@@ -86,48 +86,48 @@ install:
 	@echo "${APP} installed into ${INSTALLPATH}"
 
 ## lint: runs a number of code quality checks against the source code
-cilint:
+lint:
 	golangci-lint run
 
-lint:
-	@echo "\033[35mhttps://github.com/kisielk/errcheck\033[0m"
-	errcheck ./app
-	errcheck ./cfg
-	errcheck ./flags
-	errcheck ./help
-	errcheck ./logger
-	errcheck ./modules/...
-	errcheck ./utils
-	errcheck ./view
-	errcheck ./wtf
-	errcheck ./main.go
+# lint:
+# 	@echo "\033[35mhttps://github.com/kisielk/errcheck\033[0m"
+# 	errcheck ./app
+# 	errcheck ./cfg
+# 	errcheck ./flags
+# 	errcheck ./help
+# 	errcheck ./logger
+# 	errcheck ./modules/...
+# 	errcheck ./utils
+# 	errcheck ./view
+# 	errcheck ./wtf
+# 	errcheck ./main.go
 
-	@echo "\033[35mhttps://golang.org/cmd/vet/k\033[0m"
-	go vet ./app
-	go vet ./cfg
-	go vet ./flags
-	go vet ./help
-	go vet ./logger
-	go vet ./modules/...
-	go vet ./utils
-	go vet ./view
-	go vet ./wtf
-	go vet ./main.go
+# 	@echo "\033[35mhttps://golang.org/cmd/vet/k\033[0m"
+# 	go vet ./app
+# 	go vet ./cfg
+# 	go vet ./flags
+# 	go vet ./help
+# 	go vet ./logger
+# 	go vet ./modules/...
+# 	go vet ./utils
+# 	go vet ./view
+# 	go vet ./wtf
+# 	go vet ./main.go
 
-	@echo "\033[35m# https://staticcheck.io/docs/k\033[0m"
-	staticcheck ./app
-	staticcheck ./cfg
-	staticcheck ./flags
-	staticcheck ./help
-	staticcheck ./logger
-	staticcheck ./modules/...
-	staticcheck ./utils
-	staticcheck ./view
-	staticcheck ./wtf
-	staticcheck ./main.go
+# 	@echo "\033[35m# https://staticcheck.io/docs/k\033[0m"
+# 	staticcheck ./app
+# 	staticcheck ./cfg
+# 	staticcheck ./flags
+# 	staticcheck ./help
+# 	staticcheck ./logger
+# 	staticcheck ./modules/...
+# 	staticcheck ./utils
+# 	staticcheck ./view
+# 	staticcheck ./wtf
+# 	staticcheck ./main.go
 
-	@echo "\033[35m# https://github.com/mdempsky/unconvert\033[0m"
-	unconvert ./...
+# 	@echo "\033[35m# https://github.com/mdempsky/unconvert\033[0m"
+# 	unconvert ./...
 
 ## loc: displays the lines of code (LoC) count
 loc:
