@@ -5,6 +5,7 @@
 ### ⚡️ Added
 
 * [docker-credential-helpers](https://github.com/docker/docker-credential-helpers) support added to provide optional securing of module secrets, [#517](https://github.com/wtfutil/wtf/issues/517) by [sam-github](https://github.com/sam-github)
+* `make lint` now uses [golangci-lint](https://github.com/golangci/golangci-lint-action), by [sam-github](https://github.com/sam-github)
 
 ### 👍 Updated
 
