@@ -27,7 +27,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 		settings: settings,
 	}
 
-	widget.gitlabClient, _ = gitlab.NewClient(settings.apiKey)
+	widget.gitlabClient, _ = gitlab.NewClient(settings.apiKey, gitlab.WithBaseURL(settings.domain))
 
 	widget.SetRenderFunction(widget.Render)
 	widget.initializeKeyboardControls()
@@ -45,8 +45,9 @@ func (widget *Widget) Refresh() {
 		return
 	}
 
-	todos, _ := widget.getTodos(widget.settings.apiKey)
+	todos, err := widget.getTodos(widget.settings.apiKey)
 	widget.todos = todos
+	widget.err = err
 	widget.SetItemCount(len(todos))
 
 	widget.Render()
