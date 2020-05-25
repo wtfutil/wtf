@@ -33,9 +33,9 @@ func (widget *Widget) content() (string, string, bool) {
 	}
 
 	_, _, width, _ := widget.View.GetRect()
-	str := widget.settings.common.SigilStr(len(widget.GithubRepos), widget.Idx, width) + "\n"
+	str := widget.settings.common.SigilStr(len(widget.GithubRepos), widget.Idx, width)
 	if widget.settings.showStats {
-		str += fmt.Sprintf(" [%s]Stats[white]\n", widget.settings.common.Colors.Subheading)
+		str += fmt.Sprintf("\n [%s]Stats[white]\n", widget.settings.common.Colors.Subheading)
 		str += widget.displayStats(repo)
 	}
 	if widget.settings.showOpenReviewRequests {
