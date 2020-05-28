@@ -23,9 +23,9 @@ type Status struct {
 	Status              string `json:"status"`
 	GravityLastUpdated  struct {
 		Relative struct {
-			Days    string `json:"days"`
-			Hours   string `json:"hours"`
-			Minutes string `json:"minutes"`
+			Days    FlexInt `json:"days"`
+			Hours   FlexInt `json:"hours"`
+			Minutes FlexInt `json:"minutes"`
 		}
 	} `json:"gravity_last_updated"`
 }
@@ -76,11 +76,34 @@ func getStatus(c http.Client, apiURL string) (status Status, err error) {
 	}
 
 	if err = json.Unmarshal(rBody, &status); err != nil {
-		return status, fmt.Errorf(" failed to retrieve top items: check provided api URL and token\n %s",
+		return status, fmt.Errorf(" failed to retrieve status: check provided api URL and token\n %s",
 			parseError(err))
 	}
 
 	return status, err
+}
+
+type FlexInt int
+
+func (fi *FlexInt) UnmarshalJSON(b []byte) error {
+	if b[0] != '"' {
+		return json.Unmarshal(b, (*int)(fi))
+	}
+
+	var s string
+
+	if err := json.Unmarshal(b, &s); err != nil {
+		return err
+	}
+
+	i, err := strconv.Atoi(s)
+	if err != nil {
+		return err
+	}
+
+	*fi = FlexInt(i)
+
+	return nil
 }
 
 type TopItems struct {
