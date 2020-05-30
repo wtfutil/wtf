@@ -21,6 +21,7 @@
 * Updated `digitalocean/godo` from 1.35.1 to 1.36.0
 * Updated `gopkg.in/yaml.v2` from 2.2.8 to 2.3.0
 * Updated `xanzy/go-gitlab` from 0.31.0 to 0.32.0
+* Updated `stretchr/testify` from 1.5.1 to 1.6.0
 
 ## v0.30.0
 
