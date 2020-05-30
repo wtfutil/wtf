@@ -11,6 +11,7 @@
 ### 🐞 Fixed
 
 * GitLab Todo module now allows domain to be set, defaults to `https://gitlab.com`, by [@gerchardon](https://github.com/gerchardon)
+* Pi-hole module now works with Pi-hole v4 and v5, by [@jonhadfield](https://github.com/jonhadfield)
 
 ### 👍 Updated
 
