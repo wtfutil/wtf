@@ -38,7 +38,7 @@ func getSummaryView(c http.Client, settings *Settings) string {
 	summaryTable := createTable([]string{}, buf)
 	summaryTable.Append([]string{"Domain blocklist", s.DomainsBeingBlocked, "Queries today", s.DNSQueriesToday})
 	summaryTable.Append([]string{"Ads blocked today", fmt.Sprintf("%s (%s%%)", s.AdsBlockedToday, s.AdsPercentageToday), "Cached queries", s.QueriesCached})
-	summaryTable.Append([]string{"Blocklist Age", fmt.Sprintf("%sd %sh %sm", s.GravityLastUpdated.Relative.Days,
+	summaryTable.Append([]string{"Blocklist Age", fmt.Sprintf("%dd %dh %dm", s.GravityLastUpdated.Relative.Days,
 		s.GravityLastUpdated.Relative.Hours, s.GravityLastUpdated.Relative.Minutes), "Forwarded queries", s.QueriesForwarded})
 	summaryTable.Render()
 
