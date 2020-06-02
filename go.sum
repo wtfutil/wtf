@@ -163,6 +163,8 @@ github.com/dgrijalva/jwt-go v3.2.0+incompatible/go.mod h1:E3ru+11k8xSBh+hMPgOLZm
 github.com/dgryski/go-sip13 v0.0.0-20181026042036-e10d5fee7954/go.mod h1:vAd38F8PWV+bWy6jNmig1y/TA+kYO4g3RSRF0IAv0no=
 github.com/digitalocean/godo v1.36.0 h1:eRF8wNzHZyU7/wI3De/MQgiVSWdseDaf27bXj2gnOO0=
 github.com/digitalocean/godo v1.36.0/go.mod h1:p7dOjjtSBqCTUksqtA5Fd3uaKs9kyTq2xcz76ulEJRU=
+github.com/digitalocean/godo v1.37.0 h1:NEj5ne2cvLBHo1GJY1DNN/iEt9ipa72CMwwAjKEA530=
+github.com/digitalocean/godo v1.37.0/go.mod h1:p7dOjjtSBqCTUksqtA5Fd3uaKs9kyTq2xcz76ulEJRU=
 github.com/dlclark/regexp2 v1.2.0 h1:8sAhBGEM0dRWogWqWyQeIJnxjWO6oIjl8FKqREDsGfk=
 github.com/dlclark/regexp2 v1.2.0/go.mod h1:2pZnwuY/m+8K6iRw6wQdMtk+rH5tNGR1i55kozfMjCc=
 github.com/dnaeon/go-vcr v0.0.0-20180920040454-5637cf3d8a31 h1:Dzuw9GtbmllUqEcoHfScT9YpKFUssSiZ5PgZkIGf/YQ=
