@@ -69,13 +69,17 @@ func (widget *Widget) Refresh() {
 func (widget *Widget) contentFrom(onCalls []pagerduty.OnCall, incidents []pagerduty.Incident) string {
 	var str string
 
-	if len(incidents) > 0 {
-		str += "[yellow]Incidents[white]\n"
-		for _, incident := range incidents {
-			str += fmt.Sprintf("[%s]%s[white]\n", widget.settings.common.Colors.Subheading, incident.Summary)
-			str += fmt.Sprintf("Status: %s\n", incident.Status)
-			str += fmt.Sprintf("Service: %s\n", incident.Service.Summary)
-			str += fmt.Sprintf("Escalation: %s\n", incident.EscalationPolicy.Summary)
+	if widget.settings.showIncidents {
+		str += "[yellow] Incidents[white]"
+		if len(incidents) > 0 {
+			for _, incident := range incidents {
+				str += fmt.Sprintf("\n [%s]%s[white]\n", widget.settings.common.Colors.Subheading, incident.Summary)
+				str += fmt.Sprintf(" Status: %s\n", incident.Status)
+				str += fmt.Sprintf(" Service: %s\n", incident.Service.Summary)
+				str += fmt.Sprintf(" Escalation: %s\n", incident.EscalationPolicy.Summary)
+			}
+		} else {
+			str += "\n No unresolved incidents\n"
 		}
 	}
 
@@ -102,7 +106,7 @@ func (widget *Widget) contentFrom(onCalls []pagerduty.OnCall, incidents []pagerd
 	sort.Strings(keys)
 
 	if len(keys) > 0 {
-		str += fmt.Sprintf("[%s] Schedules[white]\n", widget.settings.common.Colors.Subheading)
+		str += fmt.Sprintf("\n[%s] Schedules[white]\n", widget.settings.common.Colors.Subheading)
 
 		// Print out policies, and escalation order of users
 		for _, key := range keys {
