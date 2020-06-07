@@ -79,7 +79,7 @@ func (widget *Widget) contentFrom(onCalls []pagerduty.OnCall, incidents []pagerd
 				str += fmt.Sprintf(" Escalation: %s\n", incident.EscalationPolicy.Summary)
 			}
 		} else {
-			str += "\n No unresolved incidents\n"
+			str += "\n No open incidents\n"
 		}
 	}
 
