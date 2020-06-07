@@ -36,7 +36,9 @@ func (widget *Widget) Refresh() {
 	var err2 error
 
 	if widget.settings.showIncidents {
-		incidents, err2 = GetIncidents(widget.settings.apiKey)
+		teamIDs := utils.ToStrs(widget.settings.teamIDs)
+		userIDs := utils.ToStrs(widget.settings.userIDs)
+		incidents, err2 = GetIncidents(widget.settings.apiKey, teamIDs, userIDs)
 	}
 
 	if widget.settings.showSchedules {

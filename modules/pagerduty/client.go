@@ -38,8 +38,8 @@ func GetOnCalls(apiKey string, scheduleIDs []string) ([]pagerduty.OnCall, error)
 	return results, nil
 }
 
-// GetIncidents returns a list of people currently on call
-func GetIncidents(apiKey string) ([]pagerduty.Incident, error) {
+// GetIncidents returns a list of unresolved incidents
+func GetIncidents(apiKey string, teamIDs []string, userIDs []string) ([]pagerduty.Incident, error) {
 	client := pagerduty.NewClient(apiKey)
 
 	var results []pagerduty.Incident
@@ -47,6 +47,8 @@ func GetIncidents(apiKey string) ([]pagerduty.Incident, error) {
 	var queryOpts pagerduty.ListIncidentsOptions
 	queryOpts.DateRange = "all"
 	queryOpts.Statuses = []string{"triggered", "acknowledged"}
+	queryOpts.TeamIDs = teamIDs
+	queryOpts.UserIDs = userIDs
 
 	items, err := client.ListIncidents(queryOpts)
 	if err != nil {
