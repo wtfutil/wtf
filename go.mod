@@ -56,7 +56,7 @@ require (
 	github.com/spf13/cobra v0.0.5 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/spf13/viper v1.6.1 // indirect
-	github.com/stretchr/testify v1.6.0
+	github.com/stretchr/testify v1.6.1
 	github.com/wtfutil/spotigopher v0.0.0-20191127141047-7d8168fe103a
 	github.com/wtfutil/todoist v0.0.2-0.20191216004217-0ec29ceda61a
 	github.com/xanzy/go-gitlab v0.32.1
