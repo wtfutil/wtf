@@ -84,6 +84,6 @@ func (widget *Widget) buildTitle(cityData *owm.CurrentWeatherData) string {
 	if widget.settings.useEmoji {
 		return fmt.Sprintf("%s %s", widget.emojiFor(cityData), cityData.Name)
 	}
-	
-	return fmt.Sprintf("%s", cityData.Name)
+
+	return cityData.Name
 }
