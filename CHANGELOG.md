@@ -10,6 +10,13 @@
 
 * Null pointer exception fixed in VictorOps module, by [@ripienaar](https://github.com/ripienaar)
 
+### 👍 Updated
+
+* Updated `golang.org/x/text` from 0.3.2 to 0.3.3
+* Updated `google.golang.org/api` from 0.25.0 to 0.28.0
+* Updated `digitalocean/godo` from 1.37.0 to 1.38.0
+* Updated `shirou/gopsutil` from 2.20.4+incompatible to 2.20.6+incompatible
+
 ## v0.31.0
 
 ### ⚡️ Added
