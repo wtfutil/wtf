@@ -5,6 +5,7 @@
 ### ⚡️ Added
 
 * Weather module now supports a `useEmoji` setting, toggling the use of emoji characters in the title, by [@jonhadfield](https://github.com/jonhadfield)
+* Pocket documentation, added by [@3mard](https://github.com/3mard)
 
 ### 🐞 Fixed
 
