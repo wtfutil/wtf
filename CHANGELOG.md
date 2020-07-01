@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+### ⚡️ Added
+
+* Weather module now supports a `useEmoji` setting, toggling the use of emoji characters in the title, by [@jonhadfield](https://github.com/jonhadfield)
+
+### 🐞 Fixed
+
+* Null pointer exception fixed in VictorOps module, by [@ripienaar](https://github.com/ripienaar)
+
 ## v0.31.0
 
 ### ⚡️ Added
