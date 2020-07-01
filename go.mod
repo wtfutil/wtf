@@ -52,7 +52,7 @@ require (
 	github.com/pkg/profile v1.5.0
 	github.com/radovskyb/watcher v1.0.7
 	github.com/rivo/tview v0.0.0-20200108161608-1316ea7a4b35
-	github.com/shirou/gopsutil v2.20.4+incompatible
+	github.com/shirou/gopsutil v2.20.6+incompatible
 	github.com/spf13/cobra v0.0.5 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/spf13/viper v1.6.1 // indirect
