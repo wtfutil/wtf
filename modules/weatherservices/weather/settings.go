@@ -24,6 +24,7 @@ type Settings struct {
 	cityIDs  []interface{}
 	language string
 	tempUnit string
+	useEmoji bool
 }
 
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
@@ -34,6 +35,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		cityIDs:  ymlConfig.UList("cityids"),
 		language: ymlConfig.UString("language", "EN"),
 		tempUnit: ymlConfig.UString("tempUnit", "C"),
+		useEmoji: ymlConfig.UBool("useEmoji", true),
 	}
 
 	settings.colors.current = ymlConfig.UString("colors.current", "green")
