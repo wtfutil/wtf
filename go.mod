@@ -15,7 +15,7 @@ require (
 	github.com/briandowns/openweathermap v0.0.0-20180804155945-5f41b7c9d92d
 	github.com/cenkalti/backoff v2.2.1+incompatible // indirect
 	github.com/chzyer/readline v0.0.0-20180603132655-2972be24d48e
-	github.com/digitalocean/godo v1.37.0
+	github.com/digitalocean/godo v1.38.0
 	github.com/docker/distribution v2.7.1+incompatible // indirect
 	github.com/docker/docker v1.13.1
 	github.com/docker/docker-credential-helpers v0.6.3
@@ -63,9 +63,9 @@ require (
 	github.com/zmb3/spotify v0.0.0-20191010212056-e12fb981aacb
 	github.com/zorkian/go-datadog-api v2.29.0+incompatible
 	golang.org/x/oauth2 v0.0.0-20200107190931-bf48bf16ab8d
-	golang.org/x/text v0.3.2
+	golang.org/x/text v0.3.3
 	golang.org/x/tools v0.0.0-20200509030707-2212a7e161a5 // indirect
-	google.golang.org/api v0.25.0
+	google.golang.org/api v0.28.0
 	gopkg.in/check.v1 v1.0.0-20200227125254-8fa46927fb4f // indirect
 	gopkg.in/jarcoal/httpmock.v1 v1.0.0-20181110093347-3be5f16b70eb // indirect
 	gopkg.in/yaml.v2 v2.3.0
