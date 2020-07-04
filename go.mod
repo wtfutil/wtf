@@ -62,6 +62,7 @@ require (
 	github.com/xanzy/go-gitlab v0.32.1
 	github.com/zmb3/spotify v0.0.0-20191010212056-e12fb981aacb
 	github.com/zorkian/go-datadog-api v2.29.0+incompatible
+	golang.org/x/net v0.0.0-20200324143707-d3edc9973b7e
 	golang.org/x/oauth2 v0.0.0-20200107190931-bf48bf16ab8d
 	golang.org/x/text v0.3.3
 	golang.org/x/tools v0.0.0-20200509030707-2212a7e161a5 // indirect
