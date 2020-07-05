@@ -19,8 +19,6 @@ type Settings struct {
 	showIP      bool
 	useEmoji    bool
 	logging     bool
-	format      bool
-	formatStyle string
 	wrapText    bool
 }
 
