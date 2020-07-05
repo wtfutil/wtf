@@ -172,8 +172,6 @@ documentation. Here's some short-cuts:
 * [Configuration](https://wtfutil.com/configuration/)
 * [Module Documentation](https://wtfutil.com/modules/)
 
-<iframe src="https://github.com/sponsors/senorprogrammer/card" title="Sponsor senorprogrammer" height="225" width="600" style="border: 0;"></iframe>
-
 ## Modules
 
 Modules are the chunks of functionality that make WTF useful. Modules are added and configured by including their configuration values in your `config.yml` file. The documentation for each module describes how to configure them.
