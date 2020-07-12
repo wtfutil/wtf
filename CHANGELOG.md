@@ -2,25 +2,6 @@
 
 ## Unreleased
 
-## v0.32.0
-
-### ⚡️ Added
-
-* Weather module now supports a `useEmoji` setting, toggling the use of emoji characters in the title, by [@jonhadfield](https://github.com/jonhadfield)
-* Pocket documentation added, by [@3mard](https://github.com/3mard)
-
-### 🐞 Fixed
-
-* Null pointer exception fixed in VictorOps module, by [@ripienaar](https://github.com/ripienaar)
-
-### 👍 Updated
-
-* Updated `golang.org/x/text` from 0.3.2 to 0.3.3
-* Updated `google.golang.org/api` from 0.25.0 to 0.29.0
-* Updated `digitalocean/godo` from 1.37.0 to 1.38.0
-* Updated `shirou/gopsutil` from 2.20.4+incompatible to 2.20.6+incompatible
-* Updated `xanzy/go-gitlab` from 0.32.1 to 0.33.0
-
 ## v0.31.0
 
 ### ⚡️ Added
@@ -29,21 +10,27 @@
 * `make lint` now uses [golangci-lint](https://github.com/golangci/golangci-lint-action), by [@sam-github](https://github.com/sam-github)
 * GitHub module now supports per-section configuration, [#864](https://github.com/wtfutil/wtf/issues/864) by [@mryanmurphy](https://github.com/mryanmurphy)
 * PagerDuty module now accepts Team ID and User ID as filters, by [@mryanmurphy](https://github.com/mryanmurphy)
+* Weather module now supports a `useEmoji` setting, toggling the use of emoji characters in the title, by [@jonhadfield](https://github.com/jonhadfield)
+* Pocket documentation added, by [@3mard](https://github.com/3mard)
+
 
 ### 🐞 Fixed
 
 * GitLab Todo module now allows domain to be set, defaults to `https://gitlab.com`, by [@gerchardon](https://github.com/gerchardon)
 * Pi-hole module now works with Pi-hole v4 and v5, by [@jonhadfield](https://github.com/jonhadfield)
+* Null pointer exception fixed in VictorOps module, by [@ripienaar](https://github.com/ripienaar)
 
 ### 👍 Updated
 
-* Updated `google.golang.org/api` from 0.23.0 to 0.25.0
+* Updated `google.golang.org/api` from 0.25.0 to 0.29.0
 * Updated `pkg/profile` from 1.4.0 to 1.5.0
 * Updated `nicklaw5/helix` from 0.5.8 to 0.5.9
-* Updated `digitalocean/godo` from 1.35.1 to 1.37.0
+* Updated `digitalocean/godo` from 1.37.0 to 1.38.0
 * Updated `gopkg.in/yaml.v2` from 2.2.8 to 2.3.0
-* Updated `xanzy/go-gitlab` from 0.31.0 to 0.32.1
+* Updated `xanzy/go-gitlab` from 0.31.0 to 0.33.0
 * Updated `stretchr/testify` from 1.5.1 to 1.6.1
+* Updated `golang.org/x/text` from 0.3.2 to 0.3.3
+* Updated `shirou/gopsutil` from 2.20.4+incompatible to 2.20.6+incompatible
 
 ## v0.30.0
 
