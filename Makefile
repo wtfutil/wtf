@@ -26,10 +26,23 @@ THIS_FILE := $(lastword $(MAKEFILE_LIST))
 
 APP=wtfutil
 
+define HEADER
+____    __    ____ .___________. _______
+\   \  /  \  /   / |           ||   ____|
+ \   \/    \/   /  `---|  |----`|  |__
+  \            /       |  |     |   __|
+   \    /\    /        |  |     |  |
+    \__/  \__/         |__|     |__|
+
+endef
+export HEADER
+
 # -------------------- Actions -------------------- #
 
 ## build: builds a local version
 build:
+	@echo "$$HEADER"
+	@echo "Building..."
 	go build -o bin/${APP}
 	@echo "Done building"
 
@@ -56,7 +69,7 @@ docker-build:
 
 ## docker-install: installs a local version of the app from docker build
 docker-install:
-	@echo "Installing ${APP}..."
+	@echo "Installing..."
 	docker create --name wtf_build wtfutil:build
 	docker cp wtf_build:/usr/local/bin/wtfutil ~/.local/bin/
 	$(eval INSTALLPATH = $(shell which ${APP}))
@@ -78,6 +91,7 @@ isntall:
 
 ## install: installs a local version of the app
 install:
+	@echo "$$HEADER"
 	@echo "Installing ${APP}..."
 	@go clean
 	@go install -ldflags="-s -w -X main.version=$(shell git describe --always --abbrev=6) -X main.date=$(shell date +%FT%T%z)"
@@ -135,10 +149,12 @@ loc:
 
 ## run: executes the locally-installed version
 run: build
+	@echo "$$HEADER"
 	bin/${APP}
 
 ## test: runs the test suite
 test: build
+	@echo "$$HEADER"
 	go test ./...
 
 ## uninstall: uninstals a locally-installed version
