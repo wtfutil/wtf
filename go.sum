@@ -165,6 +165,8 @@ github.com/digitalocean/godo v1.37.0 h1:NEj5ne2cvLBHo1GJY1DNN/iEt9ipa72CMwwAjKEA
 github.com/digitalocean/godo v1.37.0/go.mod h1:p7dOjjtSBqCTUksqtA5Fd3uaKs9kyTq2xcz76ulEJRU=
 github.com/digitalocean/godo v1.38.0 h1:to+pLe5RJqflJiyxhaLJfJgT3YzwHRSg19mOWkKt6A0=
 github.com/digitalocean/godo v1.38.0/go.mod h1:p7dOjjtSBqCTUksqtA5Fd3uaKs9kyTq2xcz76ulEJRU=
+github.com/digitalocean/godo v1.40.0 h1:bbZOnzFyZX6ylSHjWHGOm5HjLl5zfZpJBRe9jWD0sb0=
+github.com/digitalocean/godo v1.40.0/go.mod h1:p7dOjjtSBqCTUksqtA5Fd3uaKs9kyTq2xcz76ulEJRU=
 github.com/dlclark/regexp2 v1.2.0 h1:8sAhBGEM0dRWogWqWyQeIJnxjWO6oIjl8FKqREDsGfk=
 github.com/dlclark/regexp2 v1.2.0/go.mod h1:2pZnwuY/m+8K6iRw6wQdMtk+rH5tNGR1i55kozfMjCc=
 github.com/dnaeon/go-vcr v0.0.0-20180920040454-5637cf3d8a31 h1:Dzuw9GtbmllUqEcoHfScT9YpKFUssSiZ5PgZkIGf/YQ=
