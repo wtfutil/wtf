@@ -91,8 +91,9 @@ isntall:
 
 ## install: installs a local version of the app
 install:
+	$(eval GOVERS = $(shell go version))
 	@echo "$$HEADER"
-	@echo "Installing ${APP}..."
+	@echo "Installing ${APP} with ${GOVERS}..."
 	@go clean
 	@go install -ldflags="-s -w -X main.version=$(shell git describe --always --abbrev=6) -X main.date=$(shell date +%FT%T%z)"
 	@mv ~/go/bin/wtf ~/go/bin/${APP}
