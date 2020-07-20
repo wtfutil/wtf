@@ -87,6 +87,10 @@ func (wtfApp *WtfApp) stopAllWidgets() {
 func (wtfApp *WtfApp) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	// These keys are global keys used by the app. Widgets should not implement these keys
 	switch event.Key() {
+	case tcell.KeyCtrlC:
+		wtfApp.Stop()
+		wtfApp.app.Stop()
+		wtfApp.DisplayExitMessage()
 	case tcell.KeyCtrlR:
 		wtfApp.refreshAllWidgets()
 		return nil
@@ -142,8 +146,8 @@ func (wtfApp *WtfApp) watchForConfigChanges() {
 
 				config := cfg.LoadWtfConfigFile(wtfApp.configFilePath)
 				newApp := NewWtfApp(wtfApp.app, config, wtfApp.configFilePath)
-				openUrlUtil := utils.ToStrs(config.UList("wtf.openUrlUtil", []interface{}{}))
-				utils.Init(config.UString("wtf.openFileUtil", "open"), openUrlUtil)
+				openURLUtil := utils.ToStrs(config.UList("wtf.openUrlUtil", []interface{}{}))
+				utils.Init(config.UString("wtf.openFileUtil", "open"), openURLUtil)
 
 				newApp.Start()
 			case err := <-watch.Error:

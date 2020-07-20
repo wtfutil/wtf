@@ -30,7 +30,7 @@ require (
 	github.com/gdamore/tcell v1.4.0
 	github.com/go-ole/go-ole v1.2.4 // indirect
 	github.com/godbus/dbus v4.1.0+incompatible // indirect
-	github.com/google/go-github/v26 v26.1.3
+	github.com/google/go-github/v32 v32.1.0
 	github.com/gophercloud/gophercloud v0.5.0 // indirect
 	github.com/hekmon/cunits v2.0.1+incompatible // indirect
 	github.com/hekmon/transmissionrpc v0.0.0-20190525133028-1d589625bacd
@@ -54,6 +54,8 @@ require (
 	github.com/radovskyb/watcher v1.0.7
 	github.com/rivo/tview v0.0.0-20200108161608-1316ea7a4b35
 	github.com/shirou/gopsutil v2.20.9+incompatible
+	github.com/shurcooL/githubv4 v0.0.0-20200802174311-f27d2ca7f6d5
+	github.com/shurcooL/graphql v0.0.0-20181231061246-d48a9a75455f // indirect
 	github.com/spf13/cobra v0.0.5 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/spf13/viper v1.6.1 // indirect
@@ -65,6 +67,7 @@ require (
 	github.com/zmb3/spotify v0.0.0-20191010212056-e12fb981aacb
 	github.com/zorkian/go-datadog-api v2.29.0+incompatible
 	golang.org/x/oauth2 v0.0.0-20200107190931-bf48bf16ab8d
+	golang.org/x/sync v0.0.0-20200625203802-6e8e738ad208
 	golang.org/x/text v0.3.3
 	google.golang.org/api v0.30.0
 	gopkg.in/check.v1 v1.0.0-20200227125254-8fa46927fb4f // indirect

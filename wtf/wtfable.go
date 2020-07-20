@@ -17,8 +17,8 @@ type Wtfable interface {
 	FocusChar() string
 	Focusable() bool
 	HelpText() string
-	QuitChan() chan bool
 	Name() string
+	QuitChan() chan bool
 	SetFocusChar(string)
 	TextView() *tview.TextView
 

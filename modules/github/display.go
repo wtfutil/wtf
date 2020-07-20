@@ -3,7 +3,7 @@ package github
 import (
 	"fmt"
 
-	"github.com/google/go-github/v26/github"
+	ghb "github.com/google/go-github/v32/github"
 	"golang.org/x/text/language"
 	"golang.org/x/text/message"
 )
@@ -152,7 +152,7 @@ var mergeIcons = map[string]string{
 	"blocked":  "[red]\u2717[white] ",
 }
 
-func (widget *Widget) mergeString(pr *github.PullRequest) string {
+func (widget *Widget) mergeString(pr *ghb.PullRequest) string {
 	if !widget.settings.enableStatus {
 		return ""
 	}
