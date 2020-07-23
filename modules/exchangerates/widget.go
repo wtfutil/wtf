@@ -1,11 +1,12 @@
-// Package exchangerates
 package exchangerates
 
 import (
 	"fmt"
+	"regexp"
 
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/view"
+	"github.com/wtfutil/wtf/wtf"
 )
 
 type Widget struct {
@@ -50,22 +51,36 @@ func (widget *Widget) Render() {
 /* -------------------- Unexported Functions -------------------- */
 
 func (widget *Widget) content() (string, string, bool) {
-	out := ""
-
 	if widget.err != nil {
-		out = widget.err.Error()
-	} else {
-		for base, rates := range widget.settings.rates {
-			prefix := fmt.Sprintf("[%s]1 %s[white] = ", widget.settings.common.Colors.Subheading, base)
+		return widget.CommonSettings().Title, widget.err.Error(), false
+	}
 
-			for idx, cur := range rates {
-				rate := widget.rates[base][cur]
+	out := ""
+	idx := 0
+	for base, rates := range widget.settings.rates {
+		for _, cur := range rates {
+			rate := widget.rates[base][cur]
 
-				out += prefix
-				out += fmt.Sprintf("[%s]%f %s[white]\n", widget.CommonSettings().RowColor(idx), rate, cur)
-			}
+			out += fmt.Sprintf(
+				"[%s]1 %s = %s %s[white]\n",
+				widget.CommonSettings().RowColor(idx),
+				base,
+				widget.formatConversionRate(rate),
+				cur,
+			)
+
+			idx++
 		}
 	}
 
 	return widget.CommonSettings().Title, out, false
+}
+
+// formatConversionRate takes the raw conversion float and formats it to the precision the
+// user specifies in their config (or to the default value)
+func (widget *Widget) formatConversionRate(rate float64) string {
+	rate = wtf.TruncateFloat64(rate, widget.settings.precision)
+
+	r, _ := regexp.Compile(`\.?0*$`)
+	return r.ReplaceAllString(fmt.Sprintf("%10.7f", rate), "")
 }
