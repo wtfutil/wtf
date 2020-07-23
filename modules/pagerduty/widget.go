@@ -154,7 +154,11 @@ func (widget *Widget) contentFrom(onCalls []pagerduty.OnCall, incidents []pagerd
 
 // onCallEndSummary may or may not return the date that the specified onCall schedule ends
 func (widget *Widget) onCallEndSummary(onCall pagerduty.OnCall) string {
-	if !widget.settings.showOnCallEnd || onCall.End == "" {
+	if !widget.settings.showOnCallEnd {
+		return ""
+	}
+
+	if onCall.End == "" {
 		return ""
 	}
 
@@ -166,7 +170,7 @@ func (widget *Widget) onCallEndSummary(onCall pagerduty.OnCall) string {
 	return end.Format(onCallTimeDisplayLayout)
 }
 
-// userSummary returns the name of the person assigned to the specified onCall scehdule
+// userSummary returns the name of the person assigned to the specified onCall schedule
 func (widget *Widget) userSummary(onCall pagerduty.OnCall) string {
 	summary := onCall.User.Summary
 
