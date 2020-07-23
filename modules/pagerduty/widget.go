@@ -3,11 +3,17 @@ package pagerduty
 import (
 	"fmt"
 	"sort"
+	"time"
 
 	"github.com/PagerDuty/go-pagerduty"
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/view"
+)
+
+const (
+	onCallTimeAPILayout     = "2006-01-02T15:04:05Z"
+	onCallTimeDisplayLayout = "Jan 2, 2006"
 )
 
 type Widget struct {
@@ -16,6 +22,7 @@ type Widget struct {
 	settings *Settings
 }
 
+// NewWidget creates and returns an instance of PagerDuty widget
 func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
 		TextWidget: view.NewTextWidget(app, settings.common),
@@ -69,11 +76,13 @@ func (widget *Widget) Refresh() {
 func (widget *Widget) contentFrom(onCalls []pagerduty.OnCall, incidents []pagerduty.Incident) string {
 	var str string
 
+	// Incidents
+
 	if widget.settings.showIncidents {
 		str += "[yellow] Incidents[white]"
 		if len(incidents) > 0 {
 			for _, incident := range incidents {
-				str += fmt.Sprintf("\n [%s]%s[white]\n", widget.settings.common.Colors.Subheading, incident.Summary)
+				str += fmt.Sprintf("\n[%s]%s[white]\n", widget.settings.common.Colors.Subheading, incident.Summary)
 				str += fmt.Sprintf(" Status: %s\n", incident.Status)
 				str += fmt.Sprintf(" Service: %s\n", incident.Service.Summary)
 				str += fmt.Sprintf(" Escalation: %s\n", incident.EscalationPolicy.Summary)
@@ -83,23 +92,25 @@ func (widget *Widget) contentFrom(onCalls []pagerduty.OnCall, incidents []pagerd
 		}
 	}
 
-	tree := make(map[string][]pagerduty.OnCall)
+	onCallTree := make(map[string][]pagerduty.OnCall)
 
 	filter := make(map[string]bool)
 	for _, item := range widget.settings.escalationFilter {
 		filter[item.(string)] = true
 	}
 
+	// OnCalls
+
 	for _, onCall := range onCalls {
-		key := onCall.EscalationPolicy.Summary
-		if len(widget.settings.escalationFilter) == 0 || filter[key] {
-			tree[key] = append(tree[key], onCall)
+		summary := onCall.EscalationPolicy.Summary
+		if len(widget.settings.escalationFilter) == 0 || filter[summary] {
+			onCallTree[summary] = append(onCallTree[summary], onCall)
 		}
 	}
 
 	// We want to sort our escalation policies for predictability/ease of finding
-	keys := make([]string, 0, len(tree))
-	for k := range tree {
+	keys := make([]string, 0, len(onCallTree))
+	for k := range onCallTree {
 		keys = append(keys, k)
 	}
 
@@ -116,16 +127,24 @@ func (widget *Widget) contentFrom(onCalls []pagerduty.OnCall, incidents []pagerd
 				key,
 			)
 
-			values := tree[key]
+			values := onCallTree[key]
 			sort.Sort(ByEscalationLevel(values))
 
-			for _, item := range values {
+			for _, onCall := range values {
 				str += fmt.Sprintf(
 					" [%s]%d - %s\n",
 					widget.settings.common.Colors.Text,
-					item.EscalationLevel,
-					widget.userSummary(item),
+					onCall.EscalationLevel,
+					widget.userSummary(onCall),
 				)
+
+				onCallEnd := widget.onCallEndSummary(onCall)
+				if onCallEnd != "" {
+					str += fmt.Sprintf(
+						"     %s\n",
+						onCallEnd,
+					)
+				}
 			}
 		}
 	}
@@ -133,8 +152,23 @@ func (widget *Widget) contentFrom(onCalls []pagerduty.OnCall, incidents []pagerd
 	return str
 }
 
-func (widget *Widget) userSummary(item pagerduty.OnCall) string {
-	summary := item.User.Summary
+// onCallEndSummary may or may not return the date that the specified onCall schedule ends
+func (widget *Widget) onCallEndSummary(onCall pagerduty.OnCall) string {
+	if !widget.settings.showOnCallEnd || onCall.End == "" {
+		return ""
+	}
+
+	end, err := time.Parse(onCallTimeAPILayout, onCall.End)
+	if err != nil {
+		return ""
+	}
+
+	return end.Format(onCallTimeDisplayLayout)
+}
+
+// userSummary returns the name of the person assigned to the specified onCall scehdule
+func (widget *Widget) userSummary(onCall pagerduty.OnCall) string {
+	summary := onCall.User.Summary
 
 	if summary == widget.settings.myName {
 		summary = fmt.Sprintf("[::b]%s", summary)
