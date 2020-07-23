@@ -79,17 +79,21 @@ func (widget *Widget) contentFrom(onCalls []pagerduty.OnCall, incidents []pagerd
 	// Incidents
 
 	if widget.settings.showIncidents {
-		str += "[yellow] Incidents[white]"
+		str += fmt.Sprintf("[%s] Incidents[white]\n", widget.settings.common.Colors.Subheading)
+
 		if len(incidents) > 0 {
 			for _, incident := range incidents {
-				str += fmt.Sprintf("\n[%s]%s[white]\n", widget.settings.common.Colors.Subheading, incident.Summary)
-				str += fmt.Sprintf(" Status: %s\n", incident.Status)
-				str += fmt.Sprintf(" Service: %s\n", incident.Service.Summary)
+				str += fmt.Sprintf("\n [%s]%s[white]\n", widget.settings.common.Colors.Label, tview.Escape(incident.Summary))
+				str += fmt.Sprintf("     Status: %s\n", incident.Status)
+				str += fmt.Sprintf("    Service: %s\n", incident.Service.Summary)
 				str += fmt.Sprintf(" Escalation: %s\n", incident.EscalationPolicy.Summary)
+				str += fmt.Sprintf("       Link: %s\n", incident.HTMLURL)
 			}
 		} else {
 			str += "\n No open incidents\n"
 		}
+
+		str += "\n"
 	}
 
 	onCallTree := make(map[string][]pagerduty.OnCall)
@@ -117,13 +121,13 @@ func (widget *Widget) contentFrom(onCalls []pagerduty.OnCall, incidents []pagerd
 	sort.Strings(keys)
 
 	if len(keys) > 0 {
-		str += fmt.Sprintf("\n[%s] Schedules[white]\n", widget.settings.common.Colors.Subheading)
+		str += fmt.Sprintf("[%s] Schedules[white]\n", widget.settings.common.Colors.Subheading)
 
 		// Print out policies, and escalation order of users
 		for _, key := range keys {
 			str += fmt.Sprintf(
 				"\n [%s]%s\n",
-				widget.settings.common.Colors.Subheading,
+				widget.settings.common.Colors.Label,
 				key,
 			)
 
