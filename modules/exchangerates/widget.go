@@ -52,6 +52,7 @@ func (widget *Widget) Render() {
 
 func (widget *Widget) content() (string, string, bool) {
 	if widget.err != nil {
+		widget.View.SetWrap(true)
 		return widget.CommonSettings().Title, widget.err.Error(), false
 	}
 
@@ -73,6 +74,7 @@ func (widget *Widget) content() (string, string, bool) {
 		}
 	}
 
+	widget.View.SetWrap(false)
 	return widget.CommonSettings().Title, out, false
 }
 
