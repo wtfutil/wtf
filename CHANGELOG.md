@@ -5,6 +5,7 @@
 ### ⚡️ Added
 
 * PagerDuty module now supports `showOncallEnd` setting, which determines whether or not to display the oncall rotation end date, by [@senorprogrammer](https://github.com/senorprogrammer)
+* Exchange Rates module now supports `precision` setting, which determines how many decimal places to display, [#897](https://github.com/wtfutil/wtf/issues/897) by [@senorprogrammer](https://github.com/senorprogrammer)
 
 ### 🐞 Fixed
 
