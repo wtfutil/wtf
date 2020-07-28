@@ -15,6 +15,8 @@ const (
 type Settings struct {
 	common *cfg.Common
 
+	precision int `help:"How many decimal places to display." optional:"true"`
+
 	rates map[string][]string `help:"Defines what currency rates we want to know about"`
 	order []string
 }
@@ -23,6 +25,8 @@ type Settings struct {
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 	settings := Settings{
 		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
+
+		precision: ymlConfig.UInt("precision", 7),
 
 		rates: map[string][]string{},
 		order: []string{},
