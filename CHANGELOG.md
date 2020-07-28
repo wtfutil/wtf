@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+### 🐞 Fixed
+
+* Todo module's edit modal now shows up quickly, [#876](https://github.com/wtfutil/wtf/issues/876) by [@aeter](https://github.com/aeter)
+
+### 👍 Updated
+
+* alecthomas/chroma from 0.7.3 to 0.8.0
+* digitalocean/godo from 1.38.0 to 1.42.0
+
 ## v0.31.0
 
 ### ⚡️ Added
