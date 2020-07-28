@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### ⚡️ Added
+
+* PagerDuty module now supports `showOncallEnd` setting, which determines whether or not to display the oncall rotation end date, by [@senorprogrammer](https://github.com/senorprogrammer)
+
 ### 🐞 Fixed
 
 * Todo module's edit modal now shows up quickly, [#876](https://github.com/wtfutil/wtf/issues/876) by [@aeter](https://github.com/aeter)
