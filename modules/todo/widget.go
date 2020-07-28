@@ -181,6 +181,10 @@ func (widget *Widget) updateSelected() {
 
 	widget.addButtons(form, saveFctn)
 	widget.modalFocus(form)
+
+	widget.app.QueueUpdate(func() {
+		widget.app.Draw()
+	})
 }
 
 // updateSelectedItem update the text of the selected item.
