@@ -6,6 +6,10 @@ import (
 	"github.com/PagerDuty/go-pagerduty"
 )
 
+const (
+	queryTimeFmt = "2006-01-02T15:04:05Z07:00"
+)
+
 // GetOnCalls returns a list of people currently on call
 func GetOnCalls(apiKey string, scheduleIDs []string) ([]pagerduty.OnCall, error) {
 	client := pagerduty.NewClient(apiKey)
@@ -14,10 +18,8 @@ func GetOnCalls(apiKey string, scheduleIDs []string) ([]pagerduty.OnCall, error)
 	var queryOpts pagerduty.ListOnCallOptions
 
 	queryOpts.ScheduleIDs = scheduleIDs
-
-	timeFmt := "2006-01-02T15:04:05Z07:00"
-	queryOpts.Since = time.Now().Format(timeFmt)
-	queryOpts.Until = time.Now().Format(timeFmt)
+	queryOpts.Since = time.Now().Format(queryTimeFmt)
+	queryOpts.Until = time.Now().Format(queryTimeFmt)
 
 	oncalls, err := client.ListOnCalls(queryOpts)
 	if err != nil {

@@ -102,6 +102,7 @@ install:
 
 ## lint: runs a number of code quality checks against the source code
 lint:
+	golangci-lint cache clean
 	golangci-lint run
 
 # lint:
