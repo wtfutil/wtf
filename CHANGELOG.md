@@ -10,6 +10,7 @@
 ### 🐞 Fixed
 
 * Todo module's edit modal now shows up quickly, [#876](https://github.com/wtfutil/wtf/issues/876) by [@aeter](https://github.com/aeter)
+* Jira module title now displays properly, [#942](https://github.com/wtfutil/wtf/issues/942) by [@timhwang21](https://github.com/timhwang21)
 
 ### 👍 Updated
 
