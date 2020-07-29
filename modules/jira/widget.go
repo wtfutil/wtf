@@ -77,7 +77,7 @@ func (widget *Widget) content() (string, string, bool) {
 		return widget.CommonSettings().Title, widget.err.Error(), true
 	}
 
-	title := fmt.Sprintf("%s- [green]%s[white]", widget.CommonSettings().Title, widget.settings.projects)
+	title := widget.CommonSettings().Title
 
 	str := fmt.Sprintf(" [%s]Assigned Issues[white]\n", widget.settings.common.Colors.Subheading)
 
