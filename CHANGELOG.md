@@ -14,8 +14,8 @@
 
 ### 👍 Updated
 
-* alecthomas/chroma from 0.7.3 to 0.8.0
-* digitalocean/godo from 1.38.0 to 1.42.0
+* Updated `alecthomas/chroma` from 0.7.3 to 0.8.0
+* Updated `digitalocean/godo` from 1.38.0 to 1.42.0
 
 ## v0.31.0
 
