@@ -706,6 +706,8 @@ github.com/wtfutil/todoist v0.0.2-0.20191216004217-0ec29ceda61a/go.mod h1:YuuGLJ
 github.com/xanzy/go-gitlab v0.15.0/go.mod h1:8zdQa/ri1dfn8eS3Ir1SyfvOKlw7WBJ8DVThkpGiXrs=
 github.com/xanzy/go-gitlab v0.33.0 h1:MUJZknbLhVXSFzBA5eqGGhQ2yHSu8tPbGBPeB3sN4B0=
 github.com/xanzy/go-gitlab v0.33.0/go.mod h1:sPLojNBn68fMUWSxIJtdVVIP8uSBYqesTfDUseX11Ug=
+github.com/xanzy/go-gitlab v0.34.2 h1:CU6QAuv+rW7jHri4ebEYgRrpkvuMWkN1syDkZxCoqz0=
+github.com/xanzy/go-gitlab v0.34.2/go.mod h1:sPLojNBn68fMUWSxIJtdVVIP8uSBYqesTfDUseX11Ug=
 github.com/xi2/xz v0.0.0-20171230120015-48954b6210f8/go.mod h1:HUYIGzjTL3rfEspMxjDjgmT5uz5wzYJKVo23qUhYTos=
 github.com/xiang90/probing v0.0.0-20190116061207-43a291ad63a2 h1:eY9dn8+vbi4tKz5Qo6v2eYzo7kUS51QINcR5jNpbZS8=
 github.com/xiang90/probing v0.0.0-20190116061207-43a291ad63a2/go.mod h1:UETIi67q53MR2AWcXfiuqkDkRtnGDLqkBTpCHuJHxtU=
