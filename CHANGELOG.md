@@ -15,7 +15,9 @@
 ### 👍 Updated
 
 * Updated `alecthomas/chroma` from 0.7.3 to 0.8.0
-* Updated `digitalocean/godo` from 1.38.0 to 1.42.0
+* Updated `digitalocean/godo` from 1.38.0 to 1.42.1
+* Updated `google.golang.org/api` from 0.29.0 to 0.30.0
+* Updated `shirou/gopsutil` from 2.20.6+incompatible to 2.20.7+incompatible
 
 ## v0.31.0
 
