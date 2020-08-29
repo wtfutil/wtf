@@ -65,7 +65,6 @@ require (
 	golang.org/x/oauth2 v0.0.0-20200107190931-bf48bf16ab8d
 	golang.org/x/text v0.3.3
 	google.golang.org/api v0.30.0
-	google.golang.org/grpc/examples v0.0.0-20200828165940-d8ef479ab79a // indirect
 	gopkg.in/check.v1 v1.0.0-20200227125254-8fa46927fb4f // indirect
 	gopkg.in/jarcoal/httpmock.v1 v1.0.0-20181110093347-3be5f16b70eb // indirect
 	gopkg.in/yaml.v2 v2.3.0
@@ -73,3 +72,13 @@ require (
 	k8s.io/apimachinery v0.0.0-20190223094358-dcb391cde5ca
 	k8s.io/client-go v10.0.0+incompatible
 )
+
+// These hacks are in place to work around this bug in coreos/etcd/proxy/grpcproxy > v1.30.0 that fails
+// with this error:
+//
+//    google.golang.org/grpc/naming: module google.golang.org/grpc@latest found (v1.31.1), but does not contain package google.golang.org/grpc/naming
+//
+// See here for more details: https://github.com/etcd-io/etcd/issues/12124
+replace google.golang.org/grpc v1.30.0 => google.golang.org/grpc v1.29.1
+
+replace google.golang.org/grpc v1.31.0 => google.golang.org/grpc v1.29.1
