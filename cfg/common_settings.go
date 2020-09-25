@@ -124,12 +124,18 @@ func (common *Common) DefaultRowColor() string {
 	)
 }
 
+// FocusChar returns the keyboard number assigned to the widget used to give onscreen
+// focus to this widget, as a string. Focus characters can be a range between 1 and 9
 func (common *Common) FocusChar() string {
-	if common.focusChar <= -1 {
+	if common.focusChar <= 0 {
 		return ""
 	}
 
-	return string('0' + common.focusChar)
+	if common.focusChar > 9 {
+		return ""
+	}
+
+	return fmt.Sprint(common.focusChar)
 }
 
 func (common *Common) RowColor(idx int) string {
