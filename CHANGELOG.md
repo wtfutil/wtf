@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+### 👍 Updated
+
+* Updated `github.com/gdamore/tcell` from 1.3.0 to 1.4.0
+* Updated `github.com/shirou/gopsutil` from 2.20.7+incompatible to 2.20.8+incompatible
+* Updated `github.com/mmcdole/gofeed` from 1.0.0 to 1.1.0
+* Updated `github.com/digitalocean/godo` from 1.42.1 to 1.44.0
+
+## v0.32.0
+
 ### ⚡️ Added
 
 * PagerDuty module now supports `showOncallEnd` setting, which determines whether or not to display the oncall rotation end date, by [@senorprogrammer](https://github.com/senorprogrammer)
