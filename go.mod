@@ -39,7 +39,7 @@ require (
 	github.com/lib/pq v1.2.0 // indirect
 	github.com/logrusorgru/aurora v0.0.0-20190803045625-94edacc10f9b
 	github.com/microsoft/azure-devops-go-api/azuredevops v0.0.0-20191014190507-26902c1d4325
-	github.com/mmcdole/gofeed v1.0.0
+	github.com/mmcdole/gofeed v1.1.0
 	github.com/nicklaw5/helix v0.5.9
 	github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e // indirect
 	github.com/olebedev/config v0.0.0-20190528211619-364964f3a8e4
