@@ -1,6 +1,7 @@
 package app
 
 import (
+	"fmt"
 	"sort"
 
 	"github.com/olebedev/config"
@@ -115,6 +116,7 @@ func (tracker *FocusTracker) Refocus() {
 
 // AssignHotKeys assigns an alphabetic keyboard character to each focusable
 // widget so that the widget can be brought into focus by pressing that keyboard key
+// Valid numbers are between 1 and 9, inclusive
 func (tracker *FocusTracker) assignHotKeys() {
 	if !tracker.useNavShortcuts() {
 		return
@@ -122,30 +124,37 @@ func (tracker *FocusTracker) assignHotKeys() {
 
 	usedKeys := make(map[string]bool)
 	focusables := tracker.focusables()
-	i := 1
 
+	// First, block out the explicitly-defined characters so they can't be automatically
+	// assigned to other modules
 	for _, focusable := range focusables {
 		if focusable.FocusChar() != "" {
 			usedKeys[focusable.FocusChar()] = true
 		}
 	}
+
+	focusNum := 1
+
+	// Range over all the modules and assign focus characters to any that are focusable
+	// and don't have explicitly-defined focus characters
 	for _, focusable := range focusables {
 		if focusable.FocusChar() != "" {
 			continue
 		}
-		if _, foundKey := usedKeys[string('0'+i)]; foundKey {
-			for ; foundKey; _, foundKey = usedKeys[string('0'+i)] {
-				i++
+
+		if _, foundKey := usedKeys[fmt.Sprint(focusNum)]; foundKey {
+			for ; foundKey; _, foundKey = usedKeys[fmt.Sprint(focusNum)] {
+				focusNum++
 			}
 		}
 
-		// Don't have nav characters > "9"
-		if i >= 10 {
+		// Don't allow focus characters > "9"
+		if focusNum >= 10 {
 			break
 		}
 
-		focusable.SetFocusChar(string('0' + i))
-		i++
+		focusable.SetFocusChar(fmt.Sprint(focusNum))
+		focusNum++
 	}
 }
 

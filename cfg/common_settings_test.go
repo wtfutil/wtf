@@ -47,29 +47,36 @@ func Test_DefaultRowColor(t *testing.T) {
 func Test_FocusChar(t *testing.T) {
 	tests := []struct {
 		name         string
-		expectedChar string
 		before       func(testCfg *Common)
+		expectedChar string
 	}{
 		{
-			name:         "with no focus char specified",
-			expectedChar: "",
+			name: "with negative focus char",
 			before: func(testCfg *Common) {
 				testCfg.focusChar = -1
 			},
+			expectedChar: "",
 		},
 		{
-			name:         "with explicit focus char specified",
-			expectedChar: "3",
+			name: "with positive focus char",
 			before: func(testCfg *Common) {
 				testCfg.focusChar = 3
 			},
+			expectedChar: "3",
 		},
 		{
-			name:         "with ridiculous focus char specified",
-			expectedChar: "Q",
+			name: "with zero focus char",
 			before: func(testCfg *Common) {
-				testCfg.focusChar = 33
+				testCfg.focusChar = 0
 			},
+			expectedChar: "",
+		},
+		{
+			name: "with large focus char",
+			before: func(testCfg *Common) {
+				testCfg.focusChar = 10
+			},
+			expectedChar: "",
 		},
 	}
 

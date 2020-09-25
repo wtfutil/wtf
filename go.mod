@@ -9,13 +9,13 @@ require (
 	github.com/PagerDuty/go-pagerduty v0.0.0-20191002190746-f60f4fc45222
 	github.com/StackExchange/wmi v0.0.0-20190523213315-cbe66965904d // indirect
 	github.com/VictorAvelar/devto-api-go v1.0.0
-	github.com/adlio/trello v1.7.0
 	github.com/alecthomas/chroma v0.8.1
+	github.com/adlio/trello v1.8.0
 	github.com/andygrunwald/go-gerrit v0.0.0-20190825170856-5959a9bf9ff8
 	github.com/briandowns/openweathermap v0.0.0-20180804155945-5f41b7c9d92d
 	github.com/cenkalti/backoff v2.2.1+incompatible // indirect
 	github.com/chzyer/readline v0.0.0-20180603132655-2972be24d48e
-	github.com/digitalocean/godo v1.42.1
+	github.com/digitalocean/godo v1.44.0
 	github.com/docker/distribution v2.7.1+incompatible // indirect
 	github.com/docker/docker v1.13.1
 	github.com/docker/docker-credential-helpers v0.6.3
@@ -26,7 +26,7 @@ require (
 	github.com/facebookgo/freeport v0.0.0-20150612182905-d4adf43b75b9 // indirect
 	github.com/facebookgo/stack v0.0.0-20160209184415-751773369052 // indirect
 	github.com/facebookgo/subset v0.0.0-20200203212716-c811ad88dec4 // indirect
-	github.com/gdamore/tcell v1.3.0
+	github.com/gdamore/tcell v1.4.0
 	github.com/go-ole/go-ole v1.2.4 // indirect
 	github.com/godbus/dbus v4.1.0+incompatible // indirect
 	github.com/google/go-github/v26 v26.1.3
@@ -39,7 +39,7 @@ require (
 	github.com/lib/pq v1.2.0 // indirect
 	github.com/logrusorgru/aurora v0.0.0-20190803045625-94edacc10f9b
 	github.com/microsoft/azure-devops-go-api/azuredevops v0.0.0-20191014190507-26902c1d4325
-	github.com/mmcdole/gofeed v1.0.0
+	github.com/mmcdole/gofeed v1.1.0
 	github.com/nicklaw5/helix v0.5.9
 	github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e // indirect
 	github.com/olebedev/config v0.0.0-20190528211619-364964f3a8e4
@@ -52,14 +52,14 @@ require (
 	github.com/pkg/profile v1.5.0
 	github.com/radovskyb/watcher v1.0.7
 	github.com/rivo/tview v0.0.0-20200108161608-1316ea7a4b35
-	github.com/shirou/gopsutil v2.20.7+incompatible
+	github.com/shirou/gopsutil v2.20.8+incompatible
 	github.com/spf13/cobra v0.0.5 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/spf13/viper v1.6.1 // indirect
 	github.com/stretchr/testify v1.6.1
 	github.com/wtfutil/spotigopher v0.0.0-20191127141047-7d8168fe103a
 	github.com/wtfutil/todoist v0.0.2-0.20191216004217-0ec29ceda61a
-	github.com/xanzy/go-gitlab v0.33.0
+	github.com/xanzy/go-gitlab v0.38.1
 	github.com/zmb3/spotify v0.0.0-20191010212056-e12fb981aacb
 	github.com/zorkian/go-datadog-api v2.29.0+incompatible
 	golang.org/x/oauth2 v0.0.0-20200107190931-bf48bf16ab8d
