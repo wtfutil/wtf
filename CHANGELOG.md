@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### 🐞 Fixed
+
+* Exchange Rates module now displays rates in alphabetical order, sorted by the base rate, by [@senorprogrammer](https://github.com/senorprogrammer) 
+
 ### 👍 Updated
 
 * Updated `github.com/gdamore/tcell` from 1.3.0 to 1.4.0
