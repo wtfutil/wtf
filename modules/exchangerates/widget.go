@@ -3,6 +3,7 @@ package exchangerates
 import (
 	"fmt"
 	"regexp"
+	"sort"
 
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/view"
@@ -56,15 +57,26 @@ func (widget *Widget) content() (string, string, bool) {
 		return widget.CommonSettings().Title, widget.err.Error(), false
 	}
 
+	// Sort the bases alphabetically to ensure consistent display ordering
+	bases := []string{}
+	for base := range widget.settings.rates {
+		bases = append(bases, base)
+	}
+	sort.Strings(bases)
+
 	out := ""
-	idx := 0
-	for base, rates := range widget.settings.rates {
+
+	for idx, base := range bases {
+		rates := widget.settings.rates[base]
+
+		rowColor := widget.CommonSettings().RowColor(idx)
+
 		for _, cur := range rates {
 			rate := widget.rates[base][cur]
 
 			out += fmt.Sprintf(
 				"[%s]1 %s = %s %s[white]\n",
-				widget.CommonSettings().RowColor(idx),
+				rowColor,
 				base,
 				widget.formatConversionRate(rate),
 				cur,
