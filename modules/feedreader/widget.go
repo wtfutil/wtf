@@ -3,11 +3,21 @@ package feedreader
 import (
 	"fmt"
 	"sort"
+	"strings"
 
+	"jaytaylor.com/html2text"
 	"github.com/mmcdole/gofeed"
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/view"
+)
+
+type ShowType int
+
+const (
+	SHOW_TITLE ShowType = iota
+	SHOW_LINK
+	SHOW_CONTENT
 )
 
 // FeedItem represents an item returned from an RSS or Atom feed
@@ -25,6 +35,32 @@ type Widget struct {
 	parser   *gofeed.Parser
 	settings *Settings
 	err      error
+	showType ShowType
+}
+
+func rotateShowType(showtype ShowType) ShowType {
+	returnValue := SHOW_TITLE
+	switch showtype {
+	case SHOW_TITLE:
+		returnValue = SHOW_LINK
+	case SHOW_LINK:
+		returnValue = SHOW_CONTENT
+	case SHOW_CONTENT:
+		returnValue = SHOW_TITLE
+	}
+	return returnValue
+}
+
+func getShowText(feedItem *FeedItem, showType ShowType) string {
+	returnValue := feedItem.item.Title
+	switch showType {
+	case SHOW_LINK:
+		returnValue = feedItem.item.Link
+	case SHOW_CONTENT:
+		text, _ := html2text.FromString(feedItem.item.Content, html2text.Options{PrettyTables: true})
+		returnValue = feedItem.item.Title + "\n" + strings.TrimSpace(text)
+	}
+	return returnValue
 }
 
 // NewWidget creates a new instance of a widget
@@ -35,6 +71,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 
 		parser:   gofeed.NewParser(),
 		settings: settings,
+		showType: SHOW_TITLE,
 	}
 
 	widget.SetRenderFunction(widget.Render)
@@ -137,11 +174,13 @@ func (widget *Widget) content() (string, string, bool) {
 			}
 		}
 
+		displayText := getShowText(feedItem, widget.showType)
+
 		row := fmt.Sprintf(
 			"[%s]%2d. %s[white]",
 			rowColor,
 			idx+1,
-			feedItem.item.Title,
+			displayText,
 		)
 
 		str += utils.HighlightableHelper(widget.View, row, idx, len(feedItem.item.Title))
@@ -168,4 +207,9 @@ func (widget *Widget) openStory() {
 
 		utils.OpenFile(story.item.Link)
 	}
+}
+
+func (widget *Widget) toggleDisplayText() {
+	widget.showType = rotateShowType(widget.showType)
+	widget.Render()
 }
