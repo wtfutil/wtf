@@ -5,11 +5,11 @@ import (
 	"sort"
 	"strings"
 
-	"jaytaylor.com/html2text"
 	"github.com/mmcdole/gofeed"
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/view"
+	"jaytaylor.com/html2text"
 )
 
 type ShowType int
