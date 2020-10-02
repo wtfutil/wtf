@@ -58,7 +58,7 @@ func getShowText(feedItem *FeedItem, showType ShowType) string {
 		returnValue = feedItem.item.Link
 	case SHOW_CONTENT:
 		text, _ := html2text.FromString(feedItem.item.Content, html2text.Options{PrettyTables: true})
-		returnValue = feedItem.item.Title + "\n" + strings.TrimSpace(text)
+		returnValue = strings.TrimSpace(feedItem.item.Title + "\n" + strings.TrimSpace(text))
 	}
 	return returnValue
 }
@@ -192,7 +192,9 @@ func (widget *Widget) content() (string, string, bool) {
 // feedItems are sorted by published date
 func (widget *Widget) sort(feedItems []*FeedItem) []*FeedItem {
 	sort.Slice(feedItems, func(i, j int) bool {
-		return feedItems[i].item.PublishedParsed.After(*feedItems[j].item.PublishedParsed)
+		return feedItems[i].item.PublishedParsed != nil &&
+			feedItems[j].item.PublishedParsed != nil &&
+			feedItems[i].item.PublishedParsed.After(*feedItems[j].item.PublishedParsed)
 	})
 
 	return feedItems
