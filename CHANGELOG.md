@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### ⚡️ Added
+
+* FeedReader module supports [display mode switching](https://github.com/wtfutil/wtf/pull/976) via the `t` key, by [@cyingfan](https://github.com/cyingfan)
+
 ### 🐞 Fixed
 
 * Exchange Rates module now displays rates in alphabetical order, sorted by the base rate, by [@senorprogrammer](https://github.com/senorprogrammer) 
