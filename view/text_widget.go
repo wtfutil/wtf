@@ -1,6 +1,8 @@
 package view
 
 import (
+	"strings"
+
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/cfg"
 	"github.com/wtfutil/wtf/wtf"
@@ -36,7 +38,7 @@ func (widget *TextWidget) Redraw(data func() (string, string, bool)) {
 		widget.View.Clear()
 		widget.View.SetWrap(wrap)
 		widget.View.SetTitle(widget.ContextualTitle(title))
-		widget.View.SetText(content)
+		widget.View.SetText(strings.TrimSpace(content))
 	})
 }
 
