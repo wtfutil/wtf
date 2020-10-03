@@ -66,6 +66,7 @@ import (
 	"github.com/wtfutil/wtf/modules/twitter"
 	"github.com/wtfutil/wtf/modules/twitterstats"
 	"github.com/wtfutil/wtf/modules/unknown"
+	"github.com/wtfutil/wtf/modules/uptimerobot"
 	"github.com/wtfutil/wtf/modules/victorops"
 	"github.com/wtfutil/wtf/modules/weatherservices/arpansagovau"
 	"github.com/wtfutil/wtf/modules/weatherservices/prettyweather"
@@ -292,6 +293,9 @@ func MakeWidget(
 	case "twitterstats":
 		settings := twitterstats.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = twitterstats.NewWidget(app, pages, settings)
+	case "uptimerobot":
+		settings := uptimerobot.NewSettingsFromYAML(moduleName, moduleConfig, config)
+		widget = uptimerobot.NewWidget(app, pages, settings)
 	case "victorops":
 		settings := victorops.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = victorops.NewWidget(app, settings)
