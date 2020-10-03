@@ -966,7 +966,15 @@
       "name": "Ying Fan Chong",
       "avatar_url": "https://avatars1.githubusercontent.com/u/10404961?v=4",
       "profile": "http://about.me/yingfan",
+      "contributions": []
+    },
+    {
+      "login": "MartinJohns",
+      "name": "Martin Johns",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/5269069?v=4",
+      "profile": "https://github.com/MartinJohns",
       "contributions": [
+        "code"
       ]
     }
   ],
