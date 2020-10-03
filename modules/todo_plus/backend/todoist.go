@@ -1,7 +1,6 @@
 package backend
 
 import (
-	"fmt"
 	"strconv"
 
 	"github.com/darksasori/todoist"
@@ -66,7 +65,7 @@ func toTask(task todoist.Task) Task {
 }
 
 func (todo *Todoist) LoadTasks(id string) ([]Task, error) {
-	tasks, err := todoist.ListTask(todoist.QueryParam{"project_id": fmt.Sprintf("%s", id)})
+	tasks, err := todoist.ListTask(todoist.QueryParam{"project_id": id})
 
 	if err != nil {
 		return nil, err
