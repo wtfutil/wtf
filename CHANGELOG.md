@@ -22,6 +22,8 @@
 * Updated `github.com/adlio/trello` from 1.7.0 to 1.8.0
 * Updated `github.com/alecthomas/chroma` from 0.8.0 to 0.8.1
 
+* Now requires Go 1.15 for compilation in Dockerfiles and go.mod, by [@seanstoppable](https://github.com/Seanstoppable)
+
 ## v0.32.0
 
 ### ⚡️ Added
