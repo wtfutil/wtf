@@ -50,7 +50,7 @@ func (proj *Project) CloseSelectedTask() {
 	currTask := proj.currentTask()
 
 	if currTask != nil {
-		proj.backend.CloseTask(currTask)
+		_ = proj.backend.CloseTask(currTask)
 		proj.loadTasks()
 	}
 }
@@ -59,7 +59,7 @@ func (proj *Project) DeleteSelectedTask() {
 	currTask := proj.currentTask()
 
 	if currTask != nil {
-		proj.backend.DeleteTask(currTask)
+		_ = proj.backend.DeleteTask(currTask)
 
 		proj.loadTasks()
 	}

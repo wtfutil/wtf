@@ -17,7 +17,6 @@ type Settings struct {
 
 	backendType     string
 	backendSettings *config.Config
-	projects        []interface{}
 }
 
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
@@ -39,7 +38,7 @@ func FromTodoist(name string, ymlConfig *config.Config, globalConfig *config.Con
 	cfg.ModuleSecret(name, globalConfig, &apiKey).Load()
 	projects := ymlConfig.UList("projects")
 	backend, _ := config.ParseYaml("apiKey: " + apiKey)
-	backend.Set(".projects", projects)
+	_ = backend.Set(".projects", projects)
 
 	settings := Settings{
 		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
@@ -66,10 +65,10 @@ func FromTrello(name string, ymlConfig *config.Config, globalConfig *config.Conf
 		lists = ymlConfig.UList("list")
 	}
 	backend, _ := config.ParseYaml("apiKey: " + apiKey)
-	backend.Set(".accessToken", accessToken)
-	backend.Set(".board", board)
-	backend.Set(".username", username)
-	backend.Set(".lists", lists)
+	_ = backend.Set(".accessToken", accessToken)
+	_ = backend.Set(".board", board)
+	_ = backend.Set(".username", username)
+	_ = backend.Set(".lists", lists)
 
 	settings := Settings{
 		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
