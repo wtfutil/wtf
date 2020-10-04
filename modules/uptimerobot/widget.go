@@ -1,9 +1,9 @@
 package uptimerobot
 
 import (
-	"fmt"
-	"errors"
 	"encoding/json"
+	"errors"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -92,11 +92,9 @@ func (widget *Widget) contentFrom(monitors []Monitor) string {
 		switch monitor.State {
 		case 2:
 			prefix += "[green] + "
-			break
 		case 8:
 		case 9:
 			prefix += "[red] - "
-			break
 		default:
 			prefix += "[yellow] ~ "
 		}
@@ -113,9 +111,9 @@ func (widget *Widget) contentFrom(monitors []Monitor) string {
 }
 
 type Monitor struct {
-	Name   string `json:"friendly_name"`
+	Name string `json:"friendly_name"`
 	// Monitor state, see: https://uptimerobot.com/api/#parameters
-	State  int8   `json:"status"`
+	State int8 `json:"status"`
 	// Uptime ratio, preformatted, e.g.: 100.000-97.233-96.975
 	Uptime string `json:"custom_uptime_ratio"`
 }
@@ -124,8 +122,8 @@ func (widget *Widget) getMonitors() ([]Monitor, error) {
 	// See: https://uptimerobot.com/api/#getMonitorsWrap
 	resp, err_h := http.PostForm("https://api.uptimerobot.com/v2/getMonitors",
 		url.Values{
-			"api_key": {widget.settings.apiKey}, 
-			"format": {"json"},
+			"api_key":              {widget.settings.apiKey},
+			"format":               {"json"},
 			"custom_uptime_ratios": {widget.settings.uptimePeriods},
 		},
 	)
@@ -138,19 +136,22 @@ func (widget *Widget) getMonitors() ([]Monitor, error) {
 
 	// First pass to read the status
 	c := make(map[string]json.RawMessage)
-	json.Unmarshal([]byte(body), &c)
+	err_j1 := json.Unmarshal([]byte(body), &c)
 
-	stat := string(c["stat"])
-	if stat != `"ok"` {
+	if err_j1 != nil {
+		return nil, err_j1
+	}
+
+	if string(c["stat"]) != `"ok"` {
 		return nil, errors.New(string(body))
 	}
 
 	// Second pass to get the actual info
 	var monitors []Monitor
-	err_j := json.Unmarshal(c["monitors"], &monitors)
+	err_j2 := json.Unmarshal(c["monitors"], &monitors)
 
-	if err_j != nil {
-		return nil, err_j
+	if err_j2 != nil {
+		return nil, err_j2
 	}
 
 	return monitors, nil
