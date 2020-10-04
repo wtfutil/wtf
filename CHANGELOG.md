@@ -11,6 +11,7 @@
 * Exchange Rates module now displays rates in alphabetical order, sorted by the base rate, by [@senorprogrammer](https://github.com/senorprogrammer) 
 * Feed Reader module no longer crashes on feeds that don't have a published date, [#958](https://github.com/wtfutil/wtf/issues/958) by [@cyingfan](https://github.com/cyingfan)
 * Stray blank lines no longer appear at the end of highlightable lists, [#977](https://github.com/wtfutil/wtf/pull/977) by [@cyingfan](https://github.com/cyingfan)
+* `config.yml` now properly set to `0600` instead of `0666`, by [@cyingfan](https://github.com/cyingfan)
 
 ### 👍 Updated
 
