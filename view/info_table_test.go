@@ -7,8 +7,7 @@ import (
 )
 
 func makeMap() map[string]string {
-	var m map[string]string
-	m = make(map[string]string)
+	m := make(map[string]string)
 	m["foo"] = "val1"
 	m["bar"] = "val2"
 	m["baz"] = "val3"
