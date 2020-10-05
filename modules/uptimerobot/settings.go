@@ -17,6 +17,7 @@ type Settings struct {
 
 	apiKey        string `help:"An UptimeRobot API key."`
 	uptimePeriods string `help:"The periods over which to display uptime (in days, dash-separated)." optional:"true"`
+	offlineFirst  bool   `help:"Display offline monitors at the top." optional:"true"`
 }
 
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
@@ -26,6 +27,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 
 		apiKey:        ymlConfig.UString("apiKey", os.Getenv("WTF_UPTIMEROBOT_APIKEY")),
 		uptimePeriods: ymlConfig.UString("uptimePeriods", "30"),
+		offlineFirst:  ymlConfig.UBool("offlineFirst", false),
 	}
 
 	cfg.ModuleSecret(name, globalConfig, &settings.apiKey).

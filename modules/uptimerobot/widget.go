@@ -47,6 +47,22 @@ func (widget *Widget) Refresh() {
 	}
 
 	monitors, err := widget.getMonitors()
+
+	if widget.settings.offlineFirst {
+		var tmp Monitor
+		var next int
+		for i := 0; i < len(monitors); i++ {
+			if monitors[i].State != 2 {
+				tmp = monitors[i]
+				for j := i; j > next; j-- {
+					monitors[j] = monitors[j-1]
+				}
+				monitors[next] = tmp
+				next++
+			}
+		}
+	}
+
 	widget.monitors = monitors
 	widget.err = err
 	widget.SetItemCount(len(monitors))
