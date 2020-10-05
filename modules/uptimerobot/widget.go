@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"strings"
 
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/view"
@@ -103,10 +104,25 @@ func (widget *Widget) contentFrom(monitors []Monitor) string {
 `,
 			prefix,
 			monitor.Name,
-			monitor.Uptime,
+			formatUptimes(monitor.Uptime),
 		)
 	}
 
+	return str
+}
+
+func formatUptimes(str string) string {
+	splits := strings.Split(str, "-")
+	str = ""
+	for i, s := range splits {
+		if i != 0 {
+			str += "|"
+		}
+		s = s[:5]
+		s = strings.TrimRight(s, "0")
+		s = strings.TrimRight(s, ".") + "%"
+		str += s
+	}
 	return str
 }
 
