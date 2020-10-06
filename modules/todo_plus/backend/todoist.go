@@ -3,8 +3,8 @@ package backend
 import (
 	"strconv"
 
-	"github.com/darksasori/todoist"
 	"github.com/olebedev/config"
+	"github.com/wtfutil/todoist"
 )
 
 type Todoist struct {
@@ -38,14 +38,15 @@ func (todo *Todoist) GetProject(id string) *Project {
 		Index:   -1,
 		backend: todo,
 	}
-	i, _ := strconv.Atoi(id)
+	i64, _ := strconv.ParseUint(id, 10, 32)
+	i := uint(i64)
 	project, err := todoist.GetProject(i)
 	if err != nil {
 		proj.Err = err
 		return proj
 	}
 
-	proj.ID = strconv.Itoa(project.ID)
+	proj.ID = strconv.FormatUint(uint64(project.ID), 10)
 	proj.Name = project.Name
 
 	tasks, err := todo.LoadTasks(proj.ID)
@@ -56,7 +57,7 @@ func (todo *Todoist) GetProject(id string) *Project {
 }
 
 func toTask(task todoist.Task) Task {
-	id := strconv.Itoa(task.ID)
+	id := strconv.FormatUint(uint64(task.ID), 10)
 	return Task{
 		ID:        id,
 		Completed: task.Completed,
@@ -79,7 +80,8 @@ func (todo *Todoist) LoadTasks(id string) ([]Task, error) {
 
 func (todo *Todoist) CloseTask(task *Task) error {
 	if task != nil {
-		i, _ := strconv.Atoi(task.ID)
+		i64, _ := strconv.ParseUint(task.ID, 10, 32)
+		i := uint(i64)
 		internal := todoist.Task{ID: i}
 		return internal.Close()
 	}
@@ -88,7 +90,8 @@ func (todo *Todoist) CloseTask(task *Task) error {
 
 func (todo *Todoist) DeleteTask(task *Task) error {
 	if task != nil {
-		i, _ := strconv.Atoi(task.ID)
+		i64, _ := strconv.ParseUint(task.ID, 10, 32)
+		i := uint(i64)
 		internal := todoist.Task{ID: i}
 		return internal.Delete()
 	}
