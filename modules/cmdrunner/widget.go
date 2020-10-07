@@ -3,11 +3,13 @@ package cmdrunner
 import (
 	"bytes"
 	"fmt"
+	"io"
 	"os"
 	"os/exec"
 	"strings"
 	"sync"
 
+	"github.com/creack/pty"
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/view"
 )
@@ -121,10 +123,13 @@ func runCommandLoop(widget *Widget) {
 		<-widget.runChan
 		widget.resetBuffer()
 		cmd := exec.Command(widget.settings.cmd, widget.settings.args...)
-		cmd.Stdout = widget
 		cmd.Env = widget.environment()
-		err := cmd.Run()
+		f, err := pty.Start(cmd)
+		if err != nil {
+			panic(err)
+		}
 
+		io.Copy(widget.buffer, f)
 		// The command has exited, print any error messages
 		if err != nil {
 			widget.m.Lock()

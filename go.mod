@@ -15,6 +15,7 @@ require (
 	github.com/briandowns/openweathermap v0.0.0-20180804155945-5f41b7c9d92d
 	github.com/cenkalti/backoff v2.2.1+incompatible // indirect
 	github.com/chzyer/readline v0.0.0-20180603132655-2972be24d48e
+	github.com/creack/pty v1.1.11
 	github.com/digitalocean/godo v1.44.0
 	github.com/docker/distribution v2.7.1+incompatible // indirect
 	github.com/docker/docker v1.13.1
@@ -51,7 +52,7 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/pkg/profile v1.5.0
 	github.com/radovskyb/watcher v1.0.7
-	github.com/rivo/tview v0.0.0-20200108161608-1316ea7a4b35
+	github.com/rivo/tview v0.0.0-20200915114512-42866ecf6ca6
 	github.com/shirou/gopsutil v2.20.8+incompatible
 	github.com/spf13/cobra v0.0.5 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
