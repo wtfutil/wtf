@@ -4,6 +4,8 @@ import (
 	"fmt"
 
 	"github.com/google/go-github/v26/github"
+	"golang.org/x/text/language"
+	"golang.org/x/text/message"
 )
 
 func (widget *Widget) display() {
@@ -122,11 +124,13 @@ func (widget *Widget) displayMyReviewRequests(repo *GithubRepo, username string)
 }
 
 func (widget *Widget) displayStats(repo *GithubRepo) string {
+	prntr := message.NewPrinter(language.English)
+
 	str := fmt.Sprintf(
-		" PRs: %d  Issues: %d  Stars: %d\n",
-		repo.PullRequestCount(),
-		repo.IssueCount(),
-		repo.StarCount(),
+		" PRs: %s  Issues: %s  Stars: %s\n",
+		prntr.Sprintf("%d", repo.PullRequestCount()),
+		prntr.Sprintf("%d", repo.IssueCount()),
+		prntr.Sprintf("%d", repo.StarCount()),
 	)
 
 	return str
