@@ -1,9 +1,6 @@
 package clocks
 
 import (
-	"strings"
-	"time"
-
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/view"
 )
@@ -28,7 +25,7 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 		timeFormat: settings.timeFormat,
 	}
 
-	widget.clockColl = widget.buildClockCollection(settings.locations)
+	widget.clockColl = widget.buildClockCollection()
 
 	return &widget
 }
@@ -45,21 +42,10 @@ func (widget *Widget) Refresh() {
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (widget *Widget) buildClockCollection(locData map[string]interface{}) ClockCollection {
+func (widget *Widget) buildClockCollection() ClockCollection {
 	clockColl := ClockCollection{}
 
-	for label, locStr := range locData {
-		timeLoc, err := time.LoadLocation(widget.sanitizeLocation(locStr.(string)))
-		if err != nil {
-			continue
-		}
-
-		clockColl.Clocks = append(clockColl.Clocks, NewClock(label, timeLoc))
-	}
+	clockColl.Clocks = widget.settings.locations
 
 	return clockColl
-}
-
-func (widget *Widget) sanitizeLocation(locStr string) string {
-	return strings.Replace(locStr, " ", "_", -1)
 }
