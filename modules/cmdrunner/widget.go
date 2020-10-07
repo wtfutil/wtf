@@ -125,22 +125,26 @@ func runCommandLoop(widget *Widget) {
 		cmd := exec.Command(widget.settings.cmd, widget.settings.args...)
 		cmd.Env = widget.environment()
 		f, err := pty.Start(cmd)
-		if err != nil {
-			panic(err)
-		}
-
-		io.Copy(widget.buffer, f)
 		// The command has exited, print any error messages
 		if err != nil {
-			widget.m.Lock()
-			_, writeErr := widget.buffer.WriteString(err.Error())
-			if writeErr != nil {
-				return
-			}
-			widget.m.Unlock()
+			widget.handleError(err)
+		}
+
+		_, err = io.Copy(widget.buffer, f)
+		if err != nil {
+			widget.handleError(err)
 		}
 		widget.redrawChan <- true
 	}
+}
+
+func (widget *Widget) handleError(err error) {
+	widget.m.Lock()
+	_, writeErr := widget.buffer.WriteString(err.Error())
+	if writeErr != nil {
+		return
+	}
+	widget.m.Unlock()
 }
 
 func redrawLoop(widget *Widget) {
