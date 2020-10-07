@@ -973,14 +973,20 @@
       "name": "Martin Johns",
       "avatar_url": "https://avatars1.githubusercontent.com/u/5269069?v=4",
       "profile": "https://github.com/MartinJohns",
-      "contributions": [
-      ]
+      "contributions": []
     },
     {
       "login": "jamietanna",
       "name": "Jamie Tanna",
       "avatar_url": "https://avatars0.githubusercontent.com/u/3315059?v=4",
       "profile": "https://www.jvt.me",
+      "contributions": []
+    },
+    {
+      "login": "trimble",
+      "name": "Todd Trimble",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/371317?v=4",
+      "profile": "https://github.com/trimble",
       "contributions": [
       ]
     }
