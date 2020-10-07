@@ -15,7 +15,7 @@ func makeMap() map[string]string {
 	return m
 }
 
-func newTestTable(height int) *InfoTable {
+func newTestTable(height, colWidth0, colWidth1 int) *InfoTable {
 	var headers [2]string
 
 	headers[0] = "hdr0"
@@ -24,21 +24,39 @@ func newTestTable(height int) *InfoTable {
 	table := NewInfoTable(
 		headers[:],
 		makeMap(),
-		1,
-		1,
+		colWidth0,
+		colWidth1,
 		height,
 	)
 	return table
 }
 
 func Test_RenderSimpleInfoTable(t *testing.T) {
-	table := newTestTable(4).Render()
+	table := newTestTable(4, 1, 1).Render()
 
 	assert.Equal(t, " ----- ------ \n  HDR0   HDR1  \n ----- ------ \n  bar   val2  \n  baz   val3  \n  foo   val1  \n ----- ------ \n", table)
 }
 
 func Test_RenderPaddedInfoTable(t *testing.T) {
-	table := newTestTable(6).Render()
+	table := newTestTable(6, 1, 1).Render()
 
 	assert.Equal(t, " ----- ------ \n  HDR0   HDR1  \n ----- ------ \n  bar   val2  \n  baz   val3  \n  foo   val1  \n              \n              \n ----- ------ \n", table)
+}
+
+func Test_RenderWithSpecifiedWidthLeftColumn(t *testing.T) {
+	table := newTestTable(4, 10, 1).Render()
+
+	assert.Equal(t, " ------------ ------ \n     HDR0      HDR1  \n ------------ ------ \n  bar          val2  \n  baz          val3  \n  foo          val1  \n ------------ ------ \n", table)
+}
+
+func Test_RenderWithSpecifiedWidthRightColumn(t *testing.T) {
+	table := newTestTable(4, 1, 10).Render()
+
+	assert.Equal(t, " ----- ------------ \n  HDR0      HDR1     \n ----- ------------ \n  bar   val2        \n  baz   val3        \n  foo   val1        \n ----- ------------ \n", table)
+}
+
+func Test_RenderWithSpecifiedWidthBothColumns(t *testing.T) {
+	table := newTestTable(4, 15, 10).Render()
+
+	assert.Equal(t, " ----------------- ------------ \n       HDR0            HDR1     \n ----------------- ------------ \n  bar               val2        \n  baz               val3        \n  foo               val1        \n ----------------- ------------ \n", table)
 }
