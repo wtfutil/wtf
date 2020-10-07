@@ -38,7 +38,9 @@ func (widget *TextWidget) Redraw(data func() (string, string, bool)) {
 		widget.View.Clear()
 		widget.View.SetWrap(wrap)
 		widget.View.SetTitle(widget.ContextualTitle(title))
-		widget.View.SetText(strings.TrimSpace(content))
+		// widget.View.SetText(strings.TrimSpace(content))
+		widget.View.SetText(strings.TrimRight(content, "\n"))
+		// widget.View.SetText(content)
 	})
 }
 
