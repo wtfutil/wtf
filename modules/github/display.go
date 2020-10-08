@@ -4,6 +4,8 @@ import (
 	"fmt"
 
 	"github.com/google/go-github/v26/github"
+	"golang.org/x/text/language"
+	"golang.org/x/text/message"
 )
 
 func (widget *Widget) display() {
@@ -54,7 +56,7 @@ func (widget *Widget) content() (string, string, bool) {
 	return title, str, false
 }
 
-func (widget *Widget) displayMyPullRequests(repo *GithubRepo, username string) string {
+func (widget *Widget) displayMyPullRequests(repo *Repo, username string) string {
 	prs := repo.myPullRequests(username, widget.settings.enableStatus)
 
 	prLength := len(prs)
@@ -77,7 +79,7 @@ func (widget *Widget) displayMyPullRequests(repo *GithubRepo, username string) s
 	return str
 }
 
-func (widget *Widget) displayCustomQuery(repo *GithubRepo, filter string, perPage int) string {
+func (widget *Widget) displayCustomQuery(repo *Repo, filter string, perPage int) string {
 	res := repo.customIssueQuery(filter, perPage)
 
 	if res == nil {
@@ -104,7 +106,7 @@ func (widget *Widget) displayCustomQuery(repo *GithubRepo, filter string, perPag
 	return str
 }
 
-func (widget *Widget) displayMyReviewRequests(repo *GithubRepo, username string) string {
+func (widget *Widget) displayMyReviewRequests(repo *Repo, username string) string {
 	prs := repo.myReviewRequests(username)
 
 	if len(prs) == 0 {
@@ -121,18 +123,20 @@ func (widget *Widget) displayMyReviewRequests(repo *GithubRepo, username string)
 	return str
 }
 
-func (widget *Widget) displayStats(repo *GithubRepo) string {
+func (widget *Widget) displayStats(repo *Repo) string {
+	prntr := message.NewPrinter(language.English)
+
 	str := fmt.Sprintf(
-		" PRs: %d  Issues: %d  Stars: %d\n",
-		repo.PullRequestCount(),
-		repo.IssueCount(),
-		repo.StarCount(),
+		" PRs: %s  Issues: %s  Stars: %s\n",
+		prntr.Sprintf("%d", repo.PullRequestCount()),
+		prntr.Sprintf("%d", repo.IssueCount()),
+		prntr.Sprintf("%d", repo.StarCount()),
 	)
 
 	return str
 }
 
-func (widget *Widget) title(repo *GithubRepo) string {
+func (widget *Widget) title(repo *Repo) string {
 	return fmt.Sprintf(
 		"[%s]%s - %s[white]",
 		widget.settings.common.Colors.TextTheme.Title,

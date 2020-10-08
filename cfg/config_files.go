@@ -37,7 +37,7 @@ func CreateFile(fileName string) (string, error) {
 		return "", err
 	}
 
-	filePath := fmt.Sprintf("%s/%s", configDir, fileName)
+	filePath := filepath.Join(configDir, fileName)
 
 	// Check if the file already exists; if it does not, create it
 	_, err = os.Stat(filePath)
@@ -106,7 +106,7 @@ func LoadWtfConfigFile(filePath string) *config.Config {
 // chmodConfigFile sets the mode of the config file to r+w for the owner only
 func chmodConfigFile() {
 	configDir, _ := WtfConfigDir()
-	relPath := fmt.Sprintf("%s%s", configDir, WtfConfigFile)
+	relPath := filepath.Join(configDir, WtfConfigFile)
 	absPath, _ := expandHomeDir(relPath)
 
 	_, err := os.Stat(absPath)

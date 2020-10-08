@@ -1,4 +1,4 @@
-package todoist
+package todo_plus
 
 import (
 	"fmt"
@@ -14,27 +14,26 @@ func (widget *Widget) content() (string, string, bool) {
 		return widget.CommonSettings().Title, "", false
 	}
 
-	if proj.err != nil {
-		return widget.CommonSettings().Title, proj.err.Error(), true
+	if proj.Err != nil {
+		return widget.CommonSettings().Title, proj.Err.Error(), true
 	}
 
 	title := fmt.Sprintf(
 		"[%s]%s[white]",
 		widget.settings.common.Colors.TextTheme.Title,
-		proj.Project.Name,
-	)
+		proj.Name)
 
 	str := ""
 
-	for idx, item := range proj.tasks {
+	for idx, item := range proj.Tasks {
 		row := fmt.Sprintf(
 			`[%s]| | %s[%s]`,
 			widget.RowColor(idx),
-			tview.Escape(item.Content),
+			tview.Escape(item.Name),
 			widget.RowColor(idx),
 		)
 
-		str += utils.HighlightableHelper(widget.View, row, idx, len(item.Content))
+		str += utils.HighlightableHelper(widget.View, row, idx, len(item.Name))
 	}
 	return title, str, false
 }

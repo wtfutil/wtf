@@ -15,7 +15,7 @@ type Widget struct {
 	view.KeyboardWidget
 	view.TextWidget
 
-	GithubRepos []*GithubRepo
+	GithubRepos []*Repo
 
 	settings *Settings
 	Selected int
@@ -110,8 +110,8 @@ func (widget *Widget) HelpText() string {
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (widget *Widget) buildRepoCollection(repoData []string) []*GithubRepo {
-	githubRepos := []*GithubRepo{}
+func (widget *Widget) buildRepoCollection(repoData []string) []*Repo {
+	githubRepos := []*Repo{}
 
 	for _, repo := range repoData {
 		split := strings.Split(repo, "/")
@@ -130,7 +130,7 @@ func (widget *Widget) buildRepoCollection(repoData []string) []*GithubRepo {
 	return githubRepos
 }
 
-func (widget *Widget) currentGithubRepo() *GithubRepo {
+func (widget *Widget) currentGithubRepo() *Repo {
 	if len(widget.GithubRepos) == 0 {
 		return nil
 	}
