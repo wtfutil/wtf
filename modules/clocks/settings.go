@@ -18,7 +18,7 @@ type Settings struct {
 	dateFormat string  `help:"The format of the date string for all clocks." values:"Any valid Go date layout which is handled by Time.Format. Defaults to Jan 2."`
 	timeFormat string  `help:"The format of the time string for all clocks." values:"Any valid Go time layout which is handled by Time.Format. Defaults to 15:04 MST."`
 	locations  []Clock `help:"Defines the timezones for the world clocks that you want to display. key is a unique label that will be displayed in the UI. value is a timezone name." values:"Any TZ database timezone."`
-	sort       string  `help:"Defines the display order of the clocks in the widget." values:"'alphabetical', 'chronological', or 'natural. 'alphabetical' will sort in acending order by key, 'chronological' will sort in ascending order by date/time, 'natural' will keep ordering as per the config."`
+	sort       string  `help:"Defines the display order of the clocks in the widget." values:"'alphabetical', 'chronological', or 'natural. 'alphabetical' will sort in ascending order by key, 'chronological' will sort in ascending order by date/time, 'natural' will keep ordering as per the config."`
 }
 
 // NewSettingsFromYAML creates a new settings instance from a YAML config block
