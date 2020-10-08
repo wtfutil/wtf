@@ -551,8 +551,6 @@ github.com/nbutton23/zxcvbn-go v0.0.0-20180912185939-ae427f1e4c1d h1:AREM5mwr4u1
 github.com/nbutton23/zxcvbn-go v0.0.0-20180912185939-ae427f1e4c1d/go.mod h1:o96djdrsSGy3AWPyBgZMAGfxZNfgntdJG+11KU4QvbU=
 github.com/ncw/swift v0.0.0-20171019114456-c95c6e5c2d1a h1:SAjW6pL/9NssyKM1Qvyy5/V4kR3z76qlTbaqJLixhP4=
 github.com/ncw/swift v0.0.0-20171019114456-c95c6e5c2d1a/go.mod h1:23YIA4yWVnGwv2dQlN4bB7egfYX6YLn0Yo/S6zZO/ZM=
-github.com/nicklaw5/helix v0.5.9 h1:THNJ3o+OM+Dh1gPD9qh2jQlVRTPhjB0rYVBus+9GoB4=
-github.com/nicklaw5/helix v0.5.9/go.mod h1:nRcok4VLg8ONQYW/iXBZ24wcfiJjTlDbhgk0ZatOrUY=
 github.com/nicklaw5/helix v0.7.0 h1:+E8YUqNewLFX0jSxlzKvDpyOs/v299ZZtp1aEqlonWk=
 github.com/nicklaw5/helix v0.7.0/go.mod h1:nRcok4VLg8ONQYW/iXBZ24wcfiJjTlDbhgk0ZatOrUY=
 github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e h1:fD57ERR4JtEqsWbfPhv4DMiApHyliiK5xCTNVSPiaAs=
