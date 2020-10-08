@@ -15,8 +15,8 @@ const (
 	issuesPath       = "/issues"
 )
 
-// GithubRepo defines a new GithubRepo structure
-type GithubRepo struct {
+// Repo defines a new GitHub Repo structure
+type Repo struct {
 	apiKey    string
 	baseURL   string
 	uploadURL string
@@ -29,8 +29,8 @@ type GithubRepo struct {
 }
 
 // NewGithubRepo returns a new Github Repo with a name, owner, apiKey, baseURL and uploadURL
-func NewGithubRepo(name, owner, apiKey, baseURL, uploadURL string) *GithubRepo {
-	repo := GithubRepo{
+func NewGithubRepo(name, owner, apiKey, baseURL, uploadURL string) *Repo {
+	repo := Repo{
 		Name:  name,
 		Owner: owner,
 
@@ -43,22 +43,22 @@ func NewGithubRepo(name, owner, apiKey, baseURL, uploadURL string) *GithubRepo {
 }
 
 // Open will open the GitHub Repo URL using the utils helper
-func (repo *GithubRepo) Open() {
+func (repo *Repo) Open() {
 	utils.OpenFile(*repo.RemoteRepo.HTMLURL)
 }
 
-// Open will open the GitHub Pull Requests URL using the utils helper
-func (repo *GithubRepo) OpenPulls() {
+// OpenPulls will open the GitHub Pull Requests URL using the utils helper
+func (repo *Repo) OpenPulls() {
 	utils.OpenFile(*repo.RemoteRepo.HTMLURL + pullRequestsPath)
 }
 
-// Open will open the GitHub Issues URL using the utils helper
-func (repo *GithubRepo) OpenIssues() {
+// OpenIssues will open the GitHub Issues URL using the utils helper
+func (repo *Repo) OpenIssues() {
 	utils.OpenFile(*repo.RemoteRepo.HTMLURL + issuesPath)
 }
 
 // Refresh reloads the github data via the Github API
-func (repo *GithubRepo) Refresh() {
+func (repo *Repo) Refresh() {
 	prs, err := repo.loadPullRequests()
 	repo.Err = err
 	repo.PullRequests = prs
@@ -73,7 +73,7 @@ func (repo *GithubRepo) Refresh() {
 /* -------------------- Counts -------------------- */
 
 // IssueCount return the total amount of issues as an int
-func (repo *GithubRepo) IssueCount() int {
+func (repo *Repo) IssueCount() int {
 	if repo.RemoteRepo == nil {
 		return 0
 	}
@@ -84,12 +84,12 @@ func (repo *GithubRepo) IssueCount() int {
 }
 
 // PullRequestCount returns the total amount of pull requests as an int
-func (repo *GithubRepo) PullRequestCount() int {
+func (repo *Repo) PullRequestCount() int {
 	return len(repo.PullRequests)
 }
 
 // StarCount returns the total amount of stars this repo has gained as an int
-func (repo *GithubRepo) StarCount() int {
+func (repo *Repo) StarCount() int {
 	if repo.RemoteRepo == nil {
 		return 0
 	}
@@ -99,7 +99,7 @@ func (repo *GithubRepo) StarCount() int {
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (repo *GithubRepo) isGitHubEnterprise() bool {
+func (repo *Repo) isGitHubEnterprise() bool {
 	if len(repo.baseURL) > 0 {
 		if len(repo.uploadURL) == 0 {
 			repo.uploadURL = repo.baseURL
@@ -109,7 +109,7 @@ func (repo *GithubRepo) isGitHubEnterprise() bool {
 	return false
 }
 
-func (repo *GithubRepo) oauthClient() *http.Client {
+func (repo *Repo) oauthClient() *http.Client {
 	tokenService := oauth2.StaticTokenSource(
 		&oauth2.Token{AccessToken: repo.apiKey},
 	)
@@ -117,7 +117,7 @@ func (repo *GithubRepo) oauthClient() *http.Client {
 	return oauth2.NewClient(context.Background(), tokenService)
 }
 
-func (repo *GithubRepo) githubClient() (*ghb.Client, error) {
+func (repo *Repo) githubClient() (*ghb.Client, error) {
 	oauthClient := repo.oauthClient()
 
 	if repo.isGitHubEnterprise() {
@@ -128,7 +128,7 @@ func (repo *GithubRepo) githubClient() (*ghb.Client, error) {
 }
 
 // myPullRequests returns a list of pull requests created by username on this repo
-func (repo *GithubRepo) myPullRequests(username string, showStatus bool) []*ghb.PullRequest {
+func (repo *Repo) myPullRequests(username string, showStatus bool) []*ghb.PullRequest {
 	prs := []*ghb.PullRequest{}
 
 	for _, pr := range repo.PullRequests {
@@ -149,7 +149,7 @@ func (repo *GithubRepo) myPullRequests(username string, showStatus bool) []*ghb.
 // individualPRs takes a list of pull requests (presumably returned from
 // github.PullRequests.List) and fetches them individually to get more detailed
 // status info on each. see: https://developer.github.com/v3/git/#checking-mergeability-of-pull-requests
-func (repo *GithubRepo) individualPRs(prs []*ghb.PullRequest) []*ghb.PullRequest {
+func (repo *Repo) individualPRs(prs []*ghb.PullRequest) []*ghb.PullRequest {
 	github, err := repo.githubClient()
 	if err != nil {
 		return prs
@@ -170,7 +170,7 @@ func (repo *GithubRepo) individualPRs(prs []*ghb.PullRequest) []*ghb.PullRequest
 
 // myReviewRequests returns a list of pull requests for which username has been
 // requested to do a code review
-func (repo *GithubRepo) myReviewRequests(username string) []*ghb.PullRequest {
+func (repo *Repo) myReviewRequests(username string) []*ghb.PullRequest {
 	prs := []*ghb.PullRequest{}
 
 	for _, pr := range repo.PullRequests {
@@ -184,7 +184,7 @@ func (repo *GithubRepo) myReviewRequests(username string) []*ghb.PullRequest {
 	return prs
 }
 
-func (repo *GithubRepo) customIssueQuery(filter string, perPage int) *ghb.IssuesSearchResult {
+func (repo *Repo) customIssueQuery(filter string, perPage int) *ghb.IssuesSearchResult {
 	github, err := repo.githubClient()
 	if err != nil {
 		return nil
@@ -199,7 +199,7 @@ func (repo *GithubRepo) customIssueQuery(filter string, perPage int) *ghb.Issues
 	return prs
 }
 
-func (repo *GithubRepo) loadPullRequests() ([]*ghb.PullRequest, error) {
+func (repo *Repo) loadPullRequests() ([]*ghb.PullRequest, error) {
 	github, err := repo.githubClient()
 	if err != nil {
 		return nil, err
@@ -217,7 +217,7 @@ func (repo *GithubRepo) loadPullRequests() ([]*ghb.PullRequest, error) {
 	return prs, nil
 }
 
-func (repo *GithubRepo) loadRemoteRepository() (*ghb.Repository, error) {
+func (repo *Repo) loadRemoteRepository() (*ghb.Repository, error) {
 	github, err := repo.githubClient()
 
 	if err != nil {

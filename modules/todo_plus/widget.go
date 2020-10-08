@@ -1,8 +1,10 @@
-package todoist
+package todo_plus
 
 import (
+	"log"
+
 	"github.com/rivo/tview"
-	"github.com/wtfutil/todoist"
+	"github.com/wtfutil/wtf/modules/todo_plus/backend"
 	"github.com/wtfutil/wtf/view"
 )
 
@@ -12,8 +14,9 @@ type Widget struct {
 	view.MultiSourceWidget
 	view.ScrollableWidget
 
-	projects []*Project
+	projects []*backend.Project
 	settings *Settings
+	backend  backend.Backend
 }
 
 // NewWidget creates a new instance of a widget
@@ -26,8 +29,9 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 		settings: settings,
 	}
 
-	widget.loadAPICredentials()
-	widget.loadProjects()
+	widget.backend = getBackend(settings.backendType)
+	widget.backend.Setup(settings.backendSettings)
+	widget.CommonSettings().Title = widget.backend.Title()
 
 	widget.SetRenderFunction(widget.display)
 	widget.initializeKeyboardControls()
@@ -39,13 +43,28 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	return &widget
 }
 
+func getBackend(backendType string) backend.Backend {
+	switch backendType {
+	case "trello":
+		backend := &backend.Trello{}
+		return backend
+	case "todoist":
+		backend := &backend.Todoist{}
+		return backend
+	default:
+		log.Fatal(backendType + " is not a supported backend")
+		return nil
+	}
+
+}
+
 /* -------------------- Exported Functions -------------------- */
 
-func (widget *Widget) CurrentProject() *Project {
+func (widget *Widget) CurrentProject() *backend.Project {
 	return widget.ProjectAt(widget.Idx)
 }
 
-func (widget *Widget) ProjectAt(idx int) *Project {
+func (widget *Widget) ProjectAt(idx int) *backend.Project {
 	if len(widget.projects) == 0 {
 		return nil
 	}
@@ -54,14 +73,13 @@ func (widget *Widget) ProjectAt(idx int) *Project {
 }
 
 func (widget *Widget) Refresh() {
-	if widget.Disabled() || widget.CurrentProject() == nil {
-		widget.SetItemCount(0)
+	if widget.Disabled() {
 		return
 	}
 
-	widget.loadProjects()
-
-	widget.SetItemCount(len(widget.CurrentProject().tasks))
+	widget.projects = widget.backend.BuildProjects()
+	widget.Sources = widget.backend.Sources()
+	widget.SetItemCount(len(widget.CurrentProject().Tasks))
 	widget.display()
 }
 
@@ -71,74 +89,57 @@ func (widget *Widget) HelpText() string {
 
 func (widget *Widget) NextSource() {
 	widget.MultiSourceWidget.NextSource()
-	widget.Selected = widget.CurrentProject().index
-	widget.SetItemCount(len(widget.CurrentProject().tasks))
+	widget.Selected = widget.CurrentProject().Index
+	widget.SetItemCount(len(widget.CurrentProject().Tasks))
 	widget.RenderFunction()
 }
 
 func (widget *Widget) PrevSource() {
 	widget.MultiSourceWidget.PrevSource()
-	widget.Selected = widget.CurrentProject().index
-	widget.SetItemCount(len(widget.CurrentProject().tasks))
+	widget.Selected = widget.CurrentProject().Index
+	widget.SetItemCount(len(widget.CurrentProject().Tasks))
 	widget.RenderFunction()
 }
 
 func (widget *Widget) Prev() {
 	widget.ScrollableWidget.Prev()
-	widget.CurrentProject().index = widget.Selected
+	widget.CurrentProject().Index = widget.Selected
 }
 
 func (widget *Widget) Next() {
 	widget.ScrollableWidget.Next()
-	widget.CurrentProject().index = widget.Selected
+	widget.CurrentProject().Index = widget.Selected
 }
 
 func (widget *Widget) Unselect() {
 	widget.ScrollableWidget.Unselect()
-	widget.CurrentProject().index = -1
+	widget.CurrentProject().Index = -1
 	widget.RenderFunction()
 }
 
 /* -------------------- Keyboard Movement -------------------- */
 
 // Close closes the currently-selected task in the currently-selected project
-func (widget *Widget) Close() {
-	widget.CurrentProject().closeSelectedTask()
-	widget.SetItemCount(len(widget.CurrentProject().tasks))
+func (w *Widget) Close() {
+	w.CurrentProject().CloseSelectedTask()
+	w.SetItemCount(len(w.CurrentProject().Tasks))
 
-	if widget.CurrentProject().isLast() {
-		widget.Prev()
+	if w.CurrentProject().IsLast() {
+		w.Prev()
 		return
 	}
-	widget.CurrentProject().index = widget.Selected
-	widget.RenderFunction()
+	w.CurrentProject().Index = w.Selected
+	w.RenderFunction()
 }
 
 // Delete deletes the currently-selected task in the currently-selected project
-func (widget *Widget) Delete() {
-	widget.CurrentProject().deleteSelectedTask()
-	widget.SetItemCount(len(widget.CurrentProject().tasks))
+func (w *Widget) Delete() {
+	w.CurrentProject().DeleteSelectedTask()
+	w.SetItemCount(len(w.CurrentProject().Tasks))
 
-	if widget.CurrentProject().isLast() {
-		widget.Prev()
+	if w.CurrentProject().IsLast() {
+		w.Prev()
 	}
-	widget.CurrentProject().index = widget.Selected
-	widget.RenderFunction()
-}
-
-/* -------------------- Unexported Functions -------------------- */
-
-func (widget *Widget) loadAPICredentials() {
-	todoist.Token = widget.settings.apiKey
-}
-
-func (widget *Widget) loadProjects() {
-	projects := []*Project{}
-
-	for _, id := range widget.settings.projects {
-		proj := NewProject(id)
-		projects = append(projects, proj)
-	}
-
-	widget.projects = projects
+	w.CurrentProject().Index = w.Selected
+	w.RenderFunction()
 }

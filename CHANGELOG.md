@@ -5,6 +5,7 @@
 ### ⚡️ Added
 
 * FeedReader module supports [display mode switching](https://github.com/wtfutil/wtf/pull/976) via the `t` key, by [@cyingfan](https://github.com/cyingfan)
+* Clocks module now supports `natural` ordering option, [#896](https://github.com/wtfutil/wtf/issues/896) by [@seanstoppable](https://github.com/Seanstoppable)
 
 ### 🐞 Fixed
 
