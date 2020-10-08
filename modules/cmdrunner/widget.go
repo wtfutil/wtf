@@ -155,11 +155,11 @@ func runCommandPty(widget *Widget, cmd *exec.Cmd) error {
 
 func (widget *Widget) handleError(err error) {
 	widget.m.Lock()
+	defer widget.m.Unlock()
 	_, writeErr := widget.buffer.WriteString(err.Error())
 	if writeErr != nil {
 		return
 	}
-	widget.m.Unlock()
 }
 
 func redrawLoop(widget *Widget) {
