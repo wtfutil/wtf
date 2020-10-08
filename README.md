@@ -130,6 +130,10 @@ docker rm wtf_build
 
 **Note:** WTF is _only_ compatible with Go versions **1.12.0** or later (due to the use of Go modules and newer standard library functions). If you would like to use `gccgo` to compile, you _must_ use `gccgo-9` or later which introduces support for Go modules.
 
+### Installing via Arch User Repository
+
+Arch Linux users can utilise the [wtfutil](https://aur.archlinux.org/packages/wtfutil) package to build it from source, or [wtfutil-bin](https://aur.archlinux.org/packages/wtfutil-bin/) to install pre-built binaries.
+
 ## Running via Docker
 
 You can run `wtf` inside a docker container:
@@ -396,6 +400,13 @@ Dependency management in WTF is handled by [Go modules](https://github.com/golan
     <td align="center"><a href="https://github.com/fmotrifork"><img src="https://avatars3.githubusercontent.com/u/18327738?v=4" width="48px;" alt=""/><br /><sub><b>Frederik Mogensen</b></sub></a><br /></td>
     <td align="center"><a href="https://github.com/aeter"><img src="https://avatars0.githubusercontent.com/u/238607?v=4" width="48px;" alt=""/><br /><sub><b>aeter</b></sub></a><br /></td>
     <td align="center"><a href="http://timhwang21.gitbook.io"><img src="https://avatars3.githubusercontent.com/u/5831434?v=4" width="48px;" alt=""/><br /><sub><b>Tim Hwang</b></sub></a><br /></td>
+    <td align="center"><a href="http://about.me/yingfan"><img src="https://avatars1.githubusercontent.com/u/10404961?v=4" width="48px;" alt=""/><br /><sub><b>Ying Fan Chong</b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/MartinJohns"><img src="https://avatars1.githubusercontent.com/u/5269069?v=4" width="48px;" alt=""/><br /><sub><b>Martin Johns</b></sub></a><br /></td>
+    <td align="center"><a href="https://www.jvt.me"><img src="https://avatars0.githubusercontent.com/u/3315059?v=4" width="48px;" alt=""/><br /><sub><b>Jamie Tanna</b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/trimble"><img src="https://avatars3.githubusercontent.com/u/371317?v=4" width="48px;" alt=""/><br /><sub><b>Todd Trimble</b></sub></a><br /></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://www.mitchellhanberg.com"><img src="https://avatars2.githubusercontent.com/u/5523984?v=4" width="48px;" alt=""/><br /><sub><b>Mitchell Hanberg</b></sub></a><br /></td>
   </tr>
 </table>
 

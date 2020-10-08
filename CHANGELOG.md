@@ -2,9 +2,17 @@
 
 ## Unreleased
 
+### ⚡️ Added
+
+* FeedReader module supports [display mode switching](https://github.com/wtfutil/wtf/pull/976) via the `t` key, by [@cyingfan](https://github.com/cyingfan)
+* Clocks module now supports `natural` ordering option, [#896](https://github.com/wtfutil/wtf/issues/896) by [@seanstoppable](https://github.com/Seanstoppable)
+
 ### 🐞 Fixed
 
 * Exchange Rates module now displays rates in alphabetical order, sorted by the base rate, by [@senorprogrammer](https://github.com/senorprogrammer) 
+* Feed Reader module no longer crashes on feeds that don't have a published date, [#958](https://github.com/wtfutil/wtf/issues/958) by [@cyingfan](https://github.com/cyingfan)
+* Stray blank lines no longer appear at the end of highlightable lists, [#977](https://github.com/wtfutil/wtf/pull/977) by [@cyingfan](https://github.com/cyingfan)
+* `config.yml` now properly set to `0600` instead of `0666`, by [@cyingfan](https://github.com/cyingfan)
 
 ### 👍 Updated
 
@@ -15,6 +23,8 @@
 * Updated `github.com/xanzy/go-gitlab` from 0.33.0 to 0.38.1
 * Updated `github.com/adlio/trello` from 1.7.0 to 1.8.0
 * Updated `github.com/alecthomas/chroma` from 0.8.0 to 0.8.1
+
+* Now requires Go 1.15 for compilation in Dockerfiles and go.mod, by [@seanstoppable](https://github.com/Seanstoppable)
 
 ## v0.32.0
 

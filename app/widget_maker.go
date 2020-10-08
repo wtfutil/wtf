@@ -59,10 +59,9 @@ import (
 	"github.com/wtfutil/wtf/modules/subreddit"
 	"github.com/wtfutil/wtf/modules/textfile"
 	"github.com/wtfutil/wtf/modules/todo"
-	"github.com/wtfutil/wtf/modules/todoist"
+	"github.com/wtfutil/wtf/modules/todo_plus"
 	"github.com/wtfutil/wtf/modules/transmission"
 	"github.com/wtfutil/wtf/modules/travisci"
-	"github.com/wtfutil/wtf/modules/trello"
 	"github.com/wtfutil/wtf/modules/twitch"
 	"github.com/wtfutil/wtf/modules/twitter"
 	"github.com/wtfutil/wtf/modules/twitterstats"
@@ -269,9 +268,12 @@ func MakeWidget(
 	case "todo":
 		settings := todo.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = todo.NewWidget(app, pages, settings)
+	case "todo_plus":
+		settings := todo_plus.NewSettingsFromYAML(moduleName, moduleConfig, config)
+		widget = todo_plus.NewWidget(app, pages, settings)
 	case "todoist":
-		settings := todoist.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = todoist.NewWidget(app, pages, settings)
+		settings := todo_plus.FromTodoist(moduleName, moduleConfig, config)
+		widget = todo_plus.NewWidget(app, pages, settings)
 	case "transmission":
 		settings := transmission.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = transmission.NewWidget(app, pages, settings)
@@ -279,8 +281,8 @@ func MakeWidget(
 		settings := travisci.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = travisci.NewWidget(app, pages, settings)
 	case "trello":
-		settings := trello.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = trello.NewWidget(app, settings)
+		settings := todo_plus.FromTrello(moduleName, moduleConfig, config)
+		widget = todo_plus.NewWidget(app, pages, settings)
 	case "twitch":
 		settings := twitch.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = twitch.NewWidget(app, pages, settings)

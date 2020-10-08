@@ -10,7 +10,9 @@ type ClockCollection struct {
 }
 
 func (clocks *ClockCollection) Sorted(sortOrder string) []Clock {
-	if sortOrder == "chronological" {
+	if sortOrder == "natural" {
+		//no-op
+	} else if sortOrder == "chronological" {
 		clocks.SortedChronologically()
 	} else {
 		clocks.SortedAlphabetically()
