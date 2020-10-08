@@ -11,8 +11,7 @@ import (
 type ModuleValidator struct{}
 
 func NewModuleValidator() *ModuleValidator {
-	val := &ModuleValidator{}
-	return val
+	return &ModuleValidator{}
 }
 
 // Validate rolls through all the enabled widgets and looks for configuration errors.
