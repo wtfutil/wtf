@@ -3,11 +3,13 @@ package cmdrunner
 import (
 	"bytes"
 	"fmt"
+	"io"
 	"os"
 	"os/exec"
 	"strings"
 	"sync"
 
+	"github.com/creack/pty"
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/view"
 )
@@ -121,20 +123,42 @@ func runCommandLoop(widget *Widget) {
 		<-widget.runChan
 		widget.resetBuffer()
 		cmd := exec.Command(widget.settings.cmd, widget.settings.args...)
-		cmd.Stdout = widget
 		cmd.Env = widget.environment()
-		err := cmd.Run()
-
-		// The command has exited, print any error messages
+		var err error
+		if widget.settings.pty {
+			err = runCommandPty(widget, cmd)
+		} else {
+			err = runCommand(widget, cmd)
+		}
 		if err != nil {
-			widget.m.Lock()
-			_, writeErr := widget.buffer.WriteString(err.Error())
-			if writeErr != nil {
-				return
-			}
-			widget.m.Unlock()
+			widget.handleError(err)
 		}
 		widget.redrawChan <- true
+	}
+}
+
+func runCommand(widget *Widget, cmd *exec.Cmd) error {
+	cmd.Stdout = widget
+	return cmd.Run()
+}
+
+func runCommandPty(widget *Widget, cmd *exec.Cmd) error {
+	f, err := pty.Start(cmd)
+	// The command has exited, print any error messages
+	if err != nil {
+		return err
+	}
+
+	_, err = io.Copy(widget.buffer, f)
+	return err
+}
+
+func (widget *Widget) handleError(err error) {
+	widget.m.Lock()
+	defer widget.m.Unlock()
+	_, writeErr := widget.buffer.WriteString(err.Error())
+	if writeErr != nil {
+		return
 	}
 }
 

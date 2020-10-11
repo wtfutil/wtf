@@ -17,12 +17,13 @@
 ### 👍 Updated
 
 * Updated `github.com/gdamore/tcell` from 1.3.0 to 1.4.0
-* Updated `github.com/shirou/gopsutil` from 2.20.7+incompatible to 2.20.8+incompatible
+* Updated `github.com/shirou/gopsutil` from 2.20.7+incompatible to 2.20.9+incompatible
 * Updated `github.com/mmcdole/gofeed` from 1.0.0 to 1.1.0
-* Updated `github.com/digitalocean/godo` from 1.42.1 to 1.44.0
+* Updated `github.com/digitalocean/godo` from 1.42.1 to 1.46.0
 * Updated `github.com/xanzy/go-gitlab` from 0.33.0 to 0.38.1
 * Updated `github.com/adlio/trello` from 1.7.0 to 1.8.0
 * Updated `github.com/alecthomas/chroma` from 0.8.0 to 0.8.1
+* Updated `github.com/nicklaw5/helix` from 0.5.9 to 0.7.0
 
 * Now requires Go 1.15 for compilation in Dockerfiles and go.mod, by [@seanstoppable](https://github.com/Seanstoppable)
 
