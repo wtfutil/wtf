@@ -13,6 +13,7 @@
 * Feed Reader module no longer crashes on feeds that don't have a published date, [#958](https://github.com/wtfutil/wtf/issues/958) by [@cyingfan](https://github.com/cyingfan)
 * Stray blank lines no longer appear at the end of highlightable lists, [#977](https://github.com/wtfutil/wtf/pull/977) by [@cyingfan](https://github.com/cyingfan)
 * `config.yml` now properly set to `0600` instead of `0666`, by [@cyingfan](https://github.com/cyingfan)
+* Now blank-imports the `time/tzinfo` package to provide timezone support for Windows users, [#994](https://github.com/wtfutil/wtf/issues/994) by [@trimble](https://github.com/trimble)
 
 ### 👍 Updated
 
