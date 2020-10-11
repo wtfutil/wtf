@@ -10,6 +10,8 @@ import (
 	"log"
 	"os"
 
+	_ "time/tzdata"
+
 	"github.com/logrusorgru/aurora"
 	"github.com/olebedev/config"
 	"github.com/pkg/profile"
