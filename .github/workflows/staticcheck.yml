@@ -8,7 +8,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: check
-      uses: grandcolline/golang-github-actions@v1.1.0
+      uses: senorprogrammer/golang-github-actions@2614d7f
       with:
         run: imports
         token: ${{ secrets.GITHUB_TOKEN }}
@@ -19,7 +19,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: check
-      uses: grandcolline/golang-github-actions@v1.1.0
+      uses: senorprogrammer/golang-github-actions@2614d7f
       with:
         run: errcheck
         token: ${{ secrets.GITHUB_TOKEN }}
@@ -30,7 +30,7 @@ jobs:
     #steps:
     #- uses: actions/checkout@master
     #- name: check
-      #uses: grandcolline/golang-github-actions@v1.1.0
+      #uses: senorprogrammer/golang-github-actions@2614d7f
       #with:
         #run: lint
         #token: ${{ secrets.GITHUB_TOKEN }}
@@ -41,7 +41,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: check
-      uses: grandcolline/golang-github-actions@v1.1.0
+      uses: senorprogrammer/golang-github-actions@2614d7f
       with:
         run: shadow
         token: ${{ secrets.GITHUB_TOKEN }}
@@ -52,7 +52,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: check
-      uses: grandcolline/golang-github-actions@v1.1.0
+      uses: senorprogrammer/golang-github-actions@2614d7f
       with:
         run: staticcheck
         token: ${{ secrets.GITHUB_TOKEN }}
@@ -63,7 +63,7 @@ jobs:
     #steps:
     #- uses: actions/checkout@master
     #- name: check
-      #uses: grandcolline/golang-github-actions@v1.1.0
+      #uses: senorprogrammer/golang-github-actions@2614d7f
       #with:
         #run: sec
         #token: ${{ secrets.GITHUB_TOKEN }}
