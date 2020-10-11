@@ -10,6 +10,10 @@ import (
 	"log"
 	"os"
 
+	// Blank import of tzdata embeds the timezone database to allow Windows hosts to find timezone
+	// information even if the timezone database is not available on the local system. See release
+	// notes at https://golang.org/doc/go1.15#time/tzdata for details. This prevents "no timezone
+	// data available" errors in clocks module.
 	_ "time/tzdata"
 
 	"github.com/logrusorgru/aurora"
