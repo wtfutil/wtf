@@ -10,6 +10,7 @@ import (
 	"github.com/radovskyb/watcher"
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/cfg"
+	"github.com/wtfutil/wtf/support"
 	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/wtf"
 )
@@ -21,6 +22,7 @@ type WtfApp struct {
 	config         *config.Config
 	configFilePath string
 	display        *Display
+	ghUser         *support.GitHubUser
 	focusTracker   FocusTracker
 	pages          *tview.Pages
 	validator      *ModuleValidator
@@ -46,6 +48,10 @@ func NewWtfApp(app *tview.Application, config *config.Config, configFilePath str
 	wtfApp.widgets = MakeWidgets(wtfApp.app, wtfApp.pages, wtfApp.config)
 	wtfApp.display = NewDisplay(wtfApp.widgets, wtfApp.config)
 	wtfApp.focusTracker = NewFocusTracker(wtfApp.app, wtfApp.widgets, wtfApp.config)
+
+	githubAPIKey := readGitHubAPIKey(wtfApp.config)
+	wtfApp.ghUser = support.NewGitHubUser(githubAPIKey)
+
 	wtfApp.validator = NewModuleValidator()
 
 	wtfApp.pages.AddPage("grid", wtfApp.display.Grid, true, true)
@@ -67,8 +73,11 @@ func NewWtfApp(app *tview.Application, config *config.Config, configFilePath str
 
 // Start initializes the app
 func (wtfApp *WtfApp) Start() {
-	wtfApp.scheduleWidgets()
+	go wtfApp.scheduleWidgets()
+
 	go wtfApp.watchForConfigChanges()
+
+	go func() { _ = wtfApp.ghUser.Load() }()
 }
 
 // Stop kills all the currently-running widgets in this app

@@ -23,19 +23,14 @@ const exitMessageHeader = `
 
 // DisplayExitMessage displays the onscreen exit message when the app quits
 func (wtfApp *WtfApp) DisplayExitMessage() {
-	githubAPIKey := readGitHubAPIKey(wtfApp.config)
-	ghUser := support.NewGitHubUser(githubAPIKey)
-
 	exitMessageIsDisplayable := readDisplayableConfig(wtfApp.config)
 
-	wtfApp.displayExitMsg(ghUser, exitMessageIsDisplayable)
+	wtfApp.displayExitMsg(wtfApp.ghUser, exitMessageIsDisplayable)
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
 func (wtfApp *WtfApp) displayExitMsg(ghUser *support.GitHubUser, exitMessageIsDisplayable bool) string {
-	_ = ghUser.Load()
-
 	// If a sponsor or contributor and opt out of seeing the exit message, do not display it
 	if (ghUser.IsContributor || ghUser.IsSponsor) && !exitMessageIsDisplayable {
 		return ""
