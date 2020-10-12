@@ -152,7 +152,7 @@ type Monitor struct {
 
 func (widget *Widget) getMonitors() ([]Monitor, error) {
 	// See: https://uptimerobot.com/api/#getMonitorsWrap
-	resp, err_h := http.PostForm("https://api.uptimerobot.com/v2/getMonitors",
+	resp, errh := http.PostForm("https://api.uptimerobot.com/v2/getMonitors",
 		url.Values{
 			"api_key":              {widget.settings.apiKey},
 			"format":               {"json"},
@@ -160,18 +160,18 @@ func (widget *Widget) getMonitors() ([]Monitor, error) {
 		},
 	)
 
-	if err_h != nil {
-		return nil, err_h
+	if errh != nil {
+		return nil, errh
 	}
 
 	body, _ := ioutil.ReadAll(resp.Body)
 
 	// First pass to read the status
 	c := make(map[string]json.RawMessage)
-	err_j1 := json.Unmarshal([]byte(body), &c)
+	errj1 := json.Unmarshal(body, &c)
 
-	if err_j1 != nil {
-		return nil, err_j1
+	if errj1 != nil {
+		return nil, errj1
 	}
 
 	if string(c["stat"]) != `"ok"` {
@@ -180,10 +180,10 @@ func (widget *Widget) getMonitors() ([]Monitor, error) {
 
 	// Second pass to get the actual info
 	var monitors []Monitor
-	err_j2 := json.Unmarshal(c["monitors"], &monitors)
+	errj2 := json.Unmarshal(c["monitors"], &monitors)
 
-	if err_j2 != nil {
-		return nil, err_j2
+	if errj2 != nil {
+		return nil, errj2
 	}
 
 	return monitors, nil
