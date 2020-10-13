@@ -8,6 +8,7 @@
 * Clocks module now supports `natural` ordering option, [#896](https://github.com/wtfutil/wtf/issues/896) by [@seanstoppable](https://github.com/Seanstoppable)
 * Exit banner message added, by [@senorprogrammer](https://github.com/senorprogrammer)
 * [UptimeRobot module added](https://github.com/wtfutil/wtf/pull/983), by [@franga2000](https://github.com/franga2000)
+* Gitlab module now defaults domain to `https://gitlab.com`
 
 ### 🐞 Fixed
 

@@ -28,7 +28,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 
 		apiKey:   ymlConfig.UString("apiKey", ymlConfig.UString("apikey", os.Getenv("WTF_GITLAB_TOKEN"))),
-		domain:   ymlConfig.UString("domain"),
+		domain:   ymlConfig.UString("domain", "https://gitlab.com"),
 		username: ymlConfig.UString("username"),
 	}
 
