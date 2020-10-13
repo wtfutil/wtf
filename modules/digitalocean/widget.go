@@ -35,10 +35,11 @@ type Widget struct {
 
 	app      *tview.Application
 	client   *godo.Client
-	droplets []godo.Droplet
+	droplets []*Droplet
 	pages    *tview.Pages
 	settings *Settings
-	err      error
+
+	err error
 }
 
 // NewWidget creates a new instance of a widget
@@ -127,7 +128,7 @@ func (widget *Widget) createClient() {
 
 // currentDroplet returns the currently-selected droplet, if there is one
 // Returns nil if no droplet is selected
-func (widget *Widget) currentDroplet() *godo.Droplet {
+func (widget *Widget) currentDroplet() *Droplet {
 	if len(widget.droplets) == 0 {
 		return nil
 	}
@@ -136,21 +137,24 @@ func (widget *Widget) currentDroplet() *godo.Droplet {
 		return nil
 	}
 
-	return &widget.droplets[widget.Selected]
+	return widget.droplets[widget.Selected]
 }
 
 // dropletsFetch uses the DigitalOcean API to fetch information about all the available droplets
-func (widget *Widget) dropletsFetch() ([]godo.Droplet, error) {
-	dropletList := []godo.Droplet{}
+func (widget *Widget) dropletsFetch() ([]*Droplet, error) {
+	dropletList := []*Droplet{}
 	opts := &godo.ListOptions{}
 
 	for {
-		droplets, resp, err := widget.client.Droplets.List(context.Background(), opts)
+		doDroplets, resp, err := widget.client.Droplets.List(context.Background(), opts)
 		if err != nil {
 			return dropletList, err
 		}
 
-		dropletList = append(dropletList, droplets...)
+		for _, doDroplet := range doDroplets {
+			droplet := NewDroplet(doDroplet)
+			dropletList = append(dropletList, droplet)
+		}
 
 		if resp.Links == nil || resp.Links.IsLastPage() {
 			break

@@ -5,13 +5,12 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/digitalocean/godo"
 	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/view"
 )
 
 type dropletPropertiesTable struct {
-	droplet     *godo.Droplet
+	droplet     *Droplet
 	propertyMap map[string]string
 
 	colWidth0   int
@@ -20,7 +19,7 @@ type dropletPropertiesTable struct {
 }
 
 // newDropletPropertiesTable creates and returns an instance of DropletPropertiesTable
-func newDropletPropertiesTable(droplet *godo.Droplet) *dropletPropertiesTable {
+func newDropletPropertiesTable(droplet *Droplet) *dropletPropertiesTable {
 	propTable := &dropletPropertiesTable{
 		droplet: droplet,
 
