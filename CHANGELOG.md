@@ -12,7 +12,7 @@
 
 ### 🐞 Fixed
 
-* Exchange Rates module now displays rates in alphabetical order, sorted by the base rate, by [@senorprogrammer](https://github.com/senorprogrammer) 
+* Exchange Rates module now displays rates in alphabetical order, sorted by the base rate, by [@senorprogrammer](https://github.com/senorprogrammer)
 * Feed Reader module no longer crashes on feeds that don't have a published date, [#958](https://github.com/wtfutil/wtf/issues/958) by [@cyingfan](https://github.com/cyingfan)
 * Stray blank lines no longer appear at the end of highlightable lists, [#977](https://github.com/wtfutil/wtf/pull/977) by [@cyingfan](https://github.com/cyingfan)
 * `config.yml` now properly set to `0600` instead of `0666`, by [@cyingfan](https://github.com/cyingfan)
@@ -481,7 +481,7 @@
 
 ### ⚡️ Added
 
-* Dependencies are now managed and installed using Go modules. See README.md for details, [#406](https://github.com/wtfutil/wtf/issues/406) by [@retgits](https://github.com/retgits) 
+* Dependencies are now managed and installed using Go modules. See README.md for details, [#406](https://github.com/wtfutil/wtf/issues/406) by [@retgits](https://github.com/retgits)
 
 ## 0.7.2
 
@@ -530,7 +530,7 @@
 ### ⚡️ Added
 
 * Resource Usage module added by [@nicholas-eden](https://github.com/nicholas-eden)
-* Recursive repo search in Git module ([#126](https://github.com/wtfutil/wtf/issues/126) by [@anandsudhir](http://github.com/anandsudhir)) 
+* Recursive repo search in Git module ([#126](https://github.com/wtfutil/wtf/issues/126) by [@anandsudhir](http://github.com/anandsudhir))
 * HTTP/HTTPS handling in OpenFile() util function by [@jdenoy](https://github.com/jdenoy)
 * Honor system http proxies when using non-default transport by [@skymeyer](https://github.com/skymeyer)
 * VictorOps module added by [ImDevinC](https://github.com/ImDevinC)
