@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+## v0.33.0
+2020-10-13
+
 ### ⚡️ Added
 
 * FeedReader module supports [display mode switching](https://github.com/wtfutil/wtf/pull/976) via the `t` key, by [@cyingfan](https://github.com/cyingfan)
