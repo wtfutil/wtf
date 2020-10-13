@@ -6,45 +6,36 @@ import (
 	"github.com/wtfutil/wtf/utils"
 )
 
-const maxColWidth = 10
-
-// defaultColumns defines the default set of columns to display in the widget
-// This can be over-ridden in the cofig by explicitly defining a set of columns
-var defaultColumns = []string{
-	"Name",
-	"Status",
-	"Vcpus",
-	"Disk",
-	"Memory",
-	"Region.Slug",
-}
+const maxColWidth = 12
 
 func (widget *Widget) content() (string, string, bool) {
+	columnSet := widget.settings.columns
+
 	title := widget.CommonSettings().Title
 	if widget.err != nil {
 		return title, widget.err.Error(), true
 	}
 
-	if len(defaultColumns) < 1 {
+	if len(columnSet) < 1 {
 		return title, " no columns defined", false
 	}
 
 	str := fmt.Sprintf(" [::b][%s]", widget.settings.common.Colors.Subheading)
 
-	for _, colName := range defaultColumns {
+	for _, colName := range columnSet {
 		truncName := utils.Truncate(colName, maxColWidth, false)
 
-		str += fmt.Sprintf("%-10s", truncName)
+		str += fmt.Sprintf("%-12s", truncName)
 	}
 
 	str += "\n"
 
 	for idx, droplet := range widget.droplets {
-		// This defines the formatting for the row, one tab-seperated string
-		// for each defined column
+		// This defines the formatting for the row, one tab-seperated string for each defined column
 		fmtStr := " [%s]"
-		for range defaultColumns {
-			fmtStr += "%-10s"
+
+		for range columnSet {
+			fmtStr += "%-12s"
 		}
 
 		vals := []interface{}{
@@ -52,7 +43,7 @@ func (widget *Widget) content() (string, string, bool) {
 		}
 
 		// Dynamically access the droplet to get the requested columns values
-		for _, colName := range defaultColumns {
+		for _, colName := range columnSet {
 			val := droplet.ValueForColumn(colName)
 			truncVal := utils.Truncate(val, maxColWidth, false)
 

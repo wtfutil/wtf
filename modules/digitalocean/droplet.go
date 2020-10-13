@@ -8,6 +8,8 @@ import (
 	"github.com/digitalocean/godo"
 )
 
+const invalidColumn = "???"
+
 // Droplet represents WTF's view of a DigitalOcean droplet
 type Droplet struct {
 	godo.Droplet
@@ -43,6 +45,8 @@ func NewDroplet(doDroplet godo.Droplet) *Droplet {
 	return droplet
 }
 
+/* -------------------- Exported Functions -------------------- */
+
 // ValueForColumn returns a string value for the given column
 func (drop *Droplet) ValueForColumn(colName string) string {
 	r := reflect.ValueOf(drop)
@@ -60,7 +64,12 @@ func (drop *Droplet) ValueForColumn(colName string) string {
 	case "Region":
 		strVal = drop.Region.ValueForColumn(split[1])
 	default:
-		strVal = fmt.Sprintf("%v", f)
+		if !f.IsValid() {
+			strVal = invalidColumn
+		} else {
+			strVal = fmt.Sprintf("%v", f)
+		}
+
 	}
 
 	return strVal
@@ -71,6 +80,10 @@ func (reg *Image) ValueForColumn(colName string) string {
 	r := reflect.ValueOf(reg)
 	f := reflect.Indirect(r).FieldByName(colName)
 
+	if !f.IsValid() {
+		return invalidColumn
+	}
+
 	strVal := fmt.Sprintf("%v", f)
 
 	return strVal
@@ -80,6 +93,10 @@ func (reg *Image) ValueForColumn(colName string) string {
 func (reg *Region) ValueForColumn(colName string) string {
 	r := reflect.ValueOf(reg)
 	f := reflect.Indirect(r).FieldByName(colName)
+
+	if !f.IsValid() {
+		return invalidColumn
+	}
 
 	strVal := fmt.Sprintf("%v", f)
 
