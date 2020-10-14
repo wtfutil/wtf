@@ -77,12 +77,13 @@ func Truncate(src string, maxLen int, withEllipse bool) string {
 	return src
 }
 
-// Formats number as string with 1000 delimiters and, if necessary, rounds it to 2 decimals
+// PrettyNumber formats number as string with 1000 delimiters and, if necessary, rounds it to 2 decimals
 func PrettyNumber(number float64) string {
 	p := message.NewPrinter(language.English)
+
 	if number == math.Trunc(number) {
 		return p.Sprintf("%.0f", number)
-	} else {
-		return p.Sprintf("%.2f", number)
 	}
+
+	return p.Sprintf("%.2f", number)
 }
