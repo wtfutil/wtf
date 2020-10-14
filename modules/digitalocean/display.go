@@ -44,7 +44,11 @@ func (widget *Widget) content() (string, string, bool) {
 
 		// Dynamically access the droplet to get the requested columns values
 		for _, colName := range columnSet {
-			val := droplet.ValueForColumn(colName)
+			val, err := droplet.StringValueForProperty(colName)
+			if err != nil {
+				val = "???"
+			}
+
 			truncVal := utils.Truncate(val, maxColWidth, false)
 
 			vals = append(vals, truncVal)

@@ -6,9 +6,8 @@ import (
 	"strings"
 
 	"github.com/digitalocean/godo"
+	"github.com/wtfutil/wtf/utils"
 )
-
-const invalidColumn = "???"
 
 // Droplet represents WTF's view of a DigitalOcean droplet
 type Droplet struct {
@@ -21,11 +20,13 @@ type Droplet struct {
 // Image represents WTF's view of a DigitalOcean droplet image
 type Image struct {
 	godo.Image
+	utils.Reflective
 }
 
 // Region represents WTF's view of a DigitalOcean region
 type Region struct {
 	godo.Region
+	utils.Reflective
 }
 
 // NewDroplet creates and returns an instance of Droplet
@@ -35,10 +36,12 @@ func NewDroplet(doDroplet godo.Droplet) *Droplet {
 
 		Image{
 			*doDroplet.Image,
+			utils.Reflective{},
 		},
 
 		Region{
 			*doDroplet.Region,
+			utils.Reflective{},
 		},
 	}
 
@@ -47,58 +50,31 @@ func NewDroplet(doDroplet godo.Droplet) *Droplet {
 
 /* -------------------- Exported Functions -------------------- */
 
-// ValueForColumn returns a string value for the given column
-func (drop *Droplet) ValueForColumn(colName string) string {
-	r := reflect.ValueOf(drop)
-	f := reflect.Indirect(r).FieldByName(colName)
-
+// StringValueForProperty returns a string value for the given column
+func (drop *Droplet) StringValueForProperty(propName string) (string, error) {
 	var strVal string
+	var err error
 
 	// Figure out if we should forward this property to a sub-object
 	// Lets us support "Region.Name" column definitions
-	split := strings.Split(colName, ".")
+	split := strings.Split(propName, ".")
 
 	switch split[0] {
 	case "Image":
-		strVal = drop.Image.ValueForColumn(split[1])
+		strVal, err = drop.Image.StringValueForProperty(split[1])
 	case "Region":
-		strVal = drop.Region.ValueForColumn(split[1])
+		strVal, err = drop.Region.StringValueForProperty(split[1])
 	default:
-		if !f.IsValid() {
-			strVal = invalidColumn
+		v := reflect.ValueOf(drop)
+		refVal := reflect.Indirect(v).FieldByName(propName)
+
+		if !refVal.IsValid() {
+			err = fmt.Errorf("invalid property name: %s", propName)
 		} else {
-			strVal = fmt.Sprintf("%v", f)
+			strVal = fmt.Sprintf("%v", refVal)
 		}
 
 	}
 
-	return strVal
-}
-
-// ValueForColumn returns a string value for the given column
-func (reg *Image) ValueForColumn(colName string) string {
-	r := reflect.ValueOf(reg)
-	f := reflect.Indirect(r).FieldByName(colName)
-
-	if !f.IsValid() {
-		return invalidColumn
-	}
-
-	strVal := fmt.Sprintf("%v", f)
-
-	return strVal
-}
-
-// ValueForColumn returns a string value for the given column
-func (reg *Region) ValueForColumn(colName string) string {
-	r := reflect.ValueOf(reg)
-	f := reflect.Indirect(r).FieldByName(colName)
-
-	if !f.IsValid() {
-		return invalidColumn
-	}
-
-	strVal := fmt.Sprintf("%v", f)
-
-	return strVal
+	return strVal, err
 }
