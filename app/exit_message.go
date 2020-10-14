@@ -7,7 +7,6 @@ import (
 
 	"github.com/logrusorgru/aurora"
 	"github.com/olebedev/config"
-	"github.com/wtfutil/wtf/support"
 )
 
 const exitMessageHeader = `
@@ -25,14 +24,14 @@ const exitMessageHeader = `
 func (wtfApp *WtfApp) DisplayExitMessage() {
 	exitMessageIsDisplayable := readDisplayableConfig(wtfApp.config)
 
-	wtfApp.displayExitMsg(wtfApp.ghUser, exitMessageIsDisplayable)
+	wtfApp.displayExitMsg(exitMessageIsDisplayable)
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (wtfApp *WtfApp) displayExitMsg(ghUser *support.GitHubUser, exitMessageIsDisplayable bool) string {
+func (wtfApp *WtfApp) displayExitMsg(exitMessageIsDisplayable bool) string {
 	// If a sponsor or contributor and opt out of seeing the exit message, do not display it
-	if (ghUser.IsContributor || ghUser.IsSponsor) && !exitMessageIsDisplayable {
+	if (wtfApp.ghUser.IsContributor || wtfApp.ghUser.IsSponsor) && !exitMessageIsDisplayable {
 		return ""
 	}
 
@@ -40,15 +39,15 @@ func (wtfApp *WtfApp) displayExitMsg(ghUser *support.GitHubUser, exitMessageIsDi
 
 	msgs = append(msgs, aurora.Magenta(exitMessageHeader).String())
 
-	if ghUser.IsContributor {
+	if wtfApp.ghUser.IsContributor {
 		msgs = append(msgs, wtfApp.contributorThankYouMessage())
 	}
 
-	if ghUser.IsSponsor {
+	if wtfApp.ghUser.IsSponsor {
 		msgs = append(msgs, wtfApp.sponsorThankYouMessage())
 	}
 
-	if !ghUser.IsContributor && !ghUser.IsSponsor {
+	if !wtfApp.ghUser.IsContributor && !wtfApp.ghUser.IsSponsor {
 		msgs = append(msgs, wtfApp.supportRequestMessage())
 	}
 
