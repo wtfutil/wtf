@@ -2,30 +2,27 @@ package finnhub
 
 import (
 	"fmt"
-	"regexp"
-	"sort"
 
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/view"
-	"github.com/wtfutil/wtf/wtf"
 )
 
+// Widget ..
 type Widget struct {
-	view.ScrollableWidget
+	view.TextWidget
+	*Client
 
 	settings *Settings
-	rates    map[string]map[string]float64
-	err      error
 }
 
-func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
+// NewWidget ..
+func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
-		ScrollableWidget: view.NewScrollableWidget(app, settings.common),
+		TextWidget: view.NewTextWidget(app, settings.common),
+		Client:     NewClient(settings.symbols, settings.apiKey),
 
 		settings: settings,
 	}
-
-	widget.SetRenderFunction(widget.Render)
 
 	return &widget
 }
@@ -33,68 +30,37 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-
-	rates, err := FetchExchangeRates(widget.settings)
-	if err != nil {
-		widget.err = err
-	} else {
-		widget.rates = rates
+	if widget.Disabled() {
+		return
 	}
 
-	// The last call should always be to the display function
-	widget.Render()
-}
-
-func (widget *Widget) Render() {
 	widget.Redraw(widget.content)
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
 func (widget *Widget) content() (string, string, bool) {
-	if widget.err != nil {
-		widget.View.SetWrap(true)
-		return widget.CommonSettings().Title, widget.err.Error(), false
-	}
+	quotes, err := widget.Client.Getquote()
 
-	// Sort the bases alphabetically to ensure consistent display ordering
-	bases := []string{}
-	for base := range widget.settings.rates {
-		bases = append(bases, base)
-	}
-	sort.Strings(bases)
+	title := fmt.Sprintf("%s - from finnhub api", widget.CommonSettings().Title)
+	var str string
+	wrap := false
+	if err != nil {
+		wrap = true
+		str = err.Error()
+	} else {
+		for idx, q := range quotes {
+			if idx > 10 {
+				break
+			}
 
-	out := ""
-
-	for idx, base := range bases {
-		rates := widget.settings.rates[base]
-
-		rowColor := widget.CommonSettings().RowColor(idx)
-
-		for _, cur := range rates {
-			rate := widget.rates[base][cur]
-
-			out += fmt.Sprintf(
-				"[%s]1 %s = %s %s[white]\n",
-				rowColor,
-				base,
-				widget.formatConversionRate(rate),
-				cur,
+			str += fmt.Sprintf(
+				"[%s]: %s \n",
+				q.Stock,
+				q.C,
 			)
-
-			idx++
 		}
 	}
 
-	widget.View.SetWrap(false)
-	return widget.CommonSettings().Title, out, false
-}
-
-// formatConversionRate takes the raw conversion float and formats it to the precision the
-// user specifies in their config (or to the default value)
-func (widget *Widget) formatConversionRate(rate float64) string {
-	rate = wtf.TruncateFloat64(rate, widget.settings.precision)
-
-	r, _ := regexp.Compile(`\.?0*$`)
-	return r.ReplaceAllString(fmt.Sprintf("%10.7f", rate), "")
+	return title, str, wrap
 }
