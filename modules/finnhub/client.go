@@ -5,7 +5,6 @@ import (
 	"net/http"
 	"net/url"
 	"encoding/json"
-	//"github.com/wtfutil/wtf/utils"
 )
 
 // Client ..

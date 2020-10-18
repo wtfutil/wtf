@@ -42,7 +42,7 @@ func (widget *Widget) Refresh() {
 func (widget *Widget) content() (string, string, bool) {
 	quotes, err := widget.Client.Getquote()
 
-	title := fmt.Sprintf("%s - from finnhub api", widget.CommonSettings().Title)
+	title := fmt.Sprintf("%s", widget.CommonSettings().Title)
 	var str string
 	wrap := false
 	if err != nil {
@@ -55,7 +55,8 @@ func (widget *Widget) content() (string, string, bool) {
 			}
 
 			str += fmt.Sprintf(
-				"[%s]: %s \n",
+				"[%d]: %s  %.2f\n",
+				idx,
 				q.Stock,
 				q.C,
 			)

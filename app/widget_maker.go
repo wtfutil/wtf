@@ -73,6 +73,7 @@ import (
 	"github.com/wtfutil/wtf/modules/weatherservices/weather"
 	"github.com/wtfutil/wtf/modules/zendesk"
 	"github.com/wtfutil/wtf/wtf"
+	"github.com/wtfutil/wtf/modules/finnhub"
 )
 
 // MakeWidget creates and returns instances of widgets
@@ -308,6 +309,9 @@ func MakeWidget(
 	case "exchangerates":
 		settings := exchangerates.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = exchangerates.NewWidget(app, pages, settings)
+	case "finnhub":
+		settings := finnhub.NewSettingsFromYAML(moduleName, moduleConfig, config)
+		widget = finnhub.NewWidget(app, settings)
 	default:
 		settings := unknown.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = unknown.NewWidget(app, settings)

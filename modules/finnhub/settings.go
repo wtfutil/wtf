@@ -9,7 +9,7 @@ import (
 
 const (
 	defaultFocusable = true
-	defaultTitle     = "Stocks"
+	defaultTitle     = "Finnhub Stock Price"
 )
 
 // Settings defines the configuration properties for this module
