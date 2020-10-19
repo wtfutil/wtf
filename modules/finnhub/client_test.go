@@ -1,11 +1,12 @@
 package finnhub
 
 import (
-    "fmt"
+	"fmt"
 	"testing"
 )
-func TestFinnhubClient(t *testing.T){
-	testClient := &Client {
+
+func TestFinnhubClient(t *testing.T) {
+	testClient := &Client{
 		symbols: []string{
 			"AAPL",
 			"MSFT",

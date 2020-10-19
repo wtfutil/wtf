@@ -1,10 +1,10 @@
 package finnhub
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"net/url"
-	"encoding/json"
 )
 
 // Client ..
@@ -35,7 +35,10 @@ func (client *Client) Getquote() ([]Quote, error) {
 
 		var quote Quote
 		quote.Stock = s
-		json.NewDecoder(resp.Body).Decode(&quote)
+		err = json.NewDecoder(resp.Body).Decode(&quote)
+		if err != nil {
+			return quotes, err
+		}
 		quotes = append(quotes, quote)
 	}
 

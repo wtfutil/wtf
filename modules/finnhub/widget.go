@@ -42,7 +42,7 @@ func (widget *Widget) Refresh() {
 func (widget *Widget) content() (string, string, bool) {
 	quotes, err := widget.Client.Getquote()
 
-	title := fmt.Sprintf("%s", widget.CommonSettings().Title)
+	title := widget.CommonSettings().Title
 	var str string
 	wrap := false
 	if err != nil {
