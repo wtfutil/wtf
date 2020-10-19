@@ -23,6 +23,7 @@ import (
 	"github.com/wtfutil/wtf/modules/docker"
 	"github.com/wtfutil/wtf/modules/exchangerates"
 	"github.com/wtfutil/wtf/modules/feedreader"
+	"github.com/wtfutil/wtf/modules/finnhub"
 	"github.com/wtfutil/wtf/modules/football"
 	"github.com/wtfutil/wtf/modules/gcal"
 	"github.com/wtfutil/wtf/modules/gerrit"
@@ -73,7 +74,6 @@ import (
 	"github.com/wtfutil/wtf/modules/weatherservices/weather"
 	"github.com/wtfutil/wtf/modules/zendesk"
 	"github.com/wtfutil/wtf/wtf"
-	"github.com/wtfutil/wtf/modules/finnhub"
 )
 
 // MakeWidget creates and returns instances of widgets
