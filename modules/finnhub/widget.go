@@ -3,6 +3,7 @@ package finnhub
 import (
 	"fmt"
 
+	"github.com/jedib0t/go-pretty/table"
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/view"
 )
@@ -43,25 +44,20 @@ func (widget *Widget) content() (string, string, bool) {
 	quotes, err := widget.Client.Getquote()
 
 	title := widget.CommonSettings().Title
-	var str string
+	t := table.NewWriter()
+	t.AppendHeader(table.Row{"#", "Stock", "Current Price", "Open Price", "Change"})
 	wrap := false
 	if err != nil {
 		wrap = true
-		str = err.Error()
 	} else {
 		for idx, q := range quotes {
-			if idx > 10 {
-				break
-			}
-
-			str += fmt.Sprintf(
-				"[%d]: %s  %.2f\n",
-				idx,
-				q.Stock,
-				q.C,
-			)
+			t.AppendRows([]table.Row{
+				{idx, q.Stock, q.C, q.O, fmt.Sprintf("%.4f", (q.C-q.O)/q.C)},
+			})
 		}
 	}
+
+	str := fmt.Sprintf(t.Render())
 
 	return title, str, wrap
 }

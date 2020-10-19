@@ -1,21 +1,21 @@
 package finnhub
 
 import (
+	"os"
+
 	"github.com/olebedev/config"
 	"github.com/wtfutil/wtf/cfg"
 	"github.com/wtfutil/wtf/utils"
-	"os"
 )
 
 const (
 	defaultFocusable = true
-	defaultTitle     = "Finnhub Stock Price"
+	defaultTitle     = "📈 Stocks Price"
 )
 
 // Settings defines the configuration properties for this module
 type Settings struct {
-	common *cfg.Common
-
+	common  *cfg.Common
 	apiKey  string   `help:"Your finnhub API token."`
 	symbols []string `help:"An array of stocks symbols (i.e. AAPL, MSFT)"`
 }
