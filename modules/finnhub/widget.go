@@ -57,7 +57,5 @@ func (widget *Widget) content() (string, string, bool) {
 		}
 	}
 
-	str := fmt.Sprintf(t.Render())
-
-	return title, str, wrap
+	return title, t.Render(), wrap
 }
