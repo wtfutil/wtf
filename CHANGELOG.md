@@ -10,6 +10,7 @@
 
 * Updated `google.golang.org/api` from 0.30.0 to 0.33.0
 * Updated `github.com/digitalocean/godo` from 1.46.0 to 1.48.0
+* Updated `github.com/xanzy/go-gitlab` from 0.38.1 to 0.38.2
 
 ## v0.33.0
 2020-10-13
