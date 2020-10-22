@@ -5,6 +5,7 @@
 ### ⚡️ Added
 
 * DigitalOcean module now supports custom column definitions in the default layout. See [the docs](https://wtfutil.com/modules/digitalocean/) for details, [#986](https://github.com/wtfutil/wtf/issues/986) by [@senorprogrammer](https://github.com/senorprogrammer)
+* Finnhub stock quotes module added, [#930](https://github.com/wtfutil/wtf/issues/930) by [@applegreengrape](https://github.com/applegreengrape)
 
 ### 👍 Updated
 
