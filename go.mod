@@ -25,12 +25,14 @@ require (
 	github.com/dustin/go-humanize v1.0.0
 	github.com/gdamore/tcell v1.4.0
 	github.com/go-ole/go-ole v1.2.4 // indirect
+	github.com/go-openapi/strfmt v0.19.6 // indirect
 	github.com/godbus/dbus v4.1.0+incompatible // indirect
 	github.com/google/go-github/v32 v32.1.0
 	github.com/gophercloud/gophercloud v0.5.0 // indirect
 	github.com/hekmon/cunits v2.0.1+incompatible // indirect
 	github.com/hekmon/transmissionrpc v0.0.0-20190525133028-1d589625bacd
 	github.com/imdario/mergo v0.3.8 // indirect
+	github.com/jedib0t/go-pretty v4.3.0+incompatible
 	github.com/jessevdk/go-flags v1.4.0
 	github.com/lib/pq v1.2.0 // indirect
 	github.com/logrusorgru/aurora v0.0.0-20190803045625-94edacc10f9b

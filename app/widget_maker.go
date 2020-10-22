@@ -23,6 +23,7 @@ import (
 	"github.com/wtfutil/wtf/modules/docker"
 	"github.com/wtfutil/wtf/modules/exchangerates"
 	"github.com/wtfutil/wtf/modules/feedreader"
+	"github.com/wtfutil/wtf/modules/finnhub"
 	"github.com/wtfutil/wtf/modules/football"
 	"github.com/wtfutil/wtf/modules/gcal"
 	"github.com/wtfutil/wtf/modules/gerrit"
@@ -308,6 +309,9 @@ func MakeWidget(
 	case "exchangerates":
 		settings := exchangerates.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = exchangerates.NewWidget(app, pages, settings)
+	case "finnhub":
+		settings := finnhub.NewSettingsFromYAML(moduleName, moduleConfig, config)
+		widget = finnhub.NewWidget(app, settings)
 	default:
 		settings := unknown.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = unknown.NewWidget(app, settings)
