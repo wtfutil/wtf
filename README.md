@@ -13,6 +13,10 @@ WTF (aka 'wtfutil') is the personal information dashboard for your terminal, pro
 
 Used by thousands of developers and tech people around the world, WTF is free and open-source. To support the continued use and development of WTF, please consider sponsoring WTF via [GitHub Sponsors](https://github.com/sponsors/senorprogrammer).
 
+### Are you a contributor or sponsor?
+
+Awesome! [See here](https://wtfutil.com/#exit-message) for how you can change the exit message, the message WTF shows when quitting, to something special just for you.
+
 #
 
 <p></p>
