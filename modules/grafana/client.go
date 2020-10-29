@@ -3,6 +3,7 @@ package grafana
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net/http"
 	"sort"
@@ -90,6 +91,17 @@ func (client *Client) Alerts() ([]Alert, error) {
 		return nil, err
 	}
 	defer func() { _ = res.Body.Close() }()
+
+	if res.StatusCode != 200 {
+		msg := struct {
+			Msg string `json:"message"`
+		}{}
+		err = utils.ParseJSON(&msg, res.Body)
+		if err != nil {
+			return nil, err
+		}
+		return nil, errors.New(msg.Msg)
+	}
 
 	var out []Alert
 	err = utils.ParseJSON(&out, res.Body)
