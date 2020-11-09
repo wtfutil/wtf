@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+## v0.34.0
+2020-11-08
+
 ### ⚡️ Added
 
 * DigitalOcean module now supports custom column definitions in the default layout. See [the docs](https://wtfutil.com/modules/digitalocean/) for details, [#986](https://github.com/wtfutil/wtf/issues/986) by [@senorprogrammer](https://github.com/senorprogrammer)
