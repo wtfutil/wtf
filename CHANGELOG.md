@@ -11,8 +11,10 @@
 ### 👍 Updated
 
 * Updated `google.golang.org/api` from 0.30.0 to 0.33.0
-* Updated `github.com/digitalocean/godo` from 1.46.0 to 1.48.0
-* Updated `github.com/xanzy/go-gitlab` from 0.38.1 to 0.38.2
+* Updated `github.com/digitalocean/godo` from 1.46.0 to 1.52.0
+* Updated `github.com/xanzy/go-gitlab` from 0.38.1 to 0.39.0
+* Updated `github.com/zorkian/go-datadog-api` from 2.29.0+incompatible to 2.30.0+incompatible
+* Updated `golang.org/x/text` from 0.3.3 to 0.3.4
 
 ## v0.33.0
 2020-10-13
