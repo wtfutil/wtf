@@ -48,7 +48,7 @@ func (widget *Widget) content() (string, string, bool) {
 		str = err.Error()
 	} else {
 		for idx, build := range builds {
-			if idx > 10 {
+			if idx > widget.settings.buildNumber {
 				break
 			}
 
