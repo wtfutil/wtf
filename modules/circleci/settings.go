@@ -15,7 +15,8 @@ const (
 type Settings struct {
 	common *cfg.Common
 
-	apiKey string `help:"Your CircleCI API token."`
+	apiKey         string `help:"Your CircleCI API token."`
+	numberOfBuilds int    `help:"The number of build, 10 by default"`
 }
 
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
@@ -23,7 +24,8 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 	settings := Settings{
 		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 
-		apiKey: ymlConfig.UString("apiKey", ymlConfig.UString("apikey", os.Getenv("WTF_CIRCLE_API_KEY"))),
+		apiKey:         ymlConfig.UString("apiKey", ymlConfig.UString("apikey", os.Getenv("WTF_CIRCLE_API_KEY"))),
+		numberOfBuilds: ymlConfig.UInt("numberOfBuilds", 10),
 	}
 
 	cfg.ModuleSecret(name, globalConfig, &settings.apiKey).Load()
