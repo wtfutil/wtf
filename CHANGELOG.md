@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### ⚡️ Added
+
+* CircleCI module now supports `numberOfBuilds` setting defining how many builds to display, [#1020](https://github.com/wtfutil/wtf/issues/1020) by [@dabcoder](https://github.com/dabcoder)
+
 ## v0.34.0
 2020-11-08
 
