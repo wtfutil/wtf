@@ -7,6 +7,7 @@ import (
 	"github.com/gdamore/tcell"
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/cfg"
+	"github.com/wtfutil/wtf/utils"
 )
 
 type helpItem struct {
@@ -80,6 +81,7 @@ func (widget *KeyboardWidget) SetKeyboardKey(key tcell.Key, fn func(), helpText 
 // all widgets that accept keyboard input
 func (widget *KeyboardWidget) InitializeCommonControls(refreshFunc func()) {
 	widget.SetKeyboardChar("/", widget.ShowHelp, "Show/hide this help prompt")
+	widget.SetKeyboardChar("\\", widget.OpenDocs, "Open the docs in a browser")
 
 	if refreshFunc != nil {
 		widget.SetKeyboardChar("r", refreshFunc, "Refresh widget")
@@ -127,10 +129,18 @@ func (widget *KeyboardWidget) HelpText() string {
 	return str
 }
 
+// OpenDocs opens the module docs in a browser
+func (widget *KeyboardWidget) OpenDocs() {
+	url := "https://wtfutil.com/modules/" + widget.settings.Name
+	utils.OpenFile(url)
+}
+
+// SetView assigns the passed-in tview.TextView view to this widget
 func (widget *KeyboardWidget) SetView(view *tview.TextView) {
 	widget.view = view
 }
 
+// ShowHelp displays the modal help dialog for a module
 func (widget *KeyboardWidget) ShowHelp() {
 	closeFunc := func() {
 		widget.pages.RemovePage("help")
