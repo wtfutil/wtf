@@ -7,7 +7,7 @@ import (
 )
 
 func (widget *Widget) initializeKeyboardControls() {
-	widget.InitializeCommonControls(widget.Refresh)
+	widget.InitializeRefreshKeyboardControl(widget.Refresh)
 
 	widget.SetKeyboardChar("l", widget.next, "Select next item")
 	widget.SetKeyboardChar("h", widget.previous, "Select previous item")

@@ -23,20 +23,24 @@ type Base struct {
 	enabledMutex    *sync.Mutex
 }
 
+// NewBase creates and returns an instance of the Base module, the lowest-level
+// primitive module from which all others are derived
 func NewBase(app *tview.Application, commonSettings *cfg.Common) Base {
 	base := Base{
-		commonSettings:  commonSettings,
+		commonSettings: commonSettings,
+
 		app:             app,
 		bordered:        commonSettings.Bordered,
 		enabled:         commonSettings.Enabled,
+		enabledMutex:    &sync.Mutex{},
 		focusChar:       commonSettings.FocusChar(),
 		focusable:       commonSettings.Focusable,
 		name:            commonSettings.Name,
 		quitChan:        make(chan bool),
 		refreshInterval: commonSettings.RefreshInterval,
 		refreshing:      false,
-		enabledMutex:    &sync.Mutex{},
 	}
+
 	return base
 }
 
@@ -106,10 +110,6 @@ func (base *Base) Focusable() bool {
 
 func (base *Base) FocusChar() string {
 	return base.focusChar
-}
-
-func (base *Base) HelpText() string {
-	return fmt.Sprintf("\n  There is no help available for widget %s", base.commonSettings.Module.Type)
 }
 
 func (base *Base) Name() string {

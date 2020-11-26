@@ -3,7 +3,7 @@ package digitalocean
 import "github.com/gdamore/tcell"
 
 func (widget *Widget) initializeKeyboardControls() {
-	widget.InitializeCommonControls(widget.Refresh)
+	widget.InitializeRefreshKeyboardControl(widget.Refresh)
 
 	widget.SetKeyboardChar("?", widget.showInfo, "Show info about the selected droplet")
 

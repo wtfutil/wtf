@@ -10,6 +10,8 @@ import (
 	"github.com/wtfutil/wtf/utils"
 )
 
+const refreshKeyChar = "r"
+
 type helpItem struct {
 	Key  string
 	Text string
@@ -41,7 +43,67 @@ func NewKeyboardWidget(app *tview.Application, pages *tview.Pages, settings *cfg
 		keyHelp:  []helpItem{},
 	}
 
+	keyWidget.initializeCommonKeyboardControls()
+
 	return keyWidget
+}
+
+/* -------------------- Exported Functions --------------------- */
+
+// HelpText returns the help text and keyboard command info for this widget
+func (widget *KeyboardWidget) HelpText() string {
+	str := " [green::b]Keyboard commands for " + strings.Title(widget.settings.Module.Type) + "[white]\n\n"
+
+	for _, item := range widget.charHelp {
+		str += fmt.Sprintf("  %s\t%s\n", item.Key, item.Text)
+	}
+
+	str += "\n\n"
+
+	for _, item := range widget.keyHelp {
+		str += fmt.Sprintf("  %-*s\t%s\n", widget.maxKey, item.Key, item.Text)
+	}
+
+	return str
+}
+
+// InitializeRefreshKeyboardControl assigns the module's explicit refresh function to
+// the commom refresh key value
+func (widget *KeyboardWidget) InitializeRefreshKeyboardControl(refreshFunc func()) {
+	if refreshFunc != nil {
+		widget.SetKeyboardChar(refreshKeyChar, refreshFunc, "Refresh widget")
+	}
+}
+
+// InputCapture is the function passed to tview's SetInputCapture() function
+// This is done during the main widget's creation process using the following code:
+//
+//    widget.View.SetInputCapture(widget.InputCapture)
+//
+func (widget *KeyboardWidget) InputCapture(event *tcell.EventKey) *tcell.EventKey {
+	if event == nil {
+		return nil
+	}
+
+	fn := widget.charMap[string(event.Rune())]
+	if fn != nil {
+		fn()
+		return nil
+	}
+
+	fn = widget.keyMap[event.Key()]
+	if fn != nil {
+		fn()
+		return nil
+	}
+
+	return event
+}
+
+// LaunchDocumentation opens the module docs in a browser
+func (widget *KeyboardWidget) LaunchDocumentation() {
+	url := "https://wtfutil.com/modules/" + widget.settings.Name
+	utils.OpenFile(url)
 }
 
 // SetKeyboardChar sets a character/function combination that responds to key presses
@@ -77,64 +139,6 @@ func (widget *KeyboardWidget) SetKeyboardKey(key tcell.Key, fn func(), helpText 
 	}
 }
 
-// InitializeCommonControls sets up the keyboard controls that are common to
-// all widgets that accept keyboard input
-func (widget *KeyboardWidget) InitializeCommonControls(refreshFunc func()) {
-	widget.SetKeyboardChar("/", widget.ShowHelp, "Show/hide this help prompt")
-	widget.SetKeyboardChar("\\", widget.OpenDocs, "Open the docs in a browser")
-
-	if refreshFunc != nil {
-		widget.SetKeyboardChar("r", refreshFunc, "Refresh widget")
-	}
-}
-
-// InputCapture is the function passed to tview's SetInputCapture() function
-// This is done during the main widget's creation process using the following code:
-//
-//    widget.View.SetInputCapture(widget.InputCapture)
-//
-func (widget *KeyboardWidget) InputCapture(event *tcell.EventKey) *tcell.EventKey {
-	if event == nil {
-		return nil
-	}
-
-	fn := widget.charMap[string(event.Rune())]
-	if fn != nil {
-		fn()
-		return nil
-	}
-
-	fn = widget.keyMap[event.Key()]
-	if fn != nil {
-		fn()
-		return nil
-	}
-
-	return event
-}
-
-// HelpText returns the help text and keyboard command info for this widget
-func (widget *KeyboardWidget) HelpText() string {
-	str := " [green::b]Keyboard commands for " + strings.Title(widget.settings.Module.Type) + "[white]\n\n"
-
-	for _, item := range widget.charHelp {
-		str += fmt.Sprintf("  %s\t%s\n", item.Key, item.Text)
-	}
-	str += "\n\n"
-
-	for _, item := range widget.keyHelp {
-		str += fmt.Sprintf("  %-*s\t%s\n", widget.maxKey, item.Key, item.Text)
-	}
-
-	return str
-}
-
-// OpenDocs opens the module docs in a browser
-func (widget *KeyboardWidget) OpenDocs() {
-	url := "https://wtfutil.com/modules/" + widget.settings.Name
-	utils.OpenFile(url)
-}
-
 // SetView assigns the passed-in tview.TextView view to this widget
 func (widget *KeyboardWidget) SetView(view *tview.TextView) {
 	widget.view = view
@@ -142,6 +146,10 @@ func (widget *KeyboardWidget) SetView(view *tview.TextView) {
 
 // ShowHelp displays the modal help dialog for a module
 func (widget *KeyboardWidget) ShowHelp() {
+	if widget.pages == nil {
+		return
+	}
+
 	closeFunc := func() {
 		widget.pages.RemovePage("help")
 		widget.app.SetFocus(widget.view)
@@ -155,4 +163,13 @@ func (widget *KeyboardWidget) ShowHelp() {
 	widget.app.QueueUpdate(func() {
 		widget.app.Draw()
 	})
+}
+
+/* -------------------- Unexported Functions -------------------- */
+
+// initializeCommonKeyboardControls sets up the keyboard controls that are common to
+// all widgets that accept keyboard input
+func (widget *KeyboardWidget) initializeCommonKeyboardControls() {
+	widget.SetKeyboardChar("/", widget.ShowHelp, "Show/hide this help prompt")
+	widget.SetKeyboardChar("\\", widget.LaunchDocumentation, "Open the documentation for this module in a browser")
 }

@@ -18,7 +18,6 @@ const (
 )
 
 type Widget struct {
-	view.KeyboardWidget
 	view.MultiSourceWidget
 	view.TextWidget
 
@@ -31,9 +30,8 @@ type Widget struct {
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		KeyboardWidget:    view.NewKeyboardWidget(app, pages, settings.common),
 		MultiSourceWidget: view.NewMultiSourceWidget(settings.common, "repository", "repositories"),
-		TextWidget:        view.NewTextWidget(app, settings.common),
+		TextWidget:        view.NewTextWidget(app, pages, settings.common),
 
 		app:      app,
 		pages:    pages,
@@ -41,7 +39,6 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	}
 
 	widget.initializeKeyboardControls()
-	widget.View.SetInputCapture(widget.InputCapture)
 
 	widget.SetDisplayFunction(widget.display)
 

@@ -12,7 +12,6 @@ import (
 )
 
 type Widget struct {
-	view.KeyboardWidget
 	view.MultiSourceWidget
 	view.TextWidget
 
@@ -23,16 +22,14 @@ type Widget struct {
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		KeyboardWidget:    view.NewKeyboardWidget(app, pages, settings.common),
 		MultiSourceWidget: view.NewMultiSourceWidget(settings.common, "screenName", "screenNames"),
-		TextWidget:        view.NewTextWidget(app, settings.common),
+		TextWidget:        view.NewTextWidget(app, pages, settings.common),
 
 		idx:      0,
 		settings: settings,
 	}
 
 	widget.initializeKeyboardControls()
-	widget.View.SetInputCapture(widget.InputCapture)
 
 	widget.SetDisplayFunction(widget.Refresh)
 
@@ -52,10 +49,6 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 // Refresh is called on the interval and refreshes the data
 func (widget *Widget) Refresh() {
 	widget.Redraw(widget.content)
-}
-
-func (widget *Widget) HelpText() string {
-	return widget.KeyboardWidget.HelpText()
 }
 
 /* -------------------- Unexported Functions -------------------- */

@@ -22,8 +22,8 @@ type WtfApp struct {
 	config         *config.Config
 	configFilePath string
 	display        *Display
-	ghUser         *support.GitHubUser
 	focusTracker   FocusTracker
+	ghUser         *support.GitHubUser
 	pages          *tview.Pages
 	validator      *ModuleValidator
 	widgets        []wtf.Wtfable

@@ -11,7 +11,6 @@ import (
 
 // Widget is the container for transmission data
 type Widget struct {
-	view.KeyboardWidget
 	view.ScrollableWidget
 
 	client   *transmissionrpc.Client
@@ -24,15 +23,13 @@ type Widget struct {
 // NewWidget creates a new instance of a widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		KeyboardWidget:   view.NewKeyboardWidget(app, pages, settings.common),
-		ScrollableWidget: view.NewScrollableWidget(app, settings.common),
+		ScrollableWidget: view.NewScrollableWidget(app, pages, settings.common),
 
 		settings: settings,
 	}
 
 	widget.SetRenderFunction(widget.display)
 	widget.initializeKeyboardControls()
-	widget.View.SetInputCapture(widget.InputCapture)
 
 	widget.KeyboardWidget.SetView(widget.View)
 
@@ -86,11 +83,6 @@ func (widget *Widget) Refresh() {
 	widget.mu.Unlock()
 
 	widget.display()
-}
-
-// HelpText returns the help text for this widget
-func (widget *Widget) HelpText() string {
-	return widget.KeyboardWidget.HelpText()
 }
 
 // Next selects the next item in the list

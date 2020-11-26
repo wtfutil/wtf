@@ -9,6 +9,7 @@ import (
 
 type Widget struct {
 	view.TextWidget
+
 	location  *location
 	lastError error
 	settings  *Settings
@@ -17,10 +18,11 @@ type Widget struct {
 func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	locationData, err := GetLocationData(settings.city)
 	widget := Widget{
-		TextWidget: view.NewTextWidget(app, settings.common),
-		location:   locationData,
-		lastError:  err,
-		settings:   settings,
+		TextWidget: view.NewTextWidget(app, nil, settings.common),
+
+		location:  locationData,
+		lastError: err,
+		settings:  settings,
 	}
 
 	widget.View.SetWrap(true)
@@ -42,7 +44,6 @@ func (widget *Widget) content() (string, string, bool) {
 }
 
 func (widget *Widget) Refresh() {
-
 	widget.Redraw(widget.content)
 }
 

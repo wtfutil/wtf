@@ -10,6 +10,7 @@ import (
 func testTextWidget() TextWidget {
 	txtWid := NewTextWidget(
 		tview.NewApplication(),
+		tview.NewPages(),
 		&cfg.Common{
 			Module: cfg.Module{
 				Name: "test widget",

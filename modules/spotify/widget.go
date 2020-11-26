@@ -11,7 +11,6 @@ import (
 
 // A Widget represents a Spotify widget
 type Widget struct {
-	view.KeyboardWidget
 	view.TextWidget
 
 	client   spotigopher.SpotifyClient
@@ -22,8 +21,7 @@ type Widget struct {
 // NewWidget creates a new instance of a widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		KeyboardWidget: view.NewKeyboardWidget(app, pages, settings.common),
-		TextWidget:     view.NewTextWidget(app, settings.common),
+		TextWidget: view.NewTextWidget(app, pages, settings.common),
 
 		Info:   spotigopher.Info{},
 		client: spotigopher.NewClient(),
@@ -34,7 +32,6 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	widget.settings.common.RefreshInterval = 5
 
 	widget.initializeKeyboardControls()
-	widget.View.SetInputCapture(widget.InputCapture)
 
 	widget.View.SetWrap(true)
 	widget.View.SetWordWrap(true)
@@ -52,10 +49,6 @@ func (w *Widget) refreshSpotifyInfos() error {
 
 func (w *Widget) Refresh() {
 	w.Redraw(w.createOutput)
-}
-
-func (widget *Widget) HelpText() string {
-	return widget.KeyboardWidget.HelpText()
 }
 
 func (w *Widget) createOutput() (string, string, bool) {

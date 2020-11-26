@@ -14,7 +14,6 @@ import (
 // Widget define wtf widget to register widget later
 type Widget struct {
 	view.MultiSourceWidget
-	view.KeyboardWidget
 	view.TextWidget
 
 	filters []string
@@ -30,16 +29,14 @@ type Widget struct {
 // NewWidget creates a new instance of the widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		KeyboardWidget:    view.NewKeyboardWidget(app, pages, settings.common),
 		MultiSourceWidget: view.NewMultiSourceWidget(settings.common, "workflow", "workflows"),
-		TextWidget:        view.NewTextWidget(app, settings.common),
+		TextWidget:        view.NewTextWidget(app, pages, settings.common),
 
 		settings: settings,
 	}
 
 	widget.initializeKeyboardControls()
 	widget.View.SetRegions(true)
-	widget.View.SetInputCapture(widget.InputCapture)
 	widget.SetDisplayFunction(widget.display)
 
 	widget.Unselect()
@@ -109,11 +106,6 @@ func (widget *Widget) Unselect() {
 // Refresh reloads the data
 func (widget *Widget) Refresh() {
 	widget.display()
-}
-
-// HelpText displays the widgets controls
-func (widget *Widget) HelpText() string {
-	return widget.KeyboardWidget.HelpText()
 }
 
 /* -------------------- Unexported Functions -------------------- */

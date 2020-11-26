@@ -31,7 +31,7 @@ type Widget struct {
 // NewWidget Make new instance of widget
 func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: view.NewTextWidget(app, settings.common),
+		TextWidget: view.NewTextWidget(app, nil, settings.common),
 
 		settings:    settings,
 		summaryList: summaryList{},

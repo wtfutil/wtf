@@ -5,7 +5,7 @@ import (
 )
 
 func (widget *Widget) initializeKeyboardControls() {
-	widget.InitializeCommonControls(widget.Refresh)
+	widget.InitializeRefreshKeyboardControl(widget.Refresh)
 
 	widget.SetKeyboardChar("j", widget.Next, "Select next workflow")
 	widget.SetKeyboardChar("k", widget.Prev, "Select previous workflow")

@@ -1,5 +1,5 @@
 package buildkite
 
 func (widget *Widget) initializeKeyboardControls() {
-	widget.InitializeCommonControls(widget.Refresh)
+	widget.InitializeRefreshKeyboardControl(widget.Refresh)
 }

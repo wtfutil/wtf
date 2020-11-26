@@ -15,7 +15,6 @@ const (
 
 // A Widget represents a Mercurial widget
 type Widget struct {
-	view.KeyboardWidget
 	view.MultiSourceWidget
 	view.TextWidget
 
@@ -28,9 +27,8 @@ type Widget struct {
 // NewWidget creates a new instance of a widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		KeyboardWidget:    view.NewKeyboardWidget(app, pages, settings.common),
 		MultiSourceWidget: view.NewMultiSourceWidget(settings.common, "repository", "repositories"),
-		TextWidget:        view.NewTextWidget(app, settings.common),
+		TextWidget:        view.NewTextWidget(app, pages, settings.common),
 
 		app:      app,
 		pages:    pages,
@@ -40,7 +38,6 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	widget.SetDisplayFunction(widget.display)
 
 	widget.initializeKeyboardControls()
-	widget.View.SetInputCapture(widget.InputCapture)
 
 	widget.KeyboardWidget.SetView(widget.View)
 
@@ -80,10 +77,6 @@ func (widget *Widget) Refresh() {
 	widget.Data = widget.mercurialRepos(repoPaths)
 
 	widget.display()
-}
-
-func (widget *Widget) HelpText() string {
-	return widget.KeyboardWidget.HelpText()
 }
 
 /* -------------------- Unexported Functions -------------------- */

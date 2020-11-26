@@ -3,7 +3,7 @@ package devto
 import "github.com/gdamore/tcell"
 
 func (widget *Widget) initializeKeyboardControls() {
-	widget.InitializeCommonControls(widget.Refresh)
+	widget.InitializeRefreshKeyboardControl(widget.Refresh)
 
 	widget.SetKeyboardChar("d", widget.Next, "Select next item")
 	widget.SetKeyboardChar("a", widget.Prev, "Select previous item")

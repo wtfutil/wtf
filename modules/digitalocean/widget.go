@@ -30,7 +30,6 @@ func (t *tokenSource) Token() (*oauth2.Token, error) {
 
 // Widget is the container for droplet data
 type Widget struct {
-	view.KeyboardWidget
 	view.ScrollableWidget
 
 	app      *tview.Application
@@ -45,8 +44,7 @@ type Widget struct {
 // NewWidget creates a new instance of a widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		KeyboardWidget:   view.NewKeyboardWidget(app, pages, settings.common),
-		ScrollableWidget: view.NewScrollableWidget(app, settings.common),
+		ScrollableWidget: view.NewScrollableWidget(app, pages, settings.common),
 
 		app:      app,
 		pages:    pages,
@@ -54,7 +52,6 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	}
 
 	widget.initializeKeyboardControls()
-	widget.View.SetInputCapture(widget.InputCapture)
 
 	widget.View.SetScrollable(true)
 
@@ -77,11 +74,6 @@ func (widget *Widget) Fetch() error {
 	var err error
 	widget.droplets, err = widget.dropletsFetch()
 	return err
-}
-
-// HelpText returns the help text for this widget
-func (widget *Widget) HelpText() string {
-	return widget.KeyboardWidget.HelpText()
 }
 
 // Next selects the next item in the list

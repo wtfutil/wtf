@@ -11,36 +11,39 @@ import (
 // TextWidget defines the data necessary to make a text widget
 type TextWidget struct {
 	Base
+	KeyboardWidget
+
 	View *tview.TextView
 }
 
 // NewTextWidget creates and returns an instance of TextWidget
-func NewTextWidget(app *tview.Application, commonSettings *cfg.Common) TextWidget {
+func NewTextWidget(app *tview.Application, pages *tview.Pages, commonSettings *cfg.Common) TextWidget {
 	widget := TextWidget{
-		Base: NewBase(app, commonSettings),
+		Base:           NewBase(app, commonSettings),
+		KeyboardWidget: NewKeyboardWidget(app, pages, commonSettings),
 	}
 
 	widget.View = widget.createView(widget.bordered)
+	widget.View.SetInputCapture(widget.InputCapture)
 
 	return widget
 }
 
 /* -------------------- Exported Functions -------------------- */
 
+// TextView returns the tview.TextView instance
 func (widget *TextWidget) TextView() *tview.TextView {
 	return widget.View
 }
 
 func (widget *TextWidget) Redraw(data func() (string, string, bool)) {
-	widget.app.QueueUpdateDraw(func() {
+	widget.Base.app.QueueUpdateDraw(func() {
 		title, content, wrap := data()
 
 		widget.View.Clear()
 		widget.View.SetWrap(wrap)
 		widget.View.SetTitle(widget.ContextualTitle(title))
-		// widget.View.SetText(strings.TrimSpace(content))
 		widget.View.SetText(strings.TrimRight(content, "\n"))
-		// widget.View.SetText(content)
 	})
 }
 

@@ -3,8 +3,8 @@ package pocket
 import "github.com/gdamore/tcell"
 
 func (widget *Widget) initializeKeyboardControls() {
+	widget.InitializeRefreshKeyboardControl(widget.Refresh)
 
-	widget.InitializeCommonControls(widget.Refresh)
 	widget.SetKeyboardChar("a", widget.toggleLink, "Toggle Link")
 	widget.SetKeyboardChar("t", widget.toggleView, "Toggle view (links ,archived links)")
 	widget.SetKeyboardKey(tcell.KeyDown, widget.Next, "Select Next Link")

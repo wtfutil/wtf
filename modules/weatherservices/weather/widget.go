@@ -9,7 +9,6 @@ import (
 
 // Widget is the container for weather data.
 type Widget struct {
-	view.KeyboardWidget
 	view.MultiSourceWidget
 	view.TextWidget
 
@@ -23,16 +22,14 @@ type Widget struct {
 // NewWidget creates and returns a new instance of the weather Widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		KeyboardWidget:    view.NewKeyboardWidget(app, pages, settings.common),
 		MultiSourceWidget: view.NewMultiSourceWidget(settings.common, "cityid", "cityids"),
-		TextWidget:        view.NewTextWidget(app, settings.common),
+		TextWidget:        view.NewTextWidget(app, pages, settings.common),
 
 		pages:    pages,
 		settings: settings,
 	}
 
 	widget.initializeKeyboardControls()
-	widget.View.SetInputCapture(widget.InputCapture)
 
 	widget.SetDisplayFunction(widget.display)
 
@@ -67,10 +64,6 @@ func (widget *Widget) Refresh() {
 	}
 
 	widget.display()
-}
-
-func (widget *Widget) HelpText() string {
-	return widget.KeyboardWidget.HelpText()
 }
 
 /* -------------------- Unexported Functions -------------------- */

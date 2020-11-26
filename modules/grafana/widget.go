@@ -10,7 +10,6 @@ import (
 )
 
 type Widget struct {
-	view.KeyboardWidget
 	view.TextWidget
 
 	Client   *Client
@@ -23,8 +22,7 @@ type Widget struct {
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		KeyboardWidget: view.NewKeyboardWidget(app, pages, settings.common),
-		TextWidget:     view.NewTextWidget(app, settings.common),
+		TextWidget: view.NewTextWidget(app, nil, settings.common),
 
 		Client:   NewClient(settings),
 		Selected: -1,
@@ -34,7 +32,6 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 
 	widget.initializeKeyboardControls()
 	widget.View.SetRegions(true)
-	widget.View.SetInputCapture(widget.InputCapture)
 
 	widget.KeyboardWidget.SetView(widget.View)
 
@@ -90,10 +87,6 @@ func (widget *Widget) Unselect() {
 }
 
 /* -------------------- Unexported Functions -------------------- */
-
-func (widget *Widget) HelpText() string {
-	return widget.KeyboardWidget.HelpText()
-}
 
 func (widget *Widget) openAlert() {
 	currentSelection := widget.View.GetHighlights()

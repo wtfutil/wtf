@@ -8,7 +8,6 @@ import (
 )
 
 type Widget struct {
-	view.KeyboardWidget
 	view.MultiSourceWidget
 	view.TextWidget
 
@@ -19,13 +18,11 @@ type Widget struct {
 //func NewWidget(app *tview.Application, settings *Settings) *Widget {
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		KeyboardWidget: view.NewKeyboardWidget(app, pages, settings.common),
-		TextWidget:     view.NewTextWidget(app, settings.common),
-		settings:       settings,
+		TextWidget: view.NewTextWidget(app, nil, settings.common),
+		settings:   settings,
 	}
 
 	widget.settings.common.RefreshInterval = 30
-	widget.View.SetInputCapture(widget.InputCapture)
 	widget.initializeKeyboardControls()
 	widget.SetDisplayFunction(widget.Refresh)
 	widget.View.SetWordWrap(true)
@@ -44,10 +41,6 @@ func (widget *Widget) Refresh() {
 	}
 
 	widget.Redraw(widget.content)
-}
-
-func (widget *Widget) HelpText() string {
-	return widget.KeyboardWidget.HelpText()
 }
 
 /* -------------------- Unexported Functions -------------------- */

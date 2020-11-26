@@ -10,7 +10,6 @@ import (
 
 // A Widget represents a Todoist widget
 type Widget struct {
-	view.KeyboardWidget
 	view.MultiSourceWidget
 	view.ScrollableWidget
 
@@ -22,9 +21,8 @@ type Widget struct {
 // NewWidget creates a new instance of a widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		KeyboardWidget:    view.NewKeyboardWidget(app, pages, settings.common),
 		MultiSourceWidget: view.NewMultiSourceWidget(settings.common, "project", "projects"),
-		ScrollableWidget:  view.NewScrollableWidget(app, settings.common),
+		ScrollableWidget:  view.NewScrollableWidget(app, pages, settings.common),
 
 		settings: settings,
 	}
@@ -35,7 +33,6 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 
 	widget.SetRenderFunction(widget.display)
 	widget.initializeKeyboardControls()
-	widget.View.SetInputCapture(widget.InputCapture)
 	widget.SetDisplayFunction(widget.display)
 
 	widget.KeyboardWidget.SetView(widget.View)
@@ -81,10 +78,6 @@ func (widget *Widget) Refresh() {
 	widget.Sources = widget.backend.Sources()
 	widget.SetItemCount(len(widget.CurrentProject().Tasks))
 	widget.display()
-}
-
-func (widget *Widget) HelpText() string {
-	return widget.KeyboardWidget.HelpText()
 }
 
 func (widget *Widget) NextSource() {

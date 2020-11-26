@@ -14,7 +14,6 @@ import (
 
 type Widget struct {
 	view.ScrollableWidget
-	view.KeyboardWidget
 
 	settings     *Settings
 	client       *Client
@@ -24,15 +23,13 @@ type Widget struct {
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		KeyboardWidget:   view.NewKeyboardWidget(app, pages, settings.common),
-		ScrollableWidget: view.NewScrollableWidget(app, settings.common),
+		ScrollableWidget: view.NewScrollableWidget(app, nil, settings.common),
 		settings:         settings,
 		client:           NewClient(settings.consumerKey, "http://localhost"),
 		archivedView:     false,
 	}
 
 	widget.CommonSettings()
-	widget.View.SetInputCapture(widget.InputCapture)
 	widget.SetRenderFunction(widget.Render)
 	widget.View.SetScrollable(true)
 	widget.View.SetRegions(true)

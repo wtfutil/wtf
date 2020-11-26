@@ -22,7 +22,6 @@ const (
 
 // A Widget represents a Todo widget
 type Widget struct {
-	view.KeyboardWidget
 	view.ScrollableWidget
 
 	app      *tview.Application
@@ -35,8 +34,7 @@ type Widget struct {
 // NewWidget creates a new instance of a widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		KeyboardWidget:   view.NewKeyboardWidget(app, pages, settings.common),
-		ScrollableWidget: view.NewScrollableWidget(app, settings.common),
+		ScrollableWidget: view.NewScrollableWidget(app, pages, settings.common),
 
 		app:      app,
 		settings: settings,
@@ -48,7 +46,6 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	widget.init()
 
 	widget.initializeKeyboardControls()
-	widget.View.SetInputCapture(widget.InputCapture)
 
 	widget.View.SetRegions(true)
 	widget.View.SetScrollable(true)
@@ -60,11 +57,6 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 }
 
 /* -------------------- Exported Functions -------------------- */
-
-// HelpText returns the help text for this widget
-func (widget *Widget) HelpText() string {
-	return widget.KeyboardWidget.HelpText()
-}
 
 // SelectedItem returns the currently-selected checklist item or nil if no item is selected
 func (widget *Widget) SelectedItem() *checklist.ChecklistItem {

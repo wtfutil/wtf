@@ -36,7 +36,3 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 func (widget *Widget) ConfigText() string {
 	return utils.HelpFromInterface(Settings{})
 }
-
-func (widget *Widget) HelpText() string {
-	return widget.KeyboardWidget.HelpText()
-}

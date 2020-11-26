@@ -17,7 +17,6 @@ var offset = 0
 
 // A Widget represents an NBA Score  widget
 type Widget struct {
-	view.KeyboardWidget
 	view.TextWidget
 
 	language string
@@ -27,14 +26,12 @@ type Widget struct {
 // NewWidget creates a new instance of a widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		KeyboardWidget: view.NewKeyboardWidget(app, pages, settings.common),
-		TextWidget:     view.NewTextWidget(app, settings.common),
+		TextWidget: view.NewTextWidget(app, pages, settings.common),
 
 		settings: settings,
 	}
 
 	widget.initializeKeyboardControls()
-	widget.View.SetInputCapture(widget.InputCapture)
 
 	widget.View.SetScrollable(true)
 
@@ -45,10 +42,6 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 
 func (widget *Widget) Refresh() {
 	widget.Redraw(widget.nbascore)
-}
-
-func (widget *Widget) HelpText() string {
-	return widget.KeyboardWidget.HelpText()
 }
 
 func (widget *Widget) nbascore() (string, string, bool) {

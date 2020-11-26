@@ -38,6 +38,7 @@ type Widget struct {
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	var widget Widget
+
 	leagueId, err := getLeague(settings.league)
 	if err != nil {
 		widget = Widget{
@@ -45,14 +46,17 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 			Client:   NewClient(settings.apiKey),
 			settings: settings,
 		}
+
 		return &widget
 	}
+
 	widget = Widget{
-		TextWidget: view.NewTextWidget(app, settings.common),
+		TextWidget: view.NewTextWidget(app, pages, settings.common),
 		Client:     NewClient(settings.apiKey),
 		League:     leagueId,
 		settings:   settings,
 	}
+
 	return &widget
 }
 

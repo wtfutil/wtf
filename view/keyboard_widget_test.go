@@ -174,18 +174,26 @@ func Test_InputCapture(t *testing.T) {
 	}
 }
 
-func Test_InitializeCommonControls(t *testing.T) {
+func Test_initializeCommonKeyboardControls(t *testing.T) {
 	t.Run("nil refreshFunc", func(t *testing.T) {
 		keyWid := testKeyboardWidget()
-		keyWid.InitializeCommonControls(nil)
 
 		assert.NotNil(t, keyWid.charMap["/"])
+		assert.NotNil(t, keyWid.charMap["\\"])
+	})
+}
+
+func Test_InitializeRefreshKeyboardControl(t *testing.T) {
+	t.Run("nil refreshFunc", func(t *testing.T) {
+		keyWid := testKeyboardWidget()
+		keyWid.InitializeRefreshKeyboardControl(nil)
+
 		assert.Nil(t, keyWid.charMap["r"])
 	})
 
 	t.Run("non-nil refreshFunc", func(t *testing.T) {
 		keyWid := testKeyboardWidget()
-		keyWid.InitializeCommonControls(func() {})
+		keyWid.InitializeRefreshKeyboardControl(func() {})
 
 		assert.NotNil(t, keyWid.charMap["r"])
 	})

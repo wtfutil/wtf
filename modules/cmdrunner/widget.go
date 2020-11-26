@@ -29,7 +29,7 @@ type Widget struct {
 // NewWidget creates a new instance of the widget
 func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: view.NewTextWidget(app, settings.common),
+		TextWidget: view.NewTextWidget(app, nil, settings.common),
 
 		settings: settings,
 		buffer:   &bytes.Buffer{},

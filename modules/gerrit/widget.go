@@ -13,7 +13,6 @@ import (
 )
 
 type Widget struct {
-	view.KeyboardWidget
 	view.TextWidget
 
 	gerrit *glb.Client
@@ -32,8 +31,7 @@ var (
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		KeyboardWidget: view.NewKeyboardWidget(app, pages, settings.common),
-		TextWidget:     view.NewTextWidget(app, settings.common),
+		TextWidget: view.NewTextWidget(app, nil, settings.common),
 
 		Idx: 0,
 
@@ -41,7 +39,6 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	}
 
 	widget.initializeKeyboardControls()
-	widget.View.SetInputCapture(widget.InputCapture)
 
 	widget.KeyboardWidget.SetView(widget.View)
 
@@ -90,10 +87,6 @@ func (widget *Widget) Refresh() {
 	}
 
 	widget.display()
-}
-
-func (widget *Widget) HelpText() string {
-	return widget.KeyboardWidget.HelpText()
 }
 
 /* -------------------- Unexported Functions -------------------- */

@@ -22,7 +22,6 @@ const (
 )
 
 type Widget struct {
-	view.KeyboardWidget
 	view.MultiSourceWidget
 	view.TextWidget
 
@@ -32,9 +31,8 @@ type Widget struct {
 // NewWidget creates a new instance of a widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		KeyboardWidget:    view.NewKeyboardWidget(app, pages, settings.common),
 		MultiSourceWidget: view.NewMultiSourceWidget(settings.common, "filePath", "filePaths"),
-		TextWidget:        view.NewTextWidget(app, settings.common),
+		TextWidget:        view.NewTextWidget(app, pages, settings.common),
 
 		settings: settings,
 	}
@@ -43,7 +41,6 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	widget.settings.common.RefreshInterval = 0
 
 	widget.initializeKeyboardControls()
-	widget.View.SetInputCapture(widget.InputCapture)
 
 	widget.SetDisplayFunction(widget.Refresh)
 	widget.View.SetWordWrap(true)
@@ -62,10 +59,6 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 // text files that first time. After that, the watcher takes over
 func (widget *Widget) Refresh() {
 	widget.Redraw(widget.content)
-}
-
-func (widget *Widget) HelpText() string {
-	return widget.KeyboardWidget.HelpText()
 }
 
 /* -------------------- Unexported Functions -------------------- */

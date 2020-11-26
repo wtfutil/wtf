@@ -7,12 +7,7 @@ import (
 	"github.com/wtfutil/wtf/view"
 )
 
-const HelpText = `
- Keyboard commands for Buildkite:
-`
-
 type Widget struct {
-	view.KeyboardWidget
 	view.TextWidget
 	settings *Settings
 
@@ -22,13 +17,11 @@ type Widget struct {
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		KeyboardWidget: view.NewKeyboardWidget(app, pages, settings.common),
-		TextWidget:     view.NewTextWidget(app, settings.common),
-		settings:       settings,
+		TextWidget: view.NewTextWidget(app, pages, settings.common),
+		settings:   settings,
 	}
 
 	widget.initializeKeyboardControls()
-	widget.View.SetInputCapture(widget.InputCapture)
 	widget.View.SetScrollable(true)
 	widget.KeyboardWidget.SetView(widget.View)
 

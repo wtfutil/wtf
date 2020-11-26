@@ -11,7 +11,6 @@ import (
 )
 
 type Widget struct {
-	view.KeyboardWidget
 	view.ScrollableWidget
 
 	settings   *Settings
@@ -30,15 +29,13 @@ type Stream struct {
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := &Widget{
-		KeyboardWidget:   view.NewKeyboardWidget(app, pages, settings.common),
-		ScrollableWidget: view.NewScrollableWidget(app, settings.common),
+		ScrollableWidget: view.NewScrollableWidget(app, pages, settings.common),
 		settings:         settings,
 		twitch:           NewClient(settings.clientId),
 	}
 
 	widget.SetRenderFunction(widget.Render)
 	widget.initializeKeyboardControls()
-	widget.View.SetInputCapture(widget.InputCapture)
 	widget.KeyboardWidget.SetView(widget.View)
 
 	return widget

@@ -9,7 +9,6 @@ import (
 )
 
 type Widget struct {
-	view.KeyboardWidget
 	view.MultiSourceWidget
 	view.TextWidget
 
@@ -20,15 +19,13 @@ type Widget struct {
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		KeyboardWidget:    view.NewKeyboardWidget(app, pages, settings.common),
 		MultiSourceWidget: view.NewMultiSourceWidget(settings.common, "applicationID", "applicationIDs"),
-		TextWidget:        view.NewTextWidget(app, settings.common),
+		TextWidget:        view.NewTextWidget(app, pages, settings.common),
 
 		settings: settings,
 	}
 
 	widget.initializeKeyboardControls()
-	widget.View.SetInputCapture(widget.InputCapture)
 
 	for _, id := range utils.ToInts(widget.settings.applicationIDs) {
 		widget.Clients = append(widget.Clients, NewClient(widget.settings.apiKey, id))
@@ -52,10 +49,6 @@ func (widget *Widget) Refresh() {
 }
 
 /* -------------------- Unexported Functions -------------------- */
-
-func (widget *Widget) HelpText() string {
-	return widget.KeyboardWidget.HelpText()
-}
 
 /* -------------------- Unexported Functions -------------------- */
 
