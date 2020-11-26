@@ -50,7 +50,6 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	widget.View.SetRegions(true)
 	widget.View.SetScrollable(true)
 
-	widget.KeyboardWidget.SetView(widget.View)
 	widget.SetRenderFunction(widget.display)
 
 	return &widget

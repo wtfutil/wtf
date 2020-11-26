@@ -10,8 +10,8 @@ import (
 
 // TextWidget defines the data necessary to make a text widget
 type TextWidget struct {
-	Base
-	KeyboardWidget
+	*Base
+	*KeyboardWidget
 
 	View *tview.TextView
 }
@@ -24,7 +24,9 @@ func NewTextWidget(app *tview.Application, pages *tview.Pages, commonSettings *c
 	}
 
 	widget.View = widget.createView(widget.bordered)
-	widget.View.SetInputCapture(widget.InputCapture)
+	widget.View.SetInputCapture(widget.KeyboardWidget.InputCapture)
+
+	widget.KeyboardWidget.SetView(widget.View)
 
 	return widget
 }

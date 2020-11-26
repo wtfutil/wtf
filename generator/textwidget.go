@@ -40,8 +40,6 @@ func main() {
 
 	generateWidgetFile(data)
 	generateSettingsFile(data)
-
-	fmt.Println("Done")
 }
 
 /* -------------------- Unexported Functions -------------------- */

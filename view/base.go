@@ -25,8 +25,8 @@ type Base struct {
 
 // NewBase creates and returns an instance of the Base module, the lowest-level
 // primitive module from which all others are derived
-func NewBase(app *tview.Application, commonSettings *cfg.Common) Base {
-	base := Base{
+func NewBase(app *tview.Application, commonSettings *cfg.Common) *Base {
+	base := &Base{
 		commonSettings: commonSettings,
 
 		app:             app,

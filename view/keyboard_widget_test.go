@@ -11,7 +11,7 @@ import (
 
 func test() {}
 
-func testKeyboardWidget() KeyboardWidget {
+func testKeyboardWidget() *KeyboardWidget {
 	keyWid := NewKeyboardWidget(
 		tview.NewApplication(),
 		tview.NewPages(),
@@ -118,25 +118,25 @@ func Test_SetKeyboardKey(t *testing.T) {
 func Test_InputCapture(t *testing.T) {
 	tests := []struct {
 		name     string
-		before   func(keyWid KeyboardWidget) KeyboardWidget
+		before   func(keyWid *KeyboardWidget) *KeyboardWidget
 		event    *tcell.EventKey
 		expected *tcell.EventKey
 	}{
 		{
 			name:     "with nil event",
-			before:   func(keyWid KeyboardWidget) KeyboardWidget { return keyWid },
+			before:   func(keyWid *KeyboardWidget) *KeyboardWidget { return keyWid },
 			event:    nil,
 			expected: nil,
 		},
 		{
 			name:     "with undefined event",
-			before:   func(keyWid KeyboardWidget) KeyboardWidget { return keyWid },
+			before:   func(keyWid *KeyboardWidget) *KeyboardWidget { return keyWid },
 			event:    tcell.NewEventKey(tcell.KeyRune, 'a', tcell.ModNone),
 			expected: tcell.NewEventKey(tcell.KeyRune, 'a', tcell.ModNone),
 		},
 		{
 			name: "with defined event and char handler",
-			before: func(keyWid KeyboardWidget) KeyboardWidget {
+			before: func(keyWid *KeyboardWidget) *KeyboardWidget {
 				keyWid.SetKeyboardChar("a", test, "help")
 				return keyWid
 			},
@@ -145,7 +145,7 @@ func Test_InputCapture(t *testing.T) {
 		},
 		{
 			name: "with defined event and key handler",
-			before: func(keyWid KeyboardWidget) KeyboardWidget {
+			before: func(keyWid *KeyboardWidget) *KeyboardWidget {
 				keyWid.SetKeyboardKey(tcell.KeyRune, test, "help")
 				return keyWid
 			},

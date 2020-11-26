@@ -42,8 +42,6 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 
 	widget.SetDisplayFunction(widget.display)
 
-	widget.KeyboardWidget.SetView(widget.View)
-
 	return &widget
 }
 

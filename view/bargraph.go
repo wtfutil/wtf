@@ -15,8 +15,8 @@ type BarGraph struct {
 	maxStars int
 	starChar string
 
-	Base
-	KeyboardWidget
+	*Base
+	*KeyboardWidget
 
 	View *tview.TextView
 }

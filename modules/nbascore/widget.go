@@ -35,8 +35,6 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 
 	widget.View.SetScrollable(true)
 
-	widget.KeyboardWidget.SetView(widget.View)
-
 	return &widget
 }
 

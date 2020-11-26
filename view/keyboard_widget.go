@@ -32,8 +32,8 @@ type KeyboardWidget struct {
 }
 
 // NewKeyboardWidget creates and returns a new instance of KeyboardWidget
-func NewKeyboardWidget(app *tview.Application, pages *tview.Pages, settings *cfg.Common) KeyboardWidget {
-	keyWidget := KeyboardWidget{
+func NewKeyboardWidget(app *tview.Application, pages *tview.Pages, settings *cfg.Common) *KeyboardWidget {
+	keyWidget := &KeyboardWidget{
 		app:      app,
 		pages:    pages,
 		settings: settings,
@@ -49,6 +49,17 @@ func NewKeyboardWidget(app *tview.Application, pages *tview.Pages, settings *cfg
 }
 
 /* -------------------- Exported Functions --------------------- */
+
+// AssignedChars returns a list of all the text characters assigned to an operation
+func (widget *KeyboardWidget) AssignedChars() []string {
+	chars := []string{}
+
+	for char := range widget.charMap {
+		chars = append(chars, char)
+	}
+
+	return chars
+}
 
 // HelpText returns the help text and keyboard command info for this widget
 func (widget *KeyboardWidget) HelpText() string {

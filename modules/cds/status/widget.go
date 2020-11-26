@@ -42,8 +42,6 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	widget.Unselect()
 	widget.filters = []string{sdk.StatusWaiting, sdk.StatusBuilding}
 
-	widget.KeyboardWidget.SetView(widget.View)
-
 	widget.client = cdsclient.New(cdsclient.Config{
 		Host:                              settings.apiURL,
 		BuitinConsumerAuthenticationToken: settings.token,

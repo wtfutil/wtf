@@ -82,7 +82,6 @@ func firewallStateWindows() string {
 
 	fwStat := utils.ExecuteCommand(cmd)
 	fwStat = strings.TrimSpace(fwStat) // Always sanitize PowerShell output:  "3\r\n"
-	//fmt.Printf("%d %q\n", len(fwStat), fwStat)
 
 	switch fwStat {
 	case "3":

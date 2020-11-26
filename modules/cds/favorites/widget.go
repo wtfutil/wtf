@@ -40,7 +40,6 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	widget.SetDisplayFunction(widget.display)
 
 	widget.Unselect()
-	widget.KeyboardWidget.SetView(widget.View)
 
 	widget.client = cdsclient.New(cdsclient.Config{
 		Host:                              settings.apiURL,

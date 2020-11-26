@@ -34,14 +34,13 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	widget.GithubRepos = widget.buildRepoCollection(widget.settings.repositories)
 
 	widget.initializeKeyboardControls()
+
 	widget.View.SetRegions(true)
 	widget.SetDisplayFunction(widget.display)
 
 	widget.Unselect()
 
 	widget.Sources = widget.settings.repositories
-
-	widget.KeyboardWidget.SetView(widget.View)
 
 	return &widget
 }

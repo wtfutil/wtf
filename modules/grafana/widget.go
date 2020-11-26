@@ -33,8 +33,6 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	widget.initializeKeyboardControls()
 	widget.View.SetRegions(true)
 
-	widget.KeyboardWidget.SetView(widget.View)
-
 	return &widget
 }
 

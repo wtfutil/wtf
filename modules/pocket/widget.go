@@ -33,7 +33,6 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	widget.SetRenderFunction(widget.Render)
 	widget.View.SetScrollable(true)
 	widget.View.SetRegions(true)
-	widget.KeyboardWidget.SetView(widget.View)
 	widget.initializeKeyboardControls()
 	widget.Selected = -1
 	widget.SetItemCount(0)

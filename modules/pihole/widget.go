@@ -28,8 +28,6 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	widget.View.SetWordWrap(true)
 	widget.View.SetWrap(settings.wrapText)
 
-	widget.KeyboardWidget.SetView(widget.View)
-
 	return &widget
 }
 
