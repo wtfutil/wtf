@@ -19,10 +19,10 @@ type helpItem struct {
 
 // KeyboardWidget manages keyboard control for a widget
 type KeyboardWidget struct {
-	app      *tview.Application
 	pages    *tview.Pages
-	view     *tview.TextView
 	settings *cfg.Common
+	tviewApp *tview.Application
+	view     *tview.TextView
 
 	charMap  map[string]func()
 	keyMap   map[tcell.Key]func()
@@ -32,9 +32,9 @@ type KeyboardWidget struct {
 }
 
 // NewKeyboardWidget creates and returns a new instance of KeyboardWidget
-func NewKeyboardWidget(app *tview.Application, pages *tview.Pages, settings *cfg.Common) *KeyboardWidget {
+func NewKeyboardWidget(tviewApp *tview.Application, pages *tview.Pages, settings *cfg.Common) *KeyboardWidget {
 	keyWidget := &KeyboardWidget{
-		app:      app,
+		tviewApp: tviewApp,
 		pages:    pages,
 		settings: settings,
 		charMap:  make(map[string]func()),
@@ -168,16 +168,16 @@ func (widget *KeyboardWidget) ShowHelp() {
 
 	closeFunc := func() {
 		widget.pages.RemovePage("help")
-		widget.app.SetFocus(widget.view)
+		widget.tviewApp.SetFocus(widget.view)
 	}
 
 	modal := NewBillboardModal(widget.HelpText(), closeFunc)
 
 	widget.pages.AddPage("help", modal, false, true)
-	widget.app.SetFocus(modal)
+	widget.tviewApp.SetFocus(modal)
 
-	widget.app.QueueUpdate(func() {
-		widget.app.Draw()
+	widget.tviewApp.QueueUpdate(func() {
+		widget.tviewApp.Draw()
 	})
 }
 

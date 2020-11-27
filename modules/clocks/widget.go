@@ -8,18 +8,18 @@ import (
 type Widget struct {
 	view.TextWidget
 
-	app        *tview.Application
+	// app        *tview.Application
 	clockColl  ClockCollection
 	dateFormat string
 	timeFormat string
 	settings   *Settings
 }
 
-func NewWidget(app *tview.Application, settings *Settings) *Widget {
+func NewWidget(tviewApp *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: view.NewTextWidget(app, nil, settings.Common),
+		TextWidget: view.NewTextWidget(tviewApp, nil, settings.Common),
 
-		app:        app,
+		// app:        app,
 		settings:   settings,
 		dateFormat: settings.dateFormat,
 		timeFormat: settings.timeFormat,
@@ -34,10 +34,8 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 
 // Refresh updates the onscreen contents of the widget
 func (widget *Widget) Refresh() {
-	widget.app.QueueUpdateDraw(func() {
-		sortedClocks := widget.clockColl.Sorted(widget.settings.sort)
-		widget.display(sortedClocks, widget.dateFormat, widget.timeFormat)
-	})
+	sortedClocks := widget.clockColl.Sorted(widget.settings.sort)
+	widget.display(sortedClocks, widget.dateFormat, widget.timeFormat)
 }
 
 /* -------------------- Unexported Functions -------------------- */

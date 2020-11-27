@@ -17,10 +17,10 @@ type TextWidget struct {
 }
 
 // NewTextWidget creates and returns an instance of TextWidget
-func NewTextWidget(app *tview.Application, pages *tview.Pages, commonSettings *cfg.Common) TextWidget {
+func NewTextWidget(tviewApp *tview.Application, pages *tview.Pages, commonSettings *cfg.Common) TextWidget {
 	widget := TextWidget{
-		Base:           NewBase(app, commonSettings),
-		KeyboardWidget: NewKeyboardWidget(app, pages, commonSettings),
+		Base:           NewBase(commonSettings),
+		KeyboardWidget: NewKeyboardWidget(tviewApp, pages, commonSettings),
 	}
 
 	widget.View = widget.createView(widget.bordered)
@@ -39,7 +39,7 @@ func (widget *TextWidget) TextView() *tview.TextView {
 }
 
 func (widget *TextWidget) Redraw(data func() (string, string, bool)) {
-	widget.Base.app.QueueUpdateDraw(func() {
+	widget.tviewApp.QueueUpdateDraw(func() {
 		title, content, wrap := data()
 
 		widget.View.Clear()

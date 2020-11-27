@@ -23,17 +23,17 @@ type Widget struct {
 
 	GitRepos []*GitRepo
 
-	app      *tview.Application
 	pages    *tview.Pages
 	settings *Settings
+	tviewApp *tview.Application
 }
 
-func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
+func NewWidget(tviewApp *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
 		MultiSourceWidget: view.NewMultiSourceWidget(settings.Common, "repository", "repositories"),
-		TextWidget:        view.NewTextWidget(app, pages, settings.Common),
+		TextWidget:        view.NewTextWidget(tviewApp, pages, settings.Common),
 
-		app:      app,
+		tviewApp: tviewApp,
 		pages:    pages,
 		settings: settings,
 	}
@@ -55,7 +55,7 @@ func (widget *Widget) Checkout() {
 		repoToCheckout := widget.GitRepos[widget.Idx]
 		repoToCheckout.checkout(text)
 		widget.pages.RemovePage("modal")
-		widget.app.SetFocus(widget.View)
+		widget.tviewApp.SetFocus(widget.View)
 		widget.display()
 		widget.Refresh()
 	}
@@ -93,7 +93,7 @@ func (widget *Widget) addButtons(form *tview.Form, checkoutFctn func()) {
 func (widget *Widget) addCancelButton(form *tview.Form) {
 	cancelFn := func() {
 		widget.pages.RemovePage("modal")
-		widget.app.SetFocus(widget.View)
+		widget.tviewApp.SetFocus(widget.View)
 		widget.display()
 	}
 
@@ -102,10 +102,10 @@ func (widget *Widget) addCancelButton(form *tview.Form) {
 }
 
 func (widget *Widget) modalFocus(form *tview.Form) {
-	widget.app.QueueUpdateDraw(func() {
+	widget.tviewApp.QueueUpdateDraw(func() {
 		frame := widget.modalFrame(form)
 		widget.pages.AddPage("modal", frame, false, true)
-		widget.app.SetFocus(frame)
+		widget.tviewApp.SetFocus(frame)
 	})
 }
 

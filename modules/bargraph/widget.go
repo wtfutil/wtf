@@ -17,15 +17,15 @@ import (
 type Widget struct {
 	view.BarGraph
 
-	app *tview.Application
+	tviewApp *tview.Application
 }
 
 // NewWidget Make new instance of widget
-func NewWidget(app *tview.Application, settings *Settings) *Widget {
+func NewWidget(tviewApp *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
-		BarGraph: view.NewBarGraph(app, "Sample Bar Graph", settings.Common),
+		BarGraph: view.NewBarGraph(tviewApp, "Sample Bar Graph", settings.Common),
 
-		app: app,
+		tviewApp: tviewApp,
 	}
 
 	widget.View.SetWrap(true)
@@ -69,7 +69,7 @@ func (widget *Widget) Refresh() {
 
 	widget.View.Clear()
 
-	widget.app.QueueUpdateDraw(func() {
+	widget.tviewApp.QueueUpdateDraw(func() {
 		display(widget)
 	})
 

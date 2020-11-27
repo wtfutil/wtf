@@ -60,7 +60,7 @@ func authHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 // NewWidget creates a new widget for WTF
-func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
+func NewWidget(tviewApp *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	redirectURI = "http://localhost:" + settings.callbackPort + "/callback"
 
 	auth = spotify.NewAuthenticator(redirectURI, spotify.ScopeUserReadCurrentlyPlaying, spotify.ScopeUserReadPlaybackState, spotify.ScopeUserModifyPlaybackState)
@@ -71,7 +71,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	var playerState *spotify.PlayerState
 
 	widget := Widget{
-		TextWidget: view.NewTextWidget(app, pages, settings.Common),
+		TextWidget: view.NewTextWidget(tviewApp, pages, settings.Common),
 
 		Info: Info{},
 

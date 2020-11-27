@@ -18,36 +18,34 @@ import (
 // WtfApp is the container for a collection of widgets that are all constructed from a single
 // configuration file and displayed together
 type WtfApp struct {
-	app            *tview.Application
 	config         *config.Config
 	configFilePath string
 	display        *Display
 	focusTracker   FocusTracker
 	ghUser         *support.GitHubUser
 	pages          *tview.Pages
+	tviewApp       *tview.Application
 	validator      *ModuleValidator
 	widgets        []wtf.Wtfable
 }
 
 // NewWtfApp creates and returns an instance of WtfApp
-func NewWtfApp(app *tview.Application, config *config.Config, configFilePath string) *WtfApp {
+func NewWtfApp(tviewApp *tview.Application, config *config.Config, configFilePath string) *WtfApp {
 	wtfApp := WtfApp{
-		app:            app,
+		tviewApp:       tviewApp,
 		config:         config,
 		configFilePath: configFilePath,
 		pages:          tview.NewPages(),
 	}
 
-	wtfApp.app.SetBeforeDrawFunc(func(s tcell.Screen) bool {
+	wtfApp.tviewApp.SetBeforeDrawFunc(func(s tcell.Screen) bool {
 		s.Clear()
 		return false
 	})
 
-	wtfApp.app.SetInputCapture(wtfApp.keyboardIntercept)
-
-	wtfApp.widgets = MakeWidgets(wtfApp.app, wtfApp.pages, wtfApp.config)
+	wtfApp.widgets = MakeWidgets(wtfApp.tviewApp, wtfApp.pages, wtfApp.config)
 	wtfApp.display = NewDisplay(wtfApp.widgets, wtfApp.config)
-	wtfApp.focusTracker = NewFocusTracker(wtfApp.app, wtfApp.widgets, wtfApp.config)
+	wtfApp.focusTracker = NewFocusTracker(wtfApp.tviewApp, wtfApp.widgets, wtfApp.config)
 
 	githubAPIKey := readGitHubAPIKey(wtfApp.config)
 	wtfApp.ghUser = support.NewGitHubUser(githubAPIKey)
@@ -55,7 +53,6 @@ func NewWtfApp(app *tview.Application, config *config.Config, configFilePath str
 	wtfApp.validator = NewModuleValidator()
 
 	wtfApp.pages.AddPage("grid", wtfApp.display.Grid, true, true)
-	wtfApp.app.SetRoot(wtfApp.pages, true)
 
 	wtfApp.validator.Validate(wtfApp.widgets)
 
@@ -65,6 +62,9 @@ func NewWtfApp(app *tview.Application, config *config.Config, configFilePath str
 			firstWidget.CommonSettings().Colors.WidgetTheme.Background,
 		),
 	)
+
+	wtfApp.tviewApp.SetInputCapture(wtfApp.keyboardIntercept)
+	wtfApp.tviewApp.SetRoot(wtfApp.pages, true)
 
 	return &wtfApp
 }
@@ -98,7 +98,7 @@ func (wtfApp *WtfApp) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	switch event.Key() {
 	case tcell.KeyCtrlC:
 		wtfApp.Stop()
-		wtfApp.app.Stop()
+		wtfApp.tviewApp.Stop()
 		wtfApp.DisplayExitMessage()
 	case tcell.KeyCtrlR:
 		wtfApp.refreshAllWidgets()
@@ -154,7 +154,7 @@ func (wtfApp *WtfApp) watchForConfigChanges() {
 				wtfApp.Stop()
 
 				config := cfg.LoadWtfConfigFile(wtfApp.configFilePath)
-				newApp := NewWtfApp(wtfApp.app, config, wtfApp.configFilePath)
+				newApp := NewWtfApp(wtfApp.tviewApp, config, wtfApp.configFilePath)
 				openURLUtil := utils.ToStrs(config.UList("wtf.openUrlUtil", []interface{}{}))
 				utils.Init(config.UString("wtf.openFileUtil", "open"), openURLUtil)
 

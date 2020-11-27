@@ -4,32 +4,29 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/cfg"
 	"github.com/wtfutil/wtf/utils"
 )
 
 type Base struct {
-	app             *tview.Application
 	bordered        bool
 	commonSettings  *cfg.Common
 	enabled         bool
+	enabledMutex    *sync.Mutex
 	focusChar       string
 	focusable       bool
 	name            string
 	quitChan        chan bool
-	refreshing      bool
 	refreshInterval int
-	enabledMutex    *sync.Mutex
+	refreshing      bool
 }
 
 // NewBase creates and returns an instance of the Base module, the lowest-level
 // primitive module from which all others are derived
-func NewBase(app *tview.Application, commonSettings *cfg.Common) *Base {
+func NewBase(commonSettings *cfg.Common) *Base {
 	base := &Base{
 		commonSettings: commonSettings,
 
-		app:             app,
 		bordered:        commonSettings.Bordered,
 		enabled:         commonSettings.Enabled,
 		enabledMutex:    &sync.Mutex{},
