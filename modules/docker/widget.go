@@ -18,7 +18,7 @@ type Widget struct {
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: view.NewTextWidget(app, pages, settings.common),
+		TextWidget: view.NewTextWidget(app, pages, settings.Common),
 		settings:   settings,
 	}
 
@@ -56,11 +56,11 @@ func (widget *Widget) refreshDisplayBuffer() {
 
 	widget.displayBuffer = ""
 
-	widget.displayBuffer += fmt.Sprintf("[%s] System[white]\n", widget.settings.common.Colors.Subheading)
+	widget.displayBuffer += fmt.Sprintf("[%s] System[white]\n", widget.settings.Colors.Subheading)
 	widget.displayBuffer += widget.getSystemInfo()
 
 	widget.displayBuffer += "\n"
 
-	widget.displayBuffer += fmt.Sprintf("[%s] Containers[white]\n", widget.settings.common.Colors.Subheading)
+	widget.displayBuffer += fmt.Sprintf("[%s] Containers[white]\n", widget.settings.Colors.Subheading)
 	widget.displayBuffer += widget.getContainerStates()
 }

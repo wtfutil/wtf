@@ -21,25 +21,25 @@ func Test_display_content(t *testing.T) {
 	}{
 		{
 			name:              "Event content without any events",
-			settings:          &Settings{common: &cfg.Common{}},
+			settings:          &Settings{Common: &cfg.Common{}},
 			events:            nil,
 			descriptionWanted: "No calendar events",
 		},
 		{
 			name:              "Event content with a single event, without end times displayed",
-			settings:          &Settings{common: &cfg.Common{}, showEndTime: false},
+			settings:          &Settings{Common: &cfg.Common{}, showEndTime: false},
 			events:            []*CalEvent{NewCalEvent(event)},
 			descriptionWanted: "[]Saturday, Apr 19\n  []01:00 []Foo[white]\n   \n",
 		},
 		{
 			name:              "Event content with a single event without showEndTime explictily set in settings",
-			settings:          &Settings{common: &cfg.Common{}},
+			settings:          &Settings{Common: &cfg.Common{}},
 			events:            []*CalEvent{NewCalEvent(event)},
 			descriptionWanted: "[]Saturday, Apr 19\n  []01:00 []Foo[white]\n   \n",
 		},
 		{
 			name:              "Event content with a single event with end times displayed",
-			settings:          &Settings{common: &cfg.Common{}, showEndTime: true},
+			settings:          &Settings{Common: &cfg.Common{}, showEndTime: true},
 			events:            []*CalEvent{NewCalEvent(event)},
 			descriptionWanted: "[]Saturday, Apr 19\n  []01:00-02:00 []Foo[white]\n   \n",
 		},

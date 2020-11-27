@@ -15,8 +15,8 @@ func (widget *Widget) display() {
 func (widget *Widget) content() (string, string, bool) {
 	str := ""
 	newList := checklist.NewChecklist(
-		widget.settings.common.Sigils.Checkbox.Checked,
-		widget.settings.common.Sigils.Checkbox.Unchecked,
+		widget.settings.Sigils.Checkbox.Checked,
+		widget.settings.Sigils.Checkbox.Unchecked,
 	)
 
 	offset := 0
@@ -45,7 +45,7 @@ func (widget *Widget) formattedItemLine(idx int, currItem *checklist.ChecklistIt
 	rowColor := widget.RowColor(idx)
 
 	if currItem.Checked {
-		rowColor = widget.settings.common.Colors.CheckboxTheme.Checked
+		rowColor = widget.settings.Colors.CheckboxTheme.Checked
 	}
 
 	if widget.View.HasFocus() && (currItem == selectedItem) {

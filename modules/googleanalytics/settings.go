@@ -11,7 +11,7 @@ const (
 )
 
 type Settings struct {
-	common *cfg.Common
+	*cfg.Common
 
 	months         int
 	secretFile     string `help:"Your Google client secret JSON file." values:"A string representing a file path to the JSON secret file."`
@@ -22,7 +22,7 @@ type Settings struct {
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
+		Common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 
 		months:         ymlConfig.UInt("months"),
 		secretFile:     ymlConfig.UString("secretFile"),

@@ -51,7 +51,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	}
 
 	widget = Widget{
-		TextWidget: view.NewTextWidget(app, pages, settings.common),
+		TextWidget: view.NewTextWidget(app, pages, settings.Common),
 		Client:     NewClient(settings.apiKey),
 		League:     leagueId,
 		settings:   settings,

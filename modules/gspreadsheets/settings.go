@@ -16,7 +16,7 @@ type colors struct {
 
 type Settings struct {
 	colors
-	common *cfg.Common
+	*cfg.Common
 
 	cellAddresses []interface{}
 	cellNames     []interface{}
@@ -27,7 +27,7 @@ type Settings struct {
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
+		Common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 
 		cellNames:  ymlConfig.UList("cells.names"),
 		secretFile: ymlConfig.UString("secretFile"),

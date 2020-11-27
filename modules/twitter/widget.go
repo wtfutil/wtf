@@ -22,8 +22,8 @@ type Widget struct {
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		MultiSourceWidget: view.NewMultiSourceWidget(settings.common, "screenName", "screenNames"),
-		TextWidget:        view.NewTextWidget(app, pages, settings.common),
+		MultiSourceWidget: view.NewMultiSourceWidget(settings.Common, "screenName", "screenNames"),
+		TextWidget:        view.NewTextWidget(app, pages, settings.Common),
 
 		idx:      0,
 		settings: settings,
@@ -63,7 +63,7 @@ func (widget *Widget) content() (string, string, bool) {
 	}
 
 	_, _, width, _ := widget.View.GetRect()
-	str := widget.settings.common.PaginationMarker(len(widget.Sources), widget.Idx, width-2) + "\n"
+	str := widget.settings.PaginationMarker(len(widget.Sources), widget.Idx, width-2) + "\n"
 	for _, tweet := range tweets {
 		str += widget.format(tweet)
 	}

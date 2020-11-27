@@ -12,7 +12,7 @@ const (
 
 // Settings defines the configuration properties for this module
 type Settings struct {
-	common *cfg.Common
+	*cfg.Common
 
 	filePaths   []interface{}
 	format      bool
@@ -24,7 +24,7 @@ type Settings struct {
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
+		Common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 
 		filePaths:   ymlConfig.UList("filePaths"),
 		format:      ymlConfig.UBool("format", false),

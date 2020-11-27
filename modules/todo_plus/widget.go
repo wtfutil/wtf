@@ -21,8 +21,8 @@ type Widget struct {
 // NewWidget creates a new instance of a widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		MultiSourceWidget: view.NewMultiSourceWidget(settings.common, "project", "projects"),
-		ScrollableWidget:  view.NewScrollableWidget(app, pages, settings.common),
+		MultiSourceWidget: view.NewMultiSourceWidget(settings.Common, "project", "projects"),
+		ScrollableWidget:  view.NewScrollableWidget(app, pages, settings.Common),
 
 		settings: settings,
 	}

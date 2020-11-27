@@ -21,7 +21,7 @@ type Widget struct {
 // NewWidget creates a new instance of a widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: view.NewTextWidget(app, pages, settings.common),
+		TextWidget: view.NewTextWidget(app, pages, settings.Common),
 
 		Info:   spotigopher.Info{},
 		client: spotigopher.NewClient(),
@@ -29,7 +29,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 		settings: settings,
 	}
 
-	widget.settings.common.RefreshInterval = 5
+	widget.settings.RefreshInterval = 5
 
 	widget.initializeKeyboardControls()
 

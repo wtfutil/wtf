@@ -14,7 +14,7 @@ const (
 
 // Settings defines the configuration properties for this module
 type Settings struct {
-	common *cfg.Common
+	*cfg.Common
 
 	apiKey   string   `help:"A GitLab personal access token. Requires at least api access."`
 	domain   string   `help:"Your GitLab corporate domain."`
@@ -25,7 +25,7 @@ type Settings struct {
 // NewSettingsFromYAML creates a new settings instance from a YAML config block
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
+		Common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 
 		apiKey:   ymlConfig.UString("apiKey", ymlConfig.UString("apikey", os.Getenv("WTF_GITLAB_TOKEN"))),
 		domain:   ymlConfig.UString("domain", "https://gitlab.com"),

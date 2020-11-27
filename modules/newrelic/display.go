@@ -39,7 +39,7 @@ func (widget *Widget) contentFrom(deploys []nr.ApplicationDeployment) string {
 		" %s\n",
 		fmt.Sprintf(
 			"[%s]Latest Deploys[white]",
-			widget.settings.common.Colors.Subheading,
+			widget.settings.Colors.Subheading,
 		),
 	)
 

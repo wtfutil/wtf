@@ -19,7 +19,7 @@ type Widget struct {
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		ScrollableWidget: view.NewScrollableWidget(app, pages, settings.common),
+		ScrollableWidget: view.NewScrollableWidget(app, pages, settings.Common),
 
 		settings: settings,
 	}
@@ -78,7 +78,7 @@ func (widget *Widget) content() (string, string, bool) {
 			" %s\n",
 			fmt.Sprintf(
 				"[%s]Triggered Monitors[white]",
-				widget.settings.common.Colors.Subheading,
+				widget.settings.Colors.Subheading,
 			),
 		)
 		for idx, triggeredMonitor := range triggeredMonitors {

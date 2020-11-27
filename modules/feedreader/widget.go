@@ -65,7 +65,7 @@ func getShowText(feedItem *FeedItem, showType ShowType) string {
 // NewWidget creates a new instance of a widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := &Widget{
-		ScrollableWidget: view.NewScrollableWidget(app, pages, settings.common),
+		ScrollableWidget: view.NewScrollableWidget(app, pages, settings.Common),
 
 		parser:   gofeed.NewParser(),
 		settings: settings,
@@ -165,7 +165,7 @@ func (widget *Widget) content() (string, string, bool) {
 			// Grays out viewed items in the list, while preserving background highlighting when selected
 			rowColor = "gray"
 			if idx == widget.Selected {
-				rowColor = fmt.Sprintf("gray:%s", widget.settings.common.Colors.RowTheme.HighlightedBackground)
+				rowColor = fmt.Sprintf("gray:%s", widget.settings.Colors.RowTheme.HighlightedBackground)
 			}
 		}
 

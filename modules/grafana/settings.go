@@ -15,7 +15,7 @@ const (
 )
 
 type Settings struct {
-	common *cfg.Common
+	*cfg.Common
 
 	apiKey  string `help:"Your Grafana API token."`
 	baseURI string `help:"Base url of your grafana instance"`
@@ -24,7 +24,7 @@ type Settings struct {
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
+		Common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 
 		apiKey:  ymlConfig.UString("apiKey", os.Getenv("WTF_GRAFANA_API_KEY")),
 		baseURI: ymlConfig.UString("baseUri", ""),

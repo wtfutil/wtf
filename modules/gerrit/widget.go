@@ -31,7 +31,7 @@ var (
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: view.NewTextWidget(app, nil, settings.common),
+		TextWidget: view.NewTextWidget(app, nil, settings.Common),
 
 		Idx: 0,
 

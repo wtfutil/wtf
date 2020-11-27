@@ -21,7 +21,7 @@ type colors struct {
 
 type Settings struct {
 	colors
-	common *cfg.Common
+	*cfg.Common
 
 	apiKey                  string   `help:"Your Jira API key (or password for basic auth)."`
 	domain                  string   `help:"Your Jira corporate domain."`
@@ -35,7 +35,7 @@ type Settings struct {
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
+		Common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 
 		apiKey:                  ymlConfig.UString("apiKey", ymlConfig.UString("apikey", os.Getenv("WTF_JIRA_API_KEY"))),
 		domain:                  ymlConfig.UString("domain"),

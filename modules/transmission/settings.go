@@ -12,7 +12,7 @@ const (
 
 // Settings defines the configuration properties for this module
 type Settings struct {
-	common *cfg.Common
+	*cfg.Common
 
 	host         string `help:"The address of the machine the Transmission daemon is running on"`
 	https        bool   `help:"Whether or not to connect to the host via HTTPS"`
@@ -26,7 +26,7 @@ type Settings struct {
 // NewSettingsFromYAML creates a new settings instance from a YAML config block
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
+		Common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 
 		host:         ymlConfig.UString("host"),
 		https:        ymlConfig.UBool("https", false),

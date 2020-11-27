@@ -12,7 +12,7 @@ const (
 )
 
 type Settings struct {
-	common *cfg.Common
+	*cfg.Common
 
 	commitCount  int           `help:"The number of past commits to display." values:"A positive integer, 0..n." optional:"true"`
 	commitFormat string        `help:"The string format for the commit message." optional:"true"`
@@ -22,7 +22,7 @@ type Settings struct {
 
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
+		Common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 
 		commitCount:  ymlConfig.UInt("commitCount", 10),
 		commitFormat: ymlConfig.UString("commitFormat", "[forestgreen]%h [white]%s [grey]%an on %cd[white]"),

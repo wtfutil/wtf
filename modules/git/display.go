@@ -23,8 +23,8 @@ func (widget *Widget) content() (string, string, bool) {
 	)
 
 	_, _, width, _ := widget.View.GetRect()
-	str := widget.settings.common.PaginationMarker(len(widget.GitRepos), widget.Idx, width) + "\n"
-	str += fmt.Sprintf(" [%s]Branch[white]\n", widget.settings.common.Colors.Subheading)
+	str := widget.settings.PaginationMarker(len(widget.GitRepos), widget.Idx, width) + "\n"
+	str += fmt.Sprintf(" [%s]Branch[white]\n", widget.settings.Colors.Subheading)
 	str += fmt.Sprintf(" %s", repoData.Branch)
 	str += "\n"
 	str += widget.formatChanges(repoData.ChangedFiles)
@@ -35,7 +35,7 @@ func (widget *Widget) content() (string, string, bool) {
 }
 
 func (widget *Widget) formatChanges(data []string) string {
-	str := fmt.Sprintf(" [%s]Changed Files[white]\n", widget.settings.common.Colors.Subheading)
+	str := fmt.Sprintf(" [%s]Changed Files[white]\n", widget.settings.Colors.Subheading)
 
 	if len(data) == 1 {
 		str += " [grey]none[white]\n"
@@ -72,7 +72,7 @@ func (widget *Widget) formatChange(line string) string {
 }
 
 func (widget *Widget) formatCommits(data []string) string {
-	str := fmt.Sprintf(" [%s]Recent Commits[white]\n", widget.settings.common.Colors.Subheading)
+	str := fmt.Sprintf(" [%s]Recent Commits[white]\n", widget.settings.Colors.Subheading)
 
 	for _, line := range data {
 		str += widget.formatCommit(line)

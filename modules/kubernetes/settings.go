@@ -12,7 +12,7 @@ const (
 )
 
 type Settings struct {
-	common *cfg.Common
+	*cfg.Common
 
 	objects    []string `help:"Kubernetes objects to show. Options are: [nodes, pods, deployments]."`
 	title      string   `help:"Override the title of widget."`
@@ -24,7 +24,7 @@ type Settings struct {
 func NewSettingsFromYAML(name string, moduleConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, moduleConfig, globalConfig),
+		Common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, moduleConfig, globalConfig),
 
 		objects:    utils.ToStrs(moduleConfig.UList("objects")),
 		title:      moduleConfig.UString("title"),

@@ -12,7 +12,7 @@ const (
 
 // Settings defines the configuration properties for this module
 type Settings struct {
-	common *cfg.Common
+	*cfg.Common
 
 	color      string `help:"The color of the clock."`
 	font       string `help:"The font of the clock." values:"bigfont or digitalfont"`
@@ -23,7 +23,7 @@ type Settings struct {
 // NewSettingsFromYAML creates a new settings instance from a YAML config block
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
+		Common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 
 		color:      ymlConfig.UString("color"),
 		font:       ymlConfig.UString("font"),

@@ -11,7 +11,7 @@ const (
 )
 
 type Settings struct {
-	common *cfg.Common
+	*cfg.Common
 
 	city     string
 	unit     string
@@ -21,13 +21,15 @@ type Settings struct {
 
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
+		Common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 
 		city:     ymlConfig.UString("city", "Barcelona"),
 		language: ymlConfig.UString("language", "en"),
 		unit:     ymlConfig.UString("unit", "m"),
 		view:     ymlConfig.UString("view", "0"),
 	}
+
+	settings.SetDocumentationPath("weather_services/prettyweather")
 
 	return &settings
 }

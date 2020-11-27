@@ -21,7 +21,7 @@ type colors struct {
 
 type Settings struct {
 	colors
-	common *cfg.Common
+	*cfg.Common
 
 	domain                  string        `help:"Your Gerrit corporate domain."`
 	password                string        `help:"Your Gerrit HTTP Password."`
@@ -32,7 +32,7 @@ type Settings struct {
 
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
+		Common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 
 		domain:                  ymlConfig.UString("domain", ""),
 		password:                ymlConfig.UString("password", os.Getenv("WTF_GERRIT_PASSWORD")),

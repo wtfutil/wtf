@@ -31,14 +31,14 @@ type Widget struct {
 // NewWidget creates a new instance of a widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		MultiSourceWidget: view.NewMultiSourceWidget(settings.common, "filePath", "filePaths"),
-		TextWidget:        view.NewTextWidget(app, pages, settings.common),
+		MultiSourceWidget: view.NewMultiSourceWidget(settings.Common, "filePath", "filePaths"),
+		TextWidget:        view.NewTextWidget(app, pages, settings.Common),
 
 		settings: settings,
 	}
 
 	// Don't use a timer for this widget, watch for filesystem changes instead
-	widget.settings.common.RefreshInterval = 0
+	widget.settings.RefreshInterval = 0
 
 	widget.initializeKeyboardControls()
 
@@ -64,12 +64,12 @@ func (widget *Widget) Refresh() {
 func (widget *Widget) content() (string, string, bool) {
 	title := fmt.Sprintf(
 		"[%s]%s[white]",
-		widget.settings.common.Colors.TextTheme.Title,
+		widget.settings.Colors.TextTheme.Title,
 		widget.CurrentSource(),
 	)
 
 	_, _, width, _ := widget.View.GetRect()
-	text := widget.settings.common.PaginationMarker(len(widget.Sources), widget.Idx, width) + "\n"
+	text := widget.settings.PaginationMarker(len(widget.Sources), widget.Idx, width) + "\n"
 
 	if widget.settings.format {
 		text += widget.formattedText()

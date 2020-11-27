@@ -28,13 +28,16 @@ type Common struct {
 	PositionSettings `help:"Defines where in the grid this module’s widget will be displayed."`
 	Sigils
 
-	Colors          ColorTheme
+	Colors ColorTheme
+	Config *config.Config
+
+	DocPath string
+
 	Bordered        bool   `help:"Whether or not the module should be displayed with a border." values:"true, false" optional:"true" default:"true"`
 	Enabled         bool   `help:"Whether or not this module is executed and if its data displayed onscreen." values:"true, false" optional:"true" default:"false"`
 	Focusable       bool   `help:"Whether or  not this module is focusable." values:"true, false" optional:"true" default:"false"`
 	RefreshInterval int    `help:"How often, in seconds, this module will update its data." values:"A positive integer, 0..n." optional:"true"`
 	Title           string `help:"The title string to show when displaying this module" optional:"true"`
-	Config          *config.Config
 
 	focusChar int `help:"Define one of the number keys as a short cut key to access the widget." optional:"true"`
 }
@@ -165,6 +168,15 @@ func (common *Common) PaginationMarker(len, pos, width int) string {
 	}
 
 	return sigils
+}
+
+// SetDocumentationPath is used to explicitly set the documentation path that should be opened
+// when the key to open the documentation is pressed.
+// Setting this is probably not necessary unless the module documentation is nested inside a
+// documentation subdirectory in the /wtfutildocs repo, or the module here has a different
+// name than the module's display name in the documentation (which ideally wouldn't be a thing).
+func (common *Common) SetDocumentationPath(path string) {
+	common.DocPath = path
 }
 
 // Validations aggregates all the validations from all the sub-sections in Common into a

@@ -14,7 +14,7 @@ const (
 
 // Settings defines the configuration options for this module
 type Settings struct {
-	common *cfg.Common
+	*cfg.Common
 
 	apiToken    string `help:"Your Azure DevOps Access Token."`
 	labelColor  string
@@ -26,7 +26,7 @@ type Settings struct {
 // NewSettingsFromYAML creates and returns an instance of Settings with configuration options populated
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocus, ymlConfig, globalConfig),
+		Common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocus, ymlConfig, globalConfig),
 
 		apiToken:    ymlConfig.UString("apiToken", os.Getenv("WTF_AZURE_DEVOPS_API_TOKEN")),
 		labelColor:  ymlConfig.UString("labelColor", "white"),

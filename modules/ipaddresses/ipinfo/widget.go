@@ -32,7 +32,7 @@ type ipinfo struct {
 
 func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: view.NewTextWidget(app, nil, settings.common),
+		TextWidget: view.NewTextWidget(app, nil, settings.Common),
 
 		settings: settings,
 	}
@@ -96,8 +96,8 @@ func (widget *Widget) setResult(info *ipinfo) {
 	resultBuffer := new(bytes.Buffer)
 
 	err := resultTemplate.Execute(resultBuffer, map[string]string{
-		"subheadingColor": widget.settings.common.Colors.Subheading,
-		"valueColor":      widget.settings.common.Colors.Text,
+		"subheadingColor": widget.settings.Colors.Subheading,
+		"valueColor":      widget.settings.Colors.Text,
 		"Ip":              info.Ip,
 		"Hostname":        info.Hostname,
 		"City":            info.City,

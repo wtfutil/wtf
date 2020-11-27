@@ -13,7 +13,7 @@ const (
 )
 
 type Settings struct {
-	common *cfg.Common
+	*cfg.Common
 
 	callbackPort string
 	clientID     string
@@ -23,7 +23,7 @@ type Settings struct {
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
+		Common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 
 		callbackPort: ymlConfig.UString("callbackPort", "8080"),
 		clientID:     ymlConfig.UString("clientID", os.Getenv("SPOTIFY_ID")),

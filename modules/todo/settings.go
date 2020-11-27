@@ -12,7 +12,7 @@ const (
 
 // Settings defines the configuration properties for this module
 type Settings struct {
-	common *cfg.Common
+	*cfg.Common
 
 	filePath  string
 	checked   string
@@ -24,7 +24,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 	common := cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig)
 
 	settings := Settings{
-		common: common,
+		Common: common,
 
 		filePath:  ymlConfig.UString("filename"),
 		checked:   ymlConfig.UString("checkedIcon", common.Checkbox.Checked),

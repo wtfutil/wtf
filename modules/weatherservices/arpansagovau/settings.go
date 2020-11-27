@@ -11,15 +11,18 @@ const (
 )
 
 type Settings struct {
-	common *cfg.Common
-	city   string
+	*cfg.Common
+
+	city string
 }
 
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
+		Common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 		city:   ymlConfig.UString("locationid"),
 	}
+
+	settings.SetDocumentationPath("weather_services/arpansagovau")
 
 	return &settings
 }

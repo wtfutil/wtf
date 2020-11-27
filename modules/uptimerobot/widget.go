@@ -23,7 +23,7 @@ type Widget struct {
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := &Widget{
-		ScrollableWidget: view.NewScrollableWidget(app, pages, settings.common),
+		ScrollableWidget: view.NewScrollableWidget(app, pages, settings.Common),
 
 		settings: settings,
 	}

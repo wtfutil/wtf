@@ -18,7 +18,7 @@ type Widget struct {
 func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	locationData, err := GetLocationData(settings.city)
 	widget := Widget{
-		TextWidget: view.NewTextWidget(app, nil, settings.common),
+		TextWidget: view.NewTextWidget(app, nil, settings.Common),
 
 		location:  locationData,
 		lastError: err,

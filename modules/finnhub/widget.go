@@ -20,7 +20,7 @@ type Widget struct {
 func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
 		Client:     NewClient(settings.symbols, settings.apiKey),
-		TextWidget: view.NewTextWidget(app, nil, settings.common),
+		TextWidget: view.NewTextWidget(app, nil, settings.Common),
 
 		settings: settings,
 	}

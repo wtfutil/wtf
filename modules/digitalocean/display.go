@@ -20,7 +20,7 @@ func (widget *Widget) content() (string, string, bool) {
 		return title, " no columns defined", false
 	}
 
-	str := fmt.Sprintf(" [::b][%s]", widget.settings.common.Colors.Subheading)
+	str := fmt.Sprintf(" [::b][%s]", widget.settings.Colors.Subheading)
 
 	for _, colName := range columnSet {
 		truncName := utils.Truncate(colName, maxColWidth, false)

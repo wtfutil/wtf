@@ -13,7 +13,7 @@ const (
 )
 
 type Settings struct {
-	common *cfg.Common
+	*cfg.Common
 
 	apiKey         string        `help:"Your New Relic API token."`
 	deployCount    int           `help:"The number of past deploys to display on screen." optional:"true"`
@@ -23,7 +23,7 @@ type Settings struct {
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
+		Common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 
 		apiKey:         ymlConfig.UString("apiKey", os.Getenv("WTF_NEW_RELIC_API_KEY")),
 		deployCount:    ymlConfig.UInt("deployCount", 5),

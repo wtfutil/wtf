@@ -11,7 +11,7 @@ const (
 )
 
 type Settings struct {
-	common *cfg.Common
+	*cfg.Common
 
 	accessToken    string `help:"Your Rollbar project access token (Only needs read capabilities)."`
 	activeOnly     bool   `help:"Only show items that are active." optional:"true"`
@@ -24,7 +24,7 @@ type Settings struct {
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
+		Common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 
 		accessToken:    ymlConfig.UString("accessToken"),
 		activeOnly:     ymlConfig.UBool("activeOnly", false),

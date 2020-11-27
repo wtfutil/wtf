@@ -34,12 +34,12 @@ type Widget struct {
 // NewWidget creates a new instance of a widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		ScrollableWidget: view.NewScrollableWidget(app, pages, settings.common),
+		ScrollableWidget: view.NewScrollableWidget(app, pages, settings.Common),
 
 		app:      app,
 		settings: settings,
 		filePath: settings.filePath,
-		list:     checklist.NewChecklist(settings.common.Sigils.Checkbox.Checked, settings.common.Sigils.Checkbox.Unchecked),
+		list:     checklist.NewChecklist(settings.Sigils.Checkbox.Checked, settings.Sigils.Checkbox.Unchecked),
 		pages:    pages,
 	}
 
@@ -219,8 +219,8 @@ func (widget *Widget) modalFocus(form *tview.Form) {
 }
 
 func (widget *Widget) modalForm(lbl, text string) *tview.Form {
-	form := tview.NewForm().SetFieldBackgroundColor(wtf.ColorFor(widget.settings.common.Colors.Background))
-	form.SetButtonsAlign(tview.AlignCenter).SetButtonTextColor(wtf.ColorFor(widget.settings.common.Colors.Text))
+	form := tview.NewForm().SetFieldBackgroundColor(wtf.ColorFor(widget.settings.Colors.Background))
+	form.SetButtonsAlign(tview.AlignCenter).SetButtonTextColor(wtf.ColorFor(widget.settings.Colors.Text))
 
 	form.AddInputField(lbl, text, 60, nil, nil)
 

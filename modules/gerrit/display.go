@@ -22,14 +22,14 @@ func (widget *Widget) content() (string, string, bool) {
 	title = fmt.Sprintf("%s- %s", widget.CommonSettings().Title, widget.title(project))
 
 	_, _, width, _ := widget.View.GetRect()
-	str := widget.settings.common.PaginationMarker(len(widget.GerritProjects), widget.Idx, width) + "\n"
-	str += fmt.Sprintf(" [%s]Stats[white]\n", widget.settings.common.Colors.Subheading)
+	str := widget.settings.PaginationMarker(len(widget.GerritProjects), widget.Idx, width) + "\n"
+	str += fmt.Sprintf(" [%s]Stats[white]\n", widget.settings.Colors.Subheading)
 	str += widget.displayStats(project)
 	str += "\n"
-	str += fmt.Sprintf(" [%s]Open Incoming Reviews[white]\n", widget.settings.common.Colors.Subheading)
+	str += fmt.Sprintf(" [%s]Open Incoming Reviews[white]\n", widget.settings.Colors.Subheading)
 	str += widget.displayMyIncomingReviews(project, widget.settings.username)
 	str += "\n"
-	str += fmt.Sprintf(" [%s]My Outgoing Reviews[white]\n", widget.settings.common.Colors.Subheading)
+	str += fmt.Sprintf(" [%s]My Outgoing Reviews[white]\n", widget.settings.Colors.Subheading)
 	str += widget.displayMyOutgoingReviews(project, widget.settings.username)
 
 	return title, str, false
@@ -72,10 +72,10 @@ func (widget *Widget) displayStats(project *GerritProject) string {
 
 func (widget *Widget) rowColor(idx int) string {
 	if widget.View.HasFocus() && (idx == widget.selected) {
-		return widget.settings.common.DefaultFocusedRowColor()
+		return widget.settings.DefaultFocusedRowColor()
 	}
 
-	return widget.settings.common.RowColor(idx)
+	return widget.settings.RowColor(idx)
 }
 
 func (widget *Widget) title(project *GerritProject) string {

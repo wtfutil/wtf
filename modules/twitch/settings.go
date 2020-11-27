@@ -13,7 +13,7 @@ const (
 )
 
 type Settings struct {
-	common *cfg.Common
+	*cfg.Common
 
 	numberOfResults int      `help:"Number of results to show. Default is 10." optional:"true"`
 	clientId        string   `help:"Client Id (default is env var TWITCH_CLIENT_ID)"`
@@ -33,7 +33,8 @@ func defaultLanguage() []interface{} {
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 	twitch := ymlConfig.UString("twitch")
 	settings := Settings{
-		common:          cfg.NewCommonSettingsFromModule(name, twitch, defaultFocusable, ymlConfig, globalConfig),
+		Common: cfg.NewCommonSettingsFromModule(name, twitch, defaultFocusable, ymlConfig, globalConfig),
+
 		numberOfResults: ymlConfig.UInt("numberOfResults", 10),
 		clientId:        ymlConfig.UString("clientId", os.Getenv("TWITCH_CLIENT_ID")),
 		languages:       utils.ToStrs(ymlConfig.UList("languages", defaultLanguage())),

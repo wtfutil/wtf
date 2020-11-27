@@ -17,7 +17,7 @@ type Widget struct {
 
 func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := &Widget{
-		TextWidget: view.NewTextWidget(app, nil, settings.common),
+		TextWidget: view.NewTextWidget(app, nil, settings.Common),
 		settings:   settings,
 	}
 	return widget
@@ -46,19 +46,19 @@ func (widget *Widget) content() (string, string, bool) {
 		handleError(widget, err)
 	} else {
 
-		str = fmt.Sprintf("[%s]Mission[white]\n", widget.settings.common.Colors.Subheading)
+		str = fmt.Sprintf("[%s]Mission[white]\n", widget.settings.Colors.Subheading)
 		str += fmt.Sprintf("%s: %s\n", "Name", launch.MissionName)
 		str += fmt.Sprintf("%s: %s\n", "Date", wtf.UnixTime(launch.LaunchDate).Format(time.RFC822))
 		str += fmt.Sprintf("%s: %s\n", "Site", launch.LaunchSite.Name)
 		str += "\n"
 
-		str += fmt.Sprintf("[%s]Links[white]\n", widget.settings.common.Colors.Subheading)
+		str += fmt.Sprintf("[%s]Links[white]\n", widget.settings.Colors.Subheading)
 		str += fmt.Sprintf("%s: %s\n", "YouTube", launch.Links.YouTubeLink)
 		str += fmt.Sprintf("%s: %s\n", "Reddit", launch.Links.RedditLink)
 
 		if widget.CommonSettings().Height >= 2 {
 			str += "\n"
-			str += fmt.Sprintf("[%s]Details[white]\n", widget.settings.common.Colors.Subheading)
+			str += fmt.Sprintf("[%s]Details[white]\n", widget.settings.Colors.Subheading)
 			str += fmt.Sprintf("%s: %s\n", "RocketName", launch.Rocket.Name)
 			str += fmt.Sprintf("%s: %s\n", "Details", launch.Details)
 		}

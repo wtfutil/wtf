@@ -17,12 +17,12 @@ type colors struct {
 
 type Settings struct {
 	colors
-	common *cfg.Common
+	*cfg.Common
 }
 
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
+		Common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 	}
 
 	settings.colors.label = ymlConfig.UString("colors.label", "green")

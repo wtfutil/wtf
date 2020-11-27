@@ -21,7 +21,8 @@ type PipelineSettings struct {
 
 // Settings defines the configuration properties for this module
 type Settings struct {
-	common    *cfg.Common
+	*cfg.Common
+
 	apiKey    string             `help:"Your Buildkite API Token"`
 	orgSlug   string             `help:"Organization Slug"`
 	pipelines []PipelineSettings `help:"An array of pipelines to get data from"`
@@ -30,7 +31,8 @@ type Settings struct {
 // NewSettingsFromYAML creates a new settings instance from a YAML config block
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 	settings := Settings{
-		common:    cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
+		Common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
+
 		apiKey:    ymlConfig.UString("apiKey", os.Getenv("WTF_BUILDKITE_TOKEN")),
 		orgSlug:   ymlConfig.UString("organizationSlug"),
 		pipelines: buildPipelineSettings(ymlConfig),

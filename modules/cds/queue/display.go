@@ -23,7 +23,7 @@ func (widget *Widget) content() (string, string, bool) {
 	filter := widget.currentFilter()
 	_, _, width, _ := widget.View.GetRect()
 
-	str := widget.settings.common.PaginationMarker(len(widget.filters), widget.Idx, width) + "\n"
+	str := widget.settings.PaginationMarker(len(widget.filters), widget.Idx, width) + "\n"
 	str += widget.displayQueue(filter)
 
 	title := fmt.Sprintf("%s - %s", widget.CommonSettings().Title, widget.title(filter))
@@ -34,7 +34,7 @@ func (widget *Widget) content() (string, string, bool) {
 func (widget *Widget) title(filter string) string {
 	return fmt.Sprintf(
 		"[%s]%d - %s[white]",
-		widget.settings.common.Colors.TextTheme.Title,
+		widget.settings.Colors.TextTheme.Title,
 		widget.maxItems,
 		filter,
 	)

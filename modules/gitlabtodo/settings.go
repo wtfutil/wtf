@@ -13,7 +13,7 @@ const (
 )
 
 type Settings struct {
-	common *cfg.Common
+	*cfg.Common
 
 	numberOfTodos int    `help:"Defines number of stories to be displayed. Default is 10" optional:"true"`
 	apiKey        string `help:"A GitLab personal access token. Requires at least api access."`
@@ -24,7 +24,7 @@ type Settings struct {
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
+		Common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 
 		numberOfTodos: ymlConfig.UInt("numberOfTodos", 10),
 		apiKey:        ymlConfig.UString("apiKey", os.Getenv("WTF_GITLAB_TOKEN")),

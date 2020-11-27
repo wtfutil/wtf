@@ -13,7 +13,7 @@ const (
 
 // Settings for the cmdrunner widget
 type Settings struct {
-	common *cfg.Common
+	*cfg.Common
 
 	args     []string `help:"The arguments to the command, with each item as an element in an array. Example: for curl -I cisco.com, the arguments array would be ['-I', 'cisco.com']."`
 	cmd      string   `help:"The terminal command to be run, withouth the arguments. Ie: ping, whoami, curl."`
@@ -29,7 +29,7 @@ type Settings struct {
 // NewSettingsFromYAML loads the cmdrunner portion of the WTF config
 func NewSettingsFromYAML(name string, moduleConfig *config.Config, globalConfig *config.Config) *Settings {
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, moduleConfig, globalConfig),
+		Common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, moduleConfig, globalConfig),
 
 		args:     utils.ToStrs(moduleConfig.UList("args")),
 		cmd:      moduleConfig.UString("cmd"),

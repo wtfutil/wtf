@@ -23,7 +23,7 @@ type Widget struct {
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		ScrollableWidget: view.NewScrollableWidget(app, nil, settings.common),
+		ScrollableWidget: view.NewScrollableWidget(app, nil, settings.Common),
 		settings:         settings,
 		client:           NewClient(settings.consumerKey, "http://localhost"),
 		archivedView:     false,
@@ -199,11 +199,11 @@ func (widget *Widget) toggleLink() {
 }
 
 func (widget *Widget) formatItem(item Item, isSelected bool) string {
-	foreColor, backColor := widget.settings.common.Colors.RowTheme.EvenForeground, widget.settings.common.Colors.RowTheme.EvenBackground
+	foreColor, backColor := widget.settings.Colors.RowTheme.EvenForeground, widget.settings.Colors.RowTheme.EvenBackground
 	text := item.ResolvedTitle
 	if isSelected {
-		foreColor = widget.settings.common.Colors.RowTheme.HighlightedForeground
-		backColor = widget.settings.common.Colors.RowTheme.HighlightedBackground
+		foreColor = widget.settings.Colors.RowTheme.HighlightedForeground
+		backColor = widget.settings.Colors.RowTheme.HighlightedBackground
 
 	}
 

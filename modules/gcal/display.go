@@ -14,7 +14,7 @@ func (widget *Widget) display() {
 }
 
 func (widget *Widget) content() (string, string, bool) {
-	title := widget.settings.common.Title
+	title := widget.settings.Title
 	calEvents := widget.calEvents
 
 	if widget.err != nil {

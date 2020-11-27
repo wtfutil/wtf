@@ -14,7 +14,7 @@ const (
 
 // Settings defines the configuration properties for this module
 type Settings struct {
-	common *cfg.Common
+	*cfg.Common
 
 	apiKey                 string        `help:"Your GitHub API token."`
 	baseURL                string        `help:"Your GitHub Enterprise API URL." optional:"true"`
@@ -37,7 +37,7 @@ type customQuery struct {
 // NewSettingsFromYAML creates a new settings instance from a YAML config block
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
+		Common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 
 		apiKey:                 ymlConfig.UString("apiKey", ymlConfig.UString("apikey", os.Getenv("WTF_GITHUB_TOKEN"))),
 		baseURL:                ymlConfig.UString("baseURL", os.Getenv("WTF_GITHUB_BASE_URL")),

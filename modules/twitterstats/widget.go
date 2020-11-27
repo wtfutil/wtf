@@ -16,7 +16,7 @@ type Widget struct {
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: view.NewTextWidget(app, nil, settings.common),
+		TextWidget: view.NewTextWidget(app, nil, settings.Common),
 
 		client:   NewClient(settings),
 		settings: settings,
@@ -37,7 +37,7 @@ func (widget *Widget) content() (string, string, bool) {
 	// Add header row
 	str := fmt.Sprintf(
 		"[%s]%-12s %10s %8s[white]\n",
-		widget.settings.common.Colors.Subheading,
+		widget.settings.Colors.Subheading,
 		"Username",
 		"Followers",
 		"Tweets",

@@ -23,7 +23,7 @@ type colors struct {
 // Settings defines the configuration options for this module
 type Settings struct {
 	colors
-	common *cfg.Common
+	*cfg.Common
 
 	conflictIcon          string `help:"The icon displayed beside calendar events that have conflicting times (they intersect or overlap in some way)." values:"Any displayable unicode character." optional:"true"`
 	currentIcon           string `help:"The icon displayed beside the current calendar event." values:"Any displayable unicode character." optional:"true"`
@@ -44,7 +44,7 @@ type Settings struct {
 // NewSettingsFromYAML creates and returns an instance of Settings with configuration options populated
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
+		Common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 
 		conflictIcon:          ymlConfig.UString("conflictIcon", "🚨"),
 		currentIcon:           ymlConfig.UString("currentIcon", "🔸"),
@@ -62,8 +62,9 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		calendarReadLevel:     ymlConfig.UString("calendarReadLevel", "writer"),
 	}
 
-	settings.colors.day = ymlConfig.UString("colors.day", settings.common.Colors.Subheading)
+	settings.colors.day = ymlConfig.UString("colors.day", settings.Colors.Subheading)
 	settings.colors.description = ymlConfig.UString("colors.description", "white")
+
 	// settings.colors.eventTime is a new feature introduced via issue #638. Prior to this, the color of the event
 	// time was (unintentionally) customized via settings.colors.description. To maintain backwards compatibility
 	// for users who might be already using this to set the color of the event time, we try to determine the default
@@ -72,6 +73,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 	//
 	// PS: We should have a deprecation plan for supporting this backwards compatibility feature.
 	settings.colors.eventTime = ymlConfig.UString("colors.eventTime", settings.colors.description)
+
 	settings.colors.highlights = ymlConfig.UList("colors.highlights")
 	settings.colors.past = ymlConfig.UString("colors.past", "gray")
 	settings.colors.title = ymlConfig.UString("colors.title", "white")

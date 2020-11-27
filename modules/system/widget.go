@@ -21,7 +21,7 @@ type Widget struct {
 
 func NewWidget(app *tview.Application, date, version string, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: view.NewTextWidget(app, nil, settings.common),
+		TextWidget: view.NewTextWidget(app, nil, settings.Common),
 
 		Date: date,
 

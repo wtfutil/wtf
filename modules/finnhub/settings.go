@@ -15,7 +15,8 @@ const (
 
 // Settings defines the configuration properties for this module
 type Settings struct {
-	common  *cfg.Common
+	*cfg.Common
+
 	apiKey  string   `help:"Your finnhub API token."`
 	symbols []string `help:"An array of stocks symbols (i.e. AAPL, MSFT)"`
 }
@@ -24,7 +25,7 @@ type Settings struct {
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
+		Common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 
 		apiKey:  ymlConfig.UString("apiKey", ymlConfig.UString("apikey", os.Getenv("WTF_FINNHUB_API_KEY"))),
 		symbols: utils.ToStrs(ymlConfig.UList("symbols")),

@@ -13,7 +13,8 @@ const (
 )
 
 type Settings struct {
-	common        *cfg.Common
+	*cfg.Common
+
 	apiKey        string `help:"Your Football-data API token."`
 	league        string `help:"Name of the competition. For example PL"`
 	favTeam       string `help:"Teams to follow in mentioned league"`
@@ -25,7 +26,8 @@ type Settings struct {
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common:        cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
+		Common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
+
 		apiKey:        ymlConfig.UString("apiKey", ymlConfig.UString("apikey", os.Getenv("WTF_FOOTBALL_API_KEY"))),
 		league:        ymlConfig.UString("league", ymlConfig.UString("league", os.Getenv("WTF_FOOTBALL_LEAGUE"))),
 		favTeam:       ymlConfig.UString("favTeam", ymlConfig.UString("favTeam", os.Getenv("WTF_FOOTBALL_TEAM"))),

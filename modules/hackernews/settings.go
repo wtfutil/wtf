@@ -11,7 +11,7 @@ const (
 )
 
 type Settings struct {
-	common *cfg.Common
+	*cfg.Common
 
 	numberOfStories int    `help:"Defines number of stories to be displayed. Default is 10" optional:"true"`
 	storyType       string `help:"Category of story to see" values:"new, top, job, ask" optional:"true"`
@@ -20,7 +20,7 @@ type Settings struct {
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
+		Common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 
 		numberOfStories: ymlConfig.UInt("numberOfStories", 10),
 		storyType:       ymlConfig.UString("storyType", "top"),

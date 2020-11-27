@@ -13,7 +13,7 @@ const (
 )
 
 type Settings struct {
-	common *cfg.Common
+	*cfg.Common
 
 	backendType     string
 	backendSettings *config.Config
@@ -24,7 +24,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 	backend, _ := ymlConfig.Get("backendSettings")
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
+		Common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 
 		backendType:     ymlConfig.UString("backendType"),
 		backendSettings: backend,
@@ -41,7 +41,7 @@ func FromTodoist(name string, ymlConfig *config.Config, globalConfig *config.Con
 	_ = backend.Set(".projects", projects)
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
+		Common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 
 		backendType:     "todoist",
 		backendSettings: backend,
@@ -71,7 +71,7 @@ func FromTrello(name string, ymlConfig *config.Config, globalConfig *config.Conf
 	_ = backend.Set(".lists", lists)
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
+		Common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 
 		backendType:     "trello",
 		backendSettings: backend,

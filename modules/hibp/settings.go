@@ -23,7 +23,7 @@ type colors struct {
 // Settings defines the configuration properties for this module
 type Settings struct {
 	colors
-	common *cfg.Common
+	*cfg.Common
 
 	accounts []string `help:"A list of the accounts to check the HIBP database for."`
 	apiKey   string   `help:"Your HIBP API v3 API key"`
@@ -33,7 +33,7 @@ type Settings struct {
 // NewSettingsFromYAML creates a new settings instance from a YAML config block
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 	settings := &Settings{
-		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
+		Common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 
 		apiKey:   ymlConfig.UString("apiKey", ymlConfig.UString("apikey", os.Getenv("WTF_HIBP_TOKEN"))),
 		accounts: utils.ToStrs(ymlConfig.UList("accounts")),
@@ -47,8 +47,8 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 
 	// HIBP data doesn't need to be reloaded very often so to be gentle on this API we
 	// enforce a minimum refresh interval
-	if settings.common.RefreshInterval < minRefreshInterval {
-		settings.common.RefreshInterval = minRefreshInterval
+	if settings.RefreshInterval < minRefreshInterval {
+		settings.RefreshInterval = minRefreshInterval
 	}
 
 	return settings

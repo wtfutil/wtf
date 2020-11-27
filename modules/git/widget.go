@@ -30,8 +30,8 @@ type Widget struct {
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		MultiSourceWidget: view.NewMultiSourceWidget(settings.common, "repository", "repositories"),
-		TextWidget:        view.NewTextWidget(app, pages, settings.common),
+		MultiSourceWidget: view.NewMultiSourceWidget(settings.Common, "repository", "repositories"),
+		TextWidget:        view.NewTextWidget(app, pages, settings.Common),
 
 		app:      app,
 		pages:    pages,

@@ -18,7 +18,7 @@ type Widget struct {
 
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		ScrollableWidget: view.NewScrollableWidget(app, pages, settings.common),
+		ScrollableWidget: view.NewScrollableWidget(app, pages, settings.Common),
 
 		settings: settings,
 	}
@@ -74,7 +74,7 @@ func (widget *Widget) content() (string, string, bool) {
 
 	title := widget.CommonSettings().Title
 
-	str := fmt.Sprintf(" [%s]Assigned Issues[white]\n", widget.settings.common.Colors.Subheading)
+	str := fmt.Sprintf(" [%s]Assigned Issues[white]\n", widget.settings.Colors.Subheading)
 
 	if widget.result == nil || len(widget.result.Issues) == 0 {
 		return title, "No results to display", false

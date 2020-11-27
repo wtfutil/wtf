@@ -26,7 +26,7 @@ type Widget struct {
 // NewWidget creates a new instance of a widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: view.NewTextWidget(app, pages, settings.common),
+		TextWidget: view.NewTextWidget(app, pages, settings.Common),
 
 		settings: settings,
 	}
@@ -73,7 +73,7 @@ func (widget *Widget) nbascore() (string, string, bool) {
 		return title, err.Error(), true
 	}
 
-	allGame := fmt.Sprintf(" [%s]", widget.settings.common.Colors.Subheading) + (cur.Format(utils.FriendlyDateFormat) + "\n\n") + "[white]"
+	allGame := fmt.Sprintf(" [%s]", widget.settings.Colors.Subheading) + (cur.Format(utils.FriendlyDateFormat) + "\n\n") + "[white]"
 
 	for _, game := range result["games"].([]interface{}) {
 		vTeam, hTeam, vScore, hScore := "", "", "", ""

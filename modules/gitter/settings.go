@@ -13,7 +13,7 @@ const (
 )
 
 type Settings struct {
-	common *cfg.Common
+	*cfg.Common
 
 	apiToken         string `help:"Your Gitter Personal Access Token."`
 	numberOfMessages int    `help:"Maximum number of (newest) messages to be displayed. Default is 10" optional:"true"`
@@ -23,7 +23,7 @@ type Settings struct {
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
+		Common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 
 		apiToken:         ymlConfig.UString("apiToken", os.Getenv("WTF_GITTER_API_TOKEN")),
 		numberOfMessages: ymlConfig.UInt("numberOfMessages", 10),

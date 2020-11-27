@@ -18,11 +18,11 @@ type Widget struct {
 //func NewWidget(app *tview.Application, settings *Settings) *Widget {
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: view.NewTextWidget(app, nil, settings.common),
+		TextWidget: view.NewTextWidget(app, nil, settings.Common),
 		settings:   settings,
 	}
 
-	widget.settings.common.RefreshInterval = 30
+	widget.settings.RefreshInterval = 30
 	widget.initializeKeyboardControls()
 	widget.SetDisplayFunction(widget.Refresh)
 	widget.View.SetWordWrap(true)

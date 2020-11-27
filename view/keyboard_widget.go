@@ -113,7 +113,12 @@ func (widget *KeyboardWidget) InputCapture(event *tcell.EventKey) *tcell.EventKe
 
 // LaunchDocumentation opens the module docs in a browser
 func (widget *KeyboardWidget) LaunchDocumentation() {
-	url := "https://wtfutil.com/modules/" + widget.settings.Name
+	path := widget.settings.DocPath
+	if path == "" {
+		path = widget.settings.Type
+	}
+
+	url := "https://wtfutil.com/modules/" + path
 	utils.OpenFile(url)
 }
 

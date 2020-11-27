@@ -17,8 +17,9 @@ type colors struct {
 }
 
 type Settings struct {
+	*cfg.Common
+
 	colors
-	common *cfg.Common
 
 	deviceToken     string
 	displayHoldings bool
@@ -27,7 +28,7 @@ type Settings struct {
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
+		Common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 
 		deviceToken:     ymlConfig.UString("device_token"),
 		displayHoldings: ymlConfig.UBool("displayHoldings", true),

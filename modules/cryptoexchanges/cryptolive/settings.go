@@ -35,8 +35,9 @@ type colors struct {
 }
 
 type Settings struct {
+	*cfg.Common
+
 	colors
-	common *cfg.Common
 
 	currencies map[string]interface{}
 	top        map[string]interface{}
@@ -50,7 +51,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 	top, _ := ymlConfig.Map("top")
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
+		Common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 
 		currencies: currencies,
 		top:        top,

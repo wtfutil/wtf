@@ -10,13 +10,13 @@ const (
 )
 
 type Settings struct {
-	common *cfg.Common
+	*cfg.Common
 }
 
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 	spacex := ymlConfig.UString("spacex")
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, spacex, defaultFocusable, ymlConfig, globalConfig),
+		Common: cfg.NewCommonSettingsFromModule(name, spacex, defaultFocusable, ymlConfig, globalConfig),
 	}
 	return &settings
 }

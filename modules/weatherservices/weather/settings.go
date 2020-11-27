@@ -18,7 +18,7 @@ type colors struct {
 
 type Settings struct {
 	colors
-	common *cfg.Common
+	*cfg.Common
 
 	apiKey   string
 	cityIDs  []interface{}
@@ -29,7 +29,7 @@ type Settings struct {
 
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
+		Common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 
 		apiKey:   ymlConfig.UString("apiKey", ymlConfig.UString("apikey", os.Getenv("WTF_OWM_API_KEY"))),
 		cityIDs:  ymlConfig.UList("cityids"),
@@ -37,6 +37,8 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		tempUnit: ymlConfig.UString("tempUnit", "C"),
 		useEmoji: ymlConfig.UBool("useEmoji", true),
 	}
+
+	settings.SetDocumentationPath("weather_services/weather/")
 
 	settings.colors.current = ymlConfig.UString("colors.current", "green")
 

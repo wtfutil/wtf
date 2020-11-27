@@ -13,7 +13,7 @@ const (
 
 // Settings defines the configuration properties for this module
 type Settings struct {
-	common *cfg.Common
+	*cfg.Common
 
 	dateFormat string  `help:"The format of the date string for all clocks." values:"Any valid Go date layout which is handled by Time.Format. Defaults to Jan 2."`
 	timeFormat string  `help:"The format of the time string for all clocks." values:"Any valid Go time layout which is handled by Time.Format. Defaults to 15:04 MST."`
@@ -24,7 +24,7 @@ type Settings struct {
 // NewSettingsFromYAML creates a new settings instance from a YAML config block
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
+		Common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 
 		dateFormat: ymlConfig.UString("dateFormat", utils.SimpleDateFormat),
 		timeFormat: ymlConfig.UString("timeFormat", utils.SimpleTimeFormat),

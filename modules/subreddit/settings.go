@@ -11,7 +11,7 @@ const (
 
 // Settings contains the settings for the subreddit view
 type Settings struct {
-	common *cfg.Common
+	*cfg.Common
 
 	subreddit     string `help:"Subreddit to look at" optional:"false"`
 	numberOfPosts int    `help:"Number of posts to show. Default is 10." optional:"true"`
@@ -23,7 +23,7 @@ type Settings struct {
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 	subreddit := ymlConfig.UString("subreddit")
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, subreddit, defaultFocusable, ymlConfig, globalConfig),
+		Common: cfg.NewCommonSettingsFromModule(name, subreddit, defaultFocusable, ymlConfig, globalConfig),
 
 		numberOfPosts: ymlConfig.UInt("numberOfPosts", 10),
 		sortOrder:     ymlConfig.UString("sortOrder", "hot"),

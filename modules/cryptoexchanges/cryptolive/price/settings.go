@@ -38,15 +38,16 @@ type currency struct {
 }
 
 type Settings struct {
+	*cfg.Common
+
 	colors
-	common     *cfg.Common
 	currencies map[string]*currency
 }
 
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 
 	settings := Settings{
-		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
+		Common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 	}
 
 	settings.colors.from.name = ymlConfig.UString("colors.from.name")

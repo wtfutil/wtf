@@ -25,7 +25,7 @@ func (widget *Widget) content() (string, string, bool) {
 	}
 
 	_, _, width, _ := widget.View.GetRect()
-	str := widget.settings.common.PaginationMarker(len(widget.workflows), widget.Idx, width) + "\n"
+	str := widget.settings.PaginationMarker(len(widget.workflows), widget.Idx, width) + "\n"
 	title := fmt.Sprintf("%s - %s", widget.CommonSettings().Title, widget.title(workflow))
 
 	str += widget.displayWorkflowRuns(workflow)
@@ -36,7 +36,7 @@ func (widget *Widget) content() (string, string, bool) {
 func (widget *Widget) title(workflow *sdk.Workflow) string {
 	return fmt.Sprintf(
 		"[%s]%s/%s[white]",
-		widget.settings.common.Colors.TextTheme.Title,
+		widget.settings.Colors.TextTheme.Title,
 		workflow.ProjectKey, workflow.Name,
 	)
 }

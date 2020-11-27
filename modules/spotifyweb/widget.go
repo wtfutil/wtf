@@ -71,7 +71,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	var playerState *spotify.PlayerState
 
 	widget := Widget{
-		TextWidget: view.NewTextWidget(app, pages, settings.common),
+		TextWidget: view.NewTextWidget(app, pages, settings.Common),
 
 		Info: Info{},
 
@@ -119,7 +119,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	// If inconvenient, I'll remove this option and save the URL in a file or some other method.
 	utils.OpenFile(`"` + authURL + `"`)
 
-	widget.settings.common.RefreshInterval = 5
+	widget.settings.RefreshInterval = 5
 
 	widget.initializeKeyboardControls()
 

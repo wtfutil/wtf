@@ -20,7 +20,7 @@ type Widget struct {
 // NewWidget creates a new instance of a widget
 func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		ScrollableWidget: view.NewScrollableWidget(app, pages, settings.common),
+		ScrollableWidget: view.NewScrollableWidget(app, pages, settings.Common),
 
 		settings: settings,
 	}
@@ -68,9 +68,9 @@ func (widget *Widget) content() (string, string, bool) {
 }
 
 func (widget *Widget) format(ticket Ticket, idx int) string {
-	textColor := widget.settings.common.Colors.Background
+	textColor := widget.settings.Colors.Background
 	if idx == widget.GetSelected() {
-		textColor = widget.settings.common.Colors.BorderTheme.Focused
+		textColor = widget.settings.Colors.BorderTheme.Focused
 	}
 
 	requesterName := widget.parseRequester(ticket)

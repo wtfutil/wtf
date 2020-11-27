@@ -25,7 +25,7 @@ type Widget struct {
 // NewWidget creates and returns an instance of PagerDuty widget
 func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: view.NewTextWidget(app, nil, settings.common),
+		TextWidget: view.NewTextWidget(app, nil, settings.Common),
 
 		settings: settings,
 	}
@@ -79,11 +79,11 @@ func (widget *Widget) contentFrom(onCalls []pagerduty.OnCall, incidents []pagerd
 	// Incidents
 
 	if widget.settings.showIncidents {
-		str += fmt.Sprintf("[%s] Incidents[white]\n", widget.settings.common.Colors.Subheading)
+		str += fmt.Sprintf("[%s] Incidents[white]\n", widget.settings.Colors.Subheading)
 
 		if len(incidents) > 0 {
 			for _, incident := range incidents {
-				str += fmt.Sprintf("\n [%s]%s[white]\n", widget.settings.common.Colors.Label, tview.Escape(incident.Summary))
+				str += fmt.Sprintf("\n [%s]%s[white]\n", widget.settings.Colors.Label, tview.Escape(incident.Summary))
 				str += fmt.Sprintf("     Status: %s\n", incident.Status)
 				str += fmt.Sprintf("    Service: %s\n", incident.Service.Summary)
 				str += fmt.Sprintf(" Escalation: %s\n", incident.EscalationPolicy.Summary)
@@ -121,13 +121,13 @@ func (widget *Widget) contentFrom(onCalls []pagerduty.OnCall, incidents []pagerd
 	sort.Strings(keys)
 
 	if len(keys) > 0 {
-		str += fmt.Sprintf("[%s] Schedules[white]\n", widget.settings.common.Colors.Subheading)
+		str += fmt.Sprintf("[%s] Schedules[white]\n", widget.settings.Colors.Subheading)
 
 		// Print out policies, and escalation order of users
 		for _, key := range keys {
 			str += fmt.Sprintf(
 				"\n [%s]%s\n",
-				widget.settings.common.Colors.Label,
+				widget.settings.Colors.Label,
 				key,
 			)
 
@@ -137,7 +137,7 @@ func (widget *Widget) contentFrom(onCalls []pagerduty.OnCall, incidents []pagerd
 			for _, onCall := range values {
 				str += fmt.Sprintf(
 					" [%s]%d - %s\n",
-					widget.settings.common.Colors.Text,
+					widget.settings.Colors.Text,
 					onCall.EscalationLevel,
 					widget.userSummary(onCall),
 				)

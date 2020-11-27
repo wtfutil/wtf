@@ -11,7 +11,8 @@ const (
 )
 
 type Settings struct {
-	common         *cfg.Common
+	*cfg.Common
+
 	wrapText       bool
 	apiUrl         string
 	token          string
@@ -24,7 +25,8 @@ type Settings struct {
 
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 	settings := Settings{
-		common:         cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
+		Common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
+
 		apiUrl:         ymlConfig.UString("apiUrl"),
 		token:          ymlConfig.UString("token"),
 		showSummary:    ymlConfig.UBool("showSummary", true),

@@ -23,7 +23,7 @@ type Widget struct {
 // NewWidget Make new instance of widget
 func NewWidget(app *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
-		BarGraph: view.NewBarGraph(app, "Sample Bar Graph", settings.common),
+		BarGraph: view.NewBarGraph(app, "Sample Bar Graph", settings.Common),
 
 		app: app,
 	}

@@ -11,7 +11,8 @@ const (
 )
 
 type Settings struct {
-	common      *cfg.Common
+	*cfg.Common
+
 	cpuCombined bool
 	showCPU     bool
 	showMem     bool
@@ -20,7 +21,8 @@ type Settings struct {
 
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 	settings := Settings{
-		common:      cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
+		Common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
+
 		cpuCombined: ymlConfig.UBool("cpuCombined", false),
 		showCPU:     ymlConfig.UBool("showCPU", true),
 		showMem:     ymlConfig.UBool("showMem", true),
