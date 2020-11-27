@@ -1,10 +1,5 @@
 package main
 
-// Generators
-// To generate the skeleton for a new TextWidget use 'WTF_WIDGET_NAME=MySuperAwesomeWidget go generate -run=text
-//go:generate -command text go run generator/textwidget.go
-//go:generate text
-
 import (
 	"fmt"
 	"log"
@@ -45,6 +40,14 @@ func setTerm(config *config.Config) {
 	}
 }
 
+func makeWtfApp(config *config.Config, flagConfig string) app.WtfApp {
+	tviewApp = tview.NewApplication()
+	wtfApp := app.NewWtfApp(tviewApp, config, flagConfig)
+	wtfApp.Start()
+
+	return wtfApp
+}
+
 /* -------------------- Main -------------------- */
 
 func main() {
@@ -54,11 +57,11 @@ func main() {
 	flags := flags.NewFlags()
 	flags.Parse()
 
-	hasCustom := flags.HasCustomConfig()
-	cfg.Initialize(hasCustom)
-
 	// Load the configuration file
+	cfg.Initialize(flags.HasCustomConfig())
 	config := cfg.LoadWtfConfigFile(flags.ConfigFilePath())
+	setTerm(config)
+
 	flags.RenderIf(version, date, config)
 
 	if flags.Profile {
@@ -69,15 +72,10 @@ func main() {
 	openURLUtil := utils.ToStrs(config.UList("wtf.openUrlUtil", []interface{}{}))
 	utils.Init(openFileUtil, openURLUtil)
 
-	setTerm(config)
+	apps := []app.WtfApp{}
+	app := makeWtfApp(config, flags.Config)
+	apps = append(apps, app)
 
-	// Build the application
-	tviewApp = tview.NewApplication()
-	wtfApp := app.NewWtfApp(tviewApp, config, flags.Config)
-	wtfApp.Start()
-
-	if err := tviewApp.Run(); err != nil {
-		fmt.Printf("\n%s %v\n", aurora.Red("ERROR"), err)
-		os.Exit(1)
-	}
+	currentApp := apps[0]
+	currentApp.Run()
 }
