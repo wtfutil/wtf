@@ -19,5 +19,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		Common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 	}
 
+	settings.SetDocumentationPath("sports/nbascore")
+
 	return &settings
 }

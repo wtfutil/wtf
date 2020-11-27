@@ -29,5 +29,8 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		token:  ymlConfig.UString("token", ymlConfig.UString("token", os.Getenv("CDS_TOKEN"))),
 		apiURL: ymlConfig.UString("apiURL", os.Getenv("CDS_API_URL")),
 	}
+
+	settings.SetDocumentationPath("cds/queue")
+
 	return &settings
 }

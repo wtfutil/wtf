@@ -32,5 +32,8 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		apiURL:   ymlConfig.UString("apiURL", os.Getenv("CDS_API_URL")),
 		hideTags: utils.ToStrs(ymlConfig.UList("hideTags")),
 	}
+
+	settings.SetDocumentationPath("cds/favorites")
+
 	return &settings
 }

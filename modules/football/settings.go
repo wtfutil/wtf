@@ -38,5 +38,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 
 	cfg.ModuleSecret(name, globalConfig, &settings.apiKey).Load()
 
+	settings.SetDocumentationPath("sports/football")
+
 	return &settings
 }

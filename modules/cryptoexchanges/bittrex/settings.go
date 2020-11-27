@@ -63,5 +63,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		settings.summary.currencies[key] = currency
 	}
 
+	settings.SetDocumentationPath("cryptocurrencies/bittrex")
+
 	return &settings
 }

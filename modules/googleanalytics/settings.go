@@ -30,5 +30,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		enableRealtime: ymlConfig.UBool("enableRealtime", false),
 	}
 
+	settings.SetDocumentationPath("google/analytics")
+
 	return &settings
 }

@@ -32,5 +32,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		screenNames: ymlConfig.UList("screenNames"),
 	}
 
+	settings.SetDocumentationPath("twitter/stats")
+
 	return &settings
 }

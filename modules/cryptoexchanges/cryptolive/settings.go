@@ -73,5 +73,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 	settings.colors.top.to.field = ymlConfig.UString("colors.top.to.field")
 	settings.colors.top.to.value = ymlConfig.UString("colors.top.to.value")
 
+	settings.SetDocumentationPath("cryptocurrencies/cryptolive")
+
 	return &settings
 }

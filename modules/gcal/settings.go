@@ -78,5 +78,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 	settings.colors.past = ymlConfig.UString("colors.past", "gray")
 	settings.colors.title = ymlConfig.UString("colors.title", "white")
 
+	settings.SetDocumentationPath("google/gcal")
+
 	return &settings
 }

@@ -34,5 +34,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		displayHoldings: ymlConfig.UBool("displayHoldings", true),
 	}
 
+	settings.SetDocumentationPath("cryptocurrencies/blockfolio")
+
 	return &settings
 }
