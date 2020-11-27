@@ -39,7 +39,7 @@ func (widget *Widget) content() (string, string, bool) {
 	title := fmt.Sprintf("%s - %s", widget.CommonSettings().Title, widget.title(project))
 
 	_, _, width, _ := widget.View.GetRect()
-	str := widget.settings.common.SigilStr(len(widget.GitlabProjects), widget.Idx, width) + "\n"
+	str := widget.settings.common.PaginationMarker(len(widget.GitlabProjects), widget.Idx, width) + "\n"
 	str += fmt.Sprintf(" [%s]Stats[white]\n", widget.settings.common.Colors.Subheading)
 	str += widget.displayStats(project)
 	str += "\n"

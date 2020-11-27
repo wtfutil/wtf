@@ -38,7 +38,7 @@ func (widget *Widget) content() (string, string, bool) {
 	} else {
 		title = widget.buildTitle(cityData)
 		_, _, width, _ := widget.View.GetRect()
-		content = widget.settings.common.SigilStr(len(widget.Data), widget.Idx, width) + "\n"
+		content = widget.settings.common.PaginationMarker(len(widget.Data), widget.Idx, width) + "\n"
 		content += widget.description(cityData) + "\n\n"
 		content += widget.temperatures(cityData) + "\n"
 		content += widget.sunInfo(cityData)

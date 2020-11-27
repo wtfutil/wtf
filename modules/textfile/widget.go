@@ -78,7 +78,7 @@ func (widget *Widget) content() (string, string, bool) {
 	)
 
 	_, _, width, _ := widget.View.GetRect()
-	text := widget.settings.common.SigilStr(len(widget.Sources), widget.Idx, width) + "\n"
+	text := widget.settings.common.PaginationMarker(len(widget.Sources), widget.Idx, width) + "\n"
 
 	if widget.settings.format {
 		text += widget.formattedText()

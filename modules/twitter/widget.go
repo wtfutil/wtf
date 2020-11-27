@@ -72,7 +72,7 @@ func (widget *Widget) content() (string, string, bool) {
 	}
 
 	_, _, width, _ := widget.View.GetRect()
-	str := widget.settings.common.SigilStr(len(widget.Sources), widget.Idx, width-2) + "\n"
+	str := widget.settings.common.PaginationMarker(len(widget.Sources), widget.Idx, width-2) + "\n"
 	for _, tweet := range tweets {
 		str += widget.format(tweet)
 	}

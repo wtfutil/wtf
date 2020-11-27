@@ -151,7 +151,9 @@ func (common *Common) RightAlignFormat(width int) string {
 	return fmt.Sprintf("%%%ds", width-borderOffset)
 }
 
-func (common *Common) SigilStr(len, pos, width int) string {
+// PaginationMarker generates the pagination indicators that appear in the top-right corner
+// of multisource widgets
+func (common *Common) PaginationMarker(len, pos, width int) string {
 	sigils := ""
 
 	if len > 1 {

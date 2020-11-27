@@ -23,7 +23,7 @@ func (widget *Widget) content() (string, string, bool) {
 	filter := widget.currentFilter()
 	_, _, width, _ := widget.View.GetRect()
 
-	str := widget.settings.common.SigilStr(len(widget.filters), widget.Idx, width) + "\n"
+	str := widget.settings.common.PaginationMarker(len(widget.filters), widget.Idx, width) + "\n"
 	str += widget.displayQueue(filter)
 
 	title := fmt.Sprintf("%s - %s", widget.CommonSettings().Title, widget.title(filter))

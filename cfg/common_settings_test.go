@@ -144,7 +144,7 @@ func Test_RightAlignFormat(t *testing.T) {
 	}
 }
 
-func Test_SigilStr(t *testing.T) {
+func Test_PaginationMarker(t *testing.T) {
 	tests := []struct {
 		name     string
 		len      int
@@ -184,7 +184,7 @@ func Test_SigilStr(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			assert.Equal(t, tt.expected, testCfg.SigilStr(tt.len, tt.pos, tt.width))
+			assert.Equal(t, tt.expected, testCfg.PaginationMarker(tt.len, tt.pos, tt.width))
 		})
 	}
 }
