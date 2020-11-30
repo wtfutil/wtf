@@ -36,7 +36,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		radius:    ymlConfig.UInt("radius", defaultRadius),
 		country:   ymlConfig.UBool("country", defaultCountry),
 		county:    ymlConfig.UString("county", defaultCounty),
-		maxitems:  ymlConfig.UInt("items", defaultMaxItems),
+		maxitems:  ymlConfig.UInt("maxitems", defaultMaxItems),
 		maxage:    ymlConfig.UInt("maxages", defaultMaxAge),
 	}
 
