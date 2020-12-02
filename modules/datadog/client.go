@@ -5,7 +5,7 @@ import (
 	datadog "github.com/zorkian/go-datadog-api"
 )
 
-// Monitors returns a list of newrelic monitors
+// Monitors returns a list of Datadog monitors
 func (widget *Widget) Monitors() ([]datadog.Monitor, error) {
 	client := datadog.NewClient(
 		widget.settings.apiKey,
