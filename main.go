@@ -72,10 +72,18 @@ func main() {
 	openURLUtil := utils.ToStrs(config.UList("wtf.openUrlUtil", []interface{}{}))
 	utils.Init(openFileUtil, openURLUtil)
 
-	apps := []app.WtfApp{}
-	app := makeWtfApp(config, flags.Config)
-	apps = append(apps, app)
+	/* Initialize the App Manager */
 
-	currentApp := apps[0]
+	wtfApp := makeWtfApp(config, flags.Config)
+
+	appMan := app.NewAppManager()
+	appMan.AddApp(&wtfApp)
+
+	currentApp, err := appMan.Current()
+	if err != nil {
+		fmt.Printf("\n%s %v\n", aurora.Red("ERROR"), err)
+		os.Exit(1)
+	}
+
 	currentApp.Run()
 }

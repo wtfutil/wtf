@@ -51,11 +51,10 @@ func NewWtfApp(tviewApp *tview.Application, config *config.Config, configFilePat
 	wtfApp.widgets = MakeWidgets(wtfApp.TViewApp, wtfApp.pages, wtfApp.config)
 	wtfApp.display = NewDisplay(wtfApp.widgets, wtfApp.config)
 	wtfApp.focusTracker = NewFocusTracker(wtfApp.TViewApp, wtfApp.widgets, wtfApp.config)
+	wtfApp.validator = NewModuleValidator()
 
 	githubAPIKey := readGitHubAPIKey(wtfApp.config)
 	wtfApp.ghUser = support.NewGitHubUser(githubAPIKey)
-
-	wtfApp.validator = NewModuleValidator()
 
 	wtfApp.pages.AddPage("grid", wtfApp.display.Grid, true, true)
 
@@ -115,6 +114,11 @@ func (wtfApp *WtfApp) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 		wtfApp.DisplayExitMessage()
 	case tcell.KeyCtrlR:
 		wtfApp.refreshAllWidgets()
+		return nil
+	case tcell.KeyCtrlSpace:
+		// FIXME: This can't reside in the app, the app doesn't know about
+		// the AppManager. The AppManager needs to catch this one
+		fmt.Println("Next app")
 		return nil
 	case tcell.KeyTab:
 		wtfApp.focusTracker.Next()

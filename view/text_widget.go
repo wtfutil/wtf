@@ -14,6 +14,8 @@ type TextWidget struct {
 	*KeyboardWidget
 
 	View *tview.TextView
+
+	tviewApp *tview.Application
 }
 
 // NewTextWidget creates and returns an instance of TextWidget
@@ -21,6 +23,8 @@ func NewTextWidget(tviewApp *tview.Application, pages *tview.Pages, commonSettin
 	widget := TextWidget{
 		Base:           NewBase(commonSettings),
 		KeyboardWidget: NewKeyboardWidget(tviewApp, pages, commonSettings),
+
+		tviewApp: tviewApp,
 	}
 
 	widget.View = widget.createView(widget.bordered)
@@ -39,6 +43,7 @@ func (widget *TextWidget) TextView() *tview.TextView {
 }
 
 func (widget *TextWidget) Redraw(data func() (string, string, bool)) {
+	// FIXME: This is coming from KeyboardWidget, which seems wrong
 	widget.tviewApp.QueueUpdateDraw(func() {
 		title, content, wrap := data()
 
