@@ -41,6 +41,7 @@ import (
 	"github.com/wtfutil/wtf/modules/ipaddresses/ipinfo"
 	"github.com/wtfutil/wtf/modules/jenkins"
 	"github.com/wtfutil/wtf/modules/jira"
+	"github.com/wtfutil/wtf/modules/krisinformation"
 	"github.com/wtfutil/wtf/modules/kubernetes"
 	"github.com/wtfutil/wtf/modules/logger"
 	"github.com/wtfutil/wtf/modules/mercurial"
@@ -214,6 +215,9 @@ func MakeWidget(
 	case "kubernetes":
 		settings := kubernetes.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = kubernetes.NewWidget(app, settings)
+	case "krisinformation":
+		settings := krisinformation.NewSettingsFromYAML(moduleName, moduleConfig, config)
+		widget = krisinformation.NewWidget(app, settings)
 	case "logger":
 		settings := logger.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = logger.NewWidget(app, settings)
