@@ -77,7 +77,7 @@ func main() {
 	wtfApp := makeWtfApp(config, flags.Config)
 
 	appMan := app.NewAppManager()
-	appMan.AddApp(&wtfApp)
+	appMan.Add(&wtfApp)
 
 	currentApp, err := appMan.Current()
 	if err != nil {

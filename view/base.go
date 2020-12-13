@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"sync"
 
+	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/cfg"
 	"github.com/wtfutil/wtf/utils"
 )
@@ -15,15 +16,19 @@ type Base struct {
 	enabledMutex    *sync.Mutex
 	focusChar       string
 	focusable       bool
+	helpTextFunc    func() string
 	name            string
+	pages           *tview.Pages
 	quitChan        chan bool
 	refreshInterval int
 	refreshing      bool
+	tviewApp        *tview.Application
+	view            *tview.TextView
 }
 
 // NewBase creates and returns an instance of the Base module, the lowest-level
 // primitive module from which all others are derived
-func NewBase(commonSettings *cfg.Common) *Base {
+func NewBase(tviewApp *tview.Application, pages *tview.Pages, commonSettings *cfg.Common) *Base {
 	base := &Base{
 		commonSettings: commonSettings,
 
@@ -33,9 +38,11 @@ func NewBase(commonSettings *cfg.Common) *Base {
 		focusChar:       commonSettings.FocusChar(),
 		focusable:       commonSettings.Focusable,
 		name:            commonSettings.Name,
+		pages:           pages,
 		quitChan:        make(chan bool),
 		refreshInterval: commonSettings.RefreshInterval,
 		refreshing:      false,
+		tviewApp:        tviewApp,
 	}
 
 	return base
@@ -129,6 +136,32 @@ func (base *Base) RefreshInterval() int {
 
 func (base *Base) SetFocusChar(char string) {
 	base.focusChar = char
+}
+
+// SetView assigns the passed-in tview.TextView view to this widget
+func (base *Base) SetView(view *tview.TextView) {
+	base.view = view
+}
+
+// ShowHelp displays the modal help dialog for a module
+func (base *Base) ShowHelp() {
+	if base.pages == nil {
+		return
+	}
+
+	closeFunc := func() {
+		base.pages.RemovePage("help")
+		base.tviewApp.SetFocus(base.view)
+	}
+
+	modal := NewBillboardModal(base.helpTextFunc(), closeFunc)
+
+	base.pages.AddPage("help", modal, false, true)
+	base.tviewApp.SetFocus(modal)
+
+	base.tviewApp.QueueUpdate(func() {
+		base.tviewApp.Draw()
+	})
 }
 
 func (base *Base) Stop() {

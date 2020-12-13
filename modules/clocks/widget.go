@@ -8,7 +8,6 @@ import (
 type Widget struct {
 	view.TextWidget
 
-	// app        *tview.Application
 	clockColl  ClockCollection
 	dateFormat string
 	timeFormat string
@@ -19,7 +18,6 @@ func NewWidget(tviewApp *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
 		TextWidget: view.NewTextWidget(tviewApp, nil, settings.Common),
 
-		// app:        app,
 		settings:   settings,
 		dateFormat: settings.dateFormat,
 		timeFormat: settings.timeFormat,

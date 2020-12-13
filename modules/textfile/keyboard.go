@@ -6,6 +6,7 @@ import (
 )
 
 func (widget *Widget) initializeKeyboardControls() {
+	widget.InitializeHelpTextKeyboardControl(widget.ShowHelp)
 	widget.InitializeRefreshKeyboardControl(nil)
 
 	widget.SetKeyboardChar("l", widget.NextSource, "Select next file")

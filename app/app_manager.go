@@ -12,17 +12,18 @@ type WtfAppManager struct {
 // NewAppManager creates and returns an instance of AppManager
 func NewAppManager() WtfAppManager {
 	appMan := WtfAppManager{
+		WtfApps: []*WtfApp{},
+
 		selected: 0,
 	}
 
 	return appMan
 }
 
-// AddApp adds a WtfApp to the collection of apps that the AppManager manages.
+// Add adds a WtfApp to the collection of apps that the AppManager manages.
 // This app is then available for display onscreen.
-func (appMan *WtfAppManager) AddApp(wtfApp *WtfApp) error {
+func (appMan *WtfAppManager) Add(wtfApp *WtfApp) {
 	appMan.WtfApps = append(appMan.WtfApps, wtfApp)
-	return nil
 }
 
 // Current returns the currently-displaying instance of WtfApp

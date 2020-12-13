@@ -32,8 +32,8 @@ type Bar struct {
 // NewBarGraph creates and returns an instance of BarGraph
 func NewBarGraph(tviewApp *tview.Application, name string, commonSettings *cfg.Common) BarGraph {
 	widget := BarGraph{
-		Base:           NewBase(commonSettings),
-		KeyboardWidget: NewKeyboardWidget(tviewApp, nil, commonSettings),
+		Base:           NewBase(tviewApp, nil, commonSettings),
+		KeyboardWidget: NewKeyboardWidget(commonSettings),
 
 		maxStars: commonSettings.Config.UInt("graphStars", 20),
 		starChar: commonSettings.Config.UString("graphIcon", "|"),

@@ -5,11 +5,11 @@ import (
 	"strings"
 
 	"github.com/gdamore/tcell"
-	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/cfg"
 	"github.com/wtfutil/wtf/utils"
 )
 
+const helpKeyChar = "/"
 const refreshKeyChar = "r"
 
 type helpItem struct {
@@ -19,10 +19,7 @@ type helpItem struct {
 
 // KeyboardWidget manages keyboard control for a widget
 type KeyboardWidget struct {
-	pages    *tview.Pages
 	settings *cfg.Common
-	tviewApp *tview.Application
-	view     *tview.TextView
 
 	charMap  map[string]func()
 	keyMap   map[tcell.Key]func()
@@ -32,10 +29,9 @@ type KeyboardWidget struct {
 }
 
 // NewKeyboardWidget creates and returns a new instance of KeyboardWidget
-func NewKeyboardWidget(tviewApp *tview.Application, pages *tview.Pages, settings *cfg.Common) *KeyboardWidget {
+// func NewKeyboardWidget(tviewApp *tview.Application, pages *tview.Pages, settings *cfg.Common) *KeyboardWidget {
+func NewKeyboardWidget(settings *cfg.Common) *KeyboardWidget {
 	keyWidget := &KeyboardWidget{
-		tviewApp: tviewApp,
-		pages:    pages,
 		settings: settings,
 		charMap:  make(map[string]func()),
 		keyMap:   make(map[tcell.Key]func()),
@@ -76,6 +72,14 @@ func (widget *KeyboardWidget) HelpText() string {
 	}
 
 	return str
+}
+
+// InitializeHelpTextKeyboardControl assigns the function that displays help text to the
+// common help text key value
+func (widget *KeyboardWidget) InitializeHelpTextKeyboardControl(helpFunc func()) {
+	if helpFunc != nil {
+		widget.SetKeyboardChar(helpKeyChar, helpFunc, "Show/hide this help prompt")
+	}
 }
 
 // InitializeRefreshKeyboardControl assigns the module's explicit refresh function to
@@ -155,37 +159,10 @@ func (widget *KeyboardWidget) SetKeyboardKey(key tcell.Key, fn func(), helpText 
 	}
 }
 
-// SetView assigns the passed-in tview.TextView view to this widget
-func (widget *KeyboardWidget) SetView(view *tview.TextView) {
-	widget.view = view
-}
-
-// ShowHelp displays the modal help dialog for a module
-func (widget *KeyboardWidget) ShowHelp() {
-	if widget.pages == nil {
-		return
-	}
-
-	closeFunc := func() {
-		widget.pages.RemovePage("help")
-		widget.tviewApp.SetFocus(widget.view)
-	}
-
-	modal := NewBillboardModal(widget.HelpText(), closeFunc)
-
-	widget.pages.AddPage("help", modal, false, true)
-	widget.tviewApp.SetFocus(modal)
-
-	widget.tviewApp.QueueUpdate(func() {
-		widget.tviewApp.Draw()
-	})
-}
-
 /* -------------------- Unexported Functions -------------------- */
 
 // initializeCommonKeyboardControls sets up the keyboard controls that are common to
 // all widgets that accept keyboard input
 func (widget *KeyboardWidget) initializeCommonKeyboardControls() {
-	widget.SetKeyboardChar("/", widget.ShowHelp, "Show/hide this help prompt")
 	widget.SetKeyboardChar("\\", widget.LaunchDocumentation, "Open the documentation for this module in a browser")
 }
