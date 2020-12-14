@@ -9,6 +9,7 @@ import (
 	"github.com/wtfutil/wtf/wtf"
 )
 
+// FocusState is a custom type that differentiates focusable scopes
 type FocusState int
 
 const (
@@ -28,6 +29,7 @@ type FocusTracker struct {
 	tviewApp *tview.Application
 }
 
+// NewFocusTracker creates and returns an instance of FocusTracker
 func NewFocusTracker(tviewApp *tview.Application, widgets []wtf.Wtfable, config *config.Config) FocusTracker {
 	focusTracker := FocusTracker{
 		tviewApp:  tviewApp,
@@ -45,6 +47,7 @@ func NewFocusTracker(tviewApp *tview.Application, widgets []wtf.Wtfable, config 
 
 /* -------------------- Exported Functions -------------------- */
 
+// FocusOn puts the focus on the item that belongs to the focus character passed in
 func (tracker *FocusTracker) FocusOn(char string) bool {
 	if !tracker.useNavShortcuts() {
 		return false
@@ -108,6 +111,7 @@ func (tracker *FocusTracker) Prev() {
 	tracker.IsFocused = true
 }
 
+// Refocus forces the focus back to the currently-selected item
 func (tracker *FocusTracker) Refocus() {
 	tracker.focus(tracker.Idx)
 }
