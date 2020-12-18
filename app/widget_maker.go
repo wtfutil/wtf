@@ -12,6 +12,7 @@ import (
 	cdsstatus "github.com/wtfutil/wtf/modules/cds/status"
 	"github.com/wtfutil/wtf/modules/circleci"
 	"github.com/wtfutil/wtf/modules/clocks"
+	"github.com/wtfutil/wtf/modules/covid"
 	"github.com/wtfutil/wtf/modules/cmdrunner"
 	"github.com/wtfutil/wtf/modules/cryptoexchanges/bittrex"
 	"github.com/wtfutil/wtf/modules/cryptoexchanges/blockfolio"
@@ -137,6 +138,9 @@ func MakeWidget(
 	case "clocks":
 		settings := clocks.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = clocks.NewWidget(app, settings)
+	case "covid":
+		settings := covid.NewSettingsFromYAML(moduleName, moduleConfig, config)
+		widget = covid.NewWidget(app, settings)
 	case "cmdrunner":
 		settings := cmdrunner.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = cmdrunner.NewWidget(app, settings)
