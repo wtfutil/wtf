@@ -40,13 +40,15 @@ func setTerm(config *config.Config) {
 	}
 }
 
-func makeWtfApp(config *config.Config, flagConfig string) app.WtfApp {
-	tviewApp = tview.NewApplication()
-	wtfApp := app.NewWtfApp(tviewApp, config, flagConfig)
-	wtfApp.Start()
+// // FIXME: Move this into the AppManager
+// panic("BOO")
+// func makeWtfApp(config *config.Config, flagConfig string) app.WtfApp {
+// 	tviewApp = tview.NewApplication()
+// 	wtfApp := app.NewWtfApp(tviewApp, config, flagConfig)
+// 	wtfApp.Start()
 
-	return wtfApp
-}
+// 	return wtfApp
+// }
 
 /* -------------------- Main -------------------- */
 
@@ -73,11 +75,8 @@ func main() {
 	utils.Init(openFileUtil, openURLUtil)
 
 	/* Initialize the App Manager */
-
-	wtfApp := makeWtfApp(config, flags.Config)
-
 	appMan := app.NewAppManager()
-	appMan.Add(&wtfApp)
+	appMan.MakeNewWtfApp(config, flags.Config)
 
 	currentApp, err := appMan.Current()
 	if err != nil {

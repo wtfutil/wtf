@@ -1,6 +1,11 @@
 package app
 
-import "errors"
+import (
+	"errors"
+
+	"github.com/olebedev/config"
+	"github.com/rivo/tview"
+)
 
 // WtfAppManager handles the instances of WtfApp, ensuring that they're displayed as requested
 type WtfAppManager struct {
@@ -13,11 +18,17 @@ type WtfAppManager struct {
 func NewAppManager() WtfAppManager {
 	appMan := WtfAppManager{
 		WtfApps: []*WtfApp{},
-
-		selected: 0,
 	}
 
 	return appMan
+}
+
+// MakeNewWtfApp creates and starts a new instance of WtfApp from a set of configuration params
+func (appMan *WtfAppManager) MakeNewWtfApp(config *config.Config, configFilePath string) {
+	wtfApp := NewWtfApp(tview.NewApplication(), config, configFilePath)
+	appMan.Add(wtfApp)
+
+	wtfApp.Start()
 }
 
 // Add adds a WtfApp to the collection of apps that the AppManager manages.
@@ -28,7 +39,7 @@ func (appMan *WtfAppManager) Add(wtfApp *WtfApp) {
 
 // Current returns the currently-displaying instance of WtfApp
 func (appMan *WtfAppManager) Current() (*WtfApp, error) {
-	if appMan.selected < 0 || appMan.selected > (len(appMan.WtfApps)-1) {
+	if appMan.selected < 0 || appMan.selected >= len(appMan.WtfApps) {
 		return nil, errors.New("invalid app index selected")
 	}
 
@@ -39,6 +50,7 @@ func (appMan *WtfAppManager) Current() (*WtfApp, error) {
 // the current one. If there are none after the current one, it wraps around.
 func (appMan *WtfAppManager) Next() (*WtfApp, error) {
 	appMan.selected++
+
 	if appMan.selected >= len(appMan.WtfApps) {
 		appMan.selected = 0
 	}
@@ -50,6 +62,7 @@ func (appMan *WtfAppManager) Next() (*WtfApp, error) {
 // list the current one. If there are none before the current one, it wraps around.
 func (appMan *WtfAppManager) Prev() (*WtfApp, error) {
 	appMan.selected--
+
 	if appMan.selected < 0 {
 		appMan.selected = len(appMan.WtfApps) - 1
 	}

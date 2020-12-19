@@ -34,8 +34,8 @@ type WtfApp struct {
 }
 
 // NewWtfApp creates and returns an instance of WtfApp
-func NewWtfApp(tviewApp *tview.Application, config *config.Config, configFilePath string) WtfApp {
-	wtfApp := WtfApp{
+func NewWtfApp(tviewApp *tview.Application, config *config.Config, configFilePath string) *WtfApp {
+	wtfApp := &WtfApp{
 		TViewApp: tviewApp,
 
 		config:         config,
@@ -86,9 +86,9 @@ func (wtfApp *WtfApp) Run() {
 // Start initializes the app
 func (wtfApp *WtfApp) Start() {
 	go wtfApp.scheduleWidgets()
-
 	go wtfApp.watchForConfigChanges()
 
+	// FIXME: This should be moved to the AppManager
 	go func() { _ = wtfApp.ghUser.Load() }()
 }
 
