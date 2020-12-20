@@ -2,30 +2,31 @@ package covid
 
 import (
 	"fmt"
+
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/view"
-
 )
 
+// Widget is the struct that defines this module widget
 type Widget struct {
 	view.TextWidget
 
-	settings  *Settings
-	err       error
+	settings *Settings
+	err      error
 }
 
+// NewWidget creates a new widget for this module
 func NewWidget(app *tview.Application, settings *Settings) *Widget {
-	widget := Widget{
+	widget := &Widget{
 		TextWidget: view.NewTextWidget(app, nil, settings.Common),
 
 		settings: settings,
 	}
 
-	return &widget
+	return widget
 }
 
-/* -------------------- Exported Functions -------------------- */
-
+// Refresh checks if this module widget is disabled
 func (widget *Widget) Refresh() {
 	if widget.Disabled() {
 		return
@@ -34,7 +35,10 @@ func (widget *Widget) Refresh() {
 	widget.Redraw(widget.content)
 }
 
-/* -------------------- Unexported Functions -------------------- */
+// Render renders this module widget
+func (widget *Widget) Render() {
+	widget.Redraw(widget.content)
+}
 
 func (widget *Widget) content() (string, string, bool) {
 	title := defaultTitle

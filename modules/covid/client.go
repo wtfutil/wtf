@@ -10,25 +10,19 @@ import (
 
 // LatestCases queries the /latest endpoint
 func LatestCases() (*Latest, error) {
-	// TODO: figure out the pointer logic here
-	latest := &Latest{}
-
 	resp, err := covidAPIRequest("latest")
 	if err != nil {
-		// TODO: figure out the pointer logic here
-		return latest, err
+		return nil, err
 	}
 
+	var latest Latest
 	err = utils.ParseJSON(&latest, resp.Body)
 	if err != nil {
-		// TODO: figure out the pointer logic here
-		return latest, err
+		return nil, err
 	}
-	// TODO: figure out the pointer logic here
-	return latest, nil
-}
 
-/* -------------------- Unexported Functions -------------------- */
+	return &latest, nil
+}
 
 var (
 	covidTrackerAPIURL = &url.URL{Scheme: "https", Host: "coronavirus-tracker-api.herokuapp.com", Path: "/v2/"}
