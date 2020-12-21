@@ -36,7 +36,7 @@ type Widget struct {
 	err      error
 }
 
-func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
+func NewWidget(tviewApp *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	var widget Widget
 
 	leagueId, err := getLeague(settings.league)
@@ -51,7 +51,7 @@ func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *
 	}
 
 	widget = Widget{
-		TextWidget: view.NewTextWidget(app, pages, settings.Common),
+		TextWidget: view.NewTextWidget(tviewApp, pages, settings.Common),
 		Client:     NewClient(settings.apiKey),
 		League:     leagueId,
 		settings:   settings,

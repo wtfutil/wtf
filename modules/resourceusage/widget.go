@@ -14,18 +14,17 @@ import (
 
 // Widget define wtf widget to register widget later
 type Widget struct {
-	view.BarGraph
-
-	app      *tview.Application
 	settings *Settings
+	tviewApp *tview.Application
+	view.BarGraph
 }
 
 // NewWidget Make new instance of widget
-func NewWidget(app *tview.Application, settings *Settings) *Widget {
+func NewWidget(tviewApp *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
-		BarGraph: view.NewBarGraph(app, settings.Name, settings.Common),
+		BarGraph: view.NewBarGraph(tviewApp, settings.Name, settings.Common),
 
-		app:      app,
+		tviewApp: tviewApp,
 		settings: settings,
 	}
 
@@ -131,7 +130,7 @@ func (widget *Widget) Refresh() {
 		return
 	}
 
-	widget.app.QueueUpdateDraw(func() {
+	widget.tviewApp.QueueUpdateDraw(func() {
 		widget.View.Clear()
 		display(widget)
 	})

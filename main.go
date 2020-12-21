@@ -1,10 +1,5 @@
 package main
 
-// Generators
-// To generate the skeleton for a new TextWidget use 'WTF_WIDGET_NAME=MySuperAwesomeWidget go generate -run=text
-//go:generate -command text go run generator/textwidget.go
-//go:generate text
-
 import (
 	"fmt"
 	"log"
@@ -17,33 +12,19 @@ import (
 	_ "time/tzdata"
 
 	"github.com/logrusorgru/aurora"
-	"github.com/olebedev/config"
 	"github.com/pkg/profile"
 
-	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/app"
 	"github.com/wtfutil/wtf/cfg"
 	"github.com/wtfutil/wtf/flags"
 	"github.com/wtfutil/wtf/utils"
+	"github.com/wtfutil/wtf/wtf"
 )
-
-var tviewApp *tview.Application
 
 var (
 	date    = "dev"
 	version = "dev"
 )
-
-/* -------------------- Functions -------------------- */
-
-func setTerm(config *config.Config) {
-	term := config.UString("wtf.term", os.Getenv("TERM"))
-	err := os.Setenv("TERM", term)
-	if err != nil {
-		fmt.Printf("\n%s Failed to set $TERM to %s.\n", aurora.Red("ERROR"), aurora.Yellow(term))
-		os.Exit(1)
-	}
-}
 
 /* -------------------- Main -------------------- */
 
@@ -54,11 +35,12 @@ func main() {
 	flags := flags.NewFlags()
 	flags.Parse()
 
-	hasCustom := flags.HasCustomConfig()
-	cfg.Initialize(hasCustom)
-
 	// Load the configuration file
+	cfg.Initialize(flags.HasCustomConfig())
 	config := cfg.LoadWtfConfigFile(flags.ConfigFilePath())
+
+	wtf.SetTerminal(config)
+
 	flags.RenderIf(version, date, config)
 
 	if flags.Profile {
@@ -69,15 +51,15 @@ func main() {
 	openURLUtil := utils.ToStrs(config.UList("wtf.openUrlUtil", []interface{}{}))
 	utils.Init(openFileUtil, openURLUtil)
 
-	setTerm(config)
+	/* Initialize the App Manager */
+	appMan := app.NewAppManager()
+	appMan.MakeNewWtfApp(config, flags.Config)
 
-	// Build the application
-	tviewApp = tview.NewApplication()
-	wtfApp := app.NewWtfApp(tviewApp, config, flags.Config)
-	wtfApp.Start()
-
-	if err := tviewApp.Run(); err != nil {
+	currentApp, err := appMan.Current()
+	if err != nil {
 		fmt.Printf("\n%s %v\n", aurora.Red("ERROR"), err)
 		os.Exit(1)
 	}
+
+	currentApp.Run()
 }

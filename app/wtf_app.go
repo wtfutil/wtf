@@ -1,11 +1,14 @@
 package app
 
 import (
+	"fmt"
 	"log"
+	"os"
 	"time"
 
 	"github.com/gdamore/tcell"
 	_ "github.com/gdamore/tcell/terminfo/extended"
+	"github.com/logrusorgru/aurora"
 	"github.com/olebedev/config"
 	"github.com/radovskyb/watcher"
 	"github.com/rivo/tview"
@@ -18,7 +21,8 @@ import (
 // WtfApp is the container for a collection of widgets that are all constructed from a single
 // configuration file and displayed together
 type WtfApp struct {
-	app            *tview.Application
+	TViewApp *tview.Application
+
 	config         *config.Config
 	configFilePath string
 	display        *Display
@@ -30,32 +34,29 @@ type WtfApp struct {
 }
 
 // NewWtfApp creates and returns an instance of WtfApp
-func NewWtfApp(app *tview.Application, config *config.Config, configFilePath string) *WtfApp {
-	wtfApp := WtfApp{
-		app:            app,
+func NewWtfApp(tviewApp *tview.Application, config *config.Config, configFilePath string) *WtfApp {
+	wtfApp := &WtfApp{
+		TViewApp: tviewApp,
+
 		config:         config,
 		configFilePath: configFilePath,
 		pages:          tview.NewPages(),
 	}
 
-	wtfApp.app.SetBeforeDrawFunc(func(s tcell.Screen) bool {
+	wtfApp.TViewApp.SetBeforeDrawFunc(func(s tcell.Screen) bool {
 		s.Clear()
 		return false
 	})
 
-	wtfApp.app.SetInputCapture(wtfApp.keyboardIntercept)
-
-	wtfApp.widgets = MakeWidgets(wtfApp.app, wtfApp.pages, wtfApp.config)
+	wtfApp.widgets = MakeWidgets(wtfApp.TViewApp, wtfApp.pages, wtfApp.config)
 	wtfApp.display = NewDisplay(wtfApp.widgets, wtfApp.config)
-	wtfApp.focusTracker = NewFocusTracker(wtfApp.app, wtfApp.widgets, wtfApp.config)
+	wtfApp.focusTracker = NewFocusTracker(wtfApp.TViewApp, wtfApp.widgets, wtfApp.config)
+	wtfApp.validator = NewModuleValidator()
 
 	githubAPIKey := readGitHubAPIKey(wtfApp.config)
 	wtfApp.ghUser = support.NewGitHubUser(githubAPIKey)
 
-	wtfApp.validator = NewModuleValidator()
-
 	wtfApp.pages.AddPage("grid", wtfApp.display.Grid, true, true)
-	wtfApp.app.SetRoot(wtfApp.pages, true)
 
 	wtfApp.validator.Validate(wtfApp.widgets)
 
@@ -66,17 +67,28 @@ func NewWtfApp(app *tview.Application, config *config.Config, configFilePath str
 		),
 	)
 
-	return &wtfApp
+	wtfApp.TViewApp.SetInputCapture(wtfApp.keyboardIntercept)
+	wtfApp.TViewApp.SetRoot(wtfApp.pages, true)
+
+	return wtfApp
 }
 
 /* -------------------- Exported Functions -------------------- */
 
+// Run starts the underlying tview app
+func (wtfApp *WtfApp) Run() {
+	if err := wtfApp.TViewApp.Run(); err != nil {
+		fmt.Printf("\n%s %v\n", aurora.Red("ERROR"), err)
+		os.Exit(1)
+	}
+}
+
 // Start initializes the app
 func (wtfApp *WtfApp) Start() {
 	go wtfApp.scheduleWidgets()
-
 	go wtfApp.watchForConfigChanges()
 
+	// FIXME: This should be moved to the AppManager
 	go func() { _ = wtfApp.ghUser.Load() }()
 }
 
@@ -98,10 +110,15 @@ func (wtfApp *WtfApp) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	switch event.Key() {
 	case tcell.KeyCtrlC:
 		wtfApp.Stop()
-		wtfApp.app.Stop()
+		wtfApp.TViewApp.Stop()
 		wtfApp.DisplayExitMessage()
 	case tcell.KeyCtrlR:
 		wtfApp.refreshAllWidgets()
+		return nil
+	case tcell.KeyCtrlSpace:
+		// FIXME: This can't reside in the app, the app doesn't know about
+		// the AppManager. The AppManager needs to catch this one
+		fmt.Println("Next app")
 		return nil
 	case tcell.KeyTab:
 		wtfApp.focusTracker.Next()
@@ -154,7 +171,7 @@ func (wtfApp *WtfApp) watchForConfigChanges() {
 				wtfApp.Stop()
 
 				config := cfg.LoadWtfConfigFile(wtfApp.configFilePath)
-				newApp := NewWtfApp(wtfApp.app, config, wtfApp.configFilePath)
+				newApp := NewWtfApp(wtfApp.TViewApp, config, wtfApp.configFilePath)
 				openURLUtil := utils.ToStrs(config.UList("wtf.openUrlUtil", []interface{}{}))
 				utils.Init(config.UString("wtf.openFileUtil", "open"), openURLUtil)
 

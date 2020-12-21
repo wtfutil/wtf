@@ -14,19 +14,24 @@ type TextWidget struct {
 	*KeyboardWidget
 
 	View *tview.TextView
+
+	tviewApp *tview.Application
 }
 
 // NewTextWidget creates and returns an instance of TextWidget
-func NewTextWidget(app *tview.Application, pages *tview.Pages, commonSettings *cfg.Common) TextWidget {
+func NewTextWidget(tviewApp *tview.Application, pages *tview.Pages, commonSettings *cfg.Common) TextWidget {
 	widget := TextWidget{
-		Base:           NewBase(app, commonSettings),
-		KeyboardWidget: NewKeyboardWidget(app, pages, commonSettings),
+		Base:           NewBase(tviewApp, pages, commonSettings),
+		KeyboardWidget: NewKeyboardWidget(commonSettings),
+
+		tviewApp: tviewApp,
 	}
 
 	widget.View = widget.createView(widget.bordered)
 	widget.View.SetInputCapture(widget.KeyboardWidget.InputCapture)
 
-	widget.KeyboardWidget.SetView(widget.View)
+	widget.Base.SetView(widget.View)
+	widget.Base.helpTextFunc = widget.KeyboardWidget.HelpText
 
 	return widget
 }
@@ -38,8 +43,9 @@ func (widget *TextWidget) TextView() *tview.TextView {
 	return widget.View
 }
 
+// Redraw forces a refresh of the onscreen text content of this widget
 func (widget *TextWidget) Redraw(data func() (string, string, bool)) {
-	widget.Base.app.QueueUpdateDraw(func() {
+	widget.tviewApp.QueueUpdateDraw(func() {
 		title, content, wrap := data()
 
 		widget.View.Clear()

@@ -9,6 +9,7 @@ import (
 	"github.com/wtfutil/wtf/wtf"
 )
 
+// FocusState is a custom type that differentiates focusable scopes
 type FocusState int
 
 const (
@@ -20,17 +21,18 @@ const (
 // FocusTracker is used by the app to track which onscreen widget currently has focus,
 // and to move focus between widgets.
 type FocusTracker struct {
-	App       *tview.Application
 	Idx       int
 	IsFocused bool
 	Widgets   []wtf.Wtfable
 
-	config *config.Config
+	config   *config.Config
+	tviewApp *tview.Application
 }
 
-func NewFocusTracker(app *tview.Application, widgets []wtf.Wtfable, config *config.Config) FocusTracker {
+// NewFocusTracker creates and returns an instance of FocusTracker
+func NewFocusTracker(tviewApp *tview.Application, widgets []wtf.Wtfable, config *config.Config) FocusTracker {
 	focusTracker := FocusTracker{
-		App:       app,
+		tviewApp:  tviewApp,
 		Idx:       -1,
 		IsFocused: false,
 		Widgets:   widgets,
@@ -45,6 +47,7 @@ func NewFocusTracker(app *tview.Application, widgets []wtf.Wtfable, config *conf
 
 /* -------------------- Exported Functions -------------------- */
 
+// FocusOn puts the focus on the item that belongs to the focus character passed in
 func (tracker *FocusTracker) FocusOn(char string) bool {
 	if !tracker.useNavShortcuts() {
 		return false
@@ -108,6 +111,7 @@ func (tracker *FocusTracker) Prev() {
 	tracker.IsFocused = true
 }
 
+// Refocus forces the focus back to the currently-selected item
 func (tracker *FocusTracker) Refocus() {
 	tracker.focus(tracker.Idx)
 }
@@ -196,7 +200,7 @@ func (tracker *FocusTracker) focus(idx int) {
 			widget.CommonSettings().Colors.BorderTheme.Focused,
 		),
 	)
-	tracker.App.SetFocus(view)
+	tracker.tviewApp.SetFocus(view)
 }
 
 func (tracker *FocusTracker) focusables() []wtf.Wtfable {
@@ -239,7 +243,7 @@ func (tracker *FocusTracker) focusState() FocusState {
 	}
 
 	for _, widget := range tracker.Widgets {
-		if widget.TextView() == tracker.App.GetFocus() {
+		if widget.TextView() == tracker.tviewApp.GetFocus() {
 			return widgetFocused
 		}
 	}

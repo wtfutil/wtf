@@ -3,6 +3,7 @@ package transmission
 import "github.com/gdamore/tcell"
 
 func (widget *Widget) initializeKeyboardControls() {
+	widget.InitializeHelpTextKeyboardControl(widget.ShowHelp)
 	widget.InitializeRefreshKeyboardControl(nil)
 
 	widget.SetKeyboardChar("j", widget.Prev, "Select previous item")

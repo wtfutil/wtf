@@ -3,6 +3,7 @@ package todo_plus
 import "github.com/gdamore/tcell"
 
 func (widget *Widget) initializeKeyboardControls() {
+	widget.InitializeHelpTextKeyboardControl(widget.ShowHelp)
 	widget.InitializeRefreshKeyboardControl(widget.Refresh)
 
 	widget.SetKeyboardChar("d", widget.Delete, "Delete item")
