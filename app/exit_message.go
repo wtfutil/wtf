@@ -84,14 +84,14 @@ func readGitHubAPIKey(cfg *config.Config) string {
 
 func (wtfApp *WtfApp) contributorThankYouMessage() string {
 	str := "    On behalf of all the users of WTF, thank you for contributing to the source code."
-	str += fmt.Sprintf(" %s", aurora.Green("You rock."))
+	str += fmt.Sprintf(" %s", aurora.Green("\n\n    You rock."))
 
 	return str
 }
 
 func (wtfApp *WtfApp) sponsorThankYouMessage() string {
 	str := "    Your sponsorship of WTF makes a difference. Thank you for sponsoring and supporting WTF."
-	str += fmt.Sprintf(" %s", aurora.Green("You're awesome."))
+	str += fmt.Sprintf(" %s", aurora.Green("\n\n    You're awesome."))
 
 	return str
 }
