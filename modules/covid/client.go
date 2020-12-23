@@ -1,53 +1,45 @@
 package covid
 
 import (
-	"fmt"
 	"net/http"
-	"net/url"
 
 	"github.com/wtfutil/wtf/utils"
 )
 
-// LatestCases queries the /latest endpoint
-func LatestCases() (*Latest, error) {
-	resp, err := covidAPIRequest("latest")
-	if err != nil {
-		return nil, err
-	}
+const covidTrackerAPIURL = "https://coronavirus-tracker-api.herokuapp.com/v2/"
 
-	var latest Latest
-	err = utils.ParseJSON(&latest, resp.Body)
-	if err != nil {
-		return nil, err
-	}
-
-	return &latest, nil
-}
-
-var (
-	covidTrackerAPIURL = &url.URL{Scheme: "https", Host: "coronavirus-tracker-api.herokuapp.com", Path: "/v2/"}
-)
-
-func covidAPIRequest(path string) (*http.Response, error) {
-	uri := covidTrackerAPIURL.ResolveReference(&url.URL{Path: path})
-
-	req, err := http.NewRequest("GET", uri.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-	req.Header.Add("Accept", "application/json")
-	req.Header.Add("Content-Type", "application/json")
-
-	httpClient := &http.Client{}
-	resp, err := httpClient.Do(req)
+// LatestCases queries the /latest endpoint, does not take any query parameters
+func LatestCases() (*Cases, error) {
+	latestURL := covidTrackerAPIURL + "latest"
+	resp, err := http.Get(latestURL)
 	if err != nil {
 		return nil, err
 	}
 	defer func() { _ = resp.Body.Close() }()
 
-	if resp.StatusCode != 200 {
-		return nil, fmt.Errorf(resp.Status)
+	var latestGlobalCases Cases
+	err = utils.ParseJSON(&latestGlobalCases, resp.Body)
+	if err != nil {
+		return nil, err
 	}
 
-	return resp, nil
+	return &latestGlobalCases, nil
+}
+
+// LatestCountryCases queries the /locations endpoint, takes a query parameter: the country code
+func (widget *Widget) LatestCountryCases(country string) (*CountryCases, error) {
+	countryURL := covidTrackerAPIURL + "locations?source=jhu&country_code=" + widget.settings.country
+	resp, err := http.Get(countryURL)
+	if err != nil {
+		return nil, err
+	}
+	defer func() { _ = resp.Body.Close() }()
+
+	var latestCountryCases CountryCases
+	err = utils.ParseJSON(&latestCountryCases, resp.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	return &latestCountryCases, nil
 }

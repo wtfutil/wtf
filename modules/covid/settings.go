@@ -13,6 +13,8 @@ const (
 // Settings is the struct for this module's settings
 type Settings struct {
 	*cfg.Common
+
+	country string `help:"Country (code) from which to retrieve stats."`
 }
 
 // NewSettingsFromYAML returns the settings from the config yaml file
@@ -20,6 +22,8 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 
 	settings := Settings{
 		Common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
+
+		country: ymlConfig.UString("country"),
 	}
 
 	return &settings
