@@ -1,6 +1,7 @@
 package covid
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/wtfutil/wtf/utils"
@@ -12,6 +13,9 @@ const covidTrackerAPIURL = "https://coronavirus-tracker-api.herokuapp.com/v2/"
 func LatestCases() (*Cases, error) {
 	latestURL := covidTrackerAPIURL + "latest"
 	resp, err := http.Get(latestURL)
+	if resp.StatusCode != 200 {
+		return nil, fmt.Errorf(resp.Status)
+	}
 	if err != nil {
 		return nil, err
 	}
@@ -30,6 +34,9 @@ func LatestCases() (*Cases, error) {
 func (widget *Widget) LatestCountryCases(country string) (*CountryCases, error) {
 	countryURL := covidTrackerAPIURL + "locations?source=jhu&country_code=" + widget.settings.country
 	resp, err := http.Get(countryURL)
+	if resp.StatusCode != 200 {
+		return nil, fmt.Errorf(resp.Status)
+	}
 	if err != nil {
 		return nil, err
 	}
