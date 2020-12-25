@@ -31,7 +31,7 @@ func LatestCases() (*Cases, error) {
 }
 
 // LatestCountryCases queries the /locations endpoint, takes a query parameter: the country code
-func (widget *Widget) LatestCountryCases(country string) (*CountryCases, error) {
+func (widget *Widget) LatestCountryCases(country string) (*Cases, error) {
 	countryURL := covidTrackerAPIURL + "locations?source=jhu&country_code=" + widget.settings.country
 	resp, err := http.Get(countryURL)
 	if resp.StatusCode != 200 {
@@ -42,7 +42,7 @@ func (widget *Widget) LatestCountryCases(country string) (*CountryCases, error) 
 	}
 	defer func() { _ = resp.Body.Close() }()
 
-	var latestCountryCases CountryCases
+	var latestCountryCases Cases
 	err = utils.ParseJSON(&latestCountryCases, resp.Body)
 	if err != nil {
 		return nil, err

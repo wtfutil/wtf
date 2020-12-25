@@ -47,13 +47,14 @@ func (widget *Widget) content() (string, string, bool) {
 	}
 
 	cases, err := LatestCases()
-	var covidInfo string
+	var covidStats string
 	if err != nil {
 		widget.err = err
 	} else {
-		covidInfo = fmt.Sprintf("[%s]Gobal[white]\n", widget.settings.Colors.Subheading)
-		covidInfo += fmt.Sprintf("%s: %d\n", "Confirmed", cases.Latest.Confirmed)
-		covidInfo += fmt.Sprintf("%s: %d\n", "Deaths", cases.Latest.Confirmed)
+		// Display global stats
+		covidStats = fmt.Sprintf("[%s]Gobal[white]\n", widget.settings.Colors.Subheading)
+		covidStats += fmt.Sprintf("%s: %d\n", "Confirmed", cases.Latest.Confirmed)
+		covidStats += fmt.Sprintf("%s: %d\n", "Deaths", cases.Latest.Confirmed)
 	}
 	// Retrieve country stats if the country code is set in the config
 	if widget.settings.country != "" {
@@ -61,11 +62,11 @@ func (widget *Widget) content() (string, string, bool) {
 		if err != nil {
 			widget.err = err
 		} else {
-			covidInfo += "\n"
-			covidInfo += fmt.Sprintf("[%s]Country stats[white]: %s\n", widget.settings.Colors.Subheading, widget.settings.country)
-			covidInfo += fmt.Sprintf("%s: %d\n", "Confirmed", countryCases.LatestCountryCases.Confirmed)
-			covidInfo += fmt.Sprintf("%s: %d\n", "Deaths", countryCases.LatestCountryCases.Deaths)
+			covidStats += "\n"
+			covidStats += fmt.Sprintf("[%s]Country stats[white]: %s\n", widget.settings.Colors.Subheading, widget.settings.country)
+			covidStats += fmt.Sprintf("%s: %d\n", "Confirmed", countryCases.Latest.Confirmed)
+			covidStats += fmt.Sprintf("%s: %d\n", "Deaths", countryCases.Latest.Deaths)
 		}
 	}
-	return title, covidInfo, true
+	return title, covidStats, true
 }
