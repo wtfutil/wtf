@@ -58,7 +58,7 @@ func (widget *Widget) content() (string, string, bool) {
 		covidStats += fmt.Sprintf("%s: %d\n", "Confirmed", cases.Latest.Confirmed)
 		covidStats += fmt.Sprintf("%s: %d\n", "Deaths", cases.Latest.Confirmed)
 	}
-	// Retrieve country stats if the country code is set in the config
+	// Retrieve country stats if country codes are set in the config
 	if len(widget.settings.countries) > 0 {
 		countryCases, err := widget.LatestCountryCases(widget.settings.countries)
 		if err != nil {
@@ -71,5 +71,6 @@ func (widget *Widget) content() (string, string, bool) {
 			}
 		}
 	}
+
 	return title, covidStats, true
 }
