@@ -9,7 +9,6 @@ type Cases struct {
 type Latest struct {
 	Confirmed int `json:"confirmed"`
 	Deaths    int `json:"deaths"`
-	Recovered int `json:"recovered"`
 }
 
 // CountryCases holds the latest cases for a given country
@@ -21,6 +20,5 @@ type CountryCases struct {
 type LatestCountryCases struct {
 	Confirmed int                    `json:"confirmed"`
 	Deaths    int                    `json:"deaths"`
-	Recovered int                    `json:"recovered"`
 	Locations map[string]interface{} `json:"locations,omitempty"`
 }
