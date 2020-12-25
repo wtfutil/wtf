@@ -14,7 +14,7 @@ const (
 type Settings struct {
 	*cfg.Common
 
-	countries []interface{} `help:"Country (code) from which to retrieve stats."`
+	countries []interface{} `help:"Countries (codes) from which to retrieve stats."`
 }
 
 // NewSettingsFromYAML returns the settings from the config yaml file

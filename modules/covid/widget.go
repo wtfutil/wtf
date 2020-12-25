@@ -11,8 +11,6 @@ import (
 type Widget struct {
 	view.TextWidget
 
-	// CountriesStats []*Latest
-
 	settings *Settings
 	err      error
 }
@@ -24,6 +22,8 @@ func NewWidget(app *tview.Application, settings *Settings) *Widget {
 
 		settings: settings,
 	}
+
+	widget.View.SetScrollable(true)
 
 	return widget
 }

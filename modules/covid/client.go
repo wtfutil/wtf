@@ -31,9 +31,9 @@ func LatestCases() (*Cases, error) {
 }
 
 // LatestCountryCases queries the /locations endpoint, takes a query parameter: the country code
-func (widget *Widget) LatestCountryCases(countriesStats []interface{}) ([]*Cases, error) {
+func (widget *Widget) LatestCountryCases(countries []interface{}) ([]*Cases, error) {
 	countriesCovidData := []*Cases{}
-	for _, name := range countriesStats {
+	for _, name := range countries {
 		countryURL := covidTrackerAPIURL + "locations?source=jhu&country_code=" + name.(string)
 		resp, err := http.Get(countryURL)
 		if resp.StatusCode != 200 {
