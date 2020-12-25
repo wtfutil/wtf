@@ -11,6 +11,8 @@ import (
 type Widget struct {
 	view.TextWidget
 
+	// CountriesStats []*Latest
+
 	settings *Settings
 	err      error
 }
@@ -57,15 +59,16 @@ func (widget *Widget) content() (string, string, bool) {
 		covidStats += fmt.Sprintf("%s: %d\n", "Deaths", cases.Latest.Confirmed)
 	}
 	// Retrieve country stats if the country code is set in the config
-	if widget.settings.country != "" {
-		countryCases, err := widget.LatestCountryCases(widget.settings.country)
+	if len(widget.settings.countries) > 0 {
+		countryCases, err := widget.LatestCountryCases(widget.settings.countries)
 		if err != nil {
 			widget.err = err
 		} else {
-			covidStats += "\n"
-			covidStats += fmt.Sprintf("[%s]Country stats[white]: %s\n", widget.settings.Colors.Subheading, widget.settings.country)
-			covidStats += fmt.Sprintf("%s: %d\n", "Confirmed", countryCases.Latest.Confirmed)
-			covidStats += fmt.Sprintf("%s: %d\n", "Deaths", countryCases.Latest.Deaths)
+			for i, name := range countryCases {
+				covidStats += fmt.Sprintf("[%s]Country[white]: %s\n", widget.settings.Colors.Subheading, widget.settings.countries[i])
+				covidStats += fmt.Sprintf("%s: %d\n", "Confirmed", name.Latest.Confirmed)
+				covidStats += fmt.Sprintf("%s: %d\n", "Deaths", name.Latest.Deaths)
+			}
 		}
 	}
 	return title, covidStats, true

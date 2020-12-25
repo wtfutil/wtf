@@ -31,22 +31,28 @@ func LatestCases() (*Cases, error) {
 }
 
 // LatestCountryCases queries the /locations endpoint, takes a query parameter: the country code
-func (widget *Widget) LatestCountryCases(country string) (*Cases, error) {
-	countryURL := covidTrackerAPIURL + "locations?source=jhu&country_code=" + widget.settings.country
-	resp, err := http.Get(countryURL)
-	if resp.StatusCode != 200 {
-		return nil, fmt.Errorf(resp.Status)
-	}
-	if err != nil {
-		return nil, err
-	}
-	defer func() { _ = resp.Body.Close() }()
+func (widget *Widget) LatestCountryCases(countriesStats []interface{}) ([]*Cases, error) {
+	countriesCovidData := []*Cases{}
+	for _, name := range countriesStats {
+		countryURL := covidTrackerAPIURL + "locations?source=jhu&country_code=" + name.(string)
+		resp, err := http.Get(countryURL)
+		if resp.StatusCode != 200 {
+			return nil, fmt.Errorf(resp.Status)
+		}
+		if err != nil {
+			return nil, err
+		}
+		defer func() { _ = resp.Body.Close() }()
 
-	var latestCountryCases Cases
-	err = utils.ParseJSON(&latestCountryCases, resp.Body)
-	if err != nil {
-		return nil, err
+		var latestCountryCases Cases
+		err = utils.ParseJSON(&latestCountryCases, resp.Body)
+		if err != nil {
+			return nil, err
+		}
+		// add stats for each country to the slice
+		countriesCovidData = append(countriesCovidData, &latestCountryCases)
+
 	}
 
-	return &latestCountryCases, nil
+	return countriesCovidData, nil
 }
