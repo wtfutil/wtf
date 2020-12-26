@@ -16,9 +16,9 @@ type Widget struct {
 	displayBuffer string
 }
 
-func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
+func NewWidget(tviewApp *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: view.NewTextWidget(app, pages, settings.Common),
+		TextWidget: view.NewTextWidget(tviewApp, pages, settings.Common),
 		settings:   settings,
 	}
 

@@ -63,9 +63,9 @@ func getShowText(feedItem *FeedItem, showType ShowType) string {
 }
 
 // NewWidget creates a new instance of a widget
-func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
+func NewWidget(tviewApp *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := &Widget{
-		ScrollableWidget: view.NewScrollableWidget(app, pages, settings.Common),
+		ScrollableWidget: view.NewScrollableWidget(tviewApp, pages, settings.Common),
 
 		parser:   gofeed.NewParser(),
 		settings: settings,

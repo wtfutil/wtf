@@ -22,21 +22,20 @@ const (
 
 // A Widget represents a Todo widget
 type Widget struct {
-	view.ScrollableWidget
-
-	app      *tview.Application
 	filePath string
 	list     checklist.Checklist
 	pages    *tview.Pages
 	settings *Settings
+	tviewApp *tview.Application
+	view.ScrollableWidget
 }
 
 // NewWidget creates a new instance of a widget
-func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
+func NewWidget(tviewApp *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		ScrollableWidget: view.NewScrollableWidget(app, pages, settings.Common),
+		ScrollableWidget: view.NewScrollableWidget(tviewApp, pages, settings.Common),
 
-		app:      app,
+		tviewApp: tviewApp,
 		settings: settings,
 		filePath: settings.filePath,
 		list:     checklist.NewChecklist(settings.Sigils.Checkbox.Checked, settings.Sigils.Checkbox.Unchecked),
@@ -117,15 +116,15 @@ func (widget *Widget) newItem() {
 		widget.SetItemCount(len(widget.list.Items))
 		widget.persist()
 		widget.pages.RemovePage("modal")
-		widget.app.SetFocus(widget.View)
+		widget.tviewApp.SetFocus(widget.View)
 		widget.display()
 	}
 
 	widget.addButtons(form, saveFctn)
 	widget.modalFocus(form)
 
-	widget.app.QueueUpdate(func() {
-		widget.app.Draw()
+	widget.tviewApp.QueueUpdate(func() {
+		widget.tviewApp.Draw()
 	})
 }
 
@@ -166,15 +165,15 @@ func (widget *Widget) updateSelected() {
 		widget.updateSelectedItem(text)
 		widget.persist()
 		widget.pages.RemovePage("modal")
-		widget.app.SetFocus(widget.View)
+		widget.tviewApp.SetFocus(widget.View)
 		widget.display()
 	}
 
 	widget.addButtons(form, saveFctn)
 	widget.modalFocus(form)
 
-	widget.app.QueueUpdate(func() {
-		widget.app.Draw()
+	widget.tviewApp.QueueUpdate(func() {
+		widget.tviewApp.Draw()
 	})
 }
 
@@ -198,7 +197,7 @@ func (widget *Widget) addButtons(form *tview.Form, saveFctn func()) {
 func (widget *Widget) addCancelButton(form *tview.Form) {
 	cancelFn := func() {
 		widget.pages.RemovePage("modal")
-		widget.app.SetFocus(widget.View)
+		widget.tviewApp.SetFocus(widget.View)
 		widget.display()
 	}
 
@@ -211,10 +210,10 @@ func (widget *Widget) addSaveButton(form *tview.Form, fctn func()) {
 }
 
 func (widget *Widget) modalFocus(form *tview.Form) {
-	widget.app.QueueUpdateDraw(func() {
+	widget.tviewApp.QueueUpdateDraw(func() {
 		frame := widget.modalFrame(form)
 		widget.pages.AddPage("modal", frame, false, true)
-		widget.app.SetFocus(frame)
+		widget.tviewApp.SetFocus(frame)
 	})
 }
 

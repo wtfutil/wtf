@@ -15,9 +15,9 @@ type ScrollableWidget struct {
 	RenderFunction func()
 }
 
-func NewScrollableWidget(app *tview.Application, pages *tview.Pages, commonSettings *cfg.Common) ScrollableWidget {
+func NewScrollableWidget(tviewApp *tview.Application, pages *tview.Pages, commonSettings *cfg.Common) ScrollableWidget {
 	widget := ScrollableWidget{
-		TextWidget: NewTextWidget(app, pages, commonSettings),
+		TextWidget: NewTextWidget(tviewApp, pages, commonSettings),
 	}
 
 	widget.Unselect()
@@ -84,7 +84,7 @@ func (widget *ScrollableWidget) Unselect() {
 func (widget *ScrollableWidget) Redraw(data func() (string, string, bool)) {
 	widget.TextWidget.Redraw(data)
 
-	widget.Base.app.QueueUpdateDraw(func() {
+	widget.tviewApp.QueueUpdateDraw(func() {
 		widget.View.Highlight(strconv.Itoa(widget.Selected)).ScrollToHighlight()
 	})
 }

@@ -8,17 +8,17 @@ import (
 type Widget struct {
 	view.TextWidget
 
-	app       *tview.Application
 	calEvents []*CalEvent
-	settings  *Settings
 	err       error
+	settings  *Settings
+	tviewApp  *tview.Application
 }
 
-func NewWidget(app *tview.Application, settings *Settings) *Widget {
+func NewWidget(tviewApp *tview.Application, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: view.NewTextWidget(app, nil, settings.Common),
+		TextWidget: view.NewTextWidget(tviewApp, nil, settings.Common),
 
-		app:      app,
+		tviewApp: tviewApp,
 		settings: settings,
 	}
 
@@ -37,7 +37,7 @@ func (widget *Widget) Refresh() {
 		return
 	}
 
-	widget.app.Suspend(widget.authenticate)
+	widget.tviewApp.Suspend(widget.authenticate)
 	widget.Refresh()
 }
 

@@ -9,16 +9,14 @@ import (
 type Widget struct {
 	view.TextWidget
 
-    app      *tview.Application
 	settings *Settings
 }
 
 // NewWidget creates and returns an instance of Widget
-func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
+func NewWidget(tviewApp *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: view.NewTextWidget(app, settings.common),
+		TextWidget: view.NewTextWidget(tviewApp, settings.common),
 
-		app:      app,
 		settings: settings,
 	}
 

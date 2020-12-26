@@ -19,9 +19,9 @@ type Widget struct {
 	systemInfo *SystemInfo
 }
 
-func NewWidget(app *tview.Application, date, version string, settings *Settings) *Widget {
+func NewWidget(tviewApp *tview.Application, date, version string, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: view.NewTextWidget(app, nil, settings.Common),
+		TextWidget: view.NewTextWidget(tviewApp, nil, settings.Common),
 
 		Date: date,
 

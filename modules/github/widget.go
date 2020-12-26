@@ -23,10 +23,10 @@ type Widget struct {
 }
 
 // NewWidget creates a new instance of the widget
-func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
+func NewWidget(tviewApp *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
 		MultiSourceWidget: view.NewMultiSourceWidget(settings.Common, "repository", "repositories"),
-		TextWidget:        view.NewTextWidget(app, pages, settings.Common),
+		TextWidget:        view.NewTextWidget(tviewApp, pages, settings.Common),
 
 		settings: settings,
 	}

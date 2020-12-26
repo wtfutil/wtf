@@ -3,6 +3,7 @@ package pocket
 import "github.com/gdamore/tcell"
 
 func (widget *Widget) initializeKeyboardControls() {
+	widget.InitializeHelpTextKeyboardControl(widget.ShowHelp)
 	widget.InitializeRefreshKeyboardControl(widget.Refresh)
 
 	widget.SetKeyboardChar("a", widget.toggleLink, "Toggle Link")

@@ -9,6 +9,7 @@ import (
 	"github.com/wtfutil/wtf/wtf"
 )
 
+// ModuleValidator is responsible for validating the state of a module's configuration
 type ModuleValidator struct{}
 
 type widgetError struct {
@@ -16,6 +17,7 @@ type widgetError struct {
 	validationErrors []cfg.Validatable
 }
 
+// NewModuleValidator creates and returns an instance of ModuleValidator
 func NewModuleValidator() *ModuleValidator {
 	return &ModuleValidator{}
 }

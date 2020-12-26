@@ -4,7 +4,6 @@ import (
 	"testing"
 
 	"github.com/gdamore/tcell"
-	"github.com/rivo/tview"
 	"github.com/stretchr/testify/assert"
 	"github.com/wtfutil/wtf/cfg"
 )
@@ -13,8 +12,6 @@ func test() {}
 
 func testKeyboardWidget() *KeyboardWidget {
 	keyWid := NewKeyboardWidget(
-		tview.NewApplication(),
-		tview.NewPages(),
 		&cfg.Common{
 			Module: cfg.Module{
 				Name: "testWidget",
@@ -178,7 +175,6 @@ func Test_initializeCommonKeyboardControls(t *testing.T) {
 	t.Run("nil refreshFunc", func(t *testing.T) {
 		keyWid := testKeyboardWidget()
 
-		assert.NotNil(t, keyWid.charMap["/"])
 		assert.NotNil(t, keyWid.charMap["\\"])
 	})
 }
@@ -205,19 +201,4 @@ func Test_HelpText(t *testing.T) {
 	keyWid.SetKeyboardKey(tcell.KeyCtrlO, test, "keyCtrlO help")
 
 	assert.NotNil(t, keyWid.HelpText())
-}
-
-func Test_SetView(t *testing.T) {
-	keyWid := testKeyboardWidget()
-	assert.Nil(t, keyWid.view)
-
-	view := &tview.TextView{}
-	keyWid.SetView(view)
-	assert.Equal(t, view, keyWid.view)
-}
-
-func Test_ShowHelp(t *testing.T) {
-	keyWid := testKeyboardWidget()
-
-	assert.NotPanics(t, func() { keyWid.ShowHelp() })
 }

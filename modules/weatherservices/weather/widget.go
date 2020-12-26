@@ -20,10 +20,10 @@ type Widget struct {
 }
 
 // NewWidget creates and returns a new instance of the weather Widget
-func NewWidget(app *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
+func NewWidget(tviewApp *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
 		MultiSourceWidget: view.NewMultiSourceWidget(settings.Common, "cityid", "cityids"),
-		TextWidget:        view.NewTextWidget(app, pages, settings.Common),
+		TextWidget:        view.NewTextWidget(tviewApp, pages, settings.Common),
 
 		pages:    pages,
 		settings: settings,
