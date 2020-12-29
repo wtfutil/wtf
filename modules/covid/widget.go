@@ -54,9 +54,9 @@ func (widget *Widget) content() (string, string, bool) {
 		widget.err = err
 	} else {
 		// Display global stats
-		covidStats = fmt.Sprintf("[%s]Gobal[white]\n", widget.settings.Colors.Subheading)
+		covidStats = fmt.Sprintf("[%s]Global[white]\n", widget.settings.Colors.Subheading)
 		covidStats += fmt.Sprintf("%s: %d\n", "Confirmed", cases.Latest.Confirmed)
-		covidStats += fmt.Sprintf("%s: %d\n", "Deaths", cases.Latest.Confirmed)
+		covidStats += fmt.Sprintf("%s: %d\n", "Deaths", cases.Latest.Deaths)
 	}
 	// Retrieve country stats if country codes are set in the config
 	if len(widget.settings.countries) > 0 {
