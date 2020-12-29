@@ -5,6 +5,12 @@ import (
 	"strings"
 
 	"github.com/olebedev/config"
+	"golang.org/x/text/language"
+	"golang.org/x/text/message"
+)
+
+const (
+	defaultLanguageTag = "en-CA"
 )
 
 type Module struct {
@@ -23,6 +29,7 @@ type Sigils struct {
 	}
 }
 
+// Common defines a set of common configuration settings applicable to all modules
 type Common struct {
 	Module
 	PositionSettings `help:"Defines where in the grid this module’s widget will be displayed."`
@@ -36,6 +43,7 @@ type Common struct {
 	Bordered        bool   `help:"Whether or not the module should be displayed with a border." values:"true, false" optional:"true" default:"true"`
 	Enabled         bool   `help:"Whether or not this module is executed and if its data displayed onscreen." values:"true, false" optional:"true" default:"false"`
 	Focusable       bool   `help:"Whether or  not this module is focusable." values:"true, false" optional:"true" default:"false"`
+	LanguageTag     string `help:"The BCP 47 langauge tag to localize text to." values:"Any supported BCP 47 language tag." optional:"true" default:"en-CA"`
 	RefreshInterval int    `help:"How often, in seconds, this module will update its data." values:"A positive integer, 0..n." optional:"true"`
 	Title           string `help:"The title string to show when displaying this module" optional:"true"`
 
@@ -43,10 +51,10 @@ type Common struct {
 }
 
 // NewCommonSettingsFromModule returns a common settings configuration tailed to the given module
-func NewCommonSettingsFromModule(name, defaultTitle string, defaultFocusable bool, moduleConfig *config.Config, globalSettings *config.Config) *Common {
+func NewCommonSettingsFromModule(name, defaultTitle string, defaultFocusable bool, moduleConfig *config.Config, globalConfig *config.Config) *Common {
 	baseColors := NewDefaultColorTheme()
 
-	colorsConfig, err := globalSettings.Get("wtf.colors")
+	colorsConfig, err := globalConfig.Get("wtf.colors")
 	if err != nil && strings.Contains(err.Error(), "Nonexistent map") {
 		// Create a default colors config to fill in for the missing one
 		// This comes into play when the configuration file does not contain a `colors:` key, i.e:
@@ -93,6 +101,7 @@ func NewCommonSettingsFromModule(name, defaultTitle string, defaultFocusable boo
 		Config:          moduleConfig,
 		Enabled:         moduleConfig.UBool("enabled", false),
 		Focusable:       moduleConfig.UBool("focusable", defaultFocusable),
+		LanguageTag:     globalConfig.UString("wtf.language", defaultLanguageTag),
 		RefreshInterval: moduleConfig.UInt("refreshInterval", 300),
 		Title:           moduleConfig.UString("title", defaultTitle),
 
@@ -100,11 +109,10 @@ func NewCommonSettingsFromModule(name, defaultTitle string, defaultFocusable boo
 	}
 
 	sigilsPath := "wtf.sigils"
-
-	common.Sigils.Checkbox.Checked = globalSettings.UString(sigilsPath+".checkbox.checked", "x")
-	common.Sigils.Checkbox.Unchecked = globalSettings.UString(sigilsPath+".checkbox.unchecked", " ")
-	common.Sigils.Paging.Normal = globalSettings.UString(sigilsPath+".paging.normal", globalSettings.UString("wtf.paging.pageSigil", "*"))
-	common.Sigils.Paging.Selected = globalSettings.UString(sigilsPath+".paging.select", globalSettings.UString("wtf.paging.selectedSigil", "_"))
+	common.Sigils.Checkbox.Checked = globalConfig.UString(sigilsPath+".checkbox.checked", "x")
+	common.Sigils.Checkbox.Unchecked = globalConfig.UString(sigilsPath+".checkbox.unchecked", " ")
+	common.Sigils.Paging.Normal = globalConfig.UString(sigilsPath+".paging.normal", globalConfig.UString("wtf.paging.pageSigil", "*"))
+	common.Sigils.Paging.Selected = globalConfig.UString(sigilsPath+".paging.select", globalConfig.UString("wtf.paging.selectedSigil", "_"))
 
 	return &common
 }
@@ -139,6 +147,20 @@ func (common *Common) FocusChar() string {
 	}
 
 	return fmt.Sprint(common.focusChar)
+}
+
+// LocalizedPrinter returns a message.Printer instance localized to the BCP 47 language
+// configuration value defined in 'wtf.language' config. If none exists, it defaults to
+// 'en-CA'. Use this to format numbers, etc.
+func (common *Common) LocalizedPrinter() (*message.Printer, error) {
+	langTag, err := language.Parse(common.LanguageTag)
+	if err != nil {
+		return nil, err
+	}
+
+	prntr := message.NewPrinter(langTag)
+
+	return prntr, nil
 }
 
 func (common *Common) RowColor(idx int) string {

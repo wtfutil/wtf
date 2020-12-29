@@ -5,7 +5,6 @@ import (
 	"math"
 	"strings"
 
-	"golang.org/x/text/language"
 	"golang.org/x/text/message"
 
 	"github.com/rivo/tview"
@@ -78,12 +77,10 @@ func Truncate(src string, maxLen int, withEllipse bool) string {
 }
 
 // PrettyNumber formats number as string with 1000 delimiters and, if necessary, rounds it to 2 decimals
-func PrettyNumber(number float64) string {
-	p := message.NewPrinter(language.English)
-
+func PrettyNumber(prtr *message.Printer, number float64) string {
 	if number == math.Trunc(number) {
-		return p.Sprintf("%.0f", number)
+		return prtr.Sprintf("%.0f", number)
 	}
 
-	return p.Sprintf("%.2f", number)
+	return prtr.Sprintf("%.2f", number)
 }

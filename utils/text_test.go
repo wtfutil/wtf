@@ -5,6 +5,8 @@ import (
 
 	"github.com/rivo/tview"
 	"github.com/stretchr/testify/assert"
+	"golang.org/x/text/language"
+	"golang.org/x/text/message"
 )
 
 func Test_CenterText(t *testing.T) {
@@ -45,15 +47,17 @@ func Test_Truncate(t *testing.T) {
 }
 
 func Test_PrettyNumber(t *testing.T) {
-	assert.Equal(t, "1,000,000", PrettyNumber(1000000))
-	assert.Equal(t, "1,000,000.99", PrettyNumber(1000000.99))
-	assert.Equal(t, "1,000,000", PrettyNumber(1000000.00))
-	assert.Equal(t, "100,000", PrettyNumber(100000))
-	assert.Equal(t, "100,000.01", PrettyNumber(100000.009))
-	assert.Equal(t, "10,000", PrettyNumber(10000))
-	assert.Equal(t, "1,000", PrettyNumber(1000))
-	assert.Equal(t, "1,000", PrettyNumber(1000))
-	assert.Equal(t, "100", PrettyNumber(100))
-	assert.Equal(t, "0", PrettyNumber(0))
-	assert.Equal(t, "0.10", PrettyNumber(0.1))
+	locPrinter := message.NewPrinter(language.English)
+
+	assert.Equal(t, "1,000,000", PrettyNumber(locPrinter, 1000000))
+	assert.Equal(t, "1,000,000.99", PrettyNumber(locPrinter, 1000000.99))
+	assert.Equal(t, "1,000,000", PrettyNumber(locPrinter, 1000000.00))
+	assert.Equal(t, "100,000", PrettyNumber(locPrinter, 100000))
+	assert.Equal(t, "100,000.01", PrettyNumber(locPrinter, 100000.009))
+	assert.Equal(t, "10,000", PrettyNumber(locPrinter, 10000))
+	assert.Equal(t, "1,000", PrettyNumber(locPrinter, 1000))
+	assert.Equal(t, "1,000", PrettyNumber(locPrinter, 1000))
+	assert.Equal(t, "100", PrettyNumber(locPrinter, 100))
+	assert.Equal(t, "0", PrettyNumber(locPrinter, 0))
+	assert.Equal(t, "0.10", PrettyNumber(locPrinter, 0.1))
 }
