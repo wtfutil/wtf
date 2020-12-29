@@ -105,12 +105,14 @@ func (widget *Widget) content() (string, string, bool) {
 	}
 	var str string
 
+	locPrinter, _ := widget.settings.LocalizedPrinter()
+
 	for idx, stream := range widget.topStreams {
 		row := fmt.Sprintf(
 			"[%s]%2d. [red]%s [white]%s",
 			widget.RowColor(idx),
 			idx+1,
-			utils.PrettyNumber(float64(stream.ViewerCount)),
+			utils.PrettyNumber(locPrinter, float64(stream.ViewerCount)),
 			stream.Streamer,
 		)
 		str += utils.HighlightableHelper(widget.View, row, idx, len(stream.Streamer))
