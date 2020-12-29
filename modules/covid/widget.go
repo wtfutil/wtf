@@ -5,9 +5,6 @@ import (
 
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/view"
-
-	"golang.org/x/text/language"
-	"golang.org/x/text/message"
 )
 
 // Widget is the struct that defines this module widget
@@ -47,10 +44,12 @@ func (widget *Widget) Render() {
 
 // Display stats based on the user's locale
 func (widget *Widget) displayStats(cases int) string {
-	prntr := message.NewPrinter(language.English)
-	str := fmt.Sprintf("%s", prntr.Sprintf("%d", cases))
+	prntr, err := widget.settings.LocalizedPrinter()
+	if err != nil {
+		return err.Error()
+	}
 
-	return str
+	return prntr.Sprintf("%d", cases)
 }
 
 func (widget *Widget) content() (string, string, bool) {
