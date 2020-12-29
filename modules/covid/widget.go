@@ -5,6 +5,9 @@ import (
 
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/view"
+
+	"golang.org/x/text/language"
+	"golang.org/x/text/message"
 )
 
 // Widget is the struct that defines this module widget
@@ -42,6 +45,14 @@ func (widget *Widget) Render() {
 	widget.Redraw(widget.content)
 }
 
+// Display stats based on the user's locale
+func (widget *Widget) displayStats(cases int) string {
+	prntr := message.NewPrinter(language.English)
+	str := fmt.Sprintf("%s", prntr.Sprintf("%d", cases))
+
+	return str
+}
+
 func (widget *Widget) content() (string, string, bool) {
 	title := defaultTitle
 	if widget.CommonSettings().Title != "" {
@@ -55,8 +66,8 @@ func (widget *Widget) content() (string, string, bool) {
 	} else {
 		// Display global stats
 		covidStats = fmt.Sprintf("[%s]Global[white]\n", widget.settings.Colors.Subheading)
-		covidStats += fmt.Sprintf("%s: %d\n", "Confirmed", cases.Latest.Confirmed)
-		covidStats += fmt.Sprintf("%s: %d\n", "Deaths", cases.Latest.Deaths)
+		covidStats += fmt.Sprintf("%s: %s\n", "Confirmed", widget.displayStats(cases.Latest.Confirmed))
+		covidStats += fmt.Sprintf("%s: %s\n", "Deaths", widget.displayStats(cases.Latest.Deaths))
 	}
 	// Retrieve country stats if country codes are set in the config
 	if len(widget.settings.countries) > 0 {
@@ -66,8 +77,8 @@ func (widget *Widget) content() (string, string, bool) {
 		} else {
 			for i, name := range countryCases {
 				covidStats += fmt.Sprintf("[%s]Country[white]: %s\n", widget.settings.Colors.Subheading, widget.settings.countries[i])
-				covidStats += fmt.Sprintf("%s: %d\n", "Confirmed", name.Latest.Confirmed)
-				covidStats += fmt.Sprintf("%s: %d\n", "Deaths", name.Latest.Deaths)
+				covidStats += fmt.Sprintf("%s: %s\n", "Confirmed", widget.displayStats(name.Latest.Confirmed))
+				covidStats += fmt.Sprintf("%s: %s\n", "Deaths", widget.displayStats(name.Latest.Deaths))
 			}
 		}
 	}
