@@ -72,6 +72,7 @@ func (widget *Widget) jiraRequest(path string) (*http.Response, error) {
 	if err != nil {
 		return nil, err
 	}
+	defer func() { _ = resp.Body.Close() }()
 
 	if resp.StatusCode < 200 || resp.StatusCode > 299 {
 		return nil, fmt.Errorf(resp.Status)

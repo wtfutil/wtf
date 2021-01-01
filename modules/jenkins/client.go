@@ -39,6 +39,7 @@ func (widget *Widget) Create(jenkinsURL string, username string, apiKey string) 
 	if err != nil {
 		return view, err
 	}
+	defer func() { _ = resp.Body.Close() }()
 
 	err = utils.ParseJSON(view, resp.Body)
 	if err != nil {
