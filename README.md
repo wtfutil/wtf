@@ -418,6 +418,9 @@ Dependency management in WTF is handled by [Go modules](https://github.com/golan
     <td align="center"><a href="https://github.com/dabcoder"><img src="https://avatars3.githubusercontent.com/u/5034531?v=4" width="48px;" alt=""/><br /><sub><b>David Bouchare</b></sub></a><br /></td>
     <td align="center"><a href="https://github.com/stone"><img src="https://avatars3.githubusercontent.com/u/29077?v=4" width="48px;" alt=""/><br /><sub><b>Fredrik Steen</b></sub></a><br /></td>
   </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/zye1996"><img src="https://avatars2.githubusercontent.com/u/28901953?v=4" width="48px;" alt=""/><br /><sub><b>zye1996</b></sub></a><br /></td>
+  </tr>
 </table>
 
 <!-- markdownlint-enable -->
