@@ -10,6 +10,10 @@
 * Covid module has been added, by [@dabcoder](https://github.com/dabcoder)
 * Support for a "Language" configuration key added. Supports any BCP 47 tag for identifying a langauge, by [@senorprogrammer](https://github.com/senorprogrammer)
 
+### 🐞 Fixed
+
+* CryptoLive prices update again, [#1041](https://github.com/wtfutil/wtf/issues/1041) by [@zye1996](https://github.com/zye1996)
+
 ## v0.34.0
 2020-11-08
 
