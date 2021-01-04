@@ -52,8 +52,8 @@ func main() {
 	utils.Init(openFileUtil, openURLUtil)
 
 	/* Initialize the App Manager */
-	appMan := app.NewAppManager()
-	appMan.MakeNewWtfApp(config, flags.Config)
+	appMan := app.NewAppManager(config)
+	appMan.MakeNewWtfApp(flags.Config)
 
 	currentApp, err := appMan.Current()
 	if err != nil {

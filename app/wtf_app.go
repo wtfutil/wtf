@@ -8,13 +8,15 @@ import (
 	"time"
 
 	"github.com/gdamore/tcell"
+
+	// Bring in the extended set of terminfo definitions
 	_ "github.com/gdamore/tcell/terminfo/extended"
+
 	"github.com/logrusorgru/aurora"
 	"github.com/olebedev/config"
 	"github.com/radovskyb/watcher"
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/cfg"
-	"github.com/wtfutil/wtf/support"
 	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/wtf"
 )
@@ -28,7 +30,6 @@ type WtfApp struct {
 	configFilePath string
 	display        *Display
 	focusTracker   FocusTracker
-	ghUser         *support.GitHubUser
 	pages          *tview.Pages
 	validator      *ModuleValidator
 	widgets        []wtf.Wtfable
@@ -53,9 +54,6 @@ func NewWtfApp(tviewApp *tview.Application, config *config.Config, configFilePat
 	wtfApp.display = NewDisplay(wtfApp.widgets, wtfApp.config)
 	wtfApp.focusTracker = NewFocusTracker(wtfApp.TViewApp, wtfApp.widgets, wtfApp.config)
 	wtfApp.validator = NewModuleValidator()
-
-	githubAPIKey := readGitHubAPIKey(wtfApp.config)
-	wtfApp.ghUser = support.NewGitHubUser(githubAPIKey)
 
 	wtfApp.pages.AddPage("grid", wtfApp.display.Grid, true, true)
 
@@ -93,9 +91,6 @@ func (wtfApp *WtfApp) Run() {
 func (wtfApp *WtfApp) Start() {
 	go wtfApp.scheduleWidgets()
 	go wtfApp.watchForConfigChanges()
-
-	// FIXME: This should be moved to the AppManager
-	go func() { _ = wtfApp.ghUser.Load() }()
 }
 
 // Stop kills all the currently-running widgets in this app
@@ -128,6 +123,8 @@ func (wtfApp *WtfApp) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	// These keys are global keys used by the app. Widgets should not implement these keys
 	switch event.Key() {
 	case tcell.KeyCtrlC:
+		// FIXME: This can't reside in the app, the app shouldn't know
+		// about termination. The AppManager needs to catch this
 		wtfApp.Stop()
 		wtfApp.TViewApp.Stop()
 		wtfApp.DisplayExitMessage()

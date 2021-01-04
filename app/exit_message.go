@@ -21,17 +21,17 @@ const exitMessageHeader = `
 `
 
 // DisplayExitMessage displays the onscreen exit message when the app quits
-func (wtfApp *WtfApp) DisplayExitMessage() {
-	exitMessageIsDisplayable := readDisplayableConfig(wtfApp.config)
+func (appMan *WtfAppManager) DisplayExitMessage() {
+	exitMessageIsDisplayable := readDisplayableConfig(appMan.config)
 
-	wtfApp.displayExitMsg(exitMessageIsDisplayable)
+	appMan.displayExitMsg(exitMessageIsDisplayable)
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (wtfApp *WtfApp) displayExitMsg(exitMessageIsDisplayable bool) string {
+func (appMan *WtfAppManager) displayExitMsg(exitMessageIsDisplayable bool) string {
 	// If a sponsor or contributor and opt out of seeing the exit message, do not display it
-	if (wtfApp.ghUser.IsContributor || wtfApp.ghUser.IsSponsor) && !exitMessageIsDisplayable {
+	if (appMan.ghUser.IsContributor || appMan.ghUser.IsSponsor) && !exitMessageIsDisplayable {
 		return ""
 	}
 
@@ -39,16 +39,16 @@ func (wtfApp *WtfApp) displayExitMsg(exitMessageIsDisplayable bool) string {
 
 	msgs = append(msgs, aurora.Magenta(exitMessageHeader).String())
 
-	if wtfApp.ghUser.IsContributor {
-		msgs = append(msgs, wtfApp.contributorThankYouMessage())
+	if appMan.ghUser.IsContributor {
+		msgs = append(msgs, appMan.contributorThankYouMessage())
 	}
 
-	if wtfApp.ghUser.IsSponsor {
-		msgs = append(msgs, wtfApp.sponsorThankYouMessage())
+	if appMan.ghUser.IsSponsor {
+		msgs = append(msgs, appMan.sponsorThankYouMessage())
 	}
 
-	if !wtfApp.ghUser.IsContributor && !wtfApp.ghUser.IsSponsor {
-		msgs = append(msgs, wtfApp.supportRequestMessage())
+	if !appMan.ghUser.IsContributor && !appMan.ghUser.IsSponsor {
+		msgs = append(msgs, appMan.supportRequestMessage())
 	}
 
 	displayMsg := strings.Join(msgs, "\n")
@@ -82,21 +82,21 @@ func readGitHubAPIKey(cfg *config.Config) string {
 
 /* -------------------- Messaging -------------------- */
 
-func (wtfApp *WtfApp) contributorThankYouMessage() string {
+func (appMan *WtfAppManager) contributorThankYouMessage() string {
 	str := "    On behalf of all the users of WTF, thank you for contributing to the source code."
 	str += fmt.Sprintf(" %s", aurora.Green("\n\n    You rock."))
 
 	return str
 }
 
-func (wtfApp *WtfApp) sponsorThankYouMessage() string {
+func (appMan *WtfAppManager) sponsorThankYouMessage() string {
 	str := "    Your sponsorship of WTF makes a difference. Thank you for sponsoring and supporting WTF."
 	str += fmt.Sprintf(" %s", aurora.Green("\n\n    You're awesome."))
 
 	return str
 }
 
-func (wtfApp *WtfApp) supportRequestMessage() string {
+func (appMan *WtfAppManager) supportRequestMessage() string {
 	str := "    The development and maintenance of WTF is supported by sponsorships.\n"
 	str += fmt.Sprintf("    Please consider sponsoring WTF at %s\n", aurora.Green("https://github.com/sponsors/senorprogrammer"))
 

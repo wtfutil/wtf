@@ -5,27 +5,37 @@ import (
 
 	"github.com/olebedev/config"
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/support"
 )
 
 // WtfAppManager handles the instances of WtfApp, ensuring that they're displayed as requested
 type WtfAppManager struct {
 	WtfApps []*WtfApp
 
+	config   *config.Config
+	ghUser   *support.GitHubUser
 	selected int
 }
 
 // NewAppManager creates and returns an instance of AppManager
-func NewAppManager() WtfAppManager {
+func NewAppManager(config *config.Config) WtfAppManager {
 	appMan := WtfAppManager{
 		WtfApps: []*WtfApp{},
+
+		config: config,
 	}
+
+	githubAPIKey := readGitHubAPIKey(config)
+	appMan.ghUser = support.NewGitHubUser(githubAPIKey)
+
+	go func() { _ = appMan.ghUser.Load() }()
 
 	return appMan
 }
 
 // MakeNewWtfApp creates and starts a new instance of WtfApp from a set of configuration params
-func (appMan *WtfAppManager) MakeNewWtfApp(config *config.Config, configFilePath string) {
-	wtfApp := NewWtfApp(tview.NewApplication(), config, configFilePath)
+func (appMan *WtfAppManager) MakeNewWtfApp(configFilePath string) {
+	wtfApp := NewWtfApp(tview.NewApplication(), appMan.config, configFilePath)
 	appMan.Add(wtfApp)
 
 	wtfApp.Start()
