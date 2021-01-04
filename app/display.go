@@ -1,6 +1,7 @@
 package app
 
 import (
+	"github.com/gdamore/tcell"
 	"github.com/olebedev/config"
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/utils"
@@ -9,24 +10,28 @@ import (
 
 // Display is the container for the onscreen representation of a WtfApp
 type Display struct {
-	Grid   *tview.Grid
-	config *config.Config
+	Grid *tview.Grid
+
+	bgColor tcell.Color
+	config  *config.Config
 }
 
 // NewDisplay creates and returns a Display
 func NewDisplay(widgets []wtf.Wtfable, config *config.Config) *Display {
 	display := Display{
-		Grid:   tview.NewGrid(),
-		config: config,
+		Grid: tview.NewGrid(),
+
+		bgColor: wtf.ColorFor("black"),
+		config:  config,
 	}
 
-	firstWidget := widgets[0]
-	display.Grid.SetBackgroundColor(
-		wtf.ColorFor(
-			firstWidget.CommonSettings().Colors.WidgetTheme.Background,
-		),
-	)
+	// Make sure we have some widgets before trying to get the first one
+	if len(widgets) > 0 {
+		firstWidget := widgets[0]
+		display.bgColor = wtf.ColorFor(firstWidget.CommonSettings().Colors.WidgetTheme.Background)
+	}
 
+	display.Grid.SetBackgroundColor(display.bgColor)
 	display.build(widgets)
 
 	return &display

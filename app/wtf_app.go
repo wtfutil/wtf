@@ -1,6 +1,7 @@
 package app
 
 import (
+	"errors"
 	"fmt"
 	"log"
 	"os"
@@ -60,12 +61,7 @@ func NewWtfApp(tviewApp *tview.Application, config *config.Config, configFilePat
 
 	wtfApp.validator.Validate(wtfApp.widgets)
 
-	firstWidget := wtfApp.widgets[0]
-	wtfApp.pages.Box.SetBackgroundColor(
-		wtf.ColorFor(
-			firstWidget.CommonSettings().Colors.WidgetTheme.Background,
-		),
-	)
+	wtfApp.setBackgroundColor()
 
 	wtfApp.TViewApp.SetInputCapture(wtfApp.keyboardIntercept)
 	wtfApp.TViewApp.SetRoot(wtfApp.pages, true)
@@ -74,6 +70,16 @@ func NewWtfApp(tviewApp *tview.Application, config *config.Config, configFilePat
 }
 
 /* -------------------- Exported Functions -------------------- */
+
+// FirstWidget returns the first wiget in the set of widgets, or
+// an error if there are none
+func (wtfApp *WtfApp) FirstWidget() (wtf.Wtfable, error) {
+	if len(wtfApp.widgets) < 1 {
+		return nil, errors.New("cannot get first widget. no widgets defined")
+	}
+
+	return wtfApp.widgets[0], nil
+}
 
 // Run starts the underlying tview app
 func (wtfApp *WtfApp) Run() {
@@ -98,6 +104,19 @@ func (wtfApp *WtfApp) Stop() {
 }
 
 /* -------------------- Unexported Functions -------------------- */
+
+func (wtfApp *WtfApp) setBackgroundColor() {
+	var bgColor tcell.Color
+
+	firstWidget, err := wtfApp.FirstWidget()
+	if err != nil {
+		bgColor = wtf.ColorFor("black")
+	} else {
+		bgColor = wtf.ColorFor(firstWidget.CommonSettings().Colors.WidgetTheme.Background)
+	}
+
+	wtfApp.pages.Box.SetBackgroundColor(bgColor)
+}
 
 func (wtfApp *WtfApp) stopAllWidgets() {
 	for _, widget := range wtfApp.widgets {
