@@ -37,6 +37,7 @@ import (
 	"github.com/wtfutil/wtf/modules/grafana"
 	"github.com/wtfutil/wtf/modules/gspreadsheets"
 	"github.com/wtfutil/wtf/modules/hackernews"
+	"github.com/wtfutil/wtf/modules/healthchecks"
 	"github.com/wtfutil/wtf/modules/hibp"
 	"github.com/wtfutil/wtf/modules/ipaddresses/ipapi"
 	"github.com/wtfutil/wtf/modules/ipaddresses/ipinfo"
@@ -201,6 +202,9 @@ func MakeWidget(
 	case "hackernews":
 		settings := hackernews.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = hackernews.NewWidget(tviewApp, pages, settings)
+	case "healthchecks":
+		settings := healthchecks.NewSettingsFromYAML(moduleName, moduleConfig, config)
+		widget = healthchecks.NewWidget(tviewApp, pages, settings)
 	case "hibp":
 		settings := hibp.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = hibp.NewWidget(tviewApp, settings)
