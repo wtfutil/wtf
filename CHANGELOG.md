@@ -6,6 +6,10 @@
 
 * HealthChecks module added, by [@stone](https://github.com/stone)
 
+### 🐞 Fixed
+
+* Numerous dangling response bodies closed, by [@dabcoder](https://github.com/dabcoder)
+
 ## v0.35.0
 
 ### ⚡️ Added
