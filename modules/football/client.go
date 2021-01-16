@@ -41,5 +41,7 @@ func (client *Client) footballRequest(path string, id int) (*http.Response, erro
 	if err != nil {
 		return nil, err
 	}
+	defer func() { _ = resp.Body.Close() }()
+
 	return resp, nil
 }

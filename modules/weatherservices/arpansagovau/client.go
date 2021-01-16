@@ -65,6 +65,7 @@ func apiRequest() (*http.Response, error) {
 	if err != nil {
 		return nil, err
 	}
+	defer func() { _ = resp.Body.Close() }()
 
 	if resp.StatusCode != 200 {
 		return nil, fmt.Errorf(resp.Status)

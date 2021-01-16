@@ -158,6 +158,7 @@ func (widget *Widget) getMonitors() ([]Monitor, error) {
 	if errh != nil {
 		return nil, errh
 	}
+	defer func() { _ = resp.Body.Close() }()
 
 	body, _ := ioutil.ReadAll(resp.Body)
 
