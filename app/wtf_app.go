@@ -36,19 +36,14 @@ type WtfApp struct {
 }
 
 // NewWtfApp creates and returns an instance of WtfApp
-func NewWtfApp(tviewApp *tview.Application, config *config.Config, configFilePath string) *WtfApp {
-	wtfApp := &WtfApp{
+func NewWtfApp(config *config.Config, tviewApp *tview.Application, configFilePath string) WtfApp {
+	wtfApp := WtfApp{
 		TViewApp: tviewApp,
 
 		config:         config,
 		configFilePath: configFilePath,
 		pages:          tview.NewPages(),
 	}
-
-	wtfApp.TViewApp.SetBeforeDrawFunc(func(s tcell.Screen) bool {
-		s.Clear()
-		return false
-	})
 
 	wtfApp.widgets = MakeWidgets(wtfApp.TViewApp, wtfApp.pages, wtfApp.config)
 	wtfApp.display = NewDisplay(wtfApp.widgets, wtfApp.config)
@@ -61,7 +56,6 @@ func NewWtfApp(tviewApp *tview.Application, config *config.Config, configFilePat
 
 	wtfApp.setBackgroundColor()
 
-	wtfApp.TViewApp.SetInputCapture(wtfApp.keyboardIntercept)
 	wtfApp.TViewApp.SetRoot(wtfApp.pages, true)
 
 	return wtfApp
@@ -96,6 +90,7 @@ func (wtfApp *WtfApp) Start() {
 // Stop kills all the currently-running widgets in this app
 func (wtfApp *WtfApp) Stop() {
 	wtfApp.stopAllWidgets()
+	wtfApp.TViewApp.Stop()
 }
 
 /* -------------------- Unexported Functions -------------------- */
@@ -117,49 +112,6 @@ func (wtfApp *WtfApp) stopAllWidgets() {
 	for _, widget := range wtfApp.widgets {
 		widget.Stop()
 	}
-}
-
-func (wtfApp *WtfApp) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
-	// These keys are global keys used by the app. Widgets should not implement these keys
-	switch event.Key() {
-	case tcell.KeyCtrlC:
-		// FIXME: This can't reside in the app, the app shouldn't know
-		// about termination. The AppManager needs to catch this
-		wtfApp.Stop()
-		wtfApp.TViewApp.Stop()
-		wtfApp.DisplayExitMessage()
-	case tcell.KeyCtrlR:
-		wtfApp.refreshAllWidgets()
-		return nil
-	case tcell.KeyCtrlSpace:
-		// FIXME: This can't reside in the app, the app doesn't know about
-		// the AppManager. The AppManager needs to catch this one
-		fmt.Println("Next app")
-		return nil
-	case tcell.KeyTab:
-		wtfApp.focusTracker.Next()
-	case tcell.KeyBacktab:
-		wtfApp.focusTracker.Prev()
-		return nil
-	case tcell.KeyEsc:
-		wtfApp.focusTracker.None()
-	}
-
-	// Checks to see if any widget has been assigned the pressed key as its focus key
-	if wtfApp.focusTracker.FocusOn(string(event.Rune())) {
-		return nil
-	}
-
-	// If no specific widget has focus, then allow the key presses to fall through to the app
-	if !wtfApp.focusTracker.IsFocused {
-		switch string(event.Rune()) {
-		case "/":
-			return nil
-		default:
-		}
-	}
-
-	return event
 }
 
 func (wtfApp *WtfApp) refreshAllWidgets() {
@@ -187,7 +139,7 @@ func (wtfApp *WtfApp) watchForConfigChanges() {
 				wtfApp.Stop()
 
 				config := cfg.LoadWtfConfigFile(wtfApp.configFilePath)
-				newApp := NewWtfApp(wtfApp.TViewApp, config, wtfApp.configFilePath)
+				newApp := NewWtfApp(config, wtfApp.TViewApp, wtfApp.configFilePath)
 				openURLUtil := utils.ToStrs(config.UList("wtf.openUrlUtil", []interface{}{}))
 				utils.Init(config.UString("wtf.openFileUtil", "open"), openURLUtil)
 

@@ -13,6 +13,7 @@ import (
 
 	"github.com/logrusorgru/aurora"
 	"github.com/pkg/profile"
+	"github.com/rivo/tview"
 
 	"github.com/wtfutil/wtf/app"
 	"github.com/wtfutil/wtf/cfg"
@@ -25,6 +26,9 @@ var (
 	date    = "dev"
 	version = "dev"
 )
+
+var appMan app.WtfAppManager
+var tviewApp *tview.Application
 
 /* -------------------- Main -------------------- */
 
@@ -52,10 +56,12 @@ func main() {
 	utils.Init(openFileUtil, openURLUtil)
 
 	/* Initialize the App Manager */
-	appMan := app.NewAppManager(config)
+	tviewApp = tview.NewApplication()
+	appMan = app.NewAppManager(config, tviewApp)
 	appMan.MakeNewWtfApp(flags.Config)
+	tviewApp.SetInputCapture(appMan.KeyboardIntercept)
 
-	currentApp, err := appMan.Current()
+	currentApp, err := appMan.CurrentWtfApp()
 	if err != nil {
 		fmt.Printf("\n%s %v\n", aurora.Red("ERROR"), err)
 		os.Exit(1)

@@ -4,6 +4,8 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/olebedev/config"
+	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/support"
 	"gotest.tools/assert"
 )
@@ -51,7 +53,7 @@ func Test_displayExitMessage(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			appMan := NewAppManager()
+			appMan := NewAppManager(&config.Config{}, tview.NewApplication())
 			appMan.ghUser = &support.GitHubUser{
 				IsContributor: tt.isContributor,
 				IsSponsor:     tt.isSponsor,
