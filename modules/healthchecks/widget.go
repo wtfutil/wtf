@@ -165,13 +165,14 @@ func (widget *Widget) getExistingChecks() ([]Checks, error) {
 	req.Header.Set("X-Api-Key", widget.settings.apiKey)
 	resp, err := http.DefaultClient.Do(req)
 
+	if err != nil {
+		return nil, err
+	}
+
 	if resp.StatusCode != 200 {
 		return nil, fmt.Errorf(resp.Status)
 	}
 
-	if err != nil {
-		return nil, err
-	}
 	defer func() { _ = resp.Body.Close() }()
 
 	var health Health
