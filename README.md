@@ -176,8 +176,8 @@ Also, follow [on Twitter](https://twitter.com/wtfutil) for news and latest updat
 See [https://wtfutil.com](https://wtfutil.com) for the definitive
 documentation. Here's some short-cuts:
 
-* [Installation](https://wtfutil.com/getting_started/installation/)
-* [Configuration](https://wtfutil.com/configuration/)
+* [Installation](https://wtfutil.com/quick_start/)
+* [Configuration](https://wtfutil.com/configuration/files/)
 * [Module Documentation](https://wtfutil.com/modules/)
 
 ## Modules
