@@ -3,6 +3,7 @@ module github.com/wtfutil/wtf
 go 1.15
 
 require (
+	bitbucket.org/mikehouston/asana-go v0.0.0-20201102222432-715318d0343a
 	code.cloudfoundry.org/bytefmt v0.0.0-20190819182555-854d396b647c
 	github.com/Azure/go-autorest v11.1.2+incompatible // indirect
 	github.com/Microsoft/go-winio v0.4.14 // indirect
@@ -31,7 +32,6 @@ require (
 	github.com/gophercloud/gophercloud v0.5.0 // indirect
 	github.com/hekmon/cunits v2.0.1+incompatible // indirect
 	github.com/hekmon/transmissionrpc v0.0.0-20190525133028-1d589625bacd
-	github.com/imdario/mergo v0.3.8 // indirect
 	github.com/jedib0t/go-pretty v4.3.0+incompatible
 	github.com/jessevdk/go-flags v1.4.0
 	github.com/lib/pq v1.2.0 // indirect
