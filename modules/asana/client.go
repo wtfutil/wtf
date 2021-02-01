@@ -25,7 +25,7 @@ func fetchTasksFromProject(token, projectId, mode string) ([]*TaskItem, error) {
 
 	fetchedTasks, _, err := getTasksFromAsana(client, q)
 	if err != nil {
-		return nil, fmt.Errorf("Error fetching tasks: %s", err)
+		return nil, fmt.Errorf("error fetching tasks: %s", err)
 	}
 
 	processFetchedTasks(client, &fetchedTasks, &taskItems, &uidToName, mode, projectId, uid)
@@ -52,7 +52,7 @@ func fetchTasksFromProjectSections(token, projectId string, sections []string, m
 
 		sectionId, err := findSection(client, p, section)
 		if err != nil {
-			return nil, fmt.Errorf("Error fetching tasks: %s", err)
+			return nil, fmt.Errorf("error fetching tasks: %s", err)
 		}
 
 		q := &asana.TaskQuery{
@@ -61,7 +61,7 @@ func fetchTasksFromProjectSections(token, projectId string, sections []string, m
 
 		fetchedTasks, _, err := getTasksFromAsana(client, q)
 		if err != nil {
-			return nil, fmt.Errorf("Error fetching tasks: %s", err)
+			return nil, fmt.Errorf("error fetching tasks: %s", err)
 		}
 
 		if len(fetchedTasks) > 0 {
@@ -98,7 +98,7 @@ func fetchTasksFromWorkspace(token, workspaceId, mode string) ([]*TaskItem, erro
 
 	fetchedTasks, _, err := getTasksFromAsana(client, q)
 	if err != nil {
-		return nil, fmt.Errorf("Error fetching tasks: %s", err)
+		return nil, fmt.Errorf("error fetching tasks: %s", err)
 	}
 
 	processFetchedTasks(client, &fetchedTasks, &taskItems, &uidToName, mode, workspaceId, uid)
@@ -116,7 +116,7 @@ func toggleTaskCompletionById(token, taskId string) error {
 
 	err := t.Fetch(client)
 	if err != nil {
-		return fmt.Errorf("Error fetching task: %s", err)
+		return fmt.Errorf("error fetching task: %s", err)
 	}
 
 	updateReq := &asana.UpdateTaskRequest{}
@@ -131,7 +131,7 @@ func toggleTaskCompletionById(token, taskId string) error {
 
 	err = t.Update(client, updateReq)
 	if err != nil {
-		return fmt.Errorf("Error updating task: %s", err)
+		return fmt.Errorf("error updating task: %s", err)
 	}
 
 	return nil
@@ -203,7 +203,7 @@ func buildTaskItem(task *asana.Task, projectId string) *TaskItem {
 
 func getOtherUserEmail(client *asana.Client, uid string) (string, error) {
 	if uid == "" {
-		return "", fmt.Errorf("Missing uid")
+		return "", fmt.Errorf("missing uid")
 	}
 
 	u := &asana.User{
@@ -212,7 +212,7 @@ func getOtherUserEmail(client *asana.Client, uid string) (string, error) {
 
 	err := u.Fetch(client, nil)
 	if err != nil {
-		return "", fmt.Errorf("Error fetching user: %s")
+		return "", fmt.Errorf("error fetching user: %s", err)
 	}
 
 	return u.Email, nil
@@ -224,7 +224,7 @@ func getCurrentUserId(client *asana.Client, mode string) (string, error) {
 	}
 	u, err := client.CurrentUser()
 	if err != nil {
-		return "", fmt.Errorf("error getting current user: %s\n", err)
+		return "", fmt.Errorf("error getting current user: %s", err)
 	}
 
 	return u.ID, nil
@@ -237,7 +237,7 @@ func findSection(client *asana.Client, project *asana.Project, sectionName strin
 		Limit: 100,
 	})
 	if err != nil {
-		return "", fmt.Errorf("Error getting sections: %s\n", err)
+		return "", fmt.Errorf("error getting sections: %s", err)
 	}
 
 	for _, section := range sections {
@@ -248,7 +248,7 @@ func findSection(client *asana.Client, project *asana.Project, sectionName strin
 	}
 
 	if sectionId == "" {
-		return "", fmt.Errorf("We didn't find the section?")
+		return "", fmt.Errorf("we didn't find the section %s", sectionName)
 	}
 
 	return sectionId, nil
@@ -269,7 +269,7 @@ func getTasksFromAsana(client *asana.Client, q *asana.TaskQuery) ([]*asana.Task,
 	})
 
 	if err != nil {
-		return nil, false, fmt.Errorf("Error querying tasks: %s\n", err)
+		return nil, false, fmt.Errorf("error querying tasks: %s", err)
 	}
 
 	if np != nil {

@@ -94,7 +94,7 @@ func (widget *Widget) Fetch(workspaceId, projectId, mode string, sections []stri
 	}
 
 	if _, ok := availableModes[mode]; !ok {
-		return nil, fmt.Errorf("Missing mode, or mode is invalid - please set to project, project_sections or workspace")
+		return nil, fmt.Errorf("missing mode, or mode is invalid - please set to project, project_sections or workspace")
 	}
 
 	if widget.settings.apiKey != "" {
@@ -104,7 +104,7 @@ func (widget *Widget) Fetch(workspaceId, projectId, mode string, sections []stri
 	}
 
 	if widget.settings.token == "" {
-		return nil, fmt.Errorf("Missing WTF_ASANA_TOKEN Environment Variable or apiKey config")
+		return nil, fmt.Errorf("missing environment variable token or apikey config")
 	}
 
 	subMode := mode
@@ -113,11 +113,11 @@ func (widget *Widget) Fetch(workspaceId, projectId, mode string, sections []stri
 	}
 
 	if projectId == "" && strings.HasPrefix(subMode, "project") {
-		return nil, fmt.Errorf("Missing Project ID")
+		return nil, fmt.Errorf("missing project id")
 	}
 
 	if workspaceId == "" && subMode == "workspace" {
-		return nil, fmt.Errorf("Missing Workspace ID")
+		return nil, fmt.Errorf("missing workspace id")
 	}
 
 	var tasks []*TaskItem
@@ -131,7 +131,7 @@ func (widget *Widget) Fetch(workspaceId, projectId, mode string, sections []stri
 	case subMode == "workspace":
 		tasks, err = fetchTasksFromWorkspace(widget.settings.token, workspaceId, subMode)
 	default:
-		err = fmt.Errorf("No mode found")
+		err = fmt.Errorf("no mode found")
 	}
 
 	if err != nil {
@@ -205,9 +205,7 @@ func (widget *Widget) content() (string, string, bool) {
 
 		case taskItem.taskType == TASK_SECTION:
 			if idx > 1 {
-				row := fmt.Sprintf(
-					"[white] ",
-				)
+				row := "[white] "
 
 				str += utils.HighlightableHelper(widget.View, row, idx, len(taskItem.name))
 			}
@@ -218,9 +216,7 @@ func (widget *Widget) content() (string, string, bool) {
 
 			str += utils.HighlightableHelper(widget.View, row, idx, len(taskItem.name))
 
-			row = fmt.Sprintf(
-				"[white] ",
-			)
+			row = "[white] "
 
 			str += utils.HighlightableHelper(widget.View, row, idx, len(taskItem.name))
 
