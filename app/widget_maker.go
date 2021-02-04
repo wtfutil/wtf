@@ -3,6 +3,7 @@ package app
 import (
 	"github.com/olebedev/config"
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/modules/asana"
 	"github.com/wtfutil/wtf/modules/azuredevops"
 	"github.com/wtfutil/wtf/modules/bamboohr"
 	"github.com/wtfutil/wtf/modules/bargraph"
@@ -106,6 +107,9 @@ func MakeWidget(
 	case "arpansagovau":
 		settings := arpansagovau.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = arpansagovau.NewWidget(tviewApp, settings)
+	case "asana":
+		settings := asana.NewSettingsFromYAML(moduleName, moduleConfig, config)
+		widget = asana.NewWidget(tviewApp, pages, settings)
 	case "azuredevops":
 		settings := azuredevops.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = azuredevops.NewWidget(tviewApp, pages, settings)
