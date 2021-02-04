@@ -5,6 +5,7 @@
 ### ⚡️ Added
 
 * HealthChecks module added, by [@stone](https://github.com/stone)
+* Asana module added, by [@xntrik](https://github.com/xntrik)
 
 ### 🐞 Fixed
 
