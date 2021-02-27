@@ -131,3 +131,32 @@ func Test_ReadFileBytes(t *testing.T) {
 		})
 	}
 }
+
+func Test_MaxInt(t *testing.T) {
+	expected := 3
+	result := MaxInt(3, 2)
+
+	assert.Equal(t, expected, result)
+
+	expected = 3
+	result = MaxInt(2, 3)
+
+	assert.Equal(t, expected, result)
+}
+
+func Test_Clamp(t *testing.T) {
+	expected := 6
+	result := Clamp(6, 3, 8)
+
+	assert.Equal(t, expected, result)
+
+	expected = 3
+	result = Clamp(1, 3, 8)
+
+	assert.Equal(t, expected, result)
+
+	expected = 8
+	result = Clamp(9, 3, 8)
+
+	assert.Equal(t, expected, result)
+}
