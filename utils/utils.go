@@ -204,7 +204,7 @@ func MaxInt(x, y int) int {
 //
 // Examples:
 //
-//   clamp(6, 3, 8) => 4
+//   clamp(6, 3, 8) => 6
 //   clamp(1, 3, 8) => 3
 //   clamp(9, 3, 8) => 8
 //
