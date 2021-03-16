@@ -36,7 +36,7 @@ const defaultConfigFile = `wtf:
           odd: "white"
       enabled: true
       locations:
-        Avignon: "Europe/Paris"
+        Paris: "Europe/Paris"
         Barcelona: "Europe/Madrid"
         Dubai: "Asia/Dubai"
       position:
