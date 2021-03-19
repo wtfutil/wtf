@@ -6,6 +6,7 @@
 
 * HealthChecks module added, by [@stone](https://github.com/stone)
 * Asana module added, by [@xntrik](https://github.com/xntrik)
+* Kubernetes module now displays the Ready Replicas and Total Replicas count, by [@LKaemmerling](https://github.com/LKaemmerling)
 
 ### 🐞 Fixed
 
