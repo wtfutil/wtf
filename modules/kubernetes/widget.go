@@ -164,9 +164,9 @@ func (client *clientInstance) getDeployments(namespaces []string) ([]string, err
 			for _, deployment := range deployments.Items {
 				var deployString string
 				if len(namespaces) == 1 {
-					deployString = fmt.Sprintf("%-50s", deployment.ObjectMeta.Name)
+					deployString = fmt.Sprintf("%-50s (%d/%d)", deployment.ObjectMeta.Name, deployment.Status.ReadyReplicas, deployment.Status.Replicas)
 				} else {
-					deployString = fmt.Sprintf("%-20s %-50s", deployment.ObjectMeta.Namespace, deployment.ObjectMeta.Name)
+					deployString = fmt.Sprintf("%-20s %-50s (%d/%d)", deployment.ObjectMeta.Namespace, deployment.ObjectMeta.Name, deployment.Status.ReadyReplicas, deployment.Status.Replicas)
 				}
 				deploymentList = append(deploymentList, deployString)
 			}
@@ -178,7 +178,7 @@ func (client *clientInstance) getDeployments(namespaces []string) ([]string, err
 		}
 
 		for _, deployment := range deployments.Items {
-			deployString := fmt.Sprintf("%-20s %-50s", deployment.ObjectMeta.Namespace, deployment.ObjectMeta.Name)
+			deployString := fmt.Sprintf("%-20s %-50s (%d/%d)", deployment.ObjectMeta.Namespace, deployment.ObjectMeta.Name, deployment.Status.ReadyReplicas, deployment.Status.Replicas)
 			deploymentList = append(deploymentList, deployString)
 		}
 	}
