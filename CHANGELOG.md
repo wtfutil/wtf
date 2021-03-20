@@ -11,6 +11,7 @@
 ### 🐞 Fixed
 
 * Numerous dangling response bodies closed, by [@dabcoder](https://github.com/dabcoder)
+* HackerNews read-on-response error fixed, by [@LKaemmerling](https://github.com/LKaemmerling)
 
 ## v0.35.0
 
