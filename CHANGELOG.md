@@ -7,6 +7,7 @@
 * HealthChecks module added, by [@stone](https://github.com/stone)
 * Asana module added, by [@xntrik](https://github.com/xntrik)
 * Kubernetes module now displays the Ready Replicas and Total Replicas count, by [@LKaemmerling](https://github.com/LKaemmerling)
+* Now builds using Go 1.16, which provides support for Apple's M1 ARM hardware, by [@LKaemmerling](https://github.com/LKaemmerling)
 
 ### 🐞 Fixed
 
