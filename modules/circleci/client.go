@@ -1,7 +1,9 @@
 package circleci
 
 import (
+	"bytes"
 	"fmt"
+	"io/ioutil"
 	"net/http"
 	"net/url"
 
@@ -28,7 +30,7 @@ func (client *Client) BuildsFor() ([]*Build, error) {
 		return builds, err
 	}
 
-	err = utils.ParseJSON(&builds, resp.Body)
+	err = utils.ParseJSON(&builds, bytes.NewReader(resp))
 	if err != nil {
 		return builds, err
 	}
@@ -42,7 +44,7 @@ var (
 	circleAPIURL = &url.URL{Scheme: "https", Host: "circleci.com", Path: "/api/v1/"}
 )
 
-func (client *Client) circleRequest(path string) (*http.Response, error) {
+func (client *Client) circleRequest(path string) ([]byte, error) {
 	params := url.Values{}
 	params.Add("circle-token", client.apiKey)
 
@@ -60,11 +62,16 @@ func (client *Client) circleRequest(path string) (*http.Response, error) {
 	if err != nil {
 		return nil, err
 	}
+
 	defer func() { _ = resp.Body.Close() }()
 
 	if resp.StatusCode < 200 || resp.StatusCode > 299 {
 		return nil, fmt.Errorf(resp.Status)
 	}
 
-	return resp, nil
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+	return body, nil
 }
