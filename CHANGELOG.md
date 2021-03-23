@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## v0.36.0
+
 ### ⚡️ Added
 
 * HealthChecks module added, by [@stone](https://github.com/stone)
