@@ -13,6 +13,7 @@
 
 * Numerous dangling response bodies closed, by [@dabcoder](https://github.com/dabcoder)
 * HackerNews read-on-response error fixed, by [@LKaemmerling](https://github.com/LKaemmerling)
+* CircleCI read-on-response error fixed, by [@dabcoder](https://github.com/dabcoder)
 
 ## v0.35.0
 
