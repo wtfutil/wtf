@@ -21,10 +21,10 @@ before:
     - make install
 
 brews:
-  - github:
-      owner: wtfutil
-      name: homebrew-wtfutil
-
+  -
     name: wtfutil
     homepage: 'https://wtfutil.com'
     description: 'The personal information dashboard for your terminal.'
+    tap:
+      owner: wtfutil
+      name: homebrew-wtfutil
