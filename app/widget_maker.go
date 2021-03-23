@@ -62,6 +62,7 @@ import (
 	"github.com/wtfutil/wtf/modules/spotifyweb"
 	"github.com/wtfutil/wtf/modules/status"
 	"github.com/wtfutil/wtf/modules/stocks/finnhub"
+	"github.com/wtfutil/wtf/modules/stocks/yfinance"
 	"github.com/wtfutil/wtf/modules/subreddit"
 	"github.com/wtfutil/wtf/modules/textfile"
 	"github.com/wtfutil/wtf/modules/todo"
@@ -332,6 +333,9 @@ func MakeWidget(
 	case "finnhub":
 		settings := finnhub.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = finnhub.NewWidget(tviewApp, settings)
+	case "yfinance":
+		settings := yfinance.NewSettingsFromYAML(moduleName, moduleConfig, config)
+		widget = yfinance.NewWidget(tviewApp, settings)
 	default:
 		settings := unknown.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = unknown.NewWidget(tviewApp, settings)
