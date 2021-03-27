@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### ⚡️ Added
+
+* Yahoo Finance module added, by [@inetAnt](https://github.com/inetAnt)
+
 ## v0.36.0
 
 ### ⚡️ Added
