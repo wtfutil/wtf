@@ -26,13 +26,12 @@ require (
 	github.com/dustin/go-humanize v1.0.0
 	github.com/gdamore/tcell v1.4.0
 	github.com/go-ole/go-ole v1.2.4 // indirect
-	github.com/go-openapi/strfmt v0.19.6 // indirect
 	github.com/godbus/dbus v4.1.0+incompatible // indirect
 	github.com/google/go-github/v32 v32.1.0
 	github.com/gophercloud/gophercloud v0.5.0 // indirect
 	github.com/hekmon/cunits v2.0.1+incompatible // indirect
 	github.com/hekmon/transmissionrpc v0.0.0-20190525133028-1d589625bacd
-	github.com/jedib0t/go-pretty v4.3.0+incompatible
+	github.com/jedib0t/go-pretty/v6 v6.1.0
 	github.com/jessevdk/go-flags v1.4.0
 	github.com/lib/pq v1.2.0 // indirect
 	github.com/logrusorgru/aurora v0.0.0-20190803045625-94edacc10f9b
@@ -45,11 +44,13 @@ require (
 	github.com/onsi/gomega v1.9.0 // indirect
 	github.com/ovh/cds v0.0.0-20201014170613-39429542624d
 	github.com/pborman/uuid v1.2.0 // indirect
+	github.com/piquette/finance-go v1.0.0
 	github.com/pkg/errors v0.9.1
 	github.com/pkg/profile v1.5.0
 	github.com/radovskyb/watcher v1.0.7
 	github.com/rivo/tview v0.0.0-20200108161608-1316ea7a4b35
 	github.com/shirou/gopsutil v2.20.9+incompatible
+	github.com/shopspring/decimal v1.2.0 // indirect
 	github.com/shurcooL/githubv4 v0.0.0-20200802174311-f27d2ca7f6d5
 	github.com/shurcooL/graphql v0.0.0-20181231061246-d48a9a75455f // indirect
 	github.com/spf13/cobra v0.0.5 // indirect
