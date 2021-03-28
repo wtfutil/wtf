@@ -1,8 +1,10 @@
 package jira
 
 import (
+	"bytes"
 	"crypto/tls"
 	"fmt"
+	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strings"
@@ -10,6 +12,8 @@ import (
 	"github.com/wtfutil/wtf/utils"
 )
 
+// IssuesFor returns a collection of issues for a given collection of projects.
+// If username is provided, it scopes the issues to that person
 func (widget *Widget) IssuesFor(username string, projects []string, jql string) (*SearchResult, error) {
 	query := []string{}
 
@@ -38,7 +42,7 @@ func (widget *Widget) IssuesFor(username string, projects []string, jql string) 
 	}
 
 	searchResult := &SearchResult{}
-	err = utils.ParseJSON(searchResult, resp.Body)
+	err = utils.ParseJSON(searchResult, bytes.NewReader(resp))
 	if err != nil {
 		return nil, err
 	}
@@ -52,7 +56,7 @@ func buildJql(key string, value string) string {
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (widget *Widget) jiraRequest(path string) (*http.Response, error) {
+func (widget *Widget) jiraRequest(path string) ([]byte, error) {
 	url := fmt.Sprintf("%s%s", widget.settings.domain, path)
 
 	req, err := http.NewRequest("GET", url, nil)
@@ -61,13 +65,15 @@ func (widget *Widget) jiraRequest(path string) (*http.Response, error) {
 	}
 	req.SetBasicAuth(widget.settings.email, widget.settings.apiKey)
 
-	httpClient := &http.Client{Transport: &http.Transport{
-		TLSClientConfig: &tls.Config{
-			InsecureSkipVerify: !widget.settings.verifyServerCertificate,
+	httpClient := &http.Client{
+		Transport: &http.Transport{
+			TLSClientConfig: &tls.Config{
+				InsecureSkipVerify: !widget.settings.verifyServerCertificate,
+			},
+			Proxy: http.ProxyFromEnvironment,
 		},
-		Proxy: http.ProxyFromEnvironment,
-	},
 	}
+
 	resp, err := httpClient.Do(req)
 	if err != nil {
 		return nil, err
@@ -78,7 +84,12 @@ func (widget *Widget) jiraRequest(path string) (*http.Response, error) {
 		return nil, fmt.Errorf(resp.Status)
 	}
 
-	return resp, nil
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	return body, nil
 }
 
 func getProjectQuery(projects []string) string {
