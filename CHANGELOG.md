@@ -6,6 +6,10 @@
 
 * Yahoo Finance module added, by [@inetAnt](https://github.com/inetAnt)
 
+### 🐞 Fixed
+
+* Fixed error closing the Jira module response body, [#1070](https://github.com/wtfutil/wtf/issues/1070) by [@senorprogrammer](https://github.com/senorprogrammer)
+
 ## v0.36.0
 
 ### ⚡️ Added
