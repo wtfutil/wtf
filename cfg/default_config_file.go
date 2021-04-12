@@ -58,7 +58,7 @@ const defaultConfigFile = `wtf:
         left: 1
         width: 2
         height: 1
-      updateInterval: 14400
+      refreshInterval: 14400
     ipinfo:
       colors:
         name: "lightblue"
