@@ -2,6 +2,7 @@ package feedreader
 
 import (
 	"fmt"
+	"regexp"
 	"sort"
 	"strings"
 
@@ -51,7 +52,8 @@ func rotateShowType(showtype ShowType) ShowType {
 }
 
 func getShowText(feedItem *FeedItem, showType ShowType) string {
-	title := strings.Replace(feedItem.item.Title, "\n", " ", -1)
+	space := regexp.MustCompile(`\s+`)
+	title := space.ReplaceAllString(feedItem.item.Title, " ")
 	returnValue := title
 	switch showType {
 	case SHOW_LINK:
