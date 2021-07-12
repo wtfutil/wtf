@@ -4,6 +4,12 @@
 
 ## 0.38.0
 
+### 🐞 Fixed
+
+* FeedReader module handles line breaks in item titles gracefully, [#1088](https://github.com/wtfutil/wtf/issues/1088) by [@GibranHL0](https://github.com/GibranHL0)
+
+## 0.37.0
+
 ### ⚡️ Added
 
 * Yahoo Finance module added, by [@inetAnt](https://github.com/inetAnt)
@@ -11,7 +17,6 @@
 ### 🐞 Fixed
 
 * Fixed error closing the Jira module response body, [#1070](https://github.com/wtfutil/wtf/issues/1070) by [@senorprogrammer](https://github.com/senorprogrammer)
-* FeedReader module handles line breaks in item titles gracefully, [#1088](https://github.com/wtfutil/wtf/issues/1088) by [@GibranHL0](https://github.com/GibranHL0)
 
 ## v0.36.0
 
