@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### 🐞 Fixed
+
+* Healthchecks module now respects the `apiURL` setting in the config file, by [@hjr265](https://github.com/hjr265)
+
 ## 0.38.0
 
 ### 🐞 Fixed
