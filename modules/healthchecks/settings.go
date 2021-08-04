@@ -32,7 +32,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 	}
 
 	cfg.ModuleSecret(name, globalConfig, &settings.apiKey).
-		Service("https://hc-ping.com/").Load()
+		Service(settings.apiURL).Load()
 
 	return &settings
 }
