@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### ⚡️ Added
+
+* Updown module added, by [@hjr265](https://github.com/hjr265)
+
 ### 🐞 Fixed
 
 * Healthchecks module now respects the `apiURL` setting in the config file, by [@hjr265](https://github.com/hjr265)
