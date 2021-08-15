@@ -46,6 +46,7 @@ import (
 	"github.com/wtfutil/wtf/modules/krisinformation"
 	"github.com/wtfutil/wtf/modules/kubernetes"
 	"github.com/wtfutil/wtf/modules/logger"
+	"github.com/wtfutil/wtf/modules/luaparser"
 	"github.com/wtfutil/wtf/modules/mercurial"
 	"github.com/wtfutil/wtf/modules/nbascore"
 	"github.com/wtfutil/wtf/modules/newrelic"
@@ -235,6 +236,9 @@ func MakeWidget(
 	case "logger":
 		settings := logger.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = logger.NewWidget(tviewApp, settings)
+	case "luaparser":
+		settings := luaparser.NewSettingsFromYAML(moduleName, moduleConfig, config)
+		widget = luaparser.NewWidget(tviewApp, settings)
 	case "mercurial":
 		settings := mercurial.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = mercurial.NewWidget(tviewApp, pages, settings)
