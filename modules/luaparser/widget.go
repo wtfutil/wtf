@@ -3,6 +3,7 @@ package luaparser
 import (
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/view"
+	lua "github.com/yuin/gopher-lua"
 )
 
 type Widget struct {
@@ -34,8 +35,26 @@ func (widget *Widget) Refresh() {
 /* -------------------- Unexported Functions -------------------- */
 
 func (widget *Widget) content() (string, string, bool) {
-	content := "hello cats!"
-	content += "\n"
+	// content := "hello cats!"
+	// content += "\n"
+
+	content, err := widget.parse()
+	if err != nil {
+		content = err.Error()
+	}
 
 	return widget.CommonSettings().Title, content, true
+}
+
+func (widget *Widget) parse() (string, error) {
+	L := lua.NewState()
+	defer L.Close()
+
+	output := "this is go"
+
+	L.Push(lua.LString("this is lua"))
+
+	output = L.Get(-1).String()
+
+	return output, nil
 }
