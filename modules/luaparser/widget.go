@@ -1,12 +1,23 @@
 package luaparser
 
 import (
+	"errors"
+
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/view"
 	lua "github.com/yuin/gopher-lua"
 )
 
+const (
+	errUnconvertableLuaString = "could not convert output to Lua string"
+	errUndefinedLuaFile       = "no lua file defined in configuration"
+)
+
+// Widget is the container for the functionality of this module
 type Widget struct {
+	L *lua.LState
+
 	view.TextWidget
 
 	settings *Settings
@@ -22,6 +33,16 @@ func NewWidget(tviewApp *tview.Application, settings *Settings) *Widget {
 
 	widget.View.SetWordWrap(false)
 
+	widget.L = lua.NewState()
+	filePath, err := utils.ExpandHomeDir(widget.settings.filePath)
+	if err != nil {
+		return nil
+	}
+
+	if err = widget.L.DoFile(filePath); err != nil {
+		return nil
+	}
+
 	return widget
 }
 
@@ -35,26 +56,45 @@ func (widget *Widget) Refresh() {
 /* -------------------- Unexported Functions -------------------- */
 
 func (widget *Widget) content() (string, string, bool) {
-	// content := "hello cats!"
-	// content += "\n"
-
-	content, err := widget.parse()
+	err := widget.validate()
 	if err != nil {
-		content = err.Error()
+		return widget.CommonSettings().Title, err.Error(), true
+	}
+
+	content, err := widget.parseLua()
+	if err != nil {
+		return widget.CommonSettings().Title, err.Error(), true
 	}
 
 	return widget.CommonSettings().Title, content, true
 }
 
-func (widget *Widget) parse() (string, error) {
-	L := lua.NewState()
-	defer L.Close()
+func (widget *Widget) parseLua() (string, error) {
+	if err := widget.L.CallByParam(lua.P{
+		Fn:      widget.L.GetGlobal("main"), // execute the Lua function called "main"
+		NRet:    1,                          // expect one return value
+		Protect: true,                       // return an error or panic?
+	}); err != nil {
+		return "", err
+	}
 
-	output := "this is go"
+	// Pop the last value off the stack (presumably that's the return value
+	// from the function executed above)
+	if output, ok := widget.L.Get(-1).(*lua.LTable); ok {
+		// wid := output.RawGetString("widget").(*lua.LTable)
+		// title := wid.RawGetString("widget.title").String()
+		// return title, nil
 
-	L.Push(lua.LString("this is lua"))
+		return output.RawGetString("time").String(), nil
+	}
 
-	output = L.Get(-1).String()
+	return "", errors.New(errUnconvertableLuaString)
+}
 
-	return output, nil
+func (widget *Widget) validate() error {
+	if widget.settings.filePath == "" {
+		return errors.New(errUndefinedLuaFile)
+	}
+
+	return nil
 }
