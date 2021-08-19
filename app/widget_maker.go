@@ -3,6 +3,7 @@ package app
 import (
 	"github.com/olebedev/config"
 	"github.com/rivo/tview"
+
 	"github.com/wtfutil/wtf/modules/asana"
 	"github.com/wtfutil/wtf/modules/azuredevops"
 	"github.com/wtfutil/wtf/modules/bamboohr"
@@ -80,6 +81,7 @@ import (
 	"github.com/wtfutil/wtf/modules/weatherservices/prettyweather"
 	"github.com/wtfutil/wtf/modules/weatherservices/weather"
 	"github.com/wtfutil/wtf/modules/zendesk"
+	"github.com/wtfutil/wtf/pluggable"
 	"github.com/wtfutil/wtf/wtf"
 )
 
@@ -102,6 +104,10 @@ func MakeWidget(
 	// Don't try to initialize modules that aren't enabled
 	if enabled := moduleConfig.UBool("enabled", false); !enabled {
 		return nil
+	}
+
+	if isPlugin := moduleConfig.UBool("isPlugin", false); isPlugin {
+		return pluggable.LoadPlugin(tviewApp, pages, moduleName, moduleConfig, config)
 	}
 
 	// Always in alphabetical order
