@@ -1,0 +1,22 @@
+wtf:
+  colors:
+    border:
+      focusable: darkslateblue
+      focused: orange
+      normal: gray
+    title: "deepskyblue"
+  grid:
+    columns: [32, 32, 32, 32, 300]
+    rows: [10, 10, 10, 10, 10, 300]
+  refreshInterval: 1
+  mods:
+    example_pluggable:
+      title: "¯\\_(ツ)_/¯"
+      enabled: true
+      isPlugin: true
+      path: "./pluggable/example_pluggable/example_pluggable.so"
+      position:
+        top: 1
+        left: 1
+        height: 1
+        width: 1
