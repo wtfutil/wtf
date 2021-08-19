@@ -19,6 +19,8 @@ const (
 	ExportedSymbol string = "ModulePluggable"
 )
 
+const ()
+
 // ModulePluggable represents a module which is dynamically loaded
 // by wtfutil. It does its own settings initialization via Initialize(),
 // most likely in a similar way to how the MakeWidget function in app/
@@ -45,13 +47,11 @@ func LoadPlugin(
 	tviewApp *tview.Application,
 	pages *tview.Pages,
 	moduleName string,
+	pluginConfig map[string]interface{},
 	ymlConfig *config.Config,
 	globalConfig *config.Config,
 ) wtf.Wtfable {
-	pluginSoPath := ymlConfig.UString("path", "")
-	if pluginSoPath == "" {
-		return nil
-	}
+	pluginSoPath, _ := pluginConfig["path"].(string)
 
 	validPath, isValid := validatePath(pluginSoPath)
 	if !isValid {

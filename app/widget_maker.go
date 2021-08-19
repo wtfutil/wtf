@@ -106,8 +106,16 @@ func MakeWidget(
 		return nil
 	}
 
-	if isPlugin := moduleConfig.UBool("isPlugin", false); isPlugin {
-		return pluggable.LoadPlugin(tviewApp, pages, moduleName, moduleConfig, config)
+	pluginConfig, isPlugin := checkIsPlugin(moduleConfig)
+	if isPlugin {
+		return pluggable.LoadPlugin(
+			tviewApp,
+			pages,
+			moduleName,
+			pluginConfig,
+			moduleConfig,
+			config,
+		)
 	}
 
 	// Always in alphabetical order
@@ -369,4 +377,18 @@ func MakeWidgets(tviewApp *tview.Application, pages *tview.Pages, config *config
 	}
 
 	return widgets
+}
+
+func checkIsPlugin(moduleConfig *config.Config) (map[string]interface{}, bool) {
+	fromConfig, err := moduleConfig.Map("plugin")
+	if err == nil {
+		p, ok := fromConfig["path"]
+		if (ok && len(p.(string)) == 0) || !ok {
+			return nil, false
+		}
+
+		return fromConfig, true
+	}
+
+	return nil, false
 }

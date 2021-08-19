@@ -13,10 +13,10 @@ wtf:
     example_pluggable:
       title: "¯\\_(ツ)_/¯"
       enabled: true
-      isPlugin: true
-      path: "./pluggable/example_pluggable/example_pluggable.so"
+      plugin:
+        path: "./pluggable/example_pluggable/example_pluggable.so"
       position:
-        top: 1
-        left: 1
+        top: 0
+        left: 0
         height: 1
         width: 1
