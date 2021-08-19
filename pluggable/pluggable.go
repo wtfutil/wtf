@@ -16,7 +16,7 @@ import (
 )
 
 const (
-	ExportedSymbol string = "ModulePluggable"
+	ExportedSymbol string = "WTFModule"
 )
 
 const ()
@@ -66,10 +66,10 @@ func LoadPlugin(
 	}
 
 	// Attempt to find an exported variable in the loaded .so by name
-	// (specifically, "ModulePluggable"
+	// (specifically, "WTFModule")
 	pl, err := p.Lookup(ExportedSymbol)
 	if err != nil {
-		fmt.Println(err)
+		fmt.Printf("Symbol %s not found in file %s; did you remember to export it?\n", ExportedSymbol, validPath)
 		return nil
 	}
 

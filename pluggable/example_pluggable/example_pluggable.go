@@ -73,7 +73,7 @@ func (widget *ExamplePluggable) getText() (string, string, bool) {
 	return widget.CommonSettings().Title, text, false
 }
 
-// ModulePluggable is exported to ensure that the plugin loader can find it.
+// WTFModule is exported to ensure that the plugin loader can find it.
 // Naming it anything else will just make it unloadable.
 // ...or explode, guess it just depends how fragile the Go compiler feels like being on a given day.
-var ModulePluggable ExamplePluggable
+var WTFModule ExamplePluggable
