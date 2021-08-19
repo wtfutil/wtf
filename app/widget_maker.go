@@ -108,7 +108,7 @@ func MakeWidget(
 
 	pluginConfig, isPlugin := checkIsPlugin(moduleConfig)
 	if isPlugin {
-		return pluggable.LoadPlugin(
+		return pluggable.LoadExternalModule(
 			tviewApp,
 			pages,
 			moduleName,

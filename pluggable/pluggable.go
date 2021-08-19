@@ -19,13 +19,11 @@ const (
 	ExportedSymbol string = "WTFModule"
 )
 
-const ()
-
-// ModulePluggable represents a module which is dynamically loaded
+// ExternalModule represents a module which is dynamically loaded
 // by wtfutil. It does its own settings initialization via Initialize(),
 // most likely in a similar way to how the MakeWidget function in app/
 // loads individual widgets.
-type ModulePluggable interface {
+type ExternalModule interface {
 	// Initialize takes the following parameters:
 	// - name of the module
 	// - module's local config
@@ -41,9 +39,9 @@ type ModulePluggable interface {
 	) wtf.Wtfable
 }
 
-// LoadPlugin attempts to load a "plugin" module by way of loading a pre-compiled .so file,
+// LoadExternalModule attempts to load a "plugin" module by way of loading a pre-compiled .so file,
 // compiled by way of `go build -buildmode=plugin [...things and stuff...]`.
-func LoadPlugin(
+func LoadExternalModule(
 	tviewApp *tview.Application,
 	pages *tview.Pages,
 	moduleName string,
@@ -73,10 +71,10 @@ func LoadPlugin(
 		return nil
 	}
 
-	// Check that the exported symbol is, in fact, a ModulePluggable.
-	plug, ok := pl.(ModulePluggable)
+	// Check that the exported symbol is, in fact, an ExternalModule.
+	plug, ok := pl.(ExternalModule)
 	if !ok {
-		fmt.Printf("Module at path %s is not a valid ModulePluggable; consider writing a valid one.\n", validPath)
+		fmt.Printf("Module at path %s is not a valid ExternalModule; consider writing a valid one.\n", validPath)
 		return nil
 	}
 
@@ -85,6 +83,10 @@ func LoadPlugin(
 }
 
 func validatePath(p string) (validFilepath string, isValid bool) {
+	// let's program defensively
+	if p == "" {
+		return "", false
+	}
 	// make sure default return values are set
 	validFilepath = ""
 	isValid = false
