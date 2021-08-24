@@ -14,6 +14,18 @@ func (widget *Widget) display() {
 
 func (widget *Widget) content() (string, string, bool) {
 	str := ""
+	if widget.settings.checkedPos == "last" {
+		str += widget.sortListByChecked(widget.list.UncheckedItems(), widget.list.CheckedItems())
+	} else if widget.settings.checkedPos == "first" {
+		str += widget.sortListByChecked(widget.list.CheckedItems(), widget.list.UncheckedItems())
+	} else {
+		str += widget.sortListByChecked(widget.list.Items, []*checklist.ChecklistItem{})
+	}
+	return widget.CommonSettings().Title, str, false
+}
+
+func (widget *Widget) sortListByChecked(firstGroup []*checklist.ChecklistItem, secondGroup []*checklist.ChecklistItem) string {
+	str := ""
 	newList := checklist.NewChecklist(
 		widget.settings.Sigils.Checkbox.Checked,
 		widget.settings.Sigils.Checkbox.Unchecked,
@@ -21,24 +33,22 @@ func (widget *Widget) content() (string, string, bool) {
 
 	offset := 0
 	selectedItem := widget.SelectedItem()
-	for idx, item := range widget.list.UncheckedItems() {
+	for idx, item := range firstGroup {
 		str += widget.formattedItemLine(idx, item, selectedItem, widget.list.LongestLine())
 		newList.Items = append(newList.Items, item)
 		offset++
 	}
 
-	for idx, item := range widget.list.CheckedItems() {
+	for idx, item := range secondGroup {
 		str += widget.formattedItemLine(idx+offset, item, selectedItem, widget.list.LongestLine())
 		newList.Items = append(newList.Items, item)
 	}
-
 	if idx, ok := newList.IndexByItem(selectedItem); ok {
 		widget.Selected = idx
 	}
 
 	widget.SetList(newList)
-
-	return widget.CommonSettings().Title, str, false
+	return str
 }
 
 func (widget *Widget) formattedItemLine(idx int, currItem *checklist.ChecklistItem, selectedItem *checklist.ChecklistItem, maxLen int) string {
