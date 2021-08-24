@@ -22,9 +22,9 @@ func NewChecklist(checkedIcon, uncheckedIcon string) Checklist {
 
 /* -------------------- Exported Functions -------------------- */
 
-// Add creates a new checklist item and prepends it onto the existing
-// list of items. The new one is at the start of the list
-func (list *Checklist) Add(checked bool, text string) {
+// Add creates a new checklist item and adds it to the list
+// The new one is at the start or end of the list, based on addToFront
+func (list *Checklist) Add(checked bool, text string, addToFront bool) {
 	item := NewChecklistItem(
 		checked,
 		text,
@@ -32,7 +32,11 @@ func (list *Checklist) Add(checked bool, text string) {
 		list.uncheckedIcon,
 	)
 
-	list.Items = append([]*ChecklistItem{item}, list.Items...)
+	if addToFront {
+		list.Items = append([]*ChecklistItem{item}, list.Items...)
+	} else {
+		list.Items = append(list.Items, []*ChecklistItem{item}...)
+	}
 }
 
 // CheckedItems returns a slice of all the checked items

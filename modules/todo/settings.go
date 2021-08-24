@@ -14,9 +14,10 @@ const (
 type Settings struct {
 	*cfg.Common
 
-	filePath  string
-	checked   string
-	unchecked string
+	filePath   string
+	checked    string
+	unchecked  string
+	newToFront bool
 }
 
 // NewSettingsFromYAML creates a new settings instance from a YAML config block
@@ -29,6 +30,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		filePath:  ymlConfig.UString("filename"),
 		checked:   ymlConfig.UString("checkedIcon", common.Checkbox.Checked),
 		unchecked: ymlConfig.UString("uncheckedIcon", common.Checkbox.Unchecked),
+		newToFront: ymlConfig.UBool("newToFront", true),
 	}
 
 	return &settings
