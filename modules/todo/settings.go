@@ -17,7 +17,7 @@ type Settings struct {
 	filePath   string
 	checked    string
 	unchecked  string
-	newToFront bool
+	newPos     string
 	checkedPos string
 }
 
@@ -31,8 +31,19 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		filePath:  ymlConfig.UString("filename"),
 		checked:   ymlConfig.UString("checkedIcon", common.Checkbox.Checked),
 		unchecked: ymlConfig.UString("uncheckedIcon", common.Checkbox.Unchecked),
-		newToFront: ymlConfig.UBool("newToFront", true),
+		newPos: ymlConfig.UString("newPos", "first"),
 		checkedPos: ymlConfig.UString("checkedPos", "last"),
+	}
+
+	switch settings.newPos {
+	case "first","last":
+	default:
+		settings.newPos = "last"
+	}
+	switch settings.checked {
+	case "first", "last", "none":
+	default:
+		settings.checked = "last"
 	}
 
 	return &settings

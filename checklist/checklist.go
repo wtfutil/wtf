@@ -23,8 +23,8 @@ func NewChecklist(checkedIcon, uncheckedIcon string) Checklist {
 /* -------------------- Exported Functions -------------------- */
 
 // Add creates a new checklist item and adds it to the list
-// The new one is at the start or end of the list, based on addToFront
-func (list *Checklist) Add(checked bool, text string, addToFront ...bool) {
+// The new one is at the start or end of the list, based on newPos
+func (list *Checklist) Add(checked bool, text string, newPos ...string) {
 	item := NewChecklistItem(
 		checked,
 		text,
@@ -32,9 +32,9 @@ func (list *Checklist) Add(checked bool, text string, addToFront ...bool) {
 		list.uncheckedIcon,
 	)
 
-	if len(addToFront) == 0 || addToFront[0] {
+	if len(newPos) == 0 || newPos[0] == "first" {
 		list.Items = append([]*ChecklistItem{item}, list.Items...)
-	} else {
+	} else if newPos[0] == "last" {
 		list.Items = append(list.Items, []*ChecklistItem{item}...)
 	}
 }

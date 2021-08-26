@@ -112,7 +112,7 @@ func (widget *Widget) newItem() {
 	saveFctn := func() {
 		text := form.GetFormItem(0).(*tview.InputField).GetText()
 
-		widget.list.Add(false, text, widget.settings.newToFront)
+		widget.list.Add(false, text, widget.settings.newPos)
 		widget.SetItemCount(len(widget.list.Items))
 		widget.persist()
 		widget.pages.RemovePage("modal")
