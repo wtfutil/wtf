@@ -40,10 +40,10 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 	default:
 		settings.newPos = "last"
 	}
-	switch settings.checked {
+	switch settings.checkedPos {
 	case "first", "last", "none":
 	default:
-		settings.checked = "last"
+		settings.checkedPos = "last"
 	}
 
 	return &settings
