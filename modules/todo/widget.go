@@ -2,6 +2,10 @@ package todo
 
 import (
 	"fmt"
+	"regexp"
+	"strconv"
+	"strings"
+	"time"
 	"io/ioutil"
 
 	"github.com/gdamore/tcell"
@@ -110,7 +114,8 @@ func (widget *Widget) newItem() {
 	form := widget.modalForm("New Todo:", "")
 
 	saveFctn := func() {
-		text := form.GetFormItem(0).(*tview.InputField).GetText()
+		text := widget.parseText(form.GetFormItem(0).(*tview.InputField).GetText())
+
 
 		widget.list.Add(false, text, widget.settings.newPos)
 		widget.SetItemCount(len(widget.list.Items))
@@ -126,6 +131,90 @@ func (widget *Widget) newItem() {
 	widget.tviewApp.QueueUpdate(func() {
 		widget.tviewApp.Draw()
 	})
+}
+
+type PatternDuration struct {
+	pattern string
+	d int
+	m int
+	y int
+}
+
+func (widget *Widget) parseText(text string) string {
+	if !widget.settings.parseDates {
+		return text
+	}
+
+	now := time.Now()
+	textLower := strings.ToLower(text)
+	// check for "in X days/weeks/months/years" pattern
+	r, _ := regexp.Compile("(?i)^in [0-9]+ (day|week|month|year)(s|)")
+	match := r.FindString(text)
+	if len(match) > 0 {
+		parts := strings.Split(text, " ")
+		n, _ := strconv.Atoi(parts[1])
+		unit := parts[2][:1]
+		target := time.Now()
+		if unit == "d" {
+			target = now.AddDate(0, 0, n)
+		} else if unit == "w" {
+			target = now.AddDate(0, 0, 7 * n)
+		} else if unit == "m" {
+			target = now.AddDate(0, n, 0)
+		} else {
+			target = now.AddDate(n, 0, 0)
+		}
+		return widget._textWithDate(target, text[len(match):])
+	}
+
+	// check for "today / tomorrow / next X"
+	patterns := [...]PatternDuration{
+		{pattern: "today",d:0,m:0,y:0},
+		{pattern: "tomorrow",d:1,m:0,y:0},
+		{pattern: "next week",d:7,m:0,y:0},
+		{pattern: "next month",d:0,m:1,y:0},
+		{pattern: "next year",d:0,m:0,y:1},
+	}
+	for _, pd := range patterns {
+		if strings.HasPrefix(textLower, pd.pattern) {
+			return widget._textWithDate(now.AddDate(pd.y,pd.m,pd.d), text[len(pd.pattern):])
+		}
+	}
+
+	// check for "next X" where X is name of a day (monday, etc)
+	if strings.HasPrefix(textLower, "next") {
+		parts := strings.Split(textLower, " ")
+		if parts[0] == "next" && len(parts) > 2 {
+			for i, d := range []string{"sunday", "monday","tuesday","wednesday","thursday","friday","saturday"} {
+				if strings.ToLower(parts[1]) == d {
+					return widget._textWithDate(now.AddDate(0,0,int(now.Weekday())+7-i), text[len(d) + 5:])
+				}
+			}
+		}
+	}
+
+	// check for YYYY-MM-DD prefix
+	if len(text) > 10 {
+		date, err := time.Parse("2006-01-02", text[:10])
+		if err == nil {
+			return widget._textWithDate(date, text[10:])
+		}
+	}
+
+	// check for MM-DD prefix
+	if len(text) > 5 {
+		date, err := time.Parse("2006-01-02", strconv.FormatInt(int64(now.Year()),10) + "-" + text[:5])
+		if err == nil {
+			return widget._textWithDate(date, text[5:])
+		}
+	}
+
+	return text
+}
+
+// helper for setting dated todo text in a stable format
+func (widget *Widget) _textWithDate(date time.Time, text string) string {
+	return fmt.Sprintf("[%d-%02d-%02d]", date.Year(), date.Month(), date.Day()) + text
 }
 
 // persist writes the todo list to Yaml file
@@ -160,7 +249,7 @@ func (widget *Widget) updateSelected() {
 	form := widget.modalForm("Edit:", widget.SelectedItem().Text)
 
 	saveFctn := func() {
-		text := form.GetFormItem(0).(*tview.InputField).GetText()
+		text := widget.parseText(form.GetFormItem(0).(*tview.InputField).GetText())
 
 		widget.updateSelectedItem(text)
 		widget.persist()

@@ -19,6 +19,7 @@ type Settings struct {
 	unchecked  string
 	newPos     string
 	checkedPos string
+	parseDates  bool
 }
 
 // NewSettingsFromYAML creates a new settings instance from a YAML config block
@@ -33,6 +34,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		unchecked: ymlConfig.UString("uncheckedIcon", common.Checkbox.Unchecked),
 		newPos: ymlConfig.UString("newPos", "first"),
 		checkedPos: ymlConfig.UString("checkedPos", "last"),
+		parseDates: ymlConfig.UBool("parseDates", true),
 	}
 
 	switch settings.newPos {
