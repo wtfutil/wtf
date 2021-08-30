@@ -35,7 +35,7 @@ func (s byDate) Less(i, j int) bool {
 		d2 = &defaultVal
 	}
 	if d1.Equal(*d2) {
-		return s.items[i].Text < s.items[j].Text
+		return i < j
 	}
 	return d1.Before(*d2)
 }

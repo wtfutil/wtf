@@ -18,7 +18,7 @@ func Test_NewCheckist(t *testing.T) {
 
 func Test_Add(t *testing.T) {
 	cl := NewChecklist("o", "-")
-	cl.Add(true, "test item")
+	cl.Add(true, nil, "test item")
 
 	assert.Equal(t, 1, len(cl.Items))
 }
@@ -41,7 +41,7 @@ func Test_CheckedItems(t *testing.T) {
 			expectedLen: 1,
 			checkedLen:  0,
 			before: func(cl *Checklist) {
-				cl.Add(false, "unchecked item")
+				cl.Add(false, nil, "unchecked item")
 			},
 		},
 		{
@@ -49,8 +49,8 @@ func Test_CheckedItems(t *testing.T) {
 			expectedLen: 2,
 			checkedLen:  1,
 			before: func(cl *Checklist) {
-				cl.Add(false, "unchecked item")
-				cl.Add(true, "checked item")
+				cl.Add(false, nil, "unchecked item")
+				cl.Add(true, nil, "checked item")
 			},
 		},
 		{
@@ -58,9 +58,9 @@ func Test_CheckedItems(t *testing.T) {
 			expectedLen: 3,
 			checkedLen:  2,
 			before: func(cl *Checklist) {
-				cl.Add(false, "unchecked item")
-				cl.Add(true, "checked item 11")
-				cl.Add(true, "checked item 2")
+				cl.Add(false, nil, "unchecked item")
+				cl.Add(true, nil, "checked item 11")
+				cl.Add(true, nil, "checked item 2")
 			},
 		},
 	}
@@ -98,7 +98,7 @@ func Test_Delete(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			cl := NewChecklist("o", "-")
 
-			cl.Add(true, "test item")
+			cl.Add(true, nil, "test item")
 			cl.Delete(tt.idx)
 
 			assert.Equal(t, tt.expectedLen, len(cl.Items))
@@ -132,8 +132,8 @@ func Test_IsSelectable(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			cl := NewChecklist("o", "-")
-			cl.Add(true, "test item 1")
-			cl.Add(false, "test item 2")
+			cl.Add(true, nil, "test item 1")
+			cl.Add(false, nil, "test item 2")
 
 			cl.selected = tt.selected
 
@@ -168,8 +168,8 @@ func Test_IsUnselectable(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			cl := NewChecklist("o", "-")
-			cl.Add(true, "test item 1")
-			cl.Add(false, "test item 2")
+			cl.Add(true, nil, "test item 1")
+			cl.Add(false, nil, "test item 2")
 
 			cl.selected = tt.selected
 
@@ -193,16 +193,16 @@ func Test_LongestLine(t *testing.T) {
 			name:        "with different-length items",
 			expectedLen: 12,
 			before: func(cl *Checklist) {
-				cl.Add(true, "test item 1")
-				cl.Add(false, "test item 22")
+				cl.Add(true, nil, "test item 1")
+				cl.Add(false, nil, "test item 22")
 			},
 		},
 		{
 			name:        "with same-length items",
 			expectedLen: 11,
 			before: func(cl *Checklist) {
-				cl.Add(true, "test item 1")
-				cl.Add(false, "test item 2")
+				cl.Add(true, nil, "test item 1")
+				cl.Add(false, nil, "test item 2")
 			},
 		},
 	}
@@ -219,8 +219,8 @@ func Test_LongestLine(t *testing.T) {
 
 func Test_IndexByItem(t *testing.T) {
 	cl := NewChecklist("o", "-")
-	cl.Add(false, "unchecked item")
-	cl.Add(true, "checked item")
+	cl.Add(false, nil, "unchecked item")
+	cl.Add(true, nil, "checked item")
 
 	tests := []struct {
 		name        string
@@ -277,7 +277,7 @@ func Test_UncheckedItems(t *testing.T) {
 			expectedLen: 1,
 			checkedLen:  0,
 			before: func(cl *Checklist) {
-				cl.Add(true, "unchecked item")
+				cl.Add(true, nil, "unchecked item")
 			},
 		},
 		{
@@ -285,8 +285,8 @@ func Test_UncheckedItems(t *testing.T) {
 			expectedLen: 2,
 			checkedLen:  1,
 			before: func(cl *Checklist) {
-				cl.Add(false, "unchecked item")
-				cl.Add(true, "checked item")
+				cl.Add(false, nil, "unchecked item")
+				cl.Add(true, nil, "checked item")
 			},
 		},
 		{
@@ -294,9 +294,9 @@ func Test_UncheckedItems(t *testing.T) {
 			expectedLen: 3,
 			checkedLen:  2,
 			before: func(cl *Checklist) {
-				cl.Add(false, "unchecked item")
-				cl.Add(true, "checked item 11")
-				cl.Add(false, "checked item 2")
+				cl.Add(false, nil, "unchecked item")
+				cl.Add(true, nil, "checked item 11")
+				cl.Add(false, nil, "checked item 2")
 			},
 		},
 	}
@@ -314,7 +314,7 @@ func Test_UncheckedItems(t *testing.T) {
 
 func Test_Unselect(t *testing.T) {
 	cl := NewChecklist("o", "-")
-	cl.Add(false, "unchecked item")
+	cl.Add(false, nil, "unchecked item")
 
 	cl.selected = 0
 	assert.Equal(t, 0, cl.selected)
@@ -340,16 +340,16 @@ func Test_Len(t *testing.T) {
 			name:        "with one item",
 			expectedLen: 1,
 			before: func(cl *Checklist) {
-				cl.Add(false, "unchecked item")
+				cl.Add(false, nil, "unchecked item")
 			},
 		},
 		{
 			name:        "with multiple items",
 			expectedLen: 3,
 			before: func(cl *Checklist) {
-				cl.Add(false, "unchecked item")
-				cl.Add(true, "checked item 1")
-				cl.Add(false, "checked item 2")
+				cl.Add(false, nil, "unchecked item")
+				cl.Add(true, nil, "checked item 1")
+				cl.Add(false, nil, "checked item 2")
 			},
 		},
 	}

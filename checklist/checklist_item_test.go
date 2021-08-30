@@ -9,6 +9,7 @@ import (
 func testChecklistItem() *ChecklistItem {
 	item := NewChecklistItem(
 		false,
+		nil,
 		"test",
 		"",
 		"",
