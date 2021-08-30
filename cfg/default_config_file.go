@@ -51,7 +51,7 @@ const defaultConfigFile = `wtf:
     feedreader:
       enabled: true
       feeds:
-      - http://wtfutil.com/blog/index.xml
+      - http://feeds.bbci.co.uk/news/rss.xml
       feedLimit: 10
       position:
         top: 1
