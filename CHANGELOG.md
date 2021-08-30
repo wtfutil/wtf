@@ -9,6 +9,7 @@
 ### 🐞 Fixed
 
 * Healthchecks module now respects the `apiURL` setting in the config file, by [@hjr265](https://github.com/hjr265)
+* Example FeedReader RSS feed in the default config changed to a working feed, [#1096](https://github.com/wtfutil/wtf/issues/1096) by [@senorprogrammer](https://github.com/senorprogrammer)
 
 ## 0.38.0
 
