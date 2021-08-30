@@ -20,6 +20,8 @@ type Settings struct {
 	newPos     string
 	checkedPos string
 	parseDates  bool
+	dateColor string
+	switchToInDaysIn int
 }
 
 // NewSettingsFromYAML creates a new settings instance from a YAML config block
@@ -35,6 +37,8 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		newPos: ymlConfig.UString("newPos", "first"),
 		checkedPos: ymlConfig.UString("checkedPos", "last"),
 		parseDates: ymlConfig.UBool("parseDates", true),
+		dateColor: ymlConfig.UString("dateColor", "chartreuse"),
+		switchToInDaysIn: ymlConfig.UInt("switchToInDaysIn", 7),
 	}
 
 	switch settings.newPos {

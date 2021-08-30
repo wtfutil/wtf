@@ -2,6 +2,7 @@ package todo
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/checklist"
@@ -51,6 +52,7 @@ func (widget *Widget) sortListByChecked(firstGroup []*checklist.ChecklistItem, s
 	return str
 }
 
+
 func (widget *Widget) formattedItemLine(idx int, currItem *checklist.ChecklistItem, selectedItem *checklist.ChecklistItem, maxLen int) string {
 	rowColor := widget.RowColor(idx)
 
@@ -62,12 +64,52 @@ func (widget *Widget) formattedItemLine(idx int, currItem *checklist.ChecklistIt
 		rowColor = widget.RowColor(idx)
 	}
 
-	row := fmt.Sprintf(
-		` [%s]|%s| %s[white]`,
-		rowColor,
-		currItem.CheckMark(),
-		tview.Escape(currItem.Text),
-	)
+	todoDate := widget.getTodoDate(currItem.Text)
+	row := ""
+
+	if todoDate == nil {
+		row += fmt.Sprintf(
+			` [%s]|%s| %s[white]`,
+			rowColor,
+			currItem.CheckMark(),
+			tview.Escape(currItem.Text),
+		)
+	} else {
+		row += fmt.Sprintf(
+			` [%s]|%s| [%s]%s [%s]%s[white]`,
+			rowColor,
+			currItem.CheckMark(),
+			widget.settings.dateColor,
+			widget.getDateString(todoDate),
+			rowColor,
+			tview.Escape(currItem.Text[13:]),
+		)
+	}
 
 	return utils.HighlightableHelper(widget.View, row, idx, len(currItem.Text))
 }
+
+func (widget *Widget) getTodoDate(text string) *time.Time {
+	if len(text) < 12 {
+		return nil
+	}
+	date, err := time.Parse("2006-01-02", text[1:11])
+	if err != nil {
+		return nil
+	}
+	return &date
+}
+
+func (widget *Widget) getDateString(date *time.Time) string {
+	diff := int(date.Sub(time.Now()).Hours() / 24)
+	if diff == 0 {
+		return "today"
+	} else if diff == 0 {
+		return "tomorrow"
+	} else if diff <= widget.settings.switchToInDaysIn {
+		return fmt.Sprintf("in %d days", diff)
+	} else {
+		return widget._textWithDate(*date,"")
+	}
+}
+
