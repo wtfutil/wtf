@@ -1,18 +1,24 @@
 package checklist
 
+import (
+	"time"
+)
+
 // ChecklistItem is a module for creating generic checklist implementations
 // See 'Todo' for an implementation example
 type ChecklistItem struct {
 	Checked       bool
 	CheckedIcon   string
+	Date          *time.Time
 	Text          string
 	UncheckedIcon string
 }
 
-func NewChecklistItem(checked bool, text string, checkedIcon, uncheckedIcon string) *ChecklistItem {
+func NewChecklistItem(checked bool, date *time.Time, text string, checkedIcon, uncheckedIcon string) *ChecklistItem {
 	item := &ChecklistItem{
 		Checked:       checked,
 		CheckedIcon:   checkedIcon,
+		Date:          date,
 		Text:          text,
 		UncheckedIcon: uncheckedIcon,
 	}

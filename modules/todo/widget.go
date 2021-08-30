@@ -115,9 +115,10 @@ func (widget *Widget) newItem() {
 
 	saveFctn := func() {
 		text := widget.parseText(form.GetFormItem(0).(*tview.InputField).GetText())
+		date := getTodoDate(text)
 
 
-		widget.list.Add(false, text, widget.settings.newPos)
+		widget.list.Add(false, date, text, widget.settings.newPos)
 		widget.SetItemCount(len(widget.list.Items))
 		widget.persist()
 		widget.pages.RemovePage("modal")
@@ -150,7 +151,7 @@ func (widget *Widget) parseText(text string) string {
 	// check for "in X days/weeks/months/years" pattern
 	r, _ := regexp.Compile("(?i)^in [0-9]+ (day|week|month|year)(s|)")
 	match := r.FindString(text)
-	if len(match) > 0 {
+	if len(match) > 0 && len(text) > len(match) {
 		parts := strings.Split(text, " ")
 		n, _ := strconv.Atoi(parts[1])
 		unit := parts[2][:1]
@@ -176,7 +177,7 @@ func (widget *Widget) parseText(text string) string {
 		{pattern: "next year",d:0,m:0,y:1},
 	}
 	for _, pd := range patterns {
-		if strings.HasPrefix(textLower, pd.pattern) {
+		if strings.HasPrefix(textLower, pd.pattern) && len(text) > len(pd.pattern) {
 			return widget._textWithDate(now.AddDate(pd.y,pd.m,pd.d), text[len(pd.pattern):])
 		}
 	}
@@ -274,6 +275,7 @@ func (widget *Widget) updateSelectedItem(text string) {
 	}
 
 	selectedItem.Text = text
+	selectedItem.Date = getTodoDate(text)
 }
 
 /* -------------------- Modal Form -------------------- */
