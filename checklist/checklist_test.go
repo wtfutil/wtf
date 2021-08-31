@@ -242,7 +242,7 @@ func Test_IndexByItem(t *testing.T) {
 		},
 		{
 			name:        "with valid item",
-			item:        NewChecklistItem(false, "invalid", "x", " "),
+			item:        NewChecklistItem(false, nil, "invalid", "x", " "),
 			expectedIdx: 0,
 			expectedOk:  false,
 		},
@@ -394,8 +394,8 @@ func Test_Less(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			cl := NewChecklist("o", "-")
-			cl.Add(false, tt.first)
-			cl.Add(false, tt.second)
+			cl.Add(false, nil, tt.first)
+			cl.Add(false, nil, tt.second)
 
 			assert.Equal(t, tt.expected, cl.Less(0, 1))
 		})
@@ -424,8 +424,8 @@ func Test_Swap(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			cl := NewChecklist("o", "-")
-			cl.Add(false, tt.first)
-			cl.Add(false, tt.second)
+			cl.Add(false, nil, tt.first)
+			cl.Add(false, nil, tt.second)
 
 			cl.Swap(0, 1)
 
