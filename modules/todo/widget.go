@@ -120,6 +120,13 @@ func (widget *Widget) newItem() {
 
 		widget.list.Add(false, date, text, widget.settings.newPos)
 		widget.SetItemCount(len(widget.list.Items))
+		if widget.settings.parseDates {
+			if widget.settings.newPos == "first" {
+				widget.placeItemBasedOnDate(0)
+			} else {
+				widget.placeItemBasedOnDate(widget.list.Len() - 1)
+			}
+		}
 		widget.persist()
 		widget.pages.RemovePage("modal")
 		widget.tviewApp.SetFocus(widget.View)
@@ -253,6 +260,9 @@ func (widget *Widget) updateSelected() {
 		text := widget.parseText(form.GetFormItem(0).(*tview.InputField).GetText())
 
 		widget.updateSelectedItem(text)
+		if widget.settings.parseDates {
+			widget.Selected = widget.placeItemBasedOnDate(widget.Selected)
+		}
 		widget.persist()
 		widget.pages.RemovePage("modal")
 		widget.tviewApp.SetFocus(widget.View)
@@ -276,6 +286,34 @@ func (widget *Widget) updateSelectedItem(text string) {
 
 	selectedItem.Text = text
 	selectedItem.Date = getTodoDate(text)
+}
+
+func (widget *Widget) placeItemBasedOnDate(index int) int {
+	// potentially move todo up
+	for index > 0 && widget.todoDateIsEarlier(index, index - 1) {
+		widget.list.Swap(index, index - 1)
+		index -= 1
+	}
+	// potentially move todo down
+	for index < widget.list.Len() - 1 && widget.todoDateIsEarlier(index + 1, index) {
+		widget.list.Swap(index, index + 1)
+		index += 1
+	}
+	return index
+}
+
+func (widget *Widget) todoDateIsEarlier(i, j int) bool {
+	if widget.list.Items[i].Date == nil && widget.list.Items[j].Date == nil {
+		return false
+	}
+	defaultVal := getNowDate().AddDate(0,0,widget.settings.undatedAsDays)
+	if widget.list.Items[i].Date == nil {
+		return defaultVal.Before(*widget.list.Items[j].Date)
+	} else if widget.list.Items[j].Date == nil {
+		return widget.list.Items[i].Date.Before(defaultVal)
+	} else {
+		return widget.list.Items[i].Date.Before(*widget.list.Items[j].Date)
+	}
 }
 
 /* -------------------- Modal Form -------------------- */

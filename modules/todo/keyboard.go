@@ -128,6 +128,11 @@ func (widget *Widget) toggleChecked() {
 	}
 
 	selectedItem.Toggle()
+
+	if !selectedItem.Checked {
+		widget.Selected = widget.placeItemBasedOnDate(widget.Selected)
+	}
+
 	widget.persist()
 	widget.display()
 }

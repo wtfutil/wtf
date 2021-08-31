@@ -3,7 +3,8 @@ package todo
 import (
 	"fmt"
 	"time"
-	"sort"
+	// "sort"
+	"strings"
 
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/checklist"
@@ -14,37 +15,8 @@ func (widget *Widget) display() {
 	widget.Redraw(widget.content)
 }
 
-type byDate struct {
-	items []*checklist.ChecklistItem
-	undatedAsDays int
-}
-func (s byDate) Len() int {
-	return len(s.items)
-}
-func (s byDate) Swap(i, j int) {
-	s.items[i], s.items[j] = s.items[j], s.items[i]
-}
-func (s byDate) Less(i, j int) bool {
-	defaultVal := time.Now().AddDate(0,0,s.undatedAsDays)
-	d1 := s.items[i].Date
-	if d1 == nil {
-		d1 = &defaultVal
-	}
-	d2 := s.items[j].Date
-	if d2 == nil {
-		d2 = &defaultVal
-	}
-	if d1.Equal(*d2) {
-		return i < j
-	}
-	return d1.Before(*d2)
-}
-
 func (widget *Widget) content() (string, string, bool) {
 	str := ""
-	if widget.settings.parseDates {
-		sort.Sort(byDate{items: widget.list.Items, undatedAsDays: widget.settings.undatedAsDays})
-	}
 	if widget.settings.checkedPos == "last" {
 		str += widget.sortListByChecked(widget.list.UncheckedItems(), widget.list.CheckedItems())
 	} else if widget.settings.checkedPos == "first" {
@@ -139,8 +111,7 @@ func getTodoDate(text string, defaultVal ...time.Time) *time.Time {
 }
 
 func (widget *Widget) getDateString(date *time.Time) string {
-	now := time.Now()
-	now = time.Date(now.Year(), now.Month(), now.Day(),0,0,0,0,time.Now().Location())
+	now := getNowDate()
 	diff := int(date.Sub(now).Hours() / 24)
 	if diff == 0 {
 		return "today"
@@ -149,7 +120,44 @@ func (widget *Widget) getDateString(date *time.Time) string {
 	} else if diff <= widget.settings.switchToInDaysIn {
 		return fmt.Sprintf("in %d days", diff)
 	} else {
-		return widget._textWithDate(*date,"")
+		dateStr := ""
+		y, m, d := date.Year(), date.Month(), date.Day()
+		switch widget.settings.dateFormat {
+		case "yyyy-mm-dd":
+			dateStr = fmt.Sprintf("%d-%02d-%02d", y, m, d)
+		case "yy-mm-dd":
+			dateStr = fmt.Sprintf("%d-%02d-%02d", y - 2000, m, d)
+		case "dd-mm-yyyy":
+			dateStr = fmt.Sprintf("%02d-%02d-%d", d, m, y)
+		case "dd-mm-yy":
+			dateStr = fmt.Sprintf("%02d-%02d-%d", d, m, y - 2000)
+		case "dd M yyyy":
+			dateStr = fmt.Sprintf("%02d %s %d", d, date. Month().String()[:3], y)
+			// date
+		case "dd M yy":
+			dateStr = fmt.Sprintf("%02d %s %d", d, date.Month().String()[:3], y - 2000)
+			// dateStr = "aaasdada"
+		default:
+			dateStr = fmt.Sprintf("%d-%02d-%02d", y, m, d)
+			// dateStr = fmt.Sprintf("%d-%02d-%02d", y, m, d)
+		}
+		if widget.settings.hideYearIfCurrent && date.Year() == now.Year() {
+			if widget.settings.dateFormat[:1] == "y" {
+				dateStr = dateStr[strings.Index(dateStr, "-")+1:]
+			} else if widget.settings.dateFormat[3:4] == "-" {
+				dateStr = dateStr[:5]
+			} else {
+				parts := strings.Split(dateStr, " ")
+				dateStr = parts[0] + " " + parts[1]
+			}
+		}
+		return dateStr
 	}
+}
+
+func getNowDate() time.Time {
+	now := time.Now()
+	now = time.Date(now.Year(), now.Month(), now.Day(),0,0,0,0,time.Now().Location())
+	return now
 }
 
