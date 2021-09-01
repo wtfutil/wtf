@@ -2,11 +2,12 @@ package todo
 
 import (
 	"fmt"
+	"io/ioutil"
+	"log"
 	"regexp"
 	"strconv"
 	"strings"
 	"time"
-	"io/ioutil"
 
 	"github.com/gdamore/tcell"
 	"github.com/rivo/tview"
@@ -106,6 +107,20 @@ func (widget *Widget) load() {
 		return
 	}
 
+	// do initial sort based on dates to make sure everything is correct
+	if widget.settings.parseDates {
+		i := 0
+		for i < widget.list.Len() {
+			for true {
+				newIndex := widget.placeItemBasedOnDate(i)
+				if newIndex == i {
+					break
+				}
+			}
+			i += 1
+		}
+	}
+
 	widget.ScrollableWidget.SetItemCount(len(widget.list.Items))
 	widget.setItemChecks()
 }
@@ -116,7 +131,6 @@ func (widget *Widget) newItem() {
 	saveFctn := func() {
 		text := widget.parseText(form.GetFormItem(0).(*tview.InputField).GetText())
 		date := getTodoDate(text)
-
 
 		widget.list.Add(false, date, text, widget.settings.newPos)
 		widget.SetItemCount(len(widget.list.Items))
@@ -143,9 +157,9 @@ func (widget *Widget) newItem() {
 
 type PatternDuration struct {
 	pattern string
-	d int
-	m int
-	y int
+	d       int
+	m       int
+	y       int
 }
 
 func (widget *Widget) parseText(text string) string {
@@ -162,11 +176,11 @@ func (widget *Widget) parseText(text string) string {
 		parts := strings.Split(text, " ")
 		n, _ := strconv.Atoi(parts[1])
 		unit := parts[2][:1]
-		target := time.Now()
+		var target time.Time
 		if unit == "d" {
 			target = now.AddDate(0, 0, n)
 		} else if unit == "w" {
-			target = now.AddDate(0, 0, 7 * n)
+			target = now.AddDate(0, 0, 7*n)
 		} else if unit == "m" {
 			target = now.AddDate(0, n, 0)
 		} else {
@@ -177,15 +191,15 @@ func (widget *Widget) parseText(text string) string {
 
 	// check for "today / tomorrow / next X"
 	patterns := [...]PatternDuration{
-		{pattern: "today",d:0,m:0,y:0},
-		{pattern: "tomorrow",d:1,m:0,y:0},
-		{pattern: "next week",d:7,m:0,y:0},
-		{pattern: "next month",d:0,m:1,y:0},
-		{pattern: "next year",d:0,m:0,y:1},
+		{pattern: "today", d: 0, m: 0, y: 0},
+		{pattern: "tomorrow", d: 1, m: 0, y: 0},
+		{pattern: "next week", d: 7, m: 0, y: 0},
+		{pattern: "next month", d: 0, m: 1, y: 0},
+		{pattern: "next year", d: 0, m: 0, y: 1},
 	}
 	for _, pd := range patterns {
 		if strings.HasPrefix(textLower, pd.pattern) && len(text) > len(pd.pattern) {
-			return widget._textWithDate(now.AddDate(pd.y,pd.m,pd.d), text[len(pd.pattern):])
+			return widget._textWithDate(now.AddDate(pd.y, pd.m, pd.d), text[len(pd.pattern):])
 		}
 	}
 
@@ -193,9 +207,9 @@ func (widget *Widget) parseText(text string) string {
 	if strings.HasPrefix(textLower, "next") {
 		parts := strings.Split(textLower, " ")
 		if parts[0] == "next" && len(parts) > 2 {
-			for i, d := range []string{"sunday", "monday","tuesday","wednesday","thursday","friday","saturday"} {
+			for i, d := range []string{"sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"} {
 				if strings.ToLower(parts[1]) == d {
-					return widget._textWithDate(now.AddDate(0,0,int(now.Weekday())+7-i), text[len(d) + 5:])
+					return widget._textWithDate(now.AddDate(0, 0, int(now.Weekday())+7-i), text[len(d)+5:])
 				}
 			}
 		}
@@ -211,7 +225,7 @@ func (widget *Widget) parseText(text string) string {
 
 	// check for MM-DD prefix
 	if len(text) > 5 {
-		date, err := time.Parse("2006-01-02", strconv.FormatInt(int64(now.Year()),10) + "-" + text[:5])
+		date, err := time.Parse("2006-01-02", strconv.FormatInt(int64(now.Year()), 10)+"-"+text[:5])
 		if err == nil {
 			return widget._textWithDate(date, text[5:])
 		}
@@ -290,13 +304,13 @@ func (widget *Widget) updateSelectedItem(text string) {
 
 func (widget *Widget) placeItemBasedOnDate(index int) int {
 	// potentially move todo up
-	for index > 0 && widget.todoDateIsEarlier(index, index - 1) {
-		widget.list.Swap(index, index - 1)
+	for index > 0 && widget.todoDateIsEarlier(index, index-1) {
+		widget.list.Swap(index, index-1)
 		index -= 1
 	}
 	// potentially move todo down
-	for index < widget.list.Len() - 1 && widget.todoDateIsEarlier(index + 1, index) {
-		widget.list.Swap(index, index + 1)
+	for index < widget.list.Len()-1 && widget.todoDateIsEarlier(index+1, index) {
+		widget.list.Swap(index, index+1)
 		index += 1
 	}
 	return index
@@ -306,7 +320,7 @@ func (widget *Widget) todoDateIsEarlier(i, j int) bool {
 	if widget.list.Items[i].Date == nil && widget.list.Items[j].Date == nil {
 		return false
 	}
-	defaultVal := getNowDate().AddDate(0,0,widget.settings.undatedAsDays)
+	defaultVal := getNowDate().AddDate(0, 0, widget.settings.undatedAsDays)
 	if widget.list.Items[i].Date == nil {
 		return defaultVal.Before(*widget.list.Items[j].Date)
 	} else if widget.list.Items[j].Date == nil {

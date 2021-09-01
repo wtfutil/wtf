@@ -2,9 +2,8 @@ package todo
 
 import (
 	"fmt"
-	"time"
-	// "sort"
 	"strings"
+	"time"
 
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/checklist"
@@ -53,7 +52,6 @@ func (widget *Widget) sortListByChecked(firstGroup []*checklist.ChecklistItem, s
 	widget.SetList(newList)
 	return str
 }
-
 
 func (widget *Widget) formattedItemLine(idx int, currItem *checklist.ChecklistItem, selectedItem *checklist.ChecklistItem, maxLen int) string {
 	rowColor := widget.RowColor(idx)
@@ -126,16 +124,16 @@ func (widget *Widget) getDateString(date *time.Time) string {
 		case "yyyy-mm-dd":
 			dateStr = fmt.Sprintf("%d-%02d-%02d", y, m, d)
 		case "yy-mm-dd":
-			dateStr = fmt.Sprintf("%d-%02d-%02d", y - 2000, m, d)
+			dateStr = fmt.Sprintf("%d-%02d-%02d", y-2000, m, d)
 		case "dd-mm-yyyy":
 			dateStr = fmt.Sprintf("%02d-%02d-%d", d, m, y)
 		case "dd-mm-yy":
-			dateStr = fmt.Sprintf("%02d-%02d-%d", d, m, y - 2000)
+			dateStr = fmt.Sprintf("%02d-%02d-%d", d, m, y-2000)
 		case "dd M yyyy":
-			dateStr = fmt.Sprintf("%02d %s %d", d, date. Month().String()[:3], y)
+			dateStr = fmt.Sprintf("%02d %s %d", d, date.Month().String()[:3], y)
 			// date
 		case "dd M yy":
-			dateStr = fmt.Sprintf("%02d %s %d", d, date.Month().String()[:3], y - 2000)
+			dateStr = fmt.Sprintf("%02d %s %d", d, date.Month().String()[:3], y-2000)
 			// dateStr = "aaasdada"
 		default:
 			dateStr = fmt.Sprintf("%d-%02d-%02d", y, m, d)
@@ -157,7 +155,6 @@ func (widget *Widget) getDateString(date *time.Time) string {
 
 func getNowDate() time.Time {
 	now := time.Now()
-	now = time.Date(now.Year(), now.Month(), now.Day(),0,0,0,0,time.Now().Location())
+	now = time.Date(now.Year(), now.Month(), now.Day(), 0, 0, 0, 0, time.Now().Location())
 	return now
 }
-
