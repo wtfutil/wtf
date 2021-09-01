@@ -76,6 +76,10 @@ func (widget *Widget) makeSelectedLast() {
 		j = j + 1
 	}
 
+	if widget.settings.parseDates {
+		widget.Selected = widget.placeItemBasedOnDate(widget.Selected)
+	}
+
 	widget.persist()
 	widget.display()
 }
@@ -115,6 +119,10 @@ func (widget *Widget) makeSelectedFirst() {
 		widget.list.Swap(widget.Selected, j)
 		widget.Selected = j
 		j = j - 1
+	}
+
+	if widget.settings.parseDates {
+		widget.Selected = widget.placeItemBasedOnDate(widget.Selected)
 	}
 
 	widget.persist()
