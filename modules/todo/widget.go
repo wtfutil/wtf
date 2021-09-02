@@ -110,7 +110,7 @@ func (widget *Widget) load() {
 	if widget.settings.parseDates {
 		i := 0
 		for i < widget.list.Len() {
-			for true {
+			for {
 				newIndex := widget.placeItemBasedOnDate(i)
 				if newIndex == i {
 					break
