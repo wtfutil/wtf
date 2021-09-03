@@ -14,9 +14,17 @@ const (
 type Settings struct {
 	*cfg.Common
 
-	filePath  string
-	checked   string
-	unchecked string
+	filePath          string
+	checked           string
+	unchecked         string
+	newPos            string
+	checkedPos        string
+	parseDates        bool
+	dateColor         string
+	switchToInDaysIn  int
+	undatedAsDays     int
+	hideYearIfCurrent bool
+	dateFormat        string
 }
 
 // NewSettingsFromYAML creates a new settings instance from a YAML config block
@@ -26,9 +34,33 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 	settings := Settings{
 		Common: common,
 
-		filePath:  ymlConfig.UString("filename"),
-		checked:   ymlConfig.UString("checkedIcon", common.Checkbox.Checked),
-		unchecked: ymlConfig.UString("uncheckedIcon", common.Checkbox.Unchecked),
+		filePath:          ymlConfig.UString("filename"),
+		checked:           ymlConfig.UString("checkedIcon", common.Checkbox.Checked),
+		unchecked:         ymlConfig.UString("uncheckedIcon", common.Checkbox.Unchecked),
+		newPos:            ymlConfig.UString("newPos", "first"),
+		checkedPos:        ymlConfig.UString("checkedPos", "last"),
+		parseDates:        ymlConfig.UBool("dates.enabled", true),
+		dateColor:         ymlConfig.UString("colors.date", "chartreuse"),
+		switchToInDaysIn:  ymlConfig.UInt("dates.switchToInDaysIn", 7),
+		undatedAsDays:     ymlConfig.UInt("dates.undatedAsDays", 7),
+		hideYearIfCurrent: ymlConfig.UBool("dates.hideYearIfCurrent", true),
+		dateFormat:        ymlConfig.UString("dates.format", "yyyy-mm-dd"),
+	}
+
+	switch settings.newPos {
+	case "first", "last":
+	default:
+		settings.newPos = "last"
+	}
+	switch settings.checkedPos {
+	case "first", "last", "none":
+	default:
+		settings.checkedPos = "last"
+	}
+	switch settings.dateFormat {
+	case "yyyy-mm-dd", "yy-mm-dd", "dd-mm-yyyy", "dd-mm-yy", "dd M yy", "dd M yyyy":
+	default:
+		settings.dateFormat = "yyyy-mm-dd"
 	}
 
 	return &settings

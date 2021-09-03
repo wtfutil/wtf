@@ -23,7 +23,9 @@ func (widget *Widget) initializeKeyboardControls() {
 	widget.SetKeyboardKey(tcell.KeyEsc, widget.unselect, "Clear selection")
 	widget.SetKeyboardKey(tcell.KeyCtrlD, widget.deleteSelected, "Delete item")
 	widget.SetKeyboardKey(tcell.KeyCtrlJ, widget.demoteSelected, "Demote item")
+	widget.SetKeyboardKey(tcell.KeyCtrlL, widget.makeSelectedLast, "Make item last")
 	widget.SetKeyboardKey(tcell.KeyCtrlK, widget.promoteSelected, "Promote item")
+	widget.SetKeyboardKey(tcell.KeyCtrlF, widget.makeSelectedFirst, "Make item first")
 	widget.SetKeyboardKey(tcell.KeyEnter, widget.updateSelected, "Edit item")
 
 }
@@ -58,6 +60,30 @@ func (widget *Widget) demoteSelected() {
 	widget.display()
 }
 
+func (widget *Widget) makeSelectedLast() {
+	if !widget.isItemSelected() {
+		return
+	}
+
+	j := widget.Selected + 1
+	if j >= len(widget.list.Items) {
+		return
+	}
+
+	for j < len(widget.list.Items) {
+		widget.list.Swap(widget.Selected, j)
+		widget.Selected = j
+		j = j + 1
+	}
+
+	if widget.settings.parseDates {
+		widget.Selected = widget.placeItemBasedOnDate(widget.Selected)
+	}
+
+	widget.persist()
+	widget.display()
+}
+
 func (widget *Widget) openFile() {
 	confDir, _ := cfg.WtfConfigDir()
 	utils.OpenFile(fmt.Sprintf("%s/%s", confDir, widget.filePath))
@@ -79,6 +105,30 @@ func (widget *Widget) promoteSelected() {
 	widget.display()
 }
 
+func (widget *Widget) makeSelectedFirst() {
+	if !widget.isItemSelected() {
+		return
+	}
+
+	j := widget.Selected - 1
+	if j < 0 {
+		return
+	}
+
+	for j >= 0 {
+		widget.list.Swap(widget.Selected, j)
+		widget.Selected = j
+		j = j - 1
+	}
+
+	if widget.settings.parseDates {
+		widget.Selected = widget.placeItemBasedOnDate(widget.Selected)
+	}
+
+	widget.persist()
+	widget.display()
+}
+
 func (widget *Widget) toggleChecked() {
 	selectedItem := widget.SelectedItem()
 	if selectedItem == nil {
@@ -86,6 +136,11 @@ func (widget *Widget) toggleChecked() {
 	}
 
 	selectedItem.Toggle()
+
+	if !selectedItem.Checked {
+		widget.Selected = widget.placeItemBasedOnDate(widget.Selected)
+	}
+
 	widget.persist()
 	widget.display()
 }

@@ -1,5 +1,9 @@
 package checklist
 
+import (
+	"time"
+)
+
 // Checklist is a module for creating generic checklist implementations
 // See 'Todo' for an implementation example
 type Checklist struct {
@@ -22,17 +26,22 @@ func NewChecklist(checkedIcon, uncheckedIcon string) Checklist {
 
 /* -------------------- Exported Functions -------------------- */
 
-// Add creates a new checklist item and prepends it onto the existing
-// list of items. The new one is at the start of the list
-func (list *Checklist) Add(checked bool, text string) {
+// Add creates a new checklist item and adds it to the list
+// The new one is at the start or end of the list, based on newPos
+func (list *Checklist) Add(checked bool, date *time.Time, text string, newPos ...string) {
 	item := NewChecklistItem(
 		checked,
+		date,
 		text,
 		list.checkedIcon,
 		list.uncheckedIcon,
 	)
 
-	list.Items = append([]*ChecklistItem{item}, list.Items...)
+	if len(newPos) == 0 || newPos[0] == "first" {
+		list.Items = append([]*ChecklistItem{item}, list.Items...)
+	} else if newPos[0] == "last" {
+		list.Items = append(list.Items, []*ChecklistItem{item}...)
+	}
 }
 
 // CheckedItems returns a slice of all the checked items
