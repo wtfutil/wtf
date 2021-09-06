@@ -1,7 +1,6 @@
 package git
 
 import (
-	"fmt"
 	"github.com/olebedev/config"
 	"github.com/wtfutil/wtf/cfg"
 	"github.com/wtfutil/wtf/utils"
@@ -16,7 +15,7 @@ type Settings struct {
 	*cfg.Common
 
 	commitCount      int           `help:"The number of past commits to display." values:"A positive integer, 0..n." optional:"true"`
-	sections         []string      `help:"Sections to show" optional:"true" default:"["branch","files","commits"]"`
+	sections         []interface{} `help:"Sections to show" optional:"true" default:"["branch","files","commits"]"`
 	showModuleName   bool          `help:"Whether to show 'Git - ' before information in title" optional:"true" default:"true"`
 	branchInTitle    bool          `help:"Whether to show branch name in title instead of the widget body itself" optional:"true" default:"false"`
 	showFilesIfEmpty bool          `help:"Whether to show Changed Files section if no changed files" optional:"true" default:"true"`
@@ -27,16 +26,11 @@ type Settings struct {
 }
 
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
-	yml_sections := ymlConfig.UList("sections")
-	sections := make([]string, len(yml_sections))
-	for i, v := range yml_sections {
-		sections[i] = fmt.Sprint(v)
-	}
 	settings := Settings{
 		Common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 
 		commitCount:      ymlConfig.UInt("commitCount", 10),
-		sections:         sections,
+		sections:         ymlConfig.UList("sections"),
 		showModuleName:   ymlConfig.UBool("showModuleName", true),
 		branchInTitle:    ymlConfig.UBool("branchInTitle", false),
 		showFilesIfEmpty: ymlConfig.UBool("showFilesIfEmpty", true),
@@ -46,10 +40,9 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		repositories:     ymlConfig.UList("repositories"),
 	}
 	if len(settings.sections) == 0 {
-		settings.sections = make([]string, 3)
-		settings.sections[0] = "branch"
-		settings.sections[1] = "files"
-		settings.sections[2] = "commits"
+		for _, v := range []string{"branch", "files", "commits"} {
+			settings.sections = append(settings.sections, v)
+		}
 	}
 
 	return &settings
