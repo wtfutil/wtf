@@ -18,7 +18,7 @@ func (widget *Widget) content() (string, string, bool) {
 
 	widgetTitle := ""
 	if widget.settings.lastFolderTitle {
-		pathParts := strings.Split(repoData.Repository,"/")
+		pathParts := strings.Split(repoData.Repository, "/")
 		widgetTitle += pathParts[len(pathParts)-1]
 
 	} else {
