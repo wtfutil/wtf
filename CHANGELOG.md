@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## v0.39.0
+
 ### ⚡️ Added
 
 * Updown module added, by [@hjr265](https://github.com/hjr265)
