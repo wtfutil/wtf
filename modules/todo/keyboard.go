@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"github.com/gdamore/tcell"
-	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/cfg"
 	"github.com/wtfutil/wtf/utils"
 )
@@ -19,6 +18,7 @@ func (widget *Widget) initializeKeyboardControls() {
 	widget.SetKeyboardChar("n", widget.newItem, "Create new item")
 	widget.SetKeyboardChar("o", widget.openFile, "Open file")
 	widget.SetKeyboardChar("#", widget.setTag, "Set tag(s) to show")
+	widget.SetKeyboardChar("/", widget.setFilter, "Filter shown items")
 
 	widget.SetKeyboardKey(tcell.KeyDown, widget.NextTodo, "Select next item")
 	widget.SetKeyboardKey(tcell.KeyUp, widget.PrevTodo, "Select previous item")
@@ -118,21 +118,14 @@ func (widget *Widget) setTag() {
 		return
 	}
 
-	form := widget.modalForm("Tag prefix:", "")
+	widget.processFormInput("Tag prefix:", "", func(filter string) {
+		widget.showTagPrefix = filter
+	})
+}
 
-	saveFctn := func() {
-		widget.showTagPrefix = form.GetFormItem(0).(*tview.InputField).GetText()
-
-		widget.pages.RemovePage("modal")
-		widget.tviewApp.SetFocus(widget.View)
-		widget.display()
-	}
-
-	widget.addButtons(form, saveFctn)
-	widget.modalFocus(form)
-
-	widget.tviewApp.QueueUpdate(func() {
-		widget.tviewApp.Draw()
+func (widget *Widget) setFilter() {
+	widget.processFormInput("Filter:", "", func(filter string) {
+		widget.showFilter = filter
 	})
 }
 
@@ -193,6 +186,10 @@ func (widget *Widget) toggleChecked() {
 }
 
 func (widget *Widget) unselect() {
-	widget.Selected = -1
+	if widget.showFilter != "" {
+		widget.showFilter = ""
+	} else {
+		widget.Selected = -1
+	}
 	widget.display()
 }

@@ -2,6 +2,7 @@ package todo
 
 import (
 	"fmt"
+	"regexp"
 	"strings"
 	"time"
 
@@ -28,6 +29,9 @@ func (widget *Widget) content() (string, string, bool) {
 	title := widget.CommonSettings().Title
 	if widget.showTagPrefix != "" {
 		title += " #" + widget.showTagPrefix
+	}
+	if widget.showFilter != "" {
+		title += fmt.Sprintf(" /%s", widget.showFilter)
 	}
 	if widget.settings.hiddenNumInTitle {
 		title += fmt.Sprintf(" (%d hidden)", hidden)
@@ -73,6 +77,11 @@ func (widget *Widget) sortListByChecked(firstGroup []*checklist.ChecklistItem, s
 }
 
 func (widget *Widget) shouldShowItem(item *checklist.ChecklistItem) bool {
+	match, _ := regexp.MatchString("(?i).*"+widget.showFilter+".*", item.Text)
+	if widget.showFilter != "" && !match {
+		return false
+	}
+
 	if !widget.settings.parseTags {
 		return true
 	}

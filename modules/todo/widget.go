@@ -31,6 +31,7 @@ type Widget struct {
 	pages         *tview.Pages
 	settings      *Settings
 	showTagPrefix string
+	showFilter    string
 	tviewApp      *tview.Application
 	view.ScrollableWidget
 }
@@ -127,10 +128,8 @@ func (widget *Widget) load() {
 }
 
 func (widget *Widget) newItem() {
-	form := widget.modalForm("New Todo:", "")
-
-	saveFctn := func() {
-		text, date, tags := widget.getTextComponents(form.GetFormItem(0).(*tview.InputField).GetText())
+	widget.processFormInput("New Todo:", "", func(t string) {
+		text, date, tags := widget.getTextComponents(t)
 
 		widget.list.Add(false, date, tags, text, widget.settings.newPos)
 		widget.SetItemCount(len(widget.list.Items))
@@ -142,16 +141,6 @@ func (widget *Widget) newItem() {
 			}
 		}
 		widget.persist()
-		widget.pages.RemovePage("modal")
-		widget.tviewApp.SetFocus(widget.View)
-		widget.display()
-	}
-
-	widget.addButtons(form, saveFctn)
-	widget.modalFocus(form)
-
-	widget.tviewApp.QueueUpdate(func() {
-		widget.tviewApp.Draw()
 	})
 }
 
@@ -299,16 +288,24 @@ func (widget *Widget) updateSelected() {
 		return
 	}
 
-	form := widget.modalForm("Edit:", widget.SelectedItem().EditText())
-
-	saveFctn := func() {
-		text, date, tags := widget.getTextComponents(form.GetFormItem(0).(*tview.InputField).GetText())
+	widget.processFormInput("Edit:", widget.SelectedItem().EditText(), func(t string) {
+		text, date, tags := widget.getTextComponents(t)
 
 		widget.updateSelectedItem(text, date, tags)
 		if widget.settings.parseDates {
 			widget.Selected = widget.placeItemBasedOnDate(widget.Selected)
 		}
 		widget.persist()
+	})
+}
+
+// processFormInput is a helper function that creates a form and calls onSave on the recieved input
+func (widget *Widget) processFormInput(prompt string, initValue string, onSave func(string)) {
+	form := widget.modalForm(prompt, initValue)
+
+	saveFctn := func() {
+		onSave(form.GetFormItem(0).(*tview.InputField).GetText())
+
 		widget.pages.RemovePage("modal")
 		widget.tviewApp.SetFocus(widget.View)
 		widget.display()
