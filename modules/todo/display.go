@@ -2,7 +2,6 @@ package todo
 
 import (
 	"fmt"
-	"regexp"
 	"strings"
 	"time"
 
@@ -77,9 +76,7 @@ func (widget *Widget) sortListByChecked(firstGroup []*checklist.ChecklistItem, s
 }
 
 func (widget *Widget) shouldShowItem(item *checklist.ChecklistItem) bool {
-	pattern := "(?i).*" + widget.showFilter + ".*"
-	match, _ := regexp.MatchString(pattern, item.Text)
-	if widget.showFilter != "" && !match {
+	if widget.showFilter != "" && !strings.Contains(strings.ToLower(item.Text), widget.showFilter) {
 		return false
 	}
 

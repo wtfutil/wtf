@@ -2,6 +2,7 @@ package todo
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/gdamore/tcell"
 	"github.com/wtfutil/wtf/cfg"
@@ -125,7 +126,7 @@ func (widget *Widget) setTag() {
 
 func (widget *Widget) setFilter() {
 	widget.processFormInput("Filter:", "", func(filter string) {
-		widget.showFilter = filter
+		widget.showFilter = strings.ToLower(filter)
 	})
 }
 
