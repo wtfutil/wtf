@@ -16,18 +16,29 @@ func (widget *Widget) display() {
 
 func (widget *Widget) content() (string, string, bool) {
 	str := ""
+	hidden := 0
 	if widget.settings.checkedPos == "last" {
-		str += widget.sortListByChecked(widget.list.UncheckedItems(), widget.list.CheckedItems())
+		str, hidden = widget.sortListByChecked(widget.list.UncheckedItems(), widget.list.CheckedItems())
 	} else if widget.settings.checkedPos == "first" {
-		str += widget.sortListByChecked(widget.list.CheckedItems(), widget.list.UncheckedItems())
+		str, hidden = widget.sortListByChecked(widget.list.CheckedItems(), widget.list.UncheckedItems())
 	} else {
-		str += widget.sortListByChecked(widget.list.Items, []*checklist.ChecklistItem{})
+		str, hidden = widget.sortListByChecked(widget.list.Items, []*checklist.ChecklistItem{})
 	}
-	return widget.CommonSettings().Title, str, false
+
+	title := widget.CommonSettings().Title
+	if widget.showTagPrefix != "" {
+		title += " #" + widget.showTagPrefix
+	}
+	if widget.settings.hiddenNumInTitle {
+		title += fmt.Sprintf(" (%d hidden)", hidden)
+	}
+
+	return title, str, false
 }
 
-func (widget *Widget) sortListByChecked(firstGroup []*checklist.ChecklistItem, secondGroup []*checklist.ChecklistItem) string {
+func (widget *Widget) sortListByChecked(firstGroup []*checklist.ChecklistItem, secondGroup []*checklist.ChecklistItem) (string, int) {
 	str := ""
+	hidden := 0
 	newList := checklist.NewChecklist(
 		widget.settings.Sigils.Checkbox.Checked,
 		widget.settings.Sigils.Checkbox.Unchecked,
@@ -36,13 +47,21 @@ func (widget *Widget) sortListByChecked(firstGroup []*checklist.ChecklistItem, s
 	offset := 0
 	selectedItem := widget.SelectedItem()
 	for idx, item := range firstGroup {
-		str += widget.formattedItemLine(idx, item, selectedItem, widget.list.LongestLine())
+		if widget.shouldShowItem(item) {
+			str += widget.formattedItemLine(idx, item, selectedItem, widget.list.LongestLine())
+		} else {
+			hidden = hidden + 1
+		}
 		newList.Items = append(newList.Items, item)
 		offset++
 	}
 
 	for idx, item := range secondGroup {
-		str += widget.formattedItemLine(idx+offset, item, selectedItem, widget.list.LongestLine())
+		if widget.shouldShowItem(item) {
+			str += widget.formattedItemLine(idx+offset, item, selectedItem, widget.list.LongestLine())
+		} else {
+			hidden = hidden + 1
+		}
 		newList.Items = append(newList.Items, item)
 	}
 	if idx, ok := newList.IndexByItem(selectedItem); ok {
@@ -50,7 +69,27 @@ func (widget *Widget) sortListByChecked(firstGroup []*checklist.ChecklistItem, s
 	}
 
 	widget.SetList(newList)
-	return str
+	return str, hidden
+}
+
+func (widget *Widget) shouldShowItem(item *checklist.ChecklistItem) bool {
+	if !widget.settings.parseTags {
+		return true
+	}
+
+	if len(item.Tags) == 0 {
+		return widget.showTagPrefix == ""
+	}
+
+	for _, tag := range item.Tags {
+		for _, hideTag := range widget.settings.hideTags {
+			if (widget.showTagPrefix == "" && tag == hideTag) || !strings.HasPrefix(tag, widget.showTagPrefix) {
+				return false
+			}
+		}
+	}
+
+	return true
 }
 
 func (widget *Widget) formattedItemLine(idx int, currItem *checklist.ChecklistItem, selectedItem *checklist.ChecklistItem, maxLen int) string {
@@ -64,26 +103,42 @@ func (widget *Widget) formattedItemLine(idx int, currItem *checklist.ChecklistIt
 		rowColor = widget.RowColor(idx)
 	}
 
-	todoDate := getTodoDate(currItem.Text)
-	row := ""
+	todoDate := currItem.Date
+	row := fmt.Sprintf(
+		` [%s]|%s| `,
+		rowColor,
+		currItem.CheckMark(),
+	)
 
-	if todoDate == nil {
+	if widget.settings.parseDates && todoDate != nil {
 		row += fmt.Sprintf(
-			` [%s]|%s| %s[white]`,
-			rowColor,
-			currItem.CheckMark(),
-			tview.Escape(currItem.Text),
-		)
-	} else {
-		row += fmt.Sprintf(
-			` [%s]|%s| [%s]%s [%s]%s[white]`,
-			rowColor,
-			currItem.CheckMark(),
+			`[%s]%s `,
 			widget.settings.dateColor,
 			widget.getDateString(todoDate),
-			rowColor,
-			tview.Escape(currItem.Text[13:]),
 		)
+	}
+
+	tagsPart := ""
+	if len(currItem.Tags) > 0 {
+		tagsPart = fmt.Sprintf(
+			`[%s]%s[white]`,
+			widget.settings.tagColor,
+			currItem.TagString(),
+		)
+	}
+
+	textPart := fmt.Sprintf(
+		`[%s]%s[white]`,
+		rowColor,
+		tview.Escape(currItem.Text),
+	)
+
+	if widget.settings.parseTags && widget.settings.tagsAtEnd {
+		row += textPart + " " + tagsPart
+	} else if widget.settings.parseTags {
+		row += tagsPart + textPart
+	} else {
+		row += textPart
 	}
 
 	return utils.HighlightableHelper(widget.View, row, idx, len(currItem.Text))
