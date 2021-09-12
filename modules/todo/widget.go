@@ -254,11 +254,6 @@ func (widget *Widget) getTextAndDate(text string) (string, *time.Time) {
 	return text, nil
 }
 
-// helper for setting dated todo text in a stable format
-func (widget *Widget) _textWithDate(date time.Time, text string) string {
-	return fmt.Sprintf("[%d-%02d-%02d]", date.Year(), date.Month(), date.Day()) + text
-}
-
 // persist writes the todo list to Yaml file
 func (widget *Widget) persist() {
 	confDir, _ := cfg.WtfConfigDir()

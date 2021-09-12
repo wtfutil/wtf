@@ -77,7 +77,8 @@ func (widget *Widget) sortListByChecked(firstGroup []*checklist.ChecklistItem, s
 }
 
 func (widget *Widget) shouldShowItem(item *checklist.ChecklistItem) bool {
-	match, _ := regexp.MatchString("(?i).*"+widget.showFilter+".*", item.Text)
+	pattern := "(?i).*" + widget.showFilter + ".*"
+	match, _ := regexp.MatchString(pattern, item.Text)
 	if widget.showFilter != "" && !match {
 		return false
 	}
@@ -151,25 +152,6 @@ func (widget *Widget) formattedItemLine(idx int, currItem *checklist.ChecklistIt
 	}
 
 	return utils.HighlightableHelper(widget.View, row, idx, len(currItem.Text))
-}
-
-func getTodoDate(text string, defaultVal ...time.Time) *time.Time {
-	if len(text) < 12 {
-		if len(defaultVal) > 0 {
-			return &defaultVal[0]
-		} else {
-			return nil
-		}
-	}
-	date, err := time.Parse("2006-01-02", text[1:11])
-	if err != nil {
-		if len(defaultVal) > 0 {
-			return &defaultVal[0]
-		} else {
-			return nil
-		}
-	}
-	return &date
 }
 
 func (widget *Widget) getDateString(date *time.Time) string {
