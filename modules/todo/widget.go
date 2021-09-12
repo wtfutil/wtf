@@ -161,7 +161,7 @@ func (widget *Widget) getTextComponents(text string) (string, *time.Time, []stri
 
 func getTodoTags(text string, date *time.Time) (string, []string) {
 	tags := make([]string, 0)
-	r, _ := regexp.Compile("(?i)(^|\\s)#[a-z0-9]+")
+	r, _ := regexp.Compile(`(?i)(^|\s)#[a-z0-9]+`)
 	matches := r.FindAllString(text, -1)
 
 	for _, tag := range matches {
