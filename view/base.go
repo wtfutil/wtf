@@ -116,6 +116,11 @@ func (base *Base) FocusChar() string {
 	return base.focusChar
 }
 
+// Initialize is a convenience function that is called right after a module is instantiated
+// and before any other operation happens to it (see WidgetMaker.MakeWidget() for details).
+// To use this, add an Initialize() function to your module.
+func (base *Base) Initialize() {}
+
 func (base *Base) Name() string {
 	return base.name
 }

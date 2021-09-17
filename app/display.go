@@ -35,6 +35,9 @@ func NewDisplay(widgets []wtf.Wtfable, config *config.Config) *Display {
 /* -------------------- Unexported Functions -------------------- */
 
 func (display *Display) add(widget wtf.Wtfable) {
+	if widget == nil {
+		return
+	}
 	if widget.Disabled() {
 		return
 	}

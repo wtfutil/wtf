@@ -349,6 +349,8 @@ func MakeWidget(
 		widget = unknown.NewWidget(tviewApp, settings)
 	}
 
+	widget.Initialize()
+
 	return widget
 }
 

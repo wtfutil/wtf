@@ -12,6 +12,7 @@ import (
 const (
 	errUnconvertableLuaString = "could not convert output to Lua string"
 	errUndefinedLuaFile       = "no lua file defined in configuration"
+	errUninitializedLState    = "lua LState must be initialized via Initialize() first"
 )
 
 // Widget is the container for the functionality of this module
@@ -33,20 +34,26 @@ func NewWidget(tviewApp *tview.Application, settings *Settings) *Widget {
 
 	widget.View.SetWordWrap(false)
 
-	widget.L = lua.NewState()
-	filePath, err := utils.ExpandHomeDir(widget.settings.filePath)
-	if err != nil {
-		return nil
-	}
-
-	if err = widget.L.DoFile(filePath); err != nil {
-		return nil
-	}
-
 	return widget
 }
 
 /* -------------------- Exported Functions -------------------- */
+
+// Initialize is called after the module is instantiated and before anything
+// else happens to it
+func (widget *Widget) Initialize() {
+	widget.L = lua.NewState()
+
+	filePath, err := utils.ExpandHomeDir(widget.settings.filePath)
+	if err != nil {
+		return
+	}
+
+	err = widget.L.DoFile(filePath)
+	if err != nil {
+		return
+	}
+}
 
 // Refresh redraws the widget content with new data
 func (widget *Widget) Refresh() {
@@ -70,6 +77,10 @@ func (widget *Widget) content() (string, string, bool) {
 }
 
 func (widget *Widget) parseLua() (string, error) {
+	if widget.L == nil {
+		return "", errors.New(errUninitializedLState)
+	}
+
 	if err := widget.L.CallByParam(lua.P{
 		Fn:      widget.L.GetGlobal("main"), // execute the Lua function called "main"
 		NRet:    1,                          // expect one return value
