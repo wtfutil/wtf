@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+* Numerous improvements to the display of the Git module, [#1102](https://github.com/wtfutil/wtf/pull/1102) by [@tadeaspaule](https://github.com/tadeaspaule)
+
+## v0.39.2
+
+Fixes a critical crashing bug that prevented WTF from launching on Intel Macs. The solution was to `go get -u golang.org/x/sys` to force a compatibility update with Go 1.17.
+
 ## v0.39.0
 
 ### ⚡️ Added

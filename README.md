@@ -223,6 +223,16 @@ Please make all additions and updates to documentation in that repository.
 
 Dependency management in WTF is handled by [Go modules](https://github.com/golang/go/wiki/Modules). Please check out that page for more details on how Go modules work.
 
+## Sponsors
+
+Many thanks to the following sponsors for supporting the development of WTF.
+
+<p>
+	<a href="https://airbrake.io/?utm_medium=sponsor&utm_source=WTFutill&utm_content=airbrake-home-page&utm_campaign=2021-sponsorships" target=_blank>
+		<img src="./images/sponsors/airbrake.png?raw=true" height="60" title="Airbrake" alt="Airbrake" />
+	</a>
+</p>
+
 ## Contributors
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
