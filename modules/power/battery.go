@@ -1,5 +1,5 @@
-// +build !linux
-// +build !freebsd
+//go:build !linux && !freebsd
+// +build !linux,!freebsd
 
 package power
 
@@ -13,7 +13,10 @@ import (
 	"github.com/wtfutil/wtf/utils"
 )
 
-const TimeRegExp = "^(?:\\d|[01]\\d|2[0-3]):[0-5]\\d"
+const (
+	msgNoBattery = " no battery found"
+	timeRegExp   = "^(?:\\d|[01]\\d|2[0-3]):[0-5]\\d"
+)
 
 type Battery struct {
 	args   []string
@@ -54,17 +57,17 @@ func (battery *Battery) execute() string {
 func (battery *Battery) parse(data string) string {
 	lines := strings.Split(data, "\n")
 	if len(lines) < 2 {
-		return "unknown (1)"
+		return msgNoBattery
 	}
 
 	stats := strings.Split(lines[1], "\t")
 	if len(stats) < 2 {
-		return "unknown (2)"
+		return msgNoBattery
 	}
 
 	details := strings.Split(stats[1], "; ")
 	if len(details) < 3 {
-		return "unknown (3)"
+		return msgNoBattery
 	}
 
 	str := ""
@@ -93,7 +96,7 @@ func (battery *Battery) formatCharge(data string) string {
 }
 
 func (battery *Battery) formatRemaining(data string) string {
-	r, _ := regexp.Compile(TimeRegExp)
+	r, _ := regexp.Compile(timeRegExp)
 
 	result := r.FindString(data)
 	if result == "" || result == "0:00" {

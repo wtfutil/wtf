@@ -32,7 +32,15 @@ func NewWidget(tviewApp *tview.Application, settings *Settings) *Widget {
 func (widget *Widget) content() (string, string, bool) {
 	content := fmt.Sprintf(" %10s: %s\n", "Source", powerSource())
 	content += "\n"
-	content += widget.Battery.String()
+
+	if widget.Battery.String() == msgNoBattery {
+		content += "[grey]"
+		content += widget.Battery.String()
+		content += "[white]"
+	} else {
+		content += widget.Battery.String()
+	}
+
 	return widget.CommonSettings().Title, content, true
 }
 
