@@ -76,6 +76,10 @@ func (widget *Widget) content() (string, string, bool) {
 	return widget.CommonSettings().Title, content, true
 }
 
+// User-defined widget type for use by Lus scripts
+type LuaWidget struct {
+}
+
 func (widget *Widget) parseLua() (string, error) {
 	if widget.L == nil {
 		return "", errors.New(errUninitializedLState)
@@ -92,11 +96,10 @@ func (widget *Widget) parseLua() (string, error) {
 	// Pop the last value off the stack (presumably that's the return value
 	// from the function executed above)
 	if output, ok := widget.L.Get(-1).(*lua.LTable); ok {
-		// wid := output.RawGetString("widget").(*lua.LTable)
-		// title := wid.RawGetString("widget.title").String()
-		// return title, nil
+		wid := output.RawGetString("widget").(*lua.LTable)
+		output := wid.RawGetString("time").String()
 
-		return output.RawGetString("time").String(), nil
+		return output, nil
 	}
 
 	return "", errors.New(errUnconvertableLuaString)
