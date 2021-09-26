@@ -26,6 +26,48 @@ func CenterText(str string, width int) string {
 	return fmt.Sprintf("%[1]*s", -width, fmt.Sprintf("%[1]*s", (width+len(str))/2, str))
 }
 
+// FindBetween finds and returns the text between two strings
+//
+// Example:
+//
+//    a := "{ cat } { dog }"
+//    b := FindBetween(a, "{", "}")
+//    > [" cat ", " dog "]
+//
+//
+func FindBetween(input string, left string, right string) []string {
+	out := []string{}
+
+	i := 0
+	for i >= 0 {
+		i = strings.Index(input, left)
+		if i == -1 {
+			break
+		}
+
+		i += len(left)
+
+		e := strings.Index(input[i:], right)
+		if e == -1 {
+			break
+		}
+
+		if e <= i {
+			break
+		}
+
+		chunk := input[i : e+1]
+		input = input[i+e+1:]
+
+		out = append(out, chunk)
+
+		i = i + e
+
+	}
+
+	return out
+}
+
 // HighlightableHelper pads the given text with blank spaces to the width of the view
 // containing it. This is helpful for extending row highlighting across the entire width
 // of the view
