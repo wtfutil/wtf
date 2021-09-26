@@ -7,6 +7,10 @@ import (
 	"github.com/wtfutil/wtf/view"
 )
 
+const (
+	msgNoBattery = " no battery found"
+)
+
 type Widget struct {
 	view.TextWidget
 
