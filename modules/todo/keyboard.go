@@ -19,7 +19,7 @@ func (widget *Widget) initializeKeyboardControls() {
 	widget.SetKeyboardChar("n", widget.newItem, "Create new item")
 	widget.SetKeyboardChar("o", widget.openFile, "Open file")
 	widget.SetKeyboardChar("#", widget.setTag, "Set tag(s) to show")
-	widget.SetKeyboardChar("/", widget.setFilter, "Filter shown items")
+	widget.SetKeyboardChar("f", widget.setFilter, "Filter shown items")
 
 	widget.SetKeyboardKey(tcell.KeyDown, widget.NextTodo, "Select next item")
 	widget.SetKeyboardKey(tcell.KeyUp, widget.PrevTodo, "Select previous item")

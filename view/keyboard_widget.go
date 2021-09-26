@@ -9,7 +9,7 @@ import (
 	"github.com/wtfutil/wtf/utils"
 )
 
-const helpKeyChar = "?"
+const helpKeyChar = "/"
 const refreshKeyChar = "r"
 
 type helpItem struct {
