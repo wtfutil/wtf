@@ -51,7 +51,7 @@ func (widget *Widget) sortListByChecked(firstGroup []*checklist.ChecklistItem, s
 	selectedItem := widget.SelectedItem()
 	for idx, item := range firstGroup {
 		if widget.shouldShowItem(item) {
-			str += widget.formattedItemLine(idx, item, selectedItem, widget.list.LongestLine())
+			str += widget.formattedItemLine(idx-hidden, item, selectedItem, widget.list.LongestLine())
 		} else {
 			hidden = hidden + 1
 		}
@@ -61,7 +61,7 @@ func (widget *Widget) sortListByChecked(firstGroup []*checklist.ChecklistItem, s
 
 	for idx, item := range secondGroup {
 		if widget.shouldShowItem(item) {
-			str += widget.formattedItemLine(idx+offset, item, selectedItem, widget.list.LongestLine())
+			str += widget.formattedItemLine(idx+offset-hidden, item, selectedItem, widget.list.LongestLine())
 		} else {
 			hidden = hidden + 1
 		}
