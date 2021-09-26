@@ -28,10 +28,11 @@ func NewChecklist(checkedIcon, uncheckedIcon string) Checklist {
 
 // Add creates a new checklist item and adds it to the list
 // The new one is at the start or end of the list, based on newPos
-func (list *Checklist) Add(checked bool, date *time.Time, text string, newPos ...string) {
+func (list *Checklist) Add(checked bool, date *time.Time, tags []string, text string, newPos ...string) {
 	item := NewChecklistItem(
 		checked,
 		date,
+		tags,
 		text,
 		list.checkedIcon,
 		list.uncheckedIcon,
