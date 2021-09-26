@@ -51,7 +51,7 @@ func (widget *Widget) sortListByChecked(firstGroup []*checklist.ChecklistItem, s
 	selectedItem := widget.SelectedItem()
 	for idx, item := range firstGroup {
 		if widget.shouldShowItem(item) {
-			str += widget.formattedItemLine(idx-hidden, item, selectedItem, widget.list.LongestLine())
+			str += widget.formattedItemLine(idx, hidden, item, selectedItem, widget.list.LongestLine())
 		} else {
 			hidden = hidden + 1
 		}
@@ -61,7 +61,7 @@ func (widget *Widget) sortListByChecked(firstGroup []*checklist.ChecklistItem, s
 
 	for idx, item := range secondGroup {
 		if widget.shouldShowItem(item) {
-			str += widget.formattedItemLine(idx+offset-hidden, item, selectedItem, widget.list.LongestLine())
+			str += widget.formattedItemLine(idx+offset, hidden, item, selectedItem, widget.list.LongestLine())
 		} else {
 			hidden = hidden + 1
 		}
@@ -99,16 +99,28 @@ func (widget *Widget) shouldShowItem(item *checklist.ChecklistItem) bool {
 	return true
 }
 
-func (widget *Widget) formattedItemLine(idx int, currItem *checklist.ChecklistItem, selectedItem *checklist.ChecklistItem, maxLen int) string {
-	rowColor := widget.RowColor(idx)
-
-	if currItem.Checked {
-		rowColor = widget.settings.Colors.CheckboxTheme.Checked
+func (widget *Widget) RowColor(idx int, hidden int, checked bool) string {
+	if widget.View.HasFocus() && (idx == widget.Selected) {
+		foreground := widget.CommonSettings().Colors.RowTheme.HighlightedForeground
+		if checked {
+			foreground = widget.settings.Colors.CheckboxTheme.Checked
+		}
+		return fmt.Sprintf(
+			"%s:%s",
+			foreground,
+			widget.CommonSettings().Colors.RowTheme.HighlightedBackground,
+		)
 	}
 
-	if widget.View.HasFocus() && (currItem == selectedItem) {
-		rowColor = widget.RowColor(idx)
+	if checked {
+		return widget.settings.Colors.CheckboxTheme.Checked
+	} else {
+		return widget.CommonSettings().RowColor(idx - hidden)
 	}
+}
+
+func (widget *Widget) formattedItemLine(idx int, hidden int, currItem *checklist.ChecklistItem, selectedItem *checklist.ChecklistItem, maxLen int) string {
+	rowColor := widget.RowColor(idx, hidden, currItem.Checked)
 
 	todoDate := currItem.Date
 	row := fmt.Sprintf(
@@ -148,7 +160,7 @@ func (widget *Widget) formattedItemLine(idx int, currItem *checklist.ChecklistIt
 		row += textPart
 	}
 
-	return utils.HighlightableHelper(widget.View, row, idx, len(currItem.Text))
+	return utils.HighlightableHelper(widget.View, row, idx-hidden, len(currItem.Text))
 }
 
 func (widget *Widget) getDateString(date *time.Time) string {
