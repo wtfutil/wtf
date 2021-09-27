@@ -19,14 +19,13 @@ Awesome! [See here](https://wtfutil.com/#exit-message) for how you can change th
 
 ## Sponsored by
 
-Many thanks to the following sponsors for supporting the development of WTF.
-
 <p>
 	<a href="https://airbrake.io/?utm_medium=sponsor&utm_source=WTFutill&utm_content=airbrake-home-page&utm_campaign=2021-sponsorships" target=_blank>
 		<img src="./images/sponsors/airbrake.png?raw=true" height="60" title="Airbrake" alt="Airbrake" />
 	</a>
 </p>
 
+<hr />
 
 <p></p>
 
