@@ -15,7 +15,7 @@ Used by thousands of developers and tech people around the world, WTF is free an
 
 ### Are you a contributor or sponsor?
 
-Awesome! [See here](https://wtfutil.com/#exit-message) for how you can change the exit message, the message WTF shows when quitting, to something special just for you.
+Awesome! [See here](https://wtfutil.com/sponsors/exit_message/) for how you can change the exit message, the message WTF shows when quitting, to something special just for you.
 
 ## Sponsored by
 
