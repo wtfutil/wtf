@@ -32,7 +32,7 @@ func (widget *Widget) Disable() {
 }
 
 func (widget *Widget) Refresh() {
-	if isAuthenticated() {
+	if isAuthenticated(widget.settings.email) {
 		widget.fetchAndDisplayEvents()
 		return
 	}
