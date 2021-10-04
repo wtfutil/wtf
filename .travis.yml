@@ -1,7 +1,7 @@
 language: go
 
 go:
-  - "1.16.x"
+  - "1.17.x"
 
 before_install:
   # Make sure travis builds work for forks
