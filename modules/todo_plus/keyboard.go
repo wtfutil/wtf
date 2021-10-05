@@ -1,6 +1,6 @@
 package todo_plus
 
-import "github.com/gdamore/tcell"
+import "github.com/gdamore/tcell/v2"
 
 func (widget *Widget) initializeKeyboardControls() {
 	widget.InitializeHelpTextKeyboardControl(widget.ShowHelp)
