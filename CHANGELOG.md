@@ -2,7 +2,10 @@
 
 ## Unreleased
 
+### ⚡️ Added
+
 * Numerous improvements to the display of the Git module, [#1102](https://github.com/wtfutil/wtf/pull/1102) by [@tadeaspaule](https://github.com/tadeaspaule)
+* Updated to Go 1.17, by [nontw](https://github.com/nontw)
 
 ## v0.39.2
 
