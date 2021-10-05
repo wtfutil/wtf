@@ -6,8 +6,8 @@ import (
 	"os"
 	"time"
 
-	"github.com/gdamore/tcell"
-	_ "github.com/gdamore/tcell/terminfo/extended"
+	"github.com/gdamore/tcell/v2"
+	_ "github.com/gdamore/tcell/v2/terminfo/extended"
 	"github.com/logrusorgru/aurora"
 	"github.com/olebedev/config"
 	"github.com/radovskyb/watcher"
