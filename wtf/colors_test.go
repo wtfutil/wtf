@@ -3,7 +3,7 @@ package wtf
 import (
 	"testing"
 
-	"github.com/gdamore/tcell/v2"
+	"github.com/gdamore/tcell"
 )
 
 func Test_ASCIItoTviewColors(t *testing.T) {

@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/gdamore/tcell/v2"
+	"github.com/gdamore/tcell"
 )
 
 var colorMap = map[int]string{

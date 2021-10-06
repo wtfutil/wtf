@@ -1,6 +1,6 @@
 package newrelic
 
-import "github.com/gdamore/tcell/v2"
+import "github.com/gdamore/tcell"
 
 func (widget *Widget) initializeKeyboardControls() {
 	widget.SetKeyboardKey(tcell.KeyLeft, widget.PrevSource, "Select previous application")
