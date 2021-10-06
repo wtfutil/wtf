@@ -1,6 +1,6 @@
 module github.com/wtfutil/wtf
 
-go 1.16
+go 1.17
 
 require (
 	bitbucket.org/mikehouston/asana-go v0.0.0-20201102222432-715318d0343a
@@ -74,6 +74,91 @@ require (
 	jaytaylor.com/html2text v0.0.0-20200412013138-3577fbdbcff7
 	k8s.io/apimachinery v0.0.0-20190223094358-dcb391cde5ca
 	k8s.io/client-go v10.0.0+incompatible
+)
+
+require (
+	cloud.google.com/go v0.65.0 // indirect
+	contrib.go.opencensus.io/exporter/jaeger v0.1.0 // indirect
+	contrib.go.opencensus.io/exporter/prometheus v0.1.0 // indirect
+	github.com/PuerkitoBio/goquery v1.5.1 // indirect
+	github.com/andybalholm/cascadia v1.1.0 // indirect
+	github.com/aokoli/goutils v1.1.0 // indirect
+	github.com/apache/thrift v0.12.0 // indirect
+	github.com/beorn7/perks v1.0.1 // indirect
+	github.com/blang/semver v3.5.1+incompatible // indirect
+	github.com/danwakefield/fnmatch v0.0.0-20160403171240-cbb64ac3d964 // indirect
+	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
+	github.com/dlclark/regexp2 v1.2.0 // indirect
+	github.com/eapache/go-resiliency v1.2.0 // indirect
+	github.com/fatih/color v1.7.0 // indirect
+	github.com/fsamin/go-dump v1.0.9 // indirect
+	github.com/gdamore/encoding v1.0.0 // indirect
+	github.com/go-gorp/gorp v2.0.0+incompatible // indirect
+	github.com/gogo/protobuf v1.2.1 // indirect
+	github.com/golang/groupcache v0.0.0-20200121045136-8c9f03a8e57e // indirect
+	github.com/golang/protobuf v1.4.2 // indirect
+	github.com/google/btree v1.0.0 // indirect
+	github.com/google/go-cmp v0.5.2 // indirect
+	github.com/google/go-querystring v1.0.0 // indirect
+	github.com/google/gofuzz v1.0.0 // indirect
+	github.com/google/uuid v1.1.1 // indirect
+	github.com/googleapis/gax-go/v2 v2.0.5 // indirect
+	github.com/googleapis/gnostic v0.1.0 // indirect
+	github.com/gorilla/websocket v1.4.1 // indirect
+	github.com/gregjones/httpcache v0.0.0-20190212212710-3befbb6ad0cc // indirect
+	github.com/hashicorp/go-cleanhttp v0.5.1 // indirect
+	github.com/hashicorp/go-retryablehttp v0.6.4 // indirect
+	github.com/hashicorp/hcl v1.0.0 // indirect
+	github.com/huandu/xstrings v1.2.0 // indirect
+	github.com/imdario/mergo v0.3.9 // indirect
+	github.com/inconshreveable/mousetrap v1.0.0 // indirect
+	github.com/json-iterator/go v1.1.10 // indirect
+	github.com/kballard/go-shellquote v0.0.0-20180428030007-95032a82bc51 // indirect
+	github.com/konsorten/go-windows-terminal-sequences v1.0.3 // indirect
+	github.com/lucasb-eyer/go-colorful v1.2.0 // indirect
+	github.com/maruel/panicparse v1.3.0 // indirect
+	github.com/mattn/go-colorable v0.1.6 // indirect
+	github.com/mattn/go-isatty v0.0.12 // indirect
+	github.com/mattn/go-runewidth v0.0.13 // indirect
+	github.com/matttproud/golang_protobuf_extensions v1.0.1 // indirect
+	github.com/mgutz/ansi v0.0.0-20170206155736-9520e82c474b // indirect
+	github.com/mitchellh/hashstructure v0.0.0-20170609045927-2bca23e0e452 // indirect
+	github.com/mitchellh/mapstructure v1.1.2 // indirect
+	github.com/mmcdole/goxpp v0.0.0-20181012175147-0068e33feabf // indirect
+	github.com/mndrix/tap-go v0.0.0-20170113192335-56cca451570b // indirect
+	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
+	github.com/modern-go/reflect2 v1.0.1 // indirect
+	github.com/opencontainers/go-digest v1.0.0-rc1 // indirect
+	github.com/ovh/cds/sdk/interpolate v0.0.0-20190319104452-71125b036b25 // indirect
+	github.com/ovh/venom v0.25.0 // indirect
+	github.com/peterbourgon/diskv v2.0.1+incompatible // indirect
+	github.com/pmezard/go-difflib v1.0.0 // indirect
+	github.com/prometheus/client_golang v1.1.0 // indirect
+	github.com/prometheus/client_model v0.0.0-20190812154241-14fe0d1b01d4 // indirect
+	github.com/prometheus/common v0.6.0 // indirect
+	github.com/prometheus/procfs v0.0.3 // indirect
+	github.com/rivo/uniseg v0.2.0 // indirect
+	github.com/rs/xid v1.2.1 // indirect
+	github.com/sguiheux/go-coverage v0.0.0-20190710153556-287b082a7197 // indirect
+	github.com/sirupsen/logrus v1.6.0 // indirect
+	github.com/smartystreets/assertions v0.0.0-20180927180507-b2de0cb4f26d // indirect
+	github.com/spf13/afero v1.2.2 // indirect
+	go.opencensus.io v0.22.4 // indirect
+	golang.org/x/crypto v0.0.0-20200709230013-948cd5f35899 // indirect
+	golang.org/x/net v0.0.0-20200822124328-c89045814202 // indirect
+	golang.org/x/term v0.0.0-20210220032956-6a3ed077a48d // indirect
+	golang.org/x/time v0.0.0-20191024005414-555d28b269f0 // indirect
+	google.golang.org/appengine v1.6.6 // indirect
+	google.golang.org/genproto v0.0.0-20200904004341-0bd0a958aa1d // indirect
+	google.golang.org/grpc v1.31.1 // indirect
+	google.golang.org/protobuf v1.25.0 // indirect
+	gopkg.in/AlecAivazis/survey.v1 v1.7.1 // indirect
+	gopkg.in/inf.v0 v0.9.1 // indirect
+	gopkg.in/yaml.v3 v3.0.0-20200601152816-913338de1bd2 // indirect
+	k8s.io/api v0.0.0-20181204000039-89a74a8d264d // indirect
+	k8s.io/klog v0.2.0 // indirect
+	sigs.k8s.io/yaml v1.1.0 // indirect
 )
 
 // These hacks are in place to work around this bug in coreos/etcd/proxy/grpcproxy > v1.30.0 that fails
