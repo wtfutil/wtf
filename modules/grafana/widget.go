@@ -65,7 +65,8 @@ func (widget *Widget) Next() {
 	if widget.Selected >= len(widget.Alerts) {
 		widget.Selected = 0
 	}
-	widget.View.Highlight(strconv.Itoa(widget.Selected)).ScrollToHighlight()
+	widget.View.Highlight(strconv.Itoa(widget.Selected))
+	widget.View.ScrollToHighlight()
 }
 
 // Prev cycles the currently highlighted text up
@@ -74,7 +75,8 @@ func (widget *Widget) Prev() {
 	if widget.Selected < 0 {
 		widget.Selected = len(widget.Alerts) - 1
 	}
-	widget.View.Highlight(strconv.Itoa(widget.Selected)).ScrollToHighlight()
+	widget.View.Highlight(strconv.Itoa(widget.Selected))
+	widget.View.ScrollToHighlight()
 }
 
 // Unselect stops highlighting the text and jumps the scroll position to the top
