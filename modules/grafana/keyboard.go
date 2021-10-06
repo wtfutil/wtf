@@ -1,6 +1,6 @@
 package grafana
 
-import "github.com/gdamore/tcell/v2"
+import "github.com/gdamore/tcell"
 
 func (widget *Widget) initializeKeyboardControls() {
 	widget.SetKeyboardKey(tcell.KeyUp, widget.Prev, "Select previous alert")

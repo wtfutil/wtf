@@ -1,6 +1,6 @@
 package asana
 
-import "github.com/gdamore/tcell/v2"
+import "github.com/gdamore/tcell"
 
 func (widget *Widget) initializeKeyboardControls() {
 	widget.InitializeHelpTextKeyboardControl(widget.ShowHelp)
