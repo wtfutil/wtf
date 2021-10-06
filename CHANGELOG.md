@@ -6,6 +6,7 @@
 
 * Numerous improvements to the display of the Git module, [#1102](https://github.com/wtfutil/wtf/pull/1102) by [@tadeaspaule](https://github.com/tadeaspaule)
 * Updated to Go 1.17, by [nontw](https://github.com/nontw)
+* [Airbrake module](https://github.com/wtfutil/wtf/tree/master/modules/airbrake) added, by [@kyrylo](https://github.com/kyrylo)
 
 ## v0.39.2
 
@@ -15,25 +16,25 @@ Fixes a critical crashing bug that prevented WTF from launching on Intel Macs. T
 
 ### ⚡️ Added
 
-* Updown module added, by [@hjr265](https://github.com/hjr265)
+* [Updown module](https://github.com/wtfutil/wtf/tree/master/modules/updown) added, by [@hjr265](https://github.com/hjr265)
 * Considerable improvements to the Todo module. See PR [#1100](https://github.com/wtfutil/wtf/pull/1100) for details. By [@tadeaspaule](https://github.com/tadeaspaule)
 
 ### 🐞 Fixed
 
-* Healthchecks module now respects the `apiURL` setting in the config file, by [@hjr265](https://github.com/hjr265)
+* [Healthchecks module](https://github.com/wtfutil/wtf/tree/master/modules/healthchecks) now respects the `apiURL` setting in the config file, by [@hjr265](https://github.com/hjr265)
 * Example FeedReader RSS feed in the default config changed to a working feed, [#1096](https://github.com/wtfutil/wtf/issues/1096) by [@senorprogrammer](https://github.com/senorprogrammer)
 
 ## 0.38.0
 
 ### 🐞 Fixed
 
-* FeedReader module handles line breaks in item titles gracefully, [#1088](https://github.com/wtfutil/wtf/issues/1088) by [@GibranHL0](https://github.com/GibranHL0)
+* [FeedReader module](https://github.com/wtfutil/wtf/tree/master/modules/feedreader) handles line breaks in item titles gracefully, [#1088](https://github.com/wtfutil/wtf/issues/1088) by [@GibranHL0](https://github.com/GibranHL0)
 
 ## 0.37.0
 
 ### ⚡️ Added
 
-* Yahoo Finance module added, by [@inetAnt](https://github.com/inetAnt)
+* [Yahoo Finance](https://github.com/wtfutil/wtf/tree/master/modules/stocks/yfinance) module added, by [@inetAnt](https://github.com/inetAnt)
 
 ### 🐞 Fixed
 
@@ -43,9 +44,9 @@ Fixes a critical crashing bug that prevented WTF from launching on Intel Macs. T
 
 ### ⚡️ Added
 
-* HealthChecks module added, by [@stone](https://github.com/stone)
-* Asana module added, by [@xntrik](https://github.com/xntrik)
-* Kubernetes module now displays the Ready Replicas and Total Replicas count, by [@LKaemmerling](https://github.com/LKaemmerling)
+* [Healthchecks module](https://github.com/wtfutil/wtf/tree/master/modules/healthchecks) added, by [@stone](https://github.com/stone)
+* [Asana module](https://github.com/wtfutil/wtf/tree/master/modules/asana) added, by [@xntrik](https://github.com/xntrik)
+* [Kubernetes module](https://github.com/wtfutil/wtf/tree/master/modules/kubernetes) now displays the Ready Replicas and Total Replicas count, by [@LKaemmerling](https://github.com/LKaemmerling)
 * Now builds using Go 1.16, which provides support for Apple's M1 ARM hardware, by [@LKaemmerling](https://github.com/LKaemmerling)
 
 ### 🐞 Fixed
