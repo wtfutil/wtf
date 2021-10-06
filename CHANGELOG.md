@@ -17,7 +17,7 @@ Fixes a critical crashing bug that prevented WTF from launching on Intel Macs. T
 ### ⚡️ Added
 
 * [Updown module](https://github.com/wtfutil/wtf/tree/master/modules/updown) added, by [@hjr265](https://github.com/hjr265)
-* Considerable improvements to the Todo module. See PR [#1100](https://github.com/wtfutil/wtf/pull/1100) for details. By [@tadeaspaule](https://github.com/tadeaspaule)
+* Considerable improvements to the [Todo module](https://github.com/wtfutil/wtf/tree/master/modules/todo). See PR [#1100](https://github.com/wtfutil/wtf/pull/1100) for details. By [@tadeaspaule](https://github.com/tadeaspaule)
 
 ### 🐞 Fixed
 
