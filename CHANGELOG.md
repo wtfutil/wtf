@@ -8,6 +8,10 @@
 * Updated to Go 1.17, by [nontw](https://github.com/nontw)
 * [Airbrake module](https://github.com/wtfutil/wtf/tree/master/modules/airbrake) added, by [@kyrylo](https://github.com/kyrylo)
 
+### 🐞 Fixed
+
+* [GitHub module](https://wtfutil.com/modules/github/) no longer crashes when selecting different items across multiple repos, by [@Seanstoppable](https://github.com/Seanstoppable)
+
 ## v0.39.2
 
 Fixes a critical crashing bug that prevented WTF from launching on Intel Macs. The solution was to `go get -u golang.org/x/sys` to force a compatibility update with Go 1.17.
