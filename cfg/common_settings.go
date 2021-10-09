@@ -3,6 +3,7 @@ package cfg
 import (
 	"fmt"
 	"strings"
+	"time"
 
 	"github.com/olebedev/config"
 	"golang.org/x/text/language"
@@ -40,12 +41,13 @@ type Common struct {
 
 	DocPath string
 
-	Bordered        bool   `help:"Whether or not the module should be displayed with a border." values:"true, false" optional:"true" default:"true"`
-	Enabled         bool   `help:"Whether or not this module is executed and if its data displayed onscreen." values:"true, false" optional:"true" default:"false"`
-	Focusable       bool   `help:"Whether or  not this module is focusable." values:"true, false" optional:"true" default:"false"`
-	LanguageTag     string `help:"The BCP 47 langauge tag to localize text to." values:"Any supported BCP 47 language tag." optional:"true" default:"en-CA"`
-	RefreshInterval int    `help:"How often, in seconds, this module will update its data." values:"A positive integer, 0..n." optional:"true"`
-	Title           string `help:"The title string to show when displaying this module" optional:"true"`
+	Bordered        bool          `help:"Whether or not the module should be displayed with a border." values:"true, false" optional:"true" default:"true"`
+	Enabled         bool          `help:"Whether or not this module is executed and if its data displayed onscreen." values:"true, false" optional:"true" default:"false"`
+	Focusable       bool          `help:"Whether or  not this module is focusable." values:"true, false" optional:"true" default:"false"`
+	LanguageTag     string        `help:"The BCP 47 langauge tag to localize text to." values:"Any supported BCP 47 language tag." optional:"true" default:"en-CA"`
+	RefreshInterval int           `help:"How often, in seconds, this module will update its data." values:"A positive integer, 0..n." optional:"true"`
+	RefreshUnit     time.Duration `help:"Multiply RefreshInterval by this factor. Used for finer control of the refresh rate." values:"a positive integer followed by a time unit (ns, us or µs, ms, s, m, h)"`
+	Title           string        `help:"The title string to show when displaying this module" optional:"true"`
 
 	focusChar int `help:"Define one of the number keys as a short cut key to access the widget." optional:"true"`
 }
@@ -106,6 +108,13 @@ func NewCommonSettingsFromModule(name, defaultTitle string, defaultFocusable boo
 		Title:           moduleConfig.UString("title", defaultTitle),
 
 		focusChar: moduleConfig.UInt("focusChar", -1),
+	}
+
+	d, err := time.ParseDuration(moduleConfig.UString("refreshUnit", "1s"))
+	if err != nil {
+		common.RefreshUnit = time.Second
+	} else {
+		common.RefreshUnit = d
 	}
 
 	sigilsPath := "wtf.sigils"

@@ -2,6 +2,7 @@ package cfg
 
 import (
 	"testing"
+	"time"
 
 	"github.com/olebedev/config"
 	"github.com/stretchr/testify/assert"
@@ -33,6 +34,7 @@ func Test_NewCommonSettingsFromModule(t *testing.T) {
 	assert.Equal(t, "test", testCfg.Module.Type)
 	assert.Equal(t, "", testCfg.FocusChar())
 	assert.Equal(t, 300, testCfg.RefreshInterval)
+	assert.Equal(t, time.Duration(1*time.Second), testCfg.RefreshUnit)
 	assert.Equal(t, "Test Config", testCfg.Title)
 }
 
