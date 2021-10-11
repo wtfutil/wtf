@@ -81,19 +81,6 @@ func (battery *Battery) parse(data string) string {
 func (battery *Battery) formatCharge(data string) string {
 	percent, _ := strconv.ParseFloat(strings.Replace(data, "%", "", -1), 32)
 	return utils.ColorizePercent(percent)
-
-	// color := ""
-
-	// switch {
-	// case percent >= 70:
-	// 	color = "[green]"
-	// case percent >= 35:
-	// 	color = "[yellow]"
-	// default:
-	// 	color = "[red]"
-	// }
-
-	// return color + data + "[white]"
 }
 
 func (battery *Battery) formatState(data string) string {
