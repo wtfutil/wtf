@@ -87,7 +87,7 @@ func (battery *Battery) formatRemaining(data string) string {
 
 	result := r.FindString(data)
 	if result == "" || result == "0:00" {
-		result = "0:00"
+		result = "-"
 	}
 
 	return result
