@@ -103,7 +103,7 @@ func NewCommonSettingsFromModule(name, defaultTitle string, defaultFocusable boo
 		Enabled:         moduleConfig.UBool("enabled", false),
 		Focusable:       moduleConfig.UBool("focusable", defaultFocusable),
 		LanguageTag:     globalConfig.UString("wtf.language", defaultLanguageTag),
-		RefreshInterval: ParseTimeString(moduleConfig, "refreshInterval", "1s"),
+		RefreshInterval: ParseTimeString(moduleConfig, "refreshInterval", "300s"),
 		Title:           moduleConfig.UString("title", defaultTitle),
 
 		focusChar: moduleConfig.UInt("focusChar", -1),
