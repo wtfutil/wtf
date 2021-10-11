@@ -1,3 +1,4 @@
+//go:build freebsd
 // +build freebsd
 
 package power
@@ -64,12 +65,9 @@ func (battery *Battery) parse(data string) string {
 		timeToEmpty = fmt.Sprintf("%2d:%02d:%02d", h, m, s)
 	}
 
-	str := fmt.Sprintf(" %10s: %s%%\n", "Charge", battery.formatCharge(charge))
-	str += fmt.Sprintf(" %10s: %s\n", "Remaining", timeToEmpty)
-	str += fmt.Sprintf(" %10s: %s\n", "State", battery.formatState(batteryState))
-	//	if s := table["time to full"]; s != "" {
-	//		str += fmt.Sprintf(" %10s: %s\n", "TimeToFull", table["time to full"])
-	//	}
+	str := fmt.Sprintf(" %14s: %s%%\n", "Charge", battery.formatCharge(charge))
+	str += fmt.Sprintf(" %14s: %s\n", "Remaining", timeToEmpty)
+	str += fmt.Sprintf(" %14s: %s\n", "State", battery.formatState(batteryState))
 
 	return str
 }

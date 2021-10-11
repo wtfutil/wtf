@@ -98,7 +98,7 @@ func (wtfApp *WtfApp) sponsorThankYouMessage() string {
 
 func (wtfApp *WtfApp) supportRequestMessage() string {
 	str := "    The development and maintenance of WTF is supported by sponsorships.\n"
-	str += fmt.Sprintf("    Please consider sponsoring WTF at %s\n", aurora.Green("https://github.com/sponsors/senorprogrammer"))
+	str += fmt.Sprintf("    Sponsor the development of WTF at %s\n", aurora.Green("https://github.com/sponsors/senorprogrammer"))
 
 	return str
 }

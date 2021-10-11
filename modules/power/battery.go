@@ -70,9 +70,9 @@ func (battery *Battery) parse(data string) string {
 	}
 
 	str := ""
-	str = str + fmt.Sprintf(" %10s: %s\n", "Charge", battery.formatCharge(details[0]))
-	str = str + fmt.Sprintf(" %10s: %s\n", "Remaining", battery.formatRemaining(details[2]))
-	str = str + fmt.Sprintf(" %10s: %s\n", "State", battery.formatState(details[1]))
+	str = str + fmt.Sprintf(" %14s: %s\n", "Charge", battery.formatCharge(details[0]))
+	str = str + fmt.Sprintf(" %14s: %s\n", "Remaining", battery.formatRemaining(details[2]))
+	str = str + fmt.Sprintf(" %14s: %s\n", "State", battery.formatState(details[1]))
 
 	return str
 }
@@ -87,7 +87,7 @@ func (battery *Battery) formatRemaining(data string) string {
 
 	result := r.FindString(data)
 	if result == "" || result == "0:00" {
-		result = "∞"
+		result = "0:00"
 	}
 
 	return result
