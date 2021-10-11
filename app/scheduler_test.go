@@ -34,7 +34,7 @@ const (
 )
 
 func Test_RefreshInterval(t *testing.T) {
-	//t.Skip() // slow running test because a ticker is tested
+	t.Skip() // slow running test because a ticker is tested
 	tests := []struct {
 		name         string
 		moduleName   string
