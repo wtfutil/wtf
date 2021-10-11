@@ -16,10 +16,10 @@ const osxFirewallCmd = "/usr/libexec/ApplicationFirewall/socketfilterfw"
 
 func FirewallState() string {
 	switch runtime.GOOS {
-	case "linux":
-		return firewallStateLinux()
 	case "darwin":
 		return firewallStateMacOS()
+	case "linux":
+		return firewallStateLinux()
 	case "windows":
 		return firewallStateWindows()
 	default:

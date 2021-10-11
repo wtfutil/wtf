@@ -27,12 +27,12 @@ type Battery struct {
 }
 
 func NewBattery() *Battery {
-	battery := Battery{
+	battery := &Battery{
 		args: []string{"-g", "batt"},
 		cmd:  "pmset",
 	}
 
-	return &battery
+	return battery
 }
 
 /* -------------------- Exported Functions -------------------- */
@@ -70,28 +70,16 @@ func (battery *Battery) parse(data string) string {
 	}
 
 	str := ""
-	str = str + fmt.Sprintf(" %10s: %s\n", "Charge", battery.formatCharge(details[0]))
-	str = str + fmt.Sprintf(" %10s: %s\n", "Remaining", battery.formatRemaining(details[2]))
-	str = str + fmt.Sprintf(" %10s: %s\n", "State", battery.formatState(details[1]))
+	str = str + fmt.Sprintf(" %14s: %s\n", "Charge", battery.formatCharge(details[0]))
+	str = str + fmt.Sprintf(" %14s: %s\n", "Remaining", battery.formatRemaining(details[2]))
+	str = str + fmt.Sprintf(" %14s: %s\n", "State", battery.formatState(details[1]))
 
 	return str
 }
 
 func (battery *Battery) formatCharge(data string) string {
 	percent, _ := strconv.ParseFloat(strings.Replace(data, "%", "", -1), 32)
-
-	color := ""
-
-	switch {
-	case percent >= 70:
-		color = "[green]"
-	case percent >= 35:
-		color = "[yellow]"
-	default:
-		color = "[red]"
-	}
-
-	return color + data + "[white]"
+	return utils.ColorizePercent(percent)
 }
 
 func (battery *Battery) formatRemaining(data string) string {
@@ -99,7 +87,7 @@ func (battery *Battery) formatRemaining(data string) string {
 
 	result := r.FindString(data)
 	if result == "" || result == "0:00" {
-		result = "∞"
+		result = "-"
 	}
 
 	return result

@@ -1,3 +1,4 @@
+//go:build linux
 // +build linux
 
 package power
@@ -67,9 +68,9 @@ func (battery *Battery) parse(data string) string {
 	if s := table["time to empty"]; s == "" {
 		table["time to empty"] = "∞"
 	}
-	str := fmt.Sprintf(" %10s: %s\n", "Charge", battery.formatCharge(table["percentage"]))
-	str += fmt.Sprintf(" %10s: %s\n", "Remaining", table["time to empty"])
-	str += fmt.Sprintf(" %10s: %s\n", "State", battery.formatState(table["state"]))
+	str := fmt.Sprintf(" %14s: %s\n", "Charge", battery.formatCharge(table["percentage"]))
+	str += fmt.Sprintf(" %14s: %s\n", "Remaining", table["time to empty"])
+	str += fmt.Sprintf(" %14s: %s\n", "State", battery.formatState(table["state"]))
 	if s := table["time to full"]; s != "" {
 		str += fmt.Sprintf(" %10s: %s\n", "TimeToFull", table["time to full"])
 	}
@@ -79,18 +80,20 @@ func (battery *Battery) parse(data string) string {
 
 func (battery *Battery) formatCharge(data string) string {
 	percent, _ := strconv.ParseFloat(strings.Replace(data, "%", "", -1), 32)
-	color := ""
+	return utils.ColorizePercent(percent)
 
-	switch {
-	case percent >= 70:
-		color = "[green]"
-	case percent >= 35:
-		color = "[yellow]"
-	default:
-		color = "[red]"
-	}
+	// color := ""
 
-	return color + data + "[white]"
+	// switch {
+	// case percent >= 70:
+	// 	color = "[green]"
+	// case percent >= 35:
+	// 	color = "[yellow]"
+	// default:
+	// 	color = "[red]"
+	// }
+
+	// return color + data + "[white]"
 }
 
 func (battery *Battery) formatState(data string) string {
