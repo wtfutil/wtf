@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	slow = `
+	current = `
   wtf:
     mods:
       clocks:
@@ -18,10 +18,9 @@ const (
           left: 0
           height: 1
           width: 1
-        refreshInterval: 4
-        refreshUnit: 0.5s`
+        refreshInterval: 2`
 
-	fast = `
+	new = `
   wtf:
     mods:
       clocks:
@@ -31,12 +30,11 @@ const (
           left: 0
           height: 1
           width: 1
-        refreshInterval: 1
-        refreshUnit: 10ms`
+        refreshInterval: 100ms`
 )
 
-func Test_RefreshUnit(t *testing.T) {
-	t.Skip() // slow running test because a ticker is tested
+func Test_RefreshInterval(t *testing.T) {
+	//t.Skip() // slow running test because a ticker is tested
 	tests := []struct {
 		name         string
 		moduleName   string
@@ -48,7 +46,7 @@ func Test_RefreshUnit(t *testing.T) {
 			name:       "slow ticking module",
 			moduleName: "clocks",
 			config: func() *config.Config {
-				cfg, _ := config.ParseYaml(slow)
+				cfg, _ := config.ParseYaml(current)
 				return cfg
 			}(),
 			testAttempts: 10,
@@ -58,11 +56,11 @@ func Test_RefreshUnit(t *testing.T) {
 			name:       "fast ticking module",
 			moduleName: "clocks",
 			config: func() *config.Config {
-				cfg, _ := config.ParseYaml(fast)
+				cfg, _ := config.ParseYaml(new)
 				return cfg
 			}(),
 			testAttempts: 10,
-			expected:     10 * time.Millisecond,
+			expected:     100 * time.Millisecond,
 		},
 	}
 
@@ -70,7 +68,7 @@ func Test_RefreshUnit(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			widget := MakeWidget(nil, nil, tt.moduleName, tt.config)
 
-			interval := time.Duration(widget.RefreshInterval()) * widget.CommonSettings().RefreshUnit
+			interval := widget.CommonSettings().RefreshInterval // same declaration as in scheduler.go#Schedule
 			timer := time.NewTicker(interval)
 
 			attempts := 0

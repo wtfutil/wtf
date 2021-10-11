@@ -34,7 +34,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		// RefreshInterval: ,
 	}
 
-	settings.common.RefreshInterval = ymlConfig.UInt("refreshInterval", 60)
+	settings.common.RefreshInterval = cfg.ParseTimeString(ymlConfig, "refreshInterval", "60s")
 	settings.colors.bigup = ymlConfig.UString("colors.bigup", "greenyellow")
 	settings.colors.up = ymlConfig.UString("colors.up", "green")
 	settings.colors.drop = ymlConfig.UString("colors.drop", "firebrick")
