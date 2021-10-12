@@ -14,7 +14,7 @@ wtf:
       title: "¯\\_(ツ)_/¯"
       enabled: true
       plugin:
-        path: "./pluggable/example_pluggable/example_pluggable.so"
+        path: "./pluggable/example_pluggable/example_pluggable"
       position:
         top: 0
         left: 0

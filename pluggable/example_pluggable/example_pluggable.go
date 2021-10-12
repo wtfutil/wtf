@@ -1,10 +1,12 @@
 package main
 
 import (
+	"github.com/hashicorp/go-plugin"
 	"github.com/olebedev/config"
 	"github.com/rivo/tview"
 
 	"github.com/wtfutil/wtf/cfg"
+	"github.com/wtfutil/wtf/pluggable"
 	"github.com/wtfutil/wtf/view"
 	"github.com/wtfutil/wtf/wtf"
 )
@@ -73,7 +75,18 @@ func (widget *ExamplePluggable) getText() (string, string, bool) {
 	return widget.CommonSettings().Title, text, false
 }
 
-// WTFModule is exported to ensure that the plugin loader can find it.
-// Naming it anything else will just make it unloadable.
-// ...or explode, guess it just depends how fragile the Go compiler feels like being on a given day.
-var WTFModule ExamplePluggable
+/* -------------------- net/rpc hackery -------------------- */
+
+type pluggableRPCServer struct{}
+
+func (p *pluggableRPCServer) Module() (pluggable.ExternalModule, error) {
+	return &ExamplePluggable{}, nil
+}
+
+func main() {
+	plugin.Serve(&plugin.ServeConfig{
+		Plugins: map[string]plugin.Plugin{
+			pluggable.RPCPluginName: &pluggable.RPCPluggablePlugin{Impl: &pluggableRPCServer{}},
+		},
+	})
+}

@@ -4,11 +4,9 @@
 package pluggable
 
 import (
-	"fmt"
-	"os"
-	"path/filepath"
-	"plugin"
+	"os/exec"
 
+	"github.com/hashicorp/go-plugin"
 	"github.com/olebedev/config"
 	"github.com/rivo/tview"
 
@@ -16,7 +14,7 @@ import (
 )
 
 const (
-	ExportedSymbol string = "WTFModule"
+	RPCPluginName string = "wtf_module"
 )
 
 // ExternalModule represents a module which is dynamically loaded
@@ -39,8 +37,7 @@ type ExternalModule interface {
 	) wtf.Wtfable
 }
 
-// LoadExternalModule attempts to load a "plugin" module by way of loading a pre-compiled .so file,
-// compiled by way of `go build -buildmode=plugin [...things and stuff...]`.
+// LoadExternalModule attempts to load a "plugin" module by way of hacky net/rpc bullcrap.
 func LoadExternalModule(
 	tviewApp *tview.Application,
 	pages *tview.Pages,
@@ -49,60 +46,31 @@ func LoadExternalModule(
 	ymlConfig *config.Config,
 	globalConfig *config.Config,
 ) wtf.Wtfable {
-	pluginSoPath, _ := pluginConfig["path"].(string)
+	cmdPath := pluginConfig["path"].(string)
 
-	validPath, isValid := validatePath(pluginSoPath)
-	if !isValid {
-		return nil
-	}
+	client := plugin.NewClient(&plugin.ClientConfig{
+		Plugins: map[string]plugin.Plugin{
+			RPCPluginName: &RPCPluggablePlugin{},
+		},
+		Cmd: exec.Command("sh", "-c", cmdPath),
+	})
+	defer client.Kill()
 
-	// Attempt to load the .so file at the path
-	p, err := plugin.Open(validPath)
+	rpcClient, err := client.Client()
 	if err != nil {
-		fmt.Println(err)
-		return nil
+		panic(err)
 	}
 
-	// Attempt to find an exported variable in the loaded .so by name
-	// (specifically, "WTFModule")
-	pl, err := p.Lookup(ExportedSymbol)
+	rawMod, err := rpcClient.Dispense(RPCPluginName)
 	if err != nil {
-		fmt.Printf("Symbol %s not found in file %s; did you remember to export it?\n", ExportedSymbol, validPath)
-		return nil
+		panic(err)
 	}
 
-	// Check that the exported symbol is, in fact, an ExternalModule.
-	plug, ok := pl.(ExternalModule)
-	if !ok {
-		fmt.Printf("Module at path %s is not a valid ExternalModule; consider writing a valid one.\n", validPath)
-		return nil
-	}
-
-	// finally, initialize that bad boi
-	return plug.Initialize(moduleName, ymlConfig, globalConfig, tviewApp, pages)
-}
-
-func validatePath(p string) (validFilepath string, isValid bool) {
-	// let's program defensively
-	if p == "" {
-		return "", false
-	}
-	// make sure default return values are set
-	validFilepath = ""
-	isValid = false
-
-	cleaned, err := filepath.Abs(p)
+	modLoader := rawMod.(RPCPluggable)
+	externalMod, err := modLoader.Module()
 	if err != nil {
-		return
+		panic(err)
 	}
 
-	info, err := os.Stat(cleaned)
-	if err != nil {
-		return
-	}
-
-	validFilepath = cleaned
-	isValid = !info.IsDir()
-
-	return
+	return externalMod.Initialize(moduleName, ymlConfig, globalConfig, tviewApp, pages)
 }
