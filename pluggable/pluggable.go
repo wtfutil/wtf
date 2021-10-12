@@ -50,7 +50,7 @@ func LoadExternalModule(
 
 	client := plugin.NewClient(&plugin.ClientConfig{
 		Plugins: map[string]plugin.Plugin{
-			RPCPluginName: &RPCPluggablePlugin{},
+			RPCPluginName: &RPCModuleLoader{},
 		},
 		Cmd: exec.Command("sh", "-c", cmdPath),
 	})
@@ -66,7 +66,7 @@ func LoadExternalModule(
 		panic(err)
 	}
 
-	modLoader := rawMod.(RPCPluggable)
+	modLoader := rawMod.(ModuleLoader)
 	externalMod, err := modLoader.Module()
 	if err != nil {
 		panic(err)

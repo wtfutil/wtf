@@ -6,24 +6,24 @@ import (
 	"github.com/hashicorp/go-plugin"
 )
 
-type RPCPluggable interface {
+type ModuleLoader interface {
 	Module() (ExternalModule, error)
 }
 
-type RPCPluggablePlugin struct {
-	Impl RPCPluggable
+type RPCModuleLoader struct {
+	Impl ModuleLoader
 }
 
-func (p *RPCPluggablePlugin) Server(*plugin.MuxBroker) (interface{}, error) {
+func (p *RPCModuleLoader) Server(*plugin.MuxBroker) (interface{}, error) {
 	return &RPCServer{Impl: p.Impl}, nil
 }
 
-func (p *RPCPluggablePlugin) Client(_ *plugin.MuxBroker, c *rpc.Client) (interface{}, error) {
+func (p *RPCModuleLoader) Client(_ *plugin.MuxBroker, c *rpc.Client) (interface{}, error) {
 	return &RPCClient{client: c}, nil
 }
 
 type RPCServer struct {
-	Impl RPCPluggable
+	Impl ModuleLoader
 }
 
 func (s *RPCServer) Module(_ map[string]interface{}, resp *ExternalModule) error {
@@ -41,7 +41,7 @@ type RPCClient struct {
 	client *rpc.Client
 }
 
-func (c *RPCClient) Module() (p RPCPluggablePlugin, err error) {
+func (c *RPCClient) Module() (p RPCModuleLoader, err error) {
 	err = c.client.Call("Plugin.Module", nil, &p)
 
 	return

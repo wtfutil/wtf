@@ -77,16 +77,16 @@ func (widget *ExamplePluggable) getText() (string, string, bool) {
 
 /* -------------------- net/rpc hackery -------------------- */
 
-type pluggableRPCServer struct{}
+type moduleLoaderServer struct{}
 
-func (p *pluggableRPCServer) Module() (pluggable.ExternalModule, error) {
+func (p *moduleLoaderServer) Module() (pluggable.ExternalModule, error) {
 	return &ExamplePluggable{}, nil
 }
 
 func main() {
 	plugin.Serve(&plugin.ServeConfig{
 		Plugins: map[string]plugin.Plugin{
-			pluggable.RPCPluginName: &pluggable.RPCPluggablePlugin{Impl: &pluggableRPCServer{}},
+			pluggable.RPCPluginName: &pluggable.RPCModuleLoader{Impl: &moduleLoaderServer{}},
 		},
 	})
 }
