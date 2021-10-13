@@ -1,5 +1,5 @@
-// +build !linux
-// +build !freebsd
+//go:build !linux && !freebsd
+// +build !linux,!freebsd
 
 package power
 
@@ -13,7 +13,9 @@ import (
 	"github.com/wtfutil/wtf/utils"
 )
 
-const TimeRegExp = "^(?:\\d|[01]\\d|2[0-3]):[0-5]\\d"
+const (
+	timeRegExp = "^(?:\\d|[01]\\d|2[0-3]):[0-5]\\d"
+)
 
 type Battery struct {
 	args   []string
@@ -25,12 +27,12 @@ type Battery struct {
 }
 
 func NewBattery() *Battery {
-	battery := Battery{
+	battery := &Battery{
 		args: []string{"-g", "batt"},
 		cmd:  "pmset",
 	}
 
-	return &battery
+	return battery
 }
 
 /* -------------------- Exported Functions -------------------- */
@@ -54,50 +56,38 @@ func (battery *Battery) execute() string {
 func (battery *Battery) parse(data string) string {
 	lines := strings.Split(data, "\n")
 	if len(lines) < 2 {
-		return "unknown (1)"
+		return msgNoBattery
 	}
 
 	stats := strings.Split(lines[1], "\t")
 	if len(stats) < 2 {
-		return "unknown (2)"
+		return msgNoBattery
 	}
 
 	details := strings.Split(stats[1], "; ")
 	if len(details) < 3 {
-		return "unknown (3)"
+		return msgNoBattery
 	}
 
 	str := ""
-	str = str + fmt.Sprintf(" %10s: %s\n", "Charge", battery.formatCharge(details[0]))
-	str = str + fmt.Sprintf(" %10s: %s\n", "Remaining", battery.formatRemaining(details[2]))
-	str = str + fmt.Sprintf(" %10s: %s\n", "State", battery.formatState(details[1]))
+	str = str + fmt.Sprintf(" %14s: %s\n", "Charge", battery.formatCharge(details[0]))
+	str = str + fmt.Sprintf(" %14s: %s\n", "Remaining", battery.formatRemaining(details[2]))
+	str = str + fmt.Sprintf(" %14s: %s\n", "State", battery.formatState(details[1]))
 
 	return str
 }
 
 func (battery *Battery) formatCharge(data string) string {
 	percent, _ := strconv.ParseFloat(strings.Replace(data, "%", "", -1), 32)
-
-	color := ""
-
-	switch {
-	case percent >= 70:
-		color = "[green]"
-	case percent >= 35:
-		color = "[yellow]"
-	default:
-		color = "[red]"
-	}
-
-	return color + data + "[white]"
+	return utils.ColorizePercent(percent)
 }
 
 func (battery *Battery) formatRemaining(data string) string {
-	r, _ := regexp.Compile(TimeRegExp)
+	r, _ := regexp.Compile(timeRegExp)
 
 	result := r.FindString(data)
 	if result == "" || result == "0:00" {
-		result = "∞"
+		result = "-"
 	}
 
 	return result

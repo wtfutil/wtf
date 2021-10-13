@@ -3,6 +3,7 @@ package app
 import (
 	"github.com/olebedev/config"
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/modules/airbrake"
 	"github.com/wtfutil/wtf/modules/asana"
 	"github.com/wtfutil/wtf/modules/azuredevops"
 	"github.com/wtfutil/wtf/modules/bamboohr"
@@ -107,6 +108,9 @@ func MakeWidget(
 
 	// Always in alphabetical order
 	switch moduleConfig.UString("type", moduleName) {
+	case "airbrake":
+		settings := airbrake.NewSettingsFromYAML(moduleName, moduleConfig, config)
+		widget = airbrake.NewWidget(tviewApp, pages, settings)
 	case "arpansagovau":
 		settings := arpansagovau.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = arpansagovau.NewWidget(tviewApp, settings)

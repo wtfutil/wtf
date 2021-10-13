@@ -1127,8 +1127,28 @@
       "name": "Dogukan Turan",
       "avatar_url": "https://avatars.githubusercontent.com/u/32000865?v=4",
       "profile": "https://github.com/dogukanturan",
-      "contributions": [
-      ]
+      "contributions": []
+    },
+    {
+      "login": "devenda-avoma",
+      "name": "Devendra Laulkar",
+      "avatar_url": "https://avatars.githubusercontent.com/u/72001066?v=4",
+      "profile": "https://github.com/devenda-avoma",
+      "contributions": []
+    },
+    {
+      "login": "nontw",
+      "name": "nont",
+      "avatar_url": "https://avatars.githubusercontent.com/u/9658731?v=4",
+      "profile": "https://github.com/nontw",
+      "contributions": []
+    },
+    {
+      "login": "kyrylo",
+      "name": "Kyrylo Silin",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1079123?v=4",
+      "profile": "http://kyrylo.org/",
+      "contributions": []
     }
   ],
   "contributorsPerLine": 7,

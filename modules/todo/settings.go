@@ -25,6 +25,11 @@ type Settings struct {
 	undatedAsDays     int
 	hideYearIfCurrent bool
 	dateFormat        string
+	parseTags         bool
+	tagColor          string
+	tagsAtEnd         bool
+	hideTags          []interface{}
+	hiddenNumInTitle  bool
 }
 
 // NewSettingsFromYAML creates a new settings instance from a YAML config block
@@ -45,6 +50,11 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		undatedAsDays:     ymlConfig.UInt("dates.undatedAsDays", 7),
 		hideYearIfCurrent: ymlConfig.UBool("dates.hideYearIfCurrent", true),
 		dateFormat:        ymlConfig.UString("dates.format", "yyyy-mm-dd"),
+		parseTags:         ymlConfig.UBool("tags.enabled", true),
+		tagColor:          ymlConfig.UString("colors.tags", "khaki"),
+		tagsAtEnd:         ymlConfig.UString("tags.pos", "end") == "end",
+		hideTags:          ymlConfig.UList("tags.hide"),
+		hiddenNumInTitle:  ymlConfig.UBool("tags.hiddenInTitle", true),
 	}
 
 	switch settings.newPos {

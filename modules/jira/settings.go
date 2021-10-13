@@ -24,6 +24,7 @@ type Settings struct {
 	*cfg.Common
 
 	apiKey                  string   `help:"Your Jira API key (or password for basic auth)."`
+	personalAccessToken     string   `help:"Access Token to use instead of username / password auth"`
 	domain                  string   `help:"Your Jira corporate domain."`
 	email                   string   `help:"The email address associated with your Jira account (or username for basic auth)."`
 	jql                     string   `help:"Custom JQL to be appended to the search query." values:"See Search Jira like a boss with JQL for details." optional:"true"`
@@ -38,6 +39,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		Common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 
 		apiKey:                  ymlConfig.UString("apiKey", ymlConfig.UString("apikey", os.Getenv("WTF_JIRA_API_KEY"))),
+		personalAccessToken:     ymlConfig.UString("personalAccessToken"),
 		domain:                  ymlConfig.UString("domain"),
 		email:                   ymlConfig.UString("email"),
 		jql:                     ymlConfig.UString("jql"),

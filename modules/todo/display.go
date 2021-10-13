@@ -16,18 +16,32 @@ func (widget *Widget) display() {
 
 func (widget *Widget) content() (string, string, bool) {
 	str := ""
+	hidden := 0
 	if widget.settings.checkedPos == "last" {
-		str += widget.sortListByChecked(widget.list.UncheckedItems(), widget.list.CheckedItems())
+		str, hidden = widget.sortListByChecked(widget.list.UncheckedItems(), widget.list.CheckedItems())
 	} else if widget.settings.checkedPos == "first" {
-		str += widget.sortListByChecked(widget.list.CheckedItems(), widget.list.UncheckedItems())
+		str, hidden = widget.sortListByChecked(widget.list.CheckedItems(), widget.list.UncheckedItems())
 	} else {
-		str += widget.sortListByChecked(widget.list.Items, []*checklist.ChecklistItem{})
+		str, hidden = widget.sortListByChecked(widget.list.Items, []*checklist.ChecklistItem{})
 	}
-	return widget.CommonSettings().Title, str, false
+
+	title := widget.CommonSettings().Title
+	if widget.showTagPrefix != "" {
+		title += " #" + widget.showTagPrefix
+	}
+	if widget.showFilter != "" {
+		title += fmt.Sprintf(" /%s", widget.showFilter)
+	}
+	if widget.settings.hiddenNumInTitle {
+		title += fmt.Sprintf(" (%d hidden)", hidden)
+	}
+
+	return title, str, false
 }
 
-func (widget *Widget) sortListByChecked(firstGroup []*checklist.ChecklistItem, secondGroup []*checklist.ChecklistItem) string {
+func (widget *Widget) sortListByChecked(firstGroup []*checklist.ChecklistItem, secondGroup []*checklist.ChecklistItem) (string, int) {
 	str := ""
+	hidden := 0
 	newList := checklist.NewChecklist(
 		widget.settings.Sigils.Checkbox.Checked,
 		widget.settings.Sigils.Checkbox.Unchecked,
@@ -36,13 +50,21 @@ func (widget *Widget) sortListByChecked(firstGroup []*checklist.ChecklistItem, s
 	offset := 0
 	selectedItem := widget.SelectedItem()
 	for idx, item := range firstGroup {
-		str += widget.formattedItemLine(idx, item, selectedItem, widget.list.LongestLine())
+		if widget.shouldShowItem(item) {
+			str += widget.formattedItemLine(idx, hidden, item, selectedItem, widget.list.LongestLine())
+		} else {
+			hidden = hidden + 1
+		}
 		newList.Items = append(newList.Items, item)
 		offset++
 	}
 
 	for idx, item := range secondGroup {
-		str += widget.formattedItemLine(idx+offset, item, selectedItem, widget.list.LongestLine())
+		if widget.shouldShowItem(item) {
+			str += widget.formattedItemLine(idx+offset, hidden, item, selectedItem, widget.list.LongestLine())
+		} else {
+			hidden = hidden + 1
+		}
 		newList.Items = append(newList.Items, item)
 	}
 	if idx, ok := newList.IndexByItem(selectedItem); ok {
@@ -50,62 +72,95 @@ func (widget *Widget) sortListByChecked(firstGroup []*checklist.ChecklistItem, s
 	}
 
 	widget.SetList(newList)
-	return str
+	return str, hidden
 }
 
-func (widget *Widget) formattedItemLine(idx int, currItem *checklist.ChecklistItem, selectedItem *checklist.ChecklistItem, maxLen int) string {
-	rowColor := widget.RowColor(idx)
-
-	if currItem.Checked {
-		rowColor = widget.settings.Colors.CheckboxTheme.Checked
+func (widget *Widget) shouldShowItem(item *checklist.ChecklistItem) bool {
+	if widget.showFilter != "" && !strings.Contains(strings.ToLower(item.Text), widget.showFilter) {
+		return false
 	}
 
-	if widget.View.HasFocus() && (currItem == selectedItem) {
-		rowColor = widget.RowColor(idx)
+	if !widget.settings.parseTags {
+		return true
 	}
 
-	todoDate := getTodoDate(currItem.Text)
-	row := ""
+	if len(item.Tags) == 0 {
+		return widget.showTagPrefix == ""
+	}
 
-	if todoDate == nil {
-		row += fmt.Sprintf(
-			` [%s]|%s| %s[white]`,
-			rowColor,
-			currItem.CheckMark(),
-			tview.Escape(currItem.Text),
+	for _, tag := range item.Tags {
+		for _, hideTag := range widget.settings.hideTags {
+			if (widget.showTagPrefix == "" && tag == hideTag) || !strings.HasPrefix(tag, widget.showTagPrefix) {
+				return false
+			}
+		}
+	}
+
+	return true
+}
+
+func (widget *Widget) RowColor(idx int, hidden int, checked bool) string {
+	if widget.View.HasFocus() && (idx == widget.Selected) {
+		foreground := widget.CommonSettings().Colors.RowTheme.HighlightedForeground
+		if checked {
+			foreground = widget.settings.Colors.CheckboxTheme.Checked
+		}
+		return fmt.Sprintf(
+			"%s:%s",
+			foreground,
+			widget.CommonSettings().Colors.RowTheme.HighlightedBackground,
 		)
+	}
+
+	if checked {
+		return widget.settings.Colors.CheckboxTheme.Checked
 	} else {
+		return widget.CommonSettings().RowColor(idx - hidden)
+	}
+}
+
+func (widget *Widget) formattedItemLine(idx int, hidden int, currItem *checklist.ChecklistItem, selectedItem *checklist.ChecklistItem, maxLen int) string {
+	rowColor := widget.RowColor(idx, hidden, currItem.Checked)
+
+	todoDate := currItem.Date
+	row := fmt.Sprintf(
+		` [%s]|%s| `,
+		rowColor,
+		currItem.CheckMark(),
+	)
+
+	if widget.settings.parseDates && todoDate != nil {
 		row += fmt.Sprintf(
-			` [%s]|%s| [%s]%s [%s]%s[white]`,
-			rowColor,
-			currItem.CheckMark(),
+			`[%s]%s `,
 			widget.settings.dateColor,
 			widget.getDateString(todoDate),
-			rowColor,
-			tview.Escape(currItem.Text[13:]),
 		)
 	}
 
-	return utils.HighlightableHelper(widget.View, row, idx, len(currItem.Text))
-}
+	tagsPart := ""
+	if len(currItem.Tags) > 0 {
+		tagsPart = fmt.Sprintf(
+			`[%s]%s[white]`,
+			widget.settings.tagColor,
+			currItem.TagString(),
+		)
+	}
 
-func getTodoDate(text string, defaultVal ...time.Time) *time.Time {
-	if len(text) < 12 {
-		if len(defaultVal) > 0 {
-			return &defaultVal[0]
-		} else {
-			return nil
-		}
+	textPart := fmt.Sprintf(
+		`[%s]%s[white]`,
+		rowColor,
+		tview.Escape(currItem.Text),
+	)
+
+	if widget.settings.parseTags && widget.settings.tagsAtEnd {
+		row += textPart + " " + tagsPart
+	} else if widget.settings.parseTags {
+		row += tagsPart + textPart
+	} else {
+		row += textPart
 	}
-	date, err := time.Parse("2006-01-02", text[1:11])
-	if err != nil {
-		if len(defaultVal) > 0 {
-			return &defaultVal[0]
-		} else {
-			return nil
-		}
-	}
-	return &date
+
+	return utils.HighlightableHelper(widget.View, row, idx-hidden, len(currItem.Text))
 }
 
 func (widget *Widget) getDateString(date *time.Time) string {

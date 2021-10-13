@@ -26,11 +26,13 @@ const (
 
 // A Widget represents a Todo widget
 type Widget struct {
-	filePath string
-	list     checklist.Checklist
-	pages    *tview.Pages
-	settings *Settings
-	tviewApp *tview.Application
+	filePath      string
+	list          checklist.Checklist
+	pages         *tview.Pages
+	settings      *Settings
+	showTagPrefix string
+	showFilter    string
+	tviewApp      *tview.Application
 	view.ScrollableWidget
 }
 
@@ -39,11 +41,12 @@ func NewWidget(tviewApp *tview.Application, pages *tview.Pages, settings *Settin
 	widget := Widget{
 		ScrollableWidget: view.NewScrollableWidget(tviewApp, pages, settings.Common),
 
-		tviewApp: tviewApp,
-		settings: settings,
-		filePath: settings.filePath,
-		list:     checklist.NewChecklist(settings.Sigils.Checkbox.Checked, settings.Sigils.Checkbox.Unchecked),
-		pages:    pages,
+		tviewApp:      tviewApp,
+		settings:      settings,
+		filePath:      settings.filePath,
+		showTagPrefix: "",
+		list:          checklist.NewChecklist(settings.Sigils.Checkbox.Checked, settings.Sigils.Checkbox.Unchecked),
+		pages:         pages,
 	}
 
 	widget.init()
@@ -125,13 +128,10 @@ func (widget *Widget) load() {
 }
 
 func (widget *Widget) newItem() {
-	form := widget.modalForm("New Todo:", "")
+	widget.processFormInput("New Todo:", "", func(t string) {
+		text, date, tags := widget.getTextComponents(t)
 
-	saveFctn := func() {
-		text := widget.parseText(form.GetFormItem(0).(*tview.InputField).GetText())
-		date := getTodoDate(text)
-
-		widget.list.Add(false, date, text, widget.settings.newPos)
+		widget.list.Add(false, date, tags, text, widget.settings.newPos)
 		widget.SetItemCount(len(widget.list.Items))
 		if widget.settings.parseDates {
 			if widget.settings.newPos == "first" {
@@ -141,17 +141,40 @@ func (widget *Widget) newItem() {
 			}
 		}
 		widget.persist()
-		widget.pages.RemovePage("modal")
-		widget.tviewApp.SetFocus(widget.View)
-		widget.display()
+	})
+}
+
+func (widget *Widget) getTextComponents(text string) (string, *time.Time, []string) {
+	var date *time.Time = nil
+	if widget.settings.parseDates {
+		text, date = widget.getTextAndDate(text)
 	}
 
-	widget.addButtons(form, saveFctn)
-	widget.modalFocus(form)
+	tags := make([]string, 0)
+	if widget.settings.parseTags {
+		text, tags = getTodoTags(text, date)
+	}
 
-	widget.tviewApp.QueueUpdate(func() {
-		widget.tviewApp.Draw()
-	})
+	text = strings.TrimSpace(text)
+	return text, date, tags
+}
+
+func getTodoTags(text string, date *time.Time) (string, []string) {
+	tags := make([]string, 0)
+	r, _ := regexp.Compile(`(?i)(^|\s)#[a-z0-9]+`)
+	matches := r.FindAllString(text, -1)
+
+	for _, tag := range matches {
+		tag = strings.TrimSpace(tag)
+		suffix := " "
+		if strings.HasSuffix(text, tag) {
+			suffix = ""
+		}
+		text = strings.Replace(text, tag+suffix, "", 1)
+		tags = append(tags, tag[1:])
+	}
+
+	return text, tags
 }
 
 type PatternDuration struct {
@@ -161,11 +184,7 @@ type PatternDuration struct {
 	y       int
 }
 
-func (widget *Widget) parseText(text string) string {
-	if !widget.settings.parseDates {
-		return text
-	}
-
+func (widget *Widget) getTextAndDate(text string) (string, *time.Time) {
 	now := time.Now()
 	textLower := strings.ToLower(text)
 	// check for "in X days/weeks/months/years" pattern
@@ -185,7 +204,7 @@ func (widget *Widget) parseText(text string) string {
 		} else {
 			target = now.AddDate(n, 0, 0)
 		}
-		return widget._textWithDate(target, text[len(match):])
+		return text[len(match):], &target
 	}
 
 	// check for "today / tomorrow / next X"
@@ -198,7 +217,8 @@ func (widget *Widget) parseText(text string) string {
 	}
 	for _, pd := range patterns {
 		if strings.HasPrefix(textLower, pd.pattern) && len(text) > len(pd.pattern) {
-			return widget._textWithDate(now.AddDate(pd.y, pd.m, pd.d), text[len(pd.pattern):])
+			date := now.AddDate(pd.y, pd.m, pd.d)
+			return text[len(pd.pattern):], &date
 		}
 	}
 
@@ -208,7 +228,8 @@ func (widget *Widget) parseText(text string) string {
 		if parts[0] == "next" && len(parts) > 2 {
 			for i, d := range []string{"sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"} {
 				if strings.ToLower(parts[1]) == d {
-					return widget._textWithDate(now.AddDate(0, 0, int(now.Weekday())+7-i), text[len(d)+5:])
+					date := now.AddDate(0, 0, int(now.Weekday())+7-i)
+					return text[len(d)+5:], &date
 				}
 			}
 		}
@@ -218,7 +239,7 @@ func (widget *Widget) parseText(text string) string {
 	if len(text) > 10 {
 		date, err := time.Parse("2006-01-02", text[:10])
 		if err == nil {
-			return widget._textWithDate(date, text[10:])
+			return text[10:], &date
 		}
 	}
 
@@ -226,16 +247,11 @@ func (widget *Widget) parseText(text string) string {
 	if len(text) > 5 {
 		date, err := time.Parse("2006-01-02", strconv.FormatInt(int64(now.Year()), 10)+"-"+text[:5])
 		if err == nil {
-			return widget._textWithDate(date, text[5:])
+			return text[5:], &date
 		}
 	}
 
-	return text
-}
-
-// helper for setting dated todo text in a stable format
-func (widget *Widget) _textWithDate(date time.Time, text string) string {
-	return fmt.Sprintf("[%d-%02d-%02d]", date.Year(), date.Month(), date.Day()) + text
+	return text, nil
 }
 
 // persist writes the todo list to Yaml file
@@ -267,16 +283,24 @@ func (widget *Widget) updateSelected() {
 		return
 	}
 
-	form := widget.modalForm("Edit:", widget.SelectedItem().Text)
+	widget.processFormInput("Edit:", widget.SelectedItem().EditText(), func(t string) {
+		text, date, tags := widget.getTextComponents(t)
 
-	saveFctn := func() {
-		text := widget.parseText(form.GetFormItem(0).(*tview.InputField).GetText())
-
-		widget.updateSelectedItem(text)
+		widget.updateSelectedItem(text, date, tags)
 		if widget.settings.parseDates {
 			widget.Selected = widget.placeItemBasedOnDate(widget.Selected)
 		}
 		widget.persist()
+	})
+}
+
+// processFormInput is a helper function that creates a form and calls onSave on the recieved input
+func (widget *Widget) processFormInput(prompt string, initValue string, onSave func(string)) {
+	form := widget.modalForm(prompt, initValue)
+
+	saveFctn := func() {
+		onSave(form.GetFormItem(0).(*tview.InputField).GetText())
+
 		widget.pages.RemovePage("modal")
 		widget.tviewApp.SetFocus(widget.View)
 		widget.display()
@@ -291,14 +315,15 @@ func (widget *Widget) updateSelected() {
 }
 
 // updateSelectedItem update the text of the selected item.
-func (widget *Widget) updateSelectedItem(text string) {
+func (widget *Widget) updateSelectedItem(text string, date *time.Time, tags []string) {
 	selectedItem := widget.SelectedItem()
 	if selectedItem == nil {
 		return
 	}
 
 	selectedItem.Text = text
-	selectedItem.Date = getTodoDate(text)
+	selectedItem.Date = date
+	selectedItem.Tags = tags
 }
 
 func (widget *Widget) placeItemBasedOnDate(index int) int {
@@ -360,8 +385,10 @@ func (widget *Widget) modalFocus(form *tview.Form) {
 }
 
 func (widget *Widget) modalForm(lbl, text string) *tview.Form {
-	form := tview.NewForm().SetFieldBackgroundColor(wtf.ColorFor(widget.settings.Colors.Background))
-	form.SetButtonsAlign(tview.AlignCenter).SetButtonTextColor(wtf.ColorFor(widget.settings.Colors.Text))
+	form := tview.NewForm()
+	form.SetFieldBackgroundColor(wtf.ColorFor(widget.settings.Colors.Background))
+	form.SetButtonsAlign(tview.AlignCenter)
+	form.SetButtonTextColor(wtf.ColorFor(widget.settings.Colors.Text))
 
 	form.AddInputField(lbl, text, 60, nil, nil)
 
@@ -369,7 +396,8 @@ func (widget *Widget) modalForm(lbl, text string) *tview.Form {
 }
 
 func (widget *Widget) modalFrame(form *tview.Form) *tview.Frame {
-	frame := tview.NewFrame(form).SetBorders(0, 0, 0, 0, 0, 0)
+	frame := tview.NewFrame(form)
+	frame.SetBorders(0, 0, 0, 0, 0, 0)
 	frame.SetRect(offscreen, offscreen, modalWidth, modalHeight)
 	frame.SetBorder(true)
 	frame.SetBorders(1, 1, 0, 0, 1, 1)

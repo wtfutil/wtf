@@ -65,6 +65,10 @@ func (widget *Widget) ipinfo() {
 		return
 	}
 	req.Header.Set("User-Agent", "curl")
+	if widget.settings.apiToken != "" {
+		req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", widget.settings.apiToken))
+	}
+
 	response, err := client.Do(req)
 	if err != nil {
 		widget.result = err.Error()

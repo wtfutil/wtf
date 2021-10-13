@@ -15,6 +15,80 @@ func Test_CenterText(t *testing.T) {
 	assert.Equal(t, "   cat   ", CenterText("cat", 9))
 }
 
+func Test_FindBetween(t *testing.T) {
+	tests := []struct {
+		name     string
+		input    string
+		left     string
+		right    string
+		expected []string
+	}{
+		{
+			name:     "with empty params",
+			input:    "",
+			left:     "",
+			right:    "",
+			expected: []string{},
+		},
+		{
+			name:     "with empty input",
+			input:    "",
+			left:     "{",
+			right:    "}",
+			expected: []string{},
+		},
+		{
+			name:     "with empty bounds",
+			input:    "{cat}{dog}",
+			left:     "",
+			right:    "",
+			expected: []string{},
+		},
+		{
+			name:     "with no match left",
+			input:    "{cat}{dog}",
+			left:     "[",
+			right:    "}",
+			expected: []string{},
+		},
+		{
+			name:     "with no match right",
+			input:    "{cat}{dog}",
+			left:     "{",
+			right:    "]",
+			expected: []string{},
+		},
+		{
+			name:     "with right before left",
+			input:    "{cat}{dog}",
+			left:     "}",
+			right:    "{",
+			expected: []string{},
+		},
+		{
+			name:     "with no match",
+			input:    "{cat}{dog}",
+			left:     "[",
+			right:    "]",
+			expected: []string{},
+		},
+		{
+			name:     "with valid input",
+			input:    "{cat}{dog}",
+			left:     "{",
+			right:    "}",
+			expected: []string{"cat", "dog"},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			actual := FindBetween(tt.input, tt.left, tt.right)
+			assert.Equal(t, tt.expected, actual)
+		})
+	}
+}
+
 func Test_HighlightableHelper(t *testing.T) {
 	view := tview.NewTextView()
 	actual := HighlightableHelper(view, "cats", 0, 5)

@@ -63,7 +63,11 @@ func (widget *Widget) jiraRequest(path string) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	req.SetBasicAuth(widget.settings.email, widget.settings.apiKey)
+	if widget.settings.personalAccessToken != "" {
+		req.Header.Set("Authorization", "Bearer "+widget.settings.personalAccessToken)
+	} else {
+		req.SetBasicAuth(widget.settings.email, widget.settings.apiKey)
+	}
 
 	httpClient := &http.Client{
 		Transport: &http.Transport{

@@ -4,7 +4,6 @@
 
 <p align="center">
     <a href="#contributors"><img alt="All Contributors" src="https://img.shields.io/badge/all_contributors-114-orange.svg?style=flat-square"></a>
-    <a href="https://travis-ci.com/wtfutil/wtf"><img alt="Travis Status" src="https://img.shields.io/travis/com/wtfutil/wtf/master.svg?label=travis&maxAge=43200"></a>
     <a href="https://goreportcard.com/report/github.com/wtfutil/wtf"><img alt="Go Report Card" src="https://goreportcard.com/badge/github.com/wtfutil/wtf"></a>
     <a href="https://twitter.com/wtfutil"><img alt="Twitter" src="https://img.shields.io/badge/follow-on%20twitter-blue.svg"></a>
 </p>
@@ -15,9 +14,17 @@ Used by thousands of developers and tech people around the world, WTF is free an
 
 ### Are you a contributor or sponsor?
 
-Awesome! [See here](https://wtfutil.com/#exit-message) for how you can change the exit message, the message WTF shows when quitting, to something special just for you.
+Awesome! [See here](https://wtfutil.com/sponsors/exit_message/) for how you can change the exit message, the message WTF shows when quitting, to something special just for you.
 
-#
+## Sponsored by
+
+<p>
+	<a href="https://airbrake.io/?utm_medium=sponsor&utm_source=WTFutill&utm_content=airbrake-home-page&utm_campaign=2021-sponsorships" target=_blank>
+		<img src="./images/sponsors/airbrake.png?raw=true" height="60" title="Airbrake" alt="Airbrake" />
+	</a>
+</p>
+
+<hr />
 
 <p></p>
 
@@ -222,16 +229,6 @@ Please make all additions and updates to documentation in that repository.
 ### Adding Dependencies
 
 Dependency management in WTF is handled by [Go modules](https://github.com/golang/go/wiki/Modules). Please check out that page for more details on how Go modules work.
-
-## Sponsors
-
-Many thanks to the following sponsors for supporting the development of WTF.
-
-<p>
-	<a href="https://airbrake.io/?utm_medium=sponsor&utm_source=WTFutill&utm_content=airbrake-home-page&utm_campaign=2021-sponsorships" target=_blank>
-		<img src="./images/sponsors/airbrake.png?raw=true" height="60" title="Airbrake" alt="Airbrake" />
-	</a>
-</p>
 
 ## Contributors
 
@@ -444,6 +441,11 @@ Many thanks to the following sponsors for supporting the development of WTF.
     <td align="center"><a href="https://github.com/Ginner"><img src="https://avatars.githubusercontent.com/u/26798615?v=4?s=48" width="48px;" alt=""/><br /><sub><b>Ginner</b></sub></a><br /></td>
     <td align="center"><a href="https://github.com/Battleman"><img src="https://avatars.githubusercontent.com/u/6746316?v=4?s=48" width="48px;" alt=""/><br /><sub><b>Olivier Cloux</b></sub></a><br /></td>
     <td align="center"><a href="https://github.com/dogukanturan"><img src="https://avatars.githubusercontent.com/u/32000865?v=4?s=48" width="48px;" alt=""/><br /><sub><b>Dogukan Turan</b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/devenda-avoma"><img src="https://avatars.githubusercontent.com/u/72001066?v=4?s=48" width="48px;" alt=""/><br /><sub><b>Devendra Laulkar</b></sub></a><br /></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/nontw"><img src="https://avatars.githubusercontent.com/u/9658731?v=4?s=48" width="48px;" alt=""/><br /><sub><b>nont</b></sub></a><br /></td>
+    <td align="center"><a href="http://kyrylo.org/"><img src="https://avatars.githubusercontent.com/u/1079123?v=4?s=48" width="48px;" alt=""/><br /><sub><b>Kyrylo Silin</b></sub></a><br /></td>
   </tr>
 </table>
 
