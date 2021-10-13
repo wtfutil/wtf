@@ -8,6 +8,7 @@
 * Updated to Go 1.17, by [nontw](https://github.com/nontw)
 * [Airbrake module](https://github.com/wtfutil/wtf/tree/master/modules/airbrake) added, by [@kyrylo](https://github.com/kyrylo)
 * Displays the battery level of connected devices, if the level can be read by `ioreg`, on MacOS, [#1108](https://github.com/wtfutil/wtf/issues/1108) by [@senorprogrammer](https://github.com/senorprogrammer)
+* Adds an `args` setting to [IP API](https://wtfutil.com/modules/ipaddress/ipapi/) for defining which fields are displayed, by [@Choromanski](https://github.com/Choromanski)
 
 ### 🐞 Fixed
 
