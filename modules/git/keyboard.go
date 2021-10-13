@@ -1,7 +1,5 @@
 package git
 
-import "github.com/gdamore/tcell"
-
 func (widget *Widget) initializeKeyboardControls() {
 	widget.InitializeHelpTextKeyboardControl(widget.ShowHelp)
 	widget.InitializeRefreshKeyboardControl(widget.Refresh)
@@ -10,7 +8,4 @@ func (widget *Widget) initializeKeyboardControls() {
 	widget.SetKeyboardChar("h", widget.PrevSource, "Select previous source")
 	widget.SetKeyboardChar("p", widget.Pull, "Pull repo")
 	widget.SetKeyboardChar("c", widget.Checkout, "Checkout branch")
-
-	widget.SetKeyboardKey(tcell.KeyLeft, widget.PrevSource, "Select previous source")
-	widget.SetKeyboardKey(tcell.KeyRight, widget.NextSource, "Select next source")
 }

@@ -19,7 +19,7 @@ const (
 
 type Widget struct {
 	view.MultiSourceWidget
-	view.TextWidget
+	view.ScrollableWidget
 
 	GitRepos []*GitRepo
 
@@ -31,7 +31,7 @@ type Widget struct {
 func NewWidget(tviewApp *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
 		MultiSourceWidget: view.NewMultiSourceWidget(settings.Common, "repository", "repositories"),
-		TextWidget:        view.NewTextWidget(tviewApp, pages, settings.Common),
+		ScrollableWidget:  view.NewScrollableWidget(tviewApp, pages, settings.Common),
 
 		tviewApp: tviewApp,
 		pages:    pages,
