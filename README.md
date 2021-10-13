@@ -4,7 +4,6 @@
 
 <p align="center">
     <a href="#contributors"><img alt="All Contributors" src="https://img.shields.io/badge/all_contributors-114-orange.svg?style=flat-square"></a>
-    <a href="https://travis-ci.com/wtfutil/wtf"><img alt="Travis Status" src="https://img.shields.io/travis/com/wtfutil/wtf/master.svg?label=travis&maxAge=43200"></a>
     <a href="https://goreportcard.com/report/github.com/wtfutil/wtf"><img alt="Go Report Card" src="https://goreportcard.com/badge/github.com/wtfutil/wtf"></a>
     <a href="https://twitter.com/wtfutil"><img alt="Twitter" src="https://img.shields.io/badge/follow-on%20twitter-blue.svg"></a>
 </p>
