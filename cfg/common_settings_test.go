@@ -33,7 +33,7 @@ func Test_NewCommonSettingsFromModule(t *testing.T) {
 	assert.Equal(t, "test", testCfg.Module.Name)
 	assert.Equal(t, "test", testCfg.Module.Type)
 	assert.Equal(t, "", testCfg.FocusChar())
-	assert.Equal(t, time.Second, testCfg.RefreshInterval)
+	assert.Equal(t, 300*time.Second, testCfg.RefreshInterval)
 	assert.Equal(t, "Test Config", testCfg.Title)
 }
 
