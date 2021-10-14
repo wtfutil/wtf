@@ -28,7 +28,7 @@ func ParseAsMapOrList(ymlConfig *config.Config, configKey string) []string {
 	return result
 }
 
-// ParseTimeString takes a configuration key and attempts to parse it first as a int
+// ParseTimeString takes a configuration key and attempts to parse it first as an int
 // and then as a duration (int + time unit)
 func ParseTimeString(cfg *config.Config, configKey string, defaultValue string) time.Duration {
 	i, err := cfg.Int(configKey)
