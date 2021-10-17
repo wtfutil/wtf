@@ -1149,6 +1149,14 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/1079123?v=4",
       "profile": "http://kyrylo.org/",
       "contributions": []
+    },
+    {
+      "login": "yosmoc",
+      "name": "Yoshihisa Mochihara",
+      "avatar_url": "https://avatars.githubusercontent.com/u/9694?v=4",
+      "profile": "https://github.com/yosmoc",
+      "contributions": [
+      ]
     }
   ],
   "contributorsPerLine": 7,
