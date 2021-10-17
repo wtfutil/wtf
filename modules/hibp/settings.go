@@ -12,7 +12,7 @@ import (
 const (
 	defaultFocusable   = false
 	defaultTitle       = "HIBP"
-	minRefreshInterval = 21600 // Six hours
+	minRefreshInterval = 6 * time.Hour
 )
 
 type colors struct {

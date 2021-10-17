@@ -18,7 +18,7 @@ type Widget struct {
 
 	Result string
 
-	RefreshInterval int
+	RefreshInterval time.Duration
 }
 
 // NewWidget Make new instance of widget

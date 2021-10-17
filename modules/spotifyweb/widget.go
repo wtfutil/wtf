@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/utils"
@@ -119,7 +120,7 @@ func NewWidget(tviewApp *tview.Application, pages *tview.Pages, settings *Settin
 	// If inconvenient, I'll remove this option and save the URL in a file or some other method.
 	utils.OpenFile(`"` + authURL + `"`)
 
-	widget.settings.RefreshInterval = 5
+	widget.settings.RefreshInterval = 5 * time.Second
 
 	widget.initializeKeyboardControls()
 

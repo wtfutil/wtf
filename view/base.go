@@ -130,19 +130,9 @@ func (base *Base) Refreshing() bool {
 	return base.refreshing
 }
 
-// RefreshInterval returns how often, in seconds, the base will return its data
-func (base *Base) RefreshInterval() int {
-	seconds := base.refreshInterval.Seconds()
-
-	// Currently some modules consider `refreshInterval`
-	// to still be an int, whereas now it has changed to be a time.Duration.
-	// We still try to honor the contract here by converting to int.
-	// TODO: Might want to move to time.Duration at all places
-	if seconds <= 1 {
-		return 1
-	}
-
-	return int(seconds)
+// RefreshInterval returns how often the base will return its data
+func (base *Base) RefreshInterval() time.Duration {
+	return base.refreshInterval
 }
 
 func (base *Base) SetFocusChar(char string) {

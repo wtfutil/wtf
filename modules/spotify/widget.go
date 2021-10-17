@@ -2,6 +2,7 @@ package spotify
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/rivo/tview"
 	"github.com/wtfutil/spotigopher/spotigopher"
@@ -29,7 +30,7 @@ func NewWidget(tviewApp *tview.Application, pages *tview.Pages, settings *Settin
 		settings: settings,
 	}
 
-	widget.settings.RefreshInterval = 5
+	widget.settings.RefreshInterval = 5 * time.Second
 
 	widget.initializeKeyboardControls()
 
