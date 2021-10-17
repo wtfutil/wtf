@@ -2,6 +2,7 @@ package cfg
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/olebedev/config"
 )
@@ -25,4 +26,21 @@ func ParseAsMapOrList(ymlConfig *config.Config, configKey string) []string {
 	}
 
 	return result
+}
+
+// ParseTimeString takes a configuration key and attempts to parse it first as an int
+// and then as a duration (int + time unit)
+func ParseTimeString(cfg *config.Config, configKey string, defaultValue string) time.Duration {
+	i, err := cfg.Int(configKey)
+	if err == nil {
+		return time.Duration(i) * time.Second
+	}
+
+	str := cfg.UString(configKey, defaultValue)
+	d, err := time.ParseDuration(str)
+	if err == nil {
+		return d
+	}
+
+	return time.Second
 }
