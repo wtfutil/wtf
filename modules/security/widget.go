@@ -40,10 +40,14 @@ func (widget *Widget) Refresh() {
 func (widget *Widget) content() (string, string, bool) {
 	data := NewSecurityData()
 	data.Fetch()
-	str := fmt.Sprintf(" [%s]WiFi[white]\n", widget.settings.Colors.Subheading)
-	str += fmt.Sprintf(" %8s: %s\n", "Network", data.WifiName)
-	str += fmt.Sprintf(" %8s: %s\n", "Crypto", data.WifiEncryption)
-	str += "\n"
+	var str string
+
+	if data.WifiName != "" {
+		str += fmt.Sprintf(" [%s]WiFi[white]\n", widget.settings.Colors.Subheading)
+		str += fmt.Sprintf(" %8s: %s\n", "Network", data.WifiName)
+		str += fmt.Sprintf(" %8s: %s\n", "Crypto", data.WifiEncryption)
+		str += "\n"
+	}
 
 	str += fmt.Sprintf(" [%s]Firewall[white]\n", widget.settings.Colors.Subheading)
 	str += fmt.Sprintf(" %8s: %4s\n", "Status", data.FirewallEnabled)
