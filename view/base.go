@@ -3,7 +3,6 @@ package view
 import (
 	"fmt"
 	"sync"
-	"time"
 
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/cfg"
@@ -21,7 +20,7 @@ type Base struct {
 	name            string
 	pages           *tview.Pages
 	quitChan        chan bool
-	refreshInterval time.Duration
+	refreshInterval int
 	refreshing      bool
 	tviewApp        *tview.Application
 	view            *tview.TextView
@@ -132,17 +131,7 @@ func (base *Base) Refreshing() bool {
 
 // RefreshInterval returns how often, in seconds, the base will return its data
 func (base *Base) RefreshInterval() int {
-	seconds := base.refreshInterval.Seconds()
-
-	// Currently some modules consider `refreshInterval`
-	// to still be an int, whereas now it has changed to be a time.Duration.
-	// We still try to honor the contract here by converting to int.
-	// TODO: Might want to move to time.Duration at all places
-	if seconds <= 1 {
-		return 1
-	}
-
-	return int(seconds)
+	return base.refreshInterval
 }
 
 func (base *Base) SetFocusChar(char string) {
