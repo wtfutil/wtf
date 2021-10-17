@@ -11,7 +11,7 @@ import (
 func Schedule(widget wtf.Wtfable) {
 	widget.Refresh()
 
-	interval := widget.CommonSettings().RefreshInterval
+	interval := time.Duration(widget.RefreshInterval()) * time.Second
 
 	if interval <= 0 {
 		return
