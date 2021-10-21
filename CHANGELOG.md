@@ -16,6 +16,7 @@
 
 * [GitHub module](https://wtfutil.com/modules/github/) no longer crashes when selecting different items across multiple repos, by [@Seanstoppable](https://github.com/Seanstoppable)
 * `make lint` errors fixed, [#1127](https://github.com/wtfutil/wtf/issues/1127) by [@yosmoc](https://github.com/yosmoc)
+* `jwt-go` replaced by `golang-jwt`, because security vulnerabilities, [#1121](https://github.com/wtfutil/wtf/issues/1121) by [@siddhant94](https://github.com/siddhant94)
 
 ## v0.39.2
 
