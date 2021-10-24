@@ -161,7 +161,21 @@ func getTokenFromWeb(config *oauth2.Config) *oauth2.Token {
 // tokenCacheFile generates credential file path/filename.
 // It returns the generated credential path/filename.
 func tokenCacheFile(name string) (string, error) {
-	return cfg.CreateFile(fmt.Sprintf("%s-gcal-auth.json", name))
+	configDir, err := cfg.WtfConfigDir()
+	if err != nil {
+		return "", err
+	}
+	oldFile := configDir + "/gcal-auth.json"
+	newFileName := fmt.Sprintf("%s-gcal-auth.json", name)
+	if _, err := os.Stat(oldFile); err == nil {
+		renamedFile := configDir + "/" + newFileName
+		err := os.Rename(oldFile, renamedFile)
+		if err != nil {
+			return "", err
+		}
+		return renamedFile, nil
+	}
+	return cfg.CreateFile(newFileName)
 }
 
 // tokenFromFile retrieves a Token from a given file path.
