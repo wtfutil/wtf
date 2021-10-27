@@ -12,6 +12,7 @@
 * [Security module](https://wtfutil.com/modules/security/) no longer displays wifi info if wifi is missing or disabled, [#1124](https://github.com/wtfutil/wtf/issues/1124) by [@yosmoc](https://github.com/yosmoc)
 * `q` now quits WTF. Added as a new global hotkey, by [@thuan1412](https://github.com/thuan1412)
 * [DigitalOcean module](https://wtfutil.com/modules/digitalocean/) now properly displays the droplet region, [#1053](https://github.com/wtfutil/wtf/issues/1053) by [@yosmoc](https://github.com/yosmoc)
+* [gCal module](https://wtfutil.com/modules/google/gcal/) now supports multiple configurations with different email addresses, [#1016](https://github.com/wtfutil/wtf/issues/1016) by [@Seanstoppable](https://github.com/Seanstoppable)
 
 ### 🐞 Fixed
 
