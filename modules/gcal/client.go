@@ -43,7 +43,7 @@ func (widget *Widget) Fetch() ([]*CalEvent, error) {
 	if err != nil {
 		return nil, err
 	}
-	client := getClient(ctx, config)
+	client := getClient(ctx, config, widget.settings.email)
 
 	srv, err := calendar.NewService(context.Background(), option.WithHTTPClient(client))
 	if err != nil {
@@ -103,8 +103,8 @@ func fromMidnight() time.Time {
 
 // getClient uses a Context and Config to retrieve a Token
 // then generate a Client. It returns the generated Client.
-func getClient(ctx context.Context, config *oauth2.Config) *http.Client {
-	cacheFile, err := tokenCacheFile()
+func getClient(ctx context.Context, config *oauth2.Config, name string) *http.Client {
+	cacheFile, err := tokenCacheFile(name)
 	if err != nil {
 		log.Fatalf("Unable to get path to cached credential file. %v", err)
 	}
@@ -116,8 +116,8 @@ func getClient(ctx context.Context, config *oauth2.Config) *http.Client {
 	return config.Client(ctx, tok)
 }
 
-func isAuthenticated() bool {
-	cacheFile, err := tokenCacheFile()
+func isAuthenticated(name string) bool {
+	cacheFile, err := tokenCacheFile(name)
 	if err != nil {
 		log.Fatalf("Unable to get path to cached credential file. %v", err)
 	}
@@ -135,7 +135,7 @@ func (widget *Widget) authenticate() {
 
 	config, _ := google.ConfigFromJSON(b, calendar.CalendarReadonlyScope)
 	tok := getTokenFromWeb(config)
-	cacheFile, _ := tokenCacheFile()
+	cacheFile, _ := tokenCacheFile(widget.settings.email)
 	saveToken(cacheFile, tok)
 }
 
@@ -160,8 +160,22 @@ func getTokenFromWeb(config *oauth2.Config) *oauth2.Token {
 
 // tokenCacheFile generates credential file path/filename.
 // It returns the generated credential path/filename.
-func tokenCacheFile() (string, error) {
-	return cfg.CreateFile("gcal-auth.json")
+func tokenCacheFile(name string) (string, error) {
+	configDir, err := cfg.WtfConfigDir()
+	if err != nil {
+		return "", err
+	}
+	oldFile := configDir + "/gcal-auth.json"
+	newFileName := fmt.Sprintf("%s-gcal-auth.json", name)
+	if _, err := os.Stat(oldFile); err == nil {
+		renamedFile := configDir + "/" + newFileName
+		err := os.Rename(oldFile, renamedFile)
+		if err != nil {
+			return "", err
+		}
+		return renamedFile, nil
+	}
+	return cfg.CreateFile(newFileName)
 }
 
 // tokenFromFile retrieves a Token from a given file path.
