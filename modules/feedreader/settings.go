@@ -11,8 +11,8 @@ const (
 	defaultTitle     = "Feed Reader"
 )
 
-// Auth stores [username, password]-credentials for Basic Auth
-type Auth struct {
+// auth stores [username, password]-credentials for private RSS feeds using Basic Auth
+type auth struct {
 	username string
 	password string
 }
@@ -23,43 +23,46 @@ type Settings struct {
 
 	feeds       []string `help:"An array of RSS and Atom feed URLs"`
 	feedLimit   int      `help:"The maximum number of stories to display for each feed"`
-	credentials []Auth   `help:"List of [user, password]-pairs to try basic authentication on a feed"`
+	credentials map[string]auth   `help:"Map of private feed URLs with required authentication credentials"`
 }
 
 // NewSettingsFromYAML creates a new settings instance from a YAML config block
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 	settings := &Settings{
 		Common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
-
 		feeds:       utils.ToStrs(ymlConfig.UList("feeds")),
 		feedLimit:   ymlConfig.UInt("feedLimit", -1),
-		credentials: listifyCredentials(ymlConfig, globalConfig),
+		credentials: make(map[string]auth),
+	}
+
+	// If feeds cannot be parsed as list try parsing as a map with username+password fields
+	if len(settings.feeds) == 0 {
+		credentials := make(map[string]auth)
+		feeds := make([]string, 0)
+		for url, creds := range ymlConfig.UMap("feeds") {
+			parsed, ok := creds.(map[string]interface{})
+			if !ok {
+				continue
+			}
+
+			user, ok := parsed["username"].(string)
+			if !ok {
+				continue
+			}
+			pass, ok := parsed["password"].(string)
+			if !ok {
+				continue
+			}
+
+			credentials[url] = auth{
+				username: user,
+				password: pass,
+			}
+			feeds = append(feeds, url)
+		}
+		settings.feeds = feeds
+		settings.credentials = credentials
 	}
 
 	return settings
-}
-
-// listifyCredentials converts a list of [user, password]-pairs to a slice auth structs
-func listifyCredentials(ymlConfig *config.Config, globalConfig *config.Config) []Auth {
-	list, err := ymlConfig.List("auth")
-	if err != nil {
-		return []Auth{}
-	}
-
-	result := make([]Auth, 0)
-	for _, entry := range list {
-		credentials, ok := entry.([]interface{})
-		if !ok || len(credentials) != 2 {
-			continue
-		}
-
-		user, ok1 := credentials[0].(string)
-		pass, ok2 := credentials[1].(string)
-		if !ok1 || !ok2 {
-			continue
-		}
-
-		result = append(result, Auth{username: user, password: pass})
-	}
-	return result
 }

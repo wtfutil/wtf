@@ -1,7 +1,6 @@
 package feedreader
 
 import (
-	"errors"
 	"fmt"
 	"regexp"
 	"sort"
@@ -126,23 +125,22 @@ func (widget *Widget) Render() {
 /* -------------------- Unexported Functions -------------------- */
 
 func (widget *Widget) fetchForFeed(feedURL string) ([]*FeedItem, error) {
-	feed, err := widget.parser.ParseURL(feedURL)
-
-	// Try passwords if we receive an 401 Unauthorized
-	var httpError gofeed.HTTPError
-	if errors.As(err, &httpError); httpError.StatusCode == 401 {
+	var (
+		feed *gofeed.Feed
+		err error
+	)
+	if auth, isPrivateRSS := widget.settings.credentials[feedURL]; isPrivateRSS {
 		fp := gofeed.NewParser()
-		for _, auth := range widget.settings.credentials {
-			fp.AuthConfig = &gofeed.Auth{
-				Username: auth.username,
-				Password: auth.password,
-			}
-
-			feed, err = fp.ParseURL(feedURL)
-			if err == nil {
-				break
-			}
+		fp.AuthConfig = &gofeed.Auth{
+			Username: auth.username,
+			Password: auth.password,
 		}
+		feed, err = fp.ParseURL(feedURL)
+	} else {
+		feed, err = widget.parser.ParseURL(feedURL)
+	}
+	if err != nil {
+		return nil, err
 	}
 
 	if err != nil {
