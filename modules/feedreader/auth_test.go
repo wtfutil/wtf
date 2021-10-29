@@ -1,10 +1,11 @@
 package feedreader
 
 import (
-	"github.com/olebedev/config"
-	"gotest.tools/assert"
 	"net/http"
 	"testing"
+
+	"github.com/olebedev/config"
+	"gotest.tools/assert"
 )
 
 var listformat string = `
@@ -104,7 +105,6 @@ func TestListFormatFetch(t *testing.T) {
 	}
 }
 
-
 func setupPrivateRSSFeed() {
 	http.HandleFunc("/feed/rss.xml", func(w http.ResponseWriter, r *http.Request) {
 		username, password, exists := r.BasicAuth()
@@ -114,7 +114,14 @@ func setupPrivateRSSFeed() {
 		}
 
 		w.Header().Set("Content-Type", "application/xml")
-		w.Write([]byte(sampleRSS))
+
+		_, err := w.Write([]byte(sampleRSS))
+		if err != nil {
+			panic(err)
+		}
 	})
-	http.ListenAndServe(":3000", nil)
+	err := http.ListenAndServe(":3000", nil)
+	if err != nil {
+		panic(err)
+	}
 }

@@ -127,7 +127,7 @@ func (widget *Widget) Render() {
 func (widget *Widget) fetchForFeed(feedURL string) ([]*FeedItem, error) {
 	var (
 		feed *gofeed.Feed
-		err error
+		err  error
 	)
 	if auth, isPrivateRSS := widget.settings.credentials[feedURL]; isPrivateRSS {
 		fp := gofeed.NewParser()
