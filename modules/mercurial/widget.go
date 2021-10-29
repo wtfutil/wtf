@@ -108,9 +108,9 @@ func (widget *Widget) modalFocus(form *tview.Form) {
 }
 
 func (widget *Widget) modalForm(lbl, text string) *tview.Form {
-	form := tview.NewForm().
-		SetButtonsAlign(tview.AlignCenter).
-		SetButtonTextColor(tview.Styles.PrimaryTextColor)
+	form := tview.NewForm()
+	form.SetButtonsAlign(tview.AlignCenter)
+	form.SetButtonTextColor(tview.Styles.PrimaryTextColor)
 
 	form.AddInputField(lbl, text, 60, nil, nil)
 
@@ -118,7 +118,8 @@ func (widget *Widget) modalForm(lbl, text string) *tview.Form {
 }
 
 func (widget *Widget) modalFrame(form *tview.Form) *tview.Frame {
-	frame := tview.NewFrame(form).SetBorders(0, 0, 0, 0, 0, 0)
+	frame := tview.NewFrame(form)
+	frame.SetBorders(0, 0, 0, 0, 0, 0)
 	frame.SetRect(offscreen, offscreen, modalWidth, modalHeight)
 	frame.SetBorder(true)
 	frame.SetBorders(1, 1, 0, 0, 1, 1)

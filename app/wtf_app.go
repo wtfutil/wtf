@@ -134,6 +134,16 @@ func (wtfApp *WtfApp) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 		return nil
 	}
 
+	// press q to exit wtf
+	switch string(event.Rune()) {
+	case "q":
+		wtfApp.Stop()
+		wtfApp.TViewApp.Stop()
+		wtfApp.DisplayExitMessage()
+		os.Exit(0)
+	default:
+	}
+
 	// If no specific widget has focus, then allow the key presses to fall through to the app
 	if !wtfApp.focusTracker.IsFocused {
 		switch string(event.Rune()) {

@@ -96,6 +96,7 @@ require (
 	github.com/gdamore/encoding v1.0.0 // indirect
 	github.com/go-gorp/gorp v2.0.0+incompatible // indirect
 	github.com/gogo/protobuf v1.2.1 // indirect
+	github.com/golang-jwt/jwt v3.2.2+incompatible // indirect
 	github.com/golang/groupcache v0.0.0-20200121045136-8c9f03a8e57e // indirect
 	github.com/golang/protobuf v1.4.2 // indirect
 	github.com/google/btree v1.0.0 // indirect
@@ -147,7 +148,6 @@ require (
 	go.opencensus.io v0.22.4 // indirect
 	golang.org/x/crypto v0.0.0-20200709230013-948cd5f35899 // indirect
 	golang.org/x/net v0.0.0-20200822124328-c89045814202 // indirect
-	golang.org/x/term v0.0.0-20210220032956-6a3ed077a48d // indirect
 	golang.org/x/time v0.0.0-20191024005414-555d28b269f0 // indirect
 	google.golang.org/appengine v1.6.6 // indirect
 	google.golang.org/genproto v0.0.0-20200904004341-0bd0a958aa1d // indirect
@@ -170,3 +170,6 @@ require (
 replace google.golang.org/grpc v1.30.0 => google.golang.org/grpc v1.29.1
 
 replace google.golang.org/grpc v1.31.0 => google.golang.org/grpc v1.29.1
+
+//  To mitigate CVE-2020-26160. More details: https://github.com/advisories/GHSA-w73w-5m7g-f7qc
+replace github.com/dgrijalva/jwt-go => github.com/golang-jwt/jwt v3.2.1+incompatible

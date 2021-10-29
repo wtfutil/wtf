@@ -7,10 +7,18 @@
 * Numerous improvements to the display of the Git module, [#1102](https://github.com/wtfutil/wtf/pull/1102) by [@tadeaspaule](https://github.com/tadeaspaule)
 * Updated to Go 1.17, by [nontw](https://github.com/nontw)
 * [Airbrake module](https://github.com/wtfutil/wtf/tree/master/modules/airbrake) added, by [@kyrylo](https://github.com/kyrylo)
+* Displays the battery level of connected devices, if the level can be read by `ioreg`, on MacOS, [#1108](https://github.com/wtfutil/wtf/issues/1108) by [@senorprogrammer](https://github.com/senorprogrammer)
+* Adds an `args` setting to [IP API](https://wtfutil.com/modules/ipaddress/ipapi/) for defining which fields are displayed, by [@Choromanski](https://github.com/Choromanski)
+* [Security module](https://wtfutil.com/modules/security/) no longer displays wifi info if wifi is missing or disabled, [#1124](https://github.com/wtfutil/wtf/issues/1124) by [@yosmoc](https://github.com/yosmoc)
+* `q` now quits WTF. Added as a new global hotkey, by [@thuan1412](https://github.com/thuan1412)
+* [DigitalOcean module](https://wtfutil.com/modules/digitalocean/) now properly displays the droplet region, [#1053](https://github.com/wtfutil/wtf/issues/1053) by [@yosmoc](https://github.com/yosmoc)
+* [gCal module](https://wtfutil.com/modules/google/gcal/) now supports multiple configurations with different email addresses, [#1016](https://github.com/wtfutil/wtf/issues/1016) by [@Seanstoppable](https://github.com/Seanstoppable)
 
 ### 🐞 Fixed
 
 * [GitHub module](https://wtfutil.com/modules/github/) no longer crashes when selecting different items across multiple repos, by [@Seanstoppable](https://github.com/Seanstoppable)
+* `make lint` errors fixed, [#1127](https://github.com/wtfutil/wtf/issues/1127) by [@yosmoc](https://github.com/yosmoc)
+* `jwt-go` replaced by `golang-jwt`, because security vulnerabilities, [#1121](https://github.com/wtfutil/wtf/issues/1121) by [@siddhant94](https://github.com/siddhant94)
 
 ## v0.39.2
 
