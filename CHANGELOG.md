@@ -13,6 +13,7 @@
 * `q` now quits WTF. Added as a new global hotkey, by [@thuan1412](https://github.com/thuan1412)
 * [DigitalOcean module](https://wtfutil.com/modules/digitalocean/) now properly displays the droplet region, [#1053](https://github.com/wtfutil/wtf/issues/1053) by [@yosmoc](https://github.com/yosmoc)
 * [gCal module](https://wtfutil.com/modules/google/gcal/) now supports multiple configurations with different email addresses, [#1016](https://github.com/wtfutil/wtf/issues/1016) by [@Seanstoppable](https://github.com/Seanstoppable)
+* All modules now support sub-1 second refresh intervals by specifying an optional time unit (ie: `50ms`, `20s`), [#1103](https://github.com/wtfutil/wtf/issues/1103) by [@ResamVi](https://github.com/ResamVi)
 
 ### 🐞 Fixed
 
