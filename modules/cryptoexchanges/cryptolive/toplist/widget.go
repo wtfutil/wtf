@@ -15,7 +15,7 @@ var baseURL = "https://min-api.cryptocompare.com/data/top/exchanges"
 type Widget struct {
 	Result string
 
-	RefreshInterval int
+	RefreshInterval time.Duration
 
 	list     *cList
 	settings *Settings

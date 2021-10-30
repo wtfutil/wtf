@@ -139,6 +139,10 @@ func (widget *Widget) watchForFileChanges() {
 				os.Exit(1)
 			case <-watch.Closed:
 				return
+			case quit := <-widget.QuitChan():
+				if quit {
+					return
+				}
 			}
 		}
 	}()

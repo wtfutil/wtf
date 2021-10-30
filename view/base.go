@@ -3,6 +3,7 @@ package view
 import (
 	"fmt"
 	"sync"
+	"time"
 
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/cfg"
@@ -20,7 +21,7 @@ type Base struct {
 	name            string
 	pages           *tview.Pages
 	quitChan        chan bool
-	refreshInterval int
+	refreshInterval time.Duration
 	refreshing      bool
 	tviewApp        *tview.Application
 	view            *tview.TextView
@@ -129,8 +130,8 @@ func (base *Base) Refreshing() bool {
 	return base.refreshing
 }
 
-// RefreshInterval returns how often, in seconds, the base will return its data
-func (base *Base) RefreshInterval() int {
+// RefreshInterval returns how often the base will return its data
+func (base *Base) RefreshInterval() time.Duration {
 	return base.refreshInterval
 }
 

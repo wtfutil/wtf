@@ -2,6 +2,7 @@ package pihole
 
 import (
 	"strings"
+	"time"
 
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/view"
@@ -21,7 +22,7 @@ func NewWidget(tviewApp *tview.Application, pages *tview.Pages, settings *Settin
 		settings:   settings,
 	}
 
-	widget.settings.RefreshInterval = 30
+	widget.settings.RefreshInterval = 30 * time.Second
 	widget.initializeKeyboardControls()
 	widget.SetDisplayFunction(widget.Refresh)
 	widget.View.SetWordWrap(true)
