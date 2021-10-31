@@ -2,6 +2,7 @@ package kubernetes
 
 import (
 	"fmt"
+	"sync"
 
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/utils"
@@ -13,6 +14,9 @@ import (
 // Widget contains all the config for the widget
 type Widget struct {
 	view.TextWidget
+
+	client     *clientInstance
+	clientOnce sync.Once
 
 	objects    []string
 	title      string
