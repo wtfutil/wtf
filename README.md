@@ -2,7 +2,7 @@
     <img src="./images/logo_transparent.png?raw=true" title="WTF" alt="WTF" width="560" height="560" />
 </p>
 
-<p align="center">
+<p align="left">
     <a href="https://goreportcard.com/report/github.com/wtfutil/wtf"><img alt="Go Report Card" src="https://goreportcard.com/badge/github.com/wtfutil/wtf"></a>
     <a href="https://twitter.com/wtfutil"><img alt="Twitter" src="https://img.shields.io/badge/follow-on%20twitter-blue.svg"></a>
 </p>
