@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## v0.40.0
+
 ### ⚡️ Added
 
 * Numerous improvements to the display of the Git module, [#1102](https://github.com/wtfutil/wtf/pull/1102) by [@tadeaspaule](https://github.com/tadeaspaule)
