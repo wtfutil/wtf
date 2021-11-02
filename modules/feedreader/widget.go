@@ -2,6 +2,7 @@ package feedreader
 
 import (
 	"fmt"
+	"html"
 	"regexp"
 	"sort"
 	"strings"
@@ -52,17 +53,25 @@ func rotateShowType(showtype ShowType) ShowType {
 }
 
 func getShowText(feedItem *FeedItem, showType ShowType) string {
+	if feedItem == nil {
+		return ""
+	}
+
 	space := regexp.MustCompile(`\s+`)
 	title := space.ReplaceAllString(feedItem.item.Title, " ")
-	returnValue := title
+
+	// Convert any escaped characters to their character representation
+	title = html.UnescapeString(title)
+
 	switch showType {
 	case SHOW_LINK:
-		returnValue = feedItem.item.Link
+		return feedItem.item.Link
 	case SHOW_CONTENT:
 		text, _ := html2text.FromString(feedItem.item.Content, html2text.Options{PrettyTables: true})
-		returnValue = strings.TrimSpace(title + "\n" + strings.TrimSpace(text))
+		return strings.TrimSpace(title + "\n" + strings.TrimSpace(text))
+	default:
+		return title
 	}
-	return returnValue
 }
 
 // NewWidget creates a new instance of a widget
