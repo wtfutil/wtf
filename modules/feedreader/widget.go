@@ -125,7 +125,24 @@ func (widget *Widget) Render() {
 /* -------------------- Unexported Functions -------------------- */
 
 func (widget *Widget) fetchForFeed(feedURL string) ([]*FeedItem, error) {
-	feed, err := widget.parser.ParseURL(feedURL)
+	var (
+		feed *gofeed.Feed
+		err  error
+	)
+	if auth, isPrivateRSS := widget.settings.credentials[feedURL]; isPrivateRSS {
+		fp := gofeed.NewParser()
+		fp.AuthConfig = &gofeed.Auth{
+			Username: auth.username,
+			Password: auth.password,
+		}
+		feed, err = fp.ParseURL(feedURL)
+	} else {
+		feed, err = widget.parser.ParseURL(feedURL)
+	}
+	if err != nil {
+		return nil, err
+	}
+
 	if err != nil {
 		return nil, err
 	}
