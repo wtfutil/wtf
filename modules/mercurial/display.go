@@ -68,7 +68,7 @@ func (widget *Widget) formatChange(line string) string {
 		line = strings.Replace(line, "R", "[purple]R[white]", 1)
 	}
 
-	return fmt.Sprintf(" %s\n", strings.Replace(line, "\"", "", -1))
+	return fmt.Sprintf(" %s\n", strings.ReplaceAll(line, "\"", ""))
 }
 
 func (widget *Widget) formatCommits(data []string) string {
@@ -82,5 +82,5 @@ func (widget *Widget) formatCommits(data []string) string {
 }
 
 func (widget *Widget) formatCommit(line string) string {
-	return fmt.Sprintf(" %s\n", strings.Replace(line, "\"", "", -1))
+	return fmt.Sprintf(" %s\n", strings.ReplaceAll(line, "\"", ""))
 }

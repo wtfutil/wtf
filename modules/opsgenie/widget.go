@@ -68,6 +68,6 @@ func (widget *Widget) content() (string, string, bool) {
 }
 
 func (widget *Widget) cleanScheduleName(schedule string) string {
-	cleanedName := strings.Replace(schedule, "_", " ", -1)
+	cleanedName := strings.ReplaceAll(schedule, "_", " ")
 	return fmt.Sprintf(" [green]%s[white]\n", cleanedName)
 }

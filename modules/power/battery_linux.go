@@ -79,7 +79,7 @@ func (battery *Battery) parse(data string) string {
 }
 
 func (battery *Battery) formatCharge(data string) string {
-	percent, _ := strconv.ParseFloat(strings.Replace(data, "%", "", -1), 32)
+	percent, _ := strconv.ParseFloat(strings.ReplaceAll(data, "%", ""), 32)
 	return utils.ColorizePercent(percent)
 }
 

@@ -47,8 +47,8 @@ func (widget *Widget) content() (string, string, bool) {
 }
 
 func (widget *Widget) prettyTorrentName(name string) string {
-	str := strings.Replace(name, "[", "(", -1)
-	str = strings.Replace(str, "]", ")", -1)
+	str := strings.ReplaceAll(name, "[", "(")
+	str = strings.ReplaceAll(str, "]", ")")
 
 	return str
 }
