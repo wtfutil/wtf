@@ -14,7 +14,7 @@ import (
 // is prefixed with `~`. If it isn't prefixed with `~`, the path is
 // returned as-is.
 func ExpandHomeDir(path string) (string, error) {
-	if len(path) == 0 {
+	if path == "" {
 		return path, nil
 	}
 

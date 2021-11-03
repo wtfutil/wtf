@@ -101,7 +101,7 @@ func (repo *Repo) StarCount() int {
 
 func (repo *Repo) isGitHubEnterprise() bool {
 	if len(repo.baseURL) > 0 {
-		if len(repo.uploadURL) == 0 {
+		if repo.uploadURL == "" {
 			repo.uploadURL = repo.baseURL
 		}
 		return true

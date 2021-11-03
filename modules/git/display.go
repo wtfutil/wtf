@@ -73,7 +73,7 @@ func (widget *Widget) formatChanges(data []string) string {
 }
 
 func (widget *Widget) formatChange(line string) string {
-	if len(line) == 0 {
+	if line == "" {
 		return ""
 	}
 

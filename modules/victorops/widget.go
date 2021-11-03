@@ -71,7 +71,7 @@ func (widget *Widget) content() (string, string, bool) {
 		str = fmt.Sprintf("%s\n", str)
 	}
 
-	if len(str) == 0 {
+	if str == "" {
 		str = "Could not find any teams to display"
 	}
 	return title, str, false

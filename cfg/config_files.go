@@ -158,7 +158,7 @@ func createWtfConfigFile() {
 // is prefixed with `~`. If it isn't prefixed with `~`, the path is
 // returned as-is.
 func expandHomeDir(path string) (string, error) {
-	if len(path) == 0 {
+	if path == "" {
 		return path, nil
 	}
 

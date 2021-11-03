@@ -75,7 +75,7 @@ func BuildStars(data []Bar, maxStars int, starChar string) string {
 		var starCount = int(float64(bar.Percent) * starRatio)
 
 		label := bar.ValueLabel
-		if len(label) == 0 {
+		if label == "" {
 			label = fmt.Sprint(bar.Percent)
 		}
 

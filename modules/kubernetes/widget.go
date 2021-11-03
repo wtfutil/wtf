@@ -102,7 +102,7 @@ func (widget *Widget) Refresh() {
 
 // generateTitle generates a title for the widget
 func (widget *Widget) generateTitle() string {
-	if len(widget.title) != 0 {
+	if widget.title != "" {
 		return widget.title
 	}
 	title := "Kube"
