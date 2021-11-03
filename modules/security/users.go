@@ -62,7 +62,7 @@ func loggedInUsersLinux() []string {
 		if len(col) > 0 {
 			for _, cleanedU := range cleaned {
 				u := strings.TrimSpace(col[0])
-				if len(u) == 0 || strings.Compare(cleanedU, col[0]) == 0 {
+				if u == "" || strings.Compare(cleanedU, col[0]) == 0 {
 					clean = false
 				}
 			}

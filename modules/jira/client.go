@@ -97,7 +97,7 @@ func (widget *Widget) jiraRequest(path string) ([]byte, error) {
 }
 
 func getProjectQuery(projects []string) string {
-	singleEmptyProject := len(projects) == 1 && len(projects[0]) == 0
+	singleEmptyProject := len(projects) == 1 && projects[0] == ""
 	if len(projects) == 0 || singleEmptyProject {
 		return ""
 	} else if len(projects) == 1 {
