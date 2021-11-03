@@ -5,6 +5,7 @@
 <p align="left">
     <a href="https://goreportcard.com/report/github.com/wtfutil/wtf"><img alt="Go Report Card" src="https://goreportcard.com/badge/github.com/wtfutil/wtf"></a>
     <a href="https://twitter.com/wtfutil"><img alt="Twitter" src="https://img.shields.io/badge/follow-on%20twitter-blue.svg"></a>
+    <a href="https://deepsource.io/gh/wtfutil/wtf/?ref=repository-badge}" target="_blank"><img alt="DeepSource" title="DeepSource" src="https://deepsource.io/gh/wtfutil/wtf.svg/?label=active+issues&show_trend=true&token=kSJAbELF2TA7rEHjK6RPUrj5"/></a>
 </p>
 
 WTF (aka 'wtfutil') is the personal information dashboard for your terminal, providing at-a-glance access to your very important but infrequently-needed stats and data.
