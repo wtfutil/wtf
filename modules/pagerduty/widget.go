@@ -139,10 +139,10 @@ func (widget *Widget) contentFrom(onCalls []pagerduty.OnCall, incidents []pagerd
 					" [%s]%d - %s\n",
 					widget.settings.Colors.Text,
 					onCall.EscalationLevel,
-					widget.userSummary(onCall),
+					widget.userSummary(&onCall),
 				)
 
-				onCallEnd := widget.onCallEndSummary(onCall)
+				onCallEnd := widget.onCallEndSummary(&onCall)
 				if onCallEnd != "" {
 					str += fmt.Sprintf(
 						"     %s\n",
@@ -157,7 +157,7 @@ func (widget *Widget) contentFrom(onCalls []pagerduty.OnCall, incidents []pagerd
 }
 
 // onCallEndSummary may or may not return the date that the specified onCall schedule ends
-func (widget *Widget) onCallEndSummary(onCall pagerduty.OnCall) string {
+func (widget *Widget) onCallEndSummary(onCall *pagerduty.OnCall) string {
 	if !widget.settings.showOnCallEnd {
 		return ""
 	}
@@ -175,7 +175,7 @@ func (widget *Widget) onCallEndSummary(onCall pagerduty.OnCall) string {
 }
 
 // userSummary returns the name of the person assigned to the specified onCall schedule
-func (widget *Widget) userSummary(onCall pagerduty.OnCall) string {
+func (widget *Widget) userSummary(onCall *pagerduty.OnCall) string {
 	summary := onCall.User.Summary
 
 	if summary == widget.settings.myName {
