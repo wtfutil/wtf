@@ -38,7 +38,7 @@ func (widget *Widget) content() (string, string, bool) {
 		}
 
 		ts := calEvent.Timestamp(widget.settings.hourFormat, widget.settings.showEndTime)
-		timestamp := fmt.Sprintf("[%s]%s", widget.eventTimeColor(calEvent), ts)
+		timestamp := fmt.Sprintf("[%s]%s", widget.eventTimeColor(), ts)
 		if calEvent.AllDay() {
 			timestamp = ""
 		}
@@ -105,7 +105,7 @@ func (widget *Widget) descriptionColor(calEvent *CalEvent) string {
 	return widget.settings.colors.description
 }
 
-func (widget *Widget) eventTimeColor(calEvent *CalEvent) string {
+func (widget *Widget) eventTimeColor() string {
 	return widget.settings.colors.eventTime
 }
 

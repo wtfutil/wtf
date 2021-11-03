@@ -59,26 +59,26 @@ func (widget *Widget) content() (string, string, bool) {
 }
 
 func (widget *Widget) displayMyMergeRequests(project *GitlabProject, username string) string {
-	mrs := project.myMergeRequests(username)
-	return widget.renderMergeRequests(mrs, username)
+	mrs := project.myMergeRequests()
+	return widget.renderMergeRequests(mrs)
 }
 
 func (widget *Widget) displayMyAssignedMergeRequests(project *GitlabProject, username string) string {
-	mrs := project.myAssignedMergeRequests(username)
-	return widget.renderMergeRequests(mrs, username)
+	mrs := project.myAssignedMergeRequests()
+	return widget.renderMergeRequests(mrs)
 }
 
 func (widget *Widget) displayMyAssignedIssues(project *GitlabProject, username string) string {
-	issues := project.myAssignedIssues(username)
-	return widget.renderIssues(issues, username)
+	issues := project.myAssignedIssues()
+	return widget.renderIssues(issues)
 }
 
 func (widget *Widget) displayMyIssues(project *GitlabProject, username string) string {
-	issues := project.myIssues(username)
-	return widget.renderIssues(issues, username)
+	issues := project.myIssues()
+	return widget.renderIssues(issues)
 }
 
-func (widget *Widget) renderMergeRequests(mrs []*gitlab.MergeRequest, username string) string {
+func (widget *Widget) renderMergeRequests(mrs []*gitlab.MergeRequest) string {
 
 	length := len(mrs)
 
@@ -98,7 +98,7 @@ func (widget *Widget) renderMergeRequests(mrs []*gitlab.MergeRequest, username s
 	return str
 }
 
-func (widget *Widget) renderIssues(issues []*gitlab.Issue, username string) string {
+func (widget *Widget) renderIssues(issues []*gitlab.Issue) string {
 
 	length := len(issues)
 

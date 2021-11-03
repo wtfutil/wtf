@@ -12,7 +12,7 @@ type Resource struct {
 	Raw      string
 }
 
-func (widget *Widget) api(meth string, path string, params string) (*Resource, error) {
+func (widget *Widget) api(meth string) (*Resource, error) {
 	trn := &http.Transport{}
 
 	client := &http.Client{
@@ -22,7 +22,7 @@ func (widget *Widget) api(meth string, path string, params string) (*Resource, e
 	baseURL := fmt.Sprintf("https://%v.zendesk.com/api/v2", widget.settings.subdomain)
 	URL := baseURL + "/tickets.json?sort_by=status"
 
-	req, err := http.NewRequest(meth, URL, bytes.NewBufferString(params))
+	req, err := http.NewRequest(meth, URL, bytes.NewBufferString(""))
 	if err != nil {
 		return nil, err
 	}

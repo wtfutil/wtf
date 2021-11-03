@@ -157,7 +157,7 @@ func (todo *Trello) CloseTask(task *Task) error {
 	return nil
 }
 
-func (todo *Trello) DeleteTask(task *Task) error {
+func (todo *Trello) DeleteTask(_ *Task) error {
 	return nil
 }
 

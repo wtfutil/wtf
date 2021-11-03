@@ -152,14 +152,14 @@ func (widget *Widget) getTextComponents(text string) (string, *time.Time, []stri
 
 	tags := make([]string, 0)
 	if widget.settings.parseTags {
-		text, tags = getTodoTags(text, date)
+		text, tags = getTodoTags(text)
 	}
 
 	text = strings.TrimSpace(text)
 	return text, date, tags
 }
 
-func getTodoTags(text string, date *time.Time) (string, []string) {
+func getTodoTags(text string) (string, []string) {
 	tags := make([]string, 0)
 	r, _ := regexp.Compile(`(?i)(^|\s)#[a-z0-9]+`)
 	matches := r.FindAllString(text, -1)

@@ -19,7 +19,7 @@ type PositionSettings struct {
 }
 
 // NewPositionSettingsFromYAML creates and returns a new instance of cfg.Position
-func NewPositionSettingsFromYAML(moduleName string, moduleConfig *config.Config) PositionSettings {
+func NewPositionSettingsFromYAML(moduleConfig *config.Config) PositionSettings {
 	var currVal int
 	var err error
 

@@ -27,15 +27,15 @@ func (widget *Widget) content() (string, string, bool) {
 	str += widget.displayStats(project)
 	str += "\n"
 	str += fmt.Sprintf(" [%s]Open Incoming Reviews[white]\n", widget.settings.Colors.Subheading)
-	str += widget.displayMyIncomingReviews(project, widget.settings.username)
+	str += widget.displayMyIncomingReviews(project)
 	str += "\n"
 	str += fmt.Sprintf(" [%s]My Outgoing Reviews[white]\n", widget.settings.Colors.Subheading)
-	str += widget.displayMyOutgoingReviews(project, widget.settings.username)
+	str += widget.displayMyOutgoingReviews(project)
 
 	return title, str, false
 }
 
-func (widget *Widget) displayMyIncomingReviews(project *GerritProject, username string) string {
+func (widget *Widget) displayMyIncomingReviews(project *GerritProject) string {
 	if len(project.IncomingReviews) == 0 {
 		return " [grey]none[white]\n"
 	}
@@ -48,7 +48,7 @@ func (widget *Widget) displayMyIncomingReviews(project *GerritProject, username 
 	return str
 }
 
-func (widget *Widget) displayMyOutgoingReviews(project *GerritProject, username string) string {
+func (widget *Widget) displayMyOutgoingReviews(project *GerritProject) string {
 	if len(project.OutgoingReviews) == 0 {
 		return " [grey]none[white]\n"
 	}
