@@ -177,11 +177,11 @@ func (widget *Widget) content() (string, string, bool) {
 	result := widget.buffer.String()
 	widget.m.Unlock()
 
-	ansiTitle := tview.TranslateANSI(widget.CommonSettings().Title)
+	ansiTitle := tview.TranslateANSI(tview.Escape(widget.CommonSettings().Title))
 	if ansiTitle == defaultTitle {
-		ansiTitle = tview.TranslateANSI(widget.String())
+		ansiTitle = tview.TranslateANSI(tview.Escape(widget.String()))
 	}
-	ansiResult := tview.TranslateANSI(result)
+	ansiResult := tview.TranslateANSI(tview.Escape(result))
 
 	return ansiTitle, ansiResult, false
 }
