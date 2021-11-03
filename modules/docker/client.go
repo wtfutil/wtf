@@ -140,7 +140,7 @@ func (widget *Widget) getContainerStates() string {
 			state: c.State,
 		}
 
-		container.name = strings.Replace(container.name, "/", "", -1)
+		container.name = strings.ReplaceAll(container.name, "/", "")
 		containers = append(containers, container)
 	}
 

@@ -73,7 +73,7 @@ func (g *Group) Type() string {
 
 func (g *Group) Message() string {
 	error := g.Errors[0]
-	return strings.Replace(error.Message, "\n", ". ", -1)
+	return strings.ReplaceAll(error.Message, "\n", ". ")
 }
 
 func (g *Group) File() string {

@@ -13,7 +13,7 @@ import (
 //
 func NameFromEmail(email string) string {
 	parts := strings.Split(email, "@")
-	return strings.Title(strings.Replace(parts[0], ".", " ", -1))
+	return strings.Title(strings.ReplaceAll(parts[0], ".", " "))
 }
 
 // NamesFromEmails takes a slice of email addresses and returns a slice of the parts that

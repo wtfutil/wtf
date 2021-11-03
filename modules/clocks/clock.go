@@ -44,5 +44,5 @@ func (clock *Clock) Time(timeFormat string) string {
 }
 
 func sanitizeLocation(locStr string) string {
-	return strings.Replace(locStr, " ", "_", -1)
+	return strings.ReplaceAll(locStr, " ", "_")
 }
