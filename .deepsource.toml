@@ -1,0 +1,16 @@
+version = 1
+
+[[analyzers]]
+name = "shell"
+enabled = true
+
+[[analyzers]]
+name = "go"
+enabled = true
+
+  [analyzers.meta]
+  import_root = "github.com/wtfutil/wtf"
+
+[[analyzers]]
+name = "test-coverage"
+enabled = true
