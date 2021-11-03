@@ -40,7 +40,7 @@ func (widget *Widget) Refresh() {
 		return
 	}
 
-	todos, err := widget.getTodos(widget.settings.apiKey)
+	todos, err := widget.getTodos()
 	widget.todos = todos
 	widget.err = err
 	widget.SetItemCount(len(todos))
@@ -71,7 +71,7 @@ func (widget *Widget) content() (string, string, bool) {
 	return title, str, false
 }
 
-func (widget *Widget) getTodos(apiKey string) ([]*gitlab.Todo, error) {
+func (widget *Widget) getTodos() ([]*gitlab.Todo, error) {
 	opts := gitlab.ListTodosOptions{}
 
 	todos, _, err := widget.gitlabClient.Todos.ListTodos(&opts)

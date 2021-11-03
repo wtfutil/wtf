@@ -47,12 +47,12 @@ func NewWidget(tviewApp *tview.Application, settings *Settings) *Widget {
 
 func (widget *Widget) setSummaryList() {
 	for symbol, currency := range widget.settings.summary.currencies {
-		mCurrencyList := widget.makeSummaryMarketList(symbol, currency.market)
+		mCurrencyList := widget.makeSummaryMarketList(currency.market)
 		widget.summaryList.addSummaryItem(symbol, currency.displayName, mCurrencyList)
 	}
 }
 
-func (widget *Widget) makeSummaryMarketList(currencySymbol string, market []interface{}) []*mCurrency {
+func (widget *Widget) makeSummaryMarketList(market []interface{}) []*mCurrency {
 	mCurrencyList := []*mCurrency{}
 
 	for _, marketSymbol := range market {

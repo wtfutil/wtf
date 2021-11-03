@@ -21,7 +21,7 @@ type Widget struct {
 	archivedView bool
 }
 
-func NewWidget(tviewApp *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
+func NewWidget(tviewApp *tview.Application, _ *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
 		ScrollableWidget: view.NewScrollableWidget(tviewApp, nil, settings.Common),
 		settings:         settings,

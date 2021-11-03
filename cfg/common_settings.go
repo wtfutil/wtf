@@ -96,7 +96,7 @@ func NewCommonSettingsFromModule(name, defaultTitle string, defaultFocusable boo
 			Type: moduleConfig.UString("type", name),
 		},
 
-		PositionSettings: NewPositionSettingsFromYAML(name, moduleConfig),
+		PositionSettings: NewPositionSettingsFromYAML(moduleConfig),
 
 		Bordered:        moduleConfig.UBool("border", true),
 		Config:          moduleConfig,

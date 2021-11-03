@@ -52,7 +52,7 @@ func (widget *Widget) displayQueue(filter string) string {
 	var content string
 	for idx, job := range runs {
 		content += fmt.Sprintf(`[grey]["%d"]%s`,
-			idx, widget.generateQueueJobLine(job.ID, job.Parameters, job.Job, time.Since(job.Queued), job.BookedBy, job.Status))
+			idx, widget.generateQueueJobLine(job.Parameters, job.Job, time.Since(job.Queued), job.BookedBy, job.Status))
 
 		widget.Items = append(widget.Items, job)
 	}
@@ -60,7 +60,7 @@ func (widget *Widget) displayQueue(filter string) string {
 	return content
 }
 
-func (widget *Widget) generateQueueJobLine(id int64, parameters []sdk.Parameter, executedJob sdk.ExecutedJob,
+func (widget *Widget) generateQueueJobLine(parameters []sdk.Parameter, executedJob sdk.ExecutedJob,
 	duration time.Duration, bookedBy sdk.Service, status string) string {
 	prj := getVarsInPbj("cds.project", parameters)
 	workflow := getVarsInPbj("cds.workflow", parameters)

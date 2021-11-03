@@ -69,7 +69,7 @@ var sampleRSS string = `<?xml version="1.0" encoding="UTF-8" ?>
 </rss>
 `
 
-func TestMapFormatFetch(t *testing.T) {
+func Test_MapFormatFetch(t *testing.T) {
 	ymlCfg, _ := config.ParseYaml(mapformat)
 	globalCfg, _ := config.ParseYaml(globalConfig)
 
@@ -86,7 +86,7 @@ func TestMapFormatFetch(t *testing.T) {
 	assert.Equal(t, len(f), 2)
 }
 
-func TestListFormatFetch(t *testing.T) {
+func Test_ListFormatFetch(t *testing.T) {
 	ymlCfg, _ := config.ParseYaml(listformat)
 	globalCfg, _ := config.ParseYaml(globalConfig)
 
@@ -120,6 +120,7 @@ func setupPrivateRSSFeed() {
 			panic(err)
 		}
 	})
+
 	err := http.ListenAndServe(":3000", nil)
 	if err != nil {
 		panic(err)

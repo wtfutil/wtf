@@ -82,24 +82,24 @@ func (project *GitlabProject) StarCount() int {
 
 /* -------------------- Unexported Functions -------------------- */
 
-// myMergeRequests returns a list of merge requests created by username on this project
-func (project *GitlabProject) myMergeRequests(username string) []*glb.MergeRequest {
+// myMergeRequests returns a list of merge requests
+func (project *GitlabProject) myMergeRequests() []*glb.MergeRequest {
 	return project.AuthoredMergeRequests
 }
 
-// myAssignedMergeRequests returns a list of merge requests for which username has been
+// myAssignedMergeRequests returns a list of merge requests
 // assigned
-func (project *GitlabProject) myAssignedMergeRequests(username string) []*glb.MergeRequest {
+func (project *GitlabProject) myAssignedMergeRequests() []*glb.MergeRequest {
 	return project.AssignedMergeRequests
 }
 
-// myAssignedIssues returns a list of issues for which username has been assigned
-func (project *GitlabProject) myAssignedIssues(username string) []*glb.Issue {
+// myAssignedIssues returns a list of issues
+func (project *GitlabProject) myAssignedIssues() []*glb.Issue {
 	return project.AssignedIssues
 }
 
-// myIssues returns a list of issues created by username on this project
-func (project *GitlabProject) myIssues(username string) []*glb.Issue {
+// myIssues returns a list of issues
+func (project *GitlabProject) myIssues() []*glb.Issue {
 	return project.AuthoredIssues
 }
 

@@ -53,7 +53,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 	settings.colors.rows.even = ymlConfig.UString("colors.even", "lightblue")
 	settings.colors.rows.odd = ymlConfig.UString("colors.odd", "white")
 
-	settings.projects = settings.arrayifyProjects(ymlConfig, globalConfig)
+	settings.projects = settings.arrayifyProjects(ymlConfig)
 
 	return &settings
 }
@@ -61,7 +61,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 /* -------------------- Unexported functions -------------------- */
 
 // arrayifyProjects figures out if we're dealing with a single project or an array of projects
-func (settings *Settings) arrayifyProjects(ymlConfig *config.Config, globalConfig *config.Config) []string {
+func (settings *Settings) arrayifyProjects(ymlConfig *config.Config) []string {
 	projects := []string{}
 
 	// Single project

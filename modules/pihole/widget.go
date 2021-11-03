@@ -16,7 +16,7 @@ type Widget struct {
 }
 
 // NewWidget creates a new instance of a widget
-func NewWidget(tviewApp *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
+func NewWidget(tviewApp *tview.Application, _ *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
 		TextWidget: view.NewTextWidget(tviewApp, nil, settings.Common),
 		settings:   settings,

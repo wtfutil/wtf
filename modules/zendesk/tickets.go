@@ -46,27 +46,19 @@ type Ticket struct {
 }
 
 func (widget *Widget) listTickets(pag ...string) (*TicketArray, error) {
+	tickets := &TicketArray{}
 
-	TicketStruct := &TicketArray{}
-
-	var path string
-	if len(pag) < 1 {
-		path = "/tickets.json"
-	} else {
-		path = pag[0]
-	}
-
-	resource, err := widget.api("GET", path, "")
+	resource, err := widget.api("GET")
 	if err != nil {
 		return nil, err
 	}
 
-	err = json.Unmarshal([]byte(resource.Raw), TicketStruct)
+	err = json.Unmarshal([]byte(resource.Raw), tickets)
 	if err != nil {
 		return nil, err
 	}
 
-	return TicketStruct, err
+	return tickets, err
 }
 
 func (widget *Widget) newTickets() (*TicketArray, error) {

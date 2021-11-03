@@ -35,13 +35,13 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 
 	cfg.ModuleSecret(name, globalConfig, &settings.apiKey).Load()
 
-	settings.schedule = settings.arrayifySchedules(ymlConfig, globalConfig)
+	settings.schedule = settings.arrayifySchedules(ymlConfig)
 
 	return &settings
 }
 
 // arrayifySchedules figures out if we're dealing with a single project or an array of projects
-func (settings *Settings) arrayifySchedules(ymlConfig *config.Config, globalConfig *config.Config) []string {
+func (settings *Settings) arrayifySchedules(ymlConfig *config.Config) []string {
 	schedules := []string{}
 
 	// Single schedule

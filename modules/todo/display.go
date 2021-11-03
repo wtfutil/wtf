@@ -51,7 +51,7 @@ func (widget *Widget) sortListByChecked(firstGroup []*checklist.ChecklistItem, s
 	selectedItem := widget.SelectedItem()
 	for idx, item := range firstGroup {
 		if widget.shouldShowItem(item) {
-			str += widget.formattedItemLine(idx, hidden, item, selectedItem, widget.list.LongestLine())
+			str += widget.formattedItemLine(idx, hidden, item)
 		} else {
 			hidden = hidden + 1
 		}
@@ -61,7 +61,7 @@ func (widget *Widget) sortListByChecked(firstGroup []*checklist.ChecklistItem, s
 
 	for idx, item := range secondGroup {
 		if widget.shouldShowItem(item) {
-			str += widget.formattedItemLine(idx+offset, hidden, item, selectedItem, widget.list.LongestLine())
+			str += widget.formattedItemLine(idx+offset, hidden, item)
 		} else {
 			hidden = hidden + 1
 		}
@@ -119,7 +119,7 @@ func (widget *Widget) RowColor(idx int, hidden int, checked bool) string {
 	}
 }
 
-func (widget *Widget) formattedItemLine(idx int, hidden int, currItem *checklist.ChecklistItem, selectedItem *checklist.ChecklistItem, maxLen int) string {
+func (widget *Widget) formattedItemLine(idx int, hidden int, currItem *checklist.ChecklistItem) string {
 	rowColor := widget.RowColor(idx, hidden, currItem.Checked)
 
 	todoDate := currItem.Date
