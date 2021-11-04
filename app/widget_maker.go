@@ -24,7 +24,6 @@ import (
 	"github.com/wtfutil/wtf/modules/digitalclock"
 	"github.com/wtfutil/wtf/modules/digitalocean"
 	"github.com/wtfutil/wtf/modules/docker"
-	"github.com/wtfutil/wtf/modules/exchangerates"
 	"github.com/wtfutil/wtf/modules/feedreader"
 	"github.com/wtfutil/wtf/modules/football"
 	"github.com/wtfutil/wtf/modules/gcal"
@@ -335,9 +334,6 @@ func MakeWidget(
 	case "zendesk":
 		settings := zendesk.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = zendesk.NewWidget(tviewApp, pages, settings)
-	case "exchangerates":
-		settings := exchangerates.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = exchangerates.NewWidget(tviewApp, pages, settings)
 	case "finnhub":
 		settings := finnhub.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = finnhub.NewWidget(tviewApp, settings)
