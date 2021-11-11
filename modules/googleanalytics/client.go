@@ -3,9 +3,9 @@ package googleanalytics
 import (
 	"context"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 	"path/filepath"
 	"time"
 
@@ -48,7 +48,7 @@ func (widget *Widget) Fetch() []websiteReport {
 }
 
 func buildNetClient(secretPath string) *http.Client {
-	clientSecret, err := ioutil.ReadFile(filepath.Clean(secretPath))
+	clientSecret, err := os.ReadFile(filepath.Clean(secretPath))
 	if err != nil {
 		log.Fatalf("Unable to read secretPath. %v", err)
 	}

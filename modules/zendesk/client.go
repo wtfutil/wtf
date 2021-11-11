@@ -3,7 +3,7 @@ package zendesk
 import (
 	"bytes"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 )
 
@@ -38,7 +38,7 @@ func (widget *Widget) api(meth string) (*Resource, error) {
 	}
 	defer func() { _ = resp.Body.Close() }()
 
-	data, err := ioutil.ReadAll(resp.Body)
+	data, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}

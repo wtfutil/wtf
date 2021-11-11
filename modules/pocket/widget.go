@@ -2,7 +2,7 @@ package pocket
 
 import (
 	"fmt"
-	"io/ioutil"
+	"os"
 
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/cfg"
@@ -90,7 +90,7 @@ func writeMetaDataToDisk(metaData pocketMetaData) error {
 	}
 
 	filePath := fmt.Sprintf("%s/%s", wtfConfigDir, "pocket.data")
-	err = ioutil.WriteFile(filePath, fileData, 0644)
+	err = os.WriteFile(filePath, fileData, 0644)
 
 	return err
 }

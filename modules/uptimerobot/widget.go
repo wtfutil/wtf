@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
@@ -160,7 +160,7 @@ func (widget *Widget) getMonitors() ([]Monitor, error) {
 	}
 	defer func() { _ = resp.Body.Close() }()
 
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 
 	// First pass to read the status
 	c := make(map[string]json.RawMessage)
