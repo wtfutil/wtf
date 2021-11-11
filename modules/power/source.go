@@ -1,5 +1,5 @@
-// +build !linux
-// +build !freebsd
+//go:build !linux && !freebsd
+// +build !linux,!freebsd
 
 package power
 
