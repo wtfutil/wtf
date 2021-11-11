@@ -8,6 +8,10 @@
 * [FeedReader module]() now supports basic auth, [#957](https://github.com/wtfutil/wtf/issues/957) by [@ResamVi](https://github.com/ResamVi)
 * Single words inside square brackets are displayed in the [CmdRunner module](https://wtfutil.com/modules/cmdrunner/), [#1142](https://github.com/wtfutil/wtf/issues/1142) by [@yosmoc](https://github.com/yosmoc)
 
+### 👍 Updated
+
+* ExchangeRates module deleted. Exchange rate data is supported by the [Yahoo Finance module](https://wtfutil.com/modules/stocks/yfinance/), by [@yosmoc](https://github.com/yosmoc)
+
 ## v0.40.0
 
 ### ⚡️ Added
