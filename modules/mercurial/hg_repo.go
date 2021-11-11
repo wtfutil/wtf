@@ -2,7 +2,7 @@ package mercurial
 
 import (
 	"fmt"
-	"io/ioutil"
+	"os"
 	"os/exec"
 	"path"
 	"strings"
@@ -43,7 +43,7 @@ func (repo *MercurialRepo) branch() string {
 }
 
 func (repo *MercurialRepo) bookmark() string {
-	bookmark, err := ioutil.ReadFile(path.Join(repo.Path, ".hg", "bookmarks.current"))
+	bookmark, err := os.ReadFile(path.Join(repo.Path, ".hg", "bookmarks.current"))
 	if err != nil {
 		return ""
 	}

@@ -3,7 +3,7 @@ package nbascore
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"strconv"
 	"time"
@@ -63,7 +63,7 @@ func (widget *Widget) nbascore() (string, string, bool) {
 		return title, err.Error(), true
 	} // Get data from data.nba.net and check if successful
 
-	contents, err := ioutil.ReadAll(response.Body)
+	contents, err := io.ReadAll(response.Body)
 	if err != nil {
 		return title, err.Error(), true
 	}
