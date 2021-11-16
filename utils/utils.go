@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -128,7 +127,7 @@ func OpenFile(path string) {
 
 // ReadFileBytes reads the contents of a file and returns those contents as a slice of bytes
 func ReadFileBytes(filePath string) ([]byte, error) {
-	fileData, err := ioutil.ReadFile(filepath.Clean(filePath))
+	fileData, err := os.ReadFile(filepath.Clean(filePath))
 	if err != nil {
 		return []byte{}, err
 	}

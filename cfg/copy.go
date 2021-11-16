@@ -6,7 +6,6 @@ package cfg
 
 import (
 	"io"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 )
@@ -56,12 +55,17 @@ func dcopy(src, dest string, info os.FileInfo) error {
 		return err
 	}
 
-	infos, err := ioutil.ReadDir(src)
+	entries, err := os.ReadDir(src)
 	if err != nil {
 		return err
 	}
 
-	for _, info := range infos {
+	for _, entry := range entries {
+		info, err := entry.Info()
+		if err != nil {
+			continue
+		}
+
 		if err := copy(
 			filepath.Join(src, info.Name()),
 			filepath.Join(dest, info.Name()),

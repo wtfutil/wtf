@@ -1,8 +1,8 @@
 package git
 
 import (
-	"io/ioutil"
 	"log"
+	"os"
 	"strings"
 
 	"github.com/gdamore/tcell"
@@ -174,7 +174,7 @@ func (widget *Widget) gitRepos(repoPaths []string) []*GitRepo {
 func (widget *Widget) findGitRepositories(repositories []*GitRepo, directory string) []*GitRepo {
 	directory = strings.TrimSuffix(directory, "/")
 
-	files, err := ioutil.ReadDir(directory)
+	files, err := os.ReadDir(directory)
 	if err != nil {
 		log.Fatal(err)
 	}

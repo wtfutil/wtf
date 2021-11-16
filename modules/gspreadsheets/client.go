@@ -9,7 +9,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"net/url"
@@ -31,7 +30,7 @@ func (widget *Widget) Fetch() ([]*sheets.ValueRange, error) {
 
 	secretPath, _ := utils.ExpandHomeDir(widget.settings.secretFile)
 
-	b, err := ioutil.ReadFile(filepath.Clean(secretPath))
+	b, err := os.ReadFile(filepath.Clean(secretPath))
 	if err != nil {
 		log.Fatalf("Unable to read secretPath. %v", err)
 		return nil, err

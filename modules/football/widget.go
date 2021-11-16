@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"strconv"
 	"strings"
 
@@ -100,7 +100,7 @@ func (widget *Widget) GetStandings(leagueId int) string {
 		return fmt.Sprintf("Error fetching standings: %s", err.Error())
 	}
 	defer func() { _ = resp.Body.Close() }()
-	data, err := ioutil.ReadAll(resp.Body)
+	data, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return fmt.Sprintf("Error fetching standings: %s", err.Error())
 	}
@@ -146,7 +146,7 @@ func (widget *Widget) GetMatches(leagueId int) string {
 		return fmt.Sprintf("Error fetching matches: %s", err.Error())
 	}
 	defer func() { _ = resp.Body.Close() }()
-	data, err := ioutil.ReadAll(resp.Body)
+	data, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return fmt.Sprintf("Error fetching matches: %s", err.Error())
 	}

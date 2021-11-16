@@ -2,7 +2,7 @@ package todo
 
 import (
 	"fmt"
-	"io/ioutil"
+	"os"
 	"regexp"
 	"strconv"
 	"strings"
@@ -261,7 +261,7 @@ func (widget *Widget) persist() {
 
 	fileData, _ := yaml.Marshal(&widget.list)
 
-	err := ioutil.WriteFile(filePath, fileData, 0644)
+	err := os.WriteFile(filePath, fileData, 0644)
 
 	if err != nil {
 		panic(err)
