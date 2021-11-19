@@ -11,6 +11,7 @@
 ### 👍 Updated
 
 * ExchangeRates module has been removed. Exchange rate data is supported by the [Yahoo Finance module](https://wtfutil.com/modules/stocks/yfinance/), by [@yosmoc](https://github.com/yosmoc)
+* Replace usage of `ioutil` with `io` and `os` functions, by [@Juneezee](https://github.com/Juneezee)
 
 ## v0.40.0
 
