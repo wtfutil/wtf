@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 )
 
@@ -89,7 +89,7 @@ func (client *Client) request(req request, result interface{}) error {
 	}
 	defer func() { _ = resp.Body.Close() }()
 
-	responseBody, err := ioutil.ReadAll(resp.Body)
+	responseBody, err := io.ReadAll(resp.Body)
 
 	if err != nil {
 		return err

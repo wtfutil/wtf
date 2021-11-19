@@ -1,7 +1,7 @@
 package prettyweather
 
 import (
-	"io/ioutil"
+	"io"
 	"net/http"
 	"strings"
 
@@ -57,7 +57,7 @@ func (widget *Widget) prettyWeather() {
 	}
 	defer func() { _ = response.Body.Close() }()
 
-	contents, err := ioutil.ReadAll(response.Body)
+	contents, err := io.ReadAll(response.Body)
 	if err != nil {
 		widget.result = err.Error()
 		return

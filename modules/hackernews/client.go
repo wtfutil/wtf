@@ -3,7 +3,7 @@ package hackernews
 import (
 	"bytes"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"strconv"
 	"strings"
@@ -70,7 +70,7 @@ func apiRequest(path string) ([]byte, error) {
 		return nil, fmt.Errorf(resp.Status)
 	}
 
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}

@@ -3,7 +3,7 @@ package textfile
 import (
 	"bytes"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"os"
 	"path/filepath"
 	"time"
@@ -103,7 +103,7 @@ func (widget *Widget) formattedText() string {
 		formatter = formatters.Fallback
 	}
 
-	contents, _ := ioutil.ReadAll(file)
+	contents, _ := io.ReadAll(file)
 	iterator, _ := lexer.Tokenise(nil, string(contents))
 
 	var buf bytes.Buffer
@@ -118,7 +118,7 @@ func (widget *Widget) formattedText() string {
 func (widget *Widget) plainText() string {
 	filePath, _ := utils.ExpandHomeDir(filepath.Clean(widget.CurrentSource()))
 
-	text, err := ioutil.ReadFile(filepath.Clean(filePath))
+	text, err := os.ReadFile(filepath.Clean(filePath))
 	if err != nil {
 		return err.Error()
 	}

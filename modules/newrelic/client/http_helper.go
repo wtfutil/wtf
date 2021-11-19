@@ -3,7 +3,7 @@ package newrelic
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -32,7 +32,7 @@ func (c *Client) doRequest(req *http.Request, out interface{}) error {
 		return err
 	}
 	defer func() { _ = resp.Body.Close() }()
-	b, err := ioutil.ReadAll(resp.Body)
+	b, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return err
 	}

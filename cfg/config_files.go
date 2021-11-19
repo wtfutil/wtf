@@ -3,7 +3,6 @@ package cfg
 import (
 	"errors"
 	"fmt"
-	"io/ioutil"
 	"os"
 	"os/user"
 	"path/filepath"
@@ -147,7 +146,7 @@ func createWtfConfigFile() {
 	file, _ := os.Stat(filePath)
 
 	if file.Size() == 0 {
-		if ioutil.WriteFile(filePath, []byte(defaultConfigFile), 0600) != nil {
+		if os.WriteFile(filePath, []byte(defaultConfigFile), 0600) != nil {
 			displayDefaultConfigWriteError(err)
 			os.Exit(1)
 		}

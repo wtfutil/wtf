@@ -3,7 +3,7 @@ package pihole
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	url2 "net/url"
 	"regexp"
@@ -71,7 +71,7 @@ func getStatus(c http.Client, apiURL string) (status Status, err error) {
 
 	var rBody []byte
 
-	if rBody, err = ioutil.ReadAll(resp.Body); err != nil {
+	if rBody, err = io.ReadAll(resp.Body); err != nil {
 		return status, fmt.Errorf(" failed to read status response")
 	}
 
@@ -155,7 +155,7 @@ func getTopItems(c http.Client, settings *Settings) (ti TopItems, err error) {
 
 	var rBody []byte
 
-	rBody, err = ioutil.ReadAll(resp.Body)
+	rBody, err = io.ReadAll(resp.Body)
 	if err = json.Unmarshal(rBody, &ti); err != nil {
 		return ti, fmt.Errorf(" failed to retrieve top items: check provided api URL and token\n %s",
 			parseError(err))
@@ -221,7 +221,7 @@ func getTopClients(c http.Client, settings *Settings) (tc TopClients, err error)
 
 	var rBody []byte
 
-	if rBody, err = ioutil.ReadAll(resp.Body); err != nil {
+	if rBody, err = io.ReadAll(resp.Body); err != nil {
 		return tc, fmt.Errorf(" failed to read top clients response\n %s", parseError(err))
 	}
 
@@ -280,7 +280,7 @@ func getQueryTypes(c http.Client, settings *Settings) (qt QueryTypes, err error)
 
 	var rBody []byte
 
-	if rBody, err = ioutil.ReadAll(resp.Body); err != nil {
+	if rBody, err = io.ReadAll(resp.Body); err != nil {
 		return qt, fmt.Errorf(" failed to read top clients response\n %s", parseError(err))
 	}
 
@@ -332,7 +332,7 @@ func checkServer(c http.Client, apiURL string) error {
 
 	var rBody []byte
 
-	if rBody, err = ioutil.ReadAll(resp.Body); err != nil {
+	if rBody, err = io.ReadAll(resp.Body); err != nil {
 		return fmt.Errorf(" Pi-hole server failed to respond\n %s", parseError(err))
 	}
 

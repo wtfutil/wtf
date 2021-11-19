@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"time"
 )
@@ -56,7 +56,7 @@ func (widget *Widget) fetchForAccount(account string, since string) (*Status, er
 		return nil, err
 	}
 
-	body, readErr := ioutil.ReadAll(response.Body)
+	body, readErr := io.ReadAll(response.Body)
 	if readErr != nil {
 		return nil, err
 	}
