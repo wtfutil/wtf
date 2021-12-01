@@ -15,7 +15,7 @@ type Widget struct {
 // NewWidget creates and returns an instance of Widget
 func NewWidget(tviewApp *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: view.NewTextWidget(tviewApp, settings.common),
+		TextWidget: view.NewTextWidget(tviewApp, pages, settings.common),
 
 		settings: settings,
 	}
