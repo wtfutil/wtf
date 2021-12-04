@@ -16,13 +16,9 @@ import (
 	"text/template"
 )
 
-var (
-	widgetName string
-)
-
 const (
 	defaultWidgetName = "NewTextWidget"
-	widget_maker = "app/widget_maker.go"
+	widget_maker      = "app/widget_maker.go"
 )
 
 func main() {
