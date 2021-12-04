@@ -1,4 +1,4 @@
-// +build ignore
+//go:build ignore
 
 // This package takes care of generates for empty widgets. Each generator is named after the
 // type of widget it generate, so textwidget.go will generate the skeleton for a new TextWidget
