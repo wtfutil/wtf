@@ -18,7 +18,7 @@ import (
 
 const (
 	defaultWidgetName = "NewTextWidget"
-	widget_maker      = "app/widget_maker.go"
+	widgetMaker       = "app/widget_maker.go"
 )
 
 func main() {
@@ -37,7 +37,7 @@ func main() {
 
 	generateWidgetFile(data)
 	generateSettingsFile(data)
-	fmt.Println("Don't forget to register your module in file", widget_maker)
+	fmt.Println("Don't forget to register your module in file", widgetMaker)
 }
 
 /* -------------------- Unexported Functions -------------------- */
