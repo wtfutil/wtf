@@ -7,6 +7,7 @@
 * [Kubernetes module](https://wtfutil.com/modules/kubernetes/) now uses a client per widget, rather than a global client, [#1081](https://github.com/wtfutil/wtf/issues/1081) by [@hypnoglow](https://github.com/hypnoglow)
 * [FeedReader module]() now supports basic auth, [#957](https://github.com/wtfutil/wtf/issues/957) by [@ResamVi](https://github.com/ResamVi)
 * Single words inside square brackets are displayed in the [CmdRunner module](https://wtfutil.com/modules/cmdrunner/), [#1142](https://github.com/wtfutil/wtf/issues/1142) by [@yosmoc](https://github.com/yosmoc)
+* `text_widget.tpl` generator fixed and documentation improved, by [@Quentinchampenois](https://github.com/Quentinchampenois)
 
 ### 👍 Updated
 
