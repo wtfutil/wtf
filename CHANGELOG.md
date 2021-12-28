@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 0.41.0
+
 ### 🐞 Fixed
 
 * [Kubernetes module](https://wtfutil.com/modules/kubernetes/) now uses a client per widget, rather than a global client, [#1081](https://github.com/wtfutil/wtf/issues/1081) by [@hypnoglow](https://github.com/hypnoglow)
