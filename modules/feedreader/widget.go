@@ -24,9 +24,9 @@ const (
 
 // FeedItem represents an item returned from an RSS or Atom feed
 type FeedItem struct {
-	item		*gofeed.Item
-	sourceTitle	string
-	viewed		bool
+	item        *gofeed.Item
+	sourceTitle string
+	viewed      bool
 }
 
 // Widget is the container for RSS and Atom data
@@ -60,7 +60,7 @@ func getShowText(feedItem *FeedItem, showType ShowType) string {
 
 	space := regexp.MustCompile(`\s+`)
 	title := space.ReplaceAllString(feedItem.item.Title, " ")
-	if (feedItem.sourceTitle != "") {
+	if feedItem.sourceTitle != "" {
 		title = "[" + feedItem.sourceTitle + "] " + space.ReplaceAllString(feedItem.item.Title, " ")
 	}
 
@@ -167,9 +167,9 @@ func (widget *Widget) fetchForFeed(feedURL string) ([]*FeedItem, error) {
 		}
 
 		feedItem := &FeedItem{
-			item:			gofeedItem,
-			sourceTitle:	feed.Title,
-			viewed:			false,
+			item:        gofeedItem,
+			sourceTitle: feed.Title,
+			viewed:      false,
 		}
 
 		feedItems = append(feedItems, feedItem)
