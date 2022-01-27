@@ -17,7 +17,7 @@ require (
 	github.com/cenkalti/backoff v2.2.1+incompatible // indirect
 	github.com/chzyer/readline v0.0.0-20180603132655-2972be24d48e
 	github.com/creack/pty v1.1.11
-	github.com/digitalocean/godo v1.52.0
+	github.com/digitalocean/godo v1.75.0
 	github.com/docker/distribution v2.7.1+incompatible // indirect
 	github.com/docker/docker v1.13.1
 	github.com/docker/docker-credential-helpers v0.6.3
@@ -66,7 +66,7 @@ require (
 	golang.org/x/oauth2 v0.0.0-20200902213428-5d25da1a8d43
 	golang.org/x/sync v0.0.0-20200625203802-6e8e738ad208
 	golang.org/x/sys v0.0.0-20210909193231-528a39cd75f3 // indirect
-	golang.org/x/text v0.3.4
+	golang.org/x/text v0.3.6
 	google.golang.org/api v0.33.0
 	gopkg.in/jarcoal/httpmock.v1 v1.0.0-20181110093347-3be5f16b70eb // indirect
 	gopkg.in/yaml.v2 v2.3.0
@@ -147,7 +147,7 @@ require (
 	github.com/spf13/afero v1.2.2 // indirect
 	go.opencensus.io v0.22.4 // indirect
 	golang.org/x/crypto v0.0.0-20200709230013-948cd5f35899 // indirect
-	golang.org/x/net v0.0.0-20200822124328-c89045814202 // indirect
+	golang.org/x/net v0.0.0-20210520170846-37e1c6afe023 // indirect
 	golang.org/x/time v0.0.0-20191024005414-555d28b269f0 // indirect
 	google.golang.org/appengine v1.6.6 // indirect
 	google.golang.org/genproto v0.0.0-20200904004341-0bd0a958aa1d // indirect
