@@ -10,7 +10,7 @@ require (
 	github.com/PagerDuty/go-pagerduty v0.0.0-20191002190746-f60f4fc45222
 	github.com/StackExchange/wmi v0.0.0-20190523213315-cbe66965904d // indirect
 	github.com/VictorAvelar/devto-api-go v1.0.0
-	github.com/adlio/trello v1.8.0
+	github.com/adlio/trello v1.9.0
 	github.com/alecthomas/chroma v0.8.1
 	github.com/andygrunwald/go-gerrit v0.0.0-20190825170856-5959a9bf9ff8
 	github.com/briandowns/openweathermap v0.0.0-20180804155945-5f41b7c9d92d
@@ -148,7 +148,7 @@ require (
 	go.opencensus.io v0.22.4 // indirect
 	golang.org/x/crypto v0.0.0-20200709230013-948cd5f35899 // indirect
 	golang.org/x/net v0.0.0-20210520170846-37e1c6afe023 // indirect
-	golang.org/x/time v0.0.0-20191024005414-555d28b269f0 // indirect
+	golang.org/x/time v0.0.0-20200630173020-3af7569d3a1e // indirect
 	google.golang.org/appengine v1.6.6 // indirect
 	google.golang.org/genproto v0.0.0-20200904004341-0bd0a958aa1d // indirect
 	google.golang.org/grpc v1.31.1 // indirect
