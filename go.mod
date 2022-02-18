@@ -69,7 +69,7 @@ require (
 	golang.org/x/text v0.3.6
 	google.golang.org/api v0.33.0
 	gopkg.in/jarcoal/httpmock.v1 v1.0.0-20181110093347-3be5f16b70eb // indirect
-	gopkg.in/yaml.v2 v2.3.0
+	gopkg.in/yaml.v2 v2.4.0
 	gotest.tools v2.2.0+incompatible
 	jaytaylor.com/html2text v0.0.0-20200412013138-3577fbdbcff7
 	k8s.io/apimachinery v0.0.0-20190223094358-dcb391cde5ca
