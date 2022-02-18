@@ -46,7 +46,7 @@ require (
 	github.com/pborman/uuid v1.2.0 // indirect
 	github.com/piquette/finance-go v1.0.0
 	github.com/pkg/errors v0.9.1
-	github.com/pkg/profile v1.5.0
+	github.com/pkg/profile v1.6.0
 	github.com/radovskyb/watcher v1.0.7
 	github.com/rivo/tview v0.0.0-20200108161608-1316ea7a4b35
 	github.com/shirou/gopsutil v2.20.9+incompatible
