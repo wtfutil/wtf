@@ -39,7 +39,7 @@ require (
 	github.com/mmcdole/gofeed v1.1.4-0.20211013195857-68ee9054d97b
 	github.com/nicklaw5/helix v0.7.0
 	github.com/olebedev/config v0.0.0-20190528211619-364964f3a8e4
-	github.com/olekukonko/tablewriter v0.0.4
+	github.com/olekukonko/tablewriter v0.0.5
 	github.com/onsi/ginkgo v1.12.0 // indirect
 	github.com/onsi/gomega v1.9.0 // indirect
 	github.com/ovh/cds v0.0.0-20201014170613-39429542624d
