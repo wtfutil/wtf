@@ -45,6 +45,15 @@ func Test_getShowText(t *testing.T) {
 			expected: "<Cats and Dogs>",
 		},
 		{
+			name: "with source-title",
+			feedItem: &FeedItem{
+				sourceTitle: "WTF",
+				item:        &gofeed.Item{Title: "<Cats and Dogs>"},
+			},
+			showType: SHOW_TITLE,
+			expected: "[WTF] <Cats and Dogs>",
+		},
+		{
 			name: "with link",
 			feedItem: &FeedItem{
 				item: &gofeed.Item{Title: "Cats and Dogs", Link: "https://cats.com/dog.xml"},
