@@ -11,7 +11,7 @@ require (
 	github.com/StackExchange/wmi v0.0.0-20190523213315-cbe66965904d // indirect
 	github.com/VictorAvelar/devto-api-go v1.0.0
 	github.com/adlio/trello v1.9.0
-	github.com/alecthomas/chroma v0.8.1
+	github.com/alecthomas/chroma v0.10.0
 	github.com/andygrunwald/go-gerrit v0.0.0-20190825170856-5959a9bf9ff8
 	github.com/briandowns/openweathermap v0.0.0-20180804155945-5f41b7c9d92d
 	github.com/cenkalti/backoff v2.2.1+incompatible // indirect
@@ -86,10 +86,9 @@ require (
 	github.com/apache/thrift v0.12.0 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/blang/semver v3.5.1+incompatible // indirect
-	github.com/danwakefield/fnmatch v0.0.0-20160403171240-cbb64ac3d964 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
-	github.com/dlclark/regexp2 v1.2.0 // indirect
+	github.com/dlclark/regexp2 v1.4.0 // indirect
 	github.com/eapache/go-resiliency v1.2.0 // indirect
 	github.com/fatih/color v1.7.0 // indirect
 	github.com/fsamin/go-dump v1.0.9 // indirect
