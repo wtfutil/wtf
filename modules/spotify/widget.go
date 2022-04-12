@@ -2,6 +2,7 @@ package spotify
 
 import (
 	"fmt"
+	"strings"
 	"time"
 
 	"github.com/rivo/tview"
@@ -59,9 +60,11 @@ func (w *Widget) createOutput() (string, string, bool) {
 		labelColor := w.settings.colors.label
 		textColor := w.settings.colors.text
 
+		artist := strings.Join(w.Info.Artist, ", ")
+
 		content = utils.CenterText(fmt.Sprintf("[%s]Now %v [%s]\n", labelColor, w.Info.Status, textColor), w.CommonSettings().Width)
 		content += utils.CenterText(fmt.Sprintf("[%s]Title:[%s] %v\n ", labelColor, textColor, w.Info.Title), w.CommonSettings().Width)
-		content += utils.CenterText(fmt.Sprintf("[%s]Artist:[%s] %v\n", labelColor, textColor, w.Info.Artist), w.CommonSettings().Width)
+		content += utils.CenterText(fmt.Sprintf("[%s]Artist:[%s] %v\n", labelColor, textColor, artist), w.CommonSettings().Width)
 		content += utils.CenterText(fmt.Sprintf("[%s]%v:[%s] %v\n", labelColor, w.Info.TrackNumber, textColor, w.Info.Album), w.CommonSettings().Width)
 	}
 	return w.CommonSettings().Title, content, true
