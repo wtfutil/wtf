@@ -2,6 +2,9 @@ package utils
 
 import (
 	"strings"
+
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
 )
 
 // NameFromEmail takes an email address and returns the part that comes before the @ symbol
@@ -13,7 +16,10 @@ import (
 //
 func NameFromEmail(email string) string {
 	parts := strings.Split(email, "@")
-	return strings.Title(strings.ReplaceAll(parts[0], ".", " "))
+	name := strings.ReplaceAll(parts[0], ".", " ")
+
+	c := cases.Title(language.English)
+	return c.String(name)
 }
 
 // NamesFromEmails takes a slice of email addresses and returns a slice of the parts that
