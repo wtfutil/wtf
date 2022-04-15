@@ -37,7 +37,6 @@ require (
 	github.com/logrusorgru/aurora v0.0.0-20190803045625-94edacc10f9b
 	github.com/microsoft/azure-devops-go-api/azuredevops v0.0.0-20191014190507-26902c1d4325
 	github.com/mmcdole/gofeed v1.1.4-0.20211013195857-68ee9054d97b
-	github.com/nicklaw5/helix v1.25.0
 	github.com/olebedev/config v0.0.0-20190528211619-364964f3a8e4
 	github.com/olekukonko/tablewriter v0.0.5
 	github.com/onsi/ginkgo v1.12.0 // indirect
@@ -76,6 +75,8 @@ require (
 	k8s.io/client-go v10.0.0+incompatible
 )
 
+require github.com/nicklaw5/helix/v2 v2.4.0
+
 require (
 	cloud.google.com/go/compute v1.5.0 // indirect
 	contrib.go.opencensus.io/exporter/jaeger v0.1.0 // indirect
@@ -96,6 +97,7 @@ require (
 	github.com/go-gorp/gorp v2.0.0+incompatible // indirect
 	github.com/gogo/protobuf v1.2.1 // indirect
 	github.com/golang-jwt/jwt v3.2.2+incompatible // indirect
+	github.com/golang-jwt/jwt/v4 v4.0.0 // indirect
 	github.com/golang/groupcache v0.0.0-20200121045136-8c9f03a8e57e // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/google/btree v1.0.0 // indirect
