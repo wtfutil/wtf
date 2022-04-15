@@ -61,6 +61,7 @@ import (
 	"github.com/wtfutil/wtf/modules/spotify"
 	"github.com/wtfutil/wtf/modules/spotifyweb"
 	"github.com/wtfutil/wtf/modules/status"
+	"github.com/wtfutil/wtf/modules/steam"
 	"github.com/wtfutil/wtf/modules/stocks/finnhub"
 	"github.com/wtfutil/wtf/modules/stocks/yfinance"
 	"github.com/wtfutil/wtf/modules/subreddit"
@@ -286,6 +287,9 @@ func MakeWidget(
 	case "status":
 		settings := status.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = status.NewWidget(tviewApp, settings)
+	case "steam":
+		settings := steam.NewSettingsFromYAML(moduleName, moduleConfig, config)
+		widget = steam.NewWidget(tviewApp, pages, settings)
 	case "subreddit":
 		settings := subreddit.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = subreddit.NewWidget(tviewApp, pages, settings)
