@@ -90,15 +90,15 @@ func (widget *Widget) Render() {
 }
 
 func makeStreams(response *helix.StreamsResponse) []*Stream {
-	streams := make([]*Stream, 0)
-	for _, b := range response.Data.Streams {
-		streams = append(streams, &Stream{
+	streams := make([]*Stream, len(response.Data.Streams))
+	for i, b := range response.Data.Streams {
+		streams[i] = &Stream{
 			b.UserName,
 			b.ViewerCount,
 			b.Language,
 			b.GameID,
 			b.Title,
-		})
+		}
 	}
 	return streams
 }
