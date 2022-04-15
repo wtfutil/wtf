@@ -122,7 +122,7 @@ func (project *GitlabProject) loadAssignedMergeRequests() ([]*glb.MergeRequest, 
 	state := "opened"
 	opts := glb.ListProjectMergeRequestsOptions{
 		State:      &state,
-		AssigneeID: &project.context.user.ID,
+		AssigneeID: glb.AssigneeID(project.context.user.ID),
 	}
 
 	mrs, _, err := project.context.client.MergeRequests.ListProjectMergeRequests(project.path, &opts)
@@ -154,7 +154,7 @@ func (project *GitlabProject) loadAssignedIssues() ([]*glb.Issue, error) {
 	state := "opened"
 	opts := glb.ListProjectIssuesOptions{
 		State:      &state,
-		AssigneeID: &project.context.user.ID,
+		AssigneeID: glb.AssigneeID(project.context.user.ID),
 	}
 
 	issues, _, err := project.context.client.Issues.ListProjectIssues(project.path, &opts)
