@@ -1,7 +1,7 @@
 package cdsstatus
 
 import (
-	"github.com/gdamore/tcell"
+	"github.com/gdamore/tcell/v2"
 )
 
 func (widget *Widget) initializeKeyboardControls() {
