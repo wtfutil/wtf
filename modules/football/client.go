@@ -6,7 +6,7 @@ import (
 )
 
 var (
-	footballAPIUrl = "http://api.football-data.org/v2"
+	footballAPIUrl = "https://api.football-data.org/v2"
 )
 
 type leagueInfo struct {
