@@ -102,11 +102,9 @@ func (widget *Widget) addCancelButton(form *tview.Form) {
 }
 
 func (widget *Widget) modalFocus(form *tview.Form) {
-	widget.tviewApp.QueueUpdateDraw(func() {
-		frame := widget.modalFrame(form)
-		widget.pages.AddPage("modal", frame, false, true)
-		widget.tviewApp.SetFocus(frame)
-	})
+	frame := widget.modalFrame(form)
+	widget.pages.AddPage("modal", frame, false, true)
+	widget.tviewApp.SetFocus(frame)
 }
 
 func (widget *Widget) modalForm(lbl, text string) *tview.Form {

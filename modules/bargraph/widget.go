@@ -68,15 +68,5 @@ func (widget *Widget) Refresh() {
 	}
 
 	widget.View.Clear()
-
-	widget.tviewApp.QueueUpdateDraw(func() {
-		display(widget)
-	})
-
-}
-
-/* -------------------- Unexported Functions -------------------- */
-
-func display(widget *Widget) {
 	MakeGraph(widget)
 }
