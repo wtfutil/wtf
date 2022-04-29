@@ -308,10 +308,6 @@ func (widget *Widget) processFormInput(prompt string, initValue string, onSave f
 
 	widget.addButtons(form, saveFctn)
 	widget.modalFocus(form)
-
-	widget.tviewApp.QueueUpdate(func() {
-		widget.tviewApp.Draw()
-	})
 }
 
 // updateSelectedItem update the text of the selected item.
@@ -377,11 +373,9 @@ func (widget *Widget) addSaveButton(form *tview.Form, fctn func()) {
 }
 
 func (widget *Widget) modalFocus(form *tview.Form) {
-	widget.tviewApp.QueueUpdateDraw(func() {
-		frame := widget.modalFrame(form)
-		widget.pages.AddPage("modal", frame, false, true)
-		widget.tviewApp.SetFocus(frame)
-	})
+	frame := widget.modalFrame(form)
+	widget.pages.AddPage("modal", frame, false, true)
+	widget.tviewApp.SetFocus(frame)
 }
 
 func (widget *Widget) modalForm(lbl, text string) *tview.Form {

@@ -130,17 +130,11 @@ func (widget *Widget) Refresh() {
 		return
 	}
 
-	widget.tviewApp.QueueUpdateDraw(func() {
-		widget.View.Clear()
-		display(widget)
-	})
+	widget.View.Clear()
+	MakeGraph(widget)
 }
 
 /* -------------------- Unexported Functions -------------------- */
-
-func display(widget *Widget) {
-	MakeGraph(widget)
-}
 
 func getDataFromSystem(widget *Widget) (cpuStats []float64, memInfo mem.VirtualMemoryStat) {
 	if widget.settings.showCPU {

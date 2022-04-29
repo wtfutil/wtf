@@ -84,8 +84,6 @@ func (widget *ScrollableWidget) Unselect() {
 func (widget *ScrollableWidget) Redraw(data func() (string, string, bool)) {
 	widget.TextWidget.Redraw(data)
 
-	widget.tviewApp.QueueUpdateDraw(func() {
-		widget.View.Highlight(strconv.Itoa(widget.Selected))
-		widget.View.ScrollToHighlight()
-	})
+	widget.View.Highlight(strconv.Itoa(widget.Selected))
+	widget.View.ScrollToHighlight()
 }
