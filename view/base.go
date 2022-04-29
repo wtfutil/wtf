@@ -159,10 +159,6 @@ func (base *Base) ShowHelp() {
 
 	base.pages.AddPage("help", modal, false, true)
 	base.tviewApp.SetFocus(modal)
-
-	base.tviewApp.QueueUpdate(func() {
-		base.tviewApp.Draw()
-	})
 }
 
 func (base *Base) Stop() {
