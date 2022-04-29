@@ -27,10 +27,10 @@ type Widget struct {
 }
 
 // NewWidget creates a new instance of the widget
-func NewWidget(tviewApp *tview.Application, pages *tview.Pages, settings *Settings) *Widget {
+func NewWidget(tviewApp *tview.Application, redrawChan chan bool, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
 		MultiSourceWidget: view.NewMultiSourceWidget(settings.Common, "workflow", "workflows"),
-		TextWidget:        view.NewTextWidget(tviewApp, pages, settings.Common),
+		TextWidget:        view.NewTextWidget(tviewApp, redrawChan, pages, settings.Common),
 
 		settings: settings,
 	}

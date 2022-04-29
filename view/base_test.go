@@ -13,6 +13,7 @@ func Benchmark_ContextualTitle(b *testing.B) {
 
 	base := NewBase(
 		tview.NewApplication(),
+		make(chan bool),
 		tview.NewPages(),
 		&cfg.Common{},
 	)
@@ -62,6 +63,7 @@ func Test_ContextualTitle(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			base := NewBase(
 				tview.NewApplication(),
+				make(chan bool),
 				tview.NewPages(),
 				&cfg.Common{},
 			)

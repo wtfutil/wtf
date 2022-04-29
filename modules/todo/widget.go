@@ -35,13 +35,13 @@ type Widget struct {
 	tviewApp      *tview.Application
 	view.ScrollableWidget
 
-	redrawChan chan bool
+	// redrawChan chan bool
 }
 
 // NewWidget creates a new instance of a widget
 func NewWidget(tviewApp *tview.Application, redrawChan chan bool, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		ScrollableWidget: view.NewScrollableWidget(tviewApp, pages, settings.Common),
+		ScrollableWidget: view.NewScrollableWidget(tviewApp, redrawChan, pages, settings.Common),
 
 		tviewApp:      tviewApp,
 		settings:      settings,
@@ -50,7 +50,7 @@ func NewWidget(tviewApp *tview.Application, redrawChan chan bool, pages *tview.P
 		list:          checklist.NewChecklist(settings.Sigils.Checkbox.Checked, settings.Sigils.Checkbox.Unchecked),
 		pages:         pages,
 
-		redrawChan: redrawChan,
+		// redrawChan: redrawChan,
 	}
 
 	widget.init()
@@ -314,7 +314,7 @@ func (widget *Widget) processFormInput(prompt string, initValue string, onSave f
 	widget.modalFocus(form)
 
 	// Tell the app to force redraw the screen
-	widget.redrawChan <- true
+	widget.Base.RedrawChan <- true
 }
 
 // updateSelectedItem update the text of the selected item.
@@ -385,7 +385,7 @@ func (widget *Widget) modalFocus(form *tview.Form) {
 	widget.tviewApp.SetFocus(frame)
 
 	// Tell the app to force redraw the screen
-	widget.redrawChan <- true
+	widget.Base.RedrawChan <- true
 }
 
 func (widget *Widget) modalForm(lbl, text string) *tview.Form {

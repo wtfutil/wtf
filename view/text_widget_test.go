@@ -10,6 +10,7 @@ import (
 func testTextWidget() TextWidget {
 	txtWid := NewTextWidget(
 		tview.NewApplication(),
+		make(chan bool),
 		tview.NewPages(),
 		&cfg.Common{
 			Module: cfg.Module{

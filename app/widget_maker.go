@@ -109,241 +109,241 @@ func MakeWidget(
 	switch moduleConfig.UString("type", moduleName) {
 	case "airbrake":
 		settings := airbrake.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = airbrake.NewWidget(tviewApp, pages, settings)
+		widget = airbrake.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "arpansagovau":
 		settings := arpansagovau.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = arpansagovau.NewWidget(tviewApp, settings)
+		widget = arpansagovau.NewWidget(tviewApp, redrawChan, settings)
 	case "asana":
 		settings := asana.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = asana.NewWidget(tviewApp, pages, settings)
+		widget = asana.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "azuredevops":
 		settings := azuredevops.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = azuredevops.NewWidget(tviewApp, pages, settings)
+		widget = azuredevops.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "bamboohr":
 		settings := bamboohr.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = bamboohr.NewWidget(tviewApp, settings)
+		widget = bamboohr.NewWidget(tviewApp, redrawChan, settings)
 	case "bargraph":
 		settings := bargraph.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = bargraph.NewWidget(tviewApp, settings)
+		widget = bargraph.NewWidget(tviewApp, redrawChan, settings)
 	case "bittrex":
 		settings := bittrex.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = bittrex.NewWidget(tviewApp, settings)
+		widget = bittrex.NewWidget(tviewApp, redrawChan, settings)
 	case "blockfolio":
 		settings := blockfolio.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = blockfolio.NewWidget(tviewApp, settings)
+		widget = blockfolio.NewWidget(tviewApp, redrawChan, settings)
 	case "buildkite":
 		settings := buildkite.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = buildkite.NewWidget(tviewApp, pages, settings)
+		widget = buildkite.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "cdsFavorites":
 		settings := cdsfavorites.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = cdsfavorites.NewWidget(tviewApp, pages, settings)
+		widget = cdsfavorites.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "cdsQueue":
 		settings := cdsqueue.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = cdsqueue.NewWidget(tviewApp, pages, settings)
+		widget = cdsqueue.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "cdsStatus":
 		settings := cdsstatus.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = cdsstatus.NewWidget(tviewApp, pages, settings)
+		widget = cdsstatus.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "circleci":
 		settings := circleci.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = circleci.NewWidget(tviewApp, settings)
+		widget = circleci.NewWidget(tviewApp, redrawChan, settings)
 	case "clocks":
 		settings := clocks.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = clocks.NewWidget(tviewApp, settings)
+		widget = clocks.NewWidget(tviewApp, redrawChan, settings)
 	case "covid":
 		settings := covid.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = covid.NewWidget(tviewApp, settings)
+		widget = covid.NewWidget(tviewApp, redrawChan, settings)
 	case "cmdrunner":
 		settings := cmdrunner.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = cmdrunner.NewWidget(tviewApp, settings)
+		widget = cmdrunner.NewWidget(tviewApp, redrawChan, settings)
 	case "cryptolive":
 		settings := cryptolive.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = cryptolive.NewWidget(tviewApp, settings)
+		widget = cryptolive.NewWidget(tviewApp, redrawChan, settings)
 	case "datadog":
 		settings := datadog.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = datadog.NewWidget(tviewApp, pages, settings)
+		widget = datadog.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "devto":
 		settings := devto.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = devto.NewWidget(tviewApp, pages, settings)
+		widget = devto.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "digitalclock":
 		settings := digitalclock.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = digitalclock.NewWidget(tviewApp, settings)
+		widget = digitalclock.NewWidget(tviewApp, redrawChan, settings)
 	case "digitalocean":
 		settings := digitalocean.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = digitalocean.NewWidget(tviewApp, pages, settings)
+		widget = digitalocean.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "docker":
 		settings := docker.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = docker.NewWidget(tviewApp, pages, settings)
+		widget = docker.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "feedreader":
 		settings := feedreader.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = feedreader.NewWidget(tviewApp, pages, settings)
+		widget = feedreader.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "football":
 		settings := football.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = football.NewWidget(tviewApp, pages, settings)
+		widget = football.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "gcal":
 		settings := gcal.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = gcal.NewWidget(tviewApp, settings)
+		widget = gcal.NewWidget(tviewApp, redrawChan, settings)
 	case "gerrit":
 		settings := gerrit.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = gerrit.NewWidget(tviewApp, pages, settings)
+		widget = gerrit.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "git":
 		settings := git.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = git.NewWidget(tviewApp, pages, settings)
+		widget = git.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "github":
 		settings := github.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = github.NewWidget(tviewApp, pages, settings)
+		widget = github.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "gitlab":
 		settings := gitlab.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = gitlab.NewWidget(tviewApp, pages, settings)
+		widget = gitlab.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "gitlabtodo":
 		settings := gitlabtodo.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = gitlabtodo.NewWidget(tviewApp, pages, settings)
+		widget = gitlabtodo.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "gitter":
 		settings := gitter.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = gitter.NewWidget(tviewApp, pages, settings)
+		widget = gitter.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "googleanalytics":
 		settings := googleanalytics.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = googleanalytics.NewWidget(tviewApp, settings)
+		widget = googleanalytics.NewWidget(tviewApp, redrawChan, settings)
 	case "gspreadsheets":
 		settings := gspreadsheets.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = gspreadsheets.NewWidget(tviewApp, settings)
+		widget = gspreadsheets.NewWidget(tviewApp, redrawChan, settings)
 	case "grafana":
 		settings := grafana.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = grafana.NewWidget(tviewApp, pages, settings)
+		widget = grafana.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "hackernews":
 		settings := hackernews.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = hackernews.NewWidget(tviewApp, pages, settings)
+		widget = hackernews.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "healthchecks":
 		settings := healthchecks.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = healthchecks.NewWidget(tviewApp, pages, settings)
+		widget = healthchecks.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "hibp":
 		settings := hibp.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = hibp.NewWidget(tviewApp, settings)
+		widget = hibp.NewWidget(tviewApp, redrawChan, settings)
 	case "ipapi":
 		settings := ipapi.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = ipapi.NewWidget(tviewApp, settings)
+		widget = ipapi.NewWidget(tviewApp, redrawChan, settings)
 	case "ipinfo":
 		settings := ipinfo.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = ipinfo.NewWidget(tviewApp, settings)
+		widget = ipinfo.NewWidget(tviewApp, redrawChan, settings)
 	case "jenkins":
 		settings := jenkins.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = jenkins.NewWidget(tviewApp, pages, settings)
+		widget = jenkins.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "jira":
 		settings := jira.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = jira.NewWidget(tviewApp, pages, settings)
+		widget = jira.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "kubernetes":
 		settings := kubernetes.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = kubernetes.NewWidget(tviewApp, settings)
+		widget = kubernetes.NewWidget(tviewApp, redrawChan, settings)
 	case "krisinformation":
 		settings := krisinformation.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = krisinformation.NewWidget(tviewApp, settings)
+		widget = krisinformation.NewWidget(tviewApp, redrawChan, settings)
 	case "logger":
 		settings := logger.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = logger.NewWidget(tviewApp, settings)
+		widget = logger.NewWidget(tviewApp, redrawChan, settings)
 	case "mercurial":
 		settings := mercurial.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = mercurial.NewWidget(tviewApp, pages, settings)
+		widget = mercurial.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "nbascore":
 		settings := nbascore.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = nbascore.NewWidget(tviewApp, pages, settings)
+		widget = nbascore.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "newrelic":
 		settings := newrelic.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = newrelic.NewWidget(tviewApp, pages, settings)
+		widget = newrelic.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "opsgenie":
 		settings := opsgenie.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = opsgenie.NewWidget(tviewApp, settings)
+		widget = opsgenie.NewWidget(tviewApp, redrawChan, settings)
 	case "pagerduty":
 		settings := pagerduty.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = pagerduty.NewWidget(tviewApp, settings)
+		widget = pagerduty.NewWidget(tviewApp, redrawChan, settings)
 	case "pihole":
 		settings := pihole.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = pihole.NewWidget(tviewApp, pages, settings)
+		widget = pihole.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "power":
 		settings := power.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = power.NewWidget(tviewApp, settings)
+		widget = power.NewWidget(tviewApp, redrawChan, settings)
 	case "prettyweather":
 		settings := prettyweather.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = prettyweather.NewWidget(tviewApp, settings)
+		widget = prettyweather.NewWidget(tviewApp, redrawChan, settings)
 	case "pocket":
 		settings := pocket.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = pocket.NewWidget(tviewApp, pages, settings)
+		widget = pocket.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "resourceusage":
 		settings := resourceusage.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = resourceusage.NewWidget(tviewApp, settings)
+		widget = resourceusage.NewWidget(tviewApp, redrawChan, settings)
 	case "rollbar":
 		settings := rollbar.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = rollbar.NewWidget(tviewApp, pages, settings)
+		widget = rollbar.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "security":
 		settings := security.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = security.NewWidget(tviewApp, settings)
+		widget = security.NewWidget(tviewApp, redrawChan, settings)
 	case "spacex":
 		settings := spacex.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = spacex.NewWidget(tviewApp, settings)
+		widget = spacex.NewWidget(tviewApp, redrawChan, settings)
 	case "spotify":
 		settings := spotify.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = spotify.NewWidget(tviewApp, pages, settings)
+		widget = spotify.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "spotifyweb":
 		settings := spotifyweb.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = spotifyweb.NewWidget(tviewApp, pages, settings)
+		widget = spotifyweb.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "status":
 		settings := status.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = status.NewWidget(tviewApp, settings)
+		widget = status.NewWidget(tviewApp, redrawChan, settings)
 	case "subreddit":
 		settings := subreddit.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = subreddit.NewWidget(tviewApp, pages, settings)
+		widget = subreddit.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "textfile":
 		settings := textfile.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = textfile.NewWidget(tviewApp, pages, settings)
+		widget = textfile.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "todo":
 		settings := todo.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = todo.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "todo_plus":
 		settings := todo_plus.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = todo_plus.NewWidget(tviewApp, pages, settings)
+		widget = todo_plus.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "todoist":
 		settings := todo_plus.FromTodoist(moduleName, moduleConfig, config)
-		widget = todo_plus.NewWidget(tviewApp, pages, settings)
+		widget = todo_plus.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "transmission":
 		settings := transmission.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = transmission.NewWidget(tviewApp, pages, settings)
+		widget = transmission.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "travisci":
 		settings := travisci.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = travisci.NewWidget(tviewApp, pages, settings)
+		widget = travisci.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "trello":
 		settings := todo_plus.FromTrello(moduleName, moduleConfig, config)
-		widget = todo_plus.NewWidget(tviewApp, pages, settings)
+		widget = todo_plus.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "twitch":
 		settings := twitch.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = twitch.NewWidget(tviewApp, pages, settings)
+		widget = twitch.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "twitter":
 		settings := twitter.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = twitter.NewWidget(tviewApp, pages, settings)
+		widget = twitter.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "twitterstats":
 		settings := twitterstats.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = twitterstats.NewWidget(tviewApp, pages, settings)
+		widget = twitterstats.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "updown":
 		settings := updown.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = updown.NewWidget(tviewApp, pages, settings)
+		widget = updown.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "uptimerobot":
 		settings := uptimerobot.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = uptimerobot.NewWidget(tviewApp, pages, settings)
+		widget = uptimerobot.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "victorops":
 		settings := victorops.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = victorops.NewWidget(tviewApp, settings)
+		widget = victorops.NewWidget(tviewApp, redrawChan, settings)
 	case "weather":
 		settings := weather.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = weather.NewWidget(tviewApp, pages, settings)
+		widget = weather.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "zendesk":
 		settings := zendesk.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = zendesk.NewWidget(tviewApp, pages, settings)
+		widget = zendesk.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "finnhub":
 		settings := finnhub.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = finnhub.NewWidget(tviewApp, settings)
+		widget = finnhub.NewWidget(tviewApp, redrawChan, settings)
 	case "yfinance":
 		settings := yfinance.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = yfinance.NewWidget(tviewApp, settings)
+		widget = yfinance.NewWidget(tviewApp, redrawChan, settings)
 	default:
 		settings := unknown.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = unknown.NewWidget(tviewApp, settings)
+		widget = unknown.NewWidget(tviewApp, redrawChan, settings)
 	}
 
 	return widget
