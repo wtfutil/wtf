@@ -15,7 +15,7 @@ type TextWidget struct {
 
 	View *tview.TextView
 
-	tviewApp *tview.Application
+	// tviewApp *tview.Application
 }
 
 // NewTextWidget creates and returns an instance of TextWidget
@@ -23,8 +23,6 @@ func NewTextWidget(tviewApp *tview.Application, pages *tview.Pages, commonSettin
 	widget := TextWidget{
 		Base:           NewBase(tviewApp, pages, commonSettings),
 		KeyboardWidget: NewKeyboardWidget(commonSettings),
-
-		tviewApp: tviewApp,
 	}
 
 	widget.View = widget.createView(widget.bordered)
