@@ -14,8 +14,6 @@ type TextWidget struct {
 	*KeyboardWidget
 
 	View *tview.TextView
-
-	// tviewApp *tview.Application
 }
 
 // NewTextWidget creates and returns an instance of TextWidget

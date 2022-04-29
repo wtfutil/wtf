@@ -66,7 +66,7 @@ func Test_RefreshInterval(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			widget := MakeWidget(nil, nil, tt.moduleName, tt.config)
+			widget := MakeWidget(nil, nil, tt.moduleName, tt.config, nil)
 
 			interval := widget.CommonSettings().RefreshInterval // same declaration as in scheduler.go#Schedule
 			timer := time.NewTicker(interval)

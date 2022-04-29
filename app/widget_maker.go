@@ -89,6 +89,7 @@ func MakeWidget(
 	pages *tview.Pages,
 	moduleName string,
 	config *config.Config,
+	redrawChan chan bool,
 ) wtf.Wtfable {
 	var widget wtf.Wtfable
 
@@ -294,7 +295,7 @@ func MakeWidget(
 		widget = textfile.NewWidget(tviewApp, pages, settings)
 	case "todo":
 		settings := todo.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = todo.NewWidget(tviewApp, pages, settings)
+		widget = todo.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "todo_plus":
 		settings := todo_plus.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = todo_plus.NewWidget(tviewApp, pages, settings)
@@ -349,13 +350,13 @@ func MakeWidget(
 }
 
 // MakeWidgets creates and returns a collection of enabled widgets
-func MakeWidgets(tviewApp *tview.Application, pages *tview.Pages, config *config.Config) []wtf.Wtfable {
+func MakeWidgets(tviewApp *tview.Application, pages *tview.Pages, config *config.Config, redrawChan chan bool) []wtf.Wtfable {
 	widgets := []wtf.Wtfable{}
 
 	moduleNames, _ := config.Map("wtf.mods")
 
 	for moduleName := range moduleNames {
-		widget := MakeWidget(tviewApp, pages, moduleName, config)
+		widget := MakeWidget(tviewApp, pages, moduleName, config, redrawChan)
 
 		if widget != nil {
 			widgets = append(widgets, widget)
