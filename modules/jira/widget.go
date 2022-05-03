@@ -94,7 +94,7 @@ func (widget *Widget) content() (string, string, bool) {
 			longestStatusNameLength+1,
 			trimToMaxLength(issue.IssueFields.IssueStatus.IName, MaxStatusNameLength),
 			widget.RowColor(idx),
-			issue.IssueFields.Summary,
+			tview.Escape(issue.IssueFields.Summary),
 		)
 
 		str += utils.HighlightableHelper(widget.View, row, idx, len(issue.IssueFields.Summary))
