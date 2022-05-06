@@ -1,13 +1,14 @@
 package subreddit
 
 import (
+	"crypto/tls"
 	"fmt"
 	"net/http"
 
 	"github.com/wtfutil/wtf/utils"
 )
 
-var rootPage = "https://reddit.com/r/"
+var rootPage = "https://www.reddit.com/r/"
 
 func GetLinks(subreddit string, sortMode string, topTimePeriod string) ([]Link, error) {
 	url := rootPage + subreddit + "/" + sortMode + ".json"
@@ -20,9 +21,14 @@ func GetLinks(subreddit string, sortMode string, topTimePeriod string) ([]Link, 
 		return nil, err
 	}
 
-	request.Header.Add("User-Agent", "WTF Utility")
+	request.Header.Set("User-Agent", "wtfutil (https://github.com/wtfutil/wtf)")
 
-	client := &http.Client{}
+	// See https://www.reddit.com/r/redditdev/comments/t8e8hc/comment/i18yga2/?utm_source=share&utm_medium=web2x&context=3
+	client := &http.Client{
+		Transport: &http.Transport{
+			TLSNextProto: map[string]func(authority string, c *tls.Conn) http.RoundTripper{},
+		},
+	}
 	resp, err := client.Do(request)
 
 	if err != nil {
