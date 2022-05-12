@@ -14,17 +14,13 @@ type TextWidget struct {
 	*KeyboardWidget
 
 	View *tview.TextView
-
-	tviewApp *tview.Application
 }
 
 // NewTextWidget creates and returns an instance of TextWidget
-func NewTextWidget(tviewApp *tview.Application, pages *tview.Pages, commonSettings *cfg.Common) TextWidget {
+func NewTextWidget(tviewApp *tview.Application, redrawChan chan bool, pages *tview.Pages, commonSettings *cfg.Common) TextWidget {
 	widget := TextWidget{
-		Base:           NewBase(tviewApp, pages, commonSettings),
+		Base:           NewBase(tviewApp, redrawChan, pages, commonSettings),
 		KeyboardWidget: NewKeyboardWidget(commonSettings),
-
-		tviewApp: tviewApp,
 	}
 
 	widget.View = widget.createView(widget.bordered)

@@ -31,6 +31,11 @@ type WtfApp struct {
 	pages          *tview.Pages
 	validator      *ModuleValidator
 	widgets        []wtf.Wtfable
+
+	// The redrawChan channel is used to allow modules to signal back to the main loop that
+	// the screen needs to be explicitly redrawn, instead of waiting for tcell to redraw
+	// on a user event, because something has visually changed
+	redrawChan chan bool
 }
 
 // NewWtfApp creates and returns an instance of WtfApp
@@ -41,6 +46,8 @@ func NewWtfApp(tviewApp *tview.Application, config *config.Config, configFilePat
 		config:         config,
 		configFilePath: configFilePath,
 		pages:          tview.NewPages(),
+
+		redrawChan: make(chan bool, 1),
 	}
 
 	wtfApp.TViewApp.SetBeforeDrawFunc(func(s tcell.Screen) bool {
@@ -48,7 +55,7 @@ func NewWtfApp(tviewApp *tview.Application, config *config.Config, configFilePat
 		return false
 	})
 
-	wtfApp.widgets = MakeWidgets(wtfApp.TViewApp, wtfApp.pages, wtfApp.config)
+	wtfApp.widgets = MakeWidgets(wtfApp.TViewApp, wtfApp.pages, wtfApp.config, wtfApp.redrawChan)
 	wtfApp.display = NewDisplay(wtfApp.widgets, wtfApp.config)
 	wtfApp.focusTracker = NewFocusTracker(wtfApp.TViewApp, wtfApp.widgets, wtfApp.config)
 	wtfApp.validator = NewModuleValidator()
@@ -70,7 +77,27 @@ func NewWtfApp(tviewApp *tview.Application, config *config.Config, configFilePat
 	wtfApp.TViewApp.SetInputCapture(wtfApp.keyboardIntercept)
 	wtfApp.TViewApp.SetRoot(wtfApp.pages, true)
 
+	// Create a watcher to handle calls to redraw the screen
+	go handleRedraws(wtfApp.TViewApp, wtfApp.redrawChan)
+
 	return wtfApp
+}
+
+func handleRedraws(tviewApp *tview.Application, redrawChan chan bool) {
+	if redrawChan == nil {
+		return
+	}
+
+	for {
+		data := <-redrawChan
+
+		if data {
+			// tviewApp.Draw().Lock()
+			// tviewApp.Draw()
+			fmt.Println(">> this should be Draw()")
+			// tviewApp.Draw().Unlock()
+		}
+	}
 }
 
 /* -------------------- Exported Functions -------------------- */
@@ -95,6 +122,7 @@ func (wtfApp *WtfApp) Start() {
 // Stop kills all the currently-running widgets in this app
 func (wtfApp *WtfApp) Stop() {
 	wtfApp.stopAllWidgets()
+	close(wtfApp.redrawChan)
 }
 
 /* -------------------- Unexported Functions -------------------- */

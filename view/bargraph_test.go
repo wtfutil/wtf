@@ -38,6 +38,7 @@ func makeData() []Bar {
 func newTestGraph(graphStars int, graphIcon string) *BarGraph {
 	widget := NewBarGraph(
 		tview.NewApplication(),
+		make(chan bool),
 		"testapp",
 		&cfg.Common{
 			Config: &config.Config{

@@ -70,7 +70,7 @@ func Test_MakeWidget(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			actual := MakeWidget(nil, nil, tt.moduleName, tt.config)
+			actual := MakeWidget(nil, nil, tt.moduleName, tt.config, make(chan bool))
 			assert.IsType(t, tt.expected, actual)
 		})
 	}

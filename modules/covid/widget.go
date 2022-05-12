@@ -16,9 +16,9 @@ type Widget struct {
 }
 
 // NewWidget creates a new widget for this module
-func NewWidget(app *tview.Application, settings *Settings) *Widget {
+func NewWidget(app *tview.Application, redrawChan chan bool, settings *Settings) *Widget {
 	widget := &Widget{
-		TextWidget: view.NewTextWidget(app, nil, settings.Common),
+		TextWidget: view.NewTextWidget(app, redrawChan, nil, settings.Common),
 
 		settings: settings,
 	}

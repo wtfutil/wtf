@@ -21,9 +21,9 @@ type Widget struct {
 	archivedView bool
 }
 
-func NewWidget(tviewApp *tview.Application, _ *tview.Pages, settings *Settings) *Widget {
+func NewWidget(tviewApp *tview.Application, redrawChan chan bool, _ *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		ScrollableWidget: view.NewScrollableWidget(tviewApp, nil, settings.Common),
+		ScrollableWidget: view.NewScrollableWidget(tviewApp, redrawChan, nil, settings.Common),
 		settings:         settings,
 		client:           NewClient(settings.consumerKey, "http://localhost"),
 		archivedView:     false,

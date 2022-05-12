@@ -29,9 +29,9 @@ var (
 	GerritURLPattern = regexp.MustCompile(`^(http|https)://(.*)$`)
 )
 
-func NewWidget(tviewApp *tview.Application, _ *tview.Pages, settings *Settings) *Widget {
+func NewWidget(tviewApp *tview.Application, redrawChan chan bool, _ *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
-		TextWidget: view.NewTextWidget(tviewApp, nil, settings.Common),
+		TextWidget: view.NewTextWidget(tviewApp, redrawChan, nil, settings.Common),
 
 		Idx: 0,
 

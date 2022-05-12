@@ -15,9 +15,9 @@ type ScrollableWidget struct {
 	RenderFunction func()
 }
 
-func NewScrollableWidget(tviewApp *tview.Application, pages *tview.Pages, commonSettings *cfg.Common) ScrollableWidget {
+func NewScrollableWidget(tviewApp *tview.Application, redrawChan chan bool, pages *tview.Pages, commonSettings *cfg.Common) ScrollableWidget {
 	widget := ScrollableWidget{
-		TextWidget: NewTextWidget(tviewApp, pages, commonSettings),
+		TextWidget: NewTextWidget(tviewApp, redrawChan, pages, commonSettings),
 	}
 
 	widget.Unselect()
