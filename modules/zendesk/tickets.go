@@ -26,12 +26,12 @@ type Ticket struct {
 	Priority              string      `json:"priority"`
 	Status                string      `json:"status"`
 	Recipient             string      `json:"recipient"`
-	RequesterId           uint32      `json:"requester_id"`
-	SubmitterId           uint32      `json:"submitter_id"`
-	AssigneeId            uint32      `json:"assignee_id"`
+	RequesterId           uint64      `json:"requester_id"`
+	SubmitterId           uint64      `json:"submitter_id"`
+	AssigneeId            uint64      `json:"assignee_id"`
 	OrganizationId        uint32      `json:"organization_id"`
 	GroupId               uint32      `json:"group_id"`
-	CollaboratorIds       []int32     `json:"collaborator_ids"`
+	CollaboratorIds       []int64     `json:"collaborator_ids"`
 	ForumTopicId          uint32      `json:"forum_topic_id"`
 	ProblemId             uint32      `json:"problem_id"`
 	HasIncidents          bool        `json:"has_incidents"`
