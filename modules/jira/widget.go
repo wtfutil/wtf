@@ -94,7 +94,7 @@ func (widget *Widget) content() (string, string, bool) {
 			longestStatusNameLength+1,
 			trimToMaxLength(issue.IssueFields.IssueStatus.IName, MaxStatusNameLength),
 			widget.RowColor(idx),
-			issue.IssueFields.Summary,
+			tview.Escape(issue.IssueFields.Summary),
 		)
 
 		str += utils.HighlightableHelper(widget.View, row, idx, len(issue.IssueFields.Summary))
@@ -135,7 +135,7 @@ func getLongestColumnLengths(issues []Issue) (int, int, int) {
 	return longestIssueTypeLength, longestKeyLength, longestStatusNameLength
 }
 
-func (widget *Widget) issueTypeColor(issue *Issue) string {
+func (*Widget) issueTypeColor(issue *Issue) string {
 	switch issue.IssueFields.IssueType.Name {
 	case "Bug":
 		return "red"
