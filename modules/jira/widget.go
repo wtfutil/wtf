@@ -135,7 +135,7 @@ func getLongestColumnLengths(issues []Issue) (int, int, int) {
 	return longestIssueTypeLength, longestKeyLength, longestStatusNameLength
 }
 
-func (widget *Widget) issueTypeColor(issue *Issue) string {
+func (*Widget) issueTypeColor(issue *Issue) string {
 	switch issue.IssueFields.IssueType.Name {
 	case "Bug":
 		return "red"
