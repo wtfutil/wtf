@@ -9,7 +9,7 @@ require (
 	github.com/Microsoft/go-winio v0.4.14 // indirect
 	github.com/PagerDuty/go-pagerduty v0.0.0-20191002190746-f60f4fc45222
 	github.com/VictorAvelar/devto-api-go v1.0.0
-	github.com/adlio/trello v1.9.0
+	github.com/adlio/trello v1.10.0
 	github.com/alecthomas/chroma v0.10.0
 	github.com/andygrunwald/go-gerrit v0.0.0-20190825170856-5959a9bf9ff8
 	github.com/briandowns/openweathermap v0.0.0-20180804155945-5f41b7c9d92d
