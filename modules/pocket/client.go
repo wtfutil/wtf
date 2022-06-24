@@ -16,7 +16,7 @@ type Client struct {
 	redirectURL string
 }
 
-//NewClient returns a new PocketClient
+// NewClient returns a new PocketClient
 func NewClient(consumerKey, redirectURL string) *Client {
 	return &Client{
 		consumerKey: consumerKey,
@@ -26,7 +26,7 @@ func NewClient(consumerKey, redirectURL string) *Client {
 
 }
 
-//Item represents link in pocket api
+// Item represents link in pocket api
 type Item struct {
 	ItemID                 string `json:"item_id"`
 	ResolvedID             string `json:"resolved_id"`
@@ -53,7 +53,7 @@ type Item struct {
 	ListenDurationEstimate int    `json:"listen_duration_estimate"`
 }
 
-//ItemLists represent list of links
+// ItemLists represent list of links
 type ItemLists struct {
 	Status   int             `json:"status"`
 	Complete int             `json:"complete"`
@@ -68,12 +68,17 @@ type request struct {
 	url         string
 }
 
-func (client *Client) request(req request, result interface{}) error {
-	jsonValues, err := json.Marshal(req.requestBody)
-	if err != nil {
-		return err
+func (*Client) request(req request, result interface{}) error {
+	var reqBody io.Reader
+	if req.requestBody != nil {
+		jsonValues, err := json.Marshal(req.requestBody)
+		if err != nil {
+			return err
+		}
+		reqBody = bytes.NewBuffer(jsonValues)
 	}
-	request, err := http.NewRequest(req.method, req.url, bytes.NewBuffer(jsonValues))
+
+	request, err := http.NewRequest(req.method, req.url, reqBody)
 	if err != nil {
 		return err
 	}
@@ -81,6 +86,7 @@ func (client *Client) request(req request, result interface{}) error {
 	for key, value := range req.headers {
 		request.Header.Add(key, value)
 	}
+	request.Header.Set("User-Agent", "wtfutil (https://github.com/wtfutil/wtf)")
 
 	resp, err := http.DefaultClient.Do(request)
 
@@ -99,8 +105,8 @@ func (client *Client) request(req request, result interface{}) error {
 	}
 
 	if err := json.Unmarshal(responseBody, &result); err != nil {
-		return fmt.Errorf("could not unmarshal url [%s] \n\t\tresponse [%s] request[%s] error:%w",
-			req.url, responseBody, jsonValues, err)
+		return fmt.Errorf("could not unmarshal url [%s] \n\t\tresponse [%s] error:%w",
+			req.url, responseBody, err)
 	}
 
 	return nil
@@ -112,7 +118,7 @@ type obtainRequestTokenRequest struct {
 	RedirectURI string `json:"redirect_uri"`
 }
 
-//ObtainRequestToken get request token to be used in the auth workflow
+// ObtainRequestToken get request token to be used in the auth workflow
 func (client *Client) ObtainRequestToken() (code string, err error) {
 	url := fmt.Sprintf("%s/oauth/request", client.baseURL)
 	requestData := obtainRequestTokenRequest{ConsumerKey: client.consumerKey, RedirectURI: client.redirectURL}
@@ -137,7 +143,7 @@ func (client *Client) ObtainRequestToken() (code string, err error) {
 
 }
 
-//CreateAuthLink create authorization link to redirect the user to
+// CreateAuthLink create authorization link to redirect the user to
 func (client *Client) CreateAuthLink(requestToken string) string {
 	return fmt.Sprintf("https://getpocket.com/auth/authorize?request_token=%s&redirect_uri=%s", requestToken, client.redirectURL)
 }
@@ -152,7 +158,7 @@ type accessTokenResponse struct {
 	AccessToken string `json:"access_token"`
 }
 
-//GetAccessToken exchange request token for accesstoken
+// GetAccessToken exchange request token for accesstoken
 func (client *Client) GetAccessToken(requestToken string) (accessToken string, err error) {
 	url := fmt.Sprintf("%s/oauth/authorize", client.baseURL)
 	requestData := accessTokenRequest{
@@ -191,9 +197,9 @@ buy inspecting getpocket I found out that there is an undocumanted read state
 type LinkState string
 
 const (
-	//Read links that has been read (undocumanted)
+	// Read links that has been read (undocumanted)
 	Read LinkState = "read"
-	//Unread links has not been read
+	// Unread links has not been read
 	Unread LinkState = "unread"
 )
 
@@ -213,13 +219,13 @@ func (client *Client) GetLinks(state LinkState) (response ItemLists, err error) 
 	return response, err
 }
 
-//Action represents a mutation to link
+// Action represents a mutation to link
 type Action string
 
 const (
-	//Archive to put the link in the archived list (read list)
+	// Archive to put the link in the archived list (read list)
 	Archive Action = "archive"
-	//ReAdd to put the link back in the to reed list
+	// ReAdd to put the link back in the to reed list
 	ReAdd Action = "readd"
 )
 
@@ -228,7 +234,7 @@ type actionParams struct {
 	ItemID string `json:"item_id"`
 }
 
-//ModifyLink change the state of the link
+// ModifyLink change the state of the link
 func (client *Client) ModifyLink(action Action, itemID string) (ok bool, err error) {
 
 	actions := []actionParams{
