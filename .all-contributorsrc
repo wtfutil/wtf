@@ -1226,6 +1226,15 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/5497623?v=4",
       "profile": "https://labesse.fr/",
       "contributions": []
+    },
+    {
+      "login": "asadali",
+      "name": "Asad",
+      "avatar_url": "https://avatars.githubusercontent.com/u/3761605?v=4",
+      "profile": "https://github.com/asadali",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
