@@ -92,10 +92,7 @@ func handleRedraws(tviewApp *tview.Application, redrawChan chan bool) {
 		data := <-redrawChan
 
 		if data {
-			// tviewApp.Draw().Lock()
-			// tviewApp.Draw()
-			fmt.Println(">> this should be Draw()")
-			// tviewApp.Draw().Unlock()
+			tviewApp.Draw()
 		}
 	}
 }

@@ -47,6 +47,8 @@ func (widget *TextWidget) Redraw(data func() (string, string, bool)) {
 	widget.View.SetWrap(wrap)
 	widget.View.SetTitle(widget.ContextualTitle(title))
 	widget.View.SetText(strings.TrimRight(content, "\n"))
+
+	widget.RedrawChan <- true
 }
 
 /* -------------------- Unexported Functions -------------------- */
