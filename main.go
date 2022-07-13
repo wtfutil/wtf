@@ -61,5 +61,9 @@ func main() {
 		os.Exit(1)
 	}
 
-	currentApp.Run()
+	err = currentApp.Execute()
+	if err != nil {
+		fmt.Printf("\n%s %v\n", aurora.Red("ERROR"), err)
+		os.Exit(1)
+	}
 }
