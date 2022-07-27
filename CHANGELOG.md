@@ -11,7 +11,10 @@
 
 * [Spotify](https://wtfutil.com/modules/spotify/) module now properly displays the artist list, by [@inetAnt](https://github.com/inetAnt)
 * [Football](https://wtfutil.com/modules/sports/football/) module now uses HTTPS to connect to API, [#1183](https://github.com/wtfutil/wtf/issues/1183) by [@despreston](https://github.com/despreston)
-* [Jira module]() now properly escapes brackets in issue summary, by [@Eraac](https://github.com/Eraac)
+* [Jira module](https://wtfutil.com/modules/jira/) now properly escapes brackets in issue summary, by [@Eraac](https://github.com/Eraac)
+* [Pocket module](https://wtfutil.com/modules/pocket/) now properly handles empty lists, by [@asadali](https://github.com/asadali)
+* Twitch module OAuth token support added, UI improved, and underlying library upgraded, by [@despreston](https://github.com/despreston)
+* Typing "q" no longer quits the entire app every time, [#1257](https://github.com/wtfutil/wtf/issues/1257) by [@senorprogrammer](https://github.com/senorprogrammer)
 
 ## 0.41.0
 

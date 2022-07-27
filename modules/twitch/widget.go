@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/nicklaw5/helix"
+	helix "github.com/nicklaw5/helix/v2"
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/view"
@@ -28,10 +28,22 @@ type Stream struct {
 }
 
 func NewWidget(tviewApp *tview.Application, redrawChan chan bool, pages *tview.Pages, settings *Settings) *Widget {
+	clientOpts := &ClientOpts{
+		ClientID:        settings.clientId,
+		ClientSecret:    settings.clientSecret,
+		AppAccessToken:  settings.appAccessToken,
+		UserAccessToken: settings.userAccessToken,
+	}
+
+	twitchClient, err := NewClient(clientOpts)
+	if err != nil {
+		fmt.Println(err)
+	}
+
 	widget := &Widget{
 		ScrollableWidget: view.NewScrollableWidget(tviewApp, redrawChan, pages, settings.Common),
 		settings:         settings,
-		twitch:           NewClient(settings.clientId),
+		twitch:           twitchClient,
 	}
 
 	widget.SetRenderFunction(widget.Render)
@@ -41,12 +53,17 @@ func NewWidget(tviewApp *tview.Application, redrawChan chan bool, pages *tview.P
 }
 
 func (widget *Widget) Refresh() {
+	// Refresh the auth token on each refresh to be sure we aren't using an expired one.
+	if err := widget.twitch.RefreshOAuthToken(); err != nil {
+		handleError(widget, err)
+	}
+
 	response, err := widget.twitch.TopStreams(&helix.StreamsParams{
 		First:      widget.settings.numberOfResults,
 		GameIDs:    widget.settings.gameIds,
 		Language:   widget.settings.languages,
 		Type:       widget.settings.streamType,
-		UserIDs:    widget.settings.gameIds,
+		UserIDs:    widget.settings.userIds,
 		UserLogins: widget.settings.userLogins,
 	})
 
@@ -73,15 +90,15 @@ func (widget *Widget) Render() {
 }
 
 func makeStreams(response *helix.StreamsResponse) []*Stream {
-	streams := make([]*Stream, 0)
-	for _, b := range response.Data.Streams {
-		streams = append(streams, &Stream{
+	streams := make([]*Stream, len(response.Data.Streams))
+	for i, b := range response.Data.Streams {
+		streams[i] = &Stream{
 			b.UserName,
 			b.ViewerCount,
 			b.Language,
 			b.GameID,
 			b.Title,
-		})
+		}
 	}
 	return streams
 }
@@ -93,7 +110,7 @@ func handleError(widget *Widget, err error) {
 }
 
 func (widget *Widget) content() (string, string, bool) {
-	var title = "Top Streams"
+	var title = "Twitch Streams"
 	if widget.CommonSettings().Title != "" {
 		title = widget.CommonSettings().Title
 	}
@@ -109,11 +126,12 @@ func (widget *Widget) content() (string, string, bool) {
 
 	for idx, stream := range widget.topStreams {
 		row := fmt.Sprintf(
-			"[%s]%2d. [red]%s [white]%s",
+			"[%s]%2d. [red]%s [white]%s - %s",
 			widget.RowColor(idx),
 			idx+1,
 			utils.PrettyNumber(locPrinter, float64(stream.ViewerCount)),
 			stream.Streamer,
+			stream.Title,
 		)
 		str += utils.HighlightableHelper(widget.View, row, idx, len(stream.Streamer))
 	}

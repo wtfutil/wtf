@@ -15,8 +15,8 @@ require (
 	github.com/briandowns/openweathermap v0.0.0-20180804155945-5f41b7c9d92d
 	github.com/cenkalti/backoff v2.2.1+incompatible // indirect
 	github.com/chzyer/readline v0.0.0-20180603132655-2972be24d48e
-	github.com/creack/pty v1.1.17
-	github.com/digitalocean/godo v1.81.0
+	github.com/creack/pty v1.1.18
+  github.com/digitalocean/godo v1.81.0
 	github.com/docker/distribution v2.7.1+incompatible // indirect
 	github.com/docker/docker v1.13.1
 	github.com/docker/docker-credential-helpers v0.6.4
@@ -36,7 +36,6 @@ require (
 	github.com/logrusorgru/aurora v0.0.0-20190803045625-94edacc10f9b
 	github.com/microsoft/azure-devops-go-api/azuredevops v0.0.0-20191014190507-26902c1d4325
 	github.com/mmcdole/gofeed v1.1.4-0.20211013195857-68ee9054d97b
-	github.com/nicklaw5/helix v1.25.0
 	github.com/olebedev/config v0.0.0-20190528211619-364964f3a8e4
 	github.com/olekukonko/tablewriter v0.0.5
 	github.com/onsi/ginkgo v1.12.0 // indirect
@@ -75,6 +74,8 @@ require (
 	k8s.io/client-go v10.0.0+incompatible
 )
 
+require github.com/nicklaw5/helix/v2 v2.4.0
+
 require github.com/gdamore/tcell/v2 v2.4.1-0.20210905002822-f057f0a857a1
 
 require (
@@ -97,6 +98,7 @@ require (
 	github.com/go-gorp/gorp v2.0.0+incompatible // indirect
 	github.com/gogo/protobuf v1.2.1 // indirect
 	github.com/golang-jwt/jwt v3.2.2+incompatible // indirect
+	github.com/golang-jwt/jwt/v4 v4.0.0 // indirect
 	github.com/golang/groupcache v0.0.0-20200121045136-8c9f03a8e57e // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/google/btree v1.0.0 // indirect

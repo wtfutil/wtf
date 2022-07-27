@@ -8,7 +8,6 @@ import (
 
 	_ "github.com/gdamore/tcell/terminfo/extended"
 	"github.com/gdamore/tcell/v2"
-	"github.com/logrusorgru/aurora"
 	"github.com/olebedev/config"
 	"github.com/radovskyb/watcher"
 	"github.com/rivo/tview"
@@ -92,22 +91,28 @@ func handleRedraws(tviewApp *tview.Application, redrawChan chan bool) {
 		data := <-redrawChan
 
 		if data {
-			// tviewApp.Draw().Lock()
-			// tviewApp.Draw()
-			fmt.Println(">> this should be Draw()")
-			// tviewApp.Draw().Unlock()
+			tviewApp.Draw()
 		}
 	}
 }
 
 /* -------------------- Exported Functions -------------------- */
 
-// Run starts the underlying tview app
-func (wtfApp *WtfApp) Run() {
+// Exit quits the app
+func (wtfApp *WtfApp) Exit() {
+	wtfApp.Stop()
+	wtfApp.TViewApp.Stop()
+	wtfApp.DisplayExitMessage()
+	os.Exit(0)
+}
+
+// Execute starts the underlying tview app
+func (wtfApp *WtfApp) Execute() error {
 	if err := wtfApp.TViewApp.Run(); err != nil {
-		fmt.Printf("\n%s %v\n", aurora.Red("ERROR"), err)
-		os.Exit(1)
+		return err
 	}
+
+	return nil
 }
 
 // Start initializes the app
@@ -135,7 +140,6 @@ func (wtfApp *WtfApp) stopAllWidgets() {
 
 func (wtfApp *WtfApp) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	// These keys are global keys used by the app. Widgets should not implement these keys
-
 	switch event.Key() {
 	case tcell.KeyCtrlC:
 		wtfApp.Stop()
@@ -163,19 +167,11 @@ func (wtfApp *WtfApp) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 		return nil
 	}
 
-	// press q to exit wtf
-	switch string(event.Rune()) {
-	case "q":
-		wtfApp.Stop()
-		wtfApp.TViewApp.Stop()
-		wtfApp.DisplayExitMessage()
-		os.Exit(0)
-	default:
-	}
-
 	// If no specific widget has focus, then allow the key presses to fall through to the app
 	if !wtfApp.focusTracker.IsFocused {
 		switch string(event.Rune()) {
+		case "q":
+			wtfApp.Exit()
 		case "/":
 			return nil
 		default:
