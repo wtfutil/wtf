@@ -35,7 +35,7 @@ Awesome! [See here](https://wtfutil.com/sponsors/exit_message/) for how you can 
     * [Installing from Source](#installing-from-source)
     * [Running via Docker](#running-via-docker)
 * [Communication](#communication)
-    * [Slack](#slack)
+    * [GitHub Discussions](#github-discussions)
     * [Twitter](#twitter)
 * [Documentation](#documentation)
 * [Modules](#modules)
@@ -168,11 +168,11 @@ docker run -it -v path/to/config.yml:/config/config.yml wtfutil --config=/config
 
 ## Communication
 
-### Slack
+### GitHub Discussions
 
-If you’re a member of the Gophers Slack community (https://invite.slack.golangbridge.org) there’s a WTFUtil channel you should join for all your WTF questions, development conversations, etc.
+Conversations, ideas, discussions are done on [GitHub Discussions](https://github.com/wtfutil/wtf/discussions).
 
-Find #wtfutil on https://gophers.slack.com/ and join us.
+Formerly they were on Slack; that channel has been deprecated.
 
 ### Twitter
 
