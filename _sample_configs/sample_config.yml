@@ -6,7 +6,7 @@ wtf:
       focused: orange
       normal: gray
     checked: yellow
-    highlight: 
+    highlight:
       fore: black
       back: gray
     rows:
@@ -158,7 +158,7 @@ wtf:
       refreshInterval: 1
     uptime:
       type: cmdrunner
-      args: [""]
+      args: []
       cmd: "uptime"
       enabled: true
       position:
