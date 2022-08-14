@@ -55,6 +55,11 @@ func NewWtfApp(tviewApp *tview.Application, config *config.Config, configFilePat
 	})
 
 	wtfApp.widgets = MakeWidgets(wtfApp.TViewApp, wtfApp.pages, wtfApp.config, wtfApp.redrawChan)
+	if len(wtfApp.widgets) == 0 {
+		fmt.Println("No modules were defined. Make sure you have at least one properly defined widget")
+		os.Exit(1)
+	}
+
 	wtfApp.display = NewDisplay(wtfApp.widgets, wtfApp.config)
 	wtfApp.focusTracker = NewFocusTracker(wtfApp.TViewApp, wtfApp.widgets, wtfApp.config)
 	wtfApp.validator = NewModuleValidator()
