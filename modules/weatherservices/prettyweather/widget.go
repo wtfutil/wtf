@@ -41,7 +41,7 @@ func (widget *Widget) prettyWeather() {
 	unit := widget.settings.unit
 	view := widget.settings.view
 
-	req, err := http.NewRequest("GET", "https://wttr.in/"+city+"?"+view+"?"+unit, nil)
+	req, err := http.NewRequest("GET", "https://wttr.in/"+city+"?"+view+"?"+unit, http.NoBody)
 	if err != nil {
 		widget.result = err.Error()
 		return

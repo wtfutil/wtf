@@ -50,7 +50,7 @@ func (client *Client) circleRequest(path string) ([]byte, error) {
 
 	url := circleAPIURL.ResolveReference(&url.URL{Path: path, RawQuery: params.Encode()})
 
-	req, err := http.NewRequest("GET", url.String(), nil)
+	req, err := http.NewRequest("GET", url.String(), http.NoBody)
 	req.Header.Add("Accept", "application/json")
 	req.Header.Add("Content-Type", "application/json")
 	if err != nil {

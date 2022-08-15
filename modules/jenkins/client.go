@@ -24,7 +24,7 @@ func (widget *Widget) Create(jenkinsURL string, username string, apiKey string) 
 	}
 	jenkinsAPIURL := parsedJenkinsURL.ResolveReference(parsedSuffix)
 
-	req, _ := http.NewRequest("GET", jenkinsAPIURL.String(), nil)
+	req, _ := http.NewRequest("GET", jenkinsAPIURL.String(), http.NoBody)
 	req.SetBasicAuth(username, apiKey)
 
 	httpClient := &http.Client{Transport: &http.Transport{

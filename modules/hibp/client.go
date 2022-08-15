@@ -43,7 +43,7 @@ func (widget *Widget) fetchForAccount(account string, since string) (*Status, er
 		asTruncated = false
 	}
 
-	request, err := http.NewRequest(http.MethodGet, widget.fullURL(account, asTruncated), nil)
+	request, err := http.NewRequest(http.MethodGet, widget.fullURL(account, asTruncated), http.NoBody)
 	if err != nil {
 		return nil, err
 	}

@@ -47,7 +47,7 @@ func (widget *Widget) nbascore() (string, string, bool) {
 	cur := time.Now().AddDate(0, 0, offset) // Go back/forward offset days
 	curString := cur.Format("20060102")     // Need 20060102 format to feed to api
 	client := &http.Client{}
-	req, err := http.NewRequest("GET", "http://data.nba.net/10s/prod/v1/"+curString+"/scoreboard.json", nil)
+	req, err := http.NewRequest("GET", "http://data.nba.net/10s/prod/v1/"+curString+"/scoreboard.json", http.NoBody)
 	if err != nil {
 		return title, err.Error(), true
 	}

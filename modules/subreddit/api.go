@@ -16,7 +16,7 @@ func GetLinks(subreddit string, sortMode string, topTimePeriod string) ([]Link, 
 		url = url + "?sort=top&t=" + topTimePeriod
 	}
 
-	request, err := http.NewRequest("GET", url, nil)
+	request, err := http.NewRequest("GET", url, http.NoBody)
 	if err != nil {
 		return nil, err
 	}

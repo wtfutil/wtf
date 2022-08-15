@@ -1,7 +1,6 @@
 package zendesk
 
 import (
-	"bytes"
 	"fmt"
 	"io"
 	"net/http"
@@ -22,7 +21,7 @@ func (widget *Widget) api(meth string) (*Resource, error) {
 	baseURL := fmt.Sprintf("https://%v.zendesk.com/api/v2", widget.settings.subdomain)
 	URL := baseURL + "/tickets.json?sort_by=status"
 
-	req, err := http.NewRequest(meth, URL, bytes.NewBufferString(""))
+	req, err := http.NewRequest(meth, URL, http.NoBody)
 	if err != nil {
 		return nil, err
 	}

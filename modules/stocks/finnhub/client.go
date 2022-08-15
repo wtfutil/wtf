@@ -58,7 +58,7 @@ func (client *Client) finnhubRequest(symbol string) (*http.Response, error) {
 
 	url := finnhubURL.ResolveReference(&url.URL{RawQuery: params.Encode()})
 
-	req, err := http.NewRequest("GET", url.String(), nil)
+	req, err := http.NewRequest("GET", url.String(), http.NoBody)
 	req.Header.Add("Accept", "application/json")
 	req.Header.Add("Content-Type", "application/json")
 	if err != nil {

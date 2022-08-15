@@ -52,7 +52,7 @@ func (widget *Widget) Fetch(scheduleIdentifierType string, schedules []string) (
 /* -------------------- Unexported Functions -------------------- */
 
 func opsGenieRequest(url string, apiKey string) (*OnCallResponse, error) {
-	req, err := http.NewRequest("GET", url, nil)
+	req, err := http.NewRequest("GET", url, http.NoBody)
 	if err != nil {
 		return nil, err
 	}

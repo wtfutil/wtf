@@ -43,7 +43,7 @@ func (widget *Widget) recentBuilds(pipeline PipelineSettings) ([]Build, error) {
 		branchesQuery(pipeline.branches),
 	)
 
-	req, err := http.NewRequest("GET", url, nil)
+	req, err := http.NewRequest("GET", url, http.NoBody)
 	if err != nil {
 		return nil, err
 	}

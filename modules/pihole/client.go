@@ -48,7 +48,7 @@ func getStatus(c http.Client, apiURL string) (status Status, err error) {
 	query.Add("summary", "")
 
 	url.RawQuery = query.Encode()
-	if req, err = http.NewRequest("GET", url.String(), nil); err != nil {
+	if req, err = http.NewRequest("GET", url.String(), http.NoBody); err != nil {
 		return status, fmt.Errorf(" failed to create request\n %s", parseError(err))
 	}
 

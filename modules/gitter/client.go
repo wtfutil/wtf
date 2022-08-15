@@ -53,7 +53,7 @@ var (
 )
 
 func apiRequest(path, apiToken string) (*http.Response, error) {
-	req, err := http.NewRequest("GET", apiBaseURL+path, nil)
+	req, err := http.NewRequest("GET", apiBaseURL+path, http.NoBody)
 	if err != nil {
 		return nil, err
 	}

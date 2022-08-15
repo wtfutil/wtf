@@ -153,7 +153,7 @@ func (widget *Widget) updateSummary() {
 
 func makeRequest(baseName, marketName string) *http.Request {
 	url := fmt.Sprintf("%s?market=%s-%s", baseURL, baseName, marketName)
-	request, _ := http.NewRequest("GET", url, nil)
+	request, _ := http.NewRequest("GET", url, http.NoBody)
 
 	return request
 }

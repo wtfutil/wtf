@@ -88,7 +88,7 @@ func (widget *Widget) Refresh() {
 // this method reads the config and calls ipinfo for ip information
 func (widget *Widget) ipinfo() {
 	client := &http.Client{}
-	req, err := http.NewRequest("GET", "http://ip-api.com/json?fields=66846719", nil)
+	req, err := http.NewRequest("GET", "http://ip-api.com/json?fields=66846719", http.NoBody)
 	if err != nil {
 		widget.result = err.Error()
 		return
