@@ -27,7 +27,7 @@ func NewClient(url string, apiKey string, subdomain string) *Client {
 
 // Away returns a string representation of the people who are out of the office during the defined period
 func (client *Client) Away(itemType, startDate, endDate string) []Item {
-	calendar, err := client.away(startDate, endDate)
+	calendar, err := client.getWhoIsAway(startDate, endDate)
 	if err != nil {
 		return []Item{}
 	}
@@ -39,10 +39,10 @@ func (client *Client) Away(itemType, startDate, endDate string) []Item {
 
 /* -------------------- Private Functions -------------------- */
 
-// away is the private interface for retrieving structural data about who will be out of the office
+// getWhoIsAway is the private interface for retrieving structural data about who will be out of the office
 // This method does the actual communication with BambooHR and returns the raw Go
 // data structures used by the public interface
-func (client *Client) away(startDate, endDate string) (cal Calendar, err error) {
+func (client *Client) getWhoIsAway(startDate, endDate string) (cal Calendar, err error) {
 	apiURL := fmt.Sprintf(
 		"%s/%s/v1/time_off/whos_out?start=%s&end=%s",
 		client.apiBase,
