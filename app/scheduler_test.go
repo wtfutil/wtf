@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	current = `
+	configExample = `
   wtf:
     mods:
       clocks:
@@ -46,7 +46,7 @@ func Test_RefreshInterval(t *testing.T) {
 			name:       "slow ticking module",
 			moduleName: "clocks",
 			config: func() *config.Config {
-				cfg, _ := config.ParseYaml(current)
+				cfg, _ := config.ParseYaml(configExample)
 				return cfg
 			}(),
 			testAttempts: 10,
