@@ -57,7 +57,7 @@ func NewClient(settings *Settings) *Client {
 
 // Tweets returns a list of tweets of a user
 func (client *Client) Tweets() []Tweet {
-	tweets, err := client.tweets()
+	tweets, err := client.getTweets()
 	if err != nil {
 		return []Tweet{}
 	}
@@ -68,7 +68,7 @@ func (client *Client) Tweets() []Tweet {
 /* -------------------- Private Functions -------------------- */
 
 // tweets is the private interface for retrieving the list of user tweets
-func (client *Client) tweets() (tweets []Tweet, err error) {
+func (client *Client) getTweets() (tweets []Tweet, err error) {
 	apiURL := fmt.Sprintf(
 		"%s/statuses/user_timeline.json?screen_name=%s&count=%s",
 		client.apiBase,
