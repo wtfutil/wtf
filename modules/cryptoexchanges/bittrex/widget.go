@@ -104,22 +104,19 @@ func (widget *Widget) updateSummary() {
 			request := makeRequest(baseCurrency.name, mCurrency.name)
 			response, err := client.Do(request)
 
+			ok = true
+			errorText = ""
+
 			if err != nil {
 				ok = false
 				errorText = "Please Check Your Internet Connection!"
 				break
-			} else {
-				ok = true
-				errorText = ""
 			}
 
 			if response.StatusCode != http.StatusOK {
 				errorText = response.Status
 				ok = false
 				break
-			} else {
-				ok = true
-				errorText = ""
 			}
 
 			defer func() { _ = response.Body.Close() }()

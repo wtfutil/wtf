@@ -32,9 +32,8 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 
 	if settings.baseURI == "" {
 		log.Fatal("baseUri for grafana is empty, but is required")
-	} else {
-		settings.baseURI = strings.TrimSuffix(settings.baseURI, "/")
 	}
+	settings.baseURI = strings.TrimSuffix(settings.baseURI, "/")
 
 	return &settings
 }
