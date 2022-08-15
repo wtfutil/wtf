@@ -53,7 +53,7 @@ var (
 )
 
 func apiRequest(path string) ([]byte, error) {
-	req, err := http.NewRequest("GET", apiEndpoint+path+".json", nil)
+	req, err := http.NewRequest("GET", apiEndpoint+path+".json", http.NoBody)
 	if err != nil {
 		return nil, err
 	}

@@ -59,7 +59,7 @@ func buildJql(key string, value string) string {
 func (widget *Widget) jiraRequest(path string) ([]byte, error) {
 	url := fmt.Sprintf("%s%s", widget.settings.domain, path)
 
-	req, err := http.NewRequest("GET", url, nil)
+	req, err := http.NewRequest("GET", url, http.NoBody)
 	if err != nil {
 		return nil, err
 	}

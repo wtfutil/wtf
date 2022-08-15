@@ -157,7 +157,7 @@ func (widget *Widget) getExistingChecks() ([]Checks, error) {
 	if err != nil {
 		return nil, err
 	}
-	req, err := http.NewRequest("GET", u, nil)
+	req, err := http.NewRequest("GET", u, http.NoBody)
 	if err != nil {
 		return nil, err
 	}

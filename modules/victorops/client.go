@@ -20,7 +20,7 @@ func Fetch(apiID, apiKey string) ([]OnCallTeam, error) {
 /* ---------------- Unexported Functions ---------------- */
 
 func victorOpsRequest(url string, apiID string, apiKey string) ([]OnCallTeam, error) {
-	req, err := http.NewRequest("GET", url, nil)
+	req, err := http.NewRequest("GET", url, http.NoBody)
 	if err != nil {
 		logger.Log(fmt.Sprintf("Failed to initialize sessions to VictorOps. ERROR: %s", err))
 		return nil, err

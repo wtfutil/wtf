@@ -6,7 +6,7 @@ import (
 )
 
 func Request(apiKey string, apiURL string) ([]byte, error) {
-	req, err := http.NewRequest("GET", apiURL, nil)
+	req, err := http.NewRequest("GET", apiURL, http.NoBody)
 	if err != nil {
 		return nil, err
 	}

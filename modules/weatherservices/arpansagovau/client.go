@@ -55,7 +55,7 @@ func GetLocationData(cityname string) (*location, error) {
 /* -------------------- Unexported Functions -------------------- */
 
 func apiRequest() (*http.Response, error) {
-	req, err := http.NewRequest("GET", "https://uvdata.arpansa.gov.au/xml/uvvalues.xml", nil)
+	req, err := http.NewRequest("GET", "https://uvdata.arpansa.gov.au/xml/uvvalues.xml", http.NoBody)
 	if err != nil {
 		return nil, err
 	}

@@ -11,7 +11,7 @@ func project(projectID int, authToken string) (*Project, error) {
 	url := fmt.Sprintf(
 		"https://api.airbrake.io/api/v4/projects/%d?key=%s",
 		projectID, authToken)
-	req, err := http.NewRequest("GET", url, nil)
+	req, err := http.NewRequest("GET", url, http.NoBody)
 	if err != nil {
 		return nil, err
 	}

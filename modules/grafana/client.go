@@ -77,7 +77,7 @@ func NewClient(settings *Settings) *Client {
 
 func (client *Client) Alerts() ([]Alert, error) {
 	// query the alerts API of Grafana https://grafana.com/docs/grafana/latest/http_api/alerting/
-	req, err := http.NewRequest("GET", fmt.Sprintf("%s/api/alerts", client.baseURI), nil)
+	req, err := http.NewRequest("GET", fmt.Sprintf("%s/api/alerts", client.baseURI), http.NoBody)
 	if err != nil {
 		return nil, err
 	}

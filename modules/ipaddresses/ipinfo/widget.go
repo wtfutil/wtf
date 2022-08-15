@@ -59,7 +59,7 @@ func (widget *Widget) ipinfo() {
 		url = "https://ipinfo.io/"
 	}
 
-	req, err := http.NewRequest("GET", url, nil)
+	req, err := http.NewRequest("GET", url, http.NoBody)
 	if err != nil {
 		widget.result = err.Error()
 		return

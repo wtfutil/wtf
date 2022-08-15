@@ -41,7 +41,7 @@ func rollbarItemRequest(accessToken, assignedToName string, activeOnly bool) (*h
 	}
 
 	requestURL := rollbarAPIURL.ResolveReference(&url.URL{RawQuery: params.Encode()})
-	req, _ := http.NewRequest("GET", requestURL.String(), nil)
+	req, _ := http.NewRequest("GET", requestURL.String(), http.NoBody)
 	req.Header.Add("Accept", "application/json")
 	req.Header.Add("Content-Type", "application/json")
 

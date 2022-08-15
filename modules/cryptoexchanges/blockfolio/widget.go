@@ -106,7 +106,7 @@ type AllPositionsResponse struct {
 func MakeApiRequest(token string, method string) ([]byte, error) {
 	client := &http.Client{}
 	url := "https://api-v0.blockfolio.com/rest/" + method + "/" + token + "?use_alias=true&fiat_currency=USD"
-	req, err := http.NewRequest("GET", url, nil)
+	req, err := http.NewRequest("GET", url, http.NoBody)
 	if err != nil {
 		return nil, err
 	}

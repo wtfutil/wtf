@@ -138,7 +138,7 @@ func makeRequest(currency *fromCurrency) *http.Request {
 	}
 
 	url := fmt.Sprintf("%s?fsym=%s&tsyms=%s", baseURL, currency.name, tsyms)
-	request, _ := http.NewRequest("GET", url, nil)
+	request, _ := http.NewRequest("GET", url, http.NoBody)
 
 	return request
 }

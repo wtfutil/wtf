@@ -51,7 +51,7 @@ func travisBuildRequest(settings *Settings) (*http.Response, error) {
 
 	requestUrl := travisAPIURL.ResolveReference(&url.URL{Path: path, RawQuery: params.Encode()})
 
-	req, err := http.NewRequest("GET", requestUrl.String(), nil)
+	req, err := http.NewRequest("GET", requestUrl.String(), http.NoBody)
 	if err != nil {
 		return nil, err
 	}
