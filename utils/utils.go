@@ -34,12 +34,11 @@ const (
 //
 // Example:
 //
-//    x := DoesNotInclude([]string{"cat", "dog", "rat"}, "dog")
-//    > false
+//	x := DoesNotInclude([]string{"cat", "dog", "rat"}, "dog")
+//	> false
 //
-//    x := DoesNotInclude([]string{"cat", "dog", "rat"}, "pig")
-//    > true
-//
+//	x := DoesNotInclude([]string{"cat", "dog", "rat"}, "pig")
+//	> true
 func DoesNotInclude(strs []string, val string) bool {
 	return !Includes(strs, val)
 }
@@ -72,12 +71,11 @@ func FindMatch(pattern string, data string) [][]string {
 //
 // Example:
 //
-//    x := Includes([]string{"cat", "dog", "rat"}, "dog")
-//    > true
+//	x := Includes([]string{"cat", "dog", "rat"}, "dog")
+//	> true
 //
-//    x := Includes([]string{"cat", "dog", "rat"}, "pig")
-//    > false
-//
+//	x := Includes([]string{"cat", "dog", "rat"}, "pig")
+//	> false
 func Includes(strs []string, val string) bool {
 	for _, str := range strs {
 		if val == str {
@@ -189,9 +187,8 @@ func CalculateDimensions(moduleConfig, globalConfig *config.Config) (int, int, e
 //
 // Examples:
 //
-//   MaxInt(3, 2) => 3
-//   MaxInt(2, 3) => 3
-//
+//	MaxInt(3, 2) => 3
+//	MaxInt(2, 3) => 3
 func MaxInt(x, y int) int {
 	if x > y {
 		return x
@@ -203,10 +200,9 @@ func MaxInt(x, y int) int {
 //
 // Examples:
 //
-//   clamp(6, 3, 8) => 6
-//   clamp(1, 3, 8) => 3
-//   clamp(9, 3, 8) => 8
-//
+//	clamp(6, 3, 8) => 6
+//	clamp(1, 3, 8) => 3
+//	clamp(9, 3, 8) => 8
 func Clamp(x, a, b int) int {
 	if a > x {
 		return a

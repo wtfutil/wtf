@@ -8,29 +8,28 @@ import (
 
 // Common examples of invalid position configuration are:
 //
-//    position:
-//      top: -3
-//      left: 2
-//      width: 0
-//      height: 1
+//	position:
+//	  top: -3
+//	  left: 2
+//	  width: 0
+//	  height: 1
 //
-//    position:
-//      top: 3
-//      width: 2
-//      height: 1
+//	position:
+//	  top: 3
+//	  width: 2
+//	  height: 1
 //
-//    position:
-//      top: 3
-//      # left: 2
-//      width: 2
-//      height: 1
+//	position:
+//	  top: 3
+//	  # left: 2
+//	  width: 2
+//	  height: 1
 //
-//    position:
-//    top: 3
-//    left: 2
-//    width: 2
-//    height: 1
-//
+//	position:
+//	top: 3
+//	left: 2
+//	width: 2
+//	height: 1
 type positionValidation struct {
 	err    error
 	name   string

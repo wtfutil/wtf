@@ -83,7 +83,7 @@ func matchStr(data [][]string) string {
 	return data[1][1]
 }
 
-//Windows
+// Windows
 func wifiEncryptionWindows() string {
 	return parseWlanNetsh("Authentication")
 }

@@ -23,7 +23,7 @@ type SecretLoadParams struct {
 //
 // The credential helpers impose this structure:
 //
-//   SERVICE is mapped to a SECRET and USERNAME
+//	SERVICE is mapped to a SECRET and USERNAME
 //
 // Only SECRET is secret, SERVICE and USERNAME are not, so this
 // API doesn't expose USERNAME.
@@ -33,46 +33,46 @@ type SecretLoadParams struct {
 // API server, its easier to just use the module name as the
 // SERVICE:
 //
-//     cfg.ModuleSecret(name, globalConfig, &settings.apiKey).Load()
+//	   cfg.ModuleSecret(name, globalConfig, &settings.apiKey).Load()
 //
-//  The user will use the module name as the service, and the API key as
-//  the secret, for example:
+//	The user will use the module name as the service, and the API key as
+//	the secret, for example:
 //
-//     % wtfutil save-secret circleci
-//     Secret: ...
+//	   % wtfutil save-secret circleci
+//	   Secret: ...
 //
 // If a module (such as pihole, jenkins, or github) might have multiple
 // instantiations each using a different API service (with its own unique
 // API key), then the module should use the API URL to lookup the secret.
 // For example, for github:
 //
-//     cfg.ModuleSecret(name, globalConfig, &settings.apiKey).
-//         Service(settings.baseURL).
-//         Load()
+//	cfg.ModuleSecret(name, globalConfig, &settings.apiKey).
+//	    Service(settings.baseURL).
+//	    Load()
 //
 // The user will use the API URL as the service, and the API key as the
 // secret, for example, with github configured as:
 //
-//     -- config.yml
-//     mods:
-//       github:
-//         baseURL: "https://github.mycompany.com/api/v3"
-//         ...
+//	   -- config.yml
+//	   mods:
+//	     github:
+//	       baseURL: "https://github.mycompany.com/api/v3"
+//	       ...
 //
-//  the secret must be saved as:
+//	the secret must be saved as:
 //
-//     % wtfutil save-secret https://github.mycompany.com/api/v3
-//     Secret: ...
+//	   % wtfutil save-secret https://github.mycompany.com/api/v3
+//	   Secret: ...
 //
-//  If baseURL is not set in the configuration it will be the modules
-//  default, and the SERVICE will default to the module name, "github",
-//  and the user must save the secret as:
+//	If baseURL is not set in the configuration it will be the modules
+//	default, and the SERVICE will default to the module name, "github",
+//	and the user must save the secret as:
 //
-//     % wtfutil save-secret github
-//     Secret: ...
+//	   % wtfutil save-secret github
+//	   Secret: ...
 //
-//  Ideally, the individual module documentation would describe the
-//  SERVICE name to use to save the secret.
+//	Ideally, the individual module documentation would describe the
+//	SERVICE name to use to save the secret.
 func ModuleSecret(name string, globalConfig *config.Config, secret *string) *SecretLoadParams {
 	return &SecretLoadParams{
 		name:         name,

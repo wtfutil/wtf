@@ -15,9 +15,8 @@ import (
 //
 // Example:
 //
-//    x := CenterText("cat", 11)
-//    > "    cat    "
-//
+//	x := CenterText("cat", 11)
+//	> "    cat    "
 func CenterText(str string, width int) string {
 	if width < 0 {
 		width = 0
@@ -30,11 +29,9 @@ func CenterText(str string, width int) string {
 //
 // Example:
 //
-//    a := "{ cat } { dog }"
-//    b := FindBetween(a, "{", "}")
-//    > [" cat ", " dog "]
-//
-//
+//	a := "{ cat } { dog }"
+//	b := FindBetween(a, "{", "}")
+//	> [" cat ", " dog "]
 func FindBetween(input string, left string, right string) []string {
 	out := []string{}
 

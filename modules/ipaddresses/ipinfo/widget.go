@@ -48,7 +48,7 @@ func (widget *Widget) Refresh() {
 	widget.Redraw(func() (string, string, bool) { return widget.CommonSettings().Title, widget.result, false })
 }
 
-//this method reads the config and calls ipinfo for ip information
+// this method reads the config and calls ipinfo for ip information
 func (widget *Widget) ipinfo() {
 	client := &http.Client{}
 	var url string

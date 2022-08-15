@@ -184,12 +184,15 @@ func (client *Client) GetAccessToken(requestToken string) (accessToken string, e
 
 }
 
-/*LinkState  represents link states to be retrieved
+/*
+LinkState  represents link states to be retrieved
 According to the api https://getpocket.com/developer/docs/v3/retrieve
 there are 3 states:
+
 	1-archive
 	2-unread
 	3-all
+
 however archive does not really well work and returns links that are in the
 unread list
 buy inspecting getpocket I found out that there is an undocumanted read state

@@ -33,7 +33,7 @@ func (widget *Widget) Refresh() {
 	widget.Redraw(func() (string, string, bool) { return widget.CommonSettings().Title, widget.result, false })
 }
 
-//this method reads the config and calls wttr.in for pretty weather
+// this method reads the config and calls wttr.in for pretty weather
 func (widget *Widget) prettyWeather() {
 	client := &http.Client{}
 
