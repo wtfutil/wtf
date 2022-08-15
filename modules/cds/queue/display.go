@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/ovh/cds/sdk"
+	"github.com/ovh/cds/sdk/cdsclient"
 )
 
 func (widget *Widget) display() {
@@ -41,7 +42,7 @@ func (widget *Widget) title(filter string) string {
 }
 
 func (widget *Widget) displayQueue(filter string) string {
-	runs, _ := widget.client.QueueWorkflowNodeJobRun(filter)
+	runs, _ := widget.client.QueueWorkflowNodeJobRun(cdsclient.Status(filter))
 
 	widget.SetItemCount(len(runs))
 
@@ -61,7 +62,7 @@ func (widget *Widget) displayQueue(filter string) string {
 }
 
 func (widget *Widget) generateQueueJobLine(parameters []sdk.Parameter, executedJob sdk.ExecutedJob,
-	duration time.Duration, bookedBy sdk.Service, status string) string {
+	duration time.Duration, bookedBy sdk.BookedBy, status string) string {
 	prj := getVarsInPbj("cds.project", parameters)
 	workflow := getVarsInPbj("cds.workflow", parameters)
 	node := getVarsInPbj("cds.node", parameters)
@@ -82,7 +83,7 @@ func (widget *Widget) generateQueueJobLine(parameters []sdk.Parameter, executedJ
 		row[1] = pad("", 27)
 	}
 
-	row[4] = fmt.Sprintf("➤ %s", pad(triggeredBy, 17))
+	row[4] = fmt.Sprintf("Ã¢ÂÂ¤ %s", pad(triggeredBy, 17))
 
 	c := "grey"
 	if status == sdk.StatusWaiting {
