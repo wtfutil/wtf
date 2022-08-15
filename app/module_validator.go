@@ -42,16 +42,16 @@ func (val *ModuleValidator) Validate(widgets []wtf.Wtfable) {
 
 func validate(widgets []wtf.Wtfable) (widgetErrors []widgetError) {
 	for _, widget := range widgets {
-		error := widgetError{name: widget.Name()}
+		err := widgetError{name: widget.Name()}
 
 		for _, val := range widget.CommonSettings().Validations() {
 			if val.HasError() {
-				error.validationErrors = append(error.validationErrors, val)
+				err.validationErrors = append(err.validationErrors, val)
 			}
 		}
 
-		if len(error.validationErrors) > 0 {
-			widgetErrors = append(widgetErrors, error)
+		if len(err.validationErrors) > 0 {
+			widgetErrors = append(widgetErrors, err)
 		}
 	}
 
