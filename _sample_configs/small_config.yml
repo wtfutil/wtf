@@ -6,7 +6,7 @@ wtf:
   mods:
     uptime:
       type: cmdrunner
-      args: [""]
+      args: []
       cmd: "uptime"
       enabled: true
       position:
