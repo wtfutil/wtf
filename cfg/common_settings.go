@@ -166,10 +166,17 @@ func (common *Common) LocalizedPrinter() (*message.Printer, error) {
 
 func (common *Common) RowColor(idx int) string {
 	if idx%2 == 0 {
-		return common.Colors.RowTheme.EvenForeground
+		return fmt.Sprintf(
+			"%s:%s",
+			common.Colors.RowTheme.EvenForeground,
+			common.Colors.RowTheme.EvenBackground,
+		)
 	}
-
-	return common.Colors.RowTheme.OddForeground
+	return fmt.Sprintf(
+		"%s:%s",
+		common.Colors.RowTheme.OddForeground,
+		common.Colors.RowTheme.OddBackground,
+	)
 }
 
 func (common *Common) RightAlignFormat(width int) string {
