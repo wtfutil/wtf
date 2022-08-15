@@ -13,8 +13,8 @@ import (
 const module = "Airbrake"
 
 var emojis = map[string]string{
-	"bug":             "🐛",
-	"bell with slash": "🔕",
+	"bug":             "ð",
+	"bell with slash": "ð",
 }
 
 type ShowType int
@@ -72,8 +72,8 @@ func (g *Group) Type() string {
 }
 
 func (g *Group) Message() string {
-	error := g.Errors[0]
-	return strings.ReplaceAll(error.Message, "\n", ". ")
+	err := g.Errors[0]
+	return strings.ReplaceAll(err.Message, "\n", ". ")
 }
 
 func (g *Group) File() string {

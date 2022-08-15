@@ -16,18 +16,18 @@ func Copy(src, dest string) error {
 	if err != nil {
 		return err
 	}
-	return copy(src, dest, info)
+	return locationCopy(src, dest, info)
 }
 
 // "info" must be given here, NOT nil.
-func copy(src, dest string, info os.FileInfo) error {
+func locationCopy(src, dest string, info os.FileInfo) error {
 	if info.IsDir() {
-		return dcopy(src, dest, info)
+		return directoryCopy(src, dest, info)
 	}
-	return fcopy(src, dest, info)
+	return fileCopy(src, dest, info)
 }
 
-func fcopy(src, dest string, info os.FileInfo) error {
+func fileCopy(src, dest string, info os.FileInfo) error {
 
 	f, err := os.Create(dest)
 	if err != nil {
@@ -49,7 +49,7 @@ func fcopy(src, dest string, info os.FileInfo) error {
 	return err
 }
 
-func dcopy(src, dest string, info os.FileInfo) error {
+func directoryCopy(src, dest string, info os.FileInfo) error {
 
 	if err := os.MkdirAll(dest, info.Mode()); err != nil {
 		return err
@@ -66,7 +66,7 @@ func dcopy(src, dest string, info os.FileInfo) error {
 			continue
 		}
 
-		if err := copy(
+		if err := locationCopy(
 			filepath.Join(src, info.Name()),
 			filepath.Join(dest, info.Name()),
 			info,
