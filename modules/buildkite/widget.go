@@ -57,7 +57,7 @@ func (widget *Widget) content() (string, string, bool) {
 		return title, widget.err.Error(), true
 	}
 
-	displayData := NewPipelinesDisplayData(widget.builds)
+	displayData := newPipelinesDisplayData(widget.builds)
 
 	return title, displayData.Content(), false
 }

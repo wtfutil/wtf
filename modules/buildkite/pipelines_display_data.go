@@ -26,7 +26,7 @@ func (data *pipelinesDisplayData) Content() string {
 	return str
 }
 
-func NewPipelinesDisplayData(builds []Build) pipelinesDisplayData {
+func newPipelinesDisplayData(builds []Build) pipelinesDisplayData {
 	grouped := make(map[string][]Build)
 
 	for _, build := range builds {
