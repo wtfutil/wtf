@@ -22,7 +22,7 @@ type websiteReport struct {
 	RealtimeReport *gaV3.RealtimeData
 }
 
-func (widget *Widget) Fetch() []websiteReport {
+func (widget *Widget) fetch() []websiteReport {
 	secretPath, err := utils.ExpandHomeDir(widget.settings.secretFile)
 	if err != nil {
 		log.Fatalf("Unable to parse secretFile path")

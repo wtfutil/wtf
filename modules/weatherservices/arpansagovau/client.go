@@ -31,7 +31,7 @@ type location struct {
 	status string
 }
 
-func GetLocationData(cityname string) (*location, error) {
+func getLocationData(cityname string) (*location, error) {
 	var locdata location
 	resp, err := apiRequest()
 	if err != nil {

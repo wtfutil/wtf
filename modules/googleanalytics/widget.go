@@ -22,7 +22,7 @@ func NewWidget(tviewApp *tview.Application, redrawChan chan bool, settings *Sett
 }
 
 func (widget *Widget) Refresh() {
-	websiteReports := widget.Fetch()
+	websiteReports := widget.fetch()
 	contentTable := widget.createTable(websiteReports)
 
 	widget.Redraw(func() (string, string, bool) { return widget.CommonSettings().Title, contentTable, false })
