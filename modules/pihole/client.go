@@ -131,7 +131,7 @@ func getTopItems(c http.Client, settings *Settings) (ti TopItems, err error) {
 
 	url.RawQuery = query.Encode()
 
-	req, err = http.NewRequest("GET", url.String(), nil)
+	req, err = http.NewRequest("GET", url.String(), http.NoBody)
 	if err != nil {
 		return ti, fmt.Errorf(" failed to create request\n %s", parseError(err))
 	}
@@ -198,7 +198,7 @@ func getTopClients(c http.Client, settings *Settings) (tc TopClients, err error)
 	query.Add("auth", settings.token)
 	url.RawQuery = query.Encode()
 
-	if req, err = http.NewRequest("GET", url.String(), nil); err != nil {
+	if req, err = http.NewRequest("GET", url.String(), http.NoBody); err != nil {
 		return tc, fmt.Errorf(" failed to create request\n %s", parseError(err))
 	}
 
@@ -257,7 +257,7 @@ func getQueryTypes(c http.Client, settings *Settings) (qt QueryTypes, err error)
 
 	url.RawQuery = query.Encode()
 
-	if req, err = http.NewRequest("GET", url.String(), nil); err != nil {
+	if req, err = http.NewRequest("GET", url.String(), http.NoBody); err != nil {
 		return qt, fmt.Errorf(" failed to create request\n %s", parseError(err))
 	}
 
@@ -307,7 +307,7 @@ func checkServer(c http.Client, apiURL string) error {
 	}
 
 	if req, err = http.NewRequest("GET", fmt.Sprintf("%s?version",
-		url.String()), nil); err != nil {
+		url.String()), http.NoBody); err != nil {
 		return fmt.Errorf("invalid request: %s", parseError(err))
 	}
 
@@ -361,7 +361,7 @@ func (widget *Widget) adblockSwitch(action string) {
 
 	url.RawQuery = query.Encode()
 
-	req, _ = http.NewRequest("GET", url.String(), nil)
+	req, _ = http.NewRequest("GET", url.String(), http.NoBody)
 
 	c := getClient()
 	resp, _ := c.Do(req)

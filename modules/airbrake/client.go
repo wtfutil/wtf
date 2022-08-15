@@ -38,7 +38,7 @@ func groups(projectID int, authToken string) ([]Group, error) {
 	url := fmt.Sprintf(
 		"https://api.airbrake.io/api/v4/projects/%d/groups?key=%s&limit=10&order=last_notice&resolved=false",
 		projectID, authToken)
-	req, err := http.NewRequest("GET", url, nil)
+	req, err := http.NewRequest("GET", url, http.NoBody)
 	if err != nil {
 		return nil, err
 	}
@@ -66,7 +66,7 @@ func resolveGroup(projectID int64, groupID, authToken string) error {
 	url := fmt.Sprintf(
 		"https://airbrake.io/api/v4/projects/%d/groups/%s/resolved?key=%s",
 		projectID, groupID, authToken)
-	req, err := http.NewRequest("PUT", url, nil)
+	req, err := http.NewRequest("PUT", url, http.NoBody)
 	if err != nil {
 		return err
 	}
@@ -88,7 +88,7 @@ func muteGroup(projectID int64, groupID, authToken string) error {
 	url := fmt.Sprintf(
 		"https://airbrake.io/api/v4/projects/%d/groups/%s/muted?key=%s",
 		projectID, groupID, authToken)
-	req, err := http.NewRequest("PUT", url, nil)
+	req, err := http.NewRequest("PUT", url, http.NoBody)
 	if err != nil {
 		return err
 	}
@@ -110,7 +110,7 @@ func unmuteGroup(projectID int64, groupID, authToken string) error {
 	url := fmt.Sprintf(
 		"https://airbrake.io/api/v4/projects/%d/groups/%s/unmuted?key=%s",
 		projectID, groupID, authToken)
-	req, err := http.NewRequest("PUT", url, nil)
+	req, err := http.NewRequest("PUT", url, http.NoBody)
 	if err != nil {
 		return err
 	}
