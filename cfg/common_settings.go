@@ -33,7 +33,7 @@ type Sigils struct {
 // Common defines a set of common configuration settings applicable to all modules
 type Common struct {
 	Module
-	PositionSettings `help:"Defines where in the grid this module’s widget will be displayed."`
+	PositionSettings `help:"Defines where in the grid this moduleÃ¢ÂÂs widget will be displayed."`
 	Sigils
 
 	Colors ColorTheme
@@ -45,7 +45,7 @@ type Common struct {
 	Enabled         bool          `help:"Whether or not this module is executed and if its data displayed onscreen." values:"true, false" optional:"true" default:"false"`
 	Focusable       bool          `help:"Whether or  not this module is focusable." values:"true, false" optional:"true" default:"false"`
 	LanguageTag     string        `help:"The BCP 47 langauge tag to localize text to." values:"Any supported BCP 47 language tag." optional:"true" default:"en-CA"`
-	RefreshInterval time.Duration `help:"How often this module will update its data." values:"A positive integer followed by a time unit (ns, us or µs, ms, s, m, h, or nothing which defaults to s)" optional:"true"`
+	RefreshInterval time.Duration `help:"How often this module will update its data." values:"A positive integer followed by a time unit (ns, us or ÃÂµs, ms, s, m, h, or nothing which defaults to s)" optional:"true"`
 	Title           string        `help:"The title string to show when displaying this module" optional:"true"`
 
 	focusChar int `help:"Define one of the number keys as a short cut key to access the widget." optional:"true"`
@@ -179,13 +179,13 @@ func (common *Common) RightAlignFormat(width int) string {
 
 // PaginationMarker generates the pagination indicators that appear in the top-right corner
 // of multisource widgets
-func (common *Common) PaginationMarker(len, pos, width int) string {
+func (common *Common) PaginationMarker(length, pos, width int) string {
 	sigils := ""
 
-	if len > 1 {
+	if length > 1 {
 		sigils = strings.Repeat(common.Sigils.Paging.Normal, pos)
 		sigils += common.Sigils.Paging.Selected
-		sigils += strings.Repeat(common.Sigils.Paging.Normal, len-1-pos)
+		sigils += strings.Repeat(common.Sigils.Paging.Normal, length-1-pos)
 
 		sigils = "[lightblue]" + fmt.Sprintf(common.RightAlignFormat(width), sigils) + "[white]"
 	}
