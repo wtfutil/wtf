@@ -95,8 +95,7 @@ func (widget *KeyboardWidget) InitializeRefreshKeyboardControl(refreshFunc func(
 // InputCapture is the function passed to tview's SetInputCapture() function
 // This is done during the main widget's creation process using the following code:
 //
-//    widget.View.SetInputCapture(widget.InputCapture)
-//
+//	widget.View.SetInputCapture(widget.InputCapture)
 func (widget *KeyboardWidget) InputCapture(event *tcell.EventKey) *tcell.EventKey {
 	if event == nil {
 		return nil
@@ -131,8 +130,7 @@ func (widget *KeyboardWidget) LaunchDocumentation() {
 // SetKeyboardChar sets a character/function combination that responds to key presses
 // Example:
 //
-//    widget.SetKeyboardChar("d", widget.deleteSelectedItem)
-//
+//	widget.SetKeyboardChar("d", widget.deleteSelectedItem)
 func (widget *KeyboardWidget) SetKeyboardChar(char string, fn func(), helpText string) {
 	if char == "" {
 		return
@@ -150,8 +148,7 @@ func (widget *KeyboardWidget) SetKeyboardChar(char string, fn func(), helpText s
 // SetKeyboardKey sets a tcell.Key/function combination that responds to key presses
 // Example:
 //
-//    widget.SetKeyboardKey(tcell.KeyCtrlD, widget.deleteSelectedItem)
-//
+//	widget.SetKeyboardKey(tcell.KeyCtrlD, widget.deleteSelectedItem)
 func (widget *KeyboardWidget) SetKeyboardKey(key tcell.Key, fn func(), helpText string) {
 	widget.keyMap[key] = fn
 	widget.keyHelp = append(widget.keyHelp, helpItem{tcell.KeyNames[key], helpText})

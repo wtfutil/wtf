@@ -10,7 +10,7 @@ import (
 	"github.com/wtfutil/wtf/wtf"
 )
 
-//BarGraph defines the data required to make a bar graph
+// BarGraph defines the data required to make a bar graph
 type BarGraph struct {
 	maxStars int
 	starChar string
@@ -52,7 +52,7 @@ func (widget *BarGraph) BuildBars(data []Bar) {
 	widget.View.SetText(BuildStars(data, widget.maxStars, widget.starChar))
 }
 
-//BuildStars build the string to display
+// BuildStars build the string to display
 func BuildStars(data []Bar, maxStars int, starChar string) string {
 	var buffer bytes.Buffer
 

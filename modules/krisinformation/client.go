@@ -61,7 +61,7 @@ type Item struct {
 	Updated     time.Time
 }
 
-//NewClient returns a new Client
+// NewClient returns a new Client
 func NewClient(latitude, longitude float64, radius int, county string, country bool) *Client {
 	return &Client{
 		latitude:  latitude,
@@ -168,9 +168,10 @@ func hsin(theta float64) float64 {
 }
 
 // Distance function returns the distance (in meters) between two points of
-//     a given longitude and latitude relatively accurately (using a spherical
-//     approximation of the Earth) through the Haversin Distance Formula for
-//     great arc distance on a sphere with accuracy for small distances
+//
+//	a given longitude and latitude relatively accurately (using a spherical
+//	approximation of the Earth) through the Haversin Distance Formula for
+//	great arc distance on a sphere with accuracy for small distances
 //
 // point coordinates are supplied in degrees and converted into rad. in the func
 //

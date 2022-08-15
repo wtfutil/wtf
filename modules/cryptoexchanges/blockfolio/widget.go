@@ -88,7 +88,7 @@ func (widget *Widget) content() (string, string, bool) {
 	return title, res, true
 }
 
-//always the same
+// always the same
 const magic = "edtopjhgn2345piuty89whqejfiobh89-2q453"
 
 type Position struct {

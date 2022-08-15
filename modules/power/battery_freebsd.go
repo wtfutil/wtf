@@ -40,9 +40,10 @@ func (battery *Battery) String() string {
 /* -------------------- Unexported Functions -------------------- */
 
 // returns 3 numbers
-//   1/0   = AC/battery
-//   c     = battery charge percentage
-//   -1/s  = charging / seconds to empty
+//
+//	1/0   = AC/battery
+//	c     = battery charge percentage
+//	-1/s  = charging / seconds to empty
 func (battery *Battery) execute() string {
 	cmd := exec.Command("apm", "-alt")
 	return utils.ExecuteCommand(cmd)

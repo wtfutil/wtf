@@ -11,9 +11,8 @@ import (
 //
 // Example:
 //
-//    NameFromEmail("test_user@example.com")
-//    > "Test_user"
-//
+//	NameFromEmail("test_user@example.com")
+//	> "Test_user"
 func NameFromEmail(email string) string {
 	parts := strings.Split(email, "@")
 	name := strings.ReplaceAll(parts[0], ".", " ")
@@ -27,9 +26,8 @@ func NameFromEmail(email string) string {
 //
 // Example:
 //
-//    NamesFromEmail("test_user@example.com", "other_user@example.com")
-//    > []string{"Test_user", "Other_user"}
-//
+//	NamesFromEmail("test_user@example.com", "other_user@example.com")
+//	> []string{"Test_user", "Other_user"}
 func NamesFromEmails(emails []string) []string {
 	names := make([]string, len(emails))
 

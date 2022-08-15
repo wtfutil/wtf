@@ -72,12 +72,11 @@ func (widget *MultiSourceWidget) PrevSource() {
 //
 // Example:
 //
-//   widget := Widget{
-//     MultiSourceWidget: wtf.NewMultiSourceWidget(settings.common, "person", "people")
-//   }
+//	widget := Widget{
+//	  MultiSourceWidget: wtf.NewMultiSourceWidget(settings.common, "person", "people")
+//	}
 //
-//   widget.SetDisplayFunction(widget.display)
-//
+//	widget.SetDisplayFunction(widget.display)
 func (widget *MultiSourceWidget) SetDisplayFunction(displayFunc func()) {
 	widget.DisplayFunction = displayFunc
 }

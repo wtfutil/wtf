@@ -107,7 +107,7 @@ func (manDev *ManagedDevice) Add(chunk string) {
 	}
 }
 
-//Dump writes out all the device attributes as a single string
+// Dump writes out all the device attributes as a single string
 func (manDev *ManagedDevice) Dump() string {
 	out := ""
 
