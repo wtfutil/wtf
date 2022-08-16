@@ -99,12 +99,12 @@ func Test_RowColor(t *testing.T) {
 		{
 			name:          "odd rows, default",
 			idx:           3,
-			expectedColor: "lightblue",
+			expectedColor: "lightblue:transparent",
 		},
 		{
 			name:          "even rows, default",
 			idx:           8,
-			expectedColor: "white",
+			expectedColor: "white:transparent",
 		},
 	}
 
