@@ -104,7 +104,9 @@ func (widget *Widget) formattedText() string {
 	}
 
 	contents, _ := io.ReadAll(file)
-	iterator, _ := lexer.Tokenise(nil, string(contents))
+	str := string(contents)
+	str = tview.Escape(str)
+	iterator, _ := lexer.Tokenise(nil, str)
 
 	var buf bytes.Buffer
 	err = formatter.Format(&buf, style, iterator)
@@ -122,7 +124,7 @@ func (widget *Widget) plainText() string {
 	if err != nil {
 		return err.Error()
 	}
-	return string(text)
+	return tview.Escape(string(text))
 }
 
 func (widget *Widget) watchForFileChanges() {
