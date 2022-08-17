@@ -1,6 +1,7 @@
 package kubernetes
 
 import (
+	"context"
 	"fmt"
 	"sync"
 
@@ -124,7 +125,7 @@ func (client *clientInstance) getPods(namespaces []string) ([]string, error) {
 	var podList []string
 	if len(namespaces) != 0 {
 		for _, namespace := range namespaces {
-			pods, err := client.Client.CoreV1().Pods(namespace).List(metav1.ListOptions{})
+			pods, err := client.Client.CoreV1().Pods(namespace).List(context.Background(), metav1.ListOptions{})
 			if err != nil {
 				return nil, err
 			}
@@ -142,7 +143,7 @@ func (client *clientInstance) getPods(namespaces []string) ([]string, error) {
 			}
 		}
 	} else {
-		pods, err := client.Client.CoreV1().Pods("").List(metav1.ListOptions{})
+		pods, err := client.Client.CoreV1().Pods("").List(context.Background(), metav1.ListOptions{})
 		if err != nil {
 			return nil, err
 		}
@@ -160,7 +161,7 @@ func (client *clientInstance) getDeployments(namespaces []string) ([]string, err
 	var deploymentList []string
 	if len(namespaces) != 0 {
 		for _, namespace := range namespaces {
-			deployments, err := client.Client.AppsV1().Deployments(namespace).List(metav1.ListOptions{})
+			deployments, err := client.Client.AppsV1().Deployments(namespace).List(context.Background(), metav1.ListOptions{})
 			if err != nil {
 				return nil, err
 			}
@@ -176,7 +177,7 @@ func (client *clientInstance) getDeployments(namespaces []string) ([]string, err
 			}
 		}
 	} else {
-		deployments, err := client.Client.AppsV1().Deployments("").List(metav1.ListOptions{})
+		deployments, err := client.Client.AppsV1().Deployments("").List(context.Background(), metav1.ListOptions{})
 		if err != nil {
 			return nil, err
 		}
@@ -193,7 +194,7 @@ func (client *clientInstance) getDeployments(namespaces []string) ([]string, err
 func (client *clientInstance) getNodes() ([]string, error) {
 	var nodeList []string
 
-	nodes, err := client.Client.CoreV1().Nodes().List(metav1.ListOptions{})
+	nodes, err := client.Client.CoreV1().Nodes().List(context.Background(), metav1.ListOptions{})
 	if err != nil {
 		return nil, err
 	}
