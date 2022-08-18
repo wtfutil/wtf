@@ -298,7 +298,7 @@ func (widget *Widget) updateSelected() {
 	})
 }
 
-// processFormInput is a helper function that creates a form and calls onSave on the recieved input
+// processFormInput is a helper function that creates a form and calls onSave on the received input
 func (widget *Widget) processFormInput(prompt string, initValue string, onSave func(string)) {
 	form := widget.modalForm(prompt, initValue)
 
