@@ -31,7 +31,7 @@ func (widget *Widget) content() (string, string, bool) {
 	str += "\n"
 
 	for idx, droplet := range widget.droplets {
-		// This defines the formatting for the row, one tab-seperated string for each defined column
+		// This defines the formatting for the row, one tab-separated string for each defined column
 		fmtStr := " [%s]"
 
 		for range columnSet {
