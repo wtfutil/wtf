@@ -90,13 +90,16 @@ func (widget *Widget) shouldShowItem(item *checklist.ChecklistItem) bool {
 
 	for _, tag := range item.Tags {
 		for _, hideTag := range widget.settings.hideTags {
-			if (widget.showTagPrefix == "" && tag == hideTag) || !strings.HasPrefix(tag, widget.showTagPrefix) {
+			if widget.showTagPrefix == "" && tag == hideTag {
 				return false
 			}
 		}
+		if widget.showTagPrefix == "" || strings.HasPrefix(tag, widget.showTagPrefix) {
+			return true
+		}
 	}
 
-	return true
+	return false
 }
 
 func (widget *Widget) RowColor(idx int, hidden int, checked bool) string {
