@@ -151,7 +151,10 @@ func runCommandPty(widget *Widget, cmd *exec.Cmd) error {
 	}
 
 	_, err = io.Copy(widget.buffer, f)
-	return err
+	if err != nil {
+		return err
+	}
+	return cmd.Wait()
 }
 
 func (widget *Widget) handleError(err error) {
