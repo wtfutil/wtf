@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"runtime/debug"
 	"strings"
 
 	"github.com/chzyer/readline"
@@ -54,14 +55,15 @@ func (flags *Flags) ConfigFilePath() string {
 
 // RenderIf displays special-case information based on the flags passed
 // in, if any flags were passed in
-func (flags *Flags) RenderIf(version, date string, config *config.Config) {
+func (flags *Flags) RenderIf(config *config.Config) {
 	if flags.HasModule() {
 		help.Display(flags.Module, config)
 		os.Exit(0)
 	}
 
 	if flags.HasVersion() {
-		fmt.Printf("%s (%s)\n", version, date)
+		info, _ := debug.ReadBuildInfo()
+		fmt.Println(info)
 		os.Exit(0)
 	}
 

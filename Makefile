@@ -100,7 +100,7 @@ install:
 	@echo "$$HEADER"
 	@echo "Installing ${APP} with ${GOVERS}..."
 	@go clean
-	@go install -ldflags="-s -w -X main.version=$(shell git describe --always --abbrev=6) -X main.date=$(shell date +%FT%T%z)"
+	@go install -ldflags="-s -w"
 	@mv $(GOBIN)/wtf $(GOBIN)/${APP}
 	$(eval INSTALLPATH = $(shell which ${APP}))
 	@echo "${APP} installed into ${INSTALLPATH}"
