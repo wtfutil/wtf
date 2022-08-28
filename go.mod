@@ -207,16 +207,3 @@ require (
 	sigs.k8s.io/structured-merge-diff/v4 v4.2.1 // indirect
 	sigs.k8s.io/yaml v1.2.0 // indirect
 )
-
-// These hacks are in place to work around this bug in coreos/etcd/proxy/grpcproxy > v1.30.0 that fails
-// with this error:
-//
-//    google.golang.org/grpc/naming: module google.golang.org/grpc@latest found (v1.31.1), but does not contain package google.golang.org/grpc/naming
-//
-// See here for more details: https://github.com/etcd-io/etcd/issues/12124
-replace google.golang.org/grpc v1.30.0 => google.golang.org/grpc v1.29.1
-
-replace google.golang.org/grpc v1.31.0 => google.golang.org/grpc v1.29.1
-
-//  To mitigate CVE-2020-26160. More details: https://github.com/advisories/GHSA-w73w-5m7g-f7qc
-replace github.com/dgrijalva/jwt-go => github.com/golang-jwt/jwt v3.2.1+incompatible
