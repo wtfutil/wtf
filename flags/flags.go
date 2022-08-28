@@ -63,7 +63,16 @@ func (flags *Flags) RenderIf(config *config.Config) {
 
 	if flags.HasVersion() {
 		info, _ := debug.ReadBuildInfo()
-		fmt.Println(info)
+		version := "dev"
+		date := "now"
+		for _, setting := range info.Settings {
+			if setting.Key == "vcs.revision" {
+				version = setting.Value
+			} else if setting.Key == "vcs.time" {
+				date = setting.Value
+			}
+		}
+		fmt.Printf("%s (%s)\n", version, date)
 		os.Exit(0)
 	}
 
