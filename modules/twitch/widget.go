@@ -29,10 +29,14 @@ type Stream struct {
 
 func NewWidget(tviewApp *tview.Application, redrawChan chan bool, pages *tview.Pages, settings *Settings) *Widget {
 	clientOpts := &ClientOpts{
-		ClientID:        settings.clientId,
-		ClientSecret:    settings.clientSecret,
-		AppAccessToken:  settings.appAccessToken,
-		UserAccessToken: settings.userAccessToken,
+		ClientID:         settings.clientId,
+		ClientSecret:     settings.clientSecret,
+		AppAccessToken:   settings.appAccessToken,
+		UserAccessToken:  settings.userAccessToken,
+		UserRefreshToken: settings.userRefreshToken,
+		RedirectURI:      settings.redirectURI,
+		Streams:          settings.streams,
+		UserID:           settings.userId,
 	}
 
 	twitchClient, err := NewClient(clientOpts)
@@ -53,24 +57,32 @@ func NewWidget(tviewApp *tview.Application, redrawChan chan bool, pages *tview.P
 }
 
 func (widget *Widget) Refresh() {
+	var err error
+	var response *helix.StreamsResponse
 	// Refresh the auth token on each refresh to be sure we aren't using an expired one.
-	if err := widget.twitch.RefreshOAuthToken(); err != nil {
+	if err = widget.twitch.RefreshOAuthToken(); err != nil {
 		handleError(widget, err)
 	}
 
-	response, err := widget.twitch.TopStreams(&helix.StreamsParams{
-		First:      widget.settings.numberOfResults,
-		GameIDs:    widget.settings.gameIds,
-		Language:   widget.settings.languages,
-		Type:       widget.settings.streamType,
-		UserIDs:    widget.settings.userIds,
-		UserLogins: widget.settings.userLogins,
-	})
+	if widget.twitch.Streams == "followed" {
+		response, err = widget.twitch.FollowedStreams(&helix.FollowedStreamsParams{
+			UserID: widget.twitch.UserID,
+		})
+	} else if widget.twitch.Streams == "top" {
+		response, err = widget.twitch.TopStreams(&helix.StreamsParams{
+			First:      widget.settings.numberOfResults,
+			GameIDs:    widget.settings.gameIds,
+			Language:   widget.settings.languages,
+			Type:       widget.settings.streamType,
+			UserIDs:    widget.settings.userIds,
+			UserLogins: widget.settings.userLogins,
+		})
+	}
 
 	if err != nil {
 		handleError(widget, err)
 	} else if response.ErrorMessage != "" {
-		handleError(widget, errors.New(response.ErrorMessage))
+		handleError(widget, errors.New(widget.twitch.client.GetUserAccessToken()))
 	} else {
 		streams := makeStreams(response)
 		widget.topStreams = streams
@@ -82,6 +94,7 @@ func (widget *Widget) Refresh() {
 			widget.SetItemCount(len(widget.topStreams))
 		}
 	}
+
 	widget.Render()
 }
 
