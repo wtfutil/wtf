@@ -24,14 +24,19 @@ type ClientOpts struct {
 
 func NewClient(opts *ClientOpts) (*Twitch, error) {
 	client, err := helix.NewClient(&helix.Options{
-		ClientID:        opts.ClientID,
-		ClientSecret:    opts.ClientSecret,
-		AppAccessToken:  opts.AppAccessToken,
-		UserAccessToken: opts.UserAccessToken,
-		RedirectURI:     opts.RedirectURI,
+		ClientID:       opts.ClientID,
+		ClientSecret:   opts.ClientSecret,
+		AppAccessToken: opts.AppAccessToken,
+		RedirectURI:    opts.RedirectURI,
 	})
 	if err != nil {
 		return nil, err
+	}
+
+	// Only set user access token if user has selected followed streams. Otherwise it will supercede app access token.
+	// https://github.com/nicklaw5/helix/pull/131 Seems like it should be fixed in this PR of the helix API, but it hasnt been merged for a long time.
+	if opts.Streams == "followed" {
+		client.SetUserAccessToken(opts.UserAccessToken)
 	}
 
 	t := &Twitch{client: client}
