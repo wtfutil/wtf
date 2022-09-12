@@ -83,7 +83,7 @@ func (widget *Widget) Refresh() {
 	if err != nil {
 		handleError(widget, err)
 	} else if response.ErrorMessage != "" {
-		handleError(widget, errors.New(widget.twitch.client.GetUserAccessToken()))
+		handleError(widget, errors.New(response.ErrorMessage))
 	} else {
 		streams := makeStreams(response)
 		widget.topStreams = streams
