@@ -6,6 +6,8 @@
 
 * [FeedReader module](https://wtfutil.com/modules/feedreader/) now displays the name of the parent feed in front of the feed item, [#1138](https://github.com/wtfutil/wtf/issues/1138) by [@igbanam](https://github.com/igbanam)
 * Steam Status module added by [@despreston](https://github.com/despreston)
+* Working directory option for CmdRunner, [#1293](https://github.com/wtfutil/wtf/issues/1293) by [@Seanstoppable](https://github.com/Seanstoppable)
+* Updated to Go 1.18, by [@Seanstoppable](https://github.com/Seanstoppable)
 
 ### 🐞 Fixed
 
@@ -16,6 +18,9 @@
 * Twitch module OAuth token support added, UI improved, and underlying library upgraded, by [@despreston](https://github.com/despreston)
 * Typing "q" no longer quits the entire app every time, [#1257](https://github.com/wtfutil/wtf/issues/1257) by [@senorprogrammer](https://github.com/senorprogrammer)
 * Row highlighting properly terminates the highlight color, [#1280](https://github.com/wtfutil/wtf/issues/1280) by [@Seanstoppable](https://github.com/Seanstoppable)
+* Textfile widget properly displays text inside square brackets
+* CmdRunner doesn't continue to keep around processes in pty mode [#1225](https://github.com/wtfutil/wtf/issues/1225) by [@Seanstoppable](https://github.com/Seanstoppable)
+* Fix tag filtering in Todo module [#1172](https://github.com/wtfutil/wtf/issues/1225) by [@Seanstoppable](https://github.com/Seanstoppable)
 
 ## 0.41.0
 

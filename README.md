@@ -461,6 +461,11 @@ Dependency management in WTF is handled by [Go modules](https://github.com/golan
     <td align="center"><a href="https://labesse.fr/"><img src="https://avatars.githubusercontent.com/u/5497623?v=4?s=48" width="48px;" alt=""/><br /><sub><b>Labesse Kévin</b></sub></a><br /></td>
     <td align="center"><a href="https://github.com/asadali"><img src="https://avatars.githubusercontent.com/u/3761605?v=4?s=48" width="48px;" alt=""/><br /><sub><b>Asad</b></sub></a><br /></td>
   </tr>
+  <tr>
+    <td align="center"><a href="https://mrkc.me/"><img src="https://avatars.githubusercontent.com/u/261361?v=4?s=48" width="48px;" alt=""/><br /><sub><b>markcaudill</b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/fabge"><img src="https://avatars.githubusercontent.com/u/21140791?v=4?s=48" width="48px;" alt=""/><br /><sub><b>Fabian Geiger</b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/dhutty-numo"><img src="https://avatars.githubusercontent.com/u/62157262?v=4?s=48" width="48px;" alt=""/><br /><sub><b>Duncan Hutty</b></sub></a><br /></td>
+  </tr>
 </table>
 
 <!-- markdownlint-restore -->

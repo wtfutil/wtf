@@ -124,6 +124,7 @@ func runCommandLoop(widget *Widget) {
 		widget.resetBuffer()
 		cmd := exec.Command(widget.settings.cmd, widget.settings.args...)
 		cmd.Env = widget.environment()
+		cmd.Dir = widget.settings.workingDir
 		var err error
 		if widget.settings.pty {
 			err = runCommandPty(widget, cmd)
@@ -150,7 +151,10 @@ func runCommandPty(widget *Widget, cmd *exec.Cmd) error {
 	}
 
 	_, err = io.Copy(widget.buffer, f)
-	return err
+	if err != nil {
+		return err
+	}
+	return cmd.Wait()
 }
 
 func (widget *Widget) handleError(err error) {

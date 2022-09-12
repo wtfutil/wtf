@@ -1233,6 +1233,28 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/3761605?v=4",
       "profile": "https://github.com/asadali",
       "contributions": []
+    },
+    {
+      "login": "markcaudill",
+      "name": "markcaudill",
+      "avatar_url": "https://avatars.githubusercontent.com/u/261361?v=4",
+      "profile": "https://mrkc.me/",
+      "contributions": []
+    },
+    {
+      "login": "fabge",
+      "name": "Fabian Geiger",
+      "avatar_url": "https://avatars.githubusercontent.com/u/21140791?v=4",
+      "profile": "https://github.com/fabge",
+      "contributions": []
+    },
+    {
+      "login": "dhutty-numo",
+      "name": "Duncan Hutty",
+      "avatar_url": "https://avatars.githubusercontent.com/u/62157262?v=4",
+      "profile": "https://github.com/dhutty-numo",
+      "contributions": [
+      ]
     }
   ],
   "contributorsPerLine": 7,

@@ -32,7 +32,7 @@ func Test_display_content(t *testing.T) {
 			descriptionWanted: "[]Saturday, Apr 19\n  []01:00 []Foo[white]\n   \n",
 		},
 		{
-			name:              "Event content with a single event without showEndTime explictily set in settings",
+			name:              "Event content with a single event without showEndTime explicitly set in settings",
 			settings:          &Settings{Common: &cfg.Common{}},
 			events:            []*CalEvent{NewCalEvent(event)},
 			descriptionWanted: "[]Saturday, Apr 19\n  []01:00 []Foo[white]\n   \n",
