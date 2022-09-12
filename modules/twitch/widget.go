@@ -3,6 +3,7 @@ package twitch
 import (
 	"errors"
 	"fmt"
+	"os/exec"
 
 	helix "github.com/nicklaw5/helix/v2"
 	"github.com/rivo/tview"
@@ -159,5 +160,15 @@ func (widget *Widget) openTwitch() {
 		stream := widget.topStreams[sel]
 		fullLink := "https://twitch.com/" + stream.Streamer
 		utils.OpenFile(fullLink)
+	}
+}
+
+func (widget *Widget) openStreamlink() {
+	sel := widget.GetSelected()
+	if sel >= 0 && widget.topStreams != nil && sel < len(widget.topStreams) {
+		stream := widget.topStreams[sel]
+		fullLink := "https://twitch.tv/" + stream.Streamer
+		cmd := exec.Command("streamlink", fullLink, "best")
+		cmd.Start()
 	}
 }
