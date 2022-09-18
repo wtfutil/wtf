@@ -1,12 +1,12 @@
 package mempool
 
 import (
-	"encoding/json"
 	"fmt"
 	"net/http"
 
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/logger"
+	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/view"
 )
 
@@ -26,40 +26,29 @@ func NewWidget(tviewApp *tview.Application, redrawChan chan bool, pages *tview.P
 	return &widget
 }
 
+type feeStruct struct {
+	FastFee     int `json:"fastestFee"`
+	HalfHourFee int `json:"halfHourFee"`
+	HourFee     int `json:"hourFee"`
+	EcoFee      int `json:"economyFee"`
+}
+
 /* -------------------- Exported Functions -------------------- */
 
 // Refresh updates the onscreen contents of the widget
 func (widget *Widget) Refresh() {
-
 	// The last call should always be to the display function
 	widget.display()
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
-type feeStruct struct {
-	FastFee     int `json:"fastestFee"`
-	HalfHourFee int `json:"halfHourFee"`
-	HourFee     int `json:"hourFee"`
-	EcoFee      int `json:"economyFee"`
-	MinFee      int `json:"minimumFee"`
-}
-
-// {
-// 	fastestFee: 14,
-// 	halfHourFee: 1,
-// 	hourFee: 1,
-// 	economyFee: 1,
-// 	minimumFee: 1
-// }
-
 func (widget *Widget) content() string {
-	// var fees map[string]interface{}
-	return callAPI()
+	return getBTCTxFees()
 }
 
-func callAPI() string {
-	url := "https://mempool.space/api/v1/fees/recommendeddd"
+func getBTCTxFees() string {
+	url := "https://mempool.space/api/v1/fees/recommended"
 	resp, err := http.Get(url)
 	if err != nil {
 		logger.Log(fmt.Sprintf("Failed to make request to mempool. ERROR: %s", err))
@@ -67,20 +56,20 @@ func callAPI() string {
 	}
 	defer resp.Body.Close()
 
-	// var parsed feeStruct
-	// body, err := io.ReadAll(resp.Body)
-	// newErr := json.Unmarshal(body, &parsed)
-
 	parsed := feeStruct{}
-	err = json.NewDecoder(resp.Body).Decode(&parsed)
+	err = utils.ParseJSON(&parsed, resp.Body)
 	if err != nil {
-		logger.Log(fmt.Sprintf("Failed to make decode JSON data from mempool. ERROR: %s", err))
+		logger.Log(fmt.Sprintf("Failed to decode JSON data from mempool. ERROR: %s", err))
 		return "ERROR"
 	}
-	// decoder := json.NewDecoder(resp.Body)
-	// err = decoder.Decode(&jsonResponse)
-	// log.Fatal(parsed.EcoFee)
-	return fmt.Sprint(parsed.EcoFee)
+
+	finalStr := ""
+	finalStr += fmt.Sprintf("%-7s %2d sat/vB\n", "Fast", parsed.FastFee)
+	finalStr += fmt.Sprintf("%-7s %2d sat/vB\n", "30 min", parsed.HalfHourFee)
+	finalStr += fmt.Sprintf("%-7s %2d sat/vB\n", "60 min", parsed.HourFee)
+	finalStr += fmt.Sprintf("%-7s %2d sat/vB\n", "Eco", parsed.EcoFee)
+
+	return finalStr
 }
 
 func (widget *Widget) display() {
