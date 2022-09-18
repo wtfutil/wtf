@@ -47,6 +47,7 @@ import (
 	"github.com/wtfutil/wtf/modules/kubernetes"
 	"github.com/wtfutil/wtf/modules/logger"
 	"github.com/wtfutil/wtf/modules/mercurial"
+	"github.com/wtfutil/wtf/modules/mempool"
 	"github.com/wtfutil/wtf/modules/nbascore"
 	"github.com/wtfutil/wtf/modules/newrelic"
 	"github.com/wtfutil/wtf/modules/opsgenie"
@@ -243,6 +244,9 @@ func MakeWidget(
 	case "mercurial":
 		settings := mercurial.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = mercurial.NewWidget(tviewApp, redrawChan, pages, settings)
+	case "mempool":
+		settings := mempool.NewSettingsFromYAML(moduleName, moduleConfig, config)
+		widget = mempool.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "nbascore":
 		settings := nbascore.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = nbascore.NewWidget(tviewApp, redrawChan, pages, settings)
