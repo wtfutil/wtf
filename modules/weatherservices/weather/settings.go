@@ -25,6 +25,7 @@ type Settings struct {
 	language string
 	tempUnit string
 	useEmoji bool
+	compact  bool
 }
 
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
@@ -36,6 +37,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		language: ymlConfig.UString("language", "EN"),
 		tempUnit: ymlConfig.UString("tempUnit", "C"),
 		useEmoji: ymlConfig.UBool("useEmoji", true),
+		compact:  ymlConfig.UBool("compact", false),
 	}
 
 	settings.SetDocumentationPath("weather_services/weather/")

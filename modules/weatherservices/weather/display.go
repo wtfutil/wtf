@@ -36,10 +36,17 @@ func (widget *Widget) content() (string, string, bool) {
 		setWrap = true
 		content = err
 	} else {
+
 		title = widget.buildTitle(cityData)
 		_, _, width, _ := widget.View.GetRect()
 		content = widget.settings.PaginationMarker(len(widget.Data), widget.Idx, width) + "\n"
-		content += widget.description(cityData) + "\n\n"
+
+		if widget.settings.compact {
+			content += widget.description(cityData) + "\n"
+		} else {
+			content += widget.description(cityData) + "\n\n"
+		}
+
 		content += widget.temperatures(cityData) + "\n"
 		content += widget.sunInfo(cityData)
 	}
@@ -57,11 +64,17 @@ func (widget *Widget) description(cityData *owm.CurrentWeatherData) string {
 }
 
 func (widget *Widget) sunInfo(cityData *owm.CurrentWeatherData) string {
-	return fmt.Sprintf(
-		" Rise: %s   Set: %s",
-		wtf.UnixTime(int64(cityData.Sys.Sunrise)).Format("15:04 MST"),
-		wtf.UnixTime(int64(cityData.Sys.Sunset)).Format("15:04 MST"),
-	)
+
+	sunriseTime := wtf.UnixTime(int64(cityData.Sys.Sunrise))
+	sunsetTime := wtf.UnixTime(int64(cityData.Sys.Sunset))
+
+	renderStr := fmt.Sprintf(" Rise: %s   Set: %s", sunriseTime.Format("15:04 MST"), sunsetTime.Format("15:04 MST"))
+
+	if widget.settings.compact {
+		renderStr = fmt.Sprintf(" Sun: %s / %s", sunriseTime.Format("15:04"), sunsetTime.Format("15:04"))
+	}
+
+	return renderStr
 }
 
 func (widget *Widget) temperatures(cityData *owm.CurrentWeatherData) string {
@@ -75,7 +88,11 @@ func (widget *Widget) temperatures(cityData *owm.CurrentWeatherData) string {
 		widget.settings.tempUnit,
 	)
 
-	str += fmt.Sprintf("%8s: %4.1f° %s\n", "Low", cityData.Main.TempMin, widget.settings.tempUnit)
+	if widget.settings.compact {
+		str += fmt.Sprintf("%8s: %4.1f° %s", "Low", cityData.Main.TempMin, widget.settings.tempUnit)
+	} else {
+		str += fmt.Sprintf("%8s: %4.1f° %s\n", "Low", cityData.Main.TempMin, widget.settings.tempUnit)
+	}
 
 	return str
 }
