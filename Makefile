@@ -42,6 +42,12 @@ export HEADER
 # -------------------- Actions -------------------- #
 
 ## build: builds a local version
+buildarm:
+	@echo "$$HEADER"
+	@echo "Building..."
+	env GOOS=linux GOARCH=arm GOARM=6 go build -o bin/${APP}
+	@echo "Done building"
+
 build:
 	@echo "$$HEADER"
 	@echo "Building..."
