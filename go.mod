@@ -69,7 +69,7 @@ require (
 	k8s.io/client-go v0.24.4
 )
 
-require github.com/nicklaw5/helix/v2 v2.6.0
+require github.com/nicklaw5/helix/v2 v2.7.2
 
 require github.com/gdamore/tcell/v2 v2.4.1-0.20210905002822-f057f0a857a1
 
