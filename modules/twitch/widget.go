@@ -169,6 +169,9 @@ func (widget *Widget) openStreamlink() {
 		stream := widget.topStreams[sel]
 		fullLink := "https://twitch.tv/" + stream.Streamer
 		cmd := exec.Command("streamlink", fullLink, "best")
-		cmd.Start()
+		err := cmd.Start()
+		if err != nil {
+			handleError(widget, err)
+		}
 	}
 }
