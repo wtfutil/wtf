@@ -14,15 +14,19 @@ const (
 type Settings struct {
 	common *cfg.Common
 
-    // Define your settings attributes here
+	route  string `help:"Route Number of your bus"`
+	agency string `help:"Transit agency of your bus"`
+	stopID string `help:"Your bus stop number"`
 }
 
 // NewSettingsFromYAML creates a new settings instance from a YAML config block
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 	settings := Settings{
-        common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
+		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 
-        // Configure your settings attributes here. See http://github.com/olebedev/config for type details
+		route:  ymlConfig.UString("route"),
+		agency: ymlConfig.UString("agency"),
+		stopID: ymlConfig.UString("stopID"),
 	}
 
 	return &settings
