@@ -52,8 +52,11 @@ func getColon() string {
 	return " "
 }
 
-func getDate() string {
-	return fmt.Sprintf("Date: %s", time.Now().Format("Monday January 02 2006"))
+func getDate(dateFormat string, withDatePrefix bool) string {
+	if withDatePrefix {
+		return fmt.Sprintf("Date: %s", time.Now().Format(dateFormat))
+	}
+	return time.Now().Format(dateFormat)
 }
 
 func getUTC() string {

@@ -17,7 +17,7 @@ func renderWidget(widgetSettings Settings) string {
 	}
 
 	if widgetSettings.withDate {
-		outputStrings = append(outputStrings, getDate(), getUTC(), getEpoch())
+		outputStrings = append(outputStrings, getDate(widgetSettings.dateFormat, widgetSettings.withDatePrefix), getUTC(), getEpoch())
 	}
 
 	return mergeLines(outputStrings)
