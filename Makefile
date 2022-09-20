@@ -160,7 +160,7 @@ loc:
 ## run: executes the locally-installed version
 run: build
 	@echo "$$HEADER"
-	bin/${APP} --config=config.yml
+	bin/${APP}
 
 ## test: runs the test suite
 test: build
