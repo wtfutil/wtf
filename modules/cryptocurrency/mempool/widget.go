@@ -51,16 +51,16 @@ func getBTCTxFees() string {
 	url := "https://mempool.space/api/v1/fees/recommended"
 	resp, err := http.Get(url)
 	if err != nil {
-		logger.Log(fmt.Sprintf("Failed to make request to mempool. ERROR: %s", err))
-		return "ERROR"
+		logger.Log(fmt.Sprintf("[mempool] Error: Failed to make request to mempool. Reason: %s", err))
+		return "[mempool] error callng mempool API"
 	}
 	defer resp.Body.Close()
 
 	parsed := feeStruct{}
 	err = utils.ParseJSON(&parsed, resp.Body)
 	if err != nil {
-		logger.Log(fmt.Sprintf("Failed to decode JSON data from mempool. ERROR: %s", err))
-		return "ERROR"
+		logger.Log(fmt.Sprintf("[mempool] Error: Failed to decode JSON data from mempool. Reason: %s", err))
+		return "[mempool] error parsing JSON from mempool API"
 	}
 
 	finalStr := ""
