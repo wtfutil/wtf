@@ -49,6 +49,7 @@ import (
 	"github.com/wtfutil/wtf/modules/mercurial"
 	"github.com/wtfutil/wtf/modules/nbascore"
 	"github.com/wtfutil/wtf/modules/newrelic"
+	"github.com/wtfutil/wtf/modules/nextbus"
 	"github.com/wtfutil/wtf/modules/opsgenie"
 	"github.com/wtfutil/wtf/modules/pagerduty"
 	"github.com/wtfutil/wtf/modules/pihole"
@@ -249,6 +250,9 @@ func MakeWidget(
 	case "newrelic":
 		settings := newrelic.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = newrelic.NewWidget(tviewApp, redrawChan, pages, settings)
+	case "nextbus":
+		settings := nextbus.NewSettingsFromYAML(moduleName, moduleConfig, config)
+		widget = nextbus.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "opsgenie":
 		settings := opsgenie.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = opsgenie.NewWidget(tviewApp, redrawChan, settings)
