@@ -34,7 +34,6 @@ func NewWidget(tviewApp *tview.Application, redrawChan chan bool, pages *tview.P
 
 // Refresh updates the onscreen contents of the widget
 func (widget *Widget) Refresh() {
-
 	// The last call should always be to the display function
 	widget.display()
 }
@@ -81,12 +80,14 @@ func getNextBus(route string, stopID string) string {
 	url := fmt.Sprintf("https://webservices.umoiq.com/service/publicJSONFeed?command=predictions&a=%s&stopId=%s", route, stopID)
 	resp, err := http.Get(url)
 	if err != nil {
+		// TODO: add log msg
 		logger.Log(fmt.Sprintf("Failed to make request to TTC. ERROR: %s", err))
 		return "ERROR REQ"
 	}
 	body, readErr := io.ReadAll(resp.Body)
 
 	if (readErr) != nil {
+		// TODO: add log msg
 		return "ERROR"
 	}
 
@@ -97,6 +98,7 @@ func getNextBus(route string, stopID string) string {
 	// partial unmarshal, we don't have r.Predictions.Direction.PredictionRaw <- YET
 	unmarshalError := json.Unmarshal(body, &parsedResponse)
 	if unmarshalError != nil {
+		// TODO: add log msg
 		log.Fatal(err)
 	}
 
@@ -113,20 +115,20 @@ func getNextBus(route string, stopID string) string {
 		parseType = "array"
 	}
 
-	//
 	// build the final string
 	finalStr := ""
 	if parseType == "array" {
 		for _, itm := range items {
+			// TODO: move to functions
 			seconds, _ := strconv.Atoi(itm.Seconds)
 			minutes, _ := strconv.Atoi(itm.Minutes)
 			seconds = seconds % 60
 			finalStr += fmt.Sprintf("%s [%02d:%02d] Bus: %s\n", parsedResponse.Predictions.RouteTitle, minutes, seconds, itm.Vehicle)
 		}
 	} else {
+		// TODO: move to functions
 		seconds, _ := strconv.Atoi(item.Seconds)
 		minutes, _ := strconv.Atoi(item.Minutes)
-
 		seconds = seconds % 60
 		finalStr += fmt.Sprintf("%s [%02d:%02d] Bus: %s\n", parsedResponse.Predictions.RouteTitle, minutes, seconds, item.Vehicle)
 	}
