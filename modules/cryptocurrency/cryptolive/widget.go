@@ -5,8 +5,8 @@ import (
 	"sync"
 
 	"github.com/rivo/tview"
-	"github.com/wtfutil/wtf/modules/cryptoexchanges/cryptolive/price"
-	"github.com/wtfutil/wtf/modules/cryptoexchanges/cryptolive/toplist"
+	"github.com/wtfutil/wtf/modules/cryptocurrency/cryptolive/price"
+	"github.com/wtfutil/wtf/modules/cryptocurrency/cryptolive/toplist"
 	"github.com/wtfutil/wtf/view"
 )
 
