@@ -16,7 +16,7 @@ require (
 	github.com/cenkalti/backoff v2.2.1+incompatible // indirect
 	github.com/chzyer/readline v0.0.0-20180603132655-2972be24d48e
 	github.com/creack/pty v1.1.18
-	github.com/digitalocean/godo v1.84.1
+	github.com/digitalocean/godo v1.85.0
 	github.com/docker/distribution v2.8.1+incompatible // indirect
 	github.com/docker/docker v20.10.17+incompatible
 	github.com/docker/docker-credential-helpers v0.6.4
@@ -190,7 +190,7 @@ require (
 	go.uber.org/multierr v1.5.0 // indirect
 	go.uber.org/zap v1.16.0 // indirect
 	golang.org/x/crypto v0.0.0-20220315160706-3147a52a75dd // indirect
-	golang.org/x/net v0.0.0-20220909164309-bea034e7d591 // indirect
+	golang.org/x/net v0.0.0-20220921155015-db77216a4ee9 // indirect
 	golang.org/x/term v0.0.0-20210927222741-03fcf44c2211 // indirect
 	golang.org/x/time v0.0.0-20220722155302-e5dcc9cfc0b9 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
