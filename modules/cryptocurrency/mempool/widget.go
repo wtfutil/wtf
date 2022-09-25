@@ -43,7 +43,7 @@ func (widget *Widget) Refresh() {
 
 /* -------------------- Unexported Functions -------------------- */
 
-func content() string {
+func (widget *Widget) content() string {
 	return getBTCTxFees()
 }
 
