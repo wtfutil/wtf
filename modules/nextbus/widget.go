@@ -117,10 +117,10 @@ func getNextBus(agency string, route string, stopID string) string {
 	finalStr := ""
 	if parseType == "array" {
 		for _, nextBus := range nextBuses {
-			finalStr += fmt.Sprintf("%s | ETA [%s] | Veh # %s\n", parsedResponse.Predictions.RouteTitle, strTimeToInt(nextBus.Minutes, nextBus.Seconds), nextBus.Vehicle)
+			finalStr += fmt.Sprintf("%s | ETA [%s]", parsedResponse.Predictions.RouteTitle, strTimeToInt(nextBus.Minutes, nextBus.Seconds))
 		}
 	} else {
-		finalStr += fmt.Sprintf("%s | ETA [%s] | Veh # %s\n", parsedResponse.Predictions.RouteTitle, strTimeToInt(nextBusObject.Minutes, nextBusObject.Seconds), nextBusObject.Vehicle)
+		finalStr += fmt.Sprintf("%s | ETA [%s]", parsedResponse.Predictions.RouteTitle, strTimeToInt(nextBusObject.Minutes, nextBusObject.Seconds))
 	}
 
 	return finalStr
