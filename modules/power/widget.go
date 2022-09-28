@@ -71,8 +71,13 @@ func (widget *Widget) content() (string, string, bool) {
 		if manDev.HasBattery() {
 			percent := utils.ColorizePercent(float64(manDev.BatteryPercent()))
 
-			content += fmt.Sprintf(" %s: %s", manDev.Product()[:productNameTrimLen], percent)
-			content += "\n"
+			prodName := manDev.Product()
+
+			if len(prodName) > productNameTrimLen {
+				prodName = prodName[:productNameTrimLen]
+			}
+
+			content += fmt.Sprintf(" %s: %s\n", prodName, percent)
 		}
 	}
 
