@@ -3,7 +3,6 @@ package urlcheck
 // Example config
 //
 // urlcheck:
-// 	timeout: 1
 // 	urls:
 // 		- pli.ski
 // 		- www.pli.ski
@@ -15,8 +14,8 @@ package urlcheck
 // 		left: 0
 // 		height: 2
 // 		width: 3
-// 	refreshInterval: 40
-// 	enabled: true
+// 	timeout: 25
+// 	refreshInterval: 30
 
 import (
 	"github.com/olebedev/config"

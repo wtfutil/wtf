@@ -10,6 +10,8 @@ import (
 	"github.com/wtfutil/wtf/logger"
 )
 
+// Prepare the shared client for the requestes of the urls
+// TODO: this could be a method of widget setting its own property
 func GetClient() *http.Client {
 
 	// Client
@@ -20,8 +22,10 @@ func GetClient() *http.Client {
 	return client
 }
 
+// Perform the requet of the heqder for a given URL
 func DoRequest(urlRequest string, timeout time.Duration, client *http.Client) (int, string) {
-	// Context
+
+	// Define a Context with the timeout for the request
 	ctx, cancel := context.WithTimeout(context.Background(), timeout)
 	defer cancel()
 

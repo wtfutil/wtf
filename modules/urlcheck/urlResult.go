@@ -6,6 +6,7 @@ import (
 
 const InvalidResultCode = 999
 
+// Collect useful properties of each given URL
 type urlResult struct {
 	Url           string
 	ResultCode    int
@@ -13,6 +14,7 @@ type urlResult struct {
 	IsValid       bool
 }
 
+// Create a UrlResult instance from an urls occurence in the settings
 func newUrlResult(urlString string) *urlResult {
 
 	uResult := urlResult{
