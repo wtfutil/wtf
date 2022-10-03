@@ -1,22 +1,5 @@
 package urlcheck
 
-// Example config
-//
-// urlcheck:
-// 	urls:
-// 		- pli.ski
-// 		- www.pli.ski
-// 		- http://www.pli.ski
-// 		- http://www.nope.nope
-// 		- https://httpbin.org/status/500
-// 	position:
-// 		top: 0
-// 		left: 0
-// 		height: 2
-// 		width: 3
-// 	timeout: 25
-// 	refreshInterval: 30
-
 import (
 	"github.com/olebedev/config"
 	"github.com/wtfutil/wtf/cfg"
@@ -31,7 +14,7 @@ type Settings struct {
 	Common *cfg.Common
 
 	requestTimeout int      `help:"Max Request duration in seconds"`
-	urls           []string `help:"A list of url to check"`
+	urls           []string `help:"A list of URL to check"`
 }
 
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
