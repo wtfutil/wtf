@@ -29,7 +29,7 @@ require (
 	github.com/google/go-github/v32 v32.1.0
 	github.com/hekmon/cunits v2.0.1+incompatible // indirect
 	github.com/hekmon/transmissionrpc v0.0.0-20190525133028-1d589625bacd
-	github.com/jedib0t/go-pretty/v6 v6.3.7
+	github.com/jedib0t/go-pretty/v6 v6.3.9
 	github.com/jessevdk/go-flags v1.5.0
 	github.com/logrusorgru/aurora v0.0.0-20190803045625-94edacc10f9b
 	github.com/microsoft/azure-devops-go-api/azuredevops v0.0.0-20191014190507-26902c1d4325
