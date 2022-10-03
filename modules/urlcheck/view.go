@@ -13,7 +13,7 @@ func (widget *Widget) PrepareTemplate() {
 	textColor := fmt.Sprintf(" [%s]", widget.settings.Common.Colors.Text)
 	labelColor := fmt.Sprintf(" [%s]", widget.settings.Common.Colors.Label)
 
-	widget.templateString = "{{range .}}" +
+	widget.templateString = "{{range .}} " +
 		"{{. | getResultColor}}" +
 		"[{{if eq .ResultCode 999}}---{{else}}{{.ResultCode}}{{end}}]" +
 		textColor + "{{.Url}}" +
