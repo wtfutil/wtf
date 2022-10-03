@@ -29,11 +29,10 @@ func NewWidget(tviewApp *tview.Application, redrawChan chan bool, settings *Sett
 
 		settings: settings,
 		urlList:  make([]*urlResult, maxUrl),
-		client:   GetClient(),
+		client:   &http.Client{},
 		timeout:  time.Duration(settings.requestTimeout) + time.Second,
 	}
 
-	widget.PrepareTemplate()
 	widget.init()
 	widget.View.SetWrap(false)
 
@@ -52,6 +51,10 @@ func (widget *Widget) Refresh() {
 
 // The string passed from the settings are checked and prepared for processing
 func (widget *Widget) init() {
+
+	// Prepare the template for the results
+	widget.PrepareTemplate()
+
 	for i, urlString := range widget.settings.urls {
 		widget.urlList[i] = newUrlResult(urlString)
 	}

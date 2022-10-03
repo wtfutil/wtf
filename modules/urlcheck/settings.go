@@ -7,7 +7,7 @@ import (
 
 const (
 	defaultFocusable = false
-	defaultTitle     = "urlcheck"
+	defaultTitle     = "URLcheck"
 )
 
 type Settings struct {
