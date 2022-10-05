@@ -11,6 +11,7 @@
 * "compact" option added to [Weather module](https://wtfutil.com/modules/weather_services/weather/) by [@Bizzaro](https://github.com/Bizzaro)
 * Mempool cryptocurrency module by [@Bizzaro](https://github.com/Bizzaro)
 * [Nextbus module](http://nextbus.com) added by [@Bizzaro](https://github.com/Bizzaro)
+* URLCheck module added by [@pliski](https://github.com/pliski)
 
 ### 🐞 Fixed
 
