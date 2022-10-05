@@ -12,6 +12,7 @@
 * Mempool cryptocurrency module by [@Bizzaro](https://github.com/Bizzaro)
 * [Nextbus module](http://nextbus.com) added by [@Bizzaro](https://github.com/Bizzaro)
 * URLCheck module added by [@pliski](https://github.com/pliski)
+* Twitch modules added by [@zyrre](https://github.com/zyrre)
 
 ### 🐞 Fixed
 
