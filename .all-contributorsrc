@@ -1268,6 +1268,15 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/10475262?v=4",
       "profile": "https://github.com/Bizzaro",
       "contributions": []
+    },
+    {
+      "login": "pliski",
+      "name": "pliski",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6731247?v=4",
+      "profile": "https://github.com/pliski",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
