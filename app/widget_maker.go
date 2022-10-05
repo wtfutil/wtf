@@ -16,9 +16,10 @@ import (
 	"github.com/wtfutil/wtf/modules/clocks"
 	"github.com/wtfutil/wtf/modules/cmdrunner"
 	"github.com/wtfutil/wtf/modules/covid"
-	"github.com/wtfutil/wtf/modules/cryptoexchanges/bittrex"
-	"github.com/wtfutil/wtf/modules/cryptoexchanges/blockfolio"
-	"github.com/wtfutil/wtf/modules/cryptoexchanges/cryptolive"
+	"github.com/wtfutil/wtf/modules/cryptocurrency/bittrex"
+	"github.com/wtfutil/wtf/modules/cryptocurrency/blockfolio"
+	"github.com/wtfutil/wtf/modules/cryptocurrency/cryptolive"
+	"github.com/wtfutil/wtf/modules/cryptocurrency/mempool"
 	"github.com/wtfutil/wtf/modules/datadog"
 	"github.com/wtfutil/wtf/modules/devto"
 	"github.com/wtfutil/wtf/modules/digitalclock"
@@ -243,6 +244,9 @@ func MakeWidget(
 	case "mercurial":
 		settings := mercurial.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = mercurial.NewWidget(tviewApp, redrawChan, pages, settings)
+	case "mempool":
+		settings := mempool.NewSettingsFromYAML(moduleName, moduleConfig, config)
+		widget = mempool.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "nbascore":
 		settings := nbascore.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = nbascore.NewWidget(tviewApp, redrawChan, pages, settings)
