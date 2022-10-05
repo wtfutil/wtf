@@ -1254,6 +1254,15 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/62157262?v=4",
       "profile": "https://github.com/dhutty-numo",
       "contributions": []
+    },
+    {
+      "login": "gliptak",
+      "name": "Gábor Lipták",
+      "avatar_url": "https://avatars.githubusercontent.com/u/50109?v=4",
+      "profile": "https://gliptak.github.io/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
