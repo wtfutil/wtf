@@ -1275,6 +1275,15 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/6731247?v=4",
       "profile": "https://github.com/pliski",
       "contributions": []
+    },
+    {
+      "login": "zyrre",
+      "name": "Peter Krantz",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2995732?v=4",
+      "profile": "https://github.com/zyrre",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
