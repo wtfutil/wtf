@@ -1282,6 +1282,15 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/2995732?v=4",
       "profile": "https://github.com/zyrre",
       "contributions": []
+    },
+    {
+      "login": "bashbunni",
+      "name": "bashbunni",
+      "avatar_url": "https://avatars.githubusercontent.com/u/15822994?v=4",
+      "profile": "https://www.youtube.com/c/bashbunni",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
