@@ -9,6 +9,7 @@
 * Working directory option for CmdRunner, [#1293](https://github.com/wtfutil/wtf/issues/1293) by [@Seanstoppable](https://github.com/Seanstoppable)
 * Updated to Go 1.18, by [@Seanstoppable](https://github.com/Seanstoppable)
 * "compact" option added to [Weather module](https://wtfutil.com/modules/weather_services/weather/) by [@Bizzaro](https://github.com/Bizzaro)
+* Mempool cryptocurrency module by [@Bizzaro](https://github.com/Bizzaro)
 
 ### 🐞 Fixed
 
