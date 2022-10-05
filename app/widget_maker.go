@@ -78,6 +78,7 @@ import (
 	"github.com/wtfutil/wtf/modules/unknown"
 	"github.com/wtfutil/wtf/modules/updown"
 	"github.com/wtfutil/wtf/modules/uptimerobot"
+	"github.com/wtfutil/wtf/modules/urlcheck"
 	"github.com/wtfutil/wtf/modules/victorops"
 	"github.com/wtfutil/wtf/modules/weatherservices/arpansagovau"
 	"github.com/wtfutil/wtf/modules/weatherservices/prettyweather"
@@ -338,6 +339,9 @@ func MakeWidget(
 	case "uptimerobot":
 		settings := uptimerobot.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = uptimerobot.NewWidget(tviewApp, redrawChan, pages, settings)
+	case "urlcheck":
+		settings := urlcheck.NewSettingsFromYAML(moduleName, moduleConfig, config)
+		widget = urlcheck.NewWidget(tviewApp, redrawChan, settings)
 	case "victorops":
 		settings := victorops.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = victorops.NewWidget(tviewApp, redrawChan, settings)
