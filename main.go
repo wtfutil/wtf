@@ -21,11 +21,6 @@ import (
 	"github.com/wtfutil/wtf/wtf"
 )
 
-var (
-	date    = "dev"
-	version = "dev"
-)
-
 /* -------------------- Main -------------------- */
 
 func main() {
@@ -41,7 +36,7 @@ func main() {
 
 	wtf.SetTerminal(config)
 
-	flags.RenderIf(version, date, config)
+	flags.RenderIf(config)
 
 	if flags.Profile {
 		defer profile.Start(profile.MemProfile).Stop()
