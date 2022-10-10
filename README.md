@@ -96,6 +96,12 @@ and you should be good to go.
 
 ### Installing from Source
 
+Install directly to your `$GOPATH/bin` directory:
+
+```bash
+go install github.com/wtfutil/wtf@latest
+```
+
 If you want to run the build command from within your `$GOPATH`:
 
 ```bash
