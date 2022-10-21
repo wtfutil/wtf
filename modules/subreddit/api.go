@@ -4,11 +4,25 @@ import (
 	"crypto/tls"
 	"fmt"
 	"net/http"
+	"runtime"
 
 	"github.com/wtfutil/wtf/utils"
 )
 
 var rootPage = "https://www.reddit.com/r/"
+
+// buildUserAgent returns user agent confirm to https://github.com/reddit-archive/reddit/wiki/API#rules
+func buildUserAgent() string {
+	platform := runtime.GOOS
+	version, _ := utils.VersionTime()
+	return fmt.Sprintf(
+		// Because no official reddit user of wtfutil is not exist,
+		// set document page URL which include contact information in the place of reddit user.
+		"%s:https://github.com/wtfutil/wtf:%s ( by https://wtfutil.com/ )",
+		platform,
+		version,
+	)
+}
 
 func GetLinks(subreddit string, sortMode string, topTimePeriod string) ([]Link, error) {
 	url := rootPage + subreddit + "/" + sortMode + ".json"
@@ -21,7 +35,7 @@ func GetLinks(subreddit string, sortMode string, topTimePeriod string) ([]Link, 
 		return nil, err
 	}
 
-	request.Header.Set("User-Agent", "wtfutil (https://github.com/wtfutil/wtf)")
+	request.Header.Set("User-Agent", buildUserAgent())
 
 	// See https://www.reddit.com/r/redditdev/comments/t8e8hc/comment/i18yga2/?utm_source=share&utm_medium=web2x&context=3
 	client := &http.Client{

@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
-	"runtime/debug"
 	"strings"
 
 	"github.com/chzyer/readline"
@@ -12,6 +11,7 @@ import (
 	"github.com/olebedev/config"
 	"github.com/wtfutil/wtf/cfg"
 	"github.com/wtfutil/wtf/help"
+	"github.com/wtfutil/wtf/utils"
 )
 
 // Flags is the container for command line flag data
@@ -62,17 +62,8 @@ func (flags *Flags) RenderIf(config *config.Config) {
 	}
 
 	if flags.HasVersion() {
-		info, _ := debug.ReadBuildInfo()
-		version := "dev"
-		date := "now"
-		for _, setting := range info.Settings {
-			if setting.Key == "vcs.revision" {
-				version = setting.Value
-			} else if setting.Key == "vcs.time" {
-				date = setting.Value
-			}
-		}
-		fmt.Printf("%s (%s)\n", version, date)
+		version, time := utils.VersionTime()
+		fmt.Printf("%s (%s)\n", version, time)
 		os.Exit(0)
 	}
 
