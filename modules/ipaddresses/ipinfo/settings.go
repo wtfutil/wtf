@@ -1,7 +1,6 @@
 package ipinfo
 
 import (
-	"errors"
 	"fmt"
 	"github.com/olebedev/config"
 	"github.com/wtfutil/wtf/cfg"
@@ -38,7 +37,7 @@ func newProtocolVersion(str string) (protocolVersion, error) {
 	case "auto":
 		return auto, nil
 	default:
-		return "", errors.New(fmt.Sprintf("%s module: Unsupported protocol version: '%s'", defaultTitle, str))
+		return "", fmt.Errorf("%s module: Unsupported protocol version: '%s'", defaultTitle, str)
 	}
 }
 
