@@ -20,7 +20,7 @@ func TestTimeout(t *testing.T) {
 		Timeout: time.Millisecond * 10,
 	}
 
-	timeout := time.Duration(1 * time.Microsecond)
+	timeout := 1 * time.Microsecond
 	statusCode, statusMsg := DoRequest(ts.URL, timeout, client)
 
 	assert.Equal(t, 999, statusCode)
