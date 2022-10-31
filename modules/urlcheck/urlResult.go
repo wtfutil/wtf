@@ -21,16 +21,9 @@ func newUrlResult(urlString string) *urlResult {
 		Url: urlString,
 	}
 
-	if len(urlString) == 0 {
-		uResult.ResultMessage = "Empty url"
-		uResult.ResultCode = InvalidResultCode
-		uResult.IsValid = false
-		return &uResult
-	}
-
 	_, err := url.ParseRequestURI(urlString)
 	if err != nil {
-		uResult.ResultMessage = "Invalid url"
+		uResult.ResultMessage = err.Error()
 		uResult.ResultCode = InvalidResultCode
 		uResult.IsValid = false
 		return &uResult
