@@ -151,7 +151,7 @@ func (widget *Widget) gitRepos(repoPaths []string) []*GitRepo {
 	repos := []*GitRepo{}
 
 	for _, repoPath := range repoPaths {
-		if strings.HasSuffix(repoPath, "/") {
+		if strings.HasSuffix(repoPath, __path_seperator) {
 			repos = append(repos, widget.findGitRepositories(make([]*GitRepo, 0), repoPath)...)
 
 		} else {
@@ -170,7 +170,7 @@ func (widget *Widget) gitRepos(repoPaths []string) []*GitRepo {
 }
 
 func (widget *Widget) findGitRepositories(repositories []*GitRepo, directory string) []*GitRepo {
-	directory = strings.TrimSuffix(directory, "/")
+	directory = strings.TrimSuffix(directory, __path_seperator)
 
 	files, err := os.ReadDir(directory)
 	if err != nil {
@@ -181,10 +181,10 @@ func (widget *Widget) findGitRepositories(repositories []*GitRepo, directory str
 
 	for _, file := range files {
 		if file.IsDir() {
-			path = directory + "/" + file.Name()
+			path = directory + __path_seperator + file.Name()
 
 			if file.Name() == ".git" {
-				path = strings.TrimSuffix(path, "/.git")
+				path = strings.TrimSuffix(path, __path_seperator+".git")
 
 				repo := NewGitRepo(
 					path,
