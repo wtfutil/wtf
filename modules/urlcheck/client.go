@@ -10,7 +10,7 @@ import (
 	"github.com/wtfutil/wtf/logger"
 )
 
-// Perform the requet of the heqder for a given URL
+// Perform the requet of the header for a given URL
 func DoRequest(urlRequest string, timeout time.Duration, client *http.Client) (int, string) {
 
 	// Define a Context with the timeout for the request
