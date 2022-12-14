@@ -32,7 +32,7 @@ func NewGitRepo(repoPath string, commitCount int, commitFormat, dateFormat strin
 func (repo *GitRepo) branch() string {
 	arg := []string{repo.gitDir(), repo.workTree(), "rev-parse", "--abbrev-ref", "HEAD"}
 
-	cmd := exec.Command("git", arg...)
+	cmd := exec.Command(__go_cmd, arg...)
 	str := utils.ExecuteCommand(cmd)
 
 	return str
@@ -41,7 +41,7 @@ func (repo *GitRepo) branch() string {
 func (repo *GitRepo) changedFiles() []string {
 	arg := []string{repo.gitDir(), repo.workTree(), "status", "--porcelain"}
 
-	cmd := exec.Command("git", arg...)
+	cmd := exec.Command(__go_cmd, arg...)
 	str := utils.ExecuteCommand(cmd)
 
 	data := strings.Split(str, "\n")
@@ -56,7 +56,7 @@ func (repo *GitRepo) commits(commitCount int, commitFormat, dateFormat string) [
 
 	arg := []string{repo.gitDir(), repo.workTree(), "log", dateStr, numStr, commitStr}
 
-	cmd := exec.Command("git", arg...)
+	cmd := exec.Command(__go_cmd, arg...)
 	str := utils.ExecuteCommand(cmd)
 
 	data := strings.Split(str, "\n")
@@ -66,21 +66,21 @@ func (repo *GitRepo) commits(commitCount int, commitFormat, dateFormat string) [
 
 func (repo *GitRepo) repository() string {
 	arg := []string{repo.gitDir(), repo.workTree(), "rev-parse", "--show-toplevel"}
-	cmd := exec.Command("git", arg...)
+	cmd := exec.Command(__go_cmd, arg...)
 	str := utils.ExecuteCommand(cmd)
 
 	return str
 }
 func (repo *GitRepo) pull() string {
 	arg := []string{repo.gitDir(), repo.workTree(), "pull"}
-	cmd := exec.Command("git", arg...)
+	cmd := exec.Command(__go_cmd, arg...)
 	str := utils.ExecuteCommand(cmd)
 	return str
 }
 
 func (repo *GitRepo) checkout(branch string) string {
 	arg := []string{repo.gitDir(), repo.workTree(), "checkout", branch}
-	cmd := exec.Command("git", arg...)
+	cmd := exec.Command(__go_cmd, arg...)
 	str := utils.ExecuteCommand(cmd)
 	return str
 }
