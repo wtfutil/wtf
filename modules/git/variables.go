@@ -3,5 +3,5 @@
 package git
 
 const (
-	__go_cmd         = "git"
+	__go_cmd = "git"
 )
