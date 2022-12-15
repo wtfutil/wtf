@@ -1,4 +1,4 @@
-FROM golang:1.18-alpine as build
+FROM golang:1.19-alpine as build
 
 ARG version=master
 
