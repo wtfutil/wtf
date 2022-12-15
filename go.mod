@@ -40,7 +40,7 @@ require (
 	github.com/pborman/uuid v1.2.0 // indirect
 	github.com/piquette/finance-go v1.0.0
 	github.com/pkg/errors v0.9.1
-	github.com/pkg/profile v1.6.0
+	github.com/pkg/profile v1.7.0
 	github.com/radovskyb/watcher v1.0.7
 	github.com/rivo/tview v0.0.0-20220307222120-9994674d60a8
 	github.com/shirou/gopsutil v2.21.11+incompatible
@@ -102,6 +102,7 @@ require (
 	github.com/emicklei/go-restful/v3 v3.8.0 // indirect
 	github.com/emirpasic/gods v1.12.0 // indirect
 	github.com/fatih/color v1.7.0 // indirect
+	github.com/felixge/fgprof v0.9.3 // indirect
 	github.com/fsamin/go-dump v1.0.9 // indirect
 	github.com/gdamore/encoding v1.0.0 // indirect
 	github.com/go-git/gcfg v1.5.0 // indirect
@@ -122,6 +123,7 @@ require (
 	github.com/google/go-cmp v0.5.9 // indirect
 	github.com/google/go-querystring v1.1.0 // indirect
 	github.com/google/gofuzz v1.1.0 // indirect
+	github.com/google/pprof v0.0.0-20211214055906-6f57359322fd // indirect
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/googleapis/enterprise-certificate-proxy v0.2.0 // indirect
 	github.com/googleapis/gax-go/v2 v2.7.0 // indirect
