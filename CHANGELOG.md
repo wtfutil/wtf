@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+* Added URLCheck tests by [@pliski](https://github.com/pliski)
+* Fixed Git command for usage on windows by [@ibrahim-13](https://github.com/ibrahim-13)
+* Added protocol version to IpInfo module by [@vadeg](https://github.com/vadeg)
+* Upgrade CodeQL Module by [@Seanstoppable](https://github.com/Seanstoppable) 
+* Updated to Go 1.19 by [@Seanstoppable](https://github.com/Seanstoppable)
+
 ## v0.42.0
 
 ### ⚡️ Added
