@@ -7,6 +7,7 @@ package flighty
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -72,15 +73,15 @@ type Flight struct {
 /* -------------------- OpenSky Client -------------------- */
 
 type OpenSkyClient struct {
-	username   string
-	password   string
+	// username   string
+	// password   string
 	httpClient http.Client
 }
 
 func NewOpenSkyClient(username string, password string) *OpenSkyClient {
 	client := &OpenSkyClient{
-		username: username,
-		password: password,
+		// username: username,
+		// password: password,
 		httpClient: http.Client{
 			Timeout: time.Minute * defaultTimeout,
 		},
@@ -89,45 +90,50 @@ func NewOpenSkyClient(username string, password string) *OpenSkyClient {
 	return client
 }
 
-func (client *OpenSkyClient) Flight(icao24 string, begin time.Time, end time.Time) (*FlightData, error) {
+func (client *OpenSkyClient) Flight(icao24 string, begin time.Time, end time.Time) ([]*Flight, error) {
 	request, err := client.newRequest("GET", fmt.Sprintf("%s/flights/aircraft", OpenSkyURL))
 	if err != nil {
 		return nil, err
 	}
 
-	flightData := &FlightData{}
-
 	q := request.URL.Query()
+
+	if begin.IsZero() {
+		return nil, errors.New("no begin time defined")
+	}
+	q.Set("begin", fmt.Sprintf("%v", begin.Unix()))
+
+	if end.IsZero() {
+		return nil, errors.New("no end time defined")
+	}
+	q.Set("end", fmt.Sprintf("%v", end.Unix()))
+
+	if icao24 == "" {
+		return nil, errors.New("no icao24 defined")
+	}
+	q.Set("icao24", icao24)
+
 	request.URL.RawQuery = q.Encode()
 
-	if !begin.IsZero() {
-		q.Set("begin", fmt.Sprintf("%v", begin.Unix()))
-	}
+	// panic(request.URL.String()) // The URL being called in the query
 
-	if !end.IsZero() {
-		q.Set("end", fmt.Sprintf("%v", end.Unix()))
-	}
+	flights := []*Flight{}
+	err = client.doHTTP(request, &flights)
 
-	if icao24 != "" {
-		q.Set("icao24", icao24)
-	}
-
-	err = client.doHTTP(request, &flightData)
-
-	return flightData, err
+	return flights, err
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (client *OpenSkyClient) newRequest(method string, apiURL string) (*http.Request, error) {
-	request, err := http.NewRequest(method, apiURL, nil)
+func (client *OpenSkyClient) newRequest(method string, url string) (*http.Request, error) {
+	request, err := http.NewRequest(method, url, nil)
 	if err != nil {
 		return request, err
 	}
 
-	if request != nil && client.username != "" && client.password != "" {
-		request.SetBasicAuth(client.username, client.password)
-	}
+	// if request != nil && client.username != "" && client.password != "" {
+	// 	request.SetBasicAuth(client.username, client.password)
+	// }
 
 	return request, nil
 }
@@ -151,6 +157,7 @@ func (client *OpenSkyClient) doHTTP(request *http.Request, responseObject interf
 	if resp.StatusCode != http.StatusOK {
 		return fmt.Errorf("%d: %v", resp.StatusCode, string(body))
 	}
+
 	// Parse JSON
 	err = json.Unmarshal(body, responseObject)
 	if err != nil {

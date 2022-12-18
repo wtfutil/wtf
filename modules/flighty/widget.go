@@ -1,6 +1,8 @@
 package flighty
 
 import (
+	"time"
+
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/view"
 )
@@ -9,8 +11,9 @@ type Widget struct {
 	view.MultiSourceWidget
 	view.TextWidget
 
-	Data []*FlightData
+	Data []*Flight
 
+	client   *OpenSkyClient
 	pages    *tview.Pages
 	settings *Settings
 }
@@ -20,6 +23,7 @@ func NewWidget(tviewApp *tview.Application, redrawChan chan bool, pages *tview.P
 		MultiSourceWidget: view.NewMultiSourceWidget(settings.Common, "", "aircraft"),
 		TextWidget:        view.NewTextWidget(tviewApp, redrawChan, pages, settings.Common),
 
+		client:   NewOpenSkyClient("", ""),
 		pages:    pages,
 		settings: settings,
 	}
@@ -33,44 +37,43 @@ func NewWidget(tviewApp *tview.Application, redrawChan chan bool, pages *tview.P
 
 /* -------------------- Exported Functions -------------------- */
 
-func (widget *Widget) Fetch(aircraft []string) []*FlightData {
-	data := []*FlightData{}
+func (widget *Widget) Fetch(aircraft []string) ([]*Flight, error) {
+	data := []*Flight{}
+
+	yesterday := time.Now().Add(-24 * time.Hour)
+	today := time.Now()
 
 	for _, plane := range aircraft {
-		result, err := widget.flightData(plane)
-		if err == nil {
-			data = append(data, result)
+		result, _ := widget.client.Flight(plane, yesterday, today)
+		for _, d := range result {
+			data = append(data, d)
 		}
 	}
 
-	return data
+	return data, nil
 }
 
-// Refresh fetches new data from the OpenWeatherMap API and loads the new data into the.
-// widget's view for rendering
 func (widget *Widget) Refresh() {
-	if widget.authenticationCredentialsValid() {
-		widget.Data = widget.Fetch(widget.settings.aircraft)
+	// if widget.authenticationCredentialsValid() {
+	data, err := widget.Fetch(widget.settings.aircraft)
+	if err == nil {
+		widget.Data = data
 	}
+	// }
 
 	widget.display()
 }
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (widget *Widget) authenticationCredentialsValid() bool {
-	if widget.settings.username == "" {
-		return false
-	}
+// func (widget *Widget) authenticationCredentialsValid() bool {
+// 	if widget.settings.username == "" {
+// 		return false
+// 	}
 
-	if len(widget.settings.password) != 32 {
-		return false
-	}
+// 	if widget.settings.password == "" {
+// 		return false
+// 	}
 
-	return true
-}
-
-func (widget *Widget) flightData(aircraft string) (*FlightData, error) {
-	flightData, err := NewFlightData(aircraft)
-	return flightData, err
-}
+// 	return true
+// }
