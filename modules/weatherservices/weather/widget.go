@@ -12,7 +12,6 @@ type Widget struct {
 	view.MultiSourceWidget
 	view.TextWidget
 
-	// APIKey   string
 	Data []*owm.CurrentWeatherData
 
 	pages    *tview.Pages

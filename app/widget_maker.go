@@ -26,6 +26,7 @@ import (
 	"github.com/wtfutil/wtf/modules/digitalocean"
 	"github.com/wtfutil/wtf/modules/docker"
 	"github.com/wtfutil/wtf/modules/feedreader"
+	"github.com/wtfutil/wtf/modules/flighty"
 	"github.com/wtfutil/wtf/modules/football"
 	"github.com/wtfutil/wtf/modules/gcal"
 	"github.com/wtfutil/wtf/modules/gerrit"
@@ -180,6 +181,9 @@ func MakeWidget(
 	case "feedreader":
 		settings := feedreader.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = feedreader.NewWidget(tviewApp, redrawChan, pages, settings)
+	case "flighty":
+		settings := flighty.NewSettingsFromYAML(moduleName, moduleConfig, config)
+		widget = flighty.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "football":
 		settings := football.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = football.NewWidget(tviewApp, redrawChan, pages, settings)
