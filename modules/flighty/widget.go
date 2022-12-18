@@ -45,35 +45,17 @@ func (widget *Widget) Fetch(aircraft []string) ([]*Flight, error) {
 
 	for _, plane := range aircraft {
 		result, _ := widget.client.Flight(plane, yesterday, today)
-		for _, d := range result {
-			data = append(data, d)
-		}
+		data = append(data, result...)
 	}
 
 	return data, nil
 }
 
 func (widget *Widget) Refresh() {
-	// if widget.authenticationCredentialsValid() {
 	data, err := widget.Fetch(widget.settings.aircraft)
 	if err == nil {
 		widget.Data = data
 	}
-	// }
 
 	widget.display()
 }
-
-/* -------------------- Unexported Functions -------------------- */
-
-// func (widget *Widget) authenticationCredentialsValid() bool {
-// 	if widget.settings.username == "" {
-// 		return false
-// 	}
-
-// 	if widget.settings.password == "" {
-// 		return false
-// 	}
-
-// 	return true
-// }

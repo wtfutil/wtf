@@ -27,16 +27,6 @@ type UnixTime struct {
 	time.Time
 }
 
-// Helper function for generating a UnixTime struct from a unix timestamp.
-func newUnixTime(sec int64) UnixTime {
-	return UnixTime{time.Unix(sec, 0)}
-}
-
-// Helper function for generating a pointer to UnixTime struct from a unix timestamp.
-func newUnixTimeP(sec int64) *UnixTime {
-	return &UnixTime{time.Unix(sec, 0)}
-}
-
 func (t *UnixTime) UnmarshalJSON(s []byte) error {
 	raw := string(s)
 	if raw == "null" {
@@ -73,15 +63,15 @@ type Flight struct {
 /* -------------------- OpenSky Client -------------------- */
 
 type OpenSkyClient struct {
-	// username   string
-	// password   string
+	username   string
+	password   string
 	httpClient http.Client
 }
 
 func NewOpenSkyClient(username string, password string) *OpenSkyClient {
 	client := &OpenSkyClient{
-		// username: username,
-		// password: password,
+		username: username,
+		password: password,
 		httpClient: http.Client{
 			Timeout: time.Minute * defaultTimeout,
 		},
@@ -131,9 +121,9 @@ func (client *OpenSkyClient) newRequest(method string, url string) (*http.Reques
 		return request, err
 	}
 
-	// if request != nil && client.username != "" && client.password != "" {
-	// 	request.SetBasicAuth(client.username, client.password)
-	// }
+	if request != nil && client.username != "" && client.password != "" {
+		request.SetBasicAuth(client.username, client.password)
+	}
 
 	return request, nil
 }
