@@ -19,7 +19,7 @@ func (widget *Widget) content() (string, string, bool) {
 	return title, content, setWrap
 }
 
-func (_ *Widget) flightToString(flight *Flight) string {
+func (*Widget) flightToString(flight *Flight) string {
 	return fmt.Sprintf(
 		"%s\t%s\t%s\t%s",
 		flight.ICAO24,
