@@ -46,6 +46,7 @@ func (t *UnixTime) UnmarshalJSON(s []byte) error {
 
 // Represents a single flight of an aircraft.
 type Flight struct {
+	Owner                            string
 	ICAO24                           string   `json:"icao24"`                           // ICAO24 address of the transmitter in hex string representation.
 	FirstSeen                        UnixTime `json:"firstSeen"`                        // Estimated time of departure for the flight.
 	EstDepartureAirport              string   `json:"estDepartureAirport,omitempty"`    // ICAO code of the estimated departure airport. Can be nil if the airport could not be identified.

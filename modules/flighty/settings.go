@@ -3,7 +3,6 @@ package flighty
 import (
 	"github.com/olebedev/config"
 	"github.com/wtfutil/wtf/cfg"
-	"github.com/wtfutil/wtf/utils"
 )
 
 const (
@@ -16,7 +15,7 @@ type Settings struct {
 
 	username string
 	password string
-	aircraft []string
+	aircraft map[string]string
 }
 
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
@@ -25,10 +24,26 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 
 		username: ymlConfig.UString("authentication.username"),
 		password: ymlConfig.UString("authentication.password"),
-		aircraft: utils.ToStrs(ymlConfig.UList("aircraft")),
+
+		aircraft: buildAircraft(ymlConfig),
 	}
 
 	settings.SetDocumentationPath("flighty")
 
 	return settings
+}
+
+/* -------------------- Unexported Functions -------------------- */
+
+func buildAircraft(ymlConfig *config.Config) map[string]string {
+	flights := make(map[string]string)
+
+	aircrafts, err := ymlConfig.Map("aircraft")
+	if err == nil {
+		for name, icao24 := range aircrafts {
+			flights[name] = icao24.(string)
+		}
+	}
+
+	return flights
 }

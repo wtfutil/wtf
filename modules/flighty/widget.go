@@ -37,14 +37,19 @@ func NewWidget(tviewApp *tview.Application, redrawChan chan bool, pages *tview.P
 
 /* -------------------- Exported Functions -------------------- */
 
-func (widget *Widget) Fetch(aircraft []string) ([]*Flight, error) {
+func (widget *Widget) Fetch(aircraft map[string]string) ([]*Flight, error) {
 	data := []*Flight{}
 
 	yesterday := time.Now().Add(-24 * time.Hour)
 	today := time.Now()
 
-	for _, plane := range aircraft {
-		result, _ := widget.client.Flight(plane, yesterday, today)
+	for owner, icao24 := range aircraft {
+		result, _ := widget.client.Flight(icao24, yesterday, today)
+
+		for _, res := range result {
+			res.Owner = owner
+		}
+
 		data = append(data, result...)
 	}
 
