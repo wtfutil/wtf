@@ -6,8 +6,8 @@ import (
 	"strings"
 
 	"github.com/rivo/tview"
-	"github.com/doctorfree/wtf/view"
-	"github.com/doctorfree/wtf/wtf"
+	"github.com/wtfutil/wtf/view"
+	"github.com/wtfutil/wtf/wtf"
 )
 
 type Widget struct {

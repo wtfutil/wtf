@@ -2,7 +2,7 @@ package lunarphase
 
 import (
 	"github.com/olebedev/config"
-	"github.com/doctorfree/wtf/cfg"
+	"github.com/wtfutil/wtf/cfg"
 )
 
 const (
