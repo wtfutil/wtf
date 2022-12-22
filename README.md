@@ -19,6 +19,9 @@ Awesome! [See here](https://wtfutil.com/sponsors/exit_message/) for how you can 
 ## Sponsored by
 
 <p>
+  <a href="https://home.robusta.dev/?utm_source=wtfutil&utm_medium=oss-sponsorship&utm_id=wtfutil-sponsorship" target=_blank>
+		<img src="./images/sponsors/robusta.png?raw=true" height="60" title="Robusta.dev" alt="Robusta.dev" />
+	</a>
 	<a href="https://airbrake.io/?utm_medium=sponsor&utm_source=WTFutill&utm_content=airbrake-home-page&utm_campaign=2021-sponsorships" target=_blank>
 		<img src="./images/sponsors/airbrake.png?raw=true" height="60" title="Airbrake" alt="Airbrake" />
 	</a>
