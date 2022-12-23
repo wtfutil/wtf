@@ -8,7 +8,7 @@
 * Added protocol version to IpInfo module by [@vadeg](https://github.com/vadeg)
 * Upgrade CodeQL Module by [@Seanstoppable](https://github.com/Seanstoppable) 
 * Updated to Go 1.19 by [@Seanstoppable](https://github.com/Seanstoppable)
-* Lunar Phase module added, by [@doctorfree](https://github.com/doctorfree)
+* Lunar Phase module added by [@doctorfree](https://github.com/doctorfree)
 
 ### 🐞 Fixed
 
