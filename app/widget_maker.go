@@ -367,7 +367,7 @@ func MakeWidget(
 
 // MakeWidgets creates and returns a collection of enabled widgets
 func MakeWidgets(tviewApp *tview.Application, pages *tview.Pages, config *config.Config, redrawChan chan bool) []wtf.Wtfable {
-	widgets := []wtf.Wtfable{}
+	var widgets []wtf.Wtfable
 
 	moduleNames, _ := config.Map("wtf.mods")
 
