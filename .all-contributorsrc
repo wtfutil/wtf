@@ -1289,6 +1289,15 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/15822994?v=4",
       "profile": "https://www.youtube.com/c/bashbunni",
       "contributions": []
+    },
+    {
+      "login": "doctorfree",
+      "name": "Ronald Record",
+      "avatar_url": "https://avatars.githubusercontent.com/u/940230?v=4",
+      "profile": "http://ronrecord.com/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
