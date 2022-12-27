@@ -249,7 +249,7 @@ func MakeWidget(
 		widget = mercurial.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "lunarphase":
 		settings := lunarphase.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = lunarphase.NewWidget(tviewApp, redrawChan, settings)
+		widget = lunarphase.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "mempool":
 		settings := mempool.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = mempool.NewWidget(tviewApp, redrawChan, pages, settings)
