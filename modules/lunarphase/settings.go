@@ -15,7 +15,7 @@ const (
 type Settings struct {
 	*cfg.Common
 
-	language string
+	language       string
 	requestTimeout int
 }
 
@@ -23,7 +23,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 	settings := Settings{
 		Common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 
-		language: ymlConfig.UString("language", "en"),
+		language:       ymlConfig.UString("language", "en"),
 		requestTimeout: ymlConfig.UInt("timeout", 30),
 	}
 

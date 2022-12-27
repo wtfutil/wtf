@@ -4,7 +4,7 @@ import (
 	"io"
 	"net/http"
 	"strings"
-    "time"
+	"time"
 
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/utils"
@@ -26,13 +26,13 @@ type Widget struct {
 func NewWidget(tviewApp *tview.Application, redrawChan chan bool, pages *tview.Pages, settings *Settings) *Widget {
 	widget := &Widget{
 		ScrollableWidget: view.NewScrollableWidget(tviewApp, redrawChan, pages, settings.Common),
-		settings: settings,
+		settings:         settings,
 	}
 
-    widget.titleBase = widget.settings.Title
+	widget.titleBase = widget.settings.Title
 	widget.timeout = time.Duration(widget.settings.requestTimeout) * time.Second
-    widget.date = time.Now()
-    widget.day = widget.date.Format(dateFormat)
+	widget.date = time.Now()
+	widget.day = widget.date.Format(dateFormat)
 
 	widget.SetRenderFunction(widget.Refresh)
 	widget.initializeKeyboardControls()
@@ -60,7 +60,7 @@ func (widget *Widget) lunarPhase() {
 
 	language := widget.settings.language
 
-	req, err := http.NewRequest("GET", "https://wttr.in/Moon@" + widget.day + "?AF&lang=" + language, http.NoBody)
+	req, err := http.NewRequest("GET", "https://wttr.in/Moon@"+widget.day+"?AF&lang="+language, http.NoBody)
 	if err != nil {
 		widget.result = err.Error()
 		return
@@ -110,7 +110,7 @@ func (widget *Widget) PrevWeek() {
 
 func (widget *Widget) setDay(ts time.Time) {
 	widget.date = ts
-    widget.day = widget.date.Format(dateFormat)
+	widget.day = widget.date.Format(dateFormat)
 	widget.Refresh()
 }
 
