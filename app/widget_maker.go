@@ -244,12 +244,12 @@ func MakeWidget(
 	case "logger":
 		settings := logger.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = logger.NewWidget(tviewApp, redrawChan, settings)
-	case "mercurial":
-		settings := mercurial.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = mercurial.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "lunarphase":
 		settings := lunarphase.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = lunarphase.NewWidget(tviewApp, redrawChan, pages, settings)
+	case "mercurial":
+		settings := mercurial.NewSettingsFromYAML(moduleName, moduleConfig, config)
+		widget = mercurial.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "mempool":
 		settings := mempool.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = mempool.NewWidget(tviewApp, redrawChan, pages, settings)
