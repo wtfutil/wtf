@@ -66,7 +66,10 @@ func NewWidget(tviewApp *tview.Application, redrawChan chan bool, pages *tview.P
 		// versions.
 		parser.Client = &http.Client{
 			Transport: &http.Transport{
-				TLSClientConfig: &tls.Config{},
+				TLSClientConfig: &tls.Config{
+					MinVersion: tls.VersionTLS11,
+					MaxVersion: tls.VersionTLS13,
+				},
 			},
 		}
 	}
