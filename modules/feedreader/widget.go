@@ -1,8 +1,10 @@
 package feedreader
 
 import (
+	"crypto/tls"
 	"fmt"
 	"html"
+	"net/http"
 	"regexp"
 	"sort"
 	"strings"
@@ -80,10 +82,26 @@ func getShowText(feedItem *FeedItem, showType ShowType) string {
 
 // NewWidget creates a new instance of a widget
 func NewWidget(tviewApp *tview.Application, redrawChan chan bool, pages *tview.Pages, settings *Settings) *Widget {
+	parser := gofeed.NewParser()
+	if settings.disableHTTP2 {
+		// If HTTP/2 is disabled, we override the parser client
+		// with a client using a simple HTTP transport which
+		// removes the client's default behavior of first
+		// trying HTTP/2 before downgrading to older protocol
+		// versions.
+		parser.Client = &http.Client{
+			Transport: &http.Transport{
+				TLSClientConfig: &tls.Config{},
+			},
+		}
+	}
+
+	parser.UserAgent = settings.userAgent
+
 	widget := &Widget{
 		ScrollableWidget: view.NewScrollableWidget(tviewApp, redrawChan, pages, settings.Common),
 
-		parser:   gofeed.NewParser(),
+		parser:   parser,
 		settings: settings,
 		showType: SHOW_TITLE,
 	}
@@ -143,12 +161,12 @@ func (widget *Widget) fetchForFeed(feedURL string) ([]*FeedItem, error) {
 		err  error
 	)
 	if auth, isPrivateRSS := widget.settings.credentials[feedURL]; isPrivateRSS {
-		fp := gofeed.NewParser()
-		fp.AuthConfig = &gofeed.Auth{
+		widget.parser.AuthConfig = &gofeed.Auth{
 			Username: auth.username,
 			Password: auth.password,
 		}
-		feed, err = fp.ParseURL(feedURL)
+		feed, err = widget.parser.ParseURL(feedURL)
+		widget.parser.AuthConfig = nil
 	} else {
 		feed, err = widget.parser.ParseURL(feedURL)
 	}
