@@ -15,12 +15,15 @@ import (
 type Widget struct {
 	view.ScrollableWidget
 
+	current   bool
 	day       string
 	date      time.Time
+	last      string
 	result    string
 	settings  *Settings
 	timeout   time.Duration
 	titleBase string
+	today     string
 }
 
 func NewWidget(tviewApp *tview.Application, redrawChan chan bool, pages *tview.Pages, settings *Settings) *Widget {
@@ -29,10 +32,12 @@ func NewWidget(tviewApp *tview.Application, redrawChan chan bool, pages *tview.P
 		settings:         settings,
 	}
 
-	widget.titleBase = widget.settings.Title
-	widget.timeout = time.Duration(widget.settings.requestTimeout) * time.Second
+	widget.current = true
 	widget.date = time.Now()
 	widget.day = widget.date.Format(dateFormat)
+	widget.last = ""
+	widget.timeout = time.Duration(widget.settings.requestTimeout) * time.Second
+	widget.titleBase = widget.settings.Title
 
 	widget.SetRenderFunction(widget.Refresh)
 	widget.initializeKeyboardControls()
@@ -41,13 +46,33 @@ func NewWidget(tviewApp *tview.Application, redrawChan chan bool, pages *tview.P
 }
 
 func (widget *Widget) Refresh() {
-	widget.lunarPhase()
+	if widget.current {
+		widget.date = time.Now()
+		widget.day = widget.date.Format(dateFormat)
+	}
+	if widget.day != widget.last {
+		widget.lunarPhase()
+	}
 
 	if !widget.settings.Enabled {
+		widget.settings.Common.Title = widget.titleBase + " " + widget.day + " [ Disabled ]"
+		widget.Redraw(func() (string, string, bool) { return widget.CommonSettings().Title, "", false })
 		widget.View.Clear()
 		return
 	}
 	widget.settings.Common.Title = widget.titleBase + " " + widget.day
+
+	widget.Redraw(func() (string, string, bool) { return widget.CommonSettings().Title, widget.result, false })
+}
+
+func (widget *Widget) RefreshTitle() {
+	if !widget.settings.Enabled {
+		widget.settings.Common.Title = widget.titleBase + " " + widget.day + " [ Disabled ]"
+		widget.Redraw(func() (string, string, bool) { return widget.CommonSettings().Title, "", false })
+		widget.View.Clear()
+		return
+	}
+	widget.settings.Common.Title = widget.titleBase + " [" + widget.day + "]"
 
 	widget.Redraw(func() (string, string, bool) { return widget.CommonSettings().Title, widget.result, false })
 }
@@ -81,29 +106,40 @@ func (widget *Widget) lunarPhase() {
 		return
 	}
 
+	widget.last = widget.day
 	widget.result = strings.TrimSpace(wtf.ASCIItoTviewColors(string(contents)))
 }
 
 // NextDay shows the next day's lunar phase (KeyRight / 'n')
 func (widget *Widget) NextDay() {
+	widget.current = false
 	tomorrow := widget.date.AddDate(0, 0, 1)
 	widget.setDay(tomorrow)
 }
 
 // NextWeek shows the next week's lunar phase (KeyUp / 'N')
 func (widget *Widget) NextWeek() {
+	widget.current = false
 	nextweek := widget.date.AddDate(0, 0, 7)
 	widget.setDay(nextweek)
 }
 
 // PrevDay shows the previous day's lunar phase (KeyLeft / 'p')
 func (widget *Widget) PrevDay() {
+	widget.current = false
 	yesterday := widget.date.AddDate(0, 0, -1)
 	widget.setDay(yesterday)
 }
 
+// Today shows the current day's lunar phase ('t')
+func (widget *Widget) Today() {
+	widget.current = true
+	widget.Refresh()
+}
+
 // PrevWeek shows the previous week's lunar phase (KeyDown / 'P')
 func (widget *Widget) PrevWeek() {
+	widget.current = false
 	lastweek := widget.date.AddDate(0, 0, -7)
 	widget.setDay(lastweek)
 }
@@ -111,7 +147,7 @@ func (widget *Widget) PrevWeek() {
 func (widget *Widget) setDay(ts time.Time) {
 	widget.date = ts
 	widget.day = widget.date.Format(dateFormat)
-	widget.Refresh()
+	widget.RefreshTitle()
 }
 
 // Open nineplanets.org in a browser (Enter / 'o')
@@ -122,12 +158,11 @@ func (widget *Widget) OpenMoonPhase() {
 
 // Disable/Enable the widget (Ctrl-D)
 func (widget *Widget) DisableWidget() {
-
 	if widget.settings.Enabled {
 		widget.settings.Enabled = false
+		widget.RefreshTitle()
 	} else {
 		widget.settings.Enabled = true
+		widget.Refresh()
 	}
-
-	widget.Refresh()
 }

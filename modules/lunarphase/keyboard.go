@@ -8,6 +8,7 @@ func (widget *Widget) initializeKeyboardControls() {
 
 	widget.SetKeyboardChar("n", widget.NextDay, "Show next day lunar phase")
 	widget.SetKeyboardChar("p", widget.PrevDay, "Show previous day lunar phase")
+	widget.SetKeyboardChar("t", widget.Today, "Show today lunar phase")
 	widget.SetKeyboardChar("N", widget.NextWeek, "Show next week lunar phase")
 	widget.SetKeyboardChar("P", widget.PrevWeek, "Show previous week lunar phase")
 	widget.SetKeyboardChar("o", widget.OpenMoonPhase, "Open 'Moon Phase for Today' in browser")
