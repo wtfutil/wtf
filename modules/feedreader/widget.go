@@ -55,31 +55,6 @@ func rotateShowType(showtype ShowType) ShowType {
 	return returnValue
 }
 
-func getShowText(feedItem *FeedItem, showType ShowType) string {
-	if feedItem == nil {
-		return ""
-	}
-
-	space := regexp.MustCompile(`\s+`)
-	title := space.ReplaceAllString(feedItem.item.Title, " ")
-	if feedItem.sourceTitle != "" {
-		title = "[" + feedItem.sourceTitle + "] " + space.ReplaceAllString(feedItem.item.Title, " ")
-	}
-
-	// Convert any escaped characters to their character representation
-	title = html.UnescapeString(title)
-
-	switch showType {
-	case SHOW_LINK:
-		return feedItem.item.Link
-	case SHOW_CONTENT:
-		text, _ := html2text.FromString(feedItem.item.Content, html2text.Options{PrettyTables: true})
-		return strings.TrimSpace(title + "\n" + strings.TrimSpace(text))
-	default:
-		return title
-	}
-}
-
 // NewWidget creates a new instance of a widget
 func NewWidget(tviewApp *tview.Application, redrawChan chan bool, pages *tview.Pages, settings *Settings) *Widget {
 	parser := gofeed.NewParser()
@@ -218,7 +193,7 @@ func (widget *Widget) content() (string, string, bool) {
 			}
 		}
 
-		displayText := getShowText(feedItem, widget.showType)
+		displayText := widget.getShowText(feedItem, rowColor)
 
 		row := fmt.Sprintf(
 			"[%s]%2d. %s[white]",
@@ -231,6 +206,37 @@ func (widget *Widget) content() (string, string, bool) {
 	}
 
 	return title, str, false
+}
+
+func (widget *Widget) getShowText(feedItem *FeedItem, rowColor string) string {
+	if feedItem == nil {
+		return ""
+	}
+
+	space := regexp.MustCompile(`\s+`)
+	source := ""
+	publishDate := ""
+	title := space.ReplaceAllString(feedItem.item.Title, " ")
+
+	if widget.settings.showSource && feedItem.sourceTitle != "" {
+		source = "[" + widget.settings.colors.source + "]" + feedItem.sourceTitle + " "
+	}
+	if widget.settings.showPublishDate && feedItem.item.Published != "" {
+		publishDate = "[" + widget.settings.colors.publishDate + "]" + feedItem.item.PublishedParsed.Format(widget.settings.dateFormat) + " "
+	}
+
+	// Convert any escaped characters to their character representation
+	title = html.UnescapeString(source + publishDate + "[" + rowColor + "]" + title)
+
+	switch widget.showType {
+	case SHOW_LINK:
+		return feedItem.item.Link
+	case SHOW_CONTENT:
+		text, _ := html2text.FromString(feedItem.item.Content, html2text.Options{PrettyTables: true})
+		return strings.TrimSpace(title + "\n" + strings.TrimSpace(text))
+	default:
+		return title
+	}
 }
 
 // feedItems are sorted by published date
