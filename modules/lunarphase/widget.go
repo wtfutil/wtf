@@ -23,7 +23,6 @@ type Widget struct {
 	settings  *Settings
 	timeout   time.Duration
 	titleBase string
-	today     string
 }
 
 func NewWidget(tviewApp *tview.Application, redrawChan chan bool, pages *tview.Pages, settings *Settings) *Widget {
