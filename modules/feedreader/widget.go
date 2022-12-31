@@ -67,7 +67,7 @@ func NewWidget(tviewApp *tview.Application, redrawChan chan bool, pages *tview.P
 		parser.Client = &http.Client{
 			Transport: &http.Transport{
 				TLSClientConfig: &tls.Config{
-					MinVersion: tls.VersionTLS11,
+					MinVersion: tls.VersionTLS12,
 					MaxVersion: tls.VersionTLS13,
 				},
 			},
@@ -94,7 +94,7 @@ func NewWidget(tviewApp *tview.Application, redrawChan chan bool, pages *tview.P
 
 // Fetch retrieves RSS and Atom feed data
 func (widget *Widget) Fetch(feedURLs []string) ([]*FeedItem, error) {
-	data := []*FeedItem{}
+	var data []*FeedItem
 
 	for _, feedURL := range feedURLs {
 		feedItems, err := widget.fetchForFeed(feedURL)
@@ -153,7 +153,7 @@ func (widget *Widget) fetchForFeed(feedURL string) ([]*FeedItem, error) {
 		return nil, err
 	}
 
-	feedItems := []*FeedItem{}
+	var feedItems []*FeedItem
 
 	for idx, gofeedItem := range feed.Items {
 		if widget.settings.feedLimit >= 1 && idx >= widget.settings.feedLimit {
