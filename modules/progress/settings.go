@@ -23,7 +23,7 @@ type Settings struct {
 	colors
 	common *cfg.Common
 
-	showPercentage bool `help:"Wether or not to display percentage next to the progress bar." values:"true or false" optional:"true" default:"true"`
+	showPercentage bool `help:"Whether or not to display percentage next to the progress bar." values:"true or false" optional:"true" default:"true"`
 	padding        int  `help:"Amount of spaces to add as left/right padding." values:"A positive integer, 0..n" optional:"true" default:"1"`
 
 	minimum float64 `help:"Minimum progress value." values:"A positive decimal value, 0.0..n.n" optional:"true" default:"0"`
