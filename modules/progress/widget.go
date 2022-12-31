@@ -9,7 +9,9 @@ import (
 	"strings"
 
 	"github.com/charmbracelet/bubbles/progress"
+	"github.com/muesli/reflow/ansi"
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/view"
 )
 
@@ -97,14 +99,41 @@ func (widget *Widget) content() string {
 		return "[red]Error: " + widget.err.Error()
 	}
 
-	pb := widget.buildProgress()
+	percent := widget.formatPercent(widget.percent)
+	bar := widget.buildProgressBar(percent)
+	barView := tview.TranslateANSI(bar.ViewAs(widget.percent))
 
-	return widget.padding + tview.TranslateANSI(pb.ViewAs(widget.percent)) + widget.padding
+	var sb strings.Builder
+
+	switch widget.settings.showPercentage {
+	case "left":
+		sb.WriteString(widget.padding + percent + barView + widget.padding)
+	case "right":
+		sb.WriteString(widget.padding + barView + percent + widget.padding)
+	case "above":
+		centered := utils.CenterText(percent, bar.Width+widget.settings.padding*2)
+		sb.WriteString(centered + "\n" + widget.padding + barView + widget.padding)
+	case "below":
+		centered := utils.CenterText(percent, bar.Width+widget.settings.padding*2)
+		sb.WriteString(widget.padding + barView + widget.padding + "\n" + centered)
+	default:
+		sb.WriteString(widget.padding + barView + widget.padding)
+	}
+
+	return sb.String()
 }
 
 func (widget *Widget) display() {
+	title := widget.CommonSettings().Title
+
+	if widget.settings.showPercentage == "titleLeft" {
+		title = widget.formatPercent(widget.percent) + " " + title
+	} else if widget.settings.showPercentage == "titleRight" {
+		title = title + " " + widget.formatPercent(widget.percent)
+	}
+
 	widget.Redraw(func() (string, string, bool) {
-		return widget.CommonSettings().Title, widget.content(), false
+		return title, widget.content(), false
 	})
 }
 
@@ -128,15 +157,10 @@ func (widget *Widget) execValueCmd(cmd string) (float64, error) {
 	return val, nil
 }
 
-func (widget *Widget) buildProgress() *progress.Model {
-	_, _, width, _ := widget.View.GetInnerRect()
-
+func (widget *Widget) buildProgressBar(percent string) *progress.Model {
 	pOpts := []progress.Option{
-		progress.WithWidth(width - (widget.settings.padding * 2)),
-	}
-
-	if !widget.settings.showPercentage {
-		pOpts = append(pOpts, progress.WithoutPercentage())
+		progress.WithWidth(widget.calcBarWidth(percent)),
+		progress.WithoutPercentage(),
 	}
 
 	if widget.settings.colors.solid != "" {
@@ -177,4 +201,28 @@ func (widget *Widget) calcPercent() {
 	}
 
 	widget.percent = (widget.current - widget.minimum) / (widget.maximum - widget.minimum)
+}
+
+func (widget *Widget) formatPercent(p float64) string {
+	switch widget.settings.showPercentage {
+	case "left":
+		return fmt.Sprintf("%.0f%% ", p*100)
+	case "right":
+		return fmt.Sprintf(" %.0f%%", p*100)
+	case "none":
+		return ""
+	default:
+		return fmt.Sprintf("%.0f%%", p*100)
+	}
+}
+
+func (widget *Widget) calcBarWidth(percent string) int {
+	_, _, width, _ := widget.View.GetInnerRect()
+	width -= widget.settings.padding * 2
+
+	if widget.settings.showPercentage == "left" || widget.settings.showPercentage == "right" {
+		width -= ansi.PrintableRuneWidth(percent)
+	}
+
+	return width
 }

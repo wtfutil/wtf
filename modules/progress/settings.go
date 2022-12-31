@@ -21,8 +21,8 @@ type Settings struct {
 	colors
 	common *cfg.Common
 
-	showPercentage bool `help:"Whether or not to display percentage next to the progress bar." values:"true or false" optional:"true" default:"true"`
-	padding        int  `help:"Amount of spaces to add as left/right padding." values:"A positive integer, 0..n" optional:"true" default:"1"`
+	showPercentage string `help:"Where to display the percentage" values:"left, right, above, below, titleLeft, titleRight, or none" optional:"true" default:"right"`
+	padding        int    `help:"Amount of spaces to add as left/right padding." values:"A positive integer, 0..n" optional:"true" default:"1"`
 
 	minimum float64 `help:"Minimum progress value." values:"A positive decimal value, 0.0..n.n" optional:"true" default:"0"`
 	maximum float64 `help:"Maximum progress value." values:"A positive decimal value, 0.0..n.n" optional:"true" default:"0"`
@@ -38,7 +38,7 @@ func NewSettingsFromYAML(name string, ymlConfig, globalConfig *config.Config) *S
 	settings := Settings{
 		common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 
-		showPercentage: ymlConfig.UBool("showPercentage", true),
+		showPercentage: ymlConfig.UString("showPercentage", "right"),
 		padding:        ymlConfig.UInt("padding", 1),
 		minimum:        ymlConfig.UFloat64("minimum", 0),
 		maximum:        ymlConfig.UFloat64("maximum", 0),
