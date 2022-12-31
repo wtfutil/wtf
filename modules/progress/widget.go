@@ -3,6 +3,7 @@ package progress
 import (
 	"errors"
 	"fmt"
+	"os"
 	"os/exec"
 	"strconv"
 	"strings"
@@ -12,7 +13,7 @@ import (
 	"github.com/wtfutil/wtf/view"
 )
 
-var errShellUndefined = errors.New("command shell is undefined")
+var errShellUndefined = errors.New("command shell not defined in $SHELL environment variable")
 
 // Widget is the container for your module's data
 type Widget struct {
@@ -27,6 +28,8 @@ type Widget struct {
 
 	padding string
 
+	shell string
+
 	err error
 }
 
@@ -40,6 +43,8 @@ func NewWidget(tviewApp *tview.Application, redrawChan chan bool, settings *Sett
 		minimum: settings.minimum,
 		maximum: settings.maximum,
 		current: settings.current,
+
+		shell: os.Getenv("SHELL"),
 
 		padding: strings.Repeat(" ", settings.padding),
 	}
@@ -104,11 +109,11 @@ func (widget *Widget) display() {
 }
 
 func (widget *Widget) execValueCmd(cmd string) (float64, error) {
-	if widget.settings.shell == "" {
+	if widget.shell == "" {
 		return -1, errShellUndefined
 	}
 
-	out, err := exec.Command(widget.settings.shell, "-c", cmd).Output()
+	out, err := exec.Command(widget.shell, "-c", cmd).Output()
 	if err != nil {
 		return -1, err
 	}

@@ -1,8 +1,6 @@
 package progress
 
 import (
-	"os"
-
 	"github.com/olebedev/config"
 	"github.com/wtfutil/wtf/cfg"
 )
@@ -33,8 +31,6 @@ type Settings struct {
 	minimumCmd string `help:"Execute shell command to determine minimum progress value. Return value must be numeric." values:"Any shell command" optional:"true"`
 	maximumCmd string `help:"Execute shell command to determine maximum progress value. Return value must be numeric." values:"Any shell command" optional:"true"`
 	currentCmd string `help:"Execute shell command to determine current progress value. Return value must be numeric." values:"Any shell command" optional:"true"`
-
-	shell string `help:"Shell to use for executing value commands." values:"shell path" optional:"true" default:"$SHELL environment variable"`
 }
 
 // NewSettingsFromYAML creates a new settings instance from a YAML config block
@@ -50,7 +46,6 @@ func NewSettingsFromYAML(name string, ymlConfig, globalConfig *config.Config) *S
 		minimumCmd:     ymlConfig.UString("minimumCmd", ""),
 		maximumCmd:     ymlConfig.UString("maximumCmd", ""),
 		currentCmd:     ymlConfig.UString("currentCmd", ""),
-		shell:          ymlConfig.UString("shell", os.Getenv("SHELL")),
 	}
 
 	settings.colors.gradientA = ymlConfig.UString("colors.gradientA", "#56ab2f")
