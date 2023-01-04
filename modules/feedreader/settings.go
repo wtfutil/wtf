@@ -11,6 +11,11 @@ const (
 	defaultTitle     = "Feed Reader"
 )
 
+type colors struct {
+	source      string `help:"Color to use for feed source titles." optional:"true" default:"green"`
+	publishDate string `help:"Color to use for publish dates." optional:"true" default:"orange"`
+}
+
 // auth stores [username, password]-credentials for private RSS feeds using Basic Auth
 type auth struct {
 	username string
@@ -21,19 +26,34 @@ type auth struct {
 type Settings struct {
 	*cfg.Common
 
-	feeds       []string        `help:"An array of RSS and Atom feed URLs"`
-	feedLimit   int             `help:"The maximum number of stories to display for each feed"`
-	credentials map[string]auth `help:"Map of private feed URLs with required authentication credentials"`
+	colors
+
+	feeds           []string        `help:"An array of RSS and Atom feed URLs"`
+	feedLimit       int             `help:"The maximum number of stories to display for each feed"`
+	showSource      bool            `help:"Wether or not to show feed source in front of item titles." values:"true or false" optional:"true" default:"true"`
+	showPublishDate bool            `help:"Wether or not to show publish date in front of item titles." values:"true or false" optional:"true" default:"false"`
+	dateFormat      string          `help:"Date format to use for publish dates" values:"Any valid Go time layout which is handled by Time.Format" optional:"true" default:"Jan 02"`
+	credentials     map[string]auth `help:"Map of private feed URLs with required authentication credentials"`
+	disableHTTP2    bool            `help:"Wether or not to use the HTTP/2 protocol. Certain sites, such as reddit.com, will not work unless HTTP/2 is disabled." values:"true or false" optional:"true" default:"false"`
+	userAgent       string          `help:"HTTP User-Agent to use when fetching RSS feeds." optional:"true"`
 }
 
 // NewSettingsFromYAML creates a new settings instance from a YAML config block
-func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
+func NewSettingsFromYAML(name string, ymlConfig, globalConfig *config.Config) *Settings {
 	settings := &Settings{
-		Common:      cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
-		feeds:       utils.ToStrs(ymlConfig.UList("feeds")),
-		feedLimit:   ymlConfig.UInt("feedLimit", -1),
-		credentials: make(map[string]auth),
+		Common:          cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
+		feeds:           utils.ToStrs(ymlConfig.UList("feeds")),
+		feedLimit:       ymlConfig.UInt("feedLimit", -1),
+		showSource:      ymlConfig.UBool("showSource", true),
+		showPublishDate: ymlConfig.UBool("showPublishDate", false),
+		dateFormat:      ymlConfig.UString("dateFormat", "Jan 02"),
+		credentials:     make(map[string]auth),
+		disableHTTP2:    ymlConfig.UBool("disableHTTP2", false),
+		userAgent:       ymlConfig.UString("userAgent", "wtfutil (https://github.com/wtfutil/wtf)"),
 	}
+
+	settings.colors.source = ymlConfig.UString("colors.source", "green")
+	settings.colors.publishDate = ymlConfig.UString("colors.publishDate", "orange")
 
 	// If feeds cannot be parsed as list try parsing as a map with username+password fields
 	if len(settings.feeds) == 0 {

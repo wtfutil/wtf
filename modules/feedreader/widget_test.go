@@ -26,7 +26,7 @@ func Test_getShowText(t *testing.T) {
 				item: &gofeed.Item{Title: "Cats and Dogs"},
 			},
 			showType: SHOW_TITLE,
-			expected: "Cats and Dogs",
+			expected: "[white]Cats and Dogs",
 		},
 		{
 			name: "with escaped title",
@@ -34,7 +34,7 @@ func Test_getShowText(t *testing.T) {
 				item: &gofeed.Item{Title: "&lt;Cats and Dogs&gt;"},
 			},
 			showType: SHOW_TITLE,
-			expected: "<Cats and Dogs>",
+			expected: "[white]<Cats and Dogs>",
 		},
 		{
 			name: "with unescaped title",
@@ -42,7 +42,7 @@ func Test_getShowText(t *testing.T) {
 				item: &gofeed.Item{Title: "<Cats and Dogs>"},
 			},
 			showType: SHOW_TITLE,
-			expected: "<Cats and Dogs>",
+			expected: "[white]<Cats and Dogs>",
 		},
 		{
 			name: "with source-title",
@@ -51,7 +51,7 @@ func Test_getShowText(t *testing.T) {
 				item:        &gofeed.Item{Title: "<Cats and Dogs>"},
 			},
 			showType: SHOW_TITLE,
-			expected: "[WTF] <Cats and Dogs>",
+			expected: "[green]WTF [white]<Cats and Dogs>",
 		},
 		{
 			name: "with link",
@@ -65,7 +65,18 @@ func Test_getShowText(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			actual := getShowText(tt.feedItem, tt.showType)
+			widget := &Widget{
+				settings: &Settings{
+					colors: colors{
+						source:      "green",
+						publishDate: "orange",
+					},
+					showSource: true,
+				},
+				showType: tt.showType,
+			}
+
+			actual := widget.getShowText(tt.feedItem, "white")
 
 			assert.Equal(t, tt.expected, actual)
 		})
