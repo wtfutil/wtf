@@ -57,6 +57,7 @@ import (
 	"github.com/wtfutil/wtf/modules/pihole"
 	"github.com/wtfutil/wtf/modules/pocket"
 	"github.com/wtfutil/wtf/modules/power"
+	"github.com/wtfutil/wtf/modules/progress"
 	"github.com/wtfutil/wtf/modules/resourceusage"
 	"github.com/wtfutil/wtf/modules/rollbar"
 	"github.com/wtfutil/wtf/modules/security"
@@ -277,6 +278,9 @@ func MakeWidget(
 	case "prettyweather":
 		settings := prettyweather.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = prettyweather.NewWidget(tviewApp, redrawChan, settings)
+	case "progress":
+		settings := progress.NewSettingsFromYAML(moduleName, moduleConfig, config)
+		widget = progress.NewWidget(tviewApp, redrawChan, settings)
 	case "pocket":
 		settings := pocket.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = pocket.NewWidget(tviewApp, redrawChan, pages, settings)
