@@ -93,7 +93,6 @@ func (pivotal *PivotalClient) getCurrentUser() (*User, error) {
 	return &user, nil
 }
 
-
 func (pivotal *PivotalClient) searchStories(filter string) (*PivotalTrackerResponse, error) {
 	fields := ":default,stories(:default,stories(:default,branches,pull_requests))"
 	res := fmt.Sprintf("projects/%s/search?fields=%s&query=%s",

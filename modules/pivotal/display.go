@@ -7,7 +7,7 @@ import (
 	"regexp"
 )
 
-const ( 
+const (
 	hasPullFailIcon = '💥'
 	hasPullIcon     = "🌱"
 )

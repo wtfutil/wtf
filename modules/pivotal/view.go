@@ -6,12 +6,12 @@ import (
 )
 
 type PivotalSource struct {
-	client  *PivotalClient
-	name    string
-	filter  string
-	widget  *Widget
-	Err     error
-	stories []Story
+	client    *PivotalClient
+	name      string
+	filter    string
+	widget    *Widget
+	Err       error
+	stories   []Story
 	max_items int
 }
 
