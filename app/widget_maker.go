@@ -55,6 +55,7 @@ import (
 	"github.com/wtfutil/wtf/modules/opsgenie"
 	"github.com/wtfutil/wtf/modules/pagerduty"
 	"github.com/wtfutil/wtf/modules/pihole"
+	"github.com/wtfutil/wtf/modules/pivotal"
 	"github.com/wtfutil/wtf/modules/pocket"
 	"github.com/wtfutil/wtf/modules/power"
 	"github.com/wtfutil/wtf/modules/progress"
@@ -86,7 +87,6 @@ import (
 	"github.com/wtfutil/wtf/modules/weatherservices/prettyweather"
 	"github.com/wtfutil/wtf/modules/weatherservices/weather"
 	"github.com/wtfutil/wtf/modules/zendesk"
-	"github.com/wtfutil/wtf/modules/pivotal"
 	"github.com/wtfutil/wtf/wtf"
 )
 
