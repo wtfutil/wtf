@@ -47,7 +47,8 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 }
 
 func parseCustomQueries(ymlConfig *config.Config) []customQuery {
-	result := []customQuery{}
+	var result  []customQuery
+
 	if customQueries, err := ymlConfig.Map("customQueries"); err == nil {
 		for _, query := range customQueries {
 			c := customQuery{}

@@ -52,7 +52,8 @@ func (widget *Widget) loadSources() {
 }
 
 func (widget *Widget) buildPivotalSources() []*PivotalSource {
-	sources := []*PivotalSource{}
+	var sources []*PivotalSource
+
 	for _, query := range widget.settings.customQueries {
 		client := widget.client
 		// Make sure that we have a viable Pivotal Client

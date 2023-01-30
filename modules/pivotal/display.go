@@ -47,13 +47,13 @@ func (widget *Widget) content() (string, string, bool) {
 	str := ""
 	for idx, item := range proj.stories {
 		rowColor := widget.RowColor(idx)
-		displayText := widget.getShowText(&item)
+		displayText := getShowText(&item)
 
 		row := fmt.Sprintf(
 			`[%s]|%s%s| %s[%s]`,
 			widget.RowColor(idx),
-			widget.getStatusIcon(&item),
-			widget.getPullStatusIcon(&item),
+			getStatusIcon(&item),
+			getPullStatusIcon(&item),
 			tview.Escape(displayText),
 			rowColor,
 		)
@@ -64,7 +64,7 @@ func (widget *Widget) content() (string, string, bool) {
 	return title, str, false
 }
 
-func (widget *Widget) getStatusIcon(story *Story) string {
+func getStatusIcon(story *Story) string {
 	state := story.CurrentState
 	val, ok := statusMapEmoji[state]
 	if ok {
@@ -73,7 +73,7 @@ func (widget *Widget) getStatusIcon(story *Story) string {
 	return state
 }
 
-func (widget *Widget) getPullStatusIcon(story *Story) string {
+func getPullStatusIcon(story *Story) string {
 	//prs := len(story.PullRequests)
 	var prs string
 	prs = "  "
@@ -83,7 +83,7 @@ func (widget *Widget) getPullStatusIcon(story *Story) string {
 	return prs
 }
 
-func (widget *Widget) getShowText(story *Story) string {
+func getShowText(story *Story) string {
 	if story == nil {
 		return ""
 	}
