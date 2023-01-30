@@ -34,7 +34,7 @@ func NewWidget(tviewApp *tview.Application, redrawChan chan bool, pages *tview.P
 	widget.projectClient[widget.settings.projectId] = widget.client
 
 	//Build the Souce lists
-	widget.sources = widget.buildPivotalSources(widget.settings.customQueries)
+	widget.sources = widget.buildPivotalSources()
 
 	widget.SetRenderFunction(widget.display)
 	widget.initializeKeyboardControls()
@@ -51,7 +51,7 @@ func (widget *Widget) loadSources() {
 	widget.Sources = queries
 }
 
-func (widget *Widget) buildPivotalSources(queies []customQuery) []*PivotalSource {
+func (widget *Widget) buildPivotalSources() []*PivotalSource {
 	sources := []*PivotalSource{}
 	for _, query := range widget.settings.customQueries {
 		client := widget.client

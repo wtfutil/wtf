@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"net/url"
 )
@@ -81,9 +80,7 @@ func (pivotal *PivotalClient) apiv5(resource string) (*Resource, error) {
 }
 
 func (pivotal *PivotalClient) getCurrentUser() (*User, error) {
-	resource, err := pivotal.apiv5(
-		fmt.Sprintf("me"),
-	)
+	resource, err := pivotal.apiv5("me")
 	if err != nil {
 		return nil, err
 	}
@@ -96,31 +93,6 @@ func (pivotal *PivotalClient) getCurrentUser() (*User, error) {
 	return &user, nil
 }
 
-func (pivotal *PivotalClient) getStories(pag ...string) ([]Story, error) {
-
-	filter := fmt.Sprintf("owner:%d", pivotal.user.ID)
-	res := fmt.Sprintf("projects/%s/stories?filter=%s",
-		pivotal.projectId,
-		filter,
-	)
-
-	res = fmt.Sprintf("projects/%s/stories?filter=owner:3468359",
-		pivotal.projectId,
-	)
-
-	resource, err := pivotal.apiv5(res)
-	if err != nil {
-		return nil, err
-	}
-
-	var stories []Story
-	err = json.Unmarshal([]byte(resource.Raw), &stories)
-
-	if err != nil {
-		return nil, err
-	}
-	return stories, nil
-}
 
 func (pivotal *PivotalClient) searchStories(filter string) (*PivotalTrackerResponse, error) {
 	fields := ":default,stories(:default,stories(:default,branches,pull_requests))"
@@ -135,7 +107,7 @@ func (pivotal *PivotalClient) searchStories(filter string) (*PivotalTrackerRespo
 	}
 
 	var response PivotalTrackerResponse
-	ioutil.WriteFile("/tmp/output.txt", []byte(resource.Raw), 0644)
+
 	err = json.Unmarshal([]byte(resource.Raw), &response)
 	if err != nil {
 		return nil, err

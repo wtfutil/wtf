@@ -12,7 +12,7 @@ type PivotalSource struct {
 	widget  *Widget
 	Err     error
 	stories []Story
-	idx     int
+	max_items int
 }
 
 // NewPivotalSource returns a new Pivotal Filter source with a name
@@ -38,9 +38,6 @@ func (source *PivotalSource) loadStories() {
 		source.Err = err
 		source.setItemCount(len(source.stories))
 	}
-}
-func (source *PivotalSource) loadSourceData() {
-	source.loadStories()
 }
 
 // Open: Will open Pivotal search url with filter applied using the utils helper
@@ -77,7 +74,7 @@ func (source *PivotalSource) getItemCount() int {
 	return len(source.stories)
 }
 func (source *PivotalSource) setItemCount(count int) {
-	// NO OP
+	source.max_items = count
 }
 
 /* -------------------- Unexported Functions -------------------- */
