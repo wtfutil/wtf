@@ -52,10 +52,10 @@ require (
 	github.com/stretchr/testify v1.8.1
 	github.com/wtfutil/spotigopher v0.0.0-20191127141047-7d8168fe103a
 	github.com/wtfutil/todoist v0.0.2-0.20191216004217-0ec29ceda61a
-	github.com/xanzy/go-gitlab v0.77.0
+	github.com/xanzy/go-gitlab v0.79.1
 	github.com/zmb3/spotify v0.0.0-20191010212056-e12fb981aacb
 	github.com/zorkian/go-datadog-api v2.30.0+incompatible
-	golang.org/x/oauth2 v0.0.0-20221014153046-6fdb5e3db783
+	golang.org/x/oauth2 v0.3.0
 	golang.org/x/sync v0.1.0
 	golang.org/x/sys v0.3.0 // indirect
 	golang.org/x/text v0.6.0
@@ -197,9 +197,9 @@ require (
 	go.uber.org/multierr v1.5.0 // indirect
 	go.uber.org/zap v1.16.0 // indirect
 	golang.org/x/crypto v0.0.0-20220315160706-3147a52a75dd // indirect
-	golang.org/x/net v0.3.1-0.20221206200815-1e63c2f08a10 // indirect
+	golang.org/x/net v0.4.0 // indirect
 	golang.org/x/term v0.3.0 // indirect
-	golang.org/x/time v0.0.0-20220922220347-f3bd1da661af // indirect
+	golang.org/x/time v0.3.0 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
 	google.golang.org/genproto v0.0.0-20221227171554-f9683d7f8bef // indirect
 	google.golang.org/grpc v1.51.0 // indirect
