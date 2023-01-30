@@ -86,6 +86,7 @@ import (
 	"github.com/wtfutil/wtf/modules/weatherservices/prettyweather"
 	"github.com/wtfutil/wtf/modules/weatherservices/weather"
 	"github.com/wtfutil/wtf/modules/zendesk"
+	"github.com/wtfutil/wtf/modules/pivotal"
 	"github.com/wtfutil/wtf/wtf"
 )
 
@@ -359,6 +360,9 @@ func MakeWidget(
 	case "zendesk":
 		settings := zendesk.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = zendesk.NewWidget(tviewApp, redrawChan, pages, settings)
+	case "pivotal":
+		settings := pivotal.NewSettingsFromYAML(moduleName, moduleConfig, config)
+		widget = pivotal.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "finnhub":
 		settings := finnhub.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = finnhub.NewWidget(tviewApp, redrawChan, settings)
