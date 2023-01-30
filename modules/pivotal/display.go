@@ -7,14 +7,9 @@ import (
 	"regexp"
 )
 
-const ( //TODO: Fix more emojis
+const ( 
 	hasPullFailIcon = '💥'
 	hasPullIcon     = "🌱"
-	completedIcon   = "✅"
-	started         = "🛠️"
-	startedIcon     = "🚧"
-	deploying       = "🚀"
-	shipped         = "🚢"
 )
 
 var statusMapEmoji = map[string]string{
