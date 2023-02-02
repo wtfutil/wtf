@@ -17,7 +17,7 @@ require (
 	github.com/creack/pty v1.1.18
 	github.com/digitalocean/godo v1.93.0
 	github.com/docker/distribution v2.8.1+incompatible // indirect
-	github.com/docker/docker v20.10.22+incompatible
+	github.com/docker/docker v23.0.0+incompatible
 	github.com/docker/docker-credential-helpers v0.7.0
 	github.com/docker/go-connections v0.4.0 // indirect
 	github.com/docker/go-units v0.4.0 // indirect
