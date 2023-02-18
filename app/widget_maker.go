@@ -86,6 +86,7 @@ import (
 	"github.com/wtfutil/wtf/modules/weatherservices/prettyweather"
 	"github.com/wtfutil/wtf/modules/weatherservices/weather"
 	"github.com/wtfutil/wtf/modules/zendesk"
+	"github.com/wtfutil/wtf/modules/tmuxinator"
 	"github.com/wtfutil/wtf/wtf"
 )
 
@@ -314,6 +315,9 @@ func MakeWidget(
 	case "textfile":
 		settings := textfile.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = textfile.NewWidget(tviewApp, redrawChan, pages, settings)
+	case "tmuxinator":
+		settings := tmuxinator.NewSettingsFromYAML(moduleName, moduleConfig, config)
+		widget = tmuxinator.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "todo":
 		settings := todo.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = todo.NewWidget(tviewApp, redrawChan, pages, settings)
