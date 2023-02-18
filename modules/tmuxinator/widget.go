@@ -6,7 +6,6 @@ import (
 	"github.com/wtfutil/wtf/view"
 )
 
-// Widget is the container for your module's data
 type Widget struct {
 	view.TextWidget
 
@@ -16,7 +15,6 @@ type Widget struct {
 	Items    []string
 }
 
-// NewWidget creates and returns an instance of Widget
 func NewWidget(tviewApp *tview.Application, redrawChan chan bool, pages *tview.Pages, settings *Settings) *Widget {
 	widget := Widget{
 		TextWidget: view.NewTextWidget(tviewApp, redrawChan, pages, settings.common),
@@ -24,48 +22,37 @@ func NewWidget(tviewApp *tview.Application, redrawChan chan bool, pages *tview.P
 		settings: settings,
 	}
 
-	widget.View.SetRegions(true)
-
 	widget.initializeKeyboardControls()
 
-	widget.Unselect()
-
 	widget.Items = fetchProjectList()
-	widget.SetItemCount(len(widget.Items))
+
+	widget.Unselect()
 
 	return &widget
 }
 
 /* -------------------- Exported Functions -------------------- */
 
-// SetItemCount sets the amount of PRs RRs and other PRs throughout the widgets display creation
-func (widget *Widget) SetItemCount(items int) {
-	widget.maxItems = items
-}
-
-// GetItemCount returns the amount of PRs RRs and other PRs calculated so far as an int
-func (widget *Widget) GetItemCount() int {
-	return widget.maxItems
-}
-
-// GetSelected returns the index of the currently highlighted item as an int
 func (widget *Widget) GetSelected() int {
 	if widget.Selected < 0 {
 		return 0
 	}
+
 	return widget.Selected
 }
 
+func (widget *Widget) MaxItems() int {
+	return len(widget.Items)
+}
 
-// Refresh updates the onscreen contents of the widget
 func (widget *Widget) Refresh() {
-
-    // The last call should always be to the display function
-    widget.display()
+	widget.Items = fetchProjectList()
+	widget.Unselect()
+	widget.display()
 }
 
 func (widget *Widget) RowColor(idx int) string {
-	if widget.View.HasFocus() && (idx == widget.Selected) {
+	if widget.View.HasFocus() && (idx == widget.GetSelected()) {
 		foreground := widget.CommonSettings().Colors.RowTheme.HighlightedForeground
 
 		return fmt.Sprintf(

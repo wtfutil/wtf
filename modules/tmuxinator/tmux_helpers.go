@@ -20,7 +20,6 @@ func fetchProjectList() []string {
 	var cleanProjectList []string
 
 	for _, str := range projectList {
-		fmt.Println(str)
 		cleanString := strings.ReplaceAll(str, "\n", "")
 
 		if str != "" {
