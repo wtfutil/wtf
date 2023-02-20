@@ -80,7 +80,7 @@ func (widget *Widget) content() (string, string, bool) {
 		}
 	}
 
-	title := fmt.Sprintf("UptimeRobot (%d/%d)", numUp, len(widget.monitors))
+	title := fmt.Sprintf("%d (%d/%d)", widget.CommonSettings().Title, numUp, len(widget.monitors))
 
 	if widget.err != nil {
 		return title, widget.err.Error(), true
