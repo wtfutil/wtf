@@ -33,6 +33,8 @@ type Widget struct {
 	showTagPrefix string
 	showFilter    string
 	tviewApp      *tview.Application
+	Error         string
+
 	view.ScrollableWidget
 
 	// redrawChan chan bool
@@ -79,7 +81,11 @@ func (widget *Widget) SelectedItem() *checklist.ChecklistItem {
 
 // Refresh updates the data for this widget and displays it onscreen
 func (widget *Widget) Refresh() {
-	widget.load()
+	widget.Error = ""
+	err := widget.load()
+	if err != nil {
+		widget.Error = err.Error()
+	}
 	widget.display()
 }
 
@@ -102,15 +108,19 @@ func (widget *Widget) isItemSelected() bool {
 }
 
 // Loads the todo list from3 Yaml file
-func (widget *Widget) load() {
+func (widget *Widget) load() error {
 	confDir, _ := cfg.WtfConfigDir()
 	filePath := fmt.Sprintf("%s/%s", confDir, widget.filePath)
 
-	fileData, _ := utils.ReadFileBytes(filePath)
+	fileData, err := utils.ReadFileBytes(filePath)
 
-	err := yaml.Unmarshal(fileData, &widget.list)
 	if err != nil {
-		return
+		return err
+	}
+
+	err = yaml.Unmarshal(fileData, &widget.list)
+	if err != nil {
+		return err
 	}
 
 	// do initial sort based on dates to make sure everything is correct
@@ -129,6 +139,7 @@ func (widget *Widget) load() {
 
 	widget.ScrollableWidget.SetItemCount(len(widget.list.Items))
 	widget.setItemChecks()
+	return nil
 }
 
 func (widget *Widget) newItem() {

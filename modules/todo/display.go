@@ -25,6 +25,10 @@ func (widget *Widget) content() (string, string, bool) {
 		str, hidden = widget.sortListByChecked(widget.list.Items, []*checklist.ChecklistItem{})
 	}
 
+	if widget.Error != "" {
+		str = widget.Error
+	}
+
 	title := widget.CommonSettings().Title
 	if widget.showTagPrefix != "" {
 		title += " #" + widget.showTagPrefix
