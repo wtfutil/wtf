@@ -68,7 +68,7 @@ require (
 	k8s.io/client-go v0.26.1
 )
 
-require github.com/nicklaw5/helix/v2 v2.14.0
+require github.com/nicklaw5/helix/v2 v2.19.0
 
 require (
 	github.com/charmbracelet/bubbles v0.14.0
@@ -90,7 +90,7 @@ require (
 	github.com/apache/thrift v0.13.0 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/blang/semver v3.5.1+incompatible // indirect
-	github.com/cespare/xxhash/v2 v2.1.1 // indirect
+	github.com/cespare/xxhash/v2 v2.2.0 // indirect
 	github.com/charmbracelet/bubbletea v0.21.0 // indirect
 	github.com/charmbracelet/harmonica v0.2.0 // indirect
 	github.com/charmbracelet/lipgloss v0.5.0 // indirect
