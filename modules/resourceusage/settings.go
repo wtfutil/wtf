@@ -6,9 +6,9 @@ import (
 )
 
 const (
-	defaultFocusable = false
+	defaultFocusable       = false
 	defaultRefreshInterval = "1s"
-	defaultTitle     = "ResourceUsage"
+	defaultTitle           = "ResourceUsage"
 )
 
 type Settings struct {
