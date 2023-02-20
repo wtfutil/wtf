@@ -55,6 +55,7 @@ import (
 	"github.com/wtfutil/wtf/modules/opsgenie"
 	"github.com/wtfutil/wtf/modules/pagerduty"
 	"github.com/wtfutil/wtf/modules/pihole"
+	"github.com/wtfutil/wtf/modules/pivotal"
 	"github.com/wtfutil/wtf/modules/pocket"
 	"github.com/wtfutil/wtf/modules/power"
 	"github.com/wtfutil/wtf/modules/progress"
@@ -359,6 +360,9 @@ func MakeWidget(
 	case "zendesk":
 		settings := zendesk.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = zendesk.NewWidget(tviewApp, redrawChan, pages, settings)
+	case "pivotal":
+		settings := pivotal.NewSettingsFromYAML(moduleName, moduleConfig, config)
+		widget = pivotal.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "finnhub":
 		settings := finnhub.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = finnhub.NewWidget(tviewApp, redrawChan, settings)
