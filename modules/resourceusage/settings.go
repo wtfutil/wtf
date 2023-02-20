@@ -7,6 +7,7 @@ import (
 
 const (
 	defaultFocusable = false
+	defaultRefreshInterval = "1s"
 	defaultTitle     = "ResourceUsage"
 )
 
@@ -28,6 +29,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		showMem:     ymlConfig.UBool("showMem", true),
 		showSwp:     ymlConfig.UBool("showSwp", true),
 	}
+	settings.Common.RefreshInterval = cfg.ParseTimeString(ymlConfig, "refreshInterval", defaultRefreshInterval)
 
 	return &settings
 }
