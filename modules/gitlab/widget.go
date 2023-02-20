@@ -33,7 +33,7 @@ func NewWidget(tviewApp *tview.Application, redrawChan chan bool, pages *tview.P
 	context, err := newContext(settings)
 
 	widget := Widget{
-		MultiSourceWidget: view.NewMultiSourceWidget(settings.Common, "repository", "repositories"),
+		MultiSourceWidget: view.NewMultiSourceWidget(settings.Common, "project", "projects"),
 		TextWidget:        view.NewTextWidget(tviewApp, redrawChan, pages, settings.Common),
 
 		context:  context,
