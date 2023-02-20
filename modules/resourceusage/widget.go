@@ -132,7 +132,6 @@ func (widget *Widget) Refresh() {
 
 	widget.View.Clear()
 	MakeGraph(widget)
-	widget.Base.RedrawChan <- true
 }
 
 /* -------------------- Unexported Functions -------------------- */
