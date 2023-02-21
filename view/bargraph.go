@@ -50,6 +50,7 @@ func NewBarGraph(tviewApp *tview.Application, redrawChan chan bool, _ string, co
 // time should be passed as a int64
 func (widget *BarGraph) BuildBars(data []Bar) {
 	widget.View.SetText(BuildStars(data, widget.maxStars, widget.starChar))
+	widget.Base.RedrawChan <- true
 }
 
 // BuildStars build the string to display
