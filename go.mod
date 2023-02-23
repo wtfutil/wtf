@@ -72,7 +72,7 @@ require github.com/nicklaw5/helix/v2 v2.19.0
 
 require (
 	github.com/charmbracelet/bubbles v0.14.0
-	github.com/gdamore/tcell/v2 v2.4.1-0.20210905002822-f057f0a857a1
+	github.com/gdamore/tcell/v2 v2.6.0
 	github.com/muesli/reflow v0.3.0
 )
 
@@ -150,7 +150,7 @@ require (
 	github.com/maruel/panicparse/v2 v2.2.0 // indirect
 	github.com/mattn/go-colorable v0.1.11 // indirect
 	github.com/mattn/go-isatty v0.0.14 // indirect
-	github.com/mattn/go-runewidth v0.0.13 // indirect
+	github.com/mattn/go-runewidth v0.0.14 // indirect
 	github.com/matttproud/golang_protobuf_extensions v1.0.1 // indirect
 	github.com/mgutz/ansi v0.0.0-20200706080929-d51e80ef957d // indirect
 	github.com/mholt/archiver/v3 v3.5.1-0.20210618180617-81fac4ba96e4 // indirect
@@ -178,7 +178,7 @@ require (
 	github.com/prometheus/client_model v0.2.0 // indirect
 	github.com/prometheus/common v0.26.0 // indirect
 	github.com/prometheus/procfs v0.6.0 // indirect
-	github.com/rivo/uniseg v0.2.0 // indirect
+	github.com/rivo/uniseg v0.4.3 // indirect
 	github.com/rockbears/log v0.4.0 // indirect
 	github.com/rs/xid v1.2.1 // indirect
 	github.com/sergi/go-diff v1.1.0 // indirect
