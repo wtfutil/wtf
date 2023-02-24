@@ -13,6 +13,7 @@ import (
 
 	"github.com/creack/pty"
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/logger"
 	"github.com/wtfutil/wtf/view"
 )
 
@@ -161,7 +162,7 @@ func runCommandPty(widget *Widget, cmd *exec.Cmd) error {
 	go func() {
 		for range ch {
 			if err := pty.InheritSize(os.Stdin, f); err != nil {
-				panic(fmt.Sprintf("error resizing pty: %s", err))
+				logger.Log(fmt.Sprintf("error resizing pty: %s", err))
 			}
 		}
 	}()
