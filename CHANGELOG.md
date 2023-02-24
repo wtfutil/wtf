@@ -9,10 +9,20 @@
 * Upgrade CodeQL Module by [@Seanstoppable](https://github.com/Seanstoppable) 
 * Updated to Go 1.19 by [@Seanstoppable](https://github.com/Seanstoppable)
 * Lunar Phase module added by [@doctorfree](https://github.com/doctorfree)
+* Lower default refreshing for resourceusage by [@Seanstoppable](https://github.com/Seanstoppable)
+* Pivotal tracker by [@reiktar](https://github.com/reiktar)
+* Progress module by [@michenriksen](https://github.com/michenriksen)
 
 ### 🐞 Fixed
 
 * Fixed Git command for usage on windows by [@ibrahim-13](https://github.com/ibrahim-13)
+* Fixed Transmission module to use latest API by [@Seanstoppable](https://github.com/Seanstoppable)
+* Fixed Todoist module to use latest API by [@Seanstoppable](https://github.com/Seanstoppable)
+* Multiple library upgrades by [@Seanstoppable](https://github.com/Seanstoppable)
+* Better error handling for todo module by [@Seanstoppable](https://github.com/Seanstoppable)
+* Make gitlab scrolling consistent with other modules by [@Seanstoppable](https://github.com/Seanstoppable)
+* Make UptimeRobot title configurable like other modules by [@Seanstoppable](https://github.com/Seanstoppable)
+* Feed Reader improvements and reddit RSS bug fix by [@michenriksen](https://github.com/michenriksen)
 
 
 ## v0.42.0
