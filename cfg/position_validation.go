@@ -3,7 +3,7 @@ package cfg
 import (
 	"fmt"
 
-	"github.com/logrusorgru/aurora"
+	"github.com/logrusorgru/aurora/v4"
 )
 
 // Common examples of invalid position configuration are:

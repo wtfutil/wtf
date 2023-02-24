@@ -11,7 +11,7 @@ import (
 	// data available" errors in clocks module.
 	_ "time/tzdata"
 
-	"github.com/logrusorgru/aurora"
+	"github.com/logrusorgru/aurora/v4"
 	"github.com/pkg/profile"
 
 	"github.com/wtfutil/wtf/app"

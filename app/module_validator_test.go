@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/logrusorgru/aurora"
+	"github.com/logrusorgru/aurora/v4"
 	"github.com/olebedev/config"
 	"github.com/stretchr/testify/assert"
 	"github.com/wtfutil/wtf/wtf"
