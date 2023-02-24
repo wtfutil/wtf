@@ -32,7 +32,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		https:        ymlConfig.UBool("https", false),
 		password:     ymlConfig.UString("password"),
 		port:         uint16(ymlConfig.UInt("port", 9091)),
-		url:          ymlConfig.UString("url", "/transmission/"),
+		url:          ymlConfig.UString("url", ""),
 		username:     ymlConfig.UString("username", ""),
 		hideComplete: ymlConfig.UBool("hideComplete", false),
 	}

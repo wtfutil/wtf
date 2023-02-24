@@ -1,10 +1,11 @@
 package transmission
 
 import (
+	"context"
 	"errors"
 	"sync"
 
-	"github.com/hekmon/transmissionrpc"
+	"github.com/hekmon/transmissionrpc/v2"
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/view"
 )
@@ -16,7 +17,7 @@ type Widget struct {
 	client   *transmissionrpc.Client
 	settings *Settings
 	mu       sync.Mutex
-	torrents []*transmissionrpc.Torrent
+	torrents []transmissionrpc.Torrent
 	err      error
 }
 
@@ -39,24 +40,22 @@ func NewWidget(tviewApp *tview.Application, redrawChan chan bool, pages *tview.P
 /* -------------------- Exported Functions -------------------- */
 
 // Fetch retrieves torrent data from the Transmission daemon
-func (widget *Widget) Fetch() ([]*transmissionrpc.Torrent, error) {
+func (widget *Widget) Fetch() ([]transmissionrpc.Torrent, error) {
 	if widget.client == nil {
 		return nil, errors.New("client was not initialized")
 	}
 
-	torrents, err := widget.client.TorrentGetAll()
+	torrents, err := widget.client.TorrentGetAll(context.Background())
 	if err != nil {
 		return nil, err
 	}
 
-	if !widget.settings.hideComplete {
-		return torrents, nil
-	}
-
-	out := make([]*transmissionrpc.Torrent, 0)
+	out := make([]transmissionrpc.Torrent, 0)
 	for _, torrent := range torrents {
-		if *torrent.PercentDone == 1.0 {
-			continue
+		if widget.settings.hideComplete {
+			if *torrent.PercentDone == 1.0 {
+				continue
+			}
 		}
 
 		out = append(out, torrent)
@@ -108,7 +107,9 @@ func buildClient(widget *Widget) {
 
 	client, err := transmissionrpc.New(widget.settings.host, widget.settings.username, widget.settings.password,
 		&transmissionrpc.AdvancedConfig{
-			Port: widget.settings.port,
+			Port:   widget.settings.port,
+			RPCURI: widget.settings.url,
+			HTTPS:  widget.settings.https,
 		})
 	if err != nil {
 		client = nil
@@ -126,7 +127,7 @@ func (widget *Widget) currentTorrent() *transmissionrpc.Torrent {
 		return nil
 	}
 
-	return widget.torrents[widget.Selected]
+	return &widget.torrents[widget.Selected]
 }
 
 // deleteSelected removes the selected torrent from transmission
@@ -143,12 +144,12 @@ func (widget *Widget) deleteSelectedTorrent() {
 
 	ids := []int64{*currTorrent.ID}
 
-	removePayload := &transmissionrpc.TorrentRemovePayload{
+	removePayload := transmissionrpc.TorrentRemovePayload{
 		IDs:             ids,
 		DeleteLocalData: false,
 	}
 
-	err := widget.client.TorrentRemove(removePayload)
+	err := widget.client.TorrentRemove(context.Background(), removePayload)
 	if err != nil {
 		return
 	}
@@ -171,9 +172,9 @@ func (widget *Widget) pauseUnpauseTorrent() {
 
 	var err error
 	if *currTorrent.Status == transmissionrpc.TorrentStatusStopped {
-		err = widget.client.TorrentStartIDs(ids)
+		err = widget.client.TorrentStartIDs(context.Background(), ids)
 	} else {
-		err = widget.client.TorrentStopIDs(ids)
+		err = widget.client.TorrentStopIDs(context.Background(), ids)
 	}
 
 	if err != nil {

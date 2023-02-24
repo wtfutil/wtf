@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/hekmon/transmissionrpc"
+	"github.com/hekmon/transmissionrpc/v2"
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/utils"
 )
@@ -53,7 +53,7 @@ func (widget *Widget) prettyTorrentName(name string) string {
 	return str
 }
 
-func (widget *Widget) torrentPercentDone(torrent *transmissionrpc.Torrent) string {
+func (widget *Widget) torrentPercentDone(torrent transmissionrpc.Torrent) string {
 	pctDone := *torrent.PercentDone
 	str := fmt.Sprintf("%3d%%↓", int(pctDone*100))
 
@@ -69,7 +69,7 @@ func (widget *Widget) torrentPercentDone(torrent *transmissionrpc.Torrent) strin
 	return str + "[white]"
 }
 
-func (widget *Widget) torrentSeedRatio(torrent *transmissionrpc.Torrent) string {
+func (widget *Widget) torrentSeedRatio(torrent transmissionrpc.Torrent) string {
 	seedRatio := *torrent.UploadRatio
 
 	if seedRatio < 0 {
@@ -79,7 +79,7 @@ func (widget *Widget) torrentSeedRatio(torrent *transmissionrpc.Torrent) string 
 	return fmt.Sprintf("[green]%3d%%↑", int(seedRatio*100))
 }
 
-func (widget *Widget) torrentState(torrent *transmissionrpc.Torrent) string {
+func (widget *Widget) torrentState(torrent transmissionrpc.Torrent) string {
 	str := ""
 
 	switch *torrent.Status {
