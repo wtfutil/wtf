@@ -28,7 +28,7 @@ require (
 	github.com/google/go-github/v32 v32.1.0
 	github.com/jedib0t/go-pretty/v6 v6.4.4
 	github.com/jessevdk/go-flags v1.5.0
-	github.com/logrusorgru/aurora v0.0.0-20190803045625-94edacc10f9b
+	github.com/logrusorgru/aurora v2.0.3+incompatible
 	github.com/microsoft/azure-devops-go-api/azuredevops v0.0.0-20191014190507-26902c1d4325
 	github.com/mmcdole/gofeed v1.2.0
 	github.com/olebedev/config v0.0.0-20190528211619-364964f3a8e4
