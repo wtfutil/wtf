@@ -32,7 +32,7 @@ require (
 	github.com/jessevdk/go-flags v1.5.0
 	github.com/logrusorgru/aurora v0.0.0-20190803045625-94edacc10f9b
 	github.com/microsoft/azure-devops-go-api/azuredevops v0.0.0-20191014190507-26902c1d4325
-	github.com/mmcdole/gofeed v1.1.4-0.20211013195857-68ee9054d97b
+	github.com/mmcdole/gofeed v1.2.0
 	github.com/olebedev/config v0.0.0-20190528211619-364964f3a8e4
 	github.com/olekukonko/tablewriter v0.0.5
 	github.com/ovh/cds v0.50.0
@@ -82,10 +82,10 @@ require (
 	contrib.go.opencensus.io/exporter/jaeger v0.1.0 // indirect
 	contrib.go.opencensus.io/exporter/prometheus v0.1.0 // indirect
 	github.com/ProtonMail/go-crypto v0.0.0-20210428141323-04723f9f07d7 // indirect
-	github.com/PuerkitoBio/goquery v1.5.1 // indirect
+	github.com/PuerkitoBio/goquery v1.8.0 // indirect
 	github.com/acomagu/bufpipe v1.0.3 // indirect
 	github.com/andybalholm/brotli v1.0.4 // indirect
-	github.com/andybalholm/cascadia v1.1.0 // indirect
+	github.com/andybalholm/cascadia v1.3.1 // indirect
 	github.com/aokoli/goutils v1.1.0 // indirect
 	github.com/apache/thrift v0.13.0 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
@@ -157,7 +157,7 @@ require (
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
 	github.com/mitchellh/hashstructure v0.0.0-20170609045927-2bca23e0e452 // indirect
 	github.com/mitchellh/mapstructure v1.1.2 // indirect
-	github.com/mmcdole/goxpp v0.0.0-20181012175147-0068e33feabf // indirect
+	github.com/mmcdole/goxpp v0.0.0-20200921145534-2f3784f67354 // indirect
 	github.com/mndrix/tap-go v0.0.0-20170113192335-56cca451570b // indirect
 	github.com/moby/term v0.0.0-20220808134915-39b0c02b01ae // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
