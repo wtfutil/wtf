@@ -9,7 +9,7 @@ package cfg
 import (
 	"fmt"
 
-	"github.com/logrusorgru/aurora"
+	"github.com/logrusorgru/aurora/v4"
 )
 
 /* -------------------- Unexported Functions -------------------- */
