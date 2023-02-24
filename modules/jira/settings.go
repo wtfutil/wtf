@@ -29,7 +29,7 @@ type Settings struct {
 	email                   string   `help:"The email address associated with your Jira account (or username for basic auth)."`
 	jql                     string   `help:"Custom JQL to be appended to the search query." values:"See Search Jira like a boss with JQL for details." optional:"true"`
 	projects                []string `help:"An array of projects to get data from"`
-	username                string   `help:"Your Jira username."`
+	username                string   `help:"Your Jira username. If provided, will filter issues by this username." optional:"true"`
 	verifyServerCertificate bool     `help:"Determines whether or not the server’s certificate chain and host name are verified." values:"true or false" optional:"true"`
 }
 
