@@ -1,7 +1,7 @@
 package backend
 
 import (
-	"strconv"
+	"fmt"
 
 	"github.com/olebedev/config"
 	"github.com/wtfutil/todoist"
@@ -24,7 +24,7 @@ func (todo *Todoist) BuildProjects() []*Project {
 	projects := []*Project{}
 
 	for _, id := range todo.projects {
-		i := strconv.Itoa(id.(int))
+		i := fmt.Sprintf("%v", id)
 		proj := todo.GetProject(i)
 		projects = append(projects, proj)
 	}
@@ -38,15 +38,13 @@ func (todo *Todoist) GetProject(id string) *Project {
 		Index:   -1,
 		backend: todo,
 	}
-	i64, _ := strconv.ParseUint(id, 10, 32)
-	i := uint(i64)
-	project, err := todoist.GetProject(i)
+	project, err := todoist.GetProject(id)
 	if err != nil {
 		proj.Err = err
 		return proj
 	}
 
-	proj.ID = strconv.FormatUint(uint64(project.ID), 10)
+	proj.ID = project.ID
 	proj.Name = project.Name
 
 	tasks, err := todo.LoadTasks(proj.ID)
@@ -57,9 +55,8 @@ func (todo *Todoist) GetProject(id string) *Project {
 }
 
 func toTask(task todoist.Task) Task {
-	id := strconv.FormatUint(uint64(task.ID), 10)
 	return Task{
-		ID:        id,
+		ID:        task.ID,
 		Completed: task.Completed,
 		Name:      task.Content,
 	}
@@ -80,9 +77,7 @@ func (todo *Todoist) LoadTasks(id string) ([]Task, error) {
 
 func (todo *Todoist) CloseTask(task *Task) error {
 	if task != nil {
-		i64, _ := strconv.ParseUint(task.ID, 10, 32)
-		i := uint(i64)
-		internal := todoist.Task{ID: i}
+		internal := todoist.Task{ID: task.ID}
 		return internal.Close()
 	}
 	return nil
@@ -90,9 +85,7 @@ func (todo *Todoist) CloseTask(task *Task) error {
 
 func (todo *Todoist) DeleteTask(task *Task) error {
 	if task != nil {
-		i64, _ := strconv.ParseUint(task.ID, 10, 32)
-		i := uint(i64)
-		internal := todoist.Task{ID: i}
+		internal := todoist.Task{ID: task.ID}
 		return internal.Delete()
 	}
 	return nil
@@ -101,7 +94,7 @@ func (todo *Todoist) DeleteTask(task *Task) error {
 func (todo *Todoist) Sources() []string {
 	var result []string
 	for _, id := range todo.projects {
-		i := strconv.Itoa(id.(int))
+		i := fmt.Sprintf("%v", id)
 		result = append(result, i)
 	}
 	return result
