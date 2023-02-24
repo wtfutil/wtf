@@ -4,6 +4,13 @@
 
 ### ⚡️ Added
 
+### 🐞 Fixed
+
+
+## v0.43.0
+
+### ⚡️ Added
+
 * Added URLCheck tests by [@pliski](https://github.com/pliski)
 * Added protocol version to IpInfo module by [@vadeg](https://github.com/vadeg)
 * Upgrade CodeQL Module by [@Seanstoppable](https://github.com/Seanstoppable) 
