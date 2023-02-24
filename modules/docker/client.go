@@ -17,7 +17,7 @@ func (widget *Widget) getSystemInfo() string {
 		return errors.Wrap(err, "could not get docker system info").Error()
 	}
 
-	diskUsage, err := widget.cli.DiskUsage(context.Background())
+	diskUsage, err := widget.cli.DiskUsage(context.Background(), types.DiskUsageOptions{})
 	if err != nil {
 		return errors.Wrap(err, "could not get disk usage").Error()
 	}
