@@ -13,7 +13,7 @@ require (
 	github.com/andygrunwald/go-gerrit v0.0.0-20190825170856-5959a9bf9ff8
 	github.com/briandowns/openweathermap v0.19.0
 	github.com/cenkalti/backoff v2.2.1+incompatible // indirect
-	github.com/chzyer/readline v0.0.0-20180603132655-2972be24d48e
+	github.com/chzyer/readline v1.5.1
 	github.com/creack/pty v1.1.18
 	github.com/digitalocean/godo v1.97.0
 	github.com/docker/distribution v2.8.1+incompatible // indirect
@@ -93,7 +93,6 @@ require (
 	github.com/charmbracelet/bubbletea v0.23.1 // indirect
 	github.com/charmbracelet/harmonica v0.2.0 // indirect
 	github.com/charmbracelet/lipgloss v0.6.0 // indirect
-	github.com/chzyer/test v1.0.0 // indirect
 	github.com/containerd/console v1.0.3 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/dlclark/regexp2 v1.4.0 // indirect
