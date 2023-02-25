@@ -31,7 +31,7 @@ func GetOnCalls(apiKey string, scheduleIDs []string) ([]pagerduty.OnCall, error)
 
 	for oncalls.APIListObject.More {
 		queryOpts.Offset = oncalls.APIListObject.Offset
-		oncalls, err = client.ListOnCalls(queryOpts)
+		oncalls, err = client.ListOnCallsWithContext(context.Background(), queryOpts)
 		if err != nil {
 			return nil, err
 		}
@@ -61,7 +61,7 @@ func GetIncidents(apiKey string, teamIDs []string, userIDs []string) ([]pagerdut
 
 	for items.APIListObject.More {
 		queryOpts.Offset = items.APIListObject.Offset
-		items, err = client.ListIncidents(queryOpts)
+		items, err = client.ListIncidentsWithContext(context.Background(), queryOpts)
 		if err != nil {
 			return nil, err
 		}
