@@ -6,11 +6,14 @@ import (
 	"io"
 	"os"
 	"os/exec"
+	"os/signal"
 	"strings"
 	"sync"
+	"syscall"
 
 	"github.com/creack/pty"
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/logger"
 	"github.com/wtfutil/wtf/view"
 )
 
@@ -150,6 +153,23 @@ func runCommandPty(widget *Widget, cmd *exec.Cmd) error {
 		return err
 	}
 
+	// Make sure to close the pty at the end.
+	defer func() { _ = f.Close() }() // Best effort.
+
+	// Handle pty size.
+	ch := make(chan os.Signal, 1)
+	signal.Notify(ch, syscall.SIGWINCH)
+	go func() {
+		for range ch {
+			if err := pty.InheritSize(os.Stdin, f); err != nil {
+				logger.Log(fmt.Sprintf("error resizing pty: %s", err))
+			}
+		}
+	}()
+	ch <- syscall.SIGWINCH                        // Initial resize.
+	defer func() { signal.Stop(ch); close(ch) }() // Cleanup signals when done.
+
+	// Extract output
 	_, err = io.Copy(widget.buffer, f)
 	if err != nil {
 		return err
