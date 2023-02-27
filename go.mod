@@ -6,7 +6,7 @@ require (
 	bitbucket.org/mikehouston/asana-go v0.0.0-20201102222432-715318d0343a
 	code.cloudfoundry.org/bytefmt v0.0.0-20190819182555-854d396b647c
 	github.com/Microsoft/go-winio v0.4.16 // indirect
-	github.com/PagerDuty/go-pagerduty v0.0.0-20191002190746-f60f4fc45222
+	github.com/PagerDuty/go-pagerduty v1.6.0
 	github.com/VictorAvelar/devto-api-go v1.0.0
 	github.com/adlio/trello v1.10.0
 	github.com/alecthomas/chroma v0.10.0

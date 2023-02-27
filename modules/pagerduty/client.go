@@ -1,6 +1,7 @@
 package pagerduty
 
 import (
+	"context"
 	"time"
 
 	"github.com/PagerDuty/go-pagerduty"
@@ -21,7 +22,7 @@ func GetOnCalls(apiKey string, scheduleIDs []string) ([]pagerduty.OnCall, error)
 	queryOpts.Since = time.Now().Format(queryTimeFmt)
 	queryOpts.Until = time.Now().Format(queryTimeFmt)
 
-	oncalls, err := client.ListOnCalls(queryOpts)
+	oncalls, err := client.ListOnCallsWithContext(context.Background(), queryOpts)
 	if err != nil {
 		return nil, err
 	}
@@ -29,8 +30,8 @@ func GetOnCalls(apiKey string, scheduleIDs []string) ([]pagerduty.OnCall, error)
 	results = append(results, oncalls.OnCalls...)
 
 	for oncalls.APIListObject.More {
-		queryOpts.APIListObject.Offset = oncalls.APIListObject.Offset
-		oncalls, err = client.ListOnCalls(queryOpts)
+		queryOpts.Offset = oncalls.APIListObject.Offset
+		oncalls, err = client.ListOnCallsWithContext(context.Background(), queryOpts)
 		if err != nil {
 			return nil, err
 		}
@@ -52,15 +53,15 @@ func GetIncidents(apiKey string, teamIDs []string, userIDs []string) ([]pagerdut
 	queryOpts.TeamIDs = teamIDs
 	queryOpts.UserIDs = userIDs
 
-	items, err := client.ListIncidents(queryOpts)
+	items, err := client.ListIncidentsWithContext(context.Background(), queryOpts)
 	if err != nil {
 		return nil, err
 	}
 	results = append(results, items.Incidents...)
 
 	for items.APIListObject.More {
-		queryOpts.APIListObject.Offset = items.APIListObject.Offset
-		items, err = client.ListIncidents(queryOpts)
+		queryOpts.Offset = items.APIListObject.Offset
+		items, err = client.ListIncidentsWithContext(context.Background(), queryOpts)
 		if err != nil {
 			return nil, err
 		}
