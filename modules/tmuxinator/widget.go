@@ -12,7 +12,6 @@ type Widget struct {
 
 	settings *Settings
 	Selected int
-	maxItems int
 	Items    []string
 
 	tviewApp *tview.Application
