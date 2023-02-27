@@ -48,7 +48,7 @@ func (widget *Widget) addCancelButton(form *tview.Form) {
 	form.SetCancelFunc(cancelFn)
 }
 
-func (_ *Widget) addSaveButton(form *tview.Form, fctn func()) {
+func (*Widget) addSaveButton(form *tview.Form, fctn func()) {
 	form.AddButton("Save", fctn)
 }
 
@@ -72,7 +72,7 @@ func (widget *Widget) modalForm(lbl, text string) *tview.Form {
 	return form
 }
 
-func (_ *Widget) modalFrame(form *tview.Form) *tview.Frame {
+func (*Widget) modalFrame(form *tview.Form) *tview.Frame {
 	frame := tview.NewFrame(form)
 	frame.SetBorders(0, 0, 0, 0, 0, 0)
 	frame.SetRect(offscreen, offscreen, modalWidth, modalHeight)
