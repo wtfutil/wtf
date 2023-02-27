@@ -70,6 +70,7 @@ import (
 	"github.com/wtfutil/wtf/modules/stocks/yfinance"
 	"github.com/wtfutil/wtf/modules/subreddit"
 	"github.com/wtfutil/wtf/modules/textfile"
+	"github.com/wtfutil/wtf/modules/tmuxinator"
 	"github.com/wtfutil/wtf/modules/todo"
 	"github.com/wtfutil/wtf/modules/todo_plus"
 	"github.com/wtfutil/wtf/modules/transmission"
@@ -86,7 +87,6 @@ import (
 	"github.com/wtfutil/wtf/modules/weatherservices/prettyweather"
 	"github.com/wtfutil/wtf/modules/weatherservices/weather"
 	"github.com/wtfutil/wtf/modules/zendesk"
-	"github.com/wtfutil/wtf/modules/tmuxinator"
 	"github.com/wtfutil/wtf/wtf"
 )
 
