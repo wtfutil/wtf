@@ -9,11 +9,11 @@ import (
 // See 'Todo' for an implementation example
 type ChecklistItem struct {
 	Checked       bool
-	CheckedIcon   string
+	CheckedIcon   string `yaml:"-"`
 	Date          *time.Time
 	Tags          []string
 	Text          string
-	UncheckedIcon string
+	UncheckedIcon string `yaml:"-"`
 }
 
 func NewChecklistItem(checked bool, date *time.Time, tags []string, text string, checkedIcon, uncheckedIcon string) *ChecklistItem {
