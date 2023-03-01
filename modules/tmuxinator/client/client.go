@@ -12,7 +12,17 @@ func ProjectList() []string {
 
 	cmd := exec.Command("sh", "-c", cmdString)
 
-	return strings.Split(utils.ExecuteCommand(cmd), " ")
+	result := strings.Split(utils.ExecuteCommand(cmd), " ")
+
+	var projects []string
+
+	for _, str := range result {
+		if str != "" {
+			projects = append(projects, str)
+		}
+	}
+
+	return projects
 }
 
 func StartProject(projectName string) {
