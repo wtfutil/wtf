@@ -456,10 +456,10 @@ github.com/mitchellh/iochan v1.0.0/go.mod h1:JwYml1nuB7xOzsp52dPpHFffvOCDupsG0Qu
 github.com/mitchellh/mapstructure v0.0.0-20160808181253-ca63d7c062ee/go.mod h1:FVVH3fgwuzCH5S8UJGiWEs2h04kUh9fWfEaFds41c1Y=
 github.com/mitchellh/mapstructure v1.1.2 h1:fmNYVwqnSfB9mZU6OS2O6GsXM+wcskZDuKQzvN1EDeE=
 github.com/mitchellh/mapstructure v1.1.2/go.mod h1:FVVH3fgwuzCH5S8UJGiWEs2h04kUh9fWfEaFds41c1Y=
-github.com/mmcdole/gofeed v1.2.0 h1:kuq7tJnDf0pnsDzF820ukuySHxFimAcizpG15gYHIns=
-github.com/mmcdole/gofeed v1.2.0/go.mod h1:TEyTG4gw4Q5Co+Hgahx/Oi3E0JHLM8BXtWC+mkJtRsw=
-github.com/mmcdole/goxpp v1.0.0 h1:/eu75G4jwH/LaugmPVB0FFC8LdKw00UMrpo6N7ym45o=
-github.com/mmcdole/goxpp v1.0.0/go.mod h1:v+25+lT2ViuQ7mVxcncQ8ch1URund48oH+jhjiwEgS8=
+github.com/mmcdole/gofeed v1.2.1 h1:tPbFN+mfOLcM1kDF1x2c/N68ChbdBatkppdzf/vDe1s=
+github.com/mmcdole/gofeed v1.2.1/go.mod h1:2wVInNpgmC85q16QTTuwbuKxtKkHLCDDtf0dCmnrNr4=
+github.com/mmcdole/goxpp v1.1.0 h1:WwslZNF7KNAXTFuzRtn/OKZxFLJAAyOA9w82mDz2ZGI=
+github.com/mmcdole/goxpp v1.1.0/go.mod h1:v+25+lT2ViuQ7mVxcncQ8ch1URund48oH+jhjiwEgS8=
 github.com/mndrix/tap-go v0.0.0-20170113192335-56cca451570b h1:/1WAr2jAZnfxlWW3M3VJ4P3VRi57AjbrUv9U1kCRHyk=
 github.com/mndrix/tap-go v0.0.0-20170113192335-56cca451570b/go.mod h1:pzzDgJWZ34fGzaAZGFW22KVZDfyrYW+QABMrWnJBnSs=
 github.com/moby/term v0.0.0-20220808134915-39b0c02b01ae h1:O4SWKdcHVCvYqyDV+9CJA1fcDN2L11Bule0iFy3YlAI=
