@@ -14,6 +14,8 @@ func (clocks *ClockCollection) Sorted(sortOrder string) []Clock {
 		//no-op
 	} else if sortOrder == "chronological" {
 		clocks.SortedChronologically()
+	} else if sortOrder == "reversechronological" {
+		clocks.SortedReverseChronologically()
 	} else {
 		clocks.SortedAlphabetically()
 	}
@@ -37,5 +39,15 @@ func (clocks *ClockCollection) SortedChronologically() {
 		other := clocks.Clocks[j]
 
 		return clock.ToLocal(now).String() < other.ToLocal(now).String()
+	})
+}
+
+func (clocks *ClockCollection) SortedReverseChronologically() {
+	now := time.Now()
+	sort.Slice(clocks.Clocks, func(i, j int) bool {
+		clock := clocks.Clocks[i]
+		other := clocks.Clocks[j]
+
+		return clock.ToLocal(now).String() > other.ToLocal(now).String()
 	})
 }
