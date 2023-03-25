@@ -60,7 +60,7 @@ func (widget *Widget) content() string {
 			yq.Symbol,
 			fmt.Sprintf("%8.2f %s", yq.MarketPrice, yq.Currency),
 			GetTrendIcon(yq.Trend),
-			fmt.Sprintf("[%s]%+6.2f (%+5.2f%%)", colors[yq.Trend], yq.MarketChange, yq.MarketChangePct),
+			fmt.Sprintf("[%s]%+6.2f (%+5.2f%%)[white]", colors[yq.Trend], yq.MarketChange, yq.MarketChangePct),
 		})
 	}
 
