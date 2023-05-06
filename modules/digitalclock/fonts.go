@@ -80,35 +80,35 @@ func getBigFont() ClockFont {
 }
 
 func getBoldFont() ClockFont {
-    fontsMap := map[string][]string{
-        "1": {"██", "██", "██", "██", "██"},
-        "2": {"██████", "    ██", "██████", "██    ", "██████"},
-        "3": {"██████", "    ██", "██████", "    ██", "██████"},
-        "4": {"██  ██", "██  ██", "██████", "    ██", "    ██"},
-        "5": {"██████", "██    ", "██████", "    ██", "██████"},
-        "6": {"██████", "██    ", "██████", "██  ██", "██████"},
-        "7": {"██████", "    ██", "    ██", "    ██", "    ██"},
-        "8": {"██████", "██  ██", "██████", "██  ██", "██████"},
-        "9": {"██████", "██  ██", "██████", "    ██", "██████"},
-        "0": {"██████", "██  ██", "██  ██", "██  ██", "██████"},
-        ":": {"  ", "██", "  ", "██", "  "},
-        " ": {"  ", "  ", "  ", "  ", "  "},
-        "A": {"", "", "", "", "AM"},
-        "P": {"", "", "", "", "PM"},
-    }
+	fontsMap := map[string][]string{
+		"1": {"██", "██", "██", "██", "██"},
+		"2": {"██████", "    ██", "██████", "██    ", "██████"},
+		"3": {"██████", "    ██", "██████", "    ██", "██████"},
+		"4": {"██  ██", "██  ██", "██████", "    ██", "    ██"},
+		"5": {"██████", "██    ", "██████", "    ██", "██████"},
+		"6": {"██████", "██    ", "██████", "██  ██", "██████"},
+		"7": {"██████", "    ██", "    ██", "    ██", "    ██"},
+		"8": {"██████", "██  ██", "██████", "██  ██", "██████"},
+		"9": {"██████", "██  ██", "██████", "    ██", "██████"},
+		"0": {"██████", "██  ██", "██  ██", "██  ██", "██████"},
+		":": {"  ", "██", "  ", "██", "  "},
+		" ": {"  ", "  ", "  ", "  ", "  "},
+		"A": {"", "", "", "", "AM"},
+		"P": {"", "", "", "", "PM"},
+	}
 
-    boldFont := ClockFont{fontRows: 5, fonts: fontsMap}
-    return boldFont
+	boldFont := ClockFont{fontRows: 5, fonts: fontsMap}
+	return boldFont
 }
 
 // getFont returns appropriate font map based on the font settings
 func getFont(widgetSettings Settings) ClockFont {
-    switch strings.ToLower(widgetSettings.font) {
-    case "digitalfont":
-        return getDigitalFont()
-    case "boldfont":
-        return getBoldFont()
-    default:
-        return getBigFont()
-    }
+	switch strings.ToLower(widgetSettings.font) {
+	case "digitalfont":
+		return getDigitalFont()
+	case "boldfont":
+		return getBoldFont()
+	default:
+		return getBigFont()
+	}
 }
