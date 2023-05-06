@@ -7,7 +7,7 @@ func mergeLines(outString []string) string {
 }
 
 func renderWidget(widgetSettings Settings) string {
-	outputStrings := []string{}
+	var outputStrings []string
 
 	clockString, needBorder := renderClock(widgetSettings)
 	if needBorder {
