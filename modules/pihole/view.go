@@ -17,7 +17,9 @@ func getSummaryView(c http.Client, settings *Settings) string {
 
 	var s Status
 
-	s, err = getStatus(c, settings.apiUrl)
+	url := settings.apiUrl + "?status&auth=" + settings.token
+
+	s, err = getStatus(c, url)
 	if err != nil {
 		return err.Error()
 	}
