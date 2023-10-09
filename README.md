@@ -39,7 +39,7 @@ Awesome! [See here](https://wtfutil.com/sponsors/exit_message/) for how you can 
         <strong>Warp.dev</strong>
         <br />
         <a href="https://warp.dev" target="_blank">
-          <img src="/assets/sponsors/warp.png" height="60" width="176" title="Warp" alt="Warp" />
+          <img src="./images/sponsors/warp.png?raw=true" height="60" width="176" title="Warp" alt="Warp" />
         </a>
       </td>
     </tr>
