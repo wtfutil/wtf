@@ -35,6 +35,13 @@ Awesome! [See here](https://wtfutil.com/sponsors/exit_message/) for how you can 
 		      <img src="./images/sponsors/airbrake.png?raw=true" height="60" title="Airbrake" alt="Airbrake" />
 	      </a>
       </td>
+      <td>
+        <strong>Warp.dev</strong>
+        <br />
+        <a href="https://warp.dev" target="_blank">
+          <img src="/assets/sponsors/warp.png" height="60" width="176" title="Warp" alt="Warp" />
+        </a>
+      </td>
     </tr>
   <table>
 </p>
