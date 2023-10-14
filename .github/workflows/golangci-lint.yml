@@ -19,4 +19,4 @@ jobs:
           # specified without patch version: we always use the latest patch version.
           # https://github.com/golangci/golangci-lint/releases
           version: latest
-          args: ./...
+          args: ./... --timeout=10m
