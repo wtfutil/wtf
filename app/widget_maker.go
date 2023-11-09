@@ -48,6 +48,7 @@ import (
 	"github.com/wtfutil/wtf/modules/kubernetes"
 	"github.com/wtfutil/wtf/modules/logger"
 	"github.com/wtfutil/wtf/modules/lunarphase"
+	"github.com/wtfutil/wtf/modules/mail"
 	"github.com/wtfutil/wtf/modules/mercurial"
 	"github.com/wtfutil/wtf/modules/nbascore"
 	"github.com/wtfutil/wtf/modules/newrelic"
@@ -249,6 +250,9 @@ func MakeWidget(
 	case "lunarphase":
 		settings := lunarphase.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = lunarphase.NewWidget(tviewApp, redrawChan, pages, settings)
+	case "mail":
+		settings := mail.NewSettingsFromYAML(moduleName, moduleConfig, config)
+		widget = mail.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "mercurial":
 		settings := mercurial.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = mercurial.NewWidget(tviewApp, redrawChan, pages, settings)
