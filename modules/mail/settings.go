@@ -14,15 +14,18 @@ const (
 type Settings struct {
 	common *cfg.Common
 
-    // Define your settings attributes here
+	imapAddress string `help:"The address and port to the IMAP server" values:"imap.example.com:993"`
+	username    string `help:"The username to log into the email account"`
+	password    string `help:"The password of the email account"`
 }
 
 // NewSettingsFromYAML creates a new settings instance from a YAML config block
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 	settings := Settings{
-        common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
-
-        // Configure your settings attributes here. See http://github.com/olebedev/config for type details
+		common:      cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
+		imapAddress: ymlConfig.UString("imapAddress"),
+		username:    ymlConfig.UString("username"),
+		password:    ymlConfig.UString("password"),
 	}
 
 	return &settings
