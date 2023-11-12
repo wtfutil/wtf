@@ -33,8 +33,8 @@ func getSequenceSet(mailbox *imap.MailboxStatus, config *Config) *imap.SeqSet {
 	return seqSet
 }
 
-func listMailboxes(listFunc ListFunc) ([]*imap.MailboxInfo, error) {
-	mailboxes := make(chan *imap.MailboxInfo, 10)
+func listMailboxes(listFunc ListFunc, numMailboxes uint32) ([]*imap.MailboxInfo, error) {
+	mailboxes := make(chan *imap.MailboxInfo, numMailboxes)
 	done := make(chan error, 1)
 	defer close(done)
 

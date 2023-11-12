@@ -94,7 +94,7 @@ func FakeListFunc(ref, name string, mailboxes chan *imap.MailboxInfo) error {
 }
 
 func TestListMailboxes(t *testing.T) {
-	mailboxes, err := listMailboxes(FakeListFunc)
+	mailboxes, err := listMailboxes(FakeListFunc, 5)
 
 	if err != nil {
 		t.Errorf("Error %q", err)

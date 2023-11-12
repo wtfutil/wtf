@@ -62,6 +62,14 @@ func (client *FakeIMAPClient) List(ref, name string, mailboxes chan *imap.Mailbo
 	return nil
 }
 
+func (client *FakeIMAPClient) Status(name string, items []imap.StatusItem) (*imap.MailboxStatus, error) {
+	value, exists := client.mailboxes[name]
+	if !exists {
+		return nil, fmt.Errorf("mailbox %q does not exist", name)
+	}
+	return value, nil
+}
+
 func TestSelectMailbox(t *testing.T) {
 	t.Run("Existing mailbox", func(t *testing.T) {
 		fakeClient := FakeIMAPClient{
@@ -179,6 +187,9 @@ func TestSelectMailbox(t *testing.T) {
 					},
 				},
 			},
+			settings: &Settings{
+				numMailboxes: 1,
+			},
 		}
 
 		mailboxes, err := widget.listMailboxes()
@@ -209,6 +220,27 @@ func TestSelectMailbox(t *testing.T) {
 		}
 		if fakeClient.closed != true {
 			t.Errorf("Not closed")
+		}
+	})
+	t.Run("Render mailboxes", func(t *testing.T) {
+		fakeClient := FakeIMAPClient{
+			mailboxes: map[string]*imap.MailboxStatus{
+				"INBOX": &imap.MailboxStatus{
+					Name:     "INBOX",
+					Unseen:   uint32(1),
+					Messages: uint32(2),
+				},
+			},
+		}
+		widget := Widget{
+			client: &fakeClient,
+			settings: &Settings{
+				numMailboxes: 5,
+			},
+		}
+		content := widget.renderMailboxes()
+		if content != "INBOX - (1 unseen/2 messages)\n" {
+			t.Errorf("Incorrect content %q", content)
 		}
 	})
 }

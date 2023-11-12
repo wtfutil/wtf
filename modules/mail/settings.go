@@ -6,7 +6,7 @@ import (
 )
 
 const (
-	defaultFocusable = false
+	defaultFocusable = true
 	defaultTitle     = "mail"
 )
 
@@ -18,6 +18,7 @@ type Settings struct {
 	username        string `help:"The username to log into the email account"`
 	password        string `help:"The password of the email account"`
 	defaultPageSize int    `help:"The default number of messages to display per page" values:"Numbers greater than 0"`
+	numMailboxes    int    `help:"The number of mailboxes to display" values:"Numbers greater than 0"`
 }
 
 // NewSettingsFromYAML creates a new settings instance from a YAML config block
@@ -28,6 +29,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		username:        ymlConfig.UString("username"),
 		password:        ymlConfig.UString("password"),
 		defaultPageSize: ymlConfig.UInt("defaultPageSize", 10),
+		numMailboxes:    ymlConfig.UInt("numMailboxes", 10),
 	}
 
 	return &settings

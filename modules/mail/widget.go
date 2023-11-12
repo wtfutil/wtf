@@ -15,6 +15,7 @@ type IMAPClient interface {
 	Fetch(set *imap.SeqSet, items []imap.FetchItem, messages chan *imap.Message) error
 	Logout() error
 	Login(username, password string) error
+	Status(name string, items []imap.StatusItem) (*imap.MailboxStatus, error)
 	Close() error
 }
 
@@ -26,6 +27,7 @@ type Widget struct {
 	config         *Config
 	client         IMAPClient
 	currentMailbox *imap.MailboxStatus
+	currentView    string
 	loggedIn       bool
 	clientError    error
 }
@@ -43,15 +45,11 @@ func NewWidget(tviewApp *tview.Application, redrawChan chan bool, pages *tview.P
 		},
 		client:      c,
 		clientError: err,
-		loggedIn:    err == nil,
+		currentView: "mailboxes",
 	}
 
 	if err == nil {
 		widget.login()
-	}
-
-	if err == nil {
-		widget.selectMailbox("INBOX")
 	}
 
 	return &widget
@@ -97,14 +95,35 @@ func (widget *Widget) selectMailbox(mailboxName string) {
 }
 
 func (widget *Widget) listMailboxes() ([]*imap.MailboxInfo, error) {
-	return listMailboxes(widget.client.List)
+	return listMailboxes(widget.client.List, uint32(widget.settings.numMailboxes))
 }
 
 func (widget *Widget) listMessages() ([]*imap.Message, error) {
 	return listMessages(widget.client.Fetch, widget.currentMailbox, widget.config)
 }
 
-func (widget *Widget) content() string {
+func (widget *Widget) renderMailboxes() string {
+	mailboxes, err := widget.listMailboxes()
+	if err != nil {
+		return fmt.Sprintf("Error: %s", err.Error())
+	}
+
+	content := ""
+	extraInfo := ""
+	for _, mailbox := range mailboxes {
+		mailboxStatus, err := widget.client.Status(mailbox.Name, []imap.StatusItem{imap.StatusMessages, imap.StatusUnseen})
+		if err != nil {
+			extraInfo = "(N/A)"
+		} else {
+			extraInfo = fmt.Sprintf("(%d unseen/%d messages)", mailboxStatus.Unseen, mailboxStatus.Messages)
+		}
+		content += fmt.Sprintf("%s - %s\n", mailbox.Name, extraInfo)
+	}
+
+	return content
+}
+
+func (widget *Widget) renderMessages() string {
 	messages, err := widget.listMessages()
 	if err != nil {
 		return fmt.Sprintf("Error: %s", err.Error())
@@ -118,6 +137,23 @@ func (widget *Widget) content() string {
 			messages[i].Envelope.From[0].PersonalName,
 			messages[i].Envelope.From[0].Address(),
 		)
+	}
+
+	return content
+}
+
+func (widget *Widget) content() string {
+	if widget.clientError != nil {
+		return fmt.Sprintf("Error: %s", widget.clientError.Error())
+	}
+
+	content := "Unknown view"
+
+	switch widget.currentView {
+	case "mailboxes":
+		content = widget.renderMailboxes()
+	case "messages":
+		content = widget.renderMessages()
 	}
 
 	return content
