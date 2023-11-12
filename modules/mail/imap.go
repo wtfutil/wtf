@@ -10,6 +10,7 @@ type Config struct {
 }
 
 type FetchFunc func(set *imap.SeqSet, items []imap.FetchItem, messages chan *imap.Message) error
+type ListFunc func(ref, name string, mailboxes chan *imap.MailboxInfo) error
 
 func getSequenceSet(mailbox *imap.MailboxStatus, config *Config) *imap.SeqSet {
 	seqSet := new(imap.SeqSet)
@@ -30,6 +31,28 @@ func getSequenceSet(mailbox *imap.MailboxStatus, config *Config) *imap.SeqSet {
 	seqSet.AddRange(from, to)
 
 	return seqSet
+}
+
+func listMailboxes(listFunc ListFunc) ([]*imap.MailboxInfo, error) {
+	mailboxes := make(chan *imap.MailboxInfo, 10)
+	done := make(chan error, 1)
+	defer close(done)
+
+	go func() {
+		done <- listFunc("", "*", mailboxes)
+	}()
+
+	if err := <-done; err != nil {
+		return nil, err
+	}
+
+	mailboxesArray := make([]*imap.MailboxInfo, 0, len(mailboxes))
+
+	for mailbox := range mailboxes {
+		mailboxesArray = append(mailboxesArray, mailbox)
+	}
+
+	return mailboxesArray, nil
 }
 
 func listMessages(fetchFunc FetchFunc, mailbox *imap.MailboxStatus, config *Config) ([]*imap.Message, error) {

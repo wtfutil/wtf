@@ -81,3 +81,34 @@ func TestListMessages(t *testing.T) {
 		t.Errorf("Expected last message to have SeqNum 15, got %d", messages[9].SeqNum)
 	}
 }
+
+func FakeListFunc(ref, name string, mailboxes chan *imap.MailboxInfo) error {
+	defer close(mailboxes)
+	for i := 1; i <= 5; i++ {
+		mailboxes <- &imap.MailboxInfo{
+			Name: fmt.Sprintf("Mailbox %d", i),
+		}
+	}
+
+	return nil
+}
+
+func TestListMailboxes(t *testing.T) {
+	mailboxes, err := listMailboxes(FakeListFunc)
+
+	if err != nil {
+		t.Errorf("Error %q", err)
+	}
+
+	if len(mailboxes) != 5 {
+		t.Errorf("Expected 5 messages, got %d", len(mailboxes))
+	}
+
+	if mailboxes[0].Name != "Mailbox 1" {
+		t.Errorf("Expected first mailbox to have name 'Mailbox 1', got %q", mailboxes[0].Name)
+	}
+
+	if mailboxes[4].Name != "Mailbox 5" {
+		t.Errorf("Expected first mailbox to have name 'Mailbox 5', got %q", mailboxes[0].Name)
+	}
+}

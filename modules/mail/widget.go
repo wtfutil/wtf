@@ -5,14 +5,17 @@ import (
 	"github.com/emersion/go-imap"
 	"github.com/emersion/go-imap/client"
 	"github.com/rivo/tview"
+	log "github.com/wtfutil/wtf/logger"
 	"github.com/wtfutil/wtf/view"
 )
 
 type IMAPClient interface {
+	List(ref, name string, mailboxes chan *imap.MailboxInfo) error
 	Select(name string, readOnly bool) (*imap.MailboxStatus, error)
 	Fetch(set *imap.SeqSet, items []imap.FetchItem, messages chan *imap.Message) error
 	Logout() error
 	Login(username, password string) error
+	Close() error
 }
 
 // Widget is the container for your module's data
@@ -64,8 +67,10 @@ func (widget *Widget) Refresh() {
 }
 
 func (widget *Widget) Stop() {
-	if err := widget.client.Logout(); err != nil {
-		return
+	err := widget.client.Logout()
+	err = widget.client.Close()
+	if err != nil {
+		log.Log(fmt.Sprintf("Error logging out: %s", err.Error()))
 	}
 }
 
@@ -89,6 +94,10 @@ func (widget *Widget) selectMailbox(mailboxName string) {
 		widget.clientError = err
 	}
 	widget.currentMailbox = mbox
+}
+
+func (widget *Widget) listMailboxes() ([]*imap.MailboxInfo, error) {
+	return listMailboxes(widget.client.List)
 }
 
 func (widget *Widget) listMessages() ([]*imap.Message, error) {
