@@ -2,6 +2,7 @@ package ping
 
 import (
 	"fmt"
+	"log"
 	"strings"
 	"sync"
 	"time"
@@ -54,17 +55,18 @@ func (widget *Widget) doPings() {
 					} else {
 						widget.targets[idx].Up = false
 					}
+				} else {
+					log.Fatalf("error sending ping: %v", err)
 				}
 			}
+
 		}()
 	}
 	wg.Wait()
 }
-// Refresh updates the onscreen contents of the widget
 func (widget *Widget) Refresh() {
 
 	widget.doPings()
-    // The last call should always be to the display function
     widget.display()
 }
 
