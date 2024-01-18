@@ -530,8 +530,8 @@ github.com/pelletier/go-toml v1.8.0 h1:Keo9qb7iRJs2voHvunFtuuYFsbWeOBh8/P9v/kVMF
 github.com/pierrec/lz4 v2.0.5+incompatible/go.mod h1:pdkljMzZIN41W+lC3N2tnIh5sFi+IEE17M5jbnwPHcY=
 github.com/pierrec/lz4/v4 v4.1.2 h1:qvY3YFXRQE/XB8MlLzJH7mSzBs74eA2gg52YTk6jUPM=
 github.com/pierrec/lz4/v4 v4.1.2/go.mod h1:gZWDp/Ze/IJXGXf23ltt2EXimqmTUXEy0GFuRQyBid4=
-github.com/piquette/finance-go v1.0.0 h1:0nHbZCbhAsUMUt18oTgy5bHQfPRGhcNA0EbpxNRsZAA=
-github.com/piquette/finance-go v1.0.0/go.mod h1:H51NoGFnfu41Un/Fp0aAhS2lLRFBiiwHhMsV59bXAI0=
+github.com/piquette/finance-go v1.1.0 h1:3J5VBP6aPhvrj9Eg6Eus8eM6QJlX4l/wCfrJhONjS3k=
+github.com/piquette/finance-go v1.1.0/go.mod h1:jaHaD5JJEWpl5mW712M8gRboc2xvhjshF3lqw/ke7AA=
 github.com/pkg/errors v0.8.0/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
 github.com/pkg/errors v0.8.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
 github.com/pkg/errors v0.9.1 h1:FEBLx1zS214owpjy7qsBeixbURkuhQAwrK5UwLGTwt4=
@@ -600,6 +600,7 @@ github.com/sguiheux/go-coverage v0.0.0-20190710153556-287b082a7197 h1:qu90yDtRE5
 github.com/sguiheux/go-coverage v0.0.0-20190710153556-287b082a7197/go.mod h1:0hhKrsUsoT7yvxwNGKa+TSYNA26DNWMqReeZEQq/9FI=
 github.com/shirou/gopsutil v2.21.11+incompatible h1:lOGOyCG67a5dv2hq5Z1BLDUqqKp3HkbjPcz5j6XMS0U=
 github.com/shirou/gopsutil v2.21.11+incompatible/go.mod h1:5b4v6he4MtMOwMlS0TUMTu2PcXUg8+E1lC7eC3UO/RA=
+github.com/shopspring/decimal v0.0.0-20180709203117-cd690d0c9e24/go.mod h1:M+9NzErvs504Cn4c5DxATwIqPbtswREoFCre64PpcG4=
 github.com/shopspring/decimal v1.2.0 h1:abSATXmQEYyShuxI4/vyW3tV1MrKAJzCZ/0zLUXYbsQ=
 github.com/shopspring/decimal v1.2.0/go.mod h1:DKyhrW/HYNuLGql+MJL6WCR6knT2jwCFRcu2hWCYk4o=
 github.com/shurcooL/githubv4 v0.0.0-20200802174311-f27d2ca7f6d5 h1:CA6Mjshr+g5YHENwllpQNR0UaYO7VGKo6TzJLM64WJQ=
