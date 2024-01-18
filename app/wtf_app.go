@@ -11,6 +11,7 @@ import (
 	"github.com/olebedev/config"
 	"github.com/radovskyb/watcher"
 	"github.com/rivo/tview"
+
 	"github.com/wtfutil/wtf/cfg"
 	"github.com/wtfutil/wtf/support"
 	"github.com/wtfutil/wtf/utils"
@@ -93,7 +94,10 @@ func handleRedraws(tviewApp *tview.Application, redrawChan chan bool) {
 	}
 
 	for {
-		data := <-redrawChan
+		data, ok := <-redrawChan
+		if !ok {
+			return
+		}
 
 		if data {
 			tviewApp.Draw()
