@@ -1296,6 +1296,15 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/940230?v=4",
       "profile": "http://ronrecord.com/",
       "contributions": []
+    },
+    {
+      "login": "Crash129",
+      "name": "Crash129",
+      "avatar_url": "https://avatars.githubusercontent.com/u/10711762?v=4",
+      "profile": "https://github.com/Crash129",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
