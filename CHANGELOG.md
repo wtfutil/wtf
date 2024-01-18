@@ -4,8 +4,12 @@
 
 ### ⚡️ Added
 
+* [Pihole module](https://wtfutil.com/modules/pihole/) now supports auth token by [@elulcao](https://github.com/elulcao)
+
 ### 🐞 Fixed
 
+* `handleRedraws()` function now stops properly when reading from a
+  closed channel by [@Crash129](https://github.com/Crash129)
 
 ## v0.43.0
 
@@ -13,7 +17,7 @@
 
 * Added URLCheck tests by [@pliski](https://github.com/pliski)
 * Added protocol version to IpInfo module by [@vadeg](https://github.com/vadeg)
-* Upgrade CodeQL Module by [@Seanstoppable](https://github.com/Seanstoppable) 
+* Upgrade CodeQL Module by [@Seanstoppable](https://github.com/Seanstoppable)
 * Updated to Go 1.19 by [@Seanstoppable](https://github.com/Seanstoppable)
 * Lunar Phase module added by [@doctorfree](https://github.com/doctorfree)
 * Lower default refreshing for resourceusage by [@Seanstoppable](https://github.com/Seanstoppable)
