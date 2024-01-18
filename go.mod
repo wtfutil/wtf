@@ -6,7 +6,7 @@ require (
 	bitbucket.org/mikehouston/asana-go v0.0.0-20201102222432-715318d0343a
 	code.cloudfoundry.org/bytefmt v0.0.0-20190819182555-854d396b647c
 	github.com/Microsoft/go-winio v0.4.16 // indirect
-	github.com/PagerDuty/go-pagerduty v1.6.0
+	github.com/PagerDuty/go-pagerduty v1.7.0
 	github.com/VictorAvelar/devto-api-go v1.0.0
 	github.com/adlio/trello v1.10.0
 	github.com/alecthomas/chroma v0.10.0
@@ -133,7 +133,7 @@ require (
 	github.com/hashicorp/go-retryablehttp v0.7.2 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/hekmon/cunits/v2 v2.1.0 // indirect
-	github.com/huandu/xstrings v1.2.0 // indirect
+	github.com/huandu/xstrings v1.3.2 // indirect
 	github.com/imdario/mergo v0.3.12 // indirect
 	github.com/inconshreveable/mousetrap v1.0.0 // indirect
 	github.com/jbenet/go-context v0.0.0-20150711004518-d14ea06fba99 // indirect
@@ -184,7 +184,7 @@ require (
 	github.com/rs/xid v1.2.1 // indirect
 	github.com/sergi/go-diff v1.1.0 // indirect
 	github.com/sguiheux/go-coverage v0.0.0-20190710153556-287b082a7197 // indirect
-	github.com/sirupsen/logrus v1.8.1 // indirect
+	github.com/sirupsen/logrus v1.9.0 // indirect
 	github.com/smartystreets/assertions v0.0.0-20180927180507-b2de0cb4f26d // indirect
 	github.com/spf13/afero v1.2.2 // indirect
 	github.com/tklauser/go-sysconf v0.3.10 // indirect
