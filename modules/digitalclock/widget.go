@@ -19,6 +19,9 @@ func NewWidget(tviewApp *tview.Application, redrawChan chan bool, settings *Sett
 
 		settings: settings,
 	}
+	if settings.centerAlign {
+		widget.View.SetTextAlign(tview.AlignCenter)
+	}
 
 	return &widget
 }

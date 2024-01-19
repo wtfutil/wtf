@@ -79,10 +79,36 @@ func getBigFont() ClockFont {
 	return bigFont
 }
 
+func getBoldFont() ClockFont {
+	fontsMap := map[string][]string{
+		"1": {"██", "██", "██", "██", "██"},
+		"2": {"██████", "    ██", "██████", "██    ", "██████"},
+		"3": {"██████", "    ██", "██████", "    ██", "██████"},
+		"4": {"██  ██", "██  ██", "██████", "    ██", "    ██"},
+		"5": {"██████", "██    ", "██████", "    ██", "██████"},
+		"6": {"██████", "██    ", "██████", "██  ██", "██████"},
+		"7": {"██████", "    ██", "    ██", "    ██", "    ██"},
+		"8": {"██████", "██  ██", "██████", "██  ██", "██████"},
+		"9": {"██████", "██  ██", "██████", "    ██", "██████"},
+		"0": {"██████", "██  ██", "██  ██", "██  ██", "██████"},
+		":": {"  ", "██", "  ", "██", "  "},
+		" ": {"  ", "  ", "  ", "  ", "  "},
+		"A": {"", "", "", "", "AM"},
+		"P": {"", "", "", "", "PM"},
+	}
+
+	boldFont := ClockFont{fontRows: 5, fonts: fontsMap}
+	return boldFont
+}
+
 // getFont returns appropriate font map based on the font settings
 func getFont(widgetSettings Settings) ClockFont {
-	if strings.ToLower(widgetSettings.font) == "digitalfont" {
+	switch strings.ToLower(widgetSettings.font) {
+	case "digitalfont":
 		return getDigitalFont()
+	case "boldfont":
+		return getBoldFont()
+	default:
+		return getBigFont()
 	}
-	return getBigFont()
 }
