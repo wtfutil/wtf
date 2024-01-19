@@ -68,7 +68,7 @@ require github.com/nicklaw5/helix/v2 v2.22.1
 
 require (
 	github.com/charmbracelet/bubbles v0.15.0
-	github.com/gdamore/tcell/v2 v2.6.0
+	github.com/gdamore/tcell/v2 v2.7.0
 	github.com/hekmon/transmissionrpc/v2 v2.0.1
 	github.com/logrusorgru/aurora/v4 v4.0.0
 	github.com/muesli/reflow v0.3.0
