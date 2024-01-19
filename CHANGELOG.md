@@ -8,8 +8,7 @@
 
 ### 🐞 Fixed
 
-* `handleRedraws()` function now stops properly when reading from a
-  closed channel by [@Crash129](https://github.com/Crash129)
+* `handleRedraws()` function now stops properly when reading from a closed channel by [@Crash129](https://github.com/Crash129)
 
 ## v0.43.0
 
