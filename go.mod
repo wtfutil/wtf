@@ -64,7 +64,7 @@ require (
 	k8s.io/client-go v0.27.1
 )
 
-require github.com/nicklaw5/helix/v2 v2.22.1
+require github.com/nicklaw5/helix/v2 v2.25.3
 
 require (
 	github.com/charmbracelet/bubbles v0.15.0
