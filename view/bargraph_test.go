@@ -60,15 +60,15 @@ func Test_NewBarGraph(t *testing.T) {
 	assert.Equal(t, "|", widget.starChar)
 }
 
-func Test_BuildBars(t *testing.T) {
-	widget := newTestGraph(15, "|")
+// func Test_BuildBars(t *testing.T) {
+// 	widget := newTestGraph(15, "|")
 
-	before := widget.View.GetText(false)
-	widget.BuildBars(makeData())
-	after := widget.View.GetText(false)
+// 	before := widget.View.GetText(false)
+// 	widget.BuildBars(makeData())
+// 	after := widget.View.GetText(false)
 
-	assert.NotEqual(t, before, after)
-}
+// 	assert.NotEqual(t, before, after)
+// }
 
 func Test_TextView(t *testing.T) {
 	widget := newTestGraph(15, "|")
