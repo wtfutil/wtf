@@ -18,7 +18,7 @@ require (
 	github.com/digitalocean/godo v1.98.0
 	github.com/docker/distribution v2.8.2+incompatible // indirect
 	github.com/docker/docker v23.0.8+incompatible
-	github.com/docker/docker-credential-helpers v0.7.0
+	github.com/docker/docker-credential-helpers v0.8.1
 	github.com/docker/go-connections v0.4.0 // indirect
 	github.com/docker/go-units v0.4.0 // indirect
 	github.com/dustin/go-humanize v1.0.1
@@ -49,7 +49,7 @@ require (
 	github.com/stretchr/testify v1.8.4
 	github.com/wtfutil/spotigopher v0.0.0-20191127141047-7d8168fe103a
 	github.com/wtfutil/todoist v0.0.2-0.20191216004217-0ec29ceda61a
-	github.com/xanzy/go-gitlab v0.83.0
+	github.com/xanzy/go-gitlab v0.96.0
 	github.com/zmb3/spotify v1.3.0
 	github.com/zorkian/go-datadog-api v2.30.0+incompatible
 	golang.org/x/oauth2 v0.10.0
