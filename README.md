@@ -21,6 +21,13 @@ Awesome! [See here](https://wtfutil.com/sponsors/exit_message/) for how you can 
 <p>
   <table>
     <tr>
+      <td rowspan="2">
+        <strong>Warp.dev</strong>
+        <br />
+        <a href="https://www.warp.dev/?utm_source=github&utm_medium=referral&utm_campaign=wtf_20230929 " target="_blank">
+          <img src="./images/sponsors/warp2.png?raw=true" height="302" width="538" title="Warp" alt="Warp" />
+        </a>
+      </td>
       <td>
         <strong>Robusta.dev</strong>
         <br />
@@ -28,19 +35,14 @@ Awesome! [See here](https://wtfutil.com/sponsors/exit_message/) for how you can 
 		      <img src="./images/sponsors/robusta.png?raw=true" height="60" title="Robusta.dev" alt="Robusta.dev" />
 	      </a>
       </td>
+    </tr>
+    <tr>
       <td>
         <strong>Airbrake</strong>
         <br />
 	      <a href="https://airbrake.io/?utm_medium=sponsor&utm_source=WTFutill&utm_content=airbrake-home-page&utm_campaign=2021-sponsorships" target=_blank>
 		      <img src="./images/sponsors/airbrake.png?raw=true" height="60" title="Airbrake" alt="Airbrake" />
 	      </a>
-      </td>
-      <td>
-        <strong>Warp.dev</strong>
-        <br />
-        <a href="https://www.warp.dev/?utm_source=github&utm_medium=referral&utm_campaign=wtf_20230929 " target="_blank">
-          <img src="./images/sponsors/warp.png?raw=true" height="60" width="176" title="Warp" alt="Warp" />
-        </a>
       </td>
     </tr>
   <table>
