@@ -5,6 +5,8 @@
 ### ⚡️ Added
 
 * [Pihole module](https://wtfutil.com/modules/pihole/) now supports auth token by [@elulcao](https://github.com/elulcao)
+* [Healthchecks module](https://wtfutil.com/modules/healthchecks/) now honors the common title setting, supports
+  two additional healthcheck statuses, by [@harpchad](https://github.com/harpchad)
 
 ### 🐞 Fixed
 
