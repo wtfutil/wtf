@@ -7,6 +7,8 @@
 * [Pihole module](https://wtfutil.com/modules/pihole/) now supports auth token by [@elulcao](https://github.com/elulcao)
 * [Healthchecks module](https://wtfutil.com/modules/healthchecks/) now honors the common title setting, supports
   two additional healthcheck statuses, by [@harpchad](https://github.com/harpchad)
+* [Digital Clock module](https://wtfutil.com/modules/digitalclock/) now
+  supports a bold font, better date display, and better alignment, by [@truman369](https://github.com/truman369)
 
 ### 🐞 Fixed
 
