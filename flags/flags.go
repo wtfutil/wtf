@@ -161,11 +161,18 @@ func (flags *Flags) Parse() {
 		return
 	}
 
-	// If no config file is explicitly passed in as a param then set the flag to the default config file
+	// If no config file is explicitly passed in as a param
+	// then try the `WTF_CONFIG` environment variable
+	// then fallback to the default config file to define the default flag value
 	configDir, err := cfg.WtfConfigDir()
 	if err != nil {
 		fmt.Printf("Error: %v\n", err)
 		os.Exit(1)
 	}
-	flags.Config = filepath.Join(configDir, "config.yml")
+	envCfg := os.Getenv("WTF_CONFIG")
+	if envCfg == "" {
+		flags.Config = filepath.Join(configDir, "config.yml")
+	} else {
+		flags.Config = envCfg
+	}
 }
