@@ -7,7 +7,7 @@ func mergeLines(outString []string) string {
 }
 
 func renderWidget(widgetSettings Settings) string {
-	outputStrings := []string{}
+	var outputStrings []string
 
 	clockString, needBorder := renderClock(widgetSettings)
 	if needBorder {
@@ -17,7 +17,15 @@ func renderWidget(widgetSettings Settings) string {
 	}
 
 	if widgetSettings.withDate {
-		outputStrings = append(outputStrings, getDate(widgetSettings.dateFormat, widgetSettings.withDatePrefix), getUTC(), getEpoch())
+		outputStrings = append(outputStrings, getDate(widgetSettings.dateFormat, widgetSettings.withDatePrefix))
+	}
+
+	if widgetSettings.withUTC {
+		outputStrings = append(outputStrings, getUTC())
+	}
+
+	if widgetSettings.withEpoch {
+		outputStrings = append(outputStrings, getEpoch())
 	}
 
 	return mergeLines(outputStrings)
@@ -25,6 +33,10 @@ func renderWidget(widgetSettings Settings) string {
 
 func (widget *Widget) display() {
 	widget.Redraw(func() (string, string, bool) {
-		return widget.CommonSettings().Title, renderWidget(*widget.settings), false
+		title := widget.CommonSettings().Title
+		if widget.settings.dateTitle {
+			title = getDate(widget.settings.dateFormat, false)
+		}
+		return title, renderWidget(*widget.settings), false
 	})
 }
