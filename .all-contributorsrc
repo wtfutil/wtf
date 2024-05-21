@@ -1310,6 +1310,15 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/132304?v=4",
       "profile": "https://github.com/harpchad",
       "contributions": []
+    },
+    {
+      "login": "truman369",
+      "name": "Kirill Troitskiy",
+      "avatar_url": "https://avatars.githubusercontent.com/u/66359355?v=4",
+      "profile": "https://github.com/truman369",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
