@@ -498,7 +498,7 @@ Dependency management in WTF is handled by [Go modules](https://github.com/golan
     <td align="center"><a href="https://www.youtube.com/c/bashbunni"><img src="https://avatars.githubusercontent.com/u/15822994?v=4?s=48" width="48px;" alt=""/><br /><sub><b>bashbunni</b></sub></a><br /></td>
     <td align="center"><a href="http://ronrecord.com/"><img src="https://avatars.githubusercontent.com/u/940230?v=4?s=48" width="48px;" alt=""/><br /><sub><b>Ronald Record</b></sub></a><br /></td>
     <td align="center"><a href="https://github.com/Crash129"><img src="https://avatars.githubusercontent.com/u/10711762?v=4?s=48" width="48px;" alt=""/><br /><sub><b>Crash129</b></sub></a><br /></td>
-    <td align="center"><a href="https://github.com/harpchad"><img src="https://avatars.githubusercontent.com/u/132304?v=4?s=48" width="48px;" alt=""/><br /><sub><b>Chad Harp</b></sub></a><br /><a href="https://github.com/wtfutil/wtf/commits?author=harpchad" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/harpchad"><img src="https://avatars.githubusercontent.com/u/132304?v=4?s=48" width="48px;" alt=""/><br /><sub><b>Chad Harp</b></sub></a><br /></td>
   </tr>
 </table>
 
