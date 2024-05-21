@@ -25,7 +25,7 @@ Awesome! [See here](https://wtfutil.com/sponsors/exit_message/) for how you can 
         <strong>Warp.dev</strong>
         <br />
         <a href="https://www.warp.dev/?utm_source=github&utm_medium=referral&utm_campaign=wtf_20230929 " target="_blank">
-          <img src="./images/sponsors/warp3.png?raw=true" height="400" width="600" title="Warp" alt="Warp" />
+          <img src="./images/sponsors/warp3.png?raw=true" height="266" width="400" title="Warp" alt="Warp" />
         </a>
       </td>
       <td>
