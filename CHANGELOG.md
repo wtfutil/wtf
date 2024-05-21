@@ -13,6 +13,7 @@
 ### 🐞 Fixed
 
 * `handleRedraws()` function now stops properly when reading from a closed channel by [@Crash129](https://github.com/Crash129)
+* The `WTF_CONFIG` environment variable can now be used to [set the configuration path](https://github.com/wtfutil/wtf/pull/1572), by [@noirbizarre](https://github.com/noirbizarre)
 
 ## v0.43.0
 
