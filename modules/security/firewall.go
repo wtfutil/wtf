@@ -44,11 +44,11 @@ func FirewallStealthState() string {
 
 func firewallStateLinux() string { // might be very Ubuntu specific
 	user, _ := user.Current()
-    cmd := exec.Command("sudo", "/usr/sbin/ufw", "status")
+	cmd := exec.Command("sudo", "/usr/sbin/ufw", "status")
 
 	if strings.Contains(user.Username, "root") {
 		cmd = exec.Command("ufw", "status")
-    }
+	}
 
 	var o bytes.Buffer
 	cmd.Stdout = &o
