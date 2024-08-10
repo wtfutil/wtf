@@ -34,7 +34,7 @@ require (
 	github.com/olekukonko/tablewriter v0.0.5
 	github.com/ovh/cds v0.50.0
 	github.com/pborman/uuid v1.2.0 // indirect
-	github.com/piquette/finance-go v1.1.0
+	github.com/piquette/finance-go v1.1.1-0.20230807033903-430a57233430
 	github.com/pkg/errors v0.9.1
 	github.com/pkg/profile v1.7.0
 	github.com/radovskyb/watcher v1.0.7
