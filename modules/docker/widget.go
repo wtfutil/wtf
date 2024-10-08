@@ -24,7 +24,7 @@ func NewWidget(tviewApp *tview.Application, redrawChan chan bool, pages *tview.P
 
 	widget.View.SetScrollable(true)
 
-	cli, err := client.NewClientWithOpts()
+	cli, err := client.NewClientWithOpts(client.FromEnv)
 	if err != nil {
 		widget.displayBuffer = errors.Wrap(err, "could not create client").Error()
 	} else {
