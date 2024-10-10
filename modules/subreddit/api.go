@@ -37,7 +37,7 @@ func GetLinks(subreddit string, sortMode string, topTimePeriod string) ([]Link, 
 	defer func() { _ = resp.Body.Close() }()
 
 	if resp.StatusCode > 299 {
-		return nil, fmt.Errorf(resp.Status)
+		return nil, fmt.Errorf("resp status code is not 2**. Status code: %v", resp.Status)
 	}
 	var m RedditDocument
 	err = utils.ParseJSON(&m, resp.Body)

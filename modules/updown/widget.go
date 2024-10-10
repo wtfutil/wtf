@@ -183,7 +183,7 @@ func (widget *Widget) getExistingChecks() ([]Check, error) {
 	}
 
 	if resp.StatusCode != 200 {
-		return nil, fmt.Errorf(resp.Status)
+		return nil, fmt.Errorf("resp status code is not 2**. Status code: %v", resp.Status)
 	}
 
 	defer func() { _ = resp.Body.Close() }()

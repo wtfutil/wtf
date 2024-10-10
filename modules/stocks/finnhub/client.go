@@ -73,7 +73,7 @@ func (client *Client) finnhubRequest(symbol string) (*http.Response, error) {
 	defer func() { _ = resp.Body.Close() }()
 
 	if resp.StatusCode < 200 || resp.StatusCode > 299 {
-		return nil, fmt.Errorf(resp.Status)
+		return nil, fmt.Errorf("resp status code is not 2**. Status code: %v", resp.Status)
 	}
 
 	return resp, nil
