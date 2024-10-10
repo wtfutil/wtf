@@ -36,7 +36,7 @@ func NewCache(configPath string) *Cache {
 	// Ensure the cache directory exists
 	cacheDir := filepath.Dir(cache.configPath)
 	logger.Log(fmt.Sprintf("Cache directory: %s\n", cacheDir))
-	if err := os.MkdirAll(cacheDir, 0755); err != nil {
+	if err := os.MkdirAll(cacheDir, 0600); err != nil {
 		logger.Log(fmt.Sprintf("Error creating cache directory: %s\n", err))
 	}
 

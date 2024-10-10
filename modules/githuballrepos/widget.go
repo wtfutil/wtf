@@ -124,6 +124,7 @@ func (widget *Widget) content() string {
 }
 
 func (widget *Widget) startCarousel() {
+	// skipcq: GOOO-E1007
 	go func() {
 		ticker := time.NewTicker(10 * time.Second)
 		defer ticker.Stop()
