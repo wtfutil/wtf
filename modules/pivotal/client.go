@@ -73,7 +73,7 @@ func (pivotal *PivotalClient) apiv5(resource string) (*Resource, error) {
 	Err := Error{}
 	err = json.Unmarshal([]byte(string(data)), &Err)
 	if err == nil && Err.Error != "" {
-		return nil, fmt.Errorf(Err.Error)
+		return nil, fmt.Errorf("resp status code is not 2**. Status code: %v", Err.Error)
 	}
 
 	return &Resource{Response: &resp, Raw: string(data)}, nil

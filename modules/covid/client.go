@@ -14,7 +14,7 @@ func LatestCases() (*Cases, error) {
 	latestURL := covidTrackerAPIURL + "latest"
 	resp, err := http.Get(latestURL)
 	if resp.StatusCode != 200 {
-		return nil, fmt.Errorf(resp.Status)
+		return nil, fmt.Errorf("resp status code is not 2**. Status code: %v", resp.Status)
 	}
 	if err != nil {
 		return nil, err
@@ -37,7 +37,7 @@ func (widget *Widget) LatestCountryCases(countries []interface{}) ([]*Cases, err
 		countryURL := covidTrackerAPIURL + "locations?source=jhu&country_code=" + name.(string)
 		resp, err := http.Get(countryURL)
 		if resp.StatusCode != 200 {
-			return nil, fmt.Errorf(resp.Status)
+			return nil, fmt.Errorf("resp status code is not 2**. Status code: %v", resp.Status)
 		}
 		if err != nil {
 			return nil, err

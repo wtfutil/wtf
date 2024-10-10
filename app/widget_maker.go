@@ -31,6 +31,7 @@ import (
 	"github.com/wtfutil/wtf/modules/gerrit"
 	"github.com/wtfutil/wtf/modules/git"
 	"github.com/wtfutil/wtf/modules/github"
+	"github.com/wtfutil/wtf/modules/githuballrepos"
 	"github.com/wtfutil/wtf/modules/gitlab"
 	"github.com/wtfutil/wtf/modules/gitlabtodo"
 	"github.com/wtfutil/wtf/modules/gitter"
@@ -198,6 +199,9 @@ func MakeWidget(
 	case "github":
 		settings := github.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = github.NewWidget(tviewApp, redrawChan, pages, settings)
+	case "githuballrepos":
+		settings := githuballrepos.NewSettingsFromYAML(moduleName, moduleConfig, config)
+		widget = githuballrepos.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "gitlab":
 		settings := gitlab.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = gitlab.NewWidget(tviewApp, redrawChan, pages, settings)
