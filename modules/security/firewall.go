@@ -1,9 +1,7 @@
 package security
 
 import (
-	"bytes"
 	"os/exec"
-	"os/user"
 	"runtime"
 	"strings"
 
@@ -42,25 +40,83 @@ func FirewallStealthState() string {
 
 /* -------------------- Unexported Functions -------------------- */
 
-func firewallStateLinux() string { // might be very Ubuntu specific
-	user, _ := user.Current()
-	cmd := exec.Command("sudo", "/usr/sbin/ufw", "status")
-
-	if strings.Contains(user.Username, "root") {
-		cmd = exec.Command("ufw", "status")
+func firewallStateLinux() string {
+	// Check UFW first
+	if hasUfw := checkUfw(); hasUfw != "" {
+		return hasUfw
 	}
 
-	var o bytes.Buffer
-	cmd.Stdout = &o
-	if err := cmd.Run(); err != nil {
-		return "[red]NA[white]"
+	// Check nftables
+	if hasNft := checkNftables(); hasNft != "" {
+		return hasNft
 	}
 
-	if strings.Contains(o.String(), "inactive") {
-		return "[red]Disabled[white]"
-	} else {
-		return "[green]Enabled[white]"
+	// Check iptables as last resort
+	if hasIpt := checkIptables(); hasIpt != "" {
+		return hasIpt
 	}
+
+	return "[red]No firewall[white]"
+}
+
+func checkUfw() string {
+	// First check if UFW is installed
+	checkInstalled := exec.Command("which", "ufw")
+	if err := checkInstalled.Run(); err != nil {
+		return ""
+	}
+
+	// Then check if service is running
+	cmd := exec.Command("systemctl", "is-active", "ufw")
+	out := utils.ExecuteCommand(cmd)
+
+	if strings.Contains(out, "active") {
+		return "[green]Enabled (ufw)[white]"
+	} else if out != "" {
+		return "[red]Disabled (ufw)[white]"
+	}
+	return ""
+}
+
+func checkNftables() string {
+	// First check if nftables is installed
+	checkInstalled := exec.Command("which", "nft")
+	if err := checkInstalled.Run(); err != nil {
+		return ""
+	}
+
+	// Then check if service is running
+	cmd := exec.Command("systemctl", "is-active", "nftables")
+	out := utils.ExecuteCommand(cmd)
+	if strings.Contains(out, "active") {
+		return "[green]Enabled (nftables)[white]"
+	} else if out != "" {
+		return "[red]Disabled (nftables)[white]"
+	}
+	return ""
+}
+
+func checkIptables() string {
+	// First check if iptables is installed
+	checkInstalled := exec.Command("which", "iptables")
+	if strings.Contains(utils.ExecuteCommand(checkInstalled), "not found") {
+		return ""
+	}
+
+	// Check if iptables module is loaded
+	cmd := exec.Command("lsmod")
+	out := utils.ExecuteCommand(cmd)
+
+	if strings.Contains(out, "ip_tables") {
+		// Check for any active rules
+		cmd := exec.Command("iptables", "-L")
+		out := utils.ExecuteCommand(cmd)
+		if strings.Contains(out, "Chain") && !strings.Contains(out, "0 references") {
+			return "[green]Enabled (iptables)[white]"
+		}
+		return "[yellow]Unable to check rules (iptables)[white]"
+	}
+	return ""
 }
 
 func firewallStateMacOS() string {
