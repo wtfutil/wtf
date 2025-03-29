@@ -114,7 +114,7 @@ func checkIptables() string {
 		if strings.Contains(out, "Chain") && !strings.Contains(out, "0 references") {
 			return "[green]Enabled (iptables)[white]"
 		}
-		return "[yellow]Unable to check rules (iptables)[white]"
+		return "[yellow]Loaded but unable to check rules (iptables)[white]"
 	}
 	return ""
 }
