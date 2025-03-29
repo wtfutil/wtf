@@ -91,7 +91,7 @@ const defaultConfigFile = `wtf:
       refreshInterval: 30
       wrapText: false
     uptime:
-      args: [""]
+      args: []
       cmd: "uptime"
       enabled: true
       position:
