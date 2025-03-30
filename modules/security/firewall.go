@@ -68,14 +68,11 @@ func checkUfw() string {
 
 	// Then check if service is running
 	cmd := exec.Command("systemctl", "is-active", "ufw")
-	out := utils.ExecuteCommand(cmd)
-
-	if strings.Contains(out, "active") {
+	err := cmd.Run()
+	if err == nil {
 		return "[green]Enabled (ufw)[white]"
-	} else if out != "" {
-		return "[red]Disabled (ufw)[white]"
 	}
-	return ""
+	return "[red]Disabled (ufw)[white]"
 }
 
 func checkNftables() string {
@@ -87,13 +84,11 @@ func checkNftables() string {
 
 	// Then check if service is running
 	cmd := exec.Command("systemctl", "is-active", "nftables")
-	out := utils.ExecuteCommand(cmd)
-	if strings.Contains(out, "active") {
+	err := cmd.Run()
+	if err == nil {
 		return "[green]Enabled (nftables)[white]"
-	} else if out != "" {
-		return "[red]Disabled (nftables)[white]"
 	}
-	return ""
+	return "[red]Disabled (nftables)[white]"
 }
 
 func checkIptables() string {
