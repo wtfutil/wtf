@@ -1,6 +1,6 @@
 module github.com/wtfutil/wtf
 
-go 1.19
+go 1.22
 
 require (
 	bitbucket.org/mikehouston/asana-go v0.0.0-20201102222432-715318d0343a
@@ -64,7 +64,7 @@ require (
 	k8s.io/client-go v0.27.1
 )
 
-require github.com/nicklaw5/helix/v2 v2.22.2
+require github.com/nicklaw5/helix/v2 v2.31.1
 
 require (
 	github.com/charmbracelet/bubbles v0.15.0
