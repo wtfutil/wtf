@@ -5,16 +5,12 @@ updates:
   schedule:
     interval: daily
   open-pull-requests-limit: 10
-  reviewers:
-  - senorprogrammer
   assignees:
-  - senorprogrammer
+  - FelicianoTech
 - package-ecosystem: "github-actions"
   directory: "/"
   schedule:
     interval: daily
   open-pull-requests-limit: 10
-  reviewers:
-  - senorprogrammer
   assignees:
-  - senorprogrammer
+  - FelicianoTech
