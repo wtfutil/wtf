@@ -101,7 +101,6 @@ install:
 	@echo "Installing ${APP} with ${GOVERS}..."
 	@go clean
 	@go install -ldflags="-s -w"
-	@mv $(GOBIN)/wtf $(GOBIN)/${APP}
 	$(eval INSTALLPATH = $(shell which ${APP}))
 	@echo "${APP} installed into ${INSTALLPATH}"
 
