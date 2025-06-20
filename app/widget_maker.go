@@ -80,6 +80,7 @@ import (
 	"github.com/wtfutil/wtf/modules/twitterstats"
 	"github.com/wtfutil/wtf/modules/unknown"
 	"github.com/wtfutil/wtf/modules/updown"
+	"github.com/wtfutil/wtf/modules/uptimekuma"
 	"github.com/wtfutil/wtf/modules/uptimerobot"
 	"github.com/wtfutil/wtf/modules/urlcheck"
 	"github.com/wtfutil/wtf/modules/victorops"
@@ -345,6 +346,9 @@ func MakeWidget(
 	case "updown":
 		settings := updown.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = updown.NewWidget(tviewApp, redrawChan, pages, settings)
+	case "uptimekuma":
+		settings := uptimekuma.NewSettingsFromYAML(moduleName, moduleConfig, config)
+		widget = uptimekuma.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "uptimerobot":
 		settings := uptimerobot.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = uptimerobot.NewWidget(tviewApp, redrawChan, pages, settings)
