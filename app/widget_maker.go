@@ -87,6 +87,7 @@ import (
 	"github.com/wtfutil/wtf/modules/weatherservices/prettyweather"
 	"github.com/wtfutil/wtf/modules/weatherservices/weather"
 	"github.com/wtfutil/wtf/modules/zendesk"
+	"github.com/wtfutil/wtf/modules/ping"
 	"github.com/wtfutil/wtf/wtf"
 )
 
@@ -273,6 +274,9 @@ func MakeWidget(
 	case "pihole":
 		settings := pihole.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = pihole.NewWidget(tviewApp, redrawChan, pages, settings)
+	case "ping":
+		settings := ping.NewSettingsFromYAML(moduleName, moduleConfig, config)
+		widget = ping.NewWidget(tviewApp, redrawChan, settings)
 	case "power":
 		settings := power.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = power.NewWidget(tviewApp, redrawChan, settings)
