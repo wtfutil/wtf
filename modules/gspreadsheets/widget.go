@@ -53,7 +53,7 @@ func (widget *Widget) content() (string, string, bool) {
 
 	cells := utils.ToStrs(widget.settings.cellNames)
 	for i := 0; i < len(widget.cells); i++ {
-		res += fmt.Sprintf("%s\t[%s]%s\n", cells[i], widget.settings.colors.values, widget.cells[i].Values[0][0])
+		res += fmt.Sprintf("%s\t[%s]%s\n", cells[i], widget.settings.values, widget.cells[i].Values[0][0])
 	}
 
 	return title, res, false

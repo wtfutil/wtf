@@ -7,7 +7,7 @@ import (
 )
 
 func (widget *Widget) display() {
-	widget.TextWidget.Redraw(widget.content)
+	widget.Redraw(widget.content)
 }
 
 func (widget *Widget) content() (string, string, bool) {
@@ -36,7 +36,7 @@ func (widget *Widget) content() (string, string, bool) {
 func (widget *Widget) title(workflow *sdk.Workflow) string {
 	return fmt.Sprintf(
 		"[%s]%s/%s[white]",
-		widget.settings.Colors.TextTheme.Title,
+		widget.settings.Colors.Title,
 		workflow.ProjectKey, workflow.Name,
 	)
 }

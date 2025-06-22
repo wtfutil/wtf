@@ -44,8 +44,8 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 	cfg.ModuleSecret(name, globalConfig, &settings.password).
 		Service(settings.domain).Load()
 
-	settings.colors.rows.even = ymlConfig.UString("colors.rows.even", "white")
-	settings.colors.rows.odd = ymlConfig.UString("colors.rows.odd", "blue")
+	settings.rows.even = ymlConfig.UString("colors.rows.even", "white")
+	settings.rows.odd = ymlConfig.UString("colors.rows.odd", "blue")
 
 	return &settings
 }

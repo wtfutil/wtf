@@ -50,8 +50,8 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 	cfg.ModuleSecret(name, globalConfig, &settings.apiKey).
 		Service(settings.domain).Load()
 
-	settings.colors.rows.even = ymlConfig.UString("colors.even", "lightblue")
-	settings.colors.rows.odd = ymlConfig.UString("colors.odd", "white")
+	settings.rows.even = ymlConfig.UString("colors.even", "lightblue")
+	settings.rows.odd = ymlConfig.UString("colors.odd", "white")
 
 	settings.projects = settings.arrayifyProjects(ymlConfig)
 

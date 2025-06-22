@@ -56,7 +56,7 @@ func MakeGraph(widget *Widget) {
 		stats[i] = bar
 	}
 
-	widget.BarGraph.BuildBars(stats[:])
+	widget.BuildBars(stats[:])
 
 }
 

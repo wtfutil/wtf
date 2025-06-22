@@ -139,19 +139,19 @@ func (w *Widget) refreshSpotifyInfos() error {
 	if err != nil {
 		return errors.New("extracting player state failed! Please refresh or restart WTF")
 	}
-	w.Info.Album = fmt.Sprint(w.playerState.CurrentlyPlaying.Item.Album.Name)
+	w.Album = fmt.Sprint(w.playerState.Item.Album.Name)
 	artists := ""
-	for _, artist := range w.playerState.CurrentlyPlaying.Item.Artists {
+	for _, artist := range w.playerState.Item.Artists {
 		artists += artist.Name + ", "
 	}
 	artists = artists[:len(artists)-2]
-	w.Info.Artists = artists
-	w.Info.Title = fmt.Sprint(w.playerState.CurrentlyPlaying.Item.Name)
-	w.Info.TrackNumber = w.playerState.CurrentlyPlaying.Item.TrackNumber
-	if w.playerState.CurrentlyPlaying.Playing {
-		w.Info.Status = "Playing"
+	w.Artists = artists
+	w.Title = fmt.Sprint(w.playerState.Item.Name)
+	w.TrackNumber = w.playerState.Item.TrackNumber
+	if w.playerState.Playing {
+		w.Status = "Playing"
 	} else {
-		w.Info.Status = "Paused"
+		w.Status = "Paused"
 	}
 	return nil
 }
@@ -168,10 +168,10 @@ func (w *Widget) createOutput() (string, string, bool) {
 	if err != nil {
 		output = err.Error()
 	} else {
-		output += utils.CenterText(fmt.Sprintf("[green]Now %v [white]\n", w.Info.Status), w.CommonSettings().Width)
-		output += utils.CenterText(fmt.Sprintf("[green]Title:[white] %v\n", w.Info.Title), w.CommonSettings().Width)
-		output += utils.CenterText(fmt.Sprintf("[green]Artist:[white] %v\n", w.Info.Artists), w.CommonSettings().Width)
-		output += utils.CenterText(fmt.Sprintf("[green]Album:[white] %v\n", w.Info.Album), w.CommonSettings().Width)
+		output += utils.CenterText(fmt.Sprintf("[green]Now %v [white]\n", w.Status), w.CommonSettings().Width)
+		output += utils.CenterText(fmt.Sprintf("[green]Title:[white] %v\n", w.Title), w.CommonSettings().Width)
+		output += utils.CenterText(fmt.Sprintf("[green]Artist:[white] %v\n", w.Artists), w.CommonSettings().Width)
+		output += utils.CenterText(fmt.Sprintf("[green]Album:[white] %v\n", w.Album), w.CommonSettings().Width)
 		if w.playerState.ShuffleState {
 			output += utils.CenterText("[green]Shuffle:[white] on\n", w.CommonSettings().Width)
 		} else {

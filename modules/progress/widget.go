@@ -126,9 +126,10 @@ func (widget *Widget) content() string {
 func (widget *Widget) display() {
 	title := widget.CommonSettings().Title
 
-	if widget.settings.showPercentage == "titleLeft" {
+	switch widget.settings.showPercentage {
+	case "titleLeft":
 		title = widget.formatPercent(widget.percent) + " " + title
-	} else if widget.settings.showPercentage == "titleRight" {
+	case "titleRight":
 		title = title + " " + widget.formatPercent(widget.percent)
 	}
 
@@ -163,12 +164,12 @@ func (widget *Widget) buildProgressBar(percent string) *progress.Model {
 		progress.WithoutPercentage(),
 	}
 
-	if widget.settings.colors.solid != "" {
-		pOpts = append(pOpts, progress.WithSolidFill(widget.settings.colors.solid))
+	if widget.settings.solid != "" {
+		pOpts = append(pOpts, progress.WithSolidFill(widget.settings.solid))
 	} else {
 		pOpts = append(pOpts, progress.WithGradient(
-			widget.settings.colors.gradientA,
-			widget.settings.colors.gradientB,
+			widget.settings.gradientA,
+			widget.settings.gradientB,
 		))
 	}
 

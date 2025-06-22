@@ -33,7 +33,7 @@ type Sigils struct {
 // Common defines a set of common configuration settings applicable to all modules
 type Common struct {
 	Module
-	PositionSettings `help:"Defines where in the grid this moduleÃ¢ÂÂs widget will be displayed."`
+	PositionSettings `help:"Defines where in the grid this module's widget will be displayed."`
 	Sigils
 
 	Colors ColorTheme
@@ -45,7 +45,7 @@ type Common struct {
 	Enabled         bool          `help:"Whether or not this module is executed and if its data displayed onscreen." values:"true, false" optional:"true" default:"false"`
 	Focusable       bool          `help:"Whether or  not this module is focusable." values:"true, false" optional:"true" default:"false"`
 	LanguageTag     string        `help:"The BCP 47 langauge tag to localize text to." values:"Any supported BCP 47 language tag." optional:"true" default:"en-CA"`
-	RefreshInterval time.Duration `help:"How often this module will update its data." values:"A positive integer followed by a time unit (ns, us or ÃÂµs, ms, s, m, h, or nothing which defaults to s)" optional:"true"`
+	RefreshInterval time.Duration `help:"How often this module will update its data." values:"A positive integer followed by a time unit (ns, us, ms, s, m, h, or nothing which defaults to s)" optional:"true"`
 	Title           string        `help:"The title string to show when displaying this module" optional:"true"`
 
 	focusChar int `help:"Define one of the number keys as a short cut key to access the widget." optional:"true"`
@@ -72,21 +72,21 @@ func NewCommonSettingsFromModule(name, defaultTitle string, defaultFocusable boo
 	// the colors extracted from the config file (aka colorsConfig)
 	defaultColorTheme := NewDefaultColorTheme()
 
-	baseColors.BorderTheme.Focusable = moduleConfig.UString("colors.border.focusable", colorsConfig.UString("border.focusable", defaultColorTheme.BorderTheme.Focusable))
-	baseColors.BorderTheme.Focused = moduleConfig.UString("colors.border.focused", colorsConfig.UString("border.focused", defaultColorTheme.BorderTheme.Focused))
-	baseColors.BorderTheme.Unfocusable = moduleConfig.UString("colors.border.normal", colorsConfig.UString("border.normal", defaultColorTheme.BorderTheme.Unfocusable))
+	baseColors.Focusable = moduleConfig.UString("colors.border.focusable", colorsConfig.UString("border.focusable", defaultColorTheme.Focusable))
+	baseColors.Focused = moduleConfig.UString("colors.border.focused", colorsConfig.UString("border.focused", defaultColorTheme.Focused))
+	baseColors.Unfocusable = moduleConfig.UString("colors.border.normal", colorsConfig.UString("border.normal", defaultColorTheme.Unfocusable))
 
-	baseColors.CheckboxTheme.Checked = moduleConfig.UString("colors.checked", colorsConfig.UString("checked", defaultColorTheme.CheckboxTheme.Checked))
+	baseColors.Checked = moduleConfig.UString("colors.checked", colorsConfig.UString("checked", defaultColorTheme.Checked))
 
-	baseColors.RowTheme.EvenForeground = moduleConfig.UString("colors.rows.even", colorsConfig.UString("rows.even", defaultColorTheme.RowTheme.EvenForeground))
-	baseColors.RowTheme.OddForeground = moduleConfig.UString("colors.rows.odd", colorsConfig.UString("rows.odd", defaultColorTheme.RowTheme.OddForeground))
+	baseColors.EvenForeground = moduleConfig.UString("colors.rows.even", colorsConfig.UString("rows.even", defaultColorTheme.EvenForeground))
+	baseColors.OddForeground = moduleConfig.UString("colors.rows.odd", colorsConfig.UString("rows.odd", defaultColorTheme.OddForeground))
 
-	baseColors.TextTheme.Label = moduleConfig.UString("colors.label", colorsConfig.UString("label", defaultColorTheme.TextTheme.Label))
-	baseColors.TextTheme.Subheading = moduleConfig.UString("colors.subheading", colorsConfig.UString("subheading", defaultColorTheme.TextTheme.Subheading))
-	baseColors.TextTheme.Text = moduleConfig.UString("colors.text", colorsConfig.UString("text", defaultColorTheme.TextTheme.Text))
-	baseColors.TextTheme.Title = moduleConfig.UString("colors.title", colorsConfig.UString("title", defaultColorTheme.TextTheme.Title))
+	baseColors.Label = moduleConfig.UString("colors.label", colorsConfig.UString("label", defaultColorTheme.Label))
+	baseColors.Subheading = moduleConfig.UString("colors.subheading", colorsConfig.UString("subheading", defaultColorTheme.Subheading))
+	baseColors.Text = moduleConfig.UString("colors.text", colorsConfig.UString("text", defaultColorTheme.Text))
+	baseColors.Title = moduleConfig.UString("colors.title", colorsConfig.UString("title", defaultColorTheme.Title))
 
-	baseColors.WidgetTheme.Background = moduleConfig.UString("colors.background", colorsConfig.UString("background", defaultColorTheme.WidgetTheme.Background))
+	baseColors.Background = moduleConfig.UString("colors.background", colorsConfig.UString("background", defaultColorTheme.Background))
 
 	common := Common{
 		Colors: baseColors,
@@ -110,10 +110,10 @@ func NewCommonSettingsFromModule(name, defaultTitle string, defaultFocusable boo
 	}
 
 	sigilsPath := "wtf.sigils"
-	common.Sigils.Checkbox.Checked = globalConfig.UString(sigilsPath+".checkbox.checked", "x")
-	common.Sigils.Checkbox.Unchecked = globalConfig.UString(sigilsPath+".checkbox.unchecked", " ")
-	common.Sigils.Paging.Normal = globalConfig.UString(sigilsPath+".paging.normal", globalConfig.UString("wtf.paging.pageSigil", "*"))
-	common.Sigils.Paging.Selected = globalConfig.UString(sigilsPath+".paging.select", globalConfig.UString("wtf.paging.selectedSigil", "_"))
+	common.Checkbox.Checked = globalConfig.UString(sigilsPath+".checkbox.checked", "x")
+	common.Checkbox.Unchecked = globalConfig.UString(sigilsPath+".checkbox.unchecked", " ")
+	common.Paging.Normal = globalConfig.UString(sigilsPath+".paging.normal", globalConfig.UString("wtf.paging.pageSigil", "*"))
+	common.Paging.Selected = globalConfig.UString(sigilsPath+".paging.select", globalConfig.UString("wtf.paging.selectedSigil", "_"))
 
 	return &common
 }
@@ -123,16 +123,16 @@ func NewCommonSettingsFromModule(name, defaultTitle string, defaultFocusable boo
 func (common *Common) DefaultFocusedRowColor() string {
 	return fmt.Sprintf(
 		"%s:%s",
-		common.Colors.RowTheme.HighlightedForeground,
-		common.Colors.RowTheme.HighlightedBackground,
+		common.Colors.HighlightedForeground,
+		common.Colors.HighlightedBackground,
 	)
 }
 
 func (common *Common) DefaultRowColor() string {
 	return fmt.Sprintf(
 		"%s:%s",
-		common.Colors.RowTheme.EvenForeground,
-		common.Colors.RowTheme.EvenBackground,
+		common.Colors.EvenForeground,
+		common.Colors.EvenBackground,
 	)
 }
 
@@ -168,14 +168,14 @@ func (common *Common) RowColor(idx int) string {
 	if idx%2 == 0 {
 		return fmt.Sprintf(
 			"%s:%s",
-			common.Colors.RowTheme.EvenForeground,
-			common.Colors.RowTheme.EvenBackground,
+			common.Colors.EvenForeground,
+			common.Colors.EvenBackground,
 		)
 	}
 	return fmt.Sprintf(
 		"%s:%s",
-		common.Colors.RowTheme.OddForeground,
-		common.Colors.RowTheme.OddBackground,
+		common.Colors.OddForeground,
+		common.Colors.OddBackground,
 	)
 }
 
@@ -190,9 +190,9 @@ func (common *Common) PaginationMarker(length, pos, width int) string {
 	sigils := ""
 
 	if length > 1 {
-		sigils = strings.Repeat(common.Sigils.Paging.Normal, pos)
-		sigils += common.Sigils.Paging.Selected
-		sigils += strings.Repeat(common.Sigils.Paging.Normal, length-1-pos)
+		sigils = strings.Repeat(common.Paging.Normal, pos)
+		sigils += common.Paging.Selected
+		sigils += strings.Repeat(common.Paging.Normal, length-1-pos)
 
 		sigils = "[lightblue]" + fmt.Sprintf(common.RightAlignFormat(width), sigils) + "[white]"
 	}

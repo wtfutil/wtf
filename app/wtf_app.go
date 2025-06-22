@@ -73,9 +73,9 @@ func NewWtfApp(tviewApp *tview.Application, config *config.Config, configFilePat
 	wtfApp.validator.Validate(wtfApp.widgets)
 
 	firstWidget := wtfApp.widgets[0]
-	wtfApp.pages.Box.SetBackgroundColor(
+	wtfApp.pages.SetBackgroundColor(
 		wtf.ColorFor(
-			firstWidget.CommonSettings().Colors.WidgetTheme.Background,
+			firstWidget.CommonSettings().Colors.Background,
 		),
 	)
 

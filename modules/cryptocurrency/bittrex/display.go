@@ -22,9 +22,9 @@ func (widget *Widget) content() (string, string, bool) {
 	for _, baseCurrency := range list.items {
 		str += fmt.Sprintf(
 			" [%s]%s[%s] (%s)\n\n",
-			widget.settings.colors.base.displayName,
+			widget.settings.base.displayName,
 			baseCurrency.displayName,
-			widget.settings.colors.base.name,
+			widget.settings.base.name,
 			baseCurrency.name,
 		)
 
@@ -45,9 +45,9 @@ func (widget *Widget) content() (string, string, bool) {
 			)
 
 			err := strTemplate.Execute(writer, map[string]string{
-				"nameColor":      widget.settings.colors.market.name,
-				"fieldColor":     widget.settings.colors.market.field,
-				"valueColor":     widget.settings.colors.market.value,
+				"nameColor":      widget.settings.market.name,
+				"fieldColor":     widget.settings.market.field,
+				"valueColor":     widget.settings.market.value,
 				"mName":          marketCurrency.name,
 				"High":           marketCurrency.High,
 				"Low":            marketCurrency.Low,

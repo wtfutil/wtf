@@ -48,10 +48,10 @@ func (widget *Widget) content() (string, string, bool) {
 	totalFiat := float32(0.0)
 
 	for i := 0; i < len(positions.PositionList); i++ {
-		colorForChange := widget.settings.colors.grows
+		colorForChange := widget.settings.grows
 
 		if positions.PositionList[i].TwentyFourHourPercentChangeFiat <= 0 {
-			colorForChange = widget.settings.colors.drop
+			colorForChange = widget.settings.drop
 		}
 
 		totalFiat += positions.PositionList[i].HoldingValueFiat
@@ -59,7 +59,7 @@ func (widget *Widget) content() (string, string, bool) {
 		if widget.settings.displayHoldings {
 			res += fmt.Sprintf(
 				"[%s]%-6s - %5.2f ([%s]%.3fk [%s]%.2f%s)\n",
-				widget.settings.colors.name,
+				widget.settings.name,
 				positions.PositionList[i].Coin,
 				positions.PositionList[i].Quantity,
 				colorForChange,
@@ -71,7 +71,7 @@ func (widget *Widget) content() (string, string, bool) {
 		} else {
 			res += fmt.Sprintf(
 				"[%s]%-6s - %5.2f ([%s]%.2f%s)\n",
-				widget.settings.colors.name,
+				widget.settings.name,
 				positions.PositionList[i].Coin,
 				positions.PositionList[i].Quantity,
 				colorForChange,

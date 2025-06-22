@@ -49,7 +49,7 @@ func NewWidget(tviewApp *tview.Application, redrawChan chan bool, pages *tview.P
 		settings:      settings,
 		filePath:      settings.filePath,
 		showTagPrefix: "",
-		list:          checklist.NewChecklist(settings.Sigils.Checkbox.Checked, settings.Sigils.Checkbox.Unchecked),
+		list:          checklist.NewChecklist(settings.Checkbox.Checked, settings.Checkbox.Unchecked),
 		pages:         pages,
 
 		// redrawChan: redrawChan,
@@ -137,7 +137,7 @@ func (widget *Widget) load() error {
 		}
 	}
 
-	widget.ScrollableWidget.SetItemCount(len(widget.list.Items))
+	widget.SetItemCount(len(widget.list.Items))
 	widget.setItemChecks()
 	return nil
 }
@@ -210,15 +210,18 @@ func (widget *Widget) getTextAndDate(text string) (string, *time.Time) {
 		n, _ := strconv.Atoi(parts[1])
 		unit := parts[2][:1]
 		var target time.Time
-		if unit == "d" {
+
+		switch unit {
+		case "d":
 			target = now.AddDate(0, 0, n)
-		} else if unit == "w" {
+		case "w":
 			target = now.AddDate(0, 0, 7*n)
-		} else if unit == "m" {
+		case "m":
 			target = now.AddDate(0, n, 0)
-		} else {
+		default:
 			target = now.AddDate(n, 0, 0)
 		}
+
 		return text[len(match):], &target
 	}
 
@@ -325,7 +328,7 @@ func (widget *Widget) processFormInput(prompt string, initValue string, onSave f
 	widget.modalFocus(form)
 
 	// Tell the app to force redraw the screen
-	widget.Base.RedrawChan <- true
+	widget.RedrawChan <- true
 }
 
 // updateSelectedItem update the text of the selected item.
@@ -396,7 +399,7 @@ func (widget *Widget) modalFocus(form *tview.Form) {
 	widget.tviewApp.SetFocus(frame)
 
 	// Tell the app to force redraw the screen
-	widget.Base.RedrawChan <- true
+	widget.RedrawChan <- true
 }
 
 func (widget *Widget) modalForm(lbl, text string) *tview.Form {

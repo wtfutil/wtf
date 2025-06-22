@@ -2,9 +2,10 @@ package pivotal
 
 import (
 	"fmt"
+	"regexp"
+
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/utils"
-	"regexp"
 )
 
 const (
@@ -25,7 +26,7 @@ var statusMapEmoji = map[string]string{
 
 func (widget *Widget) display() {
 	widget.SetItemCount(widget.CurrentSource().getItemCount())
-	widget.ScrollableWidget.Redraw(widget.content)
+	widget.Redraw(widget.content)
 }
 
 func (widget *Widget) content() (string, string, bool) {
@@ -41,7 +42,7 @@ func (widget *Widget) content() (string, string, bool) {
 
 	title := fmt.Sprintf(
 		"[%s]%s[white] - %d ",
-		widget.settings.Colors.TextTheme.Title,
+		widget.settings.Colors.Title,
 		proj.name, proj.getItemCount())
 
 	str := ""

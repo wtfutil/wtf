@@ -133,7 +133,7 @@ func (client *clientInstance) getPods(namespaces []string) ([]string, error) {
 			for _, pod := range pods.Items {
 				var podString string
 				status := pod.Status.Phase
-				name := pod.ObjectMeta.Name
+				name := pod.Name
 				if len(namespaces) == 1 {
 					podString = fmt.Sprintf("%-50s %s", name, status)
 				} else {
@@ -148,7 +148,7 @@ func (client *clientInstance) getPods(namespaces []string) ([]string, error) {
 			return nil, err
 		}
 		for _, pod := range pods.Items {
-			podString := fmt.Sprintf("%-20s %-50s %s", pod.ObjectMeta.Namespace, pod.ObjectMeta.Name, pod.Status.Phase)
+			podString := fmt.Sprintf("%-20s %-50s %s", pod.Namespace, pod.Name, pod.Status.Phase)
 			podList = append(podList, podString)
 		}
 	}
@@ -169,9 +169,9 @@ func (client *clientInstance) getDeployments(namespaces []string) ([]string, err
 			for _, deployment := range deployments.Items {
 				var deployString string
 				if len(namespaces) == 1 {
-					deployString = fmt.Sprintf("%-50s (%d/%d)", deployment.ObjectMeta.Name, deployment.Status.ReadyReplicas, deployment.Status.Replicas)
+					deployString = fmt.Sprintf("%-50s (%d/%d)", deployment.Name, deployment.Status.ReadyReplicas, deployment.Status.Replicas)
 				} else {
-					deployString = fmt.Sprintf("%-20s %-50s (%d/%d)", deployment.ObjectMeta.Namespace, deployment.ObjectMeta.Name, deployment.Status.ReadyReplicas, deployment.Status.Replicas)
+					deployString = fmt.Sprintf("%-20s %-50s (%d/%d)", deployment.Namespace, deployment.Name, deployment.Status.ReadyReplicas, deployment.Status.Replicas)
 				}
 				deploymentList = append(deploymentList, deployString)
 			}
@@ -183,7 +183,7 @@ func (client *clientInstance) getDeployments(namespaces []string) ([]string, err
 		}
 
 		for _, deployment := range deployments.Items {
-			deployString := fmt.Sprintf("%-20s %-50s (%d/%d)", deployment.ObjectMeta.Namespace, deployment.ObjectMeta.Name, deployment.Status.ReadyReplicas, deployment.Status.Replicas)
+			deployString := fmt.Sprintf("%-20s %-50s (%d/%d)", deployment.Namespace, deployment.Name, deployment.Status.ReadyReplicas, deployment.Status.Replicas)
 			deploymentList = append(deploymentList, deployString)
 		}
 	}
@@ -213,7 +213,7 @@ func (client *clientInstance) getNodes() ([]string, error) {
 				}
 			}
 		}
-		nodeString := fmt.Sprintf("%-50s %s", node.ObjectMeta.Name, nodeStatus)
+		nodeString := fmt.Sprintf("%-50s %s", node.Name, nodeStatus)
 		nodeList = append(nodeList, nodeString)
 	}
 	return nodeList, nil

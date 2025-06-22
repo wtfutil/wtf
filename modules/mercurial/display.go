@@ -18,7 +18,7 @@ func (widget *Widget) content() (string, string, bool) {
 
 	title := fmt.Sprintf(
 		"%s - %s[white]",
-		widget.settings.Colors.TextTheme.Title,
+		widget.settings.Colors.Title,
 		repoData.Repository,
 	)
 

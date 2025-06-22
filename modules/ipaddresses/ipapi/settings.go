@@ -28,8 +28,8 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		args: ymlConfig.UList("args"),
 	}
 
-	settings.colors.name = ymlConfig.UString("colors.name", "red")
-	settings.colors.value = ymlConfig.UString("colors.value", "white")
+	settings.name = ymlConfig.UString("colors.name", "red")
+	settings.value = ymlConfig.UString("colors.value", "white")
 	settings.SetDocumentationPath("ipaddress/ipapi")
 
 	return &settings

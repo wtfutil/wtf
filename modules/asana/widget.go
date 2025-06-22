@@ -123,6 +123,7 @@ func (widget *Widget) Fetch(workspaceId, projectId, mode string, sections []stri
 	var tasks []*TaskItem
 	var err error
 
+	//lint:ignore QF1002 An untagged switch makes sense here.
 	switch {
 	case strings.HasPrefix(subMode, "project_sections"):
 		tasks, err = fetchTasksFromProjectSections(widget.settings.token, projectId, sections, subMode)
@@ -159,8 +160,8 @@ func (widget *Widget) content() (string, string, bool) {
 	var str string
 
 	for idx, taskItem := range data {
-		switch {
-		case taskItem.taskType == TASK_TYPE:
+		switch taskItem.taskType {
+		case TASK_TYPE:
 			if widget.settings.hideComplete && taskItem.completed {
 				continue
 			}
@@ -203,7 +204,7 @@ func (widget *Widget) content() (string, string, bool) {
 
 			str += utils.HighlightableHelper(widget.View, row, idx, len(taskItem.name))
 
-		case taskItem.taskType == TASK_SECTION:
+		case TASK_SECTION:
 			if idx > 1 {
 				row := "[white] "
 

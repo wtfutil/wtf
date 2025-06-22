@@ -38,7 +38,7 @@ func (widget *Widget) Refresh() {
 /* -------------------- Unexported Functions -------------------- */
 
 func (widget *Widget) content() (string, string, bool) {
-	builds, err := widget.Client.BuildsFor()
+	builds, err := widget.BuildsFor()
 
 	title := fmt.Sprintf("%s - Builds", widget.CommonSettings().Title)
 	var str string

@@ -54,24 +54,24 @@ func (widget *Widget) Refresh() {
 	}
 
 	if !widget.settings.Enabled {
-		widget.settings.Common.Title = widget.titleBase + " " + widget.day + " [ Disabled ]"
+		widget.settings.Title = widget.titleBase + " " + widget.day + " [ Disabled ]"
 		widget.Redraw(func() (string, string, bool) { return widget.CommonSettings().Title, "", false })
 		widget.View.Clear()
 		return
 	}
-	widget.settings.Common.Title = widget.titleBase + " " + widget.day
+	widget.settings.Title = widget.titleBase + " " + widget.day
 
 	widget.Redraw(func() (string, string, bool) { return widget.CommonSettings().Title, widget.result, false })
 }
 
 func (widget *Widget) RefreshTitle() {
 	if !widget.settings.Enabled {
-		widget.settings.Common.Title = widget.titleBase + " " + widget.day + " [ Disabled ]"
+		widget.settings.Title = widget.titleBase + " " + widget.day + " [ Disabled ]"
 		widget.Redraw(func() (string, string, bool) { return widget.CommonSettings().Title, "", false })
 		widget.View.Clear()
 		return
 	}
-	widget.settings.Common.Title = widget.titleBase + " [" + widget.day + "]"
+	widget.settings.Title = widget.titleBase + " [" + widget.day + "]"
 
 	widget.Redraw(func() (string, string, bool) { return widget.CommonSettings().Title, widget.result, false })
 }

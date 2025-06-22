@@ -7,9 +7,9 @@ func (widget *Widget) display() {
 	for _, fromCurrency := range widget.list.items {
 		str += fmt.Sprintf(
 			"[%s]%s [%s](%s)\n",
-			widget.settings.colors.from.displayName,
+			widget.settings.from.displayName,
 			fromCurrency.displayName,
-			widget.settings.colors.from.name,
+			widget.settings.from.name,
 			fromCurrency.name,
 		)
 		str += widget.makeToListText(fromCurrency.to)
@@ -31,7 +31,7 @@ func (widget *Widget) makeToText(toCurrency *tCurrency) string {
 	str := ""
 	str += fmt.Sprintf(
 		"  [%s]%s\n",
-		widget.settings.colors.to.name,
+		widget.settings.to.name,
 		toCurrency.name,
 	)
 

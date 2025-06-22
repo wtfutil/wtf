@@ -197,7 +197,7 @@ func (tracker *FocusTracker) focus(idx int) {
 	view := widget.TextView()
 	view.SetBorderColor(
 		wtf.ColorFor(
-			widget.CommonSettings().Colors.BorderTheme.Focused,
+			widget.CommonSettings().Colors.Focused,
 		),
 	)
 	tracker.tviewApp.SetFocus(view)

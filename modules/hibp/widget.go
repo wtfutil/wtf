@@ -72,10 +72,10 @@ func (widget *Widget) content() (string, string, bool) {
 	str := ""
 
 	for _, status := range widget.statuses {
-		color := widget.settings.colors.ok
+		color := widget.settings.ok
 
 		if status.HasBeenCompromised() {
-			color = widget.settings.colors.pwned
+			color = widget.settings.pwned
 		}
 
 		if status != nil {

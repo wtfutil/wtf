@@ -89,7 +89,7 @@ func (widget *Widget) dayDivider(event, prevEvent *CalEvent) string {
 
 	if !eventStartDay.Equal(prevStartDay) {
 		return fmt.Sprintf("[%s]",
-			widget.settings.colors.day) +
+			widget.settings.day) +
 			event.Start().Format(utils.FullDateFormat) +
 			"\n"
 	}
@@ -99,14 +99,14 @@ func (widget *Widget) dayDivider(event, prevEvent *CalEvent) string {
 
 func (widget *Widget) descriptionColor(calEvent *CalEvent) string {
 	if calEvent.Past() {
-		return widget.settings.colors.past
+		return widget.settings.past
 	}
 
-	return widget.settings.colors.description
+	return widget.settings.description
 }
 
 func (widget *Widget) eventTimeColor() string {
-	return widget.settings.colors.eventTime
+	return widget.settings.eventTime
 }
 
 func (widget *Widget) eventSummary(calEvent *CalEvent, conflict bool) string {
@@ -163,9 +163,9 @@ func (widget *Widget) timeUntil(calEvent *CalEvent) string {
 }
 
 func (widget *Widget) titleColor(calEvent *CalEvent) string {
-	color := widget.settings.colors.title
+	color := widget.settings.title
 
-	for _, untypedArr := range widget.settings.colors.highlights {
+	for _, untypedArr := range widget.settings.highlights {
 		highlightElements := utils.ToStrs(untypedArr.([]interface{}))
 
 		match, _ := regexp.MatchString(
@@ -179,7 +179,7 @@ func (widget *Widget) titleColor(calEvent *CalEvent) string {
 	}
 
 	if calEvent.Past() {
-		color = widget.settings.colors.past
+		color = widget.settings.past
 	}
 
 	return color

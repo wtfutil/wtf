@@ -62,7 +62,7 @@ func (widget *Widget) deleteSelected() {
 	}
 
 	widget.list.Delete(widget.Selected)
-	widget.ScrollableWidget.SetItemCount(len(widget.list.Items))
+	widget.SetItemCount(len(widget.list.Items))
 	widget.Prev()
 	widget.persist()
 	widget.display()

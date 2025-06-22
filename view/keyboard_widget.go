@@ -61,7 +61,7 @@ func (widget *KeyboardWidget) AssignedChars() []string {
 // HelpText returns the help text and keyboard command info for this widget
 func (widget *KeyboardWidget) HelpText() string {
 	c := cases.Title(language.English)
-	str := " [green::b]Keyboard commands for " + c.String(widget.settings.Module.Type) + "[white]\n\n"
+	str := " [green::b]Keyboard commands for " + c.String(widget.settings.Type) + "[white]\n\n"
 
 	for _, item := range widget.charHelp {
 		str += fmt.Sprintf("  %s\t%s\n", item.Key, item.Text)

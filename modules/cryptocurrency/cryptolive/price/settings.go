@@ -50,18 +50,18 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		Common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 	}
 
-	settings.colors.from.name = ymlConfig.UString("colors.from.name")
-	settings.colors.from.displayName = ymlConfig.UString("colors.from.displayName")
+	settings.from.name = ymlConfig.UString("colors.from.name")
+	settings.from.displayName = ymlConfig.UString("colors.from.displayName")
 
-	settings.colors.to.name = ymlConfig.UString("colors.to.name")
-	settings.colors.to.price = ymlConfig.UString("colors.to.price")
+	settings.to.name = ymlConfig.UString("colors.to.name")
+	settings.to.price = ymlConfig.UString("colors.to.price")
 
-	settings.colors.top.from.name = ymlConfig.UString("colors.top.from.name")
-	settings.colors.top.from.displayName = ymlConfig.UString("colors.top.from.displayName")
+	settings.top.from.name = ymlConfig.UString("colors.top.from.name")
+	settings.top.from.displayName = ymlConfig.UString("colors.top.from.displayName")
 
-	settings.colors.top.to.name = ymlConfig.UString("colors.top.to.name")
-	settings.colors.top.to.field = ymlConfig.UString("colors.top.to.field")
-	settings.colors.top.to.value = ymlConfig.UString("colors.top.to.value")
+	settings.top.to.name = ymlConfig.UString("colors.top.to.name")
+	settings.top.to.field = ymlConfig.UString("colors.top.to.field")
+	settings.top.to.value = ymlConfig.UString("colors.top.to.value")
 
 	settings.currencies = make(map[string]*currency)
 

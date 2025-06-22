@@ -13,8 +13,8 @@ import (
 const module = "Airbrake"
 
 var emojis = map[string]string{
-	"bug":             "ð",
-	"bell with slash": "ð",
+	"bug":             "🐛",
+	"bell with slash": "🔕",
 }
 
 type ShowType int

@@ -46,9 +46,9 @@ func NewWidget(tviewApp *tview.Application, redrawChan chan bool, settings *Sett
 }
 
 func (widget *Widget) setSummaryList() {
-	for symbol, currency := range widget.settings.summary.currencies {
+	for symbol, currency := range widget.settings.currencies {
 		mCurrencyList := widget.makeSummaryMarketList(currency.market)
-		widget.summaryList.addSummaryItem(symbol, currency.displayName, mCurrencyList)
+		widget.addSummaryItem(symbol, currency.displayName, mCurrencyList)
 	}
 }
 
@@ -99,7 +99,7 @@ func (widget *Widget) updateSummary() {
 		Timeout: 5 * time.Second,
 	}
 
-	for _, baseCurrency := range widget.summaryList.items {
+	for _, baseCurrency := range widget.items {
 		for _, mCurrency := range baseCurrency.markets {
 			request := makeRequest(baseCurrency.name, mCurrency.name)
 			response, err := client.Do(request)

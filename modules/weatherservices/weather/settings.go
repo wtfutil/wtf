@@ -42,7 +42,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 
 	settings.SetDocumentationPath("weather_services/weather/")
 
-	settings.colors.current = ymlConfig.UString("colors.current", "green")
+	settings.current = ymlConfig.UString("colors.current", "green")
 
 	return &settings
 }

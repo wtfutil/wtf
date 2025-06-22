@@ -23,7 +23,7 @@ func NewDisplay(widgets []wtf.Wtfable, config *config.Config) *Display {
 	firstWidget := widgets[0]
 	display.Grid.SetBackgroundColor(
 		wtf.ColorFor(
-			firstWidget.CommonSettings().Colors.WidgetTheme.Background,
+			firstWidget.CommonSettings().Colors.Background,
 		),
 	)
 

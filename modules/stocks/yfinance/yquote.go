@@ -77,20 +77,22 @@ func quotes(symbols []string) []yquote {
 				MarketState: "?",
 			}
 		} else {
-			if q.MarketState == "PRE" {
+
+			switch q.MarketState {
+			case "PRE":
 				MarketPrice = q.PreMarketPrice
 				MarketChange = q.PreMarketChange
 				MarketChangePct = q.PreMarketChangePercent
-
-			} else if q.MarketState == "POST" {
+			case "POST":
 				MarketPrice = q.PostMarketPrice
 				MarketChange = q.PostMarketChange
 				MarketChangePct = q.PostMarketChangePercent
-			} else {
+			default:
 				MarketPrice = q.RegularMarketPrice
 				MarketChange = q.RegularMarketChange
 				MarketChangePct = q.RegularMarketChangePercent
 			}
+
 			yq = yquote{
 				Symbol:          q.Symbol,
 				Currency:        q.CurrencyID,

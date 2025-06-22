@@ -41,7 +41,8 @@ var (
 )
 
 func travisBuildRequest(settings *Settings) (*http.Response, error) {
-	var path string = "builds"
+
+	path := "builds"
 	if settings.baseURL != "" {
 		travisAPIURL.Path = "/api/"
 	}

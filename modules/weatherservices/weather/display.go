@@ -83,7 +83,7 @@ func (widget *Widget) temperatures(cityData *owm.CurrentWeatherData) string {
 	str += fmt.Sprintf(
 		"%8s: [%s]%4.1f° %s[white]\n",
 		"Current",
-		widget.settings.colors.current,
+		widget.settings.current,
 		cityData.Main.Temp,
 		widget.settings.tempUnit,
 	)

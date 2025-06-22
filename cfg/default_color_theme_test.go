@@ -9,9 +9,9 @@ import (
 func Test_NewDefaultColorTheme(t *testing.T) {
 	theme := NewDefaultColorTheme()
 
-	assert.Equal(t, "orange", theme.BorderTheme.Focused)
-	assert.Equal(t, "red", theme.TextTheme.Subheading)
-	assert.Equal(t, "transparent", theme.WidgetTheme.Background)
+	assert.Equal(t, "orange", theme.Focused)
+	assert.Equal(t, "red", theme.Subheading)
+	assert.Equal(t, "transparent", theme.Background)
 }
 
 func Test_NewDefaultColorConfig(t *testing.T) {

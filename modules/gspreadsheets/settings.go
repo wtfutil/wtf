@@ -34,7 +34,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		sheetID:    ymlConfig.UString("sheetId"),
 	}
 
-	settings.colors.values = ymlConfig.UString("colors.values", "green")
+	settings.values = ymlConfig.UString("colors.values", "green")
 
 	settings.SetDocumentationPath("google/spreadsheet")
 

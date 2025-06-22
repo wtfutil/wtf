@@ -95,7 +95,7 @@ func (widget *Widget) GetStandings(leagueId int) string {
 	content += "Standings:\n\n"
 	buf := new(bytes.Buffer)
 	tStandings := createTable([]string{"No.", "Team", "MP", "Won", "Draw", "Lost", "GD", "Points"}, buf)
-	resp, err := widget.Client.footballRequest("standings", leagueId)
+	resp, err := widget.footballRequest("standings", leagueId)
 	if err != nil {
 		return fmt.Sprintf("Error fetching standings: %s", err.Error())
 	}
@@ -141,7 +141,7 @@ func (widget *Widget) GetMatches(leagueId int) string {
 	to := getDateString(widget.settings.matchesTo)
 
 	requestPath := fmt.Sprintf("matches?dateFrom=%s&dateTo=%s", from, to)
-	resp, err := widget.Client.footballRequest(requestPath, leagueId)
+	resp, err := widget.footballRequest(requestPath, leagueId)
 	if err != nil {
 		return fmt.Sprintf("Error fetching matches: %s", err.Error())
 	}
@@ -163,10 +163,11 @@ func (widget *Widget) GetMatches(leagueId int) string {
 
 		widget.markFavorite(&m)
 
-		if m.Status == "SCHEDULED" {
+		switch m.Status {
+		case "SCHEDULED":
 			row := []string{m.HomeTeam.Name, "🆚", m.AwayTeam.Name, parseDateString(m.Date)}
 			tScheduled.Append(row)
-		} else if m.Status == "FINISHED" {
+		case "FINISHED":
 			row := []string{m.HomeTeam.Name, strconv.Itoa(m.Score.FullTime.HomeTeam), "🆚", m.AwayTeam.Name, strconv.Itoa(m.Score.FullTime.AwayTeam)}
 			tPlayed.Append(row)
 		}
