@@ -41,7 +41,7 @@ func (widget *Widget) Refresh() {
 /* -------------------- Unexported Functions -------------------- */
 
 func (widget *Widget) content() (string, string, bool) {
-	quotes, err := widget.Client.Getquote()
+	quotes, err := widget.Getquote()
 
 	title := widget.CommonSettings().Title
 	t := table.NewWriter()

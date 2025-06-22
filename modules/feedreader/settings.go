@@ -52,8 +52,8 @@ func NewSettingsFromYAML(name string, ymlConfig, globalConfig *config.Config) *S
 		userAgent:       ymlConfig.UString("userAgent", "wtfutil (https://github.com/wtfutil/wtf)"),
 	}
 
-	settings.colors.source = ymlConfig.UString("colors.source", "green")
-	settings.colors.publishDate = ymlConfig.UString("colors.publishDate", "orange")
+	settings.source = ymlConfig.UString("colors.source", "green")
+	settings.publishDate = ymlConfig.UString("colors.publishDate", "orange")
 
 	// If feeds cannot be parsed as list try parsing as a map with username+password fields
 	if len(settings.feeds) == 0 {

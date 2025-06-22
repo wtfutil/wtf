@@ -83,13 +83,14 @@ func (widget *Widget) nbascore() (string, string, bool) {
 			switch keyGame {
 			case "vTeam", "hTeam":
 				for keyTeam, stat := range team.(map[string]interface{}) {
-					if keyTeam == "triCode" {
+					switch keyTeam {
+					case "triCode":
 						if keyGame == "vTeam" {
 							vTeam = stat.(string)
 						} else {
 							hTeam = stat.(string)
 						}
-					} else if keyTeam == "score" {
+					case "score":
 						if keyGame == "vTeam" {
 							vScore = stat.(string)
 						} else {

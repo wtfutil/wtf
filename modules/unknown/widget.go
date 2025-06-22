@@ -26,6 +26,6 @@ func NewWidget(tviewApp *tview.Application, redrawChan chan bool, settings *Sett
 /* -------------------- Exported Functions -------------------- */
 
 func (widget *Widget) Refresh() {
-	content := fmt.Sprintf("Widget %s and/or type %s does not exist", widget.Name(), widget.CommonSettings().Module.Type)
+	content := fmt.Sprintf("Widget %s and/or type %s does not exist", widget.Name(), widget.CommonSettings().Type)
 	widget.Redraw(func() (string, string, bool) { return widget.CommonSettings().Title, content, true })
 }

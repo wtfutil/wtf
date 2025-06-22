@@ -29,7 +29,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		showMem:     ymlConfig.UBool("showMem", true),
 		showSwp:     ymlConfig.UBool("showSwp", true),
 	}
-	settings.Common.RefreshInterval = cfg.ParseTimeString(ymlConfig, "refreshInterval", defaultRefreshInterval)
+	settings.RefreshInterval = cfg.ParseTimeString(ymlConfig, "refreshInterval", defaultRefreshInterval)
 
 	return &settings
 }

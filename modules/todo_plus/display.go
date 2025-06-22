@@ -20,7 +20,7 @@ func (widget *Widget) content() (string, string, bool) {
 
 	title := fmt.Sprintf(
 		"[%s]%s[white]",
-		widget.settings.Colors.TextTheme.Title,
+		widget.settings.Colors.Title,
 		proj.Name)
 
 	str := ""
@@ -39,5 +39,5 @@ func (widget *Widget) content() (string, string, bool) {
 }
 
 func (widget *Widget) display() {
-	widget.ScrollableWidget.Redraw(widget.content)
+	widget.Redraw(widget.content)
 }

@@ -44,14 +44,14 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		Common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 	}
 
-	settings.colors.base.name = ymlConfig.UString("colors.base.name")
-	settings.colors.base.displayName = ymlConfig.UString("colors.base.displayName")
+	settings.base.name = ymlConfig.UString("colors.base.name")
+	settings.base.displayName = ymlConfig.UString("colors.base.displayName")
 
-	settings.colors.market.name = ymlConfig.UString("colors.market.name")
-	settings.colors.market.field = ymlConfig.UString("colors.market.field")
-	settings.colors.market.value = ymlConfig.UString("colors.market.value")
+	settings.market.name = ymlConfig.UString("colors.market.name")
+	settings.market.field = ymlConfig.UString("colors.market.field")
+	settings.market.value = ymlConfig.UString("colors.market.value")
 
-	settings.summary.currencies = make(map[string]*currency)
+	settings.currencies = make(map[string]*currency)
 	for key, val := range ymlConfig.UMap("summary") {
 		coercedVal := val.(map[string]interface{})
 
@@ -60,7 +60,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 			market:      coercedVal["market"].([]interface{}),
 		}
 
-		settings.summary.currencies[key] = currency
+		settings.currencies[key] = currency
 	}
 
 	settings.SetDocumentationPath("cryptocurrencies/bittrex")

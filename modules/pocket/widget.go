@@ -200,11 +200,11 @@ func (widget *Widget) toggleLink() {
 }
 
 func (widget *Widget) formatItem(item Item, isSelected bool) string {
-	foreColor, backColor := widget.settings.Colors.RowTheme.EvenForeground, widget.settings.Colors.RowTheme.EvenBackground
+	foreColor, backColor := widget.settings.Colors.EvenForeground, widget.settings.Colors.EvenBackground
 	text := item.ResolvedTitle
 	if isSelected {
-		foreColor = widget.settings.Colors.RowTheme.HighlightedForeground
-		backColor = widget.settings.Colors.RowTheme.HighlightedBackground
+		foreColor = widget.settings.Colors.HighlightedForeground
+		backColor = widget.settings.Colors.HighlightedBackground
 
 	}
 

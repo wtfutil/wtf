@@ -53,18 +53,22 @@ func NewClient(opts *ClientOpts) (*Twitch, error) {
 }
 
 func (t *Twitch) RefreshOAuthToken() error {
-	if t.Streams == "followed" {
+
+	switch t.Streams {
+	case "followed":
 		userResp, err := t.client.RefreshUserAccessToken(t.UserRefreshToken)
 		if err != nil {
 			return err
 		}
+
 		t.client.SetUserAccessToken(userResp.Data.AccessToken)
 		t.UserRefreshToken = userResp.Data.RefreshToken
-	} else if t.Streams == "top" {
+	case "top":
 		appResp, err := t.client.RequestAppAccessToken([]string{})
 		if err != nil {
 			return err
 		}
+
 		t.client.SetAppAccessToken(appResp.Data.AccessToken)
 	}
 

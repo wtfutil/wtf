@@ -65,11 +65,12 @@ func (widget *Widget) Refresh() {
 		handleError(widget, err)
 	}
 
-	if widget.twitch.Streams == "followed" {
+	switch widget.twitch.Streams {
+	case "followed":
 		response, err = widget.twitch.FollowedStreams(&helix.FollowedStreamsParams{
 			UserID: widget.twitch.UserID,
 		})
-	} else if widget.twitch.Streams == "top" {
+	case "top":
 		response, err = widget.twitch.TopStreams(&helix.StreamsParams{
 			First:      widget.settings.numberOfResults,
 			GameIDs:    widget.settings.gameIds,

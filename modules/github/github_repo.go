@@ -192,7 +192,7 @@ func (repo *Repo) customIssueQuery(filter string, perPage int) *ghb.IssuesSearch
 
 	opts := &ghb.SearchOptions{}
 	if perPage != 0 {
-		opts.ListOptions.PerPage = perPage
+		opts.PerPage = perPage
 	}
 
 	prs, _, _ := github.Search.Issues(context.Background(), fmt.Sprintf("%s repo:%s/%s", filter, repo.Owner, repo.Name), opts)
@@ -206,7 +206,7 @@ func (repo *Repo) loadPullRequests() ([]*ghb.PullRequest, error) {
 	}
 
 	opts := &ghb.PullRequestListOptions{}
-	opts.ListOptions.PerPage = 100
+	opts.PerPage = 100
 
 	prs, _, err := github.PullRequests.List(context.Background(), repo.Owner, repo.Name, opts)
 

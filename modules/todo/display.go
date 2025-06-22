@@ -17,11 +17,13 @@ func (widget *Widget) display() {
 func (widget *Widget) content() (string, string, bool) {
 	str := ""
 	hidden := 0
-	if widget.settings.checkedPos == "last" {
+
+	switch widget.settings.checkedPos {
+	case "last":
 		str, hidden = widget.sortListByChecked(widget.list.UncheckedItems(), widget.list.CheckedItems())
-	} else if widget.settings.checkedPos == "first" {
+	case "first":
 		str, hidden = widget.sortListByChecked(widget.list.CheckedItems(), widget.list.UncheckedItems())
-	} else {
+	default:
 		str, hidden = widget.sortListByChecked(widget.list.Items, []*checklist.ChecklistItem{})
 	}
 
@@ -47,8 +49,8 @@ func (widget *Widget) sortListByChecked(firstGroup []*checklist.ChecklistItem, s
 	str := ""
 	hidden := 0
 	newList := checklist.NewChecklist(
-		widget.settings.Sigils.Checkbox.Checked,
-		widget.settings.Sigils.Checkbox.Unchecked,
+		widget.settings.Checkbox.Checked,
+		widget.settings.Checkbox.Unchecked,
 	)
 
 	offset := 0
@@ -108,19 +110,19 @@ func (widget *Widget) shouldShowItem(item *checklist.ChecklistItem) bool {
 
 func (widget *Widget) RowColor(idx int, hidden int, checked bool) string {
 	if widget.View.HasFocus() && (idx == widget.Selected) {
-		foreground := widget.CommonSettings().Colors.RowTheme.HighlightedForeground
+		foreground := widget.CommonSettings().Colors.HighlightedForeground
 		if checked {
-			foreground = widget.settings.Colors.CheckboxTheme.Checked
+			foreground = widget.settings.Colors.Checked
 		}
 		return fmt.Sprintf(
 			"%s:%s",
 			foreground,
-			widget.CommonSettings().Colors.RowTheme.HighlightedBackground,
+			widget.CommonSettings().Colors.HighlightedBackground,
 		)
 	}
 
 	if checked {
-		return widget.settings.Colors.CheckboxTheme.Checked
+		return widget.settings.Colors.Checked
 	} else {
 		return widget.CommonSettings().RowColor(idx - hidden)
 	}

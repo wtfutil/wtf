@@ -51,11 +51,11 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 		Common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 	}
 
-	settings.colors.from.name = ymlConfig.UString("colors.from.name")
-	settings.colors.from.displayName = ymlConfig.UString("colors.from.displayName")
+	settings.from.name = ymlConfig.UString("colors.from.name")
+	settings.from.displayName = ymlConfig.UString("colors.from.displayName")
 
-	settings.colors.to.name = ymlConfig.UString("colors.to.name")
-	settings.colors.to.price = ymlConfig.UString("colors.to.price")
+	settings.to.name = ymlConfig.UString("colors.to.name")
+	settings.to.price = ymlConfig.UString("colors.to.price")
 
 	settings.colors.top.from.name = ymlConfig.UString("colors.top.from.name")
 	settings.colors.top.from.displayName = ymlConfig.UString("colors.top.from.displayName")

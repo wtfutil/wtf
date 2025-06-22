@@ -192,7 +192,7 @@ func (widget *Widget) content() (string, string, bool) {
 			// Grays out viewed items in the list, while preserving background highlighting when selected
 			rowColor = "gray"
 			if idx == widget.Selected {
-				rowColor = fmt.Sprintf("gray:%s", widget.settings.Colors.RowTheme.HighlightedBackground)
+				rowColor = fmt.Sprintf("gray:%s", widget.settings.Colors.HighlightedBackground)
 			}
 		}
 
@@ -222,10 +222,10 @@ func (widget *Widget) getShowText(feedItem *FeedItem, rowColor string) string {
 	title := space.ReplaceAllString(feedItem.item.Title, " ")
 
 	if widget.settings.showSource && feedItem.sourceTitle != "" {
-		source = "[" + widget.settings.colors.source + "]" + feedItem.sourceTitle + " "
+		source = "[" + widget.settings.source + "]" + feedItem.sourceTitle + " "
 	}
 	if widget.settings.showPublishDate && feedItem.item.Published != "" {
-		publishDate = "[" + widget.settings.colors.publishDate + "]" + feedItem.item.PublishedParsed.Format(widget.settings.dateFormat) + " "
+		publishDate = "[" + widget.settings.publishDate + "]" + feedItem.item.PublishedParsed.Format(widget.settings.dateFormat) + " "
 	}
 
 	// Convert any escaped characters to their character representation

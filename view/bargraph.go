@@ -50,7 +50,7 @@ func NewBarGraph(tviewApp *tview.Application, redrawChan chan bool, _ string, co
 // time should be passed as a int64
 func (widget *BarGraph) BuildBars(data []Bar) {
 	widget.View.SetText(BuildStars(data, widget.maxStars, widget.starChar))
-	widget.Base.RedrawChan <- true
+	widget.RedrawChan <- true
 }
 
 // BuildStars build the string to display
@@ -114,12 +114,12 @@ func (widget *BarGraph) TextView() *tview.TextView {
 func (widget *BarGraph) createView(bordered bool) *tview.TextView {
 	view := tview.NewTextView()
 
-	view.SetBackgroundColor(wtf.ColorFor(widget.commonSettings.Colors.WidgetTheme.Background))
+	view.SetBackgroundColor(wtf.ColorFor(widget.commonSettings.Colors.Background))
 	view.SetBorder(bordered)
 	view.SetBorderColor(wtf.ColorFor(widget.BorderColor()))
 	view.SetDynamicColors(true)
 	view.SetTitle(widget.ContextualTitle(widget.CommonSettings().Title))
-	view.SetTitleColor(wtf.ColorFor(widget.commonSettings.Colors.TextTheme.Title))
+	view.SetTitleColor(wtf.ColorFor(widget.commonSettings.Colors.Title))
 	view.SetWrap(false)
 
 	return view

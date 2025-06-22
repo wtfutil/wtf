@@ -63,10 +63,10 @@ func (base *Base) Bordered() bool {
 // BorderColor returns the color that the border of this widget should be drawn in
 func (base *Base) BorderColor() string {
 	if base.Focusable() {
-		return base.commonSettings.Colors.BorderTheme.Focusable
+		return base.commonSettings.Colors.Focusable
 	}
 
-	return base.commonSettings.Colors.BorderTheme.Unfocusable
+	return base.commonSettings.Colors.Unfocusable
 }
 
 func (base *Base) CommonSettings() *cfg.Common {

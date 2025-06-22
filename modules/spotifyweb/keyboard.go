@@ -41,7 +41,7 @@ func (widget *Widget) selectNext() {
 
 func (widget *Widget) playPause() {
 	var err error
-	if widget.playerState.CurrentlyPlaying.Playing {
+	if widget.playerState.Playing {
 		err = widget.client.Pause()
 	} else {
 		err = widget.client.Play()

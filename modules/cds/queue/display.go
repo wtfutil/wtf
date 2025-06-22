@@ -10,7 +10,7 @@ import (
 )
 
 func (widget *Widget) display() {
-	widget.TextWidget.Redraw(widget.content)
+	widget.Redraw(widget.content)
 }
 
 func (widget *Widget) content() (string, string, bool) {
@@ -35,7 +35,7 @@ func (widget *Widget) content() (string, string, bool) {
 func (widget *Widget) title(filter string) string {
 	return fmt.Sprintf(
 		"[%s]%d - %s[white]",
-		widget.settings.Colors.TextTheme.Title,
+		widget.settings.Colors.Title,
 		widget.maxItems,
 		filter,
 	)
@@ -83,7 +83,7 @@ func (widget *Widget) generateQueueJobLine(parameters []sdk.Parameter, executedJ
 		row[1] = pad("", 27)
 	}
 
-	row[4] = fmt.Sprintf("Ã¢ÂÂ¤ %s", pad(triggeredBy, 17))
+	row[4] = fmt.Sprintf("➤ %s", pad(triggeredBy, 17))
 
 	c := "grey"
 	if status == sdk.StatusWaiting {

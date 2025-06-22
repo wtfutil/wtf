@@ -132,8 +132,8 @@ func (widget *Widget) setResult(info *ipinfo) {
 	resultBuffer := new(bytes.Buffer)
 
 	err := resultTemplate.Execute(resultBuffer, map[string]string{
-		"nameColor":     widget.settings.colors.name,
-		"valueColor":    widget.settings.colors.value,
+		"nameColor":     widget.settings.name,
+		"valueColor":    widget.settings.value,
 		"ip":            info.Query,
 		"isp":           info.ISP,
 		"as":            info.AS,

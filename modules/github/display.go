@@ -7,7 +7,7 @@ import (
 )
 
 func (widget *Widget) display() {
-	widget.TextWidget.Redraw(widget.content)
+	widget.Redraw(widget.content)
 }
 
 func (widget *Widget) content() (string, string, bool) {
@@ -140,7 +140,7 @@ func (widget *Widget) displayStats(repo *Repo) string {
 func (widget *Widget) title(repo *Repo) string {
 	return fmt.Sprintf(
 		"[%s]%s - %s[white]",
-		widget.settings.Colors.TextTheme.Title,
+		widget.settings.Colors.Title,
 		repo.Owner,
 		repo.Name,
 	)

@@ -29,21 +29,26 @@ func (widget *Widget) getBuildStats() string {
 		branch = strings.TrimPrefix(branch, "refs/heads/")
 		status := *build.Status
 		statusDisplay := "[white:grey]unknown"
-		if status == azrBuild.BuildStatusValues.InProgress {
+
+		switch status {
+		case azrBuild.BuildStatusValues.InProgress:
 			statusDisplay = "[white:blue]in progress"
-		} else if status == azrBuild.BuildStatusValues.Cancelling {
+		case azrBuild.BuildStatusValues.Cancelling:
 			statusDisplay = "[white:orange]in cancelling"
-		} else if (status == azrBuild.BuildStatusValues.Postponed) || (status == azrBuild.BuildStatusValues.NotStarted) {
+		case azrBuild.BuildStatusValues.Postponed, azrBuild.BuildStatusValues.NotStarted:
 			statusDisplay = "[white:blue]waiting"
-		} else if status == azrBuild.BuildStatusValues.Completed {
+		case azrBuild.BuildStatusValues.Completed:
+
 			buildResult := *build.Result
-			if buildResult == azrBuild.BuildResultValues.Succeeded {
+
+			switch buildResult {
+			case azrBuild.BuildResultValues.Succeeded:
 				statusDisplay = "[white:green]succeeded"
-			} else if buildResult == azrBuild.BuildResultValues.Failed {
+			case azrBuild.BuildResultValues.Failed:
 				statusDisplay = "[white:red]failed"
-			} else if buildResult == azrBuild.BuildResultValues.Canceled {
+			case azrBuild.BuildResultValues.Canceled:
 				statusDisplay = "[white:darkgrey]cancelled"
-			} else if buildResult == azrBuild.BuildResultValues.PartiallySucceeded {
+			case azrBuild.BuildResultValues.PartiallySucceeded:
 				statusDisplay = "[white:magenta]partially"
 			}
 		}

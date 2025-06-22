@@ -37,7 +37,7 @@ func (widget *Widget) setList() {
 
 	for symbol, currency := range widget.settings.currencies {
 		toList := widget.getToList(symbol)
-		widget.list.addItem(symbol, currency.displayName, toList)
+		widget.addItem(symbol, currency.displayName, toList)
 	}
 }
 
@@ -45,7 +45,7 @@ func (widget *Widget) setList() {
 
 // Refresh & update after interval time
 func (widget *Widget) Refresh(wg *sync.WaitGroup) {
-	if len(widget.list.items) != 0 {
+	if len(widget.items) != 0 {
 		widget.updateCurrencies()
 		if !ok {
 			widget.Result = "Please check your internet connection"
@@ -61,20 +61,20 @@ func (widget *Widget) Refresh(wg *sync.WaitGroup) {
 func (widget *Widget) display() {
 	str := ""
 
-	for _, item := range widget.list.items {
+	for _, item := range widget.items {
 		str += fmt.Sprintf(
 			" [%s]%s[%s] (%s)\n",
-			widget.settings.colors.from.name,
+			widget.settings.from.name,
 			item.displayName,
-			widget.settings.colors.from.name,
+			widget.settings.from.name,
 			item.name,
 		)
 		for _, toItem := range item.to {
 			str += fmt.Sprintf(
 				"\t[%s]%s: [%s]%f\n",
-				widget.settings.colors.to.name,
+				widget.settings.to.name,
 				toItem.name,
-				widget.settings.colors.to.price,
+				widget.settings.to.price,
 				toItem.price,
 			)
 		}
@@ -103,7 +103,7 @@ func (widget *Widget) updateCurrencies() {
 			fmt.Println("recovered in updateSummary()", r)
 		}
 	}()
-	for _, fromCurrency := range widget.list.items {
+	for _, fromCurrency := range widget.items {
 
 		var (
 			client       http.Client
