@@ -60,7 +60,7 @@ func (widget *Widget) recentBuilds(pipeline PipelineSettings) ([]Build, error) {
 	defer func() { _ = resp.Body.Close() }()
 
 	if resp.StatusCode < 200 || resp.StatusCode > 299 {
-		return nil, fmt.Errorf(resp.Status)
+		return nil, fmt.Errorf("%s", resp.Status)
 	}
 
 	builds := []Build{}
