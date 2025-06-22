@@ -1,18 +1,20 @@
+version: "2"
+
 run:
   timeout: 3m
 
 linters:
   enable:
-    - vet
+    - govet
     - errcheck
     - staticcheck
-#   - dupl
-#   - funlen
-#   - goconst
-#   - gocritic
-    - gofmt
-#   - golint
-#   - misspell
-#   - stylecheck
     - unconvert
-#   - whitespace
+  exclusions:
+    rules:
+      - linters:
+        - errcheck
+        source: "^\\s*defer\\s+"
+
+formatters:
+  enable:
+    - gofmt
