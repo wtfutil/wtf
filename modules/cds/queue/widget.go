@@ -43,8 +43,8 @@ func NewWidget(tviewApp *tview.Application, redrawChan chan bool, pages *tview.P
 	widget.filters = []string{sdk.StatusWaiting, sdk.StatusBuilding}
 
 	widget.client = cdsclient.New(cdsclient.Config{
-		Host:                              settings.apiURL,
-		BuitinConsumerAuthenticationToken: settings.token,
+		Host:                               settings.apiURL,
+		BuiltinConsumerAuthenticationToken: settings.token,
 	})
 
 	config, _ := widget.client.ConfigUser()
