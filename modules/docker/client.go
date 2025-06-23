@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/docker/docker/api/types"
+	"github.com/docker/docker/api/types/container"
 	"github.com/dustin/go-humanize"
 	"github.com/pkg/errors"
 )
@@ -108,7 +109,7 @@ func (widget *Widget) getSystemInfo() string {
 }
 
 func (widget *Widget) getContainerStates() string {
-	cntrs, err := widget.cli.ContainerList(context.Background(), types.ContainerListOptions{All: true})
+	cntrs, err := widget.cli.ContainerList(context.Background(), container.ListOptions{All: true})
 	if err != nil {
 		return errors.Wrapf(err, " could not get container list").Error()
 	}
