@@ -3,7 +3,7 @@ package checklist
 import (
 	"testing"
 
-	. "github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/assert"
 )
 
 func testChecklistItem() *ChecklistItem {
@@ -20,19 +20,19 @@ func testChecklistItem() *ChecklistItem {
 
 func Test_CheckMark(t *testing.T) {
 	item := testChecklistItem()
-	Equal(t, " ", item.CheckMark())
+	assert.Equal(t, " ", item.CheckMark())
 
 	item.Toggle()
-	Equal(t, "x", item.CheckMark())
+	assert.Equal(t, "x", item.CheckMark())
 }
 
 func Test_Toggle(t *testing.T) {
 	item := testChecklistItem()
-	Equal(t, false, item.Checked)
+	assert.Equal(t, false, item.Checked)
 
 	item.Toggle()
-	Equal(t, true, item.Checked)
+	assert.Equal(t, true, item.Checked)
 
 	item.Toggle()
-	Equal(t, false, item.Checked)
+	assert.Equal(t, false, item.Checked)
 }
