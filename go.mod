@@ -17,7 +17,7 @@ require (
 	github.com/creack/pty v1.1.24
 	github.com/digitalocean/godo v1.154.0
 	github.com/docker/docker v28.2.2+incompatible
-	github.com/docker/docker-credential-helpers v0.8.2
+	github.com/docker/docker-credential-helpers v0.9.3
 	github.com/docker/go-connections v0.5.0 // indirect
 	github.com/docker/go-units v0.5.0 // indirect
 	github.com/dustin/go-humanize v1.0.1
