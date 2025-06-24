@@ -60,8 +60,8 @@ github.com/Microsoft/go-winio v0.6.1 h1:9/kr64B9VUZrLm5YYwbGtUJnMgqWVOdUAXu6Migc
 github.com/Microsoft/go-winio v0.6.1/go.mod h1:LRdKpFKfdobln8UmuiYcKPot9D2v6svN5+sAH+4kjUM=
 github.com/Netflix/go-expect v0.0.0-20180928190340-9d1f4485533b h1:sSQK05nvxs4UkgCJaxihteu+r+6ela3dNMm7NVmsS3c=
 github.com/Netflix/go-expect v0.0.0-20180928190340-9d1f4485533b/go.mod h1:oX5x61PbNXchhh0oikYAH+4Pcfw5LKv21+Jnpr6r6Pc=
-github.com/PagerDuty/go-pagerduty v1.7.0 h1:S1NcMKECxT5hJwV4VT+QzeSsSiv4oWl1s2821dUqG/8=
-github.com/PagerDuty/go-pagerduty v1.7.0/go.mod h1:PuFyJKRz1liIAH4h5KVXVD18Obpp1ZXRdxHvmGXooro=
+github.com/PagerDuty/go-pagerduty v1.8.0 h1:MTFqTffIcAervB83U7Bx6HERzLbyaSPL/+oxH3zyluI=
+github.com/PagerDuty/go-pagerduty v1.8.0/go.mod h1:nzIeAqyFSJAFkjWKvMzug0JtwDg+V+UoCWjFrfFH5mI=
 github.com/ProtonMail/go-crypto v1.1.3 h1:nRBOetoydLeUb4nHajyO2bKqMLfWQ/ZPwkXqXxPxCFk=
 github.com/ProtonMail/go-crypto v1.1.3/go.mod h1:rA3QumHc/FZ8pAHreoekgiAbzpNsfQAosU5td4SnOrE=
 github.com/PuerkitoBio/goquery v1.8.0 h1:PJTF7AmFCFKk1N6V6jmKfrNH9tV5pNE6lZMkG0gta/U=
@@ -659,8 +659,8 @@ github.com/sguiheux/jsonschema v0.0.0-20240314085137-97ecc280683c/go.mod h1:9NwR
 github.com/shirou/gopsutil v2.21.11+incompatible h1:lOGOyCG67a5dv2hq5Z1BLDUqqKp3HkbjPcz5j6XMS0U=
 github.com/shirou/gopsutil v2.21.11+incompatible/go.mod h1:5b4v6he4MtMOwMlS0TUMTu2PcXUg8+E1lC7eC3UO/RA=
 github.com/shopspring/decimal v0.0.0-20180709203117-cd690d0c9e24/go.mod h1:M+9NzErvs504Cn4c5DxATwIqPbtswREoFCre64PpcG4=
-github.com/shopspring/decimal v1.2.0 h1:abSATXmQEYyShuxI4/vyW3tV1MrKAJzCZ/0zLUXYbsQ=
-github.com/shopspring/decimal v1.2.0/go.mod h1:DKyhrW/HYNuLGql+MJL6WCR6knT2jwCFRcu2hWCYk4o=
+github.com/shopspring/decimal v1.3.1 h1:2Usl1nmF/WZucqkFZhnfFYxxxu8LG21F6nPQBE5gKV8=
+github.com/shopspring/decimal v1.3.1/go.mod h1:DKyhrW/HYNuLGql+MJL6WCR6knT2jwCFRcu2hWCYk4o=
 github.com/shurcooL/githubv4 v0.0.0-20200802174311-f27d2ca7f6d5 h1:CA6Mjshr+g5YHENwllpQNR0UaYO7VGKo6TzJLM64WJQ=
 github.com/shurcooL/githubv4 v0.0.0-20200802174311-f27d2ca7f6d5/go.mod h1:hAF0iLZy4td2EX+/8Tw+4nodhlMrwN3HupfaXj3zkGo=
 github.com/shurcooL/graphql v0.0.0-20181231061246-d48a9a75455f h1:tygelZueB1EtXkPI6mQ4o9DQ0+FKW41hTbunoXZCTqk=
