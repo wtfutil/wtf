@@ -72,8 +72,8 @@ github.com/Seanstoppable/todoist v0.0.0-20221214042915-6505286e6b1e h1:w93C4hCyU
 github.com/Seanstoppable/todoist v0.0.0-20221214042915-6505286e6b1e/go.mod h1:bWQGh9tPjlHVD7ooTyNVFuNRngl64FepP9wYpF5ObBM=
 github.com/VictorAvelar/devto-api-go v1.0.0 h1:oXmzye3xYvlgBX18vX4+v6LVbjoihgIokpeOpzeJzqU=
 github.com/VictorAvelar/devto-api-go v1.0.0/go.mod h1:gX13cqzMdpo49qP8VtBR2uCnzW7d76LFrAVSX2eLifY=
-github.com/adlio/trello v1.10.0 h1:ia/rzoBwJJKr4IqnMlrU6n09CVqeyaahSkEVcV5/gPc=
-github.com/adlio/trello v1.10.0/go.mod h1:I4Lti4jf2KxjTNgTqs5W3lLuE78QZZdYbbPnQQGwjOo=
+github.com/adlio/trello v1.12.0 h1:JqOE2GFHQ9YtEviRRRSnicSxPbt4WFOxhqXzjMOw8lw=
+github.com/adlio/trello v1.12.0/go.mod h1:I4Lti4jf2KxjTNgTqs5W3lLuE78QZZdYbbPnQQGwjOo=
 github.com/alecthomas/chroma v0.10.0 h1:7XDcGkCQopCNKjZHfYrNLraA+M7e0fMiJ/Mfikbfjek=
 github.com/alecthomas/chroma v0.10.0/go.mod h1:jtJATyUxlIORhUOFNA9NZDWGAQ8wpxQQqNSB4rjA/1s=
 github.com/alecthomas/template v0.0.0-20160405071501-a0175ee3bccc/go.mod h1:LOuyumcjzFXgccqObfd/Ljyb9UuFJ6TxHnclSeseNhc=
