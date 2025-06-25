@@ -26,7 +26,7 @@ require (
 	github.com/godbus/dbus v4.1.0+incompatible // indirect
 	github.com/google/go-github/v32 v32.1.0
 	github.com/jedib0t/go-pretty/v6 v6.6.7
-	github.com/jessevdk/go-flags v1.5.0
+	github.com/jessevdk/go-flags v1.6.1
 	github.com/microsoft/azure-devops-go-api/azuredevops v1.0.0-b5
 	github.com/mmcdole/gofeed v1.3.0
 	github.com/olebedev/config v0.0.0-20190528211619-364964f3a8e4
