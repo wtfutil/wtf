@@ -6,7 +6,7 @@ require (
 	bitbucket.org/mikehouston/asana-go v0.0.0-20201102222432-715318d0343a
 	code.cloudfoundry.org/bytefmt v0.42.0
 	github.com/Microsoft/go-winio v0.6.1 // indirect
-	github.com/PagerDuty/go-pagerduty v1.7.0
+	github.com/PagerDuty/go-pagerduty v1.8.0
 	github.com/VictorAvelar/devto-api-go v1.0.0
 	github.com/adlio/trello v1.12.0
 	github.com/alecthomas/chroma v0.10.0
@@ -39,7 +39,7 @@ require (
 	github.com/radovskyb/watcher v1.0.7
 	github.com/rivo/tview v0.0.0-20220307222120-9994674d60a8
 	github.com/shirou/gopsutil v2.21.11+incompatible
-	github.com/shopspring/decimal v1.2.0 // indirect
+	github.com/shopspring/decimal v1.3.1 // indirect
 	github.com/shurcooL/githubv4 v0.0.0-20200802174311-f27d2ca7f6d5
 	github.com/shurcooL/graphql v0.0.0-20181231061246-d48a9a75455f // indirect
 	github.com/spf13/cobra v1.8.0 // indirect
