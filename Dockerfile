@@ -1,6 +1,6 @@
 FROM golang:1.24-alpine as build
 
-ARG version=master
+ARG version=trunk
 
 RUN apk add git make ncurses && \
     git clone https://github.com/wtfutil/wtf.git $GOPATH/src/github.com/wtfutil/wtf && \

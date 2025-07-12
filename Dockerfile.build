@@ -1,6 +1,6 @@
 FROM golang:1.24 as build
 
-ARG version=master
+ARG version=trunk
 
 RUN git clone https://github.com/wtfutil/wtf.git $GOPATH/src/github.com/wtfutil/wtf && \
     cd $GOPATH/src/github.com/wtfutil/wtf && \
