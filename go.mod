@@ -15,7 +15,7 @@ require (
 	github.com/cenkalti/backoff v2.2.1+incompatible // indirect
 	github.com/chzyer/readline v1.5.1
 	github.com/creack/pty v1.1.24
-	github.com/digitalocean/godo v1.160.0
+	github.com/digitalocean/godo v1.162.0
 	github.com/docker/docker v28.3.2+incompatible
 	github.com/docker/docker-credential-helpers v0.9.3
 	github.com/docker/go-connections v0.5.0 // indirect
