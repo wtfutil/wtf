@@ -24,3 +24,6 @@ jobs:
           args: release --clean
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+          MASTODON_CLIENT_ID: ${{ secrets.MASTODON_CLIENT_ID }}
+          MASTODON_CLIENT_SECRET: ${{ secrets.MASTODON_CLIENT_SECRET }}
+          MASTODON_ACCESS_TOKEN: ${{ secrets.MASTODON_ACCESS_TOKEN }}

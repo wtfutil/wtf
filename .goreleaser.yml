@@ -38,3 +38,8 @@ homebrew_casks:
           if system_command("/usr/bin/xattr", args: ["-h"]).exit_status == 0
             system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/wtfutil"]
           end
+
+announce:
+  mastodon:
+    enabled: true
+    server: "https://social.linodians.com"
