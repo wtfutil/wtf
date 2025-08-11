@@ -43,3 +43,6 @@ announce:
   mastodon:
     enabled: true
     server: "https://social.linodians.com"
+  bluesky:
+    enabled: true
+    username: "wtfutil.bsky.social"
