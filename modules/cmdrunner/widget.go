@@ -1,8 +1,8 @@
 package cmdrunner
 
 import (
-	"errors"
 	"bytes"
+	"errors"
 	"fmt"
 	"io"
 	"os"
