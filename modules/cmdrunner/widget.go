@@ -151,8 +151,11 @@ func runCommandPty(widget *Widget, cmd *exec.Cmd) error {
 	f, err := pty.Start(cmd)
 	// The command has exited, print any error messages
 	if err != nil {
-		//return err
-		return cmd.Wait()
+		if widget.settings.ptySuppressErrors {
+			return cmd.Wait()
+		} else {
+			return err
+		}
 	}
 
 	// Make sure to close the pty at the end.

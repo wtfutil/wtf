@@ -19,6 +19,7 @@ type Settings struct {
 	cmd        string   `help:"The terminal command to be run, withouth the arguments. Ie: ping, whoami, curl."`
 	tail       bool     `help:"Automatically scroll to the end of the command output."`
 	pty        bool     `help:"Run the command in a pseudo-terminal. Some apps will behave differently if they feel in a terminal. For example, some apps will produce colorized output in a terminal, and non-colorized output otherwise. Default false" optional:"true"`
+	ptySuppressErrors bool `help:"Do not display pty errors. Some apps producing colorized output may result in trailing errors. This will attempt to hide them, use only when necessary. Default false" optional:"true"`
 	maxLines   int      `help:"Maximum number of lines kept in the buffer."`
 	workingDir string   `help:"Working directory for command to run in" optional:"true"`
 
@@ -36,6 +37,7 @@ func NewSettingsFromYAML(name string, moduleConfig *config.Config, globalConfig 
 		workingDir: moduleConfig.UString("workingDir", "."),
 		cmd:        moduleConfig.UString("cmd"),
 		pty:        moduleConfig.UBool("pty", false),
+		ptySuppressErrors: moduleConfig.UBool("ptySuppressErrors", false),
 		tail:       moduleConfig.UBool("tail", false),
 		maxLines:   moduleConfig.UInt("maxLines", 256),
 	}
