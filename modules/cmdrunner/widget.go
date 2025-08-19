@@ -1,6 +1,7 @@
 package cmdrunner
 
 import (
+	"errors"
 	"bytes"
 	"fmt"
 	"io"
@@ -172,6 +173,9 @@ func runCommandPty(widget *Widget, cmd *exec.Cmd) error {
 	// Extract output
 	_, err = io.Copy(widget.buffer, f)
 	if err != nil {
+		if errors.Is(err, syscall.EIO) || strings.Contains(err.Error(), "input/output error") {
+			err = nil
+		}
 		return err
 	}
 	return cmd.Wait()
