@@ -1,41 +1,20 @@
-name: "Code scanning - action"
+name: "CodeQL Analysis"
 
 on:
+  push:
+    branches:
+      - trunk
   pull_request:
-  schedule:
-    - cron: '0 3 * * 3,6'
 
 jobs:
-  CodeQL-Build:
-
-    runs-on: ubuntu-latest
-
+  analyze:
+    runs-on: ubuntu-24.04
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4.2.2
-
-    # Initializes the CodeQL tools for scanning.
-    - name: Initialize CodeQL
+    - name: "Checkout repository"
+      uses: actions/checkout@v5.0.0
+    - name: "Initialize CodeQL"
       uses: github/codeql-action/init@v3
-      # Override language selection by uncommenting this and choosing your languages
-      # with:
-      #   languages: go, javascript, csharp, python, cpp, java
-
-    # Autobuild attempts to build any compiled languages  (C/C++, C#, or Java).
-    # If this step fails, then you should remove it and run the build manually (see below)
-    - name: Autobuild
+    - name: "Compile code"
       uses: github/codeql-action/autobuild@v3
-
-    # ℹ️ Command-line programs to run using the OS shell.
-    # 📚 https://git.io/JvXDl
-
-    # ✏️ If the Autobuild fails above, remove it and uncomment the following three lines
-    #    and modify them (or add more) to build your code if your project
-    #    uses a compiled language
-
-    #- run: |
-    #   make bootstrap
-    #   make release
-
-    - name: Perform CodeQL Analysis
+    - name: "Perform CodeQL Analysis"
       uses: github/codeql-action/analyze@v3
