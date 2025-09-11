@@ -24,6 +24,7 @@ import (
 	"github.com/wtfutil/wtf/modules/devto"
 	"github.com/wtfutil/wtf/modules/digitalclock"
 	"github.com/wtfutil/wtf/modules/digitalocean"
+	"github.com/wtfutil/wtf/modules/diskusage"
 	"github.com/wtfutil/wtf/modules/docker"
 	"github.com/wtfutil/wtf/modules/feedreader"
 	"github.com/wtfutil/wtf/modules/football"
@@ -178,6 +179,9 @@ func MakeWidget(
 	case "digitalocean":
 		settings := digitalocean.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = digitalocean.NewWidget(tviewApp, redrawChan, pages, settings)
+	case "diskusage":
+		settings := diskusage.NewSettingsFromYAML(moduleName, moduleConfig, config)
+		widget = diskusage.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "docker":
 		settings := docker.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = docker.NewWidget(tviewApp, redrawChan, pages, settings)
