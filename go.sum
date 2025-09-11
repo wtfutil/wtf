@@ -71,8 +71,6 @@ github.com/PuerkitoBio/goquery v1.8.0 h1:PJTF7AmFCFKk1N6V6jmKfrNH9tV5pNE6lZMkG0g
 github.com/PuerkitoBio/goquery v1.8.0/go.mod h1:ypIiRMtY7COPGk+I/YbZLbxsxn9g5ejnI2HSMtkjZvI=
 github.com/RackSec/srslog v0.0.0-20180709174129-a4725f04ec91 h1:vX+gnvBc56EbWYrmlhYbFYRaeikAke1GL84N4BEYOFE=
 github.com/RackSec/srslog v0.0.0-20180709174129-a4725f04ec91/go.mod h1:cDLGBht23g0XQdLjzn6xOGXDkLK182YfINAaZEQLCHQ=
-github.com/Seanstoppable/todoist v0.0.0-20221214042915-6505286e6b1e h1:w93C4hCyUIJP4cINLj3dbzoeH+RxMZDM9y2E5srOWfQ=
-github.com/Seanstoppable/todoist v0.0.0-20221214042915-6505286e6b1e/go.mod h1:bWQGh9tPjlHVD7ooTyNVFuNRngl64FepP9wYpF5ObBM=
 github.com/VictorAvelar/devto-api-go v1.0.0 h1:oXmzye3xYvlgBX18vX4+v6LVbjoihgIokpeOpzeJzqU=
 github.com/VictorAvelar/devto-api-go v1.0.0/go.mod h1:gX13cqzMdpo49qP8VtBR2uCnzW7d76LFrAVSX2eLifY=
 github.com/adlio/trello v1.12.0 h1:JqOE2GFHQ9YtEviRRRSnicSxPbt4WFOxhqXzjMOw8lw=
@@ -716,6 +714,8 @@ github.com/tklauser/go-sysconf v0.3.10 h1:IJ1AZGZRWbY8T5Vfk04D9WOA5WSejdflXxP03O
 github.com/tklauser/go-sysconf v0.3.10/go.mod h1:C8XykCvCb+Gn0oNCWPIlcb0RuglQTYaQ2hGm7jmxEFk=
 github.com/tklauser/numcpus v0.4.0 h1:E53Dm1HjH1/R2/aoCtXtPgzmElmn51aOkhCFSuZq//o=
 github.com/tklauser/numcpus v0.4.0/go.mod h1:1+UI3pD8NW14VMwdgJNJ1ESk2UnwhAnz5hMwiKKqXCQ=
+github.com/toby-bro/todoist v0.0.0-20221214042915-6505286e6b1e h1:1xjZqcY73eh4oQvpJQFK9q6jqBuqPU1g5XYqoYM04Vs=
+github.com/toby-bro/todoist v0.0.0-20221214042915-6505286e6b1e/go.mod h1:bWQGh9tPjlHVD7ooTyNVFuNRngl64FepP9wYpF5ObBM=
 github.com/uber/jaeger-client-go v2.25.0+incompatible h1:IxcNZ7WRY1Y3G4poYlx24szfsn/3LvK9QHCq9oQw8+U=
 github.com/uber/jaeger-client-go v2.25.0+incompatible/go.mod h1:WVhlPFC8FDjOFMMWRy2pZqQJSXxYSwNYOkTr/Z6d3Kk=
 github.com/ulikunitz/xz v0.5.8/go.mod h1:nbz6k7qbPmH4IRqmfOplQw/tblSgqTqBwxkY0oWt/14=
