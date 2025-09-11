@@ -7,7 +7,7 @@ import (
 
 const (
 	defaultFocusable = false
-	defaultTitle     = "diskusage"
+	defaultTitle     = "Disk Usage"
 )
 
 type Settings struct {
