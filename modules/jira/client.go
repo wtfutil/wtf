@@ -9,9 +9,28 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+	"sync"
+	"time"
 
 	"github.com/wtfutil/wtf/utils"
 )
+
+// UserIDCache represent a cached username to account ID mapping
+type UserIDCache struct {
+	AccountID string
+	ExpiresAt time.Time
+}
+
+// UserIDCacheMap holds the cache with thread safety
+type UserIDCacheMap struct {
+	cache map[string]UserIDCache
+	mutex sync.RWMutex
+}
+
+// Global cache instance
+var userIDCache = &UserIDCacheMap{
+	cache: make(map[string]UserIDCache),
+}
 
 // JQLConversionRequest represents the request body for the JQL conversion API
 type JQLConversionRequest struct {
@@ -25,33 +44,86 @@ type JQLConversionResponse struct {
 
 // ConvertedQuery represents a single converted JQL query
 type ConvertedQuery struct {
-	Query            string          `json:"query"`
-	ConvertedQuery   string          `json:"convertedQuery"`
-	UserMessages     []UserMessage   `json:"userMessages"`
+	Query          string        `json:"query"`
+	ConvertedQuery string        `json:"convertedQuery"`
+	UserMessages   []UserMessage `json:"userMessages"`
 }
 
 // UserMessage represents messages about the conversion
 type UserMessage struct {
-	MessageKey string            `json:"messageKey"`
+	MessageKey  string            `json:"messageKey"`
 	MessageArgs map[string]string `json:"messageArgs"`
+}
+
+// Get retrieves a cache account ID for a username
+func (c *UserIDCacheMap) Get(username string) (string, bool) {
+	c.mutex.RLock()
+	entry, exists := c.cache[username]
+	if !exists {
+		c.mutex.RUnlock()
+		return "", false
+	}
+
+	// Check if cache entry has expired
+	if time.Now().After(entry.ExpiresAt) {
+		c.mutex.RUnlock()
+		// Remove expired entry - upgrade to write lock
+		c.mutex.Lock()
+		delete(c.cache, username)
+		c.mutex.Unlock()
+		return "", false
+	}
+
+	accountID := entry.AccountID
+	c.mutex.RUnlock()
+	return accountID, true
+}
+
+// Set stores a username to account ID mapping with expiration
+func (c *UserIDCacheMap) Set(username, accountID string, duration time.Duration) {
+	c.mutex.Lock()
+	defer c.mutex.Unlock()
+
+	c.cache[username] = UserIDCache{
+		AccountID: accountID,
+		ExpiresAt: time.Now().Add(duration),
+	}
+}
+
+// Clear removes all expired entries from the cache
+func (c *UserIDCacheMap) Clear() {
+	c.mutex.Lock()
+	defer c.mutex.Unlock()
+
+	now := time.Now()
+	for username, entry := range c.cache {
+		if now.After(entry.ExpiresAt) {
+			delete(c.cache, username)
+		}
+	}
 }
 
 // ConvertJQLWithUsername converts a JQL query containing username to account ID
 func (widget *Widget) ConvertJQLWithUsername(username string) (string, error) {
+	// Check cache first
+	if accountID, found := userIDCache.Get(username); found {
+		return fmt.Sprintf("assignee = \"%s\"", accountID), nil
+	}
+
 	// Create a JQL query with the username that needs conversion
 	originalJQL := fmt.Sprintf("assignee = \"%s\"", username)
-	
+
 	// Prepare the request body
 	requestBody := JQLConversionRequest{
 		QueryStrings: []string{originalJQL},
 	}
-	
+
 	// Convert to JSON
 	jsonData, err := json.Marshal(requestBody)
 	if err != nil {
 		return "", fmt.Errorf("failed to marshal request: %v", err)
 	}
-	
+
 	// Make the POST request to the JQL conversion API
 	resp, err := widget.jiraPostRequest("/rest/api/3/jql/pdcleaner", jsonData)
 	if err != nil {
@@ -70,8 +142,37 @@ func (widget *Widget) ConvertJQLWithUsername(username string) (string, error) {
 
 	// Return the converted JQL query part (just the assignee part)
 	convertedQuery := conversionResult.QueryStrings[0].ConvertedQuery
+
+	// Extract account ID properly
+	accountID := extractAccountIDFromJQL(convertedQuery)
+	if accountID == "" {
+		return "", fmt.Errorf("failed to extract account ID from converted query: %s", convertedQuery)
+	}
+
+	// Cache the result for 10 minutes
+	userIDCache.Set(username, accountID, 10*time.Minute)
+
 	return convertedQuery, nil
 }
+
+// extractAccountIDFromJQL extracts the account ID from a converted JQL query
+func extractAccountIDFromJQL(jql string) string {
+	// Example: "assignee = \"account:5b10ac8d82e05b22cc7d4ef5\""
+	// We want to extract: "account:5b10ac8d82e05b22cc7d4ef5"
+
+	start := strings.Index(jql, "\"")
+	if start == -1 {
+		return ""
+	}
+
+	end := strings.LastIndex(jql, "\"")
+	if end == -1 || end <= start {
+		return ""
+	}
+
+	return jql[start+1 : end]
+}
+
 // IssuesFor returns a collection of issues for a given collection of projects.
 // If username is provided, it scopes the issues to that person
 func (widget *Widget) IssuesFor(username string, projects []string, jql string) (*SearchResult, error) {
@@ -168,7 +269,7 @@ func (widget *Widget) jiraPostRequest(path string, data []byte) ([]byte, error) 
 	if err != nil {
 		return nil, err
 	}
-	
+
 	req.Header.Set("Content-Type", "application/json")
 	if widget.settings.personalAccessToken != "" {
 		req.Header.Set("Authorization", "Bearer "+widget.settings.personalAccessToken)
