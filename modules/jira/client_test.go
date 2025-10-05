@@ -217,7 +217,7 @@ func TestConvertJQLWithUsername_APIError(t *testing.T) {
 	// Test API error handling
 	result, err := widget.ConvertJQLWithUsername("testuser")
 
-	assert.Error(t, err, "500 Internal Server Error")
+	assert.ErrorContains(t, err, "500 Internal Server Error")
 	assert.Equal(t, "", result)
 }
 
