@@ -196,24 +196,84 @@ func (widget *Widget) IssuesFor(username string, projects []string, jql string) 
 		query = append(query, jql)
 	}
 
-	v := url.Values{}
-
-	v.Set("jql", strings.Join(query, " AND "))
-
-	url := fmt.Sprintf("/rest/api/2/search?%s", v.Encode())
-
-	resp, err := widget.jiraRequest(url)
+	// Try the new API v3 search/jql endpoint
+	jqlQuery := strings.Join(query, " AND ")
+	searchResult, err := widget.searchWithNewAPI(jqlQuery)
 	if err != nil {
-		return &SearchResult{}, err
+		// If new API fails, return the error
+		return &SearchResult{}, fmt.Errorf("JIRA search failed: %v", err)
 	}
 
-	searchResult := &SearchResult{}
-	err = utils.ParseJSON(searchResult, bytes.NewReader(resp))
+	return searchResult, nil
+}
+
+// searchWithNewAPI uses the new /rest/api/3/search/jql endpoint
+func (widget *Widget) searchWithNewAPI(jql string) (*SearchResult, error) {
+	// First, get issue IDs using the new endpoint
+	v := url.Values{}
+	v.Set("jql", jql)
+	v.Set("maxResults", "20") // Limit to avoid too many API calls
+
+	jqlURL := fmt.Sprintf("/rest/api/3/search/jql?%s", v.Encode())
+
+	resp, err := widget.jiraRequest(jqlURL)
 	if err != nil {
 		return nil, err
 	}
 
+	// Parse the JQL response which contains issue IDs
+	type JQLSearchResult struct {
+		Issues []struct {
+			ID string `json:"id"`
+		} `json:"issues"`
+	}
+
+	jqlResult := &JQLSearchResult{}
+	err = utils.ParseJSON(jqlResult, bytes.NewReader(resp))
+	if err != nil {
+		return nil, fmt.Errorf("failed to parse JQL search response: %v", err)
+	}
+
+	if len(jqlResult.Issues) == 0 {
+		// Return empty result if no issues found
+		return &SearchResult{Issues: []Issue{}}, nil
+	}
+
+	// Now get full issue details for each ID
+	searchResult := &SearchResult{Issues: []Issue{}}
+
+	for i, issue := range jqlResult.Issues {
+		// Limit to prevent too many API calls
+		if i >= 20 {
+			break
+		}
+
+		fullIssue, err := widget.getIssueByID(issue.ID)
+		if err != nil {
+			// Log error but continue with other issues
+			fmt.Printf("Error fetching issue %s: %v\n", issue.ID, err)
+			continue
+		}
+		searchResult.Issues = append(searchResult.Issues, *fullIssue)
+	}
+
 	return searchResult, nil
+} // getIssueByID fetches full issue details by ID
+func (widget *Widget) getIssueByID(issueID string) (*Issue, error) {
+	url := fmt.Sprintf("/rest/api/3/issue/%s", issueID)
+
+	resp, err := widget.jiraRequest(url)
+	if err != nil {
+		return nil, err
+	}
+
+	issue := &Issue{}
+	err = utils.ParseJSON(issue, bytes.NewReader(resp))
+	if err != nil {
+		return nil, fmt.Errorf("failed to parse issue %s: %v", issueID, err)
+	}
+
+	return issue, nil
 }
 
 func buildJql(key string, value string) string {
@@ -251,7 +311,8 @@ func (widget *Widget) jiraRequest(path string) ([]byte, error) {
 	defer func() { _ = resp.Body.Close() }()
 
 	if resp.StatusCode < 200 || resp.StatusCode > 299 {
-		return nil, fmt.Errorf("%s", resp.Status)
+		body, _ := io.ReadAll(resp.Body)
+		return nil, fmt.Errorf("JIRA API error - %s: %s (URL: %s)", resp.Status, string(body), url)
 	}
 
 	body, err := io.ReadAll(resp.Body)
@@ -293,7 +354,8 @@ func (widget *Widget) jiraPostRequest(path string, data []byte) ([]byte, error) 
 	defer func() { _ = resp.Body.Close() }()
 
 	if resp.StatusCode < 200 || resp.StatusCode > 299 {
-		return nil, fmt.Errorf("%s", resp.Status)
+		body, _ := io.ReadAll(resp.Body)
+		return nil, fmt.Errorf("JIRA API POST error - %s: %s (URL: %s)", resp.Status, string(body), url)
 	}
 
 	body, err := io.ReadAll(resp.Body)
