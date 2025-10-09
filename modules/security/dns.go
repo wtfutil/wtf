@@ -36,8 +36,10 @@ func dnsLinux() []string {
 
 	for _, l := range lines {
 		if strings.HasPrefix(l, "IP4.DNS") {
-			parts := strings.Split(l, ":")
-			dns = append(dns, strings.TrimSpace(parts[1]))
+			parts := strings.SplitN(l, ":", 2)
+			if len(parts) == 2 {
+				dns = append(dns, strings.TrimSpace(parts[1]))
+			}
 		}
 	}
 	return dns
