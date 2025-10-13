@@ -6,7 +6,6 @@ env:
 
 archives:
   - id: default
-    wrap_in_directory: true
 
 builds:
   - binary: wtfutil
