@@ -4,7 +4,7 @@ go 1.25.2
 
 require (
 	bitbucket.org/mikehouston/asana-go v0.0.0-20201102222432-715318d0343a
-	code.cloudfoundry.org/bytefmt v0.49.0
+	code.cloudfoundry.org/bytefmt v0.54.0
 	github.com/Microsoft/go-winio v0.6.1 // indirect
 	github.com/PagerDuty/go-pagerduty v1.8.0
 	github.com/VictorAvelar/devto-api-go v1.0.0
@@ -71,6 +71,7 @@ require (
 	github.com/hekmon/transmissionrpc/v2 v2.0.1
 	github.com/logrusorgru/aurora/v4 v4.0.0
 	github.com/muesli/reflow v0.3.0
+	github.com/prometheus-community/pro-bing v0.7.0
 )
 
 require (
@@ -139,7 +140,7 @@ require (
 	github.com/google/gnostic-models v0.7.0 // indirect
 	github.com/google/go-cmp v0.7.0 // indirect
 	github.com/google/go-querystring v1.1.0 // indirect
-	github.com/google/pprof v0.0.0-20250830080959-101d87ff5bc3 // indirect
+	github.com/google/pprof v0.0.0-20251002213607-436353cc1ee6 // indirect
 	github.com/google/s2a-go v0.1.9 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/googleapis/enterprise-certificate-proxy v0.3.6 // indirect
@@ -195,7 +196,6 @@ require (
 	github.com/pierrec/lz4/v4 v4.1.21 // indirect
 	github.com/pjbgf/sha1cd v0.3.0 // indirect
 	github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2 // indirect
-	github.com/prometheus-community/pro-bing v0.7.0 // indirect
 	github.com/prometheus/client_golang v1.16.0 // indirect
 	github.com/prometheus/client_model v0.4.0 // indirect
 	github.com/prometheus/common v0.44.0 // indirect
