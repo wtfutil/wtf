@@ -104,7 +104,6 @@ Just run
 go install github.com/wtfutil/wtf@latest
 ```
 
-
 ### Installing via MacPorts
 
 You can also install via [MacPorts](https://www.macports.org/):
