@@ -59,8 +59,14 @@ func (widget *Widget) content() (string, string, bool) {
 	str += "\n\n"
 
 	str += fmt.Sprintf(" [%s]DNS[white]\n", widget.settings.Colors.Subheading)
-	str += fmt.Sprintf("  %12s\n", data.DnsAt(0))
-	str += fmt.Sprintf("  %12s\n", data.DnsAt(1))
+	// If no DNS servers are found, display a single line of 'n/a'
+	if len(data.Dns) == 0 {
+		str += fmt.Sprintf(" %6s\n", "n/a")
+	} else {
+		for _, ip := range data.Dns {
+			str += fmt.Sprintf(" %12s\n", ip)
+		}
+	}
 	str += "\n"
 
 	return widget.CommonSettings().Title, str, false

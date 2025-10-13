@@ -40,6 +40,7 @@ func dnsLinux() []string {
 			dns = append(dns, strings.TrimSpace(parts[1]))
 		}
 	}
+
 	return dns
 }
 
