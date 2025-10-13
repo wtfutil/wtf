@@ -23,8 +23,6 @@ before:
 
 homebrew_casks:
   - name: wtfutil
-    conflicts:
-      - formula: wtfutil
     homepage: 'https://wtfutil.com'
     description: 'The personal information dashboard for your terminal.'
     repository:
