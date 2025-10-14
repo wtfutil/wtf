@@ -6,6 +6,7 @@ import (
 	"github.com/wtfutil/wtf/modules/airbrake"
 	"github.com/wtfutil/wtf/modules/asana"
 	"github.com/wtfutil/wtf/modules/azuredevops"
+	"github.com/wtfutil/wtf/modules/azurelogs"
 	"github.com/wtfutil/wtf/modules/bamboohr"
 	"github.com/wtfutil/wtf/modules/bargraph"
 	"github.com/wtfutil/wtf/modules/buildkite"
@@ -128,6 +129,9 @@ func MakeWidget(
 	case "azuredevops":
 		settings := azuredevops.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = azuredevops.NewWidget(tviewApp, redrawChan, pages, settings)
+	case "azurelogs":
+		settings := azurelogs.NewSettingsFromYAML(moduleName, moduleConfig, config)
+		widget = azurelogs.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "bamboohr":
 		settings := bamboohr.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = bamboohr.NewWidget(tviewApp, redrawChan, settings)
