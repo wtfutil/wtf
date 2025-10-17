@@ -62,18 +62,41 @@ func (flags *Flags) RenderIf(config *config.Config) {
 	}
 
 	if flags.HasVersion() {
-		info, _ := debug.ReadBuildInfo()
-		version := "dev"
-		date := "now"
+
+		info, ok := debug.ReadBuildInfo()
+		if !ok {
+			os.Exit(1)
+			return
+		}
+
+		var official bool
+		var revision string
+		version := info.Main.Version
+		date := "unknown"
+
+		// Check if this binary was built with git. If so, extract details.
 		for _, setting := range info.Settings {
 			switch setting.Key {
 			case "vcs.revision":
-				version = setting.Value
+				revision = setting.Value[0:12] // only need the 12 char hash
 			case "vcs.time":
 				date = setting.Value
 			}
 		}
-		fmt.Printf("%s (%s)\n", version, date)
+
+		// if we're built with git...
+		if revision != "" {
+			if !strings.Contains(version, revision) {
+				official = true
+			}
+		}
+
+		if official {
+			fmt.Printf("WTF %s (built: %s)\n", version, date)
+		} else {
+			fmt.Printf("WTF %s\nNote: This is an unofficial release.\n", version)
+		}
+
 		os.Exit(0)
 	}
 
