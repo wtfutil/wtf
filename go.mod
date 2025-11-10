@@ -52,7 +52,7 @@ require (
 	github.com/zmb3/spotify v1.3.0
 	github.com/zorkian/go-datadog-api v2.30.0+incompatible
 	golang.org/x/oauth2 v0.32.0
-	golang.org/x/sync v0.17.0
+	golang.org/x/sync v0.18.0
 	golang.org/x/sys v0.37.0 // indirect
 	golang.org/x/text v0.30.0
 	google.golang.org/api v0.255.0
