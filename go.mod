@@ -4,7 +4,7 @@ go 1.25.4
 
 require (
 	bitbucket.org/mikehouston/asana-go v0.0.0-20201102222432-715318d0343a
-	code.cloudfoundry.org/bytefmt v0.56.0
+	code.cloudfoundry.org/bytefmt v0.57.0
 	github.com/Microsoft/go-winio v0.6.1 // indirect
 	github.com/PagerDuty/go-pagerduty v1.8.0
 	github.com/VictorAvelar/devto-api-go v1.0.0
@@ -53,7 +53,7 @@ require (
 	github.com/zorkian/go-datadog-api v2.30.0+incompatible
 	golang.org/x/oauth2 v0.32.0
 	golang.org/x/sync v0.18.0
-	golang.org/x/sys v0.37.0 // indirect
+	golang.org/x/sys v0.38.0 // indirect
 	golang.org/x/text v0.30.0
 	google.golang.org/api v0.255.0
 	gopkg.in/yaml.v2 v2.4.0
