@@ -3,17 +3,18 @@ package gitlabtodo
 import (
 	"fmt"
 
-	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/view"
-	gitlab "github.com/xanzy/go-gitlab"
+
+	"github.com/rivo/tview"
+	glab "gitlab.com/gitlab-org/api/client-go"
 )
 
 type Widget struct {
 	view.ScrollableWidget
 
-	todos        []*gitlab.Todo
-	gitlabClient *gitlab.Client
+	todos        []*glab.Todo
+	gitlabClient *glab.Client
 	settings     *Settings
 	err          error
 }
@@ -25,7 +26,7 @@ func NewWidget(tviewApp *tview.Application, redrawChan chan bool, pages *tview.P
 		settings: settings,
 	}
 
-	widget.gitlabClient, _ = gitlab.NewClient(settings.apiKey, gitlab.WithBaseURL(settings.domain))
+	widget.gitlabClient, _ = glab.NewClient(settings.apiKey, glab.WithBaseURL(settings.domain))
 
 	widget.SetRenderFunction(widget.Render)
 	widget.initializeKeyboardControls()
@@ -71,8 +72,8 @@ func (widget *Widget) content() (string, string, bool) {
 	return title, str, false
 }
 
-func (widget *Widget) getTodos() ([]*gitlab.Todo, error) {
-	opts := gitlab.ListTodosOptions{}
+func (widget *Widget) getTodos() ([]*glab.Todo, error) {
+	opts := glab.ListTodosOptions{}
 
 	todos, _, err := widget.gitlabClient.Todos.ListTodos(&opts)
 	if err != nil {
@@ -96,7 +97,7 @@ func (widget *Widget) trimTodoBody(body string) string {
 	return body
 }
 
-func (widget *Widget) contentFrom(todos []*gitlab.Todo) string {
+func (widget *Widget) contentFrom(todos []*glab.Todo) string {
 	var str string
 
 	for idx, todo := range todos {

@@ -3,7 +3,7 @@ package gitlab
 import (
 	"fmt"
 
-	"github.com/xanzy/go-gitlab"
+	glab "gitlab.com/gitlab-org/api/client-go"
 )
 
 func (widget *Widget) display() {
@@ -78,7 +78,7 @@ func (widget *Widget) displayMyIssues(project *GitlabProject, username string) s
 	return widget.renderIssues(issues)
 }
 
-func (widget *Widget) renderMergeRequests(mrs []*gitlab.MergeRequest) string {
+func (widget *Widget) renderMergeRequests(mrs []*glab.MergeRequest) string {
 
 	length := len(mrs)
 
@@ -98,7 +98,7 @@ func (widget *Widget) renderMergeRequests(mrs []*gitlab.MergeRequest) string {
 	return str
 }
 
-func (widget *Widget) renderIssues(issues []*gitlab.Issue) string {
+func (widget *Widget) renderIssues(issues []*glab.Issue) string {
 
 	length := len(issues)
 
