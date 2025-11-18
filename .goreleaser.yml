@@ -8,7 +8,8 @@ archives:
   - id: default
 
 builds:
-  - binary: wtfutil
+  - id: base
+    binary: wtfutil
     goos:
       - darwin
       - linux
@@ -16,6 +17,16 @@ builds:
       - amd64
       - arm
       - arm64
+    goamd64:
+      - v1
+  - id: nextgen
+    binary: wtfutil
+    goos:
+      - linux
+    goarch:
+      - amd64
+    goamd64:
+      - v3
 
 before:
   hooks:
