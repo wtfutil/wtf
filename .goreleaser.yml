@@ -1,12 +1,5 @@
 version: 2
 
-env:
-  - GO111MODULE=on
-  - GOPROXY="https://proxy.golang.org,direct"
-
-archives:
-  - id: default
-
 builds:
   - binary: wtfutil
     goos:
@@ -17,9 +10,8 @@ builds:
       - arm
       - arm64
 
-before:
-  hooks:
-    - make install
+archives:
+  - id: default
 
 homebrew_casks:
   - name: wtfutil
