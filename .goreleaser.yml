@@ -13,6 +13,9 @@ builds:
 archives:
   - id: default
 
+nfpms:
+  - 
+
 homebrew_casks:
   - name: wtfutil
     homepage: 'https://wtfutil.com'
