@@ -74,7 +74,7 @@ require (
 	github.com/logrusorgru/aurora/v4 v4.0.0
 	github.com/muesli/reflow v0.3.0
 	github.com/prometheus-community/pro-bing v0.7.0
-	gitlab.com/gitlab-org/api/client-go v0.116.0
+	gitlab.com/gitlab-org/api/client-go v0.160.1
 	gopkg.in/yaml.v3 v3.0.1
 )
 
@@ -156,7 +156,7 @@ require (
 	github.com/gorhill/cronexpr v0.0.0-20161205141322-d520615e531a // indirect
 	github.com/gorilla/websocket v1.5.4-0.20250319132907-e064f32e3674 // indirect
 	github.com/hashicorp/go-cleanhttp v0.5.2 // indirect
-	github.com/hashicorp/go-retryablehttp v0.7.7 // indirect
+	github.com/hashicorp/go-retryablehttp v0.7.8 // indirect
 	github.com/hekmon/cunits/v2 v2.1.0 // indirect
 	github.com/huandu/xstrings v1.4.0 // indirect
 	github.com/iancoleman/orderedmap v0.3.0 // indirect
