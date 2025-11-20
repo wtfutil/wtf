@@ -110,8 +110,70 @@ func (widget *Widget) Refresh() {
 
 /* -------------------- Unexported Functions -------------------- */
 
+/* buildWorkflowsCollection returns a slice of Workflow that have been
+ * bookmarked by the user. Previously this method would returns workflows that
+ * have been favorited but that concept was replaced with bookmarks in CDS.
+ */
 func (widget *Widget) buildWorkflowsCollection() []sdk.Workflow {
+
+	/*
+	   package main
+
+	   import (
+	       "context"
+	       "fmt"
+	       "log"
+	       "net/http"
+
+	       "github.com/ovh/cds/sdk"
+	       "github.com/ovh/cds/sdk/cdsclient"
+	   )
+
+	   func getBookmarkedWorkflows(client cdsclient.Interface) ([]sdk.Workflow, error) {
+	       // 1. Fetch the bookmarks directly using the REST endpoint
+	       // The SDK doesn't always expose a helper for this, so we use .Request()
+	       var bookmarks []sdk.Bookmark
+	       _, err := client.Request(context.Background(), http.MethodGet, "/v2/user/me/bookmarks", nil, &bookmarks)
+	       if err != nil {
+	           return nil, fmt.Errorf("failed to fetch bookmarks: %v", err)
+	       }
+
+	       var bookmarkedWorkflows []sdk.Workflow
+
+	       // 2. Iterate through bookmarks
+	       for _, b := range bookmarks {
+	           // Filter for Workflow bookmarks (Type is often "workflow" or defined by a constant)
+	           if b.Type != sdk.BookmarkTypeWorkflow {
+	               continue
+	           }
+
+	           // 3. Fetch the actual Workflow details
+	           // Bookmarks only contain metadata (ProjectKey, Name), not the full struct
+	           wf, err := client.WorkflowGet(b.ProjectKey, b.WorkflowName)
+	           if err != nil {
+	               log.Printf("Warning: Could not fetch workflow %s/%s: %v", b.ProjectKey, b.WorkflowName, err)
+	               continue
+	           }
+
+	           bookmarkedWorkflows = append(bookmarkedWorkflows, *wf)
+	       }
+
+	       return bookmarkedWorkflows, nil
+	   }
+	*/
+
 	workflows := []sdk.Workflow{}
+
+	user, err := widget.client.UserGetMe()
+	if err != nil {
+		workflows
+	}
+
+	for _, bookmark := range user.Bookmarks {
+		if bookmark.Type == "workflow" {
+		}
+	}
+
 	data, _ := widget.client.Navbar()
 	for _, v := range data {
 		if v.Favorite && v.WorkflowName != "" {
