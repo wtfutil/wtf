@@ -1,6 +1,7 @@
 package gerrit
 
 import (
+	"context"
 	"crypto/tls"
 	"fmt"
 	"net/http"
@@ -70,7 +71,7 @@ func (widget *Widget) Refresh() {
 			submatch[2],
 		)
 	}
-	gerrit, err := glb.NewClient(gerritUrl, httpClient)
+	gerrit, err := glb.NewClient(context.Background(), gerritUrl, httpClient)
 	if err != nil {
 		widget.err = err
 		widget.gerrit = nil

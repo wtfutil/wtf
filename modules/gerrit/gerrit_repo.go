@@ -1,6 +1,8 @@
 package gerrit
 
 import (
+	"context"
+
 	glb "github.com/andygrunwald/go-gerrit"
 )
 
@@ -90,7 +92,7 @@ func (project *GerritProject) loadChanges() (*[]glb.ChangeInfo, error) {
 	opt.Query = []string{"(projects:" + project.Path + "+ is:open + owner:self) " + " OR " +
 		"(projects:" + project.Path + " + is:open + ((reviewer:self + -owner:self + -star:ignore) + OR + assignee:self))"}
 	opt.AdditionalFields = []string{"DETAILED_LABELS", "DETAILED_ACCOUNTS"}
-	changes, _, err := project.gerrit.Changes.QueryChanges(opt)
+	changes, _, err := project.gerrit.Changes.QueryChanges(context.Background(), opt)
 
 	if err != nil {
 		return nil, err
