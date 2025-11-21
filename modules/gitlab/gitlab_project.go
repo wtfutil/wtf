@@ -31,9 +31,9 @@ type GitlabProject struct {
 	context *context
 	path    string
 
-	MergeRequests         []*glab.MergeRequest
-	AssignedMergeRequests []*glab.MergeRequest
-	AuthoredMergeRequests []*glab.MergeRequest
+	MergeRequests         []*glab.BasicMergeRequest
+	AssignedMergeRequests []*glab.BasicMergeRequest
+	AuthoredMergeRequests []*glab.BasicMergeRequest
 	AssignedIssues        []*glab.Issue
 	AuthoredIssues        []*glab.Issue
 	RemoteProject         *glab.Project
@@ -83,13 +83,13 @@ func (project *GitlabProject) StarCount() int {
 /* -------------------- Unexported Functions -------------------- */
 
 // myMergeRequests returns a list of merge requests
-func (project *GitlabProject) myMergeRequests() []*glab.MergeRequest {
+func (project *GitlabProject) myMergeRequests() []*glab.BasicMergeRequest {
 	return project.AuthoredMergeRequests
 }
 
 // myAssignedMergeRequests returns a list of merge requests
 // assigned
-func (project *GitlabProject) myAssignedMergeRequests() []*glab.MergeRequest {
+func (project *GitlabProject) myAssignedMergeRequests() []*glab.BasicMergeRequest {
 	return project.AssignedMergeRequests
 }
 
@@ -103,7 +103,7 @@ func (project *GitlabProject) myIssues() []*glab.Issue {
 	return project.AuthoredIssues
 }
 
-func (project *GitlabProject) loadMergeRequests() ([]*glab.MergeRequest, error) {
+func (project *GitlabProject) loadMergeRequests() ([]*glab.BasicMergeRequest, error) {
 	state := "opened"
 	opts := glab.ListProjectMergeRequestsOptions{
 		State: &state,
@@ -118,7 +118,7 @@ func (project *GitlabProject) loadMergeRequests() ([]*glab.MergeRequest, error) 
 	return mrs, nil
 }
 
-func (project *GitlabProject) loadAssignedMergeRequests() ([]*glab.MergeRequest, error) {
+func (project *GitlabProject) loadAssignedMergeRequests() ([]*glab.BasicMergeRequest, error) {
 	state := "opened"
 	opts := glab.ListProjectMergeRequestsOptions{
 		State:      &state,
@@ -134,7 +134,7 @@ func (project *GitlabProject) loadAssignedMergeRequests() ([]*glab.MergeRequest,
 	return mrs, nil
 }
 
-func (project *GitlabProject) loadAuthoredMergeRequests() ([]*glab.MergeRequest, error) {
+func (project *GitlabProject) loadAuthoredMergeRequests() ([]*glab.BasicMergeRequest, error) {
 	state := "opened"
 	opts := glab.ListProjectMergeRequestsOptions{
 		State:    &state,
@@ -154,7 +154,7 @@ func (project *GitlabProject) loadAssignedIssues() ([]*glab.Issue, error) {
 	state := "opened"
 	opts := glab.ListProjectIssuesOptions{
 		State:      &state,
-		AssigneeID: glab.AssigneeID(project.context.user.ID),
+		AssigneeID: &project.context.user.ID,
 	}
 
 	issues, _, err := project.context.client.Issues.ListProjectIssues(project.path, &opts)

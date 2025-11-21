@@ -78,7 +78,7 @@ func (widget *Widget) displayMyIssues(project *GitlabProject, username string) s
 	return widget.renderIssues(issues)
 }
 
-func (widget *Widget) renderMergeRequests(mrs []*glab.MergeRequest) string {
+func (widget *Widget) renderMergeRequests(mrs []*glab.BasicMergeRequest) string {
 
 	length := len(mrs)
 
