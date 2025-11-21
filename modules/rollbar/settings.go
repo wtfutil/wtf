@@ -1,6 +1,8 @@
 package rollbar
 
 import (
+	"os"
+
 	"github.com/olebedev/config"
 	"github.com/wtfutil/wtf/cfg"
 )
@@ -26,7 +28,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 	settings := Settings{
 		Common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 
-		accessToken:    ymlConfig.UString("accessToken"),
+		accessToken:    ymlConfig.UString("accessToken", os.Getenv("WTF_ROLLBAR_ACCESS_TOKEN")),
 		activeOnly:     ymlConfig.UBool("activeOnly", false),
 		assignedToName: ymlConfig.UString("assignedToName"),
 		count:          ymlConfig.UInt("count", 10),
