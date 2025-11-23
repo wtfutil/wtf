@@ -16,7 +16,6 @@ import (
 	"github.com/wtfutil/wtf/modules/circleci"
 	"github.com/wtfutil/wtf/modules/clocks"
 	"github.com/wtfutil/wtf/modules/cmdrunner"
-	"github.com/wtfutil/wtf/modules/covid"
 	"github.com/wtfutil/wtf/modules/cryptocurrency/bittrex"
 	"github.com/wtfutil/wtf/modules/cryptocurrency/blockfolio"
 	"github.com/wtfutil/wtf/modules/cryptocurrency/cryptolive"
@@ -162,9 +161,6 @@ func MakeWidget(
 	case "clocks":
 		settings := clocks.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = clocks.NewWidget(tviewApp, redrawChan, settings)
-	case "covid":
-		settings := covid.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = covid.NewWidget(tviewApp, redrawChan, settings)
 	case "cmdrunner":
 		settings := cmdrunner.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = cmdrunner.NewWidget(tviewApp, redrawChan, settings)
