@@ -38,7 +38,7 @@ func (widget *Widget) content() (string, string, bool) {
 		}
 
 		ts := calEvent.Timestamp(widget.settings.hourFormat, widget.settings.showEndTime)
-		timestamp := fmt.Sprintf("[%s]%s", widget.eventTimeColor(), ts)
+		timestamp := fmt.Sprintf("[%s]%s ", widget.eventTimeColor(), ts)
 		if calEvent.AllDay() {
 			timestamp = ""
 		}
@@ -48,21 +48,41 @@ func (widget *Widget) content() (string, string, bool) {
 			widget.eventSummary(calEvent, calEvent.ConflictsWith(calEvents)),
 		)
 
-		lineOne := fmt.Sprintf(
-			"%s %s %s %s[white]\n",
-			widget.dayDivider(calEvent, prevEvent),
-			widget.responseIcon(calEvent),
-			timestamp,
-			eventTitle,
-		)
+		var lineOne string
+		if widget.settings.compact {
+			lineOne = fmt.Sprintf(
+				"%s %s %s%s[white]",
+				widget.dayDivider(calEvent, prevEvent),
+				widget.responseIcon(calEvent),
+				timestamp,
+				eventTitle,
+			)
+			str += fmt.Sprintf("%s %s\n",
+				lineOne,
+				widget.timeUntil(calEvent),
+			)
 
-		str += fmt.Sprintf("%s   %s%s\n",
-			lineOne,
-			widget.location(calEvent),
-			widget.timeUntil(calEvent),
-		)
+			location := widget.location(calEvent)
+			if location != "" {
+				str += location + "\n"
+			}
+		} else {
+			lineOne = fmt.Sprintf(
+				"%s %s %s%s[white]\n",
+				widget.dayDivider(calEvent, prevEvent),
+				widget.responseIcon(calEvent),
+				timestamp,
+				eventTitle,
+			)
 
-		if (widget.location(calEvent) != "") || (widget.timeUntil(calEvent) != "") {
+			str += fmt.Sprintf("%s   %s%s\n",
+				lineOne,
+				widget.location(calEvent),
+				widget.timeUntil(calEvent),
+			)
+		}
+
+		if !widget.settings.compact && ((widget.location(calEvent) != "") || (widget.timeUntil(calEvent) != "")) {
 			str += "\n"
 		}
 
@@ -159,7 +179,11 @@ func (widget *Widget) timeUntil(calEvent *CalEvent) string {
 		}
 	}
 
-	return color + untilStr + "[white]"
+	if widget.settings.compact {
+		return fmt.Sprintf("%s[%s][white]", color, untilStr)
+	} else {
+		return color + untilStr + "[white]"
+	}
 }
 
 func (widget *Widget) titleColor(calEvent *CalEvent) string {
