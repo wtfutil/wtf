@@ -48,3 +48,8 @@ announce:
   bluesky:
     enabled: true
     username: "wtfutil.bsky.social"
+  discourse:
+    enabled: true
+    server: "https://discuss.linodians.com"
+    username: "system"
+    category_id: 7
