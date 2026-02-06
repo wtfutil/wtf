@@ -69,7 +69,7 @@ require (
 	github.com/Azure/azure-sdk-for-go/sdk/azidentity v1.13.1
 	github.com/Azure/azure-sdk-for-go/sdk/monitor/azquery v1.2.0
 	github.com/charmbracelet/bubbles v0.21.0
-	github.com/gdamore/tcell/v2 v2.13.6
+	github.com/gdamore/tcell/v2 v2.13.8
 	github.com/hekmon/transmissionrpc/v2 v2.0.1
 	github.com/logrusorgru/aurora/v4 v4.0.0
 	github.com/muesli/reflow v0.3.0
