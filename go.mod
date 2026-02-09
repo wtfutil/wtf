@@ -73,7 +73,7 @@ require (
 	github.com/hekmon/transmissionrpc/v2 v2.0.1
 	github.com/logrusorgru/aurora/v4 v4.0.0
 	github.com/muesli/reflow v0.3.0
-	github.com/prometheus-community/pro-bing v0.7.0
+	github.com/prometheus-community/pro-bing v0.8.0
 	gitlab.com/gitlab-org/api/client-go v0.160.1
 	gopkg.in/yaml.v3 v3.0.1
 )
