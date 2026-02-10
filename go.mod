@@ -4,7 +4,7 @@ go 1.25.5
 
 require (
 	bitbucket.org/mikehouston/asana-go v0.0.0-20201102222432-715318d0343a
-	code.cloudfoundry.org/bytefmt v0.63.0
+	code.cloudfoundry.org/bytefmt v0.64.0
 	github.com/Microsoft/go-winio v0.6.2 // indirect
 	github.com/PagerDuty/go-pagerduty v1.8.0
 	github.com/VictorAvelar/devto-api-go v1.0.0
@@ -52,7 +52,7 @@ require (
 	github.com/zorkian/go-datadog-api v2.30.0+incompatible
 	golang.org/x/oauth2 v0.35.0
 	golang.org/x/sync v0.19.0
-	golang.org/x/sys v0.40.0 // indirect
+	golang.org/x/sys v0.41.0 // indirect
 	golang.org/x/text v0.34.0
 	google.golang.org/api v0.265.0
 	gopkg.in/yaml.v2 v2.4.0
@@ -246,10 +246,10 @@ require (
 	go.uber.org/zap v1.27.0 // indirect
 	go.yaml.in/yaml/v2 v2.4.3 // indirect
 	go.yaml.in/yaml/v3 v3.0.4 // indirect
-	golang.org/x/crypto v0.47.0 // indirect
+	golang.org/x/crypto v0.48.0 // indirect
 	golang.org/x/exp v0.0.0-20240719175910-8a7402abbf56 // indirect
-	golang.org/x/net v0.49.0 // indirect
-	golang.org/x/term v0.39.0 // indirect
+	golang.org/x/net v0.50.0 // indirect
+	golang.org/x/term v0.40.0 // indirect
 	golang.org/x/time v0.14.0 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20260128011058-8636f8732409 // indirect
 	google.golang.org/grpc v1.78.0 // indirect
