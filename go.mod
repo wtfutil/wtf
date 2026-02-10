@@ -53,7 +53,7 @@ require (
 	golang.org/x/oauth2 v0.35.0
 	golang.org/x/sync v0.19.0
 	golang.org/x/sys v0.40.0 // indirect
-	golang.org/x/text v0.33.0
+	golang.org/x/text v0.34.0
 	google.golang.org/api v0.265.0
 	gopkg.in/yaml.v2 v2.4.0
 	gotest.tools v2.2.0+incompatible
