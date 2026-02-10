@@ -54,7 +54,7 @@ require (
 	golang.org/x/sync v0.19.0
 	golang.org/x/sys v0.41.0 // indirect
 	golang.org/x/text v0.34.0
-	google.golang.org/api v0.265.0
+	google.golang.org/api v0.266.0
 	gopkg.in/yaml.v2 v2.4.0
 	gotest.tools v2.2.0+incompatible
 	jaytaylor.com/html2text v0.0.0-20200412013138-3577fbdbcff7
@@ -153,7 +153,7 @@ require (
 	github.com/google/s2a-go v0.1.9 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/googleapis/enterprise-certificate-proxy v0.3.11 // indirect
-	github.com/googleapis/gax-go/v2 v2.16.0 // indirect
+	github.com/googleapis/gax-go/v2 v2.17.0 // indirect
 	github.com/gookit/color v1.5.4 // indirect
 	github.com/gorhill/cronexpr v0.0.0-20161205141322-d520615e531a // indirect
 	github.com/gorilla/websocket v1.5.4-0.20250319132907-e064f32e3674 // indirect
@@ -251,7 +251,7 @@ require (
 	golang.org/x/net v0.50.0 // indirect
 	golang.org/x/term v0.40.0 // indirect
 	golang.org/x/time v0.14.0 // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20260128011058-8636f8732409 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20260203192932-546029d2fa20 // indirect
 	google.golang.org/grpc v1.78.0 // indirect
 	google.golang.org/protobuf v1.36.11 // indirect
 	gopkg.in/AlecAivazis/survey.v1 v1.7.1 // indirect
