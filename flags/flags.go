@@ -16,8 +16,8 @@ import (
 
 // Flags is the container for command line flag data
 type Flags struct {
-	Config  string `short:"c" long:"config" optional:"yes" description:"Path to config file"`
-	Module  string `short:"m" long:"module" optional:"yes" description:"Display info about a specific module, i.e.: 'wtfutil -m=todo'"`
+	Config  string `short:"c" long:"config" optional:"no" description:"Path to config file"`
+	Module  string `short:"m" long:"module" optional:"no" description:"Display info about a specific module, i.e.: 'wtfutil -m=todo'"`
 	Profile bool   `short:"p" long:"profile" optional:"yes" description:"Profile application memory usage"`
 	Version bool   `short:"v" long:"version" description:"Show version info"`
 	// Work-around go-flags misfeatures. If any sub-command is defined
