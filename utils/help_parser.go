@@ -24,7 +24,7 @@ func HelpFromInterface(item interface{}) string {
 			kind = field.Type.Elem().Kind()
 		}
 
-		if field.Name == "common" {
+		if field.Name == "Common" {
 			result += HelpFromInterface(cfg.Common{})
 		}
 
