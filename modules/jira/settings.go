@@ -5,6 +5,7 @@ import (
 
 	"github.com/olebedev/config"
 	"github.com/wtfutil/wtf/cfg"
+	"github.com/wtfutil/wtf/utils"
 )
 
 const (
@@ -56,6 +57,10 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 	settings.projects = settings.arrayifyProjects(ymlConfig)
 
 	return &settings
+}
+
+func (widget *Widget) ConfigText() string {
+	return utils.HelpFromInterface(Settings{})
 }
 
 /* -------------------- Unexported functions -------------------- */

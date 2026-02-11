@@ -50,3 +50,7 @@ func NewSettingsFromYAML(name string, moduleConfig *config.Config, globalConfig 
 
 	return &settings
 }
+
+func (widget *Widget) ConfigText() string {
+	return utils.HelpFromInterface(Settings{})
+}

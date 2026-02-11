@@ -3,6 +3,7 @@ package progress
 import (
 	"github.com/olebedev/config"
 	"github.com/wtfutil/wtf/cfg"
+	"github.com/wtfutil/wtf/utils"
 )
 
 const (
@@ -53,4 +54,8 @@ func NewSettingsFromYAML(name string, ymlConfig, globalConfig *config.Config) *S
 	settings.solid = ymlConfig.UString("colors.solid", "")
 
 	return &settings
+}
+
+func (widget *Widget) ConfigText() string {
+	return utils.HelpFromInterface(Settings{})
 }

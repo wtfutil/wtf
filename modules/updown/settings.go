@@ -33,3 +33,7 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 
 	return &settings
 }
+
+func (widget *Widget) ConfigText() string {
+	return utils.HelpFromInterface(Settings{})
+}

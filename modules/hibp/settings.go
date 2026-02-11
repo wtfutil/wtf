@@ -54,6 +54,10 @@ func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *co
 	return settings
 }
 
+func (widget *Widget) ConfigText() string {
+	return utils.HelpFromInterface(Settings{})
+}
+
 // HasSince returns TRUE if there's a valid "since" value setting, FALSE if there is not
 func (sett *Settings) HasSince() bool {
 	if sett.since == "" {
