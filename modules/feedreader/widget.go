@@ -93,11 +93,15 @@ func NewWidget(tviewApp *tview.Application, redrawChan chan bool, pages *tview.P
 /* -------------------- Exported Functions -------------------- */
 
 // Fetch retrieves RSS and Atom feed data
-func (widget *Widget) Fetch(feedURLs []string) ([]*FeedItem, error) {
+func (widget *Widget) Fetch(feedURLs, aliases []string) ([]*FeedItem, error) {
 	var data []*FeedItem
 
-	for _, feedURL := range feedURLs {
-		feedItems, err := widget.fetchForFeed(feedURL)
+	for i, feedURL := range feedURLs {
+		var alias string
+		if aliases != nil && i < len(aliases) {
+			alias = aliases[i]
+		}
+		feedItems, err := widget.fetchForFeed(feedURL, alias)
 		if err != nil {
 			return nil, err
 		}
@@ -112,7 +116,7 @@ func (widget *Widget) Fetch(feedURLs []string) ([]*FeedItem, error) {
 
 // Refresh updates the data in the widget
 func (widget *Widget) Refresh() {
-	feedItems, err := widget.Fetch(widget.settings.feeds)
+	feedItems, err := widget.Fetch(widget.settings.feeds, widget.settings.aliases)
 	if err != nil {
 		widget.err = err
 		widget.stories = nil
@@ -133,7 +137,7 @@ func (widget *Widget) Render() {
 
 /* -------------------- Unexported Functions -------------------- */
 
-func (widget *Widget) fetchForFeed(feedURL string) ([]*FeedItem, error) {
+func (widget *Widget) fetchForFeed(feedURL, alias string) ([]*FeedItem, error) {
 	var (
 		feed *gofeed.Feed
 		err  error
@@ -166,6 +170,9 @@ func (widget *Widget) fetchForFeed(feedURL string) ([]*FeedItem, error) {
 			item:        gofeedItem,
 			sourceTitle: feed.Title,
 			viewed:      false,
+		}
+		if alias != "" {
+			feedItem.sourceTitle = alias
 		}
 
 		feedItems = append(feedItems, feedItem)

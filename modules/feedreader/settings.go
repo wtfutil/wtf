@@ -29,6 +29,7 @@ type Settings struct {
 	colors
 
 	feeds           []string        `help:"An array of RSS and Atom feed URLs"`
+	aliases         []string        `help:"An array of feed name aliases (should be the same length as feeds)"`
 	feedLimit       int             `help:"The maximum number of stories to display for each feed"`
 	showSource      bool            `help:"Wether or not to show feed source in front of item titles." values:"true or false" optional:"true" default:"true"`
 	showPublishDate bool            `help:"Wether or not to show publish date in front of item titles." values:"true or false" optional:"true" default:"false"`
@@ -43,6 +44,7 @@ func NewSettingsFromYAML(name string, ymlConfig, globalConfig *config.Config) *S
 	settings := &Settings{
 		Common:          cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 		feeds:           utils.ToStrs(ymlConfig.UList("feeds")),
+		aliases:         utils.ToStrs(ymlConfig.UList("aliases")),
 		feedLimit:       ymlConfig.UInt("feedLimit", -1),
 		showSource:      ymlConfig.UBool("showSource", true),
 		showPublishDate: ymlConfig.UBool("showPublishDate", false),
