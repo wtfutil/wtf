@@ -179,7 +179,7 @@ func (common *Common) RowColor(idx int) string {
 	)
 }
 
-func (common *Common) RightAlignFormat(width int) string {
+func (*Common) RightAlignFormat(width int) string {
 	borderOffset := 2
 	return fmt.Sprintf("%%%ds", width-borderOffset)
 }
@@ -212,7 +212,7 @@ func (common *Common) SetDocumentationPath(path string) {
 // Validations aggregates all the validations from all the sub-sections in Common into a
 // single array of validations
 func (common *Common) Validations() []Validatable {
-	validatables := []Validatable{}
+	var validatables []Validatable
 
 	for _, validation := range common.PositionSettings.Validations.validations {
 		validatables = append(validatables, validation)
