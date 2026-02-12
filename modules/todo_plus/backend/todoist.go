@@ -3,11 +3,12 @@ package backend
 import (
 	"fmt"
 
+	"github.com/gopherlibs/todoist/api"
 	"github.com/olebedev/config"
-	"github.com/wtfutil/todoist"
 )
 
 type Todoist struct {
+	client   *api.Client
 	projects []interface{}
 }
 
@@ -16,7 +17,8 @@ func (todo *Todoist) Title() string {
 }
 
 func (todo *Todoist) Setup(config *config.Config) {
-	todoist.Token = config.UString("apiKey")
+
+	todo.client = api.New(config.UString("apiKey"))
 	todo.projects = config.UList("projects")
 }
 
@@ -38,14 +40,16 @@ func (todo *Todoist) GetProject(id string) *Project {
 		Index:   -1,
 		backend: todo,
 	}
-	project, err := todoist.GetProject(id)
+
+	proj.ID = id
+	proj.Name = "Error"
+
+	p, err := todo.client.Project(id)
 	if err != nil {
-		proj.Err = err
 		return proj
 	}
 
-	proj.ID = project.ID
-	proj.Name = project.Name
+	proj.Name = p.Name
 
 	tasks, err := todo.LoadTasks(proj.ID)
 	proj.Err = err
@@ -54,22 +58,23 @@ func (todo *Todoist) GetProject(id string) *Project {
 	return proj
 }
 
-func toTask(task todoist.Task) Task {
+func toTask(task api.Task) Task {
 	return Task{
 		ID:        task.ID,
-		Completed: task.Completed,
+		Completed: task.Checked,
 		Name:      task.Content,
 	}
 }
 
 func (todo *Todoist) LoadTasks(id string) ([]Task, error) {
-	tasks, err := todoist.ListTask(todoist.QueryParam{"project_id": id})
 
+	tasks, err := todo.client.Tasks(id)
 	if err != nil {
 		return nil, err
 	}
+
 	var finalTasks []Task
-	for _, item := range tasks {
+	for _, item := range tasks.Results {
 		finalTasks = append(finalTasks, toTask(item))
 	}
 	return finalTasks, nil
@@ -77,16 +82,16 @@ func (todo *Todoist) LoadTasks(id string) ([]Task, error) {
 
 func (todo *Todoist) CloseTask(task *Task) error {
 	if task != nil {
-		internal := todoist.Task{ID: task.ID}
-		return internal.Close()
+		_, err := todo.client.TaskClose(task.ID)
+		return err
 	}
 	return nil
 }
 
 func (todo *Todoist) DeleteTask(task *Task) error {
 	if task != nil {
-		internal := todoist.Task{ID: task.ID}
-		return internal.Delete()
+		_, err := todo.client.TaskDelete(task.ID)
+		return err
 	}
 	return nil
 }
