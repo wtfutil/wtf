@@ -1,5 +1,0 @@
-version: "2"
-checks:
-  similar-code:
-    config:
-      threshold: 3
