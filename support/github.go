@@ -211,7 +211,7 @@ func (ghUser *GitHubUser) loadSponsorStatus(ctx context.Context) (bool, error) {
 	isSponsor := false
 
 	for _, spon := range sponsorQuery.User.SponsorshipsAsSponsor.Nodes {
-		if spon.Sponsorable.SponsorsListing.Slug == "sponsors-senorprogrammer" {
+		if spon.Sponsorable.SponsorsListing.Slug == "sponsors-felicianotech" {
 			isSponsor = true
 			break
 		}
