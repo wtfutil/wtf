@@ -101,13 +101,13 @@ func (widget *KeyboardWidget) InputCapture(event *tcell.EventKey) *tcell.EventKe
 		return nil
 	}
 
-	fn := widget.charMap[string(event.Rune())]
+	fn := widget.keyMap[event.Key()]
 	if fn != nil {
 		fn()
 		return nil
 	}
 
-	fn = widget.keyMap[event.Key()]
+	fn = widget.charMap[string(event.Rune())]
 	if fn != nil {
 		fn()
 		return nil
