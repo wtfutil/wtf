@@ -141,14 +141,14 @@ func (widget *Widget) content() string {
 	if statusCounts[DOWN] == 0 {
 		downColor = "green"
 	}
-	builder.WriteString(fmt.Sprintf("[%s] Up: [green]%d", textColor, statusCounts[UP]))
-	builder.WriteString(fmt.Sprintf("[%s] (%.1f%%)", textColor, avgUptime))
-	builder.WriteString(fmt.Sprintf("[%s], Down: [%s]%d", textColor, downColor, statusCounts[DOWN]))
+	fmt.Fprintf(&builder, "[%s] Up: [green]%d", textColor, statusCounts[UP])
+	fmt.Fprintf(&builder, "[%s] (%.1f%%)", textColor, avgUptime)
+	fmt.Fprintf(&builder, "[%s], Down: [%s]%d", textColor, downColor, statusCounts[DOWN])
 	if statusCounts[MAINTENANCE] > 0 {
-		builder.WriteString(fmt.Sprintf("[%s], Maint: [%s]%d", textColor, "blue", statusCounts[MAINTENANCE]))
+		fmt.Fprintf(&builder, "[%s], Maint: [%s]%d", textColor, "blue", statusCounts[MAINTENANCE])
 	}
 	if statusCounts[PENDING] > 0 {
-		builder.WriteString(fmt.Sprintf("[%s], Pend: [%s]%d", textColor, "orange", statusCounts[PENDING]))
+		fmt.Fprintf(&builder, "[%s], Pend: [%s]%d", textColor, "orange", statusCounts[PENDING])
 	}
 
 	if widget.statusData.Incident != nil {
@@ -157,9 +157,9 @@ func (widget *Widget) content() string {
 		created, err := time.Parse(layout, widget.statusData.Incident.CreatedDate)
 		if err == nil {
 			hoursAgo := time.Since(created).Hours()
-			builder.WriteString(fmt.Sprintf("[%s]\n Incident: %.0fh ago", textColor, hoursAgo))
+			fmt.Fprintf(&builder, "[%s]\n Incident: %.0fh ago", textColor, hoursAgo)
 		} else {
-			builder.WriteString(fmt.Sprintf("[%s]\n Incident [unparsable date]", textColor))
+			fmt.Fprintf(&builder, "[%s]\n Incident [unparsable date]", textColor)
 		}
 	}
 
