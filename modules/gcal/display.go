@@ -21,7 +21,7 @@ func (widget *Widget) content() (string, string, bool) {
 		return title, widget.err.Error(), true
 	}
 
-	if (calEvents == nil) || (len(calEvents) == 0) {
+	if len(calEvents) == 0 {
 		return title, "No calendar events", false
 	}
 

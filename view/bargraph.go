@@ -86,16 +86,15 @@ func BuildStars(data []Bar, maxStars int, starChar string) string {
 		}
 
 		//write the line
-		_, err := buffer.WriteString(
-			fmt.Sprintf(
-				"%s%s[[%s]%s[default]%s] %s\n",
-				bar.Label,
-				strings.Repeat(" ", longestLabel-len(bar.Label)),
-				labelColor,
-				strings.Repeat(starChar, starCount),
-				strings.Repeat(" ", maxStars-starCount),
-				label,
-			),
+		_, err := fmt.Fprintf(
+			&buffer,
+			"%s%s[[%s]%s[default]%s] %s\n",
+			bar.Label,
+			strings.Repeat(" ", longestLabel-len(bar.Label)),
+			labelColor,
+			strings.Repeat(starChar, starCount),
+			strings.Repeat(" ", maxStars-starCount),
+			label,
 		)
 		if err != nil {
 			return ""
