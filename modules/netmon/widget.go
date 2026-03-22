@@ -62,19 +62,15 @@ func (widget *Widget) content() (string, string, bool) {
 		return widget.CommonSettings().Title, err.Error(), true
 	}
 	for _, nic := range interfaces {
-		if _, ok := widget.interfaces[nic.Name]; ok {
-			prevSent := widget.interfaces[nic.Name].Sent
-			prevRecv := widget.interfaces[nic.Name].Recv
-			widget.interfaces[nic.Name].Sent = nic.BytesSent
-			widget.interfaces[nic.Name].Recv = nic.BytesRecv
+		if NIC, ok := widget.interfaces[nic.Name]; ok {
+			prevSent, prevRecv := NIC.Sent, NIC.Recv
+			NIC.Sent, NIC.Recv = nic.BytesSent, nic.BytesRecv
 			fmt.Fprintf(&content, "%s:\t▲%9s \t▼%9s\n",
 				nic.Name,
 				pretty(nic.BytesSent-prevSent),
 				pretty(nic.BytesRecv-prevRecv))
 		}
-
 	}
-
 	return widget.CommonSettings().Title, content.String(), true
 }
 
@@ -82,10 +78,10 @@ func pretty(bytes uint64) string {
 	bits := bytes * 8
 	bps := "bps"
 	if bits > 1000000 {
-		bits = bits / 1000000
+		bits /= 1000000
 		bps = "M" + bps
 	} else if bits > 1000 {
-		bits = bits / 1000
+		bits /= 1000
 		bps = "K" + bps
 	}
 	return fmt.Sprintf("%v %s", bits, bps)
