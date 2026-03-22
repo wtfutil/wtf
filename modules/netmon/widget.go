@@ -33,23 +33,32 @@ func NewWidget(tviewApp *tview.Application, redrawChan chan bool, settings *Sett
 
 	return &widget
 }
+
 func (widget *Widget) SetupNICs() {
 	widget.interfaces = make(map[string]*NIC)
 	interfaces, _ := net.IOCounters(true)
 
 	for _, nic := range interfaces {
 		if widget.settings.ignoreLoopback && strings.HasPrefix(nic.Name, "lo") ||
+			widget.settings.ignoreEthernet && strings.HasPrefix(nic.Name, "e") ||
+			widget.settings.ignoreWireless && strings.HasPrefix(nic.Name, "wl") ||
 			widget.settings.ignoreBridges && strings.HasPrefix(nic.Name, "br") ||
 			widget.settings.ignoreDocker && strings.HasPrefix(nic.Name, "docker") ||
-			widget.settings.ignoreVETH && strings.HasPrefix(nic.Name, "veth") {
+			widget.settings.ignoreVeth && strings.HasPrefix(nic.Name, "veth") {
 			continue
 		}
-		widget.interfaces[nic.Name] = &NIC{
-			Name: nic.Name,
-			Sent: nic.BytesSent,
-			Recv: nic.BytesRecv}
+		if widget.settings.showOnly != "" {
+			if widget.settings.showOnly == nic.Name {
+				widget.addInterface(nic)
+				break
+			}
+		} else {
+			widget.addInterface(nic)
+		}
+
 	}
 }
+
 func (widget *Widget) Refresh() {
 	widget.Redraw(widget.content)
 }
@@ -72,6 +81,14 @@ func (widget *Widget) content() (string, string, bool) {
 		}
 	}
 	return widget.CommonSettings().Title, content.String(), true
+}
+
+func (widget *Widget) addInterface(nic net.IOCountersStat) {
+	widget.interfaces[nic.Name] = &NIC{
+		Name: nic.Name,
+		Sent: nic.BytesSent,
+		Recv: nic.BytesRecv,
+	}
 }
 
 func pretty(bytes uint64) string {

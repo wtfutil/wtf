@@ -26,10 +26,12 @@ wtf:
       type: netmon
       title: "Network Monitor"
       enabled: true
-      ignoreLoopback: true
+      showOnly: ""
+      ignoreLoopback: false
+      ignoreEthernet: false
       ignoreBridges: true
-      ignoreDocker: true
-      ignoreVETH: true
+      ignoreDocker: false
+      ignoreVeth: true
       position:
         top: 0
         left: 0

@@ -13,20 +13,28 @@ const (
 type Settings struct {
 	*cfg.Common
 
+	showOnly string
+
 	ignoreLoopback bool
+	ignoreEthernet bool
+	ignoreWireless bool
 	ignoreBridges  bool
 	ignoreDocker   bool
-	ignoreVETH     bool
+	ignoreVeth     bool
 }
 
 func NewSettingsFromYAML(name string, ymlConfig *config.Config, globalConfig *config.Config) *Settings {
 	settings := Settings{
 		Common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
 
+		showOnly: ymlConfig.UString("showOnly"),
+
 		ignoreLoopback: ymlConfig.UBool("ignoreLoopback"),
+		ignoreEthernet: ymlConfig.UBool("ignoreEthernet"),
+		ignoreWireless: ymlConfig.UBool("ignoreWireless"),
 		ignoreBridges:  ymlConfig.UBool("ignoreBridges"),
 		ignoreDocker:   ymlConfig.UBool("ignoreDocker"),
-		ignoreVETH:     ymlConfig.UBool("ignoreVETH"),
+		ignoreVeth:     ymlConfig.UBool("ignoreVeth"),
 	}
 
 	return &settings
