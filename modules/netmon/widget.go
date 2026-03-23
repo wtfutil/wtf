@@ -29,8 +29,6 @@ func NewWidget(tviewApp *tview.Application, redrawChan chan bool, settings *Sett
 	}
 
 	widget.SetupNICs()
-	widget.View.SetWrap(true)
-
 	return &widget
 }
 
@@ -74,10 +72,10 @@ func (widget *Widget) content() (string, string, bool) {
 		if NIC, ok := widget.interfaces[nic.Name]; ok {
 			prevSent, prevRecv := NIC.Sent, NIC.Recv
 			NIC.Sent, NIC.Recv = nic.BytesSent, nic.BytesRecv
-			fmt.Fprintf(&content, "%s:\t▲%9s \t▼%9s\n",
-				nic.Name,
-				pretty(nic.BytesSent-prevSent),
-				pretty(nic.BytesRecv-prevRecv))
+			fmt.Fprintf(&content, "%-9s▲%9s ▼%9s\n",
+				PrettyName(nic.Name),
+				prettyBits(nic.BytesSent-prevSent),
+				prettyBits(nic.BytesRecv-prevRecv))
 		}
 	}
 	return widget.CommonSettings().Title, content.String(), true
@@ -91,7 +89,14 @@ func (widget *Widget) addInterface(nic net.IOCountersStat) {
 	}
 }
 
-func pretty(bytes uint64) string {
+func PrettyName(name string) string {
+	if len(name) > 7 {
+		name = name[:6] + "…"
+	}
+	return name + ":"
+}
+
+func prettyBits(bytes uint64) string {
 	bits := bytes * 8
 	bps := "bps"
 	if bits > 1000000 {

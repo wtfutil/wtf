@@ -14,20 +14,16 @@ wtf:
       even: yellow
       odd: white
   grid:
-    # How _wide_ the columns are, in terminal characters. In this case we have
-    # four columns, each of which are 35 characters wide.
-    # columns: [50, ]
-    # How _high_ the rows are, in terminal lines. In this case we have four rows
-    # that support ten line of text and one of four.
-    # rows: [50]
+    columns: [35]
+    rows: [8]
   refreshInterval: 1
   mods:
     netmon:
       type: netmon
       title: "Network Monitor"
       enabled: true
-      showOnly: ""
-      ignoreLoopback: false
+      showOnly: "wlo1"
+      ignoreLoopback: true
       ignoreEthernet: false
       ignoreBridges: true
       ignoreDocker: false
@@ -35,6 +31,6 @@ wtf:
       position:
         top: 0
         left: 0
-        height: 2
-        width: 2
+        height: 1
+        width: 1
       refreshInterval: 1
