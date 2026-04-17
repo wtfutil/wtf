@@ -10,9 +10,6 @@ import (
 	"github.com/wtfutil/wtf/modules/bamboohr"
 	"github.com/wtfutil/wtf/modules/bargraph"
 	"github.com/wtfutil/wtf/modules/buildkite"
-	cdsfavorites "github.com/wtfutil/wtf/modules/cds/favorites"
-	cdsqueue "github.com/wtfutil/wtf/modules/cds/queue"
-	cdsstatus "github.com/wtfutil/wtf/modules/cds/status"
 	"github.com/wtfutil/wtf/modules/circleci"
 	"github.com/wtfutil/wtf/modules/clocks"
 	"github.com/wtfutil/wtf/modules/cmdrunner"
@@ -146,15 +143,6 @@ func MakeWidget(
 	case "buildkite":
 		settings := buildkite.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = buildkite.NewWidget(tviewApp, redrawChan, pages, settings)
-	case "cdsFavorites":
-		settings := cdsfavorites.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = cdsfavorites.NewWidget(tviewApp, redrawChan, pages, settings)
-	case "cdsQueue":
-		settings := cdsqueue.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = cdsqueue.NewWidget(tviewApp, redrawChan, pages, settings)
-	case "cdsStatus":
-		settings := cdsstatus.NewSettingsFromYAML(moduleName, moduleConfig, config)
-		widget = cdsstatus.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "circleci":
 		settings := circleci.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = circleci.NewWidget(tviewApp, redrawChan, settings)
