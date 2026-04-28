@@ -58,7 +58,7 @@ require (
 	k8s.io/client-go v0.35.2
 )
 
-require github.com/nicklaw5/helix/v2 v2.32.0
+require github.com/nicklaw5/helix/v2 v2.34.0
 
 require (
 	github.com/Azure/azure-sdk-for-go/sdk/azcore v1.21.1
