@@ -18,7 +18,7 @@ jobs:
         with:
           go-version-file: 'go.mod'
       - name: Run GoReleaser
-        uses: goreleaser/goreleaser-action@v6.4.0
+        uses: goreleaser/goreleaser-action@v7.2.1
         with:
           version: 2.15.3
           args: release --snapshot
