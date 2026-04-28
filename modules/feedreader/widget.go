@@ -94,13 +94,23 @@ func NewWidget(tviewApp *tview.Application, redrawChan chan bool, pages *tview.P
 
 // Fetch retrieves RSS and Atom feed data
 func (widget *Widget) Fetch(feedURLs, aliases []string) ([]*FeedItem, error) {
+
 	var data []*FeedItem
 
+	// Allows us to right-pad alias so that the column lines up.
+	var aliasMaxChar int
+	for _, alias := range aliases {
+		aliasMaxChar = max(aliasMaxChar, len(alias))
+	}
+
 	for i, feedURL := range feedURLs {
+
 		var alias string
+
 		if aliases != nil && i < len(aliases) {
-			alias = aliases[i]
+			alias = fmt.Sprintf("%-*s", aliasMaxChar, aliases[i])
 		}
+
 		feedItems, err := widget.fetchForFeed(feedURL, alias)
 		if err != nil {
 			return nil, err
