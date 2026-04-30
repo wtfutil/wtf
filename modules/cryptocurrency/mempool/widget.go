@@ -44,23 +44,22 @@ func (widget *Widget) Refresh() {
 /* -------------------- Unexported Functions -------------------- */
 
 func (widget *Widget) content() string {
-	return getBTCTxFees()
+	return getBTCTxFees(widget.settings.apiURL)
 }
 
-func getBTCTxFees() string {
-	url := "https://mempool.space/api/v1/fees/recommended"
-	resp, err := http.Get(url)
+func getBTCTxFees(apiURL string) string {
+	resp, err := http.Get(apiURL)
 	if err != nil {
-		logger.Log(fmt.Sprintf("[mempool] Error: Failed to make request to mempool. Reason: %s", err))
-		return "[mempool] error callng mempool API"
+		logger.Log(fmt.Sprintf("[mempool] Error: Failed to make request to fee API. Reason: %s", err))
+		return "[mempool] error calling fee API"
 	}
 	defer resp.Body.Close()
 
 	parsed := feeStruct{}
 	err = utils.ParseJSON(&parsed, resp.Body)
 	if err != nil {
-		logger.Log(fmt.Sprintf("[mempool] Error: Failed to decode JSON data from mempool. Reason: %s", err))
-		return "[mempool] error parsing JSON from mempool API"
+		logger.Log(fmt.Sprintf("[mempool] Error: Failed to decode JSON data from fee API. Reason: %s", err))
+		return "[mempool] error parsing JSON from fee API"
 	}
 
 	finalStr := ""
