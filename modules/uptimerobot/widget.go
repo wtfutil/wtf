@@ -129,7 +129,7 @@ func formatUptimes(str string) string {
 	parts := make([]string, 0, len(splits))
 	for _, s := range splits {
 		if f, err := strconv.ParseFloat(s, 64); err == nil {
-			parts = append(parts, utils.ColorizeUptimePercent(math.Round(f*10)/10)+"%")
+			parts = append(parts, utils.ColorizeUptimePercent(math.Round(f*100)/100)+"%")
 		} else {
 			s = s[:5]
 			s = strings.TrimRight(s, "0")
