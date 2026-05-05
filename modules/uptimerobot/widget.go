@@ -5,11 +5,14 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"math"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/view"
 )
 
@@ -111,8 +114,7 @@ func (widget *Widget) contentFrom(monitors []Monitor) string {
 			prefix += "[yellow] ~ "
 		}
 
-		str += fmt.Sprintf(`%s%s [gray](%s)[white]
-`,
+		str += fmt.Sprintf("%s%s [white](%s)\n",
 			prefix,
 			monitor.Name,
 			formatUptimes(monitor.Uptime),
@@ -124,17 +126,18 @@ func (widget *Widget) contentFrom(monitors []Monitor) string {
 
 func formatUptimes(str string) string {
 	splits := strings.Split(str, "-")
-	str = ""
-	for i, s := range splits {
-		if i != 0 {
-			str += "|"
+	parts := make([]string, 0, len(splits))
+	for _, s := range splits {
+		if f, err := strconv.ParseFloat(s, 64); err == nil {
+			parts = append(parts, utils.ColorizeUptimePercent(math.Round(f*10)/10)+"%")
+		} else {
+			s = s[:5]
+			s = strings.TrimRight(s, "0")
+			s = strings.TrimRight(s, ".") + "%"
+			parts = append(parts, s)
 		}
-		s = s[:5]
-		s = strings.TrimRight(s, "0")
-		s = strings.TrimRight(s, ".") + "%"
-		str += s
 	}
-	return str
+	return strings.Join(parts, "|")
 }
 
 type Monitor struct {
