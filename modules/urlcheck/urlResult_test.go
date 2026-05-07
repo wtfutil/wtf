@@ -44,3 +44,51 @@ func Test_newUrlResult(t *testing.T) {
 		})
 	}
 }
+
+func Test_urlResult_DisplayURL(t *testing.T) {
+	tests := []struct {
+		name string
+		url  string
+		want string
+	}{
+		{
+			name: "no_auth",
+			url:  "https://example.com/path?var=1",
+			want: "https://example.com/path?var=1",
+		},
+		{
+			name: "username_only",
+			url:  "https://user@example.com/path",
+			want: "https://user@example.com/path",
+		},
+		{
+			name: "username_and_password",
+			url:  "https://user:secret@example.com/path",
+			want: "https://user:xxxxx@example.com/path",
+		},
+		{
+			name: "username_and_empty_password",
+			url:  "https://user:@example.com/path",
+			want: "https://user:xxxxx@example.com/path",
+		},
+		{
+			name: "encoded_credentials",
+			url:  "https://user%40example.com:s%40cret@example.com/path",
+			want: "https://user%40example.com:xxxxx@example.com/path",
+		},
+		{
+			name: "invalid_url",
+			url:  "http://not\nurl.com?var=1",
+			want: "http://not\nurl.com?var=1",
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := urlResult{Url: tt.url}
+
+			assert.Equal(t, tt.want, got.DisplayURL())
+			assert.Equal(t, tt.url, got.Url)
+		})
+	}
+}
