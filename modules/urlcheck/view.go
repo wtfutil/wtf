@@ -16,7 +16,7 @@ func (widget *Widget) PrepareTemplate() {
 	widget.templateString = "{{range .}} " +
 		"{{. | getResultColor}}" +
 		"[{{if eq .ResultCode 999}}---{{else}}{{.ResultCode}}{{end}}]" +
-		textColor + "{{.DisplayURL}}" +
+		textColor + "{{.DisplayUrl}}" +
 		labelColor + "{{.ResultMessage}}" +
 		"\n{{end}}"
 

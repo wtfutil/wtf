@@ -45,7 +45,7 @@ func Test_newUrlResult(t *testing.T) {
 	}
 }
 
-func Test_urlResult_DisplayURL(t *testing.T) {
+func Test_urlResult_DisplayUrl(t *testing.T) {
 	tests := []struct {
 		name string
 		url  string
@@ -87,7 +87,7 @@ func Test_urlResult_DisplayURL(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			got := urlResult{Url: tt.url}
 
-			assert.Equal(t, tt.want, got.DisplayURL())
+			assert.Equal(t, tt.want, got.DisplayUrl())
 			assert.Equal(t, tt.url, got.Url)
 		})
 	}

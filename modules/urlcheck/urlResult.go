@@ -14,8 +14,8 @@ type urlResult struct {
 	IsValid       bool
 }
 
-// DisplayURL returns the URL with any Basic Auth password redacted.
-func (ur urlResult) DisplayURL() string {
+// DisplayUrl returns the URL with any Basic Auth password redacted.
+func (ur urlResult) DisplayUrl() string {
 	u, err := url.Parse(ur.Url)
 	if err != nil || u.User == nil {
 		return ur.Url
