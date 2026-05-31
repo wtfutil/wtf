@@ -270,7 +270,7 @@ var colorMap = map[int]string{
 func ASCIItoTviewColors(text string) string {
 	boldRegExp := regexp.MustCompile(`\033\[1m`)
 	fgColorRegExp := regexp.MustCompile(`\033\[38;5;(?P<color>\d+);*\d*m`)
-	resColorRegExp := regexp.MustCompile(`\033\[0m`)
+	resColorRegExp := regexp.MustCompile(`\033\[(0|39)m`)
 
 	return resColorRegExp.ReplaceAllString(
 		boldRegExp.ReplaceAllString(
