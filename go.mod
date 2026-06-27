@@ -36,7 +36,7 @@ require (
 	github.com/pkg/profile v1.7.0
 	github.com/radovskyb/watcher v1.0.7
 	github.com/rivo/tview v0.42.0
-	github.com/shirou/gopsutil v2.21.11+incompatible
+	github.com/shirou/gopsutil v3.21.11+incompatible
 	github.com/shopspring/decimal v1.3.1 // indirect
 	github.com/shurcooL/githubv4 v0.0.0-20200802174311-f27d2ca7f6d5
 	github.com/shurcooL/graphql v0.0.0-20181231061246-d48a9a75455f // indirect
