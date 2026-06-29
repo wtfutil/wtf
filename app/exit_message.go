@@ -97,7 +97,7 @@ func (wtfApp *WtfApp) sponsorThankYouMessage() string {
 }
 
 func (wtfApp *WtfApp) supportRequestMessage() string {
-	str := "    Heads up! WTF is being renamed to Metro. Stay tuned!\n\n"
+	str := "    Heads up! WTF is being renamed to Tessera. Stay tuned!\n\n"
 	str += "    The development and maintenance of WTF is supported by sponsorships.\n"
 	str += fmt.Sprintf("    Sponsor the development of WTF at %s\n", aurora.Green("https://github.com/sponsors/FelicianoTech"))
 

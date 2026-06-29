@@ -11,6 +11,9 @@
 
 ---
 
+:rotating_light: :warning: This project is going through some changes as we prepare for v1.0. This includes
+a rename from WTF to **Tessera**! Stay tuned! :warning: :rotating_light:
+
 WTF (aka 'wtfutil') is the personal information dashboard for your terminal, providing at-a-glance access to your very important but infrequently-needed stats and data.
 
 Used by thousands of developers and tech people around the world, WTF is free and open-source. To support the continued use and development of WTF, please consider sponsoring WTF via [GitHub Sponsors](https://github.com/sponsors/FelicianoTech).
