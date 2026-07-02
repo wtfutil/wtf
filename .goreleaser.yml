@@ -1,20 +1,54 @@
 version: 2
+project_name: tessera
 
 builds:
-  - binary: wtfutil
-    goos:
-      - darwin
-      - linux
-    goarch:
-      - amd64
-      - arm
-      - arm64
+- id: tessera
+  binary: tessera
+  goos:
+  - linux
+  - darwin
+  goarch:
+  - amd64
+  - arm
+  - arm64
+  goarm:
+  - 7
+- id: wtf
+  binary: wtfutil
+  goos:
+  - darwin
+  - linux
+  goarch:
+  - amd64
+  - arm
+  - arm64
 
 archives:
-  - id: default
+- id: tessera
+  ids:
+  - tessera
+  name_template: '{{ .ProjectName }}--v{{ .Version }}--{{ .Os }}-{{ .Arch }}{{ with .Arm }}v{{ . }}{{ end }}{{ if not (eq .Amd64 "v1") }}{{ .Amd64 }}{{ end }}{{ if not (eq .Arm64 "v8.0") }}{{ .Arm64 }}{{ end }}'
+- id: wtf
+  ids:
+  - wtf
+  name_template: 'wtf_{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ with .Arm }}v{{ . }}{{ end }}{{ if not (eq .Amd64 "v1") }}{{ .Amd64 }}{{ end }}'
 
 homebrew_casks:
+  - ids:
+    - tessera
+    repository:
+      owner: linodians
+      name: homebrew-tap
+    hooks:
+      post:
+        # This hook is needed until this binary is signed and notarized
+        install: |
+          if system_command("/usr/bin/xattr", args: ["-h"]).exit_status == 0
+            system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/tessera"]
+          end
   - name: wtfutil
+    ids:
+    - wtf
     homepage: 'https://wtfutil.com'
     description: 'The personal information dashboard for your terminal.'
     repository:
@@ -28,6 +62,8 @@ homebrew_casks:
             system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/wtfutil"]
           end
   - name: wtfutil
+    ids:
+    - wtf
     homepage: 'https://wtfutil.com'
     description: 'The personal information dashboard for your terminal.'
     repository:
