@@ -4,6 +4,9 @@ type Task struct {
 	ID        string
 	Completed bool
 	Name      string
+	Prefix    string
+	DateSuffix string
+	Overdue   bool
 }
 
 type Project struct {
