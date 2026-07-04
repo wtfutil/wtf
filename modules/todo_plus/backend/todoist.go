@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"net/http"
+	"net/url"
 	"sort"
 	"strings"
 	"time"
@@ -60,6 +62,20 @@ func (todo *Todoist) Setup(config *config.Config) {
 	todo.fetchFilters()
 }
 
+func (todo *Todoist) doGet(urlStr string) (*http.Response, error) {
+	req, _ := http.NewRequest("GET", urlStr, nil)
+	req.Header.Add("Authorization", "Bearer "+todo.apiKey)
+	return http.DefaultClient.Do(req)
+}
+
+func (todo *Todoist) doPostForm(path string, body io.Reader) (*http.Response, error) {
+	u, _ := url.Parse("https://api.todoist.com" + path)
+	req, _ := http.NewRequest("POST", u.String(), body)
+	req.Header.Add("Authorization", "Bearer "+todo.apiKey)
+	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+	return http.DefaultClient.Do(req)
+}
+
 func (todo *Todoist) fetchProjects() {
 	todo.projectNameMap = make(map[string]string)
 
@@ -76,8 +92,7 @@ func (todo *Todoist) fetchProjects() {
 func (todo *Todoist) fetchFilters() {
 	todo.filterMap = make(map[string]todoistFilter)
 
-	syncURL, _ := todo.client.BaseURL().Parse("/api/v1/sync")
-	resp, err := todo.client.PostForm(syncURL, strings.NewReader("sync_token=*&resource_types=%5B%22filters%22%5D"))
+	resp, err := todo.doPostForm("/api/v1/sync", strings.NewReader("sync_token=*&resource_types=%5B%22filters%22%5D"))
 	if err != nil {
 		return
 	}
@@ -196,13 +211,13 @@ func (todo *Todoist) LoadTasks(id string) ([]Task, error) {
 }
 
 func (todo *Todoist) LoadTasksByFilter(query string) ([]Task, error) {
-	u, _ := todo.client.BaseURL().Parse("/api/v1/tasks/filter")
+	u, _ := url.Parse("https://api.todoist.com/api/v1/tasks/filter")
 	params := u.Query()
 	params.Set("query", query)
 	params.Set("limit", "200")
 	u.RawQuery = params.Encode()
 
-	resp, err := todo.client.Get(u)
+	resp, err := todo.doGet(u.String())
 	if err != nil {
 		return nil, err
 	}
