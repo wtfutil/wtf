@@ -20,11 +20,6 @@ type todoistFilter struct {
 	Query string `json:"query"`
 }
 
-type todoistProject struct {
-	ID   string `json:"id"`
-	Name string `json:"name"`
-}
-
 type syncResponse struct {
 	Filters []todoistFilter `json:"filters"`
 }

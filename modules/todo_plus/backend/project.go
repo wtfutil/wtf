@@ -1,12 +1,12 @@
 package backend
 
 type Task struct {
-	ID        string
-	Completed bool
-	Name      string
-	Prefix    string
+	ID         string
+	Completed  bool
+	Name       string
+	Prefix     string
 	DateSuffix string
-	Overdue   bool
+	Overdue    bool
 }
 
 type Project struct {
