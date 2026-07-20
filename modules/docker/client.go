@@ -9,18 +9,17 @@ import (
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/api/types/container"
 	"github.com/dustin/go-humanize"
-	"github.com/pkg/errors"
 )
 
 func (widget *Widget) getSystemInfo() string {
 	info, err := widget.cli.Info(context.Background())
 	if err != nil {
-		return errors.Wrap(err, "could not get docker system info").Error()
+		return fmt.Errorf("could not get docker system info: %w", err).Error()
 	}
 
 	diskUsage, err := widget.cli.DiskUsage(context.Background(), types.DiskUsageOptions{})
 	if err != nil {
-		return errors.Wrap(err, "could not get disk usage").Error()
+		return fmt.Errorf("could not get disk usage: %w", err).Error()
 	}
 
 	var duContainer int64
@@ -111,7 +110,7 @@ func (widget *Widget) getSystemInfo() string {
 func (widget *Widget) getContainerStates() string {
 	cntrs, err := widget.cli.ContainerList(context.Background(), container.ListOptions{All: true})
 	if err != nil {
-		return errors.Wrapf(err, " could not get container list").Error()
+		return fmt.Errorf("could not get container list: %w", err).Error()
 	}
 
 	if len(cntrs) == 0 {

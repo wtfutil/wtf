@@ -32,7 +32,7 @@ require (
 	github.com/olebedev/config v0.0.0-20190528211619-364964f3a8e4
 	github.com/olekukonko/tablewriter v0.0.5
 	github.com/piquette/finance-go v1.1.0
-	github.com/pkg/errors v0.9.1
+	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pkg/profile v1.7.0
 	github.com/radovskyb/watcher v1.0.7
 	github.com/rivo/tview v0.42.0

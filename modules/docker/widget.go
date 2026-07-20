@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"github.com/docker/docker/client"
-	"github.com/pkg/errors"
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/view"
 )
@@ -26,7 +25,7 @@ func NewWidget(tviewApp *tview.Application, redrawChan chan bool, pages *tview.P
 
 	cli, err := client.NewClientWithOpts(client.FromEnv)
 	if err != nil {
-		widget.displayBuffer = errors.Wrap(err, "could not create client").Error()
+		widget.displayBuffer = fmt.Errorf("could not create client: %w", err).Error()
 	} else {
 		widget.cli = cli
 	}

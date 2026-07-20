@@ -5,7 +5,6 @@ import (
 	"strings"
 
 	azrBuild "github.com/microsoft/azure-devops-go-api/azuredevops/build"
-	"github.com/pkg/errors"
 )
 
 func (widget *Widget) getBuildStats() string {
@@ -14,7 +13,7 @@ func (widget *Widget) getBuildStats() string {
 	top := widget.settings.maxRows
 	builds, err := widget.cli.GetBuilds(widget.ctx, azrBuild.GetBuildsArgs{Project: &projName, StatusFilter: &statusFilter, Top: &top})
 	if err != nil {
-		return errors.Wrap(err, "could not get builds").Error()
+		return fmt.Errorf("could not get builds: %w", err).Error()
 	}
 
 	result := ""

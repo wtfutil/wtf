@@ -6,7 +6,6 @@ import (
 
 	azr "github.com/microsoft/azure-devops-go-api/azuredevops"
 	azrBuild "github.com/microsoft/azure-devops-go-api/azuredevops/build"
-	"github.com/pkg/errors"
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/view"
 )
@@ -31,7 +30,7 @@ func NewWidget(tviewApp *tview.Application, redrawChan chan bool, pages *tview.P
 
 	cli, err := azrBuild.NewClient(ctx, connection)
 	if err != nil {
-		widget.displayBuffer = errors.Wrap(err, "could not create client 2").Error()
+		widget.displayBuffer = fmt.Errorf("could not create client: %w", err).Error()
 	} else {
 		widget.cli = cli
 		widget.ctx = ctx
