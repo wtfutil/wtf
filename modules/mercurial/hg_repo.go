@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
-	"path"
+	"path/filepath"
 	"strings"
 
 	"github.com/wtfutil/wtf/utils"
@@ -43,7 +43,7 @@ func (repo *MercurialRepo) branch() string {
 }
 
 func (repo *MercurialRepo) bookmark() string {
-	bookmark, err := os.ReadFile(path.Join(repo.Path, ".hg", "bookmarks.current"))
+	bookmark, err := os.ReadFile(filepath.Join(repo.Path, ".hg", "bookmarks.current"))
 	if err != nil {
 		return ""
 	}
