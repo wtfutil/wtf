@@ -164,8 +164,11 @@ func (base *Base) ShowHelp() {
 	base.pages.AddPage("help", modal, false, true)
 	base.tviewApp.SetFocus(modal)
 
-	// Tell the app to force redraw the screen
-	base.RedrawChan <- true
+	// Tell the app to force redraw the screen (non-blocking to avoid deadlock)
+	select {
+	case base.RedrawChan <- true:
+	default:
+	}
 }
 
 func (base *Base) Stop() {

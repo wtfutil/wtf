@@ -48,7 +48,11 @@ func (widget *TextWidget) Redraw(data func() (string, string, bool)) {
 	widget.View.SetTitle(widget.ContextualTitle(title))
 	widget.View.SetText(strings.TrimRight(content, "\n"))
 
-	widget.RedrawChan <- true
+	// Non-blocking send to avoid deadlock when multiple widgets refresh simultaneously
+	select {
+	case widget.RedrawChan <- true:
+	default:
+	}
 }
 
 /* -------------------- Unexported Functions -------------------- */

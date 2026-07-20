@@ -95,7 +95,7 @@ func (widget *Widget) Unselect() {
 // Refresh reloads the github data via the Github API and reruns the display
 func (widget *Widget) Refresh() {
 	for _, repo := range widget.GithubRepos {
-		repo.Refresh()
+		repo.Refresh(widget.settings.username, widget.settings.enableStatus, widget.settings.customQueries)
 	}
 
 	widget.display()

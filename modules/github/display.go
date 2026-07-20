@@ -12,7 +12,6 @@ func (widget *Widget) display() {
 
 func (widget *Widget) content() (string, string, bool) {
 	repo := widget.currentGithubRepo()
-	username := widget.settings.username
 
 	// Choses the correct place to scroll to when changing sources
 	if len(widget.View.GetHighlights()) > 0 {
@@ -21,14 +20,16 @@ func (widget *Widget) content() (string, string, bool) {
 		widget.View.ScrollToBeginning()
 	}
 
+	if repo == nil {
+		return widget.CommonSettings().Title, " GitHub repo data is unavailable ", false
+	}
+
 	// initial maxItems count
 	widget.Items = make([]int, 0)
-	widget.SetItemCount(len(repo.myReviewRequests((username))))
+	widget.SetItemCount(len(repo.CachedMyReviewRequests))
 
 	title := fmt.Sprintf("%s - %s", widget.CommonSettings().Title, widget.title(repo))
-	if repo == nil {
-		return title, " GitHub repo data is unavailable ", false
-	} else if repo.Err != nil {
+	if repo.Err != nil {
 		return title, repo.Err.Error(), true
 	}
 
@@ -40,22 +41,22 @@ func (widget *Widget) content() (string, string, bool) {
 	}
 	if widget.settings.showOpenReviewRequests {
 		str += fmt.Sprintf("\n [%s]Open Review Requests[white]\n", widget.settings.Colors.Subheading)
-		str += widget.displayMyReviewRequests(repo, username)
+		str += widget.displayMyReviewRequests(repo)
 	}
 	if widget.settings.showMyPullRequests {
 		str += fmt.Sprintf("\n [%s]My Pull Requests[white]\n", widget.settings.Colors.Subheading)
-		str += widget.displayMyPullRequests(repo, username)
+		str += widget.displayMyPullRequests(repo)
 	}
 	for _, customQuery := range widget.settings.customQueries {
 		str += fmt.Sprintf("\n [%s]%s[white]\n", widget.settings.Colors.Subheading, customQuery.title)
-		str += widget.displayCustomQuery(repo, customQuery.filter, customQuery.perPage)
+		str += widget.displayCustomQuery(repo, customQuery.filter)
 	}
 
 	return title, str, false
 }
 
-func (widget *Widget) displayMyPullRequests(repo *Repo, username string) string {
-	prs := repo.myPullRequests(username, widget.settings.enableStatus)
+func (widget *Widget) displayMyPullRequests(repo *Repo) string {
+	prs := repo.CachedMyPullRequests
 
 	prLength := len(prs)
 
@@ -77,8 +78,8 @@ func (widget *Widget) displayMyPullRequests(repo *Repo, username string) string 
 	return str
 }
 
-func (widget *Widget) displayCustomQuery(repo *Repo, filter string, perPage int) string {
-	res := repo.customIssueQuery(filter, perPage)
+func (widget *Widget) displayCustomQuery(repo *Repo, filter string) string {
+	res := repo.CachedCustomQueries[filter]
 
 	if res == nil {
 		return " [grey]Invalid Query[white]\n"
@@ -104,8 +105,8 @@ func (widget *Widget) displayCustomQuery(repo *Repo, filter string, perPage int)
 	return str
 }
 
-func (widget *Widget) displayMyReviewRequests(repo *Repo, username string) string {
-	prs := repo.myReviewRequests(username)
+func (widget *Widget) displayMyReviewRequests(repo *Repo) string {
+	prs := repo.CachedMyReviewRequests
 
 	if len(prs) == 0 {
 		return " [grey]none[white]\n"
