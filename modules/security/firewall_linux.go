@@ -1,60 +1,17 @@
-//go:build !windows
+//go:build linux
 
 package security
 
 import (
 	"fmt"
 	"os/exec"
-	"runtime"
 	"strings"
 	"syscall"
 
 	"github.com/wtfutil/wtf/utils"
 )
 
-const osxFirewallCmd = "/usr/libexec/ApplicationFirewall/socketfilterfw"
-
-/* -------------------- Exported Functions -------------------- */
-
 func FirewallState() string {
-	switch runtime.GOOS {
-	case "darwin":
-		return firewallStateMacOS()
-	case "linux":
-		return firewallStateLinux()
-	default:
-		return ""
-	}
-}
-
-func FirewallStealthState() string {
-	switch runtime.GOOS {
-	case "linux":
-		return "[white]N/A[white]"
-	case "darwin":
-		return firewallStealthStateMacOS()
-	default:
-		return ""
-	}
-}
-
-/* -------------------- Unexported Functions -------------------- */
-
-func firewallStateMacOS() string {
-	cmd := exec.Command(osxFirewallCmd, "--getglobalstate")
-	str := utils.ExecuteCommand(cmd)
-
-	return statusLabel(str)
-}
-
-func firewallStealthStateMacOS() string {
-	cmd := exec.Command(osxFirewallCmd, "--getstealthmode")
-	str := utils.ExecuteCommand(cmd)
-
-	return statusLabel(str)
-}
-
-func firewallStateLinux() string {
 	// Check UFW first
 	if hasUfw := checkUfw(); hasUfw != "" {
 		return hasUfw
@@ -76,6 +33,10 @@ func firewallStateLinux() string {
 	}
 
 	return "[red]No firewall[white]"
+}
+
+func FirewallStealthState() string {
+	return "[white]N/A[white]"
 }
 
 func checkFirewalld() string {
@@ -111,13 +72,11 @@ func checkFirewalld() string {
 }
 
 func checkUfw() string {
-	// First check if UFW is installed
 	checkInstalled := exec.Command("which", "ufw")
 	if err := checkInstalled.Run(); err != nil {
 		return ""
 	}
 
-	// Then check if service is running
 	cmd := exec.Command("systemctl", "is-active", "ufw")
 	err := cmd.Run()
 	if err == nil {
@@ -127,13 +86,11 @@ func checkUfw() string {
 }
 
 func checkNftables() string {
-	// First check if nftables is installed
 	checkInstalled := exec.Command("which", "nft")
 	if err := checkInstalled.Run(); err != nil {
 		return ""
 	}
 
-	// Then check if service is running
 	cmd := exec.Command("systemctl", "is-active", "nftables")
 	err := cmd.Run()
 	if err == nil {
@@ -143,18 +100,15 @@ func checkNftables() string {
 }
 
 func checkIptables() string {
-	// First check if iptables is installed
 	checkInstalled := exec.Command("which", "iptables")
 	if strings.Contains(utils.ExecuteCommand(checkInstalled), "not found") {
 		return ""
 	}
 
-	// Check if iptables module is loaded
 	cmd := exec.Command("lsmod")
 	out := utils.ExecuteCommand(cmd)
 
 	if strings.Contains(out, "ip_tables") {
-		// Check for any active rules
 		cmd := exec.Command("iptables", "-L")
 		out := utils.ExecuteCommand(cmd)
 		if strings.Contains(out, "Chain") && !strings.Contains(out, "0 references") {
