@@ -4,6 +4,7 @@ package security
 
 import (
 	"os/exec"
+	"strings"
 
 	"github.com/wtfutil/wtf/utils"
 )
@@ -22,4 +23,11 @@ func FirewallStealthState() string {
 	str := utils.ExecuteCommand(cmd)
 
 	return statusLabel(str)
+}
+
+func statusLabel(str string) string {
+	if strings.Contains(str, "enabled") {
+		return "on"
+	}
+	return "off"
 }
