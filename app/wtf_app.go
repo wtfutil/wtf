@@ -4,12 +4,11 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"time"
 
+	"github.com/fsnotify/fsnotify"
 	_ "github.com/gdamore/tcell/terminfo/extended"
 	"github.com/gdamore/tcell/v2"
 	"github.com/olebedev/config"
-	"github.com/radovskyb/watcher"
 	"github.com/rivo/tview"
 
 	"github.com/wtfutil/wtf/cfg"
@@ -31,7 +30,7 @@ type WtfApp struct {
 	pages          *tview.Pages
 	validator      *ModuleValidator
 	widgets        []wtf.Wtfable
-	configWatcher  *watcher.Watcher
+	configWatcher  *fsnotify.Watcher
 
 	// The redrawChan channel is used to allow modules to signal back to the main loop that
 	// the screen needs to be explicitly redrawn, instead of waiting for tcell to redraw
@@ -138,7 +137,7 @@ func (wtfApp *WtfApp) Start() {
 func (wtfApp *WtfApp) Stop() {
 	wtfApp.stopAllWidgets()
 	if wtfApp.configWatcher != nil {
-		wtfApp.configWatcher.Close()
+		_ = wtfApp.configWatcher.Close()
 	}
 	close(wtfApp.redrawChan)
 }
@@ -207,16 +206,22 @@ func (wtfApp *WtfApp) scheduleWidgets() {
 }
 
 func (wtfApp *WtfApp) watchForConfigChanges() {
-	wtfApp.configWatcher = watcher.New()
-	watch := wtfApp.configWatcher
-
-	// Notify write events
-	watch.FilterOps(watcher.Write)
+	watch, err := fsnotify.NewWatcher()
+	if err != nil {
+		log.Fatalln(err)
+	}
+	wtfApp.configWatcher = watch
 
 	go func() {
 		for {
 			select {
-			case <-watch.Event:
+			case event, ok := <-watch.Events:
+				if !ok {
+					return
+				}
+				if !event.Has(fsnotify.Write) {
+					continue
+				}
 				wtfApp.Stop()
 
 				config := cfg.LoadWtfConfigFile(wtfApp.configFilePath)
@@ -225,14 +230,11 @@ func (wtfApp *WtfApp) watchForConfigChanges() {
 				utils.Init(config.UString("wtf.openFileUtil", "open"), openURLUtil)
 
 				newApp.Start()
-			case err := <-watch.Error:
-				if err == watcher.ErrWatchedFileDeleted {
-					// Usually happens because the watcher looks for the file as the OS is updating it
-					continue
+			case err, ok := <-watch.Errors:
+				if !ok {
+					return
 				}
 				log.Fatalln(err)
-			case <-watch.Closed:
-				return
 			}
 		}
 	}()
@@ -240,11 +242,6 @@ func (wtfApp *WtfApp) watchForConfigChanges() {
 	// Watch config file for changes.
 	absPath, _ := utils.ExpandHomeDir(wtfApp.configFilePath)
 	if err := watch.Add(absPath); err != nil {
-		log.Fatalln(err)
-	}
-
-	// Start the watching process - it'll check for changes every 100ms.
-	if err := watch.Start(time.Millisecond * 100); err != nil {
 		log.Fatalln(err)
 	}
 }
