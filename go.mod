@@ -24,7 +24,7 @@ require (
 	github.com/gdamore/tcell v1.4.1
 	github.com/go-ole/go-ole v1.2.6 // indirect
 	github.com/godbus/dbus v4.1.0+incompatible // indirect
-	github.com/jedib0t/go-pretty/v6 v6.8.2
+	github.com/jedib0t/go-pretty/v6 v6.8.3
 	github.com/jessevdk/go-flags v1.6.1
 	github.com/microsoft/azure-devops-go-api/azuredevops v1.0.0-b5
 	github.com/mmcdole/gofeed v1.3.0
