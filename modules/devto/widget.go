@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/VictorAvelar/devto-api-go/devto"
 	"github.com/rivo/tview"
 
 	"github.com/wtfutil/wtf/utils"
@@ -14,16 +13,20 @@ import (
 type Widget struct {
 	view.ScrollableWidget
 
-	articles []devto.ListedArticle
+	articles []Article
+	client   *Client
 	settings *Settings
 	err      error
+	openURL  func(string)
 }
 
 func NewWidget(tviewApp *tview.Application, redrawChan chan bool, pages *tview.Pages, settings *Settings) *Widget {
 	widget := &Widget{
 		ScrollableWidget: view.NewScrollableWidget(tviewApp, redrawChan, pages, settings.Common),
 
+		client:   NewClient(nil, ""),
 		settings: settings,
+		openURL:  utils.OpenFile,
 	}
 
 	widget.SetRenderFunction(widget.Render)
@@ -39,37 +42,25 @@ func (widget *Widget) Refresh() {
 	}
 
 	ctx := context.Background()
-	wCfg, _ := devto.NewConfig(false, "")
 
-	c, _ := devto.NewClient(ctx, wCfg, nil, devto.BaseURL)
-
-	options := devto.ArticleListOptions{
-		Tags:     widget.settings.contentTag,
-		Username: widget.settings.contentUsername,
-		State:    widget.settings.contentState,
-	}
-
-	articles, err := c.Articles.List(ctx, options)
+	articles, err := widget.client.FetchArticles(
+		ctx,
+		widget.settings.contentTag,
+		widget.settings.contentUsername,
+		widget.settings.contentState,
+		widget.settings.numberOfArticles,
+	)
 	if err != nil {
 		widget.err = err
 		widget.articles = nil
 		widget.SetItemCount(0)
 	} else {
-		var displayArticles []devto.ListedArticle
-		var l int
-		if len(articles) < widget.settings.numberOfArticles {
-			l = len(articles)
-		} else {
-			l = widget.settings.numberOfArticles - 1
+		limit := widget.settings.numberOfArticles
+		if len(articles) < limit {
+			limit = len(articles)
 		}
-		for i, art := range articles {
-			if i > l {
-				break
-			}
-			displayArticles = append(displayArticles, art)
-		}
-		widget.articles = displayArticles
-		widget.SetItemCount(len(displayArticles))
+		widget.articles = articles[:limit]
+		widget.SetItemCount(len(widget.articles))
 	}
 
 	widget.Render()
@@ -96,14 +87,7 @@ func (widget *Widget) content() (string, string, bool) {
 
 	var str string
 	for idx, article := range articles {
-		row := fmt.Sprintf(
-			`[%s]%2d. %s [lightblue](%s)[white]`,
-			widget.RowColor(idx),
-			idx+1,
-			article.Title,
-			article.User.Username,
-		)
-
+		row := formatArticleRow(idx, article.Title, article.User.Username, widget.RowColor(idx))
 		str += utils.HighlightableHelper(widget.View, row, idx, len(article.Title))
 	}
 
@@ -114,6 +98,17 @@ func (widget *Widget) openStory() {
 	sel := widget.GetSelected()
 	if sel >= 0 && widget.articles != nil && sel < len(widget.articles) {
 		article := &widget.articles[sel]
-		utils.OpenFile(article.URL.String())
+		widget.openURL(article.URL)
 	}
+}
+
+// formatArticleRow formats a single article row for display.
+func formatArticleRow(idx int, title, username, rowColor string) string {
+	return fmt.Sprintf(
+		`[%s]%2d. %s [lightblue](%s)[white]`,
+		rowColor,
+		idx+1,
+		title,
+		username,
+	)
 }

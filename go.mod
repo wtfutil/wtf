@@ -7,7 +7,6 @@ require (
 	code.cloudfoundry.org/bytefmt v0.78.0
 	github.com/Microsoft/go-winio v0.6.2 // indirect
 	github.com/PagerDuty/go-pagerduty v1.8.0
-	github.com/VictorAvelar/devto-api-go v1.0.0
 	github.com/adlio/trello v1.12.0
 	github.com/alecthomas/chroma v0.10.0
 	github.com/andygrunwald/go-gerrit v1.1.1
