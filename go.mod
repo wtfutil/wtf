@@ -24,7 +24,6 @@ require (
 	github.com/gdamore/tcell v1.4.1
 	github.com/go-ole/go-ole v1.2.6 // indirect
 	github.com/godbus/dbus v4.1.0+incompatible // indirect
-	github.com/google/go-github/v32 v32.1.0
 	github.com/jedib0t/go-pretty/v6 v6.8.2
 	github.com/jessevdk/go-flags v1.6.1
 	github.com/microsoft/azure-devops-go-api/azuredevops v1.0.0-b5
@@ -37,7 +36,7 @@ require (
 	github.com/radovskyb/watcher v1.0.7
 	github.com/rivo/tview v0.42.0
 	github.com/shopspring/decimal v1.3.1 // indirect
-	github.com/shurcooL/githubv4 v0.0.0-20200802174311-f27d2ca7f6d5
+	github.com/shurcooL/githubv4 v0.0.0-20260209031235-2402fdf4a9ed
 	github.com/shurcooL/graphql v0.0.0-20181231061246-d48a9a75455f // indirect
 	github.com/spf13/pflag v1.0.10 // indirect
 	github.com/ssor/bom v0.0.0-20170718123548-6386211fdfcf // indirect
@@ -65,6 +64,7 @@ require (
 	github.com/Azure/azure-sdk-for-go/sdk/monitor/azquery v1.2.0
 	github.com/charmbracelet/bubbles v0.21.1
 	github.com/gdamore/tcell/v2 v2.13.10
+	github.com/google/go-github/v89 v89.0.0
 	github.com/gopherlibs/todoist v0.1.0
 	github.com/hekmon/transmissionrpc/v2 v2.0.1
 	github.com/logrusorgru/aurora/v4 v4.0.0
@@ -117,7 +117,7 @@ require (
 	github.com/golang-jwt/jwt/v5 v5.3.1 // indirect
 	github.com/google/gnostic-models v0.7.0 // indirect
 	github.com/google/go-cmp v0.7.0 // indirect
-	github.com/google/go-querystring v1.1.0 // indirect
+	github.com/google/go-querystring v1.2.0 // indirect
 	github.com/google/pprof v0.0.0-20260604005048-7023385849c0 // indirect
 	github.com/google/s2a-go v0.1.9 // indirect
 	github.com/google/uuid v1.6.0 // indirect

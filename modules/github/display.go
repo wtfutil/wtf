@@ -3,7 +3,7 @@ package github
 import (
 	"fmt"
 
-	ghb "github.com/google/go-github/v32/github"
+	ghb "github.com/google/go-github/v89/github"
 )
 
 func (widget *Widget) display() {

@@ -3,11 +3,9 @@ package github
 import (
 	"context"
 	"fmt"
-	"net/http"
 
-	ghb "github.com/google/go-github/v32/github"
+	ghb "github.com/google/go-github/v89/github"
 	"github.com/wtfutil/wtf/utils"
-	"golang.org/x/oauth2"
 )
 
 const (
@@ -109,22 +107,14 @@ func (repo *Repo) isGitHubEnterprise() bool {
 	return false
 }
 
-func (repo *Repo) oauthClient() *http.Client {
-	tokenService := oauth2.StaticTokenSource(
-		&oauth2.Token{AccessToken: repo.apiKey},
-	)
-
-	return oauth2.NewClient(context.Background(), tokenService)
-}
-
 func (repo *Repo) githubClient() (*ghb.Client, error) {
-	oauthClient := repo.oauthClient()
+	opts := []ghb.ClientOptionsFunc{ghb.WithAuthToken(repo.apiKey)}
 
 	if repo.isGitHubEnterprise() {
-		return ghb.NewEnterpriseClient(repo.baseURL, repo.uploadURL, oauthClient)
+		opts = append(opts, ghb.WithEnterpriseURLs(repo.baseURL, repo.uploadURL))
 	}
 
-	return ghb.NewClient(oauthClient), nil
+	return ghb.NewClient(opts...)
 }
 
 // myPullRequests returns a list of pull requests created by username on this repo

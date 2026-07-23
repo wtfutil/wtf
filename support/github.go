@@ -5,7 +5,7 @@ import (
 	"errors"
 	"net/http"
 
-	ghb "github.com/google/go-github/v32/github"
+	ghb "github.com/google/go-github/v89/github"
 	"github.com/shurcooL/githubv4"
 	"golang.org/x/oauth2"
 	"golang.org/x/sync/errgroup"
@@ -88,14 +88,7 @@ func (ghUser *GitHubUser) Load() error {
 /* -------------------- Unexported Functions -------------------- */
 
 func (ghUser *GitHubUser) authenticateV3() (*ghb.Client, error) {
-	src := oauth2.StaticTokenSource(
-		&oauth2.Token{AccessToken: ghUser.apiKey},
-	)
-
-	oauthClient := oauth2.NewClient(context.Background(), src)
-	client := ghb.NewClient(oauthClient)
-
-	return client, nil
+	return ghb.NewClient(ghb.WithAuthToken(ghUser.apiKey))
 }
 
 func (ghUser *GitHubUser) authenticateV4() (*githubv4.Client, error) {
