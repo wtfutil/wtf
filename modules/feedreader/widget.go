@@ -31,12 +31,31 @@ type FeedItem struct {
 	viewed      bool
 }
 
+// feedParser abstracts feed parsing to allow testing without network calls
+type feedParser interface {
+	ParseURL(feedURL string) (*gofeed.Feed, error)
+	SetAuth(auth *gofeed.Auth)
+}
+
+// gofeedParser wraps gofeed.Parser to implement feedParser
+type gofeedParser struct {
+	parser *gofeed.Parser
+}
+
+func (p *gofeedParser) ParseURL(feedURL string) (*gofeed.Feed, error) {
+	return p.parser.ParseURL(feedURL)
+}
+
+func (p *gofeedParser) SetAuth(auth *gofeed.Auth) {
+	p.parser.AuthConfig = auth
+}
+
 // Widget is the container for RSS and Atom data
 type Widget struct {
 	view.ScrollableWidget
 
 	stories  []*FeedItem
-	parser   *gofeed.Parser
+	parser   feedParser
 	settings *Settings
 	err      error
 	showType ShowType
@@ -79,7 +98,7 @@ func NewWidget(tviewApp *tview.Application, redrawChan chan bool, pages *tview.P
 	widget := &Widget{
 		ScrollableWidget: view.NewScrollableWidget(tviewApp, redrawChan, pages, settings.Common),
 
-		parser:   parser,
+		parser:   &gofeedParser{parser: parser},
 		settings: settings,
 		showType: SHOW_TITLE,
 	}
@@ -153,12 +172,12 @@ func (widget *Widget) fetchForFeed(feedURL, alias string) ([]*FeedItem, error) {
 		err  error
 	)
 	if auth, isPrivateRSS := widget.settings.credentials[feedURL]; isPrivateRSS {
-		widget.parser.AuthConfig = &gofeed.Auth{
+		widget.parser.SetAuth(&gofeed.Auth{
 			Username: auth.username,
 			Password: auth.password,
-		}
+		})
 		feed, err = widget.parser.ParseURL(feedURL)
-		widget.parser.AuthConfig = nil
+		widget.parser.SetAuth(nil)
 	} else {
 		feed, err = widget.parser.ParseURL(feedURL)
 	}
