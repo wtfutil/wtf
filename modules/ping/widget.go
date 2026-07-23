@@ -12,12 +12,37 @@ import (
 	"github.com/wtfutil/wtf/view"
 )
 
+// pinger is the subset of *probing.Pinger behavior doPings relies on. It
+// exists so tests can substitute a fake implementation instead of sending
+// real ICMP packets.
+type pinger interface {
+	Run() error
+	Statistics() *probing.Statistics
+}
+
+// newRealPinger builds a *probing.Pinger configured the way doPings expects
+// (single packet, 10s timeout) and returns it as a pinger.
+func newRealPinger(hostname string) (pinger, error) {
+	p, err := probing.NewPinger(hostname)
+	if err != nil {
+		return nil, err
+	}
+	p.Count = 1
+	p.Timeout = 10 * time.Second
+
+	return p, nil
+}
+
 // Widget is the container for your module's data
 type Widget struct {
 	view.TextWidget
 	hosts []Host
 
 	settings *Settings
+
+	// pingerFactory creates the pinger used for each host. Defaults to
+	// newRealPinger; tests override it to avoid real network calls.
+	pingerFactory func(hostname string) (pinger, error)
 }
 
 // NewWidget creates and returns an instance of Widget
@@ -25,7 +50,8 @@ func NewWidget(tviewApp *tview.Application, redrawChan chan bool, settings *Sett
 	widget := Widget{
 		TextWidget: view.NewTextWidget(tviewApp, redrawChan, nil, settings.common),
 
-		settings: settings,
+		settings:      settings,
+		pingerFactory: newRealPinger,
 	}
 	widget.hosts = widget.settings.hosts
 
@@ -33,6 +59,12 @@ func NewWidget(tviewApp *tview.Application, redrawChan chan bool, settings *Sett
 }
 
 /* -------------------- Exported Functions -------------------- */
+
+// hostUpFromStatistics interprets ping statistics as up/down status. A host
+// is considered up if at least one reply packet was received.
+func hostUpFromStatistics(stats *probing.Statistics) bool {
+	return stats.PacketsRecv > 0
+}
 
 func (widget *Widget) doPings() {
 	var wg sync.WaitGroup
@@ -43,20 +75,14 @@ func (widget *Widget) doPings() {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
-			pinger, err := probing.NewPinger(host.Hostname)
+			pinger, err := widget.pingerFactory(host.Hostname)
 			if err == nil {
-				pinger.Count = 1
-				pinger.Timeout = 10 * time.Second
 				err = pinger.Run() // Blocks until finished.
 				if err == nil {
 					stats := pinger.Statistics() // get send/receive/duplicate/rtt stats
-					if stats.PacketsRecv > 0 {
-						widget.hosts[idx].Up = true
-					} else {
-						widget.hosts[idx].Up = false
-					}
+					widget.hosts[idx].Up = hostUpFromStatistics(stats)
 				} else {
-					log.Fatalf("error sending ping: %v", err)
+					log.Printf("error sending ping: %v", err)
 				}
 			}
 
