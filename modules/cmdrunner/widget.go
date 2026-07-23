@@ -9,6 +9,7 @@ import (
 	"sync"
 
 	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/view"
 )
 
@@ -120,9 +121,9 @@ func runCommandLoop(widget *Widget) {
 	for {
 		<-widget.runChan
 		widget.resetBuffer()
-		cmd := exec.Command(widget.settings.cmd, widget.settings.args...)
+		cmd := exec.Command(expandTilde(widget.settings.cmd), expandTildes(widget.settings.args)...)
 		cmd.Env = widget.environment()
-		cmd.Dir = widget.settings.workingDir
+		cmd.Dir = expandTilde(widget.settings.workingDir)
 		var err error
 		if widget.settings.pty {
 			err = runCommandPty(widget, cmd)
@@ -134,6 +135,27 @@ func runCommandLoop(widget *Widget) {
 		}
 		widget.redrawChan <- true
 	}
+}
+
+// expandTilde expands a leading `~` in path to the user's home directory.
+// exec.Command does not invoke a shell, so this expansion never happens on
+// its own. If expansion fails for any reason, the original value is
+// returned unchanged.
+func expandTilde(path string) string {
+	expanded, err := utils.ExpandHomeDir(path)
+	if err != nil {
+		return path
+	}
+	return expanded
+}
+
+// expandTildes applies expandTilde to every element of paths.
+func expandTildes(paths []string) []string {
+	expanded := make([]string, len(paths))
+	for i, path := range paths {
+		expanded[i] = expandTilde(path)
+	}
+	return expanded
 }
 
 func runCommand(widget *Widget, cmd *exec.Cmd) error {
