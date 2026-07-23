@@ -3,6 +3,7 @@ package digitalclock
 import (
 	"strings"
 	"testing"
+	"unicode/utf8"
 )
 
 func TestGetFont(t *testing.T) {
@@ -96,5 +97,65 @@ func TestGetBoldFontCompleteness(t *testing.T) {
 	font := getBoldFont()
 	if font.fontRows != 5 {
 		t.Errorf("bold font rows = %d, want 5", font.fontRows)
+	}
+}
+
+// digitChars are the glyphs that must render at a fixed column width per font.
+var digitChars = []string{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"}
+
+// TestFontDigitWidthsUniform guards against the misalignment bug where a
+// digit glyph narrower or wider than its peers throws off column alignment.
+func TestFontDigitWidthsUniform(t *testing.T) {
+	fonts := map[string]ClockFont{
+		"digitalfont": getDigitalFont(),
+		"bigfont":     getBigFont(),
+		"boldfont":    getBoldFont(),
+	}
+
+	for fontName, font := range fonts {
+		t.Run(fontName, func(t *testing.T) {
+			wantWidth := -1
+			for _, char := range digitChars {
+				rows := font.get(char)
+				if len(rows) != font.fontRows {
+					t.Fatalf("char %q has %d rows, want %d", char, len(rows), font.fontRows)
+				}
+				for rowIdx, row := range rows {
+					width := utf8.RuneCountInString(row)
+					if wantWidth == -1 {
+						wantWidth = width
+					}
+					if width != wantWidth {
+						t.Errorf("char %q row %d width = %d, want %d (digit glyphs must share one width per font)", char, rowIdx, width, wantWidth)
+					}
+				}
+			}
+		})
+	}
+}
+
+// TestFontGlyphRowsSelfConsistent ensures that within a single glyph, every
+// row is the same width.
+func TestFontGlyphRowsSelfConsistent(t *testing.T) {
+	fonts := map[string]ClockFont{
+		"digitalfont": getDigitalFont(),
+		"bigfont":     getBigFont(),
+		"boldfont":    getBoldFont(),
+	}
+
+	for fontName, font := range fonts {
+		t.Run(fontName, func(t *testing.T) {
+			for char, rows := range font.fonts {
+				if char == "A" || char == "P" || len(rows) == 0 {
+					continue
+				}
+				width := utf8.RuneCountInString(rows[0])
+				for rowIdx, row := range rows {
+					if w := utf8.RuneCountInString(row); w != width {
+						t.Errorf("char %q row %d width = %d, want %d (all rows of one glyph must match)", char, rowIdx, w, width)
+					}
+				}
+			}
+		})
 	}
 }
