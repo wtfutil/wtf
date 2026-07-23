@@ -3,9 +3,25 @@ package system
 import (
 	"strings"
 	"testing"
+	"time"
 
+	"github.com/olebedev/config"
+	"github.com/rivo/tview"
+	"github.com/wtfutil/wtf/view"
 	"gotest.tools/assert"
 )
+
+func newTestSettings(t *testing.T) *Settings {
+	t.Helper()
+
+	ymlConfig, err := config.ParseYaml("{}")
+	assert.NilError(t, err)
+
+	globalConfig, err := config.ParseYaml("{}")
+	assert.NilError(t, err)
+
+	return NewSettingsFromYAML("system", ymlConfig, globalConfig)
+}
 
 func Test_prettyDate(t *testing.T) {
 	tests := []struct {
@@ -64,4 +80,74 @@ func Test_prettyDate(t *testing.T) {
 			}
 		})
 	}
+}
+
+func Test_NewWidget(t *testing.T) {
+	tviewApp := tview.NewApplication()
+	redrawChan := make(chan bool, 1)
+	settings := newTestSettings(t)
+
+	widget := NewWidget(tviewApp, redrawChan, "2021-01-01T00:00:00+0000", "v1.2.3", settings)
+
+	assert.Assert(t, widget != nil)
+	assert.Equal(t, "2021-01-01T00:00:00+0000", widget.Date)
+	assert.Equal(t, "v1.2.3", widget.Version)
+	assert.Assert(t, widget.settings != nil)
+	assert.Assert(t, widget.systemInfo != nil)
+}
+
+func Test_display(t *testing.T) {
+	tviewApp := tview.NewApplication()
+	redrawChan := make(chan bool, 1)
+	settings := newTestSettings(t)
+
+	widget := &Widget{
+		TextWidget: view.NewTextWidget(tviewApp, redrawChan, nil, settings.Common),
+		Date:       "2021-03-05T14:30:00-0700",
+		Version:    "v1.2.3",
+		settings:   settings,
+		systemInfo: &SystemInfo{
+			ProductName:    "TestOS",
+			ProductVersion: "TestOS 1.0",
+			BuildVersion:   "12345",
+		},
+	}
+
+	title, content, wrap := widget.display()
+
+	assert.Equal(t, settings.Common.Title, title)
+	assert.Assert(t, strings.Contains(content, "Mar  5, 14:30"))
+	assert.Assert(t, strings.Contains(content, "v1.2.3"))
+	assert.Assert(t, strings.Contains(content, "TestOS 1.0"))
+	assert.Assert(t, strings.Contains(content, "12345"))
+	assert.Equal(t, false, wrap)
+}
+
+func Test_Refresh(t *testing.T) {
+	tviewApp := tview.NewApplication()
+	redrawChan := make(chan bool, 1)
+	settings := newTestSettings(t)
+
+	widget := &Widget{
+		TextWidget: view.NewTextWidget(tviewApp, redrawChan, nil, settings.Common),
+		Date:       "2021-03-05T14:30:00-0700",
+		Version:    "v1.2.3",
+		settings:   settings,
+		systemInfo: &SystemInfo{
+			ProductName:    "TestOS",
+			ProductVersion: "TestOS 1.0",
+			BuildVersion:   "12345",
+		},
+	}
+
+	widget.Refresh()
+
+	select {
+	case redrawn := <-redrawChan:
+		assert.Equal(t, true, redrawn)
+	case <-time.After(time.Second):
+		t.Fatal("expected Refresh to signal the redraw channel")
+	}
+
+	assert.Assert(t, strings.Contains(widget.TextView().GetText(true), "v1.2.3"))
 }
