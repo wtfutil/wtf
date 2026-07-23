@@ -23,6 +23,7 @@ func newTestSettings(t *testing.T) *Settings {
 	return NewSettingsFromYAML("system", ymlConfig, globalConfig)
 }
 
+
 func Test_prettyDate(t *testing.T) {
 	tests := []struct {
 		name     string
