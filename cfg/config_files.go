@@ -71,8 +71,15 @@ func Initialize(hasCustom bool) {
 	}
 }
 
-// WtfConfigDir returns the absolute path to the configuration directory
+// WtfConfigDir returns the absolute path to the configuration directory.
+// It checks WTF_CONFIG_DIR first (useful for testing in hermetic environments),
+// then XDG_CONFIG_HOME, then falls back to ~/.config/wtf/.
 func WtfConfigDir() (string, error) {
+	// WTF_CONFIG_DIR takes highest priority, enabling hermetic test environments
+	if configDir := os.Getenv("WTF_CONFIG_DIR"); configDir != "" {
+		return configDir, nil
+	}
+
 	configDir := os.Getenv("XDG_CONFIG_HOME")
 	if configDir == "" {
 		configDir = WtfConfigDirV2

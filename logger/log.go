@@ -28,6 +28,11 @@ func LogFileMissing() bool {
 }
 
 func LogFilePath() string {
+	// Check WTF_CONFIG_DIR first for hermetic test environments
+	if configDir := os.Getenv("WTF_CONFIG_DIR"); configDir != "" {
+		return filepath.Join(configDir, "log.txt")
+	}
+
 	dir, err := os.UserHomeDir()
 	if err != nil {
 		return ""
