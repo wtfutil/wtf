@@ -7,8 +7,8 @@ import (
 
 	"code.cloudfoundry.org/bytefmt"
 	"github.com/rivo/tview"
-	"github.com/shirou/gopsutil/cpu"
-	"github.com/shirou/gopsutil/mem"
+	"github.com/shirou/gopsutil/v4/cpu"
+	"github.com/shirou/gopsutil/v4/mem"
 	"github.com/wtfutil/wtf/view"
 )
 
