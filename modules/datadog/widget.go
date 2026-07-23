@@ -3,16 +3,16 @@ package datadog
 import (
 	"fmt"
 
+	"github.com/DataDog/datadog-api-client-go/v2/api/datadogV1"
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/view"
-	datadog "github.com/zorkian/go-datadog-api"
 )
 
 type Widget struct {
 	view.ScrollableWidget
 
-	monitors []datadog.Monitor
+	monitors []datadogV1.Monitor
 	settings *Settings
 	err      error
 }
@@ -43,11 +43,11 @@ func (widget *Widget) Refresh() {
 		widget.Redraw(func() (string, string, bool) { return widget.CommonSettings().Title, monitorErr.Error(), true })
 		return
 	}
-	triggeredMonitors := []datadog.Monitor{}
+	triggeredMonitors := []datadogV1.Monitor{}
 
 	for _, monitor := range monitors {
-		state := *monitor.OverallState
-		if state == "Alert" {
+		state := monitor.GetOverallState()
+		if state == datadogV1.MONITOROVERALLSTATES_ALERT {
 			triggeredMonitors = append(triggeredMonitors, monitor)
 		}
 	}
@@ -82,12 +82,13 @@ func (widget *Widget) content() (string, string, bool) {
 			),
 		)
 		for idx, triggeredMonitor := range triggeredMonitors {
+			name := triggeredMonitor.GetName()
 			row := fmt.Sprintf(`[%s][red] %s[%s]`,
 				widget.RowColor(idx),
-				*triggeredMonitor.Name,
+				name,
 				widget.RowColor(idx),
 			)
-			str += utils.HighlightableHelper(widget.View, row, idx, len(*triggeredMonitor.Name))
+			str += utils.HighlightableHelper(widget.View, row, idx, len(name))
 		}
 	} else {
 		str += fmt.Sprintf(
@@ -104,6 +105,6 @@ func (widget *Widget) openItem() {
 	sel := widget.GetSelected()
 	if sel >= 0 && widget.monitors != nil && sel < len(widget.monitors) {
 		item := &widget.monitors[sel]
-		utils.OpenFile(fmt.Sprintf("https://app.datadoghq.com/monitors/%d?q=*", *item.Id))
+		utils.OpenFile(fmt.Sprintf("https://app.datadoghq.com/monitors/%d?q=*", item.GetId()))
 	}
 }
