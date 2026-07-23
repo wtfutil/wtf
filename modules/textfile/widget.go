@@ -8,9 +8,9 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/alecthomas/chroma/formatters"
-	"github.com/alecthomas/chroma/lexers"
-	"github.com/alecthomas/chroma/styles"
+	"github.com/alecthomas/chroma/v2/formatters"
+	"github.com/alecthomas/chroma/v2/lexers"
+	"github.com/alecthomas/chroma/v2/styles"
 	"github.com/radovskyb/watcher"
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/utils"
@@ -83,7 +83,17 @@ func (widget *Widget) content() (string, string, bool) {
 
 func (widget *Widget) formattedText() string {
 	filePath, _ := utils.ExpandHomeDir(widget.CurrentSource())
+	return formatFile(filePath, widget.settings.formatStyle)
+}
 
+func (widget *Widget) plainText() string {
+	filePath, _ := utils.ExpandHomeDir(filepath.Clean(widget.CurrentSource()))
+	return readPlainFile(filePath)
+}
+
+// formatFile reads the file at filePath, applies syntax highlighting using the
+// given chroma style name, and returns terminal256-formatted output.
+func formatFile(filePath, styleName string) string {
 	file, err := os.Open(filepath.Clean(filePath))
 	if err != nil {
 		return err.Error()
@@ -95,7 +105,7 @@ func (widget *Widget) formattedText() string {
 		lexer = lexers.Fallback
 	}
 
-	style := styles.Get(widget.settings.formatStyle)
+	style := styles.Get(styleName)
 	if style == nil {
 		style = styles.Fallback
 	}
@@ -118,9 +128,8 @@ func (widget *Widget) formattedText() string {
 	return tview.TranslateANSI(buf.String())
 }
 
-func (widget *Widget) plainText() string {
-	filePath, _ := utils.ExpandHomeDir(filepath.Clean(widget.CurrentSource()))
-
+// readPlainFile reads the file at filePath and returns its content with tview tags escaped.
+func readPlainFile(filePath string) string {
 	text, err := os.ReadFile(filepath.Clean(filePath))
 	if err != nil {
 		return err.Error()
