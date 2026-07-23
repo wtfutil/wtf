@@ -5,7 +5,7 @@ import (
 	"strings"
 	"time"
 
-	asana "bitbucket.org/mikehouston/asana-go"
+	asana "github.com/kothar/asana-go"
 )
 
 func fetchTasksFromProject(token, projectId, mode string) ([]*TaskItem, error) {
