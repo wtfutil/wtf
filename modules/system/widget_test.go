@@ -115,7 +115,7 @@ func Test_display(t *testing.T) {
 
 	title, content, wrap := widget.display()
 
-	assert.Equal(t, settings.Common.Title, title)
+	assert.Equal(t, settings.Title, title)
 	assert.Assert(t, strings.Contains(content, "Mar  5, 14:30"))
 	assert.Assert(t, strings.Contains(content, "v1.2.3"))
 	assert.Assert(t, strings.Contains(content, "TestOS 1.0"))
