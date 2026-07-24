@@ -113,4 +113,3 @@ func Test_Pull_WithFakeHg(t *testing.T) {
 		widget.Pull()
 	})
 }
-
