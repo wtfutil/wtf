@@ -174,21 +174,21 @@ func TestGetSummaryView(t *testing.T) {
 		{
 			name: "enabled status",
 			handler: func(w http.ResponseWriter, r *http.Request) {
-				w.Write([]byte(`{"status":"enabled","domains_being_blocked":"100","dns_queries_today":"200","ads_blocked_today":"10","ads_percentage_today":"5.0","queries_cached":"20","queries_forwarded":"30"}`))
+				_, _ = w.Write([]byte(`{"status":"enabled","domains_being_blocked":"100","dns_queries_today":"200","ads_blocked_today":"10","ads_percentage_today":"5.0","queries_cached":"20","queries_forwarded":"30"}`))
 			},
 			wantContains: "ENABLED",
 		},
 		{
 			name: "disabled status",
 			handler: func(w http.ResponseWriter, r *http.Request) {
-				w.Write([]byte(`{"status":"disabled"}`))
+				_, _ = w.Write([]byte(`{"status":"disabled"}`))
 			},
 			wantContains: "DISABLED",
 		},
 		{
 			name: "unknown status",
 			handler: func(w http.ResponseWriter, r *http.Request) {
-				w.Write([]byte(`{"status":"weird"}`))
+				_, _ = w.Write([]byte(`{"status":"weird"}`))
 			},
 			wantContains: "UNKNOWN",
 		},
@@ -218,7 +218,7 @@ func TestGetSummaryView(t *testing.T) {
 
 func TestGetTopItemsView(t *testing.T) {
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte(`{"top_queries":{"query1.com":10,"query2.com":5},"top_ads":{"ad1.com":8}}`))
+		_, _ = w.Write([]byte(`{"top_queries":{"query1.com":10,"query2.com":5},"top_ads":{"ad1.com":8}}`))
 	}))
 	defer ts.Close()
 
@@ -249,10 +249,10 @@ func TestGetTopClientsView(t *testing.T) {
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		callCount++
 		if strings.Contains(r.URL.RawQuery, "topClients") {
-			w.Write([]byte(`{"top_sources":{"192.168.1.1":10}}`))
+			_, _ = w.Write([]byte(`{"top_sources":{"192.168.1.1":10}}`))
 			return
 		}
-		w.Write([]byte(`{"querytypes":{"A":80.5,"AAAA":19.5}}`))
+		_, _ = w.Write([]byte(`{"querytypes":{"A":80.5,"AAAA":19.5}}`))
 	}))
 	defer ts.Close()
 

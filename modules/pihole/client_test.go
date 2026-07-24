@@ -51,7 +51,7 @@ func TestGetStatus(t *testing.T) {
 				return ts.URL + "/admin/api.php"
 			},
 			handler: func(w http.ResponseWriter, r *http.Request) {
-				w.Write([]byte(`{"status":"enabled","domains_being_blocked":"100"}`))
+				_, _ = w.Write([]byte(`{"status":"enabled","domains_being_blocked":"100"}`))
 			},
 			wantErr:    false,
 			wantStatus: "enabled",
@@ -72,7 +72,7 @@ func TestGetStatus(t *testing.T) {
 				return ts.URL + "/admin/api.php"
 			},
 			handler: func(w http.ResponseWriter, r *http.Request) {
-				w.Write([]byte(`not json`))
+				_, _ = w.Write([]byte(`not json`))
 			},
 			wantErr: true,
 		},
@@ -132,7 +132,7 @@ func TestCheckServer(t *testing.T) {
 				return ts.URL + "/admin/api.php"
 			},
 			handler: func(w http.ResponseWriter, r *http.Request) {
-				w.Write([]byte(`{"version":3}`))
+				_, _ = w.Write([]byte(`{"version":3}`))
 			},
 			wantErr: false,
 		},
@@ -142,7 +142,7 @@ func TestCheckServer(t *testing.T) {
 				return ts.URL + "/admin/api.php"
 			},
 			handler: func(w http.ResponseWriter, r *http.Request) {
-				w.Write([]byte(`{"version":5}`))
+				_, _ = w.Write([]byte(`{"version":5}`))
 			},
 			wantErr: true,
 		},
@@ -162,7 +162,7 @@ func TestCheckServer(t *testing.T) {
 				return ts.URL + "/admin/api.php"
 			},
 			handler: func(w http.ResponseWriter, r *http.Request) {
-				w.Write([]byte(`not json`))
+				_, _ = w.Write([]byte(`not json`))
 			},
 			wantErr: true,
 		},
@@ -196,7 +196,7 @@ func TestCheckServer(t *testing.T) {
 
 func TestGetTopItems(t *testing.T) {
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte(`{"top_queries":{"a.com":5},"top_ads":{"b.com":2}}`))
+		_, _ = w.Write([]byte(`{"top_queries":{"a.com":5},"top_ads":{"b.com":2}}`))
 	}))
 	defer ts.Close()
 
@@ -240,7 +240,7 @@ func TestGetTopItems_Errors(t *testing.T) {
 
 func TestGetTopClients(t *testing.T) {
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte(`{"top_sources":{"192.168.1.1":10}}`))
+		_, _ = w.Write([]byte(`{"top_sources":{"192.168.1.1":10}}`))
 	}))
 	defer ts.Close()
 
@@ -280,7 +280,7 @@ func TestGetTopClients_Errors(t *testing.T) {
 
 func TestGetQueryTypes(t *testing.T) {
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte(`{"querytypes":{"A":80.5,"AAAA":19.5}}`))
+		_, _ = w.Write([]byte(`{"querytypes":{"A":80.5,"AAAA":19.5}}`))
 	}))
 	defer ts.Close()
 

@@ -73,15 +73,15 @@ func TestWidget_Content_Success(t *testing.T) {
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch {
 		case strings.Contains(r.URL.RawQuery, "version"):
-			w.Write([]byte(`{"version":3}`))
+			_, _ = w.Write([]byte(`{"version":3}`))
 		case strings.Contains(r.URL.RawQuery, "topItems"):
-			w.Write([]byte(`{"top_queries":{"q.com":1},"top_ads":{"a.com":1}}`))
+			_, _ = w.Write([]byte(`{"top_queries":{"q.com":1},"top_ads":{"a.com":1}}`))
 		case strings.Contains(r.URL.RawQuery, "topClients"):
-			w.Write([]byte(`{"top_sources":{"1.2.3.4":1}}`))
+			_, _ = w.Write([]byte(`{"top_sources":{"1.2.3.4":1}}`))
 		case strings.Contains(r.URL.RawQuery, "getQueryTypes"):
-			w.Write([]byte(`{"querytypes":{"A":100}}`))
+			_, _ = w.Write([]byte(`{"querytypes":{"A":100}}`))
 		case strings.Contains(r.URL.RawQuery, "summary"):
-			w.Write([]byte(`{"status":"enabled"}`))
+			_, _ = w.Write([]byte(`{"status":"enabled"}`))
 		default:
 			w.WriteHeader(http.StatusNotFound)
 		}
@@ -103,7 +103,7 @@ func TestWidget_Content_Success(t *testing.T) {
 
 func TestWidget_Refresh_Disabled(t *testing.T) {
 	widget := testWidget(t, "http://example.invalid/admin/api.php")
-	widget.settings.Common.Enabled = false
+	widget.settings.Enabled = false
 
 	// Should return early without panicking when disabled.
 	widget.Refresh()
@@ -113,9 +113,9 @@ func TestWidget_Refresh_Enabled(t *testing.T) {
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch {
 		case strings.Contains(r.URL.RawQuery, "version"):
-			w.Write([]byte(`{"version":3}`))
+			_, _ = w.Write([]byte(`{"version":3}`))
 		default:
-			w.Write([]byte(`{"status":"enabled"}`))
+			_, _ = w.Write([]byte(`{"status":"enabled"}`))
 		}
 	}))
 	defer ts.Close()
@@ -135,7 +135,7 @@ func TestWidget_AdblockSwitch(t *testing.T) {
 		mu.Lock()
 		queries = append(queries, r.URL.RawQuery)
 		mu.Unlock()
-		w.Write([]byte(`{}`))
+		_, _ = w.Write([]byte(`{}`))
 	}))
 	defer ts.Close()
 
