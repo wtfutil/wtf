@@ -6,9 +6,7 @@ import (
 	"github.com/wtfutil/wtf/utils"
 )
 
-const (
-	spacexLaunchAPI = "https://api.spacexdata.com/v3/launches/next"
-)
+var spacexLaunchAPI = "https://api.spacexdata.com/v3/launches/next"
 
 type Launch struct {
 	FlightNumber int        `json:"flight_number"`
