@@ -206,7 +206,7 @@ func (widget *Widget) getDateString(date *time.Time) string {
 		if widget.settings.hideYearIfCurrent && date.Year() == now.Year() {
 			if widget.settings.dateFormat[:1] == "y" {
 				dateStr = dateStr[strings.Index(dateStr, "-")+1:]
-			} else if widget.settings.dateFormat[3:4] == "-" {
+			} else if widget.settings.dateFormat[2:3] == "-" {
 				dateStr = dateStr[:5]
 			} else {
 				parts := strings.Split(dateStr, " ")

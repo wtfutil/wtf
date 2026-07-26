@@ -61,8 +61,10 @@ func TestGetDateString(t *testing.T) {
 		{"hideYear yyyy-mm-dd current year", time.Date(now.Year(), 8, 15, 0, 0, 0, 0, time.Local), "yyyy-mm-dd", true, "08-15"},
 		// hideYearIfCurrent with yy-mm-dd format (year prefix)
 		{"hideYear yy-mm-dd current year", time.Date(now.Year(), 8, 15, 0, 0, 0, 0, time.Local), "yy-mm-dd", true, "08-15"},
-		// NOTE: dd-mm-yyyy and dd-mm-yy with hideYearIfCurrent=true have a
-		// pre-existing bug (dateFormat[3:4] is "m" not "-"), so those cases are skipped.
+		// hideYearIfCurrent with dd-mm-yyyy (year suffix, dash separator)
+		{"hideYear dd-mm-yyyy current year", time.Date(now.Year(), 8, 15, 0, 0, 0, 0, time.Local), "dd-mm-yyyy", true, "15-08"},
+		// hideYearIfCurrent with dd-mm-yy (year suffix, dash separator)
+		{"hideYear dd-mm-yy current year", time.Date(now.Year(), 8, 15, 0, 0, 0, 0, time.Local), "dd-mm-yy", true, "15-08"},
 		// hideYearIfCurrent with dd M yyyy (space separator)
 		{"hideYear dd M yyyy current year", time.Date(now.Year(), 8, 15, 0, 0, 0, 0, time.Local), "dd M yyyy", true, "15 Aug"},
 		// hideYearIfCurrent with dd M yy (space separator)
