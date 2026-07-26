@@ -21,7 +21,9 @@ func withTestServer(t *testing.T, responses map[string]string) *httptest.Server 
 			return
 		}
 		w.Header().Set("Content-Type", "application/json")
-		fmt.Fprint(w, body)
+		if _, err := fmt.Fprint(w, body); err != nil {
+			t.Errorf("failed to write test response: %v", err)
+		}
 	}))
 
 	original := chartAPIBaseURL
