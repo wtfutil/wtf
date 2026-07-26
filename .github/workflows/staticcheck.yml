@@ -1,6 +1,10 @@
 name: static check
 on: pull_request
 
+permissions:
+  contents: read
+  pull-requests: write
+
 jobs:
   imports:
     name: Imports
