@@ -6,19 +6,14 @@ import (
 	"io"
 	"os"
 	"path/filepath"
-	"time"
 
 	"github.com/alecthomas/chroma/formatters"
 	"github.com/alecthomas/chroma/lexers"
 	"github.com/alecthomas/chroma/styles"
-	"github.com/radovskyb/watcher"
+	"github.com/fsnotify/fsnotify"
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/view"
-)
-
-const (
-	pollingIntervalms = 100
 )
 
 type Widget struct {
@@ -26,7 +21,7 @@ type Widget struct {
 	view.TextWidget
 
 	settings    *Settings
-	fileWatcher *watcher.Watcher
+	fileWatcher *fsnotify.Watcher
 }
 
 // NewWidget creates a new instance of a widget
@@ -129,23 +124,30 @@ func (widget *Widget) plainText() string {
 }
 
 func (widget *Widget) watchForFileChanges() {
-	widget.fileWatcher = watcher.New()
-	watch := widget.fileWatcher
-	watch.FilterOps(watcher.Write)
+	watch, err := fsnotify.NewWatcher()
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+	widget.fileWatcher = watch
 
 	go func() {
 		for {
 			select {
-			case <-watch.Event:
-				widget.Refresh()
-			case err := <-watch.Error:
-				fmt.Println(err)
-				os.Exit(1)
-			case <-watch.Closed:
-				return
+			case event, ok := <-watch.Events:
+				if !ok {
+					return
+				}
+				if event.Has(fsnotify.Write) {
+					widget.Refresh()
+				}
+			case _, ok := <-watch.Errors:
+				if !ok {
+					return
+				}
 			case quit := <-widget.QuitChan():
 				if quit {
-					watch.Close()
+					_ = watch.Close()
 					return
 				}
 			}
@@ -162,11 +164,5 @@ func (widget *Widget) watchForFileChanges() {
 				os.Exit(1)
 			}
 		}
-	}
-
-	// Start the watching process - it'll check for changes every pollingIntervalms.
-	if err := watch.Start(time.Millisecond * pollingIntervalms); err != nil {
-		fmt.Println(err)
-		os.Exit(1)
 	}
 }

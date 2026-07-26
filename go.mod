@@ -32,7 +32,6 @@ require (
 	github.com/piquette/finance-go v1.1.0
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pkg/profile v1.7.0
-	github.com/radovskyb/watcher v1.0.7
 	github.com/rivo/tview v0.42.0
 	github.com/shopspring/decimal v1.3.1 // indirect
 	github.com/shurcooL/githubv4 v0.0.0-20260209031235-2402fdf4a9ed
@@ -62,6 +61,7 @@ require (
 	github.com/Azure/azure-sdk-for-go/sdk/azidentity v1.14.0
 	github.com/Azure/azure-sdk-for-go/sdk/monitor/azquery v1.2.0
 	github.com/charmbracelet/bubbles v0.21.1
+	github.com/fsnotify/fsnotify v1.10.1
 	github.com/gdamore/tcell/v2 v2.13.10
 	github.com/google/go-github/v89 v89.0.0
 	github.com/gopherlibs/todoist v0.1.0
