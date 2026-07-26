@@ -46,7 +46,6 @@ wtf:
 	return NewSettingsFromYAML("nbascore", ymlCfg, globalCfg)
 }
 
-// testWidget creates a Widget with a properly initialized TextWidget for testing.
 func testWidget(t *testing.T) *Widget {
 	t.Helper()
 	settings := testSettings(t)
@@ -57,29 +56,35 @@ func testWidget(t *testing.T) *Widget {
 	return widget
 }
 
-// buildScoreboard builds a minimal NBA scoreboard JSON response.
-func buildScoreboard(games []map[string]interface{}) []byte {
-	data := map[string]interface{}{
-		"games": games,
-	}
+// buildESPNResponse builds a minimal ESPN scoreboard JSON response.
+func buildESPNResponse(events []espnEvent) []byte {
+	data := espnResponse{Events: events}
 	b, _ := json.Marshal(data)
 	return b
 }
 
-func makeGame(vTeam, hTeam, vScore, hScore string, quarter float64, active bool) map[string]interface{} {
-	return map[string]interface{}{
-		"vTeam": map[string]interface{}{
-			"triCode": vTeam,
-			"score":   vScore,
+func makeEvent(awayAbbr, homeAbbr, awayScore, homeScore string, period int, state string) espnEvent {
+	return espnEvent{
+		Competitions: []espnCompetition{
+			{
+				Competitors: []espnCompetitor{
+					{
+						HomeAway: "home",
+						Team:     espnTeam{Abbreviation: homeAbbr},
+						Score:    homeScore,
+					},
+					{
+						HomeAway: "away",
+						Team:     espnTeam{Abbreviation: awayAbbr},
+						Score:    awayScore,
+					},
+				},
+			},
 		},
-		"hTeam": map[string]interface{}{
-			"triCode": hTeam,
-			"score":   hScore,
+		Status: espnStatus{
+			Period: period,
+			Type:   espnStatusType{State: state},
 		},
-		"period": map[string]interface{}{
-			"current": quarter,
-		},
-		"isGameActivated": active,
 	}
 }
 
@@ -102,14 +107,14 @@ func TestNewSettingsFromYAML_Focusable(t *testing.T) {
 // --- nbascore() integration tests with httptest ---
 
 func TestNbascore_SuccessfulResponse(t *testing.T) {
-	games := []map[string]interface{}{
-		makeGame("BOS", "LAL", "110", "105", 4, false),
-		makeGame("GSW", "MIA", "98", "102", 3, true),
+	events := []espnEvent{
+		makeEvent("BOS", "LAL", "110", "105", 4, "post"),
+		makeEvent("GSW", "MIA", "98", "102", 3, "in"),
 	}
 
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
-		w.Write(buildScoreboard(games))
+		w.Write(buildESPNResponse(events))
 	}))
 	defer ts.Close()
 
@@ -147,7 +152,7 @@ func TestNbascore_SuccessfulResponse(t *testing.T) {
 func TestNbascore_EmptyGames(t *testing.T) {
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
-		w.Write(buildScoreboard([]map[string]interface{}{}))
+		w.Write(buildESPNResponse([]espnEvent{}))
 	}))
 	defer ts.Close()
 
@@ -165,7 +170,6 @@ func TestNbascore_EmptyGames(t *testing.T) {
 	if wrap {
 		t.Error("expected wrap=false for empty games")
 	}
-	// Should still have date header
 	today := time.Now().Format(utils.FriendlyDateFormat)
 	if !strings.Contains(content, today) {
 		t.Errorf("expected content to contain date %q", today)
@@ -223,7 +227,7 @@ func TestNbascore_InvalidJSON(t *testing.T) {
 
 func TestNbascore_ServerUnreachable(t *testing.T) {
 	origURL := nbaBaseURL
-	nbaBaseURL = "http://127.0.0.1:1" // unreachable port
+	nbaBaseURL = "http://127.0.0.1:1"
 	defer func() { nbaBaseURL = origURL }()
 
 	origOffset := offset
@@ -245,9 +249,9 @@ func TestNbascore_ServerUnreachable(t *testing.T) {
 
 func TestNbascore_DateOffset(t *testing.T) {
 	tests := []struct {
-		name       string
-		offset     int
-		wantDate   string
+		name     string
+		offset   int
+		wantDate string
 	}{
 		{"today", 0, time.Now().Format("20060102")},
 		{"yesterday", -1, time.Now().AddDate(0, 0, -1).Format("20060102")},
@@ -256,11 +260,11 @@ func TestNbascore_DateOffset(t *testing.T) {
 
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
-			var receivedPath string
+			var receivedQuery string
 			ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-				receivedPath = r.URL.Path
+				receivedQuery = r.URL.RawQuery
 				w.WriteHeader(http.StatusOK)
-				w.Write(buildScoreboard([]map[string]interface{}{}))
+				w.Write(buildESPNResponse([]espnEvent{}))
 			}))
 			defer ts.Close()
 
@@ -275,9 +279,9 @@ func TestNbascore_DateOffset(t *testing.T) {
 			widget := testWidget(t)
 			widget.nbascore()
 
-			expectedPath := "/" + tc.wantDate + "/scoreboard.json"
-			if receivedPath != expectedPath {
-				t.Errorf("expected path %q, got %q", expectedPath, receivedPath)
+			expectedQuery := "dates=" + tc.wantDate
+			if receivedQuery != expectedQuery {
+				t.Errorf("expected query %q, got %q", expectedQuery, receivedQuery)
 			}
 		})
 	}
@@ -287,55 +291,55 @@ func TestNbascore_DateOffset(t *testing.T) {
 
 func TestNbascore_ScoreColorFormatting(t *testing.T) {
 	tests := []struct {
-		name       string
-		vScore     string
-		hScore     string
-		quarter    float64
-		active     bool
-		wantInOut  []string
+		name      string
+		vScore    string
+		hScore    string
+		period    int
+		state     string
+		wantInOut []string
 	}{
 		{
-			name:    "visitor winning",
-			vScore:  "100",
-			hScore:  "90",
-			quarter: 4,
-			active:  false,
+			name:      "visitor winning",
+			vScore:    "100",
+			hScore:    "90",
+			period:    4,
+			state:     "post",
 			wantInOut: []string{"[orange]BOS", "100"},
 		},
 		{
-			name:    "home winning",
-			vScore:  "90",
-			hScore:  "100",
-			quarter: 4,
-			active:  false,
+			name:      "home winning",
+			vScore:    "90",
+			hScore:    "100",
+			period:    4,
+			state:     "post",
 			wantInOut: []string{"[orange]", "LAL"},
 		},
 		{
-			name:    "tied score",
-			vScore:  "95",
-			hScore:  "95",
-			quarter: 3,
-			active:  true,
+			name:      "tied score",
+			vScore:    "95",
+			hScore:    "95",
+			period:    3,
+			state:     "in",
 			wantInOut: []string{"[orange]BOS", "[orange]", "[sandybrown]"},
 		},
 		{
-			name:    "game not started (quarter 0)",
-			vScore:  "",
-			hScore:  "",
-			quarter: 0,
-			active:  false,
+			name:      "game not started (period 0)",
+			vScore:    "0",
+			hScore:    "0",
+			period:    0,
+			state:     "pre",
 			wantInOut: []string{"BOS", "LAL"},
 		},
 	}
 
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
-			games := []map[string]interface{}{
-				makeGame("BOS", "LAL", tc.vScore, tc.hScore, tc.quarter, tc.active),
+			events := []espnEvent{
+				makeEvent("BOS", "LAL", tc.vScore, tc.hScore, tc.period, tc.state),
 			}
 			ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 				w.WriteHeader(http.StatusOK)
-				w.Write(buildScoreboard(games))
+				w.Write(buildESPNResponse(events))
 			}))
 			defer ts.Close()
 
@@ -365,12 +369,12 @@ func TestNbascore_ScoreColorFormatting(t *testing.T) {
 // --- Game status formatting tests ---
 
 func TestNbascore_ActiveGameHighlight(t *testing.T) {
-	games := []map[string]interface{}{
-		makeGame("BOS", "LAL", "50", "48", 2, true),
+	events := []espnEvent{
+		makeEvent("BOS", "LAL", "50", "48", 2, "in"),
 	}
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
-		w.Write(buildScoreboard(games))
+		w.Write(buildESPNResponse(events))
 	}))
 	defer ts.Close()
 
@@ -391,12 +395,12 @@ func TestNbascore_ActiveGameHighlight(t *testing.T) {
 }
 
 func TestNbascore_InactiveGameNoHighlight(t *testing.T) {
-	games := []map[string]interface{}{
-		makeGame("BOS", "LAL", "110", "105", 4, false),
+	events := []espnEvent{
+		makeEvent("BOS", "LAL", "110", "105", 4, "post"),
 	}
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
-		w.Write(buildScoreboard(games))
+		w.Write(buildESPNResponse(events))
 	}))
 	defer ts.Close()
 
@@ -411,7 +415,6 @@ func TestNbascore_InactiveGameNoHighlight(t *testing.T) {
 	widget := testWidget(t)
 	_, content, _ := widget.nbascore()
 
-	// Quarter indicator should be [white] not [sandybrown]
 	if strings.Contains(content, "[sandybrown]") {
 		t.Errorf("inactive game should not have [sandybrown] color, got: %s", content)
 	}
@@ -420,14 +423,14 @@ func TestNbascore_InactiveGameNoHighlight(t *testing.T) {
 // --- Multiple games test ---
 
 func TestNbascore_MultipleGames(t *testing.T) {
-	games := []map[string]interface{}{
-		makeGame("BOS", "LAL", "110", "105", 4, false),
-		makeGame("GSW", "MIA", "98", "102", 3, true),
-		makeGame("NYK", "CHI", "0", "0", 0, false),
+	events := []espnEvent{
+		makeEvent("BOS", "LAL", "110", "105", 4, "post"),
+		makeEvent("GSW", "MIA", "98", "102", 3, "in"),
+		makeEvent("NYK", "CHI", "0", "0", 0, "pre"),
 	}
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
-		w.Write(buildScoreboard(games))
+		w.Write(buildESPNResponse(events))
 	}))
 	defer ts.Close()
 
@@ -445,9 +448,9 @@ func TestNbascore_MultipleGames(t *testing.T) {
 	if wrap {
 		t.Fatal("expected wrap=false")
 	}
-	for _, team := range []string{"BOS", "LAL", "GSW", "MIA", "NYK", "CHI"} {
-		if !strings.Contains(content, team) {
-			t.Errorf("expected content to contain %q", team)
+	for _, tm := range []string{"BOS", "LAL", "GSW", "MIA", "NYK", "CHI"} {
+		if !strings.Contains(content, tm) {
+			t.Errorf("expected content to contain %q", tm)
 		}
 	}
 }
@@ -459,7 +462,7 @@ func TestNbascore_RequestHeaders(t *testing.T) {
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		userAgent = r.Header.Get("User-Agent")
 		w.WriteHeader(http.StatusOK)
-		w.Write(buildScoreboard([]map[string]interface{}{}))
+		w.Write(buildESPNResponse([]espnEvent{}))
 	}))
 	defer ts.Close()
 
@@ -474,8 +477,8 @@ func TestNbascore_RequestHeaders(t *testing.T) {
 	widget := testWidget(t)
 	widget.nbascore()
 
-	if userAgent != "curl" {
-		t.Errorf("expected User-Agent 'curl', got %q", userAgent)
+	if userAgent != "WTFUtil (+https://wtfutil.com)" {
+		t.Errorf("expected User-Agent 'WTFUtil (+https://wtfutil.com)', got %q", userAgent)
 	}
 }
 
@@ -483,12 +486,7 @@ func TestNbascore_RequestHeaders(t *testing.T) {
 
 func TestConfigText(t *testing.T) {
 	widget := testWidget(t)
-	text := widget.ConfigText()
-	// Should return something (help text), not panic
-	if text == "" {
-		// ConfigText may be empty for this simple settings struct, that's ok
-		// Just verify it doesn't panic
-	}
+	_ = widget.ConfigText() // just verify no panic
 }
 
 // --- Keyboard controls offset tests ---
@@ -498,20 +496,16 @@ func TestOffsetControls(t *testing.T) {
 	defer func() { offset = origOffset }()
 
 	offset = 0
-
-	// Test next increments
 	offset++
 	if offset != 1 {
 		t.Errorf("expected offset=1 after next, got %d", offset)
 	}
 
-	// Test prev decrements
 	offset--
 	if offset != 0 {
 		t.Errorf("expected offset=0 after prev, got %d", offset)
 	}
 
-	// Test center resets
 	offset = 5
 	offset = 0
 	if offset != 0 {
