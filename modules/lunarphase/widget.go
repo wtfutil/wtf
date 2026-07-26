@@ -15,6 +15,7 @@ import (
 type Widget struct {
 	view.ScrollableWidget
 
+	baseURL   string
 	current   bool
 	day       string
 	date      time.Time
@@ -28,6 +29,7 @@ type Widget struct {
 func NewWidget(tviewApp *tview.Application, redrawChan chan bool, pages *tview.Pages, settings *Settings) *Widget {
 	widget := &Widget{
 		ScrollableWidget: view.NewScrollableWidget(tviewApp, redrawChan, pages, settings.Common),
+		baseURL:          "https://wttr.in",
 		settings:         settings,
 	}
 
@@ -84,7 +86,7 @@ func (widget *Widget) lunarPhase() {
 
 	language := widget.settings.language
 
-	req, err := http.NewRequest("GET", "https://wttr.in/Moon@"+widget.day+"?AF&lang="+language, http.NoBody)
+	req, err := http.NewRequest("GET", widget.baseURL+"/Moon@"+widget.day+"?AF&lang="+language, http.NoBody)
 	if err != nil {
 		widget.result = err.Error()
 		return
