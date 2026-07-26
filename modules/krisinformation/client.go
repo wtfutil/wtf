@@ -48,6 +48,7 @@ type Client struct {
 	radius    int
 	county    string
 	country   bool
+	apiURL    string
 }
 
 // Item holds the interesting parts
@@ -69,6 +70,7 @@ func NewClient(latitude, longitude float64, radius int, county string, country b
 		radius:    radius,
 		county:    county,
 		country:   country,
+		apiURL:    krisinformationAPI,
 	}
 
 }
@@ -79,7 +81,7 @@ func NewClient(latitude, longitude float64, radius int, county string, country b
 //   - County
 //   - Region
 func (c *Client) getKrisinformation() (items []Item, err error) {
-	resp, err := http.Get(krisinformationAPI)
+	resp, err := http.Get(c.apiURL)
 	if err != nil {
 		return nil, err
 	}
