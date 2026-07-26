@@ -20,6 +20,10 @@ type Widget struct {
 
 	result   string
 	settings *Settings
+
+	// apiURL is the base URL for the ip-api.com service.
+	// It defaults to the public endpoint but can be overridden for testing.
+	apiURL string
 }
 
 type ipinfo struct {
@@ -65,12 +69,15 @@ var argLookup = map[string]string{
 	"reversedns":    "Reverse DNS",
 }
 
+const defaultAPIURL = "http://ip-api.com/json?fields=66846719"
+
 // NewWidget constructor
 func NewWidget(tviewApp *tview.Application, redrawChan chan bool, settings *Settings) *Widget {
 	widget := Widget{
 		TextWidget: view.NewTextWidget(tviewApp, redrawChan, nil, settings.Common),
 
 		settings: settings,
+		apiURL:   defaultAPIURL,
 	}
 
 	widget.View.SetWrap(false)
@@ -88,7 +95,7 @@ func (widget *Widget) Refresh() {
 // this method reads the config and calls ipinfo for ip information
 func (widget *Widget) ipinfo() {
 	client := &http.Client{}
-	req, err := http.NewRequest("GET", "http://ip-api.com/json?fields=66846719", http.NoBody)
+	req, err := http.NewRequest("GET", widget.apiURL, http.NoBody)
 	if err != nil {
 		widget.result = err.Error()
 		return
