@@ -14,16 +14,23 @@ import (
 	"github.com/wtfutil/wtf/wtf"
 )
 
-func sampleLaunch() Launch {
-	return Launch{
-		FlightNumber: 100,
-		MissionName:  "Starlink-15",
-		LaunchDate:   1609459200, // 2021-01-01 00:00:00 UTC
-		IsTentative:  false,
-		Rocket:       Rocket{Name: "Falcon 9"},
-		LaunchSite:   LaunchSite{Name: "KSC LC 39A"},
-		Links:        Links{RedditLink: "https://reddit.com/r/spacex", YouTubeLink: "https://youtube.com/watch?v=abc"},
-		Details:      "Launching satellites",
+func sampleLL2Response() ll2Response {
+	return ll2Response{
+		Count: 1,
+		Results: []ll2Launch{
+			{
+				Name:   "Falcon 9 Block 5 | Starlink Group 17-52",
+				Net:    "2021-01-01T00:00:00Z",
+				Status: ll2Status{Name: "Go for Launch"},
+				Rocket: ll2Rocket{Configuration: ll2RocketConfig{FullName: "Falcon 9 Block 5"}},
+				Mission: &ll2Mission{
+					Name:        "Starlink Group 17-52",
+					Description: "A batch of satellites for Starlink",
+				},
+				Pad:     &ll2Pad{Name: "Space Launch Complex 4E"},
+				VidURLs: []ll2VidURL{{URL: "https://youtube.com/watch?v=abc"}},
+			},
+		},
 	}
 }
 
@@ -41,10 +48,10 @@ func setupTestServer(handler http.HandlerFunc) (*httptest.Server, func()) {
 // --- Client Tests ---
 
 func TestNextLaunch_Success(t *testing.T) {
-	launch := sampleLaunch()
+	ll2Resp := sampleLL2Response()
 	_, cleanup := setupTestServer(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
-		json.NewEncoder(w).Encode(launch)
+		_ = json.NewEncoder(w).Encode(ll2Resp)
 	})
 	defer cleanup()
 
@@ -52,17 +59,14 @@ func TestNextLaunch_Success(t *testing.T) {
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
-	if result.MissionName != "Starlink-15" {
-		t.Errorf("expected MissionName 'Starlink-15', got %q", result.MissionName)
+	if result.MissionName != "Starlink Group 17-52" {
+		t.Errorf("expected MissionName 'Starlink Group 17-52', got %q", result.MissionName)
 	}
-	if result.FlightNumber != 100 {
-		t.Errorf("expected FlightNumber 100, got %d", result.FlightNumber)
+	if result.Rocket.Name != "Falcon 9 Block 5" {
+		t.Errorf("expected Rocket.Name 'Falcon 9 Block 5', got %q", result.Rocket.Name)
 	}
-	if result.Rocket.Name != "Falcon 9" {
-		t.Errorf("expected Rocket.Name 'Falcon 9', got %q", result.Rocket.Name)
-	}
-	if result.LaunchSite.Name != "KSC LC 39A" {
-		t.Errorf("expected LaunchSite.Name 'KSC LC 39A', got %q", result.LaunchSite.Name)
+	if result.LaunchSite.Name != "Space Launch Complex 4E" {
+		t.Errorf("expected LaunchSite.Name 'Space Launch Complex 4E', got %q", result.LaunchSite.Name)
 	}
 	if result.LaunchDate != 1609459200 {
 		t.Errorf("expected LaunchDate 1609459200, got %d", result.LaunchDate)
@@ -73,10 +77,7 @@ func TestNextLaunch_Success(t *testing.T) {
 	if result.Links.YouTubeLink != "https://youtube.com/watch?v=abc" {
 		t.Errorf("expected YouTubeLink, got %q", result.Links.YouTubeLink)
 	}
-	if result.Links.RedditLink != "https://reddit.com/r/spacex" {
-		t.Errorf("expected RedditLink, got %q", result.Links.RedditLink)
-	}
-	if result.Details != "Launching satellites" {
+	if result.Details != "A batch of satellites for Starlink" {
 		t.Errorf("expected Details, got %q", result.Details)
 	}
 }
@@ -84,7 +85,7 @@ func TestNextLaunch_Success(t *testing.T) {
 func TestNextLaunch_InvalidJSON(t *testing.T) {
 	_, cleanup := setupTestServer(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
-		fmt.Fprint(w, "not valid json{{{")
+		_, _ = fmt.Fprint(w, "not valid json{{{")
 	})
 	defer cleanup()
 
@@ -100,7 +101,7 @@ func TestNextLaunch_InvalidJSON(t *testing.T) {
 func TestNextLaunch_ServerError(t *testing.T) {
 	_, cleanup := setupTestServer(func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
-		fmt.Fprint(w, "")
+		_, _ = fmt.Fprint(w, "")
 	})
 	defer cleanup()
 
@@ -125,19 +126,16 @@ func TestNextLaunch_NetworkError(t *testing.T) {
 func TestNextLaunch_EmptyObject(t *testing.T) {
 	_, cleanup := setupTestServer(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
-		fmt.Fprint(w, "{}")
+		_, _ = fmt.Fprint(w, `{"count":0,"results":[]}`)
 	})
 	defer cleanup()
 
-	result, err := NextLaunch()
-	if err != nil {
-		t.Fatalf("unexpected error: %v", err)
+	_, err := NextLaunch()
+	if err == nil {
+		t.Fatal("expected error for empty results, got nil")
 	}
-	if result.MissionName != "" {
-		t.Errorf("expected empty MissionName, got %q", result.MissionName)
-	}
-	if result.FlightNumber != 0 {
-		t.Errorf("expected FlightNumber 0, got %d", result.FlightNumber)
+	if err.Error() != "no upcoming SpaceX launches found" {
+		t.Errorf("unexpected error: %v", err)
 	}
 }
 
@@ -148,22 +146,22 @@ func TestLaunchParsing(t *testing.T) {
 		name        string
 		json        string
 		wantErr     bool
-		checkFlight int
 		checkName   string
+		checkRocket string
 	}{
 		{
 			name:        "full payload",
-			json:        `{"flight_number":42,"mission_name":"CRS-21","launch_date_unix":1700000000,"tentative":true,"rocket":{"rocket_name":"Falcon Heavy"},"launch_site":{"site_name_long":"VAFB"},"links":{"reddit_campaign":"https://r.com","video_link":"https://yt.com"},"details":"cargo"}`,
+			json:        `{"count":1,"results":[{"name":"Falcon Heavy | Europa Clipper","net":"2026-10-10T12:00:00Z","status":{"name":"Go for Launch"},"rocket":{"configuration":{"full_name":"Falcon Heavy"}},"mission":{"name":"Europa Clipper","description":"NASA mission"},"pad":{"name":"LC-39A"},"vidURLs":[{"url":"https://yt.com"}]}]}`,
 			wantErr:     false,
-			checkFlight: 42,
-			checkName:   "CRS-21",
+			checkName:   "Europa Clipper",
+			checkRocket: "Falcon Heavy",
 		},
 		{
 			name:        "minimal payload",
-			json:        `{"flight_number":1}`,
+			json:        `{"count":1,"results":[{"name":"Falcon 9 | Test","net":"2026-01-01T00:00:00Z","status":{"name":"TBD"},"rocket":{"configuration":{"full_name":"Falcon 9"}}}]}`,
 			wantErr:     false,
-			checkFlight: 1,
-			checkName:   "",
+			checkName:   "Falcon 9 | Test",
+			checkRocket: "Falcon 9",
 		},
 		{
 			name:    "invalid JSON",
@@ -171,11 +169,16 @@ func TestLaunchParsing(t *testing.T) {
 			wantErr: true,
 		},
 		{
-			name:        "extra fields ignored",
-			json:        `{"flight_number":7,"mission_name":"Test","unknown_field":"hello"}`,
+			name:    "empty results",
+			json:    `{"count":0,"results":[]}`,
+			wantErr: true,
+		},
+		{
+			name:        "TBD is tentative",
+			json:        `{"count":1,"results":[{"name":"Test","net":"2026-01-01T00:00:00Z","status":{"name":"TBD"},"rocket":{"configuration":{"full_name":"F9"}}}]}`,
 			wantErr:     false,
-			checkFlight: 7,
 			checkName:   "Test",
+			checkRocket: "F9",
 		},
 	}
 
@@ -183,7 +186,7 @@ func TestLaunchParsing(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			_, cleanup := setupTestServer(func(w http.ResponseWriter, r *http.Request) {
 				w.Header().Set("Content-Type", "application/json")
-				fmt.Fprint(w, tt.json)
+				_, _ = fmt.Fprint(w, tt.json)
 			})
 			defer cleanup()
 
@@ -197,11 +200,11 @@ func TestLaunchParsing(t *testing.T) {
 			if err != nil {
 				t.Fatalf("unexpected error: %v", err)
 			}
-			if result.FlightNumber != tt.checkFlight {
-				t.Errorf("FlightNumber: got %d, want %d", result.FlightNumber, tt.checkFlight)
-			}
 			if result.MissionName != tt.checkName {
 				t.Errorf("MissionName: got %q, want %q", result.MissionName, tt.checkName)
+			}
+			if result.Rocket.Name != tt.checkRocket {
+				t.Errorf("Rocket.Name: got %q, want %q", result.Rocket.Name, tt.checkRocket)
 			}
 		})
 	}
@@ -210,10 +213,10 @@ func TestLaunchParsing(t *testing.T) {
 // --- Display / Content Formatting Tests ---
 
 func TestContentFormatting(t *testing.T) {
-	launch := sampleLaunch()
+	ll2Resp := sampleLL2Response()
 	_, cleanup := setupTestServer(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
-		json.NewEncoder(w).Encode(launch)
+		_ = json.NewEncoder(w).Encode(ll2Resp)
 	})
 	defer cleanup()
 
@@ -229,13 +232,12 @@ func TestContentFormatting(t *testing.T) {
 
 	expectedDate := wtf.UnixTime(1609459200).Format(time.RFC822)
 	checks := []string{
-		"Name: Starlink-15",
+		"Name: Starlink Group 17-52",
 		fmt.Sprintf("Date: %s", expectedDate),
-		"Site: KSC LC 39A",
+		"Site: Space Launch Complex 4E",
 		"YouTube: https://youtube.com/watch?v=abc",
-		"Reddit: https://reddit.com/r/spacex",
-		"RocketName: Falcon 9",
-		"Details: Launching satellites",
+		"RocketName: Falcon 9 Block 5",
+		"Details: A batch of satellites for Starlink",
 	}
 	for _, check := range checks {
 		if !strings.Contains(content, check) {
@@ -245,10 +247,10 @@ func TestContentFormatting(t *testing.T) {
 }
 
 func TestContentFormattingSmallHeight(t *testing.T) {
-	launch := sampleLaunch()
+	ll2Resp := sampleLL2Response()
 	_, cleanup := setupTestServer(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
-		json.NewEncoder(w).Encode(launch)
+		_ = json.NewEncoder(w).Encode(ll2Resp)
 	})
 	defer cleanup()
 
@@ -259,11 +261,11 @@ func TestContentFormattingSmallHeight(t *testing.T) {
 	if strings.Contains(content, "RocketName:") {
 		t.Error("details section should not appear when height < 2")
 	}
-	if strings.Contains(content, "Details: Launching") {
+	if strings.Contains(content, "Details: A batch") {
 		t.Error("details should not appear when height < 2")
 	}
 	// Should still have mission info
-	if !strings.Contains(content, "Name: Starlink-15") {
+	if !strings.Contains(content, "Name: Starlink Group 17-52") {
 		t.Error("should contain mission name regardless of height")
 	}
 }
@@ -271,7 +273,7 @@ func TestContentFormattingSmallHeight(t *testing.T) {
 func TestContentOnError(t *testing.T) {
 	_, cleanup := setupTestServer(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
-		fmt.Fprint(w, "broken json!!!!")
+		_, _ = fmt.Fprint(w, "broken json!!!!")
 	})
 	defer cleanup()
 
@@ -288,10 +290,10 @@ func TestContentOnError(t *testing.T) {
 }
 
 func TestContentCustomTitle(t *testing.T) {
-	launch := sampleLaunch()
+	ll2Resp := sampleLL2Response()
 	_, cleanup := setupTestServer(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
-		json.NewEncoder(w).Encode(launch)
+		_ = json.NewEncoder(w).Encode(ll2Resp)
 	})
 	defer cleanup()
 
@@ -336,8 +338,8 @@ func TestNewSettingsFromYAML(t *testing.T) {
 			if settings.Common == nil {
 				t.Fatal("expected Common to be set")
 			}
-			if settings.Common.Name != tt.expectedName {
-				t.Errorf("Name: got %q, want %q", settings.Common.Name, tt.expectedName)
+			if settings.Name != tt.expectedName {
+				t.Errorf("Name: got %q, want %q", settings.Name, tt.expectedName)
 			}
 		})
 	}
