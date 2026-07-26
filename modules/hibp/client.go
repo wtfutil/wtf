@@ -10,10 +10,13 @@ import (
 )
 
 const (
-	apiURL            = "https://haveibeenpwned.com/api/v3/breachedaccount/"
 	clientTimeoutSecs = 2
 	userAgent         = "WTFUtil"
 )
+
+// apiURL is the base URL for the HIBP breachedaccount API. It's a variable
+// (rather than a constant) so that tests can point it at an httptest server.
+var apiURL = "https://haveibeenpwned.com/api/v3/breachedaccount/"
 
 type hibpError struct {
 	StatusCode int    `json:"statusCode"`
@@ -50,12 +53,13 @@ func (widget *Widget) fetchForAccount(account string, since string) (*Status, er
 
 	response, getErr := hibpClient.Do(request)
 	if getErr != nil {
-		return nil, err
+		return nil, getErr
 	}
+	defer response.Body.Close()
 
 	body, readErr := io.ReadAll(response.Body)
 	if readErr != nil {
-		return nil, err
+		return nil, readErr
 	}
 
 	hibpErr := widget.validateHTTPResponse(response.StatusCode, body)
