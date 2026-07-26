@@ -8,7 +8,6 @@ require (
 	github.com/Microsoft/go-winio v0.6.2 // indirect
 	github.com/PagerDuty/go-pagerduty v1.8.0
 	github.com/adlio/trello v1.12.0
-	github.com/alecthomas/chroma v0.10.0
 	github.com/andygrunwald/go-gerrit v1.1.1
 	github.com/briandowns/openweathermap v0.21.1
 	github.com/cenkalti/backoff v2.2.1+incompatible // indirect
@@ -44,7 +43,7 @@ require (
 	github.com/zmb3/spotify v1.3.0
 	github.com/zorkian/go-datadog-api v2.30.0+incompatible
 	golang.org/x/oauth2 v0.36.0
-	golang.org/x/sync v0.22.0
+	golang.org/x/sync v0.21.0
 	golang.org/x/sys v0.46.0 // indirect
 	golang.org/x/text v0.38.0
 	google.golang.org/api v0.287.0
@@ -61,6 +60,7 @@ require (
 	github.com/Azure/azure-sdk-for-go/sdk/azcore v1.22.0
 	github.com/Azure/azure-sdk-for-go/sdk/azidentity v1.14.0
 	github.com/Azure/azure-sdk-for-go/sdk/monitor/azquery v1.2.0
+	github.com/alecthomas/chroma/v2 v2.27.0
 	github.com/charmbracelet/bubbles v0.21.1
 	github.com/gdamore/tcell/v2 v2.13.10
 	github.com/google/go-github/v89 v89.0.0
@@ -99,7 +99,7 @@ require (
 	github.com/containerd/log v0.1.0 // indirect
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
 	github.com/distribution/reference v0.6.0 // indirect
-	github.com/dlclark/regexp2 v1.4.0 // indirect
+	github.com/dlclark/regexp2/v2 v2.2.1 // indirect
 	github.com/ebitengine/purego v0.10.0 // indirect
 	github.com/emicklei/go-restful/v3 v3.13.0 // indirect
 	github.com/erikgeiser/coninput v0.0.0-20211004153227-1c3628e74d0f // indirect
