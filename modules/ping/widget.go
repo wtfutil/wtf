@@ -3,6 +3,7 @@ package ping
 import (
 	"fmt"
 	"log"
+	"runtime"
 	"strings"
 	"sync"
 	"time"
@@ -29,6 +30,13 @@ func newRealPinger(hostname string) (pinger, error) {
 	}
 	p.Count = 1
 	p.Timeout = 10 * time.Second
+	// Unprivileged (UDP) ICMP isn't supported at all on Windows ("socket:
+	// the requested protocol has not been configured into the system"), so
+	// use privileged (raw socket) mode there. Other platforms keep the
+	// unprivileged default so they don't need elevated/root privileges.
+	if runtime.GOOS == "windows" {
+		p.SetPrivileged(true)
+	}
 
 	return p, nil
 }
