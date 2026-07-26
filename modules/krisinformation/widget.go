@@ -57,6 +57,7 @@ func (widget *Widget) content() (string, string, bool) {
 	kriser, err := widget.client.getKrisinformation()
 	if err != nil {
 		handleError(widget, err)
+		return title, fmt.Sprintf("[red]Error: %s[white]", err.Error()), true
 	}
 
 	var str string
@@ -66,7 +67,6 @@ func (widget *Widget) content() (string, string, bool) {
 		if widget.settings.maxage != -1 {
 			// Skip if message is too old
 			if int(diff.Hours()) > widget.settings.maxage {
-				//logger.Log(fmt.Sprintf("Article to old: (%s) Days: %d", kriser[k].HeadLine, int(diff.Hours())))
 				continue
 			}
 		}
@@ -75,6 +75,9 @@ func (widget *Widget) content() (string, string, bool) {
 			break
 		}
 		str += fmt.Sprintf("- %s\n", kriser[k].HeadLine)
+	}
+	if str == "" {
+		str = "[green]No active alerts in your area[white]"
 	}
 	return title, str, true
 }

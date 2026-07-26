@@ -92,7 +92,7 @@ func TestContent_AgeFiltering(t *testing.T) {
 		{
 			name:        "very small maxage filters everything",
 			maxage:      1,
-			wantInBody:  "",
+			wantInBody:  "No active alerts in your area",
 			wantMissing: "Recent Alert",
 		},
 	}
@@ -268,11 +268,94 @@ func TestContent_ErrorHandling(t *testing.T) {
 	})
 
 	_, body, _ := w.content()
-	// Even on error, content returns (it calls handleError, doesn't return early)
-	if body != "" {
-		t.Errorf("expected empty body on error, got %q", body)
+	if !strings.Contains(body, "[red]Error:") {
+		t.Errorf("expected error message in body, got %q", body)
 	}
 	if w.err == nil {
 		t.Error("expected widget.err to be set")
+	}
+}
+
+func TestContent_NoActiveAlerts(t *testing.T) {
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		_, _ = w.Write([]byte("[]"))
+	}))
+	defer srv.Close()
+
+	client := NewClient(0, 0, -1, "", true)
+	client.apiURL = srv.URL
+
+	w := newTestWidget(client, &Settings{
+		maxage:   -1,
+		maxitems: -1,
+		country:  true,
+	})
+
+	_, body, _ := w.content()
+	if !strings.Contains(body, "No active alerts in your area") {
+		t.Errorf("expected 'No active alerts' message, got %q", body)
+	}
+}
+
+func TestContent_NoActiveAlertsWhenAllFilteredByAge(t *testing.T) {
+	now := time.Now()
+	old := now.Add(-800 * time.Hour)
+
+	data := Krisinformation{
+		{
+			Headline: "Old Alert", PushMessage: "old", SenderName: "MSB",
+			Updated: old, Published: old,
+			Area: []struct {
+				Type                string      `json:"Type"`
+				Description         string      `json:"Description"`
+				Coordinate          string      `json:"Coordinate"`
+				GeometryInformation interface{} `json:"GeometryInformation"`
+			}{{Type: "Country", Description: "Sverige"}},
+		},
+	}
+
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		_ = json.NewEncoder(w).Encode(data)
+	}))
+	defer srv.Close()
+
+	client := NewClient(0, 0, -1, "", true)
+	client.apiURL = srv.URL
+
+	w := newTestWidget(client, &Settings{
+		maxage:   720,
+		maxitems: -1,
+		country:  true,
+	})
+
+	_, body, _ := w.content()
+	if !strings.Contains(body, "No active alerts in your area") {
+		t.Errorf("expected 'No active alerts' when all filtered by age, got %q", body)
+	}
+}
+
+func TestContent_APIServerError(t *testing.T) {
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusInternalServerError)
+		_, _ = w.Write([]byte("{}"))
+	}))
+	defer srv.Close()
+
+	client := NewClient(0, 0, -1, "", true)
+	client.apiURL = srv.URL
+
+	w := newTestWidget(client, &Settings{
+		maxage:   -1,
+		maxitems: -1,
+		country:  true,
+	})
+
+	_, body, _ := w.content()
+	// The API returns 500 but valid JSON (empty object) - ParseJSON may fail or return empty
+	// Either way should not panic and should show no-alerts or error
+	if body == "" {
+		t.Error("expected non-empty body")
 	}
 }
