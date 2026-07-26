@@ -1,6 +1,9 @@
 package app
 
 import (
+	"runtime/debug"
+	"time"
+
 	"github.com/olebedev/config"
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/modules/airbrake"
@@ -68,6 +71,7 @@ import (
 	"github.com/wtfutil/wtf/modules/stocks/finnhub"
 	"github.com/wtfutil/wtf/modules/stocks/yfinance"
 	"github.com/wtfutil/wtf/modules/subreddit"
+	"github.com/wtfutil/wtf/modules/system"
 	"github.com/wtfutil/wtf/modules/textfile"
 	"github.com/wtfutil/wtf/modules/todo"
 	"github.com/wtfutil/wtf/modules/todo_plus"
@@ -86,6 +90,7 @@ import (
 	"github.com/wtfutil/wtf/modules/weatherservices/prettyweather"
 	"github.com/wtfutil/wtf/modules/weatherservices/weather"
 	"github.com/wtfutil/wtf/modules/zendesk"
+	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/wtf"
 )
 
@@ -305,6 +310,9 @@ func MakeWidget(
 	case "subreddit":
 		settings := subreddit.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = subreddit.NewWidget(tviewApp, redrawChan, pages, settings)
+	case "system":
+		settings := system.NewSettingsFromYAML(moduleName, moduleConfig, config)
+		widget = system.NewWidget(tviewApp, redrawChan, buildDate(), buildVersion(), settings)
 	case "textfile":
 		settings := textfile.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = textfile.NewWidget(tviewApp, redrawChan, pages, settings)
@@ -388,4 +396,42 @@ func MakeWidgets(tviewApp *tview.Application, pages *tview.Pages, config *config
 	}
 
 	return widgets
+}
+
+// buildVersion returns the module version reported by the Go build system,
+// falling back to "unknown" when build info is unavailable (e.g. `go run`).
+func buildVersion() string {
+	info, ok := debug.ReadBuildInfo()
+	if !ok {
+		return "unknown"
+	}
+
+	return info.Main.Version
+}
+
+// buildDate returns the VCS commit timestamp reported by the Go build
+// system, formatted for system.Widget, falling back to the current time
+// when build info or VCS timestamp data is unavailable.
+func buildDate() string {
+	now := time.Now().Format(utils.TimestampFormat)
+
+	info, ok := debug.ReadBuildInfo()
+	if !ok {
+		return now
+	}
+
+	for _, setting := range info.Settings {
+		if setting.Key != "vcs.time" {
+			continue
+		}
+
+		parsed, err := time.Parse(time.RFC3339, setting.Value)
+		if err != nil {
+			return now
+		}
+
+		return parsed.Format(utils.TimestampFormat)
+	}
+
+	return now
 }

@@ -2,10 +2,13 @@ package app
 
 import (
 	"testing"
+	"time"
 
 	"github.com/olebedev/config"
 	"github.com/stretchr/testify/assert"
 	"github.com/wtfutil/wtf/modules/clocks"
+	"github.com/wtfutil/wtf/modules/system"
+	"github.com/wtfutil/wtf/utils"
 	"github.com/wtfutil/wtf/wtf"
 )
 
@@ -26,6 +29,18 @@ wtf:
 wtf:
   mods:
     clocks:
+      enabled: true
+      position:
+        top: 0
+        left: 0
+        height: 1
+        width: 1
+      refreshInterval: 30`
+
+	systemEnabled = `
+wtf:
+  mods:
+    system:
       enabled: true
       position:
         top: 0
@@ -66,6 +81,15 @@ func Test_MakeWidget(t *testing.T) {
 			}(),
 			expected: &clocks.Widget{},
 		},
+		{
+			name:       "valid enabled system module",
+			moduleName: "system",
+			config: func() *config.Config {
+				cfg, _ := config.ParseYaml(systemEnabled)
+				return cfg
+			}(),
+			expected: &system.Widget{},
+		},
 	}
 
 	for _, tt := range tests {
@@ -74,4 +98,16 @@ func Test_MakeWidget(t *testing.T) {
 			assert.IsType(t, tt.expected, actual)
 		})
 	}
+}
+
+func Test_buildVersion(t *testing.T) {
+	actual := buildVersion()
+	assert.NotEmpty(t, actual)
+}
+
+func Test_buildDate(t *testing.T) {
+	actual := buildDate()
+
+	_, err := time.Parse(utils.TimestampFormat, actual)
+	assert.NoError(t, err)
 }
