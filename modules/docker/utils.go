@@ -8,10 +8,9 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/docker/docker/api/types"
-	"github.com/docker/docker/api/types/container"
-	"github.com/docker/docker/api/types/system"
 	"github.com/dustin/go-humanize"
+	"github.com/moby/moby/api/types/container"
+	"github.com/moby/moby/api/types/system"
 )
 
 // containerStateColors maps a container's state to the color used to display it.
@@ -69,7 +68,7 @@ func formatContainerStates(cntrs []container.Summary) string {
 			state string
 		}{
 			name:  strings.ReplaceAll(name, "/", ""),
-			state: c.State,
+			state: string(c.State),
 		})
 	}
 
@@ -93,23 +92,8 @@ func formatContainerStates(cntrs []container.Summary) string {
 
 // formatSystemInfo renders docker system/disk-usage information as a
 // human-readable summary block. It performs no I/O and can be exercised with
-// manually constructed system.Info / types.DiskUsage values.
-func formatSystemInfo(info system.Info, diskUsage types.DiskUsage, labelColor, evenForeground string) string {
-	var duContainer int64
-	for _, c := range diskUsage.Containers {
-		duContainer += c.SizeRw
-	}
-	var duImg int64
-	for _, im := range diskUsage.Images {
-		duImg += im.Size
-	}
-	var duVol int64
-	for _, v := range diskUsage.Volumes {
-		if v.UsageData != nil {
-			duVol += v.UsageData.Size
-		}
-	}
-
+// manually constructed system.Info values and disk-usage totals.
+func formatSystemInfo(info system.Info, containersSize, imagesSize, volumesSize int64, volumesCount int64, labelColor, evenForeground string) string {
 	sysInfo := []struct {
 		name  string
 		value string
@@ -136,7 +120,7 @@ func formatSystemInfo(info system.Info, diskUsage types.DiskUsage, labelColor, e
 		},
 		{
 			name:  "volumes:",
-			value: fmt.Sprintf("[%s]%v", evenForeground, len(diskUsage.Volumes)),
+			value: fmt.Sprintf("[%s]%v", evenForeground, volumesCount),
 		},
 		{
 			name:  "memory limit:",
@@ -152,19 +136,19 @@ func formatSystemInfo(info system.Info, diskUsage types.DiskUsage, labelColor, e
 `,
 				labelColor,
 				evenForeground,
-				humanize.Bytes(uint64(duContainer)),
+				humanize.Bytes(uint64(containersSize)),
 
 				labelColor,
 				evenForeground,
-				humanize.Bytes(uint64(duImg)),
+				humanize.Bytes(uint64(imagesSize)),
 
 				labelColor,
 				evenForeground,
-				humanize.Bytes(uint64(duVol)),
+				humanize.Bytes(uint64(volumesSize)),
 
 				labelColor,
 				evenForeground,
-				humanize.Bytes(uint64(duContainer+duImg+duVol))),
+				humanize.Bytes(uint64(containersSize+imagesSize+volumesSize))),
 		},
 	}
 

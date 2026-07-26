@@ -3,11 +3,7 @@ package docker
 import (
 	"testing"
 
-	"github.com/docker/docker/api/types"
-	"github.com/docker/docker/api/types/container"
-	"github.com/docker/docker/api/types/image"
-	"github.com/docker/docker/api/types/system"
-	"github.com/docker/docker/api/types/volume"
+	"github.com/moby/moby/api/types/system"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -15,7 +11,10 @@ func Test_formatSystemInfo(t *testing.T) {
 	tests := []struct {
 		name           string
 		info           system.Info
-		diskUsage      types.DiskUsage
+		containersSize int64
+		imagesSize     int64
+		volumesSize    int64
+		volumesCount   int64
 		labelColor     string
 		evenForeground string
 		want           string
@@ -32,20 +31,10 @@ func Test_formatSystemInfo(t *testing.T) {
 				Images:            10,
 				MemTotal:          2147483648,
 			},
-			diskUsage: types.DiskUsage{
-				Containers: []*container.Summary{
-					{SizeRw: 100000000},
-				},
-				Images: []*image.Summary{
-					{Size: 200000000},
-				},
-				Volumes: []*volume.Volume{
-					{UsageData: &volume.UsageData{Size: 50000000}},
-					// A volume with nil UsageData must not panic and
-					// contributes zero bytes to the disk usage total.
-					{UsageData: nil},
-				},
-			},
+			containersSize: 100000000,
+			imagesSize:     200000000,
+			volumesSize:    50000000,
+			volumesCount:   2,
 			labelColor:     "white",
 			evenForeground: "blue",
 			want: "[white]        name: [blue]docker-host\n" +
@@ -63,9 +52,12 @@ func Test_formatSystemInfo(t *testing.T) {
 				"\n",
 		},
 		{
-			name:           "zero-value info with no disk usage entries",
+			name:           "zero-value info with no disk usage",
 			info:           system.Info{},
-			diskUsage:      types.DiskUsage{},
+			containersSize: 0,
+			imagesSize:     0,
+			volumesSize:    0,
+			volumesCount:   0,
 			labelColor:     "",
 			evenForeground: "",
 			want: "[]        name: []\n" +
@@ -86,7 +78,7 @@ func Test_formatSystemInfo(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got := formatSystemInfo(tt.info, tt.diskUsage, tt.labelColor, tt.evenForeground)
+			got := formatSystemInfo(tt.info, tt.containersSize, tt.imagesSize, tt.volumesSize, tt.volumesCount, tt.labelColor, tt.evenForeground)
 			assert.Equal(t, tt.want, got)
 		})
 	}

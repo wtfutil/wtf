@@ -4,32 +4,30 @@ import (
 	"context"
 	"errors"
 
-	"github.com/docker/docker/api/types"
-	"github.com/docker/docker/api/types/container"
-	"github.com/docker/docker/api/types/system"
+	"github.com/moby/moby/client"
 )
 
 // fakeDockerClient is a test double for dockerAPIClient. It lets tests drive
 // getSystemInfo/getContainerStates/refreshDisplayBuffer without a running
 // docker daemon by returning configurable values or errors.
 type fakeDockerClient struct {
-	info      system.Info
+	info      client.SystemInfoResult
 	infoErr   error
-	diskUsage types.DiskUsage
+	diskUsage client.DiskUsageResult
 	diskErr   error
-	cntrs     []container.Summary
+	cntrs     client.ContainerListResult
 	listErr   error
 }
 
-func (f *fakeDockerClient) Info(_ context.Context) (system.Info, error) {
+func (f *fakeDockerClient) Info(_ context.Context, _ client.InfoOptions) (client.SystemInfoResult, error) {
 	return f.info, f.infoErr
 }
 
-func (f *fakeDockerClient) DiskUsage(_ context.Context, _ types.DiskUsageOptions) (types.DiskUsage, error) {
+func (f *fakeDockerClient) DiskUsage(_ context.Context, _ client.DiskUsageOptions) (client.DiskUsageResult, error) {
 	return f.diskUsage, f.diskErr
 }
 
-func (f *fakeDockerClient) ContainerList(_ context.Context, _ container.ListOptions) ([]container.Summary, error) {
+func (f *fakeDockerClient) ContainerList(_ context.Context, _ client.ContainerListOptions) (client.ContainerListResult, error) {
 	return f.cntrs, f.listErr
 }
 

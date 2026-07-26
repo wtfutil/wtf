@@ -4,9 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/docker/docker/api/types"
-	"github.com/docker/docker/api/types/container"
-	"github.com/docker/docker/api/types/system"
+	"github.com/moby/moby/client"
 )
 
 // dockerAPIClient is the subset of the docker client used by this widget.
@@ -14,30 +12,42 @@ import (
 // *client.Client type) lets tests inject a fake implementation and exercise
 // getSystemInfo/getContainerStates without a running docker daemon.
 type dockerAPIClient interface {
-	Info(ctx context.Context) (system.Info, error)
-	DiskUsage(ctx context.Context, options types.DiskUsageOptions) (types.DiskUsage, error)
-	ContainerList(ctx context.Context, options container.ListOptions) ([]container.Summary, error)
+	Info(ctx context.Context, options client.InfoOptions) (client.SystemInfoResult, error)
+	DiskUsage(ctx context.Context, options client.DiskUsageOptions) (client.DiskUsageResult, error)
+	ContainerList(ctx context.Context, options client.ContainerListOptions) (client.ContainerListResult, error)
 }
 
 func (widget *Widget) getSystemInfo() string {
-	info, err := widget.cli.Info(context.Background())
+	info, err := widget.cli.Info(context.Background(), client.InfoOptions{})
 	if err != nil {
 		return fmt.Errorf("could not get docker system info: %w", err).Error()
 	}
 
-	diskUsage, err := widget.cli.DiskUsage(context.Background(), types.DiskUsageOptions{})
+	diskUsage, err := widget.cli.DiskUsage(context.Background(), client.DiskUsageOptions{
+		Containers: true,
+		Images:     true,
+		Volumes:    true,
+	})
 	if err != nil {
 		return fmt.Errorf("could not get disk usage: %w", err).Error()
 	}
 
-	return formatSystemInfo(info, diskUsage, widget.settings.labelColor, widget.settings.Colors.EvenForeground)
+	return formatSystemInfo(
+		info.Info,
+		diskUsage.Containers.TotalSize,
+		diskUsage.Images.TotalSize,
+		diskUsage.Volumes.TotalSize,
+		diskUsage.Volumes.TotalCount,
+		widget.settings.labelColor,
+		widget.settings.Colors.EvenForeground,
+	)
 }
 
 func (widget *Widget) getContainerStates() string {
-	cntrs, err := widget.cli.ContainerList(context.Background(), container.ListOptions{All: true})
+	result, err := widget.cli.ContainerList(context.Background(), client.ContainerListOptions{All: true})
 	if err != nil {
 		return fmt.Errorf("could not get container list: %w", err).Error()
 	}
 
-	return formatContainerStates(cntrs)
+	return formatContainerStates(result.Items)
 }

@@ -3,8 +3,9 @@ package docker
 import (
 	"testing"
 
-	"github.com/docker/docker/api/types/container"
-	"github.com/docker/docker/api/types/system"
+	"github.com/moby/moby/api/types/container"
+	"github.com/moby/moby/api/types/system"
+	"github.com/moby/moby/client"
 	"github.com/stretchr/testify/assert"
 	"github.com/wtfutil/wtf/cfg"
 	"github.com/wtfutil/wtf/view"
@@ -40,7 +41,7 @@ func Test_Widget_getSystemInfo(t *testing.T) {
 		{
 			name: "formats successful info and disk usage",
 			fake: &fakeDockerClient{
-				info: system.Info{Name: "host", ServerVersion: "1.0"},
+				info: client.SystemInfoResult{Info: system.Info{Name: "host", ServerVersion: "1.0"}},
 			},
 			wantOK: true,
 		},
@@ -77,15 +78,15 @@ func Test_Widget_getContainerStates(t *testing.T) {
 		},
 		{
 			name: "returns no containers message when list is empty",
-			fake: &fakeDockerClient{cntrs: []container.Summary{}},
+			fake: &fakeDockerClient{cntrs: client.ContainerListResult{Items: []container.Summary{}}},
 			want: " no containers",
 		},
 		{
 			name: "formats returned containers",
 			fake: &fakeDockerClient{
-				cntrs: []container.Summary{
+				cntrs: client.ContainerListResult{Items: []container.Summary{
 					{Names: []string{"/svc"}, State: "running"},
-				},
+				}},
 			},
 			want: "[white]svc [lime]running\n",
 		},
@@ -118,10 +119,10 @@ func Test_Widget_refreshDisplayBuffer(t *testing.T) {
 
 	t.Run("populated client renders system and container sections", func(t *testing.T) {
 		fake := &fakeDockerClient{
-			info: system.Info{Name: "host"},
-			cntrs: []container.Summary{
+			info: client.SystemInfoResult{Info: system.Info{Name: "host"}},
+			cntrs: client.ContainerListResult{Items: []container.Summary{
 				{Names: []string{"/svc"}, State: "running"},
-			},
+			}},
 		}
 		widget := newTestWidget(fake)
 		widget.settings.Colors.Subheading = "aqua"
@@ -147,8 +148,8 @@ func Test_Widget_refreshDisplayBuffer(t *testing.T) {
 
 func Test_Widget_Refresh(t *testing.T) {
 	fake := &fakeDockerClient{
-		info:  system.Info{Name: "host"},
-		cntrs: []container.Summary{},
+		info:  client.SystemInfoResult{Info: system.Info{Name: "host"}},
+		cntrs: client.ContainerListResult{Items: []container.Summary{}},
 	}
 	widget := newTestWidget(fake)
 	widget.TextWidget = view.NewTextWidget(nil, make(chan bool, 1), nil, widget.settings.Common)

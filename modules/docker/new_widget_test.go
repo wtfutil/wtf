@@ -3,8 +3,9 @@ package docker
 import (
 	"testing"
 
-	"github.com/docker/docker/api/types/container"
-	"github.com/docker/docker/api/types/system"
+	"github.com/moby/moby/api/types/container"
+	"github.com/moby/moby/api/types/system"
+	"github.com/moby/moby/client"
 	"github.com/olebedev/config"
 	"github.com/stretchr/testify/assert"
 )
@@ -17,9 +18,9 @@ func Test_NewWidget(t *testing.T) {
 	settings := NewSettingsFromYAML("docker", moduleConfig, globalConfig)
 
 	t.Run("real docker client constructor does not panic", func(t *testing.T) {
-		// Exercises the actual client.NewClientWithOpts(client.FromEnv) call.
-		// This only builds a client object from local environment variables;
-		// it does not require a running docker daemon.
+		// Exercises the actual client.New(client.FromEnv) call. This only
+		// builds a client object from local environment variables; it does
+		// not require a running docker daemon.
 		cli, err := newDockerClient()
 
 		if err != nil {
@@ -46,8 +47,8 @@ func Test_NewWidget(t *testing.T) {
 		original := newDockerClient
 		newDockerClient = func() (dockerAPIClient, error) {
 			return &fakeDockerClient{
-				info:  system.Info{Name: "host"},
-				cntrs: []container.Summary{},
+				info:  client.SystemInfoResult{Info: system.Info{Name: "host"}},
+				cntrs: client.ContainerListResult{Items: []container.Summary{}},
 			}, nil
 		}
 		defer func() { newDockerClient = original }()

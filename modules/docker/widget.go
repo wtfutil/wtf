@@ -3,7 +3,7 @@ package docker
 import (
 	"fmt"
 
-	"github.com/docker/docker/client"
+	"github.com/moby/moby/client"
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/view"
 )
@@ -19,7 +19,7 @@ type Widget struct {
 // tests can substitute a fake client and exercise NewWidget's success/error
 // branches without a running docker daemon.
 var newDockerClient = func() (dockerAPIClient, error) {
-	return client.NewClientWithOpts(client.FromEnv)
+	return client.New(client.FromEnv)
 }
 
 func NewWidget(tviewApp *tview.Application, redrawChan chan bool, pages *tview.Pages, settings *Settings) *Widget {
