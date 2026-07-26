@@ -108,66 +108,102 @@ func (widget *Widget) shouldShowItem(item *checklist.ChecklistItem) bool {
 	return false
 }
 
-func (widget *Widget) RowColor(idx int, hidden int, checked bool) string {
-	if widget.View.HasFocus() && (idx == widget.Selected) {
-		foreground := widget.CommonSettings().Colors.HighlightedForeground
+// rowColorResult computes the color string for a row based on state.
+// This is the pure logic extracted for testability.
+func rowColorResult(hasFocus bool, idx int, selected int, hidden int, checked bool, highlightedFg, highlightedBg, checkedColor string, rowColorFn func(int) string) string {
+	if hasFocus && (idx == selected) {
+		foreground := highlightedFg
 		if checked {
-			foreground = widget.settings.Colors.Checked
+			foreground = checkedColor
 		}
-		return fmt.Sprintf(
-			"%s:%s",
-			foreground,
-			widget.CommonSettings().Colors.HighlightedBackground,
-		)
+		return fmt.Sprintf("%s:%s", foreground, highlightedBg)
 	}
 
 	if checked {
-		return widget.settings.Colors.Checked
-	} else {
-		return widget.CommonSettings().RowColor(idx - hidden)
+		return checkedColor
 	}
+	return rowColorFn(idx - hidden)
 }
 
-func (widget *Widget) formattedItemLine(idx int, hidden int, currItem *checklist.ChecklistItem) string {
-	rowColor := widget.RowColor(idx, hidden, currItem.Checked)
+func (widget *Widget) RowColor(idx int, hidden int, checked bool) string {
+	return rowColorResult(
+		widget.View.HasFocus(),
+		idx,
+		widget.Selected,
+		hidden,
+		checked,
+		widget.CommonSettings().Colors.HighlightedForeground,
+		widget.CommonSettings().Colors.HighlightedBackground,
+		widget.settings.Colors.Checked,
+		widget.CommonSettings().RowColor,
+	)
+}
 
-	todoDate := currItem.Date
+// formatItemRow builds the display string for a checklist item without any
+// view-dependent operations (no HighlightableHelper wrapping).
+// This is the pure logic extracted for testability.
+func formatItemRow(rowColor string, checkMark string, parseDates bool, todoDate *time.Time, dateColor string, dateStr string, parseTags bool, tagsAtEnd bool, tagColor string, tagString string, text string) string {
 	row := fmt.Sprintf(
 		` [%s]|%s| `,
 		rowColor,
-		currItem.CheckMark(),
+		checkMark,
 	)
 
-	if widget.settings.parseDates && todoDate != nil {
+	if parseDates && todoDate != nil {
 		row += fmt.Sprintf(
 			`[%s]%s `,
-			widget.settings.dateColor,
-			widget.getDateString(todoDate),
+			dateColor,
+			dateStr,
 		)
 	}
 
 	tagsPart := ""
-	if len(currItem.Tags) > 0 {
+	if len(tagString) > 0 {
 		tagsPart = fmt.Sprintf(
 			`[%s]%s[white]`,
-			widget.settings.tagColor,
-			currItem.TagString(),
+			tagColor,
+			tagString,
 		)
 	}
 
 	textPart := fmt.Sprintf(
 		`[%s]%s[white]`,
 		rowColor,
-		tview.Escape(currItem.Text),
+		tview.Escape(text),
 	)
 
-	if widget.settings.parseTags && widget.settings.tagsAtEnd {
+	if parseTags && tagsAtEnd {
 		row += textPart + " " + tagsPart
-	} else if widget.settings.parseTags {
+	} else if parseTags {
 		row += tagsPart + textPart
 	} else {
 		row += textPart
 	}
+
+	return row
+}
+
+func (widget *Widget) formattedItemLine(idx int, hidden int, currItem *checklist.ChecklistItem) string {
+	rowColor := widget.RowColor(idx, hidden, currItem.Checked)
+
+	dateStr := ""
+	if widget.settings.parseDates && currItem.Date != nil {
+		dateStr = widget.getDateString(currItem.Date)
+	}
+
+	row := formatItemRow(
+		rowColor,
+		currItem.CheckMark(),
+		widget.settings.parseDates,
+		currItem.Date,
+		widget.settings.dateColor,
+		dateStr,
+		widget.settings.parseTags,
+		widget.settings.tagsAtEnd,
+		widget.settings.tagColor,
+		currItem.TagString(),
+		currItem.Text,
+	)
 
 	return utils.HighlightableHelper(widget.View, row, idx-hidden, len(currItem.Text))
 }

@@ -271,17 +271,285 @@ func TestGetTodoTags(t *testing.T) {
 }
 
 func TestSortListByChecked_Hidden(t *testing.T) {
-	// We can't test sortListByChecked directly because it calls formattedItemLine
-	// which requires a tview.View. Instead, we test shouldShowItem which is the
-	// core filtering logic used by sortListByChecked.
-	// The sortListByChecked ordering logic is implicitly tested via shouldShowItem
-	// and the placeItemBasedOnDate tests.
+	// sortListByChecked still requires widget.View for formattedItemLine wrapping.
+	// The filtering logic it uses (shouldShowItem) is thoroughly tested above.
 }
 
-func TestRowColor(t *testing.T) {
-	// RowColor requires widget.View (tview.TextView) which needs full tview setup.
-	// The color selection logic is simple branching that is validated through
-	// integration testing rather than unit testing.
+func TestRowColorResult(t *testing.T) {
+	evenOddFn := func(idx int) string {
+		if idx%2 == 0 {
+			return "even_fg:even_bg"
+		}
+		return "odd_fg:odd_bg"
+	}
+
+	tests := []struct {
+		name          string
+		hasFocus      bool
+		idx           int
+		selected      int
+		hidden        int
+		checked       bool
+		highlightedFg string
+		highlightedBg string
+		checkedColor  string
+		expected      string
+	}{
+		{
+			name:          "focused and selected, unchecked",
+			hasFocus:      true,
+			idx:           2,
+			selected:      2,
+			hidden:        0,
+			checked:       false,
+			highlightedFg: "white",
+			highlightedBg: "blue",
+			checkedColor:  "gray",
+			expected:      "white:blue",
+		},
+		{
+			name:          "focused and selected, checked uses checkedColor as fg",
+			hasFocus:      true,
+			idx:           3,
+			selected:      3,
+			hidden:        0,
+			checked:       true,
+			highlightedFg: "white",
+			highlightedBg: "blue",
+			checkedColor:  "gray",
+			expected:      "gray:blue",
+		},
+		{
+			name:          "focused but not selected, checked",
+			hasFocus:      true,
+			idx:           1,
+			selected:      2,
+			hidden:        0,
+			checked:       true,
+			highlightedFg: "white",
+			highlightedBg: "blue",
+			checkedColor:  "gray",
+			expected:      "gray",
+		},
+		{
+			name:          "focused but not selected, unchecked even row",
+			hasFocus:      true,
+			idx:           0,
+			selected:      2,
+			hidden:        0,
+			checked:       false,
+			highlightedFg: "white",
+			highlightedBg: "blue",
+			checkedColor:  "gray",
+			expected:      "even_fg:even_bg",
+		},
+		{
+			name:          "focused but not selected, unchecked odd row",
+			hasFocus:      true,
+			idx:           1,
+			selected:      2,
+			hidden:        0,
+			checked:       false,
+			highlightedFg: "white",
+			highlightedBg: "blue",
+			checkedColor:  "gray",
+			expected:      "odd_fg:odd_bg",
+		},
+		{
+			name:          "not focused, checked",
+			hasFocus:      false,
+			idx:           2,
+			selected:      2,
+			hidden:        0,
+			checked:       true,
+			highlightedFg: "white",
+			highlightedBg: "blue",
+			checkedColor:  "gray",
+			expected:      "gray",
+		},
+		{
+			name:          "not focused, unchecked",
+			hasFocus:      false,
+			idx:           2,
+			selected:      2,
+			hidden:        0,
+			checked:       false,
+			highlightedFg: "white",
+			highlightedBg: "blue",
+			checkedColor:  "gray",
+			expected:      "even_fg:even_bg",
+		},
+		{
+			name:          "hidden offset affects row color index",
+			hasFocus:      false,
+			idx:           3,
+			selected:      0,
+			hidden:        1,
+			checked:       false,
+			highlightedFg: "white",
+			highlightedBg: "blue",
+			checkedColor:  "gray",
+			expected:      "even_fg:even_bg", // (3-1)=2, even
+		},
+	}
+
+	for _, tc := range tests {
+		t.Run(tc.name, func(t *testing.T) {
+			got := rowColorResult(tc.hasFocus, tc.idx, tc.selected, tc.hidden, tc.checked, tc.highlightedFg, tc.highlightedBg, tc.checkedColor, evenOddFn)
+			if got != tc.expected {
+				t.Errorf("rowColorResult() = %q, want %q", got, tc.expected)
+			}
+		})
+	}
+}
+
+func TestFormatItemRow(t *testing.T) {
+	now := time.Now()
+
+	tests := []struct {
+		name      string
+		rowColor  string
+		checkMark string
+		parseDates bool
+		date      *time.Time
+		dateColor string
+		dateStr   string
+		parseTags bool
+		tagsAtEnd bool
+		tagColor  string
+		tagString string
+		text      string
+		contains  []string
+		notContains []string
+	}{
+		{
+			name:      "basic unchecked item, no dates, no tags",
+			rowColor:  "white",
+			checkMark: " ",
+			parseDates: false,
+			date:      nil,
+			parseTags: false,
+			text:      "Buy milk",
+			contains:  []string{"[white]", "| |", "Buy milk"},
+		},
+		{
+			name:      "checked item",
+			rowColor:  "gray",
+			checkMark: "x",
+			parseDates: false,
+			date:      nil,
+			parseTags: false,
+			text:      "Done task",
+			contains:  []string{"[gray]", "|x|", "Done task"},
+		},
+		{
+			name:      "with date",
+			rowColor:  "white",
+			checkMark: " ",
+			parseDates: true,
+			date:      &now,
+			dateColor: "green",
+			dateStr:   "today",
+			parseTags: false,
+			text:      "Task",
+			contains:  []string{"[green]today"},
+		},
+		{
+			name:      "date nil even with parseDates",
+			rowColor:  "white",
+			checkMark: " ",
+			parseDates: true,
+			date:      nil,
+			dateColor: "green",
+			dateStr:   "",
+			parseTags: false,
+			text:      "Task",
+			notContains: []string{"[green]"},
+		},
+		{
+			name:      "tags at beginning (default)",
+			rowColor:  "white",
+			checkMark: " ",
+			parseDates: false,
+			date:      nil,
+			parseTags: true,
+			tagsAtEnd: false,
+			tagColor:  "yellow",
+			tagString: "#work ",
+			text:      "Do stuff",
+			contains:  []string{"[yellow]#work"},
+		},
+		{
+			name:      "tags at end",
+			rowColor:  "white",
+			checkMark: " ",
+			parseDates: false,
+			date:      nil,
+			parseTags: true,
+			tagsAtEnd: true,
+			tagColor:  "yellow",
+			tagString: "#work ",
+			text:      "Do stuff",
+			contains:  []string{"Do stuff", "[yellow]#work"},
+		},
+		{
+			name:      "parseTags false, tags not rendered even if present",
+			rowColor:  "white",
+			checkMark: " ",
+			parseDates: false,
+			date:      nil,
+			parseTags: false,
+			tagsAtEnd: false,
+			tagColor:  "yellow",
+			tagString: "#work ",
+			text:      "Do stuff",
+			notContains: []string{"[yellow]"},
+		},
+		{
+			name:      "special characters escaped in text",
+			rowColor:  "white",
+			checkMark: " ",
+			parseDates: false,
+			date:      nil,
+			parseTags: false,
+			text:      "Fix [bug] issue",
+			contains:  []string{"Fix [bug[] issue"}, // tview.Escape brackets
+		},
+	}
+
+	for _, tc := range tests {
+		t.Run(tc.name, func(t *testing.T) {
+			got := formatItemRow(tc.rowColor, tc.checkMark, tc.parseDates, tc.date, tc.dateColor, tc.dateStr, tc.parseTags, tc.tagsAtEnd, tc.tagColor, tc.tagString, tc.text)
+			for _, s := range tc.contains {
+				if !strings.Contains(got, s) {
+					t.Errorf("formatItemRow() = %q, want it to contain %q", got, s)
+				}
+			}
+			for _, s := range tc.notContains {
+				if strings.Contains(got, s) {
+					t.Errorf("formatItemRow() = %q, should NOT contain %q", got, s)
+				}
+			}
+		})
+	}
+}
+
+func TestFormatItemRow_TagOrder(t *testing.T) {
+	// Verify tags come before text when tagsAtEnd=false
+	row := formatItemRow("white", " ", false, nil, "", "", true, false, "yellow", "#proj ", "My task")
+	tagsIdx := strings.Index(row, "[yellow]")
+	textIdx := strings.Index(row, "My task")
+	if tagsIdx >= textIdx {
+		t.Errorf("expected tags before text, tags at %d, text at %d", tagsIdx, textIdx)
+	}
+
+	// Verify tags come after text when tagsAtEnd=true
+	row = formatItemRow("white", " ", false, nil, "", "", true, true, "yellow", "#proj ", "My task")
+	tagsIdx = strings.Index(row, "[yellow]")
+	textIdx = strings.Index(row, "My task")
+	if tagsIdx <= textIdx {
+		t.Errorf("expected tags after text, tags at %d, text at %d", tagsIdx, textIdx)
+	}
 }
 
 
