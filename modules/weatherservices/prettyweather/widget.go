@@ -15,6 +15,7 @@ type Widget struct {
 
 	result   string
 	settings *Settings
+	baseURL  string
 }
 
 func NewWidget(tviewApp *tview.Application, redrawChan chan bool, settings *Settings) *Widget {
@@ -22,6 +23,7 @@ func NewWidget(tviewApp *tview.Application, redrawChan chan bool, settings *Sett
 		TextWidget: view.NewTextWidget(tviewApp, redrawChan, nil, settings.Common),
 
 		settings: settings,
+		baseURL:  "https://wttr.in/",
 	}
 
 	return &widget
@@ -41,7 +43,7 @@ func (widget *Widget) prettyWeather() {
 	unit := widget.settings.unit
 	view := widget.settings.view
 
-	req, err := http.NewRequest("GET", "https://wttr.in/"+city+"?"+view+"?"+unit, http.NoBody)
+	req, err := http.NewRequest("GET", widget.baseURL+city+"?"+view+"?"+unit, http.NoBody)
 	if err != nil {
 		widget.result = err.Error()
 		return
