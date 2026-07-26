@@ -7,6 +7,9 @@ import (
 	"net/http"
 )
 
+// apiURL is the endpoint for UV data. Overridden in tests.
+var apiURL = "https://uvdata.arpansa.gov.au/xml/uvvalues.xml"
+
 type Stations struct {
 	XMLName  xml.Name `xml:"stations"`
 	Text     string   `xml:",chardata"`
@@ -55,7 +58,7 @@ func getLocationData(cityname string) (*location, error) {
 /* -------------------- Unexported Functions -------------------- */
 
 func apiRequest() (*http.Response, error) {
-	req, err := http.NewRequest("GET", "https://uvdata.arpansa.gov.au/xml/uvvalues.xml", http.NoBody)
+	req, err := http.NewRequest("GET", apiURL, http.NoBody)
 	if err != nil {
 		return nil, err
 	}
@@ -65,9 +68,9 @@ func apiRequest() (*http.Response, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer func() { _ = resp.Body.Close() }()
 
 	if resp.StatusCode != 200 {
+		_ = resp.Body.Close()
 		return nil, fmt.Errorf("%s", resp.Status)
 	}
 
