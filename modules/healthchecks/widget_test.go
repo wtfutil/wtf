@@ -9,6 +9,8 @@ import (
 	"testing"
 	"time"
 
+	"github.com/olebedev/config"
+	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/cfg"
 	"github.com/wtfutil/wtf/view"
 )
@@ -217,7 +219,7 @@ func TestGetExistingChecks_Success(t *testing.T) {
 		}
 
 		w.Header().Set("Content-Type", "application/json")
-		json.NewEncoder(w).Encode(checks)
+		_ = json.NewEncoder(w).Encode(checks)
 	}))
 	defer server.Close()
 
@@ -257,7 +259,7 @@ func TestGetExistingChecks_WithTags(t *testing.T) {
 			t.Errorf("expected tags [prod, web], got %v", tags)
 		}
 		w.Header().Set("Content-Type", "application/json")
-		fmt.Fprint(w, `{"checks":[]}`)
+		_, _ = fmt.Fprint(w, `{"checks":[]}`)
 	}))
 	defer server.Close()
 
@@ -318,7 +320,7 @@ func TestGetExistingChecks_Non200Status(t *testing.T) {
 func TestGetExistingChecks_InvalidJSON(t *testing.T) {
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
-		fmt.Fprint(w, `{"checks": invalid}`)
+		_, _ = fmt.Fprint(w, `{"checks": invalid}`)
 	}))
 	defer server.Close()
 
@@ -381,7 +383,7 @@ func newTestWidget() *Widget {
 	}
 	base := view.NewBase(nil, nil, nil, common)
 	w := &Widget{}
-	w.ScrollableWidget.TextWidget.Base = base
+	w.Base = base
 	return w
 }
 
@@ -456,7 +458,7 @@ func TestGetExistingChecks_FullResponse(t *testing.T) {
 
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
-		fmt.Fprint(w, responseJSON)
+		_, _ = fmt.Fprint(w, responseJSON)
 	}))
 	defer server.Close()
 
@@ -509,5 +511,225 @@ func TestGetExistingChecks_FullResponse(t *testing.T) {
 	}
 	if check.Tz != "UTC" {
 		t.Errorf("Tz = %q, want 'UTC'", check.Tz)
+	}
+}
+
+func TestNewSettingsFromYAML(t *testing.T) {
+	tests := []struct {
+		name       string
+		yaml       string
+		wantAPIKey string
+		wantAPIURL string
+		wantTags   int
+	}{
+		{
+			name: "default values",
+			yaml: `
+apiKey: "my-secret-key"
+position:
+  top: 0
+  left: 0
+  height: 1
+  width: 1
+`,
+			wantAPIKey: "my-secret-key",
+			wantAPIURL: "https://hc-ping.com/",
+			wantTags:   0,
+		},
+		{
+			name: "custom apiURL",
+			yaml: `
+apiKey: "key123"
+apiURL: "https://my-healthchecks.example.com"
+position:
+  top: 0
+  left: 0
+  height: 1
+  width: 1
+`,
+			wantAPIKey: "key123",
+			wantAPIURL: "https://my-healthchecks.example.com",
+			wantTags:   0,
+		},
+		{
+			name: "with tags",
+			yaml: `
+apiKey: "key456"
+tags:
+  - prod
+  - web
+position:
+  top: 0
+  left: 0
+  height: 1
+  width: 1
+`,
+			wantAPIKey: "key456",
+			wantAPIURL: "https://hc-ping.com/",
+			wantTags:   2,
+		},
+	}
+
+	globalYaml := `
+wtf:
+  colors:
+    border:
+      focusable: darkslateblue
+      focused: orange
+      normal: gray
+`
+	globalConfig, _ := config.ParseYaml(globalYaml)
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			ymlConfig, err := config.ParseYaml(tt.yaml)
+			if err != nil {
+				t.Fatalf("failed to parse test YAML: %v", err)
+			}
+
+			settings := NewSettingsFromYAML("healthchecks", ymlConfig, globalConfig)
+
+			if settings.apiKey != tt.wantAPIKey {
+				t.Errorf("apiKey = %q, want %q", settings.apiKey, tt.wantAPIKey)
+			}
+			if settings.apiURL != tt.wantAPIURL {
+				t.Errorf("apiURL = %q, want %q", settings.apiURL, tt.wantAPIURL)
+			}
+			if len(settings.tags) != tt.wantTags {
+				t.Errorf("len(tags) = %d, want %d", len(settings.tags), tt.wantTags)
+			}
+			if settings.Common == nil {
+				t.Fatal("Common settings should not be nil")
+			}
+		})
+	}
+}
+
+func TestConfigText(t *testing.T) {
+	widget := &Widget{}
+	text := widget.ConfigText()
+	if text == "" {
+		t.Error("ConfigText should return non-empty help text")
+	}
+	// Should contain field help from the Settings struct tags
+	if !strings.Contains(text, "apiKey") {
+		t.Error("ConfigText should mention apiKey")
+	}
+}
+
+func TestNewWidget(t *testing.T) {
+	globalYaml := `
+wtf:
+  colors:
+    border:
+      focusable: darkslateblue
+      focused: orange
+      normal: gray
+`
+	globalConfig, _ := config.ParseYaml(globalYaml)
+	moduleYaml := `
+apiKey: "test-key"
+position:
+  top: 0
+  left: 0
+  height: 1
+  width: 1
+`
+	ymlConfig, _ := config.ParseYaml(moduleYaml)
+	settings := NewSettingsFromYAML("healthchecks", ymlConfig, globalConfig)
+
+	app := tview.NewApplication()
+	redrawChan := make(chan bool)
+	pages := tview.NewPages()
+
+	widget := NewWidget(app, redrawChan, pages, settings)
+
+	if widget == nil {
+		t.Fatal("NewWidget returned nil")
+	}
+	if widget.settings != settings {
+		t.Error("widget.settings not set correctly")
+	}
+}
+
+func TestRefresh_Disabled(t *testing.T) {
+	globalYaml := `
+wtf:
+  colors:
+    border:
+      focusable: darkslateblue
+      focused: orange
+      normal: gray
+`
+	globalConfig, _ := config.ParseYaml(globalYaml)
+	moduleYaml := `
+apiKey: "test-key"
+enabled: false
+position:
+  top: 0
+  left: 0
+  height: 1
+  width: 1
+`
+	ymlConfig, _ := config.ParseYaml(moduleYaml)
+	settings := NewSettingsFromYAML("healthchecks", ymlConfig, globalConfig)
+
+	app := tview.NewApplication()
+	pages := tview.NewPages()
+
+	widget := NewWidget(app, make(chan bool, 1), pages, settings)
+	widget.Disable()
+
+	// Refresh should return early without fetching
+	widget.Refresh()
+
+	if widget.checks != nil {
+		t.Error("expected checks to remain nil when widget is disabled")
+	}
+}
+
+func TestRefresh_WithServer(t *testing.T) {
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		_, _ = fmt.Fprint(w, `{"checks":[{"name":"Test","status":"up","n_pings":1}]}`)
+	}))
+	defer server.Close()
+
+	globalYaml := `
+wtf:
+  colors:
+    border:
+      focusable: darkslateblue
+      focused: orange
+      normal: gray
+`
+	globalConfig, _ := config.ParseYaml(globalYaml)
+	moduleYaml := fmt.Sprintf(`
+apiKey: "test-key"
+apiURL: "%s"
+enabled: true
+position:
+  top: 0
+  left: 0
+  height: 1
+  width: 1
+`, server.URL)
+	ymlConfig, _ := config.ParseYaml(moduleYaml)
+	settings := NewSettingsFromYAML("healthchecks", ymlConfig, globalConfig)
+
+	app := tview.NewApplication()
+	pages := tview.NewPages()
+
+	widget := NewWidget(app, make(chan bool, 1), pages, settings)
+	widget.Refresh()
+
+	if len(widget.checks) != 1 {
+		t.Fatalf("expected 1 check after refresh, got %d", len(widget.checks))
+	}
+	if widget.checks[0].Name != "Test" {
+		t.Errorf("expected check name 'Test', got %q", widget.checks[0].Name)
+	}
+	if widget.err != nil {
+		t.Errorf("expected no error, got %v", widget.err)
 	}
 }
