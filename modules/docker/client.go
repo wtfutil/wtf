@@ -1,4 +1,4 @@
-﻿package docker
+package docker
 
 import (
 	"context"
@@ -6,7 +6,18 @@ import (
 
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/api/types/container"
+	"github.com/docker/docker/api/types/system"
 )
+
+// dockerAPIClient is the subset of the docker client used by this widget.
+// Defining it as an interface (rather than depending on the concrete
+// *client.Client type) lets tests inject a fake implementation and exercise
+// getSystemInfo/getContainerStates without a running docker daemon.
+type dockerAPIClient interface {
+	Info(ctx context.Context) (system.Info, error)
+	DiskUsage(ctx context.Context, options types.DiskUsageOptions) (types.DiskUsage, error)
+	ContainerList(ctx context.Context, options container.ListOptions) ([]container.Summary, error)
+}
 
 func (widget *Widget) getSystemInfo() string {
 	info, err := widget.cli.Info(context.Background())
