@@ -63,6 +63,16 @@ func buildESPNResponse(events []espnEvent) []byte {
 	return b
 }
 
+// buildESPNResponseWithDay builds an ESPN response with a day.date field.
+func buildESPNResponseWithDay(events []espnEvent, dayDate string) []byte {
+	data := espnResponse{
+		Day:    espnDay{Date: dayDate},
+		Events: events,
+	}
+	b, _ := json.Marshal(data)
+	return b
+}
+
 func makeEvent(awayAbbr, homeAbbr, awayScore, homeScore string, period int, state string) espnEvent {
 	return espnEvent{
 		Competitions: []espnCompetition{
@@ -114,7 +124,7 @@ func TestNbascore_SuccessfulResponse(t *testing.T) {
 
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
-		w.Write(buildESPNResponse(events))
+		_, _ = w.Write(buildESPNResponse(events))
 	}))
 	defer ts.Close()
 
@@ -152,7 +162,7 @@ func TestNbascore_SuccessfulResponse(t *testing.T) {
 func TestNbascore_EmptyGames(t *testing.T) {
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
-		w.Write(buildESPNResponse([]espnEvent{}))
+		_, _ = w.Write(buildESPNResponseWithDay([]espnEvent{}, "2026-10-05"))
 	}))
 	defer ts.Close()
 
@@ -174,12 +184,47 @@ func TestNbascore_EmptyGames(t *testing.T) {
 	if !strings.Contains(content, today) {
 		t.Errorf("expected content to contain date %q", today)
 	}
+	if !strings.Contains(content, "No games scheduled") {
+		t.Errorf("expected 'No games scheduled' message, got %q", content)
+	}
+	if !strings.Contains(content, "Next game:") {
+		t.Errorf("expected 'Next game:' message, got %q", content)
+	}
+}
+
+func TestNbascore_EmptyGamesNoNextDate(t *testing.T) {
+	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		_, _ = w.Write(buildESPNResponse([]espnEvent{}))
+	}))
+	defer ts.Close()
+
+	origURL := nbaBaseURL
+	nbaBaseURL = ts.URL
+	defer func() { nbaBaseURL = origURL }()
+
+	origOffset := offset
+	offset = 0
+	defer func() { offset = origOffset }()
+
+	widget := testWidget(t)
+	_, content, wrap := widget.nbascore()
+
+	if wrap {
+		t.Error("expected wrap=false for empty games")
+	}
+	if !strings.Contains(content, "No games scheduled") {
+		t.Errorf("expected 'No games scheduled' message, got %q", content)
+	}
+	if strings.Contains(content, "Next game:") {
+		t.Errorf("should not show 'Next game:' when no date available, got %q", content)
+	}
 }
 
 func TestNbascore_Non200Status(t *testing.T) {
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte("server error"))
+		_, _ = w.Write([]byte("server error"))
 	}))
 	defer ts.Close()
 
@@ -202,7 +247,7 @@ func TestNbascore_Non200Status(t *testing.T) {
 func TestNbascore_InvalidJSON(t *testing.T) {
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
-		w.Write([]byte("not json"))
+		_, _ = w.Write([]byte("not json"))
 	}))
 	defer ts.Close()
 
@@ -264,7 +309,7 @@ func TestNbascore_DateOffset(t *testing.T) {
 			ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 				receivedQuery = r.URL.RawQuery
 				w.WriteHeader(http.StatusOK)
-				w.Write(buildESPNResponse([]espnEvent{}))
+				_, _ = w.Write(buildESPNResponse([]espnEvent{}))
 			}))
 			defer ts.Close()
 
@@ -339,7 +384,7 @@ func TestNbascore_ScoreColorFormatting(t *testing.T) {
 			}
 			ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 				w.WriteHeader(http.StatusOK)
-				w.Write(buildESPNResponse(events))
+				_, _ = w.Write(buildESPNResponse(events))
 			}))
 			defer ts.Close()
 
@@ -374,7 +419,7 @@ func TestNbascore_ActiveGameHighlight(t *testing.T) {
 	}
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
-		w.Write(buildESPNResponse(events))
+		_, _ = w.Write(buildESPNResponse(events))
 	}))
 	defer ts.Close()
 
@@ -400,7 +445,7 @@ func TestNbascore_InactiveGameNoHighlight(t *testing.T) {
 	}
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
-		w.Write(buildESPNResponse(events))
+		_, _ = w.Write(buildESPNResponse(events))
 	}))
 	defer ts.Close()
 
@@ -430,7 +475,7 @@ func TestNbascore_MultipleGames(t *testing.T) {
 	}
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
-		w.Write(buildESPNResponse(events))
+		_, _ = w.Write(buildESPNResponse(events))
 	}))
 	defer ts.Close()
 
@@ -462,7 +507,7 @@ func TestNbascore_RequestHeaders(t *testing.T) {
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		userAgent = r.Header.Get("User-Agent")
 		w.WriteHeader(http.StatusOK)
-		w.Write(buildESPNResponse([]espnEvent{}))
+		_, _ = w.Write(buildESPNResponse([]espnEvent{}))
 	}))
 	defer ts.Close()
 

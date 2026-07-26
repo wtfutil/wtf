@@ -47,7 +47,12 @@ func (widget *Widget) Refresh() {
 
 // ESPN API response structures
 type espnResponse struct {
+	Day    espnDay     `json:"day"`
 	Events []espnEvent `json:"events"`
+}
+
+type espnDay struct {
+	Date string `json:"date"`
 }
 
 type espnEvent struct {
@@ -112,6 +117,17 @@ func (widget *Widget) nbascore() (string, string, bool) {
 	}
 
 	allGame := fmt.Sprintf(" [%s]", widget.settings.Colors.Subheading) + (cur.Format(utils.FriendlyDateFormat) + "\n\n") + "[white]"
+
+	if len(result.Events) == 0 {
+		msg := " No games scheduled"
+		if result.Day.Date != "" {
+			if nextDate, err := time.Parse("2006-01-02", result.Day.Date); err == nil {
+				msg += "\n Next game: " + nextDate.Format(utils.FriendlyDateFormat)
+			}
+		}
+		allGame += msg
+		return title, allGame, false
+	}
 
 	for _, event := range result.Events {
 		if len(event.Competitions) == 0 {
