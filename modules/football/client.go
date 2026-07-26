@@ -41,7 +41,11 @@ func (client *Client) footballRequest(path string, id int) (*http.Response, erro
 	if err != nil {
 		return nil, err
 	}
-	defer func() { _ = resp.Body.Close() }()
+
+	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
+		defer func() { _ = resp.Body.Close() }()
+		return nil, fmt.Errorf("unexpected status code %d from football API", resp.StatusCode)
+	}
 
 	return resp, nil
 }
