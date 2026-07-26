@@ -29,12 +29,10 @@ require (
 	github.com/mmcdole/gofeed v1.3.0
 	github.com/olebedev/config v0.0.0-20190528211619-364964f3a8e4
 	github.com/olekukonko/tablewriter v0.0.5
-	github.com/piquette/finance-go v1.1.0
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pkg/profile v1.7.0
 	github.com/radovskyb/watcher v1.0.7
 	github.com/rivo/tview v0.42.0
-	github.com/shopspring/decimal v1.3.1 // indirect
 	github.com/shurcooL/githubv4 v0.0.0-20260209031235-2402fdf4a9ed
 	github.com/shurcooL/graphql v0.0.0-20181231061246-d48a9a75455f // indirect
 	github.com/spf13/pflag v1.0.10 // indirect
