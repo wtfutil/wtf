@@ -7,6 +7,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/wtfutil/wtf/cfg"
 	"gotest.tools/assert"
 )
 
@@ -126,4 +127,24 @@ func TestGetMatchesEmptyReturnsError(t *testing.T) {
 	content := widget.GetMatches(2021)
 
 	assert.Assert(t, strings.HasPrefix(content, "No matches found between "))
+}
+
+// TestNewWidgetInvalidLeagueDoesNotPanic is a regression test: NewWidget used
+// to skip initializing the embedded view.TextWidget (and its *view.Base)
+// when the configured league code was invalid, leaving CommonSettings() to
+// dereference a nil pointer and crash the whole app at startup.
+func TestNewWidgetInvalidLeagueDoesNotPanic(t *testing.T) {
+	settings := &Settings{
+		Common: &cfg.Common{},
+		league: "NOT_A_REAL_LEAGUE",
+	}
+
+	widget := NewWidget(nil, nil, nil, settings)
+
+	assert.Assert(t, widget.err != nil)
+	assert.Assert(t, widget.CommonSettings() != nil)
+
+	title, content, _ := widget.content()
+	assert.Assert(t, strings.Contains(content, "unable to get the league id"))
+	assert.Assert(t, title != "")
 }

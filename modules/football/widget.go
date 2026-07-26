@@ -42,9 +42,10 @@ func NewWidget(tviewApp *tview.Application, redrawChan chan bool, pages *tview.P
 	leagueId, err := getLeague(settings.league)
 	if err != nil {
 		widget = Widget{
-			err:      fmt.Errorf("unable to get the league id for provided league '%s'", settings.league),
-			Client:   NewClient(settings.apiKey),
-			settings: settings,
+			TextWidget: view.NewTextWidget(tviewApp, redrawChan, pages, settings.Common),
+			err:        fmt.Errorf("unable to get the league id for provided league '%s'", settings.league),
+			Client:     NewClient(settings.apiKey),
+			settings:   settings,
 		}
 
 		return &widget
