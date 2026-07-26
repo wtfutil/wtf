@@ -110,7 +110,7 @@ func (widget *Widget) GetStandings(leagueId int) string {
 	}
 
 	if len(l.Standings) == 0 {
-		return "Error fetching standings"
+		return "No standings found for this competition"
 	}
 
 	for _, i := range l.Standings[0].Table {
@@ -156,7 +156,7 @@ func (widget *Widget) GetMatches(leagueId int) string {
 	}
 
 	if len(l.Matches) == 0 {
-		return "Error fetching matches"
+		return fmt.Sprintf("No matches found between %s and %s", from, to)
 	}
 
 	for _, m := range l.Matches {
