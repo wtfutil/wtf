@@ -3,161 +3,51 @@ package docker
 import (
 	"context"
 	"fmt"
-	"sort"
-	"strings"
 
-	"github.com/docker/docker/api/types"
-	"github.com/docker/docker/api/types/container"
-	"github.com/dustin/go-humanize"
+	"github.com/moby/moby/client"
 )
 
+// dockerAPIClient is the subset of the docker client used by this widget.
+// Defining it as an interface (rather than depending on the concrete
+// *client.Client type) lets tests inject a fake implementation and exercise
+// getSystemInfo/getContainerStates without a running docker daemon.
+type dockerAPIClient interface {
+	Info(ctx context.Context, options client.InfoOptions) (client.SystemInfoResult, error)
+	DiskUsage(ctx context.Context, options client.DiskUsageOptions) (client.DiskUsageResult, error)
+	ContainerList(ctx context.Context, options client.ContainerListOptions) (client.ContainerListResult, error)
+}
+
 func (widget *Widget) getSystemInfo() string {
-	info, err := widget.cli.Info(context.Background())
+	info, err := widget.cli.Info(context.Background(), client.InfoOptions{})
 	if err != nil {
 		return fmt.Errorf("could not get docker system info: %w", err).Error()
 	}
 
-	diskUsage, err := widget.cli.DiskUsage(context.Background(), types.DiskUsageOptions{})
+	diskUsage, err := widget.cli.DiskUsage(context.Background(), client.DiskUsageOptions{
+		Containers: true,
+		Images:     true,
+		Volumes:    true,
+	})
 	if err != nil {
 		return fmt.Errorf("could not get disk usage: %w", err).Error()
 	}
 
-	var duContainer int64
-	for _, c := range diskUsage.Containers {
-		duContainer += c.SizeRw
-	}
-	var duImg int64
-	for _, im := range diskUsage.Images {
-		duImg += im.Size
-	}
-	var duVol int64
-	for _, v := range diskUsage.Volumes {
-		duVol += v.UsageData.Size
-	}
-
-	sysInfo := []struct {
-		name  string
-		value string
-	}{
-		{
-			name:  "name:",
-			value: fmt.Sprintf("[%s]%s", widget.settings.Colors.EvenForeground, info.Name),
-		}, {
-			name:  "version:",
-			value: fmt.Sprintf("[%s]%s", widget.settings.Colors.EvenForeground, info.ServerVersion),
-		}, {
-			name:  "root:",
-			value: fmt.Sprintf("[%s]%s", widget.settings.Colors.EvenForeground, info.DockerRootDir),
-		},
-		{
-			name: "containers:",
-			value: fmt.Sprintf("[lime]%d[white]/[yellow]%d[white]/[red]%d",
-				info.ContainersRunning,
-				info.ContainersPaused, info.ContainersStopped),
-		},
-		{
-			name:  "images:",
-			value: fmt.Sprintf("[%s]%d", widget.settings.Colors.EvenForeground, info.Images),
-		},
-		{
-			name:  "volumes:",
-			value: fmt.Sprintf("[%s]%v", widget.settings.Colors.EvenForeground, len(diskUsage.Volumes)),
-		},
-		{
-			name:  "memory limit:",
-			value: fmt.Sprintf("[%s]%s", widget.settings.Colors.EvenForeground, humanize.Bytes(uint64(info.MemTotal))),
-		},
-		{
-			name: "disk usage:",
-			value: fmt.Sprintf(`
-    [%s]* containers: [%s]%s
-    [%s]* images:     [%s]%s
-    [%s]* volumes:    [%s]%s
-    [%s]* [::b]total:      [%s]%s[::-]
-`,
-				widget.settings.labelColor,
-				widget.settings.Colors.EvenForeground,
-				humanize.Bytes(uint64(duContainer)),
-
-				widget.settings.labelColor,
-				widget.settings.Colors.EvenForeground,
-				humanize.Bytes(uint64(duImg)),
-
-				widget.settings.labelColor,
-				widget.settings.Colors.EvenForeground,
-				humanize.Bytes(uint64(duVol)),
-
-				widget.settings.labelColor,
-				widget.settings.Colors.EvenForeground,
-				humanize.Bytes(uint64(duContainer+duImg+duVol))),
-		},
-	}
-
-	padSlice(true, sysInfo, func(i int) string {
-		return sysInfo[i].name
-	}, func(i int, newVal string) {
-		sysInfo[i].name = newVal
-	})
-
-	result := ""
-	for _, info := range sysInfo {
-		result += fmt.Sprintf("[%s]%s %s\n", widget.settings.labelColor, info.name, info.value)
-	}
-
-	return result
+	return formatSystemInfo(
+		info.Info,
+		diskUsage.Containers.TotalSize,
+		diskUsage.Images.TotalSize,
+		diskUsage.Volumes.TotalSize,
+		diskUsage.Volumes.TotalCount,
+		widget.settings.labelColor,
+		widget.settings.Colors.EvenForeground,
+	)
 }
 
 func (widget *Widget) getContainerStates() string {
-	cntrs, err := widget.cli.ContainerList(context.Background(), container.ListOptions{All: true})
+	result, err := widget.cli.ContainerList(context.Background(), client.ContainerListOptions{All: true})
 	if err != nil {
 		return fmt.Errorf("could not get container list: %w", err).Error()
 	}
 
-	if len(cntrs) == 0 {
-		return " no containers"
-	}
-
-	colorMap := map[string]string{
-		"created":    "green",
-		"running":    "lime",
-		"paused":     "yellow",
-		"restarting": "yellow",
-		"removing":   "yellow",
-		"exited":     "red",
-		"dead":       "red",
-	}
-
-	containers := []struct {
-		name  string
-		state string
-	}{}
-	for _, c := range cntrs {
-		container := struct {
-			name  string
-			state string
-		}{
-			name:  c.Names[0],
-			state: c.State,
-		}
-
-		container.name = strings.ReplaceAll(container.name, "/", "")
-		containers = append(containers, container)
-	}
-
-	sort.Slice(containers, func(i, j int) bool {
-		return containers[i].name < containers[j].name
-	})
-
-	padSlice(false, containers, func(i int) string {
-		return containers[i].name
-	}, func(i int, val string) {
-		containers[i].name = val
-	})
-
-	result := ""
-	for _, c := range containers {
-		result += fmt.Sprintf("[white]%s [%s]%s\n", c.name, colorMap[c.state], c.state)
-	}
-
-	return result
+	return formatContainerStates(result.Items)
 }

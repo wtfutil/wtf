@@ -3,16 +3,23 @@ package docker
 import (
 	"fmt"
 
-	"github.com/docker/docker/client"
+	"github.com/moby/moby/client"
 	"github.com/rivo/tview"
 	"github.com/wtfutil/wtf/view"
 )
 
 type Widget struct {
 	view.TextWidget
-	cli           *client.Client
+	cli           dockerAPIClient
 	settings      *Settings
 	displayBuffer string
+}
+
+// newDockerClient constructs the real docker client. It is a variable so
+// tests can substitute a fake client and exercise NewWidget's success/error
+// branches without a running docker daemon.
+var newDockerClient = func() (dockerAPIClient, error) {
+	return client.New(client.FromEnv)
 }
 
 func NewWidget(tviewApp *tview.Application, redrawChan chan bool, pages *tview.Pages, settings *Settings) *Widget {
@@ -23,7 +30,7 @@ func NewWidget(tviewApp *tview.Application, redrawChan chan bool, pages *tview.P
 
 	widget.View.SetScrollable(true)
 
-	cli, err := client.NewClientWithOpts(client.FromEnv)
+	cli, err := newDockerClient()
 	if err != nil {
 		widget.displayBuffer = fmt.Errorf("could not create client: %w", err).Error()
 	} else {
