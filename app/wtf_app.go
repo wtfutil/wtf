@@ -155,9 +155,7 @@ func (wtfApp *WtfApp) keyboardIntercept(event *tcell.EventKey) *tcell.EventKey {
 	// These keys are global keys used by the app. Widgets should not implement these keys
 	switch event.Key() {
 	case tcell.KeyCtrlC:
-		wtfApp.Stop()
-		wtfApp.TViewApp.Stop()
-		wtfApp.DisplayExitMessage()
+		wtfApp.Exit()
 	case tcell.KeyCtrlR:
 		wtfApp.refreshAllWidgets()
 		return nil
