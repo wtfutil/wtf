@@ -49,8 +49,13 @@ func (calEvent *CalEvent) Now() bool {
 
 func (calEvent *CalEvent) Past() bool {
 	if calEvent.AllDay() {
-		// FIXME: This should calculate properly
-		return false
+		now := time.Now().Local()
+		todayMidnight := time.Date(now.Year(), now.Month(), now.Day(), 0, 0, 0, 0, now.Location())
+
+		// All-day event end dates are exclusive (Google Calendar convention: a
+		// single-day event starting on the 3rd has an end date of the 4th), so
+		// the event is past once its end date's midnight is today or earlier.
+		return !calEvent.End().After(todayMidnight)
 	}
 
 	return !calEvent.Now() && calEvent.Start().Before(time.Now())
