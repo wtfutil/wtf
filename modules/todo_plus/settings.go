@@ -42,8 +42,10 @@ func FromTodoist(name string, ymlConfig *config.Config, globalConfig *config.Con
 	apiKey := ymlConfig.UString("apiKey", ymlConfig.UString("apikey", os.Getenv("WTF_TODOIST_TOKEN")))
 	cfg.ModuleSecret(name, globalConfig, &apiKey).Load()
 	projects := ymlConfig.UList("projects")
+	filters := ymlConfig.UList("filters")
 	backend, _ := config.ParseYaml("apiKey: " + apiKey)
 	_ = backend.Set(".projects", projects)
+	_ = backend.Set(".filters", filters)
 
 	settings := Settings{
 		Common: cfg.NewCommonSettingsFromModule(name, defaultTitle, defaultFocusable, ymlConfig, globalConfig),
