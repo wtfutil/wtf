@@ -23,7 +23,7 @@ type Settings struct {
 	apiKey     string `help:"Your Live Tennis API key. A free key (1,000 requests/day) is available at https://livetennisapi.com/subscribe/free." values:"A valid Live Tennis API key"`
 	baseURL    string `help:"The base URL of the Live Tennis API." values:"A URL" optional:"true" default:"https://api.livetennisapi.com/api/public/v1"`
 	tour       string `help:"Restrict matches to a single tour." values:"atp, wta, or empty for all tours" optional:"true"`
-	status     string `help:"Which matches to display." values:"live, upcoming, completed" optional:"true" default:"live"`
+	status     string `help:"Which matches to display." values:"live or upcoming" optional:"true" default:"live"`
 	matchLimit int    `help:"The maximum number of matches to display." values:"A positive integer" optional:"true" default:"10"`
 }
 

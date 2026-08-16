@@ -43,7 +43,7 @@ func NewClient(apiKey string, httpClient *http.Client, baseURL string) *Client {
 	return &Client{apiKey: apiKey, httpClient: httpClient, baseURL: baseURL}
 }
 
-// FetchMatches retrieves matches filtered by status (live|upcoming|completed),
+// FetchMatches retrieves matches filtered by status (live|upcoming),
 // tour (optional, e.g. atp/wta) and limit (0 = API default).
 func (c *Client) FetchMatches(ctx context.Context, status, tour string, limit int) ([]Match, error) {
 	u, err := url.Parse(c.baseURL + "/matches")

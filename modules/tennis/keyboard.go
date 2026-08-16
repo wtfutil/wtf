@@ -3,8 +3,9 @@ package tennis
 import "github.com/gdamore/tcell/v2"
 
 // statusCycle is the order the 'l'/'h' keys move through the API's match
-// statuses.
-var statusCycle = []string{"live", "upcoming", "completed"}
+// statuses. The API's completed-match listing requires a paid plan, so it is
+// deliberately not in the cycle: every state here works on a free key.
+var statusCycle = []string{"live", "upcoming"}
 
 func (widget *Widget) initializeKeyboardControls() {
 	widget.InitializeHelpTextKeyboardControl(widget.ShowHelp)

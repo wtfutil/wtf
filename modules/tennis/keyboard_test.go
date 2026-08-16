@@ -13,9 +13,9 @@ func TestShiftStatus(t *testing.T) {
 		want    string
 	}{
 		{"forward", "live", 1, "upcoming"},
-		{"forward wraps", "completed", 1, "live"},
+		{"forward wraps", "upcoming", 1, "live"},
 		{"backward", "upcoming", -1, "live"},
-		{"backward wraps", "live", -1, "completed"},
+		{"backward wraps", "live", -1, "upcoming"},
 		{"unknown status starts at the beginning", "bogus", 1, "upcoming"},
 	}
 
@@ -42,7 +42,7 @@ func TestStatusKeysRequeryTheAPI(t *testing.T) {
 	widget.nextStatus()
 	widget.prevStatus()
 
-	want := []string{"upcoming", "completed", "upcoming"}
+	want := []string{"upcoming", "live", "upcoming"}
 	if len(seen) != len(want) {
 		t.Fatalf("expected %d requests, got %d (%v)", len(want), len(seen), seen)
 	}

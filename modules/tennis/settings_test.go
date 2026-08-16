@@ -156,7 +156,7 @@ func TestNormalizeStatus(t *testing.T) {
 	tests := []struct{ in, want string }{
 		{"live", "live"},
 		{"upcoming", "upcoming"},
-		{"completed", "completed"},
+		{"completed", "live"}, // completed requires a paid plan; clamp to the free-tier surface
 		{"bogus", "live"},
 		{"LIVE", "live"},
 		{"", "live"},

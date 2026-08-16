@@ -189,7 +189,7 @@ func TestWidgetTitle(t *testing.T) {
 	}{
 		{"no tour", "", "live", "Tennis (live)"},
 		{"with tour", "wta", "upcoming", "Tennis WTA (upcoming)"},
-		{"completed", "atp", "completed", "Tennis ATP (completed)"},
+		{"tour and status", "atp", "live", "Tennis ATP (live)"},
 	}
 
 	for _, tt := range tests {
