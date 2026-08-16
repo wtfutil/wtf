@@ -6,7 +6,7 @@ import (
 )
 
 var (
-	footballAPIUrl = "https://api.football-data.org/v2"
+	footballAPIUrl = "https://api.football-data.org/v4"
 )
 
 type leagueInfo struct {
@@ -30,12 +30,13 @@ func (client *Client) footballRequest(path string, id int) (*http.Response, erro
 
 	url := fmt.Sprintf("%s/competitions/%d/%s", footballAPIUrl, id, path)
 	req, err := http.NewRequest("GET", url, http.NoBody)
-	req.Header.Add("Accept", "application/json")
-	req.Header.Add("Content-Type", "application/json")
-	req.Header.Add("X-Auth-Token", client.apiKey)
 	if err != nil {
 		return nil, err
 	}
+	req.Header.Add("Accept", "application/json")
+	req.Header.Add("Content-Type", "application/json")
+	req.Header.Add("X-Auth-Token", client.apiKey)
+
 	httpClient := &http.Client{}
 	resp, err := httpClient.Do(req)
 	if err != nil {
