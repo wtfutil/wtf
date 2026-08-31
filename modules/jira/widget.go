@@ -115,7 +115,7 @@ func getLongestColumnLengths(issues []Issue) (int, int, int) {
 
 		issueKeyLength := len(issue.Key)
 		if issueKeyLength > longestKeyLength {
-			longestKeyLength = len("WTF-XXX") // issueKeyLength
+			longestKeyLength = issueKeyLength
 		}
 
 		statusNameLength := len(issue.IssueFields.IssueStatus.IName)
