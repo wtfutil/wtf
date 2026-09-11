@@ -27,6 +27,7 @@ import (
 	"github.com/wtfutil/wtf/modules/docker"
 	"github.com/wtfutil/wtf/modules/feedreader"
 	"github.com/wtfutil/wtf/modules/football"
+	"github.com/wtfutil/wtf/modules/fxmacrodata"
 	"github.com/wtfutil/wtf/modules/gcal"
 	"github.com/wtfutil/wtf/modules/gerrit"
 	"github.com/wtfutil/wtf/modules/git"
@@ -370,6 +371,9 @@ func MakeWidget(
 	case "finnhub":
 		settings := finnhub.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = finnhub.NewWidget(tviewApp, redrawChan, settings)
+	case "fxmacrodata":
+		settings := fxmacrodata.NewSettingsFromYAML(moduleName, moduleConfig, config)
+		widget = fxmacrodata.NewWidget(tviewApp, redrawChan, settings)
 	case "yfinance":
 		settings := yfinance.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = yfinance.NewWidget(tviewApp, redrawChan, settings)
