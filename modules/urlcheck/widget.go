@@ -30,7 +30,7 @@ func NewWidget(tviewApp *tview.Application, redrawChan chan bool, settings *Sett
 		settings: settings,
 		urlList:  make([]*urlResult, maxUrl),
 		client:   &http.Client{},
-		timeout:  time.Duration(settings.requestTimeout) + time.Second,
+		timeout:  time.Duration(settings.requestTimeout) * time.Second,
 	}
 
 	widget.init()
