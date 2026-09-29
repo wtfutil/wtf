@@ -7,7 +7,7 @@ wtf:
       focused: orange
       normal: gray
     checked: yellow
-    highlight: 
+    highlight:
       fore: black
       back: gray
     rows:
@@ -34,4 +34,6 @@ wtf:
         width: 3
       refreshInterval: 1
       labelColor: lightblue
-  
+      # Read dockerd's pid file instead of the API to check if it's up, so a
+      # socket-activated daemon isn't started on every refresh. Omit to disable.
+      pidFilePath: "auto"
