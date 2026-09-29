@@ -26,10 +26,25 @@ func (widget *Widget) content() (string, string, bool) {
 	str := ""
 
 	for idx, item := range proj.Tasks {
+		displayName := tview.Escape(item.Name)
+
+		if item.Prefix != "" {
+			displayName = fmt.Sprintf("[yellow]%s[-] %s",
+				tview.Escape(item.Prefix), displayName)
+		}
+
+		if item.DateSuffix != "" {
+			if item.Overdue {
+				displayName += fmt.Sprintf("[red]%s[-]", item.DateSuffix)
+			} else {
+				displayName += item.DateSuffix
+			}
+		}
+
 		row := fmt.Sprintf(
 			`[%s]| | %s[%s]`,
 			widget.RowColor(idx),
-			tview.Escape(item.Name),
+			displayName,
 			widget.RowColor(idx),
 		)
 
