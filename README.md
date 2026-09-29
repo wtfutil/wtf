@@ -11,6 +11,8 @@
 
 ---
 
+:rotating_light: :warning: This project is being renamed and moving to a new GitHub org. The original repository URL is `github.com/wtfutil/wtf`. The new one will be `github.com/linodians/tessera`. This will be the exact same repository. The history is moving over. :warning: :rotating_light:
+
 :rotating_light: :warning: This project is going through some changes as we prepare for v1.0. This includes
 a rename from WTF to **Tessera**! Stay tuned! :warning: :rotating_light:
 
