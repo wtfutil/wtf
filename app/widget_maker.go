@@ -72,6 +72,7 @@ import (
 	"github.com/wtfutil/wtf/modules/stocks/yfinance"
 	"github.com/wtfutil/wtf/modules/subreddit"
 	"github.com/wtfutil/wtf/modules/system"
+	"github.com/wtfutil/wtf/modules/tennis"
 	"github.com/wtfutil/wtf/modules/textfile"
 	"github.com/wtfutil/wtf/modules/todo"
 	"github.com/wtfutil/wtf/modules/todo_plus"
@@ -313,6 +314,9 @@ func MakeWidget(
 	case "system":
 		settings := system.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = system.NewWidget(tviewApp, redrawChan, buildDate(), buildVersion(), settings)
+	case "tennis":
+		settings := tennis.NewSettingsFromYAML(moduleName, moduleConfig, config)
+		widget = tennis.NewWidget(tviewApp, redrawChan, pages, settings)
 	case "textfile":
 		settings := textfile.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = textfile.NewWidget(tviewApp, redrawChan, pages, settings)
