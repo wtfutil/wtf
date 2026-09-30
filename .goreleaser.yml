@@ -13,6 +13,12 @@ builds:
   - arm64
   goarm:
   - 7
+  goamd64:
+  - v1
+  - v3
+  ignore:
+  - goos: darwin
+    goamd64: v3
 - id: wtf
   binary: wtfutil
   goos:
@@ -22,6 +28,12 @@ builds:
   - amd64
   - arm
   - arm64
+  goamd64:
+  - v1
+  - v3
+  ignore:
+  - goos: darwin
+    goamd64: v3
 
 archives:
 - id: tessera
