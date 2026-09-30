@@ -13,9 +13,9 @@ import (
 
 const (
 	userAgent = "WTFUtil"
-
-	apiURLBase = "https://updown.io"
 )
+
+var apiURLBase = "https://updown.io"
 
 type Widget struct {
 	view.ScrollableWidget
