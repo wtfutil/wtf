@@ -50,11 +50,7 @@ func (repo *GitRepo) changedFiles() []string {
 }
 
 func (repo *GitRepo) commits(commitCount int, commitFormat, dateFormat string) []string {
-	dateStr := fmt.Sprintf("--date=format:\"%s\"", dateFormat)
-	numStr := fmt.Sprintf("-n %d", commitCount)
-	commitStr := fmt.Sprintf("--pretty=format:\"%s\"", commitFormat)
-
-	arg := []string{repo.gitDir(), repo.workTree(), "log", dateStr, numStr, commitStr}
+	arg := append([]string{repo.gitDir(), repo.workTree()}, commitLogArgs(commitCount, commitFormat, dateFormat)...)
 
 	cmd := exec.Command(__go_cmd, arg...)
 	str := utils.ExecuteCommand(cmd)
@@ -62,6 +58,17 @@ func (repo *GitRepo) commits(commitCount int, commitFormat, dateFormat string) [
 	data := strings.Split(str, "\n")
 
 	return data
+}
+
+// commitLogArgs builds the `git log` arguments used to retrieve recent commits in the
+// requested count, message format, and date format. Extracted as a pure function so the
+// argument formatting can be unit tested without shelling out to git.
+func commitLogArgs(commitCount int, commitFormat, dateFormat string) []string {
+	dateStr := fmt.Sprintf("--date=format:\"%s\"", dateFormat)
+	numStr := fmt.Sprintf("-n %d", commitCount)
+	commitStr := fmt.Sprintf("--pretty=format:\"%s\"", commitFormat)
+
+	return []string{"log", dateStr, numStr, commitStr}
 }
 
 func (repo *GitRepo) repository() string {
