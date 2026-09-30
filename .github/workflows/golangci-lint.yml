@@ -6,6 +6,10 @@ on:
     branches:
       - trunk
   pull_request:
+
+permissions:
+  contents: read
+
 jobs:
   golangci:
     name: lint
