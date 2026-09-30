@@ -75,8 +75,11 @@ type Predictions struct {
 	Direction   Direction `json:"direction"`
 }
 
+// baseURL is the base URL for the NextBus API. Override in tests.
+var baseURL = "https://webservices.umoiq.com/service/publicJSONFeed"
+
 func getNextBus(agency string, route string, stopID string) string {
-	url := fmt.Sprintf("https://webservices.umoiq.com/service/publicJSONFeed?command=predictions&a=%s&r=%s&stopId=%s", agency, route, stopID)
+	url := fmt.Sprintf("%s?command=predictions&a=%s&r=%s&stopId=%s", baseURL, agency, route, stopID)
 	resp, err := http.Get(url)
 	if err != nil {
 		logger.Log(fmt.Sprintf("[nextbus] Error: Failed to make requests to umoiq for next bus predictions. Reason: %s", err))
