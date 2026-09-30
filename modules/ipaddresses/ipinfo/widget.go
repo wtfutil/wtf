@@ -18,6 +18,11 @@ type Widget struct {
 
 	result   string
 	settings *Settings
+
+	// httpClient allows overriding the HTTP client for testing.
+	httpClient *http.Client
+	// baseURL allows overriding the ipinfo.io base URL for testing.
+	baseURL string
 }
 
 type ipinfo struct {
@@ -51,13 +56,21 @@ func (widget *Widget) Refresh() {
 
 // this method reads the config and calls ipinfo for ip information
 func (widget *Widget) ipinfo() {
-	client := &http.Client{}
+	client := widget.httpClient
+	if client == nil {
+		client = &http.Client{}
+	}
+	baseURL := widget.baseURL
+	if baseURL == "" {
+		baseURL = "https://ipinfo.io"
+	}
+
 	var url string
 	ip, ipv6 := getMyIP(widget.settings.protocolVersion)
 	if ipv6 {
-		url = fmt.Sprintf("https://ipinfo.io/%s", ip.String())
+		url = fmt.Sprintf("%s/%s", baseURL, ip.String())
 	} else {
-		url = "https://ipinfo.io/"
+		url = baseURL + "/"
 	}
 
 	req, err := http.NewRequest("GET", url, http.NoBody)
