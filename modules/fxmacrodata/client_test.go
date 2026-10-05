@@ -142,6 +142,26 @@ func TestTheAPIKeyTravelsAsAHeader(t *testing.T) {
 	assert.NotContains(t, query, "test-key")
 }
 
+func TestTheAPIKeyIsNotForwardedOnARedirect(t *testing.T) {
+	var forwarded string
+	elsewhere := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		forwarded = r.Header.Get("X-API-Key")
+		_, _ = fmt.Fprint(w, `{"data":[]}`)
+	}))
+	defer elsewhere.Close()
+
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		http.Redirect(w, r, elsewhere.URL+r.URL.Path, http.StatusFound)
+	}))
+	defer server.Close()
+
+	settings := &Settings{baseURL: server.URL, count: 5, currencies: []string{"usd"}, apiKey: "test-key"}
+	_, err := upcoming(settings, newClient(), now)
+
+	require.Error(t, err)
+	assert.Empty(t, forwarded)
+}
+
 func TestNameFallsBackToTheReleaseSlug(t *testing.T) {
 	assert.Equal(t, "Consumer Price Index", label(calendarRow{Release: "inflation", Name: "Consumer Price Index"}))
 	assert.Equal(t, "core inflation", label(calendarRow{Release: "core_inflation"}))

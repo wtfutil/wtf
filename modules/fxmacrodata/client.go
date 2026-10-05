@@ -30,6 +30,18 @@ type calendarResponse struct {
 	Data []calendarRow `json:"data"`
 }
 
+// newClient returns an HTTP client that does not follow redirects, so the
+// X-API-Key header is never sent on to another host. A redirect surfaces as a
+// non-200 status instead.
+func newClient() *http.Client {
+	return &http.Client{
+		Timeout: 10 * time.Second,
+		CheckRedirect: func(*http.Request, []*http.Request) error {
+			return http.ErrUseLastResponse
+		},
+	}
+}
+
 // upcoming returns the next releases across every configured currency,
 // soonest first.
 //
