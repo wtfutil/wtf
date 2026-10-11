@@ -110,11 +110,12 @@ func (widget *Widget) GetStandings(leagueId int) string {
 		return "Error fetching standings"
 	}
 
-	if len(l.Standings) == 0 {
+	table := totalTable(l.Standings)
+	if len(table) == 0 {
 		return "No standings found for this competition"
 	}
 
-	for _, i := range l.Standings[0].Table {
+	for _, i := range table {
 		if i.Position <= widget.settings.standingCount {
 			row := []string{strconv.Itoa(i.Position), i.Team.Name, strconv.Itoa(i.PlayedGames), strconv.Itoa(i.Won), strconv.Itoa(i.Draw), strconv.Itoa(i.Lost), strconv.Itoa(i.GoalDifference), strconv.Itoa(i.Points)}
 			tStandings.Append(row)
@@ -141,7 +142,9 @@ func (widget *Widget) GetMatches(leagueId int) string {
 	from := getDateString(-widget.settings.matchesFrom)
 	to := getDateString(widget.settings.matchesTo)
 
-	requestPath := fmt.Sprintf("matches?dateFrom=%s&dateTo=%s", from, to)
+	// v4 excludes the dateTo day itself, so ask for one day beyond the
+	// configured window to keep matchesTo inclusive as documented.
+	requestPath := fmt.Sprintf("matches?dateFrom=%s&dateTo=%s", from, getDateString(widget.settings.matchesTo+1))
 	resp, err := widget.footballRequest(requestPath, leagueId)
 	if err != nil {
 		return fmt.Sprintf("Error fetching matches: %s", err.Error())
@@ -165,12 +168,18 @@ func (widget *Widget) GetMatches(leagueId int) string {
 		widget.markFavorite(&m)
 
 		switch m.Status {
-		case "SCHEDULED":
+		case "SCHEDULED", "TIMED":
+			// TIMED is a match whose kick-off time has been confirmed. It
+			// was previously dropped, which hid every imminent fixture.
 			row := []string{m.HomeTeam.Name, "🆚", m.AwayTeam.Name, parseDateString(m.Date)}
 			tScheduled.Append(row)
-		case "FINISHED":
-			row := []string{m.HomeTeam.Name, strconv.Itoa(m.Score.FullTime.HomeTeam), "🆚", m.AwayTeam.Name, strconv.Itoa(m.Score.FullTime.AwayTeam)}
+		case "IN_PLAY", "PAUSED", "FINISHED", "AWARDED":
+			row := []string{m.HomeTeam.Name, scoreString(m.Score.FullTime.Home), "🆚", m.AwayTeam.Name, scoreString(m.Score.FullTime.Away)}
 			tPlayed.Append(row)
+		default:
+			// POSTPONED, SUSPENDED, CANCELLED
+			row := []string{m.HomeTeam.Name, "🆚", m.AwayTeam.Name, fmt.Sprintf("⚠ %s", m.Status)}
+			tScheduled.Append(row)
 		}
 	}
 

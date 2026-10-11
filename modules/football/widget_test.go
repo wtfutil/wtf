@@ -34,6 +34,13 @@ func TestGetStandingsFiltersByStandingCount(t *testing.T) {
 	const standingsJSON = `{
 		"standings": [
 			{
+				"type": "HOME",
+				"table": [
+					{"position": 1, "team": {"name": "Home Only FC"}, "playedGames": 5, "won": 5, "draw": 0, "lost": 0, "goalDifference": 9, "points": 15}
+				]
+			},
+			{
+				"type": "TOTAL",
 				"table": [
 					{"position": 1, "team": {"name": "Team A"}, "playedGames": 10, "won": 8, "draw": 1, "lost": 1, "goalDifference": 15, "points": 25},
 					{"position": 2, "team": {"name": "Team B"}, "playedGames": 10, "won": 6, "draw": 2, "lost": 2, "goalDifference": 10, "points": 20},
@@ -57,6 +64,7 @@ func TestGetStandingsFiltersByStandingCount(t *testing.T) {
 	assert.Assert(t, strings.Contains(content, "Team A"))
 	assert.Assert(t, strings.Contains(content, "Team B"))
 	assert.Assert(t, !strings.Contains(content, "Team C"), "team outside standingCount should be excluded")
+	assert.Assert(t, !strings.Contains(content, "Home Only FC"), "only the TOTAL table should be rendered")
 }
 
 func TestGetStandingsEmptyReturnsError(t *testing.T) {
@@ -75,8 +83,8 @@ func TestGetStandingsEmptyReturnsError(t *testing.T) {
 func TestGetMatchesSplitsScheduledAndFinished(t *testing.T) {
 	const matchesJSON = `{
 		"matches": [
-			{"homeTeam": {"name": "Home FC"}, "awayTeam": {"name": "Away FC"}, "status": "FINISHED", "utcDate": "2024-01-01T15:00:00Z", "score": {"fullTime": {"homeTeam": 2, "awayTeam": 1}}},
-			{"homeTeam": {"name": "Next Home"}, "awayTeam": {"name": "Next Away"}, "status": "SCHEDULED", "utcDate": "2024-01-08T15:00:00Z", "score": {"fullTime": {"homeTeam": 0, "awayTeam": 0}}}
+			{"homeTeam": {"name": "Home FC"}, "awayTeam": {"name": "Away FC"}, "status": "FINISHED", "utcDate": "2024-01-01T15:00:00Z", "score": {"fullTime": {"home": 2, "away": 1}}},
+			{"homeTeam": {"name": "Next Home"}, "awayTeam": {"name": "Next Away"}, "status": "SCHEDULED", "utcDate": "2024-01-08T15:00:00Z", "score": {"fullTime": {"home": null, "away": null}}}
 		]
 	}`
 
@@ -101,7 +109,7 @@ func TestGetMatchesSplitsScheduledAndFinished(t *testing.T) {
 func TestGetMatchesMarksFavoriteTeam(t *testing.T) {
 	const matchesJSON = `{
 		"matches": [
-			{"homeTeam": {"name": "Home FC"}, "awayTeam": {"name": "My Favorite Team"}, "status": "SCHEDULED", "utcDate": "2024-01-08T15:00:00Z", "score": {"fullTime": {"homeTeam": 0, "awayTeam": 0}}}
+			{"homeTeam": {"name": "Home FC"}, "awayTeam": {"name": "My Favorite Team"}, "status": "SCHEDULED", "utcDate": "2024-01-08T15:00:00Z", "score": {"fullTime": {"home": null, "away": null}}}
 		]
 	}`
 
@@ -211,12 +219,12 @@ func TestMarkFavoriteMarksAwayTeam(t *testing.T) {
 func TestContentHappyPath(t *testing.T) {
 	const standingsJSON = `{
 		"standings": [
-			{"table": [{"position": 1, "team": {"name": "Team A"}, "playedGames": 1, "won": 1, "draw": 0, "lost": 0, "goalDifference": 1, "points": 3}]}
+			{"type": "TOTAL", "table": [{"position": 1, "team": {"name": "Team A"}, "playedGames": 1, "won": 1, "draw": 0, "lost": 0, "goalDifference": 1, "points": 3}]}
 		]
 	}`
 	const matchesJSON = `{
 		"matches": [
-			{"homeTeam": {"name": "Home FC"}, "awayTeam": {"name": "Away FC"}, "status": "FINISHED", "utcDate": "2024-01-01T15:00:00Z", "score": {"fullTime": {"homeTeam": 1, "awayTeam": 0}}}
+			{"homeTeam": {"name": "Home FC"}, "awayTeam": {"name": "Away FC"}, "status": "FINISHED", "utcDate": "2024-01-01T15:00:00Z", "score": {"fullTime": {"home": 1, "away": 0}}}
 		]
 	}`
 
@@ -244,4 +252,116 @@ func TestContentHappyPath(t *testing.T) {
 	assert.Assert(t, strings.Contains(content, "Matches Played:"))
 	assert.Assert(t, strings.Contains(content, "Home FC"))
 	assert.Assert(t, !wrap)
+}
+
+// TestGetMatchesIncludesTimedFixtures covers the v4 status workflow: a fixture
+// with a confirmed kick-off time is TIMED, not SCHEDULED. Only handling
+// SCHEDULED silently dropped every imminent fixture from the widget.
+func TestGetMatchesIncludesTimedFixtures(t *testing.T) {
+	const matchesJSON = `{
+		"matches": [
+			{"homeTeam": {"name": "Timed Home"}, "awayTeam": {"name": "Timed Away"}, "status": "TIMED", "utcDate": "2024-01-08T15:00:00Z", "score": {"fullTime": {"home": null, "away": null}}}
+		]
+	}`
+
+	withFakeFootballAPI(t, func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		_, _ = fmt.Fprint(w, matchesJSON)
+	})
+
+	widget := newTestWidget(&Settings{matchesFrom: 2, matchesTo: 5})
+
+	content := widget.GetMatches(2021)
+
+	assert.Assert(t, strings.Contains(content, "Upcoming Matches:"))
+	assert.Assert(t, strings.Contains(content, "Timed Home"))
+	assert.Assert(t, strings.Contains(content, "Timed Away"))
+}
+
+// TestGetMatchesLiveMatchShowsRunningScore checks that an in-progress match is
+// rendered with its running score rather than being dropped.
+func TestGetMatchesLiveMatchShowsRunningScore(t *testing.T) {
+	const matchesJSON = `{
+		"matches": [
+			{"homeTeam": {"name": "Live Home"}, "awayTeam": {"name": "Live Away"}, "status": "IN_PLAY", "utcDate": "2024-01-08T15:00:00Z", "score": {"fullTime": {"home": 2, "away": 0}}}
+		]
+	}`
+
+	withFakeFootballAPI(t, func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		_, _ = fmt.Fprint(w, matchesJSON)
+	})
+
+	widget := newTestWidget(&Settings{matchesFrom: 2, matchesTo: 5})
+
+	content := widget.GetMatches(2021)
+
+	assert.Assert(t, strings.Contains(content, "Live Home"))
+	assert.Assert(t, strings.Contains(content, "2"))
+}
+
+// TestGetMatchesPostponedIsShown checks that statuses outside the happy path
+// are surfaced instead of vanishing from the widget.
+func TestGetMatchesPostponedIsShown(t *testing.T) {
+	const matchesJSON = `{
+		"matches": [
+			{"homeTeam": {"name": "Off Home"}, "awayTeam": {"name": "Off Away"}, "status": "POSTPONED", "utcDate": "2024-01-08T15:00:00Z", "score": {"fullTime": {"home": null, "away": null}}}
+		]
+	}`
+
+	withFakeFootballAPI(t, func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		_, _ = fmt.Fprint(w, matchesJSON)
+	})
+
+	widget := newTestWidget(&Settings{matchesFrom: 2, matchesTo: 5})
+
+	content := widget.GetMatches(2021)
+
+	assert.Assert(t, strings.Contains(content, "Off Home"))
+	assert.Assert(t, strings.Contains(content, "POSTPONED"))
+}
+
+// TestGetMatchesRequestsInclusiveDateRange guards the v4 change that excludes
+// the dateTo day itself from the result set.
+func TestGetMatchesRequestsInclusiveDateRange(t *testing.T) {
+	var gotDateTo string
+
+	withFakeFootballAPI(t, func(w http.ResponseWriter, r *http.Request) {
+		gotDateTo = r.URL.Query().Get("dateTo")
+		w.WriteHeader(http.StatusOK)
+		_, _ = fmt.Fprint(w, `{"matches": []}`)
+	})
+
+	widget := newTestWidget(&Settings{matchesFrom: 2, matchesTo: 5})
+
+	widget.GetMatches(2021)
+
+	assert.Equal(t, gotDateTo, getDateString(6))
+}
+
+// TestTotalTableSkipsHomeAndAwayTables covers the v4 standings response, which
+// returns separate TOTAL, HOME and AWAY tables for a league competition.
+func TestTotalTableSkipsHomeAndAwayTables(t *testing.T) {
+	standings := []Standing{
+		{Type: "HOME", Table: []Table{{Position: 1, Team: Team{Name: "Home Table Team"}}}},
+		{Type: "TOTAL", Table: []Table{{Position: 1, Team: Team{Name: "Total Table Team"}}}},
+		{Type: "AWAY", Table: []Table{{Position: 1, Team: Team{Name: "Away Table Team"}}}},
+	}
+
+	table := totalTable(standings)
+
+	assert.Equal(t, len(table), 1)
+	assert.Equal(t, table[0].Team.Name, "Total Table Team")
+}
+
+func TestTotalTableNoStandings(t *testing.T) {
+	assert.Assert(t, totalTable(nil) == nil)
+}
+
+func TestScoreStringNilIsDash(t *testing.T) {
+	assert.Equal(t, scoreString(nil), "-")
+
+	goals := 3
+	assert.Equal(t, scoreString(&goals), "3")
 }
