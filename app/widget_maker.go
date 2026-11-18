@@ -50,6 +50,7 @@ import (
 	"github.com/wtfutil/wtf/modules/lunarphase"
 	"github.com/wtfutil/wtf/modules/mercurial"
 	"github.com/wtfutil/wtf/modules/nbascore"
+	"github.com/wtfutil/wtf/modules/netmon"
 	"github.com/wtfutil/wtf/modules/newrelic"
 	"github.com/wtfutil/wtf/modules/nextbus"
 	"github.com/wtfutil/wtf/modules/opsgenie"
@@ -253,6 +254,9 @@ func MakeWidget(
 	case "nbascore":
 		settings := nbascore.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = nbascore.NewWidget(tviewApp, redrawChan, pages, settings)
+	case "netmon":
+		settings := netmon.NewSettingsFromYAML(moduleName, moduleConfig, config)
+		widget = netmon.NewWidget(tviewApp, redrawChan, settings)
 	case "newrelic":
 		settings := newrelic.NewSettingsFromYAML(moduleName, moduleConfig, config)
 		widget = newrelic.NewWidget(tviewApp, redrawChan, pages, settings)

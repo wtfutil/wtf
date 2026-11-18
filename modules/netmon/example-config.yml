@@ -1,0 +1,36 @@
+wtf:
+  colors:
+    # background: black
+    # foreground: blue
+    border:
+      focusable: darkslateblue
+      focused: orange
+      normal: gray
+    checked: yellow
+    highlight:
+      fore: black
+      back: gray
+    rows:
+      even: yellow
+      odd: white
+  grid:
+    columns: [35]
+    rows: [8]
+  refreshInterval: 1
+  mods:
+    netmon:
+      type: netmon
+      title: "Network Monitor"
+      enabled: true
+      showOnly: "wlo1"
+      ignoreLoopback: true
+      ignoreEthernet: false
+      ignoreBridges: true
+      ignoreDocker: false
+      ignoreVeth: true
+      position:
+        top: 0
+        left: 0
+        height: 1
+        width: 1
+      refreshInterval: 1
