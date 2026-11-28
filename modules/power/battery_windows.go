@@ -40,6 +40,11 @@ func (battery *Battery) queryWindows() string {
 		"Get-CimInstance Win32_Battery | Select-Object EstimatedChargeRemaining, BatteryStatus, EstimatedRunTime | Format-List")
 	out := utils.ExecuteCommand(cmd)
 
+	return battery.parseWMIOutput(out)
+}
+
+// parseWMIOutput takes the raw WMI Format-List output and returns formatted battery info
+func (battery *Battery) parseWMIOutput(out string) string {
 	if strings.TrimSpace(out) == "" {
 		return " no battery found"
 	}

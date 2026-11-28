@@ -15,14 +15,17 @@ func powerSource() string {
 		"(Get-CimInstance Win32_Battery).BatteryStatus")
 	out := strings.TrimSpace(utils.ExecuteCommand(cmd))
 
-	// BatteryStatus 2 = AC Power, 1 = discharging (battery)
-	switch out {
+	return mapBatteryStatusToSource(out)
+}
+
+// mapBatteryStatusToSource maps a WMI BatteryStatus code to a human-readable source name
+func mapBatteryStatusToSource(status string) string {
+	switch status {
 	case "2", "3", "6", "7", "8", "9":
 		return "AC Power"
 	case "1", "4", "5":
 		return "Battery Power"
 	default:
-		// No battery or unknown — assume AC
 		return "AC Power"
 	}
 }
