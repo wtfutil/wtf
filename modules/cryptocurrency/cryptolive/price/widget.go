@@ -119,12 +119,18 @@ func (widget *Widget) updateCurrencies() {
 
 		if err != nil {
 			ok = false
-		} else {
-			ok = true
+			return
 		}
 
 		defer func() { _ = response.Body.Close() }()
 
+		if response.StatusCode != http.StatusOK {
+			ok = false
+			widget.Result = fmt.Sprintf("API error: %s (check API key)", response.Status)
+			return
+		}
+
+		ok = true
 		_ = json.NewDecoder(response.Body).Decode(&jsonResponse)
 
 		setPrices(&jsonResponse, fromCurrency)

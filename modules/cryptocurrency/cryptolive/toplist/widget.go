@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"os"
 	"sync"
 	"time"
 )
@@ -81,17 +80,33 @@ func (widget *Widget) updateData() {
 		for _, toCurrency := range fromCurrency.to {
 
 			request := makeRequest(fromCurrency.name, toCurrency.name, fromCurrency.limit)
-			response, _ := client.Do(request)
+			response, err := client.Do(request)
+
+			if err != nil {
+				widget.Result = fmt.Sprintf("API error: %v", err)
+				return
+			}
+
+			if response.StatusCode != http.StatusOK {
+				widget.Result = fmt.Sprintf("API error: %s (check API key)", response.Status)
+				_ = response.Body.Close()
+				return
+			}
 
 			var jsonResponse responseInterface
 
-			err := json.NewDecoder(response.Body).Decode(&jsonResponse)
+			err = json.NewDecoder(response.Body).Decode(&jsonResponse)
+			_ = response.Body.Close()
 
 			if err != nil {
-				os.Exit(1)
+				widget.Result = fmt.Sprintf("JSON decode error: %v", err)
+				return
 			}
 
 			for idx, info := range jsonResponse.Data {
+				if idx >= len(toCurrency.info) {
+					break
+				}
 				toCurrency.info[idx] = tInfo{
 					exchange:    info.Exchange,
 					volume24h:   info.Volume24h,
