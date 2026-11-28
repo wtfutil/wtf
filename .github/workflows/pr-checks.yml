@@ -5,6 +5,9 @@ on:
     branches:
       - trunk
 
+permissions:
+  contents: read
+
 jobs:
   goreleaser:
     runs-on: ubuntu-24.04

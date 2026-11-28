@@ -6,6 +6,10 @@ on:
       - trunk
   pull_request:
 
+permissions:
+  contents: read
+  security-events: write
+
 jobs:
   analyze:
     runs-on: ubuntu-24.04
