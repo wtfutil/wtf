@@ -69,14 +69,18 @@ func FindBetween(input string, left string, right string) []string {
 // containing it. This is helpful for extending row highlighting across the entire width
 // of the view
 func HighlightableHelper(view *tview.TextView, input string, idx, offset int) string {
-	_, _, w, _ := view.GetInnerRect()
+	w := 0
+	if view != nil {
+		_, _, w, _ = view.GetInnerRect()
+	}
 
-	fmtStr := fmt.Sprintf(`["%d"][""]`, idx)
-	fmtStr += input
-	fmtStr += RowPadding(offset, w)
-	fmtStr += `[""]` + "\n"
+	padding := RowPadding(offset, w)
+	content := input + padding
+	if content == "" {
+		content = " "
+	}
 
-	return fmtStr
+	return fmt.Sprintf(`["%d"]%s[""]`+"\n", idx, content)
 }
 
 // RowPadding returns a padding for a row to make it the full width of the containing widget.

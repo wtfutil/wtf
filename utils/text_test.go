@@ -93,7 +93,35 @@ func Test_HighlightableHelper(t *testing.T) {
 	view := tview.NewTextView()
 	actual := HighlightableHelper(view, "cats", 0, 5)
 
-	assert.Equal(t, "[\"0\"][\"\"]cats          [\"\"]\n", actual)
+	assert.Equal(t, "[\"0\"]cats          [\"\"]\n", actual)
+
+	// Fallback to space when content is empty and no view padding
+	emptyActual := HighlightableHelper(nil, "", 1, 0)
+	assert.Equal(t, "[\"1\"] [\"\"]\n", emptyActual)
+}
+
+func Test_HighlightableHelper_TviewRegionRegistration(t *testing.T) {
+	view := tview.NewTextView()
+	view.SetRegions(true)
+	view.SetDynamicColors(true)
+
+	row0 := HighlightableHelper(view, "item 0", 0, 6)
+	row1 := HighlightableHelper(view, "item 1", 1, 6)
+	row2 := HighlightableHelper(view, "item 2", 2, 6)
+
+	view.SetText(row0 + row1 + row2)
+
+	// Highlighting a valid region ID should successfully register in tview
+	view.Highlight("1")
+	highlights := view.GetHighlights()
+	assert.Equal(t, []string{"1"}, highlights)
+
+	regionText := view.GetRegionText("1")
+	assert.Contains(t, regionText, "item 1")
+
+	// ScrollToHighlight should retain the highlighted region
+	view.ScrollToHighlight()
+	assert.Equal(t, []string{"1"}, view.GetHighlights())
 }
 
 func Test_RowPadding(t *testing.T) {
