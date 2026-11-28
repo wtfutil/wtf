@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	ghb "github.com/google/go-github/v89/github"
+	"github.com/rivo/tview"
 )
 
 func (widget *Widget) display() {
@@ -68,7 +69,7 @@ func (widget *Widget) displayMyPullRequests(repo *Repo) string {
 
 	str := ""
 	for idx, pr := range prs {
-		str += fmt.Sprintf(` %s[green]["%d"]%4d[""][white] %s`, widget.mergeString(pr), maxItems+idx, *pr.Number, *pr.Title)
+		str += fmt.Sprintf(` %s[green]["%d"]%4d[""][white] %s`, widget.mergeString(pr), maxItems+idx, *pr.Number, tview.Escape(*pr.Title))
 		str += "\n"
 		widget.Items = append(widget.Items, *pr.Number)
 	}
@@ -95,7 +96,7 @@ func (widget *Widget) displayCustomQuery(repo *Repo, filter string) string {
 
 	str := ""
 	for idx, issue := range res.Issues {
-		str += fmt.Sprintf(` [green]["%d"]%4d[""][white] %s`, maxItems+idx, *issue.Number, *issue.Title)
+		str += fmt.Sprintf(` [green]["%d"]%4d[""][white] %s`, maxItems+idx, *issue.Number, tview.Escape(*issue.Title))
 		str += "\n"
 		widget.Items = append(widget.Items, *issue.Number)
 	}
@@ -114,7 +115,7 @@ func (widget *Widget) displayMyReviewRequests(repo *Repo) string {
 
 	str := ""
 	for idx, pr := range prs {
-		str += fmt.Sprintf(` [green]["%d"]%4d[""][white] %s`, idx, *pr.Number, *pr.Title)
+		str += fmt.Sprintf(` [green]["%d"]%4d[""][white] %s`, idx, *pr.Number, tview.Escape(*pr.Title))
 		str += "\n"
 		widget.Items = append(widget.Items, *pr.Number)
 	}
